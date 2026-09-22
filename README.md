@@ -324,7 +324,7 @@ The wiki carries the same method in writing, for people who would rather read th
 [running an NFR workshop](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Run-an-NFR-Workshop) to
 [controlling the token bill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill), every
 [formula](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators) and [decision tree](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees), a
-[scenario library](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library) spanning twelve industries, and
+[scenario library](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library) of 37 cases across ten industries, and
 [24 exercises with worked answers](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Exercises-and-Answers).
 
 SkyWays is an original work and the intellectual property of Akash Das, open-sourced here under the

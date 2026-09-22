@@ -38,9 +38,11 @@ decision trees, worked arithmetic and exercises with answers:
   [Formulas and Calculators](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators) with every formula worked,
   [eleven Decision Trees](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees), [Anti-Patterns](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Anti-Patterns),
   [Sources and Confidence](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Sources-and-Confidence)
-- **[Scenario Library](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library)** — the thirteen SkyWays episodes plus **twelve new cases**
-  from healthcare, banking, insurance, retail, logistics, the public sector, manufacturing, telecoms and an
-  internal helpdesk, so the method can be tested against a change of domain
+- **[Scenario Library](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library)** — the thirteen SkyWays episodes plus **twenty-four cases**
+  from healthcare, banking, insurance, retail, logistics, manufacturing, telecoms, energy, the public sector
+  and an internal helpdesk, grouped by the loop each one exercises, so the method can be tested against a
+  change of domain. One of them exists to show the playbook losing: a helpdesk where most of its ceremony is
+  the wrong answer
 - **[24 exercises with worked answers](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Exercises-and-Answers)**, including five interview questions
 - A **method-first study plan** — one week, no code, no AWS account — in [Study Plans](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Study-Plans)
 
@@ -64,6 +66,11 @@ Every figure carries a confidence mark: **documented** (a vendor's published doc
 - A private `akash-coded/inbox` repository where mirrored messages become issues, one per message
 - `Pages` workflow: builds and deploys on every push that touches `site/`; a frameless copy of the tool is
   served at [`app/SkyWays-Architect.html`](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html)
+
+### Also
+- **Discussions pinned** to GitHub's maximum of four: release notes, the exercise and lab index, the
+  [ideas thread](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) and the
+  discussion map. The ideas thread is renamed for the new tool
 
 ### Needs your hands
 - The relay is not deployed. Run `site/contact-relay/deploy.sh` in your own AWS account, click the SES
