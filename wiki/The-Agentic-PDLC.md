@@ -58,26 +58,17 @@ later one, and some close back into an earlier one.
 
 ```mermaid
 flowchart TD
-  subgraph P0[" P0 Frame "]
-    REQ1(( )):::hide
-  end
-  R["Requirements loop<br/>P0 → P1"]
-  S["Spec loop<br/>P1 → P2"]
-  D["Decision loop<br/>P1 → P1"]
-  DE["Delivery loop<br/>P2 → P2"]
-  T["Trust loop<br/>P2 → P3"]
-  C["Cost loop<br/>P3 → P1"]
-  I["Incident loop<br/>P3 → P0"]
-  G["Governance loop<br/>P0 → P3"]
-  R --> S --> DE --> T
-  S --> D --> DE
-  T --> C
-  C -.-> S
-  T --> I
-  I -.-> R
-  G -.-> R
+  R["Requirements<br/>P0 → P1"] --> S["Spec<br/>P1 → P2"]
+  S --> D["Decision<br/>P1 → P1"]
+  D --> DE["Delivery<br/>P2 → P2"]
+  S --> DE
+  DE --> T["Trust<br/>P2 → P3"]
+  T --> C["Cost<br/>P3 → P1"]
+  T --> I["Incident<br/>P3 → P0"]
+  C -.->|"back into design"| S
+  I -.->|"back into framing"| R
+  G["Governance<br/>P0 → P3"] -.-> R
   G -.-> T
-  classDef hide fill:none,stroke:none
 ```
 
 Three of them run backwards, and those are the ones teams forget to build:
