@@ -9,7 +9,9 @@ them, and hand-escaping those into JSON is how mistakes get in. Run this after e
 """
 from __future__ import annotations
 
+import ast
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -47,6 +49,25 @@ def load(mod: str) -> dict:
     return ns
 
 
+def code_problem(body: str, lang: str) -> str | None:
+    """A template that says it is code must be code. Angle-bracket placeholders stand in for values."""
+    probe = re.sub(r"<[^>\n]{1,60}>", "PLACEHOLDER", body)
+    try:
+        if lang == "python":
+            ast.parse(probe)
+        elif lang == "json":
+            json.loads(probe)
+        elif lang in ("yaml", "yml"):
+            try:
+                import yaml  # optional; skipped where it is not installed
+            except ImportError:
+                return None
+            yaml.safe_load(probe)
+    except Exception as exc:  # noqa: BLE001 - any parse failure is the finding
+        return f"{lang} template does not parse: {str(exc).splitlines()[0][:110]}"
+    return None
+
+
 def check(role: dict) -> list[str]:
     bad = []
     missing = REQUIRED_ROLE - set(role)
@@ -67,6 +88,10 @@ def check(role: dict) -> list[str]:
             bad.append(f"{where}: no activities")
         if not s["template"].get("body", "").strip():
             bad.append(f"{where}: empty template")
+        else:
+            problem = code_problem(s["template"]["body"], s["template"].get("lang", ""))
+            if problem:
+                bad.append(f"{where}: {problem}")
         if not s["prompts"]:
             bad.append(f"{where}: no prompts")
         for p in s["prompts"]:
