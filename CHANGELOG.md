@@ -8,6 +8,44 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-22 · A page for the board, an intuition layer, and an interaction engine
+
+### Added
+- **[The agentic operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)** — the manual for whoever funds the work
+  rather than does it. What actually changes and what does not, who does what, the four decisions
+  nobody can make for them, how to know it is working, ninety days of rollout, tooling by level,
+  seven things to escalate on, and a first thirty days that needs no budget approval
+- **[Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)** — twelve drawn shapes that make the rest predictable, each with
+  what it predicts, the mistake it prevents, the part that is easy to miss, and a landed-when test.
+  Mirrored to the wiki as [Mental Models](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Mental-Models) from the same data
+- **An interaction engine** ([`site/theme/engine.js`](site/theme/engine.js)) — declarative and
+  dependency-free. A **lens control** switches any explainer between what a decision means and the
+  mechanism underneath; **live calculators** derive the acceptance bar, the value line, a score's
+  lower bound, the bill decomposition, days of evidence, queue time and cache break-even; a
+  **self-check** scores itself and names the next control to build; a **stepper** walks a sequence.
+  All of it degrades — with JavaScript off both lenses show, calculators display their worked
+  defaults and every stepper panel prints
+- Every calculator is tested against the figures the wiki states and reproduces all of them
+
+### Changed — the wiki, to journey depth
+- Nine **how-to** pages and four **spine** pages rewritten: per move, what you actually do, where a
+  model helps with exactly one thing never delegated, a template, a prompt and a testable done-when
+- [Formulas and Calculators](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators) now carries a worked example and a
+  *when it misleads* note against every formula, plus a runnable file that reproduces every figure
+- **[`wiki/check.py`](wiki/check.py)** gates the wiki, which never had one: links, anchors, balanced
+  details and fences, mermaid types, table separators, and python or json inside a fence
+
+### Fixed
+- The bill decomposition, in my own earlier writing: the cache factor omitted **f**, the share of
+  spend in the cacheable prefix, and the retry factor treated attempts as retries. With f left out
+  that factor reads 2.55 instead of 1.30 and sends you after the wrong leak
+- The flip test on the framework decision: borrow survives a portability weight of 2, ties at 1, and
+  loses only when portability leaves the matrix — narrower than "four points between first and last"
+- The harness-only review lane reported a raw zero; it now reports the rule-of-three bound, so no
+  escapes in twelve merges reads as "the true rate could still be 25%"
+
+---
+
 ## 2026-09-22 · The site becomes a manual you enter by role
 
 ### Changed

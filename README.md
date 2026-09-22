@@ -322,10 +322,18 @@ Each role gets its own arc, because the shape of the work differs. One running c
 **SkyWays**, an airline building a rebooking assistant for disrupted passengers — so you can switch
 roles and stay oriented.
 
+**[👔 For leadership](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)** &nbsp;·&nbsp;
+**[🧠 Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)** &nbsp;·&nbsp;
 **[📋 All 40 templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/)** &nbsp;·&nbsp;
 **[💬 All 116 prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)** &nbsp;·&nbsp;
 **[🧩 Frameworks and acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)** &nbsp;·&nbsp;
 **[🛫 The SkyWays simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)**
+
+Two pages sit outside the role journeys. **[The operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)** is written for
+whoever owns the P&L: what changes and what does not, the four decisions nobody can make for them, a
+six-control self-check that scores itself, and ninety days of rollout. **[Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)**
+is the intuition layer — twelve drawn shapes that make the rest predictable, each with a test for
+whether it has actually landed.
 
 [![The agentic manual](docs/assets/skyways-architect.png)](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
 
