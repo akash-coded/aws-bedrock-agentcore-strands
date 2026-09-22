@@ -68,9 +68,13 @@ Every figure carries a confidence mark: **documented** (a vendor's published doc
   served at [`app/SkyWays-Architect.html`](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html)
 
 ### Also
-- **Discussions pinned** to GitHub's maximum of four: release notes, the exercise and lab index, the
-  [ideas thread](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) and the
-  discussion map. The ideas thread is renamed for the new tool
+- **Discussions pinned** to GitHub's maximum of four, one per job: the
+  [discussion map](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/65) (where to
+  post what), the [exercise and lab index](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64)
+  (find content), the [Simulator Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75)
+  (do something) and the [ideas thread](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101)
+  (contribute). Release notes gave up its slot to the Arena; the changelog already carries it. The ideas
+  thread is renamed for the new tool
 
 ### Needs your hands
 - The relay is not deployed. Run `site/contact-relay/deploy.sh` in your own AWS account, click the SES
