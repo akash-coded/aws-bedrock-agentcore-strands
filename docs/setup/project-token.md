@@ -55,8 +55,14 @@ gh run view --log $(gh run list --workflow=pulse.yml --limit 1 --json databaseId
 ```
 
 You want to see `tracker board: N rows` and `pulse board: N live items`. If you see
-`PROJECT_TOKEN not set — skipped`, the secret name is wrong; if you see a permission error, the token is
+`Boards not synced — PROJECT_TOKEN is not set`, the secret name is wrong; if you see a permission error, the token is
 missing the `project` scope.
+
+## Day-to-day
+
+Once it is set, the operational side — checking it is alive, rotating it, revoking it — lives in the
+[Maintainer Runbook](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Maintainer-Runbook#the-board-sync-token)
+on the wiki, next to everything else you would be doing at the time.
 
 ## Rotation
 

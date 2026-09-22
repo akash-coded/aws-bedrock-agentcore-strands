@@ -5,8 +5,9 @@ name: Pulse & Scoreboard
 # boards. The scoreboard lives on the wiki rather than main on purpose: it is
 # derived, changes every few hours, and the main ruleset (rightly) does not let
 # a bot push past the required checks.
-# GITHUB_TOKEN cannot access Projects v2, so the boards need a fine-grained
-# PAT with Projects read/write stored as PROJECT_TOKEN. Without it, only the
+# GITHUB_TOKEN cannot access Projects v2, and neither can a fine-grained PAT
+# where the projects are user-owned. The boards therefore need a CLASSIC PAT
+# with the `project` scope only, stored as PROJECT_TOKEN. Without it, only the
 # scoreboard updates, and the run says so.
 
 on:
