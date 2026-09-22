@@ -64,4 +64,13 @@
 [Architecture](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/docs/architecture)
 [Setup](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/setup/aws-account-setup.md)
 
-[💬 Discussions](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)
+---
+
+### 💬 Pinned discussions
+
+[Discussion map](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/65) — where to post what
+[Exercise & lab index](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64) — find content
+[Simulator Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) — get a lab graded
+[Pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) — the SkyWays playbook
+
+[All discussions →](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)

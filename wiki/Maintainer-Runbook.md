@@ -86,7 +86,7 @@ Save the rediscovery:
 | --- | --- |
 | Creating discussion **categories** | No `createDiscussionCategory` mutation — repo settings only |
 | Creating **native polls** | `CreateDiscussionInput` takes only title, body, category. Poll threads here use reactions |
-| **Pinning** discussions | No `pinDiscussion` mutation — UI only |
+| **Pinning** discussions | No `pinDiscussion` mutation — UI only. Maximum **four**. `pinnedDiscussions` is readable via GraphQL, so you can verify. The wiki [`_Sidebar`](_Sidebar) mirrors the four: change the pins, change the sidebar |
 | Setting the **social preview** image | No REST field; the API silently ignores it — Settings → General |
 | Creating the **wiki** | No API. The wiki git repo does not exist until the first page is created in the UI |
 | Syncing the **boards** from Actions | `GITHUB_TOKEN` cannot access Projects v2, and a fine-grained PAT cannot access *user-owned* projects. Needs a classic PAT, `project` scope only — see [the board sync token](#the-board-sync-token) below |
