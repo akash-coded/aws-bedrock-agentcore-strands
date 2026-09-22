@@ -16,14 +16,14 @@
 [![L.A.B. Simulator](https://img.shields.io/badge/L.A.B.%20simulator-auto--graded-2e8b57.svg)](labs/)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/akash-coded/aws-bedrock-agentcore-strands?quickstart=1)
 [![Discussions](https://img.shields.io/badge/discussions-open-8b5cf6.svg)](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)
-[![SkyWays playbook](https://img.shields.io/badge/SkyWays-agentic%20PDLC%20playbook-5B6B8C.svg)](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
+[![The agentic manual](https://img.shields.io/badge/the%20agentic%20manual-5%20roles%20·%20end%20to%20end-3E6B8A.svg)](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
 
 **[▶ Start here](docs/START-HERE.md)** &nbsp;·&nbsp;
 **[🗺️ Learning paths](docs/learning-paths/)** &nbsp;·&nbsp;
 **[🏛️ Architecture](docs/architecture/)** &nbsp;·&nbsp;
 **[🧭 Field guide](cheatsheets/)** &nbsp;·&nbsp;
 **[🧪 L.A.B. Simulator](labs/)** &nbsp;·&nbsp;
-**[🛫 SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** &nbsp;·&nbsp;
+**[📘 The manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** &nbsp;·&nbsp;
 **[⚙️ Setup](docs/setup/aws-account-setup.md)** &nbsp;·&nbsp;
 **[📖 Wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki)** &nbsp;·&nbsp;
 **[💬 Discussions](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)**
@@ -300,36 +300,42 @@ and [the workflow grades your pull request](.github/workflows/labs.yml).
 
 ---
 
-## 🛫 The SkyWays playbook — the agentic PDLC, as a simulator
+## 📘 The agentic manual — your role, end to end
 
-One airline, one rebooking assistant for disrupted passengers, ninety days. **Thirteen dated episodes**,
-each opening on a moment with a number in it. **Eight loops** that turn four phases into a ring.
-**Nine simulations** where a wrong choice plays out in front of you, **seventeen calculators** that do the
-arithmetic on your own numbers, and **fifty-four role steps** — product manager, solution architect,
-engineering and QA, eighteen each, P0 to P3 — from a pain you will recognise to what to do on Monday.
+**[https://akash-coded.github.io/aws-bedrock-agentcore-strands/](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)**
 
-Everything you decide accumulates into an evidence pack you can export.
+An operating manual for building software that decides. You enter by **role** and walk it from the
+first discovery conversation to the number you report at the end. Five roles, forty steps,
+**264 sub-steps** — and at every single step: what you actually do, where a model helps and where it
+must not be trusted, the artefact you produce, a fill-in **template**, copy-paste **prompts**, a worked
+example, the pitfalls, and a testable done-when.
 
-[![The SkyWays playbook — the agentic PDLC in one simulation](docs/assets/skyways-architect.png)](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
+| Role | The arc | |
+| --- | --- | --- |
+| **[Product manager](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/)** | Discover → Qualify → Frame → Specify → Plan → Gate → Launch → Learn | From a vibe to a number you can defend |
+| **[Solution architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/)** | Elicit → Constrain → Map → Shape → Decide → Bound → Detail → Evolve | From requirements to a system that holds |
+| **[Engineering lead](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/)** | Prepare → Slice → Floor → Layer → Gate → Harness → Ship → Operate | From a story file to a shipped bolt |
+| **[QA lead](https://akash-coded.github.io/aws-bedrock-agentcore-strands/qa/)** | Define → Curate → Check → Harness → Measure → Attack → Shadow → Watch | From "it works" to a number you can defend |
+| **[DevOps and platform](https://akash-coded.github.io/aws-bedrock-agentcore-strands/devops/)** | Baseline → Access → Environments → Pipeline → Deploy → Observe → Protect → Recover | From a laptop to production, repeatably |
 
-**[→ Open the playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** &nbsp;·&nbsp;
-[📘 Read it as a wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC) &nbsp;·&nbsp;
-[Pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) &nbsp;·&nbsp;
-[Write to me](https://akash-coded.github.io/aws-bedrock-agentcore-strands/?contact) &nbsp;·&nbsp;
-[How the site is built](site/)
+Each role gets its own arc, because the shape of the work differs. One running case throughout —
+**SkyWays**, an airline building a rebooking assistant for disrupted passengers — so you can switch
+roles and stay oriented.
 
-The wiki carries the same method in writing, for people who would rather read than click: the
-[four phases](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC) and [eight loops](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Eight-Loops), a page per
-[role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Product-Manager), nine how-tos from
-[running an NFR workshop](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Run-an-NFR-Workshop) to
-[controlling the token bill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill), every
-[formula](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators) and [decision tree](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees), a
-[scenario library](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library) of 37 cases across ten industries, and
-[24 exercises with worked answers](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Exercises-and-Answers).
+**[📋 All 40 templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/)** &nbsp;·&nbsp;
+**[💬 All 116 prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)** &nbsp;·&nbsp;
+**[🧩 Frameworks and acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)** &nbsp;·&nbsp;
+**[🛫 The SkyWays simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)**
 
-SkyWays is an original work and the intellectual property of Akash Das, open-sourced here under the
-MIT licence for knowledge and experience sharing. Keep the attribution when you reuse it. It runs entirely
-in your browser: nothing you click is sent anywhere, and the contact form says exactly where a message goes.
+[![The agentic manual](docs/assets/skyways-architect.png)](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
+
+The **[simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)** is the same case, playable: thirteen dated episodes, eight loops,
+nine simulations where a wrong choice plays out in front of you, and seventeen calculators that do the
+arithmetic on your own numbers. The **[wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC)** carries the method in writing,
+and every journey has a [reading copy](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Journey-Product-Manager) there too.
+
+This is an original work and the intellectual property of Akash Das, open-sourced here under the MIT
+licence for knowledge and experience sharing. Keep the attribution when you reuse it.
 
 ---
 
@@ -365,7 +371,10 @@ Because "how do I design one of these" is the question the demos never answer.
 │   ├── interviews/           6 role guides, both sides of the table
 │   └── how-to/               17 recipes across 6 roles
 ├── wiki/             seed for the wiki — the written playbook, plus living notes
-├── site/             the SkyWays playbook on GitHub Pages — the tool, its frame, the contact relay
+├── site/             the manual on GitHub Pages
+│   ├── content/roles/        five role journeys as JSON, authored in Python
+│   ├── render.py             content → static HTML; wiki_export.py → the same, as wiki pages
+│   └── app/                  the SkyWays simulator, published unchanged
 ├── docs/
 │   ├── START-HERE.md         entry point
 │   ├── learning-paths/       5 paths by role and time budget
@@ -459,7 +468,7 @@ the signal is a board that has stopped moving rather than a red run.
 ## Licence and credits
 
 MIT — see [`LICENSE`](LICENSE). Built by [Akash Das](https://github.com/akash-coded) from material
-developed and delivered across three professional training cohorts. [The SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/),
+developed and delivered across three professional training cohorts. [The agentic manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/),
 the simulator on the project site, is an original work and the intellectual property of Akash Das, released
 under the same licence; keep the attribution when you reuse it.
 

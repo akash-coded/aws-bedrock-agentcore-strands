@@ -8,6 +8,40 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-22 · The site becomes a manual you enter by role
+
+### Changed
+- **The site is rebuilt around roles.** It was one enormous document whose front door opened into the
+  middle of a story. Now home picks a role, each role is its own page, and the simulator moves to
+  [`/simulator/`](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/) with a pristine copy at `/app/` whose bytes are verified unchanged
+  at every build
+- Old deep links of the form `.../#/toolkit/cache` — 44 of them in this repo, plus bookmarks — are
+  **forwarded** to the simulator before the page renders, rather than broken
+
+### Added
+- **Five role journeys**, forty steps, **264 sub-steps**. Each role gets its own arc, because the shape
+  of the work differs: [PM](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/) Discover→Learn, [architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/)
+  Elicit→Evolve, [engineering](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/) Prepare→Operate, [QA](https://akash-coded.github.io/aws-bedrock-agentcore-strands/qa/) Define→Watch,
+  [DevOps](https://akash-coded.github.io/aws-bedrock-agentcore-strands/devops/) Baseline→Recover
+- At **every** step: the sub-steps, where a model helps and the one thing not to delegate, the artefact,
+  a fill-in template, copy-paste prompts, a worked SkyWays example, three pitfalls and a testable done-when
+- **[40 templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/)** and **[116 prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)**, each with a copy button,
+  also collected on their own pages
+- **[Frameworks and acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)** — four named methods side by side, an acronym decoder,
+  every framework with its lineage and confidence mark, and three inline SVG diagrams
+- **DevOps and platform** is new material: the platform baseline, model access as a lead-time item,
+  CI for a system that is right a share of the time, and rolling back a prompt
+- Five **[reading copies](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Journey-Product-Manager)** on the wiki, generated from the same content
+  so the two cannot drift
+
+### How it is built
+Content is JSON authored in Python under [`site/content/roles/`](site/content/roles/), rendered to
+static HTML by [`render.py`](site/render.py) and to wiki markdown by
+[`wiki_export.py`](site/wiki_export.py). The build fails on a missing field, a duplicate id, a gap in
+the numbering, an empty template — and on any `python`, `json` or `yaml` template that does not parse.
+
+---
+
 ## 2026-09-22 · The operating playbook, and a wiki that teaches it
 
 ### Changed

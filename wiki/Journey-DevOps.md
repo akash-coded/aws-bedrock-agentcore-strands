@@ -85,11 +85,9 @@ The platform question for an agentic workload is not different in kind from any 
 # aws cloudformation deploy --template-file baseline.yaml --stack-name <feature>-baseline \
 #   --parameter-overrides Feature=<feature> MonthlyBudgetUsd=<n> AlertEmail=<alias> \
 #   --tags Feature=<feature> Environment=<env> Owner=<name> CostCentre=<code>
-#
-# Always-on register (these bill for EXISTING, not for use). Reviewed weekly,
-# each with an owner and a teardown command:
-#   OpenSearch Serverless collections, AgentCore runtimes, provisioned
-#   throughput, NAT gateways, idle endpoints.
+# Always-on register, reviewed weekly, each with an owner and a teardown command
+# (these bill for EXISTING, not for use): OpenSearch Serverless collections,
+# AgentCore runtimes, provisioned throughput, NAT gateways, idle endpoints.
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Cost baseline for one feature. Creates nothing that serves traffic.
 
@@ -193,6 +191,9 @@ RULES:
   the account itself, and say what the evidence was.
 - List separately every resource with no Feature tag. That list is the real finding.
 - Finish with the one resource I should deal with today, and why it is that one.
+
+ACCOUNT AND SCOPE: <paste the profile, the regions, and anything already known to be
+deliberate>
 ```
 
 </details>
@@ -759,6 +760,9 @@ RULES:
   to keep believing in it.
 
 Show me the lower-bound function and its unit test first; I want to check that by hand.
+
+HARNESS OUTPUT FORMAT: <paste a sample>
+BAR SHEET: <paste>
 ```
 
 </details>
@@ -859,7 +863,6 @@ The flag is the deployment primitive, because the rollback has to be faster than
       "description": "Reversible with effort. Separate flag so it can stay in shadow while same-day runs live.",
       "attributes": {
         "mode": {"constraints": {"type": "string", "enum": ["off", "shadow", "canary", "on"], "required": true}},
-        "canary_percent": {"constraints": {"type": "number", "minimum": 0, "maximum": 100}},
         "prompt_version": {"constraints": {"type": "string", "required": true}},
         "widen_when": {"constraints": {"type": "string", "required": true}},
         "owner": {"constraints": {"type": "string", "required": true}}
@@ -878,25 +881,20 @@ The flag is the deployment primitive, because the rollback has to be faster than
   },
   "values": {
     "rebook_same_day": {
-      "enabled": true,
-      "mode": "canary",
-      "canary_percent": 5,
+      "enabled": true, "mode": "canary", "canary_percent": 5,
       "prompt_version": "<git-sha>",
       "model_version": "eu.anthropic.<model-id>",
       "widen_when": "live lower bound >= 0.86 on same-day for 5 consecutive days",
       "owner": "<name>"
     },
     "rebook_partner": {
-      "enabled": true,
-      "mode": "shadow",
-      "canary_percent": 0,
+      "enabled": true, "mode": "shadow",
       "prompt_version": "<git-sha>",
       "widen_when": "codeshare harness lower bound >= 0.80 AND 14 days shadow agreement >= 0.95",
       "owner": "<name>"
     },
     "issue_refund": {
-      "enabled": true,
-      "mode": "gated",
+      "enabled": true, "mode": "gated",
       "cap_usd": 400,
       "approver_role": "<duty-manager>",
       "owner": "<name>"
@@ -1246,9 +1244,7 @@ Least privilege is fifty years old — Saltzer and Schroeder set it out in 1975 
       "Effect": "Deny",
       "Action": "bedrock:*",
       "Resource": "*",
-      "Condition": {
-        "StringNotEquals": {"aws:RequestedRegion": ["eu-west-1", "eu-central-1"]}
-      }
+      "Condition": {"StringNotEquals": {"aws:RequestedRegion": ["eu-west-1", "eu-central-1"]}}
     },
     {
       "Sid": "ReadTheIndexTheDataAccessPolicyNarrowsItFurther",
@@ -1278,9 +1274,7 @@ Least privilege is fifty years old — Saltzer and Schroeder set it out in 1975 
       "Action": "*",
       "Resource": "*",
       "Condition": {
-        "StringNotEqualsIfExists": {
-          "aws:SourceVpce": ["<vpce-id-bedrock>", "<vpce-id-aoss>", "<vpce-id-logs>"]
-        },
+        "StringNotEqualsIfExists": {"aws:SourceVpce": ["<vpce-id-bedrock>", "<vpce-id-aoss>", "<vpce-id-logs>"]},
         "BoolIfExists": {"aws:ViaAWSService": "false"}
       }
     },
@@ -1594,7 +1588,7 @@ ARCHITECTURE: <paste>
 - [The gateway control, in the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/governance/gv-gateway)
 - [Every lever on the token bill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill)
 
-**Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead)
+**Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead)
 
 - [The manual, interactive](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [every template](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) · [every prompt](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/) · [frameworks and acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)
 

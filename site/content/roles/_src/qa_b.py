@@ -241,8 +241,8 @@ for each line."""},
     "detail": "n = z² × p(1−p) / (p − bar)². *Not proven* with a number attached is a plan; *not "
               "proven* on its own is a blocked release and an argument."},
    {"do": "Read the denominator out loud to whoever is impatient",
-    "detail": "86% against an 80% bar needs about 129 cases. 82.4% against the same bar needs about "
-              "967. Two and a half times less headroom costs roughly seven times the cases, and that "
+    "detail": "86% against an 80% bar needs 129 cases. 82.4% against the same bar needs 968. Two and "
+              "a half times less headroom costs roughly seven times the cases, and that "
               "is the fact that changes what people do next."},
    {"do": "Report three verdicts, not two",
     "detail": "Proven, failed and unproven have different consequences. Unproven owes cases; failed "

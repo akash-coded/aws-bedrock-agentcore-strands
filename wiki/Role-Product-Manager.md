@@ -6,6 +6,9 @@ changes is that the thing you write is now read by a machine that cannot ask you
 Live version, with the artefact filled in for SkyWays at every step:
 [Product manager](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/pm/step-1).
 
+
+> **Doing the work today?** [Product Manager · the journey](Journey-Product-Manager) walks this role end to end with a template and copy-paste prompts at every step, and is [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/). This page is the method behind it: the loops, the gates and the formulas.
+
 ---
 
 ## What stays the same, and what changes

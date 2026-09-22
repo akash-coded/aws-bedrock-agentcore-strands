@@ -98,9 +98,7 @@ STEPS_C = [
       "Effect": "Deny",
       "Action": "bedrock:*",
       "Resource": "*",
-      "Condition": {
-        "StringNotEquals": {"aws:RequestedRegion": ["eu-west-1", "eu-central-1"]}
-      }
+      "Condition": {"StringNotEquals": {"aws:RequestedRegion": ["eu-west-1", "eu-central-1"]}}
     },
     {
       "Sid": "ReadTheIndexTheDataAccessPolicyNarrowsItFurther",
@@ -130,9 +128,7 @@ STEPS_C = [
       "Action": "*",
       "Resource": "*",
       "Condition": {
-        "StringNotEqualsIfExists": {
-          "aws:SourceVpce": ["<vpce-id-bedrock>", "<vpce-id-aoss>", "<vpce-id-logs>"]
-        },
+        "StringNotEqualsIfExists": {"aws:SourceVpce": ["<vpce-id-bedrock>", "<vpce-id-aoss>", "<vpce-id-logs>"]},
         "BoolIfExists": {"aws:ViaAWSService": "false"}
       }
     },
@@ -310,8 +306,7 @@ RULES:
  "template": {
    "title": "Rollback script, four switches", "lang": "bash",
    "body": """#!/usr/bin/env bash
-# rollback.sh - three artefacts, four switches, each with a MEASURED time.
-# Rehearsed <date> by <name>, stopwatch in hand:
+# rollback.sh - three artefacts, four switches. Rehearsed <date> by <name>:
 #   kill    ~40s  every case to the desk queue, with its context. NOT an error.
 #   flag    ~2m   one action back to shadow; the other actions keep running.
 #   prompt  ~3m   runtime picks up the previous prompt version on the next case.

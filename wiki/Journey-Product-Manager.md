@@ -1192,7 +1192,7 @@ Do not be polite.
 - [The same case as thirteen episodes](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/story)
 - [Every formula on one page](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators)
 
-**Other roles:** [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [DevOps](Journey-DevOps)
+**Other roles:** [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)
 
 - [The manual, interactive](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [every template](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) · [every prompt](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/) · [frameworks and acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)
 

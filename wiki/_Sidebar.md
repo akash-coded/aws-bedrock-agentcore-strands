@@ -8,7 +8,14 @@
 [Gates & Governance](Gates-and-Governance)
 [The Evidence Pack](The-Evidence-Pack)
 
-**By role**
+**The journey · end to end**
+[Product manager](Journey-Product-Manager)
+[Solution architect](Journey-Solution-Architect)
+[Engineering lead](Journey-Engineering-Lead)
+[QA lead](Journey-QA-Lead)
+[DevOps & platform](Journey-DevOps)
+
+**The method · by role**
 [Product manager](Role-Product-Manager)
 [Solution architect](Role-Solution-Architect)
 [Engineering lead](Role-Engineering-Lead)
@@ -56,7 +63,11 @@
 
 ### 📦 In the repository
 
-[🛫 SkyWays playbook · live](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
+[📘 The manual · live](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
+[Templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/)
+[Prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)
+[Frameworks & acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)
+[🛫 The SkyWays simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)
 [Curriculum · 16 modules](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules)
 [Field guide · 77 pages](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets)
 [L.A.B. Simulator](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs)

@@ -7,6 +7,9 @@ right *a share of the time*, so "pass" becomes a measured number with a margin o
 This is the role the other three lean on hardest, because you are the only person in the room who can
 say whether the thing actually works.
 
+
+> **Doing the work today?** [QA Lead · the journey](Journey-QA-Lead) walks this role end to end with a template and copy-paste prompts at every step, and is [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/qa/). This page is the method behind it: the loops, the gates and the formulas.
+
 ---
 
 ## What stays the same, and what changes

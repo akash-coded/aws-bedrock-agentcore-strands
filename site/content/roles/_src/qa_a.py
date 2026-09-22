@@ -426,7 +426,7 @@ SLICE COUNTS AND CASE NOTES:
            "disruptions, and twenty-four of them were red when it was frozen — which is what made it "
            "worth running. The sampling decision came next. Codeshare is 11% of traffic, so a "
            "representative five hundred would have held about **55** codeshare cases, and proving "
-           "codeshare against an 80% bar needs a hundred and thirty at best. So codeshare got its own "
+           "codeshare against an 80% bar needs **129** even at a comfortable 86%. So codeshare got its own "
            "file and grew to **500** cases while same-day stayed at 120. Same-day runs at 97% against "
            "a 50% bar, where the cases-needed formula returns less than one case — which is the "
            "formula saying the bar is not what constrains that slice. It kept its 120 anyway, for "

@@ -81,15 +81,10 @@ on:
   pull_request:
   schedule:
     - cron: "0 2 * * *"        # the FULL set, nightly
-  workflow_dispatch:
 
 permissions:
   id-token: write              # OIDC. No long-lived keys in the repository.
   contents: read
-
-concurrency:
-  group: agent-ci-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   fast:
@@ -98,8 +93,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
-      - run: pip install -r requirements-dev.txt
-      - run: ruff check . && mypy src
+      - run: pip install -r requirements-dev.txt && ruff check . && mypy src
       - run: pytest tests/unit tests/exact -q   # caps, fare rules, schemas
       - run: python tools/check_no_bare_model_id.py environments/
 
@@ -116,13 +110,12 @@ jobs:
           aws-region: <eu-west-1>
       - name: Which slices did this change touch
         id: slices
+        # A prompt or model change touches everything, so the map does not apply.
         run: |
-          # A prompt or model change touches everything, so the map does not apply.
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
-            echo "slices=all" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python tools/slice_map.py --diff "origin/${{ github.base_ref }}...HEAD" >> "$GITHUB_OUTPUT"
           else
-            python tools/slice_map.py \\
-              --diff "origin/${{ github.base_ref }}...HEAD" >> "$GITHUB_OUTPUT"
+            echo "slices=all" >> "$GITHUB_OUTPUT"
           fi
       - name: Restore the model response cache
         uses: actions/cache@v4
@@ -138,8 +131,8 @@ jobs:
           python -m harness judge --judge-version-from environments/eval.yaml
           python -m harness gate --bars docs/bar-sheet.yaml --summary "$GITHUB_STEP_SUMMARY"
         # gate exits non-zero when ANY slice's 95% lower bound is below its bar.
-# Branch protection: `eval` is a REQUIRED status check. A job that only
-# comments is a report, and reports do not stop releases.
+# Branch protection: `eval` is a REQUIRED status check. A job that only comments
+# is a report, and a report has never stopped a release.
 """},
  "prompts": [
    {"title": "Build the file-to-slice map",
@@ -185,7 +178,10 @@ RULES:
 - Print the cost and wall-clock time of the run as the last line. People need to see it
   to keep believing in it.
 
-Show me the lower-bound function and its unit test first; I want to check that by hand."""},
+Show me the lower-bound function and its unit test first; I want to check that by hand.
+
+HARNESS OUTPUT FORMAT: <paste a sample>
+BAR SHEET: <paste>"""},
    {"title": "Cost the pipeline before you switch it on",
     "when": "Before making the harness a required check, so nobody can argue it later",
     "body": """Work out what this pipeline will cost to run, so the number arrives before the
@@ -318,7 +314,6 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
       "description": "Reversible with effort. Separate flag so it can stay in shadow while same-day runs live.",
       "attributes": {
         "mode": {"constraints": {"type": "string", "enum": ["off", "shadow", "canary", "on"], "required": true}},
-        "canary_percent": {"constraints": {"type": "number", "minimum": 0, "maximum": 100}},
         "prompt_version": {"constraints": {"type": "string", "required": true}},
         "widen_when": {"constraints": {"type": "string", "required": true}},
         "owner": {"constraints": {"type": "string", "required": true}}
@@ -337,25 +332,20 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
   },
   "values": {
     "rebook_same_day": {
-      "enabled": true,
-      "mode": "canary",
-      "canary_percent": 5,
+      "enabled": true, "mode": "canary", "canary_percent": 5,
       "prompt_version": "<git-sha>",
       "model_version": "eu.anthropic.<model-id>",
       "widen_when": "live lower bound >= 0.86 on same-day for 5 consecutive days",
       "owner": "<name>"
     },
     "rebook_partner": {
-      "enabled": true,
-      "mode": "shadow",
-      "canary_percent": 0,
+      "enabled": true, "mode": "shadow",
       "prompt_version": "<git-sha>",
       "widen_when": "codeshare harness lower bound >= 0.80 AND 14 days shadow agreement >= 0.95",
       "owner": "<name>"
     },
     "issue_refund": {
-      "enabled": true,
-      "mode": "gated",
+      "enabled": true, "mode": "gated",
       "cap_usd": 400,
       "approver_role": "<duty-manager>",
       "owner": "<name>"
@@ -520,7 +510,7 @@ CONTEXT: <slices, bars, cases per day, current flag states>"""},
    "title": "Trace and cost emitter", "lang": "python",
    "body": """# trace.py - one write per consequential action: the metric and the row that
 # produced it, in the same CloudWatch Logs record (Embedded Metric Format).
-# Rule: MASK, never omit. A masked field is a row you can reconcile; a missing
+# Rule: MASK, never omit. A masked field is a row you can reconcile; a dropped
 # row is an incident you cannot explain.
 import json
 import time
@@ -561,9 +551,7 @@ def emit(case_id, slice_name, action, model, prompt_version, flag_state,
                             {"Name": "CacheHit", "Unit": "Count"}],
             }],
         },
-        "Environment": "<prod>",
-        "Slice": slice_name,
-        "Action": action,
+        "Environment": "<prod>", "Slice": slice_name, "Action": action,
         "CostPerCaseUsd": float(cost_usd(model, tokens_in, cached_in, tokens_out)),
         "Loops": loops,
         # MARKED. A cache hit counted as a fresh call inflates the bill you report.

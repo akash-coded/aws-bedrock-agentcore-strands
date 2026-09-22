@@ -138,11 +138,9 @@ STEPS_A = [
 # aws cloudformation deploy --template-file baseline.yaml --stack-name <feature>-baseline \\
 #   --parameter-overrides Feature=<feature> MonthlyBudgetUsd=<n> AlertEmail=<alias> \\
 #   --tags Feature=<feature> Environment=<env> Owner=<name> CostCentre=<code>
-#
-# Always-on register (these bill for EXISTING, not for use). Reviewed weekly,
-# each with an owner and a teardown command:
-#   OpenSearch Serverless collections, AgentCore runtimes, provisioned
-#   throughput, NAT gateways, idle endpoints.
+# Always-on register, reviewed weekly, each with an owner and a teardown command
+# (these bill for EXISTING, not for use): OpenSearch Serverless collections,
+# AgentCore runtimes, provisioned throughput, NAT gateways, idle endpoints.
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Cost baseline for one feature. Creates nothing that serves traffic.
 
@@ -185,8 +183,7 @@ Resources:
         TimeUnit: MONTHLY
         BudgetLimit: {Amount: {Ref: MonthlyBudgetUsd}, Unit: USD}
         CostFilters:
-          # Activate this tag key in the payer account on the same day. Cost data
-          # starts at activation; it does not go back and label last month.
+          # Activate this key in the payer account today: cost data starts at activation.
           TagKeyValue: ["user:Feature$<feature>"]
       NotificationsWithSubscribers:
         - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN,
@@ -237,7 +234,10 @@ RULES:
 - "Safe to delete" is a question for a human. Write UNKNOWN unless there is evidence in
   the account itself, and say what the evidence was.
 - List separately every resource with no Feature tag. That list is the real finding.
-- Finish with the one resource I should deal with today, and why it is that one."""},
+- Finish with the one resource I should deal with today, and why it is that one.
+
+ACCOUNT AND SCOPE: <paste the profile, the regions, and anything already known to be
+deliberate>"""},
    {"title": "Does this tag scheme answer the questions",
     "when": "Before you activate cost allocation tags, because activation is not retroactive",
     "body": """Review this tag scheme against the only four questions it will ever be asked.

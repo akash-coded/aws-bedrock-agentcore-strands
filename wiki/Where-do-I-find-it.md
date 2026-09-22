@@ -22,6 +22,9 @@ A lookup table across all four surfaces. If you know what you want but not where
 | Which loop closes where, and who owns it | [The Eight Loops](The-Eight-Loops) |
 | The five gates, and which ones are mine | [Gates & Governance](Gates-and-Governance) |
 | The documents owed at each hand-off | [The Evidence Pack](The-Evidence-Pack) |
+| My whole role, end to end, with a template per step | [PM](Journey-Product-Manager) · [SA](Journey-Solution-Architect) · [Engineering](Journey-Engineering-Lead) · [QA](Journey-QA-Lead) · [DevOps](Journey-DevOps) |
+| A prompt I can paste | [Every prompt](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/) |
+| A template for an artefact | [Every template](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) |
 | My own eighteen steps, P0 to P3 | [PM](Role-Product-Manager) · [Architect](Role-Solution-Architect) · [Engineering](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [Sponsor](Role-Sponsor) |
 | How to derive an acceptance bar | [Formulas & Calculators](Formulas-and-Calculators) · [How to Prove the Bar](How-to-Prove-the-Bar) |
 | Whether a score has actually proven the bar | [How to Prove the Bar](How-to-Prove-the-Bar) |

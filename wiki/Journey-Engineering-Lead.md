@@ -1330,11 +1330,11 @@ Production is where the cost, the audit and the security posture are actually se
 <details><summary><b>Template · The production call · cache, route, cap, trace</b></summary>
 
 ```python
-# src/agent/run.py — the production call: cache, route, cap, trace. This and
-# <config/routing.yaml> are reviewed like code: the day-75 bill began with one
-# engineer reordering a prompt for clarity.
+# src/agent/run.py — cache, route, cap, trace. This file and <config/routing.yaml>
+# are reviewed like code: the day-75 bill began with a prompt reordered for clarity.
 from decimal import Decimal
 
+from src.errors import LoopCapReached
 from src.redact import redact         # masks; never omits
 from src.trace import trace
 
@@ -1344,15 +1344,10 @@ TIERS = {"simple": "<cheap-model-id>", "standard": "<mid-model-id>",
          "hard": "<frontier-model-id>"}
 
 
-class LoopCapReached(Exception):
-    pass
-
-
 def build_request(tools, system_blocks, request, ttl="5m"):
-    # Exact prefix, in the order tools -> system -> messages. Stable first, the
-    # volatile request last, cache marker on the LAST STABLE block. Nothing
-    # cached may hold a timestamp, request id or session id. "5m" writes at
-    # 1.25x, "1h" at 2x, reads 0.1x (Sept 2026); minimum about 1024 tokens.
+    # Exact prefix, order tools -> system -> messages. Stable first, volatile
+    # request last, cache marker on the LAST STABLE block. Nothing cached may
+    # hold a timestamp or request id. "5m" 1.25x, "1h" 2x, read 0.1x (Sept 2026).
     system = [{"type": "text", "text": text} for text in system_blocks]
     system[-1]["cache_control"] = {"type": "ephemeral", "ttl": ttl}
     return {"tools": tools, "system": system,
@@ -1499,7 +1494,7 @@ Finish with the amended ADR line, if a decision changed, in one sentence.
 - [The same case, walked step by step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/eng/step-1)
 - [Where the bill goes, and how to get it back](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill)
 
-**Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [DevOps](Journey-DevOps)
+**Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)
 
 - [The manual, interactive](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [every template](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) · [every prompt](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/) · [frameworks and acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)
 

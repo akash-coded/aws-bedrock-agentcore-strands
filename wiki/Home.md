@@ -10,6 +10,7 @@ no single surface can point at the other four.
 | 🧪 **[L.A.B. Simulator](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs)** | Auto-graded labs · Learn → Apply → Break | `python labs/runner/labctl.py next` |
 | 💬 **[Discussions](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)** | 66 threads, all tagged by track and level | [Index of every exercise and lab](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64) |
 | 🛫 **[SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** | The agentic PDLC as a simulator — thirteen episodes, eight loops, nine simulations, seventeen calculators | [Open it](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
+| 🧭 **[The role journeys](Journey-Product-Manager)** | Five roles walked end to end, each with templates and copy-paste prompts at every step | [PM](Journey-Product-Manager) · [SA](Journey-Solution-Architect) · [Eng](Journey-Engineering-Lead) · [QA](Journey-QA-Lead) · [Ops](Journey-DevOps) |
 | 📘 **[The playbook wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five roles, nine how-tos, 24 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
 
 **New here and want one link?** [START-HERE](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/START-HERE.md).
@@ -28,6 +29,7 @@ no single surface can point at the other four.
 | **Know what it will cost** | **[Cost Log](Cost-Log)** |
 | **Find a specific thing** | **[Where do I find…?](Where-do-I-find-it)** |
 | **Walk one feature through the whole lifecycle, by role** | [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) — in the browser, nothing to install |
+| **Walk my own role, step by step, with templates** | [The journeys](Journey-Product-Manager) — pick your role |
 | **Learn the method as a written reference** | [The Agentic PDLC](The-Agentic-PDLC) → [The Eight Loops](The-Eight-Loops) → your [role page](Role-Product-Manager) |
 | **Work out a number** — a bar, a bound, a bill | [Formulas & Calculators](Formulas-and-Calculators) |
 | **Settle a recurring argument** | [Decision Trees](Decision-Trees) |
