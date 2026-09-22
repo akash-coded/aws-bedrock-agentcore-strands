@@ -69,7 +69,8 @@ def main() -> int:
         text = f.read_text(encoding="utf-8")
         prose = strip_fences(text)
         name = f.name
-        heads = {slug(h) for h in re.findall(r"^#{1,6}\s+(.+)$", text, re.M)}
+        # headings inside a fenced block are template content, not anchors on this page
+        heads = {slug(h) for h in re.findall(r"^#{1,6}\s+(.+)$", prose, re.M)}
 
         for m in re.finditer(r"\[[^\]]*\]\(([^)\s]+)\)", prose):
             link = m.group(1)
