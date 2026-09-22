@@ -43,3 +43,5 @@ labs/catalog/**/_starter_probe.py
 site/_site/
 site/contact-relay/.packaged.yaml
 site/contact-relay/.aws-sam/
+site/__pycache__/
+site/content/roles/_src/__pycache__/

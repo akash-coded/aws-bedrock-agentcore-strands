@@ -172,7 +172,8 @@
 
   function build() {
     if (document.getElementById("sw-about")) return;
-    document.body.appendChild(footer());
+    // Manual pages ship their own footer; there we contribute only the pill and the drawer.
+    if (!document.querySelector("[data-site-footer]")) document.body.appendChild(footer());
     buildDrawer();
     var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open }, [
       h("span", { "class": "sw-dot" }), "Built by " + author, h("small", { text: "· Ideas & contact" })]);

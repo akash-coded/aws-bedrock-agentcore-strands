@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
-"""Build the GitHub Pages site around the pristine SkyWays Architect tool.
+"""Build the GitHub Pages site: the role manual, plus the SkyWays tool published unchanged.
 
-The tool, ``site/app/SkyWays-Architect.html``, is never edited. This script copies it to ``_site/index.html``
-and injects two things at the document boundaries: attribution and SEO metadata just before ``</head>``, and
-the site frame (attribution, licence notice, invitation, contact form) just before ``</body>``. Everything
-between those two points is byte-for-byte the tool.
+Two things are published and they are kept strictly apart.
+
+**The manual** — ``content/roles/*.json`` rendered to static HTML by :mod:`render`. Home page, one
+page per role, and the template and prompt libraries.
+
+**The tool** — ``app/SkyWays-Architect.html``, which is never edited. It is copied byte-for-byte to
+``app/SkyWays-Architect.html``, and a second copy at ``simulator/index.html`` carries the site frame
+(attribution, licence, contact) injected only at the document boundaries. The build refuses to
+continue if the tool's own bytes changed.
 
     python site/build.py            # writes site/_site/
     python -m http.server -d site/_site 8000
 
-Updating the tool is a file copy: replace ``site/app/SkyWays-Architect.html`` with the new export.
+Updating the tool is a file copy. Updating the manual is
+``python site/content/roles/_src/build_content.py`` then this.
 """
 from __future__ import annotations
 
@@ -19,6 +25,8 @@ import shutil
 import sys
 from datetime import date
 from pathlib import Path
+
+import render
 
 SITE = Path(__file__).resolve().parent
 SRC = SITE / "app" / "SkyWays-Architect.html"
@@ -82,7 +90,7 @@ ROBOTS = f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}sitemap.xml\n"
 
 
 def sitemap(today: str) -> str:
-    urls = [BASE_URL, BASE_URL + "app/SkyWays-Architect.html"]
+    urls = render.urls() + [BASE_URL + "simulator/"]
     body = "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
@@ -101,22 +109,39 @@ def build(out: Path) -> None:
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
+
+    # 1 · the manual
+    pages = render.render(out)
+
+    # 2 · the tool, pristine, and a framed copy at /simulator/
     original = SRC.read_text(encoding="utf-8")
-    (out / "index.html").write_text(inject(original), encoding="utf-8")
-    for folder in ("frame", "assets", "app"):
+    (out / "app").mkdir(parents=True, exist_ok=True)
+    (out / "app" / SRC.name).write_text(original, encoding="utf-8")
+    (out / "simulator").mkdir(parents=True, exist_ok=True)
+    (out / "simulator" / "index.html").write_text(inject(original), encoding="utf-8")
+
+    # 3 · static assets
+    for folder in ("frame", "assets", "theme"):
         shutil.copytree(SITE / folder, out / folder)
     shutil.copy2(SITE / "404.html", out / "404.html")
     (out / "robots.txt").write_text(ROBOTS, encoding="utf-8")
     (out / "sitemap.xml").write_text(sitemap(date.today().isoformat()), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
-    built = (out / "index.html").read_text(encoding="utf-8")
-    # The tool must survive the build untouched: strip the two injections and compare.
-    if built.replace(HEAD, "", 1).replace(BODY, "", 1) != original:
+
+    # The tool must survive the build untouched, in both copies.
+    if (out / "app" / SRC.name).read_text(encoding="utf-8") != original:
+        sys.exit("the pristine copy of the tool differs from the source; refusing to continue")
+    framed = (out / "simulator" / "index.html").read_text(encoding="utf-8")
+    if framed.replace(HEAD, "", 1).replace(BODY, "", 1) != original:
         sys.exit("the build changed the tool itself; refusing to continue")
+
     files = sorted(p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file())
-    print(f"built {out.relative_to(SITE.parent)} ({len(files)} files, index.html {len(built):,} bytes)")
-    for f in files:
-        print("  " + f)
+    total = sum((out / f).stat().st_size for f in files)
+    print(f"built {out.relative_to(SITE.parent)} — {len(files)} files, {total / 1e6:.1f} MB")
+    print(f"  manual: {len(pages)} pages")
+    for p in pages:
+        print(f"    {p} ({(out / p).stat().st_size:,} bytes)")
+    print(f"  tool:   app/{SRC.name} (pristine) + simulator/index.html (framed)")
 
 
 if __name__ == "__main__":
