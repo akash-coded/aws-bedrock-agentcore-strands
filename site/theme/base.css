@@ -208,6 +208,10 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .arc a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .arc a .an{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--faint);font-weight:400;margin-bottom:2px}
 
+/* diagrams */
+.dgw{background:var(--paper);border:1px solid var(--rule);border-radius:15px;padding:18px 20px;margin:0 0 16px;overflow-x:auto}
+.dg{width:100%;min-width:620px;height:auto;color:var(--ink)}
+
 /* ---------- role cards (home) ---------- */
 .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:16px;margin:0 0 28px}
 .rc{display:block;background:var(--paper);border:1px solid var(--rule);border-radius:17px;padding:24px;

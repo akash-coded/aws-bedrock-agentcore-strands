@@ -21,10 +21,24 @@ REQUIRED_STEP = {"n", "id", "phase", "title", "when", "purpose", "activities", "
 REQUIRED_ROLE = {"id", "name", "short", "accent", "tagline", "arc", "intro", "owns",
                  "not_yours", "ai_stance", "reads"}
 
-# role id -> (head module, [step modules])
-ROLES = {
-    "product-manager": ("product_manager_a", ["product_manager_a", "product_manager_b", "product_manager_c"]),
+# role id -> module stem. A role is built when all three of <stem>_a/_b/_c.py exist, so a role in
+# progress simply does not appear on the site until its three files land.
+STEMS = {
+    "product-manager": "product_manager",
+    "solution-architect": "solution_architect",
+    "engineering": "engineering",
+    "qa": "qa",
+    "devops": "devops",
 }
+
+
+def discover() -> dict[str, tuple[str, list[str]]]:
+    found = {}
+    for rid, stem in STEMS.items():
+        mods = [f"{stem}_{suffix}" for suffix in ("a", "b", "c")]
+        if all((SRC / f"{m}.py").exists() for m in mods):
+            found[rid] = (mods[0], mods)
+    return found
 
 
 def load(mod: str) -> dict:
@@ -69,7 +83,9 @@ def check(role: dict) -> list[str]:
 
 def main() -> int:
     problems, built = [], []
-    for rid, (head_mod, step_mods) in ROLES.items():
+    roles = discover()
+    skipped = sorted(set(STEMS) - set(roles))
+    for rid, (head_mod, step_mods) in roles.items():
         role = dict(load(head_mod)["HEAD"])
         steps: list[dict] = []
         for m in step_mods:
@@ -92,6 +108,8 @@ def main() -> int:
             print("  " + p, file=sys.stderr)
         return 1
     print("\n".join(["built:"] + built))
+    if skipped:
+        print("not yet authored: " + ", ".join(skipped))
     return 0
 
 

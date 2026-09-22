@@ -64,7 +64,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
             continue
         cur = ' aria-current="page"' if nav_id == rid else ""
         nav.append(f'<a href="{up}{rid}/"{cur}>{_E(name)}</a>')
-    for slug, label in (("templates", "Templates"), ("prompts", "Prompts")):
+    for slug, label in (("templates", "Templates"), ("prompts", "Prompts"), ("frameworks", "Frameworks")):
         cur = ' aria-current="page"' if nav_id == slug else ""
         nav.append(f'<a href="{up}{slug}/"{cur}>{label}</a>')
     nav.append(f'<a href="{up}app/SkyWays-Architect.html">Simulator</a>')
@@ -407,6 +407,150 @@ def home_page(roles: list[dict]) -> str:
                  nav_id="home", canonical=BASE_URL)
 
 
+# --------------------------------------------------------------------------- diagrams
+CONF = {"doc": ("documented", "#4548C8"), "est": ("established", "#1E7F6C"), "wm": ("working method", "#9A5F0C")}
+
+
+def svg_ring() -> str:
+    """P0-P3 drawn as a line that loops: production is where the next frame comes from."""
+    ph = [("P0", "Frame", "#64748B"), ("P1", "Design &amp; Spec", "#4F46E5"),
+          ("P2", "Build &amp; Prove", "#0D9488"), ("P3", "Run &amp; Learn", "#F59E0B")]
+    parts = ['<svg viewBox="0 0 768 190" role="img" class="dg" '
+             'aria-label="P0 Frame to P1 Design and Spec to P2 Build and Prove to P3 Run and Learn, '
+             'with P3 feeding back into P0">',
+             '<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">'
+             '<path d="M0 0 L8 4 L0 8 z" fill="currentColor" opacity=".45"/></marker></defs>']
+    for i, (k, label, c) in enumerate(ph):
+        x = 24 + i * 186
+        parts.append(f'<rect x="{x}" y="46" width="160" height="62" rx="12" fill="{c}" fill-opacity=".10" stroke="{c}"/>')
+        parts.append(f'<text x="{x+80}" y="72" text-anchor="middle" font-size="15" font-weight="700" fill="{c}">{k}</text>')
+        parts.append(f'<text x="{x+80}" y="92" text-anchor="middle" font-size="12.5" fill="currentColor" opacity=".8">{label}</text>')
+        if i < 3:
+            w = ' stroke-width="3"' if i == 1 else ""
+            parts.append(f'<path d="M{x+160} 77 H{x+186}" stroke="currentColor" opacity=".45"{w} marker-end="url(#ar)"/>')
+    parts.append('<text x="415" y="40" text-anchor="middle" font-size="10.5" font-weight="700" '
+                 'fill="#0D9488" letter-spacing=".08em">HARD GATE</text>')
+    parts.append('<path d="M740 108 V140 H70 V108" stroke="currentColor" opacity=".38" '
+                 'stroke-dasharray="5 4" fill="none" marker-end="url(#ar)"/>')
+    parts.append('<text x="405" y="158" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">'
+                 'production is where the next frame comes from: incident, drift, cost</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def svg_ladder() -> str:
+    rows = [("R1", "reversible draft, sandbox", "review at the end", "#7C8596"),
+            ("R2", "reversible change to real work", "one reader before merge", "#5B7FA8"),
+            ("R3", "hard to reverse, small blast radius", "approve first", "#8C7A5B"),
+            ("R4", "money, identity, policy", "a named approver, every time", "#B0603A"),
+            ("R5", "irreversible or safety-critical", "not delegated at all", "#8C3B3B")]
+    parts = ['<svg viewBox="0 0 768 242" role="img" class="dg" aria-label="The R1 to R5 risk ladder">']
+    for i, (band, act, check, c) in enumerate(rows):
+        y = 16 + i * 44
+        parts.append(f'<rect x="8" y="{y}" width="{306+i*40}" height="34" rx="8" fill="{c}" fill-opacity=".13" stroke="{c}"/>')
+        parts.append(f'<text x="22" y="{y+22}" font-size="13.5" font-weight="700" fill="{c}">{band}</text>')
+        parts.append(f'<text x="56" y="{y+22}" font-size="12.5" fill="currentColor" opacity=".85">{act}</text>')
+        parts.append(f'<text x="500" y="{y+22}" font-size="12.5" font-weight="600" fill="{c}">{check}</text>')
+    parts.append('<text x="8" y="236" font-size="11.5" fill="currentColor" opacity=".6">'
+                 'A change inherits the band of whatever it touches: three lines in a refund cap is R4.</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def svg_chain() -> str:
+    pts, marks = [], []
+    for n in range(1, 9):
+        p = 0.9 ** n
+        x = 56 + (n - 1) * 92
+        y = 176 - p * 140
+        pts.append(f"{x},{y:.1f}")
+        marks.append(f'<circle cx="{x}" cy="{y:.1f}" r="4" fill="#8C3B3B"/>')
+        marks.append(f'<text x="{x}" y="{y-11:.1f}" text-anchor="middle" font-size="11.5" '
+                     f'font-weight="600" fill="#8C3B3B">{p*100:.0f}%</text>')
+        marks.append(f'<text x="{x}" y="196" text-anchor="middle" font-size="11.5" '
+                     f'fill="currentColor" opacity=".7">{n}</text>')
+    return ('<svg viewBox="0 0 768 218" role="img" class="dg" '
+            'aria-label="Chained probability: eight steps each right ninety percent of the time">'
+            '<line x1="40" y1="176" x2="748" y2="176" stroke="currentColor" opacity=".25"/>'
+            '<line x1="40" y1="36" x2="748" y2="36" stroke="currentColor" opacity=".12" stroke-dasharray="4 4"/>'
+            '<text x="44" y="32" font-size="11" fill="currentColor" opacity=".5">100%</text>'
+            f'<polyline points="{" ".join(pts)}" fill="none" stroke="#8C3B3B" stroke-width="2"/>'
+            + "".join(marks) +
+            '<text x="394" y="214" text-anchor="middle" font-size="11.5" fill="currentColor" opacity=".6">'
+            'number of chained steps, each right 90% of the time: multiply, never average</text></svg>')
+
+
+def frameworks_page() -> str:
+    d = json.loads((SITE / "content" / "library" / "frameworks.json").read_text(encoding="utf-8"))
+    m_rows = "".join(
+        f'<tr><td><strong>{_E(m["name"])}</strong><br>'
+        f'<span style="font-size:12.5px;color:var(--soft)">{_E(m["full"])}</span></td>'
+        f'<td>{md(m["what"])}</td><td>{md(m["where"])}</td><td>{md(m["when"])}</td></tr>'
+        for m in d["methods"])
+    a_rows = "".join(
+        f'<tr><td><strong>{_E(a[0])}</strong></td><td>{_E(a[1])}</td><td>{md(a[2])}</td>'
+        f'<td style="font-size:12.5px;color:var(--soft);white-space:nowrap">{_E(a[3])}</td></tr>'
+        for a in d["acronyms"])
+    f_rows = []
+    for name, what, lineage, conf in d["frameworks"]:
+        label, colour = CONF[conf]
+        f_rows.append(
+            f'<tr><td><strong>{_E(name)}</strong></td><td>{md(what)}</td>'
+            f'<td style="font-size:13px;color:var(--soft)">{_E(lineage)}</td>'
+            f'<td><span class="pill" style="color:{colour};border-color:{colour}55;'
+            f'background:{colour}14;white-space:nowrap">{label}</span></td></tr>')
+    key = ('<p><span class="pill" style="color:#4548C8;border-color:#4548C855;background:#4548C814">documented</span> '
+           'a vendor’s published documentation, dated &nbsp; '
+           '<span class="pill" style="color:#1E7F6C;border-color:#1E7F6C55;background:#1E7F6C14">established</span> '
+           'a named, published practice &nbsp; '
+           '<span class="pill" style="color:#9A5F0C;border-color:#9A5F0C55;background:#9A5F0C14">working method</span> '
+           'this manual’s own default, to tune on your own traffic</p>')
+    body = (
+        '<div class="wrap"><main id="main" style="padding:40px 0 80px">'
+        '<div class="sec" style="max-width:72ch"><div class="kicker">Reference</div>'
+        "<h1>Frameworks, acronyms and the pictures</h1>"
+        '<p class="lede">The named methods and where each one actually sits, every acronym this manual '
+        "uses, and the three diagrams worth carrying in your head. Every framework says where it came "
+        "from and how much to trust it.</p></div>"
+
+        '<div class="sec"><h2>Four methods, one spine</h2>'
+        "<p>They are not competitors; they occupy different parts of the same lifecycle. The decision "
+        "that matters is not <em>which method</em> but <strong>how deep to go on this change</strong>.</p>"
+        '<div class="tw"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
+        f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
+
+        '<div class="sec"><h2>The lifecycle, and why it is a ring</h2>'
+        f'<div class="dgw">{svg_ring()}</div>'
+        "<p>Only one of the four hand-offs is a hard gate. Everything downstream is built and measured "
+        "against the spec, the bar and the guardrails, so those three are settled before P2 opens.</p></div>"
+
+        '<div class="sec"><h2>Gate by risk, never by size</h2>'
+        f'<div class="dgw">{svg_ladder()}</div>'
+        "<p>Size measures typing. Four hundred lines of help text cannot move money; three lines in a "
+        "refund cap can.</p></div>"
+
+        '<div class="sec"><h2>Why length is the enemy</h2>'
+        f'<div class="dgw">{svg_chain()}</div>'
+        "<p>Four chained steps at 90% succeed 66% of the time, and they fail <em>fluently</em>. Two "
+        "defences, in order: keep chains short, then put an independent checker after the steps that "
+        "are costly and easy to miss.</p></div>"
+
+        '<div class="sec"><h2>The acronym decoder</h2>'
+        '<div class="tw"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
+        f"<th>From</th></tr></thead><tbody>{a_rows}</tbody></table></div></div>"
+
+        '<div class="sec"><h2>Every framework, with its lineage</h2>' + key +
+        '<div class="tw"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
+        f'<th></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
+        f'<p style="margin-top:14px"><a href="{WIKI}/Sources-and-Confidence" target="_blank" '
+        'rel="noopener">The full sources page &rarr;</a></p></div>'
+        "</main></div>")
+    return shell(title="Frameworks and acronyms · The agentic manual",
+                 desc="The four named methods and where each sits, every acronym, and the diagrams: "
+                      "the P0-P3 ring, the R1-R5 risk ladder and chained probability.",
+                 body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/")
+
+
 def load_roles() -> list[dict]:
     out = []
     for rid, *_ in ROLE_ORDER:
@@ -433,10 +577,11 @@ def render(out_dir: Path) -> list[str]:
         put(f"{r['id']}/index.html", role_page(r))
     put("templates/index.html", library_page(roles, "templates"))
     put("prompts/index.html", library_page(roles, "prompts"))
+    put("frameworks/index.html", frameworks_page())
     return written
 
 
 def urls() -> list[str]:
-    u = [BASE_URL, BASE_URL + "templates/", BASE_URL + "prompts/",
+    u = [BASE_URL, BASE_URL + "templates/", BASE_URL + "prompts/", BASE_URL + "frameworks/",
          BASE_URL + "app/SkyWays-Architect.html"]
     return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]

@@ -1,0 +1,220 @@
+{
+ "methods": [
+  {
+   "name": "SDD",
+   "full": "Spec-driven development",
+   "what": "The spec, not the code, is what you maintain. Code is generated from it and regenerated on change.",
+   "where": "P1 and P2 mainly; lightly in P0 and P3",
+   "when": "**Always.** It is the backbone.",
+   "weight": "light"
+  },
+  {
+   "name": "BMAD",
+   "full": "Breakthrough Method for Agile AI-Driven Development",
+   "what": "A pipeline of AI personas — analyst, PM, architect, dev, QA — each handing a versioned artefact to the next.",
+   "where": "P0 to P2 as a persona pipeline",
+   "when": "Complex, multi-team, audited work. On a one-line change it is twelve personas between you and the change.",
+   "weight": "heavy"
+  },
+  {
+   "name": "AI-DLC",
+   "full": "AI-Driven Development Life Cycle (AWS)",
+   "what": "Adaptive: run only the lifecycle stages a given change actually needs.",
+   "where": "A principle across all four phases",
+   "when": "When the depth of a change is unknown up front. The architect judges depth per change.",
+   "weight": "varies"
+  },
+  {
+   "name": "AiDD",
+   "full": "AI-driven development",
+   "what": "The day-to-day craft: context files, story files, editor agents, review by risk, cost habits.",
+   "where": "P2 mostly",
+   "when": "Every day, by everyone who writes code.",
+   "weight": "light"
+  }
+ ],
+ "acronyms": [
+  [
+   "ADR",
+   "Architecture decision record",
+   "One decision with its context, consequences and what it rejected, versioned next to the code. Written **only** at a trade-off point.",
+   "Nygard, 2011"
+  ],
+  [
+   "AI-DLC",
+   "AI-Driven Development Life Cycle",
+   "Run only the lifecycle stages a change needs.",
+   "AWS"
+  ],
+  [
+   "AiDD",
+   "AI-driven development",
+   "The craft of building software with coding agents.",
+   "—"
+  ],
+  [
+   "ATAM",
+   "Architecture Tradeoff Analysis Method",
+   "Where utility trees and sensitivity points come from.",
+   "Kazman, Klein, Clements, SEI, 2000"
+  ],
+  [
+   "BMAD",
+   "Breakthrough Method for Agile AI-Driven Development",
+   "A persona pipeline with versioned hand-offs.",
+   "—"
+  ],
+  [
+   "EARS",
+   "Easy Approach to Requirements Syntax",
+   "WHEN a trigger AND a condition THE SYSTEM SHALL a behaviour, within a measure.",
+   "Mavin et al., Rolls-Royce, 2009"
+  ],
+  [
+   "MCP",
+   "Model Context Protocol",
+   "One plug so any AI client can use your tools and data. Turns M apps x N systems into M + N.",
+   "Specification"
+  ],
+  [
+   "NFR",
+   "Non-functional requirement",
+   "Written as a six-part scenario so it can be tested, ranked and traded off.",
+   "Bass, Clements, Kazman"
+  ],
+  [
+   "PDLC",
+   "Product development lifecycle",
+   "Here: P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & Learn.",
+   "Stage-gate, Cooper 1990"
+  ],
+  [
+   "R1–R5",
+   "The risk ladder",
+   "Reversible draft, reversible change, hard to reverse, money/identity/policy, irreversible.",
+   "this playbook"
+  ],
+  [
+   "RACI",
+   "Responsible, accountable, consulted, informed",
+   "One accountable **name** per artefact, never a committee.",
+   "—"
+  ],
+  [
+   "SDD",
+   "Spec-driven development",
+   "Maintain the spec; regenerate the code.",
+   "—"
+  ],
+  [
+   "TCO",
+   "Total cost of ownership",
+   "Three years, with the **people** counted — usually the larger number.",
+   "Gartner, 1987"
+  ],
+  [
+   "p^n",
+   "Chained probability",
+   "Steps multiply. Four steps at 90% is 66%. Length is the enemy.",
+   "—"
+  ]
+ ],
+ "frameworks": [
+  [
+   "The P0–P3 spine",
+   "Four phases every method walks: frame, specify, build and prove, run and learn.",
+   "Stage-gate systems (Cooper, 1990). The phase names are the playbook's.",
+   "wm"
+  ],
+  [
+   "The requirements chain",
+   "Discover, credit, consolidate, constrain, candidates, trees, workshop, ratify, name the sensitivity points.",
+   "ATAM utility trees (SEI, 2000); six-part scenarios. The chain is the playbook's.",
+   "wm"
+  ],
+  [
+   "The ADR at the trade-off point",
+   "A record is written only where two quality attributes pull against each other.",
+   "ADRs (Nygard, 2011); ATAM sensitivity points.",
+   "est"
+  ],
+  [
+   "The exact and best-guess map",
+   "Which steps are computed in code and which are drafted by a model, with the proof each owes.",
+   "The playbook's construction.",
+   "wm"
+  ],
+  [
+   "Autonomy by the cost of a mistake",
+   "The level follows what a wrong action costs and whether it can be undone.",
+   "One-way and two-way doors (Bezos, 2015).",
+   "wm"
+  ],
+  [
+   "The acceptance bar",
+   "bar = damage / (damage + saving), per slice. A hold lowers the damage and so the bar.",
+   "The playbook's construction.",
+   "wm"
+  ],
+  [
+   "Hard and soft gates",
+   "A decision halts the phase or runs alongside it, settled by four questions.",
+   "Stage gates (Cooper, 1990). The four questions are the playbook's.",
+   "wm"
+  ],
+  [
+   "The risk ladder R1–R5",
+   "The check grows with the band. A change inherits the band of whatever it touches.",
+   "Least privilege (Saltzer and Schroeder, 1975).",
+   "wm"
+  ],
+  [
+   "Bolts and the walking skeleton",
+   "One risk per bolt, the skeleton first, the shadow run as the milestone.",
+   "Walking skeleton (Cockburn, 2004); the bolt from AWS AI-DLC.",
+   "wm"
+  ],
+  [
+   "Prove the bar, then earn the traffic",
+   "A score is reported with its lower bound; a cut-over widens on live evidence.",
+   "Wilson (1927); stratified sampling (Neyman, 1934); canary release.",
+   "est"
+  ],
+  [
+   "Review by risk band",
+   "Two readers, one, or the harness alone, set by what a change touches.",
+   "Little's law (Little, 1961). The banding is the playbook's.",
+   "wm"
+  ],
+  [
+   "The cache break-even",
+   "Caching pays once reuse outweighs the write premium. Break-even is the second use.",
+   "Prompt-caching pricing as documented by Anthropic and Amazon Bedrock, read September 2026.",
+   "doc"
+  ],
+  [
+   "Decompose the bill",
+   "Four signatures in the per-call log, four factors that multiply, fix order (factor − 1) ÷ days.",
+   "FinOps unit economics. The decomposition is the playbook's.",
+   "wm"
+  ],
+  [
+   "The missing-control postmortem",
+   "Every layer is enforced, a request, or absent. The enquiry ends at the control that would have made it impossible.",
+   "Layered defences (Reason, 1990); blameless postmortems (Beyer et al., 2016).",
+   "est"
+  ],
+  [
+   "The two-number report",
+   "Person-days saved and tokens spent, always together, with the rows that keep both honest.",
+   "Paired indicators (Grove, 1983); Goodhart's law (1975).",
+   "wm"
+  ],
+  [
+   "The model gateway",
+   "A facade, a retry, a fallback and routing in front of every model call, with a per-call log.",
+   "Facade and circuit-breaker patterns; LiteLLM as the named example.",
+   "doc"
+  ]
+ ]
+}
