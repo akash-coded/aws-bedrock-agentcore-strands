@@ -69,13 +69,15 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     accent_css = f'<style>:root{{--accent:{accent}}}</style>' if accent else ""
     nav = []
     # The nav carries a shorter label where the full role name would push it onto a second line.
-    nav_label = {"devops": "DevOps"}
+    nav_label = {"product-manager": "Product", "solution-architect": "Architect",
+                 "engineering": "Engineering", "qa": "QA", "devops": "DevOps"}
     for rid, name, short, _c, _t in ROLE_ORDER:
         if not (CONTENT / f"{rid}.json").exists():
             continue
         cur = ' aria-current="page"' if nav_id == rid else ""
         nav.append(f'<a href="{up}{rid}/"{cur}>{_E(nav_label.get(rid, name))}</a>')
-    for slug, label in (("templates", "Templates"), ("prompts", "Prompts"), ("frameworks", "Frameworks")):
+    for slug, label in (("protocol", "For leadership"), ("templates", "Templates"),
+                        ("prompts", "Prompts"), ("frameworks", "Frameworks")):
         cur = ' aria-current="page"' if nav_id == slug else ""
         nav.append(f'<a href="{up}{slug}/"{cur}>{label}</a>')
     nav.append(f'<a href="{up}app/SkyWays-Architect.html">Simulator</a>')
@@ -150,6 +152,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <script src="{up}frame/config.js" defer></script>
 <script src="{up}frame/frame.js" defer></script>
 <script src="{up}theme/site.js" defer></script>
+<script src="{up}theme/engine.js" defer></script>
 </body>
 </html>
 """
@@ -375,6 +378,10 @@ def home_page(roles: list[dict]) -> str:
     <div class="card"><h4>The same case, playable</h4><p style="font-size:14.5px;color:var(--ink2)">
       Thirteen dated episodes, nine simulations, seventeen calculators.
       <a href="app/SkyWays-Architect.html">Open the simulator →</a></p></div>
+    <div class="card" style="border-color:color-mix(in oklab,var(--slate) 40%,transparent)">
+      <h4>Not doing the work, funding it?</h4><p style="font-size:14.5px;color:var(--ink2)">
+      The whole operating model on one screen: what changes, who does what, the four decisions only
+      leadership can make, and ninety days. <a href="protocol/">The operating protocol →</a></p></div>
     <div class="card"><h4>The method, written down</h4><p style="font-size:14.5px;color:var(--ink2)">
       Four phases, eight loops, 37 scenarios, every formula.
       <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
@@ -406,6 +413,8 @@ def home_page(roles: list[dict]) -> str:
       <tr><td>About to launch</td><td><a href="product-manager/#launch">Shadow, then five percent</a></td><td>15 min</td></tr>
       <tr><td>Asked for a business case</td><td><a href="product-manager/#frame">The value line</a>, with the
         arithmetic</td><td>15 min</td></tr>
+      <tr><td>Funding this, not building it</td><td><a href="protocol/">The operating protocol</a> — what
+        changes, who does what, and the four questions to ask</td><td>20 min</td></tr>
       <tr><td>Running a workshop</td><td><a href="{WIKI}/Scenario-Library" target="_blank" rel="noopener">37
         scenarios</a> across ten industries</td><td>—</td></tr>
     </tbody></table></div>
@@ -590,10 +599,13 @@ def render(out_dir: Path) -> list[str]:
     put("templates/index.html", library_page(roles, "templates"))
     put("prompts/index.html", library_page(roles, "prompts"))
     put("frameworks/index.html", frameworks_page())
+    from pages import protocol
+    put("protocol/index.html", protocol.build(shell, {"base": BASE_URL, "repo": REPO, "wiki": WIKI}))
     return written
 
 
 def urls() -> list[str]:
-    u = [BASE_URL, BASE_URL + "templates/", BASE_URL + "prompts/", BASE_URL + "frameworks/",
+    u = [BASE_URL, BASE_URL + "protocol/", BASE_URL + "templates/", BASE_URL + "prompts/",
+         BASE_URL + "frameworks/",
          BASE_URL + "app/SkyWays-Architect.html"]
     return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]

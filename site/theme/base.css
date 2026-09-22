@@ -176,9 +176,13 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .acts li::before{content:counter(a);font-family:var(--f-mono);font-size:11px;color:var(--accent);
   background:var(--accent-soft);border-radius:6px;width:24px;height:22px;display:grid;place-items:center;
   font-weight:600;margin-top:1px}
-.acts li::before{grid-row:1}
-.acts b{grid-column:2;grid-row:1;display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
-.acts span{grid-column:2;grid-row:2;font-size:14.5px;color:var(--ink2);display:block;max-width:66ch}
+/* The counter owns column 1 row 1; everything else flows down column 2. Placing children
+   explicitly breaks the moment a list item gains a third child, which it did. */
+.acts li::before{grid-column:1;grid-row:1}
+.acts li > *{grid-column:2;min-width:0}
+.acts b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
+.acts span{font-size:14.5px;color:var(--ink2);display:block;max-width:66ch}
+.acts li > [data-lens]{margin-top:8px;margin-bottom:0}
 
 /* ai table */
 .ai td:first-child{white-space:nowrap;font-weight:600;font-size:13.5px}
@@ -268,3 +272,88 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
   body{background:#fff;font-size:11pt}
   .blk{background:#f6f6f6}.blk code{color:#111}
 }
+
+/* ==========================================================================
+   Interaction engine — lenses, calculators, self-checks, steppers.
+   Everything degrades: with JS off, both lenses show and the inputs are inert
+   but the worked numbers beside them are still on the page.
+   ========================================================================== */
+
+/* lenses: two readings of one idea */
+.lens{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--rule);border-radius:10px;background:var(--rule2)}
+.lens button{border:0;background:none;font:600 12.5px/1 var(--f-body);color:var(--soft);padding:7px 13px;
+  border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.lens button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(20,18,12,.09)}
+.lens button:hover{color:var(--ink)}
+.lens .sw{width:9px;height:9px;border-radius:50%;border:1.5px solid currentColor}
+.lens button[data-lens-set="black"] .sw{background:currentColor}
+/* Hide the other reading, never the control that switches them. */
+:root[data-lens-mode="black"] [data-lens="white"]{display:none}
+:root[data-lens-mode="white"] [data-lens="black"]{display:none}
+.lens button{display:flex!important}
+[data-lens]{border-left:3px solid var(--rule);padding-left:15px;margin:0 0 15px}
+[data-lens="black"]{border-left-color:var(--accent)}
+[data-lens="white"]{border-left-color:var(--sage)}
+[data-lens] .lk{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--soft);display:block;margin-bottom:5px}
+[data-lens="black"] .lk{color:var(--accent)}
+[data-lens="white"] .lk{color:var(--sage)}
+
+/* calculators */
+.calc{background:var(--paper);border:1px solid var(--rule);border-radius:15px;overflow:hidden;margin:0 0 18px}
+.calc .ch{padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--rule2);
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.calc .ch b{font-family:var(--f-display);font-size:15px}
+.calc .ch span{font-size:12.5px;color:var(--soft)}
+.calc .cg{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media (max-width:760px){.calc .cg{grid-template-columns:1fr}}
+.calc .ci{padding:16px 18px;display:grid;gap:11px;border-right:1px solid var(--rule)}
+@media (max-width:760px){.calc .ci{border-right:0;border-bottom:1px solid var(--rule)}}
+.calc label{display:grid;gap:4px;font-size:13px;color:var(--ink2)}
+.calc label .lv{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.calc label .lv b{font-family:var(--f-mono);font-size:12.5px;color:var(--accent);font-weight:600}
+.calc input[type="range"]{width:100%;accent-color:var(--accent);height:20px}
+.calc input[type="number"],.calc select{font:14px var(--f-body);color:var(--ink);background:var(--bone);
+  border:1px solid var(--rule);border-radius:8px;padding:7px 10px;width:100%}
+.calc .co{padding:16px 18px;display:grid;gap:9px;align-content:start;background:var(--rule2)}
+.calc .cr{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px;color:var(--ink2)}
+.calc .cr output{font-family:var(--f-mono);font-size:13.5px;font-weight:600;color:var(--ink)}
+.calc .cr.big{padding-top:9px;border-top:1px solid var(--rule);font-size:15px}
+.calc .cr.big output{font-size:19px;font-family:var(--f-display)}
+.calc output.ok{color:var(--ok)} .calc output.warn{color:var(--warn)} .calc output.stop{color:var(--stop)}
+.calc .cv{font-size:13px;line-height:1.5;color:var(--ink2);border-top:1px solid var(--rule);
+  padding-top:10px;margin-top:2px}
+.calc .cf{padding:9px 18px;border-top:1px solid var(--rule);font-family:var(--f-mono);font-size:11.5px;
+  color:var(--soft);background:var(--paper)}
+
+/* self-check */
+.chk{background:var(--paper);border:1px solid var(--rule);border-radius:15px;padding:20px 22px;margin:0 0 18px}
+.chk ul{list-style:none;display:grid;gap:10px;margin:0 0 16px}
+.chk li{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start}
+.chk input[type="checkbox"]{width:17px;height:17px;margin-top:2px;accent-color:var(--accent);cursor:pointer}
+.chk label{font-size:14.5px;color:var(--ink2);cursor:pointer}
+.chk label b{display:block;color:var(--ink);font-weight:600}
+.chk label span{font-size:13px;color:var(--soft)}
+.chk .cs{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:14px}
+.chk .cs .n{font-family:var(--f-display);font-size:26px;font-weight:680;color:var(--accent)}
+.chk .cs .v{font-size:14.5px;color:var(--ink);font-weight:600}
+.chk .nx{font-size:13.5px;color:var(--ink2);margin-top:9px}
+.chk .nx b{color:var(--warn)}
+
+/* stepper */
+.stp{background:var(--paper);border:1px solid var(--rule);border-radius:15px;overflow:hidden;margin:0 0 18px}
+.stp .sh2{padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--rule2);
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stp .sl{font-size:12.5px;font-weight:600;color:var(--ink2)}
+.stp [data-step-dots]{display:flex;gap:5px;margin-left:auto}
+.stp-dot{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--faint);background:none;
+  padding:0;cursor:pointer}
+.stp-dot.on{background:var(--accent);border-color:var(--accent);transform:scale(1.22)}
+.stp-dot.done{background:var(--faint);border-color:var(--faint)}
+.stp [data-step]{padding:20px 22px}
+.stp .sn2{padding:11px 18px;border-top:1px solid var(--rule);display:flex;gap:9px;justify-content:flex-end}
+.stp .sn2 button{border:1px solid var(--rule);background:var(--bone);color:var(--ink2);border-radius:8px;
+  padding:7px 15px;font:600 13px var(--f-body);cursor:pointer}
+.stp .sn2 button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.stp .sn2 button:disabled{opacity:.42;cursor:default}
+@media print{.stp [data-step]{display:block!important}.stp .sn2,.stp [data-step-dots]{display:none}}
