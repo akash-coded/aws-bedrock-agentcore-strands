@@ -52,13 +52,23 @@ a:hover{text-decoration:underline;text-underline-offset:3px}
 .brand:hover{text-decoration:none}
 .brand small{font-weight:400;font-size:12.5px;color:var(--soft);letter-spacing:0}
 .hd nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
-.hd nav a{padding:6px 11px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--ink2);white-space:nowrap}
+.hd nav a{padding:5px 9px;border-radius:8px;font-size:13px;font-weight:500;color:var(--ink2);white-space:nowrap}
 .hd nav a:hover{background:var(--rule2);text-decoration:none}
 .hd nav a[aria-current]{background:var(--accent);color:#fff}
 .tgl{border:1px solid var(--rule);background:var(--paper);color:var(--ink2);border-radius:8px;
   width:32px;height:30px;cursor:pointer;font-size:14px;line-height:1;flex:none}
 .tgl:hover{border-color:var(--accent);color:var(--ink)}
-@media (max-width:820px){.hd .in{padding:10px 16px;gap:10px}.brand small{display:none}.hd nav{font-size:13px}}
+/* On a phone the header is two rows: brand and theme, then the nav as one scrolling strip.
+   Wrapping the nav instead would push the page content below a block of stacked links. */
+@media (max-width:820px){
+  .hd .in{padding:9px 16px 7px;gap:8px;flex-wrap:wrap}
+  .brand small{display:none}
+  .tgl{margin-left:auto}
+  .hd nav{order:3;flex-basis:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;padding-bottom:1px;scrollbar-width:none}
+  .hd nav::-webkit-scrollbar{display:none}
+  .hd nav a{flex:0 0 auto;font-size:13px}
+}
 
 /* ---------- layout ---------- */
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
@@ -69,10 +79,7 @@ a:hover{text-decoration:underline;text-underline-offset:3px}
 main{padding:26px 0 96px;min-width:0}
 @media (max-width:1180px){.cols{grid-template-columns:var(--rail) minmax(0,1fr)}.toc{display:none}}
 @media (max-width:900px){.cols{grid-template-columns:1fr;gap:0;padding:0 16px}
-  .rail{position:static;max-height:none;padding:16px 0;border-bottom:1px solid var(--rule)}
-  .rail ol{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
-  .rail ol li{flex:0 0 auto}.rail .rl{white-space:nowrap}
-  .rail .rl .rn{margin-right:6px}}
+  .rail{position:static;max-height:none;padding:16px 0;border-bottom:1px solid var(--rule)}}
 
 /* ---------- left rail ---------- */
 .rail h2,.toc h2{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
@@ -84,6 +91,15 @@ main{padding:26px 0 96px;min-width:0}
 .rl.on{background:var(--accent-soft);border-left-color:var(--accent);color:var(--ink);font-weight:600}
 .rl .rn{font-family:var(--f-mono);font-size:11.5px;color:var(--faint);flex:none;width:14px}
 .rl.on .rn{color:var(--accent)}
+/* On a phone the rail becomes a horizontal strip. These must sit after the rules above:
+   same specificity, so source order decides. */
+@media (max-width:900px){
+  .rail ol{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+  .rail ol li{flex:0 0 auto}
+  .rail .rl{white-space:nowrap;border-left:0;border-bottom:2px solid transparent}
+  .rail .rl.on{border-left:0;border-bottom-color:var(--accent)}
+  .rail .rl .rn{margin-right:2px}
+}
 .toc ul{list-style:none;display:grid;gap:2px;font-size:13px}
 .toc a{color:var(--soft);display:block;padding:3px 0 3px 11px;border-left:2px solid var(--rule)}
 .toc a:hover{color:var(--ink);border-left-color:var(--accent);text-decoration:none}
@@ -213,7 +229,8 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dg{width:100%;min-width:620px;height:auto;color:var(--ink)}
 
 /* ---------- role cards (home) ---------- */
-.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:16px;margin:0 0 28px}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:14px;margin:0 0 28px}
+@media (max-width:1140px){.roles{grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}}
 .rc{display:block;background:var(--paper);border:1px solid var(--rule);border-radius:17px;padding:24px;
   transition:transform .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease)}
 .rc:hover{transform:translateY(-2px);border-color:var(--rc);box-shadow:0 10px 30px rgba(20,18,12,.07);text-decoration:none}

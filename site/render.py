@@ -68,11 +68,13 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     up = "../" * depth
     accent_css = f'<style>:root{{--accent:{accent}}}</style>' if accent else ""
     nav = []
+    # The nav carries a shorter label where the full role name would push it onto a second line.
+    nav_label = {"devops": "DevOps"}
     for rid, name, short, _c, _t in ROLE_ORDER:
         if not (CONTENT / f"{rid}.json").exists():
             continue
         cur = ' aria-current="page"' if nav_id == rid else ""
-        nav.append(f'<a href="{up}{rid}/"{cur}>{_E(name)}</a>')
+        nav.append(f'<a href="{up}{rid}/"{cur}>{_E(nav_label.get(rid, name))}</a>')
     for slug, label in (("templates", "Templates"), ("prompts", "Prompts"), ("frameworks", "Frameworks")):
         cur = ' aria-current="page"' if nav_id == slug else ""
         nav.append(f'<a href="{up}{slug}/"{cur}>{label}</a>')
