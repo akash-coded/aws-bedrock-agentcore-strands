@@ -421,12 +421,36 @@ AWS moves quickly. If something here no longer matches reality, that is a bug wo
 
 ---
 
+## Running this repository · secrets
+
+**If you are here to learn, you need no secrets, tokens or API keys.** Nothing in the curriculum, the
+labs, the field guide or the playbook asks for one. This is for whoever maintains the repository.
+
+There are two, and only the first is in use.
+
+| | Secret | What it is | What happens without it |
+| --- | --- | --- | --- |
+| 🔑 | **`PROJECT_TOKEN`** — GitHub Actions secret | A **classic** PAT, **`project` scope only**. Powers the [Hands-on Tracker](https://github.com/users/akash-coded/projects/9) and [Repo Pulse](https://github.com/users/akash-coded/projects/10) boards | Those two boards stop refreshing. The [scoreboard](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scoreboard), `/leaderboard`, `/progress`, the weekly digest and the PDLC board all keep working |
+| 📮 | The relay's **mirror token** — AWS Secrets Manager | A **fine-grained** PAT limited to one private repository, *Issues: read and write*. Only for the [contact relay](site/contact-relay/README.md) | Not in use — the relay is not deployed, and the site's form opens the visitor's mail app instead |
+
+Two things worth knowing about the first one. It **cannot** be a fine-grained token: those have no
+permission covering *user-owned* Projects, and neither has the built-in `GITHUB_TOKEN`. And when it
+expires **the workflow does not fail** — it warns and the scoreboard still publishes, deliberately, so
+the signal is a board that has stopped moving rather than a red run.
+
+**[→ First-time setup](docs/setup/project-token.md)** &nbsp;·&nbsp;
+[Both secrets, side by side](docs/setup/README.md#secrets-and-who-needs-them) &nbsp;·&nbsp;
+[Check, rotate, revoke](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Maintainer-Runbook#the-board-sync-token)
+
+---
+
 ## Frequently asked
 
 **Do I need an AWS account?** For most of it. Modules 00, 01 and 15 need nothing.
 **Strands or LangChain?** Both are here, compared head-to-head on the same task in [Module 08](modules/08-langchain-and-langgraph/).
 **Are there videos?** Not yet — the written material is self-contained. [Progress is tracked here](docs/reference/video-index.md).
 **Can I teach from this?** Yes, MIT licensed. See [`CITATION.cff`](CITATION.cff).
+**Do I need any API keys or tokens?** No. The one secret here is for maintainers and affects two boards only.
 
 **[→ Full FAQ](docs/reference/faq.md)**
 
