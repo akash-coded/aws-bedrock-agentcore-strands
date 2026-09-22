@@ -471,10 +471,19 @@ still costs one pass. The `0.9` is the documented discount on a cache read.
 | **Product** | | | **4.42** |
 
 The invoice was **4.4×** its estimate on flat traffic, and four habits multiplying account for it.
-The factors above are shown to two decimal places; carried unrounded they give 4.42, which is as
-close to the invoice as a decomposition like this gets. If yours lands materially off the invoice
-ratio, something structural changed — a new feature, a price change, a traffic shift — and that
-gap is the next question rather than a rounding note.
+
+**On the last digit.** You will see this case quoted elsewhere as `1.6 × 1.5 × 1.3 × 1.41 = 4.40` —
+including in the [simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/bill)
+and the [scenario library](Scenario-Library). The retry factor is 1.7 ÷ 1.2 = 1.41666…, so 1.41
+truncates it and 1.42 rounds it, and the product lands at 4.40 or 4.42 depending which you carry.
+Neither is wrong and the difference does not change a single decision — but it is worth seeing once,
+because **rounding inside a multiplicative decomposition compounds**. Four factors each rounded down
+by half a percent understate the product by two. Carry the unrounded values and round only the
+answer.
+
+If your product lands materially off the invoice ratio, that is not a rounding note: something
+structural changed — a new feature, a price change, a traffic shift — and the gap is the next
+question.
 
 **Get `f` wrong and the diagnosis inverts.** Assume the whole prompt is cacheable (`f = 1`) and the
 cache factor reads 2.55 instead of 1.30, the product overshoots the invoice by roughly double, and

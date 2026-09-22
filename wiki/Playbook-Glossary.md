@@ -52,8 +52,8 @@ this page is the playbook's own vocabulary.
 **The distinction that matters** — a bar is not a **target** and not an SLA. A target is something
 you would like to reach and may miss without consequence; a bar is the line below which the step is
 not worth running at all, and it is *derived* from money rather than chosen. The confusion is
-expensive because a target gets negotiated down in a release meeting at four o'clock on a Friday,
-whereas a bar can only move by changing the damage — which in practice means adding a human hold.
+expensive because a target gets negotiated down in a Friday release meeting, whereas a bar moves
+only by changing the damage.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 1 ·
 [the bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bar)
@@ -70,10 +70,8 @@ versioned next to the code, written only at a trade-off point. Nygard, 2011.
 
 **The distinction that matters** — a record is not the **decision**, and it is not minutes. Minutes
 say what was said; a record says what was chosen, what was given up, and what would re-open it. The
-expensive habit is writing one for every decision: forty records in a week means the three that
-mattered are buried, and the next reader cannot tell which ones carry weight. The opposite habit
-costs more — the model-tier question re-opened in week three with nobody able to say why it was
-settled.
+expensive habit is one for every decision: forty records in a week buries the three that mattered.
+The opposite habit costs more — the model-tier question re-opened in week three with no record.
 
 **Where you meet it** — [How to Choose Build, Buy or Borrow](How-to-Choose-Build-Buy-or-Borrow),
 move 5
@@ -90,10 +88,8 @@ separates a rule-based system from one with a model in the loop.
 
 **The distinction that matters** — an **agent** is not a **workflow**. A workflow has its path
 decided at design time and a model may write text at one of its nodes; an agent chooses the next
-step at run time, which is exactly what makes it useful and exactly what makes it expensive to prove.
-Building an agent where a workflow was wanted buys hand-offs, loops, a wider blast radius and a bill,
-for a routing decision an `if` statement could make. Three questions settle it, in order: is the
-path knowable in advance, does anything change in the world, and is a wrong answer detectable?
+step at run time, which is what makes it useful and what makes it expensive to prove. Building one
+where a workflow was wanted buys hand-offs, loops and a bill for a decision an `if` could make.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper), move 1 ·
 [the AI-fit check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/aifit)
@@ -108,11 +104,9 @@ path knowable in advance, does anything change in the world, and is a wrong answ
 **In one line** — what the agent may change, touch or commit, decided before what it may spend.
 
 **The distinction that matters** — authority is not **cost**. A cheap task with broad authority is
-more dangerous than an expensive one with none, and the two budgets are set by different people for
-different reasons: finance owns the spend, the accountable engineer owns the authority. Teams that
-conflate them cap tokens, feel governed, and leave an agent able to write to production. The
-authority budget is also what generates the review bands and the CODEOWNERS lines, so an unwritten
-one shows up later as a routing argument.
+more dangerous than an expensive one with none, and the two are owned by different people: finance
+owns the spend, the accountable engineer owns the authority. Conflate them and you cap tokens, feel
+governed, and leave an agent able to write to production.
 
 **Where you meet it** — [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary),
 move 1
@@ -128,11 +122,9 @@ move 1
 by measuring the share on real cases.
 
 **The distinction that matters** — best-guess is not **broken**, and it is not **nearly exact**.
-A step that is right 88% of the time is working as designed; the engineering question is whether 88%
-clears the bar for that slice, not whether the failures can be prompted away. The confusion is
-expensive in both directions: a team that reads best-guess as broken spends a quarter chasing
-determinism it cannot have, and a team that reads it as nearly exact ships with a unit test and no
-measured share.
+A step right 88% of the time is working as designed, and the question is whether 88% clears the bar
+for that slice. Read it as broken and you spend a quarter chasing determinism; read it as nearly
+exact and you ship with a unit test and no measured share.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper), move 2
 
@@ -167,11 +159,10 @@ prefix match in the order tools → system → messages, up to a marked block, m
 break-even at the second use.
 
 **The distinction that matters** — a prompt cache is not a **response cache** and not a semantic
-one. Nothing is remembered, nothing is matched by similarity, and no answer is reused: the only
-thing saved is the cost of re-reading an identical prefix. Two consequences follow, and both get
-missed. One volatile token inside the cached block — a timestamp, a session id, a shuffled tool
-list — invalidates everything after it, so the saving silently becomes a 1.25× surcharge. And
-because the cache is model-scoped, switching model mid-task starts again from cold.
+one. Nothing is remembered and no answer is reused: the only saving is re-reading an identical
+prefix. One volatile token in the cached block — a timestamp, a session id, a shuffled tool list —
+invalidates everything after it and turns the saving into a 1.25× surcharge, and because the cache
+is model-scoped, switching model mid-task starts from cold.
 
 **Where you meet it** — [How to Control the Token Bill](How-to-Control-the-Token-Bill), move 4 ·
 [the cache calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)
@@ -188,10 +179,8 @@ brief, placed after a generating step. Never the drafter grading itself.
 
 **The distinction that matters** — a checker is not a **second opinion from the same context**.
 A model asked "is that right?" in the conversation that produced the answer agrees with itself at a
-rate that tells you nothing; the independence is the whole mechanism, and it is cheap to lose by
-accident when the checker inherits the drafter's history. A checker is also not a
-[judge](#judge-llm-as-a-judge--established): a checker looks for a specific failure and returns a
-verdict, a judge scores an output against a rubric.
+rate that tells you nothing, and the independence is cheap to lose by accident. Nor is it a
+[judge](#judge-llm-as-a-judge--established): a checker hunts one failure, a judge scores a rubric.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 3
 
@@ -205,12 +194,10 @@ verdict, a judge scores an output against a rubric.
 **In one line** — a maximum number of agent reasoning loops, then a hard stop and a hand-off to a
 person. Five is a common working value.
 
-**The distinction that matters** — a breaker counts **loops**, not seconds and not tool calls, and
-this is where **retries** and **attempts** part company. Cost models work on attempts — `1 + retries`
-— because a conversation with no retries still costs one pass; a breaker set on "three retries"
-therefore permits four passes, and a bill model that counts retries instead of attempts understates
-every conversation by a full pass. A timeout is a different control again: it bounds latency while
-a loop that spins fast stays inside it and burns the budget anyway.
+**The distinction that matters** — a breaker counts **loops**, not seconds, and this is where
+**retries** and **attempts** part company. Cost models work on attempts — `1 + retries` — because a
+conversation with no retries still costs one pass, so "three retries" permits four. A timeout is a
+different control: a loop that spins fast stays inside it and burns the budget anyway.
 
 **Where you meet it** — [How to Control the Token Bill](How-to-Control-the-Token-Bill), move 5
 
@@ -225,10 +212,8 @@ a loop that spins fast stays inside it and burns the budget anyway.
 
 **The distinction that matters** — the arithmetic everyone reaches for is the **average**, and the
 average of four 90% steps is 90%, which is wrong by twenty-four points. `pⁿ` is also the
-**optimistic** bound, because real steps correlate: a bad retrieval makes the next three worse. So a
-measured end-to-end rate below `pⁿ` is not a mystery, it is correlation, and the fix is upstream of
-whichever step was being blamed. The practical consequence is that removing a step buys more than
-improving one.
+**optimistic** bound, because real steps correlate, so a measured rate below it is correlation
+rather than a mystery. Removing a step buys more than improving one.
 
 **Where you meet it** — [Formulas and Calculators](Formulas-and-Calculators) ·
 [Journey: Solution architect](Journey-Solution-Architect)
@@ -243,12 +228,10 @@ improving one.
 **In one line** — a step that changes something real, built as a tool plus a gate and proven by a
 required confirmation.
 
-**The distinction that matters** — consequential is not **important**. Importance is about how much
-the business cares; consequence is about whether the world changes and whether it changes back
-cheaply. A high-profile summary for the board is important and reversible; a $40 fee waiver is
-unglamorous and irreversible. Classifying by importance puts the review effort on the visible work
-and leaves the money path unheld, which is the single most common shape in a missing-control
-postmortem.
+**The distinction that matters** — consequential is not **important**. Importance is how much the
+business cares; consequence is whether the world changes and whether it changes back cheaply. A
+board summary is important and reversible; a $40 fee waiver is unglamorous and irreversible.
+Classifying by importance guards the visible work and leaves the money path unheld.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper), move 2
 
@@ -262,12 +245,10 @@ postmortem.
 **In one line** — the markdown a coding tool reads at session start: `CLAUDE.md` (Claude Code),
 `.github/copilot-instructions.md` (Copilot), `AGENTS.md` (Codex CLI), `.cursor/rules/*.mdc` (Cursor).
 
-**The distinction that matters** — a context file is not **documentation**, and the two tools it
-serves do different jobs with it. Copilot's file steers inline suggestions; Claude Code's drives
-autonomous actions, which means a line in it can cause a command to run rather than a completion to
-appear. Documentation is written for people and is allowed to be aspirational; a context file is
-read by a machine on every session and its wrong lines are executed. It is also not a place for
-enforcement — everything in it is a [request](#request-a-rule-in-a-prompt--working-method).
+**The distinction that matters** — a context file is not **documentation**. Documentation is written
+for people and may be aspirational; a context file is read by a machine on every session, and
+Copilot's steers inline suggestions while Claude Code's drives autonomous actions — so a wrong line
+runs a command rather than offering a completion. Nothing in it is enforcement; it is all request.
 
 **Where you meet it** — [Journey: Engineering lead](Journey-Engineering-Lead) ·
 [The Evidence Pack](The-Evidence-Pack)
@@ -282,12 +263,10 @@ enforcement — everything in it is a [request](#request-a-rule-in-a-prompt--wor
 **In one line** — the running cost of one handled case, end to end, ratified as an NFR and monitored
 like latency.
 
-**The distinction that matters** — a case is not a **call** and not a **token**. One case may be
-four calls, a retry, a checker and a judge, so a cost per call quoted as a cost per case can be out
-by a factor of five — always in the flattering direction. The other half of the confusion is
-temporal: cost per case is a *monitored* number with an alert, not an estimate written once in a
-business case. The programmes that meet their token bill in month three ratified an estimate and
-measured nothing.
+**The distinction that matters** — a case is not a **call**. One case may be four calls, a retry, a
+checker and a judge, so a per-call figure quoted as a per-case figure is out by a factor of five,
+always flatteringly. The second half is temporal: this is a *monitored* number with an alert, and
+the programmes that meet their token bill in month three ratified an estimate and measured nothing.
 
 **Where you meet it** — [How to Control the Token Bill](How-to-Control-the-Token-Bill), move 1 ·
 [the leak finder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/leaks)
@@ -308,10 +287,9 @@ with the model handing it numbers and reading the result.
 
 **The distinction that matters** — **exact** is a statement about the *requirement*; **deterministic**
 is a statement about the *mechanism*. A model at temperature zero is close to deterministic and still
-not exact: it returns the same wrong answer reliably. Conversely a step can be exact and implemented
-by something that varies in timing or ordering, and nobody minds. The confusion is expensive because
-"we set temperature to zero" gets offered as proof of correctness, and it is proof of repeatability.
-Arithmetic, eligibility and totals are exact work and belong in code.
+not exact: it returns the same wrong answer reliably. That is why "we set temperature to zero" is
+proof of repeatability offered as proof of correctness. Arithmetic, eligibility and totals are
+exact work, and they belong in code.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper), move 2
 
@@ -325,13 +303,10 @@ Arithmetic, eligibility and totals are exact work and belong in code.
 **In one line** — a decision is a two-way door if it can be reversed cheaply and a one-way door if it
 cannot. Bezos, 2015 letter to shareholders.
 
-**The distinction that matters** — a door is not the same as a **big decision**. Size is about how
-much is spent; the door is about what reversal costs once you are wrong, and the two come apart
-constantly. Choosing a vendor is expensive and often a two-way door; choosing a data model or a
-public API shape is cheap this week and a one-way door for three years. The value of the question is
-that it sets how much evidence a decision owes: a two-way door deserves a quick choice and a review
-date, a one-way door deserves the three-year cost and the exit price written down before there is a
-favourite.
+**The distinction that matters** — a door is not a **big decision**. Size is what is spent; the door
+is what reversal costs once you are wrong, and the two come apart constantly. A vendor choice is
+expensive and often two-way; a data model is cheap this week and one-way for three years. A two-way
+door deserves a quick choice and a review date; a one-way door deserves the exit priced first.
 
 **Where you meet it** — [How to Choose Build, Buy or Borrow](How-to-Choose-Build-Buy-or-Borrow),
 move 4
@@ -364,12 +339,10 @@ response: re-open the gate, re-score the affected slice, and add the new conditi
 **In one line** — Easy Approach to Requirements Syntax: `WHEN` a condition `THE SYSTEM SHALL` a
 behaviour, plus a boundary and a number. Mavin, Wilkinson, Harwood and Novak, Rolls-Royce, 2009.
 
-**The distinction that matters** — an EARS line is not a **user story** and not a test. A story
-carries motivation and deliberately leaves the behaviour open; an EARS line closes the behaviour so
-that two engineers cannot read it two ways, which is what makes it the format spec-driven tooling can
-consume. It is also not a six-part scenario: the scenario carries the environment and the measure,
-the EARS line carries the rule. Teams that write stories into the spec find the ambiguity at review
-time, which is the most expensive place to find it.
+**The distinction that matters** — an EARS line is not a **user story**. A story carries motivation
+and deliberately leaves the behaviour open; an EARS line closes it so that two engineers cannot read
+it two ways, which is what spec-driven tooling consumes. Nor is it a six-part scenario: the scenario
+carries the environment and the measure, the EARS line carries the rule.
 
 **Where you meet it** — [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop), move 5 ·
 [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper)
@@ -384,12 +357,10 @@ time, which is the most expensive place to find it.
 **In one line** — title, value, acceptance, the model's role, autonomy, the bar, the fallback, the
 records: the smallest spec a coding agent can build from.
 
-**The distinction that matters** — it is not a **longer ticket**. Three of the eight fields are
-familiar and five are the decisions nobody had made — what the model is for, what it may do alone,
-what rate counts as working, what happens when it does not, and what evidence gets written. The
-fields are not documentation overhead; each one is a question that otherwise gets answered
-accidentally by whoever writes the code that afternoon. A spec that reads well and leaves the
-autonomy field blank has not been written.
+**The distinction that matters** — it is not a **longer ticket**. Three fields are familiar and five
+are the decisions nobody had made: what the model is for, what it may do alone, what rate counts as
+working, what happens when it does not, and what evidence gets written. Each is a question otherwise
+answered by whoever writes the code that afternoon.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper), move 3
 
@@ -404,12 +375,9 @@ autonomy field blank has not been written.
 token, a separated credential — which holds whatever the model is convinced of.
 
 **The distinction that matters** — the pair that costs the most on this page: an enforced control
-against a [request](#request-a-rule-in-a-prompt--working-method). A rule in a prompt lowers a
-probability; a rule in a signature removes a path. They are described with the same words in a design
-review — "we prevent refunds over $400" — and they behave entirely differently under a persuasive
-input. The discipline is a single honest column on every layer: **enforced**, **a request**, or
-**absent**. Most teams discover in the postmortem that four claimed layers were three requests and
-one control.
+against a [request](#request-a-rule-in-a-prompt--working-method). A prompt rule lowers a probability;
+a signature removes a path. Both are said the same way in a review — "we prevent refunds over $400" —
+so every layer owes one honest word: **enforced**, **a request**, or **absent**.
 
 **Where you meet it** — [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary),
 move 2
@@ -426,10 +394,8 @@ here: intent, plan, behaviour, release, expansion.
 
 **The distinction that matters** — a gate is not an **approval**, and it is not a meeting. An
 approval is a signature; a gate is a *question with named evidence attached*, and the signature is
-the last thing that happens rather than the thing itself. The practical difference shows in the
-artefact: a gate produces a record of what was in front of the signer and what would have made them
-say no, which is what makes a later postmortem tractable. A gate that can be passed without evidence
-is an approval wearing the word, and it protects nobody — least of all the person who signed it.
+the last thing that happens. So a gate leaves a record of what was in front of the signer and what
+would have made them say no; one passed without evidence protects nobody, least of all the signer.
 
 **Where you meet it** — [Gates and Governance](Gates-and-Governance)
 
@@ -444,11 +410,9 @@ is an approval wearing the word, and it protects nobody — least of all the per
 the acceptance bar made executable, where a slice below its bar rejects the change.
 
 **The distinction that matters** — a golden set is not a **test suite**, though it runs in the same
-place. A test suite answers a yes/no question and a green tick means every assertion held; a golden
-set answers *what share*, per slice, and a green run can still sit below the bar. Two further
-differences bite: the cases must be **real** — invented cases prove the prompt and not the product —
-and the set has a shelf life, because the world moves and a stale set is worse than a small one
-because it is trusted.
+place. A suite answers yes/no and green means every assertion held; a golden set answers *what
+share*, per slice, and a green run can sit below the bar. The cases must also be **real**, and a
+stale set is worse than a small one because it is trusted.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 2 ·
 [The Evidence Pack](The-Evidence-Pack)
@@ -468,12 +432,10 @@ because it is trusted.
 behind a placeholder with a named owner and a date. Four questions classify any decision, and one
 "no" makes it hard.
 
-**The distinction that matters** — hardness is not **importance**. Every gate on the board feels
-important to the person who owns it, and making them all hard stops the programme within a fortnight
-— after which the team learns to route around all of them, including the three that mattered. The
-four questions are about reversibility, blast radius, evidence and whether anyone downstream is
-blocked; a decision that fails one of those is hard, and everything else closes behind a placeholder
-that carries a name and a date rather than a hope.
+**The distinction that matters** — hardness is not **importance**. Every gate feels important to its
+owner, and making them all hard stops the programme within a fortnight, after which the team routes
+around all of them including the three that mattered. The four questions ask about reversibility,
+blast radius, evidence and who is blocked; everything else closes behind a named, dated placeholder.
 
 **Where you meet it** — [Gates and Governance](Gates-and-Governance) ·
 [The Agentic PDLC](The-Agentic-PDLC)
@@ -488,12 +450,10 @@ that carries a name and a date rather than a hope.
 **In one line** — text that arrives as data and is read by the model as an instruction; the one
 genuinely new threat, where every ingested text is untrusted, including partner API responses.
 
-**The distinction that matters** — injection is not a **jailbreak**, and treating them as one
-misplaces the defence. A jailbreak is the user talking the model out of its rules, and the attacker
-is in front of you; injection arrives inside content the model was asked to read — a PDF, a web page,
-a ticket body, a partner's JSON — and the attacker is nowhere near the conversation. The consequence
-is architectural: the defence sits at the **ingest layer**, treating retrieved content as data and
-never as an instruction, and it belongs in the regression suite rather than in a launch checklist.
+**The distinction that matters** — injection is not a **jailbreak**. A jailbreak is the user talking
+the model out of its rules, with the attacker in front of you; injection arrives inside content the
+model was asked to read — a PDF, a ticket body, a partner's JSON. So the defence sits at the
+**ingest layer**, and it belongs in the regression suite rather than in a launch checklist.
 
 **Where you meet it** — [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary),
 move 4 ·
@@ -509,12 +469,10 @@ move 4 ·
 **In one line** — an independent model scoring a best-guess output against a rubric for tone, policy
 and false claims, after the exact checks have run.
 
-**The distinction that matters** — a judge is not a **measurement**, it is an instrument that needs
-calibrating, and it is not a substitute for the deterministic checks that run before it. Two errors
-follow from forgetting that. Running the judge first spends money grading outputs that a cheap exact
-check would have rejected outright. And quoting a judge's score without ever comparing it against
-human labels on the same cases reports the judge's opinion as the system's accuracy — which is a
-number about the judge.
+**The distinction that matters** — a judge is not a **measurement**; it is an instrument that needs
+calibrating. Run it first and you pay to grade outputs a cheap exact check would have rejected. Quote
+its score without comparing it against human labels on the same cases and you have reported the
+judge's opinion as the system's accuracy.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 3
 
@@ -528,12 +486,10 @@ number about the judge.
 **In one line** — the narrowest permissions that still let the agent work, with read separated from
 write. Saltzer and Schroeder, 1975.
 
-**The distinction that matters** — least authority is about what the credential **can** do, not about
-what the agent is **asked** to do. A broad role plus a careful prompt is not least authority; it is a
-request with a large blast radius sitting behind it. The second confusion is with convenience: teams
-grant the service role it already has because issuing a narrower one takes a day, then record the
-intended narrowness in a document. What was granted and never called is the useful audit — it is the
-list of permissions you can remove this week with no argument.
+**The distinction that matters** — least authority is about what the credential **can** do, not what
+the agent is **asked** to do. A broad role plus a careful prompt is a request with a large blast
+radius behind it. The useful audit is what was granted and never called: the list of permissions you
+can remove this week with no argument.
 
 **Where you meet it** — [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary),
 move 1
@@ -569,11 +525,9 @@ Compute the queue per band.
 is proven only when the lower bound clears it. Wilson, 1927.
 
 **The distinction that matters** — a **score** is what you observed; a **lower bound** is what you
-are entitled to claim, and the gap between them is entirely about n. This is the most common
-expensive confusion in the trust loop: 82% on forty cases has a Wilson lower bound of 67.5%, so it
-does not prove an 80% bar, and no amount of rounding changes that. The corollary is more useful than
-the caution — "not proven" is not a rejection but a **cases-owed number**, and "we owe 331 more
-codeshare cases" is a plan where "it failed" is an argument.
+are entitled to claim, and the gap is entirely about n. 82% on forty cases has a Wilson lower bound
+of 67.5%, so it does not prove an 80% bar. And "not proven" is not a rejection but a **cases-owed
+number** — "we owe 331 more codeshare cases" is a plan where "it failed" is an argument.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 4 ·
 [the confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/confidence)
@@ -589,12 +543,10 @@ codeshare cases" is a plan where "it failed" is an argument.
 N systems into M + N. A server exposes **tools** (actions), **resources** (read-only data) and
 **prompts** (templates).
 
-**The distinction that matters** — an MCP server is not an **API gateway** and exposing a tool is not
-the same as exposing a resource. The three primitives carry different risk: a resource is read-only,
-a prompt is a template, and a tool *acts* — so the split between reads and writes is a design
-decision made at the server, not a convention followed by the client. The other confusion is that
-publishing an internal API through MCP grants the model everything that API can do; the narrowing
-has to happen in the tool signatures, because the protocol does not do it for you.
+**The distinction that matters** — exposing a **tool** is not exposing a **resource**. A resource is
+read-only, a prompt is a template, and a tool *acts*, so the read/write split is a decision made at
+the server rather than a convention followed by the client. Publishing an internal API through MCP
+grants the model everything that API can do, and the narrowing happens in the tool signatures.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) ·
 [Journey: Solution architect](Journey-Solution-Architect)
@@ -615,11 +567,9 @@ probability and never removes a path.
 
 **The distinction that matters** — the counterpart of an
 [enforced control](#enforced-control--working-method), and worth its own entry because the word
-"rule" hides it. A request is not worthless: it moves the rate, it is cheap, and it is the right
-instrument for tone, format and preference. It is the wrong instrument for money, identity and
-policy, and the failure is silent — nothing errors, nothing logs, the model is simply persuaded once
-in a thousand cases by text it was asked to read. Write **request** in the layer column and the
-argument ends.
+"rule" hides it. A request moves the rate, costs nothing, and is the right instrument for tone,
+format and preference; it is the wrong instrument for money, identity and policy, where the failure
+is silent — nothing errors and nothing logs.
 
 **Where you meet it** —
 [How to Run a Missing Control Postmortem](How-to-Run-a-Missing-Control-Postmortem), move 2
@@ -636,11 +586,9 @@ argument ends.
 touches**.
 
 **The distinction that matters** — a band is a property of what the change **touches**, not of how
-**big** it is. A three-line change to the refund tool is R4; a 900-line change to a report template
-is R1. Banding by size is how a diff nobody wanted to read gets four reviewers while the dangerous
-one-liner goes through on a rubber stamp. The inheritance rule is the part teams forget: shared code
-takes the band of its most dangerous caller, and configuration is behaviour without code, so it is
-banded like code.
+**big** it is. Three lines in the refund tool is R4; 900 lines of report template is R1. The
+inheritance rule is the part teams forget: shared code takes the band of its most dangerous caller,
+and configuration is behaviour without code, so it is banded like code.
 
 **Where you meet it** — [How to Review by Risk Band](How-to-Review-by-Risk-Band), move 2
 
@@ -655,11 +603,9 @@ banded like code.
 changes the outcome. ATAM. **Sensitivity points, and only they, earn an ADR.**
 
 **The distinction that matters** — a sensitivity point is not a **risk**. A risk is something that
-might happen to you; a sensitivity point is a place where a *choice you are about to make* swings the
-result, which means it is actionable today and it has an owner. It is also not a disagreement — two
-stakeholders far apart on the utility tree may simply hold different information, and that is settled
-by a fact rather than a trade-off. The discipline is what it protects: one record per sensitivity
-point and nowhere else, so the three that mattered are not buried under forty.
+might happen to you; a sensitivity point is where a *choice you are about to make* swings the result,
+so it is actionable today and it has an owner. Nor is it a disagreement: two stakeholders far apart
+on the tree may hold different information, which a fact settles rather than a trade-off.
 
 **Where you meet it** — [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop), move 8 ·
 [the utility tree builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/utree)
@@ -674,12 +620,10 @@ point and nowhere else, so the three that mattered are not buried under forty.
 **In one line** — run the agent beside the live process, deciding but never acting, for a fixed
 window; compare, then cut over a slice on evidence. Also called dark launching.
 
-**The distinction that matters** — a shadow run is not a **canary** and not a **pilot**. A canary is
-live for a small share of real traffic and its mistakes reach customers; a shadow run touches nobody,
-which is what lets it see the full distribution of cases rather than an easy slice. The comparison
-also runs the other way more often than teams expect: a disagreement is not automatically the agent
-being wrong, and the cases where the desk was wrong are one of the most valuable outputs of the
-window. A shadow run with no fixed end date is an experiment nobody has to conclude.
+**The distinction that matters** — a shadow run is not a **canary**. A canary is live for a share of
+real traffic and its mistakes reach customers; a shadow run touches nobody, which is what lets it see
+the full distribution rather than an easy slice. A disagreement is also not automatically the agent
+being wrong — the cases where the desk was wrong are among the window's best output.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 5 ·
 [the cut-over planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cutover)
@@ -695,11 +639,9 @@ window. A shadow run with no fixed end date is an experiment nobody has to concl
 refunds. **Bars, scores and gates are all per slice.**
 
 **The distinction that matters** — a slice is not a **segment**. A segment is who the customer is —
-region, tier, channel — and it is a reporting cut. A slice is what makes the work *hard*, and it is a
-measurement cut: the honest question is "which kinds of case does this get wrong", not "which
-customers". Reporting by segment produces an average that is true of nobody and hides the slice that
-is failing; and because bars are derived from damage, two slices in the same segment routinely carry
-bars twenty points apart.
+region, tier, channel — and it is a reporting cut; a slice is what makes the work *hard*, and it is a
+measurement cut. Reporting by segment produces an average true of nobody, and because bars come from
+damage, two slices inside one segment routinely carry bars twenty points apart.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 1 ·
 [Scenario Library](Scenario-Library)
@@ -714,12 +656,10 @@ bars twenty points apart.
 **In one line** — one row per consequential action: input (redacted), tools called, the decision,
 model version, approver, cost. Replayable, auditable, and not a breach target.
 
-**The distinction that matters** — a trace is not a **log**. A log is written for the engineer
-debugging tonight and is allowed to be verbose, partial and full of raw payloads; a trace is written
-for the question asked in six months — *why did it do that, on whose authority, at what cost* — and
-it is designed around being answerable and around **redaction**. That second half is what teams skip:
-a complete trace of every prompt and response is an excellent audit record and an excellent thing to
-have stolen. Redact at write time, because redacting later means it was stored.
+**The distinction that matters** — a trace is not a **log**. A log serves the engineer debugging
+tonight and may be verbose, partial and full of raw payloads; a trace answers the question asked in
+six months — *why did it do that, on whose authority, at what cost* — and is designed around
+**redaction**. Redact at write time, because redacting later means it was stored.
 
 **Where you meet it** — [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary),
 move 5
@@ -734,12 +674,10 @@ move 5
 
 **In one line** — time saved **and** money spent, reported together, always.
 
-**The distinction that matters** — this is not a **dashboard**, and adding more numbers makes it
-worse. The pairing is the mechanism: a single number can be pushed, and the paired one is chosen
-precisely because pushing the first moves it. A first cycle that saves time and costs more is a
-normal result and a reportable one; the programme gets cancelled on the number you hid, not on the
-number that looked bad. Two supporting rows keep it honest — review hours added, which is high in
-cycle one and falls, and re-runs, which is where model switching and vague asks show up first.
+**The distinction that matters** — this is not a **dashboard**, and adding numbers makes it worse.
+The pairing is the mechanism: the second number is chosen because pushing the first moves it. A cycle
+that saves time and costs more is a normal result — the programme is cancelled on the number you hid,
+not on the one that looked bad. Two rows keep it honest: review hours added, and re-runs.
 
 **Where you meet it** — [Gates and Governance](Gates-and-Governance) ·
 [the two-number report](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report)
@@ -755,11 +693,9 @@ cycle one and falls, and re-runs, which is where model switching and vague asks 
 Cockburn, *Crystal Clear*, 2004. Day one of a bolt plan.
 
 **The distinction that matters** — a skeleton is not an **MVP** and not a **spike**. An MVP is the
-smallest thing a *customer* would find useful; a skeleton is the smallest thing that proves the
-*system* connects, and it may be worthless to a customer — a hard-coded answer returned through the
-real gateway, the real tool and the real trace is a perfect skeleton. A spike is thrown away; a
-skeleton is the first thing you keep. It goes first because it retires the largest unknown — do
-these pieces talk at all — for half a day's work, which is the whole argument in unknown-days.
+smallest thing a *customer* finds useful; a skeleton is the smallest thing that proves the *system*
+connects, and it may be worthless to a customer. A spike is thrown away; a skeleton is the first
+thing you keep, and it goes first because it retires the largest unknown for half a day's work.
 
 **Where you meet it** — [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts), move 2
 
