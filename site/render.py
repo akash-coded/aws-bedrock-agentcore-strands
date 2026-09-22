@@ -53,9 +53,18 @@ def md(text: str) -> str:
 
     return re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", link, out)
 
+# Before the manual existed, the tool was served at the root, so links of the form
+# ".../#/pm/step-6" are in the wiki, in discussions and in people's bookmarks. The tool now lives at
+# /simulator/, and this forwards those routes there before anything renders. Runs in <head> on the
+# home page only; every other page is new and has no legacy routes to honour.
+LEGACY_HASH_REDIRECT = (
+    "\n<script>(function(){var h=location.hash;"
+    "if(h&&h.charAt(1)===\"/\"){location.replace(\"simulator/\"+h);}})();</script>"
+)
+
 
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
-          nav_id: str = "", canonical: str = "") -> str:
+          nav_id: str = "", canonical: str = "", head_extra: str = "") -> str:
     up = "../" * depth
     accent_css = f'<style>:root{{--accent:{accent}}}</style>' if accent else ""
     nav = []
@@ -99,7 +108,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="{up}theme/base.css">{accent_css}
+<link rel="stylesheet" href="{up}theme/base.css">{accent_css}{head_extra}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -403,8 +412,9 @@ def home_page(roles: list[dict]) -> str:
     desc = (f"An operating manual for the agentic era, by role. {total_steps} steps, {total_acts} "
             f"sub-steps, templates and {total_prompts} copy-paste prompts, from discovery to production. "
             f"Built by {AUTHOR}.")
-    return shell(title="The agentic manual · your role, end to end", desc=desc, body=body, depth=0,
-                 nav_id="home", canonical=BASE_URL)
+    return shell(title="The agentic manual · your role, end to end", desc=desc, body=body,
+                 depth=0, nav_id="home", canonical=BASE_URL,
+                 head_extra=LEGACY_HASH_REDIRECT)
 
 
 # --------------------------------------------------------------------------- diagrams
