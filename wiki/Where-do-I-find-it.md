@@ -9,9 +9,34 @@ A lookup table across all four surfaces. If you know what you want but not where
 | What an agent actually is, vs a workflow | [Module 00](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/00-agentic-foundations) · [Autonomy Ladder](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/cheatsheets/frameworks/autonomy-ladder.md) |
 | How LLMs work, without maths | [Module 01](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/01-llm-and-aws-bridge) · [LLM Intuition Bank](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/2) |
 | What transfers off AWS | [Portability matrix](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/concepts/portability-matrix.md) |
-| The agentic PDLC, as one simulation with six decisions and thirty-eight scenarios | [SkyWays Architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [ideas thread](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
+| The agentic PDLC, as one simulation | [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [ideas thread](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
 | A definition of a term | [Glossary](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/concepts/glossary.md) |
 | Which AWS service does what | [AWS service map](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/concepts/aws-service-map.md) |
+
+
+## The playbook: method, roles and process
+
+| I want… | It is here |
+| --- | --- |
+| The four phases and what each one owes the next | [The Agentic PDLC](The-Agentic-PDLC) |
+| Which loop closes where, and who owns it | [The Eight Loops](The-Eight-Loops) |
+| The five gates, and which ones are mine | [Gates & Governance](Gates-and-Governance) |
+| The documents owed at each hand-off | [The Evidence Pack](The-Evidence-Pack) |
+| My own eighteen steps, P0 to P3 | [PM](Role-Product-Manager) · [Architect](Role-Solution-Architect) · [Engineering](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [Sponsor](Role-Sponsor) |
+| How to derive an acceptance bar | [Formulas & Calculators](Formulas-and-Calculators) · [How to Prove the Bar](How-to-Prove-the-Bar) |
+| Whether a score has actually proven the bar | [How to Prove the Bar](How-to-Prove-the-Bar) |
+| Why the token bill left its estimate | [How to Control the Token Bill](How-to-Control-the-Token-Bill) |
+| Where a cap should live | [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) |
+| How to run the postmortem | [How to Run a Missing-Control Postmortem](How-to-Run-a-Missing-Control-Postmortem) |
+| How to run the NFR workshop | [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop) |
+| How many agents this needs | [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) · [Decision Trees](Decision-Trees) |
+| How to unblock a review queue | [How to Review by Risk Band](How-to-Review-by-Risk-Band) |
+| A term this playbook uses oddly | [Playbook Glossary](Playbook-Glossary) |
+| A case from my own industry | [Scenario Library](Scenario-Library) |
+| Practice questions, with answers | [Exercises & Answers](Exercises-and-Answers) |
+| Whether a number here is a standard or a default | [Sources & Confidence](Sources-and-Confidence) |
+
+---
 
 ## Doing
 

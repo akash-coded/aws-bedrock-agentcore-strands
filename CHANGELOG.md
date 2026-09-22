@@ -8,6 +8,47 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-22 · The operating playbook, and a wiki that teaches it
+
+### Changed
+- **[The SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** replaces the architect's demo on GitHub Pages. Fifteen pages in place
+  of five: thirteen dated episodes, a loop map, nine simulations, seventeen calculators, a governance
+  section, an evidence pack and a concept map of 55 ideas. The tool is published byte-for-byte from
+  [`site/app/`](site/app/) as before, and the build still refuses if its bytes change
+- Site metadata, the social image and the README screenshot follow the new title; the frame's attribution
+  line now takes the tool's name from [`site/frame/config.js`](site/frame/config.js)
+
+### Added — the playbook as a wiki
+Twenty-three new [wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki) pages carrying the same method in writing, with mermaid diagrams,
+decision trees, worked arithmetic and exercises with answers:
+
+- **The spine** — [The Agentic PDLC](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC), [The Eight Loops](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Eight-Loops),
+  [Gates and Governance](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Gates-and-Governance), [The Evidence Pack](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Evidence-Pack)
+- **Five role pages**, eighteen steps each — [product manager](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Product-Manager),
+  [solution architect](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Solution-Architect), [engineering lead](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Engineering-Lead),
+  [QA lead](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-QA-Lead) and a new [sponsor](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Sponsor) page for whoever signs the budget
+- **Nine how-tos** — [NFR workshop](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Run-an-NFR-Workshop),
+  [agent on paper](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Design-an-Agent-on-Paper),
+  [build, buy or borrow](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Choose-Build-Buy-or-Borrow),
+  [bolts](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Cut-Sprints-into-Bolts), [review by risk band](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Review-by-Risk-Band),
+  [prove the bar](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar), [the token bill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill),
+  [the security boundary](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Hold-the-Security-Boundary),
+  [the missing-control postmortem](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Run-a-Missing-Control-Postmortem)
+- **Reference** — [Playbook Glossary](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Playbook-Glossary),
+  [Formulas and Calculators](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators) with every formula worked,
+  [eleven Decision Trees](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees), [Anti-Patterns](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Anti-Patterns),
+  [Sources and Confidence](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Sources-and-Confidence)
+- **[Scenario Library](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library)** — the thirteen SkyWays episodes plus **twelve new cases**
+  from healthcare, banking, insurance, retail, logistics, the public sector, manufacturing, telecoms and an
+  internal helpdesk, so the method can be tested against a change of domain
+- **[24 exercises with worked answers](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Exercises-and-Answers)**, including five interview questions
+- A **method-first study plan** — one week, no code, no AWS account — in [Study Plans](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Study-Plans)
+
+Every figure carries a confidence mark: **documented** (a vendor's published documentation, dated),
+**established** (a named, published practice) or **working method** (this playbook's own default, to tune).
+
+---
+
 ## 2026-09-04 · SkyWays Architect on GitHub Pages
 
 ### Added

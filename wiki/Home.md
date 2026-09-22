@@ -1,6 +1,7 @@
 # The map
 
-Four surfaces, ~800 files, 66 discussion threads. This page exists because no single one of them can point at the other three.
+Five surfaces, ~800 files and a wiki that is now a playbook in its own right. This page exists because
+no single surface can point at the other four.
 
 | Surface | What it is | Best entry point |
 | --- | --- | --- |
@@ -8,7 +9,8 @@ Four surfaces, ~800 files, 66 discussion threads. This page exists because no si
 | 🧭 **[Field guide](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets)** | 77 reference pages — frameworks, runbooks, playbooks, interview guides | [Frameworks index](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets/frameworks) |
 | 🧪 **[L.A.B. Simulator](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs)** | Auto-graded labs · Learn → Apply → Break | `python labs/runner/labctl.py next` |
 | 💬 **[Discussions](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)** | 66 threads, all tagged by track and level | [Index of every exercise and lab](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64) |
-| 🛫 **[SkyWays Architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** | The agentic PDLC as a simulator — six architect decisions, thirty-eight scenarios, role deep dives P0 to P3 | [Open it](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
+| 🛫 **[SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** | The agentic PDLC as a simulator — thirteen episodes, eight loops, nine simulations, seventeen calculators | [Open it](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
+| 📘 **[The playbook wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five roles, nine how-tos, 24 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
 
 **New here and want one link?** [START-HERE](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/START-HERE.md).
 
@@ -25,7 +27,11 @@ Four surfaces, ~800 files, 66 discussion threads. This page exists because no si
 | **Fit this around a job** | **[Study Plans](Study-Plans)** |
 | **Know what it will cost** | **[Cost Log](Cost-Log)** |
 | **Find a specific thing** | **[Where do I find…?](Where-do-I-find-it)** |
-| **Walk one feature through the whole lifecycle, by role** | [SkyWays Architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) — in the browser, nothing to install |
+| **Walk one feature through the whole lifecycle, by role** | [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) — in the browser, nothing to install |
+| **Learn the method as a written reference** | [The Agentic PDLC](The-Agentic-PDLC) → [The Eight Loops](The-Eight-Loops) → your [role page](Role-Product-Manager) |
+| **Work out a number** — a bar, a bound, a bill | [Formulas & Calculators](Formulas-and-Calculators) |
+| **Settle a recurring argument** | [Decision Trees](Decision-Trees) |
+| **Run a workshop or an interview** | [Scenario Library](Scenario-Library) · [Exercises & Answers](Exercises-and-Answers) |
 | **Ten minutes, one idea, graded** | A [drill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/labs/PATHWAY.md#the-drill-sequence) — post `/drill AGL-101` in the [Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) |
 | **See who is doing hands-on** | [Scoreboard](Scoreboard) · [Hands-on Tracker](https://github.com/users/akash-coded/projects/9) |
 | **Get a lab graded without installing anything** | [Simulator Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) — post a comment, a bot replies |
@@ -51,6 +57,7 @@ This wiki is the **connective and volatile layer** — the cross-surface maps, a
 
 | Page | Why it lives here |
 | --- | --- |
+| [The playbook pages](The-Agentic-PDLC) | The method behind the [live simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/), in writing. It changes as the practice does, and anyone can correct a number |
 | [Error Index](Error-Index) | Grows every time somebody hits a new one. No PR needed |
 | [Model & Region Notes](Model-and-Region-Notes) | Availability changes monthly; a versioned file would be wrong within a quarter |
 | [Cost Log](Cost-Log) | Real measured numbers from real people, not estimates |

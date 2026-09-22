@@ -118,9 +118,12 @@ No versions — this is teaching material, not a library. Instead:
 
 ---
 
-## The site: SkyWays Architect
+## The site: the SkyWays playbook
 
 Live at https://akash-coded.github.io/aws-bedrock-agentcore-strands/ · source in [`site/`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/site)
+
+The written companion is on this wiki, starting at [The Agentic PDLC](The-Agentic-PDLC). When the tool
+changes substantively, the wiki pages are what need re-checking — they carry the same numbers.
 
 | Task | How |
 | --- | --- |
