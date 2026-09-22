@@ -33,6 +33,8 @@ no single surface can point at the other four.
 | **Learn the method as a written reference** | [The Agentic PDLC](The-Agentic-PDLC) → [The Eight Loops](The-Eight-Loops) → your [role page](Role-Product-Manager) |
 | **Work out a number** — a bar, a bound, a bill | [Formulas & Calculators](Formulas-and-Calculators) |
 | **Settle a recurring argument** | [Decision Trees](Decision-Trees) |
+| **Build intuition rather than follow a procedure** | [Mental Models](Mental-Models) — twelve shapes |
+| **Explain all of this to a board** | [The operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/) |
 | **Run a workshop or an interview** | [Scenario Library](Scenario-Library) · [Exercises & Answers](Exercises-and-Answers) |
 | **Ten minutes, one idea, graded** | A [drill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/labs/PATHWAY.md#the-drill-sequence) — post `/drill AGL-101` in the [Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) |
 | **See who is doing hands-on** | [Scoreboard](Scoreboard) · [Hands-on Tracker](https://github.com/users/akash-coded/projects/9) |

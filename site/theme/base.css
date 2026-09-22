@@ -253,6 +253,17 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media (max-width:760px){.two{grid-template-columns:1fr}}
 
+
+/* ----------------------------------------------------------------------
+   Gutter grids. A two-column grid whose first track is a narrow gutter for
+   a ::before marker must place that marker explicitly and send every real
+   child to column two. Without this the third child silently wraps into a
+   22px column and renders one word per line. This has now been the cause
+   of three separate layout bugs; the rule is stated once, here.
+   ---------------------------------------------------------------------- */
+.gutter-grid > *{grid-column:2;min-width:0}
+.gutter-grid::before{grid-column:1;grid-row:1}
+
 /* ---------- footer ---------- */
 .ft{border-top:1px solid var(--rule);background:var(--paper);margin-top:52px;padding:40px 0 48px}
 .ft .in{max-width:var(--wrap);margin:0 auto;padding:0 24px;display:grid;
@@ -357,3 +368,38 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .stp .sn2 button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
 .stp .sn2 button:disabled{opacity:.42;cursor:default}
 @media print{.stp [data-step]{display:block!important}.stp .sn2,.stp [data-step-dots]{display:none}}
+
+/* ==========================================================================
+   Mental models — a glyph beside the idea. The glyph is a mnemonic, not data,
+   so it is small, schematic and identical in frame across all twelve.
+   ========================================================================== */
+.mix{list-style:none;counter-reset:mx;display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));
+  gap:8px;margin:0 0 30px}
+.mix li{counter-increment:mx}
+.mix a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:2px 10px;align-content:start;
+  padding:10px 13px;border-radius:11px;border:1px solid var(--rule);background:var(--paper);height:100%}
+.mix a:hover{border-color:var(--accent);text-decoration:none}
+.mix a::before{content:counter(mx);grid-column:1;grid-row:1;font-family:var(--f-mono);font-size:11px;
+  color:var(--faint);padding-top:2px}
+.mix a > *{grid-column:2;min-width:0}
+.mix b{display:block;font-size:14px;color:var(--ink);font-weight:600;line-height:1.3}
+.mix span{display:block;font-size:12.5px;color:var(--soft);margin-top:2px;line-height:1.45}
+
+.mm{display:grid;grid-template-columns:284px minmax(0,1fr);gap:28px;align-items:start;
+  padding:26px 0;border-top:1px solid var(--rule);scroll-margin-top:84px}
+.mm:first-of-type{border-top:0}
+@media (max-width:900px){.mm{grid-template-columns:1fr;gap:16px}}
+.mmg{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px;
+  position:sticky;top:78px}
+@media (max-width:900px){.mmg{position:static}}
+.mg{width:100%;height:auto;display:block;color:var(--ink)}
+.mmb h3{font-size:21px;margin:0 0 8px}
+.mmb .mo{font-size:16.5px;line-height:1.5;color:var(--ink);font-weight:500;max-width:62ch;margin:0 0 16px}
+.mmb p{font-size:14.8px;max-width:66ch}
+.mmb .ml{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;
+  border:1px solid color-mix(in oklab,var(--ok) 32%,transparent);
+  background:color-mix(in oklab,var(--ok) 7%,transparent);border-radius:11px;padding:12px 15px;
+  font-size:14.5px;color:var(--ink2);margin:4px 0 12px;max-width:none}
+.mmb .ml span:first-child{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ok);white-space:nowrap}
+.mmb .mw{font-size:13px;color:var(--soft);margin:0}

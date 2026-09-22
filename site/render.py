@@ -76,8 +76,9 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
             continue
         cur = ' aria-current="page"' if nav_id == rid else ""
         nav.append(f'<a href="{up}{rid}/"{cur}>{_E(nav_label.get(rid, name))}</a>')
-    for slug, label in (("protocol", "For leadership"), ("templates", "Templates"),
-                        ("prompts", "Prompts"), ("frameworks", "Frameworks")):
+    for slug, label in (("protocol", "For leadership"), ("models", "Mental models"),
+                        ("templates", "Templates"), ("prompts", "Prompts"),
+                        ("frameworks", "Frameworks")):
         cur = ' aria-current="page"' if nav_id == slug else ""
         nav.append(f'<a href="{up}{slug}/"{cur}>{label}</a>')
     nav.append(f'<a href="{up}app/SkyWays-Architect.html">Simulator</a>')
@@ -599,13 +600,16 @@ def render(out_dir: Path) -> list[str]:
     put("templates/index.html", library_page(roles, "templates"))
     put("prompts/index.html", library_page(roles, "prompts"))
     put("frameworks/index.html", frameworks_page())
-    from pages import protocol
-    put("protocol/index.html", protocol.build(shell, {"base": BASE_URL, "repo": REPO, "wiki": WIKI}))
+    from pages import models, protocol
+    ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
+    put("protocol/index.html", protocol.build(shell, ctx))
+    put("models/index.html", models.build(shell, ctx))
     return written
 
 
 def urls() -> list[str]:
-    u = [BASE_URL, BASE_URL + "protocol/", BASE_URL + "templates/", BASE_URL + "prompts/",
+    u = [BASE_URL, BASE_URL + "protocol/", BASE_URL + "models/", BASE_URL + "templates/",
+         BASE_URL + "prompts/",
          BASE_URL + "frameworks/",
          BASE_URL + "app/SkyWays-Architect.html"]
     return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]

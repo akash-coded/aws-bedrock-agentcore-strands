@@ -34,6 +34,7 @@
 [Run a missing-control postmortem](How-to-Run-a-Missing-Control-Postmortem)
 
 **Reference**
+[Mental Models](Mental-Models)
 [Playbook Glossary](Playbook-Glossary)
 [Formulas & Calculators](Formulas-and-Calculators)
 [Decision Trees](Decision-Trees)
@@ -64,6 +65,8 @@
 ### 📦 In the repository
 
 [📘 The manual · live](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
+[👔 For leadership](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)
+[🧠 Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)
 [Templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/)
 [Prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)
 [Frameworks & acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)

@@ -34,6 +34,8 @@ A lookup table across all four surfaces. If you know what you want but not where
 | How to run the NFR workshop | [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop) |
 | How many agents this needs | [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) · [Decision Trees](Decision-Trees) |
 | How to unblock a review queue | [How to Review by Risk Band](How-to-Review-by-Risk-Band) |
+| An intuition I can carry into a case this playbook never covered | [Mental Models](Mental-Models) |
+| The whole thing explained to a CEO | [The operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/) |
 | A term this playbook uses oddly | [Playbook Glossary](Playbook-Glossary) |
 | A case from my own industry | [Scenario Library](Scenario-Library) |
 | Practice questions, with answers | [Exercises & Answers](Exercises-and-Answers) |
