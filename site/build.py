@@ -25,15 +25,15 @@ SRC = SITE / "app" / "SkyWays-Architect.html"
 BASE_URL = "https://akash-coded.github.io/aws-bedrock-agentcore-strands/"
 REPO_URL = "https://github.com/akash-coded/aws-bedrock-agentcore-strands"
 AUTHOR = "Akash Das"
-TITLE = "SkyWays Architect · the agentic PDLC in one simulation"
-DESCRIPTION = ("One agentic feature, six architect decisions, thirty-eight scenarios. An interactive walk-through "
-               "of the agentic PDLC by role, built by Akash Das.")
+TITLE = "SkyWays · the agentic PDLC operating playbook"
+DESCRIPTION = ("Ninety days of one airline's agentic build, in thirteen episodes: eight loops, nine simulations, "
+               "seventeen calculators and fifty-four role steps from frame to run. Built by Akash Das.")
 
 JSON_LD = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "SkyWays Architect",
-    "alternateName": "SkyWays · Architect's Demo",
+    "name": "SkyWays · the agentic PDLC operating playbook",
+    "alternateName": "SkyWays Architect",
     "url": BASE_URL,
     "description": DESCRIPTION,
     "image": BASE_URL + "assets/og.png",

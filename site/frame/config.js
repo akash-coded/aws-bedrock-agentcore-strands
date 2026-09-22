@@ -2,6 +2,8 @@
 // Read by frame/frame.js. Nothing in this file is secret; it is served to every visitor.
 window.SKYWAYS_SITE = {
   author: "Akash Das",
+  // The tool's own name, used in the footer's first sentence and the drawer.
+  siteName: "SkyWays, the agentic PDLC operating playbook",
   year: 2026,
   links: {
     repo: "https://github.com/akash-coded/aws-bedrock-agentcore-strands",

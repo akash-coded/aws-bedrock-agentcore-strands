@@ -8,6 +8,7 @@
   var links = cfg.links || {};
   var contact = cfg.contact || {};
   var author = cfg.author || "Akash Das";
+  var siteName = cfg.siteName || "SkyWays Architect";
   var year = cfg.year || new Date().getFullYear();
 
   function h(tag, attrs, kids) {
@@ -39,7 +40,7 @@
     f.innerHTML =
       '<div class="sw-wrap">' +
       "<section><h2>About this tool</h2>" +
-      '<p><span class="sw-name">SkyWays Architect</span> is an original work and the intellectual property of ' +
+      '<p><span class="sw-name">' + siteName + '</span> is an original work and the intellectual property of ' +
       '<span class="sw-name">' + author + "</span>. It is open-sourced under the " + a(links.license, "MIT Licence") +
       " for knowledge and experience sharing: study it, fork it, teach with it, and keep the copyright notice and " +
       "attribution when you reuse any part of it.</p>" +
