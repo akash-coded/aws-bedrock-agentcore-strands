@@ -130,8 +130,7 @@ Resources:
         TimeUnit: MONTHLY
         BudgetLimit: {Amount: {Ref: MonthlyBudgetUsd}, Unit: USD}
         CostFilters:
-          # Activate this tag key in the payer account on the same day. Cost data
-          # starts at activation; it does not go back and label last month.
+          # Activate this key in the payer account today: cost data starts at activation.
           TagKeyValue: ["user:Feature$<feature>"]
       NotificationsWithSubscribers:
         - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN,
@@ -647,15 +646,10 @@ on:
   pull_request:
   schedule:
     - cron: "0 2 * * *"        # the FULL set, nightly
-  workflow_dispatch:
 
 permissions:
   id-token: write              # OIDC. No long-lived keys in the repository.
   contents: read
-
-concurrency:
-  group: agent-ci-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   fast:
@@ -664,8 +658,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
-      - run: pip install -r requirements-dev.txt
-      - run: ruff check . && mypy src
+      - run: pip install -r requirements-dev.txt && ruff check . && mypy src
       - run: pytest tests/unit tests/exact -q   # caps, fare rules, schemas
       - run: python tools/check_no_bare_model_id.py environments/
 
@@ -682,13 +675,12 @@ jobs:
           aws-region: <eu-west-1>
       - name: Which slices did this change touch
         id: slices
+        # A prompt or model change touches everything, so the map does not apply.
         run: |
-          # A prompt or model change touches everything, so the map does not apply.
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
-            echo "slices=all" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python tools/slice_map.py --diff "origin/${{ github.base_ref }}...HEAD" >> "$GITHUB_OUTPUT"
           else
-            python tools/slice_map.py \
-              --diff "origin/${{ github.base_ref }}...HEAD" >> "$GITHUB_OUTPUT"
+            echo "slices=all" >> "$GITHUB_OUTPUT"
           fi
       - name: Restore the model response cache
         uses: actions/cache@v4
@@ -704,8 +696,8 @@ jobs:
           python -m harness judge --judge-version-from environments/eval.yaml
           python -m harness gate --bars docs/bar-sheet.yaml --summary "$GITHUB_STEP_SUMMARY"
         # gate exits non-zero when ANY slice's 95% lower bound is below its bar.
-# Branch protection: `eval` is a REQUIRED status check. A job that only
-# comments is a report, and reports do not stop releases.
+# Branch protection: `eval` is a REQUIRED status check. A job that only comments
+# is a report, and a report has never stopped a release.
 ```
 
 </details>
@@ -1033,7 +1025,7 @@ Your existing observability answers whether it is up and whether it is fast, and
 ```python
 # trace.py - one write per consequential action: the metric and the row that
 # produced it, in the same CloudWatch Logs record (Embedded Metric Format).
-# Rule: MASK, never omit. A masked field is a row you can reconcile; a missing
+# Rule: MASK, never omit. A masked field is a row you can reconcile; a dropped
 # row is an incident you cannot explain.
 import json
 import time
@@ -1074,9 +1066,7 @@ def emit(case_id, slice_name, action, model, prompt_version, flag_state,
                             {"Name": "CacheHit", "Unit": "Count"}],
             }],
         },
-        "Environment": "<prod>",
-        "Slice": slice_name,
-        "Action": action,
+        "Environment": "<prod>", "Slice": slice_name, "Action": action,
         "CostPerCaseUsd": float(cost_usd(model, tokens_in, cached_in, tokens_out)),
         "Loops": loops,
         # MARKED. A cache hit counted as a fresh call inflates the bill you report.
@@ -1422,8 +1412,7 @@ Rollback is a capability, and a capability nobody has used is a belief. Rehearse
 
 ```bash
 #!/usr/bin/env bash
-# rollback.sh - three artefacts, four switches, each with a MEASURED time.
-# Rehearsed <date> by <name>, stopwatch in hand:
+# rollback.sh - three artefacts, four switches. Rehearsed <date> by <name>:
 #   kill    ~40s  every case to the desk queue, with its context. NOT an error.
 #   flag    ~2m   one action back to shadow; the other actions keep running.
 #   prompt  ~3m   runtime picks up the previous prompt version on the next case.
