@@ -316,7 +316,8 @@
     "Setting autonomy from model capability. The question is never what it can do; it is what a mistake costs and whether you can undo it.",
     "Omitting the review row to make cycle one look better. Cycle two then looks like a regression, and you spend the meeting explaining an artefact of your own reporting."
    ],
-   "done_when": "Finance can change one assumption in your value line and see the answer move, and every action has a level that somebody derived rather than preferred."
+   "done_when": "Finance can change one assumption in your value line and see the answer move, and every action has a level that somebody derived rather than preferred.",
+   "calc": "value"
   },
   {
    "n": 4,
@@ -413,7 +414,9 @@
     "A single bar for the whole feature. The easy slice waits while the hard slice ships below its bar, and the average hides both.",
     "Deleting the PRD. It is the source you shard from and the record of why; the spec is the thing you build from. They do different jobs."
    ],
-   "done_when": "A coding agent and the QA lead both read the spec the same way, and neither has to ask you a question to start."
+   "done_when": "A coding agent and the QA lead both read the spec the same way, and neither has to ask you a question to start.",
+   "figure": "bar_sheet",
+   "calc": "bar"
   },
   {
    "n": 5,
@@ -501,7 +504,8 @@
     "A bolt with two unknowns. When the day fails you spend the next one bisecting, which is the cost the whole practice exists to avoid.",
     "Letting the shadow run become a date. It is a window with a threshold; as a date it will lose the argument to the launch the first time they conflict."
    ],
-   "done_when": "Every bolt in the plan can be built on its scheduled day without waiting for anything, and the walking skeleton is on day one."
+   "done_when": "Every bolt in the plan can be built on its scheduled day without waiting for anything, and the walking skeleton is on day one.",
+   "figure": "bolt_days"
   },
   {
    "n": 6,
@@ -682,7 +686,9 @@
     "A three-day shadow as a formality. It contains no weekend and no disruption day, so it buys false confidence at full price.",
     "Reading only the aggregate agreement. The slice with the money in it is small, and small slices disappear into averages."
    ],
-   "done_when": "You can tell the sponsor what share of traffic the agent handles, what evidence earned it, and how fast you can take it back."
+   "done_when": "You can tell the sponsor what share of traffic the agent handles, what evidence earned it, and how fast you can take it back.",
+   "figure": "shadow_widen",
+   "calc": "evidence"
   },
   {
    "n": 8,
@@ -779,7 +785,8 @@
     "Withholding the cost number while it is still bad, meaning to show it once it improves. That is the exact sequence that gets programmes cancelled, and it is usually done by people trying to protect them.",
     "Counting AI tool adoption as maturity. It rewards the least mature behaviour available; nine tools with no gates is level one."
    ],
-   "done_when": "Your sponsor has never learned a number about this programme from someone other than you."
+   "done_when": "Your sponsor has never learned a number about this programme from someone other than you.",
+   "figure": "two_numbers"
   }
  ]
 }

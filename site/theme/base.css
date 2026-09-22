@@ -403,3 +403,9 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .mmb .ml span:first-child{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
   color:var(--ok);white-space:nowrap}
 .mmb .mw{font-size:13px;color:var(--soft);margin:0}
+
+/* worked-example figures inside a step */
+.fig{margin:14px 0 0;padding:0}
+.fig svg{width:100%;height:auto;display:block;background:var(--bone);border:1px solid var(--rule);
+  border-radius:12px;padding:12px;color:var(--ink)}
+.fig figcaption{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5;max-width:64ch}

@@ -167,6 +167,28 @@ def block(kind: str, title: str, subtitle: str, body: str, bid: str) -> str:
 <pre id="{bid}"><code>{_E(body)}</code></pre></div>"""
 
 
+def figure_html(step: dict) -> str:
+    """A step draws a figure only where the shape of the thing is the lesson."""
+    name = step.get("figure")
+    if not name:
+        return ""
+    from pages.figures import FIGURES
+    fn = FIGURES.get(name)
+    return fn() if fn else ""
+
+
+def calc_section(step: dict) -> str:
+    """A step embeds a calculator only where the reader is about to do arithmetic."""
+    name = step.get("calc")
+    if not name:
+        return ""
+    from pages import calcs
+    if name not in calcs.SPECS:
+        return ""
+    return (f'<section><div class="lbl">Work it out on your numbers</div>'
+            f"{calcs.render(name)}</section>")
+
+
 def step_html(role: dict, s: dict) -> str:
     acts = "".join(
         f'<li><b>{md(a["do"])}</b><span>{md(a["detail"])}</span></li>' for a in s["activities"])
@@ -211,7 +233,9 @@ def step_html(role: dict, s: dict) -> str:
   <section><div class="lbl">Prompts you can paste</div>{prompts}</section>
 
   <section><div class="lbl">Worked example</div>
-    <div class="eg"><h4>{md(s['example']['title'])}</h4><p>{md(s['example']['body'])}</p></div></section>
+    <div class="eg"><h4>{md(s['example']['title'])}</h4><p>{md(s['example']['body'])}</p></div>
+    {figure_html(s)}</section>
+  {calc_section(s)}
 
   <section><div class="lbl">Pitfalls</div><ul class="ticks no">{pitfalls}</ul></section>
 
@@ -239,6 +263,13 @@ def role_page(role: dict) -> str:
     toc = "".join(f'<li><a href="#{s["id"]}">{s["n"]}. {_E(s["phase"])}</a></li>' for s in role["steps"])
     n_p = sum(len(s["prompts"]) for s in role["steps"])
     n_a = sum(len(s["activities"]) for s in role["steps"])
+    n_f = sum(1 for s in role["steps"] if s.get("figure"))
+    n_c = sum(1 for s in role["steps"] if s.get("calc"))
+    extra_pills = ""
+    if n_f:
+        extra_pills += f' <span class="pill">{n_f} figures</span>'
+    if n_c:
+        extra_pills += f' <span class="pill">{n_c} calculators</span>'
 
     body = f"""<div class="cols">
 <aside class="rail" aria-label="Steps"><h2>The journey</h2><ol>{rail}</ol>
@@ -251,7 +282,7 @@ def role_page(role: dict) -> str:
     <h1>{_E(role['name'])}</h1>
     <p class="lede">{md(role['tagline'])}</p>
     <p><span class="pill acc">{len(role['steps'])} steps</span> <span class="pill">{n_a} sub-steps</span>
-       <span class="pill">{len(role['steps'])} templates</span> <span class="pill">{n_p} prompts</span></p>
+       <span class="pill">{len(role['steps'])} templates</span> <span class="pill">{n_p} prompts</span>{extra_pills}</p>
   </div>
 
   <div class="arc">{arc}</div>

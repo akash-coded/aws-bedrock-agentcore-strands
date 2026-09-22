@@ -144,7 +144,9 @@
     "Chasing the unheld bar. A 98% bar on refunds is unreachable and the held version is 71%, so three weeks spent on the score is three weeks not spent on the one-line change that moves the bar.",
     "Accepting one test on a consequential step. Over-cap and no-confirmation are different holes, and the $2,000 on day 82 went through both of them at once."
    ],
-   "done_when": "Every step on the architect's map has a tag, the proof that tag owes, and — where it is best-guess — a bar with the two money figures it was derived from written beside it."
+   "done_when": "Every step on the architect's map has a tag, the proof that tag owes, and — where it is best-guess — a bar with the two money figures it was derived from written beside it.",
+   "figure": "bar_sheet",
+   "calc": "bar"
   },
   {
    "n": 2,
@@ -527,7 +529,8 @@
     "The normal approximation at small n. At twenty cases it is systematically optimistic; use Wilson under about a hundred and say in the readout which one you used.",
     "Treating unproven as failed. It blocks a release that only owed you cases, and it teaches the team that the harness is an obstacle to route around rather than an instrument to read."
    ],
-   "done_when": "No score leaves your hands without its n and its lower bound beside it, and every unproven slice carries the number of cases it owes."
+   "done_when": "No score leaves your hands without its n and its lower bound beside it, and every unproven slice carries the number of cases it owes.",
+   "calc": "proof"
   },
   {
    "n": 6,
@@ -721,7 +724,9 @@
     "A three-day window as a formality. It holds no weekend and no disruption day, so it buys false confidence at full price — and worse than no shadow run, because a number is quotable.",
     "Promising a cut-over date before doing the division. At 5% of 240 cases a day you see twelve a day, so a 500-case slice needs 42 days, and nobody who promised a fortnight had run the numbers."
    ],
-   "done_when": "Agreement is reported per slice over a window fixed in advance, 'shadow never writes' is a passing test in the nightly job, and every widening step has a day count derived from traffic rather than a date chosen in a meeting."
+   "done_when": "Agreement is reported per slice over a window fixed in advance, 'shadow never writes' is a passing test in the nightly job, and every widening step has a day count derived from traffic rather than a date chosen in a meeting.",
+   "figure": "shadow_widen",
+   "calc": "evidence"
   },
   {
    "n": 8,

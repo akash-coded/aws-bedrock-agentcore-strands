@@ -512,7 +512,8 @@
     "A confirmation token the agent can construct. If it can be derived from the booking id the model already holds, it is a parameter with a serious-sounding name and no gate behind it.",
     "Deleting the prompt sentence once the signature is in place. The sentence is what makes the agent behave well by default; the signature is what holds when it does not. Keep both, and label which is which."
    ],
-   "done_when": "For every tool at R3 or above, `test_over_cap_raises` and `test_no_confirmation_raises` are green, and the cap appears nowhere outside the config file and the signature."
+   "done_when": "For every tool at R3 or above, `test_over_cap_raises` and `test_no_confirmation_raises` are green, and the cap appears nowhere outside the config file and the signature.",
+   "figure": "authority_ladder"
   },
   {
    "n": 6,
@@ -702,7 +703,8 @@
     "Discovering at two in the afternoon that a bolt cannot be built alone. The information was available at nine; what was missing was somebody willing to say the cut was wrong before spending the day proving it.",
     "A shadow path that writes. It is an intention until it is a test, and the first time it writes it does so on real bookings, which is the exact risk the shadow run existed to remove."
    ],
-   "done_when": "Every bolt merged on the day it was built, the shadow path has a test that fails the build if a write is reachable, and somebody other than you has thrown the rollback flag in a rehearsal with a stopwatch running."
+   "done_when": "Every bolt merged on the day it was built, the shadow path has a test that fails the build if a write is reachable, and somebody other than you has thrown the rollback flag in a rehearsal with a stopwatch running.",
+   "figure": "bolt_days"
   },
   {
    "n": 8,
@@ -799,7 +801,9 @@
     "A latency dashboard that flags very fast responses as suspected failures. Cache hits return fast, hundreds get reported as anomalies, and somebody proposes switching the cache off — which raises the bill by about a third within a day, because the anomaly was the cache working.",
     "An injection test that asserts on the model's wording. It goes red for the wrong reason after the next prompt edit and green for the wrong reason the week after, and nobody trusts it by month three."
    ],
-   "done_when": "A test asserts a cache read above zero on the second call, every agent loop has a cap, a passport number cannot reach a trace row, and the injection suite has a run dated this week."
+   "done_when": "A test asserts a cache read above zero on the second call, every agent loop has a cap, a passport number cannot reach a trace row, and the injection suite has a run dated this week.",
+   "figure": "cache_prefix",
+   "calc": "cache"
   }
  ]
 }

@@ -151,30 +151,10 @@ and no delivery role owns it. If nobody is asking the four questions below every
 
 
 def _decisions() -> str:
-    bar = k.calc(
-        "bar", "What accuracy is worth requiring", "drag the two costs; the bar is derived, not chosen",
-        [{"key": "saving", "label": "Value of one right answer ($)", "min": 1, "max": 100, "value": 9},
-         {"key": "damage", "label": "Cost of one wrong answer ($)", "min": 1, "max": 1000, "step": 1, "value": 36},
-         {"key": "holdcut", "label": "A person checks it first — damage falls to (%)", "min": 1, "max": 100, "value": 25}],
-        [{"key": "n", "label": "Right answers one mistake undoes"},
-         {"key": "bar", "label": "Required accuracy", "big": True},
-         {"key": "barheld", "label": "…with a person in the loop"},
-         {"key": "verdict", "verdict": True,
-          "value": "Reachable. Prove it with the lower bound, not the score."}],
-        "bar = N ÷ (N + 1), where N = damage ÷ saving")
-    value = k.calc(
-        "value", "What the work is worth, honestly", "the two terms that are always left out are already in here",
-        [{"key": "cases", "label": "Cases per day", "min": 10, "max": 5000, "step": 10, "value": 240},
-         {"key": "minutes", "label": "Minutes saved per case", "min": 1, "max": 60, "value": 8},
-         {"key": "rate", "label": "Loaded cost per minute ($)", "min": 0.2, "max": 3, "step": 0.05, "value": 0.75},
-         {"key": "runcost", "label": "Token cost per case ($)", "min": 0, "max": 5, "step": 0.05, "value": 0.6},
-         {"key": "reviewshare", "label": "Share of cases a human checks (%)", "min": 0, "max": 100, "value": 30},
-         {"key": "reviewmin", "label": "Minutes to check one", "min": 0, "max": 20, "step": 0.5, "value": 3}],
-        [{"key": "gross", "label": "Gross saving"}, {"key": "run", "label": "Token cost"},
-         {"key": "review", "label": "Review load"},
-         {"key": "net", "label": "Net", "big": True}, {"key": "year", "label": "Per working year"},
-         {"key": "verdict", "verdict": True, "value": "Positive, with review under control."}],
-        "net = cases × minutes × rate − run − review")
+    from . import calcs
+    bar = calcs.render("bar")
+    value = calcs.render("value")
+
     return f"""<div class="sec">
 <h2>The four decisions nobody can make for you</h2>
 <p>Delivery decisions belong to delivery. These four do not, because each one trades a business risk

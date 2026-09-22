@@ -625,7 +625,8 @@
     "A cap that lives in prompt text. It lowers a probability and closes no path, and it reads exactly like a control in a design review, which is the whole reason it is dangerous.",
     "Treating every open decision as hard. The build queues behind eleven questions that could each have run behind a stub, and the delay gets blamed on governance rather than on the classification."
    ],
-   "done_when": "A grep of every prompt returns no cap, no currency amount and no 'ask before', and each rule you removed has an over-cap or no-confirmation test standing in its place."
+   "done_when": "A grep of every prompt returns no cap, no currency amount and no 'ask before', and each rule you removed has an over-cap or no-confirmation test standing in its place.",
+   "figure": "authority_ladder"
   },
   {
    "n": 7,
@@ -722,7 +723,8 @@
     "One broad tool with an action parameter. It looks tidy in the schema, and it means every path through it carries the authority of the most dangerous action it can reach.",
     "A checker reading its own output in its own context. It shares the blind spots that produced the error, so it returns a confident yes and the chain keeps its 66%."
    ],
-   "done_when": "Every rule has exactly one place it can be edited, every write tool requires a confirmation the model cannot mint, and the chain accuracy is a multiplication with a checker after each step whose errors are expensive and invisible."
+   "done_when": "Every rule has exactly one place it can be edited, every write tool requires a confirmation the model cannot mint, and the chain accuracy is a multiplication with a checker after each step whose errors are expensive and invisible.",
+   "figure": "chain"
   },
   {
    "n": 8,
@@ -819,7 +821,9 @@
     "A latency alert that flags cache hits as suspected failures. It reports hundreds of them, somebody proposes switching the cache off, and the bill rises by about a third within a day because the anomaly was the cache working.",
     "A postmortem that ends in a name, or in a better prompt. Neither is a control, and the next incident of the same class is already scheduled."
    ],
-   "done_when": "The second call on a live prompt reports cache tokens read, a runaway loop stops at five, a passport number never reaches a trace row, and your last incident produced a typed parameter rather than a name."
+   "done_when": "The second call on a live prompt reports cache tokens read, a runaway loop stops at five, a passport number never reaches a trace row, and your last incident produced a typed parameter rather than a name.",
+   "figure": "cache_prefix",
+   "calc": "cache"
   }
  ]
 }

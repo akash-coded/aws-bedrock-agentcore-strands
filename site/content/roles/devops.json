@@ -427,7 +427,8 @@
     "Gating on one overall score. The easy slice is the high-volume one, so it lifts the average while the slice carrying the money fails quietly underneath it.",
     "An unpinned judge. Its version moves, every score moves with it, and a week goes into hunting a product regression that is actually a change in the measuring instrument."
    ],
-   "done_when": "A pull request with any slice below its bar cannot be merged, and the person who tried can see which slice and by how much without opening a log."
+   "done_when": "A pull request with any slice below its bar cannot be merged, and the person who tried can see which slice and by how much without opening a log.",
+   "calc": "queue"
   },
   {
    "n": 5,
@@ -617,7 +618,9 @@
     "Redacting by omission. The schema passes review, the incident arrives, and the row that would have explained it is precisely the row that was dropped for safety.",
     "Scraping cost metrics out of text logs. The regex survives until somebody reformats a message, and then it fails silently: the chart goes flat, which reads as good news."
    ],
-   "done_when": "For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it — with nothing unmasked that should not be."
+   "done_when": "For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it — with nothing unmasked that should not be.",
+   "figure": "bill_factors",
+   "calc": "bill"
   },
   {
    "n": 7,

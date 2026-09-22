@@ -106,6 +106,22 @@ def check(role: dict) -> list[str]:
     return bad
 
 
+def apply_enrichment(role: dict) -> tuple[int, list[str]]:
+    """Attach presentation hints. A hint naming a step that does not exist is a build error."""
+    from enrich import ENRICH  # noqa: PLC0415 - local so the module stays importable alone
+
+    ids = {s["id"] for s in role["steps"]}
+    bad = [f"{role['id']}: enrichment names step '{sid}', which does not exist"
+           for (rid, sid) in ENRICH if rid == role["id"] and sid not in ids]
+    n = 0
+    for s in role["steps"]:
+        hint = ENRICH.get((role["id"], s["id"]))
+        if hint:
+            s.update(hint)
+            n += 1
+    return n, bad
+
+
 def main() -> int:
     problems, built = [], []
     roles = discover()
@@ -118,6 +134,8 @@ def main() -> int:
             for key in sorted(k for k in ns if k.startswith("STEPS")):
                 steps.extend(ns[key])
         role["steps"] = sorted(steps, key=lambda s: s["n"])
+        n_hint, hint_problems = apply_enrichment(role)
+        problems += hint_problems
         problems += check(role)
         if problems:
             continue
@@ -125,8 +143,11 @@ def main() -> int:
         path.write_text(json.dumps(role, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
         n_p = sum(len(s["prompts"]) for s in role["steps"])
         n_a = sum(len(s["activities"]) for s in role["steps"])
+        n_fig = sum(1 for s in role["steps"] if s.get("figure"))
+        n_cal = sum(1 for s in role["steps"] if s.get("calc"))
         built.append(f"  {rid}.json — {len(role['steps'])} steps, {n_a} activities, "
-                     f"{n_p} prompts, {len(role['steps'])} templates ({path.stat().st_size:,} bytes)")
+                     f"{n_p} prompts, {len(role['steps'])} templates, "
+                     f"{n_fig} figures, {n_cal} calculators ({path.stat().st_size:,} bytes)")
     if problems:
         print("content problems:", file=sys.stderr)
         for p in problems:
