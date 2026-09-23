@@ -23,6 +23,9 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parent
 CONTENT = SITE / "content" / "roles"
 BASE_URL = "https://akash-coded.github.io/aws-bedrock-agentcore-strands/"
+# Google Search Console ownership of the URL-prefix property for BASE_URL. Public by design: Google
+# reads it from the home page. Remove the property in Search Console before removing this.
+GOOGLE_SITE_VERIFICATION = "Vs7qR2LsTIfuxi6iYvweDaC4f5nEVaRWcgzGEv2C0-0"
 REPO = "https://github.com/akash-coded/aws-bedrock-agentcore-strands"
 WIKI = REPO + "/wiki"
 AUTHOR = "Akash Das"
@@ -117,6 +120,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <title>{_E(title)}</title>
 <meta name="description" content="{_E(desc, quote=True)}">
 <meta name="author" content="{AUTHOR}">
+<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
 <link rel="canonical" href="{_E(canonical or BASE_URL, quote=True)}">
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F7F6F2">
