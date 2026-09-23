@@ -82,10 +82,10 @@ def accent_var(accent: str) -> str:
 
 
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
-          nav_id: str = "", canonical: str = "", head_extra: str = "") -> str:
+          nav_id: str = "", canonical: str = "", head_extra: str = "", own_ld: bool = False) -> str:
     up = "../" * depth
     accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
-    nav = []
+    nav = [f'<a href="{up}learn/"{' aria-current="page"' if nav_id == "learn" else ""}>Learn</a>']
     # The nav carries a shorter label where the full role name would push it onto a second line.
     nav_label = {"product-manager": "Product", "solution-architect": "Architect",
                  "engineering": "Engineering", "qa": "QA", "devops": "DevOps"}
@@ -127,7 +127,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <meta property="og:url" content="{_E(canonical or BASE_URL, quote=True)}">
 <meta property="og:image" content="{BASE_URL}assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+{"" if own_ld else f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
@@ -688,6 +688,8 @@ def render(out_dir: Path) -> list[str]:
     ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
     put("protocol/index.html", protocol.build(shell, ctx))
     put("models/index.html", models.build(shell, ctx))
+    from pages import learn
+    written += learn.render(out_dir, shell)
     return written
 
 
@@ -697,3 +699,9 @@ def urls() -> list[str]:
          BASE_URL + "frameworks/",
          BASE_URL + "app/SkyWays-Architect.html"]
     return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]
+
+
+def dated_urls() -> list[tuple[str, str | None]]:
+    """Every URL with its own last-modified date where it has one (the tutorial does)."""
+    from pages import learn
+    return [(u, None) for u in urls()] + learn.urls()

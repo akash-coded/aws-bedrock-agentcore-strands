@@ -90,8 +90,9 @@ ROBOTS = f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}sitemap.xml\n"
 
 
 def sitemap(today: str) -> str:
-    urls = render.urls() + [BASE_URL + "simulator/"]
-    body = "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
+    # The tutorial carries its own dates; a page that did not change should not claim it did.
+    urls = render.dated_urls() + [(BASE_URL + "simulator/", None)]
+    body = "".join(f"  <url><loc>{u}</loc><lastmod>{d or today}</lastmod></url>\n" for u, d in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
 
@@ -103,7 +104,7 @@ def inject(html: str) -> str:
     return html.replace("</body>", BODY + "</body>", 1)
 
 
-def build(out: Path) -> None:
+def build(out: Path, shots: bool = False) -> None:
     if not SRC.exists():
         sys.exit(f"missing {SRC}")
     if out.exists():
@@ -128,6 +129,11 @@ def build(out: Path) -> None:
     (out / "sitemap.xml").write_text(sitemap(date.today().isoformat()), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
 
+    if shots:
+        # A local-only sheet of every embeddable visual, for site/tools/shoot.mjs. Never deployed.
+        from pages import learn
+        print("  shots:", learn.shots_page(out, render.shell))
+
     # The tool must survive the build untouched, in both copies.
     if (out / "app" / SRC.name).read_text(encoding="utf-8") != original:
         sys.exit("the pristine copy of the tool differs from the source; refusing to continue")
@@ -138,13 +144,18 @@ def build(out: Path) -> None:
     files = sorted(p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file())
     total = sum((out / f).stat().st_size for f in files)
     print(f"built {out.relative_to(SITE.parent)} — {len(files)} files, {total / 1e6:.1f} MB")
-    print(f"  manual: {len(pages)} pages")
+    learn_pages = [p for p in pages if p.startswith("learn/") or p.startswith("llms")]
+    print(f"  manual: {len(pages) - len(learn_pages)} pages")
     for p in pages:
-        print(f"    {p} ({(out / p).stat().st_size:,} bytes)")
+        if p not in learn_pages:
+            print(f"    {p} ({(out / p).stat().st_size:,} bytes)")
+    print(f"  learn:  {len(learn_pages)} files (lessons, tracks, markdown twins, llms.txt)")
     print(f"  tool:   app/{SRC.name} (pristine) + simulator/index.html (framed)")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--out", default=str(SITE / "_site"), help="output directory (default: site/_site)")
-    build(Path(ap.parse_args().out).resolve())
+    ap.add_argument("--shots", action="store_true", help="also write learn/_shots/ for the screenshot tool")
+    a = ap.parse_args()
+    build(Path(a.out).resolve(), shots=a.shots)

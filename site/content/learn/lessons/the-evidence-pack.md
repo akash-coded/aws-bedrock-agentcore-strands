@@ -1,0 +1,180 @@
+---
+title: The Evidence Pack: What Must Exist Before Each AI Hand-off
+short: The evidence pack
+wiki: The-Evidence-Pack-Before-Each-Hand-off
+description: The minimum artefacts owed at each hand-off of an agentic AI project, and the one column that separates a real gate from a formality: enforced, or only written?
+dek: Thirty documents, owed across four hand-offs — and the check that a document exists is the least important check you can run on it.
+level: Intermediate
+keywords: AI project documentation, AI audit trail, AI governance artefacts, definition of done AI, phase gate deliverables, AI compliance evidence, agentic PDLC evidence pack
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The evidence pack in one sentence.** It is the minimum set of artefacts owed at each hand-off of
+> the agentic PDLC — owed meaning the next phase would have to invent it otherwise — kept on one
+> dated index, and checked not only for whether each artefact exists and is current but for whether
+> each control it describes is **enforced in code or only written down**.
+
+```mermaid
+flowchart TB
+  A["<b>P0 → P1 · soft · 7 owed</b><br/><i>pain · AI-fit · value line · autonomy per action<br/>requirements · constraints by type · NFRs</i><br/>test · can the architect design without asking?"]
+  B["<b>P1 → P2 · HARD · 9 owed</b><br/><i>spec · bar sheet · decision records · step map<br/>authority budget · topology · context layers<br/>story files · the first 50 golden cases</i><br/>test · can an outsider build bolt one alone?"]
+  C["<b>P2 → P3 · soft · 8 owed</b><br/><i>bolt plan · score with lower bound · review lanes<br/>harness · checkers · gated tools · shadow · cut-over</i><br/>test · is the bar a running check?"]
+  D["<b>P3 → next P0 · soft · 6 owed</b><br/><i>two numbers · drift readout · redacted trace<br/>bill root cause · incident brief · maturity</i><br/>test · does the next brief have an owner?"]
+  A --> B --> C --> D
+
+  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:3px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class A p0
+  class B p1
+  class C p2
+  class D p3
+  linkStyle 0 stroke:#0E7F7C,stroke-width:3px
+```
+
+**In this lesson** you'll learn:
+
+- what makes an artefact *owed* rather than merely useful;
+- the minimum set at each of the four hand-offs, and the test for each;
+- why "enforced, or only written?" is the most important column in the pack.
+
+## Sound familiar?
+
+- An auditor asks why the refund cap is $400, and the answer is in somebody's memory.
+- A new engineer spends the first week asking questions the design documents should have answered.
+- Every document exists, every checkbox is ticked, and the control it describes still failed in production.
+
+The pack exists for all three — and the third is why existence is the weakest thing you can check.
+
+## What is the evidence pack?
+
+The evidence pack is the **minimum artefact set** of the [agentic PDLC](lesson:what-is-the-agentic-pdlc):
+the few documents owed at each hand-off between phases. Together they are what you show an auditor,
+a new team member, or yourself in six months when nobody remembers why the cap is what it is.
+
+An artefact is **owed** when the next phase cannot start properly without it — the test is not whether
+someone wants it, but whether the next phase would otherwise have to invent it. Everything else is
+optional: keep it if somebody reads it, delete it if not.
+
+## Build the pack, step by step
+
+### Step 1 · Sort every document into one of four states
+
+| State | Means | What the next phase does |
+| --- | --- | --- |
+| **Owed and present** | It exists, it is current, and the receiving owner has read it | Starts |
+| **Owed and stale** | It exists, and the system has moved past it | Starts, then builds on a fiction |
+| **Owed and absent** | It does not exist | Invents it, silently and plausibly |
+| **Not owed** | Useful, but nobody downstream is blocked | Keep it if read; delete it if not |
+
+The dangerous state is the second one. A stale artefact passes every check that asks whether a
+document exists.
+
+### Step 2 · Check each hand-off against its test
+
+Each hand-off has a one-line test, drawn above. The two that matter most:
+
+- **P0 → P1.** Can the architect start designing without asking the product manager a question?
+- **P1 → P2, the hard gate.** Hand the pack to an engineer who was not in the room. If they can build
+  the first bolt without a conversation, the gate is passable.
+
+### Step 3 · Add the column nobody adds: enforced, or only written?
+
+For every control an artefact describes, record where it *should* live and run a command that proves
+it does. A cap belongs in a tool signature; an approval rule belongs in the tool and the access
+policy; "the bar blocks the merge" belongs in branch protection.
+
+| Control | Should live in | The check you run | Result |
+| --- | --- | --- | --- |
+| $400 refund cap | The refund tool's signature | `rg "max=400" src/tools/` | 0 hits — **NOT ENFORCED** |
+| Named approver above the cap | The tool, and the access policy | `rg "approver" src/ infra/` | prompt only — **NOT ENFORCED** |
+| The bar blocks the merge | A required status check | read the branch protection rule | required — enforced |
+
+Any control found only in a prompt, a runbook or a document is not enforced, and the pack says so in
+capitals. SkyWays crossed its hard gate with the authority budget written and not enforced; on day 82
+a $2,000 refund went out that the budget forbade. This single column is the difference between a gate
+and a formality.
+
+### Step 4 · Date every artefact
+
+Give every row a version and a last-changed date, and ask at each review whether the system has moved
+past it. A spec at version 3 while the code is on the behaviour of version 7 is an owed artefact in
+the stale state, and it is the one a new engineer will trust.
+
+### Step 5 · Keep it on one index page
+
+The pack is one page: one row per owed artefact, with its hand-off, owner, link, version, last-changed
+date, whether it is current, and who has read it. Everything else is a link from it. A pack that is a
+folder of documents is a pack nobody reviews.
+
+## Where you'll use it
+
+- **At every hand-off**, as the checklist the receiving owner signs.
+- **Before an audit or a regulator's question**, as the answer that does not depend on who is in the room.
+- **When onboarding** an engineer or a new agent session, as the reading list that lets them start.
+
+## Why it matters
+
+The pack is the difference between a decision that was **made** and a decision that was **kept**. Most
+of what goes wrong in an agentic system was decided correctly somewhere — the cap, the approver, the
+bar — and then never enforced, or enforced once and allowed to go stale.
+
+## Try it
+
+At the end of P1 the authority budget says refunds over $400 need a named approver. The system prompt
+says *"never refund over $400 without approval"*. A search of the tools folder for the cap returns
+nothing. **Is the P1 → P2 gate passable?**
+
+<details><summary>Show the answer</summary>
+
+**No.** The authority budget is owed and present, but the control it describes is written only — it
+lives in a prompt, which a model can be talked past. The hard gate fails on the enforcement column.
+The fix is a typed, bounded parameter in the refund tool with two tests beside it; or, if the
+programme genuinely cannot wait, a written waiver that names this gap, its blast radius and the date
+it will close.
+
+</details>
+
+## Key takeaways
+
+1. An artefact is **owed** when the next phase would otherwise have to invent it — thirty across four hand-offs.
+2. **Stale is the dangerous state**: date every artefact, because existence checks pass it.
+3. **"Enforced, or only written?"** is the column that turns the pack from paperwork into a gate.
+
+## FAQ
+
+### What documentation does an AI project need?
+
+The minimum is what each phase owes the next: the measured pain, AI-fit verdict, value line and
+autonomy decisions from framing; the spec, bar sheet, decision records, authority budget and first
+golden cases from design; the proof and cut-over plan from the build; and the two-number report,
+drift readout and incident briefs from operation.
+
+### What is an AI audit trail?
+
+A record that lets someone reconstruct, later, what a system decided, why, and under whose authority.
+In the evidence pack it is the dated index of owed artefacts plus the redacted trace of every
+consequential action — which model and prompt version decided it, what it did, and who approved it.
+
+### How is the evidence pack different from a definition of done?
+
+A definition of done applies to a piece of work; the evidence pack applies to a hand-off between
+phases. It also asks a question a definition of done rarely does: whether each control that a
+document describes is actually enforced.
+
+### Is this only for regulated industries?
+
+No. The pack is small on purpose — thirty short artefacts, most of them one screen — and the
+enforcement column pays for itself the first time it finds a cap that lives only in a prompt.
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The minimum artefact set, the four states and the enforcement column | **Original** — this playbook | [The Evidence Pack](wiki:The-Evidence-Pack) |
+| Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
+| Architecture decision records | **Borrowed** | Nygard, M. (2011). Documenting architecture decisions |
+| EARS acceptance syntax | **Borrowed** | Mavin, A. et al. (2009). Easy Approach to Requirements Syntax. *IEEE RE'09* |
+| The SkyWays figures | **Illustrative** — a fictional airline | [The evidence pack, live](sim:#/evidence) |

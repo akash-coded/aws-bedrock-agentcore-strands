@@ -1,0 +1,171 @@
+---
+title: The 8 Feedback Loops of AI Delivery and the 3 Teams Forget
+short: The eight loops
+wiki: The-8-Feedback-Loops-of-Agentic-Delivery
+description: Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three — cost, incident and governance — close only if a named person makes them.
+dek: A phase ends; a loop comes back. The loops with nobody waiting at the far end are the ones that decide whether a project becomes a practice.
+level: Intermediate
+keywords: feedback loops software delivery, AI project feedback loop, continuous improvement AI, AI incident postmortem, AI cost control loop, AI governance, agentic PDLC loops
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The eight loops in one sentence.** Each loop opens in one phase of the agentic PDLC and closes in
+> a later one when evidence from the far end **changes an artefact at the near end**; five close on
+> their own because someone downstream is waiting, while three — cost back into design, incidents
+> back into framing, and governance across the whole line — close only if a named person makes them.
+
+{{board:loops}}
+
+**In this lesson** you'll learn:
+
+- what the eight loops are, where each opens and closes, and who owns it;
+- the precise difference between a loop that is closed, open and absent;
+- how to close the three loops that nobody is waiting on.
+
+## Sound familiar?
+
+- The bill doubled, a budget increase was approved, and the same thing happened next quarter.
+- The postmortem produced eleven action items in a tracker, and the incident recurred with a different name.
+- Numbers reach the steering committee only when the steering committee asks for them.
+
+Each is a loop that was never closed — handled as a conversation instead of as a change to the design.
+
+## What are the eight loops?
+
+The four phases of the [agentic PDLC](lesson:what-is-the-agentic-pdlc) are a line. The loops are
+what make the line a ring: each one carries something learned in a later phase back to the artefact
+it should change.
+
+| Loop | Opens | Closes | Owner | What it carries |
+| --- | --- | --- | --- | --- |
+| Requirements | P0 | P1 | Solution architect | Credited requirements, typed constraints, ratified quality targets |
+| Spec | P1 | P2 | Product manager | The eight-field spec, a bar per slice, a golden set that proves it |
+| Decision | P1 | P1 | Solution architect | Choices sorted into hard and soft gates, a record per trade-off |
+| Delivery | P2 | P2 | Engineering lead | Bolts in dependency order, a harness that gates each merge |
+| Trust | P2 | P3 | QA lead | The bar proven, the shadow run, a cut-over that starts at 5% |
+| **Cost** | P3 | **P1** | Solution architect | A bill traced to its cause and back to the decision that allowed it |
+| **Incident** | P3 | **P0** | Every role | The missing control, named, and the brief for the next P0 |
+| **Governance** | P0 | P3 | Sponsor | One owner per artefact, and two numbers every cycle |
+
+**Five close forwards or inside a phase**, and they look after themselves: somebody downstream is
+waiting and will chase. **Three have nobody waiting.** Cost closes backwards into design, incident
+closes backwards into framing, and governance spans the whole line and belongs to no delivery role.
+
+## How to run the loops, step by step
+
+### Step 1 · Agree what "closed" means
+
+A loop is closed when something learned at the far end has changed an artefact at the near end, and
+you can point at the change — not a discussion, not a ticket, not a lesson learned.
+
+| Word | Means | The test |
+| --- | --- | --- |
+| **Closed** | An artefact where the loop opens has been changed by evidence from where it closes | Show the diff |
+| **Open** | The evidence exists and has a named owner, and the artefact has not changed yet | Show the owner and the date |
+| **Absent** | Nobody is accountable for the return path | You cannot name a person |
+
+"Informal" is not one of the three. A loop that closes when somebody happens to remember is absent
+with better manners.
+
+### Step 2 · Name one person for each loop
+
+For each of the eight, write a name — a person, not a team. The five forward loops usually already
+have one. For the three backward-running loops, the honest first answer is often that nobody owns
+them, and "absent" is the right word for that.
+
+### Step 3 · Close the cost loop into the design
+
+A bill that left its estimate is a **design** question, not a finance question. At SkyWays — the
+fictional airline this playbook follows — the day-75 bill was 4.4 times its estimate on flat traffic.
+Handled as a budget question, it recurs next quarter with a different multiple. Handled as a loop,
+the per-call log traced it to four habits, and the model-tier decision record got a second version:
+classification moved to the cheap tier, judgement stayed on the capable one, and cost per case became
+a monitored number. **It closes when a decision record has a new version with a diff.**
+
+### Step 4 · Close the incident loop into framing
+
+One question runs the whole incident loop: **which enforced control, if it had been present, would
+have made this impossible?** On day 82 SkyWays' agent issued a $2,000 refund that was not owed. The
+postmortem found five layers of defence claimed and none enforced; two lived only in the prompt. What
+left the room was a typed cap, a confirmation token, refunds dropped one autonomy level until a
+fourteen-day shadow run re-earned it, and six new golden cases. **It closes when a brief for the next
+P0 exists, with an owner.**
+
+### Step 5 · Give governance to the sponsor
+
+Governance is the only loop the delivery roles do not own: a minimum set of artefacts at each
+hand-off, hard gates that halt and soft gates that do not, one accountable name per artefact, and
+**two numbers reported together every cycle** — the saving and the spend. It is the loop most often
+absent, because nobody downstream is waiting for it.
+
+## Where you'll use it
+
+- **In a quarterly health check**: mark each of the eight closed, open or absent, with the evidence.
+- **After every bill anomaly and every incident**: ask which artefact at the near end should change.
+- **When onboarding a sponsor**: the governance loop is the part of the lifecycle that is theirs.
+
+## Why it matters
+
+A programme that runs the phases but not the loops ships once and then drifts. The two loops that
+close backwards are what turn a project into a practice — the first time a bill changes a design, or
+an incident changes a frame, the team stops paying for the same lesson twice.
+
+## Try it
+
+After an incident, a team's postmortem lists: *"retrain staff on refund policy; add a note to the
+prompt; review refund logs monthly"*. **Is the incident loop closed?**
+
+<details><summary>Show the answer</summary>
+
+**No — it is absent, dressed as open.** None of the three actions is an enforced control: training
+and a prompt note are both requests, and a monthly log review finds the next incident after it has
+happened. The loop closes when a control that makes the incident impossible exists — a typed cap in
+the refund tool with a test beside it, say — and a brief for the next P0 has an owner and a date.
+
+</details>
+
+## Key takeaways
+
+1. **Eight loops, eight owners**: each opens in one phase and closes when evidence changes an artefact in another.
+2. **Closed means a diff**, open means an owner and a date, absent means you cannot name a person.
+3. **Cost, incident and governance have nobody waiting** — close them on purpose, or they do not close.
+
+## FAQ
+
+### What is a feedback loop in software delivery?
+
+A path by which something learned later in delivery changes something decided earlier. In the
+agentic PDLC a loop only counts as closed when the earlier artefact — a spec, a decision record, a
+brief — has actually been changed by the evidence, and the change can be shown.
+
+### Why do the backward loops matter most?
+
+Because nobody is waiting for them. A forward loop closes because the next person cannot start
+without it; a cost anomaly or an incident has no downstream customer, so it is resolved as a budget
+or a ticket unless someone owns the return path. Those are the loops that stop a failure from
+recurring.
+
+### Who owns the incident loop?
+
+Every role. The postmortem asks which enforced control was missing, and the answer usually belongs to
+several roles at once — the architect's authority budget, the engineer's tool signature, QA's
+injection suite. The product manager then owns the brief it produces for the next P0.
+
+### How is this different from the Lean Startup build–measure–learn loop?
+
+Build–measure–learn is one loop about whether a product meets a market need. The eight loops are
+narrower and more operational: each has one owner, a phase where it opens, a phase where it closes,
+and a test — the diff — for whether it did.
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The eight loops, their owners, and closed, open and absent | **Original** — this playbook | [The Eight Loops](wiki:The-Eight-Loops) |
+| The missing-control question | **Original** — this playbook | [How to run a missing-control postmortem](wiki:How-to-Run-a-Missing-Control-Postmortem) |
+| Blameless postmortems | **Borrowed** | Beyer, B. et al. (2016). *Site Reliability Engineering*. O'Reilly |
+| Layered defences that fail when the holes line up | **Borrowed** | Reason, J. (2000). Human error: models and management. *BMJ* 320 |
+| Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
+| Build–measure–learn, for comparison | **Borrowed** | Ries, E. (2011). *The Lean Startup*. Crown Business |
+| The SkyWays figures | **Illustrative** — a fictional airline | [Walk the loop map](site:#loops) |

@@ -65,7 +65,10 @@ jobs:
               text = md.read_text(encoding='utf-8', errors='ignore')
               for m in re.finditer(r'\[[^\]]*\]\(([^)\s]+)\)', text):
                   link = m.group(1)
-                  if link.startswith(('http://', 'https://', '#', 'mailto:')): continue
+                  if link.startswith('#'): continue
+                  # any link with a scheme is not a relative path: http:, mailto:, and the
+                  # tutorial's own lesson:, track:, wiki:, site:, repo: and sim: (site/pages/learn.py)
+                  if re.match(r'^[a-zA-Z][a-zA-Z0-9+.-]*:', link): continue
                   path = link.split('#')[0].strip()
                   if not path: continue
                   # skip prose that only looks like a link (no slash and no extension)
