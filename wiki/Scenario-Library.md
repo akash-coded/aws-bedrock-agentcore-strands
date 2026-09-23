@@ -91,7 +91,7 @@ The hardest ones are hard because the right answer is unpopular.
 ### Pick by what your team keeps getting wrong
 
 ```mermaid
-flowchart TD
+flowchart LR
   Q{"What went wrong<br/>the last three times?"} --> A["We built the wrong thing"]
   Q --> B["We could not say whether it worked"]
   Q --> C["It worked, then the bill arrived"]

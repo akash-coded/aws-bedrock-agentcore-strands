@@ -86,7 +86,7 @@ type, candidate NFRs written as six-part scenarios, a utility tree per stakehold
 ratified set with its sensitivity points named.
 
 ```mermaid
-flowchart LR
+flowchart TB
   A["Discover<br/>2 meetings"] --> B["Credit<br/>every line, by name"]
   B --> C["Consolidate<br/>in the email, not the room"]
   C --> D["Constrain<br/>technical · regulatory · commercial"]
@@ -296,7 +296,7 @@ The autonomy record sets the level, the authority budget bounds the tools, a gol
 checker proves the bar, and a shadow run earns a cut-over that starts at five percent of traffic.
 
 ```mermaid
-flowchart LR
+flowchart TB
   A["Golden set<br/>per slice"] --> B["Score with<br/>its lower bound"]
   B --> C{"Lower bound<br/>≥ the bar?"}
   C -->|no| D["More cases,<br/>or fix the slice"]

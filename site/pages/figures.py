@@ -42,9 +42,10 @@ def bar_sheet() -> str:
         out.append(f'<text x="544" y="{y+15}" text-anchor="end" font-size="10.5" '
                    f'fill="currentColor" opacity=".78">{costs}</text>')
     # the hold joins the unheld refund (row 3) to the held one (row 4)
-    out.append('<path d="M462 108 C496 108 496 144 402 144" fill="none" stroke="var(--dg-green)" '
+    # the label sits beside the curve's apex (x ~468), not on it, and between the two cost figures
+    out.append('<path d="M452 108 C478 108 478 144 402 144" fill="none" stroke="var(--dg-green)" '
                'stroke-width="1.6" stroke-dasharray="3 3"/>')
-    out.append('<text x="498" y="130" text-anchor="middle" font-size="11" fill="var(--dg-green)" '
+    out.append('<text x="476" y="131" font-size="11" fill="var(--dg-green)" '
                'font-weight="600">the hold</text>')
     return _svg("".join(out),
                 "Four slices with their derived bars, the held refund far below the unheld one",

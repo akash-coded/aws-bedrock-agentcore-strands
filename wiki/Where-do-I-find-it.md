@@ -50,7 +50,7 @@ glance** block saying when to reach for it and what you leave with. Pick by what
 by what sounds relevant.
 
 ```mermaid
-flowchart TD
+flowchart LR
   Q{"What is going wrong<br/>right now?"} --> A["Nobody has written down<br/>what the thing may do"]
   Q --> B["We cannot say whether<br/>it works"]
   Q --> C["The bill left its estimate"]

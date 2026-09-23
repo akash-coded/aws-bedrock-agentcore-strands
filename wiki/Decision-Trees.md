@@ -433,7 +433,7 @@ ladder, the architect maps tools to bands from the authority budget, and a path 
 repository applies it. The interesting property is that nobody answers this one by hand.
 
 ```mermaid
-flowchart TD
+flowchart LR
   A["A change"] --> Q["<b>What is the most dangerous<br/>tool it touches?</b><br/><i>not: how large is it</i>"]
   Q --> R1["reads only → <b>R1</b><br/>harness, review at end"]
   Q --> R2["reversible write → <b>R2</b><br/>one reader before merge"]
