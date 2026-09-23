@@ -20,6 +20,7 @@
 [Solution architect](Role-Solution-Architect)
 [Engineering lead](Role-Engineering-Lead)
 [QA lead](Role-QA-Lead)
+[DevOps and platform](Role-DevOps)
 [Sponsor](Role-Sponsor)
 
 **How to**

@@ -1,13 +1,17 @@
 # Role: product manager
 
-Eighteen steps from frame to run. Your job does not change — **what and why** is still yours. What
-changes is that the thing you write is now read by a machine that cannot ask you what you meant.
+You are on the hook for **what gets built, why, and how much the machine may do without asking.**
+Nothing about that is new. What is new is that the thing you write is read by a machine that cannot
+ask you what you meant, and that a feature can now be right *a share of the time* rather than always.
 
-Live version, with the artefact filled in for SkyWays at every step:
-[Product manager](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/pm/step-1).
-
-
-> **Doing the work today?** [Product Manager · the journey](Journey-Product-Manager) walks this role end to end with a template and copy-paste prompts at every step, and is [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/). This page is the method behind it: the loops, the gates and the formulas.
+> **Looking for what to do on Monday?** That is the
+> [journey](Journey-Product-Manager) — eight steps in order, each with the artefact it produces, a
+> template to write it and prompts to draft it faster, and
+> [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/).
+>
+> This page is the standing definition of the job: what you own, what you may settle alone, what
+> crosses your desk, how the role fails, and how anyone can tell from outside whether it is being
+> done.
 
 ---
 
@@ -24,136 +28,75 @@ Live version, with the artefact filled in for SkyWays at every step:
 
 ---
 
-## The eighteen steps
+---
 
-### P0 · Frame — *what is worth doing, and is it AI at all*
+## What you own, what you shape, and what you must not touch
 
-| # | Step | Artefact |
-| --- | --- | --- |
-| 1 | Capture the pain as a measurement | pain register |
-| 2 | Decide: is this AI at all? | AI-fit decision record |
-| 3 | Split exact work from best-guess work | exact / best-guess sort |
-| 4 | Size the value, honestly | value line |
-| 5 | Set autonomy by the cost of a mistake | autonomy decision record |
+The commonest argument on an agentic programme is not about the work, it is about who settles a
+question. Three columns end most of them.
 
-### P1 · Design & Spec — *the thing the machine actually reads*
+| | |
+| --- | --- |
+| **You own** | The pain register · the AI-fit decision record · the value line · the autonomy decision · the eight-field spec · the acceptance bar sheet · the bolt plan · the gate decisions that are yours · the cut-over · the two-number report |
+| **You shape** | The agent map, which is the architect's · the contents of the golden set, which are QA's · the order of work inside a bolt, which is engineering's · the alarm thresholds, which are the platform's. You are consulted on all four and you settle none of them |
+| **You must not touch** | The verdict on a slice — *proven*, *failed* and *unproven* are QA's three words · where the checkers go · what a cap is set to in code · declaring an incident over |
 
-| # | Step | Artefact |
-| --- | --- | --- |
-| 6 | From the PRD to the eight-field spec | agentic feature spec |
-| 7 | Write acceptance in EARS, not prose | acceptance criteria (EARS) |
-| 8 | Derive the acceptance bar, don't guess it | acceptance bar sheet |
-| 9 | Bound the authority before the budget | authority budget |
-| 10 | Plan the work as bolts, not sprints | bolt plan |
-
-### P2 · Build & Prove — *you do not build, you gate*
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 11 | Own your three gates: intent, plan, release | gate decision record |
-| 12 | Read the golden-set results like a PM | eval readout |
-| 13 | Make the shadow-run decision | cutover decision |
-| 14 | The BMAD lens: what is yours in a persona pipeline | BMAD ownership map |
-
-### P3 · Run & Learn — *report honestly, watch it drift*
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 15 | Report two numbers, never one | two-number report |
-| 16 | Read drift like a KPI | drift readout |
-| 17 | Turn the incident into the next P0 | next-P0 brief |
-| 18 | Know whether you are actually maturing | maturity self-check |
+The third column is the one worth reading twice. A product manager who overturns a QA verdict has not
+sped anything up; they have removed the only independent reading the programme had.
 
 ---
 
-## Step 2 in depth · is this AI at all?
+## The eight decisions only you can make
 
-Leadership says agent-first. Half of what you are asked to do is a rule. Three questions, in order.
+One per step, and each is the same kind of thing: a fact about your business, your regulator or your
+ledger that no amount of context makes knowable from outside. A model can draft everything around
+them.
+
+| Step | The decision | Why it cannot be delegated | Where it lands |
+| --- | --- | --- | --- |
+| [Discover](Journey-Product-Manager) | Which pain is worth solving | A model ranks by how vividly a pain was described, which tracks who spoke last, not what it costs | Pain register |
+| [Qualify](Journey-Product-Manager) | Whether a wrong action can be undone | Recoverability is a fact about your ledger and your regulator, not a property of the text | AI-fit decision record |
+| [Frame](Journey-Product-Manager) | The autonomy level itself | This is the decision money and regulators hang off, and it carries your name | Autonomy decision record |
+| [Specify](Journey-Product-Manager) | The bar, and the autonomy fields | Both are business risk decisions with a formula behind them, not preferences | Eight-field spec · bar sheet |
+| [Plan](Journey-Product-Manager) | Which slice ships first | A call about where the value and the risk are, made under a deadline you own | Bolt plan |
+| [Gate](Journey-Product-Manager) | The gate decision itself | A gate is defined by a name on it, and a model cannot hold accountability | Gate decision record |
+| [Launch](Journey-Product-Manager) | The cut-over, and any decision to exclude a slice from gating | Excluding a slice changes what the gate means, silently | Cut-over decision |
+| [Learn](Journey-Product-Manager) | What the sponsor sees | Everything else in the step can be drafted; choosing what is reported is the job | Two-number report |
+
+If you are ever unsure whether a call is yours, ask what a model would have to know about your
+organisation to make it, and whether that knowledge exists anywhere it could read. If the answer is
+no, it is yours.
+
+---
+
+## What crosses your desk
+
+Hand-offs are where agentic programmes actually fail, and the P1 → P2 crossing is the one nothing
+downstream survives without. See [the hand-off table](The-Agentic-PDLC) for the full set.
 
 ```mermaid
-flowchart TD
-  A["A request"] --> Q1{"Is there a genuine<br/>judgement call?"}
-  Q1 -->|no| R1["It is a rule.<br/><b>Code does it.</b>"]
-  Q1 -->|yes| Q2{"Is the volume high enough<br/>to be worth a probabilistic system?"}
-  Q2 -->|no| R2["A person is cheaper.<br/><b>Do not build it.</b>"]
-  Q2 -->|yes| Q3{"Is a wrong answer<br/>recoverable?"}
-  Q3 -->|no| R3["A person stays in the loop.<br/><b>Assisted, gated.</b>"]
-  Q3 -->|yes| R4["Yes-yes-yes.<br/><b>Fully agentic.</b>"]
+flowchart LR
+  SP["Sponsor"] -->|"the request"| ME["Product<br/>manager"]
+  SA["Solution<br/>architect"] -->|"constraints · ratified NFRs · the map"| ME
+  QA["QA lead"] -->|"a lower bound · the shadow run"| ME
+  ME -->|"pain register · AI-fit · the ceiling"| SA
+  ME -->|"spec · a bar per slice · bolt plan"| EN["Engineering<br/>lead"]
+  ME -->|"two numbers · the next P0 brief"| SP
+  classDef me fill:#3E6B8A26,stroke:#3E6B8A,stroke-width:2.5px
+  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  class ME me
+  class SP,SA,QA,EN them
 ```
 
-Run the three questions on your top five requests. **Expect two or three to come back as rules.** That
-is the normal, healthy answer, and the record of it is your argument when the agent-first directive
-arrives.
-
-Tool: [AI-fit assessor](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/toolkit/aifit)
-
----
-
-## Step 5 in depth · autonomy by the cost of a mistake
-
-Autonomy is set **per action, never per product**, and it follows the cost of a mistake, never what the
-model is capable of. Reversibility is the hinge.
-
-| Action | Cost of one mistake | Reversible? | Level |
+| Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |
-| Show rebooking options | ~0 | yes | Acts alone |
-| Same-day, same-airline rebook | Low, bounded | mostly | Acts, monitored |
-| Codeshare rebook across partners | Medium | with effort | Acts with a veto window |
-| Cash refund | Real money | no | **Named approver, every time** |
+| **P0 · Frame** | The request, in whatever form it arrived | Pain register · AI-fit record · autonomy ceiling | Solution architect |
+| **P1 · Design & Spec** | Constraint register · ratified NFRs · the exact / best-guess / consequential map | The eight-field spec · a bar per slice · the bolt plan | Engineering lead · QA lead |
+| **P2 · Build & Prove** | Golden-set readout *with its lower bound* · the shadow comparison | The gate decision — or a waiver naming its blast radius and its closure date | Engineering lead |
+| **P3 · Run & Learn** | Trace · drift readout · the bill decomposed into its four factors | Two-number report · the brief the next P0 starts from | Sponsor |
 
-The column that settles most arguments is **reversible?** Three executives arguing about "the
-assistant" stop arguing once the question is per action and the answer is derived.
-
-Levels rise only as evidence accumulates, and an incident usually drops one.
-
-Tool: [Autonomy decision record](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/toolkit/autonomy)
-
----
-
-## Step 8 in depth · derive the bar, do not guess it
-
-QA asks "how accurate does it need to be?" and the honest answer is arithmetic, not "very".
-
-> One wrong case undoes the saving from **N** right ones, where **N = damage ÷ saving**.
-> The assistant breaks even at N right for every wrong, so **bar = N ÷ (N + 1)**.
-
-| Slice | Saving per right case | Damage per wrong case | N | Bar |
-| --- | --- | --- | --- | --- |
-| Same-day lookup | $4 | $4 | 1 | 50% |
-| Codeshare rebook | $9 | $36 | 4 | 80% |
-| Refund, no hold | $12 | $600 | 50 | 98% |
-| Refund, **with a human hold** | $12 | $30 | 2.5 | **71%** |
-
-Look at the last two rows. That is the lever: **a human hold on the risky step lowers the damage, so
-the bar you must clear falls with it.** It is how you ship a best-guess feature safely at 71% instead
-of waiting for an impossible 98%.
-
-Set it per slice. A single number for the whole feature is how the hard slice ships broken and the
-easy one waits.
-
-Tool: [Acceptance bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/toolkit/bar)
-· [Formulas and Calculators](Formulas-and-Calculators)
-
----
-
-## Step 15 in depth · two numbers, never one
-
-Leadership loves the 40%. Nobody has asked about the token bill yet, and that conversation is coming.
-
-```
-CYCLE 1                      baseline      now       change
-person-days per story            8.0        4.6      −43%
-token spend per story              –      $310
-review hours added per story     1.2        2.0       +0.8
-re-runs per story                  –        1.4
-──────────────────────────────────────────────────────────
-net              saved 3.4 person-days, spent $310 + 0.8 review hours
-```
-
-A first cycle can genuinely save time **and** cost more. Say so, with the trend: cost turns positive
-from cycle two as the review load falls and the artefacts sharpen.
-
-> The programme is cancelled on the number you hid, never on the one you showed.
+Note what you receive in P2: a **lower bound**, not a score. If what arrives is a single percentage,
+the hand-off is incomplete and the gate cannot be held on it.
 
 ---
 
@@ -172,6 +115,75 @@ from behaviour and expansion sign-offs. They are QA's, and your name on them hel
 
 ---
 
+---
+
+## How this role fails
+
+Five modes, each with its tell. A tell is something an outsider can observe, not a feeling you have
+about the team.
+
+**Ambition laundering.** The AI-fit check returns four rules and one genuinely agentic request, and
+the four get built as agents anyway because the verdict was read as a lack of ambition.
+*The tell:* an AI-fit record with no rejected alternative written in it.
+
+**One bar for the product.** A single accuracy target applied across every slice, which is always
+too strict for the cheap ones and too loose for the expensive one.
+*The tell:* the bar sheet has one row.
+
+**The gate you cannot evaluate.** Your name on the behaviour and expansion gates, which are QA's.
+*The tell:* look at last month's approvals and strike the ones you could not have argued with. If
+anything is struck, ask to be removed from that gate.
+
+**The baseline taken afterwards.** The two-number report with nothing to compare against, because
+nobody measured the before.
+*The tell:* the first number is a percentage and there is no dated figure behind it. This is an
+afternoon's work before the pilot and impossible after it.
+
+**The spec that is still a PRD.** Eight fields where the three classical ones fill themselves in and
+the five agentic ones are blank or aspirational.
+*The tell:* the acceptance field contains the words *accurate* or *helpful* and no number.
+
+---
+
+## How you are measured
+
+Two numbers, reported together, every time:
+
+| | What it is | Why both |
+| --- | --- | --- |
+| **Person-days per unit of work** | The change against a dated baseline | Alone, it invites the reply *"at what cost?"* |
+| **Cost per unit of work** | Tokens, judge calls and retries, per story or per case | Alone, it looks like a bill with no benefit attached |
+
+Carry the two honest rows underneath them — **review hours added** and **re-runs per unit** — because
+those are what someone sceptical will find, and finding them yourself is the difference between a
+report and a defence.
+
+**If you do not offer these, you will be measured on something worse.** The vacuum is filled by tool
+adoption — seats bought, teams onboarded — which measures purchasing and not delivery, and which
+cannot fall when the work gets worse.
+
+---
+
+## Your first thirty days in the role
+
+Ordered so that the things which become impossible later happen first.
+
+1. **Take the baseline this week.** Person-days per story and cost per story, dated, before anything
+   ships. Nothing on this list is more time-critical; it is an afternoon now and unavailable later.
+2. **Run the three AI-fit questions over the top five requests.** Expect four rules and one agentic.
+   Write down what was rejected and why — that record is what lets you say no with evidence.
+3. **Find the one feature that is already live** and write its bar sheet retrospectively, per slice.
+   You will usually discover there was never a bar, only a hope.
+4. **Read last month's approvals** and strike the ones you could not have evaluated. Hand those gates
+   back.
+5. **Write the two authority lists** — allowed alone, needs a person — for one feature, before anyone
+   sizes a token budget. Authority first, tokens second; doing it the other way round is how a cap
+   ends up set to whatever was affordable.
+6. **Ask who closes the cost loop and the incident loop.** Not which team — which person. If you
+   cannot get a name, that loop is absent, and absent is the honest word.
+
+---
+
 ## Your Monday list
 
 Five things, in order, that move a team furthest for the least effort:
@@ -183,6 +195,8 @@ Five things, in order, that move a team furthest for the least effort:
 4. Write the two authority lists — allowed alone, needs a person — **before** anyone sizes tokens.
 5. Take the baseline for the two-number report **before** the pilot. It is an afternoon's work and it
    is worthless afterwards.
+
+---
 
 ---
 
@@ -233,3 +247,20 @@ The rule that turns it into a control: **a drift alert re-opens the release gate
 
 **Next:** [Role: Solution architect](Role-Solution-Architect) · [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts)
 · [Gates and Governance](Gates-and-Governance) · [Decision Trees](Decision-Trees)
+
+---
+
+## Where the detail lives
+
+| You want | Go to |
+| --- | --- |
+| The day-to-day walk, with templates and prompts | [Journey · Product Manager](Journey-Product-Manager) |
+| Whether this is AI at all | [Decision Trees](Decision-Trees) |
+| Deriving a bar, and proving it | [How to Prove the Bar](How-to-Prove-the-Bar) |
+| Every formula on this page, with its derivation | [Formulas and Calculators](Formulas-and-Calculators) |
+| What a gate is, and who holds it | [Gates and Governance](Gates-and-Governance) |
+| Practising the judgement calls | [Exercises](Exercises-and-Answers) · [Scenario Library](Scenario-Library) |
+| The whole method in one picture | [The agentic PDLC](The-Agentic-PDLC) |
+
+**Next:** [Journey · Product Manager](Journey-Product-Manager) ·
+[Role: Solution Architect](Role-Solution-Architect) · [Role: Sponsor](Role-Sponsor)

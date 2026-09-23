@@ -7,8 +7,9 @@ browser tab, printed, or pasted into a document.
 
     python site/wiki_export.py          # writes ../wiki/Journey-<Role>.md
 
-Existing hand-written ``Role-*.md`` pages are left alone; they cover the method, these cover the
-day-to-day. Each links to the other.
+Existing hand-written ``Role-*.md`` pages are left alone. They are the standing definition of each
+job — what it is accountable for, what it may settle alone, what crosses its desk and how it fails.
+These are the day-to-day walk. Each links to the other, and neither repeats the other.
 """
 from __future__ import annotations
 
@@ -21,13 +22,13 @@ CONTENT = SITE / "content" / "roles"
 WIKI = SITE.parent / "wiki"
 LIVE = "https://akash-coded.github.io/aws-bedrock-agentcore-strands/"
 
-# role id -> (wiki page name for the journey, wiki page name for the method page, if one exists)
+# role id -> (wiki page for the day-to-day journey, wiki page for the standing definition)
 PAGES = {
     "product-manager": ("Journey-Product-Manager", "Role-Product-Manager"),
     "solution-architect": ("Journey-Solution-Architect", "Role-Solution-Architect"),
     "engineering": ("Journey-Engineering-Lead", "Role-Engineering-Lead"),
     "qa": ("Journey-QA-Lead", "Role-QA-Lead"),
-    "devops": ("Journey-DevOps", None),
+    "devops": ("Journey-DevOps", "Role-DevOps"),
 }
 
 

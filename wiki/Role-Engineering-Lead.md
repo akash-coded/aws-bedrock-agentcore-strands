@@ -1,14 +1,16 @@
 # Role: engineering lead
 
-Eighteen steps from frame to run. Your tests, your reviews and your releases all still exist. What
-changes is that part of the system is right *a share of the time*, so "it works" becomes a number,
-and the boundary that stops it doing harm has to live in your code rather than in a prompt.
+You are on the hook for **whether it meets the bar, slice by slice, and whether anyone can tell.** P2
+is yours. It ends when the golden set clears the bar and a shadow run agrees — not when the code is
+written.
 
-Live version, with the artefact filled in for SkyWays at every step:
-[Engineering and QA](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/eng/step-1).
-
-
-> **Doing the work today?** [Engineering Lead · the journey](Journey-Engineering-Lead) walks this role end to end with a template and copy-paste prompts at every step, and is [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/). This page is the method behind it: the loops, the gates and the formulas.
+> **Looking for what to do on Monday?** That is the
+> [journey](Journey-Engineering-Lead) — eight steps in order, each with its artefact, a template and
+> prompts, and [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/).
+>
+> This page is the standing definition of the job: what you own, what you may settle alone, what
+> crosses your desk, how the role fails, and how anyone can tell from outside whether it is being
+> done.
 
 ---
 
@@ -26,179 +28,117 @@ Live version, with the artefact filled in for SkyWays at every step:
 
 ---
 
-## The eighteen steps
-
-### P0 · Frame
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 1 | Check the exact work is really exact | exact-code inventory |
-| 2 | Write the context file the agent reads | `CLAUDE.md` / `copilot-instructions.md` |
-| 3 | Turn the acceptance bar into a test you can run | golden set (jsonl) |
-
-### P1 · Design & Spec
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 4 | Build from a story file, not a chat | agent-ready story file |
-| 5 | Wire the eval harness into CI | eval harness |
-| 6 | Implement the checker, independently | checker implementation |
-| 7 | Put the boundary in the tool signature | gated tool implementation |
-
-### P2 · Build & Prove
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 8 | Build bolt by bolt, each proven | bolt build log |
-| 9 | Configure caching in the call | caching implementation |
-| 10 | Route by complexity, cap the loops | router + breaker code |
-| 11 | Switch on the shadow path | shadow-run implementation |
-| 12 | Extract rules from legacy code, don't feed the code | rule sheet |
-
-### P3 · Run & Learn
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 13 | Write the trace, redacted | trace implementation |
-| 14 | Run the injection test every week | injection test suite |
-| 15 | Keep the effort-and-token ledger | engineering ledger |
-| 16 | Reconcile the spec by diff after a hotfix | spec reconciliation |
-| 17 | Use your own coding agent well | engineer's agent setup |
-| 18 | Know whether the engineering is maturing | engineering maturity check |
-
 ---
 
-## Step 2 in depth · the context file
+## What you own, what you shape, and what you must not touch
 
-Every AI coding tool reads a configuration file from the repository before it does anything. Writing
-one is the single biggest quality lever available to you, and it takes an hour.
-
-| Tool | File it reads |
+| | |
 | --- | --- |
-| Claude Code | `CLAUDE.md` — project memory, committed to git, with enterprise policy above it and a user-level file for personal preferences |
-| GitHub Copilot | `.github/copilot-instructions.md` for the workspace, plus scoped `.github/instructions/*.instructions.md` |
-| Codex CLI | `AGENTS.md` |
-| Cursor | `.cursor/rules/*.mdc` |
+| **You own** | The context file set · the never-touch list · the agent-ready story file and its BOUNDARY line · the exact-code floor · the checker implementations · the gated tool signatures · the eval harness in CI · the bolt build log · caching, routing, tracing and the injection test |
+| **You shape** | The bar, which is the product manager's · the golden set, which is QA's · where the checkers go, which is the architect's · the alarm thresholds, which are the platform's |
+| **You must not touch** | The verdict on a slice · the autonomy level · what a cap *should* be — you implement the number the authority budget gives you · the decision to widen |
 
-One distinction worth knowing from the documentation: **Copilot's file steers inline suggestions;
-Claude Code's drives autonomous actions.** The same text carries more weight in the second case.
-
-What goes in it: the stack, the conventions, the commands, and the never-touch list. Point it at the
-[context layers](Role-Solution-Architect) so the agent inherits the shared and domain rules rather
-than carrying copies.
-
-**How the file grows:** add the one rule that bit you last week. Every time.
+**Merging past a red check is yours, and it is a named decision.** There are legitimate reasons to do
+it. Every one of them has a person attached and a note saying what was accepted.
 
 ---
 
-## Step 7 in depth · the boundary in the signature
+## The eight decisions only you can make
 
-The prompt says "never refund over $400". A passenger types "ignore your instructions" and the model
-calls `refund(5000)`. The cap was a sentence.
-
-```python
-# A request the model can be talked past:
-SYSTEM = "Never issue a refund over $400 without asking."
-
-# A boundary that holds whatever the model is convinced of:
-def issue_refund(booking_id: str, amount: Decimal, confirmation: ConfirmToken) -> Refund:
-    if amount > REFUND_CAP:                       # $400, from config, not from the prompt
-        raise AuthorityExceeded(amount, REFUND_CAP)
-    if not confirmation.valid_for(booking_id):    # a token the model cannot mint
-        raise ConfirmationRequired(booking_id)
-    ...
-```
-
-Two tests, and they are the whole point of the step:
-
-```python
-def test_over_cap_raises():
-    with pytest.raises(AuthorityExceeded):
-        issue_refund("PNR123", Decimal("5000"), valid_token("PNR123"))
-
-def test_no_confirmation_raises():
-    with pytest.raises(ConfirmationRequired):
-        issue_refund("PNR123", Decimal("50"), forged_token())
-```
-
-Reads stay open. Writes require a confirmation token the model cannot produce. The prompt keeps the
-sentence that *explains* the rule, because that makes the agent behave well by default — but
-enforcement never depends on the model agreeing.
+| Step | The decision | Why it cannot be delegated | Where it lands |
+| --- | --- | --- | --- |
+| Prepare | The never-touch list | A statement about what your organisation cannot afford to lose. Every line needs somebody who would notice if it went | Context file set |
+| Slice | The BOUNDARY line | The one sentence in the file that says what the system must *refuse*. A model asked to write it will write what the system should do | Agent-ready story file |
+| Floor | Deciding that something is exact | The call comes from the architect's map and from whether the number is audited. Exactness is a consequence, not a preference | Exact-code inventory |
+| Layer | Which steps get a checker at all | A cost and risk trade-off across the whole chain, which a model cannot price because it cannot see the bill | Checker implementation |
+| Gate | What a cap is set to, and who may mint the token | Both come from the authority budget and the product manager's autonomy record. You implement them; you do not invent them | Gated tool implementation |
+| Harness | That CI actually enforces the bar | The bar values are the product manager's and the set is QA's. Yours is that the check is required and cannot be bypassed | Eval harness in CI |
+| Ship | That a bolt cannot be built alone | A claim about your repository and your team's day. Say it before the bolt starts, not on day nine | Bolt build log |
+| Operate | What the redaction rules are | Which fields are sensitive is a legal and regulatory question about your business | Operations set |
 
 ---
 
-## Step 5 in depth · the harness, in order
-
-The order matters, because the cheap definitive checks should reject before you pay for a judge.
+## What crosses your desk
 
 ```mermaid
 flowchart LR
-  A["build"] --> B["exact tests<br/><i>schema, fare math,<br/>no waived tax</i>"]
-  B --> C["golden run<br/><i>the slice this change touches</i>"]
-  C --> D["independent judge<br/><i>tone, policy, false claims</i>"]
-  D --> E{"score ≥ bar,<br/><b>per slice</b>?"}
-  E -->|no| F["reject the merge"]
-  E -->|yes| G["merge"]
+  SA["Solution<br/>architect"] -->|"the map · ADRs · authority budget"| ME["Engineering<br/>lead"]
+  PM["Product<br/>manager"] -->|"spec · a bar per slice · bolt plan"| ME
+  QA["QA lead"] -->|"the golden set · what must block"| ME
+  ME -->|"context file · the boundary line"| QA
+  ME -->|"bolts · a required check · the ledger"| PM
+  ME -->|"caching and routing changes"| SA
+  classDef me fill:#2F6B5726,stroke:#2F6B57,stroke-width:2.5px
+  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  class ME me
+  class SA,PM,QA them
 ```
 
-**A slice below its bar blocks the merge, however good the overall number looks.** That is how "the
-new prompt improved lookups but regressed refunds" becomes a red check instead of a discovery two
-weeks later.
-
-Cost control on the harness itself: run the touched slice per pull request, and the full set nightly.
-
----
-
-## Step 9 in depth · caching that actually hits
-
-The cache matches an **exact prefix**, in the order **tools → system → messages**, up to the block you
-mark. So the stable content goes first and the changing request goes last.
-
-```
-┌─ tools ─────────────────┐
-│ ─ system ───────────────│  ← stable
-│ ─ shared context ───────│  ← stable
-│ ─ domain context ───────│  ← stable   ⟵ cache marker on the last stable block
-└─ the request ───────────┘  ← changes every call
-```
-
-Documented multipliers, read September 2026:
-
-| | Cost, relative to the input price |
-| --- | --- |
-| Five-minute cache write | 1.25× |
-| One-hour cache write | 2× |
-| Cache read | 0.1× — *Fable and Mythos 5.1 read at 0.025×* |
-
-Minimum around 1,024 cacheable tokens. The five-minute cache refreshes free on each hit. The cache is
-**model-scoped**, so one model per task; switching mid-task discards it.
-
-> **Break-even is the second use.** Used once, caching costs more. Used a hundred times it saves
-> roughly 89%.
-
-The one-line check that proves it is working:
-
-```python
-assert response.usage.cache_read_input_tokens > 0   # on the second call, not the first
-```
-
-And the thing to remove from the cached block: any timestamp, request id or session id.
-
----
-
-## Step 15 in depth · the ledger behind the PM's report
-
-Per bolt, four columns. Five minutes a day.
-
-| Person-hours by activity | Tokens by tier | Re-runs | Defects escaped |
+| Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |
+| **P0 · Frame** | Nothing yet, and that is deliberate | A sentence on what is not knowable until P1 | Product manager |
+| **P1 · Design & Spec** | The map · the ADRs · the authority budget · the gate map | The context file set · the never-touch list · the boundary line | QA lead |
+| **P2 · Build & Prove** | The eight-field spec · a bar per slice · the golden set | Bolts, in dependency order · the harness as a required check · a shadow path behind a flag | QA lead · Product manager |
+| **P3 · Run & Learn** | The bill by factor · drift readouts | Caching and routing changes · the ledger behind the report | Solution architect · Product manager |
 
-Track tokens **by tier**, not in total — the tier mix is where routing shows up. And watch the
-**re-run** column: it is the leak signal, where model switching and vague asks appear first. When it
-drops, say why.
+**The P0 row is not a gap.** Opening a branch in P0 is the most expensive habit in agentic delivery,
+because it commits the team to a shape before anyone has decided whether the thing is AI at all.
 
-The PM's two-number report is built from this ledger, which is what makes the cost number real rather
-than a guess.
+---
+
+## How this role fails
+
+**The prompt that was asked to hold a boundary.** *"Never refund more than $400"* in the system
+message, and a tool that accepts any number.
+*The tell:* ask which line of code refuses. If the answer is a sentence in a prompt, there is no
+control — only a request.
+
+**A harness that can be bypassed.** The eval suite exists, runs, and is not a required check.
+*The tell:* look for a merge in the last month with the suite red or skipped, and see whether anyone
+had to put their name on it.
+
+**Bolts cut by priority.** The plan orders work by business value, so day three needs something from
+day seven.
+*The tell:* a bolt that ends with *"blocked on…"* more than once in a quarter.
+
+**The context file nobody reads because it is a novel.** Everything about the codebase, so a coding
+agent gets no signal about what matters.
+*The tell:* it has no never-touch list, or the never-touch list has no owner per line.
+
+**Caching that reports itself on and hits nothing.** Anything variable sitting above the cache marker.
+*The tell:* a hit ratio near zero while the line item says caching is enabled. See
+[How to Control the Token Bill](How-to-Control-the-Token-Bill).
+
+---
+
+## How you are measured
+
+| | What it means |
+| --- | --- |
+| **Evidence, not opinion** | Every slice that shipped has a lower bound and a shadow comparison behind it |
+| **The queue** | Time from ready-for-review to merged, against the slots the review policy actually creates |
+| **The ledger** | The per-call cost record that makes the product manager's second number checkable rather than asserted |
+
+Velocity is not on this list on purpose. With a model in the middle, output rises first and review
+load rises second, and a team measured on the first will hide the second until the bill or the
+incident arrives.
+
+---
+
+## Your first thirty days in the role
+
+1. **Ask which line of code refuses.** Pick the most consequential action in whatever is running and
+   follow it down to the enforcement point. If it stops at a prompt, you have found the first job.
+2. **Check whether the harness can be skipped.** Not whether it exists — whether a merge can happen
+   without it, and whether anybody had to sign for that.
+3. **Write the never-touch list** with a person against each line. If nobody can be named for a line,
+   it is not actually never-touch.
+4. **Re-cut one upcoming sprint as bolts** by dependency, not priority, and see how many of them could
+   genuinely ship alone.
+5. **Read the cache ordering.** Stable first, marker, then whatever changes. This is usually a
+   half-day and the largest single line on the bill.
+6. **Look at attempts per case, not retries.** The bill factor works on attempts, and a tail nobody is
+   watching is how flat traffic produces a rising bill.
 
 ---
 
@@ -210,6 +150,8 @@ than a guess.
 4. Wire `make golden` into CI as a required check, with the slice tag on every case.
 5. Build tomorrow's bolt from its story file **with no repository pastes**. If you need the chat, the
    file is incomplete — and that is the finding.
+
+---
 
 ---
 
@@ -266,3 +208,19 @@ reaches a row" a test.
 
 **Next:** [Role: QA lead](Role-QA-Lead) · [How to Control the Token Bill](How-to-Control-the-Token-Bill)
 · [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts) · [Formulas and Calculators](Formulas-and-Calculators)
+
+---
+
+## Where the detail lives
+
+| You want | Go to |
+| --- | --- |
+| The day-to-day walk, with templates and prompts | [Journey · Engineering Lead](Journey-Engineering-Lead) |
+| Cutting work into bolts | [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts) |
+| Reviewing by risk band | [How to Review by Risk Band](How-to-Review-by-Risk-Band) |
+| Where a boundary is enforced | [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) |
+| Cache ordering, tiers, attempts | [How to Control the Token Bill](How-to-Control-the-Token-Bill) |
+| Practising the judgement calls | [Exercises](Exercises-and-Answers) · [Scenario Library](Scenario-Library) |
+
+**Next:** [Journey · Engineering Lead](Journey-Engineering-Lead) · [Role: QA Lead](Role-QA-Lead) ·
+[Role: Solution Architect](Role-Solution-Architect)

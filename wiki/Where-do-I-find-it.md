@@ -25,7 +25,7 @@ A lookup table across all four surfaces. If you know what you want but not where
 | My whole role, end to end, with a template per step | [PM](Journey-Product-Manager) · [SA](Journey-Solution-Architect) · [Engineering](Journey-Engineering-Lead) · [QA](Journey-QA-Lead) · [DevOps](Journey-DevOps) |
 | A prompt I can paste | [Every prompt](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/) |
 | A template for an artefact | [Every template](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) |
-| My own eighteen steps, P0 to P3 | [PM](Role-Product-Manager) · [Architect](Role-Solution-Architect) · [Engineering](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [Sponsor](Role-Sponsor) |
+| What I am accountable for, and what I must not touch | [PM](Role-Product-Manager) · [Architect](Role-Solution-Architect) · [Engineering](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [DevOps](Role-DevOps) · [Sponsor](Role-Sponsor) |
 | How to derive an acceptance bar | [Formulas & Calculators](Formulas-and-Calculators) · [How to Prove the Bar](How-to-Prove-the-Bar) |
 | Whether a score has actually proven the bar | [How to Prove the Bar](How-to-Prove-the-Bar) |
 | Why the token bill left its estimate | [How to Control the Token Bill](How-to-Control-the-Token-Bill) |

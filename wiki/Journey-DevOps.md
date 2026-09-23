@@ -6,6 +6,8 @@
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/devops/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
+For the method behind it — the loops, the gates, the formulas — see [Role DevOps](Role-DevOps).
+
 ---
 
 Your job has not changed. Accounts, pipelines, deployments, permissions, recovery — the list is the same list, and most of what you already know transfers intact. Three things underneath it are new, and every step below is one of them working through. The **model version is part of the environment**, so an environment can change behaviour with no deploy and no diff. The **bill moves with behaviour** rather than with traffic, so capacity planning becomes cost instrumentation. And **text is an attack surface**, so an input is now something that can instruct.

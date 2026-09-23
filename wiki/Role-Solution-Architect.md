@@ -1,14 +1,16 @@
 # Role: solution architect
 
-Eighteen steps from frame to run. The method is unchanged; the content is new. You still run
-discovery, write decision records and review designs. What changes is that some of the steps you are
-designing are **probabilistic**, and a probabilistic step needs a different kind of proof.
+You are on the hook for **what exactly is being built, and under whose authority.** P1 is yours: it
+ends when the spec, the bar per slice and the guardrails are signed, and the crossing into P2 is the
+one hand-off nothing downstream survives without.
 
-Live version, with the artefact filled in for SkyWays at every step:
-[Solution architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/sa/step-1).
-
-
-> **Doing the work today?** [Solution Architect · the journey](Journey-Solution-Architect) walks this role end to end with a template and copy-paste prompts at every step, and is [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/). This page is the method behind it: the loops, the gates and the formulas.
+> **Looking for what to do on Monday?** That is the
+> [journey](Journey-Solution-Architect) — eight steps in order, each with its artefact, a template and
+> prompts, and [interactive on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/).
+>
+> This page is the standing definition of the job: what you own, what you may settle alone, what
+> crosses your desk, how the role fails, and how anyone can tell from outside whether it is being
+> done.
 
 ---
 
@@ -26,177 +28,135 @@ Live version, with the artefact filled in for SkyWays at every step:
 
 ---
 
-## The eighteen steps
+---
 
-### P0 · Frame
+## What you own, what you shape, and what you must not touch
 
-| # | Step | Artefact |
-| --- | --- | --- |
-| 1 | Draw the exact / best-guess map | exact / best-guess map |
-| 2 | Decide the shape: is this agents at all, and how many? | agent-fit decision |
-| 3 | Set the process depth per change | depth decision (AI-DLC) |
+| | |
+| --- | --- |
+| **You own** | The constraint register · the ratified NFR sheet · the exact / best-guess / consequential map · the agent-fit and process-depth decision · the ADRs at the sensitivity points · the authority budget · the gate map · the layered context spec · the caching and routing design |
+| **You shape** | The bar, which is the product manager's · the golden set, which is QA's · the bolt cut, which is engineering's · the alarm set, which is the platform's. You are consulted on all four and you settle none of them |
+| **You must not touch** | The autonomy level · the verdict on a slice · the decision to merge past a red check · what the sponsor is shown |
 
-### P1 · Design & Spec
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 4 | Record the decision as an ADR | architecture decision record |
-| 5 | Set the authority budget, then the gate map | authority budget + gate map |
-| 6 | Design the context layers | layered context spec |
-| 7 | Choose the topology and design the MCP server | agent topology + MCP schema |
-| 8 | Place the checker: defend against drift | checker placement |
-
-### P2 · Build & Prove
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 9 | Cut the work into bolts that build alone | bolt cut (dependency-ordered) |
-| 10 | Structure the prompt for caching | caching config |
-| 11 | Route by complexity, break the runaway | routing + circuit-breaker config |
-| 12 | Migrate legacy code piece by piece | migration plan (Strangler Fig) |
-| 13 | Keep the shape honest at the plan gate | plan-gate record |
-
-### P3 · Run & Learn
-
-| # | Step | Artefact |
-| --- | --- | --- |
-| 14 | Hold the security boundary in production | security boundary |
-| 15 | Design the trace, redacted | trace + drift dashboard |
-| 16 | Turn the incident into a design change | incident → design change |
-| 17 | Use your own assistant well | architect's assistant setup |
-| 18 | Know whether the architecture is maturing | architecture maturity check |
+Your authority is in the artefacts, not in a signature. That is deliberate: a design that needs you in
+the room to be followed is a design that has not been written down.
 
 ---
 
-## Step 1 in depth · the exact / best-guess map
+## The eight decisions only you can make
 
-The PM sorts at the level of the feature. You sort at the level of **every step**, and you add the
-column that matters: **what proof each kind needs.**
-
-| Kind | What it is | Built as | Proven by |
+| Step | The decision | Why it cannot be delegated | Where it lands |
 | --- | --- | --- | --- |
-| **Exact** | Must be right every single time | A function | A unit test, green or red |
-| **Best-guess** | Right a share of the time | A model call | A measured share on real cases |
-| **Consequential** | Changes something real | A tool **plus** a gate | A required confirmation |
-
-Worked for the SkyWays rebooking assistant:
-
-| Step | Kind | Why |
-| --- | --- | --- |
-| Read the booking | Exact | A lookup, not a judgement |
-| Find candidate flights | Best-guess | Ranking under constraints |
-| Compute the fare difference | **Exact** | It is money. A function, never a prompt |
-| Check visa and codeshare eligibility | Exact | Rules, in code |
-| Draft the passenger message | Best-guess | Tone and content |
-| Rebook the seat | Consequential | Changes a real booking |
-| Issue a refund | Consequential | Real money, R4, named approver |
-
-**The rule that never breaks: the best-guess machine never does the exact math.** The model may call
-the function and read the result; it never computes the value. A fluent wrong number is the failure
-mode no prompt-level test catches. $80 when the ledger says $62.
-
-Practical move on Monday: grep the prompts for *calculate*, *compute*, *total*. Each hit is a function
-waiting to exist.
+| Elicit | The read-back itself | The mechanism is a person hearing their own words said back with their name on them. A summary nobody heard read aloud is not a read-back | Credited requirements email |
+| Constrain | Whether a constraint is real | The only way to learn that a $400 threshold is a policy your compliance team owns, rather than a number somebody once typed, is to ask a person | Constraint register |
+| Map | What counts as money | Whether a fee waiver, a goodwill credit or a seat upgrade is a consequential action is a judgement about your business | Exact / best-guess / consequential map |
+| Shape | The escalation condition | It depends on your context sizes, your latency budget and the shape of your traffic — none of which a model can read from the outside | Agent-fit and process-depth decision |
+| Decide | Which decisions earn a record | That judgement is what keeps the folder readable, and a readable folder is the only kind anyone opens | The ADR set |
+| Bound | Whether a wrong action can be undone, and how fast | A fact about your ledger, your regulator and your operations | Authority budget · gate map |
+| Detail | Where the checkers go | Each one costs a call. Putting them everywhere is the same error as putting them nowhere, made more expensively | Layered context spec · checker plan |
+| Evolve | The missing-control finding | Naming the control that would have made an incident impossible is the one judgement a postmortem exists to produce | Missing-control postmortem |
 
 ---
 
-## Step 2 in depth · how many agents?
-
-An engineer builds fifteen agents to show what is possible. You have to say whether this needs one.
+## What crosses your desk
 
 ```mermaid
-flowchart TD
-  A["A feature"] --> B["<b>Start single.</b><br/>One agent with its tools"]
-  B --> Q1{"Does one agent's context<br/>genuinely overload?"}
-  Q1 -->|yes| C["Orchestrator + workers"]
-  Q1 -->|no| Q2{"Can sub-tasks run in parallel,<br/>and a fan-out tool cannot do it?"}
-  Q2 -->|yes| C
-  Q2 -->|no| Q3{"Is the build complex,<br/>multi-team and audited?"}
-  Q3 -->|yes| D["A full agent team"]
-  Q3 -->|no| B
+flowchart LR
+  PM["Product<br/>manager"] -->|"pain register · AI-fit · the ceiling"| ME["Solution<br/>architect"]
+  EN["Engineering<br/>lead"] -->|"questions against the map"| ME
+  OPS["Platform"] -->|"the bill, by factor"| ME
+  ME -->|"constraints · ratified NFRs · the map"| PM
+  ME -->|"ADRs · authority budget · gate map"| EN
+  ME -->|"caching and routing changes"| OPS
+  classDef me fill:#7A6A4626,stroke:#7A6A46,stroke-width:2.5px
+  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  class ME me
+  class PM,EN,OPS them
 ```
 
-Each added agent is another context to manage and another hand-off to get wrong. Five agents have ten
-possible hand-offs between them — **n(n−1)/2** — and every one has to be right.
+| Phase | You receive | You hand over | To |
+| --- | --- | --- | --- |
+| **P0 · Frame** | Pain register · AI-fit record · the autonomy ceiling | Constraint register · candidate NFR scenarios | Product manager |
+| **P1 · Design & Spec** | The eight-field spec, in draft | Ratified NFRs · the map · the ADRs · the authority budget · the gate map | Engineering lead · QA lead |
+| **P2 · Build & Prove** | Questions against the map | Answers, and nothing else | Engineering lead |
+| **P3 · Run & Learn** | The bill by factor · the incident timeline | Caching and routing changes · the missing-control finding | Product manager · Sponsor |
 
-Anthropic's own published measurement on its multi-agent research system found delegation paid off on
-routine work, not on the hardest problems.
-
-**Write the escalation condition down.** "We move to an orchestrator when a single context exceeds X"
-is a decision. "We might need more agents later" is how a swarm comes back by default.
-
----
-
-## Step 8 in depth · chained probability, and where the checker goes
-
-Four steps, each 90% right on its own. An engineer says "90% is solid".
-
-> 0.9 × 0.9 × 0.9 × 0.9 = **0.66**
-
-End to end it is wrong one time in three, and it fails **fluently**, so nobody notices until a
-passenger does. **Length is the enemy.**
-
-Two defences, in this order:
-
-1. **Keep chains short.** Every step you remove multiplies back.
-2. **Put an independent checker after each generating step.**
-
-Independent means a different model, **or** the same model in a fresh context with an adversarial
-brief ("find what is wrong"). A model reading its own output shares its own blind spots — that is why
-"review your answer" does not work.
-
-| Step | Checker? | Why |
-| --- | --- | --- |
-| Compute the fare | No | It is exact. It needs a **unit test**, not a checker |
-| Choose the flights | **Yes** | Costly to get wrong, easy to miss |
-| Draft the message | **Yes** | False claims and tone, invisible to the drafter |
-| Write the trace row | No | Exact |
-
-Place checkers where a wrong answer is **costly and easy to miss** — not everywhere. Each one costs
-a call.
+**P2 is the row people get wrong.** Decisions made in P1 are read in P2, not re-opened. If a decision
+genuinely has to change, that is a new ADR with a date on it, not a conversation — otherwise the map
+stops describing the system and nobody notices for a month.
 
 ---
 
-## Step 5 in depth · authority before tokens
+## The gates you hold
 
-The first question is not how much the agent may spend. It is **what it may change, touch or commit.**
-A cheap task with too much authority is far more dangerous than an expensive one with none.
-
-| Band | Example tool | Where the control lives |
+| Gate | Yours? | What you bring to it |
 | --- | --- | --- |
-| R1 | `search_flights` | Nothing needed; read-only |
-| R2 | `draft_message` | Review before merge into the reply |
-| R3 | `cancel_hold` | Approve first |
-| R4 | `issue_refund(amount ≤ 400)` | **Typed, bounded parameter** + named approver |
-| R5 | `change_passenger_identity` | Not delegated |
+| Intent | Product manager's | The constraint register, so the verdict is made against real limits |
+| Plan | **Shared** with the product manager | The authority budget and the gate map |
+| Behaviour | QA's | — |
+| Release | Product manager's | Confirmation the rollback path is the one the design assumed |
+| Expansion | QA's | — |
 
-> **A cap in a prompt is a request. A cap in a tool signature is a boundary.**
-
-An injected instruction can override a prompt. It cannot override a typed parameter that raises. The
-PM decides where the allowed-alone line is; you make it enforceable.
-
-Monday: put every cap in a tool signature and **delete it from the prompt**. Keep the prompt sentence
-that *explains* the rule — that is policy, and it makes the agent behave well by default. The
-signature is what makes bad behaviour impossible when the prompt has been talked past.
-
-See [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary).
+You hold no gate alone, and that is the design. An architect whose authority comes from a signature
+is an architect who is consulted late; an architect whose authority comes from the artefacts is one
+whose decisions survive them being on holiday.
 
 ---
 
-## Step 13 in depth · the three drifts to catch at the plan gate
+## How this role fails
 
-Mid-build, each of these looks reasonable on its own.
+**The ADR folder nobody opens.** Every decision recorded, which is the same as none of them recorded,
+because nobody can find the three that mattered.
+*The tell:* more than about a dozen ADRs for one feature, or an ADR whose title is a noun rather than
+a choice.
 
-| Drift | What it looks like | The one-line test |
-| --- | --- | --- |
-| **Shape drift** | A second agent added "for speed" | Is there a **named limit** in the record that justifies it? |
-| **Authority drift** | A gate moved from the tool into the prompt | Grep the prompt for caps. Any hit is a failure |
-| **Context drift** | The whole booking history pasted in "for context" | Is it a **slice** or a document? |
+**The map that stopped describing the system.** Steps re-tagged in code and never in the map.
+*The tell:* ask an engineer to point at the consequential steps, then compare with the map. Any
+difference at all means the map is now documentation rather than a control.
 
-Plus the fourth, which is the gate itself: **is the evidence line empty?** If it is, the bolt does not
-merge.
+**Token budget before authority budget.** The cap gets set to whatever was affordable, and the
+question of what the agent may do becomes a consequence of what it could afford.
+*The tell:* the authority budget's dates are later than the token estimate's.
 
-Run the four tests on the last bolt that merged. Expect one to fail.
+**Checkers everywhere.** A checker after every step, which doubles the bill and still misses the one
+that mattered, because attention went to coverage rather than to consequence.
+*The tell:* the checker count equals the step count.
+
+**Consulted, not accountable.** The design is advice, so it is followed when convenient.
+*The tell:* a decision was changed in P2 without an ADR, and you found out afterwards.
+
+---
+
+## How you are measured
+
+Not by diagrams produced. Three things, all observable by someone else:
+
+| | What it means |
+| --- | --- |
+| **Decisions that held** | ADRs from P1 still describing the system at P3, without a silent amendment |
+| **The bill's shape** | The four factors — context, tier, cache, attempts — each traceable to a design choice somebody made on purpose |
+| **Incidents that produced a control** | A postmortem you were in that named a control, and the control exists |
+
+The fourth thing, which is harder to count and matters most: whether the team can answer *"why is it
+built this way?"* when you are not there.
+
+---
+
+## Your first thirty days in the role
+
+1. **Ask what the $400 is.** Every organisation has one — a threshold everyone repeats and nobody can
+   source. Find out whether it is policy, contract or folklore. The answer reshapes more NFRs than any
+   workshop will.
+2. **Tag one live feature's steps** exact, best-guess or consequential. Then ask an engineer to do the
+   same from memory and compare. The gap is your starting position.
+3. **Write the authority budget for one feature** before looking at any token estimate. Two lists:
+   allowed alone, needs a person.
+4. **Count the ADRs** for the most recent feature. If there are none, ask where the trade-offs went.
+   If there are thirty, ask which three someone would actually read.
+5. **Find the escalation condition** in whatever is running. If there isn't one, that is the finding:
+   a system with no escalation condition has one autonomy level, which is its highest.
+6. **Read one postmortem** and check whether it names a control or a string. If a string, it will
+   happen again with different wording.
 
 ---
 
@@ -210,6 +170,8 @@ Run the four tests on the last bolt that merged. Expect one to fail.
 4. Compute the chain accuracy for your feature. **Multiply, do not average.**
 5. Write the ADR for the last decision you made in a meeting and nobody wrote down. Then add the ADR
    folder to the agent's context pack.
+
+---
 
 ---
 
@@ -276,3 +238,20 @@ See [How to Control the Token Bill](How-to-Control-the-Token-Bill).
 
 **Next:** [Role: Engineering lead](Role-Engineering-Lead) · [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper)
 · [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) · [Decision Trees](Decision-Trees)
+
+---
+
+## Where the detail lives
+
+| You want | Go to |
+| --- | --- |
+| The day-to-day walk, with templates and prompts | [Journey · Solution Architect](Journey-Solution-Architect) |
+| Designing the agent on paper first | [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) |
+| Running the NFR workshop | [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop) |
+| Build, buy or borrow | [How to Choose Build, Buy or Borrow](How-to-Choose-Build-Buy-or-Borrow) |
+| Where a boundary is actually enforced | [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) |
+| Chained probability and every other formula | [Formulas and Calculators](Formulas-and-Calculators) |
+| Practising the judgement calls | [Exercises](Exercises-and-Answers) · [Scenario Library](Scenario-Library) |
+
+**Next:** [Journey · Solution Architect](Journey-Solution-Architect) ·
+[Role: Engineering Lead](Role-Engineering-Lead) · [Role: Product Manager](Role-Product-Manager)

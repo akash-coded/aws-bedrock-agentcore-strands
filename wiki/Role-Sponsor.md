@@ -1,11 +1,62 @@
 # Role: sponsor
 
-You own the one loop no delivery role owns: **governance**, P0 all the way to P3. You are also the
-person the programme is cancelled in front of, which makes you the only one whose incentives are
-aligned with hearing bad news early.
+You are on the hook for **P3 — whether it is still doing what you launched, and what it cost.** You
+are also the only person on the programme with no delivery deadline, which is why the governance loop
+is yours: it is the one loop with nobody downstream waiting on it.
 
-This page is for sponsors, heads of product, delivery leads and anyone who signs the budget. It is
-deliberately short. Your job is four questions, asked consistently.
+> **There is no journey page for this role**, because the job is not a sequence of steps. The nearest
+> thing is [the operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/) — the whole model on one screen, with the four
+> decisions, the arithmetic behind them, and ninety days.
+>
+> This page is the standing definition of the job: what you own, what you may settle alone, what
+> crosses your desk, how the role fails, and what to do on the two days that actually test it.
+
+---
+
+## What stays the same, and what changes
+
+| You have always done this | What a model in the middle adds |
+| --- | --- |
+| Backing a programme, and stopping one | The stop decision now rests on **evidence you specified in advance**. A demo is not evidence and everyone in the room knows it |
+| Setting risk appetite | Risk appetite becomes an **autonomy level, per action**, with the recoverability answer beside it — not one setting for "the AI" |
+| Reading a business case | The case carries a **running cost** that moves with behaviour rather than with volume. A bill can multiply on flat traffic |
+| Steering committees and status | **Two numbers** against a dated baseline, with the review row visible. Anything else is a story |
+| Asking whether it works | Asking for a **lower bound per slice**, because a score without an interval has not said anything yet |
+| Post-incident reviews | A postmortem that has not produced a **brief for the next P0** has not finished |
+| Portfolio decisions | Most of the portfolio comes back as **rules**, and that is the healthy answer rather than a lack of ambition |
+
+---
+
+## What you own, what you shape, and what you must not touch
+
+| | |
+| --- | --- |
+| **You own** | Whether the programme is funded past cycle one · the organisation's autonomy ceiling · what you will accept as evidence · the governance loop, and the name on it |
+| **You shape** | The roadmap, which is the product manager's · the architecture, which is the architect's · the bar, which is derived and not chosen. You can ask for any of them to be justified; you cannot set them |
+| **You must not touch** | The verdict on a slice · which slice ships first · the gate decisions · the design |
+
+The temptation in this role is to reach into delivery when a number is disappointing. It never works,
+and it costs the thing the role is actually for: an independent reading of whether the programme is
+worth continuing.
+
+---
+
+## The four decisions nobody can make for you
+
+Delivery decisions belong to delivery. These four do not, because each trades a business risk against
+a business return, and that trade is yours. They are the same four on
+[the operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/), where each has its arithmetic.
+
+| | The decision | What to ask for | A healthy answer |
+| --- | --- | --- | --- |
+| **1** | Which work is genuinely AI work | An AI-fit record per candidate, naming the rejected alternative and why | Two or three of your top five come back as rules |
+| **2** | What the agent may do without a person | The autonomy level per *action*, never per product, with the recoverability answer beside it | Different levels for different actions, and a hold on the expensive one |
+| **3** | What you will accept as evidence | A lower bound per slice, and a shadow run — not a score, and not a demo | Someone tells you a slice is *unproven* without being asked twice |
+| **4** | What you will fund past cycle one | Two numbers against a dated baseline, with the review row visible | The review row is high in cycle one and falling |
+
+**The fourth is the one that decides the programme**, and it is decided by what you did about the
+third. A sponsor who accepted a demo as evidence in cycle one has no basis for the cycle-two
+decision except how the demo felt.
 
 ---
 
@@ -75,6 +126,37 @@ further along, ships more safely, and costs less.
 
 ---
 
+---
+
+## What crosses your desk
+
+```mermaid
+flowchart LR
+  PM["Product<br/>manager"] -->|"AI-fit records · the two numbers"| ME["Sponsor"]
+  QA["QA lead"] -->|"a slice called <i>unproven</i>"| ME
+  SA["Solution<br/>architect"] -->|"the missing-control finding"| ME
+  ME -->|"the autonomy ceiling"| PM
+  ME -->|"what counts as evidence"| QA
+  ME -->|"cycle-two funding"| PM
+  classDef me fill:#9C680326,stroke:#9C6803,stroke-width:2.5px
+  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  class ME me
+  class PM,QA,SA them
+```
+
+| Phase | You receive | You are being asked for |
+| --- | --- | --- |
+| **P0 · Frame** | The AI-fit records, with rejected alternatives | Permission to spend design time — and an autonomy ceiling |
+| **P1 · Design & Spec** | The spec, the bar per slice, the authority budget | Nothing, if the phase is healthy. Being asked to arbitrate here usually means a decision has no owner |
+| **P2 · Build & Prove** | The gate readouts | Patience, and occasionally a waiver — which is a decision with a blast radius and a closure date, not a nod |
+| **P3 · Run & Learn** | The two-number report · the drift readout · the bill by factor | The cycle-two funding decision, and the name on the governance loop |
+
+If you are being asked to decide something in P1 or P2 that is not a waiver, the honest question is
+*whose decision is this?* — because the answer is nearly always somebody who did not want to make
+it.
+
+---
+
 ## The three reports you should receive
 
 | Report | Cadence | From | If it is missing |
@@ -82,6 +164,8 @@ further along, ships more safely, and costs less.
 | **Two numbers** | Every cycle | PM, from the engineering ledger | You will hear the cost number from finance instead |
 | **Drift readout** | Weekly | PM | Behaviour will change with no deploy and no alert |
 | **Incident brief** | On each incident | PM and architect | Postmortems will end in a name rather than a control |
+
+---
 
 ---
 
@@ -106,6 +190,8 @@ See [How to Control the Token Bill](How-to-Control-the-Token-Bill).
 
 ---
 
+---
+
 ## What to do when the incident arrives
 
 One question runs the whole room:
@@ -122,6 +208,8 @@ See [How to Run a Missing-Control Postmortem](How-to-Run-a-Missing-Control-Postm
 
 ---
 
+---
+
 ## What not to ask for
 
 | Do not ask for | Because | Ask instead |
@@ -131,6 +219,60 @@ See [How to Run a Missing-Control Postmortem](How-to-Run-a-Missing-Control-Postm
 | AI tool adoption counts | It rewards the least mature behaviour | "What level are we, and what is the next control?" |
 | A launch date before the shadow run | The date will win the argument against the evidence | "What is the shadow threshold, and when does the window close?" |
 | Your sign-off on a pull request | You cannot evaluate it, and your name on it helps nobody | "Bring me intent and release" |
+
+---
+
+---
+
+## How this role fails
+
+**Asking for a demo.** A demo shows what the system can do once, which is not what it does across
+traffic, and everyone in the room knows this.
+*The tell:* the last three reviews had a screen share and no interval.
+
+**Setting autonomy per product.** One level for "the agent", which forces the whole product to the
+strictness of its riskiest action or, worse, to the looseness of its safest.
+*The tell:* the autonomy record has one row.
+
+**Reading the bill as a finance problem.** A spend review, a budget increase, a conversation about
+tooling — none of which reaches the design that caused it.
+*The tell:* the cost loop's actions all have a finance owner and none has an ADR.
+
+**Cancelling on the number that was hidden.** The programme ends on a figure you saw for the first
+time at the moment it was worst.
+*The tell:* you are surprised. Surprise is not a failure of the number, it is a failure of the
+reporting cadence you accepted.
+
+**Measuring adoption.** Seats bought, teams onboarded, tools rolled out.
+*The tell:* the metric cannot fall when the work gets worse.
+
+---
+
+## How you are measured — and how to measure yourself
+
+Nobody grades a sponsor, so here are three questions that do it honestly.
+
+1. **Can you name the person who closes the cost loop and the person who closes the incident loop?**
+   Not the team. If not, those loops are absent, and absent is the honest word — not *informal*.
+2. **When did you last hear the word *unproven*?** If never, either nothing has been hard or nobody
+   is willing to say it to you, and only one of those is likely.
+3. **Is your baseline dated and from before the pilot?** If it was reconstructed afterwards, every
+   number you report rests on a memory.
+
+---
+
+## Your first thirty days in the role
+
+1. **Ask for the AI-fit records** on whatever is already running. If they do not exist, that is the
+   finding: the decision was made and not recorded, which means it cannot be reviewed.
+2. **Ask for the autonomy record** and count the rows. One row is a problem.
+3. **Say what you will accept as evidence**, in writing, before the next gate. A lower bound per
+   slice and a shadow comparison. Say it early so it does not read as a moved goalpost later.
+4. **Find the baseline.** If there isn't one and a pilot is imminent, stop and take it — it is an
+   afternoon now and impossible afterwards.
+5. **Name the two loop owners.** Cost and incident, a person each, agreed with them.
+6. **Set the reporting cadence for the bill** while it is uninteresting, so nobody has to decide to
+   show you a bad number for the first time.
 
 ---
 
@@ -161,3 +303,19 @@ board meeting.
 
 **Next:** [Gates and Governance](Gates-and-Governance) · [The Eight Loops](The-Eight-Loops) ·
 [Role: Product manager](Role-Product-Manager) · [Anti-Patterns](Anti-Patterns)
+
+---
+
+## Where the detail lives
+
+| You want | Go to |
+| --- | --- |
+| The whole operating model on one screen | [The operating protocol](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/) |
+| The four phases and what each ends with | [The Agentic PDLC](The-Agentic-PDLC) |
+| Why three loops need a named person | [The Eight Loops](The-Eight-Loops) |
+| What a gate is, and who holds it | [Gates and Governance](Gates-and-Governance) |
+| What evidence is supposed to look like | [The Evidence Pack](The-Evidence-Pack) |
+| The scenarios written for this chair | [Scenario Library](Scenario-Library) — 1, 10, 23, 24 |
+
+**Next:** [The Agentic PDLC](The-Agentic-PDLC) · [Gates and Governance](Gates-and-Governance) ·
+[Role: Product Manager](Role-Product-Manager)
