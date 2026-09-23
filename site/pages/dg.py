@@ -140,3 +140,22 @@ def bands(items: list[str]) -> str:
 
 def section_band(label: str) -> str:
     return f'<div class="dgsb"><span class="dgt">{E(label)}</span></div>'
+
+
+# --------------------------------------------------------------------------- svg + cards
+def svg(width: int, height: int, inner: str, label: str) -> str:
+    """A board-scale drawing. Used only where the geometry is the argument — a ring, a
+    set of arcs, a spine with returns. Anything text-heavy stays in HTML."""
+    return (f'<div class="dgs"><svg viewBox="0 0 {width} {height}" role="img" '
+            f'aria-label="{E(label)}">{inner}</svg></div>')
+
+
+def cards(items: list[dict]) -> str:
+    """A row of small cards under a drawing: the unpacking half of diagram-then-unpack."""
+    out = []
+    for c in items:
+        meta = "".join(f"<dt>{E(k)}</dt><dd>{E(v)}</dd>" for k, v in c.get("meta", []))
+        out.append(f'<article class="dgcard" style="--c:var(--dg-{c["hue"]})">'
+                   f'<header><span class="ck">{E(c["key"])}</span><b>{E(c["name"])}</b></header>'
+                   f'<p>{E(c["body"])}</p><dl>{meta}</dl></article>')
+    return f'<div class="dgcards">{"".join(out)}</div>'

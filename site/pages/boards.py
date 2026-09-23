@@ -206,3 +206,109 @@ def delegation() -> str:
              "outside. That is the job now — not less judgement, the same judgement "
              "concentrated into fewer and larger decisions, each with a name on it.",
         bid="delegation")
+
+
+# --------------------------------------------------------------------------- D · the loops
+# Geometry, stated once so the drawing below is readable. Four phase nodes on a spine;
+# forward loops arc over it, loops that close inside a phase dip just under it, and the
+# three that run backwards swing deep below — which is the whole point of the picture.
+_PX = [("slate", "P0", "Frame", 150), ("indigo", "P1", "Design & Spec", 420),
+       ("teal", "P2", "Build & Prove", 690), ("amber", "P3", "Run & Learn", 960)]
+_NW, _TOP, _BOT = 190, 150, 212
+
+
+def _tag(x: float, y: float, text: str, colour: str, weight: int = 600,
+         anchor: str = "middle") -> str:
+    """A label that has to survive sitting on top of a curve: it carries its own backing."""
+    w = len(text) * 5.7 + 14
+    x0 = x - w / 2 if anchor == "middle" else (x - 7 if anchor == "start" else x - w + 7)
+    return (f'<rect x="{x0:.0f}" y="{y - 10:.0f}" width="{w:.0f}" height="14" rx="4" '
+            f'fill="var(--bone)"/>'
+            f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="{anchor}" font-size="10.5" '
+            f'font-weight="{weight}" fill="{colour}">{dg.E(text)}</text>')
+
+
+def _loops_svg() -> str:
+    ink, rose, violet = "var(--soft)", "var(--dg-rose)", "var(--dg-violet)"
+    o = ['<defs>']
+    for name, col in (("ai", ink), ("ar", rose), ("av", violet)):
+        o.append(f'<marker id="{name}" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" '
+                 f'orient="auto"><path d="M0 0.5 L8.5 4.5 L0 8.5 z" fill="{col}"/></marker>')
+    o.append("</defs>")
+
+    # governance spans the whole line and belongs to nobody who builds
+    o.append(f'<path d="M150 46 V32 H960 V46" fill="none" stroke="{violet}" stroke-width="1.6" '
+             f'stroke-dasharray="5 4" marker-end="url(#av)"/>')
+    o.append(_tag(555, 36, "Governance  ·  P0 → P3  ·  the sponsor's", violet, 700))
+
+    # the phases
+    for hue, key, name, cx in _PX:
+        c = f"var(--dg-{hue})"
+        o.append(f'<rect x="{cx - _NW // 2}" y="{_TOP}" width="{_NW}" height="{_BOT - _TOP}" '
+                 f'rx="12" fill="{c}"/>')
+        o.append(f'<text x="{cx}" y="{_TOP + 26}" text-anchor="middle" font-size="14" '
+                 f'font-weight="700" fill="var(--dg-on)">{key}</text>')
+        o.append(f'<text x="{cx}" y="{_TOP + 45}" text-anchor="middle" font-size="12" '
+                 f'fill="var(--dg-on)" opacity=".85">{dg.E(name)}</text>')
+
+    # forward: they close on their own, because somebody downstream is waiting
+    for (a, b), name in zip([(150, 420), (420, 690), (690, 960)],
+                            ["Requirements · P0 → P1", "Spec · P1 → P2", "Trust · P2 → P3"]):
+        o.append(f'<path d="M{a} {_TOP} C{a} 66 {b} 66 {b} {_TOP}" fill="none" stroke="{ink}" '
+                 f'stroke-width="1.6" marker-end="url(#ai)"/>')
+        o.append(_tag((a + b) / 2, 80, name, "var(--ink2)"))
+
+    # closes inside its own phase
+    for cx, name in ((420, "Decision · P1 → P1"), (690, "Delivery · P2 → P2")):
+        o.append(f'<path d="M{cx - 34} {_BOT} C{cx - 34} 250 {cx + 34} 250 {cx + 34} {_BOT}" '
+                 f'fill="none" stroke="{ink}" stroke-width="1.6" marker-end="url(#ai)"/>')
+        o.append(_tag(cx + 46, 245, name, "var(--ink2)", anchor="start"))
+
+    # backwards: the three teams forget, drawn deep and kept moving
+    o.append(f'<path class="fl" d="M960 {_BOT} C960 312 366 312 366 {_BOT}" fill="none" '
+             f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>')
+    o.append(_tag(600, 292, "Cost · P3 → P1", rose, 700))
+    o.append(f'<path class="fl" d="M960 {_BOT} C960 356 150 356 150 {_BOT}" fill="none" '
+             f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>')
+    o.append(_tag(555, 336, "Incident · P3 → P0", rose, 700))
+    return dg.svg(1120, 372, "".join(o),
+                  "Four phases on a line. Five loops close forwards or inside a phase; cost, "
+                  "incident and governance run backwards across it.")
+
+
+BACKWARD = [
+    {"hue": "rose", "key": "P3 → P1", "name": "Cost",
+     "body": "A bill that left its estimate is a design question, not a finance question. "
+             "It closes when an architecture decision record changes, not when a budget does.",
+     "meta": [("Owner", "Solution architect"), ("Closed when", "An ADR has a v2 with a diff"),
+              ("Confidence", "documented")]},
+    {"hue": "rose", "key": "P3 → P0", "name": "Incident",
+     "body": "A postmortem that does not produce a brief has not finished. The finding is the "
+             "control that would have made the incident impossible, named.",
+     "meta": [("Owner", "Every role"), ("Closed when", "A next-P0 brief exists, with an owner"),
+              ("Confidence", "established")]},
+    {"hue": "violet", "key": "P0 → P3", "name": "Governance",
+     "body": "Spans the whole line and belongs to the sponsor, not to any delivery role. It is "
+             "the only loop with nobody downstream waiting, which is why it is the one most "
+             "often absent.",
+     "meta": [("Owner", "Sponsor"), ("Closed when", "The four leadership decisions are dated"),
+              ("Confidence", "working method")]},
+]
+
+
+def loops() -> str:
+    inner = (_loops_svg()
+             + dg.section_band("The three that run backwards")
+             + dg.cards(BACKWARD))
+    return dg.board(
+        "The spine, continued", "Eight loops make the line a ring",
+        "Each loop opens in one phase and closes in a later one. Five close forwards or "
+        "inside a phase and look after themselves, because somebody downstream is waiting "
+        "and will chase. Three run backwards, and nobody is waiting.",
+        inner,
+        note="<b>The test for a loop that exists.</b> For each of the three backwards loops, "
+             "name the person. Not the team, the person. If you cannot, the loop is absent — "
+             "and absent is the honest word, not <em>informal</em>. A loop is closed when an "
+             "artefact in the opening phase has changed because of evidence from the closing "
+             "one, and you can show the diff.",
+        bid="loops")

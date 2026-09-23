@@ -401,6 +401,8 @@ def home_page(roles: list[dict]) -> str:
 
   {boards.pdlc()}
 
+  {boards.loops()}
+
   <div class="sec" style="max-width:74ch">
     <h2>Pick the chair you sit in</h2>
     <p>The same ninety days look different from each seat. Each role page walks eight steps
