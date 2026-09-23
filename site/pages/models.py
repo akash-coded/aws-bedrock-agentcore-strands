@@ -54,9 +54,9 @@ def g_lever() -> str:
         '<path d="M22 86 L238 44" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>'
         '<path d="M150 52 l12 22 -24 0 z" fill="var(--accent)"/>'
         '<rect x="14" y="60" width="34" height="26" rx="4" fill="var(--stop)" opacity=".85"/>'
-        '<text x="31" y="78" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">$$$</text>'
+        '<text x="31" y="78" text-anchor="middle" font-size="11" fill="var(--dg-on)" font-weight="700">$$$</text>'
         '<circle cx="228" cy="42" r="11" fill="var(--sage)"/>'
-        '<path d="M224 42 l3 4 6 -8" stroke="#fff" stroke-width="2" fill="none"/>'
+        '<path d="M224 42 l3 4 6 -8" stroke="var(--dg-on)" stroke-width="2" fill="none"/>'
         '<text x="31" y="106" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">damage</text>'
         '<text x="228" y="70" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">one person</text>',
         "A lever: one person at the long end lifts the damage at the short end")
@@ -131,7 +131,7 @@ def g_multiply() -> str:
                    f'fill="var(--warn)">{v}</text>')
     for x in xs[:-1]:
         out.append(f'<text x="{x+52}" y="59" text-anchor="middle" font-size="12" fill="currentColor" '
-                   f'opacity=".5">×</text>')
+                   f'opacity=".78">×</text>')
     out.append('<text x="130" y="100" text-anchor="middle" font-size="15" font-weight="700" '
                'fill="var(--stop)">= 4.4× the estimate</text>')
     return _svg("".join(out), "Four ordinary factors multiplied together giving 4.4 times")

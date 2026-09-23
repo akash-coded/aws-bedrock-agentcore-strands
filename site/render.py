@@ -572,7 +572,7 @@ def svg_chain() -> str:
             'aria-label="Chained probability: eight steps each right ninety percent of the time">'
             '<line x1="40" y1="176" x2="748" y2="176" stroke="currentColor" opacity=".25"/>'
             '<line x1="40" y1="36" x2="748" y2="36" stroke="currentColor" opacity=".12" stroke-dasharray="4 4"/>'
-            '<text x="44" y="32" font-size="11" fill="currentColor" opacity=".5">100%</text>'
+            '<text x="44" y="32" font-size="11" fill="currentColor" opacity=".78">100%</text>'
             f'<polyline points="{" ".join(pts)}" fill="none" stroke="var(--dg-rose)" stroke-width="2"/>'
             + "".join(marks) +
             '<text x="394" y="214" text-anchor="middle" font-size="11.5" fill="currentColor" opacity=".6">'

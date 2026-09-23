@@ -31,7 +31,7 @@ def bar_sheet() -> str:
         out.append(f'<text x="142" y="{y+15}" text-anchor="end" font-size="12" '
                    f'fill="currentColor">{name}</text>')
         out.append(f'<rect x="150" y="{y}" width="{w:.0f}" height="21" rx="3" fill="{colour}" '
-                   f'opacity=".78"/>')
+                   f'opacity=".95"/>')
         # A wide bar carries its own label inside it; a narrow one sets it just outside.
         if w > 235:
             out.append(f'<text x="{144+w:.0f}" y="{y+15}" text-anchor="end" font-size="12" '
@@ -175,7 +175,7 @@ def bill_factors() -> str:
                    f'opacity=".78">{sub}</text>')
         if x < 360:
             out.append(f'<text x="{x+122}" y="72" text-anchor="middle" font-size="13" fill="currentColor" '
-                       f'opacity=".45">×</text>')
+                       f'opacity=".78">×</text>')
         x += 134
     out.append('<text x="276" y="128" text-anchor="middle" font-size="18" font-weight="700" '
                'fill="var(--dg-rose)">= 4.4× the estimate, on flat traffic</text>')
@@ -217,9 +217,9 @@ def two_numbers() -> str:
             ("token spend per story", "—", "$310", "", "var(--dg-amber)"),
             ("review hours added", "1.2", "2.0", "+0.8", "var(--dg-amber)"),
             ("re-runs per story", "—", "1.4", "", "var(--soft)")]
-    out.append('<text x="300" y="32" font-size="10" fill="currentColor" opacity=".5">baseline</text>')
-    out.append('<text x="388" y="32" font-size="10" fill="currentColor" opacity=".5">now</text>')
-    out.append('<text x="490" y="32" font-size="10" fill="currentColor" opacity=".5">change</text>')
+    out.append('<text x="300" y="32" font-size="10" fill="currentColor" opacity=".78">baseline</text>')
+    out.append('<text x="388" y="32" font-size="10" fill="currentColor" opacity=".78">now</text>')
+    out.append('<text x="490" y="32" font-size="10" fill="currentColor" opacity=".78">change</text>')
     for i, (name, a, b, c, colour) in enumerate(rows):
         y = 52 + i * 21
         out.append(f'<text x="28" y="{y}" font-size="11.5" fill="currentColor" opacity=".85">{name}</text>')

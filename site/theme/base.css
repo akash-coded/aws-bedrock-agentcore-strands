@@ -137,7 +137,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 .note.warn{border-left-color:var(--warn);background:color-mix(in oklab,var(--warn) 9%,transparent)}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;
   font-weight:600;background:var(--rule2);color:var(--ink2);border:1px solid var(--rule)}
-.pill.acc{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in oklab,var(--accent) 28%,transparent)}
+.pill.acc{background:var(--accent-soft);color:color-mix(in oklab,var(--accent) 86%,var(--ink));border-color:color-mix(in oklab,var(--accent) 28%,transparent)}
 
 /* ---------- tables ---------- */
 .tw{overflow-x:auto;margin:0 0 18px;border:1px solid var(--rule);border-radius:12px;background:var(--paper)}
@@ -163,7 +163,8 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .step > summary::-webkit-details-marker{display:none}
 .step > summary:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .sn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);
-  font-weight:680;font-size:17px;background:var(--accent-soft);color:var(--accent);
+  font-weight:680;font-size:17px;background:var(--accent-soft);
+  color:color-mix(in oklab,var(--accent) 86%,var(--ink));
   border:1px solid color-mix(in oklab,var(--accent) 26%,transparent)}
 .sh .ph{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
 .sh h3{margin:2px 0 3px;font-size:19.5px}
@@ -251,7 +252,8 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .rc .rt{font-family:var(--f-display);font-size:20px;font-weight:660;color:var(--ink);margin:10px 0 5px}
 .rc .rg{font-size:14.5px;color:var(--ink2);margin-bottom:14px}
 .rc .rb{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-family:var(--f-display);
-  font-weight:700;font-size:13px;background:color-mix(in oklab,var(--rc) 14%,transparent);color:var(--rc);
+  font-weight:700;font-size:13px;background:color-mix(in oklab,var(--rc) 14%,transparent);
+  color:color-mix(in oklab,var(--rc) 86%,var(--ink));
   border:1px solid color-mix(in oklab,var(--rc) 30%,transparent)}
 .rc .rs{font-size:12.5px;color:var(--soft);display:flex;gap:6px;flex-wrap:wrap}
 .rc .rs i{font-style:normal;padding:2px 8px;border-radius:6px;background:var(--rule2);border:1px solid var(--rule)}
@@ -518,7 +520,8 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dgx.gate .gl svg{width:18px;height:18px;stroke:var(--dg-on);fill:none;stroke-width:1.8;
   stroke-linecap:round;stroke-linejoin:round}
 .dgx.gate .gt{position:relative;font-size:9px;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--dg-teal);text-align:center;line-height:1.25;
+  text-transform:uppercase;color:color-mix(in oklab,var(--dg-teal) 88%,var(--ink));
+  text-align:center;line-height:1.25;
   background:var(--bone);padding:2px 0}
 @keyframes dgmarch{to{background-position:10px 0}}
 
