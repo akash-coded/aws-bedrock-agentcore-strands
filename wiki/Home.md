@@ -13,6 +13,17 @@ no single surface can point at the other four.
 | 🧭 **[The role journeys](Journey-Product-Manager)** | Five roles walked end to end, each with templates and copy-paste prompts at every step | [PM](Journey-Product-Manager) · [SA](Journey-Solution-Architect) · [Eng](Journey-Engineering-Lead) · [QA](Journey-QA-Lead) · [Ops](Journey-DevOps) |
 | 📘 **[The playbook wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five roles, nine how-tos, 24 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
 
+### If you would rather look than read
+
+Four drawings carry the whole method, and each one links back into the page that explains it.
+
+| The picture | What it answers |
+| --- | --- |
+| [The agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#pdlc) | Four phases, one hard gate, and the line that comes back |
+| [Eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops) | Which loops close themselves, and which three nobody is waiting on |
+| [Your role, across the four phases](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#by-role) | One row per role, one column per phase — including the cells that should be empty |
+| [Where the model helps, and where it must not](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#delegation) | The model drafts, you check, and the one thing per step that is never delegated |
+
 **New here and want one link?** [START-HERE](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/START-HERE.md).
 
 ---

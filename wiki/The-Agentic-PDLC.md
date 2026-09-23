@@ -27,7 +27,20 @@ flowchart LR
   P1 -->|HARD GATE| P2["P2 · Build & Prove<br/><i>bolts, harness, shadow</i>"]
   P2 --> P3["P3 · Run & Learn<br/><i>trace, drift, two numbers</i>"]
   P3 -.->|incident, drift, cost| P0
+  classDef p0 fill:#4A607622,stroke:#4A6076,stroke-width:2px
+  classDef p1 fill:#3F51C422,stroke:#3F51C4,stroke-width:2px
+  classDef p2 fill:#0E7F7C22,stroke:#0E7F7C,stroke-width:2px
+  classDef p3 fill:#9C680322,stroke:#9C6803,stroke-width:2px
+  class P0 p0
+  class P1 p1
+  class P2 p2
+  class P3 p3
+  linkStyle 1 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 3 stroke:#A93F3F,stroke-width:2px
 ```
+
+> The same picture, drawn out with what each phase leaves behind:
+> [the agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#pdlc).
 
 The dotted line is the point. P3 is not the end of a line, it is the input to the next P0.
 
@@ -348,7 +361,18 @@ flowchart TD
   I -.->|"back into framing"| R
   G["Governance<br/>P0 → P3"] -.-> R
   G -.-> T
+  classDef fwd fill:#4A607618,stroke:#4A6076,stroke-width:1.5px
+  classDef back fill:#A93F3F1F,stroke:#A93F3F,stroke-width:2px
+  classDef gov fill:#6A4BA81F,stroke:#6A4BA8,stroke-width:2px
+  class R,S,D,DE,T fwd
+  class C,I back
+  class G gov
+  linkStyle 7,8 stroke:#A93F3F,stroke-width:2px
+  linkStyle 9,10 stroke:#6A4BA8,stroke-width:2px
 ```
+
+> The same eight on a spine, with the three backwards ones drawn beneath it:
+> [eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops).
 
 Three of them run backwards, and those are the ones teams forget to build:
 
@@ -381,6 +405,72 @@ A practical test: for each of the three backwards loops, name the person. Not th
 you cannot, the loop is absent, and absent is the honest word — not "informal".
 
 ---
+
+## Where the model helps, and where it must not
+
+The machine took the drafting. It did not take the judgement — it concentrated it. Every step in this
+playbook names a tool, a use, a caution, and exactly one thing that is never delegated. Read the third
+column of each table first: forty steps across five roles produce forty of those lines, and they have
+a shape. Every one is a fact about your business, your regulator or your ledger that no amount of
+context makes knowable from outside.
+
+> Drawn as four lanes, phase by phase:
+> [where the model helps, and where it must not](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#delegation).
+
+### P0 · Frame
+
+| The model drafts | You check | Never delegated |
+| --- | --- | --- |
+| Distinct pains from six transcripts, deduplicated | Every line still carries the name of who said it | Which pain is worth solving |
+| Counts from a ticket export, with the script it ran | The script counted the right date column | Whether a wrong action can be undone |
+| Cost-per-case arithmetic, assumptions in named cells | A sceptic can move one cell and watch the answer move | The autonomy level itself |
+
+The autonomy level is the decision money and regulators hang off. Merged-without-attribution is how a
+stakeholder later says they were never heard, which is why the check on the first row is the name and
+not the wording.
+
+### P1 · Design & Spec
+
+| The model drafts | You check | Never delegated |
+| --- | --- | --- |
+| The constraint register, sorted by type | The register separates real constraints from habits | The read-back, to the person who said it |
+| A first pass at the agent map, every step tagged | A $400 threshold is policy, not folklore | What counts as money |
+| The eight-field spec from the brief and the notes | Each bar was derived from two money figures, not chosen | The bar and the autonomy fields |
+
+The only way to learn that a threshold is a policy your compliance team owns, rather than a number
+somebody once typed, is to ask a person. Whether a fee waiver, a goodwill credit or a seat upgrade
+counts as a consequential action is the same kind of question.
+
+### P2 · Build & Prove
+
+| The model drafts | You check | Never delegated |
+| --- | --- | --- |
+| The deterministic floor from the exact-code inventory | The boundary line says what the system must refuse | The never-touch list |
+| Checker implementations and a first judge rubric | The judge agrees with human labels on a fresh sample | The expected outcome on every golden case |
+| Golden-set candidates pulled from real traffic | The harness runs in cost order and blocks the merge | The verdict: proven, failed or unproven |
+
+The expected-outcome field is the judgement the entire golden set rests on, and it is the one thing a
+model cannot supply without making the set circular. Proven, failed and unproven are three different
+sentences with three different consequences.
+
+### P3 · Run & Learn
+
+| The model drafts | You check | Never delegated |
+| --- | --- | --- |
+| The trace schema and a starting alarm set | The factors multiply back to the bill you were sent | What is masked and what is kept |
+| The bill decomposed into its four factors | The blast radius of each new permission is named | Declaring the incident over |
+| A draft of the two-number report | Drift is measured against the launch set, not last week | What the sponsor sees |
+
+What is masked is a legal and contractual question about your own data. Declaring an incident over
+means somebody with accountability has looked at the state of the world — what was written, what was
+sent, what cannot be unwound — and said so with their name on it.
+
+### The test
+
+For any step in this playbook, ask what a model would have to know about your organisation to make
+the call, and whether that knowledge exists anywhere it could read. If the answer is no, the step is
+in the third column, and the honest move is to write the line down rather than discover it in a
+postmortem.
 
 ## What is genuinely new, and what is not
 
