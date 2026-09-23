@@ -278,7 +278,122 @@
     });
   }
 
-  function init() { wireLenses(); wireCalcs(); wireScores(); wireSteppers(); }
+  /* ---------------------------------------------------------------- reveal */
+  /* A board's parts arrive in the order they are meant to be read, because on
+     these diagrams the order IS the lesson. This is the only motion on the site
+     that touches content, so it is armed by script and disarmed three ways: no
+     script, reduced motion, or a watchdog if the observer never fires. Content
+     that script hides must be content script is certain to show. */
+  function wireReveal() {
+    var groups = $$("[data-reveal]");
+    if (!groups.length) return;
+    if (!("IntersectionObserver" in window)) return;
+    try {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    } catch (e) { return; }
+    // A document that starts hidden never gets a running clock, so it never gets
+    // the animation either. Nothing is armed and everything is simply present.
+    if (document.hidden) return;
+
+    groups.forEach(function (g) {
+      var kids = [].slice.call(g.children);
+      // a long group steps faster, so a 30-cell matrix does not take three seconds
+      var step = Math.max(22, Math.min(90, 620 / Math.max(1, kids.length)));
+      kids.forEach(function (k, i) {
+        k.style.setProperty("--rvd", Math.round(i * step) + "ms");
+      });
+      g.setAttribute("data-reveal-armed", "");
+    });
+
+    // The gentle path: let the transition play.
+    var show = function (g) { g.setAttribute("data-revealed", ""); };
+
+    // The certain path. A hidden document freezes transition clocks, so simply
+    // dropping the rule that hides a part is not enough — an in-flight transition
+    // goes on pinning it at zero with its clock stopped. Take the declaration away
+    // and finish any animation still holding the old value.
+    var forceShow = function (g) {
+      g.setAttribute("data-revealed", "");
+      g.removeAttribute("data-reveal-armed");
+      [].slice.call(g.children).forEach(function (k) {
+        if (!k.getAnimations) return;
+        k.getAnimations().forEach(function (a) { try { a.finish(); } catch (e) { /* done */ } });
+      });
+    };
+    var forceAll = function () { groups.forEach(forceShow); };
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        show(e.target);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+    groups.forEach(function (g) { io.observe(g); });
+
+    // Three ways out, because content script hides is content script must show.
+    setTimeout(forceAll, 2600);
+    window.addEventListener("beforeprint", forceAll);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) forceAll();
+    });
+  }
+
+  /* ---------------------------------------------------------------- matrix */
+  /* Reading a cell in a five-by-four grid means holding its row and its column
+     in your head. Lighting both is the whole feature. Pointer and keyboard
+     both drive it; without script the grid is simply undimmed. */
+  function wireMatrix() {
+    $$("[data-matrix]").forEach(function (m) {
+      var cells = $$("[data-row],[data-col]", m);
+      function light(row, col) {
+        if (row === null) {
+          m.removeAttribute("data-hot");
+          cells.forEach(function (el) { el.classList.remove("lit"); });
+          return;
+        }
+        m.setAttribute("data-hot", "");
+        cells.forEach(function (el) {
+          var on = el.getAttribute("data-row") === row || el.getAttribute("data-col") === col;
+          el.classList.toggle("lit", on);
+        });
+      }
+      cells.forEach(function (el) {
+        var hit = function () {
+          light(el.getAttribute("data-row"), el.getAttribute("data-col"));
+        };
+        el.addEventListener("pointerenter", hit);
+        el.addEventListener("focus", hit);
+        el.addEventListener("blur", function () { light(null, null); });
+      });
+      m.addEventListener("pointerleave", function () { light(null, null); });
+    });
+  }
+
+  /* ------------------------------------------------------------------ loops */
+  /* A drawing and the cards that unpack it are one thing. Pointing at either
+     end dims everything that is not the loop you are reading. */
+  function wireLoops() {
+    $$(".dgb").forEach(function (board) {
+      var parts = $$("[data-loop]", board);
+      if (parts.length < 2) return;
+      var set = function (name) {
+        if (name) board.setAttribute("data-loop-hot", name);
+        else board.removeAttribute("data-loop-hot");
+      };
+      parts.forEach(function (el) {
+        var name = el.getAttribute("data-loop");
+        el.addEventListener("pointerenter", function () { set(name); });
+        el.addEventListener("pointerleave", function () { set(null); });
+      });
+      board.addEventListener("pointerleave", function () { set(null); });
+    });
+  }
+
+  function init() {
+    wireLenses(); wireCalcs(); wireScores(); wireSteppers();
+    wireReveal(); wireMatrix(); wireLoops();
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();

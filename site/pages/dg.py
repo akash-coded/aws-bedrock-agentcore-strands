@@ -86,7 +86,7 @@ def flow(columns: list[str], gate_after: int | None = None) -> str:
             hard = gate_after is not None and i == gate_after
             out.append(connector(gate=hard))
             tracks.append("84px" if hard else "44px")
-    return (f'<div class="dgf" style="grid-template-columns:{" ".join(tracks)}">'
+    return (f'<div class="dgf" data-reveal style="grid-template-columns:{" ".join(tracks)}">'
             f'{"".join(out)}</div>')
 
 
@@ -99,24 +99,25 @@ def matrix(cols: list[tuple[str, str, str]], rows: list[dict], legend: str = "")
     """Two dimensions crossing. Columns carry one hue each, rows carry theirs, cells stay
     neutral so the chart does not become plaid. One accent device marks accountability."""
     cells = ['<div class="mc"></div>']
-    for hue, name, sub in cols:
-        cells.append(f'<div class="mh" style="--c:var(--dg-{hue})"><b>{E(name)}</b>'
+    for ci, (hue, name, sub) in enumerate(cols):
+        cells.append(f'<div class="mh" data-col="{ci}" style="--c:var(--dg-{hue})"><b>{E(name)}</b>'
                      f"<span>{E(sub)}</span></div>")
-    for r in rows:
-        cells.append(f'<div class="mr" style="--c:{r["accent"]}"><b>{E(r["name"])}</b>'
-                     f'<span>{E(r["note"])}</span></div>')
-        for c in r["cells"]:
+    for ri, r in enumerate(rows):
+        cells.append(f'<div class="mr" data-row="{ri}" style="--c:{r["accent"]}">'
+                     f'<b>{E(r["name"])}</b><span>{E(r["note"])}</span></div>')
+        for ci, c in enumerate(r["cells"]):
             cls = "md own" if c.get("own") else ("md q" if c.get("quiet") else "md")
             k = '<span class="ok">Accountable</span>' if c.get("own") else ""
             body = f'{k}<b>{E(c["head"])}</b><span>{E(c["sub"])}</span>'
+            rc = f' data-row="{ri}" data-col="{ci}"'
             if c.get("href"):
-                cells.append(f'<a class="{cls}" href="{E(c["href"])}" '
+                cells.append(f'<a class="{cls}"{rc} href="{E(c["href"])}" '
                              f'style="--c:{r["accent"]}">{body}</a>')
             else:
-                cells.append(f'<div class="{cls}" style="--c:{r["accent"]}">{body}</div>')
+                cells.append(f'<div class="{cls}"{rc} style="--c:{r["accent"]}">{body}</div>')
     lg = f'<p class="dgmk"><span><i></i>{legend}</span></p>' if legend else ""
-    return (f'<div class="dgmw"><div class="dgm" style="--n:{len(cols)}">'
-            f'{"".join(cells)}</div></div>{lg}')
+    return (f'<div class="dgmw"><div class="dgm" data-reveal data-matrix '
+            f'style="--n:{len(cols)}">{"".join(cells)}</div></div>{lg}')
 
 
 def band(hue: str, key: str, name: str, sub: str, lanes: list[tuple[str, str, list[str], bool]]) -> str:
@@ -135,7 +136,7 @@ def band(hue: str, key: str, name: str, sub: str, lanes: list[tuple[str, str, li
 
 
 def bands(items: list[str]) -> str:
-    return f'<div class="dgl">{"".join(items)}</div>'
+    return f'<div class="dgl" data-reveal>{"".join(items)}</div>'
 
 
 def section_band(label: str) -> str:
@@ -155,7 +156,8 @@ def cards(items: list[dict]) -> str:
     out = []
     for c in items:
         meta = "".join(f"<dt>{E(k)}</dt><dd>{E(v)}</dd>" for k, v in c.get("meta", []))
-        out.append(f'<article class="dgcard" style="--c:var(--dg-{c["hue"]})">'
+        lp = f' data-loop="{E(c["loop"])}"' if c.get("loop") else ""
+        out.append(f'<article class="dgcard"{lp} style="--c:var(--dg-{c["hue"]})">'
                    f'<header><span class="ck">{E(c["key"])}</span><b>{E(c["name"])}</b></header>'
                    f'<p>{E(c["body"])}</p><dl>{meta}</dl></article>')
-    return f'<div class="dgcards">{"".join(out)}</div>'
+    return f'<div class="dgcards" data-reveal>{"".join(out)}</div>'

@@ -237,9 +237,10 @@ def _loops_svg() -> str:
     o.append("</defs>")
 
     # governance spans the whole line and belongs to nobody who builds
-    o.append(f'<path d="M150 46 V32 H960 V46" fill="none" stroke="{violet}" stroke-width="1.6" '
-             f'stroke-dasharray="5 4" marker-end="url(#av)"/>')
-    o.append(_tag(555, 36, "Governance  ·  P0 → P3  ·  the sponsor's", violet, 700))
+    o.append('<g data-loop="governance">'
+             f'<path d="M150 46 V32 H960 V46" fill="none" stroke="{violet}" stroke-width="1.6" '
+             f'stroke-dasharray="5 4" marker-end="url(#av)"/>'
+             + _tag(555, 36, "Governance  ·  P0 → P3  ·  the sponsor's", violet, 700) + "</g>")
 
     # the phases
     for hue, key, name, cx in _PX:
@@ -265,29 +266,31 @@ def _loops_svg() -> str:
         o.append(_tag(cx + 46, 245, name, "var(--ink2)", anchor="start"))
 
     # backwards: the three teams forget, drawn deep and kept moving
-    o.append(f'<path class="fl" d="M960 {_BOT} C960 312 366 312 366 {_BOT}" fill="none" '
-             f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>')
-    o.append(_tag(600, 292, "Cost · P3 → P1", rose, 700))
-    o.append(f'<path class="fl" d="M960 {_BOT} C960 356 150 356 150 {_BOT}" fill="none" '
-             f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>')
-    o.append(_tag(555, 336, "Incident · P3 → P0", rose, 700))
+    o.append('<g data-loop="cost">'
+             f'<path class="fl" d="M960 {_BOT} C960 312 366 312 366 {_BOT}" fill="none" '
+             f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>'
+             + _tag(600, 292, "Cost · P3 → P1", rose, 700) + "</g>")
+    o.append('<g data-loop="incident">'
+             f'<path class="fl" d="M960 {_BOT} C960 356 150 356 150 {_BOT}" fill="none" '
+             f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>'
+             + _tag(555, 336, "Incident · P3 → P0", rose, 700) + "</g>")
     return dg.svg(1120, 372, "".join(o),
                   "Four phases on a line. Five loops close forwards or inside a phase; cost, "
                   "incident and governance run backwards across it.")
 
 
 BACKWARD = [
-    {"hue": "rose", "key": "P3 → P1", "name": "Cost",
+    {"hue": "rose", "key": "P3 → P1", "name": "Cost", "loop": "cost",
      "body": "A bill that left its estimate is a design question, not a finance question. "
              "It closes when an architecture decision record changes, not when a budget does.",
      "meta": [("Owner", "Solution architect"), ("Closed when", "An ADR has a v2 with a diff"),
               ("Confidence", "documented")]},
-    {"hue": "rose", "key": "P3 → P0", "name": "Incident",
+    {"hue": "rose", "key": "P3 → P0", "name": "Incident", "loop": "incident",
      "body": "A postmortem that does not produce a brief has not finished. The finding is the "
              "control that would have made the incident impossible, named.",
      "meta": [("Owner", "Every role"), ("Closed when", "A next-P0 brief exists, with an owner"),
               ("Confidence", "established")]},
-    {"hue": "violet", "key": "P0 → P3", "name": "Governance",
+    {"hue": "violet", "key": "P0 → P3", "name": "Governance", "loop": "governance",
      "body": "Spans the whole line and belongs to the sponsor, not to any delivery role. It is "
              "the only loop with nobody downstream waiting, which is why it is the one most "
              "often absent.",

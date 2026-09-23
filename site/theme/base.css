@@ -652,3 +652,39 @@ a.md:hover b{color:var(--c)}
 .dgcard dt{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
   color:var(--soft);padding-top:1px}
 .dgcard dd{font-size:12.5px;color:var(--ink);margin:0;line-height:1.35}
+
+/* ---- sequenced reveal ---------------------------------------------------
+   Armed by script, never by CSS alone: with JavaScript off, or under reduced
+   motion, [data-reveal-armed] is never set and every part is simply present.
+   The stagger teaches reading order, which is the only reason content is
+   allowed to move at all. */
+[data-reveal-armed]:not([data-revealed]) > *{opacity:0;transform:translateY(9px)}
+[data-reveal-armed] > *{transition:opacity .42s var(--ease),transform .42s var(--ease);
+  transition-delay:var(--rvd,0ms)}
+@media print{
+  [data-reveal-armed] > *{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* ---- matrix cross-highlight --------------------------------------------- */
+.dgm[data-hot] [data-row],.dgm[data-hot] [data-col]{transition:opacity .16s var(--ease)}
+.dgm[data-hot] [data-row]:not(.lit),.dgm[data-hot] [data-col]:not(.lit){opacity:.34}
+.dgm [data-row]:focus-visible,.dgm [data-col]:focus-visible{outline:2px solid var(--c);
+  outline-offset:2px}
+
+/* ---- a card and the arc it unpacks light each other ----------------------
+   Driven by a data attribute the engine sets, not by :has(...:hover). Hover
+   state cannot be asserted in a test and reaches neither keyboard nor touch;
+   an attribute can be, and does. */
+.dgs g[data-loop],.dgcard[data-loop]{transition:opacity .18s var(--ease)}
+.dgb[data-loop-hot] .dgs g[data-loop],
+.dgb[data-loop-hot] .dgcard[data-loop]{opacity:.22}
+.dgb[data-loop-hot="cost"] .dgs g[data-loop="cost"],
+.dgb[data-loop-hot="cost"] .dgcard[data-loop="cost"],
+.dgb[data-loop-hot="incident"] .dgs g[data-loop="incident"],
+.dgb[data-loop-hot="incident"] .dgcard[data-loop="incident"],
+.dgb[data-loop-hot="governance"] .dgs g[data-loop="governance"],
+.dgb[data-loop-hot="governance"] .dgcard[data-loop="governance"]{opacity:1}
+.dgcard[data-loop]{cursor:default}
+@media (prefers-reduced-motion: reduce){
+  .dgs g[data-loop],.dgcard[data-loop],.dgm[data-hot] [data-row]{transition:none}
+}
