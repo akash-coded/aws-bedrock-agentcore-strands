@@ -6,6 +6,50 @@ Pick the one whose time budget you can actually defend to yourself.
 
 ---
 
+## Which plan?
+
+Four questions, six plans. The first question is the one people skip, and it is the one that changes
+the answer most: a plan for a team is not a faster plan for one person, it is a different plan.
+
+```mermaid
+flowchart TD
+  Q1{"Who is reading?"}
+  Q1 -->|"a team, together"| T["<b>Twelve weeks, reading group</b><br/><i>90 minutes a week</i>"]
+  Q1 -->|"me"| Q2{"Is there a date?"}
+  Q2 -->|"an interview in a fortnight"| I["<b>Interview in two weeks</b><br/><i>four labs and two guides</i>"]
+  Q2 -->|"no date"| Q3{"Will you write code?"}
+  Q3 -->|"no, I need the method"| W["<b>One week, no code</b><br/><i>about 4 hours</i>"]
+  Q3 -->|"yes"| Q4{"Do you have AWS?"}
+  Q4 -->|"not yet, or never"| N["<b>No AWS account yet</b><br/><i>about 20 hours, zero cost</i>"]
+  Q4 -->|"yes"| Q5{"What shape is the time?"}
+  Q5 -->|"an hour most evenings"| E["<b>Four weeks, evenings</b><br/><i>about 6 hours a week</i>"]
+  Q5 -->|"one clear block"| K["<b>One weekend</b><br/><i>about 12 hours</i>"]
+
+  classDef ask fill:#3A3A3A14,stroke:#3A3A3A,stroke-width:2px
+  classDef team fill:#6A4BA81A,stroke:#6A4BA8,stroke-width:1.5px
+  classDef intv fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
+  classDef meth fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef noac fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
+  classDef eve fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef wknd fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class Q1,Q2,Q3,Q4,Q5 ask
+  class T team
+  class I intv
+  class W meth
+  class N noac
+  class E eve
+  class K wknd
+```
+
+**Every plan ends in something you made, not something you read.** That is the only property they
+share, and it is the one to keep if you invent your own.
+
+**One queue sits in front of four of them.** Bedrock model access is granted per model and per
+region, on request, and approval is not instant. Start the account on night one of whichever plan
+you pick, even where the plan does not touch AWS until week two.
+
+---
+
 ## 🧭 One week, no code · ~4 h — the method first
 
 For a product manager, architect, delivery lead or sponsor who needs the *method* before the machinery.

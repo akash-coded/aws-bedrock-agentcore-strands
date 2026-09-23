@@ -27,6 +27,72 @@ Each one below is the model, what it predicts, the mistake it prevents, the part
 
 ---
 
+## Where each one bites
+
+The table above says what the models are. This says *when you will need them* — and the shape is the
+point. Eight of the twelve land in P1 and P2, the two phases where a number still changes a decision
+instead of explaining one that has already been taken.
+
+```mermaid
+flowchart TB
+  subgraph F["P0 · Frame"]
+    direction LR
+    M2["<b>2</b> · Reversibility<br/>is the hinge"]
+  end
+  subgraph S["P1 · Design and Spec"]
+    direction LR
+    M1["<b>1</b> · Length is<br/>the enemy"] ~~~ M3["<b>3</b> · A hold is<br/>a lever"]
+    M9["<b>9</b> · Parallelism is<br/>a tool property"] ~~~ M10["<b>10</b> · Depth is<br/>a dial"]
+  end
+  subgraph B["P2 · Build and Prove"]
+    direction LR
+    M4["<b>4</b> · A prompt asks,<br/>a signature closes"] ~~~ M5["<b>5</b> · The average<br/>hides the slice"]
+    M6["<b>6</b> · A score<br/>is not proof"] ~~~ M7["<b>7</b> · Evidence at the<br/>speed of traffic"]
+  end
+  subgraph R["P3 · Run and Learn"]
+    direction LR
+    M8["<b>8</b> · Cost is a<br/>product of habits"] ~~~ M12["<b>12</b> · Drift has no<br/>error message"]
+  end
+  F -->|"11 · the brief crosses"| S
+  S -->|"11 · the signed spec crosses<br/>HARD GATE"| B
+  B -->|"11 · the evidence pack crosses"| R
+  R -.-> NX(["<b>The next P0</b><br/><i>8 and 12 are what reopen<br/>a frame somebody had closed</i>"])
+
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class M2 p0
+  class M10,M9,M1,M3 p1
+  class M4,M5,M6,M7 p2
+  class M8,M12 p3
+  class NX p0
+  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 8 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
+```
+
+**Model 11 is the rule of the arrows, which is why it is not in a band.** Every hand-off happens
+because something crossed it, and each label above names the artefact rather than the date. Models 8
+and 12 are why there is an arrow after P3 at all: a bill and a drift report are what re-open a
+frame somebody thought was closed, and the frame they re-open is the next one, not the old one.
+
+Only one model governs P0, and that is not an omission. P0 asks a single question the rest of the
+lifecycle cannot revisit cheaply — how much may the machine do — and reversibility is the only thing
+that answers it.
+
+### The three that get resisted
+
+Each of these contradicts something a competent person currently believes is good practice, which is
+why they take a fortnight rather than an hour. Expect the argument; it is the model landing.
+
+| The model | What a good engineer already believes | Why it takes a fortnight |
+| --- | --- | --- |
+| **3 · A hold is a lever** | A human check is friction, and removing it is progress | It asks you to *add* a step in order to ship sooner, which sounds like a contradiction right up until somebody does the arithmetic out loud |
+| **5 · The average hides the slice** | A single quality number is how you report progress | It makes the number you already publish the wrong number, in public, in front of the people you published it to |
+| **10 · Depth is a dial** | A process applied unevenly is a process nobody follows | It asks a senior person to judge per change rather than write a policy, and that judgement cannot be delegated to a template |
+
+---
+
 ## Length is the enemy
 
 > Chained probabilistic steps multiply. They do not average.

@@ -75,6 +75,58 @@ more than a default you inherited; a default nobody has examined is a number wit
 
 ---
 
+## Where each mark may be used
+
+The tables above say what a mark *means*. This says where you may spend it. Read down your own
+column: the entitlement changes with the room you are standing in, and only one cell on this page
+says no.
+
+| | In a business case | At a gate | In front of a regulator or an auditor |
+| --- | --- | --- | --- |
+| **documented** | Yes, with the date beside it | Yes | Yes, with the date and the page that said it |
+| **established** | Yes | Yes, naming the assumption you are relying on | Yes, with the lineage cited |
+| **working method** | Yes, if it is labelled as a default | Only if you have measured it on your own traffic | **No.** Your measurement may go. The default may not |
+
+**The bottom-right cell is the one that gets crossed**, and it rarely looks like a lie when it
+happens. A working method quoted to a governance forum is this playbook's number wearing your
+evidence's clothes: it has a plausible shape, a decimal point and no traffic behind it. The fix is
+not to stop using working methods — it is to measure one before it has to stand up.
+
+### The lifecycle of a working method
+
+Changing a default is not the default failing. It is the default doing the only job it was built
+for, which is to give a team something to run on Monday instead of a blank field.
+
+```mermaid
+flowchart TB
+  A["<b>Adopt</b><br/><i>a default, labelled<br/>as a default</i>"]
+  M["<b>Measure</b><br/><i>on your own traffic</i>"]
+  C["<b>Change it</b><br/><i>and record what you saw</i>"]
+  K["<b>Keep it</b><br/><i>and set the next review date</i>"]
+  E(["Now it is yours,<br/>and it is evidence"])
+  X["<b>Not confirmation</b><br/><i>a number with a<br/>plausible shape</i>"]
+  A -->|"run it"| M
+  M -->|"your traffic disagrees"| C
+  M -->|"your traffic agrees"| K
+  C --> E
+  K --> E
+  A -.->|"a year with nobody looking"| X
+
+  classDef wm fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  classDef own fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
+  classDef bad fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px,stroke-dasharray:4 3
+  class A,M,C,K wm
+  class E own
+  class X bad
+  linkStyle 5 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
+```
+
+Both paths out of **Measure** end in the same place. That is the part worth saying out loud: a
+default you kept *after measuring it* is worth exactly as much as one you changed, and neither is
+worth anything until somebody has looked.
+
+---
+
 ## Check a documented figure yourself
 
 A documented figure is the only kind you can verify without running an experiment, and verifying one

@@ -8,6 +8,47 @@ Every error this material produces, by the string you actually see. **Search thi
 
 ---
 
+## Which family is it?
+
+Seven families, and each has a different first move. Find your branch by what you can **see**, not
+by what you think went wrong — the cause is almost always one layer below the string.
+
+```mermaid
+flowchart LR
+  S(["The exact string<br/>in front of you"])
+  S -->|"denied, or an empty list"| A["<b>Access and identity</b><br/><i>aws sts get-caller-identity</i>"]
+  S -->|"ValidationException, AttributeError"| B["<b>Model IDs and invocation</b><br/><i>aws bedrock list-inference-profiles</i>"]
+  S -->|"the same call twice, or forever"| C["<b>The agent loop</b><br/><i>print the message roles</i>"]
+  S -->|"nothing threw, nothing happened"| D["<b>Agents and action groups</b><br/><i>open the trace, not the response</i>"]
+  S -->|"an answer you do not trust"| E["<b>Retrieval</b><br/><i>read five cited passages yourself</i>"]
+  S -->|"a number moved with no deploy"| F["<b>Cost and platform</b><br/><i>the per-call log, and who answered</i>"]
+  S -->|"labctl, or a SyntaxError"| G["<b>Labs and local environment</b><br/><i>check the Python version</i>"]
+
+  classDef ask fill:#3A3A3A14,stroke:#3A3A3A,stroke-width:2px
+  classDef acc fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef inv fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef lop fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef agt fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
+  classDef ret fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  classDef cst fill:#6A4BA81A,stroke:#6A4BA8,stroke-width:1.5px
+  classDef lab fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
+  class S ask
+  class A acc
+  class B inv
+  class C lop
+  class D agt
+  class E ret
+  class F cst
+  class G lab
+```
+
+**Three of the seven fail silently.** An empty list is a permissions state, not an outage. An agent
+that cannot reach its Lambda reports it *inside the trace* rather than as a top-level error. A model
+swap changes quality with nothing thrown at all. If nothing failed and something is still wrong, you
+are in one of those three.
+
+---
+
 ## Access and identity
 
 ### `AccessDeniedException` — on any Bedrock call

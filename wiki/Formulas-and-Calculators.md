@@ -33,6 +33,61 @@ a default to tune rather than a finding).
 
 ---
 
+## Where each one is used
+
+The table above answers *which formula*. This answers *when* — and the clustering is the argument.
+Nine of the thirteen sit in P1 and P2, because those are the phases where a number still changes a
+decision rather than explaining one that has already been taken.
+
+```mermaid
+flowchart TB
+  subgraph F["P0 · Frame"]
+    direction LR
+    V["<b>The value line</b><br/><i>worth building?</i>"]
+  end
+  subgraph S["P1 · Design and Spec"]
+    direction LR
+    A["<b>Acceptance bar</b><br/><i>how right?</i>"] ~~~ U["<b>Utility tree</b><br/><i>which NFR first?</i>"]
+    H["<b>Hand-off count</b><br/><i>how many agents?</i>"] ~~~ C["<b>Chained p</b><br/><i>will it hold?</i>"]
+  end
+  subgraph B["P2 · Build and Prove"]
+    direction LR
+    L["<b>Lower bound</b><br/><i>proven, or not?</i>"] ~~~ N["<b>Cases needed</b><br/><i>how many more?</i>"]
+    D["<b>Days of evidence</b><br/><i>how long at 5%?</i>"] ~~~ Q["<b>Queue time</b><br/><i>why four days?</i>"]
+    K["<b>Cache break-even</b><br/><i>does it pay?</i>"]
+  end
+  subgraph R["P3 · Run and Learn"]
+    direction LR
+    X["<b>Four bill factors</b><br/><i>why 4.4 times?</i>"] ~~~ Y["<b>Fix order</b><br/><i>what first?</i>"]
+    Z["<b>Maturity level</b><br/><i>getting better?</i>"]
+  end
+  F -->|"a number that says go"| S
+  S -->|"a number to hit"| B
+  B -->|"a number that was hit"| R
+  R -.-> NX(["<b>The next value line</b><br/><i>a bill at 4.4 times is a<br/>value line that was wrong</i>"])
+
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class V p0
+  class A,U,H,C p1
+  class L,N,D,Q,K p2
+  class X,Y,Z p3
+  class NX p0
+  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 8 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
+```
+
+**Nothing in P0 is precise, and that is deliberate.** The value line is one multiplication with four
+estimates in it; its job is to end an argument about whether to proceed, not to survive an audit. A
+number that would survive an audit is not available at P0 and waiting for one is how framing stalls.
+
+**The last arrow carries arithmetic too.** A bill that came in at 4.4 times its estimate is not an
+operations problem — it is a value line that was wrong, arriving late enough to be expensive.
+
+---
+
 ## Value and worth
 
 ### The value line · *working method*

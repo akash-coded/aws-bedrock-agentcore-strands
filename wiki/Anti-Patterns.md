@@ -15,6 +15,70 @@ a day. Its ninety days are in the [Scenario Library](Scenario-Library).
 
 ---
 
+## The eighteen, and where they live
+
+Each stage fails in its own characteristic way, and the way is more useful than the list. Read the
+italic line in each band first: if it describes something you recognise, the entries in that stage
+are where to look.
+
+```mermaid
+flowchart TB
+  R["<b>In requirements</b><br/>P0 · four of them<br/><i>the record says more<br/>than the room did</i>"]
+  D["<b>In design</b><br/>P1 · four of them<br/><i>a choice nobody<br/>can point at</i>"]
+  B["<b>In building</b><br/>P2 · four of them<br/><i>a control that<br/>is not one</i>"]
+  P["<b>In proving</b><br/>P2 · three of them<br/><i>a number that cannot<br/>carry its claim</i>"]
+  N["<b>In running</b><br/>P3 · three of them<br/><i>a report with<br/>nothing to compare</i>"]
+  R --> D --> B --> P --> N
+  N -.->|"whatever is left here arrives<br/>as next cycle's requirement"| R
+
+  classDef req fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef des fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef bld fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef prv fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
+  classDef run fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class R req
+  class D des
+  class B bld
+  class P prv
+  class N run
+  linkStyle 4 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
+```
+
+The dotted line is the one people miss. An anti-pattern left standing in running does not stay in
+running: it comes back as a requirement in the next cycle wearing a different name, which is why the
+same three keep reappearing and nobody recognises them.
+
+### Find yours
+
+The **★** marks the [two that cause the most damage](#the-two-that-cause-the-most-damage). Both look
+exactly like a control until somebody asks to be shown it.
+
+| | Stage | Anti-pattern | The test somebody can run on a Tuesday |
+| --- | --- | --- | --- |
+| 1 | req | [Consolidating in the room](#consolidating-in-the-room) | Count the distinct names in the requirement list against the number of people in the room |
+| 2 | req | [NFRs left as adjectives](#nfrs-left-as-adjectives) | Grep the measures for a digit. How many contain none? |
+| 3 | req | [Constraints gathered after ratification](#constraints-gathered-after-ratification) | Count the NFRs whose "reshaped by" field is blank |
+| 4 | req | [A vote with dots on a wall](#a-vote-with-dots-on-a-wall) | Ask where cost per case ranked, and what it ranked below |
+| 5 | design | [A record for every decision](#a-record-for-every-decision) | Count the decision records, then count how many name an option that was rejected |
+| 6 | design | [A swarm for work one tool can fan out](#a-swarm-for-work-one-tool-can-fan-out) | Turn agents into hand-offs with n(n−1)÷2, then ask which written limit justified the second agent |
+| 7 | design | [Fixing the model's knobs in a spec](#fixing-the-models-knobs-in-a-spec) | Grep the spec for `temperature`, `top_p` and a pinned model id |
+| 8 | design | [Treating every decision as a hard gate](#treating-every-decision-as-a-hard-gate) | Count the hard gates. For each soft one, check there is a placeholder, an owner and a date |
+| 9 ★ | build | [A cap that lives in a prompt](#a-cap-that-lives-in-a-prompt) | Grep the prompt for the cap, then grep the code for the line that enforces it |
+| 10 | build | [The drafter grading itself](#the-drafter-grading-itself) | Take the last hundred drafts. What share did the checker reject? |
+| 11 | build | [A plug scheduled after its consumer](#a-plug-scheduled-after-its-consumer) | List the gated writes and check none has its plug scheduled after the day it goes live |
+| 12 | build | [Reviewing by size of diff](#reviewing-by-size-of-diff) | Correlate review time with lines changed, then with risk band. Which is stronger? |
+| 13 | prove | [Counting cache hits as wrong answers](#counting-cache-hits-as-wrong-answers) | Open the alert definition. Is a cache hit excluded from the wrong-answer count? |
+| 14 ★ | prove | [Reporting a score without its sample size](#reporting-a-score-without-its-sample-size) | Count the percentages quoted last month that carried no `n` |
+| 15 | prove | [Cutting over at fifty percent](#cutting-over-at-fifty-percent) | Find the date a rollback was last thrown, and how many minutes it took |
+| 16 | run | [Reporting one number](#reporting-one-number) | Count the headline numbers in the last report, and how many arrived without a pair |
+| 17 | run | [A postmortem that ends in a name](#a-postmortem-that-ends-in-a-name) | Take the last postmortem. Does an action name a control with a file and a line? |
+| 18 | run | [Counting AI tools as a maturity metric](#counting-ai-tools-as-a-maturity-metric) | Score the six controls by running them, not by counting the tools that could |
+
+Every test above is mechanical on purpose. Judgement is not the scarce resource here, and a finding
+you re-derive from memory next quarter is not a finding.
+
+---
+
 ## In requirements
 
 ### Consolidating in the room
