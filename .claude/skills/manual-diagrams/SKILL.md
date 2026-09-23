@@ -45,7 +45,7 @@ redefines every token and a literal will not follow.
 `--dg-on` is the ink that sits **on** a solid hue. It is white in light mode and near-black
 in dark, because dark mode lifts the hues so they read against a dark page.
 
-## Three traps this repo has already fallen into
+## Four traps this repo has already fallen into
 
 **`strong,b` sets colour directly** (base.css line ~116), which beats inherited colour
 however specific the ancestor. Any bold word on a solid-hue background must set
@@ -59,6 +59,28 @@ base.css; this has caused three separate layout bugs.
 **`--accent` is redefined per page** (render.py sets it from the role's colour). A figure
 that draws with it renders in a different hue on every page that shows it, which means its
 colour carries no information. Figures use `--dg-*` only.
+
+**Mermaid on the wiki is a different medium.** Wiki diagrams are rendered by GitHub in an
+iframe using *the reader's* colour mode, and a `classDef` hex cannot follow a theme. Four
+things follow, all of which cost a round trip once:
+
+- A `subgraph` with no `style` line gets mermaid-dark's own **#474949** band fill, and
+  every hued node border inside it falls to about 1.4:1. Always give a band
+  `style <id> fill:#HHHHHH0D,stroke:#HHHHHH,stroke-width:1.5px` so its nodes sit on the
+  canvas and the band carries its own hue.
+- A stroke hue must clear 3:1 against **both** `#FFFFFF` and `#0D1117`. The window is
+  roughly L 0.12–0.30, which is wide; the site's light `--dg-*` values are too dark for it
+  and the wiki uses lifted variants (`#516981`, `#4B5CC8`, `#7455B3`, `#78589B`).
+- No fixed grey clears 4.5:1 for **text** against both white and near-black — the two
+  windows do not overlap. Never set `color:` on a muted node; let the theme pick it and
+  let a dashed border carry "muted".
+- A back edge to an earlier node makes a cycle, and dagre breaks it by reversing a
+  *forward* edge — so `A-->B-->C-->D; D-.->A` can render D first. `<-.-` does not help
+  when the endpoints are clusters; mermaid ignores it and draws the arrow forward. End the
+  chain on a terminal node instead, or drop the edge. Also count `~~~` invisible links
+  when numbering `linkStyle`: they are declared first, so styling index 1 usually reveals
+  an invisible link rather than the arrow you meant, and a `linkStyle` stroke override
+  silently drops the dash that carries dashed-means-flow.
 
 ## Verifying
 
@@ -77,3 +99,15 @@ Always run: light, dark, 375px, the greyscale and thumbnail passes, and a contra
 measurement of every text-on-hue surface. Gates to pass before committing:
 `python3 wiki/check.py`, `python3 site/content/roles/_src/build_content.py`,
 `python3 site/build.py`.
+
+For wiki mermaid, `wiki/check.py` only checks that the fence declares a diagram type — it
+never renders. Render every block with mermaid 11 in headless Chrome under **both**
+`theme:"dark"` and `theme:"default"`, and assert three things numerically: no node label
+below 11px once the SVG is scaled to a 896px column (GitHub's wiki content width), stroke
+vs its *composited* surface at 3:1 and label vs its composited fill at 4.5:1, and cluster
+order along the true layout axis. Two harness errors to avoid, both of which produced
+confident wrong answers here: `getBBox()` on a `g.cluster` ignores the element's own
+transform and returns (8,8) for everything — use `getBoundingClientRect()`; and a cluster
+is a **sibling** of the nodes it contains, not their ancestor, so `closest("g.cluster")`
+finds nothing and every node looks like it sits on the page background. Resolve the
+surface geometrically, by which cluster rect contains the node's centre.
