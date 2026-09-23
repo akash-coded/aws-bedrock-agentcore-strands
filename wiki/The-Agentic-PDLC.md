@@ -1,5 +1,7 @@
 # The agentic PDLC
 
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[What is the agentic PDLC?](What-Is-the-Agentic-PDLC)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+
 Four phases and eight loops. This is the spine every other page on this wiki hangs from, and the
 structure the [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) walks
 through with one airline, one feature and ninety days.
@@ -22,7 +24,7 @@ P0 and P1 are cheap to get wrong on paper and expensive to get wrong in producti
 the whole argument for the phases.
 
 ```mermaid
-flowchart LR
+flowchart TB
   P0["P0 · Frame<br/><i>pain, AI-fit, autonomy</i>"] --> P1["P1 · Design & Spec<br/><i>spec, bar, authority</i>"]
   P1 -->|HARD GATE| P2["P2 · Build & Prove<br/><i>bolts, harness, shadow</i>"]
   P2 --> P3["P3 · Run & Learn<br/><i>trace, drift, two numbers</i>"]
@@ -576,14 +578,14 @@ The decision that matters is not which method. It is **how deep to go on this ch
 judgement the architect makes per change. See [Solution architect, step 3](Role-Solution-Architect).
 
 ```mermaid
-flowchart TD
-  A{"What kind of change<br/>is in front of you?"} --> B["One-line fix"]
+flowchart LR
+  A{"What kind<br/>of change?"} --> B["One-line fix"]
   A --> C["A feature"]
   A --> D["Audited, multi-team"]
   A --> E["Depth unknown"]
   B --> B1["Spec + a single agent<br/>editor agent, cheap tier"]
-  C --> C1["SDD + the five gates<br/>chat to spec, editor to build"]
-  D --> D1["SDD + the BMAD persona trail<br/>keep the versioned artefacts"]
+  C --> C1["SDD + the five gates<br/>chat to spec,<br/>editor to build"]
+  D --> D1["SDD + the BMAD<br/>persona trail<br/>keep the versioned<br/>artefacts"]
   E --> E1["AI-DLC: start shallow,<br/>escalate on evidence"]
 ```
 

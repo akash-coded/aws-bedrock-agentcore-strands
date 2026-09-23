@@ -1,5 +1,7 @@
 # The evidence pack
 
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[The evidence pack](The-Evidence-Pack-Before-Each-Hand-off)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+
 The **minimum artefact set**: the few documents owed at each hand-off between phases. Together they are
 what you show an auditor, a new team member, or yourself in six months when nobody remembers why the
 refund cap is $400.

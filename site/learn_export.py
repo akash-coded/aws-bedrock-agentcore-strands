@@ -2,6 +2,7 @@
 """Write the tutorial into the wiki: one page per lesson, one per track, a Start Here page, and the
 tutorial blocks at the top of the sidebar and Home.
 
+    python3 site/wiki_export.py           # the Journey pages, if the roles changed
     python3 site/learn_export.py          # then: python3 wiki/check.py --strict && bash wiki/sync.sh
 
 The source is site/content/learn/. The site copy is canonical and indexed; this copy is the mirror
@@ -165,9 +166,10 @@ def home_block(tracks) -> str:
 # Learn the agentic PDLC
 
 A free tutorial in short lessons on running software projects where an AI model does part of the
-work — the four phases, the one hard gate, the eight loops, and how AWS AI-DLC, AIDD, the BMAD
-Method and spec-driven development fit onto them. Each lesson is five to ten minutes, opens with the
-answer, carries a picture, and credits its sources.
+work — the four phases, the one hard gate and the eight loops; how AWS AI-DLC, AIDD, the BMAD Method
+and spec-driven development fit onto them; what changes for each role, from engineer to executive;
+how an organisation adopts it; and a ninety-day case with twelve exercises. Each lesson is five to
+ten minutes, opens with the answer, carries a picture, and credits its sources.
 
 **[▶ Start here](Start-Here)** · or go straight to **[{first.title}]({first.wiki})**
 
@@ -181,6 +183,64 @@ answer, carries a picture, and credits its sources.
 
 <!-- tutorial:end -->
 """
+
+
+# Hand-written reference pages, each with the lesson that teaches it in one sitting. The exporter keeps
+# one marked line under each page's title, and never touches anything else on the page. The Journey
+# pages are rewritten by site/wiki_export.py, so run that first and this after it.
+LEARN_IT = "concept"   # the lesson is the introduction; the page is the reference
+SHORT = "role"         # the lesson is the short version of a long page
+POINTERS = {
+    "The-Agentic-PDLC": ("what-is-the-agentic-pdlc", LEARN_IT),
+    "The-Eight-Loops": ("the-eight-loops", LEARN_IT),
+    "The-Evidence-Pack": ("the-evidence-pack", LEARN_IT),
+    "Gates-and-Governance": ("ai-governance-gates", LEARN_IT),
+    "Anti-Patterns": ("why-agentic-ai-projects-fail", LEARN_IT),
+    "How-to-Control-the-Token-Bill": ("ai-agent-costs", LEARN_IT),
+    "How-to-Cut-Sprints-into-Bolts": ("bolts-vs-sprints", LEARN_IT),
+    "How-to-Design-an-Agent-on-Paper": ("p1-design-and-spec", LEARN_IT),
+    "How-to-Hold-the-Security-Boundary": ("ai-guardrails-that-hold", LEARN_IT),
+    "How-to-Prove-the-Bar": ("prove-ai-accuracy", LEARN_IT),
+    "How-to-Review-by-Risk-Band": ("review-ai-generated-code", LEARN_IT),
+    "How-to-Run-a-Missing-Control-Postmortem": ("ai-incident-postmortem", LEARN_IT),
+    "Role-Product-Manager": ("agentic-pdlc-for-product-managers", SHORT),
+    "Role-Solution-Architect": ("agentic-pdlc-for-solution-architects", SHORT),
+    "Role-Engineering-Lead": ("agentic-pdlc-for-engineers", SHORT),
+    "Role-QA-Lead": ("agentic-pdlc-for-qa", SHORT),
+    "Role-DevOps": ("agentic-pdlc-for-devops", SHORT),
+    "Role-Sponsor": ("agentic-pdlc-for-business-sponsors", SHORT),
+    "Journey-Product-Manager": ("agentic-pdlc-for-product-managers", SHORT),
+    "Journey-Solution-Architect": ("agentic-pdlc-for-solution-architects", SHORT),
+    "Journey-Engineering-Lead": ("agentic-pdlc-for-engineers", SHORT),
+    "Journey-QA-Lead": ("agentic-pdlc-for-qa", SHORT),
+    "Journey-DevOps": ("agentic-pdlc-for-devops", SHORT),
+    "Exercises-and-Answers": ("agentic-pdlc-exercises", "exercises"),
+    "Formulas-and-Calculators": ("agentic-pdlc-exercises", "formulas"),
+}
+POINTER = re.compile(r"\n\n<!-- tutorial:lesson -->[^\n]*<!-- /tutorial:lesson -->(?=\n)")
+
+
+def pointer_line(les, kind: str) -> str:
+    to = f"**[{les.short}]({les.wiki})**"
+    say = {
+        LEARN_IT: f"New to this? Start with the lesson {to} — the idea step by step, with a worked "
+                  f"problem. This page is the reference.",
+        SHORT: f"The short version is the lesson {to} — the whole role in one sitting. This page goes deeper.",
+        "exercises": f"Twelve more, three per phase, are in the lesson {to}, each with its working.",
+        "formulas": f"To practise these, the lesson {to} applies them in the order a project needs them.",
+    }[kind]
+    return f"<!-- tutorial:lesson -->*{say}*<!-- /tutorial:lesson -->"
+
+
+def put_pointer(path: Path, line: str) -> None:
+    text = path.read_text(encoding="utf-8")
+    if text.startswith(MARK):
+        sys.exit(f"{path.name} is generated; a pointer belongs on a hand-written page")
+    text = POINTER.sub("", text)
+    m = re.search(r"^# .*$", text, re.M)
+    if not m:
+        sys.exit(f"{path.name} has no title to put the lesson pointer under")
+    path.write_text(text[:m.end()] + "\n\n" + line + text[m.end():], encoding="utf-8")
 
 
 def put_block(path: Path, block: str, after: str | None = None) -> None:
@@ -222,10 +282,14 @@ def main() -> int:
     written.append("Start-Here")
     put_block(WIKI / "_Sidebar.md", sidebar_block(tracks), after="**[🏠 Wiki Home](Home)**")
     put_block(WIKI / "Home.md", home_block(tracks))
+    by_slug = {les.slug: les for t in tracks for les in t.lessons}
+    for page, (slug, kind) in POINTERS.items():
+        put_pointer(WIKI / f"{page}.md", pointer_line(by_slug[slug], kind))
     # a generated page whose lesson was removed or renamed would linger; name it so it can be deleted
     stale = [p.name for p in WIKI.glob("*.md") if p.stem not in written
              and p.read_text(encoding="utf-8").startswith(MARK)]
-    print(f"wrote {len(written)} wiki pages; sidebar and Home tutorial blocks updated")
+    print(f"wrote {len(written)} wiki pages; sidebar and Home tutorial blocks updated; "
+          f"{len(POINTERS)} reference pages point to their lessons")
     for s in stale:
         print(f"  stale generated page, delete it: wiki/{s}")
     return 0

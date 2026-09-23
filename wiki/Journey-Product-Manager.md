@@ -1,5 +1,7 @@
 # Product manager · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For product managers](Agentic-PDLC-for-Product-Managers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From a vibe to a number you can defend**
 
 8 steps · 50 sub-steps · 8 templates · 21 prompts
@@ -21,30 +23,23 @@ Eight steps. Each one ends in an artefact somebody else needs, with the template
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph P0["P0 · Frame"]
-    direction TB
-    S1["1 · Discover"]
-    S2["2 · Qualify"]
+    direction LR
+    S1["1 · Discover"] ~~~ S2["2 · Qualify"]
     S3["3 · Frame"]
-    S1 --> S2
-    S2 --> S3
   end
   subgraph P1["P1 · Design & Spec"]
-    direction TB
-    S4["4 · Specify"]
-    S5["5 · Plan"]
-    S4 --> S5
+    direction LR
+    S4["4 · Specify"] ~~~ S5["5 · Plan"]
   end
   subgraph P2["P2 · Build & Prove"]
-    direction TB
+    direction LR
     S6["6 · Gate"]
   end
   subgraph P3["P3 · Run & Learn"]
-    direction TB
-    S7["7 · Launch"]
-    S8["8 · Learn"]
-    S7 --> S8
+    direction LR
+    S7["7 · Launch"] ~~~ S8["8 · Learn"]
   end
   P0 --> P1
   P1 -->|"HARD GATE"| P2
@@ -61,7 +56,7 @@ flowchart LR
   classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
   class S7,S8 p3
   style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  linkStyle 5 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
 ```
 
 | # | Phase | Step | What it produces |

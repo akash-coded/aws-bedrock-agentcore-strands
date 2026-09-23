@@ -54,7 +54,9 @@ PHASE_ASKS = {
     "P2": "does it meet the bar, slice by slice?",
     "P3": "is it still doing what we launched, and what did it cost?",
 }
-PHASE_HUE = {"P0": "#4A6076", "P1": "#3F51C4", "P2": "#0E7F7C", "P3": "#9C6803"}
+# GitHub draws the wiki in the reader's colour mode, so each hue must clear 3:1 on white and on
+# near-black; these are the lifted values site/content/learn/README.md lists.
+PHASE_HUE = {"P0": "#516981", "P1": "#4B5CC8", "P2": "#0E7F7C", "P3": "#9C6803"}
 ORDER = ("P0", "P1", "P2", "P3")
 
 
@@ -65,6 +67,19 @@ def by_phase(role: dict) -> dict[str, list[dict]]:
     return out
 
 
+def _wrap(text: str, width: int = 26) -> str:
+    """Break a label at word boundaries before mermaid does: it wraps any line over ~200px itself."""
+    lines, cur = [], ""
+    for word in text.split():
+        seen = len(re.sub(r"<[^>]+>", "", f"{cur} {word}".strip()))
+        if cur and seen > width:
+            lines.append(cur)
+            cur = word
+        else:
+            cur = f"{cur} {word}".strip()
+    return "<br/>".join(lines + [cur])
+
+
 def arc_diagram(role: dict) -> str:
     """The role's eight steps, grouped into the four phases they actually belong to.
 
@@ -73,10 +88,12 @@ def arc_diagram(role: dict) -> str:
     the hard gate lands in a different place for each role.
     """
     groups = by_phase(role)
-    L, classes, intra = ["```mermaid", "flowchart LR"], {ph: [] for ph in ORDER}, 0
+    # Phases stack as bands, two steps to a row, so the drawing stays narrow enough for a phone; the
+    # step numbers carry the order. Invisible ~~~ links count in linkStyle numbering, so count them.
+    L, classes, links = ["```mermaid", "flowchart TB"], {ph: [] for ph in ORDER}, 0
     absent = []
     for ph in ORDER:
-        L += [f'  subgraph {ph}["{PHASE_NAME[ph]}"]', "    direction TB"]
+        L += [f'  subgraph {ph}["{PHASE_NAME[ph]}"]', "    direction LR"]
         steps = groups[ph]
         if steps:
             ids = []
@@ -84,14 +101,15 @@ def arc_diagram(role: dict) -> str:
                 nid = f"S{st['n']}"
                 ids.append(nid)
                 classes[ph].append(nid)
-                L.append(f'    {nid}["{st["n"]} · {st["phase"]}"]')
-            for a, b in zip(ids, ids[1:]):
-                L.append(f"    {a} --> {b}")
-                intra += 1
+            label = {f"S{st['n']}": f'{st["n"]} · {st["phase"]}' for st in steps}
+            for k in range(0, len(ids), 2):
+                row = ids[k:k + 2]
+                L.append("    " + " ~~~ ".join(f'{n}["{label[n]}"]' for n in row))
+                links += len(row) - 1
         else:
             nid = f"{ph}X"
             absent.append(nid)
-            L.append(f'    {nid}["{role["pdlc_absent"][ph]}"]')
+            L.append(f'    {nid}["{_wrap(role["pdlc_absent"][ph])}"]')
         L.append("  end")
 
     L += ["  P0 --> P1", '  P1 -->|"HARD GATE"| P2', "  P2 --> P3"]
@@ -102,11 +120,11 @@ def arc_diagram(role: dict) -> str:
             L.append(f"  class {','.join(classes[ph])} {ph.lower()}")
         L.append(f"  style {ph} fill:{hue}0D,stroke:{hue},stroke-width:1.5px")
     if absent:
-        L.append("  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,"
-                 "stroke-dasharray:4 3,color:#6E6E6E")
+        # no color: — no fixed grey clears 4.5:1 for text in both modes; the dash carries "absent"
+        L.append("  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3")
         L.append(f"  class {','.join(absent)} absent")
-    # the three inter-phase links follow every intra-phase one, so the gate is the second
-    L.append(f"  linkStyle {intra + 1} stroke:{PHASE_HUE['P2']},stroke-width:3px")
+    # the three phase links follow every invisible one, so the gate is the second of them
+    L.append(f"  linkStyle {links + 1} stroke:{PHASE_HUE['P2']},stroke-width:3px")
     L.append("```")
     return "\n".join(L)
 

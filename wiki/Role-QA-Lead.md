@@ -1,5 +1,7 @@
 # Role: QA lead
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 You are on the hook for **whether anyone can say the thing works, and mean something by it.** Your
 three words are *proven*, *failed* and *unproven*, and the third one is the one that makes the other
 two worth anything.

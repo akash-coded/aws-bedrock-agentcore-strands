@@ -1,5 +1,7 @@
 # QA lead · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From 'it works' to a number you can defend**
 
 8 steps · 56 sub-steps · 8 templates · 23 prompts
@@ -21,31 +23,23 @@ Eight steps. Each one ends in an artefact somebody else needs, with the template
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph P0["P0 · Frame"]
-    direction TB
-    P0X["Asks one question: what will <i>right</i> mean, and who says so?"]
+    direction LR
+    P0X["Asks one question: what<br/>will <i>right</i> mean, and who<br/>says so?"]
   end
   subgraph P1["P1 · Design & Spec"]
-    direction TB
-    S1["1 · Define"]
-    S2["2 · Curate"]
-    S1 --> S2
+    direction LR
+    S1["1 · Define"] ~~~ S2["2 · Curate"]
   end
   subgraph P2["P2 · Build & Prove"]
-    direction TB
-    S3["3 · Check"]
-    S4["4 · Harness"]
-    S5["5 · Measure"]
-    S6["6 · Attack"]
+    direction LR
+    S3["3 · Check"] ~~~ S4["4 · Harness"]
+    S5["5 · Measure"] ~~~ S6["6 · Attack"]
     S7["7 · Shadow"]
-    S3 --> S4
-    S4 --> S5
-    S5 --> S6
-    S6 --> S7
   end
   subgraph P3["P3 · Run & Learn"]
-    direction TB
+    direction LR
     S8["8 · Watch"]
   end
   P0 --> P1
@@ -64,7 +58,7 @@ flowchart LR
   style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
   classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3
   class P0X absent
-  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
 ```
 
 | # | Phase | Step | What it produces |

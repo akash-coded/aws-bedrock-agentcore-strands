@@ -1,5 +1,7 @@
 # The eight loops
 
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[The eight loops](The-8-Feedback-Loops-of-Agentic-Delivery)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+
 Four phases are a line. Eight loops are what make it a ring. Each loop **opens** in one phase, **closes**
 in another, and has exactly one accountable owner. A programme that runs the phases but not the loops
 ships once and then drifts.

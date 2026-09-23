@@ -1,5 +1,7 @@
 # Engineering lead · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For engineers](Agentic-PDLC-for-Software-Engineers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From a story file to a shipped bolt**
 
 8 steps · 50 sub-steps · 8 templates · 24 prompts
@@ -21,31 +23,23 @@ Eight steps, in the order you would actually do them. Each one ends in something
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph P0["P0 · Frame"]
-    direction TB
-    P0X["Not on the clock — reads the brief, starts nothing"]
+    direction LR
+    P0X["Not on the clock — reads<br/>the brief, starts nothing"]
   end
   subgraph P1["P1 · Design & Spec"]
-    direction TB
+    direction LR
     S1["1 · Prepare"]
   end
   subgraph P2["P2 · Build & Prove"]
-    direction TB
-    S2["2 · Slice"]
-    S3["3 · Floor"]
-    S4["4 · Layer"]
-    S5["5 · Gate"]
-    S6["6 · Harness"]
-    S7["7 · Ship"]
-    S2 --> S3
-    S3 --> S4
-    S4 --> S5
-    S5 --> S6
-    S6 --> S7
+    direction LR
+    S2["2 · Slice"] ~~~ S3["3 · Floor"]
+    S4["4 · Layer"] ~~~ S5["5 · Gate"]
+    S6["6 · Harness"] ~~~ S7["7 · Ship"]
   end
   subgraph P3["P3 · Run & Learn"]
-    direction TB
+    direction LR
     S8["8 · Operate"]
   end
   P0 --> P1
@@ -64,7 +58,7 @@ flowchart LR
   style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
   classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3
   class P0X absent
-  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
 ```
 
 | # | Phase | Step | What it produces |

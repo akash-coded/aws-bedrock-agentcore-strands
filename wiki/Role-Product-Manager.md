@@ -1,5 +1,7 @@
 # Role: product manager
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For product managers](Agentic-PDLC-for-Product-Managers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 You are on the hook for **what gets built, why, and how much the machine may do without asking.**
 Nothing about that is new. What is new is that the thing you write is read by a machine that cannot
 ask you what you meant, and that a feature can now be right *a share of the time* rather than always.

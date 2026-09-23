@@ -1,5 +1,7 @@
 # Role: sponsor
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For business sponsors](Agentic-PDLC-for-Business-Sponsors)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 You are on the hook for **P3 — whether it is still doing what you launched, and what it cost.** You
 are also the only person on the programme with no delivery deadline, which is why the governance loop
 is yours: it is the one loop with nobody downstream waiting on it.

@@ -2,9 +2,10 @@
 # Learn the agentic PDLC
 
 A free tutorial in short lessons on running software projects where an AI model does part of the
-work — the four phases, the one hard gate, the eight loops, and how AWS AI-DLC, AIDD, the BMAD
-Method and spec-driven development fit onto them. Each lesson is five to ten minutes, opens with the
-answer, carries a picture, and credits its sources.
+work — the four phases, the one hard gate and the eight loops; how AWS AI-DLC, AIDD, the BMAD Method
+and spec-driven development fit onto them; what changes for each role, from engineer to executive;
+how an organisation adopts it; and a ninety-day case with twelve exercises. Each lesson is five to
+ten minutes, opens with the answer, carries a picture, and credits its sources.
 
 **[▶ Start here](Start-Here)** · or go straight to **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)**
 

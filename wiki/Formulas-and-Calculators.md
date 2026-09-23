@@ -1,5 +1,7 @@
 # Formulas and calculators
 
+<!-- tutorial:lesson -->*To practise these, the lesson **[Twelve exercises](Agentic-PDLC-Exercises-with-Answers)** applies them in the order a project needs them.*<!-- /tutorial:lesson -->
+
 Every number in the playbook, with the formula behind it, a worked example, and — the part most
 reference pages leave out — **when the formula misleads you**.
 

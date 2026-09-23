@@ -292,6 +292,12 @@ compare working. Credit the tutorial when you reuse them.
 The simulator's toolkit has a calculator for most of them — the bar, golden-set confidence, the review
 queue, cut-over evidence and bill leaks — each prefilled and editable.
 
+### Where can I find more exercises?
+
+The playbook's wiki has thirty-one more in [Exercises and answers](wiki:Exercises-and-Answers), in
+sets from framing to operations, each worked in full. The formulas they use are collected in
+[Formulas and calculators](wiki:Formulas-and-Calculators).
+
 ### Why use 1.96 rather than 1.645?
 
 1.96 is the more conservative convention and the one this tutorial uses throughout. The simulator's

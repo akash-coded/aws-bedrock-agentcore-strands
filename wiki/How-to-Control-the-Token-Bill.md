@@ -1,5 +1,7 @@
 # How to control the token bill
 
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Why the AI bill is 4× the estimate](Why-Your-AI-Agent-Costs-4x-the-Estimate)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+
 The bill is 4.4 times the estimate, traffic is flat, and finance wants an answer by Friday.
 
 Traffic is flat, so **behaviour** changed — and behaviour is only visible per call. This page is how

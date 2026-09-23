@@ -1,5 +1,7 @@
 # Exercises and answers
 
+<!-- tutorial:lesson -->*Twelve more, three per phase, are in the lesson **[Twelve exercises](Agentic-PDLC-Exercises-with-Answers)**, each with its working.*<!-- /tutorial:lesson -->
+
 Thirty-one exercises across the playbook, with worked answers. Use them to test yourself, to run a
 session, or to prepare for an interview where someone asks how you would actually do this.
 

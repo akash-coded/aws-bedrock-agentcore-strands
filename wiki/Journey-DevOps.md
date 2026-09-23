@@ -1,5 +1,7 @@
 # DevOps and platform · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From a laptop to production, repeatably**
 
 8 steps · 53 sub-steps · 8 templates · 24 prompts
@@ -21,30 +23,23 @@ Eight steps. Each one ends in something committed to a repository rather than co
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph P0["P0 · Frame"]
-    direction TB
+    direction LR
     S1["1 · Baseline"]
   end
   subgraph P1["P1 · Design & Spec"]
-    direction TB
-    S2["2 · Access"]
-    S3["3 · Environments"]
-    S2 --> S3
+    direction LR
+    S2["2 · Access"] ~~~ S3["3 · Environments"]
   end
   subgraph P2["P2 · Build & Prove"]
-    direction TB
-    S4["4 · Pipeline"]
-    S5["5 · Deploy"]
-    S4 --> S5
+    direction LR
+    S4["4 · Pipeline"] ~~~ S5["5 · Deploy"]
   end
   subgraph P3["P3 · Run & Learn"]
-    direction TB
-    S6["6 · Observe"]
-    S7["7 · Protect"]
+    direction LR
+    S6["6 · Observe"] ~~~ S7["7 · Protect"]
     S8["8 · Recover"]
-    S6 --> S7
-    S7 --> S8
   end
   P0 --> P1
   P1 -->|"HARD GATE"| P2
@@ -61,7 +56,7 @@ flowchart LR
   classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
   class S6,S7,S8 p3
   style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  linkStyle 5 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
 ```
 
 | # | Phase | Step | What it produces |

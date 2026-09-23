@@ -607,14 +607,14 @@ the persona trail runs. The architect decides per change, in ten lines or fewer.
 change rather than the team, and a depth decision that takes an hour is its own overhead.
 
 ```mermaid
-flowchart TD
+flowchart LR
   A["A change"] --> B["One-line fix"]
   A --> C["A feature"]
   A --> D["Audited, multi-team"]
   A --> E["Depth unknown"]
-  B --> B1["Spec + a single agent.<br/>Skip discovery and most design"]
+  B --> B1["Spec + a single agent.<br/>Skip discovery and<br/>most design"]
   C --> C1["SDD + the five gates"]
-  D --> D1["SDD + the BMAD persona trail"]
+  D --> D1["SDD + the BMAD<br/>persona trail"]
   E --> E1["AI-DLC: start shallow,<br/>escalate on evidence"]
 ```
 

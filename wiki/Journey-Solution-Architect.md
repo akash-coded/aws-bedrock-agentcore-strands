@@ -1,5 +1,7 @@
 # Solution architect · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For solution architects](Agentic-PDLC-for-Solution-Architects)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From requirements to a system that holds**
 
 8 steps · 55 sub-steps · 8 templates · 24 prompts
@@ -21,31 +23,23 @@ Eight steps, from the first discovery meeting to the incident that redesigns the
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph P0["P0 · Frame"]
-    direction TB
-    S1["1 · Elicit"]
-    S2["2 · Constrain"]
-    S1 --> S2
+    direction LR
+    S1["1 · Elicit"] ~~~ S2["2 · Constrain"]
   end
   subgraph P1["P1 · Design & Spec"]
-    direction TB
-    S3["3 · Map"]
-    S4["4 · Shape"]
-    S5["5 · Decide"]
-    S6["6 · Bound"]
+    direction LR
+    S3["3 · Map"] ~~~ S4["4 · Shape"]
+    S5["5 · Decide"] ~~~ S6["6 · Bound"]
     S7["7 · Detail"]
-    S3 --> S4
-    S4 --> S5
-    S5 --> S6
-    S6 --> S7
   end
   subgraph P2["P2 · Build & Prove"]
-    direction TB
-    P2X["Answers against the map; does not re-open it"]
+    direction LR
+    P2X["Answers against the map;<br/>does not re-open it"]
   end
   subgraph P3["P3 · Run & Learn"]
-    direction TB
+    direction LR
     S8["8 · Evolve"]
   end
   P0 --> P1
@@ -64,7 +58,7 @@ flowchart LR
   style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
   classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3
   class P2X absent
-  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
 ```
 
 | # | Phase | Step | What it produces |

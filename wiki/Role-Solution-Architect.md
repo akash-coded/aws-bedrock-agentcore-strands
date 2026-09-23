@@ -1,5 +1,7 @@
 # Role: solution architect
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For solution architects](Agentic-PDLC-for-Solution-Architects)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 You are on the hook for **what exactly is being built, and under whose authority.** P1 is yours: it
 ends when the spec, the bar per slice and the guardrails are signed, and the crossing into P2 is the
 one hand-off nothing downstream survives without.

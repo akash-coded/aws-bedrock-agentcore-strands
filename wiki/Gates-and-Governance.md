@@ -1,5 +1,7 @@
 # Gates and governance
 
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[The five governance gates](AI-Governance-Gates-That-Dont-Slow-Delivery)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+
 A gate is **a decision, with evidence in front of a named person, and their name on it.** It is not a
 click, not a status column, and not a meeting that happens to end in "fine".
 
@@ -23,7 +25,7 @@ report. Live version:
 cannot evaluate, and insist on being asked the ones you can. Behaviour and expansion belong to QA.
 
 ```mermaid
-flowchart LR
+flowchart TB
   I["1 · Intent<br/><b>PM</b>"] --> P["2 · Plan<br/><b>PM + Architect</b>"]
   P --> B["3 · Behaviour<br/><b>QA</b>"]
   B --> R["4 · Release<br/><b>PM</b>"]

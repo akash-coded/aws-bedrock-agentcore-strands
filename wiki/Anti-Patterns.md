@@ -1,5 +1,7 @@
 # Anti-patterns
 
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Why agentic AI projects fail](Why-Agentic-AI-Projects-Fail)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+
 Eighteen ways this goes wrong, what each one costs, and the move that prevents it.
 
 None of these are carelessness. Every one is a sensible decision made by a competent person under
