@@ -140,7 +140,8 @@
     "Pasting the shared standards into it instead of linking them. The copy goes stale the first time the standard changes, and the agent then argues with your security team using your own old words.",
     "Listing commands nobody has run. The agent improvises a plausible substitute, treats the failure as an environment problem, and you end up reviewing a diff built on a green that never happened."
    ],
-   "done_when": "A new engineer, or a fresh agent session, can clone the repository, run every command in the file, and have all of them work without asking anybody a question."
+   "done_when": "A new engineer, or a fresh agent session, can clone the repository, run every command in the file, and have all of them work without asking anybody a question.",
+   "pdlc": "P1"
   },
   {
    "n": 2,
@@ -233,7 +234,8 @@
     "A spec sentence containing 'appropriately', 'correctly' or 'as needed'. Each one is a decision nobody has made, and it will be made by the model, silently, at about two in the afternoon.",
     "Keeping the chat thread as the real source and the file as documentation. The thread cannot be diffed, reviewed or re-run, so the second engineer builds a different bolt from the same file."
    ],
-   "done_when": "An engineer who was not in the planning conversation can build the bolt from the file alone, with the chat history closed, and the reviewer can see every decision as a diff."
+   "done_when": "An engineer who was not in the planning conversation can build the bolt from the file alone, with the chat history closed, and the reviewer can see every decision as a diff.",
+   "pdlc": "P2"
   },
   {
    "n": 3,
@@ -326,7 +328,8 @@
     "Letting the model write the code and its own assertions in one pass. They agree with each other, both disagree with the spec, and the suite goes green on the wrong behaviour.",
     "Using `float` for money. Two systems round differently, both are certain, and the difference surfaces weeks later as a reconciliation ticket nobody can reproduce."
    ],
-   "done_when": "Grepping the prompt directory for calculate, compute, total and sum returns nothing that gets acted on, and every exact step on the architect's map has a named function and a named test that has been seen red before it was seen green."
+   "done_when": "Grepping the prompt directory for calculate, compute, total and sum returns nothing that gets acted on, and every exact step on the architect's map has a named function and a named test that has been seen red before it was seen green.",
+   "pdlc": "P2"
   },
   {
    "n": 4,
@@ -419,7 +422,8 @@
     "Forwarding the whole conversation to the checker. The drafter's reasoning was written to be convincing, and a checker that reads it is convinced.",
     "An uncapped re-draft loop. It looks like diligence until the day a case cannot be fixed, and then it is a runaway with better manners, burning tokens until somebody reads the bill."
    ],
-   "done_when": "Every checker in the chain can be shown to be independent — a different model, or a fresh context with an adversarial brief — and a test proves the drafter's reasoning never reaches it."
+   "done_when": "Every checker in the chain can be shown to be independent — a different model, or a fresh context with an adversarial brief — and a test proves the drafter's reasoning never reaches it.",
+   "pdlc": "P2"
   },
   {
    "n": 5,
@@ -513,7 +517,8 @@
     "Deleting the prompt sentence once the signature is in place. The sentence is what makes the agent behave well by default; the signature is what holds when it does not. Keep both, and label which is which."
    ],
    "done_when": "For every tool at R3 or above, `test_over_cap_raises` and `test_no_confirmation_raises` are green, and the cap appears nowhere outside the config file and the signature.",
-   "figure": "authority_ladder"
+   "figure": "authority_ladder",
+   "pdlc": "P2"
   },
   {
    "n": 6,
@@ -606,7 +611,8 @@
     "Reporting one number. The slice carrying the risk is small, the average hides it, and the first person to find out is whoever is on call.",
     "A harness that has never rejected anything. It has been proven to run, not to work. Replay it against a commit you already know was bad before you call it a gate."
    ],
-   "done_when": "A pull request that regresses any touched slice below its bar cannot be merged, and the check has been shown to reject on a commit you already knew was bad."
+   "done_when": "A pull request that regresses any touched slice below its bar cannot be merged, and the check has been shown to reject on a commit you already knew was bad.",
+   "pdlc": "P2"
   },
   {
    "n": 7,
@@ -704,7 +710,8 @@
     "A shadow path that writes. It is an intention until it is a test, and the first time it writes it does so on real bookings, which is the exact risk the shadow run existed to remove."
    ],
    "done_when": "Every bolt merged on the day it was built, the shadow path has a test that fails the build if a write is reachable, and somebody other than you has thrown the rollback flag in a rehearsal with a stopwatch running.",
-   "figure": "bolt_days"
+   "figure": "bolt_days",
+   "pdlc": "P2"
   },
   {
    "n": 8,
@@ -803,7 +810,11 @@
    ],
    "done_when": "A test asserts a cache read above zero on the second call, every agent loop has a cap, a passport number cannot reach a trace row, and the injection suite has a run dated this week.",
    "figure": "cache_prefix",
-   "calc": "cache"
+   "calc": "cache",
+   "pdlc": "P3"
   }
- ]
+ ],
+ "pdlc_absent": {
+  "P0": "Not on the clock — reads the brief, starts nothing"
+ }
 }

@@ -106,6 +106,9 @@ def check(role: dict) -> list[str]:
     return bad
 
 
+PHASES = ("P0", "P1", "P2", "P3")
+
+
 def apply_enrichment(role: dict) -> tuple[int, list[str]]:
     """Attach presentation hints. A hint naming a step that does not exist is a build error."""
     from enrich import ENRICH  # noqa: PLC0415 - local so the module stays importable alone
@@ -122,6 +125,49 @@ def apply_enrichment(role: dict) -> tuple[int, list[str]]:
     return n, bad
 
 
+def apply_pdlc(role: dict) -> list[str]:
+    """Join each step to its PDLC phase, exhaustively.
+
+    Partial coverage is the failure that matters here: a step with no phase would
+    silently vanish from the journey's arc diagram, and the reader would never know a
+    step was missing. So every step must be named exactly once, and every name must be
+    a step that exists.
+    """
+    from enrich import PDLC, PDLC_ABSENT  # noqa: PLC0415
+
+    rid = role["id"]
+    table = PDLC.get(rid)
+    if table is None:
+        return [f"{rid}: no PDLC phase mapping"]
+
+    ids = [s["id"] for s in role["steps"]]
+    bad = [f"{rid}: PDLC names step '{sid}', which does not exist"
+           for sid in table if sid not in ids]
+    bad += [f"{rid}: step '{sid}' has no PDLC phase" for sid in ids if sid not in table]
+    bad += [f"{rid}: step '{sid}' has phase '{ph}', which is not one of {PHASES}"
+            for sid, ph in table.items() if ph not in PHASES]
+    if bad:
+        return bad
+
+    # The journey is read top to bottom, so the phases have to advance and never go
+    # back. A non-monotonic mapping would put a P0 step after a P2 one and the phase
+    # bands in the walk would read as nonsense.
+    order = {ph: i for i, ph in enumerate(PHASES)}
+    seq = [order[table[s["id"]]] for s in role["steps"]]
+    if any(b < a for a, b in zip(seq, seq[1:])):
+        names = " ".join(table[s["id"]] for s in role["steps"])
+        return [f"{rid}: PDLC phases go backwards along the step order — {names}"]
+
+    for s in role["steps"]:
+        s["pdlc"] = table[s["id"]]
+    covered = {s["pdlc"] for s in role["steps"]}
+    role["pdlc_absent"] = {ph: PDLC_ABSENT.get((rid, ph), "")
+                           for ph in PHASES if ph not in covered}
+    missing_copy = [ph for ph, txt in role["pdlc_absent"].items() if not txt]
+    return [f"{rid}: phase {ph} has no step and no line saying what happens there instead"
+            for ph in missing_copy]
+
+
 def main() -> int:
     problems, built = [], []
     roles = discover()
@@ -136,6 +182,7 @@ def main() -> int:
         role["steps"] = sorted(steps, key=lambda s: s["n"])
         n_hint, hint_problems = apply_enrichment(role)
         problems += hint_problems
+        problems += apply_pdlc(role)
         problems += check(role)
         if problems:
             continue

@@ -6,7 +6,7 @@
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-For the method behind it — the loops, the gates, the formulas — see [Role Solution Architect](Role-Solution-Architect).
+This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role Solution Architect](Role-Solution-Architect).
 
 ---
 
@@ -18,16 +18,66 @@ Eight steps, from the first discovery meeting to the incident that redesigns the
 
 ## The arc
 
-| # | Step | What it produces |
-| --- | --- | --- |
-| 1 | [**Elicit** — Run two discovery meetings and credit every line](#1--elicit) | Credited requirements email |
-| 2 | [**Constrain** — Sort the constraints, then write every NFR as a scenario](#2--constrain) | Constraint register + candidate NFR scenarios |
-| 3 | [**Map** — Tag every step exact, best-guess or consequential](#3--map) | Exact / best-guess / consequential map |
-| 4 | [**Shape** — Decide how many agents, and how deep the process runs](#4--shape) | Agent-fit and process-depth decision |
-| 5 | [**Decide** — Merge the utility trees, then write only the ADRs that earn one](#5--decide) | Ratified NFR sheet + the ADRs at the sensitivity points |
-| 6 | [**Bound** — Set the authority budget before the token budget](#6--bound) | Authority budget + gate map |
-| 7 | [**Detail** — Layer the context, wrap the system, place the checker](#7--detail) | Layered context spec + server schema + checker placement |
-| 8 | [**Evolve** — Make the running system cheap, auditable and able to redesign itself](#8--evolve) | Caching and routing config · redacted trace spec · the incident ADR |
+Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
+
+```mermaid
+flowchart LR
+  subgraph P0["P0 · Frame"]
+    direction TB
+    S1["1 · Elicit"]
+    S2["2 · Constrain"]
+    S1 --> S2
+  end
+  subgraph P1["P1 · Design & Spec"]
+    direction TB
+    S3["3 · Map"]
+    S4["4 · Shape"]
+    S5["5 · Decide"]
+    S6["6 · Bound"]
+    S7["7 · Detail"]
+    S3 --> S4
+    S4 --> S5
+    S5 --> S6
+    S6 --> S7
+  end
+  subgraph P2["P2 · Build & Prove"]
+    direction TB
+    P2X["Answers against the map; does not re-open it"]
+  end
+  subgraph P3["P3 · Run & Learn"]
+    direction TB
+    S8["8 · Evolve"]
+  end
+  P0 --> P1
+  P1 -->|"HARD GATE"| P2
+  P2 --> P3
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  class S1,S2 p0
+  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  class S3,S4,S5,S6,S7 p1
+  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class S8 p3
+  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3,color:#6E6E6E
+  class P2X absent
+  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+```
+
+| # | Phase | Step | What it produces |
+| --- | --- | --- | --- |
+| 1 | P0 | [**Elicit** — Run two discovery meetings and credit every line](#1--elicit) | Credited requirements email |
+| 2 | P0 | [**Constrain** — Sort the constraints, then write every NFR as a scenario](#2--constrain) | Constraint register + candidate NFR scenarios |
+| 3 | P1 | [**Map** — Tag every step exact, best-guess or consequential](#3--map) | Exact / best-guess / consequential map |
+| 4 | P1 | [**Shape** — Decide how many agents, and how deep the process runs](#4--shape) | Agent-fit and process-depth decision |
+| 5 | P1 | [**Decide** — Merge the utility trees, then write only the ADRs that earn one](#5--decide) | Ratified NFR sheet + the ADRs at the sensitivity points |
+| 6 | P1 | [**Bound** — Set the authority budget before the token budget](#6--bound) | Authority budget + gate map |
+| 7 | P1 | [**Detail** — Layer the context, wrap the system, place the checker](#7--detail) | Layered context spec + server schema + checker placement |
+| — | P2 | *Answers against the map; does not re-open it* | — |
+| 8 | P3 | [**Evolve** — Make the running system cheap, auditable and able to redesign itself](#8--evolve) | Caching and routing config · redacted trace spec · the incident ADR |
 
 ## What is yours, and what is not
 
@@ -45,6 +95,8 @@ Eight steps, from the first discovery meeting to the incident that redesigns the
 > Use a model where the work is **mechanical and checkable**, and nowhere near the trade-offs. It will turn two transcripts into a credited requirement register, rewrite nine adjectives as six-part scenarios, grep a repository for arithmetic hiding in prompts, and draft an MCP schema from an API surface — all of it faster than you and none of it beyond your ability to verify. It will also band a money tool R2 because the diff is one line, put everything in the shared context layer, and write an ADR whose rejected-options section flatters the decision you already made. Where a step below says *do not delegate*, the reason is always the same: the answer is a fact about your business, your regulator or your risk appetite, and the model has no way to know any of them.
 
 ---
+
+> **P0 · Frame begins here** — *is this worth doing, is it AI at all, and how much may the machine do?*
 
 ## 1 · Elicit
 
@@ -436,6 +488,8 @@ MY CURRENT LIST:
 **Done when** — Every candidate NFR has all six parts with a statistic in the measure and a source for that number, and every line on the constraint register names a design it rules out.
 
 ---
+
+> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
 
 ## 3 · Map
 
@@ -1402,6 +1456,10 @@ RULES:
 **Done when** — Every rule has exactly one place it can be edited, every write tool requires a confirmation the model cannot mint, and the chain accuracy is a multiplication with a checker after each step whose errors are expensive and invisible.
 
 ---
+
+> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
+
+> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
 
 ## 8 · Evolve
 

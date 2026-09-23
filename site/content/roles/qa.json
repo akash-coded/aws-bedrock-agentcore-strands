@@ -146,7 +146,8 @@
    ],
    "done_when": "Every step on the architect's map has a tag, the proof that tag owes, and — where it is best-guess — a bar with the two money figures it was derived from written beside it.",
    "figure": "bar_sheet",
-   "calc": "bar"
+   "calc": "bar",
+   "pdlc": "P1"
   },
   {
    "n": 2,
@@ -243,7 +244,8 @@
     "Sampling in proportion to traffic. Five hundred cases drawn representatively gives you fifty-five codeshare cases, which cannot prove an 80% bar at any score you will realistically reach.",
     "Pinning the wording in `expect`. The set goes red at the next prompt edit for a reason that is not a defect, and a suite that cries wolf is deleted within a month by someone who is not wrong to."
    ],
-   "done_when": "The harness runs the file unchanged, every case carries a slice tag, and you can say for each slice how many cases its bar needs and how many it has."
+   "done_when": "The harness runs the file unchanged, every case carries a slice tag, and you can say for each slice how many cases its bar needs and how many it has.",
+   "pdlc": "P1"
   },
   {
    "n": 3,
@@ -340,7 +342,8 @@
     "A judge inside the drafter's own conversation. It has already read the reasoning, so it grades the intention, and it will pass a well-argued wrong answer every time.",
     "Quoting a judged score with no judge accuracy beside it. It is a reading from an uncalibrated instrument, and the first person to work that out will discount every number you have ever given them."
    ],
-   "done_when": "Every check in the harness names the kind of work it checks, the exact checks run before the judge, and the judge has an agreement figure against human labels with its n beside it."
+   "done_when": "Every check in the harness names the kind of work it checks, the exact checks run before the judge, and the judge has an agreement figure against human labels with its n beside it.",
+   "pdlc": "P2"
   },
   {
    "n": 4,
@@ -437,7 +440,8 @@
     "The judge before the schema check. In the week the output shape breaks you pay a model to read five hundred malformed objects and report that they are malformed.",
     "A report with the overall number at the top. Whatever is at the top is what gets quoted in the release channel, and the overall number is precisely the one that hides the slice with the money in it."
    ],
-   "done_when": "A pull request that drops any slice below its bar cannot be merged, and the job's report names the slice, its score, its n and its lower bound."
+   "done_when": "A pull request that drops any slice below its bar cannot be merged, and the job's report names the slice, its score, its n and its lower bound.",
+   "pdlc": "P2"
   },
   {
    "n": 5,
@@ -530,7 +534,8 @@
     "Treating unproven as failed. It blocks a release that only owed you cases, and it teaches the team that the harness is an obstacle to route around rather than an instrument to read."
    ],
    "done_when": "No score leaves your hands without its n and its lower bound beside it, and every unproven slice carries the number of cases it owes.",
-   "calc": "proof"
+   "calc": "proof",
+   "pdlc": "P2"
   },
   {
    "n": 6,
@@ -627,7 +632,8 @@
     "One entry point. Nearly every suite tests the passenger's message and nothing else, and the partner API response field is the one that is trusted by default and parsed without question.",
     "A launch check. It passed in week zero, and the things it protects — the prompt, the tools, the context files — have each changed several times since, none of them in a way that looked like a security change."
    ],
-   "done_when": "Every gated tool is attacked from every entry point on a schedule, each case asserts both the tool call and the trace row, and you can name the date of the last run."
+   "done_when": "Every gated tool is attacked from every entry point on a schedule, each case asserts both the tool call and the trace row, and you can name the date of the last run.",
+   "pdlc": "P2"
   },
   {
    "n": 7,
@@ -726,7 +732,8 @@
    ],
    "done_when": "Agreement is reported per slice over a window fixed in advance, 'shadow never writes' is a passing test in the nightly job, and every widening step has a day count derived from traffic rather than a date chosen in a meeting.",
    "figure": "shadow_widen",
-   "calc": "evidence"
+   "calc": "evidence",
+   "pdlc": "P2"
   },
   {
    "n": 8,
@@ -823,7 +830,11 @@
     "A drift chart nobody opens. It becomes a control the moment an alert re-opens the release gate automatically, and it is decoration every day before that.",
     "A postmortem that produces a name. The refund tool still accepts any amount, and the same attack works next quarter on the next tool that moves money."
    ],
-   "done_when": "One output mix is charted weekly against both thresholds, a breach re-opens the release gate without anyone deciding to, and the last incident left the room as an enforced control plus six new golden cases."
+   "done_when": "One output mix is charted weekly against both thresholds, a breach re-opens the release gate without anyone deciding to, and the last incident left the room as an enforced control plus six new golden cases.",
+   "pdlc": "P3"
   }
- ]
+ ],
+ "pdlc_absent": {
+  "P0": "Asks one question: what will <i>right</i> mean, and who says so?"
+ }
 }

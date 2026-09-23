@@ -140,7 +140,8 @@
     "Consolidating live, in front of everyone. The whiteboard version looks efficient and it produces two stakeholders who believe their requirement was deleted, which surfaces as resistance later.",
     "Sending only the consolidated list. It saves one page and costs an afternoon of replies, and every reply is the same question about where a line went."
    ],
-   "done_when": "Any of the six can open the email, find their own words verbatim with their name beside them, and follow the line to the consolidated requirement it became."
+   "done_when": "Any of the six can open the email, find their own words verbatim with their name beside them, and follow the line to the consolidated requirement it became.",
+   "pdlc": "P0"
   },
   {
    "n": 2,
@@ -237,7 +238,8 @@
     "An NFR that is an adjective. *Fast*, *reliable* and *secure* survive the workshop because nobody can disagree with them, and then they cannot be tested, ranked or traded against anything.",
     "Leaving cost per case off the candidate list. It is the quality attribute that arrives as an invoice, and a number nobody ratified is a number nobody monitors."
    ],
-   "done_when": "Every candidate NFR has all six parts with a statistic in the measure and a source for that number, and every line on the constraint register names a design it rules out."
+   "done_when": "Every candidate NFR has all six parts with a statistic in the measure and a source for that number, and every line on the constraint register names a design it rules out.",
+   "pdlc": "P0"
   },
   {
    "n": 3,
@@ -334,7 +336,8 @@
     "A prompt that computes a number the agent then acts on. It fails fluently, with no exception and no red test, and the first person to notice is the passenger reading the wrong figure.",
     "Filling the kind column and leaving the proof column for later. Later is the sprint where QA asks what good looks like for step four, and the answer gets invented under deadline pressure."
    ],
-   "done_when": "Every step has a kind and a proof, and a grep of the prompts for arithmetic verbs and currency symbols returns nothing whose value the agent then acts on."
+   "done_when": "Every step has a kind and a proof, and a grep of the prompts for arithmetic verbs and currency symbols returns nothing whose value the agent then acts on.",
+   "pdlc": "P1"
   },
   {
    "n": 4,
@@ -431,7 +434,8 @@
     "Buying parallelism with agents. Four partner searches run at once inside one fan-out tool with no hand-offs at all; as four agents they cost six hand-offs, a coordinator and four contexts.",
     "One process weight for the whole programme. Heavy ceremony on a one-line fix is twelve personas between an engineer and a change, and light ceremony on the audited module is the audit finding."
    ],
-   "done_when": "The record states a number of agents, the hand-off count that number implies, and a limit with a figure in it that would justify the next one."
+   "done_when": "The record states a number of agents, the hand-off count that number implies, and a limit with a figure in it that would justify the next one.",
+   "pdlc": "P1"
   },
   {
    "n": 5,
@@ -528,7 +532,8 @@
     "A record for every decision. Forty in a week and the three that mattered cannot be found; an ADR is earned by a trade-off, not by a meeting having happened.",
     "A record with no rejected options. It reads as a preference, and the first incident re-litigates it from the beginning because there is nothing on paper to defend."
    ],
-   "done_when": "Every ratified NFR carries a number, every sensitivity point carries a dated record, and every record names what it rejected with the score that rejected it."
+   "done_when": "Every ratified NFR carries a number, every sensitivity point carries a dated record, and every record names what it rejected with the score that rejected it.",
+   "pdlc": "P1"
   },
   {
    "n": 6,
@@ -626,7 +631,8 @@
     "Treating every open decision as hard. The build queues behind eleven questions that could each have run behind a stub, and the delay gets blamed on governance rather than on the classification."
    ],
    "done_when": "A grep of every prompt returns no cap, no currency amount and no 'ask before', and each rule you removed has an over-cap or no-confirmation test standing in its place.",
-   "figure": "authority_ladder"
+   "figure": "authority_ladder",
+   "pdlc": "P1"
   },
   {
    "n": 7,
@@ -724,7 +730,8 @@
     "A checker reading its own output in its own context. It shares the blind spots that produced the error, so it returns a confident yes and the chain keeps its 66%."
    ],
    "done_when": "Every rule has exactly one place it can be edited, every write tool requires a confirmation the model cannot mint, and the chain accuracy is a multiplication with a checker after each step whose errors are expensive and invisible.",
-   "figure": "chain"
+   "figure": "chain",
+   "pdlc": "P1"
   },
   {
    "n": 8,
@@ -823,7 +830,11 @@
    ],
    "done_when": "The second call on a live prompt reports cache tokens read, a runaway loop stops at five, a passport number never reaches a trace row, and your last incident produced a typed parameter rather than a name.",
    "figure": "cache_prefix",
-   "calc": "cache"
+   "calc": "cache",
+   "pdlc": "P3"
   }
- ]
+ ],
+ "pdlc_absent": {
+  "P2": "Answers against the map; does not re-open it"
+ }
 }

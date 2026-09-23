@@ -688,3 +688,7 @@ a.md:hover b{color:var(--c)}
 @media (prefers-reduced-motion: reduce){
   .dgs g[data-loop],.dgcard[data-loop],.dgm[data-hot] [data-row]{transition:none}
 }
+/* the PDLC phase beside a step's own name, so the walk and the spine agree */
+.step .ph .pd{font-style:normal;font-family:var(--f-mono);font-size:9.5px;font-weight:700;
+  letter-spacing:.04em;margin-left:7px;padding:1px 5px;border-radius:4px;vertical-align:1px;
+  color:var(--dg-on);background:var(--accent)}

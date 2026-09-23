@@ -6,7 +6,7 @@
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-For the method behind it — the loops, the gates, the formulas — see [Role Product Manager](Role-Product-Manager).
+This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role Product Manager](Role-Product-Manager).
 
 ---
 
@@ -18,16 +18,62 @@ Eight steps. Each one ends in an artefact somebody else needs, with the template
 
 ## The arc
 
-| # | Step | What it produces |
-| --- | --- | --- |
-| 1 | [**Discover** — Turn the vibe into a measurement](#1--discover) | Pain register |
-| 2 | [**Qualify** — Decide whether this is AI at all](#2--qualify) | AI-fit decision record |
-| 3 | [**Frame** — Size the value and set the autonomy](#3--frame) | Value line + autonomy decision record |
-| 4 | [**Specify** — Write the spec a machine can build from](#4--specify) | Eight-field spec + acceptance bar sheet |
-| 5 | [**Plan** — Plan in bolts, not sprints](#5--plan) | Bolt plan |
-| 6 | [**Gate** — Hold the three gates that are yours](#6--gate) | Gate decision record |
-| 7 | [**Launch** — Shadow, then five percent, then widen](#7--launch) | Cut-over decision |
-| 8 | [**Learn** — Report two numbers and turn incidents into the next frame](#8--learn) | Two-number report · drift readout · next-P0 brief |
+Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
+
+```mermaid
+flowchart LR
+  subgraph P0["P0 · Frame"]
+    direction TB
+    S1["1 · Discover"]
+    S2["2 · Qualify"]
+    S3["3 · Frame"]
+    S1 --> S2
+    S2 --> S3
+  end
+  subgraph P1["P1 · Design & Spec"]
+    direction TB
+    S4["4 · Specify"]
+    S5["5 · Plan"]
+    S4 --> S5
+  end
+  subgraph P2["P2 · Build & Prove"]
+    direction TB
+    S6["6 · Gate"]
+  end
+  subgraph P3["P3 · Run & Learn"]
+    direction TB
+    S7["7 · Launch"]
+    S8["8 · Learn"]
+    S7 --> S8
+  end
+  P0 --> P1
+  P1 -->|"HARD GATE"| P2
+  P2 --> P3
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  class S1,S2,S3 p0
+  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  class S4,S5 p1
+  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class S6 p2
+  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class S7,S8 p3
+  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+  linkStyle 5 stroke:#0E7F7C,stroke-width:3px
+```
+
+| # | Phase | Step | What it produces |
+| --- | --- | --- | --- |
+| 1 | P0 | [**Discover** — Turn the vibe into a measurement](#1--discover) | Pain register |
+| 2 | P0 | [**Qualify** — Decide whether this is AI at all](#2--qualify) | AI-fit decision record |
+| 3 | P0 | [**Frame** — Size the value and set the autonomy](#3--frame) | Value line + autonomy decision record |
+| 4 | P1 | [**Specify** — Write the spec a machine can build from](#4--specify) | Eight-field spec + acceptance bar sheet |
+| 5 | P1 | [**Plan** — Plan in bolts, not sprints](#5--plan) | Bolt plan |
+| 6 | P2 | [**Gate** — Hold the three gates that are yours](#6--gate) | Gate decision record |
+| 7 | P3 | [**Launch** — Shadow, then five percent, then widen](#7--launch) | Cut-over decision |
+| 8 | P3 | [**Learn** — Report two numbers and turn incidents into the next frame](#8--learn) | Two-number report · drift readout · next-P0 brief |
 
 ## What is yours, and what is not
 
@@ -45,6 +91,8 @@ Eight steps. Each one ends in an artefact somebody else needs, with the template
 > Use a model for the **drafting and the arithmetic**, never for the judgement. It can turn six interview transcripts into a deduplicated pain register in a minute, and it will happily invent a value line if you let it. The pattern that works: you bring the numbers and the decision, the model brings the structure and the first draft, and every artefact leaves your hands having been read by you. Where a step below says *do not delegate*, that is a judgement the model has no standing to make.
 
 ---
+
+> **P0 · Frame begins here** — *is this worth doing, is it AI at all, and how much may the machine do?*
 
 ## 1 · Discover
 
@@ -452,6 +500,8 @@ Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>
 
 ---
 
+> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
+
 ## 4 · Specify
 
 ### Write the spec a machine can build from
@@ -751,6 +801,10 @@ CONTEXT LAYERS: <paths>
 
 ---
 
+> **P2 · Build & Prove begins here** — *does it meet the bar, slice by slice?*
+
+> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
+
 ## 6 · Gate
 
 ### Hold the three gates that are yours
@@ -873,6 +927,8 @@ Then give me the short script I can use to hand the wrong ones back.
 **Done when** — Every release has three named decisions with evidence attached, and you have been removed from the two sign-offs that were never yours.
 
 ---
+
+> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
 
 ## 7 · Launch
 

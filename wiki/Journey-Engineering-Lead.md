@@ -6,7 +6,7 @@
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-For the method behind it — the loops, the gates, the formulas — see [Role Engineering Lead](Role-Engineering-Lead).
+This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role Engineering Lead](Role-Engineering-Lead).
 
 ---
 
@@ -18,16 +18,66 @@ Eight steps, in the order you would actually do them. Each one ends in something
 
 ## The arc
 
-| # | Step | What it produces |
-| --- | --- | --- |
-| 1 | [**Prepare** — Write the context file every coding tool reads](#1--prepare) | Context file set |
-| 2 | [**Slice** — Build from a story file, never a chat thread](#2--slice) | Agent-ready story file |
-| 3 | [**Floor** — Write the deterministic floor before any prompt](#3--floor) | Exact-code inventory, implemented |
-| 4 | [**Layer** — Add the model calls, and an independent checker after the risky ones](#4--layer) | Checker implementation |
-| 5 | [**Gate** — Put the boundary in the tool signature](#5--gate) | Gated tool implementation |
-| 6 | [**Harness** — Wire the eval harness into CI, in cost order](#6--harness) | Eval harness in CI |
-| 7 | [**Ship** — Build bolt by bolt, and put the shadow path behind a flag](#7--ship) | Bolt build log |
-| 8 | [**Operate** — Cache, route, trace, test the injection, and keep the ledger](#8--operate) | Operations set — caching, routing, trace, injection suite, ledger |
+Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
+
+```mermaid
+flowchart LR
+  subgraph P0["P0 · Frame"]
+    direction TB
+    P0X["Not on the clock — reads the brief, starts nothing"]
+  end
+  subgraph P1["P1 · Design & Spec"]
+    direction TB
+    S1["1 · Prepare"]
+  end
+  subgraph P2["P2 · Build & Prove"]
+    direction TB
+    S2["2 · Slice"]
+    S3["3 · Floor"]
+    S4["4 · Layer"]
+    S5["5 · Gate"]
+    S6["6 · Harness"]
+    S7["7 · Ship"]
+    S2 --> S3
+    S3 --> S4
+    S4 --> S5
+    S5 --> S6
+    S6 --> S7
+  end
+  subgraph P3["P3 · Run & Learn"]
+    direction TB
+    S8["8 · Operate"]
+  end
+  P0 --> P1
+  P1 -->|"HARD GATE"| P2
+  P2 --> P3
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  class S1 p1
+  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class S2,S3,S4,S5,S6,S7 p2
+  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class S8 p3
+  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3,color:#6E6E6E
+  class P0X absent
+  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+```
+
+| # | Phase | Step | What it produces |
+| --- | --- | --- | --- |
+| — | P0 | *Not on the clock — reads the brief, starts nothing* | — |
+| 1 | P1 | [**Prepare** — Write the context file every coding tool reads](#1--prepare) | Context file set |
+| 2 | P2 | [**Slice** — Build from a story file, never a chat thread](#2--slice) | Agent-ready story file |
+| 3 | P2 | [**Floor** — Write the deterministic floor before any prompt](#3--floor) | Exact-code inventory, implemented |
+| 4 | P2 | [**Layer** — Add the model calls, and an independent checker after the risky ones](#4--layer) | Checker implementation |
+| 5 | P2 | [**Gate** — Put the boundary in the tool signature](#5--gate) | Gated tool implementation |
+| 6 | P2 | [**Harness** — Wire the eval harness into CI, in cost order](#6--harness) | Eval harness in CI |
+| 7 | P2 | [**Ship** — Build bolt by bolt, and put the shadow path behind a flag](#7--ship) | Bolt build log |
+| 8 | P3 | [**Operate** — Cache, route, trace, test the injection, and keep the ledger](#8--operate) | Operations set — caching, routing, trace, injection suite, ledger |
 
 ## What is yours, and what is not
 
@@ -45,6 +95,8 @@ Eight steps, in the order you would actually do them. Each one ends in something
 > Use a model for **the typing and the sweep**, never for the boundary. It will write a correct `fare_difference()` faster than you can, and it will just as happily write a cap into a prompt and report the cap as done. The pattern that works: the model drafts *inside* something you wrote — a context file, a story file, a signature you already fixed — and every line that moves money, changes a booking or writes a trace row is read by a person before it merges. Where a step below says *do not delegate*, the model has no standing, and it is almost always because the decision is about what the code must **refuse** rather than what it should do.
 
 ---
+
+> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
 
 ## 1 · Prepare
 
@@ -217,6 +269,10 @@ Do not rewrite the whole file. I want the diff, not a replacement.
 **Done when** — A new engineer, or a fresh agent session, can clone the repository, run every command in the file, and have all of them work without asking anybody a question.
 
 ---
+
+> **P2 · Build & Prove begins here** — *does it meet the bar, slice by slice?*
+
+> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
 
 ## 2 · Slice
 
@@ -1291,6 +1347,8 @@ them is untested on the day it is needed, and it will be the other one.
 **Done when** — Every bolt merged on the day it was built, the shadow path has a test that fails the build if a write is reachable, and somebody other than you has thrown the rollback flag in a rehearsal with a stopwatch running.
 
 ---
+
+> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
 
 ## 8 · Operate
 

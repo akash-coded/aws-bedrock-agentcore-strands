@@ -140,7 +140,8 @@
     "Accepting 'everyone knows it is slow'. If nobody will name a number, the honest register entry is the number as UNKNOWN with a named owner and a date, not a guess dressed up as a finding.",
     "Counting the saving and not the leak. The passenger who left is usually worth more than the minutes."
    ],
-   "done_when": "Someone who was not in any of the interviews can read one line and tell you what the problem is, how big it is, and where the number came from."
+   "done_when": "Someone who was not in any of the interviews can read one line and tell you what the problem is, how big it is, and where the number came from.",
+   "pdlc": "P0"
   },
   {
    "n": 2,
@@ -223,7 +224,8 @@
     "Answering question three with 'we would notice'. Noticing is not recovering. The test is whether the action can be undone, and how fast.",
     "Recording the verdict without the rejected options. A verdict with no alternatives reads as a preference and gets re-litigated at the first incident."
    ],
-   "done_when": "You can hand the record to a sceptical executive and they can see what you decided, what you rejected, and what would change your mind — without you in the room."
+   "done_when": "You can hand the record to a sceptical executive and they can see what you decided, what you rejected, and what would change your mind — without you in the room.",
+   "pdlc": "P0"
   },
   {
    "n": 3,
@@ -317,7 +319,8 @@
     "Omitting the review row to make cycle one look better. Cycle two then looks like a regression, and you spend the meeting explaining an artefact of your own reporting."
    ],
    "done_when": "Finance can change one assumption in your value line and see the answer move, and every action has a level that somebody derived rather than preferred.",
-   "calc": "value"
+   "calc": "value",
+   "pdlc": "P0"
   },
   {
    "n": 4,
@@ -416,7 +419,8 @@
    ],
    "done_when": "A coding agent and the QA lead both read the spec the same way, and neither has to ask you a question to start.",
    "figure": "bar_sheet",
-   "calc": "bar"
+   "calc": "bar",
+   "pdlc": "P1"
   },
   {
    "n": 5,
@@ -505,7 +509,8 @@
     "Letting the shadow run become a date. It is a window with a threshold; as a date it will lose the argument to the launch the first time they conflict."
    ],
    "done_when": "Every bolt in the plan can be built on its scheduled day without waiting for anything, and the walking skeleton is on day one.",
-   "figure": "bolt_days"
+   "figure": "bolt_days",
+   "pdlc": "P1"
   },
   {
    "n": 6,
@@ -593,7 +598,8 @@
     "Accepting a single accuracy number. The slice that carries the risk is always the one the average hides.",
     "Treating a gate as a meeting. A gate is a name and an evidence line; the meeting is optional."
    ],
-   "done_when": "Every release has three named decisions with evidence attached, and you have been removed from the two sign-offs that were never yours."
+   "done_when": "Every release has three named decisions with evidence attached, and you have been removed from the two sign-offs that were never yours.",
+   "pdlc": "P2"
   },
   {
    "n": 7,
@@ -688,7 +694,8 @@
    ],
    "done_when": "You can tell the sponsor what share of traffic the agent handles, what evidence earned it, and how fast you can take it back.",
    "figure": "shadow_widen",
-   "calc": "evidence"
+   "calc": "evidence",
+   "pdlc": "P3"
   },
   {
    "n": 8,
@@ -786,7 +793,9 @@
     "Counting AI tool adoption as maturity. It rewards the least mature behaviour available; nine tools with no gates is level one."
    ],
    "done_when": "Your sponsor has never learned a number about this programme from someone other than you.",
-   "figure": "two_numbers"
+   "figure": "two_numbers",
+   "pdlc": "P3"
   }
- ]
+ ],
+ "pdlc_absent": {}
 }

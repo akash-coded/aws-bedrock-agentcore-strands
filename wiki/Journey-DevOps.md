@@ -6,7 +6,7 @@
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/devops/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-For the method behind it — the loops, the gates, the formulas — see [Role DevOps](Role-DevOps).
+This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role DevOps](Role-DevOps).
 
 ---
 
@@ -18,16 +18,62 @@ Eight steps. Each one ends in something committed to a repository rather than co
 
 ## The arc
 
-| # | Step | What it produces |
-| --- | --- | --- |
-| 1 | [**Baseline** — Stand up the account, the tags and the budget first](#1--baseline) | Landing zone stack and cost baseline |
-| 2 | [**Access** — Get model access, then put every call behind one gateway](#2--access) | Model access matrix and gateway config |
-| 3 | [**Environments** — Make the environments comparable, model version included](#3--environments) | Environment manifest set |
-| 4 | [**Pipeline** — Make the harness a status check the merge cannot bypass](#4--pipeline) | Pipeline definition and the slice map |
-| 5 | [**Deploy** — Ship behind a flag, and treat the prompt as a deployable artefact](#5--deploy) | Flag configuration and the deploy path |
-| 6 | [**Observe** — Instrument the three signals a normal stack does not have](#6--observe) | Trace schema, cost record and the alarm set |
-| 7 | [**Protect** — Give the agent the smallest identity that can do the job](#7--protect) | Execution role policy, egress allowlist and injection suite |
-| 8 | [**Recover** — Rehearse the rollback and cap the runaway](#8--recover) | Rehearsed recovery runbook and the containment caps |
+Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
+
+```mermaid
+flowchart LR
+  subgraph P0["P0 · Frame"]
+    direction TB
+    S1["1 · Baseline"]
+  end
+  subgraph P1["P1 · Design & Spec"]
+    direction TB
+    S2["2 · Access"]
+    S3["3 · Environments"]
+    S2 --> S3
+  end
+  subgraph P2["P2 · Build & Prove"]
+    direction TB
+    S4["4 · Pipeline"]
+    S5["5 · Deploy"]
+    S4 --> S5
+  end
+  subgraph P3["P3 · Run & Learn"]
+    direction TB
+    S6["6 · Observe"]
+    S7["7 · Protect"]
+    S8["8 · Recover"]
+    S6 --> S7
+    S7 --> S8
+  end
+  P0 --> P1
+  P1 -->|"HARD GATE"| P2
+  P2 --> P3
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  class S1 p0
+  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  class S2,S3 p1
+  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class S4,S5 p2
+  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class S6,S7,S8 p3
+  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+  linkStyle 5 stroke:#0E7F7C,stroke-width:3px
+```
+
+| # | Phase | Step | What it produces |
+| --- | --- | --- | --- |
+| 1 | P0 | [**Baseline** — Stand up the account, the tags and the budget first](#1--baseline) | Landing zone stack and cost baseline |
+| 2 | P1 | [**Access** — Get model access, then put every call behind one gateway](#2--access) | Model access matrix and gateway config |
+| 3 | P1 | [**Environments** — Make the environments comparable, model version included](#3--environments) | Environment manifest set |
+| 4 | P2 | [**Pipeline** — Make the harness a status check the merge cannot bypass](#4--pipeline) | Pipeline definition and the slice map |
+| 5 | P2 | [**Deploy** — Ship behind a flag, and treat the prompt as a deployable artefact](#5--deploy) | Flag configuration and the deploy path |
+| 6 | P3 | [**Observe** — Instrument the three signals a normal stack does not have](#6--observe) | Trace schema, cost record and the alarm set |
+| 7 | P3 | [**Protect** — Give the agent the smallest identity that can do the job](#7--protect) | Execution role policy, egress allowlist and injection suite |
+| 8 | P3 | [**Recover** — Rehearse the rollback and cap the runaway](#8--recover) | Rehearsed recovery runbook and the containment caps |
 
 ## What is yours, and what is not
 
@@ -45,6 +91,8 @@ Eight steps. Each one ends in something committed to a repository rather than co
 > Use a model where there is a schema to be right against and a cheap way to check. It is genuinely strong at CloudFormation, workflow YAML, IAM policy shapes and the first draft of a script, and it is confidently wrong about your account boundaries, your regions, your quotas and what a permission actually reaches. The pattern that works: the model writes the change, a machine judges it — `cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test — and you read the diff rather than the prose. Anything that widens a permission, opens an egress path or touches a production boundary is read line by line by a person, because a model cannot estimate a blast radius it has never had to unwind. Where a step below says *do not delegate*, that is the reason.
 
 ---
+
+> **P0 · Frame begins here** — *is this worth doing, is it AI at all, and how much may the machine do?*
 
 ## 1 · Baseline
 
@@ -238,6 +286,8 @@ SCHEME: <paste>
 **Done when** — You can destroy a whole environment and rebuild it from the repository, and Cost Explorer can tell you what one feature cost last month without anyone opening a spreadsheet.
 
 ---
+
+> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
 
 ## 2 · Access
 
@@ -601,6 +651,10 @@ CONTEXT: <paste the current manifest, the slice list and the last harness readou
 **Done when** — A diff between any two environment manifests shows only differences you can name and defend, and the pinned model version is one of the lines it shows.
 
 ---
+
+> **P2 · Build & Prove begins here** — *does it meet the bar, slice by slice?*
+
+> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
 
 ## 4 · Pipeline
 
@@ -987,6 +1041,8 @@ CONTEXT: <slices, bars, cases per day, current flag states>
 **Done when** — You can move any single action from on to shadow and back in under a minute through a recorded config change, and every trace says which flag state and prompt version produced it.
 
 ---
+
+> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
 
 ## 6 · Observe
 

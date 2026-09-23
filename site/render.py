@@ -63,10 +63,26 @@ LEGACY_HASH_REDIRECT = (
 )
 
 
+# A role page overrides --accent. Emitting the literal hex defeats dark mode, because
+# base.css already defines a lifted value for each of these tokens and a hard-coded
+# light hex cannot follow it — which is how the phase label on every role page came to
+# sit at about 3:1 against a dark background. Emit the token, not the colour.
+ACCENT_TOKEN = {"#3E6B8A": "slate", "#2F6B57": "sage", "#7A6A46": "ochre",
+                "#8C5B6B": "plum", "#6B4E8A": "violet"}
+
+
+def accent_var(accent: str) -> str:
+    token = ACCENT_TOKEN.get(accent.upper()) or ACCENT_TOKEN.get(accent.lower())
+    if not token:
+        raise SystemExit(f"accent {accent!r} has no theme token; add it to ACCENT_TOKEN "
+                         f"or dark mode will render it at the light value")
+    return f"var(--{token})"
+
+
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
           nav_id: str = "", canonical: str = "", head_extra: str = "") -> str:
     up = "../" * depth
-    accent_css = f'<style>:root{{--accent:{accent}}}</style>' if accent else ""
+    accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
     nav = []
     # The nav carries a shorter label where the full role name would push it onto a second line.
     nav_label = {"product-manager": "Product", "solution-architect": "Architect",
@@ -189,6 +205,12 @@ def calc_section(step: dict) -> str:
             f"{calcs.render(name)}</section>")
 
 
+PHASE_TITLE = {"P0": "P0 · Frame — is this worth doing, and is it AI at all?",
+               "P1": "P1 · Design & Spec — what exactly, and under whose authority?",
+               "P2": "P2 · Build & Prove — does it meet the bar, slice by slice?",
+               "P3": "P3 · Run & Learn — is it still doing it, and what did it cost?"}
+
+
 def step_html(role: dict, s: dict) -> str:
     acts = "".join(
         f'<li><b>{md(a["do"])}</b><span>{md(a["detail"])}</span></li>' for a in s["activities"])
@@ -205,7 +227,7 @@ def step_html(role: dict, s: dict) -> str:
     return f"""<details class="step" id="{s['id']}"{' open' if s['n'] == 1 else ''}>
 <summary>
   <span class="sn">{s['n']}</span>
-  <span class="sh"><span class="ph">{_E(s['phase'])}</span><h3>{md(s['title'])}</h3>
+  <span class="sh"><span class="ph">{_E(s['phase'])}<i class="pd" title="{PHASE_TITLE[s['pdlc']]}">{s['pdlc']}</i></span><h3>{md(s['title'])}</h3>
     <span class="wh">{md(s['when'])}</span></span>
   <span class="chev" aria-hidden="true">▾</span>
 </summary>

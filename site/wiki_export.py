@@ -43,8 +43,76 @@ def fence(body: str, lang: str) -> str:
     return f"{ticks}{lang}\n{body.rstrip()}\n{ticks}"
 
 
+# The phase names and the question each answers are canonical on the wiki's
+# The-Agentic-PDLC page; the step-to-phase join lives in the content source, so this is
+# a label table and nothing more.
+PHASE_NAME = {"P0": "P0 · Frame", "P1": "P1 · Design & Spec",
+              "P2": "P2 · Build & Prove", "P3": "P3 · Run & Learn"}
+PHASE_ASKS = {
+    "P0": "is this worth doing, is it AI at all, and how much may the machine do?",
+    "P1": "what exactly is being built, and under whose authority?",
+    "P2": "does it meet the bar, slice by slice?",
+    "P3": "is it still doing what we launched, and what did it cost?",
+}
+PHASE_HUE = {"P0": "#4A6076", "P1": "#3F51C4", "P2": "#0E7F7C", "P3": "#9C6803"}
+ORDER = ("P0", "P1", "P2", "P3")
+
+
+def by_phase(role: dict) -> dict[str, list[dict]]:
+    out: dict[str, list[dict]] = {ph: [] for ph in ORDER}
+    for s in role["steps"]:
+        out[s["pdlc"]].append(s)
+    return out
+
+
+def arc_diagram(role: dict) -> str:
+    """The role's eight steps, grouped into the four phases they actually belong to.
+
+    The arc table says what each step produces. This says where each step sits on the
+    spine — which is the thing a reader cannot get from a numbered list, and the reason
+    the hard gate lands in a different place for each role.
+    """
+    groups = by_phase(role)
+    L, classes, intra = ["```mermaid", "flowchart LR"], {ph: [] for ph in ORDER}, 0
+    absent = []
+    for ph in ORDER:
+        L += [f'  subgraph {ph}["{PHASE_NAME[ph]}"]', "    direction TB"]
+        steps = groups[ph]
+        if steps:
+            ids = []
+            for st in steps:
+                nid = f"S{st['n']}"
+                ids.append(nid)
+                classes[ph].append(nid)
+                L.append(f'    {nid}["{st["n"]} · {st["phase"]}"]')
+            for a, b in zip(ids, ids[1:]):
+                L.append(f"    {a} --> {b}")
+                intra += 1
+        else:
+            nid = f"{ph}X"
+            absent.append(nid)
+            L.append(f'    {nid}["{role["pdlc_absent"][ph]}"]')
+        L.append("  end")
+
+    L += ["  P0 --> P1", '  P1 -->|"HARD GATE"| P2', "  P2 --> P3"]
+    for ph in ORDER:
+        hue = PHASE_HUE[ph]
+        L.append(f"  classDef {ph.lower()} fill:{hue}1A,stroke:{hue},stroke-width:1.5px")
+        if classes[ph]:
+            L.append(f"  class {','.join(classes[ph])} {ph.lower()}")
+        L.append(f"  style {ph} fill:{hue}0D,stroke:{hue},stroke-width:1.5px")
+    if absent:
+        L.append("  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,"
+                 "stroke-dasharray:4 3,color:#6E6E6E")
+        L.append(f"  class {','.join(absent)} absent")
+    # the three inter-phase links follow every intra-phase one, so the gate is the second
+    L.append(f"  linkStyle {intra + 1} stroke:{PHASE_HUE['P2']},stroke-width:3px")
+    L.append("```")
+    return "\n".join(L)
+
+
 def page(role: dict) -> str:
-    slug, method_page = PAGES[role["id"]]
+    slug, role_page = PAGES[role["id"]]
     live = f"{LIVE}{role['id']}/"
     n_p = sum(len(s["prompts"]) for s in role["steps"])
     n_a = sum(len(s["activities"]) for s in role["steps"])
@@ -55,17 +123,27 @@ def page(role: dict) -> str:
          "",
          f"This is the reading copy. The [interactive version]({live}) has a copy button on every "
          f"template and prompt, which is what you want when you are actually doing the work."]
-    if method_page:
-        L += ["", f"For the method behind it — the loops, the gates, the formulas — see "
-                  f"[{method_page.replace('-', ' ')}]({method_page})."]
+    if role_page:
+        L += ["", f"This page is the walk. For the standing definition of the job — what you own, "
+                  f"what you may settle alone, what crosses your desk and how the role fails — see "
+                  f"[{role_page.replace('-', ' ')}]({role_page})."]
     L += ["", "---", ""]
     for para in role["intro"]:
         L += [unmd(para), ""]
     L += ["## The arc", "",
-          "| # | Step | What it produces |", "| --- | --- | --- |"]
-    for s in role["steps"]:
-        L.append(f"| {s['n']} | [**{s['phase']}** — {unmd(s['title'])}](#{s['n']}--"
-                 f"{re.sub(r'[^a-z0-9]+', '-', s['phase'].lower()).strip('-')}) | {unmd(s['artifact']['name'])} |")
+          "Eight steps, and the four phases they sit in. Where the hard gate falls on your own "
+          "arc is the thing worth noticing: it is a different place for every role.", "",
+          arc_diagram(role), "",
+          "| # | Phase | Step | What it produces |", "| --- | --- | --- | --- |"]
+    groups = by_phase(role)
+    for ph in ORDER:
+        if not groups[ph]:
+            L.append(f"| — | {ph} | *{role['pdlc_absent'][ph]}* | — |")
+            continue
+        for s in groups[ph]:
+            L.append(f"| {s['n']} | {ph} | [**{s['phase']}** — {unmd(s['title'])}](#{s['n']}--"
+                     f"{re.sub(r'[^a-z0-9]+', '-', s['phase'].lower()).strip('-')}) | "
+                     f"{unmd(s['artifact']['name'])} |")
 
     L += ["", "## What is yours, and what is not", "",
           "| Yours to own | Not yours — stop signing these |", "| --- | --- |"]
@@ -77,7 +155,21 @@ def page(role: dict) -> str:
 
     L += ["", "## How to use a model in this role", "", f"> {unmd(role['ai_stance'])}", "", "---", ""]
 
+    seen: set[str] = set()
+    gated = False
+    has = {st["pdlc"] for st in role["steps"]}
     for s in role["steps"]:
+        if s["pdlc"] not in seen:
+            seen.add(s["pdlc"])
+            L += [f"> **{PHASE_NAME[s['pdlc']]} begins here** — *{PHASE_ASKS[s['pdlc']]}*", ""]
+            # The gate belongs where this role's walk LEAVES P1, which is not always at a
+            # P2 step: the architect has no P2 step at all and still signs it.
+            if "P1" in has and ORDER.index(s["pdlc"]) > ORDER.index("P1") and not gated:
+                gated = True
+                L += ["> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on "
+                      "the spec, the acceptance bar per slice and the authority budget being "
+                      "signed. It is the one crossing nothing downstream survives without — "
+                      "[why](The-Agentic-PDLC).", ""]
         L += [f"## {s['n']} · {s['phase']}", "",
               f"### {unmd(s['title'])}", "",
               f"*{unmd(s['when'])}*", "",

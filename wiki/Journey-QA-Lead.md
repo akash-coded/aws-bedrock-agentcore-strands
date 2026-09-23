@@ -6,7 +6,7 @@
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/qa/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-For the method behind it — the loops, the gates, the formulas — see [Role QA Lead](Role-QA-Lead).
+This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role QA Lead](Role-QA-Lead).
 
 ---
 
@@ -18,16 +18,66 @@ Eight steps. Each one ends in an artefact somebody else needs, with the template
 
 ## The arc
 
-| # | Step | What it produces |
-| --- | --- | --- |
-| 1 | [**Define** — Decide what proof each kind of step owes](#1--define) | Proof map + bar sheet |
-| 2 | [**Curate** — Build the golden set out of real cases](#2--curate) | Golden set (jsonl), tagged by slice |
-| 3 | [**Check** — Match the checker to the work](#3--check) | Checker map + judge rubric v0 |
-| 4 | [**Harness** — Wire the proof into CI so it runs on every change](#4--harness) | Eval harness, wired as a required check |
-| 5 | [**Measure** — Report the lower bound, never the score](#5--measure) | Behaviour-gate readout |
-| 6 | [**Attack** — Run the injection suite as a regression test](#6--attack) | Injection suite |
-| 7 | [**Shadow** — Run beside the desk before you run instead of it](#7--shadow) | Shadow comparison + expansion-gate evidence |
-| 8 | [**Watch** — Watch for drift, and turn incidents into controls](#8--watch) | Drift readout + missing-control postmortem |
+Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
+
+```mermaid
+flowchart LR
+  subgraph P0["P0 · Frame"]
+    direction TB
+    P0X["Asks one question: what will <i>right</i> mean, and who says so?"]
+  end
+  subgraph P1["P1 · Design & Spec"]
+    direction TB
+    S1["1 · Define"]
+    S2["2 · Curate"]
+    S1 --> S2
+  end
+  subgraph P2["P2 · Build & Prove"]
+    direction TB
+    S3["3 · Check"]
+    S4["4 · Harness"]
+    S5["5 · Measure"]
+    S6["6 · Attack"]
+    S7["7 · Shadow"]
+    S3 --> S4
+    S4 --> S5
+    S5 --> S6
+    S6 --> S7
+  end
+  subgraph P3["P3 · Run & Learn"]
+    direction TB
+    S8["8 · Watch"]
+  end
+  P0 --> P1
+  P1 -->|"HARD GATE"| P2
+  P2 --> P3
+  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
+  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  class S1,S2 p1
+  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class S3,S4,S5,S6,S7 p2
+  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class S8 p3
+  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3,color:#6E6E6E
+  class P0X absent
+  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
+```
+
+| # | Phase | Step | What it produces |
+| --- | --- | --- | --- |
+| — | P0 | *Asks one question: what will <i>right</i> mean, and who says so?* | — |
+| 1 | P1 | [**Define** — Decide what proof each kind of step owes](#1--define) | Proof map + bar sheet |
+| 2 | P1 | [**Curate** — Build the golden set out of real cases](#2--curate) | Golden set (jsonl), tagged by slice |
+| 3 | P2 | [**Check** — Match the checker to the work](#3--check) | Checker map + judge rubric v0 |
+| 4 | P2 | [**Harness** — Wire the proof into CI so it runs on every change](#4--harness) | Eval harness, wired as a required check |
+| 5 | P2 | [**Measure** — Report the lower bound, never the score](#5--measure) | Behaviour-gate readout |
+| 6 | P2 | [**Attack** — Run the injection suite as a regression test](#6--attack) | Injection suite |
+| 7 | P2 | [**Shadow** — Run beside the desk before you run instead of it](#7--shadow) | Shadow comparison + expansion-gate evidence |
+| 8 | P3 | [**Watch** — Watch for drift, and turn incidents into controls](#8--watch) | Drift readout + missing-control postmortem |
 
 ## What is yours, and what is not
 
@@ -45,6 +95,8 @@ Eight steps. Each one ends in an artefact somebody else needs, with the template
 > Use a model for the **volume**, never for the verdict. It will turn a redacted ticket export into three hundred candidate cases, cluster forty shadow disagreements into four themes, and write the harness that runs them — all work that used to price this role out of doing its job properly. What it must not do is decide what counts as right, or grade its own family of outputs and hand you the number unlabelled. A judge model is a measuring instrument with an unknown error until you calibrate it against human labels, so calibrate it and report that figure like any other score. Where a step below says *do not delegate*, that is a judgement with your name on a gate.
 
 ---
+
+> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
 
 ## 1 · Define
 
@@ -389,6 +441,10 @@ SLICE COUNTS AND CASE NOTES:
 **Done when** — The harness runs the file unchanged, every case carries a slice tag, and you can say for each slice how many cases its bar needs and how many it has.
 
 ---
+
+> **P2 · Build & Prove begins here** — *does it meet the bar, slice by slice?*
+
+> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
 
 ## 3 · Check
 
@@ -1336,6 +1392,8 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
 **Done when** — Agreement is reported per slice over a window fixed in advance, 'shadow never writes' is a passing test in the nightly job, and every widening step has a day count derived from traffic rather than a date chosen in a meeting.
 
 ---
+
+> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
 
 ## 8 · Watch
 

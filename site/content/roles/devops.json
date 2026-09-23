@@ -140,7 +140,8 @@
     "Tagging by team. The re-org lands in nine months and the question *what did rebooking cost* becomes permanently unanswerable for every month before it.",
     "Activating cost allocation tags late. The tags were there all along, the cost data was not, and the first three months of spend can never be attributed — which is exactly the period you will be asked about."
    ],
-   "done_when": "You can destroy a whole environment and rebuild it from the repository, and Cost Explorer can tell you what one feature cost last month without anyone opening a spreadsheet."
+   "done_when": "You can destroy a whole environment and rebuild it from the repository, and Cost Explorer can tell you what one feature cost last month without anyone opening a spreadsheet.",
+   "pdlc": "P0"
   },
   {
    "n": 2,
@@ -237,7 +238,8 @@
     "The bare model ID. It fails with something that reads like a permissions error, so the team spends the morning widening IAM policies — which then ship, over-permissive, and are never narrowed again.",
     "Letting one team call Bedrock directly 'just for now'. The per-call log then has a hole in it, and the hole is always exactly the team whose spend you were asked to explain."
    ],
-   "done_when": "Every model call in every environment goes through one endpoint, and you can produce yesterday's cost split by feature from its log without asking anybody for anything."
+   "done_when": "Every model call in every environment goes through one endpoint, and you can produce yesterday's cost split by feature from its log without asking anybody for anything.",
+   "pdlc": "P1"
   },
   {
    "n": 3,
@@ -330,7 +332,8 @@
     "A secret in a prompt or a context file. It is now in the trace store, in the log aggregator and in the request that left your account, and rotating it is the easy part of what follows.",
     "Seeding evaluation with invented cases. They are drawn from what somebody imagined the input looks like, so the harness measures the system against the easy half of its own traffic and reports it as a score."
    ],
-   "done_when": "A diff between any two environment manifests shows only differences you can name and defend, and the pinned model version is one of the lines it shows."
+   "done_when": "A diff between any two environment manifests shows only differences you can name and defend, and the pinned model version is one of the lines it shows.",
+   "pdlc": "P1"
   },
   {
    "n": 4,
@@ -428,7 +431,8 @@
     "An unpinned judge. Its version moves, every score moves with it, and a week goes into hunting a product regression that is actually a change in the measuring instrument."
    ],
    "done_when": "A pull request with any slice below its bar cannot be merged, and the person who tried can see which slice and by how much without opening a log.",
-   "calc": "queue"
+   "calc": "queue",
+   "pdlc": "P2"
   },
   {
    "n": 5,
@@ -525,7 +529,8 @@
     "Shipping a prompt change outside the pipeline. It is a behaviour change with no build, no line in the release notes and nothing to roll back to — and it is the most common production change an agent gets.",
     "A shadow path that is a separate code branch. It proves the shadow branch works. The first live call then executes code that has never run against real traffic."
    ],
-   "done_when": "You can move any single action from on to shadow and back in under a minute through a recorded config change, and every trace says which flag state and prompt version produced it."
+   "done_when": "You can move any single action from on to shadow and back in under a minute through a recorded config change, and every trace says which flag state and prompt version produced it.",
+   "pdlc": "P2"
   },
   {
    "n": 6,
@@ -620,7 +625,8 @@
    ],
    "done_when": "For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it — with nothing unmasked that should not be.",
    "figure": "bill_factors",
-   "calc": "bill"
+   "calc": "bill",
+   "pdlc": "P3"
   },
   {
    "n": 7,
@@ -717,7 +723,8 @@
     "One role for the whole agent. The retrieval step then holds write permission for the entire run, so the blast radius of a single injected instruction is everything the agent could ever do.",
     "Trusting a partner's API response because it arrived over TLS from a company you have a contract with. The channel is authenticated; the free-text field inside it is typed by somebody you have never met."
    ],
-   "done_when": "A reviewer can read the execution role in two minutes and name, for every statement, which tool in the contract needs it — and the injection suite runs on every pull request with the cap assertion in it."
+   "done_when": "A reviewer can read the execution role in two minutes and name, for every statement, which tool in the contract needs it — and the injection suite runs on every pull request with the cap assertion in it.",
+   "pdlc": "P3"
   },
   {
    "n": 8,
@@ -814,7 +821,9 @@
     "Rolling back the container and believing you rolled back the behaviour. The prompt version and the model version are separate artefacts, and the deploy you just reverted may not have touched either.",
     "A kill switch that returns an error. It produces an outage instead of a queue, so the team hesitates to throw it, and the hesitation is the expensive part of every incident it was built for."
    ],
-   "done_when": "Every rollback path has a measured time in the runbook next to the date it was last rehearsed, and a case that hits the loop cap or the cost cap ends in the desk queue with a metric rather than in a retry."
+   "done_when": "Every rollback path has a measured time in the runbook next to the date it was last rehearsed, and a case that hits the loop cap or the cost cap ends in the desk queue with a metric rather than in a retry.",
+   "pdlc": "P3"
   }
- ]
+ ],
+ "pdlc_absent": {}
 }
