@@ -96,8 +96,19 @@ A hex cannot follow a theme, so use only these, which clear 3:1 on white and on 
 | yours / evidence · green | `#2C7A4B` | `#2C7A4B1A` | — |
 | meta / questions · grey | `#6E6E6E` | `#6E6E6E14` | — |
 
-Never set `color:` on a node. Style every `subgraph` band with `style <id> fill:…0D,stroke:…`.
+Keep each label line short enough not to wrap — mermaid breaks any line wider than about 200px, so
+about 22 characters bold and 25 italic; put a `<br/>` where the phrase breaks instead. Never set
+`color:` on a node. Style every `subgraph` band with `style <id> fill:…0D,stroke:…`.
 Never point an edge back at an earlier node inside a banded diagram — end on a terminal node. Count
 the invisible `~~~` links when numbering `linkStyle`. Keep a diagram's intrinsic width under ~700px:
 stack bands vertically, two nodes across. `site/tools/check_diagrams.py` renders every block in both
-themes and fails on small text, low contrast and bands out of order.
+themes and fails on small text, low contrast and bands out of order, and warns on wrapped lines and
+drawings wider than 720px.
+
+## Screenshots
+
+A screenshot of the simulator goes on its own line as `![alt](site:assets/learn/name.webp)`.
+Capture it with `node site/tools/simshots.mjs <simulator url> site/assets/learn` — at 2x, as WebP,
+clipped to one element — and the renderer reads its size from the file, so a narrow one stays narrow
+on the site and on the wiki. Write the alt text as the sentence the screenshot proves. Never capture
+the simulator's photographs; clip to the part of the page that is the playbook's own work.

@@ -18,10 +18,10 @@ updated: 2026-09-23
 
 ```mermaid
 flowchart TB
-  I["<b>1 · Intent</b> · product manager<br/><i>pain, AI-fit verdict, value line</i>"] --> P["<b>2 · Plan</b> · PM and architect<br/><i>bolt cut, authority budget, gate map</i>"]
-  P --> B["<b>3 · Behaviour</b> · QA lead<br/><i>score per slice, with its lower bound</i>"]
-  B --> R["<b>4 · Release</b> · product manager<br/><i>shadow comparison, rollback rehearsed</i>"]
-  R --> E["<b>5 · Expansion</b> · QA lead<br/><i>live evidence by slice, drift in bounds</i>"]
+  I["<b>1 · Intent</b><br/>product manager<br/><i>pain, AI-fit, value line</i>"] --> P["<b>2 · Plan</b><br/>PM and architect<br/><i>bolts, authority, gates</i>"]
+  P --> B["<b>3 · Behaviour</b><br/>QA lead<br/><i>per slice, lower bound</i>"]
+  B --> R["<b>4 · Release</b><br/>product manager<br/><i>shadow run, rollback</i>"]
+  R --> E["<b>5 · Expansion</b><br/>QA lead<br/><i>live evidence, drift</i>"]
   E --> D(["<b>While live</b><br/><i>a drift alert re-opens the<br/>release gate, automatically</i>"])
 
   classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px

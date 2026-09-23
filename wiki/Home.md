@@ -14,8 +14,11 @@ answer, carries a picture, and credits its sources.
 | **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** | The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off — the model every other track builds on. | 9 |
 | **[Methods decoded](Tutorial-Methods-Decoded)** | AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide. | 7 |
 | **[Running delivery](Tutorial-Running-Delivery)** | The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems. | 13 |
+| **[By role](Tutorial-By-Role)** | How each discipline works in the agentic PDLC — product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not. | 9 |
+| **[Teams and organisation](Tutorial-Teams-and-Organisation)** | How to structure teams, measure productivity without fooling yourself, assess maturity by controls rather than tools, and roll the method out in ninety days. | 4 |
+| **[Practice](Tutorial-Practice)** | The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers. | 4 |
 
-*31 lessons so far.* The same tutorial, with live diagrams, is at [akash-coded.github.io/…/learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/).
+*48 lessons so far.* The same tutorial, with live diagrams, is at [akash-coded.github.io/…/learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/).
 
 ---
 

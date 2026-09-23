@@ -14,10 +14,10 @@
 
 ```mermaid
 flowchart TB
-  Q["<b>1 · Ask the one question</b><br/><i>which enforced control was missing?</i>"] --> L["<b>2 · Classify every layer</b><br/><i>enforced, a request, or absent</i>"]
-  L --> F["<b>3 · Close the path</b><br/><i>a control in code, with its tests</i>"]
+  Q["<b>1 · Ask one question</b><br/><i>the missing control?</i>"] --> L["<b>2 · Classify layers</b><br/><i>enforced, asked, absent</i>"]
+  L --> F["<b>3 · Close the path</b><br/><i>in code, with tests</i>"]
   F --> A["<b>4 · Lower the autonomy</b><br/><i>and name what restores it</i>"]
-  A --> N(["<b>5 · Feed it forward</b><br/><i>golden cases, a decision record,<br/>a brief for the next P0</i>"])
+  A --> N(["<b>5 · Feed it forward</b><br/><i>golden cases, an ADR,<br/>the next P0 brief</i>"])
 
   classDef move fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
   classDef out fill:#5169811A,stroke:#516981,stroke-width:2px
@@ -167,6 +167,6 @@ trust, and makes restoring the level a decision with evidence rather than a date
 
 | | |
 | :--- | ---: |
-| [← Catch AI drift](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message) | [Back to Start here →](Start-Here) |
+| [← Catch AI drift](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message) | [For product managers →](Agentic-PDLC-for-Product-Managers) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)

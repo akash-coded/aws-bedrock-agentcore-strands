@@ -19,7 +19,7 @@ flowchart TB
   D["<b>4 · Step by step</b><br/><i>one idea per step</i>"]
   E["<b>5 · Try it</b><br/><i>commit before you look</i>"]
   F["<b>6 · Three takeaways</b><br/><i>what to keep</i>"]
-  G["<b>7 · Sources</b><br/><i>borrowed, adapted, original</i>"]
+  G["<b>7 · Sources</b><br/><i>each idea credited</i>"]
   A --> B --> C --> D --> E --> F --> G
 
   classDef read fill:#5169811A,stroke:#516981,stroke-width:1.5px

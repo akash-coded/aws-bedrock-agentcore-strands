@@ -19,7 +19,7 @@ flowchart TB
   Q2 -->|"no"| H
   Q2 -->|"yes"| Q3{"A named owner<br/>and a date?"}
   Q3 -->|"no"| H
-  Q3 -->|"yes"| Q4{"Does everything downstream<br/>survive if it changes?"}
+  Q3 -->|"yes"| Q4{"Does downstream work<br/>survive a change?"}
   Q4 -->|"no"| H
   Q4 -->|"yes"| S["<b>SOFT</b><br/><i>runs beside the build,<br/>behind a placeholder</i>"]
 

@@ -81,6 +81,16 @@ things follow, all of which cost a round trip once:
   when numbering `linkStyle`: they are declared first, so styling index 1 usually reveals
   an invisible link rather than the arrow you meant, and a `linkStyle` stroke override
   silently drops the dash that carries dashed-means-flow.
+- Mermaid **wraps any label line wider than about 200px**, on the site and on GitHub, so a
+  subtitle breaks mid-phrase ("Pick for / provability") and the node grows a line. Keep a
+  bold line to about 22 characters and an italic one to about 25, or put the `<br/>` where
+  the phrase breaks naturally. `site/tools/check_diagrams.py` warns on every wrapped line by
+  comparing rendered lines with written ones, and on any drawing wider than 720px.
+- On the site, an `<i>` label needs a **real italic face**. With only upright Inter loaded,
+  the browser slants the glyphs itself, the last letter overhangs the box mermaid measured,
+  and the foreignObject clips it ("require|d"). render.py loads Inter's italic, base.css lets
+  label overflow show, and learn.js waits for the fonts before it measures. Nothing in the
+  checker catches this, because it renders in the default font — look at the site.
 
 ## Verifying
 

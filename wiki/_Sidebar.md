@@ -58,6 +58,38 @@
 
 </details>
 
+<details><summary><b>By role</b> · 9</summary>
+
+1. [For product managers](Agentic-PDLC-for-Product-Managers)
+2. [For program managers](Agentic-PDLC-for-Program-Managers)
+3. [For solution architects](Agentic-PDLC-for-Solution-Architects)
+4. [For engineers](Agentic-PDLC-for-Software-Engineers)
+5. [For forward-deployed engineers](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers)
+6. [For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)
+7. [For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams)
+8. [For business sponsors](Agentic-PDLC-for-Business-Sponsors)
+9. [For executives](Agentic-AI-for-Executives)
+
+</details>
+
+<details><summary><b>Teams and organisation</b> · 4</summary>
+
+1. [Team structure for agentic AI](How-to-Structure-Teams-for-Agentic-AI)
+2. [Measuring AI productivity](How-to-Measure-AI-Productivity)
+3. [The maturity model](AI-Delivery-Maturity-Model)
+4. [Rolling it out in 90 days](How-to-Roll-Out-Agentic-AI-Delivery)
+
+</details>
+
+<details><summary><b>Practice</b> · 4</summary>
+
+1. [The SkyWays case study](Agentic-AI-Case-Study-SkyWays)
+2. [The operating rhythm](Agentic-Delivery-Cadence-Daily-Weekly-Quarterly)
+3. [The simulator](Agentic-AI-Delivery-Simulator)
+4. [Twelve exercises](Agentic-PDLC-Exercises-with-Answers)
+
+</details>
+
 [All lessons, on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/)
 
 ---

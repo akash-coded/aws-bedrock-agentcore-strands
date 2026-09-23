@@ -107,7 +107,7 @@ not fall on its own.
 with very different consequences. Ask it **per action**, and let the answer follow what a mistake
 costs and whether it can be undone — never what the model is capable of.
 
-<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-authority-ladder.dark.webp"><img alt="The authority ladder: how much the agent may do on its own, per action" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-authority-ladder.light.webp" width="100%"></picture></a></p>
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-authority-ladder.dark.webp"><img alt="The authority ladder: every tool gets a band, from read-only to not delegated, and the band belongs to the tool" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-authority-ladder.light.webp" width="100%"></picture></a></p>
 
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/">Open the live, interactive version</a></sub>
 

@@ -29,7 +29,7 @@ flowchart TB
   end
   subgraph O["Operations"]
     direction LR
-    O1["<b>Infrastructure and deploy</b><br/><i>from the accumulated context</i>"] ~~~ O2["<b>Run it</b><br/><i>with the team overseeing</i>"]
+    O1["<b>Infrastructure</b><br/><i>and deploy, from context</i>"] ~~~ O2["<b>Run it</b><br/><i>with the team overseeing</i>"]
   end
   I --> C --> O
 

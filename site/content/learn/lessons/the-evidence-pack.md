@@ -17,10 +17,10 @@ updated: 2026-09-23
 
 ```mermaid
 flowchart TB
-  A["<b>P0 → P1 · soft · 7 owed</b><br/><i>pain · AI-fit · value line · autonomy per action<br/>requirements · constraints by type · NFRs</i><br/>test · can the architect design without asking?"]
-  B["<b>P1 → P2 · HARD · 9 owed</b><br/><i>spec · bar sheet · decision records · step map<br/>authority budget · topology · context layers<br/>story files · the first 50 golden cases</i><br/>test · can an outsider build bolt one alone?"]
-  C["<b>P2 → P3 · soft · 8 owed</b><br/><i>bolt plan · score with lower bound · review lanes<br/>harness · checkers · gated tools · shadow · cut-over</i><br/>test · is the bar a running check?"]
-  D["<b>P3 → next P0 · soft · 6 owed</b><br/><i>two numbers · drift readout · redacted trace<br/>bill root cause · incident brief · maturity</i><br/>test · does the next brief have an owner?"]
+  A["<b>P0 → P1 · soft · 7 owed</b><br/><i>pain · AI-fit · value<br/>autonomy · requirements<br/>constraints · NFRs</i><br/>test · can the architect<br/>design without asking?"]
+  B["<b>P1 → P2 · HARD · 9 owed</b><br/><i>spec · bar sheet · ADRs<br/>step map · authority<br/>topology · context<br/>story files · 50 cases</i><br/>test · can an outsider<br/>build bolt one alone?"]
+  C["<b>P2 → P3 · soft · 8 owed</b><br/><i>bolt plan · lower bound<br/>review lanes · harness<br/>checkers · gated tools<br/>shadow · cut-over</i><br/>test · is the bar<br/>a running check?"]
+  D["<b>P3 → P0 · soft · 6 owed</b><br/><i>two numbers · drift<br/>redacted trace · bill<br/>incident · maturity</i><br/>test · does the next<br/>brief have an owner?"]
   A --> B --> C --> D
 
   classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px

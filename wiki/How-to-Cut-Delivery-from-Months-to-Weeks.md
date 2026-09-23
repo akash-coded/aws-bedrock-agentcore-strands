@@ -16,7 +16,7 @@
 flowchart TB
   subgraph A["Compresses when AI builds"]
     direction LR
-    A1["<b>Writing code and tests</b><br/><i>hours, not days</i>"] ~~~ A2["<b>Drafting specs and docs</b><br/><i>the model drafts, you check</i>"]
+    A1["<b>Writing code and tests</b><br/><i>hours, not days</i>"] ~~~ A2["<b>Drafting specs and docs</b><br/><i>it drafts, you check</i>"]
   end
   subgraph B["Compresses only by redesign"]
     direction LR

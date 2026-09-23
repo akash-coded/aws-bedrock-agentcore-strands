@@ -28,7 +28,7 @@ flowchart TB
   end
   subgraph B["P2 · Build and Prove — what the agent does"]
     direction LR
-    K2["<b>Kiro</b><br/><i>tasks.md, run task by task</i>"] ~~~ G2["<b>Spec Kit</b><br/><i>implement, against the checklists</i>"]
+    K2["<b>Kiro</b><br/><i>tasks.md, run task by task</i>"] ~~~ G2["<b>Spec Kit</b><br/><i>implement, to checklists</i>"]
   end
   Y -.->|"you write these into the spec"| S
   S --> B

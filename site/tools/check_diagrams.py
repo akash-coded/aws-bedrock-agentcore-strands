@@ -16,6 +16,13 @@ at the width of GitHub's wiki column, and four things are asserted:
   *sibling* of the nodes inside it, not their parent;
 * in a banded diagram, the bands come out in the order they were declared — a back edge makes a
   cycle that dagre breaks by reversing a forward edge, which silently reorders the phases.
+
+Two more are reported as warnings, because they hurt reading without breaking it:
+
+* a label line that mermaid wrapped — it wraps any line wider than about 200px, so a subtitle breaks
+  mid-phrase and the node grows a line; counted by comparing rendered lines with written ``<br/>`` lines;
+* a drawing wider than 720px, which the README asks authors to avoid: it fits the wiki column but
+  shrinks below legibility on a phone.
 """
 from __future__ import annotations
 
@@ -34,6 +41,7 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 MERMAID = "https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.esm.min.mjs"
 COLUMN = 896          # GitHub's wiki content width at a 1440px window
 MIN_TEXT = 11.0
+WIDE = 720            # px of drawing before a phone shrinks its text below legibility
 FENCE = re.compile(r"```mermaid\n([\s\S]*?)```")
 
 JS = r"""
@@ -86,11 +94,21 @@ for (const s of document.querySelectorAll("div.mermaid svg")) {
       const lr = ratio(over(rgba(getComputedStyle(lab).color), fill), fill);
       if (lr < 4.5) badLabel.push(lab.textContent.trim().slice(0, 30) + " " + lr); }
   }
+  const wrapped = [];
+  for (const div of s.querySelectorAll("g.node foreignObject div, g.cluster foreignObject div")) {
+    const text = div.textContent.trim(); if (!text) continue;
+    const range = document.createRange(); range.selectNodeContents(div);
+    const tops = [...range.getClientRects()].filter(q => q.width > 0).map(q => q.top).sort((a, b) => a - b);
+    let lines = 0, last = -1e9;
+    for (const t of tops) if (t - last > 4 * k) { lines++; last = t; }
+    const written = (div.innerHTML.match(/<br\s*\/?>/gi) || []).length + 1;
+    if (lines > written) wrapped.push(div.innerText.trim().replace(/\s*\n\s*/g, " / ").slice(0, 60));
+  }
   const xs = clusters.map(c => c.box.left), ys = clusters.map(c => c.box.top);
   const axis = clusters.length > 1 && (Math.max(...xs) - Math.min(...xs)) > (Math.max(...ys) - Math.min(...ys)) ? "x" : "y";
   const drawn = clusters.slice().sort((a, b) => axis === "x" ? a.box.left - b.box.left : a.box.top - b.box.top).map(c => c.t);
   out.push({src: names[s.id], width: Math.round(vb.width), minText: +minText.toFixed(1),
-            badStroke, badLabel, drawn});
+            badStroke, badLabel, drawn, wrapped});
 }
 const tag = document.createElement("script"); tag.type = "application/json"; tag.id = "report";
 tag.textContent = JSON.stringify({fails, out}); document.body.appendChild(tag);
@@ -137,7 +155,7 @@ def main() -> int:
     figs = collect(paths)
     declared = {n: b for n, _, b in figs}
     tmp = Path(tempfile.mkdtemp(prefix="diagrams-"))
-    problems = []
+    problems, warnings = [], []
     try:
         for theme, bg in (("dark", "#0d1117"), ("default", "#ffffff")):
             rep = run(figs, theme, bg, tmp)
@@ -150,15 +168,21 @@ def main() -> int:
                     problems.append(f"[{theme}] {d['src']}: node border {s}:1 against its surface")
                 for s in d["badLabel"][:3]:
                     problems.append(f"[{theme}] {d['src']}: label '{s}':1 against its fill")
+                if theme == "default":
+                    warnings += [f"{d['src']}: wraps '{w}'" for w in d["wrapped"]]
+                    if d["width"] > WIDE:
+                        warnings.append(f"{d['src']}: {d['width']}px wide; keep under {WIDE}px for phones")
                 want = declared.get(d["src"]) or []
                 if len(want) > 1 and d["drawn"][: len(want)] != want:
                     problems.append(f"[{theme}] {d['src']}: bands drawn {d['drawn']} but declared {want}")
             print(f"{theme:>8}: {len(rep['out'])} of {len(figs)} diagrams rendered")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+    for w in warnings:
+        print("  ⚠", w)
     for p in problems:
         print("  ✗", p)
-    print(f"{len(figs)} diagrams, {len(problems)} problems")
+    print(f"{len(figs)} diagrams, {len(problems)} problems, {len(warnings)} warnings")
     return 1 if problems else 0
 
 

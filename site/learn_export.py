@@ -40,6 +40,14 @@ def body_for_wiki(md: str, link, les_url: str, reg: dict) -> str:
         d = learn.DIRECTIVE.match(line.strip())
         out.append(picture(f"{d.group(1)}:{d.group(2)}", les_url, reg) if d else line)
     text = "\n".join(out)
+    # a screenshot on its own line: markdown has no width, and GitHub would stretch a narrow one
+    def shot(m):
+        size = learn.image_size(m.group(2))
+        if not size:
+            return m.group(0)
+        alt = m.group(1).replace('"', "&quot;")
+        return f'<p align="center"><img alt="{alt}" src="{link(m.group(2))}" width="{size[0]}"></p>'
+    text = re.sub(r"^!\[([^\]]*)\]\((site:assets/[^)\s]+)\)\s*$", shot, text, flags=re.M)
     # resolve the tutorial's link schemes; leave fenced blocks alone
     parts = re.split(r"(```[\s\S]*?```)", text)
     for i in range(0, len(parts), 2):

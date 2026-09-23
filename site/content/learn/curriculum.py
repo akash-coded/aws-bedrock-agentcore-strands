@@ -2,10 +2,10 @@
 entry and llms.txt line follows. A lesson file that is not listed, or a listed lesson with no file,
 stops the build — see site/pages/learn.py.
 
-Titles are chosen for the query a practitioner actually types (checked against live results in
-September 2026), then made more specific than what already ranks. Track ids are URL paths:
-/learn/<id>/. Lesson slugs are flat, /learn/<slug>/, so a lesson can move track without its URL
-changing.
+Titles are chosen for the query a practitioner actually types (the first four tracks' titles were
+checked against live results in September 2026), then made more specific than what already ranks.
+Track ids are URL paths: /learn/<id>/. Lesson slugs are flat, /learn/<slug>/, so a lesson can move
+track without its URL changing.
 """
 
 START = "start-here"
@@ -87,19 +87,55 @@ TRACKS = [
             "ai-incident-postmortem",
         ],
     },
+    {
+        "id": "roles",
+        "title": "By role",
+        "short": "By role",
+        "wiki": "Tutorial-By-Role",
+        "blurb": "How each discipline works in the agentic PDLC — product, programme, architecture, "
+                 "engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what "
+                 "changes, what is theirs, and what is not.",
+        "promise": "Your job, phase by phase",
+        "lessons": [
+            "agentic-pdlc-for-product-managers",
+            "agentic-pdlc-for-program-managers",
+            "agentic-pdlc-for-solution-architects",
+            "agentic-pdlc-for-engineers",
+            "ai-dlc-for-forward-deployed-engineers",
+            "agentic-pdlc-for-qa",
+            "agentic-pdlc-for-devops",
+            "agentic-pdlc-for-business-sponsors",
+            "agentic-ai-for-executives",
+        ],
+    },
+    {
+        "id": "organisation",
+        "title": "Teams and organisation",
+        "short": "Organisation",
+        "wiki": "Tutorial-Teams-and-Organisation",
+        "blurb": "How to structure teams, measure productivity without fooling yourself, assess maturity "
+                 "by controls rather than tools, and roll the method out in ninety days.",
+        "promise": "Structure, measures and rollout",
+        "lessons": [
+            "team-structure-for-agentic-ai",
+            "measure-ai-productivity",
+            "ai-delivery-maturity-model",
+            "rolling-out-agentic-delivery",
+        ],
+    },
+    {
+        "id": "practice",
+        "title": "Practice",
+        "short": "Practice",
+        "wiki": "Tutorial-Practice",
+        "blurb": "The SkyWays case study in thirteen episodes, the operating rhythm from daily to "
+                 "quarterly, the simulator, and twelve exercises with worked answers.",
+        "promise": "A case, a simulator, twelve problems",
+        "lessons": [
+            "skyways-case-study",
+            "agentic-delivery-cadence",
+            "agentic-delivery-simulator",
+            "agentic-pdlc-exercises",
+        ],
+    },
 ]
-
-# The rest of the plan, in the order it will be written. Not read by the build.
-PLANNED = {
-    "roles": ("By role: how each discipline works in the agentic PDLC", [
-        "agentic-pdlc-for-product-managers", "agentic-pdlc-for-program-managers",
-        "agentic-pdlc-for-solution-architects", "agentic-pdlc-for-engineers",
-        "ai-dlc-for-forward-deployed-engineers", "agentic-pdlc-for-qa", "agentic-pdlc-for-devops",
-        "agentic-pdlc-for-business-sponsors", "agentic-ai-for-executives"]),
-    "organisation": ("Teams and organisation", [
-        "team-structure-for-agentic-ai", "measure-ai-productivity", "ai-delivery-maturity-model",
-        "rolling-out-agentic-delivery"]),
-    "practice": ("Practice: a case study, simulations and exercises", [
-        "skyways-case-study", "a-week-in-agentic-delivery", "agentic-delivery-simulator",
-        "agentic-pdlc-exercises"]),
-}

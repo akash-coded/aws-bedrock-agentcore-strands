@@ -15,7 +15,7 @@
 flowchart TB
   A["<b>1 · Context file</b><br/><i>read by every session</i>"] --> B["<b>2 · Story file</b><br/><i>one per bolt, not a chat</i>"]
   B --> C["<b>3 · Exact floor</b><br/><i>functions and tests first</i>"]
-  C --> D["<b>4 · Model layer</b><br/><i>with an independent checker</i>"]
+  C --> D["<b>4 · Model layer</b><br/><i>an independent checker</i>"]
   D --> E["<b>5 · Harness and review</b><br/><i>per slice, by risk band</i>"]
   E --> F(["<b>Merge</b><br/><i>the same day</i>"])
 

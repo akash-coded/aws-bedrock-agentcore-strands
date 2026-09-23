@@ -81,7 +81,7 @@ five-minute cache write costs about **1.25×**, an hour-long write about **2×**
 fifth. But it only pays if it hits: put nothing volatile inside the cached block, keep the request
 after the marker, and use one model per task, because the cache is scoped to the model.
 
-<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-cache-prefix.dark.webp"><img alt="What a prompt cache keeps and what it throws away" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-cache-prefix.light.webp" width="100%"></picture></a></p>
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-cache-prefix.dark.webp"><img alt="A cache matches an exact prefix: stable blocks first, then the cache marker, then the request that changes" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-cache-prefix.light.webp" width="100%"></picture></a></p>
 
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/">Open the live, interactive version</a></sub>
 

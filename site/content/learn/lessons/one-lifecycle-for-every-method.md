@@ -25,17 +25,17 @@ flowchart TB
   subgraph S["P1 · Design and Spec"]
     direction LR
     S1["AI-DLC · Mob Elaboration"] ~~~ S2["Kiro · requirements, design"]
-    S3["Spec Kit · constitution to tasks"] ~~~ S4["BMAD · requirements, architecture"]
+    S3["Spec Kit · specify, plan"] ~~~ S4["BMAD · PRD, architecture"]
   end
   subgraph B["P2 · Build and Prove"]
     direction LR
     B1["AI-DLC · Construction, bolts"] ~~~ B2["Kiro · tasks"]
     B3["Spec Kit · implement"] ~~~ B4["BMAD · stories, dev, QA"]
-    B5["Scrum · sprints become bolts"]
+    B5["Scrum · sprints → bolts"]
   end
   subgraph R["P3 · Run and Learn"]
     direction LR
-    R1["AI-DLC · Operations"] ~~~ R2["AIDDLC · operations, evolution"]
+    R1["AI-DLC · Operations"] ~~~ R2["AIDDLC · operate, evolve"]
   end
   F --> S --> B --> R
 

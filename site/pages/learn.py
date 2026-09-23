@@ -244,21 +244,24 @@ def _visuals() -> dict[str, dict]:
                              "qa/"),
         "figure:chain": (figures.chain, "Chained steps multiply: four steps at 90% each are right 66% of the "
                          "time end to end", "solution-architect/"),
-        "figure:cache_prefix": (figures.cache_prefix, "What a prompt cache keeps and what it throws away",
-                                "devops/"),
+        "figure:cache_prefix": (figures.cache_prefix, "A cache matches an exact prefix: stable blocks first, then "
+                                "the cache marker, then the request that changes", "devops/"),
         "figure:bolt_days": (figures.bolt_days, "A bolt plan: one risk per bolt, the walking skeleton first",
                              "engineering/"),
         "figure:shadow_widen": (figures.shadow_widen, "Shadow first, then widen the live share step by step",
                                 "qa/"),
         "figure:bill_factors": (figures.bill_factors, "Four ordinary habits multiply into a bill 4.4 times its "
                                 "estimate", "devops/"),
-        "figure:authority_ladder": (figures.authority_ladder, "The authority ladder: how much the agent may do "
-                                    "on its own, per action", "solution-architect/"),
+        "figure:authority_ladder": (figures.authority_ladder, "The authority ladder: every tool gets a band, from "
+                                    "read-only to not delegated, and the band belongs to the tool", "solution-architect/"),
         "figure:two_numbers": (figures.two_numbers, "The two numbers a sponsor reports together: the saving and "
                                "the spend", "protocol/"),
-        "frameworks:ring": (R.svg_ring, "The evidence ring: what each claim is entitled to", "frameworks/"),
-        "frameworks:ladder": (R.svg_ladder, "The evidence ladder, rung by rung", "frameworks/"),
-        "frameworks:chain": (R.svg_chain, "The chain of custody from claim to evidence", "frameworks/"),
+        "frameworks:ring": (R.svg_ring, "The agentic PDLC as a ring: four phases, one hard gate, and production "
+                            "feeding the next frame", "frameworks/"),
+        "frameworks:ladder": (R.svg_ladder, "The risk ladder: a change inherits the band of whatever it touches, "
+                              "from R1 reviewed at the end to R5 not delegated", "frameworks/"),
+        "frameworks:chain": (R.svg_chain, "Chained steps multiply: each right 90% of the time, eight steps are right "
+                             "43% of the time", "frameworks/"),
     }
     for g, label in (("g_decay", "Length is the enemy"), ("g_doors", "Reversibility is the hinge"),
                      ("g_lever", "A hold is a lever, not a brake"), ("g_wall", "A prompt is a request; a signature is a boundary"),
@@ -291,6 +294,34 @@ DIRECTIVE = re.compile(r"^\{\{(board|figure|model|frameworks):([a-z0-9_]+)\}\}\s
 INLINE_TAG = re.compile(r"</?(?:b|i|em|strong|br|kbd|sub|sup|small|mark|abbr|span|u)(?:\s[^<>]*)?/?>", re.I)
 
 
+ASSETS = Path(__file__).resolve().parents[1] / "assets"
+
+
+def image_size(href: str) -> tuple[int, int] | None:
+    """CSS size of a ``site:assets/…`` WebP, read from its header. Every picture the tutorial ships
+    is captured at 2x (site/tools/shoot.mjs, simshots.mjs), so the CSS size is half the pixels —
+    declaring it keeps a narrow screenshot at its own size and stops the page shifting as it loads."""
+    if not (href.startswith("site:assets/") and href.endswith(".webp")):
+        return None
+    f = ASSETS / href[len("site:assets/"):]
+    if not f.exists():
+        return None
+    b = f.read_bytes()[:40]
+    if b[:4] != b"RIFF" or b[8:12] != b"WEBP":
+        return None
+    kind = b[12:16]
+    if kind == b"VP8X":
+        w, h = 1 + int.from_bytes(b[24:27], "little"), 1 + int.from_bytes(b[27:30], "little")
+    elif kind == b"VP8 ":
+        w, h = int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
+    elif kind == b"VP8L":
+        v = int.from_bytes(b[21:25], "little")
+        w, h = (v & 0x3FFF) + 1, ((v >> 14) & 0x3FFF) + 1
+    else:
+        return None
+    return w // 2, h // 2
+
+
 def inline(s: str, link) -> str:
     codes, tags = [], []
 
@@ -308,7 +339,9 @@ def inline(s: str, link) -> str:
     s = re.sub(r"&amp;(#\d+|#x[0-9a-fA-F]+|[a-zA-Z]{2,8});", r"&\1;", s)
 
     def img(m):
-        return f'<img src="{_E(link(m.group(2)), quote=True)}" alt="{m.group(1)}" loading="lazy">'
+        size = image_size(m.group(2))
+        dims = f' width="{size[0]}" height="{size[1]}"' if size else ""
+        return f'<img src="{_E(link(m.group(2)), quote=True)}" alt="{m.group(1)}"{dims} loading="lazy">'
 
     def lnk(m):
         href = link(m.group(2))
@@ -817,6 +850,12 @@ def _absolute(href: str) -> str:
     return f"{WIKI}/{href}"
 
 
+def _rebase(fragment: str, prefix: str) -> str:
+    """Boards link to site pages as if drawn at the site root; move those links to the page's depth."""
+    return re.sub(r'\b(href|src)="(?![a-zA-Z][a-zA-Z0-9+.-]*:|/|#|\.)([^"]+)"',
+                  lambda m: f'{m.group(1)}="{prefix}{m.group(2)}"', fragment)
+
+
 def render(out: Path, shell) -> list[str]:
     meta, tracks, lessons = load()
     errors, warnings = validate(meta, tracks, lessons)
@@ -837,11 +876,12 @@ def render(out: Path, shell) -> list[str]:
         p.write_text(text, encoding="utf-8")
         written.append(rel)
 
-    put("learn/index.html", start_page(meta, tracks, lessons, shell, visual))
+    put("learn/index.html", start_page(meta, tracks, lessons, shell, lambda k: _rebase(visual(k), "../")))
     for t in tracks:
         put(f"learn/{t.id}/index.html", track_page(t, tracks, lessons, shell))
         for les in t.lessons:
-            put(f"learn/{les.slug}/index.html", lesson_page(les, tracks, lessons, shell, visual))
+            put(f"learn/{les.slug}/index.html",
+                lesson_page(les, tracks, lessons, shell, lambda k: _rebase(visual(k), "../../")))
             put(f"learn/{les.slug}/index.md", site_markdown(les, lessons, tracks))
     put("llms.txt", llms_txt(tracks))
     put("llms-full.txt", llms_full(tracks, lessons))

@@ -3,7 +3,7 @@
 
 *Short lessons on running software projects where an AI model does part of the work — what to decide, in what order, and how to know you got it right. Free, method-agnostic, and credited.*
 
-**Free · 31 lessons · by Akash Das** · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/)
+**Free · 48 lessons · by Akash Das** · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/)
 
 > [!TIP]
 > **What this is.** A free tutorial in five-to-ten-minute lessons on the **agentic PDLC**: a four-phase
@@ -20,12 +20,17 @@
 | If you are… | Start with | Because |
 | --- | --- | --- |
 | New to agentic delivery | [What is the agentic PDLC?](What-Is-the-Agentic-PDLC) | Everything else assumes the four phases |
-| A product manager | [P0 Frame](P0-Frame-Is-an-AI-Agent-Worth-Building) | Framing is yours, and it is the phase most teams skip |
-| A solution architect | [P1 Design & Spec](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build) | The spec and the authority decisions are yours |
-| An engineer or engineering lead | [P2 Build & Prove](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices) | Bolts, the harness and the merge gate live here |
-| In QA | [P2 Build & Prove](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices#step-3--measure-every-slice-against-its-bar) | "It works" becomes a number you can defend |
-| In DevOps or platform | [P3 Run & Learn](P3-Run-and-Learn-Run-an-AI-Agent-in-Production) | Cut-over, drift and the bill are where you live |
-| A sponsor or executive | [P3 Run & Learn](P3-Run-and-Learn-Run-an-AI-Agent-in-Production#step-4--report-two-numbers-on-one-line) | Two numbers, on one line, every cycle |
+| A product manager | [For product managers](Agentic-PDLC-for-Product-Managers) | The pain, the autonomy and the bar are yours |
+| A programme or delivery manager | [For programme managers](Agentic-PDLC-for-Program-Managers) | The board, the cadence and the review queue |
+| A solution architect | [For solution architects](Agentic-PDLC-for-Solution-Architects) | Which steps may guess, and where the caps live |
+| An engineer or engineering lead | [For software engineers](Agentic-PDLC-for-Software-Engineers) | Bolts, the harness and the merge gate |
+| A forward-deployed engineer | [AI-DLC and AIDD in the field](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers) | Their pain, their risk owner, their stack |
+| In QA | [For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software) | "It works" becomes a number you can defend |
+| In DevOps or platform | [For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams) | The gateway, the flags and the rollback |
+| A sponsor | [For business sponsors](Agentic-PDLC-for-Business-Sponsors) | Two numbers, on one line, every cycle |
+| An executive | [For executives](Agentic-AI-for-Executives) | Four decisions nobody else can make |
+| Leading the change | [Rolling it out in 90 days](How-to-Roll-Out-Agentic-AI-Delivery) | One feature, five phases, one trap each |
+| Wanting practice | [The SkyWays case study](Agentic-AI-Case-Study-SkyWays) | Ninety days, thirteen episodes, failures left in |
 | Wondering why these projects go wrong | [Why agentic AI projects fail](Why-Agentic-AI-Projects-Fail) | The failure modes are new, and quiet |
 
 ## What you will be able to do
@@ -36,6 +41,9 @@ By the end of the fundamentals you will be able to:
 2. **Specify** it so a coding agent, or an engineer who was not in the room, can build it without asking — with an acceptance bar per slice.
 3. **Build and prove** it in bolts, against a bar, with evidence a sceptic accepts.
 4. **Run** it: cut over safely, catch drift, and report what it saved beside what it cost.
+
+The role, organisation and practice tracks then apply the same four phases to your job, to how
+a whole organisation adopts them, and to a full ninety-day case with twelve exercises.
 
 ## How the lessons work
 
@@ -95,6 +103,38 @@ The lessons are written once and published twice: here, with the live diagrams, 
 11. **[AI Governance Gates That Don't Slow Delivery: The Five Gates](AI-Governance-Gates-That-Dont-Slow-Delivery)** — 5 min
 12. **[AI Drift: How to Catch the Defect With No Error Message](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message)** — 5 min
 13. **[Postmortems for AI Incidents: Find the Missing Control](Postmortems-for-AI-Incidents-Find-the-Missing-Control)** — 5 min
+
+### 5 · [By role](Tutorial-By-Role)
+
+*How each discipline works in the agentic PDLC — product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not.* — 9 lessons, about 49 minutes.
+
+1. **[The Agentic PDLC for Product Managers: What Changes Monday](Agentic-PDLC-for-Product-Managers)** — 5 min
+2. **[Agentic PDLC for Program Managers: Boards, Bolts, Reporting](Agentic-PDLC-for-Program-Managers)** — 6 min
+3. **[Agentic PDLC for Solution Architects: Authority and Topology](Agentic-PDLC-for-Solution-Architects)** — 6 min
+4. **[The Agentic PDLC for Software Engineers: Building With Agents](Agentic-PDLC-for-Software-Engineers)** — 5 min
+5. **[AI-DLC and AIDD for Forward-Deployed Engineers: A Field Guide](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers)** — 6 min
+6. **[The Agentic PDLC for QA: How to Test Probabilistic Software](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** — 5 min
+7. **[The Agentic PDLC for DevOps and Platform Teams](Agentic-PDLC-for-DevOps-and-Platform-Teams)** — 5 min
+8. **[The Agentic PDLC for Business Sponsors: Ask for Two Numbers](Agentic-PDLC-for-Business-Sponsors)** — 5 min
+9. **[Agentic AI for Executives: Four Decisions Only You Can Make](Agentic-AI-for-Executives)** — 6 min
+
+### 6 · [Teams and organisation](Tutorial-Teams-and-Organisation)
+
+*How to structure teams, measure productivity without fooling yourself, assess maturity by controls rather than tools, and roll the method out in ninety days.* — 4 lessons, about 23 minutes.
+
+1. **[How to Structure Teams for Agentic AI: Roles, Pods and Seams](How-to-Structure-Teams-for-Agentic-AI)** — 5 min
+2. **[How to Measure AI Productivity Without Fooling Yourself](How-to-Measure-AI-Productivity)** — 6 min
+3. **[AI Maturity Model: Six Controls You Can Test in Ten Minutes](AI-Delivery-Maturity-Model)** — 5 min
+4. **[How to Roll Out Agentic AI Delivery: A 90-Day Plan](How-to-Roll-Out-Agentic-AI-Delivery)** — 7 min
+
+### 7 · [Practice](Tutorial-Practice)
+
+*The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers.* — 4 lessons, about 26 minutes.
+
+1. **[Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof](Agentic-AI-Case-Study-SkyWays)** — 6 min
+2. **[Agentic Delivery Cadence: What Runs Daily, Weekly, Quarterly](Agentic-Delivery-Cadence-Daily-Weekly-Quarterly)** — 6 min
+3. **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](Agentic-AI-Delivery-Simulator)** — 6 min
+4. **[Agentic PDLC Exercises: 12 Problems with Worked Answers](Agentic-PDLC-Exercises-with-Answers)** — 8 min
 
 ---
 

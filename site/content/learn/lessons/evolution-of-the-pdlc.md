@@ -17,12 +17,12 @@ updated: 2026-09-23
 
 ```mermaid
 flowchart TB
-  W["<b>1970s · Plan-driven</b><br/><i>bottleneck: the cost of change<br/>answer: decide it all first</i>"]
-  S["<b>1988–90 · Spiral and stage-gate</b><br/><i>bottleneck: building the wrong thing<br/>answer: evidence between phases</i>"]
-  A["<b>2001 · Agile</b><br/><i>bottleneck: learning too late<br/>answer: short cycles of working software</i>"]
-  D["<b>2009 on · DevOps</b><br/><i>bottleneck: the release<br/>answer: continuous delivery, measured</i>"]
-  C["<b>2021 on · AI-assisted</b><br/><i>bottleneck: typing the code<br/>answer: a model writes it, a person reviews</i>"]
-  G["<b>2024 on · Agentic</b><br/><i>bottleneck: software right most of the time<br/>answer: a measured bar, authority per action</i>"]
+  W["<b>1970s · Plan-driven</b><br/><i>bottleneck: change cost<br/>answer: decide up front</i>"]
+  S["<b>1988–90</b><br/><b>Spiral and stage-gate</b><br/><i>bottleneck: wrong thing<br/>answer: evidence gates</i>"]
+  A["<b>2001 · Agile</b><br/><i>bottleneck: late learning<br/>answer: short cycles</i>"]
+  D["<b>2009 on · DevOps</b><br/><i>bottleneck: the release<br/>answer: continuous<br/>delivery, measured</i>"]
+  C["<b>2021 on · AI-assisted</b><br/><i>bottleneck: typing code<br/>answer: a model writes,<br/>a person reviews</i>"]
+  G["<b>2024 on · Agentic</b><br/><i>bottleneck: mostly right<br/>answer: a measured bar,<br/>authority per action</i>"]
   W --> S --> A --> D --> C --> G
 
   classDef past fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px

@@ -17,12 +17,17 @@ dek: Short lessons on running software projects where an AI model does part of t
 | If you are… | Start with | Because |
 | --- | --- | --- |
 | New to agentic delivery | [What is the agentic PDLC?](lesson:what-is-the-agentic-pdlc) | Everything else assumes the four phases |
-| A product manager | [P0 Frame](lesson:p0-frame) | Framing is yours, and it is the phase most teams skip |
-| A solution architect | [P1 Design & Spec](lesson:p1-design-and-spec) | The spec and the authority decisions are yours |
-| An engineer or engineering lead | [P2 Build & Prove](lesson:p2-build-and-prove) | Bolts, the harness and the merge gate live here |
-| In QA | [P2 Build & Prove](lesson:p2-build-and-prove#step-3--measure-every-slice-against-its-bar) | "It works" becomes a number you can defend |
-| In DevOps or platform | [P3 Run & Learn](lesson:p3-run-and-learn) | Cut-over, drift and the bill are where you live |
-| A sponsor or executive | [P3 Run & Learn](lesson:p3-run-and-learn#step-4--report-two-numbers-on-one-line) | Two numbers, on one line, every cycle |
+| A product manager | [For product managers](lesson:agentic-pdlc-for-product-managers) | The pain, the autonomy and the bar are yours |
+| A programme or delivery manager | [For programme managers](lesson:agentic-pdlc-for-program-managers) | The board, the cadence and the review queue |
+| A solution architect | [For solution architects](lesson:agentic-pdlc-for-solution-architects) | Which steps may guess, and where the caps live |
+| An engineer or engineering lead | [For software engineers](lesson:agentic-pdlc-for-engineers) | Bolts, the harness and the merge gate |
+| A forward-deployed engineer | [AI-DLC and AIDD in the field](lesson:ai-dlc-for-forward-deployed-engineers) | Their pain, their risk owner, their stack |
+| In QA | [For QA](lesson:agentic-pdlc-for-qa) | "It works" becomes a number you can defend |
+| In DevOps or platform | [For DevOps and platform](lesson:agentic-pdlc-for-devops) | The gateway, the flags and the rollback |
+| A sponsor | [For business sponsors](lesson:agentic-pdlc-for-business-sponsors) | Two numbers, on one line, every cycle |
+| An executive | [For executives](lesson:agentic-ai-for-executives) | Four decisions nobody else can make |
+| Leading the change | [Rolling it out in 90 days](lesson:rolling-out-agentic-delivery) | One feature, five phases, one trap each |
+| Wanting practice | [The SkyWays case study](lesson:skyways-case-study) | Ninety days, thirteen episodes, failures left in |
 | Wondering why these projects go wrong | [Why agentic AI projects fail](lesson:why-agentic-ai-projects-fail) | The failure modes are new, and quiet |
 
 ## What you will be able to do
@@ -33,6 +38,9 @@ By the end of the fundamentals you will be able to:
 2. **Specify** it so a coding agent, or an engineer who was not in the room, can build it without asking — with an acceptance bar per slice.
 3. **Build and prove** it in bolts, against a bar, with evidence a sceptic accepts.
 4. **Run** it: cut over safely, catch drift, and report what it saved beside what it cost.
+
+The role, organisation and practice tracks then apply the same four phases to your job, to how
+a whole organisation adopts them, and to a full ninety-day case with twelve exercises.
 
 ## How the lessons work
 

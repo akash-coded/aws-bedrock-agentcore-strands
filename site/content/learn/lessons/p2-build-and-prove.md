@@ -71,8 +71,8 @@ required check, in cost order, so the cheap definitive checks reject before you 
 ```mermaid
 flowchart TB
   B["<b>Build</b>"] --> X["<b>Exact checks</b><br/><i>unit tests, schema, rules</i>"]
-  X --> G["<b>Golden slice</b><br/><i>only the slices this change touched</i>"]
-  G --> J["<b>Judge</b><br/><i>independent, against a rubric</i>"]
+  X --> G["<b>Golden slice</b><br/><i>the slices it touched</i>"]
+  G --> J["<b>Judge</b><br/><i>independent, by rubric</i>"]
   J --> S["<b>Score per slice</b><br/><i>n, score and lower bound</i>"]
   S --> M{"Any touched slice<br/>below its bar?"}
   M -->|"yes"| R["<b>Reject the merge</b>"]

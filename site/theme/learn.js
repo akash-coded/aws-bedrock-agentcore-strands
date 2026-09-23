@@ -50,6 +50,11 @@ if (sources.length && tag) {
       }
     }
   };
+  // mermaid sizes every label from the font it measures with, so measure with the one readers get
+  try {
+    await Promise.all(["400 16px Inter", "italic 400 16px Inter", "700 16px Inter"]
+      .map((f) => document.fonts.load(f)));
+  } catch {}
   await draw();
   new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);

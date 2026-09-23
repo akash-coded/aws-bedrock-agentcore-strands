@@ -21,4 +21,4 @@ The practical core: the twelve steps, bolts and boards, cutting delivery time, r
 | 12 | **[AI Drift: How to Catch the Defect With No Error Message](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message)** | AI drift is behaviour changing with no deploy and no error. Why accuracy alerts arrive late, what to watch instead, and the two thresholds that catch it. | 5 min |
 | 13 | **[Postmortems for AI Incidents: Find the Missing Control](Postmortems-for-AI-Incidents-Find-the-Missing-Control)** | An AI incident postmortem asks which enforced control would have made it impossible, not who was careless. Five moves, from the layer table to the brief. | 5 min |
 
-**[All lessons](Start-Here)**
+**Next track:** [By role](Tutorial-By-Role) · **[All lessons](Start-Here)**
