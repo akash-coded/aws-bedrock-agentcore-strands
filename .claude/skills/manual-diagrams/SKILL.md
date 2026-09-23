@@ -45,7 +45,7 @@ redefines every token and a literal will not follow.
 `--dg-on` is the ink that sits **on** a solid hue. It is white in light mode and near-black
 in dark, because dark mode lifts the hues so they read against a dark page.
 
-## Two traps this repo has already fallen into
+## Three traps this repo has already fallen into
 
 **`strong,b` sets colour directly** (base.css line ~116), which beats inherited colour
 however specific the ancestor. Any bold word on a solid-hue background must set
@@ -56,12 +56,22 @@ a screenshot — at small scale dark-on-hue reads as light-on-hue and you will p
 marker must send every real child to column two. See the `.gutter-grid` comment in
 base.css; this has caused three separate layout bugs.
 
+**`--accent` is redefined per page** (render.py sets it from the role's colour). A figure
+that draws with it renders in a different hue on every page that shows it, which means its
+colour carries no information. Figures use `--dg-*` only.
+
 ## Verifying
 
 `python3 site/build.py`, then serve `site/_site` and look at it. Headless Chrome clamps
 its window to about 485px, so a 390px `--window-size` crops a correctly laid-out page and
 invents an overflow bug — use the browser pane's mobile preset for true narrow widths, and
 compare `document.documentElement.scrollWidth` against `clientWidth` rather than eyeballing.
+
+Check collisions by measurement, not by looking. In the page, walk every `<text>` in a
+figure, take `getBBox()`, and test each pair for rectangle intersection — also test each
+label against the viewBox so nothing escapes its frame. Two label collisions in the loops
+board and the whole text-on-hue contrast class of bug were found this way after passing a
+visual inspection twice.
 
 Always run: light, dark, 375px, the greyscale and thumbnail passes, and a contrast
 measurement of every text-on-hue surface. Gates to pass before committing:
