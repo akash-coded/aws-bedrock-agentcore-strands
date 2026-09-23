@@ -364,6 +364,7 @@ def library_page(roles: list[dict], kind: str) -> str:
 
 
 def home_page(roles: list[dict]) -> str:
+    from pages import boards
     built = {r["id"]: r for r in roles}
     cards = []
     for rid, name, short, colour, tagline in ROLE_ORDER:
@@ -398,7 +399,18 @@ def home_page(roles: list[dict]) -> str:
     from its own angle, so you can switch roles and stay oriented.</p>
   </div>
 
+  {boards.pdlc()}
+
+  <div class="sec" style="max-width:74ch">
+    <h2>Pick the chair you sit in</h2>
+    <p>The same ninety days look different from each seat. Each role page walks eight steps
+    in order, and every step says what you do, where a model helps, what artefact you owe the
+    next person, the template to write it and the prompts to draft it faster.</p>
+  </div>
+
   <div class="roles">{''.join(cards)}</div>
+
+  {boards.by_role()}
 
   <div class="sec" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px">
     <div class="card"><h4>Templates, not theory</h4><p style="font-size:14.5px;color:var(--ink2)">
@@ -418,6 +430,10 @@ def home_page(roles: list[dict]) -> str:
       Four phases, eight loops, 37 scenarios, every formula.
       <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>
+
+  <hr>
+
+  {boards.delegation()}
 
   <hr>
 
