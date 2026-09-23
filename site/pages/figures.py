@@ -40,7 +40,7 @@ def bar_sheet() -> str:
             out.append(f'<text x="{156+w:.0f}" y="{y+15}" font-size="12" font-weight="700" '
                        f'fill="{colour}">{bar}%</text>')
         out.append(f'<text x="544" y="{y+15}" text-anchor="end" font-size="10.5" '
-                   f'fill="currentColor" opacity=".55">{costs}</text>')
+                   f'fill="currentColor" opacity=".78">{costs}</text>')
     # the hold joins the unheld refund (row 3) to the held one (row 4)
     out.append('<path d="M462 108 C496 108 496 144 402 144" fill="none" stroke="var(--dg-green)" '
                'stroke-width="1.6" stroke-dasharray="3 3"/>')
@@ -61,7 +61,7 @@ def chain() -> str:
         out.append(f'<text x="{x+28}" y="56" text-anchor="middle" font-size="12" fill="var(--dg-indigo)">0.9</text>')
         if i < 5:
             out.append(f'<text x="{x+66}" y="56" text-anchor="middle" font-size="12" fill="currentColor" '
-                       f'opacity=".4">×</text>')
+                       f'opacity=".78">×</text>')
         x += 80
     pts = []
     for n in range(1, 7):
@@ -94,7 +94,7 @@ def cache_prefix() -> str:
                f'fill-opacity=".13" stroke="var(--dg-rose)" stroke-dasharray="4 3"/>')
     out.append(f'<text x="{x+4+(540-x)/2:.0f}" y="71" text-anchor="middle" font-size="11.5" '
                f'fill="var(--dg-rose)">the request</text>')
-    out.append('<text x="12" y="120" font-size="11" fill="currentColor" opacity=".62">'
+    out.append('<text x="12" y="120" font-size="11" fill="currentColor" opacity=".78">'
                'stable — written once at 1.25×, read at 0.1×</text>')
     out.append('<text x="12" y="150" font-size="11.5" fill="currentColor" opacity=".8">'
                'Move the request before the marker and no two calls share a prefix.</text>')
@@ -117,7 +117,7 @@ def bolt_days() -> str:
         out.append(f'<rect x="{x}" y="42" width="48" height="52" rx="5" fill="{colour}" fill-opacity=".17" '
                    f'stroke="{colour}"/>')
         out.append(f'<text x="{x+24}" y="36" text-anchor="middle" font-size="10" fill="currentColor" '
-                   f'opacity=".55">day {d+1}</text>')
+                   f'opacity=".78">day {d+1}</text>')
         for wi, word in enumerate(name.split()):
             out.append(f'<text x="{x+24}" y="{62+wi*12}" text-anchor="middle" font-size="9.5" '
                        f'fill="{colour}">{word}</text>')
@@ -144,7 +144,7 @@ def shadow_widen() -> str:
         out.append(f'<text x="{x+w/2:.0f}" y="64" text-anchor="middle" font-size="14" font-weight="700" '
                    f'fill="{colour}">{name}</text>')
         out.append(f'<text x="{x+w/2:.0f}" y="79" text-anchor="middle" font-size="10" fill="currentColor" '
-                   f'opacity=".62">{sub}</text>')
+                   f'opacity=".78">{sub}</text>')
         if w != 150:
             out.append(f'<path d="M{x+w+3} 65 h14" stroke="currentColor" opacity=".4" stroke-width="1.6"/>')
             out.append(f'<path d="M{x+w+12} 61 l5 4 -5 4" fill="none" stroke="currentColor" opacity=".4" '
@@ -172,7 +172,7 @@ def bill_factors() -> str:
         out.append(f'<text x="{x+56}" y="70" text-anchor="middle" font-size="19" font-weight="700" '
                    f'fill="var(--dg-amber)">{v}</text>')
         out.append(f'<text x="{x+56}" y="87" text-anchor="middle" font-size="9" fill="currentColor" '
-                   f'opacity=".55">{sub}</text>')
+                   f'opacity=".78">{sub}</text>')
         if x < 360:
             out.append(f'<text x="{x+122}" y="72" text-anchor="middle" font-size="13" fill="currentColor" '
                        f'opacity=".45">×</text>')
@@ -204,7 +204,7 @@ def authority_ladder() -> str:
         out.append(f'<text x="24" y="{y+18}" font-size="12" font-weight="700" fill="{colour}">{band}</text>')
         out.append(f'<text x="50" y="{y+18}" font-size="11" font-family="ui-monospace,monospace" '
                    f'fill="currentColor" opacity=".8">{tool}</text>')
-        out.append(f'<text x="290" y="{y+18}" font-size="11" fill="currentColor" opacity=".55">{kind}</text>')
+        out.append(f'<text x="290" y="{y+18}" font-size="11" fill="currentColor" opacity=".78">{kind}</text>')
         out.append(f'<text x="400" y="{y+18}" font-size="11.5" font-weight="600" fill="{colour}">{check}</text>')
     return _svg("".join(out),
                 "Five risk bands from a read tool to an identity change, each with its check",

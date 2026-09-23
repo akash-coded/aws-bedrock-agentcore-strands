@@ -250,7 +250,7 @@ def _loops_svg() -> str:
         o.append(f'<text x="{cx}" y="{_TOP + 26}" text-anchor="middle" font-size="14" '
                  f'font-weight="700" fill="var(--dg-on)">{key}</text>')
         o.append(f'<text x="{cx}" y="{_TOP + 45}" text-anchor="middle" font-size="12" '
-                 f'fill="var(--dg-on)" opacity=".85">{dg.E(name)}</text>')
+                 f'fill="var(--dg-on)" opacity=".96">{dg.E(name)}</text>')
 
     # forward: they close on their own, because somebody downstream is waiting
     for (a, b), name in zip([(150, 420), (420, 690), (690, 960)],

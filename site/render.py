@@ -29,11 +29,11 @@ AUTHOR = "Akash Das"
 
 # Roles in journey order. Those without a JSON file render as "in progress" on the home page.
 ROLE_ORDER = [
-    ("product-manager", "Product manager", "PM", "#3E6B8A", "From a vibe to a number you can defend"),
-    ("solution-architect", "Solution architect", "SA", "#7A6A46", "From requirements to a system that holds"),
-    ("engineering", "Engineering lead", "ENG", "#2F6B57", "From a story file to a shipped bolt"),
-    ("qa", "QA lead", "QA", "#8C5B6B", "From 'it works' to a number you can defend"),
-    ("devops", "DevOps and platform", "OPS", "#6B4E8A", "From a laptop to production, repeatably"),
+    ("product-manager", "Product manager", "PM", "var(--slate)", "From a vibe to a number you can defend"),
+    ("solution-architect", "Solution architect", "SA", "var(--ochre)", "From requirements to a system that holds"),
+    ("engineering", "Engineering lead", "ENG", "var(--sage)", "From a story file to a shipped bolt"),
+    ("qa", "QA lead", "QA", "var(--plum)", "From 'it works' to a number you can defend"),
+    ("devops", "DevOps and platform", "OPS", "var(--violet)", "From a laptop to production, repeatably"),
 ]
 
 _E = html.escape
@@ -72,6 +72,8 @@ ACCENT_TOKEN = {"#3E6B8A": "slate", "#2F6B57": "sage", "#7A6A46": "ochre",
 
 
 def accent_var(accent: str) -> str:
+    if accent.startswith("var("):
+        return accent
     token = ACCENT_TOKEN.get(accent.upper()) or ACCENT_TOKEN.get(accent.lower())
     if not token:
         raise SystemExit(f"accent {accent!r} has no theme token; add it to ACCENT_TOKEN "
@@ -364,7 +366,7 @@ def library_page(roles: list[dict], kind: str) -> str:
                                 + block("prompt", p["title"], p["when"], p["body"],
                                         f'lp-{role["id"]}-{s["id"]}-{i}'))
         secs.append(f'<section id="{role["id"]}" style="scroll-margin-top:84px;margin:0 0 44px">'
-                    f'<h2 style="color:{role["accent"]}">{_E(role["name"])}</h2>'
+                    f'<h2 style="color:{accent_var(role["accent"])}">{_E(role["name"])}</h2>'
                     f'<p class="lede" style="font-size:16px">{md(role["tagline"])} · '
                     f'<a href="../{role["id"]}/">open the journey</a></p>{"".join(rows)}</section>')
         toc.append(f'<li><a href="#{role["id"]}">{_E(role["name"])}</a></li>')
@@ -501,13 +503,17 @@ def home_page(roles: list[dict]) -> str:
 
 
 # --------------------------------------------------------------------------- diagrams
-CONF = {"doc": ("documented", "#4548C8"), "est": ("established", "#1E7F6C"), "wm": ("working method", "#9A5F0C")}
+# Confidence marks. Tokens, so the pills follow the theme — the literals these
+# replaced sat on a dark page at the value they were picked for a light one.
+CONF = {"doc": ("documented", "var(--dg-indigo)"),
+        "est": ("established", "var(--dg-teal)"),
+        "wm": ("working method", "var(--dg-amber)")}
 
 
 def svg_ring() -> str:
     """P0-P3 drawn as a line that loops: production is where the next frame comes from."""
-    ph = [("P0", "Frame", "#64748B"), ("P1", "Design &amp; Spec", "#4F46E5"),
-          ("P2", "Build &amp; Prove", "#0D9488"), ("P3", "Run &amp; Learn", "#F59E0B")]
+    ph = [("P0", "Frame", "var(--dg-slate)"), ("P1", "Design &amp; Spec", "var(--dg-indigo)"),
+          ("P2", "Build &amp; Prove", "var(--dg-teal)"), ("P3", "Run &amp; Learn", "var(--dg-amber)")]
     parts = ['<svg viewBox="0 0 768 190" role="img" class="dg" '
              'aria-label="P0 Frame to P1 Design and Spec to P2 Build and Prove to P3 Run and Learn, '
              'with P3 feeding back into P0">',
@@ -522,7 +528,7 @@ def svg_ring() -> str:
             w = ' stroke-width="3"' if i == 1 else ""
             parts.append(f'<path d="M{x+160} 77 H{x+186}" stroke="currentColor" opacity=".45"{w} marker-end="url(#ar)"/>')
     parts.append('<text x="415" y="40" text-anchor="middle" font-size="10.5" font-weight="700" '
-                 'fill="#0D9488" letter-spacing=".08em">HARD GATE</text>')
+                 'fill="var(--dg-teal)" letter-spacing=".08em">HARD GATE</text>')
     parts.append('<path d="M740 108 V140 H70 V108" stroke="currentColor" opacity=".38" '
                  'stroke-dasharray="5 4" fill="none" marker-end="url(#ar)"/>')
     parts.append('<text x="405" y="158" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">'
@@ -532,11 +538,11 @@ def svg_ring() -> str:
 
 
 def svg_ladder() -> str:
-    rows = [("R1", "reversible draft, sandbox", "review at the end", "#7C8596"),
-            ("R2", "reversible change to real work", "one reader before merge", "#5B7FA8"),
-            ("R3", "hard to reverse, small blast radius", "approve first", "#8C7A5B"),
-            ("R4", "money, identity, policy", "a named approver, every time", "#B0603A"),
-            ("R5", "irreversible or safety-critical", "not delegated at all", "#8C3B3B")]
+    rows = [("R1", "reversible draft, sandbox", "review at the end", "var(--dg-slate)"),
+            ("R2", "reversible change to real work", "one reader before merge", "var(--dg-sky)"),
+            ("R3", "hard to reverse, small blast radius", "approve first", "var(--dg-amber)"),
+            ("R4", "money, identity, policy", "a named approver, every time", "var(--dg-rose)"),
+            ("R5", "irreversible or safety-critical", "not delegated at all", "color-mix(in oklab,var(--dg-rose) 74%,var(--ink))")]
     parts = ['<svg viewBox="0 0 768 242" role="img" class="dg" aria-label="The R1 to R5 risk ladder">']
     for i, (band, act, check, c) in enumerate(rows):
         y = 16 + i * 44
@@ -557,9 +563,9 @@ def svg_chain() -> str:
         x = 56 + (n - 1) * 92
         y = 176 - p * 140
         pts.append(f"{x},{y:.1f}")
-        marks.append(f'<circle cx="{x}" cy="{y:.1f}" r="4" fill="#8C3B3B"/>')
+        marks.append(f'<circle cx="{x}" cy="{y:.1f}" r="4" fill="var(--dg-rose)"/>')
         marks.append(f'<text x="{x}" y="{y-11:.1f}" text-anchor="middle" font-size="11.5" '
-                     f'font-weight="600" fill="#8C3B3B">{p*100:.0f}%</text>')
+                     f'font-weight="600" fill="var(--dg-rose)">{p*100:.0f}%</text>')
         marks.append(f'<text x="{x}" y="196" text-anchor="middle" font-size="11.5" '
                      f'fill="currentColor" opacity=".7">{n}</text>')
     return ('<svg viewBox="0 0 768 218" role="img" class="dg" '
@@ -567,7 +573,7 @@ def svg_chain() -> str:
             '<line x1="40" y1="176" x2="748" y2="176" stroke="currentColor" opacity=".25"/>'
             '<line x1="40" y1="36" x2="748" y2="36" stroke="currentColor" opacity=".12" stroke-dasharray="4 4"/>'
             '<text x="44" y="32" font-size="11" fill="currentColor" opacity=".5">100%</text>'
-            f'<polyline points="{" ".join(pts)}" fill="none" stroke="#8C3B3B" stroke-width="2"/>'
+            f'<polyline points="{" ".join(pts)}" fill="none" stroke="var(--dg-rose)" stroke-width="2"/>'
             + "".join(marks) +
             '<text x="394" y="214" text-anchor="middle" font-size="11.5" fill="currentColor" opacity=".6">'
             'number of chained steps, each right 90% of the time: multiply, never average</text></svg>')
@@ -590,14 +596,21 @@ def frameworks_page() -> str:
         f_rows.append(
             f'<tr><td><strong>{_E(name)}</strong></td><td>{md(what)}</td>'
             f'<td style="font-size:13px;color:var(--soft)">{_E(lineage)}</td>'
-            f'<td><span class="pill" style="color:{colour};border-color:{colour}55;'
-            f'background:{colour}14;white-space:nowrap">{label}</span></td></tr>')
-    key = ('<p><span class="pill" style="color:#4548C8;border-color:#4548C855;background:#4548C814">documented</span> '
-           'a vendor’s published documentation, dated &nbsp; '
-           '<span class="pill" style="color:#1E7F6C;border-color:#1E7F6C55;background:#1E7F6C14">established</span> '
-           'a named, published practice &nbsp; '
-           '<span class="pill" style="color:#9A5F0C;border-color:#9A5F0C55;background:#9A5F0C14">working method</span> '
-           'this manual’s own default, to tune on your own traffic</p>')
+            f'<td><span class="pill" style="color:color-mix(in oklab,{colour} 82%,var(--ink));'
+            f'border-color:color-mix(in oklab,{colour} 42%,transparent);'
+            f'background:color-mix(in oklab,{colour} 10%,transparent);'
+            f'white-space:nowrap">{label}</span></td></tr>')
+    def _key_pill(conf: str, gloss: str) -> str:
+        label, colour = CONF[conf]
+        return (f'<span class="pill" style="color:color-mix(in oklab,{colour} 82%,var(--ink));'
+                f'border-color:color-mix(in oklab,{colour} 42%,transparent);'
+                f'background:color-mix(in oklab,{colour} 10%,transparent)">{label}</span> {gloss}')
+
+    key = ("<p>"
+           + _key_pill("doc", "a vendor’s published documentation, dated &nbsp; ")
+           + _key_pill("est", "a named, published practice &nbsp; ")
+           + _key_pill("wm", "this manual’s own default, to tune on your own traffic")
+           + "</p>")
     body = (
         '<div class="wrap"><main id="main" style="padding:40px 0 80px">'
         '<div class="sec" style="max-width:72ch"><div class="kicker">Reference</div>'

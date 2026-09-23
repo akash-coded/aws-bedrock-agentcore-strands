@@ -5,7 +5,7 @@
    ========================================================================== */
 
 :root{
-  --bone:#F7F6F2; --paper:#FFFFFF; --ink:#16150F; --ink2:#44423B; --soft:#75726A;
+  --bone:#F7F6F2; --paper:#FFFFFF; --ink:#16150F; --ink2:#44423B; --soft:#696660;
   --faint:#B4B0A6; --rule:#E4E0D6; --rule2:#EFEBE1;
   --slate:#3E6B8A; --sage:#2F6B57; --ochre:#7A6A46; --plum:#8C5B6B; --violet:#6B4E8A;
   --accent:var(--slate); --accent-soft:color-mix(in oklab,var(--accent) 12%,transparent);
@@ -22,6 +22,11 @@
     --bone:#121316; --paper:#181A1E; --ink:#ECEAE4; --ink2:#C3C0B8; --soft:#93908A;
     --faint:#5E5C57; --rule:#2B2E34; --rule2:#22252A;
     --slate:#7FA9CC; --sage:#63B394; --ochre:#C0A96F; --plum:#C98CA0; --violet:#A98CD0;
+    /* ok / warn / stop were never redefined for dark, so a dark page kept the
+       light values: 2.97, 3.55 and 2.48 against #121316. They carry calculator
+       verdicts, the do-not-delegate rows and every pitfall line, so this was
+       most of the site's dark-mode contrast debt in one declaration. */
+    --ok:#6BBE8B; --warn:#D9A94A; --stop:#DE8A8A;
     --code-bg:#0E1116; --code-ink:#DDE4EC;
   }
 }
@@ -29,6 +34,11 @@
   --bone:#121316; --paper:#181A1E; --ink:#ECEAE4; --ink2:#C3C0B8; --soft:#93908A;
   --faint:#5E5C57; --rule:#2B2E34; --rule2:#22252A;
   --slate:#7FA9CC; --sage:#63B394; --ochre:#C0A96F; --plum:#C98CA0; --violet:#A98CD0;
+  /* ok / warn / stop were never redefined for dark, so a dark page kept the
+     light values: 2.97, 3.55 and 2.48 against #121316. They carry calculator
+     verdicts, the do-not-delegate rows and every pitfall line, so this was
+     most of the site's dark-mode contrast debt in one declaration. */
+  --ok:#6BBE8B; --warn:#D9A94A; --stop:#DE8A8A;
   --code-bg:#0E1116; --code-ink:#DDE4EC;
 }
 
@@ -54,7 +64,7 @@ a:hover{text-decoration:underline;text-underline-offset:3px}
 .hd nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
 .hd nav a{padding:5px 9px;border-radius:8px;font-size:13px;font-weight:500;color:var(--ink2);white-space:nowrap}
 .hd nav a:hover{background:var(--rule2);text-decoration:none}
-.hd nav a[aria-current]{background:var(--accent);color:#fff}
+.hd nav a[aria-current]{background:var(--accent);color:var(--dg-on)}
 .tgl{border:1px solid var(--rule);background:var(--paper);color:var(--ink2);border-radius:8px;
   width:32px;height:30px;cursor:pointer;font-size:14px;line-height:1;flex:none}
 .tgl:hover{border-color:var(--accent);color:var(--ink)}
@@ -89,7 +99,7 @@ main{padding:26px 0 96px;min-width:0}
   font-size:14px;line-height:1.35;border-left:2px solid transparent}
 .rl:hover{background:var(--rule2);text-decoration:none;color:var(--ink)}
 .rl.on{background:var(--accent-soft);border-left-color:var(--accent);color:var(--ink);font-weight:600}
-.rl .rn{font-family:var(--f-mono);font-size:11.5px;color:var(--faint);flex:none;width:14px}
+.rl .rn{font-family:var(--f-mono);font-size:11.5px;color:var(--soft);flex:none;width:14px}
 .rl.on .rn{color:var(--accent)}
 /* On a phone the rail becomes a horizontal strip. These must sit after the rules above:
    same specificity, so source order decides. */
@@ -133,7 +143,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 .tw{overflow-x:auto;margin:0 0 18px;border:1px solid var(--rule);border-radius:12px;background:var(--paper)}
 table{border-collapse:collapse;width:100%;font-size:14.5px}
 th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule2);vertical-align:top}
-thead th{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);
+thead th{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);
   background:var(--rule2);border-bottom:1px solid var(--rule);white-space:nowrap}
 tbody tr:last-child td{border-bottom:0}
 tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
@@ -158,7 +168,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .sh .ph{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
 .sh h3{margin:2px 0 3px;font-size:19.5px}
 .sh .wh{font-size:13px;color:var(--soft)}
-.chev{color:var(--faint);font-size:13px;transition:transform .2s var(--ease)}
+.chev{color:var(--soft);font-size:13px;transition:transform .2s var(--ease)}
 .step[open] .chev{transform:rotate(180deg)}
 .step[open] > summary{border-bottom:1px solid var(--rule);background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .sb{padding:22px 24px 26px}
@@ -196,7 +206,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .blk .bh{display:flex;align-items:center;gap:10px;padding:9px 12px 9px 15px;
   background:color-mix(in oklab,var(--code-bg) 82%,#fff);border-bottom:1px solid rgba(255,255,255,.08)}
 .blk .bt{font-size:13px;font-weight:600;color:var(--code-ink)}
-.blk .bw{font-size:12px;color:var(--code-dim);margin-left:auto;text-align:right}
+.blk .bw{font-size:12px;color:color-mix(in oklab,var(--code-ink) 82%,var(--code-bg));margin-left:auto;text-align:right}
 .cp{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:var(--code-ink);
   border-radius:7px;padding:4px 11px;font-size:12px;font-weight:600;cursor:pointer;flex:none;font-family:var(--f-body)}
 .cp:hover{background:rgba(255,255,255,.15)}
@@ -226,7 +236,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .arc a{padding:11px 12px;border-radius:11px;border:1px solid var(--rule);
   background:var(--paper);color:var(--ink2);font-size:13px;font-weight:600;text-align:center;position:relative}
 .arc a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-.arc a .an{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--faint);font-weight:400;margin-bottom:2px}
+.arc a .an{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--soft);font-weight:400;margin-bottom:2px}
 
 /* diagrams */
 .dgw{background:var(--paper);border:1px solid var(--rule);border-radius:15px;padding:18px 20px;margin:0 0 16px;overflow-x:auto}
@@ -625,7 +635,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 }
 .dgm .md.q{border-style:dashed;background:transparent}
 .dgm .md.q b{color:var(--soft);font-weight:600}
-.dgm .md.q span{color:var(--faint)}
+.dgm .md.q span{color:var(--soft)}
 a.md{text-decoration:none}
 a.md:hover{border-color:color-mix(in oklab,var(--c) 60%,transparent);text-decoration:none}
 a.md:hover b{color:var(--c)}
