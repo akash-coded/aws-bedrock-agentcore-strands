@@ -8,6 +8,17 @@ You have one hour. Five moves.
 This closes the [incident loop](The-Eight-Loops#incident), which closes into **P0**. A postmortem that
 does not produce a brief has not finished.
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | The draft action list contains a string rather than a control. |
+| **Owner** | QA lead, with everyone who was in the room |
+| **Phase** | P3 → P0 |
+| **Closes** | [Incident](The-Eight-Loops#incident) — P3 → P0 |
+| **Moves** | 5 |
+| **You leave with** | A layer table filled in honestly, a control in a signature with its tests, a lowered autonomy level with a restoration condition, and a brief the next P0 starts from |
+
 ---
 
 ## The five moves

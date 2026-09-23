@@ -12,6 +12,17 @@ design question, not a finance one.
 [the bill simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/bill)
 · **[the cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)**
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | The bill left its estimate and traffic did not. |
+| **Owner** | Engineering lead, closing into the architect's P1 |
+| **Phase** | P3 → P1 |
+| **Closes** | [Cost](The-Eight-Loops#cost) — P3 → P1 |
+| **Moves** | 6 |
+| **You leave with** | Four dated ratios, a fix order, a loop cap, and a cost per case somebody watches |
+
 ---
 
 ## The six moves

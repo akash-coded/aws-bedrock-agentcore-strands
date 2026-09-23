@@ -9,6 +9,17 @@ Run it live:
 [simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/review) ·
 [queue calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/queue).
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | The queue is days long and the policy is two senior reviewers on everything. |
+| **Owner** | Engineering lead |
+| **Phase** | P2 · Build & Prove |
+| **Closes** | [Delivery](The-Eight-Loops#delivery) — P2 → P2 |
+| **Moves** | 6 |
+| **You leave with** | A band per tool, a generated path rule nobody can self-assess around, readers routed by band, and three comparable numbers every month |
+
 ---
 
 ## The six moves

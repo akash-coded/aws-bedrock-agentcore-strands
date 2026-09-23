@@ -11,6 +11,17 @@ Run it live:
 [simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/bvb) ·
 [matrix tool](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bvb).
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | Somebody has already picked the answer, and the decision needs to survive them leaving. |
+| **Owner** | Solution architect |
+| **Phase** | P1 · Design & Spec |
+| **Closes** | [Decision](The-Eight-Loops#decision) — P1 → P1 |
+| **Moves** | 5 |
+| **You leave with** | A scored matrix with a flip test, a three-year cost with the exit priced, and an ADR a stranger can re-derive |
+
 ---
 
 ## The five moves

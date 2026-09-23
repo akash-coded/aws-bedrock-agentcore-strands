@@ -11,6 +11,17 @@ together, and it is owned by the solution architect. It is the same ground as Ma
 Run it live:
 [The paper agent](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/paper).
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | Somebody is about to open an editor and nobody has written down what the thing may do. |
+| **Owner** | Solution architect |
+| **Phase** | P0 → P1 |
+| **Closes** | [Spec](The-Eight-Loops#spec) — P1 → P2, opening on the P0 AI-fit verdict |
+| **Moves** | 7 |
+| **You leave with** | An AI-fit verdict, an authority placement register, an eight-field spec, the exact / best-guess / consequential map, and a signed review with dated residual risks |
+
 ---
 
 ## The seven moves

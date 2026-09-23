@@ -9,6 +9,17 @@ This closes the [trust loop](The-Eight-Loops#trust). The QA lead owns it.
 [the acceptance-bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bar)
 · **[the deadline simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/deadline)**
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | A score is being offered as proof. |
+| **Owner** | QA lead |
+| **Phase** | P1 → P2 |
+| **Closes** | [Trust](The-Eight-Loops#trust) — P2 → P3 |
+| **Moves** | 7 |
+| **You leave with** | A bar per slice with its derivation, a golden set tagged by slice, a lower bound rather than a score, and a shadow comparison |
+
 ---
 
 ## The ladder
@@ -25,6 +36,16 @@ flowchart TD
   G --> H["<b>6 · Cut over at 5%</b>"]
   H --> I["<b>7 · Widen on live evidence</b>"]
 ```
+
+| # | Move | Produces | Done when |
+| --- | --- | --- | --- |
+| 1 | [Set the bar, per slice](#1--set-the-bar-per-slice) | Bar sheet | Every slice has a bar, and each one names the two money figures it came from |
+| 2 | [Build the golden set](#2--build-the-golden-set) | Golden-set manifest | Every case is real, tagged by slice, with an expected outcome a person wrote |
+| 3 | [Score in the right order](#3--score-in-the-right-order) | Judge rubric and calibration record | Exact checks run first, and the judge agrees with human labels on a held-back sample |
+| 4 | [Report the lower bound](#4--report-the-lower-bound) | Evidence readout | What gets reported is an interval, with the sample size beside it |
+| 5 | [The shadow run](#5--the-shadow-run) | Shadow-run comparison | Agreement is reported per slice, with nothing left out for low volume |
+| 6 | [Cut over at five percent](#6--cut-over-at-five-percent) | Cut-over decision | The days of evidence are arithmetic, and the rollback has been rehearsed |
+| 7 | [Widen on live evidence](#7--widen-on-live-evidence) | Widening schedule | Each widening names the evidence that earned it, never the date |
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

@@ -10,6 +10,17 @@ This is the [delivery loop](The-Eight-Loops#delivery), shared between the two of
 ground as Ship in [the engineering lead's journey](Journey-Engineering-Lead), told as a procedure
 rather than as a role.
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | The plan is ordered by priority, and day three needs something from day seven. |
+| **Owner** | Engineering lead |
+| **Phase** | P2 · Build & Prove |
+| **Closes** | [Delivery](The-Eight-Loops#delivery) — P2 → P2 |
+| **Moves** | 6 |
+| **You leave with** | An ordered bolt list with one unknown each, a story file per bolt, and an exposure curve that falls from day one |
+
 ---
 
 ## The six moves

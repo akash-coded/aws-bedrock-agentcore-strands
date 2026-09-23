@@ -43,6 +43,46 @@ A lookup table across all four surfaces. If you know what you want but not where
 
 ---
 
+## The nine how-tos, by symptom
+
+A how-to is a procedure with an owner, a phase and a loop it closes. Each opens with an **At a
+glance** block saying when to reach for it and what you leave with. Pick by what is going wrong, not
+by what sounds relevant.
+
+```mermaid
+flowchart TD
+  Q{"What is going wrong<br/>right now?"} --> A["Nobody has written down<br/>what the thing may do"]
+  Q --> B["We cannot say whether<br/>it works"]
+  Q --> C["The bill left its estimate"]
+  Q --> D["Work is stuck, or arriving<br/>in one lump"]
+  Q --> E["Something got through"]
+  Q --> F["A decision keeps<br/>being re-opened"]
+  A --> A1["Design an Agent on Paper<br/>Run an NFR Workshop"]
+  B --> B1["Prove the Bar"]
+  C --> C1["Control the Token Bill"]
+  D --> D1["Cut Sprints into Bolts<br/>Review by Risk Band"]
+  E --> E1["Hold the Security Boundary<br/>Run a Missing-Control Postmortem"]
+  F --> F1["Choose Build, Buy or Borrow"]
+  classDef q fill:#4A607622,stroke:#4A6076,stroke-width:2px
+  classDef sym fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  classDef out fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class Q q
+  class A,B,C,D,E,F sym
+  class A1,B1,C1,D1,E1,F1 out
+```
+
+| Reach for it when | How-to | Owner | Closes |
+| --- | --- | --- | --- |
+| Somebody is about to open an editor and nobody has written down what the thing may do | [Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) | Solution architect | Spec |
+| The NFRs are adjectives, and trade-offs get settled by seniority | [Run an NFR Workshop](How-to-Run-an-NFR-Workshop) | Solution architect | Requirements |
+| Somebody has already picked the answer, and the decision must survive them leaving | [Choose Build, Buy or Borrow](How-to-Choose-Build-Buy-or-Borrow) | Solution architect | Decision |
+| A score is being offered as proof | [Prove the Bar](How-to-Prove-the-Bar) | QA lead | Trust |
+| The plan is ordered by priority, and day three needs something from day seven | [Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts) | Engineering lead | Delivery |
+| The queue is days long and the policy is two seniors on everything | [Review by Risk Band](How-to-Review-by-Risk-Band) | Engineering lead | Delivery |
+| You cannot name the line of code that refuses | [Hold the Security Boundary](How-to-Hold-the-Security-Boundary) | Engineering lead, with the architect | — (the control set every loop assumes) |
+| The bill left its estimate and traffic did not | [Control the Token Bill](How-to-Control-the-Token-Bill) | Engineering lead | Cost |
+| The draft action list contains a string rather than a control | [Run a Missing-Control Postmortem](How-to-Run-a-Missing-Control-Postmortem) | QA lead | Incident |
+
 ## Doing
 
 | I want… | It is here |

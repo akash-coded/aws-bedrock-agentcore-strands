@@ -12,7 +12,7 @@ no single surface can point at the other four.
 | 🛫 **[SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** | The agentic PDLC as a simulator — thirteen episodes, eight loops, nine simulations, seventeen calculators | [Open it](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
 | 🧭 **[The role journeys](Journey-Product-Manager)** | Five roles walked end to end, each with templates and copy-paste prompts at every step | [PM](Journey-Product-Manager) · [SA](Journey-Solution-Architect) · [Eng](Journey-Engineering-Lead) · [QA](Journey-QA-Lead) · [Ops](Journey-DevOps) |
 | 👤 **[The roles, defined](Role-Product-Manager)** | What each role is accountable for, may settle alone, and must not touch — plus how the role fails | [PM](Role-Product-Manager) · [SA](Role-Solution-Architect) · [Eng](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [Ops](Role-DevOps) · [Sponsor](Role-Sponsor) |
-| 📘 **[The playbook wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five roles, nine how-tos, 31 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
+| 📘 **[The playbook wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five delivery roles and the sponsor, nine how-tos, 31 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
 
 ### If you would rather look than read
 

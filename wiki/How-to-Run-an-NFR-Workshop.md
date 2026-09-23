@@ -11,6 +11,17 @@ architect's journey, told as a procedure rather than as a role.
 [the NFR workshop simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/nfr)
 · **[the utility tree builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/utree)**
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | The NFRs are adjectives, and the trade-offs are being settled by seniority. |
+| **Owner** | Solution architect |
+| **Phase** | P0 → P1 |
+| **Closes** | [Requirements](The-Eight-Loops#requirements) — P0 → P1 |
+| **Moves** | 8 |
+| **You leave with** | A credited requirement list, a constraint register, candidate NFRs as six-part scenarios, merged utility trees with the conflicts marked, and a ratified set |
+
 ---
 
 ## The eight moves

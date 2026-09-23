@@ -9,6 +9,17 @@ threat**, and this page separates the two so you spend your attention correctly.
 **Run it interactively:**
 [the injection test builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/inject)
 
+### At a glance
+
+| | |
+| --- | --- |
+| **Reach for it when** | You cannot name the line of code that refuses. |
+| **Owner** | Engineering lead, with the architect |
+| **Phase** | P1 → P2 |
+| **Closes** | No single loop — this is the control set every loop assumes |
+| **Moves** | 6 |
+| **You leave with** | An authority budget, caps inside tool signatures with tests that ran today, a confirmation token the model cannot mint, an injection suite, and one redacted trace row per consequential action |
+
 ---
 
 ## The one rule
