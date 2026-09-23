@@ -868,7 +868,7 @@ def shots_page(out: Path, shell) -> str:
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
     cells = "".join(
-        f'<div class="shot {"wide" if k.startswith("board:") else "narrow"}" data-shot="{shot_name(k)}">'
+        f'<div class="shot {"wide" if k.startswith("board:") else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
         f'{reg[k]["draw"]()}</div>' for k in used_visuals())
     body = f'<main id="main" class="shots">{cells}</main>'
     html_ = shell(title="shots", desc="Screenshot sheet. Not for readers.", body=body, depth=2, nav_id="",

@@ -104,7 +104,7 @@ with a written waiver: what is missing, why you are crossing now, the blast radi
 what you are doing instead, and the date it expires. An undeclared crossing is indistinguishable
 from a completed one six weeks later.
 
-<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/model-g-baton.dark.webp"><img alt="A phase ends on an artefact, not a date" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/model-g-baton.light.webp" width="100%"></picture></a></p>
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/model-g-baton.dark.webp"><img alt="A phase ends on an artefact, not a date" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/model-g-baton.light.webp" width="440"></picture></a></p>
 
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/">Open the live, interactive version</a></sub>
 

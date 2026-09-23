@@ -1,0 +1,179 @@
+---
+title: AI Governance Gates That Don't Slow Delivery: The Five Gates
+short: The five governance gates
+wiki: AI-Governance-Gates-That-Dont-Slow-Delivery
+description: Five gates govern an AI agent from idea to wide use: intent, plan, behaviour, release and expansion. Who owns each, and the evidence each one needs.
+dek: A gate is a decision with evidence in front of a named person — not a click, a status column, or a meeting that ends in "fine".
+level: Intermediate
+keywords: AI governance framework, AI approval process, AI risk management, responsible AI governance, AI go-live approval, AI model governance, NIST AI RMF, who approves AI agents
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The gates in one sentence.** An AI agent passes five gates on its way to wide use — **intent**
+> (is it worth doing?), **plan** (the right slice at the right control level?), **behaviour** (does it
+> meet the spec?), **release** (safe to show a few real users?) and **expansion** (have we earned wider
+> use?) — each owned by one named person deciding on written evidence, with a drift alert that re-opens
+> the release gate automatically.
+
+```mermaid
+flowchart TB
+  I["<b>1 · Intent</b> · product manager<br/><i>pain, AI-fit verdict, value line</i>"] --> P["<b>2 · Plan</b> · PM and architect<br/><i>bolt cut, authority budget, gate map</i>"]
+  P --> B["<b>3 · Behaviour</b> · QA lead<br/><i>score per slice, with its lower bound</i>"]
+  B --> R["<b>4 · Release</b> · product manager<br/><i>shadow comparison, rollback rehearsed</i>"]
+  R --> E["<b>5 · Expansion</b> · QA lead<br/><i>live evidence by slice, drift in bounds</i>"]
+  E --> D(["<b>While live</b><br/><i>a drift alert re-opens the<br/>release gate, automatically</i>"])
+
+  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  classDef watch fill:#A93F3F1A,stroke:#A93F3F,stroke-width:2px
+  class I p0
+  class P p1
+  class B p2
+  class R,E p3
+  class D watch
+```
+
+**In this lesson** you'll learn:
+
+- the five gates, who owns each, and the evidence each one needs;
+- what a gate decision record contains, so a gate is a decision rather than a formality;
+- how to keep governance fast: owners who can evaluate, and approvals struck that cannot.
+
+## Sound familiar?
+
+- A product manager is approving pull requests they cannot evaluate, and nobody signs the shadow results.
+- "Governance" is a steering committee that meets monthly and asks for numbers nobody has.
+- The agent launched, and nothing was set up to notice when it stopped being good enough.
+
+Governance done this way is slow and weak at once. Done right, it is five decisions with evidence,
+and each takes less time than the meeting it replaces.
+
+## What are the five gates?
+
+| Gate | The question | Owner | The evidence |
+| --- | --- | --- | --- |
+| **1 · Intent** | Is this worth doing at all? | Product manager | Pain register, AI-fit verdict, value line |
+| **2 · Plan** | Is this the right slice at the right control level? | Product manager **and** architect | Bolt cut, authority budget, gate map |
+| **3 · Behaviour** | Does it meet the spec? | QA lead | Golden-set score per slice, with its lower bound |
+| **4 · Release** | Is it safe to show a few real users? | Product manager | Shadow-run comparison, rollback rehearsed |
+| **5 · Expansion** | Have we earned wider use? | QA lead | Live evidence by slice, drift inside threshold |
+
+## Run the gates, step by step
+
+### Step 1 · Give each gate one owner who can evaluate it
+
+The most common governance failure is a **product manager approving a pull request**. Strike every
+approval that its owner cannot evaluate, and insist on being asked the ones they can. Behaviour and
+expansion belong to QA, because they are questions about measured evidence.
+
+### Step 2 · Write the gate decision record
+
+Each gate decision fits on a page: the question the gate asks; the evidence that was actually in front
+of the owner, **with denominators**; what would have made the answer no; any conditions; what the owner
+could not evaluate and who should have; and a signature. A record like this takes minutes, and it is
+what makes a gate defensible to an auditor six months later.
+
+### Step 3 · Hold only what must halt
+
+Most decisions in an agentic build do not need to stop anything. Only the [hard gate](lesson:the-hard-gate)
+between design and build halts, along with the decisions that fail any of its four questions; the rest
+run behind placeholders with an owner and a date. Treating everything as a hard gate is how
+governance becomes the bottleneck.
+
+### Step 4 · Wire the drift alert to the release gate
+
+A released agent can stop being good enough with no deploy at all. When the output mix breaches its
+drift threshold, the release gate **re-opens automatically** — nobody has to decide to reconsider.
+[Drift monitoring](lesson:ai-drift-monitoring)
+
+### Step 5 · Report two numbers, paired, every cycle
+
+The sponsor's governance is one line: what the feature **saved** and what it **cost**, with the review
+hours and re-runs beside them so neither number can be gamed. Every measure is reported next to its
+side effect, because a number reported alone gets pushed.
+
+## Who signs what
+
+| Artefact | Accountable |
+| --- | --- |
+| Pain register, AI-fit verdict, eight-field spec, acceptance bars | Product manager |
+| Quality targets, authority budget, decision records, bolt cut | Solution architect |
+| Golden set and checkers | QA lead |
+| Shadow comparison and cut-over | Product manager |
+| Trace, redaction and the drift alert | Solution architect |
+| The two-number report | Sponsor |
+
+## Where you'll use it
+
+- **In a governance forum**: replace status reporting with five gate records.
+- **In a regulated industry**: the gate records and the evidence pack are what an auditor reads.
+- **With a risk framework**: NIST's AI Risk Management Framework organises the same concerns into
+  govern, map, measure and manage; the five gates are where they become named decisions.
+
+## Why it matters
+
+Gartner lists inadequate risk controls among the three reasons it expects over 40% of agentic AI
+projects to be cancelled by 2027. Controls fail less often from a lack of rules than from a lack of
+owners and evidence. Five gates, each with a named owner deciding on written evidence, supply both —
+without adding a single meeting.
+
+## Try it
+
+A company's AI approval process is a monthly committee that reviews a slide deck per project and votes.
+**Which of the five gates' properties does it lack?**
+
+<details><summary>Show the answer</summary>
+
+**Almost all of them.** A vote has no single accountable owner; a slide deck is not evidence with
+denominators; a monthly meeting cannot re-open a release when drift appears on a Tuesday; and a single
+approval cannot distinguish intent from behaviour from expansion, which are different questions with
+different evidence and different owners. The committee can stay as the place the two-number report is
+read — the decisions move to named owners.
+
+</details>
+
+## Key takeaways
+
+1. **Five gates**, each with **one owner** who can evaluate it: intent, plan, behaviour, release, expansion.
+2. A gate is **a decision record with evidence and denominators**, signed — not a click or a vote.
+3. **Drift re-opens the release gate automatically**, and governance reports **two numbers, paired**.
+
+## FAQ
+
+### What is AI governance in practice?
+
+Named people making specific decisions on written evidence at defined points: whether an AI feature is
+worth doing, whether its plan and controls are right, whether it meets its bar, whether it is safe to
+release, and whether it has earned wider use — plus a standing rule for what re-opens those decisions.
+
+### Who should approve an AI agent for production?
+
+Different people for different questions. In this playbook the product manager owns release — is it
+safe to show a few real users? — on the evidence of a shadow run and a rehearsed rollback, while the QA
+lead owns behaviour and expansion, which are questions of measured evidence.
+
+### How do you govern AI without slowing delivery?
+
+Give each decision one owner who can evaluate it, halt only on the decisions that are expensive to
+reverse, run the rest behind placeholders, and replace status meetings with short decision records.
+That is usually faster than the process it replaces.
+
+### How does this relate to NIST's AI Risk Management Framework?
+
+The NIST AI RMF describes four functions — govern, map, measure and manage — for managing AI risk
+across an organisation. The five gates are one concrete way to run those functions for a single
+product: named decisions, specific evidence and a standing trigger for re-evaluation.
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The five gates, their owners and evidence; the gate decision record | **Original** — this playbook | [Gates and Governance](wiki:Gates-and-Governance) |
+| Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
+| Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
+| Govern, map, measure, manage | **Borrowed** | NIST (2023). [AI Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework) |
+| Inadequate risk controls as a cause of cancellation | **Borrowed** | Gartner (2025). [Press release, 25 June](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) |
+| The SkyWays gates | **Illustrative** — a fictional airline | [Try the gate classifier](sim:#/toolkit/gateclass) |

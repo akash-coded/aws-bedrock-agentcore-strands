@@ -3,7 +3,7 @@
 
 *Short lessons on running software projects where an AI model does part of the work — what to decide, in what order, and how to know you got it right. Free, method-agnostic, and credited.*
 
-**Free · 11 lessons · by Akash Das** · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/)
+**Free · 31 lessons · by Akash Das** · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/)
 
 > [!TIP]
 > **What this is.** A free tutorial in five-to-ten-minute lessons on the **agentic PDLC**: a four-phase
@@ -65,6 +65,36 @@ The lessons are written once and published twice: here, with the live diagrams, 
 7. **[P3 Run & Learn: How to Run an AI Agent in Production Safely](P3-Run-and-Learn-Run-an-AI-Agent-in-Production)** — 7 min
 8. **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](The-8-Feedback-Loops-of-Agentic-Delivery)** — 6 min
 9. **[The Evidence Pack: What Must Exist Before Each AI Hand-off](The-Evidence-Pack-Before-Each-Hand-off)** — 6 min
+
+### 3 · [Methods decoded](Tutorial-Methods-Decoded)
+
+*AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.* — 7 lessons, about 40 minutes.
+
+1. **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC)** — 6 min
+2. **[What Is AI-DLC? The AI-Driven Development Lifecycle Explained](What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle)** — 6 min
+3. **[What Is AI-Driven Development (AIDD)? The Daily Craft, Defined](What-Is-AIDD-AI-Driven-Development)** — 6 min
+4. **[What Is the BMAD Method? Agile AI Personas, Explained](What-Is-the-BMAD-Method)** — 5 min
+5. **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](What-Is-Spec-Driven-Development)** — 6 min
+6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum)** — 6 min
+7. **[How Much Process Does a Change Need? Sizing Agentic Work](How-Much-Process-Does-a-Change-Need)** — 5 min
+
+### 4 · [Running delivery](Tutorial-Running-Delivery)
+
+*The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems.* — 13 lessons, about 71 minutes.
+
+1. **[How to Run an Agentic AI Project: A Step-by-Step Playbook](How-to-Run-an-Agentic-AI-Project)** — 6 min
+2. **[Bolts vs Sprints: Planning Work When AI Writes the Code](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code)** — 5 min
+3. **[How to Set Up a Kanban Board for an Agentic AI Project](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)** — 6 min
+4. **[Cut Delivery from Months to Weeks: What Shrinks, What Won't](How-to-Cut-Delivery-from-Months-to-Weeks)** — 6 min
+5. **[How to Review AI-Generated Code: By Risk, Not by Diff Size](How-to-Review-AI-Generated-Code-by-Risk)** — 5 min
+6. **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](How-Accurate-Does-an-AI-Agent-Need-to-Be)** — 5 min
+7. **[Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar](How-to-Prove-an-AI-Agent-Meets-Its-Bar)** — 5 min
+8. **[Shadow Mode and Canary Releases for AI Agents, Step by Step](Shadow-Mode-and-Canary-Releases-for-AI-Agents)** — 6 min
+9. **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](Why-Your-AI-Agent-Costs-4x-the-Estimate)** — 6 min
+10. **[AI Agent Guardrails That Hold: Why a Prompt Is Not a Control](AI-Agent-Guardrails-That-Hold)** — 6 min
+11. **[AI Governance Gates That Don't Slow Delivery: The Five Gates](AI-Governance-Gates-That-Dont-Slow-Delivery)** — 5 min
+12. **[AI Drift: How to Catch the Defect With No Error Message](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message)** — 5 min
+13. **[Postmortems for AI Incidents: Find the Missing Control](Postmortems-for-AI-Incidents-Find-the-Missing-Control)** — 5 min
 
 ---
 

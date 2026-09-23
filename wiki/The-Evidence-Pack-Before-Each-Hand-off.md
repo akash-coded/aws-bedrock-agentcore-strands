@@ -179,6 +179,6 @@ enforcement column pays for itself the first time it finds a cap that lives only
 
 | | |
 | :--- | ---: |
-| [← The eight loops](The-8-Feedback-Loops-of-Agentic-Delivery) | [Back to Start here →](Start-Here) |
+| [← The eight loops](The-8-Feedback-Loops-of-Agentic-Delivery) | [AI-DLC vs AIDD vs agentic SDLC →](AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/)

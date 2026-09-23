@@ -17,4 +17,4 @@ The four phases, the one hard gate, the eight loops and the evidence that crosse
 | 8 | **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](The-8-Feedback-Loops-of-Agentic-Delivery)** | Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three — cost, incident and governance — close only if a named person makes them. | 6 min |
 | 9 | **[The Evidence Pack: What Must Exist Before Each AI Hand-off](The-Evidence-Pack-Before-Each-Hand-off)** | The minimum artefacts owed at each hand-off of an agentic AI project, and the one column that separates a real gate from a formality: enforced, or only written? | 6 min |
 
-**[All lessons](Start-Here)**
+**Next track:** [Methods decoded](Tutorial-Methods-Decoded) · **[All lessons](Start-Here)**

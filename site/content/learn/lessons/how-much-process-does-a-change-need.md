@@ -1,0 +1,175 @@
+---
+title: How Much Process Does a Change Need? Sizing Agentic Work
+short: How much process a change needs
+wiki: How-Much-Process-Does-a-Change-Need
+description: Size process by a change's risk, not its size: four questions choose shallow, standard or deep work, and one trigger raises the depth mid-flight.
+dek: A one-line change to a refund cap is tiny and deep. A large refactor of a read-only report is big and shallow. Anything that sizes ceremony to the diff gets both backwards.
+level: Intermediate
+keywords: right-sizing process, process overhead AI development, change risk assessment, adaptive workflow AI-DLC, lightweight vs heavyweight process, when to use BMAD, risk-based development process
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The rule in one sentence.** Decide how much process a change deserves from four questions about
+> its risk — the most dangerous tool or path it touches, whether it can be undone cheaply once live,
+> whether more than one team's artefacts change, and whether an auditor reads the result — and choose
+> **shallow, standard or deep** accordingly, keeping the spec at every depth and naming the evidence
+> that would raise the depth mid-flight.
+
+```mermaid
+flowchart TB
+  A(["The change,<br/>in one sentence"]) --> Q1{"Touches money,<br/>identity or policy?"}
+  Q1 -->|"yes"| D2
+  Q1 -->|"no"| Q2{"Cheap to undo<br/>once it is live?"}
+  Q2 -->|"no"| D2
+  Q2 -->|"yes"| Q3{"More than one team,<br/>or an auditor reads it?"}
+  Q3 -->|"yes"| D3["<b>Deep</b><br/><i>spec, the gates and a<br/>persona trail, kept</i>"]
+  Q3 -->|"no"| D1["<b>Shallow</b><br/><i>spec update and<br/>one coding agent</i>"]
+  D2["<b>Standard</b><br/><i>spec-driven, with<br/>the five gates</i>"] --> Q4{"More than one team,<br/>or an auditor reads it?"}
+  Q4 -->|"yes"| D3
+  Q4 -->|"no"| S(["Standard it is"])
+
+  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
+  classDef shallow fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef standard fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
+  classDef deep fill:#7455B31A,stroke:#7455B3,stroke-width:2px
+  class A,Q1,Q2,Q3,Q4,S ask
+  class D1 shallow
+  class D2 standard
+  class D3 deep
+```
+
+**In this lesson** you'll learn:
+
+- why the size of a diff is the wrong measure of how much process a change needs;
+- the four questions that choose shallow, standard or deep work;
+- how to write down what you are skipping, and the trigger that brings it back.
+
+## Sound familiar?
+
+- A one-line typo fix went through six generated documents and three sign-offs.
+- A one-line change to a payment limit went through none, because it was "only one line".
+- The team quietly stopped using its method because it was too heavy for most of the work.
+
+These are the same mistake: sizing process by the size of the change. The fix is to size it by the
+change's risk.
+
+## What decides how much process a change needs?
+
+Not its size. **Depth is a property of the change, not of the team or the method.** A one-line change
+to a refund cap is tiny and deep — money leaves, and it cannot be taken back. A nine-hundred-line
+refactor of a read-only report is large and shallow — nothing it touches can do harm, and a flag
+turns it off.
+
+This is one of the playbook's [mental models](wiki:Mental-Models#depth-is-a-dial-not-a-constant),
+and every major method has arrived at it independently. AWS's AI-DLC adaptive workflows choose the
+breadth and depth of each task from its complexity. BMAD's documentation says the process should size
+itself to the work. And the most common critique of spec-driven tools is that they do not — so small
+bugs get elaborate treatment.
+
+## Size a change, step by step
+
+### Step 1 · Write the change in one sentence
+
+What it changes and what it touches. If it takes more than a sentence, it is probably two changes,
+and each gets its own depth.
+
+### Step 2 · Ask the four questions
+
+| Question | If the answer is… | Then |
+| --- | --- | --- |
+| What is the most dangerous tool or path it touches? | Money, identity or policy | At least **standard**, with a named approver, however small the change |
+| Can it be undone cheaply once it is live? | No | At least **standard**: the plan gate is hard for this change |
+| Does more than one team's work change? | Yes | **Deep**: versioned hand-offs between teams |
+| Does an auditor or a regulator read the result? | Yes | **Deep**: the trail is kept, not just the outcome |
+
+### Step 3 · Choose the depth
+
+| Depth | What it means |
+| --- | --- |
+| **Shallow** | Update the spec; one coding agent on a cheap model tier; review at the end |
+| **Standard** | Spec-driven development and the five gates; a chat model for the spec, a coding agent for the build |
+| **Deep** | Standard, plus a versioned persona trail such as BMAD's, artefacts kept for audit, a named approver |
+
+### Step 4 · Write down what you are skipping, and why
+
+A depth decision is ten lines or fewer. It names the ceremonies being skipped and why each is safe to
+skip for this change — "no shadow run: read-only path, no action taken, rollback is a flag". A skip
+with a reason is a decision; a skip without one is how shallow becomes the default for everything.
+
+### Step 5 · Name the escalation trigger
+
+Name the evidence that would raise the depth mid-flight: *if the change turns out to touch a gated
+write, it becomes deep*. Escalating is normal, not a failure — it is exactly what an adaptive process
+is for. Whatever the depth, the spec is updated: a change with no spec change is a change nobody can
+review.
+
+{{model:g_dial}}
+
+## Where you'll use it
+
+- **At the start of every change**, in under ten minutes, by the architect or engineering lead.
+- **When a method feels too heavy**: the answer is usually a shallower depth, not a different method.
+- **In review**: the depth decision tells the reviewer what was deliberately not done.
+
+## Why it matters
+
+A process applied at one depth to everything over-serves most changes and under-serves the dangerous
+few. Teams then abandon it — and the first changes to lose it are the ones that needed it most.
+Sizing each change is what keeps the process alive where it matters.
+
+## Try it
+
+Choose a depth for each: **(a)** changing the colour of a button; **(b)** raising a refund cap from
+$400 to $500; **(c)** a new cross-border payout flow touching three teams, reviewed by compliance.
+
+<details><summary>Show the answer</summary>
+
+**(a) Shallow** — reversible, harmless, one team: a spec line and one agent. **(b) Standard, with a
+named approver** — it is one line, but it touches money, so the size is irrelevant; the new cap goes
+into the tool's signature and its tests. **(c) Deep** — money, several teams and an auditor: the
+spec, the gates and a kept persona trail. All three update the spec.
+
+</details>
+
+## Key takeaways
+
+1. **Depth is a property of the change**, set by its risk — never by the size of its diff.
+2. **Four questions** choose shallow, standard or deep: danger, reversibility, teams, auditors.
+3. Write down **what you skip and why**, name the **escalation trigger**, and **keep the spec** at every depth.
+
+## FAQ
+
+### How do you decide how much process a software change needs?
+
+Ask four questions: what is the most dangerous tool or path it touches, can it be undone cheaply once
+live, does more than one team's work change, and does an auditor read the result. Money, identity,
+policy or irreversibility mean at least a standard process; several teams or an auditor mean a deep
+one; otherwise shallow is enough.
+
+### Isn't a one-line change always low risk?
+
+No. A one-line change to a refund cap, a permission or a policy threshold can be the riskiest change
+of the quarter. Size is a poor proxy for risk, which is why this playbook reviews by risk band rather
+than by diff size.
+
+### What does "adaptive" mean in AWS's AI-DLC?
+
+AI-DLC's open-source adaptive workflows select which stages a task includes and how thoroughly each
+is run, from the complexity of the intent — so a simple defect fix skips the elaborate requirements
+analysis a new service would get. It is the same principle as sizing each change by its risk.
+
+### Should every change have a spec?
+
+Yes, at its depth. For a shallow change that may be one updated acceptance line. Without a spec
+change, a reviewer cannot tell what the change was meant to do.
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The four questions, the three depths and the depth decision | **Original** — this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
+| Depth is a dial, not a constant | **Original** — this playbook | [Mental Models](wiki:Mental-Models#depth-is-a-dial-not-a-constant) |
+| Adaptive breadth and depth per task | **Borrowed** | Matos, W. et al. (2025). [Open-sourcing adaptive workflows for AI-DLC](https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/). AWS |
+| The process sizes itself to the work | **Borrowed** | [BMad Method documentation](https://docs.bmad-method.org/) |
+| Spec tools that do not scale to the problem | **Borrowed** | Böckeler, B. (2025). [Understanding spec-driven development](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html) |

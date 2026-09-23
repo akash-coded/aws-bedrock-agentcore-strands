@@ -7,14 +7,14 @@
 
 **[▶ Start here](Start-Here)**
 
-<details open><summary><b>Getting started</b></summary>
+<details open><summary><b>Getting started</b> · 2</summary>
 
 1. [What is the agentic PDLC?](What-Is-the-Agentic-PDLC)
 2. [How this tutorial works](How-This-Tutorial-Works)
 
 </details>
 
-<details open><summary><b>Agentic PDLC fundamentals</b></summary>
+<details open><summary><b>Agentic PDLC fundamentals</b> · 9</summary>
 
 1. [The evolution of the PDLC](The-Evolution-of-the-PDLC)
 2. [Why agentic AI projects fail](Why-Agentic-AI-Projects-Fail)
@@ -25,6 +25,36 @@
 7. [P3 · Run & Learn](P3-Run-and-Learn-Run-an-AI-Agent-in-Production)
 8. [The eight loops](The-8-Feedback-Loops-of-Agentic-Delivery)
 9. [The evidence pack](The-Evidence-Pack-Before-Each-Hand-off)
+
+</details>
+
+<details><summary><b>Methods decoded</b> · 7</summary>
+
+1. [AI-DLC vs AIDD vs agentic SDLC](AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC)
+2. [What is AI-DLC?](What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle)
+3. [What is AIDD?](What-Is-AIDD-AI-Driven-Development)
+4. [What is the BMAD Method?](What-Is-the-BMAD-Method)
+5. [What is spec-driven development?](What-Is-Spec-Driven-Development)
+6. [One lifecycle for every method](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum)
+7. [How much process a change needs](How-Much-Process-Does-a-Change-Need)
+
+</details>
+
+<details><summary><b>Running delivery</b> · 13</summary>
+
+1. [How to run an agentic AI project](How-to-Run-an-Agentic-AI-Project)
+2. [Bolts vs sprints](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code)
+3. [A board for agentic work](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)
+4. [Cut delivery from months to weeks](How-to-Cut-Delivery-from-Months-to-Weeks)
+5. [Review AI code by risk](How-to-Review-AI-Generated-Code-by-Risk)
+6. [How accurate must an agent be?](How-Accurate-Does-an-AI-Agent-Need-to-Be)
+7. [Prove the agent meets its bar](How-to-Prove-an-AI-Agent-Meets-Its-Bar)
+8. [Shadow mode and cut-over](Shadow-Mode-and-Canary-Releases-for-AI-Agents)
+9. [Why the AI bill is 4× the estimate](Why-Your-AI-Agent-Costs-4x-the-Estimate)
+10. [Guardrails that hold](AI-Agent-Guardrails-That-Hold)
+11. [The five governance gates](AI-Governance-Gates-That-Dont-Slow-Delivery)
+12. [Catch AI drift](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message)
+13. [AI incident postmortems](Postmortems-for-AI-Incidents-Find-the-Missing-Control)
 
 </details>
 

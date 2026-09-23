@@ -44,19 +44,53 @@ TRACKS = [
             "the-evidence-pack",
         ],
     },
+    {
+        "id": "methods",
+        "title": "Methods decoded",
+        "short": "Methods",
+        "wiki": "Tutorial-Methods-Decoded",
+        "blurb": "AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who "
+                 "coined it, where it sits on the four phases, and what it leaves for you to decide.",
+        "promise": "AI-DLC, AIDD, BMAD and SDD, placed",
+        "lessons": [
+            "ai-dlc-vs-aidd-vs-agentic-sdlc",
+            "what-is-ai-dlc",
+            "what-is-aidd",
+            "what-is-the-bmad-method",
+            "what-is-spec-driven-development",
+            "one-lifecycle-for-every-method",
+            "how-much-process-does-a-change-need",
+        ],
+    },
+    {
+        "id": "delivery",
+        "title": "Running delivery",
+        "short": "Delivery",
+        "wiki": "Tutorial-Running-Delivery",
+        "blurb": "The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing "
+                 "AI-written code, setting and proving the bar, launching safely, cost, guardrails, "
+                 "governance, drift and postmortems.",
+        "promise": "Boards, bolts, launches and the bill",
+        "lessons": [
+            "how-to-run-an-agentic-ai-project",
+            "bolts-vs-sprints",
+            "agentic-kanban-board",
+            "cut-delivery-time",
+            "review-ai-generated-code",
+            "how-accurate-must-an-ai-agent-be",
+            "prove-ai-accuracy",
+            "shadow-mode-and-cutover",
+            "ai-agent-costs",
+            "ai-guardrails-that-hold",
+            "ai-governance-gates",
+            "ai-drift-monitoring",
+            "ai-incident-postmortem",
+        ],
+    },
 ]
 
 # The rest of the plan, in the order it will be written. Not read by the build.
 PLANNED = {
-    "methods": ("Methods decoded: AI-DLC, AIDD, BMAD and spec-driven development", [
-        "ai-dlc-vs-aidd-vs-agentic-sdlc", "what-is-ai-dlc", "what-is-aidd", "what-is-the-bmad-method",
-        "what-is-spec-driven-development", "one-lifecycle-for-every-method",
-        "how-much-process-does-a-change-need"]),
-    "delivery": ("Running delivery: boards, bolts and speed", [
-        "how-to-run-an-agentic-ai-project", "bolts-vs-sprints", "agentic-kanban-board", "cut-delivery-time",
-        "review-ai-generated-code", "how-accurate-must-an-ai-agent-be", "prove-ai-accuracy",
-        "shadow-mode-and-cutover", "ai-agent-costs", "ai-guardrails-that-hold", "ai-governance-gates",
-        "ai-drift-monitoring", "ai-incident-postmortem"]),
     "roles": ("By role: how each discipline works in the agentic PDLC", [
         "agentic-pdlc-for-product-managers", "agentic-pdlc-for-program-managers",
         "agentic-pdlc-for-solution-architects", "agentic-pdlc-for-engineers",

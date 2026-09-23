@@ -794,7 +794,9 @@ a.md:hover b{color:var(--c)}
 .prose pre.mermaid.drawn{display:none}
 .prose .mm-out svg{display:block;margin:0 auto;max-width:100%;height:auto}
 .prose img{max-width:100%;height:auto;border-radius:10px}
-.prose figure.lmodel{margin:6px 0 24px;display:flex;justify-content:center}
+/* The glyphs are drawn for a 260px card (see .mmg); in a lesson they keep that proportion. */
+.prose figure.lmodel{margin:6px auto 26px;max-width:440px;background:var(--paper);
+  border:1px solid var(--rule);border-radius:14px;padding:14px}
 .prose .fig{margin:10px 0 28px}
 .prose>section,.prose>.dgb,.prose>figure{margin-left:0;margin-right:0}
 
@@ -826,4 +828,5 @@ a.md:hover b{color:var(--c)}
 .shots{display:grid;gap:40px;padding:24px;max-width:1120px;margin:0 auto;justify-items:start}
 .shot{background:var(--bone);padding:18px;width:100%}
 .shot.narrow{max-width:760px}
+.shot.model{max-width:480px}
 .shot .dgb>figcaption .bs{display:none}
