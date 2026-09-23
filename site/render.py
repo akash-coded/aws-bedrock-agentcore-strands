@@ -137,7 +137,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <li><a href="{up}app/SkyWays-Architect.html">The simulator — the same case, playable</a></li>
     <li><a href="{WIKI}/The-Agentic-PDLC">The method, as a wiki</a></li>
     <li><a href="{WIKI}/Formulas-and-Calculators">Every formula, worked</a></li>
-    <li><a href="{WIKI}/Scenario-Library">37 scenarios, ten industries</a></li>
+    <li><a href="{WIKI}/Scenario-Library">37 scenarios across twenty sectors</a></li>
   </ul></section>
   <section><h2>Pitch in</h2><ul>
     <li><a href="{REPO}/discussions/101">Suggest an improvement</a></li>
@@ -429,7 +429,7 @@ def home_page(roles: list[dict]) -> str:
       The whole operating model on one screen: what changes, who does what, the four decisions only
       leadership can make, and ninety days. <a href="protocol/">The operating protocol →</a></p></div>
     <div class="card"><h4>The method, written down</h4><p style="font-size:14.5px;color:var(--ink2)">
-      Four phases, eight loops, 37 scenarios, every formula.
+      Four phases, eight loops, 37 scenarios, 31 exercises, every formula.
       <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>
 
@@ -466,7 +466,7 @@ def home_page(roles: list[dict]) -> str:
       <tr><td>Funding this, not building it</td><td><a href="protocol/">The operating protocol</a> — what
         changes, who does what, and the four questions to ask</td><td>20 min</td></tr>
       <tr><td>Running a workshop</td><td><a href="{WIKI}/Scenario-Library" target="_blank" rel="noopener">37
-        scenarios</a> across ten industries</td><td>—</td></tr>
+        scenarios</a> across twenty sectors</td><td>—</td></tr>
     </tbody></table></div>
   </div>
 </main></div>"""

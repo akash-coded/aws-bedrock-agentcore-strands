@@ -1,6 +1,6 @@
 # Exercises and answers
 
-Twenty-four exercises across the playbook, with worked answers. Use them to test yourself, to run a
+Thirty-one exercises across the playbook, with worked answers. Use them to test yourself, to run a
 session, or to prepare for an interview where someone asks how you would actually do this.
 
 Every answer is worked, not asserted. Where there is a formula, it is applied.
@@ -13,6 +13,62 @@ Every answer is worked, not asserted. Where there is a formula, it is applied.
 | D | Delivery: bolts, queues, cost | [below](#set-d--delivery) |
 | E | Running: drift, incidents, reporting | [below](#set-e--running) |
 | F | Interview questions | [below](#set-f--interview-questions) |
+| G | Reading a symptom | [below](#set-g--reading-a-symptom) |
+
+### Find one
+
+Difficulty is about how much of the method a full answer has to touch. The three-dot ones are not
+harder arithmetic; they are the ones where the defensible answer is the unwelcome one.
+
+| | It tests | Stresses | The method lives in | Difficulty |
+| --- | --- | --- | --- | --- |
+| **A1** | Is this AI at all? | Product manager | [Decision Trees](Decision-Trees) | ●○○ |
+| **A2** | Defending an AI-fit verdict upwards | Sponsor | [Role Sponsor](Role-Sponsor) | ●●○ |
+| **A3** | The value line, with run and review in it | Product manager | [Formulas and Calculators](Formulas-and-Calculators) | ●○○ |
+| **B1** | Deriving a bar from damage and saving | Product manager | [Formulas and Calculators](Formulas-and-Calculators) | ●○○ |
+| **B2** | Chained probability | Solution architect | [Formulas and Calculators](Formulas-and-Calculators) | ●○○ |
+| **B3** | Lower bound, adequate sample | QA lead | [How to Prove the Bar](How-to-Prove-the-Bar) | ●●○ |
+| **B4** | Lower bound, thin sample | QA lead | [How to Prove the Bar](How-to-Prove-the-Bar) | ●●○ |
+| **B5** | Queue arithmetic under a review policy | Engineering lead | [How to Review by Risk Band](How-to-Review-by-Risk-Band) | ●●○ |
+| **B6** | Cache break-even | Engineering lead | [How to Control the Token Bill](How-to-Control-the-Token-Bill) | ●●○ |
+| **C1** | How many agents is too many | Solution architect | [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) | ●○○ |
+| **C2** | Where a boundary is enforced | Solution architect | [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) | ●●○ |
+| **C3** | Why a checker must be independent | QA lead | [How to Prove the Bar](How-to-Prove-the-Bar) | ●●● |
+| **C4** | Turning a policy into an authority budget | Solution architect | [Gates and Governance](Gates-and-Governance) | ●●○ |
+| **D1** | Ordering bolts by dependency | Engineering lead | [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts) | ●○○ |
+| **D2** | Diagnosing a bill with four flat factors | Engineering lead | [How to Control the Token Bill](How-to-Control-the-Token-Bill) | ●●● |
+| **D3** | Which factor to fix first | Engineering lead | [Formulas and Calculators](Formulas-and-Calculators) | ●●○ |
+| **D4** | A bolt that cannot be built alone | Engineering lead | [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts) | ●○○ |
+| **E1** | Behaviour changing with no code change | DevOps | [How to Run a Missing Control Postmortem](How-to-Run-a-Missing-Control-Postmortem) | ●●○ |
+| **E2** | A postmortem that names a string, not a control | QA lead | [How to Run a Missing Control Postmortem](How-to-Run-a-Missing-Control-Postmortem) | ●●● |
+| **E3** | Defending the two-number report | Product manager | [The Evidence Pack](The-Evidence-Pack) | ●●○ |
+| **E4** | Replacing an adoption metric | Sponsor | [Role Sponsor](Role-Sponsor) | ●●● |
+| **F1** | "How accurate does it need to be?" | Any | [How to Prove the Bar](How-to-Prove-the-Bar) | ●●○ |
+| **F2** | "How do you know it works?" | Any | [The Evidence Pack](The-Evidence-Pack) | ●●○ |
+| **F3** | "What is new about securing an agent?" | Any | [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) | ●●● |
+| **F4** | "Five agents — what do you ask?" | Any | [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper) | ●●○ |
+| **F5** | "How do you report on this?" | Any | [The Evidence Pack](The-Evidence-Pack) | ●●○ |
+| **G1** | A hit ratio near zero with caching on | Engineering lead | [How to Control the Token Bill](How-to-Control-the-Token-Bill) | ●●○ |
+| **G2** | A set that passes while production degrades | QA lead | [How to Prove the Bar](How-to-Prove-the-Bar) | ●●● |
+| **G3** | A flat median and a six-times tail | DevOps | [How to Control the Token Bill](How-to-Control-the-Token-Bill) | ●●● |
+| **G4** | A gate cleared in aggregate | Product manager | [How to Prove the Bar](How-to-Prove-the-Bar) | ●●○ |
+| **G5** | A cap that is not a control | Solution architect | [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary) | ●●● |
+
+### How to mark one
+
+Mark on structure, not on fluency. A full answer has four parts, and a confident answer missing two
+of them is worth less than a hesitant answer with all four.
+
+| | What you are looking for | A zero looks like |
+| --- | --- | --- |
+| **The call** | One sentence, with *because* in it | A survey of considerations with no verdict |
+| **The artefact** | Named — a record, a register, an ADR, a bar sheet | "We'd document it" |
+| **The number** | The arithmetic shown, not the result asserted | A figure with no derivation |
+| **The owner** | A person, not a team | "The team would decide" |
+
+Two answers deserve full marks and look nothing alike, because several of these have more than one
+defensible reading. What is not defensible is an answer that cannot say what would change its mind.
+Ask that question when a room agrees too quickly.
 
 ---
 
@@ -423,6 +479,111 @@ showed."
 
 ---
 
+## Set G · reading a symptom
+
+The other sets give you a question. These give you what you would actually have: a number that moved,
+a log line, a report that reads fine. Name the cause, then name the control that would have made it
+impossible.
+
+**G1.** The caching line item on your bill says caching is on. Your gateway reports a hit ratio of 4%.
+No prompt text changed this week, but on Monday a per-customer context block was added at the top of
+the system message. What happened, and what is the fix?
+
+<details><summary>Answer</summary>
+
+**The prefix moved.** A cache matches an *exact* prefix. Putting something that differs per customer
+at the top means no two calls share a prefix, so every call is a miss — while the line item goes on
+saying caching is enabled, because it is.
+
+The fix is ordering, not configuration: stable first (tools, system instructions, shared context),
+then the cache marker, then everything that changes. The tell is the shape of the symptom — a hit
+ratio near zero *with caching on* is almost never a config bug and almost always a prefix-ordering
+bug. See [How to Control the Token Bill](How-to-Control-the-Token-Bill).
+
+The control: the ordering is part of the prompt's structure, so it belongs in review. A diff that
+inserts anything above the marker is a cost change and should be read as one.
+</details>
+
+**G2.** Your golden set has passed at 88% against an 85% bar for six weeks. This week it passes at
+87%. Production complaints have tripled. Where do you look?
+
+<details><summary>Answer</summary>
+
+**At the denominator, not the score.** The golden set is fixed; production is not. A set that still
+passes while production degrades is a set that no longer represents traffic.
+
+Compare the *slice mix* at launch with the mix now. The usual finding is that a slice which was 5% of
+traffic is now 30% — and that slice has its own bar, usually a higher one, because its damage per
+case is higher. The aggregate score barely moves because the set's composition never moved.
+
+This is why the bar is per slice and why the set is tagged by slice. An untagged golden set cannot
+show you this at all. See [How to Prove the Bar](How-to-Prove-the-Bar).
+
+The control: a monthly comparison of the traffic mix against the set's mix, with a named owner. It
+takes ten minutes and it is the cheapest drift detector there is.
+</details>
+
+**G3.** Median cost per call is flat. The p99 is up six times. Total spend is up 40%. What is
+happening?
+
+<details><summary>Answer</summary>
+
+**A tail, not a shift.** Flat median means the common path is unchanged, so this is not a bigger
+prompt or a different tier — both of those move the middle.
+
+A p99 up six times with spend up 40% means a small share of calls is doing far more work than it
+used to. That is attempts. Check **attempts per case**, not retries: the bill factor is
+`(1 + r) / (1 + r₀)` on attempts, and a small rise in the tail moves the total a long way.
+
+The usual cause is a loop with no cap — often two components politely handing work back to each
+other. A runaway does not need a bug; it needs no breaker. See scenario 19 in the
+[Scenario Library](Scenario-Library).
+
+The control: a per-case attempt cap and an alarm on attempts, not on spend. Spend tells you after the
+month; attempts tell you in the hour.
+</details>
+
+**G4.** A shadow run agrees with the desk on 91% of cases. Your expansion gate is 90%. Two of your
+five slices were left out of the comparison because their volume was "too low to be meaningful". Do
+you widen?
+
+<details><summary>Answer</summary>
+
+**No, and the exclusion is the finding.**
+
+The threshold was always per slice. An aggregate that clears it tells you the *large* slices are
+fine, which you mostly already knew. Worse, low-volume slices are usually the ones with the highest
+damage per case — the unusual situations are exactly the ones people escalate.
+
+Low volume is a reason to gather more evidence, or to keep the slice held while the others widen. It
+is not a reason to leave it out of the gate. And note who made the call: excluding a slice from
+gating is the product manager's decision, not the analyst's, because it changes what the gate means.
+
+This is scenario 17 with the numbers changed, and it is one of the two most common ways a gate gets
+passed without being met.
+</details>
+
+**G5.** A trace shows `issue_refund` called with $380 on a case where the policy cap is $400. The fare
+was $220. Nothing errored. What is missing?
+
+<details><summary>Answer</summary>
+
+**The cap is not the control.** A cap bounds the worst case; it does not make the amount correct. A
+tool that accepts any value at or under the cap has delegated the *amount* to the model.
+
+What is missing is the relation: the refund is bounded by the fare, not only by the policy ceiling.
+That boundary belongs in the tool signature, where it is enforced, rather than in the prompt, where
+it is requested. `issue_refund(amount)` with a cap is one control; `issue_refund(booking_id)` that
+derives the amount is a different and much stronger one.
+
+The wider lesson is the shape of the day-82 incident: several layers each *claimed* the constraint
+and none enforced it. Ask of every stated limit — which line of code refuses? If the answer is a
+sentence in a prompt, there is no control. See
+[How to Run a Missing-Control Postmortem](How-to-Run-a-Missing-Control-Postmortem).
+</details>
+
+---
+
 ## Running these as a session
 
 | Format | Sets | Time |
@@ -430,8 +591,30 @@ showed."
 | Stand-up warm-up | One question | 5 min |
 | Team workshop | A and B | 45 min |
 | Design review practice | C and D | 60 min |
+| Incident-review practice | G, then E | 50 min |
 | Interview preparation | F, then B | 45 min |
-| Full session | All, with the [simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/simulations/master) between sets | Half a day |
+| Full session | All, with the [simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/master) between sets | Half a day |
+
+**Three sessions that are worth running as written.**
+
+*Ninety minutes, a team that has never done this.* A1 and A2 to establish that most of a backlog is
+not AI — this is the single most useful thing a new team learns, and it lands better as an exercise
+than as an assertion. Then B1 and B2, because the bar and the chain are the two pieces of arithmetic
+everything else depends on. Then C1. Stop there. Do not add D; a team that has just learned the bar
+is not ready to argue about bolt order, and trying makes both worse.
+
+*Fifty minutes, after an incident.* G5 first, whatever the incident was, because "which line of code
+refuses?" is the question that generalises. Then the G exercise nearest the symptom you actually saw.
+Then E2. The point of ending on E2 is that it is about the *postmortem*, not the incident — and a
+team that has just been through one will recognise its own draft in it.
+
+*Forty-five minutes, an interview loop.* F1 and F3, then one of B3, B4 or G2 to see whether the
+answers to F have arithmetic underneath them. Someone who answers F1 well and cannot do B3 has read
+about this. That is worth knowing, and it is not disqualifying — but it is a different hire.
+
+**Where these come from.** Every exercise is a compression of something on another page; the finder
+above says which. If an answer here seems to skip a step, the page named in the table has the long
+form, and the [Formulas](Formulas-and-Calculators) page has every calculation with its derivation.
 
 Want these graded automatically? The repository's
 [L.A.B. Simulator](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs) runs

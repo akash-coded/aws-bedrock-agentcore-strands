@@ -36,7 +36,7 @@ Each episode opens on a moment with a number in it and closes one loop.
 | 90 | Both numbers, in front of the steering committee | Priya | governance | **−43%** person-days and **$310** a story |
 
 Read them in order:
-[the story](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/story).
+[the story](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/story).
 
 ---
 
@@ -55,6 +55,83 @@ Each is a single decision with a trap attached, written to be argued with. They 
 | [Cost](#cost-loop) | 18–20 |
 | [Incident](#incident-loop) | 21–22 |
 | [Governance](#governance-loop) | 23–24 |
+
+### Find one
+
+Difficulty is about how much of the method a full answer has to touch, not about how technical it is.
+The hardest ones are hard because the right answer is unpopular.
+
+| # | Scenario | Sector | Loop | The trap, in six words | Hardest for | Difficulty |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Public-sector benefits eligibility](#1--public-sector-benefits-eligibility) | Public sector | Requirements | An agent-first directive from above | Sponsor | ●○○ |
+| 2 | [A trading desk's explainability conflict](#2--a-trading-desks-explainability-conflict) | Financial services | Requirements | Settled by seniority, not by evidence | Solution architect | ●●○ |
+| 3 | [A hospital group with five record systems](#3--a-hospital-group-with-five-record-systems) | Healthcare | Requirements | The first custom integration, because it is quicker | Solution architect | ●●○ |
+| 4 | [Hospital discharge summaries](#4--hospital-discharge-summaries) | Healthcare | Spec | Review treated as a note, not a control | Product manager | ●●○ |
+| 5 | [Insurance claims triage](#5--insurance-claims-triage) | Insurance | Spec | One step, one prompt, the word "exactly" | Solution architect | ●●○ |
+| 6 | [A customer-service agent at fifty thousand cases a day](#6--a-customer-service-agent-at-fifty-thousand-cases-a-day) | Contact centre | Spec | A pilot's net, extrapolated linearly | Product manager | ●●● |
+| 7 | [Manufacturing maintenance scheduler](#7--manufacturing-maintenance-scheduler) | Manufacturing | Decision | Parallel work mistaken for separate agents | Solution architect | ●○○ |
+| 8 | [A bank with six products and one security standard](#8--a-bank-with-six-products-and-one-security-standard) | Banking | Decision | The domain layer, skipped | Solution architect | ●●○ |
+| 9 | [A utility's thirty-year-old billing mainframe](#9--a-utilitys-thirty-year-old-billing-mainframe) | Utilities | Decision | Big bang, justified by what the model can read | Solution architect | ●●● |
+| 10 | [Vendor lock-in at renewal](#10--vendor-lock-in-at-renewal) | Procurement | Decision | The renewal framed as a price negotiation | Sponsor | ●●● |
+| 11 | [Retail returns agent](#11--retail-returns-agent) | Retail | Delivery | One autonomy level for every action | Product manager | ●○○ |
+| 12 | [An agency where every author sets their own risk band](#12--an-agency-where-every-author-sets-their-own-risk-band) | Professional services | Delivery | Self-assessment mistaken for a trust problem | Engineering lead | ●●○ |
+| 13 | [A payments team that hotfixes on a Tuesday](#13--a-payments-team-that-hotfixes-on-a-tuesday) | Payments | Delivery | A rewrite that is reviewable in theory | Engineering lead | ●●○ |
+| 14 | [Legal contract redlining](#14--legal-contract-redlining) | Legal | Trust | The drafter grading itself | QA lead | ●○○ |
+| 15 | [Logistics re-routing](#15--logistics-re-routing) | Logistics | Trust | Averaging a chain instead of multiplying it | QA lead | ●○○ |
+| 16 | [A rare-disease diagnostic aid](#16--a-rare-disease-diagnostic-aid) | Healthcare | Trust | Sampled for traffic rather than for risk | QA lead | ●●● |
+| 17 | [A payroll agent's shadow run](#17--a-payroll-agents-shadow-run) | Payroll | Trust | An aggregate threshold reported as met | QA lead | ●●○ |
+| 18 | [Marketing copy at scale](#18--marketing-copy-at-scale) | Marketing | Cost | The product details first in the prompt | Engineering lead | ●●○ |
+| 19 | [Two agents negotiating in a supply-chain marketplace](#19--two-agents-negotiating-in-a-supply-chain-marketplace) | Supply chain | Cost | Believing a runaway needs a bug | DevOps | ●●● |
+| 20 | [Supplier pricing agent, six months in](#20--supplier-pricing-agent-six-months-in) | Procurement | Cost | "No code changed" read as "nothing changed" | DevOps | ●●● |
+| 21 | [Bank KYC document reader](#21--bank-kyc-document-reader) | Banking | Incident | Injection through a document, not a chat box | DevOps | ●●○ |
+| 22 | [Telecoms churn-save offers](#22--telecoms-churn-save-offers) | Telecoms | Incident | A cap as a percentage, a tool as an absolute | Engineering lead | ●●○ |
+| 23 | [Internal IT helpdesk](#23--internal-it-helpdesk) | Internal IT | Governance | The airline's apparatus on a printer question | Sponsor | ●○○ |
+| 24 | [The CFO who cancels the programme](#24--the-cfo-who-cancels-the-programme) | Leadership | Governance | Withholding the cost number until it improves | Sponsor | ●●● |
+
+### Pick by what your team keeps getting wrong
+
+```mermaid
+flowchart TD
+  Q{"What went wrong<br/>the last three times?"} --> A["We built the wrong thing"]
+  Q --> B["We could not say whether it worked"]
+  Q --> C["It worked, then the bill arrived"]
+  Q --> D["Something got through that should not have"]
+  Q --> E["Leadership lost confidence"]
+  A --> A1["1, 4, 6, 11<br/><i>framing and the spec</i>"]
+  B --> B1["14, 15, 16, 17<br/><i>proof and the bar</i>"]
+  C --> C1["18, 19, 20<br/><i>the bill, by factor</i>"]
+  D --> D1["21, 22, 12, 13<br/><i>boundary and review</i>"]
+  E --> E1["23, 24, 10<br/><i>governance and the two numbers</i>"]
+  classDef q fill:#4A607622,stroke:#4A6076,stroke-width:2px
+  classDef out fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  class Q q
+  class A1,B1,C1,D1,E1 out
+```
+
+### How to run one
+
+Twenty-five minutes, four people or forty. The scenario is the easy part; the discipline is refusing
+to let the room answer a different question from the one asked.
+
+| Minutes | What happens |
+| --- | --- |
+| 0–3 | One person reads **the ask** aloud. Nobody has seen the rest of the card. |
+| 3–10 | Everyone writes their own answer. Alone, on paper. This is the step people cut, and cutting it is why the loudest answer wins. |
+| 10–18 | Round the room, one sentence each. No debate yet — you are collecting the spread, and the spread is the finding. |
+| 18–22 | Read **the decisive move**. Argue with it. It is written to be argued with, and a room that agrees instantly has usually agreed to something vaguer than what is written. |
+| 22–25 | Read **the trap**. Ask the only question that matters: *have we done this?* |
+
+**A full answer contains four things.** Name them before you start, or you will mark on eloquence.
+
+1. The **decision** itself, in one sentence, with the word *because* in it.
+2. The **artefact** it produces, by name — a record, a register, an ADR, a bar sheet.
+3. The **number** it turns on, where there is one, with its arithmetic shown.
+4. Who **owns** it. Not the team. The person.
+
+**Two ways the session itself fails.** The first is the room converging in four minutes, which almost
+always means everyone answered the question they wished had been asked. Re-read the ask. The second is
+the room treating the decisive move as the answer key — these are one defensible reading, and a team
+that can say *why ours differs* has got more from the exercise than a team that agreed.
 
 ---
 
