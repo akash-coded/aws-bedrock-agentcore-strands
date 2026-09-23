@@ -83,7 +83,7 @@ flowchart LR
   ME -->|"spec · a bar per slice · bolt plan"| EN["Engineering<br/>lead"]
   ME -->|"two numbers · the next P0 brief"| SP
   classDef me fill:#3E6B8A26,stroke:#3E6B8A,stroke-width:2.5px
-  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
   class ME me
   class SP,SA,QA,EN them
 ```

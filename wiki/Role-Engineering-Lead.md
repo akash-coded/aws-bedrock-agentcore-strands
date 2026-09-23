@@ -69,7 +69,7 @@ flowchart LR
   ME -->|"bolts · a required check · the ledger"| PM
   ME -->|"caching and routing changes"| SA
   classDef me fill:#2F6B5726,stroke:#2F6B57,stroke-width:2.5px
-  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
   class ME me
   class SA,PM,QA them
 ```

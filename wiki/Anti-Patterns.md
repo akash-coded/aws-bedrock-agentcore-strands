@@ -31,8 +31,8 @@ flowchart TB
   R --> D --> B --> P --> N
   N -.->|"whatever is left here arrives<br/>as next cycle's requirement"| R
 
-  classDef req fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
-  classDef des fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef req fill:#5169811A,stroke:#516981,stroke-width:1.5px
+  classDef des fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
   classDef bld fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   classDef prv fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
   classDef run fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px

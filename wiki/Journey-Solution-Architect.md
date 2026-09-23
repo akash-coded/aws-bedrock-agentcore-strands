@@ -51,18 +51,18 @@ flowchart LR
   P0 --> P1
   P1 -->|"HARD GATE"| P2
   P2 --> P3
-  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
   class S1,S2 p0
-  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
-  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  style P0 fill:#5169810D,stroke:#516981,stroke-width:1.5px
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
   class S3,S4,S5,S6,S7 p1
-  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  style P1 fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
   classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
   classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
   class S8 p3
   style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3,color:#6E6E6E
+  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3
   class P2X absent
   linkStyle 6 stroke:#0E7F7C,stroke-width:3px
 ```

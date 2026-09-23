@@ -25,12 +25,12 @@ flowchart TD
   Q5 -->|"an hour most evenings"| E["<b>Four weeks, evenings</b><br/><i>about 6 hours a week</i>"]
   Q5 -->|"one clear block"| K["<b>One weekend</b><br/><i>about 12 hours</i>"]
 
-  classDef ask fill:#3A3A3A14,stroke:#3A3A3A,stroke-width:2px
-  classDef team fill:#6A4BA81A,stroke:#6A4BA8,stroke-width:1.5px
+  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:2px
+  classDef team fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
   classDef intv fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef meth fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef meth fill:#5169811A,stroke:#516981,stroke-width:1.5px
   classDef noac fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef eve fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef eve fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
   classDef wknd fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   class Q1,Q2,Q3,Q4,Q5 ask
   class T team

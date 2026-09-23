@@ -27,8 +27,8 @@ flowchart LR
   P1 -->|HARD GATE| P2["P2 · Build & Prove<br/><i>bolts, harness, shadow</i>"]
   P2 --> P3["P3 · Run & Learn<br/><i>trace, drift, two numbers</i>"]
   P3 -.->|incident, drift, cost| P0
-  classDef p0 fill:#4A607622,stroke:#4A6076,stroke-width:2px
-  classDef p1 fill:#3F51C422,stroke:#3F51C4,stroke-width:2px
+  classDef p0 fill:#51698122,stroke:#516981,stroke-width:2px
+  classDef p1 fill:#4B5CC822,stroke:#4B5CC8,stroke-width:2px
   classDef p2 fill:#0E7F7C22,stroke:#0E7F7C,stroke-width:2px
   classDef p3 fill:#9C680322,stroke:#9C6803,stroke-width:2px
   class P0 p0
@@ -361,14 +361,14 @@ flowchart TD
   I -.->|"back into framing"| R
   G["Governance<br/>P0 → P3"] -.-> R
   G -.-> T
-  classDef fwd fill:#4A607618,stroke:#4A6076,stroke-width:1.5px
+  classDef fwd fill:#51698118,stroke:#516981,stroke-width:1.5px
   classDef back fill:#A93F3F1F,stroke:#A93F3F,stroke-width:2px
-  classDef gov fill:#6A4BA81F,stroke:#6A4BA8,stroke-width:2px
+  classDef gov fill:#7455B31F,stroke:#7455B3,stroke-width:2px
   class R,S,D,DE,T fwd
   class C,I back
   class G gov
   linkStyle 7,8 stroke:#A93F3F,stroke-width:2px
-  linkStyle 9,10 stroke:#6A4BA8,stroke-width:2px
+  linkStyle 9,10 stroke:#7455B3,stroke-width:2px
 ```
 
 > The same eight on a spine, with the three backwards ones drawn beneath it:

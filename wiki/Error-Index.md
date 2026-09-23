@@ -24,13 +24,13 @@ flowchart LR
   S -->|"a number moved with no deploy"| F["<b>Cost and platform</b><br/><i>the per-call log, and who answered</i>"]
   S -->|"labctl, or a SyntaxError"| G["<b>Labs and local environment</b><br/><i>check the Python version</i>"]
 
-  classDef ask fill:#3A3A3A14,stroke:#3A3A3A,stroke-width:2px
-  classDef acc fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
-  classDef inv fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:2px
+  classDef acc fill:#5169811A,stroke:#516981,stroke-width:1.5px
+  classDef inv fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
   classDef lop fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   classDef agt fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
   classDef ret fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef cst fill:#6A4BA81A,stroke:#6A4BA8,stroke-width:1.5px
+  classDef cst fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
   classDef lab fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
   class S ask
   class A acc

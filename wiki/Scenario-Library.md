@@ -102,7 +102,7 @@ flowchart TD
   C --> C1["18, 19, 20<br/><i>the bill, by factor</i>"]
   D --> D1["21, 22, 12, 13<br/><i>boundary and review</i>"]
   E --> E1["23, 24, 10<br/><i>governance and the two numbers</i>"]
-  classDef q fill:#4A607622,stroke:#4A6076,stroke-width:2px
+  classDef q fill:#51698122,stroke:#516981,stroke-width:2px
   classDef out fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   class Q q
   class A1,B1,C1,D1,E1 out

@@ -69,7 +69,7 @@ flowchart LR
   ME -->|"ADRs · authority budget · gate map"| EN
   ME -->|"caching and routing changes"| OPS
   classDef me fill:#7A6A4626,stroke:#7A6A46,stroke-width:2.5px
-  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
   class ME me
   class PM,EN,OPS them
 ```

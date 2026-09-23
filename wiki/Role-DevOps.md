@@ -66,8 +66,8 @@ flowchart LR
   ME -->|"one gateway · pinned environments · a required check"| EN["Engineering<br/>lead"]
   ME -->|"cost per case · attempts · drift"| PM["Product<br/>manager"]
   ME -->|"the bill, by factor"| SA
-  classDef me fill:#6B4E8A26,stroke:#6B4E8A,stroke-width:2.5px
-  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  classDef me fill:#78589B26,stroke:#78589B,stroke-width:2.5px
+  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
   class ME me
   class SA,QA,EN,PM them
 ```

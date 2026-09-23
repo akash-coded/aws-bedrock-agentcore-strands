@@ -58,8 +58,8 @@ flowchart TB
   B -->|"11 · the evidence pack crosses"| R
   R -.-> NX(["<b>The next P0</b><br/><i>8 and 12 are what reopen<br/>a frame somebody had closed</i>"])
 
-  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
-  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
   classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
   class M2 p0
@@ -67,6 +67,10 @@ flowchart TB
   class M4,M5,M6,M7 p2
   class M8,M12 p3
   class NX p0
+  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
+  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
+  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
   linkStyle 6 stroke:#0E7F7C,stroke-width:3px
   linkStyle 8 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
 ```

@@ -49,12 +49,12 @@ flowchart LR
   P0 --> P1
   P1 -->|"HARD GATE"| P2
   P2 --> P3
-  classDef p0 fill:#4A60761A,stroke:#4A6076,stroke-width:1.5px
+  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
   class S1 p0
-  style P0 fill:#4A60760D,stroke:#4A6076,stroke-width:1.5px
-  classDef p1 fill:#3F51C41A,stroke:#3F51C4,stroke-width:1.5px
+  style P0 fill:#5169810D,stroke:#516981,stroke-width:1.5px
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
   class S2,S3 p1
-  style P1 fill:#3F51C40D,stroke:#3F51C4,stroke-width:1.5px
+  style P1 fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
   classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   class S4,S5 p2
   style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px

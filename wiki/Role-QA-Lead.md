@@ -87,7 +87,7 @@ flowchart LR
   ME -->|"a lower bound · the shadow comparison"| PM
   ME -->|"the missing-control finding"| SA
   classDef me fill:#8C5B6B26,stroke:#8C5B6B,stroke-width:2.5px
-  classDef them fill:#4A607614,stroke:#4A6076,stroke-width:1.5px
+  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
   class ME me
   class SA,PM,EN them
 ```

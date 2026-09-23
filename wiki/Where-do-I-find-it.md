@@ -63,7 +63,7 @@ flowchart TD
   D --> D1["Cut Sprints into Bolts<br/>Review by Risk Band"]
   E --> E1["Hold the Security Boundary<br/>Run a Missing-Control Postmortem"]
   F --> F1["Choose Build, Buy or Borrow"]
-  classDef q fill:#4A607622,stroke:#4A6076,stroke-width:2px
+  classDef q fill:#51698122,stroke:#516981,stroke-width:2px
   classDef sym fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
   classDef out fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
   class Q q

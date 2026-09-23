@@ -322,7 +322,14 @@ flowchart TD
     D1["two numbers · drift · trace<br/>bill root cause · incident brief · maturity"]
   end
   A --> B --> C --> D
-  D -.-> A
+
+  classDef h fill:none,stroke:none
+  class A1,B1,C1,D1 h
+  style A fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
+  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:3px
+  style C fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+  style D fill:#5169810D,stroke:#516981,stroke-width:1.5px
+  linkStyle 0 stroke:#0E7F7C,stroke-width:3px
 ```
 
 ---
