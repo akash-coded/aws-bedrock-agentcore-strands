@@ -185,6 +185,25 @@ from a different author, despite the near-identical name. AI-DLC is AWS's three-
 Its adaptive workflows are: AWS published them in November 2025 as `awslabs/aidlc-workflows`, under
 the MIT-0 licence.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run Mob Elaboration with the customer: the AI proposes units of work and asks the questions, the customer's people answer in the room, and the answers become the spec. | Have a model generate the clarifying questions from the brief beforehand, so the session starts at the hard ones. |
+| **A product manager or FDPM** | Plan in bolts of hours or days, and treat the AI's plan as a proposal to validate, not accept. The critical decisions stay yours. | Ask the model to list its own assumptions in the plan, each with how you would check it. |
+| **A GenAI or agentic AI engineer** | Keep the accumulated context — decisions, records, specs — in the repository, so every bolt starts informed. | Have the coding agent read the context folder first and say what it will build before it builds. |
+
+**Across the enterprise.** AI-DLC scales across teams when the context artefacts are standard and the
+mob rituals are timeboxed. Add what the method leaves to you: the bar per slice and the authority budget.
+
+**The ten-minute workflow.** Prepare a Mob Elaboration session so the room's time goes on decisions:
+
+```text
+Here is an intent: <one paragraph>. Act as the facilitator of a Mob Elaboration session. Propose the
+units of work, then list the clarifying questions the team must answer before building, ordered by
+how much of the plan each answer changes. For each question, say who in the room should answer it.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

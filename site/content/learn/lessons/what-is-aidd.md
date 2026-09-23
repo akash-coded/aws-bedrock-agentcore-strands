@@ -166,6 +166,25 @@ and rework hours counted.
 No. AI-DLC is a named methodology with phases and rituals; AIDD is the craft underneath any method.
 AI-DLC, spec-driven development and BMAD all rely on AIDD habits to work.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Set up the five habits in the customer's repository in week one — context file, story files, exact code first, review by risk, the harness. Their team keeps them after you leave. | Have a coding agent draft the context file from the repository and the customer's standards, then review it with their lead. |
+| **A product manager or FDPM** | Write story files, not chat threads: one per bolt, with the spec lines, tools, tests and done-when. | Ask a model to turn a ticket into a story file and list everything it had to guess. |
+| **A GenAI or agentic AI engineer** | When the coding agent asks something the story file does not answer, that is a template gap. Fix the template the same day. | Run the agent on the story file with the chat closed, and collect its questions as the finding. |
+
+**Across the enterprise.** Standardise the context file and the story template across repositories. The
+same agent then behaves the same way everywhere, and reviews become comparable between teams.
+
+**The ten-minute workflow.** A first context file, drafted from the code:
+
+```text
+Read this repository. Draft a context file (CLAUDE.md or AGENTS.md) under 150 lines: what the product
+does, the architecture in five bullets, the commands to build and test, conventions, the never-touch
+list, and where the specs and decision records live. Mark every line you inferred rather than read.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

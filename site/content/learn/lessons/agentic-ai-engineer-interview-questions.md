@@ -1,0 +1,369 @@
+---
+title: Agentic AI Engineer Interview Questions and Answers
+short: Agentic engineer questions
+wiki: Agentic-AI-Engineer-Interview-Questions
+description: Ten agentic AI engineer interview questions: the agent loop, enforced limits, tool design, MCP security, multi-agent systems, evaluation and runaways.
+dek: Agent interviews are permission interviews. The candidate who puts the limit in the tool, not the prompt, is the one who has run an agent in production.
+level: Advanced
+keywords: agentic AI engineer interview questions, AI agent engineer interview, agent developer interview, LLM agents interview questions, multi-agent system design interview, MCP interview questions, tool calling interview, agentic AI interview
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The bank in one sentence.** Agentic AI engineer interviews test whether you can run a loop that chooses
+> its own actions without letting it choose the wrong ones — the loop itself, the lowest rung of autonomy
+> that works, limits enforced in tools rather than prompts, tools a model can use correctly, the security
+> of what it connects to, when more agents help, how to evaluate a trajectory, and how to stop a runaway —
+> and each of these ten questions comes with the framework, a strong answer, the follow-up and the red flag.
+
+```mermaid
+flowchart TB
+  subgraph L["The loop and the rung"]
+    direction LR
+    Q1["<b>1 · Walk the loop</b>"] ~~~ Q2["<b>2 · Not an agent</b>"]
+  end
+  subgraph A["Authority and tools"]
+    direction LR
+    Q3["<b>3 · The refund cap</b>"] ~~~ Q4["<b>4 · A good tool</b>"]
+    Q5["<b>5 · MCP security</b>"]
+  end
+  subgraph T["Topology and evaluation"]
+    direction LR
+    Q6["<b>6 · One agent or many</b>"] ~~~ Q7["<b>7 · Evaluate an agent</b>"]
+  end
+  subgraph R["Running it"]
+    direction LR
+    Q8["<b>8 · Runaways</b>"] ~~~ Q9["<b>9 · People in the loop</b>"]
+    Q10["<b>10 · Your failure</b>"]
+  end
+  L --> A --> T --> R
+
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
+  classDef back fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class Q1,Q2 p1
+  class Q3,Q4,Q5 back
+  class Q6,Q7 p2
+  class Q8,Q9,Q10 p3
+  style L fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
+  style A fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
+  style T fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+```
+
+**In this lesson** you'll practise:
+
+- the loop-level questions that show whether you have built an agent without a framework;
+- permission-level questions — the ones that separate prompt thinking from systems thinking;
+- evaluation and runaway questions that only production experience answers well.
+
+## Sound familiar?
+
+- You can build an agent in a framework, and could not say what goes in the message list after a tool call.
+- Your answer to "the agent must never do X" is a sentence in the system prompt.
+- Your multi-agent design has one agent per department.
+
+The questions below are built around those three.
+
+## What does an agentic AI engineer interview test?
+
+**Whether you think in permissions, not prompts.** Expect a coding exercise around a tool-calling loop
+(sometimes a broken one to debug), a system design for an agent that takes real actions, and deep dives on
+failures you have seen. Interviewers listen for three things: caps in code, evaluation of the path as well
+as the answer, and a stop rule for anything that loops.
+
+## The loop and the rung
+
+### Q1 · "Walk me through the agent loop, message by message."
+
+**Tests:** whether you could debug the loop without a framework · **Framework:** call → stop reason →
+dispatch → append both turns → call again → stop
+
+<details><summary>What a strong answer covers</summary>
+
+- **The call returns a stop reason**: end of turn, a tool request, or a length limit.
+- **On a tool request**: append the assistant message with the tool call *verbatim*, run each tool, append
+  the results as the next user message with the matching tool-use IDs, and call again.
+- **Stop on**: end of turn, an iteration cap, or a token or cost budget — and escalate rather than loop.
+- **Errors are results**: a failed tool returns an explicit error the model can act on, never an empty value.
+- **The insight:** the loop is simple; production is about termination, cost caps and the trace of every step.
+
+**The follow-up:** "What happens if you forget to append the assistant message?" → the model asks for the
+same tool again, because from its side it never asked.
+
+**Red flag:** describing the loop only through a framework's abstractions.
+
+</details>
+
+### Q2 · "When should you not build an agent?"
+
+**Tests:** restraint · **Framework:** the autonomy ladder — build the lowest rung that passes
+
+<details><summary>What a strong answer covers</summary>
+
+- **The control-flow test**: if you can list the steps in advance, it is a workflow, not an agent.
+- **The rungs**: a script, a single prompted call, a fixed chain, a tool-choosing agent, a planner, a
+  self-directed agent. Each rung up adds calls per task, cost and new failure modes.
+- **The routing pattern**: send the known majority down a cheap workflow and reserve the agent for the rest.
+- **The insight:** chained steps multiply — eight steps each right 90% of the time are right together about
+  43% of the time — so every step you can make exact code is worth more than a better prompt.
+
+**The follow-up:** "Where does the agent earn its keep, then?" → where the next step genuinely depends on
+what the last tool returned.
+
+**Red flag:** "agents are more flexible", with no cost attached.
+
+</details>
+
+## Authority and tools
+
+### Q3 · "The agent must never refund more than $400 without approval. Implement it."
+
+**Tests:** permissions over prose · **Framework:** the limit lives in the tool's signature, with a test
+
+<details><summary>What a strong answer covers</summary>
+
+- **Bound the parameter in code**, and make over-limit calls produce an approval request, never a payment:
+
+```python
+@tool
+def issue_refund(booking_ref: str, amount: Decimal, approval_token: str | None = None) -> dict:
+    """Refund a booking. Up to 400.00 pays at once; above that it asks for approval and never pays."""
+    if amount > LIMIT and not approvals.valid(approval_token, booking_ref, amount):
+        return {"status": "needs_approval", "request": approvals.open(booking_ref, amount)}
+    return payments.refund(booking_ref, amount, idempotency_key=f"{booking_ref}:{amount}")
+```
+
+- **The approval token is minted by the approval system**, bound to the booking and amount, so the model
+  cannot create or reuse one.
+- **Least privilege**: the tool's identity can refund and nothing else.
+- **Tests**: within the limit pays; over it returns an approval request; a forged or reused token is refused.
+- **The insight:** a rule in a prompt lowers the probability of the action; a rule in the signature removes it.
+
+**The follow-up:** "What about retries?" → the idempotency key makes a retried call safe.
+
+**Red flag:** "add it to the system prompt" or "a guardrail will catch it".
+
+</details>
+
+### Q4 · "What makes a tool good for an agent?"
+
+**Tests:** designing the surface the model actually sees · **Framework:** the tool surface audit's six axes
+
+<details><summary>What a strong answer covers</summary>
+
+- **Distinctness**: the description says what the tool is *not* for, and which tool to use instead.
+- **Sufficiency**: the model can fill every argument from what it has.
+- **Failure honesty**: an explicit, actionable error — never an empty result.
+- **Idempotency**: safe to call twice, or explicitly guarded.
+- **Blast radius**: reversible and narrow by construction.
+- **Observability**: the call, its arguments and its result logged against a trace ID.
+- **The insight:** the model sees only the name, the description and the schema. When it picks the wrong
+  tool, the description is usually the bug.
+
+**The follow-up:** "Would you expose a general SQL tool?" → read-only, on a view, with row limits — or
+better, a small set of named queries.
+
+**Red flag:** a generic "execute" tool with broad credentials.
+
+</details>
+
+### Q5 · "How does connecting an agent to MCP servers change your security model?"
+
+**Tests:** trust boundaries · **Framework:** every server is code with credentials; every result is untrusted input
+
+<details><summary>What a strong answer covers</summary>
+
+- **Least privilege per server and per tool**, with credentials held outside the model's context.
+- **Tool outputs are untrusted**: a result can carry instructions, so it is an injection path.
+- **Supply chain**: vet third-party servers, pin their versions, review their changes like dependencies.
+- **Authentication for remote servers**, and explicit consent for consequential tools.
+- **Log every call**, and keep consequential tools behind caps and approvals whatever the server claims.
+- **The insight:** connecting a third-party MCP server is closer to installing a dependency with production
+  credentials than to calling an API. Review it as one.
+
+**The follow-up:** "The server's tool descriptions changed overnight." → descriptions steer the model; treat
+a changed description as a code change.
+
+**Red flag:** "MCP handles security."
+
+</details>
+
+## Topology and evaluation
+
+### Q6 · "Single agent or multi-agent? How do you decide?"
+
+**Tests:** cost-aware architecture · **Framework:** the handoff multiplier, and a named limit per extra agent
+
+<details><summary>What a strong answer covers</summary>
+
+- **Start with one agent and tools.** Add an agent only for a named limit: a context window that overflows,
+  parallel work a tool cannot express, or a different permission boundary.
+- **Every hand-off re-sends context and loses some**: two specialists typically cost around two times a
+  single agent, and swarms or critique loops without a stop rule do not stop.
+- **Choose the pattern by what you know**: agents as tools when there is a clear manager, a fixed graph when
+  you can draw the flow, a swarm only with a stop rule and a budget.
+- **The insight:** many multi-agent designs mirror the org chart; collapsing them into one agent with a
+  fan-out tool often improves both accuracy and cost.
+
+**The follow-up:** "When would you collapse it back?" → when the hand-offs cost more than the specialisation
+earns, measured per slice.
+
+**Red flag:** "one agent per task type."
+
+</details>
+
+### Q7 · "How do you evaluate an agent, not just a model?"
+
+**Tests:** evaluation of behaviour over time · **Framework:** outcome, trajectory, efficiency, safety — per slice
+
+<details><summary>What a strong answer covers</summary>
+
+- **Outcome**: did the environment end in the right state? Check the state, not the final message.
+- **Trajectory**: were the right tools called, in a sensible order, with no forbidden action on the way?
+- **Efficiency**: calls, tokens and time per task, including the slow tail.
+- **Safety**: refusals where they were required, and no capped action exceeded.
+- **Run tasks in a sandbox with seeded state**, as a regression suite on every change.
+- **The insight:** an agent can reach the right answer through a forbidden path. Trajectory checks catch what
+  an answer-only evaluation passes.
+
+**The follow-up:** "End-to-end success is 60% and every step scores 93%." → chained steps multiply; measure
+end to end and remove steps rather than tuning each one.
+
+**Red flag:** grading only the final text.
+
+</details>
+
+## Running it
+
+### Q8 · "Some tasks loop forever, and the cost spikes. How do you prevent it and find it?"
+
+**Tests:** operating agents · **Framework:** the cost cliffs — loops, retries, swarms without a stop rule
+
+<details><summary>What a strong answer covers</summary>
+
+- **Prevent**: a hard iteration cap, a token and cost budget per task, a circuit breaker on flaky tools,
+  and an escalation path when a cap is hit.
+- **Detect**: repeated calls to the same tool with the same arguments; the distribution of turns per task,
+  not the average; alerts on the slowest and most expensive tasks.
+- **The insight:** the tail pays the bill. A small share of tasks costing fifty times the median can dominate
+  the invoice while the average looks healthy.
+
+**The follow-up:** "A cap cuts off legitimate long tasks." → route those to a workflow or a person, and raise
+the cap only for a named slice with evidence.
+
+**Red flag:** no caps, or only a monthly budget alarm.
+
+</details>
+
+### Q9 · "How do you keep people in the loop without killing throughput?"
+
+**Tests:** human-in-the-loop design · **Framework:** approval per action, veto windows, evidence in the interface
+
+<details><summary>What a strong answer covers</summary>
+
+- **Approvals only for consequential actions**; everything reversible acts, with a veto window.
+- **Show the evidence** — sources, diffs, tool results — so a reviewer can decide in seconds, well.
+- **Batch approvals** where the decisions are alike.
+- **Measure the reviewers**: approval rate and time per approval. Near-universal approval in seconds is
+  rubber-stamping, not oversight; seed known-bad cases to check.
+- **The insight:** the unit of human review is the action, not the conversation.
+
+**The follow-up:** "Approvals take hours." → remove approvals from reversible actions, and give the rest a
+queue with an owner and a service level.
+
+**Red flag:** "a human approves every step."
+
+</details>
+
+### Q10 · "Tell me about an agent failure you debugged in production."
+
+**Tests:** production experience · **Framework:** STAR, plus the number and the change
+
+<details><summary>What a strong answer covers</summary>
+
+- **The signal that exposed it**: the answering model, turns per task, an empty tool result, an abstention rate.
+- **The root cause**, found in the trace rather than guessed from the prompt.
+- **The control you added** — in code, with a test — and the golden cases that now cover it.
+- **The insight:** the strongest answers end with something enforced, not something reminded.
+
+**The follow-up:** "How would you have caught it earlier?" → the monitor or test that was missing.
+
+**Red flag:** a fix that is only a prompt edit.
+
+</details>
+
+## Try it
+
+An agent that files expense reports completes 58% of tasks end to end. Its seven steps each succeed about
+93% of the time. **Where do you start?**
+
+<details><summary>Show the answer</summary>
+
+**Remove steps before tuning them.** 0.93 to the seventh power is about 0.60, so the end-to-end rate is
+simply the chain multiplying. Every step that can become exact code — parsing a receipt's total, checking a
+policy limit, filling a form — goes to code and leaves the chain. Then evaluate the trajectory on the
+failures that remain, and put the policy limit in the submission tool's signature so a wrong step cannot
+file an over-limit claim.
+
+</details>
+
+## Key takeaways
+
+1. **Think in permissions**: limits in tool signatures, least privilege, tokens the model cannot create.
+2. **Build the lowest rung that passes**, and remove steps rather than tune them.
+3. **Evaluate the path and cap the loop**: trajectories, budgets, and the tail of the distribution.
+
+## FAQ
+
+### What is asked in an agentic AI engineer interview?
+
+The agent loop, when not to use an agent, how to enforce limits on actions, tool design, the security of
+tool protocols such as MCP, single against multi-agent designs, evaluating trajectories, and preventing
+runaway loops — plus a production failure you debugged.
+
+### How do you design tools for AI agents?
+
+Give each tool a distinct description that says what it is not for, arguments the model can fill, explicit
+errors, idempotent behaviour, a narrow blast radius, and logging of every call against a trace ID.
+
+### How do you stop an AI agent from taking harmful actions?
+
+Do not rely on the prompt. Put the limit in the tool's signature, require an approval token the model cannot
+create for consequential actions, give each tool the least privilege it needs, and test that each limit refuses.
+
+### When should you use a multi-agent system?
+
+When a single agent hits a named limit — context overflow, parallel work a tool cannot express, or a
+different permission boundary — and the measured benefit exceeds the cost of every hand-off.
+
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Rehearse Q3 and Q5 with a customer's real systems in mind: they will ask both. | Ask a model to list every consequential action in a customer's process, and draft the cap for each. |
+| **A product manager or FDPM** | Use Q2 and Q9 to challenge designs that add autonomy or agents without evidence. | Have a model compute the end-to-end success of a proposed chain from its step rates. |
+| **A GenAI or agentic AI engineer** | Build Q3 for real, with its three tests, and bring it to the interview. | Ask a coding agent to write the refusal tests before the tool. |
+
+**Across the enterprise.** Make Q3's pattern a platform rule — consequential tools carry caps and approval
+tokens by construction — and interview for it, so every team's agents are safe in the same way.
+
+**The ten-minute workflow.** A broken-loop exercise to practise on:
+
+```text
+Write a minimal tool-calling agent loop in Python against a mock model, with exactly one seeded defect
+from this list — the assistant tool call is not appended, a tool error returns an empty result, there is no
+iteration cap, or a tool has no idempotency key. Do not tell me which. Let me run and debug it, and when I
+find it, ask me which test would have caught it.
+```
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The questions, frameworks and strong answers | **Original** — this tutorial | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
+| The autonomy rungs; the six tool axes; the handoff multiplier; the cost cliffs | **Original** — this repository | [Frameworks](repo:cheatsheets/frameworks/README.md) |
+| The forgotten assistant message as a diagnostic | **Original** — this repository | [Interview guide: agent engineer](repo:cheatsheets/interviews/agent-engineer.md) |
+| Agents as tools, graphs and swarms | **Borrowed** — documented | [Strands Agents: multi-agent patterns](https://strandsagents.com/latest/documentation/docs/) |
+| Chained steps multiply | **Borrowed** — probability of independent events | [Chained steps](lesson:p2-build-and-prove) |

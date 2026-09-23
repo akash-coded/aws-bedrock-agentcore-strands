@@ -157,6 +157,26 @@ Because behaviour changed: longer context, more calls on the expensive model, a 
 hitting, or more retries — or infrastructure that bills while idle. The per-call log shows which; the
 invoice cannot.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Put the per-call log in on day one. The customer's first bill is the moment the engagement is judged. | Ask a model to compute the four signatures from the log and name the largest. |
+| **A product manager or FDPM** | Report cost per case beside the saving, and ask "which signature?" whenever the bill moves. | Have a model draft the bill explanation for finance from the four ratios. |
+| **A GenAI or agentic AI engineer** | Stabilise the prompt prefix so the cache hits, route easy calls to a cheaper model, and cap loops and tokens per case. | Ask a coding agent to restructure the prompt: stable blocks first, then the cache point, then the request. |
+
+**Across the enterprise.** A central gateway with cost tags per feature makes every team's bill
+diagnosable, and charging back by feature makes each owner care about theirs.
+
+**The ten-minute workflow.** Diagnose a bill from the per-call log:
+
+```text
+Here is our per-call log for two periods: <CSV: timestamp, feature, model, input_tokens,
+output_tokens, cached_tokens, attempt>. Per case, compute tokens per call, the share on each model
+tier, the cache hit ratio and attempts. Show each factor's ratio between the periods, confirm they
+multiply to the bill's ratio, and rank the fixes by (factor − 1) ÷ days to fix, using: <estimates>.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

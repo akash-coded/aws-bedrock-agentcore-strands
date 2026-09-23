@@ -176,6 +176,25 @@ Yes, with changes: add the evidence columns after "done" — harness green, revi
 because in agentic delivery code complete is roughly the halfway point, and add risk-band swimlanes so
 review depth is visible.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Put the customer's work on an evidence board they can see: columns with exit rules, lanes by risk band. It replaces most status meetings. | Ask a model to write the board configuration — columns, exit rules, WIP limits — for the customer's tool. |
+| **A product manager or FDPM** | Read three numbers every week: review queue in days, same-day integration rate, cards in shadow and live. | Have a model compute the three from the board export. |
+| **A GenAI or agentic AI engineer** | Let CI move the cards: a green harness advances one, a failed slice sends it back. | Ask a coding agent for the webhook that updates the card from the CI result. |
+
+**Across the enterprise.** One board template for every AI team gives the portfolio a live view of
+evidence rather than status, and blocked decisions appear as cards with owners.
+
+**The ten-minute workflow.** The weekly numbers, straight from an export:
+
+```text
+Here is our board export: <CSV>. Compute (1) review queue in days = review slots waiting ÷ slots
+cleared per day, (2) the same-day integration rate, and (3) cards in shadow and live, by slice. Flag
+any card with more than one unknown, and any money card sharing a lane with read-only work.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -193,3 +212,5 @@ review depth is visible.
 | [← Bolts vs sprints](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code) | [Cut delivery from months to weeks →](How-to-Cut-Delivery-from-Months-to-Weeks) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-kanban-board.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-kanban-board.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-kanban-board.md) — an edit made here is replaced at the next sync.</sub>

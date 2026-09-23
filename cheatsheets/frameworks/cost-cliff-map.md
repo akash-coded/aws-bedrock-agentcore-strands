@@ -19,7 +19,7 @@ the eight cliffs and the guard for each.
 | 5 | **Corpus growth → top-k inflation** | More docs → recall falls → someone raises k | 1.5–3× | Fix k by measurement; improve ranking instead |
 | 6 | **Reasoning-token blow-up** | A prompt change makes the model deliberate more | 1.5–4× | Track output tokens per turn as a metric |
 | 7 | **Fallback to a pricier model** | Primary throttles → fallback is a larger model | 1.5–6× | Log answering model; alert on fallback share |
-| 8 | **Idle infrastructure** | Collections and runtimes billing for existing | Fixed drain | Teardown checklist; scheduled sweep |
+| 8 | **Idle infrastructure** | Classic search collections, runtime instances and stored memory billing for existing | Fixed drain | Teardown checklist; scheduled sweep |
 
 ## Where each cliff shows up in your bill
 

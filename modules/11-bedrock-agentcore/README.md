@@ -103,7 +103,7 @@ Reference material for the ideas in this module — open these while you work, n
 **Frameworks**
 
 - [Blast Radius Grid](../../cheatsheets/frameworks/blast-radius-grid.md) — Scope identity per tool, not per agent
-- [Cost Cliff Map](../../cheatsheets/frameworks/cost-cliff-map.md) — Runtimes and memory bill for existing
+- [Cost Cliff Map](../../cheatsheets/frameworks/cost-cliff-map.md) — What bills while it exists, and what bills per use
 - [Reversibility Test](../../cheatsheets/frameworks/reversibility-test.md) — Four things must roll back together
 
 **Quick reference**

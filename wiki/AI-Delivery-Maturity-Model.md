@@ -3,7 +3,7 @@
 
 *Tool adoption is the metric that rewards the least mature behaviour available. Count what is enforced instead.*
 
-**5 min read** · Intermediate · Lesson 3 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/)
+**6 min read** · Intermediate · Lesson 3 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/)
 
 > [!TIP]
 > **The model in one sentence.** Agentic delivery maturity is a count of six controls, not of tools:
@@ -164,6 +164,26 @@ behind an expensive one.
 Every quarter, and whenever tools, models or teams change. Controls decay silently, so a score that has
 never gone down is a sign that it is being remembered rather than measured.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Score the customer on the six controls in week one by running each test. The first missing control is your first deliverable. | Ask a coding agent to run the six tests against the customer's repository and report each with its evidence. |
+| **A product manager or FDPM** | Report the count and the next control each quarter, and expect the score to fall at least once. | Have a model compare this quarter's self-check with the last one and explain every change. |
+| **A GenAI or agentic AI engineer** | Make each control testable in CI where you can: caps in signatures, redaction, the harness as a required check. | Ask a coding agent for a CI job that fails when a prompt states a cap the code does not enforce. |
+
+**Across the enterprise.** Run the six-control check across every team each quarter. Publish the list, not
+only the number, and fund the first missing control per team rather than a programme-wide initiative.
+
+**The ten-minute workflow.** The self-check, scored by tests rather than by memory:
+
+```text
+Run a maturity self-check on this repository by testing, not asking: (1) a context file exists and
+changed this month; (2) three random stories each have a spec, a bar and an owner; (3) the harness is a
+required check that blocks a slice below its bar; (4) no cap exists only in a prompt; (5) the trace
+redacts personal data; (6) a drift alert re-opens the release gate. Report each with its evidence.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -181,3 +201,5 @@ never gone down is a sign that it is being remembered rather than measured.
 | [← Measuring AI productivity](How-to-Measure-AI-Productivity) | [Rolling it out in 90 days →](How-to-Roll-Out-Agentic-AI-Delivery) |
 
 **[All lessons](Start-Here)** · **[Teams and organisation](Tutorial-Teams-and-Organisation)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/ai-delivery-maturity-model.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/ai-delivery-maturity-model.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/ai-delivery-maturity-model.md) — an edit made here is replaced at the next sync.</sub>

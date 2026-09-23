@@ -117,7 +117,10 @@ If your only guard against a catastrophic action is a sentence in a prompt, you 
 
 ## Teardown — read this before you build
 
-Runtimes, gateways and memory stores **bill for existing**, not for being used.
+Know what bills while it exists. A **Runtime instance** bills from boot until it is stopped, and its volumes
+even then; **long-term memory records** bill hourly while they are stored; a **microVM session** bills until
+it ends, idle time included. Gateways bill per call, and a runtime with no sessions bills only for its code
+storage. Delete what you are not using.
 
 ```
 □ delete runtimes      □ delete gateways      □ delete memory stores

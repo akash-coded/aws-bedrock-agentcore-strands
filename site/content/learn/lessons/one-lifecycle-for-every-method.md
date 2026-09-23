@@ -179,6 +179,25 @@ naturally with the value line.
 The bolt: a slice of hours or days, carrying one unknown, integrated the same day. The term comes from
 AWS's AI-DLC; the rule of one unknown per bolt is this playbook's.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Map the customer's method onto P0–P3 in the first meeting, then fill the three gaps every method shares: the bar, authority in code, production evidence. | Ask a model to place each stage of the customer's process on the four phases. |
+| **A product manager or FDPM** | Run mixed-method teams on one lifecycle: the phases and hand-offs are shared, the method inside each team is theirs. | Have a model generate the hand-off checklist per phase for each method in use. |
+| **A GenAI or agentic AI engineer** | Whatever the method, the harness, the caps and the per-call log are the same code. Build them once, as a library. | Ask a coding agent to extract them into a shared package with its own tests. |
+
+**Across the enterprise.** Let teams choose methods and standardise the hand-offs: four checklists, one
+evidence pack index and one portfolio report, whatever each team calls its stages.
+
+**The ten-minute workflow.** One map of every method your organisation uses:
+
+```text
+Our teams use <methods>. Map each method's stages onto P0 Frame, P1 Design & Spec, P2 Build & Prove
+and P3 Run & Learn in one table. Then list what each method leaves unsaid on three points: an
+acceptance bar per slice, authority enforced per action, and production evidence of value beside cost.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

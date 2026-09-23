@@ -190,6 +190,26 @@ The product manager is accountable. The solution architect supplies requirements
 DevOps sets up the account and the cost baseline, and the sponsor needs to see the value line before
 any budget is agreed.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Measure the customer's pain in their own data — cases, minutes, money — before the first design session. An FDE who arrives with a measured pain line runs the room. | Give a model a redacted ticket export and ask for volume, handling time and the top five case types with counts, citing the rows. |
+| **A product manager or FDPM** | Own the AI-fit verdict and publish what came back as rules. As an FDPM it is also your first call on what becomes product and what stays configuration. | Ask a model to argue that each candidate is a rule, and keep only the ones it cannot. |
+| **A GenAI or agentic AI engineer** | Price the value line from a spike, not a guess: run twenty real cases through a prototype and log tokens and review minutes. | Have a coding agent wrap the prototype with a per-call token log and write the cost-per-case summary. |
+
+**Across the enterprise.** Run P0 as the portfolio funnel. Every candidate gets an AI-fit record, most
+come back as rules, and the rejected list is published so that teams stop re-proposing the same agents.
+
+**The ten-minute workflow.** The fastest AI-fit test is to make a model argue against the agent:
+
+```text
+For each candidate below, argue as hard as you can that it does NOT need a model — that a rule, a
+lookup or a person does it better. Apply three tests: is there a genuine judgement call, is the volume
+high enough, is a wrong answer recoverable? Mark each "rule", "person", "assisted" or "agentic", and
+say which test decided it. Candidates: <list>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

@@ -90,6 +90,18 @@
 
 </details>
 
+<details><summary><b>Interviews and careers</b> · 7</summary>
+
+1. [What is an FDE?](What-Is-a-Forward-Deployed-Engineer-FDE)
+2. [Six answer frameworks](How-to-Answer-AI-Interview-Questions)
+3. [AI PM interview questions](AI-Product-Manager-Interview-Questions)
+4. [FDE interview questions](Forward-Deployed-Engineer-Interview-Questions)
+5. [GenAI engineer questions](GenAI-Engineer-Interview-Questions)
+6. [Agentic engineer questions](Agentic-AI-Engineer-Interview-Questions)
+7. [AWS GenAI questions](AWS-Generative-AI-Interview-Questions)
+
+</details>
+
 [All lessons, on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/)
 
 ---

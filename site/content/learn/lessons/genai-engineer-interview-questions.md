@@ -1,0 +1,372 @@
+---
+title: GenAI Engineer Interview Questions: RAG, Evals and Cost
+short: GenAI engineer questions
+wiki: GenAI-Engineer-Interview-Questions
+description: Ten deep GenAI engineer interview questions on RAG failures, evaluation, fine-tuning, latency, cost, prompt injection, structured output and memory.
+dek: GenAI engineering interviews reward the candidate who measures before fixing. Every question below has a wrong answer that sounds right.
+level: Advanced
+keywords: GenAI engineer interview questions, generative AI engineer interview, LLM engineer interview questions, RAG interview questions, LLM evaluation interview, prompt engineering interview, AI engineer interview questions, LLM system design interview
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The bank in one sentence.** GenAI engineer interviews test whether you can make a model-backed system
+> measurably right, fast and affordable — by separating retrieval failures from generation failures,
+> evaluating against your own data, splitting latency and cost into the parts you control, and designing
+> for the model being tricked — and these ten questions each come with the framework, a strong answer, the
+> follow-up that finds the limit of your experience, and the red flag.
+
+```mermaid
+flowchart TB
+  subgraph Q["Quality"]
+    direction LR
+    Q1["<b>1 · RAG is wrong</b>"] ~~~ Q2["<b>2 · Evaluate it</b>"]
+    Q3["<b>3 · Fine-tune?</b>"]
+  end
+  subgraph P["Performance and cost"]
+    direction LR
+    Q4["<b>4 · 8 s to 2 s</b>"] ~~~ Q5["<b>5 · The bill doubled</b>"]
+    Q6["<b>6 · Pick a model</b>"]
+  end
+  subgraph S["Safety and structure"]
+    direction LR
+    Q7["<b>7 · Injection</b>"] ~~~ Q8["<b>8 · Reliable JSON</b>"]
+  end
+  subgraph M["State and story"]
+    direction LR
+    Q9["<b>9 · Memory</b>"] ~~~ Q10["<b>10 · Your system</b>"]
+  end
+  Q --> P --> S --> M
+
+  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
+  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
+  classDef back fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
+  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
+  class Q1,Q2,Q3 p1
+  class Q4,Q5,Q6 p2
+  class Q7,Q8 back
+  class Q9,Q10 p3
+  style Q fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
+  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
+  style S fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
+  style M fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
+```
+
+**In this lesson** you'll practise:
+
+- the diagnostic questions that separate a GenAI engineer from someone who has used an API;
+- a framework and a strong answer for each, with the follow-up that tests it;
+- the research behind three of the answers, so you can cite it rather than assert it.
+
+## Sound familiar?
+
+- Your fix for every quality problem is a bigger model or a longer prompt.
+- You know the latency, and not which part of the system it comes from.
+- Your evaluation set was written by the same model it evaluates.
+
+Each question below has an answer that sounds right and is wrong; the strong answer measures first.
+
+## What does a GenAI engineer interview test?
+
+**Whether you measure before you fix.** Expect coding (often an LLM call with tools or retrieval), a
+system design for an LLM feature, and deep-dive questions on your own systems. The deep dives are where
+candidates separate: the strong ones can say what their system costs per task, how they know it is right,
+and which failure they found in production and what now prevents it.
+
+## Quality
+
+### Q1 · "Your RAG system gives wrong answers. How do you find out whether retrieval or generation is at fault?"
+
+**Tests:** diagnosis before remedy · **Framework:** the grounding triangle — retrieved, cited, verified
+
+<details><summary>What a strong answer covers</summary>
+
+- **Build a labelled set with gold passages**, then measure the two halves separately: **retrieval recall
+  at k** (is the needed passage in the top k?) and, for cases where it was, **faithfulness** (does the
+  answer follow from the passage?).
+- **Bucket the failures**, because the fixes differ: chunking by meaning rather than by size, hybrid
+  keyword-plus-vector search, a reranker, query rewriting — or, for generation, citations per claim and
+  abstaining when support is missing.
+- **The insight:** raising k often lowers accuracy. Models use information in the middle of a long context
+  less reliably than at the edges, so extra passages dilute the right one. Measure accuracy against k; it
+  peaks and then falls.
+
+**The follow-up:** "Recall is 95% and answers are still wrong." → a generation failure: check faithfulness,
+position of the passage, conflicting passages, and whether the prompt allows the model to decline.
+
+**Red flag:** "use a bigger model" before measuring either half.
+
+</details>
+
+### Q2 · "How do you evaluate an LLM feature before and after launch?"
+
+**Tests:** evaluation as engineering · **Framework:** the evidence ladder, from golden set to shadow to
+production sample
+
+<details><summary>What a strong answer covers</summary>
+
+- **Before launch**: a golden set from real inputs, labelled by people, sliced by kind of case, including
+  cases the system fails and cases it should decline; a checker per kind of step; a CI gate per slice
+  reported with lower bounds.
+- **Model judges, calibrated**: a judge from a different model family, a rubric, and a measured agreement
+  rate with human labels. Judges are known to favour the first answer shown, longer answers, and their own
+  model family's outputs — randomise order and control for length.
+- **After launch**: a shadow run against the current process, then a canary, then a sampled human review
+  and a watch on the mix of outputs for drift.
+- **The insight:** a golden set built from cases the system already passes is a mirror; it can only go down.
+
+**The follow-up:** "How big should the set be?" → sized per slice by how close the score is to its bar —
+the cases needed grow with the square of the gap.
+
+**Red flag:** public benchmarks as the main evidence.
+
+</details>
+
+### Q3 · "When would you fine-tune rather than prompt or retrieve?"
+
+**Tests:** knowing what each technique changes · **Framework:** knowledge goes in retrieval, behaviour in
+prompts, consistency and cost in fine-tuning
+
+<details><summary>What a strong answer covers</summary>
+
+- **Retrieval for knowledge** that changes or must be cited.
+- **Prompting and examples for behaviour** you can describe.
+- **Fine-tuning for consistency at scale** — format, style, a narrow task — or to distil a large model's
+  behaviour into a smaller, cheaper, faster one, once you have enough good examples and a gap that
+  prompting did not close.
+- **Not for facts**: fine-tuned knowledge goes stale silently and cannot be cited.
+- **The insight:** fine-tuning moves cost from inference to data and operations — every base-model update
+  means re-training and re-evaluating. Measure the gap it closes before paying that tax.
+
+**The follow-up:** "The fine-tuned model is better on the benchmark and worse in production." → the
+benchmark is not your distribution; evaluate on your own slices.
+
+**Red flag:** "fine-tune it on our documents so it knows our policies."
+
+</details>
+
+## Performance and cost
+
+### Q4 · "Latency is eight seconds; the product needs two. What do you do?"
+
+**Tests:** performance engineering · **Framework:** the three clocks — model, tool, orchestration
+
+<details><summary>What a strong answer covers</summary>
+
+- **Measure the split first.** Model time: cap output tokens, stream, use a faster model on easy routes,
+  cache a long stable prefix. Tool time: parallelise independent calls, cache, set timeouts. Orchestration:
+  fewer turns — route known paths to a workflow.
+- **Ask which clock the requirement is about**: time to first token or total time. Streaming the first
+  token in 400 ms can make an eight-second answer feel fast.
+- **The insight:** most latency programmes optimise the model clock because it is visible, while the
+  orchestration clock — turns multiplied by round trips — is the one that dominates agentic systems.
+
+**The follow-up:** "Streaming is not allowed; the output is JSON." → then fewer turns, smaller outputs,
+parallel tools, and a faster model per slice where its bar still holds.
+
+**Red flag:** "use a faster model" without a measurement.
+
+</details>
+
+### Q5 · "The token bill doubled with flat traffic. Where do you look?"
+
+**Tests:** cost as an engineering property · **Framework:** the token taxes, then the four signatures
+
+<details><summary>What a strong answer covers</summary>
+
+- **Calls per task first**: it multiplies the instruction, schema, history and retrieval tokens on every turn.
+- **Then the taxes**: retrieval (top-k set by habit), schema (tool definitions sent on every call), history
+  (unbounded buffers), reasoning tokens after a prompt change.
+- **Then the four signatures**: tokens per call, share on the expensive tier, cache hit ratio, attempts per case.
+- **The insight:** a timestamp, request ID or user name near the top of a system prompt silently destroys
+  prompt caching, because caches match an exact prefix. Put stable content first and variables last.
+
+**The follow-up:** "Caching is on and the hit rate is 3%." → find what varies in the prefix, and check the
+provider's minimum cacheable length and cache lifetime.
+
+**Red flag:** "negotiate a discount."
+
+</details>
+
+### Q6 · "How do you choose a model for a feature?"
+
+**Tests:** model choice as routing, not loyalty · **Framework:** the cheapest model that clears each slice's bar
+
+<details><summary>What a strong answer covers</summary>
+
+- **Define slices and bars first**, then test two or three candidates on the golden set.
+- **Route by slice**: the cheapest model that clears each slice's bar, a stronger one for the rest.
+- **Pin versions**, log which model answered every response, and plan the fallback — a fallback to a larger
+  model is a cost cliff, and a fallback to a smaller one is a silent quality drop.
+- **Re-evaluate on every model update**, as a change like any other.
+- **The insight:** routing by difficulty usually saves more than any single model switch, and logging the
+  answering model is the only way to detect silent failover.
+
+**The follow-up:** "A new model tops the leaderboard." → run it through the harness per slice; adopt it where
+it clears the bar more cheaply.
+
+**Red flag:** "the best model on the leaderboard."
+
+</details>
+
+## Safety and structure
+
+### Q7 · "How do you defend a RAG or tool-using system against prompt injection?"
+
+**Tests:** security thinking for probabilistic systems · **Framework:** assume the model is tricked; design
+the blast radius
+
+<details><summary>What a strong answer covers</summary>
+
+- **Treat every retrieved document and tool output as untrusted data**, and mark it as such in the prompt.
+- **Limit what a tricked model can do**: fewer tools while untrusted content is in context, least privilege
+  per tool, caps in signatures, confirmation tokens the model cannot create for consequential actions,
+  egress allowlists.
+- **Filter outputs** for data exfiltration patterns, and log every tool call.
+- **Test continuously**: an attack suite on every prompt, tool or context change, from every entry point.
+- **The insight:** the question is not whether the model can be tricked — it can — but what is the worst it
+  can do when it is. Injection is a permissions problem more than a prompt problem.
+
+**The follow-up:** "A partner API adds a free-text field." → a new entry point: extend the attack suite to it
+before it reaches production.
+
+**Red flag:** "tell the model to ignore instructions in documents."
+
+</details>
+
+### Q8 · "How do you make LLM output reliably structured?"
+
+**Tests:** robustness at the boundary between model and code · **Framework:** constrain, validate, repair,
+monitor
+
+<details><summary>What a strong answer covers</summary>
+
+- **Constrain**: use native structured output or tool-use schemas, small and well described.
+- **Validate** with a schema parser, then **validate the meaning** with exact checks: dates in range, IDs that
+  exist, totals that add up.
+- **Repair** with a bounded retry that feeds back the validation error.
+- **Monitor** the parse-failure and repair rates per slice.
+- **The insight:** well-formed is not correct. A perfectly valid JSON object with the wrong account number is
+  the dangerous failure, and only a semantic check catches it.
+
+**The follow-up:** "Repairs succeed 99% of the time." → and the 1% goes where? Route it to a person, and
+count repairs as a cost.
+
+**Red flag:** regular expressions over free text.
+
+</details>
+
+## State and story
+
+### Q9 · "Design memory for an assistant that talks to the same users across sessions."
+
+**Tests:** state, privacy and cost · **Framework:** memory as a retention decision
+
+<details><summary>What a strong answer covers</summary>
+
+- **Short-term**: the current conversation, with a summary once it passes a threshold.
+- **Long-term**: extracted facts and preferences with their provenance, a retention period, and user controls
+  to view and delete them; retrieved by relevance, not replayed wholesale.
+- **Never**: raw personal data, payment details, full records. Nothing stored is the best leak control.
+- **The insight:** memory can make an assistant worse. A wrong or stale memory is a persistent hallucination
+  that the user cannot see; show what is remembered and let people correct it.
+
+**The follow-up:** "Extraction runs asynchronously and lags." → use short-term memory for the current session
+and design for the gap.
+
+**Red flag:** "store everything in a vector database."
+
+</details>
+
+### Q10 · "Tell me about a GenAI system you shipped: its cost per task, how you knew it was right, and one failure."
+
+**Tests:** production experience · **Framework:** STAR, plus the number and the change
+
+<details><summary>What a strong answer covers</summary>
+
+- **The numbers**: cost per task, latency split, golden-set size and slices, lower bounds.
+- **The failure**: how it was found — which signal — and the root cause.
+- **The change**: the guard, test or check that now makes that failure impossible or visible.
+- **The insight:** interviewers use this question to check everything above. A candidate who shipped
+  something real can answer it with numbers without pausing.
+
+**The follow-up:** "What would you build differently?" → a specific design decision, and why.
+
+**Red flag:** no numbers, or a failure that was "the model's fault".
+
+</details>
+
+## Try it
+
+"Answers got worse last Tuesday. Nobody deployed anything." **List the first three things you check, in order.**
+
+<details><summary>Show the answer</summary>
+
+**Which model answered, what changed in the inputs, and what changed in the retrieved data.** First the
+per-call log: did traffic fail over to a different model, or did the provider update the model behind an
+alias? Then the inputs: a new customer segment or a new question type shifts the mix. Then the data: new or
+changed documents in the index, or a broken ingestion job. Only then the prompt — and nobody changed it.
+
+</details>
+
+## Key takeaways
+
+1. **Measure before fixing**: separate retrieval from generation, and model time from orchestration time.
+2. **Your own data is the evidence**: per-slice golden sets, calibrated judges, lower bounds.
+3. **Design for the model being tricked or wrong**: permissions, semantic checks, logged answering models.
+
+## FAQ
+
+### What questions are asked in a GenAI engineer interview?
+
+Retrieval design and failure analysis, evaluation, when to fine-tune, latency and cost, model selection,
+prompt injection, structured output and memory — plus deep dives into systems you have built, with numbers.
+
+### How do I prepare for an LLM engineer interview?
+
+Build a small retrieval or agent system end to end on a real model API, with a golden set, a per-slice
+evaluation in CI, a cost-per-task log and one enforced limit. Then practise explaining one failure you found
+and what now prevents it.
+
+### What is the difference between a GenAI engineer and an ML engineer?
+
+An ML engineer typically trains and serves models; a GenAI engineer mostly builds applications on models
+someone else trains — retrieval, prompts, tools, evaluation, cost and safety — and fine-tunes only when a
+measured gap justifies it.
+
+### What is LLM-as-a-judge, and can it be trusted?
+
+Using one model to grade another's output against a rubric. It is useful when calibrated against human
+labels on a held-back sample, with answer order randomised and length controlled, because judges show
+position, verbosity and self-preference biases.
+
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Rehearse Q1, Q4 and Q7 in customer terms: they are the first three escalations at any deployment. | Ask a model to generate a realistic customer escalation for each, and answer it aloud. |
+| **A product manager or FDPM** | Use Q2 and Q6 to check that your team's evaluation and model choices hold up. | Have a model turn Q2's strong answer into a checklist for your next review. |
+| **A GenAI or agentic AI engineer** | Prepare Q10 from your own system, with every number you would be asked for. | Ask a coding agent to pull cost per task, latency split and slice scores from your logs. |
+
+**Across the enterprise.** Use Q1 to Q8 as the technical bar for GenAI hiring across teams, and Q10 as the
+deep dive every panel runs the same way.
+
+**The ten-minute workflow.** A diagnostic drill with a broken system:
+
+```text
+Describe a realistic production symptom of a retrieval-augmented system — wrong answers, a latency spike, a
+cost jump or an injection — without telling me the cause. Answer my diagnostic questions as the system's
+logs would, one at a time. When I name the cause and the fix, tell me how many questions a strong engineer
+would have needed, and what I should have asked first.
+```
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The questions, frameworks and strong answers | **Original** — this tutorial | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
+| Models use information in the middle of long contexts less reliably | **Borrowed** | Liu, N. F. et al. (2024). Lost in the middle: how language models use long contexts. *TACL* 12 |
+| Position, verbosity and self-preference biases in model judges | **Borrowed** | Zheng, L. et al. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. *NeurIPS* |
+| Prompt injection as the top LLM risk | **Borrowed** | OWASP (2025). [Top 10 for LLM Applications](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) |
+| Retrieved, cited, verified; the three clocks; the token taxes | **Original** — this repository | [Frameworks](repo:cheatsheets/frameworks/README.md) |
+| Prompt caches match an exact prefix | **Borrowed** — documented | [Amazon Bedrock: prompt caching](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) |

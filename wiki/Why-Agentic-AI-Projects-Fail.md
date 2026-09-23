@@ -3,7 +3,7 @@
 
 *None of these failures throws an error. That is why the tests stay green, the dashboard stays up, and the project is cancelled anyway.*
 
-**6 min read** · Beginner · Lesson 2 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/)
+**7 min read** · Beginner · Lesson 2 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/)
 
 > [!TIP]
 > **Why agentic AI projects fail, in one sentence.** They fail quietly: a model is right most of the
@@ -181,6 +181,26 @@ Mostly not. A better model raises the share it gets right, but it still fails wi
 still drifts when the world changes, still costs what your habits make it cost, and still obeys a
 prompt only most of the time. Six of the seven failure modes are design and process failures.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run the seven failure modes as a pre-mortem in week one with the customer's team. Each one named early becomes a line in the plan instead of an incident. | Ask a model to rewrite the seven modes in the customer's domain language before the kickoff. |
+| **A product manager or FDPM** | Put a check against each quiet failure into the plan: a baseline, a bar per slice, caps in code, cost per case, a drift chart. | Give a model your plan and ask which of the seven failures it has no check for. |
+| **A GenAI or agentic AI engineer** | Instrument the quiet signals from the first commit: the answering model per response, cost per case, the output mix. | Ask a coding agent to add those three fields to every response and a daily summary job. |
+
+**Across the enterprise.** Make the seven failure modes the fixed agenda of the portfolio review: for
+every product, which check exists, who owns it, and when it last fired.
+
+**The ten-minute workflow.** A pre-mortem in one prompt:
+
+```text
+It is six months from now and our AI project <describe it> has failed quietly: no outage, just no
+value. Write the most likely story of how, using these modes: value never measured, a limit only in a
+prompt, a slice below its bar hidden in an average, a bill that multiplied, drift with no deploy. For
+each, name the earliest signal we would have seen and the check that would have caught it.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -199,3 +219,5 @@ prompt only most of the time. Six of the seven failure modes are design and proc
 | [← The evolution of the PDLC](The-Evolution-of-the-PDLC) | [P0 · Frame →](P0-Frame-Is-an-AI-Agent-Worth-Building) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/why-agentic-ai-projects-fail.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/why-agentic-ai-projects-fail.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/why-agentic-ai-projects-fail.md) — an edit made here is replaced at the next sync.</sub>

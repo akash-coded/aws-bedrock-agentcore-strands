@@ -92,6 +92,8 @@ try {
     await evaluate(`document.fonts.ready.then(() => true)`);
     if (how.script && !(await evaluate(how.script))) throw new Error(`${name}: the script found nothing to act on`);
     await sleep(how.script ? 1200 : 200);
+    // the site frame's contact pill floats over whatever is underneath it; it is not part of the tool
+    await evaluate(`document.querySelectorAll(".sw-pill").forEach((e) => { e.style.display = "none"; }); true`);
     let clip;
     if (how.top) {
       await evaluate(`window.scrollTo(0, 0); true`);

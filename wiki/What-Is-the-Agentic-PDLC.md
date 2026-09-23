@@ -3,7 +3,7 @@
 
 *Four phases, one hard gate and a line that comes back. The whole framework in one sitting, with the reason behind each piece.*
 
-**8 min read** · Beginner · Lesson 1 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)
+**9 min read** · Beginner · Lesson 1 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)
 
 > [!TIP]
 > **The agentic PDLC in one sentence.** It is a product lifecycle for software in which an AI model
@@ -213,6 +213,26 @@ Each phase has one accountable owner: the product manager for P0, the solution a
 engineering lead for P2 and the sponsor for P3. The lifecycle as a whole — and especially the loops
 that run backwards from P3 — belongs to the sponsor.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Place the customer's request on the four phases in the first meeting. Most arrive as "build an agent" and are an unanswered P0 question. | Paste the brief into a model and have it sort every sentence into P0–P3, then list what each phase is missing. |
+| **A product manager or FDPM** | Make the phases the roadmap's spine: nothing enters P2 without a bar and an authority budget signed in P1. | Ask a model to redraw the roadmap as a P0–P3 table and flag every item in build without a signed spec. |
+| **A GenAI or agentic AI engineer** | Before writing a prompt, ask which phase you are in. Coding before the bar and the limits exist means making P1's decisions by accident. | Put the phase and the spec's path in the context file, so the coding agent stops at work the spec does not cover. |
+
+**Across the enterprise.** Teams keep their own method — Scrum, AI-DLC, Spec Kit — and the organisation
+standardises only the four hand-offs and what each owes. That is what makes a portfolio of AI products
+comparable at all.
+
+**The ten-minute workflow.** Turn any brief into the questions nobody has answered yet:
+
+```text
+Here is a project brief: <paste>. Sort every sentence into the phase it belongs to: P0 Frame,
+P1 Design & Spec, P2 Build & Prove, P3 Run & Learn. Then list, per phase, the decisions the brief
+has not made, as questions I can put to the sponsor. Do not answer them yourself.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -235,3 +255,5 @@ playable days.
 | [← Start here](Start-Here) | [How this tutorial works →](How-This-Tutorial-Works) |
 
 **[All lessons](Start-Here)** · **[Getting started](Tutorial-Getting-Started)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/what-is-the-agentic-pdlc.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/what-is-the-agentic-pdlc.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/what-is-the-agentic-pdlc.md) — an edit made here is replaced at the next sync.</sub>

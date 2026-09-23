@@ -171,6 +171,26 @@ Models that call tools and take actions became practical in 2023 and 2024. The f
 published methods for building with them followed in 2025, including AWS's AI-Driven Development
 Life Cycle in July and GitHub's Spec Kit for spec-driven development in September.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Name the customer's current lifecycle before proposing changes. A stage-gate enterprise and a DevOps shop need different first moves, and both keep most of what they have. | Ask a model to classify the customer's process documents by era and list what to keep unchanged. |
+| **A product manager or FDPM** | Present the change as the next bottleneck, not a new religion: software that is right most of the time needs a measured bar, which agile never had to supply. | Have a model draft a one-slide "what stays, what changes" comparison for your stakeholders. |
+| **A GenAI or agentic AI engineer** | Keep the DevOps disciplines — CI, flags, rollback — and add the three the model brings: evaluations in CI, a bar per slice, authority in code. | Ask a coding agent to audit the repository for those three and open one issue per gap. |
+
+**Across the enterprise.** Adopt it as an increment on the lifecycle you have. Keep the release train,
+the change board and the audit trail, and add three required artefacts: the bar sheet, the harness
+report and the authority budget.
+
+**The ten-minute workflow.** Find what your process has no answer for:
+
+```text
+Here are our delivery process documents: <paste>. For each practice, say whether it still holds for
+an AI feature, holds with a change, or no longer holds — and name the change. Then list the three
+things our process cannot answer when part of the product is right only most of the time.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

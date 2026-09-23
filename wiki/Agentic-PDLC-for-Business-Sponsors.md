@@ -3,7 +3,7 @@
 
 *You are the only person on the programme with no delivery deadline — which is exactly why the governance loop, and the stop decision, are yours.*
 
-**5 min read** · Beginner · Lesson 8 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)
+**6 min read** · Beginner · Lesson 8 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)
 
 > [!TIP]
 > **The role in one sentence.** The business sponsor of an agentic programme owns whether it is funded
@@ -142,6 +142,25 @@ cycle, take about ten minutes.
 No. Release, behaviour and expansion decisions belong to the product manager and QA, on evidence. The
 sponsor specifies what evidence is acceptable and owns the governance loop — not the individual gates.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Give the customer's sponsor the two numbers every cycle, from you, before anyone asks. It is what renews an engagement. | Ask a model to draft the sponsor update from the cycle data in five lines. |
+| **A product manager or FDPM** | Bring the sponsor decisions, not status: the autonomy ceiling, what counts as evidence, funding past cycle one. | Have a model turn your status report into the decisions only the sponsor can make, with options. |
+| **A GenAI or agentic AI engineer** | Make the sponsor's three reports automatic: the two-number line, the drift readout and the incident brief. | Ask a coding agent for the scheduled job that assembles all three. |
+
+**Across the enterprise.** Every sponsor in the portfolio receives the same three reports in the same
+format, so funding decisions compare like with like.
+
+**The ten-minute workflow.** A sponsor update in the only shape that works:
+
+```text
+Here is our programme update: <paste>. Rewrite it for the business sponsor as: the two numbers on one
+line (the saving beside the spend, with review hours and re-runs), the decisions only the sponsor can
+make this cycle with options and our recommendation, and one risk. Keep it under 200 words.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -158,3 +177,5 @@ sponsor specifies what evidence is acceptable and owns the governance loop — n
 | [← For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams) | [For executives →](Agentic-AI-for-Executives) |
 
 **[All lessons](Start-Here)** · **[By role](Tutorial-By-Role)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-pdlc-for-business-sponsors.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-pdlc-for-business-sponsors.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-pdlc-for-business-sponsors.md) — an edit made here is replaced at the next sync.</sub>

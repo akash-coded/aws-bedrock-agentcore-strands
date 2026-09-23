@@ -158,6 +158,25 @@ A statistical rule of thumb: if you have seen zero failures in *n* independent t
 is below about 3 ÷ *n* with 95% confidence. It is how you state what zero escapes through a no-reader
 lane actually proves.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Agree the review bands with the customer's security team early. Their sign-off on the path rule is worth more than any number of reviews. | Ask a model to generate the path rules (CODEOWNERS) from the authority budget. |
+| **A product manager or FDPM** | Watch the queue in days. When it grows, the policy is the bottleneck, not the people. | Have a model compute slots needed and queue days from the open pull requests. |
+| **A GenAI or agentic AI engineer** | Keep each change in one band. A pull request that touches a money path and a label is reviewed at the money band. | Ask the coding agent to split mixed-band changes before it opens them. |
+
+**Across the enterprise.** The lane with no human reader needs a written charter and a weekly count of
+escaped defects across teams. That data is what lets you widen it safely.
+
+**The ten-minute workflow.** Review routing, generated from what the tools may do:
+
+```text
+Here is our authority budget: <tools with risk bands R1–R5> and our repository layout: <tree>. Write a
+CODEOWNERS file that sends R4–R5 paths to two named owners, R2–R3 to one, and leaves R1 to the harness.
+List any path you could not place, and any file that serves more than one band.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

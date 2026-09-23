@@ -3,7 +3,7 @@ title: The Agentic PDLC for DevOps and Platform Teams
 short: For DevOps and platform
 wiki: Agentic-PDLC-for-DevOps-and-Platform-Teams
 description: What DevOps and platform teams own in agentic AI: the landing zone, one model gateway, pinned versions, the harness as a required check, flags and rollbacks.
-dek: Two of the things this workload needs bill for existing, the model version is part of the environment, and the prompt is a deployable artefact.
+dek: Some of what this workload needs bills for existing, the model version is part of the environment, and the prompt is a deployable artefact.
 level: Intermediate
 keywords: LLMOps, DevOps for AI agents, AI platform engineering, model gateway, deploying LLM applications, AI observability, feature flags AI, AI rollback, MLOps vs LLMOps
 updated: 2026-09-23
@@ -177,6 +177,26 @@ produced each response.
 MLOps grew up around training and serving your own models — data pipelines, training runs, model
 registries. LLMOps is mostly about operating applications on top of models someone else trains:
 prompts, routing, caching, evaluation, cost and drift.
+
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | In a customer's AWS account the first week is platform work: model access per region, a gateway, cost tags, a budget alarm. | Ask a model to draft the day-one access requests and the IaC checklist from the customer's account structure. |
+| **A product manager or FDPM** | Ask DevOps for the three rollback times before cut-over, and put them in the release gate. | Have a model turn the rollback rehearsal log into release-gate evidence. |
+| **A GenAI or agentic AI engineer** | Treat prompts and model versions as deployable artefacts: versioned, flagged and rolled back like code. | Ask a coding agent to move prompts into versioned files loaded from a manifest, with the version logged on every call. |
+
+**Across the enterprise.** A platform team provides the gateway, the landing zone, the harness template and
+the trace for every AI product, and teams keep the freedom to choose their own editors.
+
+**The ten-minute workflow.** A platform plan, as infrastructure as code:
+
+```text
+Write an infrastructure-as-code plan (CDK or CloudFormation) for an AI feature's platform: a cost tag
+per feature, a budget alarm, model access in <regions>, a gateway that logs every call (model, tokens,
+latency, feature, prompt version) and a feature flag per action with four states. List everything that
+needs an access request with a lead time, and who it goes to.
+```
 
 ## Sources and credits
 

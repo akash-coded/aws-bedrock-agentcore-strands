@@ -179,6 +179,26 @@ Yes, as a judge for drafted text, provided it is independent of the model being 
 measured how often it agrees with human labels on a held-back sample. An uncalibrated judge is another
 unproven score.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | At a customer you are often the QA lead too: build the golden set from their data with their labels, and report lower bounds from the first run. | Have a model draft candidate cases from redacted tickets — then let the customer's experts label them, never the model. |
+| **A product manager or FDPM** | Ask QA for the lower bound per slice before any launch conversation. "It works" is a number with a width. | Have a model restate QA's report for the steering committee without dropping the sample sizes. |
+| **A GenAI or agentic AI engineer** | Give QA a checker for each kind of step, and calibrate any model judge against human labels before trusting it. | Ask a coding agent for a judge-agreement report: the judge against people, on a held-back sample. |
+
+**Across the enterprise.** A shared evaluation practice — one harness, judge calibration, golden-set
+standards — lets QA leads in every team produce evidence a governance board can compare.
+
+**The ten-minute workflow.** Find out whether your judge can be trusted:
+
+```text
+Here are 50 cases, each with the agent's answer, a human label (correct or incorrect) and the judge
+model's label: <table>. Compute the judge's agreement with the people, its false-pass and false-fail
+rates, and whether its errors cluster in any slice. Say whether the judge is fit to gate merges, and
+on which slices it is not.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

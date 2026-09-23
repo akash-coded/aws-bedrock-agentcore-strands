@@ -3,7 +3,7 @@
 
 *Build the exact parts first, measure the guessing parts by slice, and let a harness — not a meeting — decide what merges.*
 
-**6 min read** · Intermediate · Lesson 6 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
+**7 min read** · Intermediate · Lesson 6 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
 
 > [!TIP]
 > **P2 in one sentence.** P2 Build & Prove builds the agent in **bolts** — slices of hours or days,
@@ -171,6 +171,26 @@ A bolt is a work cycle of hours or days that replaces the sprint as the unit of 
 much of the building. The term comes from AWS's AI-Driven Development Life Cycle; this playbook adds
 the rule that each bolt carries exactly one unknown.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Ship a walking skeleton in the customer's environment on day one — their authentication, their data, no model. Integration is where engagements stall. | Ask a coding agent to scaffold the skeleton against the customer's API specification, with contract tests. |
+| **A product manager or FDPM** | Read the per-slice report, never only the average. A merge that lifts the average and drops a slice is rejected, and you should be able to say why. | Ask a model to explain each failed harness run in one sentence for the stakeholder update. |
+| **A GenAI or agentic AI engineer** | Make the harness a required check with a bar per slice, and put an independent checker after every risky best-guess step. | Have a coding agent write the harness from the golden-set schema, failing on any touched slice below its bar. |
+
+**Across the enterprise.** Offer the harness as a platform template. Every team's golden sets run in the
+same CI shape, and the governance board reads the same per-slice report for every product.
+
+**The ten-minute workflow.** A harness a coding agent can write in one pass:
+
+```text
+Write a pytest harness for an AI step. Input: a JSONL golden set in which each case has id, slice,
+input and expected. For every slice this change touches, run the step, score each case with <the
+checker>, and compute score, n and the lower bound: p − 1.96·√(p(1−p)/n), or the Wilson bound under
+100 cases. Fail if any lower bound is below that slice's bar in bars.yaml, and print a per-slice table.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -191,3 +211,5 @@ the rule that each bolt carries exactly one unknown.
 | [← The one hard gate](The-Hard-Gate-in-Agentic-Delivery) | [P3 · Run & Learn →](P3-Run-and-Learn-Run-an-AI-Agent-in-Production) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/p2-build-and-prove.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/p2-build-and-prove.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/p2-build-and-prove.md) — an edit made here is replaced at the next sync.</sub>

@@ -158,6 +158,25 @@ For the affected action, yes — one level down, with the evidence that would re
 record, such as a clean shadow run over a fixed window. That keeps the system useful while the fix earns
 trust, and makes restoring the level a decision with evidence rather than a date.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run the customer's first postmortem yourself — ask for the missing control, not the person — and leave the template behind. | Ask a model to draft the timeline from the logs and traces. |
+| **A product manager or FDPM** | Turn the incident into the next P0 brief: what the agent may now do, and what evidence restores it. | Have a model draft the brief from the postmortem. |
+| **A GenAI or agentic AI engineer** | Fix the one control that closes the path, in code, with a test, and add golden cases for the incident. | Ask a coding agent to write the regression test from the incident's trace. |
+
+**Across the enterprise.** Share missing-control findings across teams. The same missing cap is usually
+sitting in three other agents.
+
+**The ten-minute workflow.** Classify every layer before anyone names a person:
+
+```text
+Here is the incident: <timeline, trace, the action taken>. List every layer that was supposed to stop
+it — prompt, tool signature, identity, approval, monitoring — and classify each as enforced, a request,
+or absent. Then name the one enforced control that would have made it impossible, and write its test.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

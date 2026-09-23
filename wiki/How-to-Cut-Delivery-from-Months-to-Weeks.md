@@ -164,6 +164,25 @@ Most often because the time went to waits the build speed-up did not touch: a de
 review queue, a model-access request made late, or a canary that needed more live evidence than the
 traffic could supply in the time promised.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Time the waits at the customer before promising speed. Access requests, reviews, approvals and evidence windows are usually most of the calendar. | Ask a model to build a wait map from the customer's ticket timestamps. |
+| **A product manager or FDPM** | Promise weeks only once the lead-time items started on day one: model access, data access, security review. | Have a model draft the day-one requests, each with an owner and an expected lead time. |
+| **A GenAI or agentic AI engineer** | Cut integration waits with daily merges and review routed by risk band. | Ask a coding agent to add the path rule that routes review by band. |
+
+**Across the enterprise.** The biggest compression is organisational. Pre-approved patterns — a landing
+zone, a gateway, a security review template — make the second project far faster than the first.
+
+**The ten-minute workflow.** Find where the calendar actually goes:
+
+```text
+Here are the timestamps of our last three AI features, from request to production: <paste>. Split the
+elapsed time into building, deciding, reviewing, waiting for access and waiting for evidence. Show the
+split per feature, and the single wait that saves the most calendar time if it is halved.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -184,3 +203,5 @@ traffic could supply in the time promised.
 | [← A board for agentic work](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project) | [Review AI code by risk →](How-to-Review-AI-Generated-Code-by-Risk) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/cut-delivery-time.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/cut-delivery-time.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/cut-delivery-time.md) — an edit made here is replaced at the next sync.</sub>

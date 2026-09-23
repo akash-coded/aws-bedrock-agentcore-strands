@@ -3,7 +3,7 @@
 
 *A one-line change to a refund cap is tiny and deep. A large refactor of a read-only report is big and shallow. Anything that sizes ceremony to the diff gets both backwards.*
 
-**5 min read** · Intermediate · Lesson 7 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)
+**6 min read** · Intermediate · Lesson 7 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)
 
 > [!TIP]
 > **The rule in one sentence.** Decide how much process a change deserves from four questions about
@@ -162,6 +162,26 @@ analysis a new service would get. It is the same principle as sizing each change
 Yes, at its depth. For a shallow change that may be one updated acceptance line. Without a spec
 change, a reviewer cannot tell what the change was meant to do.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Agree the depth rule with the customer on day one, so small fixes never wait for a design review and money changes never skip one. | Ask a model to classify the backlog with the four questions and propose a depth for each item. |
+| **A product manager or FDPM** | Choose shallow, standard or deep per change from its risk, and name the evidence that would raise it mid-flight. | Have a model flag items whose depth is lower than the most dangerous tool they touch. |
+| **A GenAI or agentic AI engineer** | Encode the depth in the repository: a path rule sets the risk band, and CI requires the artefacts that band owes. | Ask a coding agent for a CI check that fails a pull request touching money paths without a design note. |
+
+**Across the enterprise.** Across hundreds of changes, the depth rule is the governance lever: most go
+shallow, a few go deep, and the rule decides rather than a committee.
+
+**The ten-minute workflow.** Right-size the process for a batch of changes:
+
+```text
+For each change below, answer four questions: the most dangerous tool or path it touches; whether it
+can be undone cheaply once live; whether more than one team's artefacts change; whether an auditor
+reads the result. Recommend shallow, standard or deep, and name the evidence that would raise the
+depth. Changes: <list>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -179,3 +199,5 @@ change, a reviewer cannot tell what the change was meant to do.
 | [← One lifecycle for every method](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum) | [How to run an agentic AI project →](How-to-Run-an-Agentic-AI-Project) |
 
 **[All lessons](Start-Here)** · **[Methods decoded](Tutorial-Methods-Decoded)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/how-much-process-does-a-change-need.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/how-much-process-does-a-change-need.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/how-much-process-does-a-change-need.md) — an edit made here is replaced at the next sync.</sub>

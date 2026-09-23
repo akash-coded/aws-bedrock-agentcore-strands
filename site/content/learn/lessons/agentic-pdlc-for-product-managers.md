@@ -177,6 +177,26 @@ Turning a vague request into a measurement; knowing when a problem is not AI; se
 action from reversibility; deriving acceptance bars from damage and saving; writing precise, small
 specs; and reporting cost beside value. Most are old product skills made mandatory.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | At a small customer you are often the PM as well: measure the pain, run the AI-fit, and get autonomy per action signed by someone who owns the risk. | Ask a model to interview you as the customer's PM, and write the pain register from your answers. |
+| **A product manager or FDPM** | Your Monday: one pain measured, one bar derived, one approval you cannot evaluate removed. As an FDPM, add a fourth: sort each customer request into configuration, service or product. | Have a model classify last quarter's customer requests that way, with the evidence of a pattern behind every "product". |
+| **A GenAI or agentic AI engineer** | Ask the PM for the bar per slice and autonomy per action before you build. If they are missing, draft them and ask for a signature. | Ask a model to draft the bar sheet from the spec, for the PM to correct rather than write. |
+
+**Across the enterprise.** Define the AI PM's artefacts centrally — pain register, AI-fit record, bar sheet,
+autonomy record — so product managers in every team are judged on the same evidence.
+
+**The ten-minute workflow.** A pain line that survives to the steering committee:
+
+```text
+Interview me about the problem our AI feature is meant to solve. Ask one question at a time, and keep
+going until you can write one line: "<who> waits <minutes> for <what>; <n> cases a day; <share> are
+<the hard slice>; measured cost <$> a case, from <source>." Do not supply any number I have not given
+you; mark it UNKNOWN instead.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

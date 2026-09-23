@@ -1,0 +1,226 @@
+---
+title: How to Answer AI Interview Questions: Six Frameworks
+short: Six answer frameworks
+wiki: How-to-Answer-AI-Interview-Questions
+description: Six frameworks for AI interview questions — design, "is it good enough?", wrong answers, cost, incidents and behavioural stories — each with a worked example.
+dek: Most AI interview questions are one of six kinds. Each kind has a structure that turns what you know into an answer an interviewer can score.
+level: Intermediate
+keywords: how to answer AI interview questions, AI interview frameworks, AI product manager interview framework, LLM system design interview, GenAI interview preparation, machine learning interview answers, STAR method AI, AI PM interview
+updated: 2026-09-23
+---
+
+> [!TIP]
+> **The method in one sentence.** Most AI interview questions are one of six kinds, and each has a
+> structure: design questions take **the P0–P3 answer**, "is it good enough?" takes **the bar in three
+> lines**, "why is it wrong?" takes **the grounding triangle**, cost questions take **the four
+> signatures**, harm questions take **the missing control**, and behavioural questions take **STAR, plus
+> the number and the change**. Clarify, state assumptions, say numbers, name the trade-off, end on the risk.
+
+```mermaid
+flowchart LR
+  subgraph Q["If they ask…"]
+    direction TB
+    Q1["<b>Design an AI product</b>"] ~~~ Q2["<b>Is 92% good enough?</b>"] ~~~ Q3["<b>Why is it wrong?</b>"]
+    Q3 ~~~ Q4["<b>Why did cost jump?</b>"] ~~~ Q5["<b>It caused harm. Now?</b>"] ~~~ Q6["<b>Tell me about a time</b>"]
+  end
+  subgraph A["…reach for"]
+    direction TB
+    A1["<b>The P0–P3 answer</b>"] ~~~ A2["<b>The bar in three lines</b>"] ~~~ A3["<b>The grounding triangle</b>"]
+    A3 ~~~ A4["<b>The four signatures</b>"] ~~~ A5["<b>The missing control</b>"] ~~~ A6["<b>STAR, number, change</b>"]
+  end
+  Q ~~~ A
+
+  classDef q fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
+  classDef a fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
+  class Q1,Q2,Q3,Q4,Q5,Q6 q
+  class A1,A2,A3,A4,A5,A6 a
+  style Q fill:#6E6E6E0D,stroke:#6E6E6E,stroke-width:1.5px
+  style A fill:#2C7A4B0D,stroke:#2C7A4B,stroke-width:1.5px
+```
+
+**In this lesson** you'll learn:
+
+- the six kinds of AI interview question, and the structure that answers each;
+- a worked sixty-second answer for every framework, with the arithmetic shown;
+- four habits that make any framework sound like judgement instead of a script.
+
+## Sound familiar?
+
+- You know the material, and the answer comes out as a list of buzzwords.
+- You answer the question that was asked and miss the one being tested.
+- The first follow-up is where the answer falls apart.
+
+Frameworks fix the first; knowing what each question tests fixes the other two.
+
+## What are AI interviews actually testing?
+
+**Whether you can make software that is right only most of the time accountable** — with numbers,
+limits and evidence — and explain it to someone who will not read the code. Recall of terms is the
+floor, not the test. The strongest signal in almost every loop is the same: does the candidate ask what
+a mistake costs before choosing how good is good enough?
+
+## The six frameworks, step by step
+
+Each comes with a sixty-second worked answer. The numbers in the answers are illustrative; the arithmetic is not.
+
+### Step 1 · Design questions → the P0–P3 answer
+
+Walk the four phases in order, one or two sentences each, with a number in every phase:
+**Frame** (who, the pain measured, AI-fit, autonomy per action) → **Specify** (the slices, a bar per
+slice, where the limits live) → **Build and prove** (a checker per kind of step, the harness, a shadow
+run) → **Run** (widen on evidence, watch drift, report the saving beside the cost).
+
+> *"Design an assistant that drafts support replies."* Support agents spend about eight minutes per
+> reply; order-status questions are a lookup, returns need policy, complaints need judgement. Drafts are
+> reviewed before sending, so the damage of a bad draft is the reviewer's time, which keeps the bar
+> modest. Order status is a tool call, not generation. Each slice gets a golden set from real tickets and
+> a bar; the drafts run in shadow for two weeks, then auto-send only order status once its lower bound
+> clears its bar. Report minutes saved beside cost per reply, and watch the share of drafts sent unedited.
+
+### Step 2 · "Is it good enough?" → the bar in three lines
+
+1. **The bar**: damage ÷ (damage + saving), per slice.
+2. **The proof**: the lower bound of the score, p − 1.96 × √(p(1−p) ÷ n), against the bar.
+3. **The cost of proof**: cases needed, 1.96² × p(1−p) ÷ (p − bar)², and the days that takes at current traffic.
+
+> *"It scores 92% on 200 cases against a 90% bar."* The lower bound is 88.2%, so the bar is not yet
+> proven; at this score proof needs about 707 cases. I would ship the slices that are proven, keep this
+> one assisted, and collect the rest of the evidence in shadow.
+
+### Step 3 · "Why is it wrong?" → the grounding triangle
+
+Separate the three claims: was the right passage **retrieved**, was it **cited**, and does the cited
+passage **support** the claim? Each has a different fix — retrieval (chunking, hybrid search, reranking),
+citation (a contract test that every factual claim carries one), or verification (an entailment check,
+or abstaining when support is missing).
+
+> *"It quoted a refund policy that does not exist."* First, the logs: if the policy passage was never
+> retrieved, it is a retrieval failure and no prompt will fix it. If it was retrieved and misread, it is
+> generation. For money-related statements I would stop generating policy at all and quote it from a tool.
+
+### Step 4 · "Why did cost jump?" → the four signatures
+
+From the per-call log, not the price list: **tokens per call**, **tier mix**, **cache hit ratio**,
+**attempts per case**. The four ratios multiply to the bill's ratio; fix in order of
+(factor − 1) ÷ days to fix, and add a breaker so that a runaway is impossible.
+
+> *"The bill tripled with flat traffic."* 1.5 × 1.4 × 1.2 × 1.2 ≈ 3.0 — longer prompts, more calls on
+> the large model, a cache that stopped hitting and more retries. The cheapest large factor usually goes
+> first; the breaker goes last and still matters.
+
+### Step 5 · "It caused harm — now what?" → the missing control
+
+**Contain** (switch the action off or lower its autonomy) → **evidence** (the trace, the answering model,
+the tool calls) → **classify every layer** (enforced, a request, or absent) → **the enforced control that
+closes the path**, with a test → **what restores autonomy** → the brief for the next P0. Never a name.
+
+> *"The agent refunded $2,000 it should not have."* The cap lived in a prompt; the tool accepted any
+> amount. The fix is a bounded parameter and an approval token the model cannot create, with a test that
+> an over-cap refund raises. Refund autonomy drops to a named approver until the shadow evidence restores it.
+
+### Step 6 · "Tell me about a time" → STAR, plus the number and the change
+
+**Situation, Task, Action, Result** — then two more beats: **the number** that proves the result, and
+**the change** you made to the system so it cannot recur. The last beat is what distinguishes a senior
+answer: you fixed the process, not just the instance.
+
+> *"Tell me about a launch you delayed."* The score looked like a pass; its lower bound did not clear the
+> bar on the refund slice. I shipped the other three slices on time and ran refunds in shadow for two
+> weeks. Refund disagreements fell from 11 to 2 per hundred. Since then every slice report carries its
+> lower bound — the template will not render without it.
+
+## Four habits that work with every framework
+
+1. **Clarify two things, then state your assumptions** — out loud, as numbers.
+2. **Say the number**, even an estimate, and where it would come from.
+3. **Name the trade-off you are choosing**, and what would make you choose the other side.
+4. **End on the risk** and how you would know it had happened.
+
+## Where you'll use it
+
+- **In AI product, engineering, FDE and architecture loops**, where these six kinds cover most questions.
+- **In customer conversations**, which are interviews with higher stakes and fewer follow-ups.
+- **When you are the interviewer**, to score answers by structure and evidence rather than fluency.
+
+## Why it matters
+
+Interviewers for AI roles hear the same vocabulary from every candidate. What they cannot hear often is
+a number derived on the spot, a limit placed in code rather than in a prompt, or a process that changed
+because of a failure. The frameworks make those three things the default shape of your answer.
+
+## Try it
+
+"Our agent resolves 70% of tickets on its own. Leadership wants 90%. What do you do?" **Which framework,
+and what is your first question?**
+
+<details><summary>Show the answer</summary>
+
+**The bar in three lines, starting with "what are the other 30%?"** Some are correct abstentions, some are
+out of scope, some are failures — the same number with opposite meanings. Then per slice: what does a wrong
+resolution cost against a right one, and what is each slice's bar? A 90% blended target can be wrong in both
+directions: too high for a slice where a mistake is costly and a person should stay, too low for one where
+mistakes are cheap. Answer with bars per slice, proven by lower bounds, and a route for the rest.
+
+</details>
+
+## Key takeaways
+
+1. **Six kinds of question, six structures** — pick the frame before you answer.
+2. **Every framework carries a number**: a bar, a bound, a ratio, a count.
+3. **End senior answers with the change** — the process that now makes the failure impossible.
+
+## FAQ
+
+### How do you answer AI product design interview questions?
+
+Walk the four phases: frame the user and the pain with a number and decide whether it needs a model;
+specify the slices, a bar per slice and the limits; say how you would build and prove it, including a
+shadow run; then how you would launch, watch and report it. Keep one number in every phase.
+
+### What frameworks are used in AI product manager interviews?
+
+General product frameworks such as CIRCLES structure product-design answers; AI roles add the questions
+those frameworks leave out: whether it needs a model at all, how good is good enough per slice, what the
+system may do without a person, and how value is measured beside cost.
+
+### How do you answer system design questions for LLM applications?
+
+Start from the slices and their bars, choose the lowest level of autonomy that passes, place limits in
+tool signatures, and design the evaluation before the architecture. Then cover latency (model, tool and
+orchestration time), cost per task, observability and rollback.
+
+### What should I do if I don't know the answer in an AI interview?
+
+Say so, then say how you would find out — what you would measure and how long it would take. Interviewers
+for AI roles value calibrated uncertainty; a confident wrong answer is the failure they screen for.
+
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Use the six frames on customer calls: their questions are interviews with fewer follow-ups and more at stake. | Before a customer meeting, ask a model for the six hardest questions they could ask, one per frame. |
+| **A product manager or FDPM** | Prepare one worked example per frame from your own product, with real numbers. | Have a model interview you with follow-ups until an answer lacks a number. |
+| **A GenAI or agentic AI engineer** | Rehearse the grounding triangle and the four signatures on your own system's logs. | Ask a model to generate a failing case from your logs and time your diagnosis aloud. |
+
+**Across the enterprise.** Use the six frames as the scoring rubric for AI hiring loops, so that different
+interviewers score structure and evidence the same way.
+
+**The ten-minute workflow.** A mock interviewer that does not let you off lightly:
+
+```text
+Act as an interviewer for a <role> position on AI products. Ask me one question at a time, drawn from
+these six kinds: design, "is it good enough?", why it is wrong, why cost jumped, it caused harm, tell me
+about a time. After each answer, ask one hard follow-up, then score me on structure, numbers, trade-offs
+and risk, and say which framework I should have used.
+```
+
+## Sources and credits
+
+| Idea | Origin | Source |
+| --- | --- | --- |
+| The six frameworks and the four habits | **Original** — this tutorial, from the playbook's methods | [The agentic PDLC](lesson:what-is-the-agentic-pdlc) |
+| The bar, the lower bound and the cases needed | **Original** — this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
+| Retrieved, cited, verified | **Original** — this repository | [The Grounding Triangle](repo:cheatsheets/frameworks/grounding-triangle.md) |
+| Product-design answer structure | **Compare** | Lin, L. C. (2013). *Decode and Conquer*. Impact Interview — the CIRCLES method |
+| Situation, task, action, result | **Borrowed** — standard behavioural interviewing | Often credited to DDI's Targeted Selection method |
+| The questions an AI interviewer asks | **Compare** | [Interview guides](repo:cheatsheets/interviews/README.md) in this repository |

@@ -138,4 +138,23 @@ TRACKS = [
             "agentic-pdlc-exercises",
         ],
     },
+    {
+        "id": "interviews",
+        "title": "Interviews and careers",
+        "short": "Interviews",
+        "wiki": "Tutorial-Interviews-and-Careers",
+        "blurb": "What a forward deployed engineer does, six frameworks for answering AI interview "
+                 "questions, and deep question banks with strong answers for AI product managers, "
+                 "forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles.",
+        "promise": "Five roles, frameworks, real depth",
+        "lessons": [
+            "what-is-a-forward-deployed-engineer",
+            "how-to-answer-ai-interview-questions",
+            "ai-product-manager-interview-questions",
+            "forward-deployed-engineer-interview-questions",
+            "genai-engineer-interview-questions",
+            "agentic-ai-engineer-interview-questions",
+            "aws-generative-ai-interview-questions",
+        ],
+    },
 ]

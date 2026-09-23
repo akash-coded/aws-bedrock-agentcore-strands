@@ -3,7 +3,7 @@
 
 *"It works" stops being a yes or a no. Your job becomes the number that says how often it works, and whether that number is proof.*
 
-**5 min read** · Intermediate · Lesson 6 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)
+**6 min read** · Intermediate · Lesson 6 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC the QA lead decides what proof each kind of step
@@ -175,6 +175,26 @@ Yes, as a judge for drafted text, provided it is independent of the model being 
 measured how often it agrees with human labels on a held-back sample. An uncalibrated judge is another
 unproven score.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | At a customer you are often the QA lead too: build the golden set from their data with their labels, and report lower bounds from the first run. | Have a model draft candidate cases from redacted tickets — then let the customer's experts label them, never the model. |
+| **A product manager or FDPM** | Ask QA for the lower bound per slice before any launch conversation. "It works" is a number with a width. | Have a model restate QA's report for the steering committee without dropping the sample sizes. |
+| **A GenAI or agentic AI engineer** | Give QA a checker for each kind of step, and calibrate any model judge against human labels before trusting it. | Ask a coding agent for a judge-agreement report: the judge against people, on a held-back sample. |
+
+**Across the enterprise.** A shared evaluation practice — one harness, judge calibration, golden-set
+standards — lets QA leads in every team produce evidence a governance board can compare.
+
+**The ten-minute workflow.** Find out whether your judge can be trusted:
+
+```text
+Here are 50 cases, each with the agent's answer, a human label (correct or incorrect) and the judge
+model's label: <table>. Compute the judge's agreement with the people, its false-pass and false-fail
+rates, and whether its errors cluster in any slice. Say whether the judge is fit to gate merges, and
+on which slices it is not.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -191,3 +211,5 @@ unproven score.
 | [← For forward-deployed engineers](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers) | [For DevOps and platform →](Agentic-PDLC-for-DevOps-and-Platform-Teams) |
 
 **[All lessons](Start-Here)** · **[By role](Tutorial-By-Role)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-pdlc-for-qa.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-pdlc-for-qa.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-pdlc-for-qa.md) — an edit made here is replaced at the next sync.</sub>

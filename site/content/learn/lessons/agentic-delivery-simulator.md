@@ -81,9 +81,9 @@ rule it uses.
 
 ![The golden-set confidence calculator, prefilled with 412 correct out of 500 against an 80% bar, showing a lower bound under the bar and the cases still needed](site:assets/learn/sim-toolkit.webp)
 
-The calculator states its confidence as **one-sided 95%**, the constant 1.645. This tutorial quotes the
-more conservative 1.96, so the same cases read 79.1% and 968 here, and 79.6% and 682 there. The verdict
-is the same: not yet proven. [The toolkit](sim:#/toolkit)
+The calculator uses the same rule as this tutorial — **z = 1.96**, the lower end of a two-sided 95%
+interval — so SkyWays' 412 of 500 reads 79.1% and 968 cases in both places. It also offers one-sided
+bounds, for a team that has chosen one in advance. [The toolkit](sim:#/toolkit)
 
 ### Step 4 · Keep the Loop Map in view
 
@@ -122,16 +122,17 @@ the same idea to delivery: a choice, its consequence, and the artefact it leaves
 
 ## Try it
 
-In the confidence calculator, 412 of 500 against an 80% bar gives a lower bound of 79.6% and 682 cases
-needed. The tutorial says 79.1% and 968. **Which is wrong?**
+In the confidence calculator, switch the confidence from the default to **95%, one-sided**. The lower
+bound of 412 of 500 rises from 79.1% to 79.6%, and the cases needed fall from 968 to 682. **Did the
+evidence change?**
 
 <details><summary>Show the answer</summary>
 
-**Neither.** They use different confidence levels. 0.824 − 1.645 × √(0.824 × 0.176 ÷ 500) = 0.796 is a
-one-sided 95% bound; with 1.96 it is 0.791, which is one-sided 97.5%. The cases needed scale with the
-square of the constant: 1.96² ÷ 1.645² ≈ 1.42, and 682 × 1.42 ≈ 968. Both say the bar is not yet proven.
-Pick one convention per programme and write it on the bar sheet, so that nobody chooses it after seeing
-the score.
+**No — only the convention did.** 0.824 − 1.645 × √(0.824 × 0.176 ÷ 500) = 0.796 is a one-sided 95%
+bound; with 1.96 it is 0.791, which is one-sided 97.5%. Cases needed scale with the square of the
+constant: 1.96² ÷ 1.645² ≈ 1.42, and 682 × 1.42 ≈ 968. The verdict is the same under both — not yet
+proven. Fix the convention before anyone sees a score, and write it on the bar sheet: choosing it
+afterwards is how a team talks itself into a launch.
 
 </details>
 
@@ -162,6 +163,25 @@ one, and discuss why the consequences differ. The artefacts from the session go 
 
 The evidence pack is kept in your browser's local storage, on that device only. Download it as a
 markdown file to keep it or share it.
+
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run the simulator with the customer's team in a workshop — one simulation, twice — before their first real decision. | Ask a model to adapt the simulation's debrief questions to the customer's domain. |
+| **A product manager or FDPM** | Use the prefilled tools with your own numbers to produce real artefacts: the bar sheet, the value line, the two-number report. | Download the evidence pack and have a model check it against your repository. |
+| **A GenAI or agentic AI engineer** | Use the confidence and bill-leak calculators on your own logs before a review. | Ask a coding agent to export your per-call log in the columns the bill-leak calculator expects. |
+
+**Across the enterprise.** Make the simulator part of onboarding for every role. A team that has run the
+incident simulation writes better postmortems, and faster.
+
+**The ten-minute workflow.** A workshop plan in one prompt:
+
+```text
+Plan a 90-minute team workshop using the SkyWays simulator's "<simulation name>" simulation. Include a
+five-minute framing, two runs (the loop-closing path, then the fast one), debrief questions that connect
+it to our project <describe>, and the one artefact the team should leave with.
+```
 
 ## Sources and credits
 

@@ -144,6 +144,25 @@ cycle, take about ten minutes.
 No. Release, behaviour and expansion decisions belong to the product manager and QA, on evidence. The
 sponsor specifies what evidence is acceptable and owns the governance loop — not the individual gates.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Give the customer's sponsor the two numbers every cycle, from you, before anyone asks. It is what renews an engagement. | Ask a model to draft the sponsor update from the cycle data in five lines. |
+| **A product manager or FDPM** | Bring the sponsor decisions, not status: the autonomy ceiling, what counts as evidence, funding past cycle one. | Have a model turn your status report into the decisions only the sponsor can make, with options. |
+| **A GenAI or agentic AI engineer** | Make the sponsor's three reports automatic: the two-number line, the drift readout and the incident brief. | Ask a coding agent for the scheduled job that assembles all three. |
+
+**Across the enterprise.** Every sponsor in the portfolio receives the same three reports in the same
+format, so funding decisions compare like with like.
+
+**The ten-minute workflow.** A sponsor update in the only shape that works:
+
+```text
+Here is our programme update: <paste>. Rewrite it for the business sponsor as: the two numbers on one
+line (the saving beside the spend, with review hours and re-runs), the decisions only the sponsor can
+make this cycle with options and our recommendation, and one risk. Keep it under 200 words.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

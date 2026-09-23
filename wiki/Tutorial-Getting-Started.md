@@ -3,11 +3,13 @@
 
 What the agentic PDLC is, in one sitting, and how to get the most out of the lessons that follow.
 
-**2 lessons · about 14 minutes** · Read these two first · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/getting-started/)
+**2 lessons · about 16 minutes** · Read these two first · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/getting-started/)
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)** | The agentic PDLC is a four-phase lifecycle — Frame, Design & Spec, Build & Prove, Run & Learn — for software in which an AI model does part of the work. | 8 min |
-| 2 | **[How This Tutorial Works, and Why Every Lesson Looks the Same](How-This-Tutorial-Works)** | Every lesson opens with the answer, shows it as a picture, lets you try it, and credits its sources. Here is why, with the research behind each choice. | 6 min |
+| 1 | **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)** | The agentic PDLC is a four-phase lifecycle — Frame, Design & Spec, Build & Prove, Run & Learn — for software in which an AI model does part of the work. | 9 min |
+| 2 | **[How This Tutorial Works, and Why Every Lesson Looks the Same](How-This-Tutorial-Works)** | Every lesson opens with the answer, shows it as a picture, lets you try it, and credits its sources. Here is why, with the research behind each choice. | 7 min |
 
 **Next track:** [Agentic PDLC fundamentals](Tutorial-Fundamentals) · **[All lessons](Start-Here)**
+
+<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>

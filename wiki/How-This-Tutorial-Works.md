@@ -3,7 +3,7 @@
 
 *Seven slots, in the same order, in every lesson — and the learning research that put each one there.*
 
-**6 min read** · Beginner · Lesson 2 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)
+**7 min read** · Beginner · Lesson 2 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)
 
 > [!TIP]
 > **The short version.** Each lesson is a five-to-ten-minute read that opens with the answer, shows
@@ -167,6 +167,25 @@ concrete case.
 Yes. The lessons work as pre-reading for a weekly session, one track at a time; the
 [study plans](Study-Plans) include a twelve-week reading-group format.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Use the lesson shape to brief a customer's team: the answer first, a picture, one worked problem. Their engineers read it in ten minutes. | Have a model draft a one-page explainer of your deployment in the seven slots, then cut every sentence that would fit any project. |
+| **A product manager or FDPM** | Write product briefs in the same shape: the answer box is the summary, "Sound familiar?" the problem, the try-it the acceptance test. | Give a model your draft and ask which slot is missing or weakest. |
+| **A GenAI or agentic AI engineer** | Read the takeaways, then only the steps you would get wrong. The sources table says which ideas are standards and which are working methods. | Ask a model for three new versions of a lesson's Try it, with different numbers, before you use the idea at work. |
+
+**Across the enterprise.** Use the tracks as role onboarding: two weeks per role, one lesson a day, each
+Try it worked aloud in a team session. The same shared vocabulary is what the gates and reviews rely on.
+
+**The ten-minute workflow.** Make a lesson test you rather than inform you:
+
+```text
+Read this lesson: <paste or link>. Write three new problems in the style of its "Try it", with
+different numbers, and hide the answers. When I reply, mark my working, not only the result, and
+tell me which step I would have got wrong at work.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -189,3 +208,5 @@ Yes. The lessons work as pre-reading for a weekly session, one track at a time; 
 | [← What is the agentic PDLC?](What-Is-the-Agentic-PDLC) | [The evolution of the PDLC →](The-Evolution-of-the-PDLC) |
 
 **[All lessons](Start-Here)** · **[Getting started](Tutorial-Getting-Started)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/how-this-tutorial-works.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/how-this-tutorial-works.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/how-this-tutorial-works.md) — an edit made here is replaced at the next sync.</sub>

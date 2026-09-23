@@ -3,7 +3,7 @@
 
 *The policy is the bottleneck, not the people. Two readers on a money tool, one on a reversible write, none on a read-only change — and a count of what escapes.*
 
-**5 min read** · Intermediate · Lesson 5 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)
+**6 min read** · Intermediate · Lesson 5 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)
 
 > [!TIP]
 > **The rule in one sentence.** Review AI-generated code by the **risk band of the most dangerous
@@ -154,6 +154,25 @@ A statistical rule of thumb: if you have seen zero failures in *n* independent t
 is below about 3 ÷ *n* with 95% confidence. It is how you state what zero escapes through a no-reader
 lane actually proves.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Agree the review bands with the customer's security team early. Their sign-off on the path rule is worth more than any number of reviews. | Ask a model to generate the path rules (CODEOWNERS) from the authority budget. |
+| **A product manager or FDPM** | Watch the queue in days. When it grows, the policy is the bottleneck, not the people. | Have a model compute slots needed and queue days from the open pull requests. |
+| **A GenAI or agentic AI engineer** | Keep each change in one band. A pull request that touches a money path and a label is reviewed at the money band. | Ask the coding agent to split mixed-band changes before it opens them. |
+
+**Across the enterprise.** The lane with no human reader needs a written charter and a weekly count of
+escaped defects across teams. That data is what lets you widen it safely.
+
+**The ten-minute workflow.** Review routing, generated from what the tools may do:
+
+```text
+Here is our authority budget: <tools with risk bands R1–R5> and our repository layout: <tree>. Write a
+CODEOWNERS file that sends R4–R5 paths to two named owners, R2–R3 to one, and leaves R1 to the harness.
+List any path you could not place, and any file that serves more than one band.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -171,3 +190,5 @@ lane actually proves.
 | [← Cut delivery from months to weeks](How-to-Cut-Delivery-from-Months-to-Weeks) | [How accurate must an agent be? →](How-Accurate-Does-an-AI-Agent-Need-to-Be) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/review-ai-generated-code.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/review-ai-generated-code.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/review-ai-generated-code.md) — an edit made here is replaced at the next sync.</sub>

@@ -181,6 +181,26 @@ Only the decisions at genuine trade-off points — where changing the decision w
 target — each naming the options it rejected and why. Model settings and framework versions do not
 belong in one; they go stale in weeks.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | At a customer, draw the step map before the architecture. Which steps are exact, best-guess or consequential decides everything else. | Ask a model to draft the step map from the process description and mark every step that moves money or data. |
+| **A product manager or FDPM** | Ask the architect for the authority budget in plain language: what the agent does alone, with a veto, with an approver, and never. | Have a model translate the authority budget into a one-page table for the sponsor. |
+| **A GenAI or agentic AI engineer** | Build to the architect's decisions: caps in signatures, one agent until a named limit justifies a second, checkers after risky steps. | Ask a coding agent to compare the code with the decision records and list every divergence. |
+
+**Across the enterprise.** An architecture review for agents reviews three artefacts — the step map, the
+authority budget and the topology — rather than slides.
+
+**The ten-minute workflow.** An authority budget that refuses to guess:
+
+```text
+Here are the actions our agent can take: <list>. For each, ask me what one mistake costs and whether it
+can be undone. Then propose a risk band (R1 read-only to R5 not delegated), the autonomy level, the cap,
+where the cap is enforced (tool signature, identity or approval) and the test that proves it refuses.
+Do not assign a band I have not given you evidence for.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

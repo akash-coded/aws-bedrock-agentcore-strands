@@ -37,8 +37,8 @@ See [Portability Matrix](../../docs/concepts/portability-matrix.md).
 
 **Weak:** "Per-token pricing, so it scales with usage."
 **Strong:** knows cost is **not linear**. Names cliffs: retry storms, non-converging loops, unbounded
-swarms, top-k inflation, idle infrastructure. Knows OpenSearch collections and AgentCore runtimes bill for
-existing, not for use.
+swarms, top-k inflation, idle infrastructure. Knows what bills while it exists — classic OpenSearch
+Serverless collections, AgentCore Runtime instances, stored long-term memory — and what bills only per use.
 
 See [Cost Cliff Map](../frameworks/cost-cliff-map.md).
 

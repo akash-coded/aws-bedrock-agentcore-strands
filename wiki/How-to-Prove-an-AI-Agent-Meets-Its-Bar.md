@@ -3,7 +3,7 @@
 
 *82% on forty cases and 82% on five hundred are different claims. Against an 80% bar, neither is proof — and here is why.*
 
-**5 min read** · Intermediate · Lesson 7 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)
+**6 min read** · Intermediate · Lesson 7 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)
 
 > [!TIP]
 > **The answer in one sentence.** A score on a test set proves an AI agent meets its bar only when
@@ -146,6 +146,25 @@ That the evidence is not yet strong enough to say the slice meets its bar — no
 keeps collecting cases, often in shadow, until its lower bound clears the bar or its score falls
 below it.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Show the customer the lower bound, not the score, from the first report. It sets expectations you will not have to walk back. | Ask a model to restate every score in the status report as score, sample size and lower bound. |
+| **A product manager or FDPM** | Accept a slice only when its lower bound clears its bar; otherwise report "not yet, owes N cases". | Have a model compute cases owed, and the days of evidence at the current traffic share. |
+| **A GenAI or agentic AI engineer** | Size the golden set per slice by its bar, oversampling the rare, hard slice. | Ask a coding agent to add stratified sampling to the golden-set builder. |
+
+**Across the enterprise.** Report lower bounds everywhere, board packs included. A portfolio that reports
+scores alone is reporting noise with a decimal point.
+
+**The ten-minute workflow.** The calculation, with the working shown:
+
+```text
+For each slice: n cases, k correct, bar b. Compute the score k/n, the lower bound — p − 1.96·√(p(1−p)/n),
+or the Wilson bound when n < 100 — and a verdict: proven, not yet, or failed. For "not yet", compute
+the cases needed, 1.96²·p(1−p) ÷ (p − b)², and how many more. Show the arithmetic. Data: <table>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -163,3 +182,5 @@ below it.
 | [← How accurate must an agent be?](How-Accurate-Does-an-AI-Agent-Need-to-Be) | [Shadow mode and cut-over →](Shadow-Mode-and-Canary-Releases-for-AI-Agents) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/prove-ai-accuracy.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/prove-ai-accuracy.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/prove-ai-accuracy.md) — an edit made here is replaced at the next sync.</sub>

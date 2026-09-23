@@ -3,7 +3,7 @@
 
 *Five layers of defence were claimed. None was enforced. The hour that followed produced a typed cap, a confirmation token, a lower autonomy level and six new test cases.*
 
-**5 min read** · Intermediate · Lesson 13 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)
+**6 min read** · Intermediate · Lesson 13 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)
 
 > [!TIP]
 > **The method in one sentence.** A postmortem for an AI incident starts from one question — **which
@@ -154,6 +154,25 @@ For the affected action, yes — one level down, with the evidence that would re
 record, such as a clean shadow run over a fixed window. That keeps the system useful while the fix earns
 trust, and makes restoring the level a decision with evidence rather than a date.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run the customer's first postmortem yourself — ask for the missing control, not the person — and leave the template behind. | Ask a model to draft the timeline from the logs and traces. |
+| **A product manager or FDPM** | Turn the incident into the next P0 brief: what the agent may now do, and what evidence restores it. | Have a model draft the brief from the postmortem. |
+| **A GenAI or agentic AI engineer** | Fix the one control that closes the path, in code, with a test, and add golden cases for the incident. | Ask a coding agent to write the regression test from the incident's trace. |
+
+**Across the enterprise.** Share missing-control findings across teams. The same missing cap is usually
+sitting in three other agents.
+
+**The ten-minute workflow.** Classify every layer before anyone names a person:
+
+```text
+Here is the incident: <timeline, trace, the action taken>. List every layer that was supposed to stop
+it — prompt, tool signature, identity, approval, monitoring — and classify each as enforced, a request,
+or absent. Then name the one enforced control that would have made it impossible, and write its test.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -170,3 +189,5 @@ trust, and makes restoring the level a decision with evidence rather than a date
 | [← Catch AI drift](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message) | [For product managers →](Agentic-PDLC-for-Product-Managers) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/ai-incident-postmortem.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/ai-incident-postmortem.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/ai-incident-postmortem.md) — an edit made here is replaced at the next sync.</sub>

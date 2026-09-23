@@ -171,6 +171,25 @@ concrete case.
 Yes. The lessons work as pre-reading for a weekly session, one track at a time; the
 [study plans](wiki:Study-Plans) include a twelve-week reading-group format.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Use the lesson shape to brief a customer's team: the answer first, a picture, one worked problem. Their engineers read it in ten minutes. | Have a model draft a one-page explainer of your deployment in the seven slots, then cut every sentence that would fit any project. |
+| **A product manager or FDPM** | Write product briefs in the same shape: the answer box is the summary, "Sound familiar?" the problem, the try-it the acceptance test. | Give a model your draft and ask which slot is missing or weakest. |
+| **A GenAI or agentic AI engineer** | Read the takeaways, then only the steps you would get wrong. The sources table says which ideas are standards and which are working methods. | Ask a model for three new versions of a lesson's Try it, with different numbers, before you use the idea at work. |
+
+**Across the enterprise.** Use the tracks as role onboarding: two weeks per role, one lesson a day, each
+Try it worked aloud in a team session. The same shared vocabulary is what the gates and reviews rely on.
+
+**The ten-minute workflow.** Make a lesson test you rather than inform you:
+
+```text
+Read this lesson: <paste or link>. Write three new problems in the style of its "Try it", with
+different numbers, and hide the answers. When I reply, mark my working, not only the result, and
+tell me which step I would have got wrong at work.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

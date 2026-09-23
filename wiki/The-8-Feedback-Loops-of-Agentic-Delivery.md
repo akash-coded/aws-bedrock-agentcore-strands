@@ -3,7 +3,7 @@
 
 *A phase ends; a loop comes back. The loops with nobody waiting at the far end are the ones that decide whether a project becomes a practice.*
 
-**6 min read** · Intermediate · Lesson 8 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)
+**7 min read** · Intermediate · Lesson 8 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)
 
 > [!TIP]
 > **The eight loops in one sentence.** Each loop opens in one phase of the agentic PDLC and closes in
@@ -156,6 +156,26 @@ Build–measure–learn is one loop about whether a product meets a market need.
 narrower and more operational: each has one owner, a phase where it opens, a phase where it closes,
 and a test — the diff — for whether it did.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Before you leave a customer, name an owner for the three loops nobody waits for — cost, incident, governance — or they stop closing the week you go. | Have a model build a loop-ownership table from the customer's org chart and your handover notes. |
+| **A product manager or FDPM** | Hold a loop review each quarter: which loops closed and with what evidence, which are open without an owner. | Ask a model to scan the decision log and incident list and mark each loop closed, open or stuck. |
+| **A GenAI or agentic AI engineer** | Close loops in code where you can: a drift breach re-opens the release gate, and a cost signature opens a design ticket. | Ask a coding agent for both automations as scheduled jobs, each with a dry-run mode. |
+
+**Across the enterprise.** Across a portfolio, the backward loops need a central owner — usually the
+platform or governance lead — because no product team is waiting at the far end of them.
+
+**The ten-minute workflow.** Find the loops nobody is closing:
+
+```text
+Here is our last quarter — incidents, bills, drift alerts and decisions: <paste>. For each of the
+eight loops (requirements, decision, spec, delivery, trust, cost, incident, governance), say whether
+it closed (which artefact changed?), is open with an owner, or is open with nobody. List the ones
+with nobody first.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -175,3 +195,5 @@ and a test — the diff — for whether it did.
 | [← P3 · Run & Learn](P3-Run-and-Learn-Run-an-AI-Agent-in-Production) | [The evidence pack →](The-Evidence-Pack-Before-Each-Hand-off) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/the-eight-loops.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/the-eight-loops.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/the-eight-loops.md) — an edit made here is replaced at the next sync.</sub>

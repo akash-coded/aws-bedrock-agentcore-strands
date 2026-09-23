@@ -3,7 +3,7 @@
 
 *Four decisions made on paper, before anything is built — each cheaper now than it will ever be again.*
 
-**7 min read** · Beginner · Lesson 3 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)
+**8 min read** · Beginner · Lesson 3 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)
 
 > [!TIP]
 > **P0 Frame in one sentence.** It is the phase that decides, before anything is designed, whether a
@@ -188,6 +188,26 @@ The product manager is accountable. The solution architect supplies requirements
 DevOps sets up the account and the cost baseline, and the sponsor needs to see the value line before
 any budget is agreed.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Measure the customer's pain in their own data — cases, minutes, money — before the first design session. An FDE who arrives with a measured pain line runs the room. | Give a model a redacted ticket export and ask for volume, handling time and the top five case types with counts, citing the rows. |
+| **A product manager or FDPM** | Own the AI-fit verdict and publish what came back as rules. As an FDPM it is also your first call on what becomes product and what stays configuration. | Ask a model to argue that each candidate is a rule, and keep only the ones it cannot. |
+| **A GenAI or agentic AI engineer** | Price the value line from a spike, not a guess: run twenty real cases through a prototype and log tokens and review minutes. | Have a coding agent wrap the prototype with a per-call token log and write the cost-per-case summary. |
+
+**Across the enterprise.** Run P0 as the portfolio funnel. Every candidate gets an AI-fit record, most
+come back as rules, and the rejected list is published so that teams stop re-proposing the same agents.
+
+**The ten-minute workflow.** The fastest AI-fit test is to make a model argue against the agent:
+
+```text
+For each candidate below, argue as hard as you can that it does NOT need a model — that a rule, a
+lookup or a person does it better. Apply three tests: is there a genuine judgement call, is the volume
+high enough, is a wrong answer recoverable? Mark each "rule", "person", "assisted" or "agentic", and
+say which test decided it. Candidates: <list>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -205,3 +225,5 @@ any budget is agreed.
 | [← Why agentic AI projects fail](Why-Agentic-AI-Projects-Fail) | [P1 · Design & Spec →](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/p0-frame.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/p0-frame.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/p0-frame.md) — an edit made here is replaced at the next sync.</sub>

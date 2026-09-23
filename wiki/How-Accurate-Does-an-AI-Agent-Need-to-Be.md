@@ -3,7 +3,7 @@
 
 *Every bar in the document is 80%, and nobody knows why. Here is where the real number comes from — and why a human hold can lower it.*
 
-**5 min read** · Intermediate · Lesson 6 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)
+**6 min read** · Intermediate · Lesson 6 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)
 
 > [!TIP]
 > **The answer in one sentence.** An AI agent must be accurate enough that its right answers pay for
@@ -133,6 +133,26 @@ No — it is the target. Proving the agent meets it takes a golden set per slice
 the score, not the score itself, followed by a shadow run on live traffic.
 [Prove it with a sample](How-to-Prove-an-AI-Agent-Meets-Its-Bar).
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Derive the bar with the customer's finance and operations people, in their numbers. It turns "how accurate is it?" into a decision they own. | Have a model draft damage and saving estimates per slice from the customer's data, marked as assumptions. |
+| **A product manager or FDPM** | Present a bar per slice, not one target, and show how a human hold on the risky step lowers it. | Ask a model to compute each bar with and without a human hold. |
+| **A GenAI or agentic AI engineer** | Keep the bars in a file the harness reads, so changing a bar is a reviewed change. | Ask a coding agent to add bars.yaml and a check that every slice in the golden set has a bar. |
+
+**Across the enterprise.** Standardise the bar sheet so bars are comparable across products. A governance
+board then reviews damage and saving assumptions, not arbitrary accuracy targets.
+
+**The ten-minute workflow.** A bar derivation that refuses to invent your numbers:
+
+```text
+For each slice below, ask me what one wrong answer costs — the damage, including the fix and any
+refund — and what one right answer saves. Do not estimate these yourself. Then compute N = damage ÷
+saving and the bar N ÷ (N + 1), and the bar again if a person holds the action so that the damage
+falls to the reviewer's time. Slices: <list>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -148,3 +168,5 @@ the score, not the score itself, followed by a shadow run on live traffic.
 | [← Review AI code by risk](How-to-Review-AI-Generated-Code-by-Risk) | [Prove the agent meets its bar →](How-to-Prove-an-AI-Agent-Meets-Its-Bar) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/how-accurate-must-an-ai-agent-be.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/how-accurate-must-an-ai-agent-be.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/how-accurate-must-an-ai-agent-be.md) — an edit made here is replaced at the next sync.</sub>

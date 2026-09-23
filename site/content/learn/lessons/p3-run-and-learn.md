@@ -157,6 +157,26 @@ Report two numbers together: the saving, measured against the baseline from P0, 
 including tokens, review time and re-runs. Reporting only the saving is how a programme gets
 cancelled when finance finds the other number.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Stay through the first widening: rehearse the rollback with the customer's on-call, time every switch, and leave a drift chart they can read without you. | Ask a model to write the customer's runbook from your deployment configuration and the rollback rehearsal log. |
+| **A product manager or FDPM** | Report two numbers on one line every cycle, and widen by arithmetic — days of evidence per share — never by date. | Have a model draft the cycle report from the tracker export and the token log, with review hours and re-runs beside the saving. |
+| **A GenAI or agentic AI engineer** | Log the answering model, prompt version and flag state on every response, and chart the output mix weekly against two thresholds. | Ask a coding agent to add the weekly drift job and wire a breach to flip the release flag. |
+
+**Across the enterprise.** Aggregate every product's two numbers and drift chart into one portfolio view.
+The incidents and bills P3 produces are the pipeline of next quarter's P0 briefs.
+
+**The ten-minute workflow.** The cycle report, drafted from raw data:
+
+```text
+Here is this cycle's data: <tracker export, token log, review log>. Write the two-number report:
+person-days per story against the baseline of <n>, token spend per story, review hours added and
+re-runs per story, each with its change. Add one paragraph on the trend and the single biggest risk
+to the saving. Do not smooth away a rising re-run count.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

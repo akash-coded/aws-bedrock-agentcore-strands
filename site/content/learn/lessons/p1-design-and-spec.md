@@ -199,6 +199,26 @@ Start with one and add another only when you can name the limit that forces it: 
 overflows or parallel work a tool cannot express. Each added agent multiplies the hand-offs that can
 go wrong, and a fan-out tool usually gives you the parallelism without them.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Write the eight-field spec with the customer's engineers in the room, so the five agentic fields are decided by the people who will own them. | Before the session, have a model turn the brief into the eight fields as questions and mark which are undecided. |
+| **A product manager or FDPM** | Derive the bar per slice and sign autonomy per action. A spec without them is still a PRD. | Paste the PRD and ask a model to convert it to the eight fields and EARS lines, listing every gap as a question. |
+| **A GenAI or agentic AI engineer** | Build the authority budget into tool signatures before the first prompt: typed, bounded parameters and a confirmation token for money. | Ask a coding agent to generate tool stubs from the authority budget, each with a test that it refuses over its cap. |
+
+**Across the enterprise.** Standardise the eight-field template and the bar sheet. It is the only way a
+governance board can compare specs across teams, and the only way a coding agent can read any team's work.
+
+**The ten-minute workflow.** Convert prose requirements into acceptance criteria a machine can build from:
+
+```text
+Convert these requirements into EARS acceptance criteria — ubiquitous ("The system shall…"),
+event-driven ("When…"), state-driven ("While…"), unwanted behaviour ("If… then…") and optional
+feature ("Where…"). Every line must carry a measure. List each requirement you could not convert
+without inventing a number, as a question for me. Requirements: <paste>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

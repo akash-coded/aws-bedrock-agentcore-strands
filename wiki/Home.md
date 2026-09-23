@@ -4,8 +4,10 @@
 A free tutorial in short lessons on running software projects where an AI model does part of the
 work — the four phases, the one hard gate and the eight loops; how AWS AI-DLC, AIDD, the BMAD Method
 and spec-driven development fit onto them; what changes for each role, from engineer to executive;
-how an organisation adopts it; and a ninety-day case with twelve exercises. Each lesson is five to
-ten minutes, opens with the answer, carries a picture, and credits its sources.
+how an organisation adopts it; a ninety-day case with twelve exercises; and interview question banks
+with strong answers for AI product managers, forward deployed engineers, GenAI, agentic and AWS roles.
+Each lesson opens with the answer, carries a picture, ends with how to apply it in your role, and
+credits its sources.
 
 **[▶ Start here](Start-Here)** · or go straight to **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)**
 
@@ -18,8 +20,9 @@ ten minutes, opens with the answer, carries a picture, and credits its sources.
 | **[By role](Tutorial-By-Role)** | How each discipline works in the agentic PDLC — product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not. | 9 |
 | **[Teams and organisation](Tutorial-Teams-and-Organisation)** | How to structure teams, measure productivity without fooling yourself, assess maturity by controls rather than tools, and roll the method out in ninety days. | 4 |
 | **[Practice](Tutorial-Practice)** | The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers. | 4 |
+| **[Interviews and careers](Tutorial-Interviews-and-Careers)** | What a forward deployed engineer does, six frameworks for answering AI interview questions, and deep question banks with strong answers for AI product managers, forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles. | 7 |
 
-*48 lessons so far.* The same tutorial, with live diagrams, is at [akash-coded.github.io/…/learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/).
+*55 lessons so far.* The same tutorial, with live diagrams, is at [akash-coded.github.io/…/learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/).
 
 ---
 
@@ -86,7 +89,7 @@ Four drawings carry the whole method, and each one links back into the page that
 
 **1. Model access is not automatic.** It is granted per model, *per region*, on request, and approval is not always instant. Start [AWS setup](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/setup/aws-account-setup.md) before you need it.
 
-**2. Two things bill for existing, not for use.** OpenSearch Serverless collections and AgentCore runtimes. They are what people leave running by accident. [Teardown checklist](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/setup/cost-controls.md#teardown-checklist).
+**2. Some of it bills for existing, not for use.** A classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance bills from boot until it is stopped, and stored long-term memory bills by the hour. They are what people leave running by accident. [Teardown checklist](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/setup/cost-controls.md#teardown-checklist).
 
 **3. A lot of this needs no AWS account at all.** Modules 00, 01 and 15, every [L.A.B. lab](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs), `rag_by_hand.py` and `quality_gate.py`. That is 20+ hours of real work at zero cost while your model access is pending.
 

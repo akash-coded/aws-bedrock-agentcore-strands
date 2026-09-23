@@ -179,6 +179,25 @@ is a decision nobody owns; most product risk is a limit that lives only in a pro
 Yes. Agents shorten the building; they do not shorten decisions, review queues, access requests or the
 time live traffic takes to produce evidence. Someone has to own those waits.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Across several customer deployments you are running a programme: one board, one decision log and one review-queue number per customer. | Ask a model to merge every customer's status into one programme view, blocked decisions first. |
+| **A product manager or FDPM** | Give the programme manager your gate conditions in writing. They become dates only when the evidence arrives. | Have a model turn the gate conditions into a milestone plan triggered by evidence, not by dates. |
+| **A GenAI or agentic AI engineer** | Keep the integration deadline honest by publishing same-day integration and the review queue every day. | Ask a coding agent for a daily job that posts both numbers to the team channel. |
+
+**Across the enterprise.** A programme office for AI delivery tracks decisions, lead times and evidence
+across teams. The review queue and the blocked decisions are its critical path — not the build.
+
+**The ten-minute workflow.** A decision log, pulled from the week's noise:
+
+```text
+Here are this week's meeting notes and chat excerpts: <paste>. Extract every decision made or deferred.
+For each: the decision, hard or soft (can it be reversed cheaply once building starts?), the owner, the
+date it is due, and what is blocked until it is made. List decisions with no owner first.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

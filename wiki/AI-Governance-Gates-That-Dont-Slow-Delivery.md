@@ -3,7 +3,7 @@
 
 *A gate is a decision with evidence in front of a named person — not a click, a status column, or a meeting that ends in "fine".*
 
-**5 min read** · Intermediate · Lesson 11 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)
+**6 min read** · Intermediate · Lesson 11 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)
 
 > [!TIP]
 > **The gates in one sentence.** An AI agent passes five gates on its way to wide use — **intent**
@@ -163,6 +163,25 @@ The NIST AI RMF describes four functions — govern, map, measure and manage —
 across an organisation. The five gates are one concrete way to run those functions for a single
 product: named decisions, specific evidence and a standing trigger for re-evaluation.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Map the five gates onto the customer's existing approvals, so you add evidence rather than meetings. | Ask a model to map the customer's change process onto the five gates. |
+| **A product manager or FDPM** | Own the intent and release gates: evidence in front of you, your name on the record. | Have a model assemble the gate record from the evidence pack and list what is missing. |
+| **A GenAI or agentic AI engineer** | Make the behaviour and expansion gates data: the harness report and the live lower bound decide them. | Ask a coding agent to produce the gate evidence automatically for every release candidate. |
+
+**Across the enterprise.** Gates scale when they are per product and evidence-based. A central board then
+reviews exceptions and drift alerts, not every release.
+
+**The ten-minute workflow.** A gate review prepared in advance:
+
+```text
+Here is our evidence pack: <paste the index>. For each gate — intent, plan, behaviour, release,
+expansion — list the evidence it needs, whether we have it (quote the file), who signs, and what would
+re-open it. Flag any gate whose evidence is a meeting rather than a document.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -181,3 +200,5 @@ product: named decisions, specific evidence and a standing trigger for re-evalua
 | [← Guardrails that hold](AI-Agent-Guardrails-That-Hold) | [Catch AI drift →](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/ai-governance-gates.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/ai-governance-gates.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/ai-governance-gates.md) — an edit made here is replaced at the next sync.</sub>

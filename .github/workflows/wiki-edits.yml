@@ -1,0 +1,31 @@
+name: Wiki edits
+
+# A page edited in the wiki's browser editor is overwritten by the next wiki/sync.sh unless it comes
+# home first. This runs on every wiki edit and brings it home: a hand-written page onto a branch with
+# a one-click pull request, a page generated from site/content/learn/ into an issue naming the source
+# to edit. Until then wiki/sync.sh refuses to run over the edit, so nothing is lost either way.
+# Syncs and the Pulse scoreboard also fire this event; the script recognises and skips them.
+
+on:
+  gollum:
+
+permissions:
+  contents: write   # the branch that carries a hand-written page home
+  issues: write     # the note that says what to do with it
+
+concurrency: { group: wiki-edits, cancel-in-progress: false }
+
+jobs:
+  home:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Bring the edited pages home
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES: ${{ toJson(github.event.pages) }}
+          EDITOR_LOGIN: ${{ github.event.sender.login }}
+        run: python3 .github/scripts/wiki_backport.py

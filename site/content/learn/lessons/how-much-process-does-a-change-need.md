@@ -164,6 +164,26 @@ analysis a new service would get. It is the same principle as sizing each change
 Yes, at its depth. For a shallow change that may be one updated acceptance line. Without a spec
 change, a reviewer cannot tell what the change was meant to do.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Agree the depth rule with the customer on day one, so small fixes never wait for a design review and money changes never skip one. | Ask a model to classify the backlog with the four questions and propose a depth for each item. |
+| **A product manager or FDPM** | Choose shallow, standard or deep per change from its risk, and name the evidence that would raise it mid-flight. | Have a model flag items whose depth is lower than the most dangerous tool they touch. |
+| **A GenAI or agentic AI engineer** | Encode the depth in the repository: a path rule sets the risk band, and CI requires the artefacts that band owes. | Ask a coding agent for a CI check that fails a pull request touching money paths without a design note. |
+
+**Across the enterprise.** Across hundreds of changes, the depth rule is the governance lever: most go
+shallow, a few go deep, and the rule decides rather than a committee.
+
+**The ten-minute workflow.** Right-size the process for a batch of changes:
+
+```text
+For each change below, answer four questions: the most dangerous tool or path it touches; whether it
+can be undone cheaply once live; whether more than one team's artefacts change; whether an auditor
+reads the result. Recommend shallow, standard or deep, and name the evidence that would raise the
+depth. Changes: <list>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

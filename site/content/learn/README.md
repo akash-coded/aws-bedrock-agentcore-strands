@@ -43,12 +43,16 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 ## Try it                    one problem; the answer in <details><summary>Show the answer</summary>
 ## Key takeaways             must — three, parallel, short
 ## FAQ                       3–5 questions people actually ask; 2–4 sentence answers
+## Apply it in your role     must — a three-row table (forward-deployed engineer · product manager or
+                             FDPM · GenAI or agentic AI engineer) × (Do this · The AI-augmented
+                             shortcut), then "Across the enterprise" in two or three sentences, then
+                             "The ten-minute workflow": one copyable prompt in a text block
 ## Sources and credits       must — a table of Idea · Origin · Source
 ```
 
 ## Rules
 
-- **Must:** no H1 in the body; `## Key takeaways` and `## Sources and credits` present; at least one
+- **Must:** no H1 in the body; `## Key takeaways`, `## Apply it in your role` and `## Sources and credits` present; at least one
   picture; every `lesson:`, `track:`, `wiki:` and `#anchor` link resolves.
 - **One idea per paragraph.** Two to four sentences. If a paragraph needs a sub-heading, it is two.
 - **Answer first, everywhere.** The first sentence under a heading answers the heading.
@@ -60,7 +64,11 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
   check [Sources and Confidence](../../../wiki/Sources-and-Confidence.md) and the primary source.
 - **No fluff.** Delete any sentence that would survive unchanged in a lesson about a different topic.
 - **British spelling** in prose, as the rest of the playbook. Put American variants in `keywords`.
-- **Length:** 900–1,500 words; the build warns above 14 minutes.
+- **Length:** 900–1,500 words, and up to about 3,000 for an interview bank; the build warns above 14 minutes.
+- **Prompts** in "The ten-minute workflow" ask the model to question you rather than invent your numbers, and
+  say what output shape you want. A prompt that would work unchanged for any lesson is not specific enough.
+- **Edit here, never on the wiki.** Every wiki copy of a lesson is regenerated; an edit made on the wiki
+  opens an issue (the Wiki edits workflow) and `wiki/sync.sh` refuses to overwrite it until it comes home.
 
 ## Links and pictures
 

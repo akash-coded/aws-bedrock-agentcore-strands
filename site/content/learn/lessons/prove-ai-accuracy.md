@@ -148,6 +148,25 @@ That the evidence is not yet strong enough to say the slice meets its bar — no
 keeps collecting cases, often in shadow, until its lower bound clears the bar or its score falls
 below it.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Show the customer the lower bound, not the score, from the first report. It sets expectations you will not have to walk back. | Ask a model to restate every score in the status report as score, sample size and lower bound. |
+| **A product manager or FDPM** | Accept a slice only when its lower bound clears its bar; otherwise report "not yet, owes N cases". | Have a model compute cases owed, and the days of evidence at the current traffic share. |
+| **A GenAI or agentic AI engineer** | Size the golden set per slice by its bar, oversampling the rare, hard slice. | Ask a coding agent to add stratified sampling to the golden-set builder. |
+
+**Across the enterprise.** Report lower bounds everywhere, board packs included. A portfolio that reports
+scores alone is reporting noise with a decimal point.
+
+**The ten-minute workflow.** The calculation, with the working shown:
+
+```text
+For each slice: n cases, k correct, bar b. Compute the score k/n, the lower bound — p − 1.96·√(p(1−p)/n),
+or the Wilson bound when n < 100 — and a verdict: proven, not yet, or failed. For "not yet", compute
+the cases needed, 1.96²·p(1−p) ÷ (p − b)², and how many more. Show the arithmetic. Data: <table>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

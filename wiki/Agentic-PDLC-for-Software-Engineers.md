@@ -3,7 +3,7 @@
 
 *The model does the typing and the sweep. You own the floor it stands on, the boundary it cannot cross, and the check that decides what merges.*
 
-**5 min read** · Beginner · Lesson 4 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)
+**6 min read** · Beginner · Lesson 4 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC the engineering lead writes the context file every
@@ -174,6 +174,26 @@ records is read by people before it merges.
 The set of functions, each with a unit test, that do every exact thing the feature relies on —
 arithmetic, lookups, published rules — so that no number the product acts on ever comes from a model.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | In the customer's codebase, start with the context file and one walking skeleton. A merged change on day one is your credibility. | Have a coding agent read the repository and draft the context file before your first meeting. |
+| **A product manager or FDPM** | Give engineers story files with the spec lines and the done-when. A coding agent cannot ask you what you meant. | Ask a model to rewrite a ticket as a story file and list every question an engineer would still have. |
+| **A GenAI or agentic AI engineer** | Your loop: exact code first, then the model step with its checker. The harness decides the merge, and caps live in signatures. | Run the coding agent from the story file with a failing test first, and let the test define done. |
+
+**Across the enterprise.** Standard scaffolding — context file, story template, harness, per-call log —
+across repositories makes any engineer productive on any team's agent in a day.
+
+**The ten-minute workflow.** Test-first with a coding agent:
+
+```text
+Here is the story file for today's bolt: <paste>. Before any implementation, write the failing tests:
+unit tests for every exact step, one golden-slice test for the best-guess step against its bar, and one
+refusal test for every cap. Then implement until they pass. Stop and ask if the story file does not say
+what "right" means for a step.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -190,3 +210,5 @@ arithmetic, lookups, published rules — so that no number the product acts on e
 | [← For solution architects](Agentic-PDLC-for-Solution-Architects) | [For forward-deployed engineers →](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers) |
 
 **[All lessons](Start-Here)** · **[By role](Tutorial-By-Role)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-pdlc-for-engineers.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-pdlc-for-engineers.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-pdlc-for-engineers.md) — an edit made here is replaced at the next sync.</sub>

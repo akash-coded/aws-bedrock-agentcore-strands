@@ -168,6 +168,25 @@ The observation, from Melvin Conway in 1968, that organisations design systems w
 their own communication structure. In agentic AI it predicts that agent boundaries will follow team
 boundaries unless someone decides otherwise.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | You sit between the product teams and the customer. Route what you learn back through the platform and product teams, not around them. | Ask a model to draft a monthly field report — patterns, blockers, requests — grouped by customer. |
+| **A product manager or FDPM** | Keep the pod small: PM, architect, engineering lead and QA lead, with DevOps from the platform. As an FDPM you are the pod's link to the customer's roadmap. | Have a model draft the pod's RACI from the playbook's role pages and your current titles. |
+| **A GenAI or agentic AI engineer** | Build on the platform, not beside it. The gateway, the harness template and the landing zone are shared for a reason. | Ask a coding agent to check your service against the platform's standards and list the gaps. |
+
+**Across the enterprise.** Split a central AI group into a platform team and an enabling team, and let
+product teams own their agents end to end — including the decisions about what a mistake costs.
+
+**The ten-minute workflow.** Test your design against Conway's law:
+
+```text
+Here are our org chart and our agent architecture: <paste both>. Map every agent boundary and hand-off to
+the team boundary it follows. List each hand-off with no named limit, each agent that no product team
+owns, and each shared service that has been built more than once. Suggest the smallest change to either.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

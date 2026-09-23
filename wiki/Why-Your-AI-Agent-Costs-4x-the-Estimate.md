@@ -3,7 +3,7 @@
 
 *No runaway, no single mistake — four sensible decisions by careful people, multiplying on flat traffic. And the dashboard alarm that gets the one fix that works switched off.*
 
-**6 min read** · Intermediate · Lesson 9 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)
+**7 min read** · Intermediate · Lesson 9 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)
 
 > [!TIP]
 > **The answer in one sentence.** An AI agent's bill usually grows because four ordinary habits
@@ -157,6 +157,26 @@ Because behaviour changed: longer context, more calls on the expensive model, a 
 hitting, or more retries — or infrastructure that bills while idle. The per-call log shows which; the
 invoice cannot.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Put the per-call log in on day one. The customer's first bill is the moment the engagement is judged. | Ask a model to compute the four signatures from the log and name the largest. |
+| **A product manager or FDPM** | Report cost per case beside the saving, and ask "which signature?" whenever the bill moves. | Have a model draft the bill explanation for finance from the four ratios. |
+| **A GenAI or agentic AI engineer** | Stabilise the prompt prefix so the cache hits, route easy calls to a cheaper model, and cap loops and tokens per case. | Ask a coding agent to restructure the prompt: stable blocks first, then the cache point, then the request. |
+
+**Across the enterprise.** A central gateway with cost tags per feature makes every team's bill
+diagnosable, and charging back by feature makes each owner care about theirs.
+
+**The ten-minute workflow.** Diagnose a bill from the per-call log:
+
+```text
+Here is our per-call log for two periods: <CSV: timestamp, feature, model, input_tokens,
+output_tokens, cached_tokens, attempt>. Per case, compute tokens per call, the share on each model
+tier, the cache hit ratio and attempts. Show each factor's ratio between the periods, confirm they
+multiply to the bill's ratio, and rank the fixes by (factor − 1) ÷ days to fix, using: <estimates>.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -174,3 +194,5 @@ invoice cannot.
 | [← Shadow mode and cut-over](Shadow-Mode-and-Canary-Releases-for-AI-Agents) | [Guardrails that hold →](AI-Agent-Guardrails-That-Hold) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/ai-agent-costs.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/ai-agent-costs.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/ai-agent-costs.md) — an edit made here is replaced at the next sync.</sub>

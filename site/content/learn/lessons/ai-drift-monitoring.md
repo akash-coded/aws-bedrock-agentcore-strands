@@ -130,6 +130,25 @@ Because a slow slide never crosses a weekly threshold. A system that drifts two 
 trips a five-point weekly alert, and still moves thirty points in a quarter. A threshold on the level
 against a fixed baseline catches what the weekly one cannot.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Leave the customer a drift chart with two thresholds and a named reader. Drift is what breaks an agent after the FDE has gone. | Ask a coding agent to add the weekly output-mix job to the customer's scheduler. |
+| **A product manager or FDPM** | Choose the output mix to watch, and the two thresholds: week on week, and against a frozen baseline. | Have a model propose the mix from the agent's output categories and their history. |
+| **A GenAI or agentic AI engineer** | Pin model versions, log what answered every call, and keep a labelled sample on a schedule. | Ask a coding agent for the answering-model field and the sampling job. |
+
+**Across the enterprise.** Watch drift centrally across products, with one job and one dashboard, because
+a provider's model update reaches every team on the same day.
+
+**The ten-minute workflow.** Check a history for the slide a weekly alert misses:
+
+```text
+Here is the weekly count of the agent's decisions by type since launch: <table>. Using weeks 1–2 as a
+frozen baseline, flag every week in which a type's share moved more than <x> points week on week, or
+more than <y> points from the baseline. Show a table and the first week each threshold fired.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

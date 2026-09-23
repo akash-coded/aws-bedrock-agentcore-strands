@@ -3,7 +3,7 @@
 
 *AI inflates every activity metric you already have. The only honest measure is a change against a baseline, reported beside what it cost.*
 
-**6 min read** · Beginner · Lesson 2 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/)
+**7 min read** · Beginner · Lesson 2 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/)
 
 > [!TIP]
 > **The method in one sentence.** Measure AI productivity as a change against a baseline taken before
@@ -160,6 +160,25 @@ will hold.
 Usually because review became the bottleneck: more changes are produced and the same people read them.
 Route review by risk rather than by size, so that attention goes where a mistake is expensive.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Take the customer's baseline in week one — person-days per story, or minutes per case — before anything changes. It is the number the renewal rests on. | Ask a model to compute the baseline from their tracker history, with the date range and method stated. |
+| **A product manager or FDPM** | Report all four rows every cycle, and read the re-run trend before celebrating the saving. | Have a model draft the productivity section of the cycle report with the four rows. |
+| **A GenAI or agentic AI engineer** | Log what the measures need from systems, not surveys: stories done, tokens per story, review time, re-runs. | Ask a coding agent to join the tracker, the per-call log and the review log into one weekly table. |
+
+**Across the enterprise.** Measure each team against its own baseline and never rank teams on activity
+counts. Publish self-reported and system-measured figures separately, and never add them together.
+
+**The ten-minute workflow.** A baseline worth defending, from history you already have:
+
+```text
+Here is our tracker export for the last six months: <CSV with story id, start, done, assignees>.
+Compute person-days per story before <pilot start date>, with the method and any exclusions stated,
+and the spread. Flag stories that would distort the baseline: abandoned, reopened or unusually large.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -180,3 +199,5 @@ Route review by risk rather than by size, so that attention goes where a mistake
 | [← Team structure for agentic AI](How-to-Structure-Teams-for-Agentic-AI) | [The maturity model →](AI-Delivery-Maturity-Model) |
 
 **[All lessons](Start-Here)** · **[Teams and organisation](Tutorial-Teams-and-Organisation)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/measure-ai-productivity.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/measure-ai-productivity.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/measure-ai-productivity.md) — an edit made here is replaced at the next sync.</sub>

@@ -3,7 +3,7 @@
 
 *Your leverage moves upstream. The slow part of building is no longer the building — it is deciding precisely what right means, and who may act.*
 
-**5 min read** · Beginner · Lesson 1 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)
+**6 min read** · Beginner · Lesson 1 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC the product manager turns requests into measured
@@ -173,6 +173,26 @@ Turning a vague request into a measurement; knowing when a problem is not AI; se
 action from reversibility; deriving acceptance bars from damage and saving; writing precise, small
 specs; and reporting cost beside value. Most are old product skills made mandatory.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | At a small customer you are often the PM as well: measure the pain, run the AI-fit, and get autonomy per action signed by someone who owns the risk. | Ask a model to interview you as the customer's PM, and write the pain register from your answers. |
+| **A product manager or FDPM** | Your Monday: one pain measured, one bar derived, one approval you cannot evaluate removed. As an FDPM, add a fourth: sort each customer request into configuration, service or product. | Have a model classify last quarter's customer requests that way, with the evidence of a pattern behind every "product". |
+| **A GenAI or agentic AI engineer** | Ask the PM for the bar per slice and autonomy per action before you build. If they are missing, draft them and ask for a signature. | Ask a model to draft the bar sheet from the spec, for the PM to correct rather than write. |
+
+**Across the enterprise.** Define the AI PM's artefacts centrally — pain register, AI-fit record, bar sheet,
+autonomy record — so product managers in every team are judged on the same evidence.
+
+**The ten-minute workflow.** A pain line that survives to the steering committee:
+
+```text
+Interview me about the problem our AI feature is meant to solve. Ask one question at a time, and keep
+going until you can write one line: "<who> waits <minutes> for <what>; <n> cases a day; <share> are
+<the hard slice>; measured cost <$> a case, from <source>." Do not supply any number I have not given
+you; mark it UNKNOWN instead.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -188,3 +208,5 @@ specs; and reporting cost beside value. Most are old product skills made mandato
 | [← AI incident postmortems](Postmortems-for-AI-Incidents-Find-the-Missing-Control) | [For program managers →](Agentic-PDLC-for-Program-Managers) |
 
 **[All lessons](Start-Here)** · **[By role](Tutorial-By-Role)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-pdlc-for-product-managers.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-pdlc-for-product-managers.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-pdlc-for-product-managers.md) — an edit made here is replaced at the next sync.</sub>

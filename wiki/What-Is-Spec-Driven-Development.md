@@ -175,6 +175,25 @@ No. The practice is writing and keeping the spec; the tools make it convenient i
 A markdown file in the repository, read by path from the agent's context file, is spec-driven
 development.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Make the spec the contract: requirements in EARS, design and tasks, reviewed by the customer's people before any code. | Have Kiro or Spec Kit generate the requirements file, then walk it line by line with the customer's owner. |
+| **A product manager or FDPM** | Write the bar and the authority budget into the spec yourself. No SDD tool decides them. | Ask a model to find every requirement in the spec that has no measure. |
+| **A GenAI or agentic AI engineer** | Implement task by task against the spec, and update the spec when reality disagrees. A stale spec is worse than none. | After each task, have the agent diff the spec against the code and propose spec edits. |
+
+**Across the enterprise.** Adopt one SDD tool where you can and keep specs in the repository, so specs
+are reviewed like code across teams and survive the people who wrote them.
+
+**The ten-minute workflow.** Review a spec the way a coding agent will misread it:
+
+```text
+Here is our spec — requirements, design and tasks: <paste>. Find (1) requirements without a
+measurable acceptance criterion, (2) actions with no stated limit or approver, and (3) tasks that
+implement nothing in the requirements. Output three lists with line references.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -192,3 +211,5 @@ development.
 | [← What is the BMAD Method?](What-Is-the-BMAD-Method) | [One lifecycle for every method →](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum) |
 
 **[All lessons](Start-Here)** · **[Methods decoded](Tutorial-Methods-Decoded)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/what-is-spec-driven-development.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/what-is-spec-driven-development.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/what-is-spec-driven-development.md) — an edit made here is replaced at the next sync.</sub>

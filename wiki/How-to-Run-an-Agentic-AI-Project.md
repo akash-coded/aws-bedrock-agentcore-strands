@@ -3,7 +3,7 @@
 
 *The whole lifecycle on one page, in the order you will do it. Each step links to the lesson that goes deeper.*
 
-**6 min read** · Beginner · Lesson 1 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-run-an-agentic-ai-project/)
+**7 min read** · Beginner · Lesson 1 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-run-an-agentic-ai-project/)
 
 > [!TIP]
 > **The playbook in one sentence.** Run an agentic AI project in twelve steps across four phases:
@@ -153,6 +153,25 @@ Building a prototype first and writing the requirements around it. The prototype
 autonomy, the architecture and the bar by default, and the team spends the rest of the project
 defending decisions nobody made on purpose.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Use the twelve steps as the engagement plan, and make the phase exits the milestones in the statement of work. They are testable; dates are not. | Ask a model to turn the twelve steps into a customer-specific plan with an owner and an artefact per step. |
+| **A product manager or FDPM** | Track each slice by the step it has evidence for, not by percent complete. A slice "in build" without a bar is still in step 5. | Have a model audit the board and move each card back to the step its evidence supports. |
+| **A GenAI or agentic AI engineer** | Automate the evidence: the harness, the per-call log and the drift job make steps 8 to 12 cheap to prove. | Ask a coding agent to scaffold all three in the repository on day one. |
+
+**Across the enterprise.** Run every AI project on the same twelve steps. The portfolio view is then
+comparable — which step, which evidence, which owner — whatever method each team uses inside it.
+
+**The ten-minute workflow.** An honest status report in one prompt:
+
+```text
+Here is our project status: <board export or notes>. Place each piece of work at the step it has
+evidence for, not the one claimed: measure the pain, AI-fit, autonomy, step map, eight-field spec,
+authority in code, bolts, harness, shadow, widen, drift, two numbers. List what each needs to move on.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -170,3 +189,5 @@ defending decisions nobody made on purpose.
 | [← How much process a change needs](How-Much-Process-Does-a-Change-Need) | [Bolts vs sprints →](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-run-an-agentic-ai-project/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/how-to-run-an-agentic-ai-project.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/how-to-run-an-agentic-ai-project.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/how-to-run-an-agentic-ai-project.md) — an edit made here is replaced at the next sync.</sub>

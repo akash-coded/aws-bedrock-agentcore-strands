@@ -144,6 +144,26 @@ The thinnest possible version of the system that runs end to end — for an agen
 input and producing an output with no model in the path. It proves the pieces connect before anything
 difficult is built. The term comes from Alistair Cockburn.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Plan the engagement in bolts. Something merged most days is the trust currency of a customer engagement, and a stalled integration shows up on day two instead of week three. | Ask a model to cut the customer's epic into bolts with one unknown each, ordered by dependency. |
+| **A product manager or FDPM** | Replace sprint planning with tomorrow's bolt: its one unknown, its story file and its done-when. | Have a model check every bolt for a second unknown and propose the split. |
+| **A GenAI or agentic AI engineer** | Start with a walking skeleton with no model in it, schedule a tool's server before any write that uses it, and leave the proof for last. | Ask a coding agent to order the bolts by those rules and flag any cycle. |
+
+**Across the enterprise.** Bolts change capacity planning: forecast in bolts integrated per day per team,
+and let the review queue — not the build — set the pace of the portfolio.
+
+**The ten-minute workflow.** Cut an epic into bolts:
+
+```text
+Here is an epic: <paste>. Cut it into bolts of at most one day, each with exactly one unknown. Order
+them: a walking skeleton first with no model, exact code early, a tool's server before any gated write
+that uses it, checkers after the steps they check, the proof last. Output: day, bolt, depends on, the
+one unknown, risk band.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

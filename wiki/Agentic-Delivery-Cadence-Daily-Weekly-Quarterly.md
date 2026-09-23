@@ -3,7 +3,7 @@
 
 *Most failures in an agentic system are silent. The checks that catch them have to run on a clock, because nobody will complain in time.*
 
-**6 min read** · Intermediate · Lesson 2 of 4 in [Practice](Tutorial-Practice) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)
+**7 min read** · Intermediate · Lesson 2 of 4 in [Practice](Tutorial-Practice) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)
 
 > [!TIP]
 > **The rhythm in one sentence.** Agentic delivery runs on six clocks: every day a bolt is built,
@@ -186,6 +186,25 @@ quarterly maturity check.
 Chart its output mix weekly against two thresholds, keep a per-call log through one gateway for cost and
 routing, keep a redacted trace per consequential action, and wire a drift breach to re-open the release gate.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Hand the customer a calendar, not a document: every clock scheduled and every owner named before you leave. | Ask a model to turn the six clocks into calendar entries and short runbooks for the customer's team. |
+| **A product manager or FDPM** | Run the weekly operations review on three things — the drift chart, the attack run and the board's numbers — in thirty minutes, with no slides. | Have a model assemble the weekly review from those three sources. |
+| **A GenAI or agentic AI engineer** | Put the clocks in code: scheduled jobs for drift and the injection suite, required checks on every change. | Ask a coding agent to add the scheduled workflows, with an alert when one misses a run. |
+
+**Across the enterprise.** Across a portfolio the clocks run on shared infrastructure, and a missed clock is
+an alert in its own right: the silent failure of the process, not only of the product.
+
+**The ten-minute workflow.** Audit what actually runs on a clock:
+
+```text
+Here is what we run and when: <list of jobs, meetings and reports>. Map it to the six clocks — every day,
+every change, every week, every cycle, every quarter, on an event. List each check with no clock, each
+clock with no owner, and each check whose last run is older than its clock.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -203,3 +222,5 @@ routing, keep a redacted trace per consequential action, and wire a drift breach
 | [← The SkyWays case study](Agentic-AI-Case-Study-SkyWays) | [The simulator →](Agentic-AI-Delivery-Simulator) |
 
 **[All lessons](Start-Here)** · **[Practice](Tutorial-Practice)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-delivery-cadence.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-delivery-cadence.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-delivery-cadence.md) — an edit made here is replaced at the next sync.</sub>

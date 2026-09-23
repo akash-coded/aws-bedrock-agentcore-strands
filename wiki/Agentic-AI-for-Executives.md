@@ -151,6 +151,26 @@ evidence with drift watched. The level is how many of the six a team can show.
 Mandate outcomes and evidence, not agents. A quota for agents produces agents for work a rule would do
 better; a requirement for an AI-fit record and two numbers per programme produces the right mix.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | When a customer's executive joins, bring the four decisions, not the architecture: what is AI work, what it may do alone, what counts as evidence, what gets funded. | Ask a model to prepare a one-page brief on the four decisions for this customer. |
+| **A product manager or FDPM** | Answer the four questions before they are asked: which are rules, who decided the autonomy, the two numbers, the maturity level and the next control. | Have a model rehearse the four questions with you, playing a sceptical executive. |
+| **A GenAI or agentic AI engineer** | Make "show me the cap" answerable in ten seconds: a link to the tool signature and its test. | Ask a coding agent to generate a caps page from the code: each consequential action, its cap and its test. |
+
+**Across the enterprise.** The executive team asks the four questions of the whole portfolio each quarter,
+and the maturity count per team replaces the count of tools adopted.
+
+**The ten-minute workflow.** Rehearse the review before it happens:
+
+```text
+Play a sceptical chief executive reviewing our AI programme. Ask me the four questions one at a time —
+which of these are rules; what may it do without a person, and who decided; what are the two numbers;
+what maturity level are we, and what is the next control — and push back on any answer that lacks a
+number or a named owner.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -167,3 +187,5 @@ better; a requirement for an AI-fit record and two numbers per programme produce
 | [← For business sponsors](Agentic-PDLC-for-Business-Sponsors) | [Team structure for agentic AI →](How-to-Structure-Teams-for-Agentic-AI) |
 
 **[All lessons](Start-Here)** · **[By role](Tutorial-By-Role)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/agentic-ai-for-executives.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/agentic-ai-for-executives.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/agentic-ai-for-executives.md) — an edit made here is replaced at the next sync.</sub>

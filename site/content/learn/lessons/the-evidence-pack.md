@@ -169,6 +169,25 @@ document describes is actually enforced.
 No. The pack is small on purpose — thirty short artefacts, most of them one screen — and the
 enforcement column pays for itself the first time it finds a cap that lives only in a prompt.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Keep the pack current from day one and hand it over as the deliverable. It is what lets the customer's team run the agent after you leave. | Ask a model to check the pack's index against the repository and list stale or missing artefacts. |
+| **A product manager or FDPM** | At each hand-off, check owed, current and enforced. A control that exists in a document but not in code is marked absent. | Have a model compare each control in the pack with the code and quote the line that enforces it. |
+| **A GenAI or agentic AI engineer** | Link every control in the pack to the test that proves it. A control without a test is a claim. | Ask a coding agent to generate a test stub for each control that has none. |
+
+**Across the enterprise.** Make the evidence pack the unit of audit: the same index for every product,
+so an internal auditor can read any team's agent in an hour.
+
+**The ten-minute workflow.** Check that the controls you describe are the controls you run:
+
+```text
+Here is our evidence pack index: <paste>, and the repository is attached. For every control the pack
+describes — caps, redaction, gates, bars — find where it is enforced in code and quote the line.
+Mark each: enforced with a test, enforced without a test, described only, or missing.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

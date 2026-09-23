@@ -3,7 +3,7 @@
 
 *Most decisions in an agentic build should not stop anything. Three must. Knowing which is how you keep speed without buying an incident.*
 
-**6 min read** · Intermediate · Lesson 5 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/)
+**7 min read** · Intermediate · Lesson 5 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/)
 
 > [!TIP]
 > **The hard gate in one sentence.** Of the four hand-offs in the agentic PDLC only P1 → P2 halts the
@@ -172,6 +172,26 @@ The solution architect is accountable for P1 and signs its exit; the product man
 jointly own the plan gate — the bolt cut, the authority budget and the gate map. A waiver for crossing
 without the full set is approved by the sponsor.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | The hard gate is where you protect the engagement: refuse to build past an unsigned autonomy decision, and put every soft one behind a placeholder with an owner. | Have a model sort the open-decisions list with the four questions and draft the placeholder for each soft one. |
+| **A product manager or FDPM** | Chair the gate: three hard decisions signed, every soft one with an owner and a date, any waiver in writing. | Ask a model to produce the gate record from the decision log and flag decisions with no owner. |
+| **A GenAI or agentic AI engineer** | Build behind an interface for every soft decision — framework, model, retrieval — so changing the answer is configuration, not a rewrite. | Ask a coding agent for the interface and a stub for each soft decision, with a test that swaps the implementation. |
+
+**Across the enterprise.** Make P1 → P2 the one gate the portfolio enforces centrally, and let everything
+else run in parallel. One hard gate is how governance stops slowing delivery down.
+
+**The ten-minute workflow.** Sort the open decisions before the gate meeting:
+
+```text
+Here are our open decisions: <list>. For each, answer four questions: can it be reversed cheaply once
+building starts? can the build proceed behind a placeholder? is there a named owner and a date? does
+everything downstream survive if the answer changes? One "no" makes it HARD. Output a table —
+decision, the four answers, HARD or SOFT — and the placeholder for each SOFT one.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -190,3 +210,5 @@ without the full set is approved by the sponsor.
 | [← P1 · Design & Spec](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build) | [P2 · Build & Prove →](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/the-hard-gate.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/the-hard-gate.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/the-hard-gate.md) — an edit made here is replaced at the next sync.</sub>

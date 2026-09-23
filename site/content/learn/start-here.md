@@ -28,6 +28,8 @@ dek: Short lessons on running software projects where an AI model does part of t
 | An executive | [For executives](lesson:agentic-ai-for-executives) | Four decisions nobody else can make |
 | Leading the change | [Rolling it out in 90 days](lesson:rolling-out-agentic-delivery) | One feature, five phases, one trap each |
 | Wanting practice | [The SkyWays case study](lesson:skyways-case-study) | Ninety days, thirteen episodes, failures left in |
+| Preparing for an interview | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) | Then the bank for your role, with strong answers |
+| Curious about forward-deployed work | [What is an FDE?](lesson:what-is-a-forward-deployed-engineer) | The role, where it came from, and the FDPM beside it |
 | Wondering why these projects go wrong | [Why agentic AI projects fail](lesson:why-agentic-ai-projects-fail) | The failure modes are new, and quiet |
 
 ## What you will be able to do
@@ -40,7 +42,8 @@ By the end of the fundamentals you will be able to:
 4. **Run** it: cut over safely, catch drift, and report what it saved beside what it cost.
 
 The role, organisation and practice tracks then apply the same four phases to your job, to how
-a whole organisation adopts them, and to a full ninety-day case with twelve exercises.
+a whole organisation adopts them, and to a full ninety-day case with twelve exercises; the interview
+track turns all of it into answers for AI product, FDE, GenAI, agentic and AWS roles.
 
 ## How the lessons work
 

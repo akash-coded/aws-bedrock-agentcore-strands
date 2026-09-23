@@ -165,6 +165,25 @@ case usually has the highest bar and needs the most evidence, so it makes a poor
 Two causes recur: the first feature was chosen for value and cannot clear its bar inside a quarter, or a
 persuasive demo was treated as evidence and the specification, bars and tests were never written.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Choose the first feature with the customer for provability, not prestige, and write the AI-fit list that says why. | Ask a model to score the customer's candidates on volume, damage per mistake and an existing process to compare against. |
+| **A product manager or FDPM** | Credit every requirement to the person who raised it, in writing, before consolidating any of them. | Have a model build the credited requirements register from the meeting transcripts. |
+| **A GenAI or agentic AI engineer** | From day 30, merge something most days. If the demo is still the only evidence at day 45, the slices are not slices. | Ask a coding agent to report merges per day and harness results since day 30. |
+
+**Across the enterprise.** Roll out one feature and one business unit at a time. The second unit starts
+from the first unit's artefacts, and that reuse is where the enterprise-wide saving actually comes from.
+
+**The ten-minute workflow.** A credited requirements register, straight from transcripts:
+
+```text
+Here are transcripts of our discovery meetings: <paste>. List every requirement stated, credited to the
+person who said it, with the quote. Then group duplicates while keeping every credit, and list conflicts
+between people as open questions. Do not merge or drop anything silently.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -183,3 +202,5 @@ persuasive demo was treated as evidence and the specification, bars and tests we
 | [← The maturity model](AI-Delivery-Maturity-Model) | [The SkyWays case study →](Agentic-AI-Case-Study-SkyWays) |
 
 **[All lessons](Start-Here)** · **[Teams and organisation](Tutorial-Teams-and-Organisation)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/rolling-out-agentic-delivery/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/rolling-out-agentic-delivery.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/rolling-out-agentic-delivery.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/rolling-out-agentic-delivery.md) — an edit made here is replaced at the next sync.</sub>

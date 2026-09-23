@@ -300,9 +300,28 @@ sets from framing to operations, each worked in full. The formulas they use are 
 
 ### Why use 1.96 rather than 1.645?
 
-1.96 is the more conservative convention and the one this tutorial uses throughout. The simulator's
-calculator defaults to one-sided 95% confidence, 1.645, which gives slightly smaller numbers. Either
-works if it is fixed in advance and written on the bar sheet.
+1.96 is the stricter convention, and the one this tutorial, the wiki and the simulator's calculator all
+use by default. A one-sided 1.645 asks the same question with a lower demand for evidence. Either is
+defensible if it is fixed before anyone sees a score and written on the bar sheet.
+
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Work all twelve before a customer engagement. They are the calculations the first month will ask of you. | Ask a model to rewrite each exercise with the customer's own numbers. |
+| **A product manager or FDPM** | Use exercises 2, 4, 7 and 10 in interview loops for AI PMs, and ask for the working aloud. | Have a model generate variants with different numbers, with separate answer keys. |
+| **A GenAI or agentic AI engineer** | Turn exercises 5, 8 and 9 into code: a chain calculator, a cases-needed function, a queue estimator. | Ask a coding agent to write them as tested functions in the team's utilities. |
+
+**Across the enterprise.** Use the set as a shared baseline in training. A team that can do this arithmetic
+argues about assumptions instead of definitions — which is the argument worth having.
+
+**The ten-minute workflow.** Endless practice from one set:
+
+```text
+Here are twelve exercises with their answers: <paste the lesson>. Write a variant of each with different
+numbers and one twist — a human hold, a smaller sample, a slice that falls while the average rises. Keep
+the answers separate, with the working shown.
+```
 
 ## Sources and credits
 

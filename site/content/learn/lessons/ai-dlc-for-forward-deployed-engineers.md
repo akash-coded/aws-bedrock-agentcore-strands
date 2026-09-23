@@ -190,6 +190,26 @@ A solutions engineer typically supports the sale and the design; a forward-deplo
 ships inside the customer's environment, often on site, and stays until the deployment works in
 production.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run the field loop — discover, scope, prove, hand over — and turn every pattern you repeat into a template the product team can ship. | After each engagement, ask a model to extract the reusable patterns from your notes as product feedback. |
+| **A product manager or FDPM** | Pair with the FDE: they own the how, you own the what and the why at the point of deployment, and you decide what becomes product. | Have a model group FDE field notes from several customers into patterns, with counts. |
+| **A GenAI or agentic AI engineer** | Productise what FDEs keep rebuilding — the MCP server, the connector, the evaluation harness. The third copy is a platform backlog item. | Ask a coding agent to compare three customer repositories and propose the shared library. |
+
+**Across the enterprise.** An FDE programme scales when every engagement feeds a pattern library and the
+product roadmap. FDEs who only ever deliver bespoke work turn a product company into a services firm.
+
+**The ten-minute workflow.** Turn field notes into roadmap evidence:
+
+```text
+Here are my notes from three customer deployments: <paste>. List every problem I solved more than once:
+the problem, how I solved it each time, and whether it should become configuration, a reusable service
+or a product feature. For each product feature, write the one-paragraph request to the product team,
+with the customer evidence.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

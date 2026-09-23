@@ -3,7 +3,7 @@
 
 *Your org chart is already a system design. In agentic AI it decides where the agent boundaries fall — whether you meant it to or not.*
 
-**5 min read** · Intermediate · Lesson 1 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/)
+**6 min read** · Intermediate · Lesson 1 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/)
 
 > [!TIP]
 > **The answer in one sentence.** Agentic AI needs no new roles and removes none: keep a small product
@@ -164,6 +164,25 @@ The observation, from Melvin Conway in 1968, that organisations design systems w
 their own communication structure. In agentic AI it predicts that agent boundaries will follow team
 boundaries unless someone decides otherwise.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | You sit between the product teams and the customer. Route what you learn back through the platform and product teams, not around them. | Ask a model to draft a monthly field report — patterns, blockers, requests — grouped by customer. |
+| **A product manager or FDPM** | Keep the pod small: PM, architect, engineering lead and QA lead, with DevOps from the platform. As an FDPM you are the pod's link to the customer's roadmap. | Have a model draft the pod's RACI from the playbook's role pages and your current titles. |
+| **A GenAI or agentic AI engineer** | Build on the platform, not beside it. The gateway, the harness template and the landing zone are shared for a reason. | Ask a coding agent to check your service against the platform's standards and list the gaps. |
+
+**Across the enterprise.** Split a central AI group into a platform team and an enabling team, and let
+product teams own their agents end to end — including the decisions about what a mistake costs.
+
+**The ten-minute workflow.** Test your design against Conway's law:
+
+```text
+Here are our org chart and our agent architecture: <paste both>. Map every agent boundary and hand-off to
+the team boundary it follows. List each hand-off with no named limit, each agent that no product team
+owns, and each shared service that has been built more than once. Suggest the smallest change to either.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -182,3 +201,5 @@ boundaries unless someone decides otherwise.
 | [← For executives](Agentic-AI-for-Executives) | [Measuring AI productivity →](How-to-Measure-AI-Productivity) |
 
 **[All lessons](Start-Here)** · **[Teams and organisation](Tutorial-Teams-and-Organisation)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/team-structure-for-agentic-ai.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/team-structure-for-agentic-ai.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/team-structure-for-agentic-ai.md) — an edit made here is replaced at the next sync.</sub>

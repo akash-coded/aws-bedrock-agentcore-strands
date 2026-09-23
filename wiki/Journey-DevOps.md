@@ -95,7 +95,7 @@ flowchart TB
 
 *Week one, alongside discovery, before any resource exists*
 
-The platform question for an agentic workload is not different in kind from any other. It is different in *when*. Two of the things this workload needs bill for **existing** rather than for use — an OpenSearch Serverless collection holds capacity while it exists, and an AgentCore runtime holds an environment — so the ordinary habit of standing something up to try it and tidying up later produces a fixed monthly charge with no feature attached to it. Four things go in before the first feature branch: an account boundary, a tag scheme that attributes cost per feature, infrastructure as code, and a budget alarm.
+The platform question for an agentic workload is not different in kind from any other. It is different in *when*. Some of what this workload needs bills for **existing** rather than for use — a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance bills from boot until it is stopped, and stored long-term memory bills by the hour — so the ordinary habit of standing something up to try it and tidying up later produces a fixed monthly charge with no feature attached to it. Four things go in before the first feature branch: an account boundary, a tag scheme that attributes cost per feature, infrastructure as code, and a budget alarm.
 
 **What you actually do**
 
@@ -104,7 +104,7 @@ The platform question for an agentic workload is not different in kind from any 
 3. **Activate the cost allocation tags in the payer account the same day** — A tag on a resource is invisible to Cost Explorer until that user-defined tag key is activated in the management account, and the data starts flowing from activation. A backfill request exists; do not plan around it. A tag activated in month three does not label months one and two.
 4. **Put every resource in CDK or CloudFormation from the very first one** — Not because click-ops is untidy. Because the first thing you will genuinely need is to delete an environment entirely and rebuild it, and the console has no undo. Teardown is the feature you are buying.
 5. **Create the budget and its alarm before anything that costs money** — An actual `AWS::Budgets::Budget` with an SNS action and a named owner, not a calendar reminder. Put the threshold at the forecast the product manager defended, with a notification on actual spend and a second on *forecast*, which is the one that gives you a fortnight's warning instead of a bill.
-6. **Keep a written register of what bills for existing** — Collections, runtimes, provisioned throughput, NAT gateways, idle endpoints. Each with an owner and a teardown command, in the repository, reviewed weekly. Nothing goes quiet when the traffic does, so the only control is a list somebody reads.
+6. **Keep a written register of what bills for existing** — Search collections, runtime instances, stored memory, provisioned throughput, NAT gateways, idle endpoints. Each with an owner and a teardown command, in the repository, reviewed weekly. Nothing goes quiet when the traffic does, so the only control is a list somebody reads.
 
 **Where a model helps, and where it must not**
 
@@ -131,8 +131,8 @@ The platform question for an agentic workload is not different in kind from any 
 #   --parameter-overrides Feature=<feature> MonthlyBudgetUsd=<n> AlertEmail=<alias> \
 #   --tags Feature=<feature> Environment=<env> Owner=<name> CostCentre=<code>
 # Always-on register, reviewed weekly, each with an owner and a teardown command
-# (these bill for EXISTING, not for use): OpenSearch Serverless collections,
-# AgentCore runtimes, provisioned throughput, NAT gateways, idle endpoints.
+# (these bill for EXISTING, not for use): classic OpenSearch Serverless collections,
+# AgentCore Runtime instances and stored memory, provisioned throughput, NAT gateways, idle endpoints.
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Cost baseline for one feature. Creates nothing that serves traffic.
 
@@ -221,8 +221,8 @@ OUR BOUNDARIES:
 ```text
 Audit this account for resources that bill for EXISTING rather than for use.
 
-Look for at least: OpenSearch Serverless collections, AgentCore runtimes, provisioned
-throughput, NAT gateways, idle load balancers, allocated addresses, unattached volumes,
+Look for at least: classic OpenSearch Serverless collections, AgentCore Runtime instances,
+long-term memory stores, provisioned throughput, NAT gateways, idle load balancers, allocated addresses, unattached volumes,
 old snapshots.
 
 OUTPUT SHAPE - one table, sorted by monthly cost, highest first:
@@ -274,7 +274,7 @@ SCHEME: <paste>
 
 **Pitfalls**
 
-- Standing up a collection or a runtime to try something, and relying on remembering to remove it. Both bill for existing, so a forgotten experiment is a fixed monthly cost attached to no feature and no owner.
+- Standing up a search collection or a runtime instance to try something, and relying on remembering to remove it. Both bill for existing, so a forgotten experiment is a fixed monthly cost attached to no feature and no owner.
 - Tagging by team. The re-org lands in nine months and the question *what did rebooking cost* becomes permanently unanswerable for every month before it.
 - Activating cost allocation tags late. The tags were there all along, the cost data was not, and the first three months of spend can never be attributed — which is exactly the period you will be asked about.
 

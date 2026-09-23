@@ -81,6 +81,8 @@ def lesson_page(les, lessons, tracks, reg) -> str:
 | {prev} | {nxt} |
 
 **[All lessons](Start-Here)** · **[{t.title}]({t.wiki})** · [This lesson on the site]({les.url})
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/{les.slug}.md`]({learn.REPO}/blob/main/site/content/learn/lessons/{les.slug}.md). To change it, [edit the lesson]({learn.REPO}/edit/main/site/content/learn/lessons/{les.slug}.md) — an edit made here is replaced at the next sync.</sub>
 """
 
 
@@ -103,6 +105,8 @@ def track_page(t, tracks) -> str:
 {rows}
 
 {after}**[All lessons](Start-Here)**
+
+<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`]({learn.REPO}/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>
 """
 
 
@@ -141,6 +145,8 @@ def start_page(lessons, tracks, reg) -> str:
 **Also here:** the playbook's full reference — [The Agentic PDLC](The-Agentic-PDLC), [the role pages](Role-Product-Manager),
 [the journeys](Journey-Product-Manager), [the how-tos](How-to-Prove-the-Bar), [Formulas](Formulas-and-Calculators)
 and [the Glossary](Playbook-Glossary). Every lesson links into them where you need the depth.
+
+<sub>✏️ This page is generated from [`site/content/learn/start-here.md`]({learn.REPO}/blob/main/site/content/learn/start-here.md) — an edit made here is replaced at the next sync.</sub>
 """
 
 
@@ -168,8 +174,10 @@ def home_block(tracks) -> str:
 A free tutorial in short lessons on running software projects where an AI model does part of the
 work — the four phases, the one hard gate and the eight loops; how AWS AI-DLC, AIDD, the BMAD Method
 and spec-driven development fit onto them; what changes for each role, from engineer to executive;
-how an organisation adopts it; and a ninety-day case with twelve exercises. Each lesson is five to
-ten minutes, opens with the answer, carries a picture, and credits its sources.
+how an organisation adopts it; a ninety-day case with twelve exercises; and interview question banks
+with strong answers for AI product managers, forward deployed engineers, GenAI, agentic and AWS roles.
+Each lesson opens with the answer, carries a picture, ends with how to apply it in your role, and
+credits its sources.
 
 **[▶ Start here](Start-Here)** · or go straight to **[{first.title}]({first.wiki})**
 

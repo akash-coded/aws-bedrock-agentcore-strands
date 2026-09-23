@@ -167,6 +167,25 @@ The NIST AI RMF describes four functions — govern, map, measure and manage —
 across an organisation. The five gates are one concrete way to run those functions for a single
 product: named decisions, specific evidence and a standing trigger for re-evaluation.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Map the five gates onto the customer's existing approvals, so you add evidence rather than meetings. | Ask a model to map the customer's change process onto the five gates. |
+| **A product manager or FDPM** | Own the intent and release gates: evidence in front of you, your name on the record. | Have a model assemble the gate record from the evidence pack and list what is missing. |
+| **A GenAI or agentic AI engineer** | Make the behaviour and expansion gates data: the harness report and the live lower bound decide them. | Ask a coding agent to produce the gate evidence automatically for every release candidate. |
+
+**Across the enterprise.** Gates scale when they are per product and evidence-based. A central board then
+reviews exceptions and drift alerts, not every release.
+
+**The ten-minute workflow.** A gate review prepared in advance:
+
+```text
+Here is our evidence pack: <paste the index>. For each gate — intent, plan, behaviour, release,
+expansion — list the evidence it needs, whether we have it (quote the file), who signs, and what would
+re-open it. Flag any gate whose evidence is a meeting rather than a document.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

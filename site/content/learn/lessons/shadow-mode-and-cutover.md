@@ -144,6 +144,25 @@ With switches rehearsed before launch: a kill switch, moving an action's flag ba
 back the prompt, and rolling back the model version. Time each in a rehearsal; the model rollback is
 usually the slowest.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Run the shadow beside the customer's staff and read the disagreements with them daily. It is also how their team comes to trust the agent. | Ask a model to cluster the day's disagreements into themes, with counts and examples. |
+| **A product manager or FDPM** | Fix the shadow window in advance, report agreement per slice, and keep money actions gated whatever it shows. | Have a model compute agreement per slice and flag slices below target. |
+| **A GenAI or agentic AI engineer** | Make "shadow never writes" a test, and give every action its own flag with four states. | Ask a coding agent for the test that fails the build if a write tool is reachable in shadow. |
+
+**Across the enterprise.** A standard cut-over playbook — shadow, 5%, wider, all — with the same evidence
+rules everywhere lets a risk committee approve launches by exception instead of one at a time.
+
+**The ten-minute workflow.** Turn a day of disagreements into decisions:
+
+```text
+Here are today's shadow disagreements between the agent and the staff: <CSV: case, slice, agent
+decision, human decision, notes>. Cluster them into themes, with a count and two examples each. For
+each theme, say whether the agent, the staff or the policy was wrong, and what evidence would settle it.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

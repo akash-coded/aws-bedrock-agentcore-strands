@@ -3,7 +3,7 @@
 
 *A pipeline of personas that leaves a paper trail — excellent for audited, multi-team work, and six documents too many for a one-line fix.*
 
-**5 min read** · Beginner · Lesson 4 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)
+**6 min read** · Beginner · Lesson 4 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)
 
 > [!TIP]
 > **The BMAD Method in one sentence.** BMAD — the *Breakthrough Method for Agile AI-Driven
@@ -162,6 +162,25 @@ change, and add BMAD's persona trail on complex, multi-team or audited work.
 It is designed to run inside AI coding tools, and its documentation describes installing it into
 them. Check the current release for the tools it supports, since it changes quickly.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Use BMAD's persona trail when the customer needs an audit trail: analyst brief, PRD, architecture, stories — each one a versioned document. | Have the analyst persona produce the brief from interview notes, then get it signed by the customer. |
+| **A product manager or FDPM** | Add what BMAD leaves open: a bar per slice in the PRD and an authority budget in the architecture. | Ask the PM persona to add a bar table to the PRD and flag every slice with no damage estimate. |
+| **A GenAI or agentic AI engineer** | Run the developer persona from the story file, and keep QA's checks in the harness, not only in the QA persona's document. | Ask the QA persona to generate golden-set cases per story and add them to CI. |
+
+**Across the enterprise.** BMAD suits regulated work across teams because every decision is a document.
+Budget for that overhead: on small changes a shallow path is enough.
+
+**The ten-minute workflow.** Extend the architect persona with the two sections the method does not ask for:
+
+```text
+Act as the BMAD architect persona. From this PRD: <paste>, produce the architecture document, and add
+two sections: an authority budget (each tool, what it may do, its cap, where the cap is enforced) and a
+bar per slice (damage, saving, bar). Flag every tool that has no cap.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -179,3 +198,5 @@ them. Check the current release for the tools it supports, since it changes quic
 | [← What is AIDD?](What-Is-AIDD-AI-Driven-Development) | [What is spec-driven development? →](What-Is-Spec-Driven-Development) |
 
 **[All lessons](Start-Here)** · **[Methods decoded](Tutorial-Methods-Decoded)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/what-is-the-bmad-method.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/what-is-the-bmad-method.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/what-is-the-bmad-method.md) — an edit made here is replaced at the next sync.</sub>

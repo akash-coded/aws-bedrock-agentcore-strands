@@ -179,6 +179,25 @@ the shadow run from day 45 and the first report of both numbers on day 90.
 Yes. The simulator's "Ninety days of SkyWays" simulation asks for one decision in each of the thirteen
 episodes and shows what each option does to the episodes that follow.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Use SkyWays as the rehearsal before a real engagement: run the ninety days in the simulator, and write down where your customer will differ. | Ask a model to map each SkyWays episode onto your customer's likely equivalent. |
+| **A product manager or FDPM** | Take one episode a week into the team retrospective: what would we have done on day 45? | Have a model turn an episode into a 20-minute team exercise with a debrief. |
+| **A GenAI or agentic AI engineer** | Reproduce the engineering failures in a sandbox — the four-day queue, the 4.4× bill, the cap in a prompt — and write the test that catches each. | Ask a coding agent for a minimal reproduction of the day-82 refund, with a failing test. |
+
+**Across the enterprise.** Use the case as shared vocabulary across teams. "A day 82" quickly becomes
+shorthand for a cap that lived in a prompt, and saves a paragraph in every review.
+
+**The ten-minute workflow.** Find your own day 45 before it arrives:
+
+```text
+Here are the thirteen SkyWays episodes: <list them from the lesson>. For our project <describe>, write the
+equivalent of each episode — the day it is likely to happen, the number it would carry, the loop it
+closes — and mark the three we are least prepared for.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

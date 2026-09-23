@@ -162,6 +162,25 @@ will hold.
 Usually because review became the bottleneck: more changes are produced and the same people read them.
 Route review by risk rather than by size, so that attention goes where a mistake is expensive.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Take the customer's baseline in week one — person-days per story, or minutes per case — before anything changes. It is the number the renewal rests on. | Ask a model to compute the baseline from their tracker history, with the date range and method stated. |
+| **A product manager or FDPM** | Report all four rows every cycle, and read the re-run trend before celebrating the saving. | Have a model draft the productivity section of the cycle report with the four rows. |
+| **A GenAI or agentic AI engineer** | Log what the measures need from systems, not surveys: stories done, tokens per story, review time, re-runs. | Ask a coding agent to join the tracker, the per-call log and the review log into one weekly table. |
+
+**Across the enterprise.** Measure each team against its own baseline and never rank teams on activity
+counts. Publish self-reported and system-measured figures separately, and never add them together.
+
+**The ten-minute workflow.** A baseline worth defending, from history you already have:
+
+```text
+Here is our tracker export for the last six months: <CSV with story id, start, done, assignees>.
+Compute person-days per story before <pilot start date>, with the method and any exclusions stated,
+and the spread. Flag stories that would distort the baseline: abandoned, reopened or unusually large.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

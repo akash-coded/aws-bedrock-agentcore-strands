@@ -173,6 +173,26 @@ A bolt is a work cycle of hours or days that replaces the sprint as the unit of 
 much of the building. The term comes from AWS's AI-Driven Development Life Cycle; this playbook adds
 the rule that each bolt carries exactly one unknown.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Ship a walking skeleton in the customer's environment on day one — their authentication, their data, no model. Integration is where engagements stall. | Ask a coding agent to scaffold the skeleton against the customer's API specification, with contract tests. |
+| **A product manager or FDPM** | Read the per-slice report, never only the average. A merge that lifts the average and drops a slice is rejected, and you should be able to say why. | Ask a model to explain each failed harness run in one sentence for the stakeholder update. |
+| **A GenAI or agentic AI engineer** | Make the harness a required check with a bar per slice, and put an independent checker after every risky best-guess step. | Have a coding agent write the harness from the golden-set schema, failing on any touched slice below its bar. |
+
+**Across the enterprise.** Offer the harness as a platform template. Every team's golden sets run in the
+same CI shape, and the governance board reads the same per-slice report for every product.
+
+**The ten-minute workflow.** A harness a coding agent can write in one pass:
+
+```text
+Write a pytest harness for an AI step. Input: a JSONL golden set in which each case has id, slice,
+input and expected. For every slice this change touches, run the step, score each case with <the
+checker>, and compute score, n and the lower bound: p − 1.96·√(p(1−p)/n), or the Wilson bound under
+100 cases. Fail if any lower bound is below that slice's bar in bars.yaml, and print a per-slice table.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

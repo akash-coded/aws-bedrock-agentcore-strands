@@ -141,6 +141,25 @@ An entry in OWASP's Top 10 for LLM applications: a system that grants a model mo
 permission or autonomy than its task needs, so that a manipulated or mistaken model can take harmful
 actions. Least authority and bounded tools are the direct defences.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Audit the customer's existing agents for limits that live only in prompts. It is the fastest way to show value in week one. | Ask a coding agent to find every number and never/always rule in the prompts, and its enforcement in code. |
+| **A product manager or FDPM** | Ask "show me the cap" for every consequential action. If someone opens a prompt, it is not a guardrail. | Have a model list each consequential action and where its limit is enforced. |
+| **A GenAI or agentic AI engineer** | Enforce limits in the tool: typed, bounded parameters, confirmation tokens the model cannot create, the least identity that works — and test that each one refuses. | Ask a coding agent for two tests per cap: within the limit passes, over it raises. |
+
+**Across the enterprise.** Make "caps in signatures" a platform rule that CI checks across every agent.
+A guardrail that exists only as a paragraph fails the build.
+
+**The ten-minute workflow.** Find the guardrails that are only requests:
+
+```text
+Search this repository for every rule an AI agent is given in a prompt: any number, and any "never",
+"always", "must", "only" or "limit". For each, find where the same rule is enforced in code and quote
+the line. Output: rule, prompt file, enforcing code (or NONE), and a test that proves it refuses.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -158,3 +177,5 @@ actions. Least authority and bounded tools are the direct defences.
 | [← Why the AI bill is 4× the estimate](Why-Your-AI-Agent-Costs-4x-the-Estimate) | [The five governance gates →](AI-Governance-Gates-That-Dont-Slow-Delivery) |
 
 **[All lessons](Start-Here)** · **[Running delivery](Tutorial-Running-Delivery)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-guardrails-that-hold/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/ai-guardrails-that-hold.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/ai-guardrails-that-hold.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/ai-guardrails-that-hold.md) — an edit made here is replaced at the next sync.</sub>

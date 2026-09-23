@@ -56,19 +56,21 @@ JSON_LD = {
     "isPartOf": {"@type": "CreativeWork", "name": "Agentic AI on AWS", "url": REPO_URL},
 }
 
+# The framed copy is served from /simulator/, so its links climb one level to the site's shared files,
+# and it is canonical for itself — pointing it at the home page told search engines it was a duplicate.
 HEAD = f"""
 <!-- site frame: injected at build time by site/build.py. The tool itself is untouched. -->
 <meta name="description" content="{DESCRIPTION}">
 <meta name="author" content="{AUTHOR}">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="{BASE_URL}">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="{BASE_URL}simulator/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F7F6F2">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SkyWays Architect">
 <meta property="og:title" content="{TITLE}">
 <meta property="og:description" content="{DESCRIPTION}">
-<meta property="og:url" content="{BASE_URL}">
+<meta property="og:url" content="{BASE_URL}simulator/">
 <meta property="og:image" content="{BASE_URL}assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -77,13 +79,13 @@ HEAD = f"""
 <meta name="twitter:description" content="{DESCRIPTION}">
 <meta name="twitter:image" content="{BASE_URL}assets/og.png">
 <script type="application/ld+json">{json.dumps(JSON_LD, ensure_ascii=False)}</script>
-<link rel="stylesheet" href="frame/frame.css">
+<link rel="stylesheet" href="../frame/frame.css">
 """
 
 BODY = """
 <!-- site frame: attribution, licence, invitation and contact form. See site/frame/. -->
-<script src="frame/config.js"></script>
-<script src="frame/frame.js"></script>
+<script src="../frame/config.js"></script>
+<script src="../frame/frame.js"></script>
 """
 
 ROBOTS = f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}sitemap.xml\n"

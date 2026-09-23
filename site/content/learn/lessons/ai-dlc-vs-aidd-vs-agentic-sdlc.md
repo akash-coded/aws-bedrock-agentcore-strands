@@ -153,6 +153,25 @@ Usually two of them. Use a building method — AI-DLC, spec-driven development o
 team works with coding agents, and the agentic PDLC for the product decisions those methods leave
 open whenever the shipped software calls a model.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | When a customer says "we do AI-DLC", ask which one: AWS's methodology, the AIDDLC standard, or everyday AI coding. Each needs a different first week. | Ask a model to map the customer's own vocabulary onto these terms and list where they collide. |
+| **A product manager or FDPM** | Choose one method per team and one lifecycle for the portfolio. Filling the gaps every method shares is worth more than comparing methods. | Have a model draft a one-page glossary for your organisation, with each term's source and owner. |
+| **A GenAI or agentic AI engineer** | Treat every method as a build discipline. The bar per slice and authority in code are yours to add under any of them. | Ask a coding agent to add a bar file and cap tests to whichever method's templates you use. |
+
+**Across the enterprise.** Publish one terms page so that "AI-DLC" means one thing inside the
+organisation. Name confusion costs weeks in procurement, planning and vendor evaluation.
+
+**The ten-minute workflow.** Untangle the vocabulary in a document or a vendor pitch:
+
+```text
+Our teams use these terms: <list, each with an example sentence>. For each, say which it most likely
+means — AWS AI-DLC, the AIDDLC standard, AIDD, agentic SDLC, spec-driven development or the BMAD
+Method — and where the usage is ambiguous. Draft a one-paragraph definition we could adopt for each.
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |

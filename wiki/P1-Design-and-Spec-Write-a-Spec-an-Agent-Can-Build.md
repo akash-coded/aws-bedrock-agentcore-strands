@@ -3,7 +3,7 @@
 
 *One screen, eight fields, and the five decisions nobody had made yet. Plus the limits that have to live in code, not in the prompt.*
 
-**7 min read** · Intermediate · Lesson 4 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)
+**8 min read** · Intermediate · Lesson 4 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)
 
 > [!TIP]
 > **P1 in one sentence.** P1 Design & Spec writes down what will be built so precisely that a coding
@@ -197,6 +197,26 @@ Start with one and add another only when you can name the limit that forces it: 
 overflows or parallel work a tool cannot express. Each added agent multiplies the hand-offs that can
 go wrong, and a fan-out tool usually gives you the parallelism without them.
 
+## Apply it in your role
+
+| If you are… | Do this | The AI-augmented shortcut |
+| --- | --- | --- |
+| **A forward-deployed engineer** | Write the eight-field spec with the customer's engineers in the room, so the five agentic fields are decided by the people who will own them. | Before the session, have a model turn the brief into the eight fields as questions and mark which are undecided. |
+| **A product manager or FDPM** | Derive the bar per slice and sign autonomy per action. A spec without them is still a PRD. | Paste the PRD and ask a model to convert it to the eight fields and EARS lines, listing every gap as a question. |
+| **A GenAI or agentic AI engineer** | Build the authority budget into tool signatures before the first prompt: typed, bounded parameters and a confirmation token for money. | Ask a coding agent to generate tool stubs from the authority budget, each with a test that it refuses over its cap. |
+
+**Across the enterprise.** Standardise the eight-field template and the bar sheet. It is the only way a
+governance board can compare specs across teams, and the only way a coding agent can read any team's work.
+
+**The ten-minute workflow.** Convert prose requirements into acceptance criteria a machine can build from:
+
+```text
+Convert these requirements into EARS acceptance criteria — ubiquitous ("The system shall…"),
+event-driven ("When…"), state-driven ("While…"), unwanted behaviour ("If… then…") and optional
+feature ("Where…"). Every line must carry a measure. List each requirement you could not convert
+without inventing a number, as a question for me. Requirements: <paste>
+```
+
 ## Sources and credits
 
 | Idea | Origin | Source |
@@ -217,3 +237,5 @@ go wrong, and a fan-out tool usually gives you the parallelism without them.
 | [← P0 · Frame](P0-Frame-Is-an-AI-Agent-Worth-Building) | [The one hard gate →](The-Hard-Gate-in-Agentic-Delivery) |
 
 **[All lessons](Start-Here)** · **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** · [This lesson on the site](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)
+
+<sub>✏️ This page is generated from [`site/content/learn/lessons/p1-design-and-spec.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/lessons/p1-design-and-spec.md). To change it, [edit the lesson](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/site/content/learn/lessons/p1-design-and-spec.md) — an edit made here is replaced at the next sync.</sub>

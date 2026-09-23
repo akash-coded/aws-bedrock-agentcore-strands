@@ -50,7 +50,7 @@ SHOTS = BASE_URL + "assets/learn/"
 # the first, one second less for each after it, never less than 3.
 WPM = 238
 LEVELS = ("Beginner", "Intermediate", "Advanced")
-REQUIRED_H2 = ("Key takeaways", "Sources and credits")
+REQUIRED_H2 = ("Key takeaways", "Apply it in your role", "Sources and credits")
 
 _E = html.escape
 
@@ -749,7 +749,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
 {body}
   </article>
   <nav class="pn" aria-label="Lesson navigation">{''.join(pn)}</nav>
-  <p class="lalt">Prefer GitHub? The same lesson is <a href="{les.wiki_url}">on the wiki</a>. Found a mistake? <a href="{REPO}/discussions/101">Say so</a>.</p>
+  <p class="lalt">Prefer GitHub? The same lesson is <a href="{les.wiki_url}">on the wiki</a>, and <a href="index.md">as markdown</a>. Found a mistake? <a href="{REPO}/edit/main/site/content/learn/lessons/{les.slug}.md">Edit this lesson</a>, or <a href="{REPO}/discussions/101">say so</a>.</p>
 </main>
 </div>"""
     if link.problems:
