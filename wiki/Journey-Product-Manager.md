@@ -1,7 +1,5 @@
 # Product manager · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For product managers](Agentic-PDLC-for-Product-Managers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
-
 **From a vibe to a number you can defend**
 
 8 steps · 50 sub-steps · 8 templates · 21 prompts
@@ -1210,7 +1208,7 @@ Do not be polite.
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Product-Manager)
-- [The same case as thirteen episodes](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/story)
+- [The same case as thirteen episodes](https://akash-coded.github.io/aws-bedrock-agentcore-strands/../simulator/#/story)
 - [Every formula on one page](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators)
 
 **Other roles:** [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)

@@ -445,7 +445,7 @@ class Html:
                     out.append(f'<figure class="mmd"><pre class="mermaid">{_E(src)}</pre></figure>')
                 else:
                     cls = f' class="language-{lang}"' if lang else ""
-                    out.append(f"<pre><code{cls}>{_E(src)}</code></pre>")
+                    out.append(f"<pre tabindex=\"0\"><code{cls}>{_E(src)}</code></pre>")
                 continue
             d = DIRECTIVE.match(line.strip())
             if d:
@@ -471,7 +471,7 @@ class Html:
                     i += 1
                 th = "".join(f"<th>{inline(c, self.link)}</th>" for c in head)
                 tb = "".join("<tr>" + "".join(f"<td>{inline(c, self.link)}</td>" for c in r) + "</tr>" for r in rows)
-                out.append(f'<div class="tw"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>')
+                out.append(f'<div class="tw" tabindex="0"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>')
                 continue
             if line.lstrip().startswith(">"):
                 inner = []

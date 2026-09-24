@@ -196,7 +196,8 @@ def gate(x: float, y: float, h: float, *, hard: bool = True, label: str = "") ->
 def svg(w: float, h: float, inner: str, label: str, *, caption: str = "", cls: str = "") -> str:
     """The frame: a figure with the drawing and an optional caption underneath."""
     cap = f"<figcaption>{caption}</figcaption>" if caption else ""
-    return (f'<figure class="bbw{(" " + cls) if cls else ""}"><svg class="bb" viewBox="0 0 {w} {h}" role="img" '
+    role = "group" if "<a " in inner else "img"   # an image may not contain links; a group may
+    return (f'<figure class="bbw{(" " + cls) if cls else ""}"><svg class="bb" viewBox="0 0 {w} {h}" role="{role}" '
             f'aria-label="{E(label)}">{inner}</svg>{cap}</figure>')
 
 

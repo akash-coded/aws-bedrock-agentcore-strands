@@ -1,7 +1,5 @@
 # QA lead · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
-
 **From 'it works' to a number you can defend**
 
 8 steps · 56 sub-steps · 8 templates · 23 prompts
@@ -1549,7 +1547,7 @@ INCIDENT AND FIX:
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-QA-Lead)
-- [The harness, in the engineering lead's journey](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/eng/step-3)
+- [The harness, in the engineering lead's journey](https://akash-coded.github.io/aws-bedrock-agentcore-strands/../simulator/#/eng/step-3)
 - [Every rung of the ladder, with the arithmetic](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [DevOps](Journey-DevOps)

@@ -1,7 +1,5 @@
 # Solution architect · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For solution architects](Agentic-PDLC-for-Solution-Architects)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
-
 **From requirements to a system that holds**
 
 8 steps · 55 sub-steps · 8 templates · 24 prompts
@@ -1633,7 +1631,7 @@ MODULE: <path>
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Solution-Architect)
-- [The same case, step by step, in the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/sa/step-1)
+- [The same case, step by step, in the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/../simulator/#/sa/step-1)
 - [Every decision tree on one page](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)

@@ -1,7 +1,5 @@
 # DevOps and platform · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
-
 **From a laptop to production, repeatably**
 
 8 steps · 53 sub-steps · 8 templates · 24 prompts
@@ -1597,7 +1595,7 @@ ARCHITECTURE: <paste>
 ## Read next
 
 - [How the whole lifecycle fits together](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC)
-- [The gateway control, in the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html#/governance/gv-gateway)
+- [The gateway control, in the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/../simulator/#/governance/gv-gateway)
 - [Every lever on the token bill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead)

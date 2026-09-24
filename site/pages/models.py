@@ -444,6 +444,7 @@ def build(shell, urls: dict) -> str:
 
 <div class="sec"><ol class="mix">{index}</ol></div>
 
+<h2 style="margin:6px 0 12px">The twelve, one by one</h2>
 <div class="lensbar" id="reading">{k.lens_toggle("The model", "The subtlety")}
 <span class="lh" data-lens-hint data-rest-black="What each one predicts and the mistake it prevents. Switch to see where each stops applying." data-rest-white="The qualification each one needs before you apply it somewhere it does not fit.">Showing <b>the model</b>. What each one predicts and the mistake it prevents. Switch to see where each stops applying.</span></div>
 

@@ -47,7 +47,7 @@ HEAD = {
     ),
     "reads": [
         ["The wiki page for this role", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Engineering-Lead"],
-        ["The same case, walked step by step", "app/SkyWays-Architect.html#/eng/step-1"],
+        ["The same case, walked step by step", "../simulator/#/eng/step-1"],
         ["Where the bill goes, and how to get it back", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill"],
     ],
 }

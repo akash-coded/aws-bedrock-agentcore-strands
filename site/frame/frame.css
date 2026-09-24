@@ -2,7 +2,7 @@
    Layered onto the tool at build time by site/build.py. Every selector is prefixed "sw-" so nothing here
    can collide with the tool's own styles, and the palette reuses the tool's custom properties. */
 
-.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:10px;padding:10px 15px 10px 13px;border-radius:999px;background:var(--ink,#1C1B19);color:#fff;font:500 13px/1 inherit;letter-spacing:.01em;border:0;cursor:pointer;box-shadow:0 10px 30px rgba(28,27,25,.22);transition:transform 220ms var(--ease,ease),box-shadow 220ms var(--ease,ease)}
+.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:10px;padding:10px 15px 10px 13px;border-radius:999px;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:500 13px/1 inherit;letter-spacing:.01em;border:0;cursor:pointer;box-shadow:0 10px 30px rgba(28,27,25,.22);transition:transform 220ms var(--ease,ease),box-shadow 220ms var(--ease,ease)}
 .sw-pill:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(28,27,25,.28)}
 .sw-pill:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
 .sw-pill .sw-dot{width:8px;height:8px;border-radius:50%;background:var(--sage,#5F8A7B);box-shadow:0 0 0 3px rgba(95,138,123,.28)}
@@ -44,7 +44,7 @@
 .sw-field input:focus,.sw-field select:focus,.sw-field textarea:focus{outline:2px solid color-mix(in oklab,var(--slate,#5B6B8C) 45%,transparent);outline-offset:1px;border-color:var(--slate,#5B6B8C)}
 .sw-hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .sw-consent{font-size:12.5px;color:var(--soft,#77746C);line-height:1.5}
-.sw-send{padding:12px 16px;border-radius:10px;border:0;background:var(--ink,#1C1B19);color:#fff;font:600 14px/1 inherit;cursor:pointer;transition:opacity 160ms}
+.sw-send{padding:12px 16px;border-radius:10px;border:0;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:600 14px/1 inherit;cursor:pointer;transition:opacity 160ms}
 .sw-send:hover{opacity:.92}
 .sw-send[disabled]{opacity:.55;cursor:progress}
 .sw-status{font-size:13.5px;line-height:1.5;padding:12px 14px;border-radius:10px;border:1px solid var(--rule,#E6E2D9);background:var(--bone,#F7F6F2);display:none}

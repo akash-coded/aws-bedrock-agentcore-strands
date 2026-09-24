@@ -55,7 +55,7 @@ HEAD = {
     ),
     "reads": [
         ["How the whole lifecycle fits together", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC"],
-        ["The gateway control, in the simulator", "app/SkyWays-Architect.html#/governance/gv-gateway"],
+        ["The gateway control, in the simulator", "../simulator/#/governance/gv-gateway"],
         ["Every lever on the token bill", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill"],
     ],
 }

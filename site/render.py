@@ -258,7 +258,7 @@ def block(kind: str, title: str, subtitle: str, body: str, bid: str) -> str:
     return f"""<div class="blk">
 <div class="bh"><span class="bt">{_E(title)}</span>{f'<span class="bw">{_E(subtitle)}</span>' if subtitle else ''}
 <button class="cp" data-copy="{bid}" aria-label="Copy {_E(kind, quote=True)}">Copy</button></div>
-<pre id="{bid}"><code>{_E(body)}</code></pre></div>"""
+<pre id="{bid}" tabindex="0"><code>{_E(body)}</code></pre></div>"""
 
 
 def figure_html(step: dict) -> str:
@@ -316,7 +316,7 @@ def step_html(role: dict, s: dict) -> str:
     <ol class="acts">{acts}</ol></section>
 
   <section><div class="lbl">Where a model helps, and where it must not</div>
-    <div class="tw"><table class="ai"><thead><tr><th>Tool</th><th>Use it for</th></tr></thead>
+    <div class="tw" tabindex="0"><table class="ai"><thead><tr><th>Tool</th><th>Use it for</th></tr></thead>
       <tbody>{''.join(ai_rows)}</tbody></table></div></section>
 
   <section><div class="lbl">The artefact</div>
@@ -408,13 +408,14 @@ def role_page(role: dict) -> str:
 
   <div class="sec">{intro}</div>
 
+  <h2 style="margin:0 0 12px">What is yours, and what is not</h2>
   <div class="sec two">
-    <div class="card"><h4 style="color:var(--accent)">Yours to own</h4><ul class="ticks">{owns}</ul></div>
-    <div class="card"><h4 style="color:var(--soft)">Not yours — stop signing these</h4>
+    <div class="card"><h3 class="h4" style="color:var(--accent)">Yours to own</h3><ul class="ticks">{owns}</ul></div>
+    <div class="card"><h3 class="h4" style="color:var(--soft)">Not yours — stop signing these</h3>
       <ul class="ticks no">{nots}</ul></div>
   </div>
 
-  <div class="sec"><div class="note"><h4>How to use a model in this role</h4>
+  <div class="sec"><div class="note"><h3 class="h4">How to use a model in this role</h3>
     <p>{md(role['ai_stance'])}</p></div></div>
 
   <h2 style="margin:0 0 16px">The journey, step by step</h2>
@@ -475,11 +476,12 @@ def library_page(roles: list[dict], kind: str) -> str:
         toc.append(f'<li><a href="#{role["id"]}">{_E(role["name"])}</a></li>')
 
     other = ("prompts", "Prompts to paste") if is_t else ("templates", "Artefact templates")
-    compare = f"""<div class="sec two tvp">
-  <div class="card{' on' if is_t else ''}"><h4>Templates</h4><p>Skeletons for the <b>documents each step produces</b>: a
+    compare = f"""<h2 style="margin:0 0 12px">Templates or prompts?</h2>
+<div class="sec two tvp">
+  <div class="card{' on' if is_t else ''}"><h3 class="h4">Templates</h3><p>Skeletons for the <b>documents each step produces</b>: a
     register, a spec, a bar sheet, a report. You fill the angle brackets and keep the file.</p>
     <p class="eg2">e.g. <code># Pain register · &lt;product&gt;</code></p></div>
-  <div class="card{'' if is_t else ' on'}"><h4>Prompts</h4><p>Messages you <b>paste into a model</b> to draft, check or
+  <div class="card{'' if is_t else ' on'}"><h3 class="h4">Prompts</h3><p>Messages you <b>paste into a model</b> to draft, check or
     decompose something — with the job, the rules and the output shape spelled out.</p>
     <p class="eg2">e.g. <code>You are helping a product manager consolidate discovery notes…</code></p></div>
 </div>"""
@@ -575,7 +577,7 @@ def home_page(roles: list[dict]) -> str:
         {"sel": ".tgl", "title": "Light or dark", "body": "The whole site follows this, pictures included."},
     ])
 
-    hero = f"""<section class="hero" id="top"><div class="in">
+    hero = f"""<section class="hero" id="top" aria-label="Introduction"><div class="in">
   <div class="hx">
     <p class="kicker">PDLCs for the agentic era</p>
     <h1>Every agentic delivery method. <em>One manual.</em> Your role, end to end.</h1>
@@ -636,20 +638,20 @@ def home_page(roles: list[dict]) -> str:
   {boards.by_role()}
 
   <div class="sec" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px">
-    <div class="card"><h4>Templates, not theory</h4><p style="font-size:14.5px;color:var(--ink2)">
+    <div class="card"><h3 class="h4">Templates, not theory</h3><p style="font-size:14.5px;color:var(--ink2)">
       Every artefact has a fill-in skeleton with a copy button.
       <a href="templates/">All templates →</a></p></div>
-    <div class="card"><h4>Prompts you can paste</h4><p style="font-size:14.5px;color:var(--ink2)">
+    <div class="card"><h3 class="h4">Prompts you can paste</h3><p style="font-size:14.5px;color:var(--ink2)">
       Written to be edited: the job, the rules, the output shape.
       <a href="prompts/">All prompts →</a></p></div>
-    <div class="card"><h4>The SkyWays playbook</h4><p style="font-size:14.5px;color:var(--ink2)">
+    <div class="card"><h3 class="h4">The SkyWays playbook</h3><p style="font-size:14.5px;color:var(--ink2)">
       An interactive simulator of the whole method: thirteen dated episodes, nine simulations, seventeen
       calculators. <a href="simulator/">Open the playbook →</a></p></div>
     <div class="card" style="border-color:color-mix(in oklab,var(--slate) 40%,transparent)">
-      <h4>Not doing the work, funding it?</h4><p style="font-size:14.5px;color:var(--ink2)">
+      <h3 class="h4">Not doing the work, funding it?</h3><p style="font-size:14.5px;color:var(--ink2)">
       The whole operating model on one screen: what changes, who does what, the four decisions only
       leadership can make, and ninety days. <a href="protocol/">The operating protocol →</a></p></div>
-    <div class="card"><h4>The method, written down</h4><p style="font-size:14.5px;color:var(--ink2)">
+    <div class="card"><h3 class="h4">The method, written down</h3><p style="font-size:14.5px;color:var(--ink2)">
       Four phases, eight loops, 37 scenarios, 31 exercises, every formula.
       <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>
@@ -676,7 +678,7 @@ def home_page(roles: list[dict]) -> str:
 
   <div class="sec">
     <h2>Where to start</h2>
-    <div class="tw"><table><thead><tr><th>You are</th><th>Start here</th><th>Time</th></tr></thead><tbody>
+    <div class="tw" tabindex="0"><table><thead><tr><th>You are</th><th>Start here</th><th>Time</th></tr></thead><tbody>
       <tr><td>New to agentic delivery</td><td><a href="learn/what-is-the-agentic-pdlc/">What is the agentic PDLC?</a> — the
         four phases in one sitting</td><td>8 min</td></tr>
       <tr><td>A forward-deployed engineer</td><td><a href="learn/ai-dlc-for-forward-deployed-engineers/">AI-DLC and AIDD in the
@@ -773,7 +775,7 @@ def frameworks_page() -> str:
         "<p>They are not competitors; they occupy different parts of the same lifecycle. The decision "
         "that matters is not <em>which method</em> but <strong>how deep to go on this change</strong>.</p>"
         + pic(illos.methods) +
-        '<div class="tw"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
+        '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
         f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
 
         '<div class="sec" id="vs"><h2>What changes when the product decides</h2>'
@@ -793,12 +795,12 @@ def frameworks_page() -> str:
         "are costly and easy to miss.</p></div>"
 
         '<div class="sec" id="decoder"><h2>The acronym decoder</h2>'
-        '<div class="tw"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
+        '<div class="tw" tabindex="0"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
         f"<th>From</th></tr></thead><tbody>{a_rows}</tbody></table></div></div>"
 
         '<div class="sec" id="lineage"><h2>Every framework, with its lineage</h2>' + key +
-        '<div class="tw"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
-        f'<th></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
+        '<div class="tw" tabindex="0"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
+        f'<th><span class="vh">Confidence</span></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
         f'<p style="margin-top:14px"><a href="{WIKI}/Sources-and-Confidence" target="_blank" '
         'rel="noopener">The full sources page &rarr;</a></p></div>'
         "</main></div>")

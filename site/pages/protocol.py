@@ -105,7 +105,7 @@ def _changes() -> str:
 <h2>What actually changes</h2>
 <p>Less than the market implies, and in sharper places. The honest list, so nobody has to rebuild a
 working discipline to adopt this.</p>
-<div class="tw"><table><thead><tr><th>Activity</th><th>Verdict</th><th>Why</th></tr></thead>
+<div class="tw" tabindex="0"><table><thead><tr><th>Activity</th><th>Verdict</th><th>Why</th></tr></thead>
 <tbody>{body}</tbody></table></div>
 <div class="note"><p><strong>The pattern.</strong> Everything that changed, changed because part of
 the product is now probabilistic. Everything that did not, did not. If a proposal in front of you
@@ -140,7 +140,7 @@ def _operating_model() -> str:
     for name, slug, colour, one, owns, shift in roles:
         cards.append(
             f'<div class="card" style="--rc:{colour};border-left:3px solid {colour}">'
-            f'<h4 style="color:{colour}">{E(name)}</h4>'
+            f'<h3 class="h4" style="color:{colour}">{E(name)}</h3>'
             f'<p style="font-size:14.5px;margin-bottom:10px">{E(one)}</p>'
             f'{k.lens(f"<p style=font-size:14px><strong>The shift:</strong> {E(shift)}</p>", f"<p style=font-size:14px><strong>Owns:</strong> {E(owns)}</p>", "What changes for them", "What they own")}'
             f'<p style="font-size:13.5px;margin:0"><a href="../{slug}/">Their eight steps →</a></p></div>')
@@ -254,7 +254,7 @@ def _knowing() -> str:
 <h2>How you will know it is working</h2>
 <p>Four questions, asked consistently, and most of the failure modes in this manual cannot survive in
 your organisation. They take ten minutes a cycle.</p>
-<div class="tw"><table><thead><tr><th>Ask</th><th>Of what</th><th>A good answer looks like</th></tr></thead>
+<div class="tw" tabindex="0"><table><thead><tr><th>Ask</th><th>Of what</th><th>A good answer looks like</th></tr></thead>
 <tbody>{qrows}</tbody></table></div>
 
 <h3>The maturity check, in ten minutes</h3>
@@ -268,7 +268,7 @@ your organisation. They take ten minutes a cycle.</p>
 {chk}
 
 <h3>The report you should receive</h3>
-<div class="tw"><table><thead><tr><th></th><th>Baseline</th><th>Now</th><th>Change</th></tr></thead>
+<div class="tw" tabindex="0"><table><thead><tr><th><span class="vh">Measure</span></th><th>Baseline</th><th>Now</th><th>Change</th></tr></thead>
 <tbody>
 <tr><td>Person-days per story</td><td>8.0</td><td>4.6</td><td><strong>−43%</strong></td></tr>
 <tr><td>Token spend per story</td><td>—</td><td>$310</td><td></td></tr>
@@ -352,7 +352,7 @@ It is deliberately unglamorous in the middle.</p>
 {k.stepper(steps, "The ninety-day rollout")}
 
 <h3>The resistance you will actually meet</h3>
-<div class="tw"><table><thead><tr><th>What you will hear</th><th>What is underneath</th><th>What answers it</th></tr></thead><tbody>
+<div class="tw" tabindex="0"><table><thead><tr><th>What you will hear</th><th>What is underneath</th><th>What answers it</th></tr></thead><tbody>
 <tr><td>"This slows us down"</td><td>Usually true for the first feature, and untrue by the third</td>
 <td>Show the artefacts being reused. The second spec takes an hour</td></tr>
 <tr><td>"The model is good enough already"</td><td>Judged on curated examples</td>
@@ -403,7 +403,7 @@ def _tooling() -> str:
 <h2>Tooling, by level</h2>
 <p>The specific products change every quarter and the shape does not. Four levels, each with a
 different blast radius, and the governance is what separates them — not the vendor.</p>
-<div class="tw"><table><thead><tr><th>Who</th><th>What</th><th>For</th><th>The control on it</th>
+<div class="tw" tabindex="0"><table><thead><tr><th>Who</th><th>What</th><th>For</th><th>The control on it</th>
 <th>The rule</th></tr></thead><tbody>{body}</tbody></table></div>
 
 {k.lens(
@@ -452,7 +452,7 @@ def _redflags() -> str:
 <h2>Seven things to escalate on</h2>
 <p>None of these is a failure. Each is a signal that a decision is being made by default, somewhere
 below the level that should be making it.</p>
-<div class="tw"><table><thead><tr><th>Signal</th><th>Why it matters</th><th>The question</th></tr></thead>
+<div class="tw" tabindex="0"><table><thead><tr><th>Signal</th><th>Why it matters</th><th>The question</th></tr></thead>
 <tbody>{body}</tbody></table></div>
 </div>"""
 
@@ -488,7 +488,7 @@ def build(shell, urls: dict) -> str:
             + _knowing() + _rollout() + _tooling() + _redflags() + _first30()
             + f"""<div class="sec" style="border-top:1px solid var(--rule);padding-top:26px">
 <h2>Where to send people</h2>
-<div class="tw"><table><thead><tr><th>They own</th><th>Send them to</th></tr></thead><tbody>
+<div class="tw" tabindex="0"><table><thead><tr><th>They own</th><th>Send them to</th></tr></thead><tbody>
 <tr><td>What gets built and whether it shipped safely</td><td><a href="../product-manager/">The product manager's eight steps</a></td></tr>
 <tr><td>The shape of the system and what may be probabilistic</td><td><a href="../solution-architect/">The architect's eight steps</a></td></tr>
 <tr><td>Building it, and the boundary in code</td><td><a href="../engineering/">The engineering lead's eight steps</a></td></tr>
