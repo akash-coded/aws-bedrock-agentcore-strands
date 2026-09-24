@@ -82,6 +82,10 @@ await send("Runtime.enable");
 const WIDTH = 1200;
 try {
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+  // the tool offers a walkthrough on a first visit; a screenshot is not a first visit
+  await send("Page.navigate", { url });
+  await sleep(1500);
+  await evaluate(`localStorage.setItem("skyways.tours.off", "1"); true`);
   for (const [name, route, how] of SCREENS) {
     await send("Emulation.setDeviceMetricsOverride", { width: WIDTH, height: how.top || 900, deviceScaleFactor: 2, mobile: false });
     // a fresh load per screen: the simulator is one page, and a hash change keeps the last one's state
