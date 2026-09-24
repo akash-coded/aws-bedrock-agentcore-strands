@@ -395,7 +395,7 @@ def role_page(role: dict) -> str:
 </aside>
 <main id="main">
   <div class="sec">
-    <div class="kicker">{_E(role['short'])} · end to end</div>
+    <div class="kicker">Eight steps, end to end</div>
     <h1>{_E(role['name'])}</h1>
     <p class="lede">{md(role['tagline'])}</p>
     <p><span class="pill acc">{len(role['steps'])} steps</span> <span class="pill">{n_a} sub-steps</span>
@@ -508,7 +508,7 @@ def library_page(roles: list[dict], kind: str) -> str:
     body = f"""<div class="cols">
 <aside class="rail" aria-label="Roles"><h2>By role</h2><ul class="ticks">{''.join(toc)}</ul></aside>
 <main id="main">
-  <div class="sec"><div class="kicker">Library · {short}</div><h1>{label}</h1>
+  <div class="sec"><div class="kicker">The {"template" if is_t else "prompt"} library</div><h1>{label}</h1>
   <p class="lede">{lede}</p>
   <p><span class="pill acc">{count} {short}</span>
      <span class="pill">copy button on each</span> <span class="pill">every angle bracket is yours to fill</span></p></div>
@@ -580,38 +580,37 @@ def home_page(roles: list[dict]) -> str:
     hero = f"""<section class="hero" id="top" aria-label="Introduction"><div class="in">
   <div class="hx">
     <p class="kicker">PDLCs for the agentic era</p>
-    <h1>Every agentic delivery method. <em>One manual.</em> Your role, end to end.</h1>
-    <p class="lede">AI-DLC, AIDD, the BMAD Method, spec-driven development and the four-phase PDLC that ties
-    them together — walked from the first discovery conversation to the number you report at the end.
-    Free, credited, method-agnostic.</p>
+    <h1>Every agentic delivery method. One manual. <em>Your role, end to end.</em></h1>
+    <p class="lede">AI-DLC, AIDD, BMAD, spec-driven development and the PDLC that ties them together,
+    walked from the first conversation to the number you report. Free, credited, method-agnostic.</p>
     <div class="who"><p class="wl">If you are…</p><ul>{who_html}</ul></div>
     <div class="guide">{k.pip()}<div class="bubble"><p><b>Hi, I'm Pip.</b> New here? I can show you round in
-      thirty seconds — or take you straight to the tutorial, or to the playbook.</p>
+      thirty seconds, or take you straight to the tutorial or the playbook.</p>
       <div class="ba"><button type="button" class="btn pri" data-tour-start>Show me around</button>
       <a class="btn" href="learn/">Start the tutorial</a>
       <a class="btn" href="simulator/">Play the playbook</a></div></div></div>
-    <div class="stats">{stats_html}</div>
   </div>
   <div class="ill">{illos.spine()}</div>
 </div></section>"""
 
     body = f"""{hero}
 <div class="wrap">
-<main id="main" style="padding:40px 0 80px">
+<main id="main" style="padding:34px 0 80px">
+  <div class="stats" aria-label="What is here">{stats_html}</div>
   <div class="sec">
     <h2>Three ways in</h2>
-    <div class="how3">
-      <div class="card"><span class="n">1</span><h3>Learn the method</h3>
+    <div class="ways">
+      <div><h3>Learn the method</h3>
         <p>{n_lessons} short lessons: the four phases, the methods decoded, running delivery, every role, the
         organisation, the SkyWays case and {n_banks} interview banks with answer frameworks.</p>
         <a class="more" href="learn/">Start the tutorial →</a></div>
-      <div class="card"><span class="n">2</span><h3>Walk your role</h3>
+      <div><h3>Walk your role</h3>
         <p>Eight steps per role, in order. Each says what you do, where a model helps and where it must not,
         the artefact you owe the next person, its template and the prompts to draft it.</p>
         <a class="more" href="product-manager/">Open a role →</a></div>
-      <div class="card"><span class="n">3</span><h3>Use the libraries, then play</h3>
-        <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder —
-        and the SkyWays playbook, ninety days of one airline's build you can replay.</p>
+      <div><h3>Use the libraries, then play</h3>
+        <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder,
+        and the SkyWays playbook: ninety days of one airline's build you can replay.</p>
         <a class="more" href="simulator/">Open the playbook →</a></div>
     </div>
   </div>
@@ -637,23 +636,18 @@ def home_page(roles: list[dict]) -> str:
 
   {boards.by_role()}
 
-  <div class="sec" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px">
-    <div class="card"><h3 class="h4">Templates, not theory</h3><p style="font-size:14.5px;color:var(--ink2)">
-      Every artefact has a fill-in skeleton with a copy button.
+  <div class="sec more">
+    <div><h3>Templates, not theory</h3><p>Every artefact has a fill-in skeleton with a copy button.
       <a href="templates/">All templates →</a></p></div>
-    <div class="card"><h3 class="h4">Prompts you can paste</h3><p style="font-size:14.5px;color:var(--ink2)">
-      Written to be edited: the job, the rules, the output shape.
+    <div><h3>Prompts you can paste</h3><p>Written to be edited: the job, the rules, the output shape.
       <a href="prompts/">All prompts →</a></p></div>
-    <div class="card"><h3 class="h4">The SkyWays playbook</h3><p style="font-size:14.5px;color:var(--ink2)">
-      An interactive simulator of the whole method: thirteen dated episodes, nine simulations, seventeen
-      calculators. <a href="simulator/">Open the playbook →</a></p></div>
-    <div class="card" style="border-color:color-mix(in oklab,var(--slate) 40%,transparent)">
-      <h3 class="h4">Not doing the work, funding it?</h3><p style="font-size:14.5px;color:var(--ink2)">
-      The whole operating model on one screen: what changes, who does what, the four decisions only
-      leadership can make, and ninety days. <a href="protocol/">The operating protocol →</a></p></div>
-    <div class="card"><h3 class="h4">The method, written down</h3><p style="font-size:14.5px;color:var(--ink2)">
-      Four phases, eight loops, 37 scenarios, 31 exercises, every formula.
-      <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
+    <div><h3>The SkyWays playbook</h3><p>An interactive simulator of the whole method: thirteen dated
+      episodes, nine simulations, seventeen calculators. <a href="simulator/">Open the playbook →</a></p></div>
+    <div><h3>Not doing the work, funding it?</h3><p>The whole operating model on one screen: what changes,
+      who does what, the four decisions only leadership can make, and ninety days.
+      <a href="protocol/">The operating protocol →</a></p></div>
+    <div><h3>The method, written down</h3><p>Four phases, eight loops, 37 scenarios, 31 exercises, every
+      formula. <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>
 
   <hr>

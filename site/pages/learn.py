@@ -828,7 +828,7 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
     html_ = f"""<div class="cols lcols">
 {rail}
 <main id="main" class="lesson">
-  <p class="kicker">Free tutorial · {sum(len(t.lessons) for t in tracks)} lessons</p>
+  <p class="kicker">A free tutorial in {sum(len(t.lessons) for t in tracks)} lessons</p>
   <h1>{_E(smeta['title'])}</h1>
   <p class="lede">{inline(smeta.get('dek', ''), link)}</p>
   {kit.orient(
