@@ -3,7 +3,7 @@
 
 *A board that moves cards on evidence, not on status. Nine columns, five lanes, and the three numbers a programme manager actually needs.*
 
-**6 min read** · Intermediate · Lesson 3 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)
+**7 min read** · Intermediate · Lesson 3 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)
 
 > [!TIP]
 > **The board in one sentence.** An agentic delivery board has columns whose **exit rules are
@@ -11,40 +11,9 @@
 > watching — **swimlanes by risk band**, so a money change never shares a lane with a label change,
 > **work-in-progress limits** set by review capacity, and cards that each carry exactly one unknown.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    C1["<b>Framed</b><br/><i>exit: pain measured,<br/>AI-fit recorded</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    C2["<b>Specified</b><br/><i>exit: spec, bar and<br/>band signed</i>"] ~~~ C3["<b>Bolt ready</b><br/><i>exit: story file,<br/>one unknown</i>"]
-  end
-  subgraph B["P2 · Build and Prove"]
-    direction LR
-    C4["<b>Building</b><br/><i>exit: integrated<br/>the same day</i>"] ~~~ C5["<b>Harness green</b><br/><i>exit: every touched<br/>slice at its bar</i>"]
-    C6["<b>Reviewed</b><br/><i>exit: readers set<br/>by the band</i>"] ~~~ C7["<b>In shadow</b><br/><i>exit: agreement per<br/>slice, window closed</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    C8["<b>Live</b><br/><i>exit: widened<br/>on evidence</i>"] ~~~ C9["<b>Watching</b><br/><i>drift and the<br/>two numbers</i>"]
-  end
-  F --> S --> B --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-kanban-board.dark.webp"><img alt="A kanban board for agentic delivery: nine columns across the four phases, each with its exit criterion" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-kanban-board.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class C1 p0
-  class C2,C3 p1
-  class C4,C5,C6,C7 p2
-  class C8,C9 p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

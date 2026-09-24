@@ -12,28 +12,9 @@
 > began at Palantir in the early 2010s; frontier AI labs such as OpenAI and Anthropic now hire FDEs to put
 > models into production with their most strategic customers.
 
-```mermaid
-flowchart TB
-  subgraph D["A product engineer"]
-    direction LR
-    D1["<b>One capability</b><br/><i>built once</i>"] ~~~ D2["<b>Many customers</b><br/><i>use it as shipped</i>"]
-  end
-  subgraph F["A forward deployed engineer"]
-    direction LR
-    F1["<b>One customer</b><br/><i>embedded with them</i>"] ~~~ F2["<b>Many capabilities</b><br/><i>made to work there</i>"]
-  end
-  D ~~~ F
-  F -.->|"patterns, codified"| P(["<b>Back into the product</b><br/><i>for the next customer</i>"])
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-a-forward-deployed-engineer.dark.webp"><img alt="A product engineer builds one capability for many customers; a forward-deployed engineer makes many capabilities work for one, and codifies the patterns back" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-a-forward-deployed-engineer.light.webp" width="100%"></picture></a></p>
 
-  classDef dev fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef fde fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef meta fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  class D1,D2 dev
-  class F1,F2 fde
-  class P meta
-  style D fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style F fill:#2C7A4B0D,stroke:#2C7A4B,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

@@ -11,21 +11,9 @@
 > the agentic PDLC fixes the newest one: software that is right only most of the time. Each kept most
 > of what came before, and so should you.
 
-```mermaid
-flowchart TB
-  W["<b>1970s · Plan-driven</b><br/><i>bottleneck: change cost<br/>answer: decide up front</i>"]
-  S["<b>1988–90</b><br/><b>Spiral and stage-gate</b><br/><i>bottleneck: wrong thing<br/>answer: evidence gates</i>"]
-  A["<b>2001 · Agile</b><br/><i>bottleneck: late learning<br/>answer: short cycles</i>"]
-  D["<b>2009 on · DevOps</b><br/><i>bottleneck: the release<br/>answer: continuous<br/>delivery, measured</i>"]
-  C["<b>2021 on · AI-assisted</b><br/><i>bottleneck: typing code<br/>answer: a model writes,<br/>a person reviews</i>"]
-  G["<b>2024 on · Agentic</b><br/><i>bottleneck: mostly right<br/>answer: a measured bar,<br/>authority per action</i>"]
-  W --> S --> A --> D --> C --> G
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-evolution-of-the-pdlc.dark.webp"><img alt="Six lifecycles from plan-driven to agentic, each row naming its bottleneck and its answer" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-evolution-of-the-pdlc.light.webp" width="100%"></picture></a></p>
 
-  classDef past fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef now fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2.5px
-  class W,S,A,D,C past
-  class G now
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

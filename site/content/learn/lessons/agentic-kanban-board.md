@@ -15,40 +15,7 @@ updated: 2026-09-23
 > watching — **swimlanes by risk band**, so a money change never shares a lane with a label change,
 > **work-in-progress limits** set by review capacity, and cards that each carry exactly one unknown.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    C1["<b>Framed</b><br/><i>exit: pain measured,<br/>AI-fit recorded</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    C2["<b>Specified</b><br/><i>exit: spec, bar and<br/>band signed</i>"] ~~~ C3["<b>Bolt ready</b><br/><i>exit: story file,<br/>one unknown</i>"]
-  end
-  subgraph B["P2 · Build and Prove"]
-    direction LR
-    C4["<b>Building</b><br/><i>exit: integrated<br/>the same day</i>"] ~~~ C5["<b>Harness green</b><br/><i>exit: every touched<br/>slice at its bar</i>"]
-    C6["<b>Reviewed</b><br/><i>exit: readers set<br/>by the band</i>"] ~~~ C7["<b>In shadow</b><br/><i>exit: agreement per<br/>slice, window closed</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    C8["<b>Live</b><br/><i>exit: widened<br/>on evidence</i>"] ~~~ C9["<b>Watching</b><br/><i>drift and the<br/>two numbers</i>"]
-  end
-  F --> S --> B --> R
-
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class C1 p0
-  class C2,C3 p1
-  class C4,C5,C6,C7 p2
-  class C8,C9 p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+{{map:agentic-kanban-board}}
 
 **In this lesson** you'll learn:
 

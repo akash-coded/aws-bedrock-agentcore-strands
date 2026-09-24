@@ -16,20 +16,7 @@ updated: 2026-09-23
 > filled in with SkyWays' numbers ready for yours, and an evidence pack that collects every artefact and
 > downloads as one markdown file.
 
-```mermaid
-flowchart TB
-  A["<b>1 · Read an episode</b><br/><i>each one closes a loop</i>"]
-  B["<b>2 · Run it twice</b><br/><i>loop-closing path first</i>"]
-  C["<b>3 · Use your numbers</b><br/><i>17 tools, formulas shown</i>"]
-  D["<b>4 · Add the artefact</b><br/><i>to the evidence pack</i>"]
-  E(["<b>5 · Download the pack</b><br/><i>one markdown file</i>"])
-  A --> B --> C --> D --> E
-
-  classDef you fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef meta fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  class A,B,C,D you
-  class E meta
-```
+{{map:agentic-delivery-simulator}}
 
 **In this lesson** you'll learn:
 

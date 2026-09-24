@@ -12,27 +12,9 @@
 > framework to structure the answer, what a strong answer contains, the follow-up interviewers use to
 > find the edge of your understanding, and the red flag they listen for.
 
-```mermaid
-flowchart LR
-  subgraph R["The round"]
-    direction TB
-    R1["<b>Product sense</b>"] ~~~ R2["<b>Analytics</b>"] ~~~ R3["<b>Strategy</b>"]
-    R3 ~~~ R4["<b>Technical</b>"] ~~~ R5["<b>Leadership</b>"]
-  end
-  subgraph T["The AI twist"]
-    direction TB
-    T1["<b>Is it AI work at all?</b>"] ~~~ T2["<b>Good enough, per slice</b>"] ~~~ T3["<b>Where the moat is</b>"]
-    T3 ~~~ T4["<b>Retrieval or model?</b>"] ~~~ T5["<b>Evidence over hype</b>"]
-  end
-  R ~~~ T
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-product-manager-interview-questions.dark.webp"><img alt="The five parts of a product manager interview round, each with its AI twist" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-product-manager-interview-questions.light.webp" width="100%"></picture></a></p>
 
-  classDef r fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef t fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  class R1,R2,R3,R4,R5 r
-  class T1,T2,T3,T4,T5 t
-  style R fill:#6E6E6E0D,stroke:#6E6E6E,stroke-width:1.5px
-  style T fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll practise:
 

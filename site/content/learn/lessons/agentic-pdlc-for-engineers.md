@@ -16,41 +16,7 @@ updated: 2026-09-23
 > slice falls below its bar, and ships a slice a day — letting the model type, never letting it hold the
 > boundary.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    X["<i>Not on the clock:<br/>reads the brief,<br/>starts nothing</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    A["<b>1 · Prepare</b><br/><i>the context file</i>"]
-  end
-  subgraph P["P2 · Build and Prove — yours to lead"]
-    direction LR
-    B["<b>2 · Slice</b><br/><i>a story file per bolt</i>"] ~~~ C["<b>3 · Floor</b><br/><i>exact code first</i>"]
-    D["<b>4 · Layer</b><br/><i>model calls, a checker</i>"] ~~~ E["<b>5 · Gate</b><br/><i>the limit in the signature</i>"]
-    G["<b>6 · Harness</b><br/><i>in CI, in cost order</i>"] ~~~ H["<b>7 · Ship</b><br/><i>a bolt a day, behind a flag</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    I["<b>8 · Operate</b><br/><i>cache, route, trace, ledger</i>"]
-  end
-  F --> S --> P --> R
-
-  classDef quiet fill:none,stroke:#6E6E6E,stroke-width:1.2px,stroke-dasharray:4 3
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class X quiet
-  class A p1
-  class B,C,D,E,G,H p2
-  class I p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+{{map:agentic-pdlc-for-engineers}}
 
 **In this lesson** you'll learn:
 

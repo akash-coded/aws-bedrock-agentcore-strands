@@ -12,25 +12,9 @@
 > use?) — each owned by one named person deciding on written evidence, with a drift alert that re-opens
 > the release gate automatically.
 
-```mermaid
-flowchart TB
-  I["<b>1 · Intent</b><br/>product manager<br/><i>pain, AI-fit, value line</i>"] --> P["<b>2 · Plan</b><br/>PM and architect<br/><i>bolts, authority, gates</i>"]
-  P --> B["<b>3 · Behaviour</b><br/>QA lead<br/><i>per slice, lower bound</i>"]
-  B --> R["<b>4 · Release</b><br/>product manager<br/><i>shadow run, rollback</i>"]
-  R --> E["<b>5 · Expansion</b><br/>QA lead<br/><i>live evidence, drift</i>"]
-  E --> D(["<b>While live</b><br/><i>a drift alert re-opens the<br/>release gate, automatically</i>"])
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-governance-gates.dark.webp"><img alt="The five governance gates in order, each with its owner, and the drift alert that re-opens release" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-governance-gates.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef watch fill:#A93F3F1A,stroke:#A93F3F,stroke-width:2px
-  class I p0
-  class P p1
-  class B p2
-  class R,E p3
-  class D watch
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

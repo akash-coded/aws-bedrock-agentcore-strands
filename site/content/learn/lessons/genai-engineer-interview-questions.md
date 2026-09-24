@@ -16,41 +16,7 @@ updated: 2026-09-23
 > for the model being tricked — and these ten questions each come with the framework, a strong answer, the
 > follow-up that finds the limit of your experience, and the red flag.
 
-```mermaid
-flowchart TB
-  subgraph Q["Quality"]
-    direction LR
-    Q1["<b>1 · RAG is wrong</b>"] ~~~ Q2["<b>2 · Evaluate it</b>"]
-    Q3["<b>3 · Fine-tune?</b>"]
-  end
-  subgraph P["Performance and cost"]
-    direction LR
-    Q4["<b>4 · 8 s to 2 s</b>"] ~~~ Q5["<b>5 · The bill doubled</b>"]
-    Q6["<b>6 · Pick a model</b>"]
-  end
-  subgraph S["Safety and structure"]
-    direction LR
-    Q7["<b>7 · Injection</b>"] ~~~ Q8["<b>8 · Reliable JSON</b>"]
-  end
-  subgraph M["State and story"]
-    direction LR
-    Q9["<b>9 · Memory</b>"] ~~~ Q10["<b>10 · Your system</b>"]
-  end
-  Q --> P --> S --> M
-
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef back fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class Q1,Q2,Q3 p1
-  class Q4,Q5,Q6 p2
-  class Q7,Q8 back
-  class Q9,Q10 p3
-  style Q fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style S fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
-  style M fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+{{map:genai-engineer-interview-questions}}
 
 **In this lesson** you'll practise:
 

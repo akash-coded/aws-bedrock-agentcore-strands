@@ -12,34 +12,9 @@
 > two boundaries (the product manager stops approving code; QA gains an arithmetic veto), put the system's
 > seams where the team boundaries already are, and name one sponsor who owns governance.
 
-```mermaid
-flowchart TB
-  subgraph G["Governance · a sponsor"]
-    direction LR
-    S1["<b>Sponsor</b><br/><i>funding, the ceiling,</i><br/><i>what counts as proof</i>"]
-  end
-  subgraph T["Product team · P0 to P3"]
-    direction LR
-    T1["<b>Product manager</b><br/><i>pain, autonomy, bar</i>"] ~~~ T2["<b>Solution architect</b><br/><i>map, authority, ADRs</i>"]
-    T3["<b>Engineering lead</b><br/><i>floor and boundary</i>"] ~~~ T4["<b>QA lead</b><br/><i>the arithmetic veto</i>"]
-  end
-  subgraph P["Platform team · shared"]
-    direction LR
-    P1["<b>Gateway and log</b><br/><i>every call, per case</i>"] ~~~ P2["<b>Harness template</b><br/><i>gates every merge</i>"]
-    P3["<b>Landing zone</b><br/><i>accounts, tags, traces</i>"]
-  end
-  G --> T --> P
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-team-structure-for-agentic-ai.dark.webp"><img alt="Three layers: a sponsor for governance, a product team of four owning P0 to P3, and a shared platform team" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-team-structure-for-agentic-ai.light.webp" width="100%"></picture></a></p>
 
-  classDef gov fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  classDef team fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef plat fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class S1 gov
-  class T1,T2,T3,T4 team
-  class P1,P2,P3 plat
-  style G fill:#7455B30D,stroke:#7455B3,stroke-width:1.5px
-  style T fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

@@ -12,35 +12,9 @@
 > watched. Each is proven by running a test, your level is how many you can show, and the next control
 > to build is the first one missing.
 
-```mermaid
-flowchart TB
-  subgraph W["P1 · written down"]
-    direction LR
-    C1["<b>1 · A context file</b><br/><i>test: it is current</i>"] ~~~ C2["<b>2 · Spec, bar, owner</b><br/><i>test: pick any story</i>"]
-  end
-  subgraph E["P2 · enforced in code"]
-    direction LR
-    C3["<b>3 · A merge gate</b><br/><i>test: lower a bar, push</i>"] ~~~ C4["<b>4 · Caps in signatures</b><br/><i>test: grep the prompts</i>"]
-  end
-  subgraph O["P3 · seen in production"]
-    direction LR
-    C5["<b>5 · A redacting trace</b><br/><i>test: find no passports</i>"] ~~~ C6["<b>6 · Drift watched</b><br/><i>test: the gate re-opens</i>"]
-  end
-  W ~~~ E ~~~ O
-  O ~~~ L(["<b>Level = the count</b><br/><i>next: the first missing</i>"])
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-delivery-maturity-model.dark.webp"><img alt="Six controls in three bands, each with its ten-minute test; the level is the count" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-delivery-maturity-model.light.webp" width="100%"></picture></a></p>
 
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef meta fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  class C1,C2 p1
-  class C3,C4 p2
-  class C5,C6 p3
-  class L meta
-  style W fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style E fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style O fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

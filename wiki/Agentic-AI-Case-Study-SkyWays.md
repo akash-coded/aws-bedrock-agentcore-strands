@@ -12,43 +12,9 @@
 > opening on a number and closing one of the eight loops, from 31 requirements on day 1 to two numbers
 > in front of the steering committee on day 90.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame · days 1–9"]
-    direction LR
-    E1["<b>Day 1 · Requirements</b><br/><i>31, four the same</i>"] ~~~ E2["<b>Day 4 · The email</b><br/><i>every line credited</i>"]
-    E3["<b>Day 6 · A $400 limit</b><br/><i>reshapes three NFRs</i>"] ~~~ E4["<b>Day 9 · NFR workshop</b><br/><i>nine ratified</i>"]
-  end
-  subgraph S["P1 · Spec · days 12–20"]
-    direction LR
-    E5["<b>Day 12 · Two ADRs</b><br/><i>one per tension</i>"] ~~~ E6["<b>Day 15 · Eight fields</b><br/><i>from a 30-page PRD</i>"]
-    E7["<b>Day 20 · Buy or build</b><br/><i>fast start, closed door</i>"]
-  end
-  subgraph P["P2 · Build · days 30–60"]
-    direction LR
-    E8["<b>Day 30 · First bolt</b><br/><i>on screen by 4 pm</i>"] ~~~ E9["<b>Day 45 · 82.4% vs 80</b><br/><i>a score, not a proof</i>"]
-    E10["<b>Day 60 · A 4-day queue</b><br/><i>two of nine touch money</i>"]
-  end
-  subgraph R["P3 · Run · days 75–90"]
-    direction LR
-    E11["<b>Day 75 · A 4.4× bill</b><br/><i>flat traffic, cold cache</i>"] ~~~ E12["<b>Day 82 · A refund</b><br/><i>$2,000, not owed</i>"]
-    E13["<b>Day 90 · Both numbers</b><br/><i>time saved, money spent</i>"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-skyways-case-study.dark.webp"><img alt="The SkyWays case: thirteen dated episodes across the four phases" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-skyways-case-study.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class E1,E2,E3,E4 p0
-  class E5,E6,E7 p1
-  class E8,E9,E10 p2
-  class E11,E12,E13 p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

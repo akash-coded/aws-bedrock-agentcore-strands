@@ -16,35 +16,7 @@ updated: 2026-09-23
 > that trades their risk against their return is signed by *their* owner, and leaving behind an evidence
 > pack and a named person to run it.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame, on site"]
-    direction LR
-    A["<b>Measure the pain</b><br/><i>in their data, not the pitch</i>"] ~~~ B["<b>Name their risk owner</b><br/><i>before any design</i>"]
-  end
-  subgraph S["P1 · Design and Spec, as a mob"]
-    direction LR
-    C["<b>Mob elaboration</b><br/><i>with their team, recorded</i>"] ~~~ D["<b>Authority budget</b><br/><i>signed by their owner</i>"]
-  end
-  subgraph P["P2 · Build and Prove, in their stack"]
-    direction LR
-    E["<b>Skeleton on day one</b><br/><i>against their real system</i>"] ~~~ G["<b>Their cases, their CI</b><br/><i>a golden set they recognise</i>"]
-  end
-  subgraph R["P3 · Run and Learn, then leave"]
-    direction LR
-    H["<b>Shadow their staff</b><br/><i>find the unwritten rules</i>"] ~~~ I["<b>Hand over the evidence</b><br/><i>and a named operator</i>"]
-  end
-  F --> S --> P --> R
-
-  classDef you fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef theirs fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2.5px
-  class A,C,E,G,H you
-  class B,D,I theirs
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+{{map:ai-dlc-for-forward-deployed-engineers}}
 
 **In this lesson** you'll learn:
 

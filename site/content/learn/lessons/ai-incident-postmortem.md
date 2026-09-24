@@ -16,18 +16,7 @@ updated: 2026-09-23
 > code with a test, lowers the action's autonomy until evidence restores it, and leaves as a brief for
 > the next P0.
 
-```mermaid
-flowchart TB
-  Q["<b>1 · Ask one question</b><br/><i>the missing control?</i>"] --> L["<b>2 · Classify layers</b><br/><i>enforced, asked, absent</i>"]
-  L --> F["<b>3 · Close the path</b><br/><i>in code, with tests</i>"]
-  F --> A["<b>4 · Lower the autonomy</b><br/><i>and name what restores it</i>"]
-  A --> N(["<b>5 · Feed it forward</b><br/><i>golden cases, an ADR,<br/>the next P0 brief</i>"])
-
-  classDef move fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef out fill:#5169811A,stroke:#516981,stroke-width:2px
-  class Q,L,F,A move
-  class N out
-```
+{{map:ai-incident-postmortem}}
 
 **In this lesson** you'll learn:
 

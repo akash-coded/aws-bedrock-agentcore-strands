@@ -12,33 +12,9 @@
 > **Construction** and **Operations** — in short **bolts** of hours or days instead of sprints, with
 > the whole team validating the AI's proposals together in **mob** sessions.
 
-```mermaid
-flowchart TB
-  subgraph I["Inception · Mob Elaboration"]
-    direction LR
-    I1["<b>Intent</b><br/><i>the business goal</i>"] ~~~ I2["<b>Requirements and stories</b><br/><i>AI asks, the team answers</i>"]
-    I3["<b>Units of work</b><br/><i>in place of epics</i>"]
-  end
-  subgraph C["Construction · Mob Construction"]
-    direction LR
-    C1["<b>Architecture and models</b><br/><i>AI proposes, team decides</i>"] ~~~ C2["<b>Code and tests</b><br/><i>in bolts of hours or days</i>"]
-  end
-  subgraph O["Operations"]
-    direction LR
-    O1["<b>Infrastructure</b><br/><i>and deploy, from context</i>"] ~~~ O2["<b>Run it</b><br/><i>with the team overseeing</i>"]
-  end
-  I --> C --> O
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-ai-dlc.dark.webp"><img alt="AI-DLC's three phases: Inception with mob elaboration, Construction with mob construction, Operations" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-ai-dlc.light.webp" width="100%"></picture></a></p>
 
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class I1,I2,I3 p1
-  class C1,C2 p2
-  class O1,O2 p3
-  style I fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style C fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style O fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

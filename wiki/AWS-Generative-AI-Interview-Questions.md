@@ -13,41 +13,9 @@
 > and where AWS's controls stop and your own must begin. Ten questions, each with a framework, a strong
 > answer, the follow-up and the red flag; AWS details were checked against AWS documentation in September 2026.
 
-```mermaid
-flowchart TB
-  subgraph A["Architecture"]
-    direction LR
-    Q1["<b>1 · A regulated agent</b>"] ~~~ Q2["<b>2 · Which framework</b>"]
-  end
-  subgraph S["Access, security and data"]
-    direction LR
-    Q3["<b>3 · Access denied</b>"] ~~~ Q4["<b>4 · Enterprise access</b>"]
-    Q5["<b>5 · RAG on Bedrock</b>"]
-  end
-  subgraph C["Cost and resilience"]
-    direction LR
-    Q6["<b>6 · Cost at scale</b>"] ~~~ Q7["<b>7 · Throttling</b>"]
-  end
-  subgraph O["Operate"]
-    direction LR
-    Q8["<b>8 · Observe it</b>"] ~~~ Q9["<b>9 · Deploy it</b>"]
-    Q10["<b>10 · Well-Architected</b>"]
-  end
-  A --> S --> C --> O
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-aws-generative-ai-interview-questions.dark.webp"><img alt="The ten questions in this bank, grouped: Architecture; Access, security and data; Cost and resilience; Operate" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-aws-generative-ai-interview-questions.light.webp" width="100%"></picture></a></p>
 
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef back fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class Q1,Q2 p1
-  class Q3,Q4,Q5 back
-  class Q6,Q7 p2
-  class Q8,Q9,Q10 p3
-  style A fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style S fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
-  style C fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style O fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll practise:
 

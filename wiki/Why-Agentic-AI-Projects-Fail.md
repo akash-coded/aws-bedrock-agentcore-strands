@@ -11,33 +11,9 @@
 > rising average — keep reporting success while the value goes unmeasured, a limit lives only in a
 > prompt, one slice falls below its bar, the bill multiplies and behaviour drifts.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame catches"]
-    direction LR
-    A["<b>1</b> · Nobody measured<br/>the pain"]
-  end
-  subgraph S["P1 · Design and Spec catches"]
-    direction LR
-    B["<b>2</b> · A model doing<br/>a rule's job"] ~~~ C["<b>3</b> · A limit that lives<br/>only in the prompt"]
-  end
-  subgraph P["P2 · Build and Prove catches"]
-    direction LR
-    D["<b>4</b> · The average hides<br/>the slice"] ~~~ E["<b>5</b> · A score with<br/>no sample size"]
-  end
-  subgraph R["P3 · Run and Learn catches"]
-    direction LR
-    G["<b>6</b> · A bill that<br/>multiplies"] ~~~ H["<b>7</b> · Drift with<br/>no deploy"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-why-agentic-ai-projects-fail.dark.webp"><img alt="Seven failure modes of agentic AI projects, placed on the phase that catches each" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-why-agentic-ai-projects-fail.light.webp" width="100%"></picture></a></p>
 
-  classDef fail fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  class A,B,C,D,E,G,H fail
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

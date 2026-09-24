@@ -11,39 +11,9 @@
 > decisions with owners and dates, the review queue, the lead-time items started on day one, the
 > conditions (not dates) for each gate, and the two-number report the sponsor reads.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    A["<b>1 · Board and baseline</b><br/><i>person-days per story, now</i>"] ~~~ B["<b>2 · Lead times</b><br/><i>requested in week one</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    C["<b>3 · Decision log</b><br/><i>hard or soft, owner, date</i>"] ~~~ D["<b>4 · Cadence</b><br/><i>and an integration date</i>"]
-  end
-  subgraph P["P2 · Build and Prove"]
-    direction LR
-    E["<b>5 · Daily rhythm</b><br/><i>one question at standup</i>"] ~~~ G["<b>6 · Review queue</b><br/><i>slots, not tickets</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    H["<b>7 · Gate conditions</b><br/><i>evidence, never dates</i>"] ~~~ I["<b>8 · Two numbers</b><br/><i>and the maturity check</i>"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-program-managers.dark.webp"><img alt="The programme manager's eight steps across the four phases" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-program-managers.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class A,B p0
-  class C,D p1
-  class E,G p2
-  class H,I p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

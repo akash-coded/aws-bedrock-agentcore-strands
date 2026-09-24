@@ -12,33 +12,9 @@
 > risk, work cut so it integrates daily, lead-time items started on day one — while accepting that
 > live evidence still arrives at the speed of traffic.
 
-```mermaid
-flowchart TB
-  subgraph A["Compresses when AI builds"]
-    direction LR
-    A1["<b>Writing code and tests</b><br/><i>hours, not days</i>"] ~~~ A2["<b>Drafting specs and docs</b><br/><i>it drafts, you check</i>"]
-  end
-  subgraph B["Compresses only by redesign"]
-    direction LR
-    B1["<b>Decisions</b><br/><i>per action, not per system</i>"] ~~~ B2["<b>Review</b><br/><i>routed by risk band</i>"]
-    B3["<b>Integration</b><br/><i>cut by dependency, daily</i>"] ~~~ B4["<b>Lead times</b><br/><i>started on day one</i>"]
-  end
-  subgraph C["Does not compress"]
-    direction LR
-    C1["<b>Live evidence</b><br/><i>arrives at traffic speed</i>"] ~~~ C2["<b>A shadow window</b><br/><i>fixed in advance</i>"]
-  end
-  A --> B --> C
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-cut-delivery-time.dark.webp"><img alt="Three bands: what compresses when AI builds, what compresses only by redesign, what does not compress" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-cut-delivery-time.light.webp" width="100%"></picture></a></p>
 
-  classDef fast fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef design fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef fixed fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class A1,A2 fast
-  class B1,B2,B3,B4 design
-  class C1,C2 fixed
-  style A fill:#2C7A4B0D,stroke:#2C7A4B,stroke-width:1.5px
-  style B fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style C fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

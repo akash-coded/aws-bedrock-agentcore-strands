@@ -11,41 +11,9 @@
 > what each tool may do and where its cap lives, where the checkers sit, and which few decisions earn a
 > record — then turns every bill and incident into a design change.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    A["<b>1 · Elicit</b><br/><i>every line credited</i>"] ~~~ B["<b>2 · Constrain</b><br/><i>typed, before any target</i>"]
-  end
-  subgraph S["P1 · Design and Spec — yours to lead"]
-    direction LR
-    C["<b>3 · Map</b><br/><i>exact, best-guess,</i><br/><i>consequential</i>"] ~~~ D["<b>4 · Shape</b><br/><i>how many agents</i>"]
-    E["<b>5 · Decide</b><br/><i>only ADRs that earn one</i>"] ~~~ G["<b>6 · Bound</b><br/><i>authority before tokens</i>"]
-    H["<b>7 · Detail</b><br/><i>context, server, checker</i>"]
-  end
-  subgraph P["P2 · Build and Prove"]
-    direction LR
-    X["<i>Answers against the map;<br/>does not re-open it</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    I["<b>8 · Evolve</b><br/><i>bill, trace, incident ADR</i>"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-solution-architects.dark.webp"><img alt="The solution architect's eight steps across the four phases, five of them in P1" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-solution-architects.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef quiet fill:none,stroke:#6E6E6E,stroke-width:1.2px,stroke-dasharray:4 3
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class A,B p0
-  class C,D,E,G,H p1
-  class X quiet
-  class I p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

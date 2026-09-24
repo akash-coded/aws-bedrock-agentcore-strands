@@ -16,27 +16,7 @@ updated: 2026-09-23
 > signatures**, harm questions take **the missing control**, and behavioural questions take **STAR, plus
 > the number and the change**. Clarify, state assumptions, say numbers, name the trade-off, end on the risk.
 
-```mermaid
-flowchart LR
-  subgraph Q["If they ask…"]
-    direction TB
-    Q1["<b>Design an AI product</b>"] ~~~ Q2["<b>Is 92% good enough?</b>"] ~~~ Q3["<b>Why is it wrong?</b>"]
-    Q3 ~~~ Q4["<b>Why did cost jump?</b>"] ~~~ Q5["<b>It caused harm. Now?</b>"] ~~~ Q6["<b>Tell me about a time</b>"]
-  end
-  subgraph A["…reach for"]
-    direction TB
-    A1["<b>The P0–P3 answer</b>"] ~~~ A2["<b>The bar in three lines</b>"] ~~~ A3["<b>The grounding triangle</b>"]
-    A3 ~~~ A4["<b>The four signatures</b>"] ~~~ A5["<b>The missing control</b>"] ~~~ A6["<b>STAR, number, change</b>"]
-  end
-  Q ~~~ A
-
-  classDef q fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef a fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  class Q1,Q2,Q3,Q4,Q5,Q6 q
-  class A1,A2,A3,A4,A5,A6 a
-  style Q fill:#6E6E6E0D,stroke:#6E6E6E,stroke-width:1.5px
-  style A fill:#2C7A4B0D,stroke:#2C7A4B,stroke-width:1.5px
-```
+{{map:how-to-answer-ai-interview-questions}}
 
 **In this lesson** you'll learn:
 

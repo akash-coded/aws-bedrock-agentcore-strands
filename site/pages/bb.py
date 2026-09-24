@@ -244,6 +244,16 @@ def icon_(name: str, x: float, y: float, s: float, *, c: str = "var(--bb-b)", in
         "pen": f'<path d="M5 27l3-9L22 4l6 6-14 14z" fill="{f}"/><path d="M18 8l6 6" stroke="{c}" stroke-width="3"/><path d="M5 27l7-2" stroke="{c}"/>',
         "bill": f'<path d="M7 3h18v26l-3-2-3 2-3-2-3 2-3-2-3 2z" fill="{f}"/><path d="M11 10h10M11 15h10M11 20h6" stroke="{c}"/>',
         "wave": f'<path d="M3 20c3-8 6-8 9 0s6 8 9 0 6-8 9 0" stroke="{c}" stroke-width="3" fill="none"/><path d="M3 12c3-6 6-6 9 0s6 6 9 0 6-6 9 0" fill="none"/>',
+        "ask": f'<circle cx="16" cy="16" r="12" fill="{f}"/><path d="M12 12.5a4 4 0 1 1 5.5 3.7c-1 .5-1.5 1.3-1.5 2.3v1" stroke="{c}" stroke-width="2.6"/><circle cx="16" cy="23.5" r="1.6" fill="{c}" stroke="none"/>',
+        "clock": f'<circle cx="16" cy="16" r="12" fill="{f}"/><path d="M16 9v7l5 3" stroke="{c}" stroke-width="2.8"/>',
+        "calendar": f'<rect x="4" y="6" width="24" height="22" rx="3" fill="{f}"/><path d="M4 13h24M10 3v6M22 3v6"/><rect x="9" y="17" width="5" height="5" rx="1" fill="{c}" stroke="none"/><rect x="18" y="17" width="5" height="5" rx="1" fill="{c}" stroke="none"/>',
+        "board": f'<rect x="3" y="4" width="26" height="24" rx="3" fill="{f}"/><rect x="6" y="8" width="6" height="14" rx="1.5" fill="{c}" stroke="none"/><rect x="13" y="8" width="6" height="9" rx="1.5" fill="{c}" stroke="none"/><rect x="20" y="8" width="6" height="5" rx="1.5" fill="{c}" stroke="none"/>',
+        "book": f'<path d="M4 5h9a3 3 0 0 1 3 3v19a3 3 0 0 0-3-3H4z" fill="{f}"/><path d="M28 5h-9a3 3 0 0 0-3 3v19a3 3 0 0 1 3-3h9z" fill="{c}"/>',
+        "mail": f'<rect x="3" y="7" width="26" height="18" rx="3" fill="{f}"/><path d="M3 10l13 8 13-8" stroke="{c}" stroke-width="2.6"/>',
+        "plane": f'<path d="M4 18l10-3 6-11 3 1-3 11 8 3-1 3-9-1-4 6-2-1 1-7-9-0z" fill="{c}"/>',
+        "trend": f'<path d="M4 26l8-9 5 4 11-12" stroke="{c}" stroke-width="3"/><path d="M21 9h7v7"/>',
+        "layers": f'<path d="M16 4l12 6-12 6L4 10z" fill="{c}"/><path d="M4 17l12 6 12-6M4 23l12 6 12-6" fill="none"/>',
+        "swap": f'<path d="M6 11h18l-5-5M26 21H8l5 5" stroke="{c}" stroke-width="2.8"/>',
     }
     body = I.get(name, I["doc"])
     return (f'<g transform="translate({x - s / 2:.1f} {y:.1f}) scale({k:.3f})" fill="none" stroke="{ink}" '

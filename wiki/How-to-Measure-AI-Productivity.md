@@ -11,27 +11,9 @@
 > review hours added and re-runs. Activity counts rise with AI whether or not delivery does, a surveyed
 > speed-up is a belief rather than a measurement, and one number reported alone gets pushed.
 
-```mermaid
-flowchart LR
-  subgraph A["What AI inflates"]
-    direction TB
-    A1["<b>PRs per developer</b><br/><i>up; delivery flat</i>"] ~~~ A2["<b>Code generated</b><br/><i>volume, not value</i>"]
-    A2 ~~~ A3["<b>Suggestions accepted</b><br/><i>habit, not outcome</i>"] ~~~ A4["<b>Surveyed speed-up</b><br/><i>a belief, not a fact</i>"]
-  end
-  subgraph B["What you report"]
-    direction TB
-    B1["<b>Person-days per story</b><br/><i>vs the baseline</i>"] ~~~ B2["<b>Token spend per story</b><br/><i>on the same line</i>"]
-    B2 ~~~ B3["<b>Review hours added</b><br/><i>high early, then falls</i>"] ~~~ B4["<b>Re-runs per story</b><br/><i>where leaks show first</i>"]
-  end
-  A ~~~ B
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-measure-ai-productivity.dark.webp"><img alt="Four metrics AI inflates beside the four you report" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-measure-ai-productivity.light.webp" width="100%"></picture></a></p>
 
-  classDef act fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef out fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  class A1,A2,A3,A4 act
-  class B1,B2,B3,B4 out
-  style A fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
-  style B fill:#2C7A4B0D,stroke:#2C7A4B,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

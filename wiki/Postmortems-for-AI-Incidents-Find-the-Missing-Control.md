@@ -12,18 +12,9 @@
 > code with a test, lowers the action's autonomy until evidence restores it, and leaves as a brief for
 > the next P0.
 
-```mermaid
-flowchart TB
-  Q["<b>1 · Ask one question</b><br/><i>the missing control?</i>"] --> L["<b>2 · Classify layers</b><br/><i>enforced, asked, absent</i>"]
-  L --> F["<b>3 · Close the path</b><br/><i>in code, with tests</i>"]
-  F --> A["<b>4 · Lower the autonomy</b><br/><i>and name what restores it</i>"]
-  A --> N(["<b>5 · Feed it forward</b><br/><i>golden cases, an ADR,<br/>the next P0 brief</i>"])
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-incident-postmortem.dark.webp"><img alt="The AI incident postmortem in five moves, from the one question to the next P0 brief" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-incident-postmortem.light.webp" width="100%"></picture></a></p>
 
-  classDef move fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef out fill:#5169811A,stroke:#516981,stroke-width:2px
-  class Q,L,F,A move
-  class N out
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

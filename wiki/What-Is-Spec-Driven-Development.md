@@ -12,33 +12,9 @@
 > moves work from a constitution through specify, plan and tasks to implementation — so that the spec,
 > not a chat history, is what people review and what the agent reads.
 
-```mermaid
-flowchart TB
-  subgraph Y["What no tool decides for you"]
-    direction LR
-    Y1["<b>The bar per slice</b><br/><i>from what a mistake costs</i>"] ~~~ Y2["<b>The authority budget</b><br/><i>limits in signatures</i>"]
-  end
-  subgraph S["P1 · Design and Spec — what a tool keeps"]
-    direction LR
-    K1["<b>Kiro</b><br/><i>requirements.md in EARS<br/>design.md</i>"] ~~~ G1["<b>Spec Kit</b><br/><i>constitution · specify<br/>plan · tasks</i>"]
-  end
-  subgraph B["P2 · Build and Prove — what the agent does"]
-    direction LR
-    K2["<b>Kiro</b><br/><i>tasks.md, run task by task</i>"] ~~~ G2["<b>Spec Kit</b><br/><i>implement, to checklists</i>"]
-  end
-  Y -.->|"you write these into the spec"| S
-  S --> B
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-spec-driven-development.dark.webp"><img alt="Spec-driven development: what you decide, what Kiro and Spec Kit keep in P1, and what the agent does in P2" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-spec-driven-development.light.webp" width="100%"></picture></a></p>
 
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef you fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
-  class K1,G1 p1
-  class K2,G2 p2
-  class Y1,Y2 you
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style Y fill:#2C7A4B0D,stroke:#2C7A4B,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

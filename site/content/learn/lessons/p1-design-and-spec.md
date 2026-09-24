@@ -16,28 +16,7 @@ updated: 2026-09-23
 > what a mistake costs, and an authority budget that puts every limit in code. It ends when all three
 > are signed.
 
-```mermaid
-flowchart TB
-  subgraph C["Three classical fields · usually already written"]
-    direction LR
-    F1["<b>1 · Title</b><br/><i>one line</i>"] ~~~ F2["<b>2 · Value</b><br/><i>the net, and its pain</i>"]
-    F3["<b>3 · Acceptance</b><br/><i>in EARS, with boundaries</i>"]
-  end
-  subgraph A["Five agentic fields · usually undecided"]
-    direction LR
-    F4["<b>4 · The model's role</b><br/><i>which steps it decides</i>"] ~~~ F5["<b>5 · Autonomy</b><br/><i>a level per action</i>"]
-    F6["<b>6 · The bar</b><br/><i>per slice, from cost</i>"] ~~~ F7["<b>7 · Fallback</b><br/><i>when it cannot decide</i>"]
-    F8["<b>8 · Records</b><br/><i>what every action logs</i>"]
-  end
-  C --> A
-
-  classDef old fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef new fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  class F1,F2,F3 old
-  class F4,F5,F6,F7,F8 new
-  style C fill:#6E6E6E0D,stroke:#6E6E6E,stroke-width:1.5px
-  style A fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-```
+{{map:p1-design-and-spec}}
 
 **In this lesson** you'll learn:
 

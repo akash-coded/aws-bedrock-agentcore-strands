@@ -15,24 +15,7 @@ updated: 2026-09-23
 > to try, and ends with three takeaways and its sources. If you have two minutes, read the first box
 > and the takeaways; they are written to stand on their own.
 
-```mermaid
-flowchart TB
-  A["<b>1 · The answer</b><br/><i>one paragraph, first</i>"]
-  B["<b>2 · A picture</b><br/><i>the idea as a shape</i>"]
-  C["<b>3 · Sound familiar?</b><br/><i>the problem, stated</i>"]
-  D["<b>4 · Step by step</b><br/><i>one idea per step</i>"]
-  E["<b>5 · Try it</b><br/><i>commit before you look</i>"]
-  F["<b>6 · Three takeaways</b><br/><i>what to keep</i>"]
-  G["<b>7 · Sources</b><br/><i>each idea credited</i>"]
-  A --> B --> C --> D --> E --> F --> G
-
-  classDef read fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef try fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
-  classDef credit fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  class A,B,C,D,F read
-  class E try
-  class G credit
-```
+{{map:how-this-tutorial-works}}
 
 **In this lesson** you'll learn:
 

@@ -12,22 +12,9 @@
 > with a path rule nobody sets for their own work, and report three numbers monthly so the policy
 > survives: slots needed, days in the queue, and escapes from the no-reader lane.
 
-```mermaid
-flowchart TB
-  A(["A change"]) --> Q{"The most dangerous<br/>tool or path it touches?"}
-  Q -->|"money, identity,<br/>policy, irreversible"| R4["<b>R4 · R5</b><br/><i>two named readers,<br/>every time</i>"]
-  Q -->|"a write, reversible<br/>or hard to reverse"| R2["<b>R2 · R3</b><br/><i>one reader, after<br/>the harness</i>"]
-  Q -->|"reads only"| R1["<b>R1</b><br/><i>the harness alone,<br/>escapes counted</i>"]
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-review-ai-generated-code.dark.webp"><img alt="One question routes a change to R4-R5 with two readers, R2-R3 with one, or R1 with the harness alone" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-review-ai-generated-code.light.webp" width="100%"></picture></a></p>
 
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef two fill:#A93F3F1A,stroke:#A93F3F,stroke-width:2px
-  classDef one fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef none fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class A,Q ask
-  class R4 two
-  class R2 one
-  class R1 none
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

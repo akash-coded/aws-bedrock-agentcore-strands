@@ -12,33 +12,9 @@
 > a scrum master, a developer and QA, each producing a versioned document the next one builds on, so
 > that decisions stay explicit and the context carries forward.
 
-```mermaid
-flowchart TB
-  subgraph F["Mostly P0 · framing the work"]
-    direction LR
-    A["<b>Analyst</b><br/><i>a brief</i>"]
-  end
-  subgraph S["Mostly P1 · specifying it"]
-    direction LR
-    B["<b>Product manager</b><br/><i>a requirements document</i>"] ~~~ C["<b>Architect</b><br/><i>an architecture</i>"]
-  end
-  subgraph P["Mostly P2 · building it"]
-    direction LR
-    D["<b>Scrum master</b><br/><i>stories, sharded small</i>"] ~~~ E["<b>Developer</b><br/><i>code, story by story</i>"]
-    G["<b>QA</b><br/><i>review against the story</i>"]
-  end
-  F --> S --> P
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-the-bmad-method.dark.webp"><img alt="BMAD's personas from analyst to QA, placed on the phases they mostly serve" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-what-is-the-bmad-method.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class A p0
-  class B,C p1
-  class D,E,G p2
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

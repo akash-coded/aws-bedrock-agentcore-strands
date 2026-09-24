@@ -7,6 +7,17 @@ copy; `python3 site/learn_export.py` writes the wiki copy.
 
 The build refuses a lesson that breaks the rules marked **must**. The rest are warnings.
 
+## The map at the top of a lesson
+
+Every lesson opens with a picture drawn in the site's illustration grammar, not a mermaid fence. The
+lesson embeds it with `{{map:<slug>}}` on a line of its own (the slug is the lesson's), and the picture
+itself is a short spec in [`site/pages/mapspecs.py`](../../pages/mapspecs.py): a title row, then one of
+five shapes — `bands` (rows per phase or theme), `flow` (a chain, with an optional gate, terminal or
+decision), `pairs` (two panels, row-aligned), `funnel` (a ladder of questions) or `fan` (one question,
+its outcomes) — with a callout that says what the picture proves. Change the spec, not the lesson, to
+change the picture. The wiki shows a screenshot of it (`python3 site/build.py --shots`, then
+`node site/tools/shoot.mjs`). Mermaid still works anywhere else in a lesson.
+
 ## Anatomy — every lesson, same slots, same order
 
 Parallel slots are what let a reader skim twelve lessons and know where the answer is in each.
@@ -27,7 +38,7 @@ updated:     YYYY-MM-DD
 > **<Term> in one sentence.** The answer, 40–70 words, first. This is the paragraph a search engine
 > or an assistant lifts, so it must stand alone and must not start with "In this lesson".
 
-<the hero picture: a {{board:…}}, {{figure:…}}, {{model:…}} directive, or a mermaid fence>
+<the hero picture: {{map:<slug>}} — its spec in site/pages/mapspecs.py — or a {{board:…}}, {{figure:…}}, {{frameworks:…}}, {{model:…}} directive>
 
 **In this lesson** you'll learn:
 - three outcomes, each a verb phrase

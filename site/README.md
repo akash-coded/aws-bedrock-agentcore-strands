@@ -15,7 +15,7 @@ original work and the intellectual property of **Akash Das**, open-sourced under
 | --- | --- |
 | [`build.py`](build.py) | Builds `_site/`: renders the manual, copies the tool byte for byte, injects the site frame into the `/simulator/` copy, writes the sitemap and `robots.txt`. Refuses to build if the tool's own bytes changed. `--shots` also writes the screenshot sheet the wiki uses. |
 | [`render.py`](render.py) | The page shell (header with the categorised drawer menu, breadcrumbs, footer, structured data, the walkthrough hook) and the home, role, library and frameworks pages. |
-| [`pages/`](pages/) | One module per kind of page or picture: [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the home page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
+| [`pages/`](pages/) | One module per kind of page or picture: [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the home page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`maps.py`](pages/maps.py) and [`mapspecs.py`](pages/mapspecs.py) (every lesson's opening map, as a spec drawn in five shapes: bands, flow, pairs, funnel, fan), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
 | [`content/`](content/) | The words: `roles/*.json` (generated from `roles/_src/`), `learn/` (the tutorial's lessons and curriculum), `library/frameworks.json`. |
 | [`theme/`](theme/) | [`base.css`](theme/base.css) (one stylesheet, light and dark), [`site.js`](theme/site.js) (theme, copy buttons, the steps rail), [`engine.js`](theme/engine.js) (lenses, calculators, self-checks, steppers, boards), [`guide.js`](theme/guide.js) (the drawer menu, the per-page walkthrough narrated by Pip), [`learn.js`](theme/learn.js) (mermaid, drawn in the reader's theme). Every behaviour is progressive enhancement: the pages read without script. |
 | [`app/SkyWays-Architect.html`](app/SkyWays-Architect.html) | **The tool, pristine.** A single self-contained file with no external dependencies. Published unchanged at `app/` and, with the site frame, at `simulator/`. |
@@ -46,7 +46,8 @@ Two picture systems, one grammar (the `explainer-illustrations` skill): the HTML
 **illustrations** in `pages/illos.py`, drawn with the primitives in `pages/bb.py` — a title row with
 pills, panels with a solid label column, white nodes with flat icons, dashed flows that move, callouts
 and "Best for" lists. Colours are `--bb-*` tokens, so a picture follows the theme. A lesson embeds one
-with `{{frameworks:<name>}}`; the wiki shows a screenshot of it, produced by `tools/shoot.mjs`.
+with `{{frameworks:<name>}}`, and its own opening map with `{{map:<slug>}}` (the spec lives in
+`pages/mapspecs.py`); the wiki shows a screenshot of each, produced by `tools/shoot.mjs`.
 
 ## Updating the tool
 

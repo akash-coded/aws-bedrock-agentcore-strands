@@ -11,20 +11,9 @@
 > evidence**, and **what gets funded past the first cycle** — and keeps them true with four questions
 > asked every cycle, which take about ten minutes and defeat most of the ways these programmes fail.
 
-```mermaid
-flowchart TB
-  D1["<b>1 · What is AI work?</b><br/><i>ask for: AI-fit records</i>"]
-  D2["<b>2 · What it does alone</b><br/><i>ask: show me the cap</i>"]
-  D3["<b>3 · What is evidence?</b><br/><i>ask for: a lower bound</i>"]
-  D4["<b>4 · What gets funded</b><br/><i>ask for: two numbers</i>"]
-  D1 --> D2 --> D3 --> D4
-  D4 --> Q(["<b>Every cycle · 10 min</b><br/><i>the four questions</i>"])
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-ai-for-executives.dark.webp"><img alt="The four executive decisions in order, closing on the four questions asked every cycle" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-ai-for-executives.light.webp" width="100%"></picture></a></p>
 
-  classDef d fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  classDef q fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  class D1,D2,D3,D4 d
-  class Q q
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

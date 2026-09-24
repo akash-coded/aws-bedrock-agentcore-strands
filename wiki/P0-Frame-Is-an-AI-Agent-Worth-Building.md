@@ -11,23 +11,9 @@
 > it, and how much the machine may do on its own — and it ends when the pain is a measurement and
 > that verdict, including what was rejected, is written down.
 
-```mermaid
-flowchart TB
-  A(["A request"]) --> Q1{"A genuine<br/>judgement call?"}
-  Q1 -->|"no"| R1["<b>A rule</b><br/><i>code does it</i>"]
-  Q1 -->|"yes"| Q2{"Enough volume for<br/>a probabilistic system?"}
-  Q2 -->|"no"| R2["<b>A person</b><br/><i>is cheaper</i>"]
-  Q2 -->|"yes"| Q3{"Is a wrong answer<br/>recoverable?"}
-  Q3 -->|"no"| R3["<b>A person in the loop</b><br/><i>assisted and gated</i>"]
-  Q3 -->|"yes, or partly"| R4["<b>Agentic</b><br/><i>unrecoverable steps gated</i>"]
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p0-frame.dark.webp"><img alt="The AI-fit funnel: judgement call, volume, recoverability; each no exits to a rule, a person, or a person in the loop" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p0-frame.light.webp" width="100%"></picture></a></p>
 
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef no fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef yes fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
-  class A,Q1,Q2,Q3 ask
-  class R1,R2,R3 no
-  class R4 yes
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

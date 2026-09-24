@@ -16,24 +16,7 @@ updated: 2026-09-23
 > shadow beside the people doing the work, then cut over at 5% (60–90); and report two numbers from the
 > first cycle.
 
-```mermaid
-flowchart TB
-  D1["<b>Days 1–15 · Choose</b><br/><i>for provability, not value</i><br/><i>trap: the flagship</i>"]
-  D2["<b>Days 15–30 · Specify</b><br/><i>spec, bars, authority</i><br/><i>trap: the persuasive demo</i>"]
-  D3["<b>Days 30–60 · Build</b><br/><i>a slice a day, in CI</i><br/><i>signal: merges most days</i>"]
-  D4["<b>Days 60–90 · Shadow</b><br/><i>beside the people, then 5%</i><br/><i>rule: widen on evidence</i>"]
-  D5(["<b>Day 90 on · Report</b><br/><i>two numbers, every cycle</i><br/><i>signal: feature two</i><br/><i>needs less of you</i>"])
-  D1 --> D2 --> D3 --> D4 --> D5
-
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class D1 p0
-  class D2 p1
-  class D3,D4 p2
-  class D5 p3
-```
+{{map:rolling-out-agentic-delivery}}
 
 **In this lesson** you'll learn:
 

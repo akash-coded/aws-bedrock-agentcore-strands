@@ -11,24 +11,9 @@
 > dated index, and checked not only for whether each artefact exists and is current but for whether
 > each control it describes is **enforced in code or only written down**.
 
-```mermaid
-flowchart TB
-  A["<b>P0 → P1 · soft · 7 owed</b><br/><i>pain · AI-fit · value<br/>autonomy · requirements<br/>constraints · NFRs</i><br/>test · can the architect<br/>design without asking?"]
-  B["<b>P1 → P2 · HARD · 9 owed</b><br/><i>spec · bar sheet · ADRs<br/>step map · authority<br/>topology · context<br/>story files · 50 cases</i><br/>test · can an outsider<br/>build bolt one alone?"]
-  C["<b>P2 → P3 · soft · 8 owed</b><br/><i>bolt plan · lower bound<br/>review lanes · harness<br/>checkers · gated tools<br/>shadow · cut-over</i><br/>test · is the bar<br/>a running check?"]
-  D["<b>P3 → P0 · soft · 6 owed</b><br/><i>two numbers · drift<br/>redacted trace · bill<br/>incident · maturity</i><br/>test · does the next<br/>brief have an owner?"]
-  A --> B --> C --> D
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-evidence-pack.dark.webp"><img alt="The evidence pack: what each of the four hand-offs owes, with the test for each" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-evidence-pack.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:3px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class A p0
-  class B p1
-  class C p2
-  class D p3
-  linkStyle 0 stroke:#0E7F7C,stroke-width:3px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

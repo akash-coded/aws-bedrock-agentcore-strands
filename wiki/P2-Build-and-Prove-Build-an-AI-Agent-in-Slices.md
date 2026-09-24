@@ -66,25 +66,9 @@ The golden set is the acceptance bar made executable: real past cases, each with
 outcome and a slice tag — fifty to start, five hundred to trust. A harness runs it in CI as a
 required check, in cost order, so the cheap definitive checks reject before you pay for a judge:
 
-```mermaid
-flowchart TB
-  B["<b>Build</b>"] --> X["<b>Exact checks</b><br/><i>unit tests, schema, rules</i>"]
-  X --> G["<b>Golden slice</b><br/><i>the slices it touched</i>"]
-  G --> J["<b>Judge</b><br/><i>independent, by rubric</i>"]
-  J --> S["<b>Score per slice</b><br/><i>n, score and lower bound</i>"]
-  S --> M{"Any touched slice<br/>below its bar?"}
-  M -->|"yes"| R["<b>Reject the merge</b>"]
-  M -->|"no"| OK["<b>Merge</b>"]
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p2-build-and-prove.dark.webp"><img alt="The P2 harness: build, exact checks, golden slice, judge, score per slice, then merge or reject" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p2-build-and-prove.light.webp" width="100%"></picture></a></p>
 
-  classDef cheap fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef stop fill:#A93F3F1A,stroke:#A93F3F,stroke-width:2px
-  classDef go fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
-  class B,X,G,J,S cheap
-  class M ask
-  class R stop
-  class OK go
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/">Open the live, interactive version</a></sub>
 
 Two rules make it honest. **Report per slice, never overall**: SkyWays' prompt v7 lifted same-day
 cases by three points and dropped refunds by four, the overall number rose, and the per-slice gate

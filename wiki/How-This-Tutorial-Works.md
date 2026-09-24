@@ -11,24 +11,9 @@
 > to try, and ends with three takeaways and its sources. If you have two minutes, read the first box
 > and the takeaways; they are written to stand on their own.
 
-```mermaid
-flowchart TB
-  A["<b>1 · The answer</b><br/><i>one paragraph, first</i>"]
-  B["<b>2 · A picture</b><br/><i>the idea as a shape</i>"]
-  C["<b>3 · Sound familiar?</b><br/><i>the problem, stated</i>"]
-  D["<b>4 · Step by step</b><br/><i>one idea per step</i>"]
-  E["<b>5 · Try it</b><br/><i>commit before you look</i>"]
-  F["<b>6 · Three takeaways</b><br/><i>what to keep</i>"]
-  G["<b>7 · Sources</b><br/><i>each idea credited</i>"]
-  A --> B --> C --> D --> E --> F --> G
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-how-this-tutorial-works.dark.webp"><img alt="The seven parts every lesson has, in order" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-how-this-tutorial-works.light.webp" width="100%"></picture></a></p>
 
-  classDef read fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef try fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
-  classDef credit fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  class A,B,C,D,F read
-  class E try
-  class G credit
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

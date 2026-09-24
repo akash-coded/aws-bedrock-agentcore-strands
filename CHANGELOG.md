@@ -31,6 +31,11 @@ out, because people bookmark deep links.
   pictures drawn with it: the spine in one picture, traditional against agentic PDLC, the R1–R5 risk
   ladder, chained probability, and four methods on one spine as a plug board. They replace the three
   hand-drawn diagrams on the frameworks page and are embedded in five lessons, with wiki screenshots
+- **Every lesson's opening map redrawn in the same grammar** — the 44 mermaid flowcharts at the top of
+  the lessons are now specs in [`site/pages/mapspecs.py`](site/pages/mapspecs.py), drawn by
+  [`maps.py`](site/pages/maps.py) in five shapes (bands, flow, pairs, funnel, fan) with icons, a
+  solid label column per band and a callout that says what the picture proves. The site draws them
+  live in both themes; the wiki shows screenshots
 
 ### Changed
 - **The mental models page** — the model/subtlety toggle used to sit above a twelve-tile index, so

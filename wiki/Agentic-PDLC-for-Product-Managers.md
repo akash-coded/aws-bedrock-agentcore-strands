@@ -11,40 +11,9 @@
 > acceptance bar for each slice from what a mistake costs, owns the intent and release gates, and
 > reports what the feature saved beside what it cost — and stops approving anything they cannot evaluate.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame — yours to lead"]
-    direction LR
-    A["<b>1 · Discover</b><br/><i>the vibe, measured</i>"] ~~~ B["<b>2 · Qualify</b><br/><i>is it AI at all?</i>"]
-    C["<b>3 · Frame</b><br/><i>value and autonomy</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    D["<b>4 · Specify</b><br/><i>eight fields, one screen</i>"] ~~~ E["<b>5 · Plan</b><br/><i>bolts, not sprints</i>"]
-  end
-  subgraph P["P2 · Build and Prove"]
-    direction LR
-    G["<b>6 · Gate</b><br/><i>your three gates</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    H["<b>7 · Launch</b><br/><i>shadow, 5%, widen</i>"] ~~~ I["<b>8 · Learn</b><br/><i>two numbers, next frame</i>"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-product-managers.dark.webp"><img alt="The product manager's eight steps laid across the four phases, leading P0" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-product-managers.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class A,B,C p0
-  class D,E p1
-  class G p2
-  class H,I p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

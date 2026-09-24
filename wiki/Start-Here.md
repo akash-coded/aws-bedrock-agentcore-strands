@@ -91,11 +91,11 @@ The lessons are written once and published twice: here, with the live diagrams, 
 
 ### 4 · [Running delivery](Tutorial-Running-Delivery)
 
-*The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems.* — 13 lessons, about 80 minutes.
+*The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems.* — 13 lessons, about 81 minutes.
 
 1. **[How to Run an Agentic AI Project: A Step-by-Step Playbook](How-to-Run-an-Agentic-AI-Project)** — 7 min
 2. **[Bolts vs Sprints: Planning Work When AI Writes the Code](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code)** — 6 min
-3. **[How to Set Up a Kanban Board for an Agentic AI Project](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)** — 6 min
+3. **[How to Set Up a Kanban Board for an Agentic AI Project](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)** — 7 min
 4. **[Cut Delivery from Months to Weeks: What Shrinks, What Won't](How-to-Cut-Delivery-from-Months-to-Weeks)** — 6 min
 5. **[How to Review AI-Generated Code: By Risk, Not by Diff Size](How-to-Review-AI-Generated-Code-by-Risk)** — 6 min
 6. **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](How-Accurate-Does-an-AI-Agent-Need-to-Be)** — 6 min

@@ -15,19 +15,7 @@ updated: 2026-09-23
 > **story file** per unit of work instead of a chat thread, **exact work in tested code** before any
 > prompt, **review set by risk** rather than by diff size, and a **harness** that decides what merges.
 
-```mermaid
-flowchart TB
-  A["<b>1 · Context file</b><br/><i>read by every session</i>"] --> B["<b>2 · Story file</b><br/><i>one per bolt, not a chat</i>"]
-  B --> C["<b>3 · Exact floor</b><br/><i>functions and tests first</i>"]
-  C --> D["<b>4 · Model layer</b><br/><i>an independent checker</i>"]
-  D --> E["<b>5 · Harness and review</b><br/><i>per slice, by risk band</i>"]
-  E --> F(["<b>Merge</b><br/><i>the same day</i>"])
-
-  classDef habit fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef done fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:2px
-  class A,B,C,D,E habit
-  class F done
-```
+{{map:what-is-aidd}}
 
 **In this lesson** you'll learn:
 

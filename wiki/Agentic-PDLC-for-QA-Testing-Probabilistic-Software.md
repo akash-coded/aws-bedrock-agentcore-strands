@@ -11,41 +11,9 @@
 > to each kind of work, runs the injection suite as a regression, compares the shadow run with the
 > people doing the job, and watches for drift — and owns the behaviour and expansion gates.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    X["<i>One question:<br/>what will right mean,<br/>and who says so?</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    A["<b>1 · Define</b><br/><i>the proof each step owes</i>"] ~~~ B["<b>2 · Curate</b><br/><i>the golden set, by slice</i>"]
-  end
-  subgraph P["P2 · Build and Prove — yours to lead"]
-    direction LR
-    C["<b>3 · Check</b><br/><i>the checker fits the work</i>"] ~~~ D["<b>4 · Harness</b><br/><i>every change, in CI</i>"]
-    E["<b>5 · Measure</b><br/><i>lower bound, not score</i>"] ~~~ G["<b>6 · Attack</b><br/><i>injection, as a regression</i>"]
-    H["<b>7 · Shadow</b><br/><i>beside the desk</i>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    I["<b>8 · Watch</b><br/><i>drift, and incidents</i><br/><i>into controls</i>"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-qa.dark.webp"><img alt="The QA lead's eight steps across the four phases, leading P2" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-for-qa.light.webp" width="100%"></picture></a></p>
 
-  classDef quiet fill:none,stroke:#6E6E6E,stroke-width:1.2px,stroke-dasharray:4 3
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class X quiet
-  class A,B p1
-  class C,D,E,G,H p2
-  class I p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

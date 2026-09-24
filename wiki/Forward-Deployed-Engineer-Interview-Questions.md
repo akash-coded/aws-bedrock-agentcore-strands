@@ -12,35 +12,9 @@
 > product — and these ten questions probe each, with the framework, a strong answer, the follow-up that
 > finds your limit, and the red flag.
 
-```mermaid
-flowchart TB
-  subgraph D["Discover and scope"]
-    direction LR
-    Q1["<b>1 · The first two weeks</b>"] ~~~ Q2["<b>2 · A demo in three days</b>"]
-    Q3["<b>3 · Build, buy or no</b>"]
-  end
-  subgraph B["Build and prove"]
-    direction LR
-    Q4["<b>4 · An eval in a week</b>"] ~~~ Q5["<b>5 · Works here, not there</b>"]
-    Q6["<b>6 · Design for a bank</b>"]
-  end
-  subgraph H["Hand over and feed back"]
-    direction LR
-    Q7["<b>7 · What you leave</b>"] ~~~ Q8["<b>8 · More autonomy, now</b>"]
-    Q9["<b>9 · The sceptic</b>"] ~~~ Q10["<b>10 · A pattern, codified</b>"]
-  end
-  D --> B --> H
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-forward-deployed-engineer-interview-questions.dark.webp"><img alt="The ten questions in this bank, grouped: Discover and scope; Build and prove; Hand over and feed back" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-forward-deployed-engineer-interview-questions.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class Q1,Q2,Q3 p0
-  class Q4,Q5,Q6 p2
-  class Q7,Q8,Q9,Q10 p3
-  style D fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style H fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll practise:
 

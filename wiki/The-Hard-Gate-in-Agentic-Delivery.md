@@ -11,25 +11,9 @@
 > downstream is built and measured against — every other open decision runs alongside the build
 > behind a placeholder, with a named owner and a date.
 
-```mermaid
-flowchart TB
-  A(["An open decision"]) --> Q1{"Cheap to reverse<br/>once building starts?"}
-  Q1 -->|"no"| H["<b>HARD</b><br/><i>settle it before<br/>the phase closes</i>"]
-  Q1 -->|"yes"| Q2{"Can the build proceed<br/>behind a placeholder?"}
-  Q2 -->|"no"| H
-  Q2 -->|"yes"| Q3{"A named owner<br/>and a date?"}
-  Q3 -->|"no"| H
-  Q3 -->|"yes"| Q4{"Does downstream work<br/>survive a change?"}
-  Q4 -->|"no"| H
-  Q4 -->|"yes"| S["<b>SOFT</b><br/><i>runs beside the build,<br/>behind a placeholder</i>"]
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-hard-gate.dark.webp"><img alt="Four questions decide whether an open decision is a hard gate or a soft one" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-hard-gate.light.webp" width="100%"></picture></a></p>
 
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef hard fill:#A93F3F1A,stroke:#A93F3F,stroke-width:2.5px
-  classDef soft fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class A,Q1,Q2,Q3,Q4 ask
-  class H hard
-  class S soft
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

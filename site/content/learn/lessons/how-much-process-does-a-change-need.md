@@ -16,28 +16,7 @@ updated: 2026-09-23
 > **shallow, standard or deep** accordingly, keeping the spec at every depth and naming the evidence
 > that would raise the depth mid-flight.
 
-```mermaid
-flowchart TB
-  A(["The change,<br/>in one sentence"]) --> Q1{"Touches money,<br/>identity or policy?"}
-  Q1 -->|"yes"| D2
-  Q1 -->|"no"| Q2{"Cheap to undo<br/>once it is live?"}
-  Q2 -->|"no"| D2
-  Q2 -->|"yes"| Q3{"More than one team,<br/>or an auditor reads it?"}
-  Q3 -->|"yes"| D3["<b>Deep</b><br/><i>spec, the gates and a<br/>persona trail, kept</i>"]
-  Q3 -->|"no"| D1["<b>Shallow</b><br/><i>spec update and<br/>one coding agent</i>"]
-  D2["<b>Standard</b><br/><i>spec-driven, with<br/>the five gates</i>"] --> Q4{"More than one team,<br/>or an auditor reads it?"}
-  Q4 -->|"yes"| D3
-  Q4 -->|"no"| S(["Standard it is"])
-
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  classDef shallow fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef standard fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef deep fill:#7455B31A,stroke:#7455B3,stroke-width:2px
-  class A,Q1,Q2,Q3,Q4,S ask
-  class D1 shallow
-  class D2 standard
-  class D3 deep
-```
+{{map:how-much-process-does-a-change-need}}
 
 **In this lesson** you'll learn:
 

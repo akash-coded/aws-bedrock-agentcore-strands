@@ -15,40 +15,7 @@ updated: 2026-09-23
 > call passes through, environments with the model version pinned, the evaluation harness as a check the
 > merge cannot bypass, one flag per action, traces that redact, and rollbacks timed before anyone needs them.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    A["<b>1 · Baseline</b><br/><i>account, tags, budget</i>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    B["<b>2 · Access</b><br/><i>per region, one gateway</i>"] ~~~ C["<b>3 · Environments</b><br/><i>model version pinned</i>"]
-  end
-  subgraph P["P2 · Build and Prove"]
-    direction LR
-    D["<b>4 · Pipeline</b><br/><i>the harness is required</i>"] ~~~ E["<b>5 · Deploy</b><br/><i>a flag per action</i>"]
-  end
-  subgraph R["P3 · Run and Learn — yours to lead"]
-    direction LR
-    G["<b>6 · Observe</b><br/><i>cost, trace, drift</i>"] ~~~ H["<b>7 · Protect</b><br/><i>the smallest identity</i>"]
-    I["<b>8 · Recover</b><br/><i>rehearsed, and timed</i>"]
-  end
-  F --> S --> P --> R
-
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class A p0
-  class B,C p1
-  class D,E p2
-  class G,H,I p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+{{map:agentic-pdlc-for-devops}}
 
 **In this lesson** you'll learn:
 

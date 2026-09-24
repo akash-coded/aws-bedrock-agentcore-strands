@@ -12,41 +12,9 @@
 > of what it connects to, when more agents help, how to evaluate a trajectory, and how to stop a runaway —
 > and each of these ten questions comes with the framework, a strong answer, the follow-up and the red flag.
 
-```mermaid
-flowchart TB
-  subgraph L["The loop and the rung"]
-    direction LR
-    Q1["<b>1 · Walk the loop</b>"] ~~~ Q2["<b>2 · Not an agent</b>"]
-  end
-  subgraph A["Authority and tools"]
-    direction LR
-    Q3["<b>3 · The refund cap</b>"] ~~~ Q4["<b>4 · A good tool</b>"]
-    Q5["<b>5 · MCP security</b>"]
-  end
-  subgraph T["Topology and evaluation"]
-    direction LR
-    Q6["<b>6 · One agent or many</b>"] ~~~ Q7["<b>7 · Evaluate an agent</b>"]
-  end
-  subgraph R["Running it"]
-    direction LR
-    Q8["<b>8 · Runaways</b>"] ~~~ Q9["<b>9 · People in the loop</b>"]
-    Q10["<b>10 · Your failure</b>"]
-  end
-  L --> A --> T --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-ai-engineer-interview-questions.dark.webp"><img alt="The ten questions in this bank, grouped: The loop and the rung; Authority and tools; Topology and evaluation; Running it" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-ai-engineer-interview-questions.light.webp" width="100%"></picture></a></p>
 
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef back fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class Q1,Q2 p1
-  class Q3,Q4,Q5 back
-  class Q6,Q7 p2
-  class Q8,Q9,Q10 p3
-  style L fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style A fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
-  style T fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll practise:
 

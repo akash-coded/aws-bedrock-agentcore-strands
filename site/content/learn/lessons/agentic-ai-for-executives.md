@@ -15,20 +15,7 @@ updated: 2026-09-23
 > evidence**, and **what gets funded past the first cycle** — and keeps them true with four questions
 > asked every cycle, which take about ten minutes and defeat most of the ways these programmes fail.
 
-```mermaid
-flowchart TB
-  D1["<b>1 · What is AI work?</b><br/><i>ask for: AI-fit records</i>"]
-  D2["<b>2 · What it does alone</b><br/><i>ask: show me the cap</i>"]
-  D3["<b>3 · What is evidence?</b><br/><i>ask for: a lower bound</i>"]
-  D4["<b>4 · What gets funded</b><br/><i>ask for: two numbers</i>"]
-  D1 --> D2 --> D3 --> D4
-  D4 --> Q(["<b>Every cycle · 10 min</b><br/><i>the four questions</i>"])
-
-  classDef d fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  classDef q fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:1.5px
-  class D1,D2,D3,D4 d
-  class Q q
-```
+{{map:agentic-ai-for-executives}}
 
 **In this lesson** you'll learn:
 

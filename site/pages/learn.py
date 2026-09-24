@@ -225,7 +225,7 @@ class Links:
 # ---------------------------------------------------------------------------------------- visuals
 def _visuals() -> dict[str, dict]:
     """Every picture a lesson may embed: how to draw it live, what it says, where it lives."""
-    from pages import boards, figures, models, illos
+    from pages import boards, figures, models, illos, maps
 
     def m(fn, label):
         return lambda: f'<figure class="lmodel" aria-label="{_E(label, quote=True)}">{fn()}</figure>'
@@ -266,6 +266,8 @@ def _visuals() -> dict[str, dict]:
         "frameworks:methods": (illos.methods, "Four methods on one spine: SDD, BMAD, AI-DLC and AiDD, filled where "
                                "each speaks to a phase and dashed where it is silent", "frameworks/"),
     }
+    for slug in maps.slugs():
+        v[f"map:{slug}"] = (lambda s=slug: maps.draw(s), maps.alt(slug), f"learn/{slug}/")
     for g, label in (("g_decay", "Length is the enemy"), ("g_doors", "Reversibility is the hinge"),
                      ("g_lever", "A hold is a lever, not a brake"), ("g_wall", "A prompt is a request; a signature is a boundary"),
                      ("g_average", "The average hides the slice that matters"), ("g_bound", "A score is not proof"),
@@ -290,7 +292,7 @@ def shot_name(key: str) -> str:
     return key.replace(":", "-").replace("_", "-")
 
 
-DIRECTIVE = re.compile(r"^\{\{(board|figure|model|frameworks):([a-z0-9_]+)\}\}\s*$")
+DIRECTIVE = re.compile(r"^\{\{(board|figure|model|frameworks|map):([a-z0-9_-]+)\}\}\s*$")
 
 
 # ---------------------------------------------------------------------------------------- inline
@@ -934,7 +936,7 @@ def shots_page(out: Path, shell) -> str:
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
     cells = "".join(
-        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
+        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
         f'{reg[k]["draw"]()}</div>' for k in used_visuals())
     body = f'<main id="main" class="shots">{cells}</main>'
     html_ = shell(title="shots", desc="Screenshot sheet. Not for readers.", body=body, depth=2, nav_id="",

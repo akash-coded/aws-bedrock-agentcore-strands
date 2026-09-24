@@ -12,44 +12,9 @@
 > numbers; every cycle the sponsor gets two numbers; every quarter the maturity check is re-run; and every
 > incident or surprise bill starts its own loop, with a named owner.
 
-```mermaid
-flowchart TB
-  subgraph D["Every day · build"]
-    direction LR
-    D1["<b>One bolt, integrated</b><br/><i>one unknown, same day</i>"] ~~~ D2["<b>Review by band</b><br/><i>from the path rule</i>"]
-  end
-  subgraph C["Every change · prove"]
-    direction LR
-    C1["<b>The harness</b><br/><i>per slice, required</i>"] ~~~ C2["<b>The injection suite</b><br/><i>every entry, every tool</i>"]
-  end
-  subgraph W["Every week · watch"]
-    direction LR
-    W1["<b>Drift readout</b><br/><i>mix, two thresholds</i>"] ~~~ W2["<b>The board</b><br/><i>queue, integration, live</i>"]
-  end
-  subgraph Y["Cycle and quarter"]
-    direction LR
-    Y1["<b>Two numbers</b><br/><i>saving beside spend</i>"] ~~~ Y2["<b>The maturity check</b><br/><i>six tests, run again</i>"]
-  end
-  subgraph E["On an event"]
-    direction LR
-    E1["<b>An incident</b><br/><i>the missing control</i>"] ~~~ E2["<b>A surprise bill</b><br/><i>which signature</i>"]
-  end
-  D ~~~ C ~~~ W ~~~ Y ~~~ E
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-delivery-cadence.dark.webp"><img alt="The delivery cadence: what runs every day, every change, every week, every cycle, and on an event" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-delivery-cadence.light.webp" width="100%"></picture></a></p>
 
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef gov fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  classDef back fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  class D1,D2,C1,C2 p2
-  class W1,W2 p3
-  class Y1,Y2 gov
-  class E1,E2 back
-  style D fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style C fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style W fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  style Y fill:#7455B30D,stroke:#7455B3,stroke-width:1.5px
-  style E fill:#A93F3F0D,stroke:#A93F3F,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll learn:
 

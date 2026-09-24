@@ -92,29 +92,7 @@ its estimate does not end in a ticket — it ends in a brief for the next P0.
 
 Four hand-offs connect the phases, and only one of them is hard.
 
-```mermaid
-flowchart TB
-  P0["<b>P0 · Frame</b><br/><i>worth it, AI at all,<br/>how much may it do?</i>"]
-  P1["<b>P1 · Design and Spec</b><br/><i>what exactly, and<br/>under whose authority?</i>"]
-  P2["<b>P2 · Build and Prove</b><br/><i>does it meet the bar,<br/>slice by slice?</i>"]
-  P3["<b>P3 · Run and Learn</b><br/><i>still true, and<br/>what did it cost?</i>"]
-  NX(["<b>The next P0</b><br/><i>an incident, drift or a bill<br/>becomes a new brief</i>"])
-  P0 -->|"soft · the brief"| P1
-  P1 ==>|"HARD GATE · signed spec,<br/>bar and guardrails"| P2
-  P2 -->|"soft · the evidence pack"| P3
-  P3 -.->|"what you learned"| NX
-
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class P0,NX p0
-  class P1 p1
-  class P2 p2
-  class P3 p3
-  linkStyle 1 stroke:#0E7F7C,stroke-width:3px
-  linkStyle 3 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
-```
+{{map:what-is-the-agentic-pdlc}}
 
 A **soft** hand-off may cross with a placeholder, a named owner and a date, which keeps work moving
 while a decision is still being measured. The **hard** one may not: nothing enters P2 until the

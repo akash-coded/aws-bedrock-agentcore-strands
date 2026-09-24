@@ -17,27 +17,7 @@ updated: 2026-09-23
 > ways to structure that building; and the **agentic PDLC** is a product lifecycle for software that
 > has a model *inside* it — which is the one question the others leave open.
 
-```mermaid
-flowchart TB
-  subgraph B["AI builds the software · methods for building with AI"]
-    direction LR
-    A1["<b>AWS AI-DLC</b><br/><i>AI proposes, people decide</i>"] ~~~ A2["<b>AIDDLC</b><br/><i>a seven-phase standard</i>"]
-    A3["<b>AIDD</b><br/><i>the everyday craft</i>"] ~~~ A4["<b>Agentic SDLC</b><br/><i>agents in every phase</i>"]
-    A5["<b>Spec-driven dev</b><br/><i>the spec comes first</i>"] ~~~ A6["<b>BMAD Method</b><br/><i>agile personas as agents</i>"]
-  end
-  subgraph P["AI is inside the software · a lifecycle for the product"]
-    direction LR
-    C1["<b>The agentic PDLC</b><br/><i>how right, who may act,<br/>when it stops being true</i>"]
-  end
-  B --> P
-
-  classDef build fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef product fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:2.5px
-  class A1,A2,A3,A4,A5,A6 build
-  class C1 product
-  style B fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-```
+{{map:ai-dlc-vs-aidd-vs-agentic-sdlc}}
 
 **In this lesson** you'll learn:
 

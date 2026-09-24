@@ -12,39 +12,9 @@
 > days proof takes, how long review waits, what the bill will be, when drift fires, and what counts as a
 > control. Every answer is worked, and links to the lesson that teaches it.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    X1["<b>1 · AI or rule?</b>"] ~~~ X2["<b>2 · Value</b>"] ~~~ X3["<b>3 · Hard or soft?</b>"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    X4["<b>4 · The bar</b>"] ~~~ X5["<b>5 · Chains</b>"] ~~~ X6["<b>6 · Agents</b>"]
-  end
-  subgraph P["P2 · Build and Prove"]
-    direction LR
-    X7["<b>7 · Proven?</b>"] ~~~ X8["<b>8 · Cases, days</b>"] ~~~ X9["<b>9 · The queue</b>"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    X10["<b>10 · The bill</b>"] ~~~ X11["<b>11 · Drift</b>"] ~~~ X12["<b>12 · A control?</b>"]
-  end
-  F --> S --> P --> R
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-exercises.dark.webp"><img alt="Twelve exercises, three per phase" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-agentic-pdlc-exercises.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class X1,X2,X3 p0
-  class X4,X5,X6 p1
-  class X7,X8,X9 p2
-  class X10,X11,X12 p3
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style P fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/">Open the live, interactive version</a></sub>
 
 **In this lesson** you'll practise:
 

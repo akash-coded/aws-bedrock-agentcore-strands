@@ -3,13 +3,13 @@
 
 The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems.
 
-**13 lessons · about 80 minutes** · Boards, bolts, launches and the bill · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/delivery/)
+**13 lessons · about 81 minutes** · Boards, bolts, launches and the bill · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/delivery/)
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
 | 1 | **[How to Run an Agentic AI Project: A Step-by-Step Playbook](How-to-Run-an-Agentic-AI-Project)** | Twelve steps, from a vague request to an AI agent in production that someone can defend — who owns each step, what it produces, and the one thing never delegated. | 7 min |
 | 2 | **[Bolts vs Sprints: Planning Work When AI Writes the Code](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code)** | When AI builds a story in hours, a two-week sprint leaves it idle. How to plan in bolts: one unknown each, cut by dependency, integrated the same day. | 6 min |
-| 3 | **[How to Set Up a Kanban Board for an Agentic AI Project](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)** | A project board for AI agent delivery: evidence as the exit rule for every column, risk bands as swimlanes, and WIP limits set by review capacity. | 6 min |
+| 3 | **[How to Set Up a Kanban Board for an Agentic AI Project](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)** | A project board for AI agent delivery: evidence as the exit rule for every column, risk bands as swimlanes, and WIP limits set by review capacity. | 7 min |
 | 4 | **[Cut Delivery from Months to Weeks: What Shrinks, What Won't](How-to-Cut-Delivery-from-Months-to-Weeks)** | AI makes building fast; delivery is more than building. What compresses, what compresses only by design, and what never compresses — with the arithmetic for each. | 6 min |
 | 5 | **[How to Review AI-Generated Code: By Risk, Not by Diff Size](How-to-Review-AI-Generated-Code-by-Risk)** | When agents write most of the code, review is the bottleneck. How to band changes by what they touch, route readers by band, and halve a review queue. | 6 min |
 | 6 | **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](How-Accurate-Does-an-AI-Agent-Need-to-Be)** | An AI agent's accuracy bar comes from money, not a round number: divide the damage of a wrong answer by the saving of a right one, per slice. | 6 min |
