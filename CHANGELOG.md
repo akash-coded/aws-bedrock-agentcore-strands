@@ -8,6 +8,26 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-24 · The playbook's hidden-menu collapse; icons on the way in and the way back
+
+### Fixed
+- **The playbook collapsed to a hundred-pixel column once the menu was hidden.** The tool's own
+  `body.rail-off .dd` rule kept a two-column grid while hiding the rail with `display:none`, so `main`
+  auto-placed into the empty 0px column. The framed and frameless copies both did it. One CSS rule in
+  `site/app/SkyWays-Architect.html` now gives the hidden-menu state a single column and places `main`
+  in it; verified on seven routes, menu shown and hidden, framed and frameless. Carry this patch
+  forward when the tool is next replaced with a new export
+
+### Changed
+- **The way back carries an arrow.** The strip's "Back to the agentic manual" and the fixed pill now lead
+  with a back-arrow icon; the strip's manual links end in a forward chevron; on phones the strip stays
+  one line
+- **Every link into the playbook carries an icon for what it opens** — a calculator, a simulation, the
+  gates, the loop map, a comparison, the evidence pack, a role's steps, an episode — drawn as
+  currentColor masks in `theme/base.css`, so lessons, role pages, mental models and the leadership page
+  get them without markup changes. The focused pointers under the frameworks pictures are now a
+  labelled row of chips with the icon and a go arrow; the header's Playbook link uses the same mark
+
 ## 2026-09-24 · The wiki reorganised; the way back from the playbook
 
 ### Changed

@@ -1145,7 +1145,44 @@ a.md:hover b{color:var(--c)}
 .mr small{font-size:12.5px;color:var(--soft);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mr .none{padding:8px 10px;font-size:13px;color:var(--soft)}
 
-/* "try it in the playbook" pointers under a picture: one line, quiet, never a button */
-p.try{margin:-6px 0 18px;font-size:13.5px;color:var(--soft)}
-p.try a{color:var(--slate);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--slate) 35%,transparent)}
-p.try a:hover{border-bottom-color:var(--slate)}
+
+/* ---- links into the playbook: an icon says what kind of thing opens (a calculator, a simulation, the gates, an
+   episode…); the focused pointers under a picture are chips. Icons are masks in currentColor, so they follow the
+   link colour in both themes and stay decorative for assistive tech. ---- */
+:root{
+  --ic-play:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M10 8.5v7l5.5-3.5z' fill='%23000'/%3E%3C/svg%3E");
+  --ic-calc:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='3' width='14' height='18' rx='2'/%3E%3Cpath d='M8.5 7.5h7M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01'/%3E%3C/svg%3E");
+  --ic-sim:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='6' r='3'/%3E%3Cpath d='M6 15V3M18 9a9 9 0 0 1-9 9'/%3E%3C/svg%3E");
+  --ic-shield:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l8 3v6c0 4.8-3.4 8.4-8 9-4.6-.6-8-4.2-8-9V6z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E");
+  --ic-loop:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3'/%3E%3C/svg%3E");
+  --ic-cols:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='7' height='16' rx='1.5'/%3E%3Crect x='14' y='4' width='7' height='16' rx='1.5'/%3E%3C/svg%3E");
+  --ic-pack:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpath d='M9 13l2 2 4-4'/%3E%3C/svg%3E");
+  --ic-steps:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 20h5v-5h5v-5h5V5h3'/%3E%3C/svg%3E");
+  --ic-book:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z'/%3E%3C/svg%3E");
+  --ic-go:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+}
+main a[href*="simulator/"]{--ic:var(--ic-play)}   /* the per-route rules below win by order, so no :not() here */
+main a[href*="simulator/#/toolkit"]{--ic:var(--ic-calc)}
+main a[href*="simulator/#/simulations"]{--ic:var(--ic-sim)}
+main a[href*="simulator/#/governance"]{--ic:var(--ic-shield)}
+main a[href*="simulator/#/loopmap"]{--ic:var(--ic-loop)}
+main a[href*="simulator/#/compare"]{--ic:var(--ic-cols)}
+main a[href*="simulator/#/evidence"]{--ic:var(--ic-pack)}
+main a[href*="simulator/#/process"],main a[href*="simulator/#/pm/"],main a[href*="simulator/#/sa/"],main a[href*="simulator/#/eng/"]{--ic:var(--ic-steps)}
+main a[href*="simulator/#/learn"],main a[href*="simulator/#/concepts"],main a[href*="simulator/#/guide"]{--ic:var(--ic-book)}
+main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inline-block;width:1.05em;height:1.05em;margin-right:.36em;vertical-align:-.17em;background:currentColor;
+  -webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+/* the header's Playbook link uses the same play mark */
+.play::before{content:"";display:inline-block;width:13px;height:13px;margin-right:6px;vertical-align:-2px;background:var(--sage);
+  -webkit-mask:var(--ic-play) center/contain no-repeat;mask:var(--ic-play) center/contain no-repeat;font-size:inherit}
+/* the focused pointers under a picture: a labelled row of chips, each with its icon and a go arrow */
+.try{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-4px 0 22px}
+.try .tl{font-size:12.5px;font-weight:600;color:var(--soft);letter-spacing:.01em;margin-right:2px}
+.try a{display:inline-flex;align-items:center;gap:6px;padding:7px 11px 7px 10px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink);font-size:13.5px;font-weight:600;text-decoration:none;line-height:1;
+  transition:border-color 160ms,background 160ms,transform 160ms}
+.try a::before{margin-right:0;width:15px;height:15px;color:var(--slate);vertical-align:0}
+.try a::after{content:"";width:12px;height:12px;background:var(--soft);-webkit-mask:var(--ic-go) center/contain no-repeat;mask:var(--ic-go) center/contain no-repeat;transition:transform 160ms,background 160ms}
+.try a:hover{border-color:var(--slate);background:var(--bone);transform:translateY(-1px)}
+.try a:hover::after{background:var(--ink);transform:translateX(2px)}
+.try a:focus-visible{outline:3px solid var(--slate);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.try a,.try a::after{transition:none}}

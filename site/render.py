@@ -794,7 +794,7 @@ def frameworks_page() -> str:
         "<p>They are not competitors; they occupy different parts of the same lifecycle. The decision "
         "that matters is not <em>which method</em> but <strong>how deep to go on this change</strong>.</p>"
         + pic(illos.methods) +
-        '<p class="try"><a href="../simulator/#/compare">Compare any two methods side by side, in the playbook &rarr;</a></p>'
+        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/compare">Compare any two methods side by side</a></div>'
         '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
         f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
 
@@ -802,21 +802,21 @@ def frameworks_page() -> str:
         + pic(illos.pdlc_vs) +
         "<p>Only one of the four hand-offs is a hard gate. Everything downstream is built and measured "
         "against the spec, the bar and the guardrails, so those three are settled before P2 opens.</p>"
-        '<p class="try"><a href="../simulator/#/loopmap">See which loops close each phase, in the playbook &rarr;</a></p></div>'
+        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/loopmap">See which loops close each phase</a></div></div>'
 
         '<div class="sec" id="ladder"><h2>Gate by risk, never by size</h2>'
         + pic(illos.ladder) +
         "<p>Size measures typing. Four hundred lines of help text cannot move money; three lines in a "
         "refund cap can.</p>"
-        '<p class="try"><a href="../simulator/#/toolkit/gateclass">Classify a change as a hard or soft gate &rarr;</a> · '
-        '<a href="../simulator/#/toolkit/gates">Map the control each tool carries &rarr;</a></p></div>'
+        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/toolkit/gateclass">Classify a change as a hard or soft gate</a>'
+        '<a href="../simulator/#/toolkit/gates">Map the control each tool carries</a></div></div>'
 
         '<div class="sec" id="chain"><h2>Why length is the enemy</h2>'
         + pic(illos.chain) +
         "<p>Four chained steps at 90% succeed 66% of the time, and they fail <em>fluently</em>. Two "
         "defences, in order: keep chains short, then put an independent checker after the steps that "
         "are costly and easy to miss.</p>"
-        '<p class="try"><a href="../simulator/#/toolkit/confidence">Check whether your score has proven the bar &rarr;</a></p></div>'
+        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/toolkit/confidence">Check whether a score has proven the bar</a></div></div>'
 
         '<div class="sec" id="decoder"><h2>The acronym decoder</h2>'
         '<div class="tw" tabindex="0"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
@@ -826,7 +826,7 @@ def frameworks_page() -> str:
         '<div class="tw" tabindex="0"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
         f'<th><span class="vh">Confidence</span></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
         f'<p style="margin-top:14px"><a href="{WIKI}/Sources-and-Confidence" target="_blank" '
-        'rel="noopener">The full sources page &rarr;</a></p></div>'
+        'rel="noopener">The full sources page</a></p></div>'
         "</main></div>")
     return shell(title="Frameworks and acronyms · The agentic manual",
                  desc="The four named methods and where each sits, every acronym, and four pictures: "

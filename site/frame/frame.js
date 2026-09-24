@@ -178,14 +178,20 @@
   }
 
   /* ---------- the way back: a strip above the tool and a pill that never scrolls away ---------- */
+  // one arrow points back at the manual, one forward into it; both decorative, the text carries the meaning
+  var BACK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>';
+  var GO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
   function strip() {
     var s = h("div", { "class": "sw-strip", role: "navigation", "aria-label": "The agentic manual" });
     s.appendChild(h("a", { "class": "sw-strip-back", href: links.manual }, [
-      h("span", { "class": "sw-long", text: "\u2190 Back to the agentic manual" }),
-      h("span", { "class": "sw-short", text: "\u2190 The manual" })]));
+      h("span", { "class": "sw-ic", html: BACK }),
+      h("span", { "class": "sw-long", text: "Back to the agentic manual" }),
+      h("span", { "class": "sw-short", text: "The manual" })]));
     s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the playbook, the interactive part of the manual." }));
     var pages = h("span", { "class": "sw-strip-links" });
-    (links.manualPages || []).forEach(function (p) { pages.appendChild(h("a", { href: p[1], text: p[0] })); });
+    (links.manualPages || []).forEach(function (p) {
+      pages.appendChild(h("a", { href: p[1] }, [p[0], h("span", { "class": "sw-ic sw-go", html: GO })]));
+    });
     s.appendChild(pages);
     return s;
   }
@@ -193,8 +199,9 @@
     // a landmark of its own, so the pill is reachable by region as well as by tab
     return h("nav", { "class": "sw-backnav", "aria-label": "Back to the agentic manual" }, [
       h("a", { "class": "sw-back", href: links.manual }, [
-        h("span", { "class": "sw-back-ic", html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>' }),
-        "The manual"])]);
+        h("span", { "class": "sw-ic", html: BACK }),
+        h("span", { "class": "sw-long", text: "Back to the manual" }),
+        h("span", { "class": "sw-short", text: "Manual" })])]);
   }
 
   function build() {
