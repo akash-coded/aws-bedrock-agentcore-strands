@@ -3,7 +3,7 @@
 
 *Each lifecycle fixed the bottleneck of its day and kept most of what came before. Agentic delivery moves the bottleneck again.*
 
-**7 min read** · Beginner · Lesson 1 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/)
+**8 min read** · Beginner · Lesson 1 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/)
 
 > [!TIP]
 > **The evolution in one sentence.** Each lifecycle fixed the bottleneck of its era — plan-driven
@@ -90,6 +90,10 @@ may authorise each action, and noticing when it stops being true. That is what t
 [agentic PDLC](What-Is-the-Agentic-PDLC) are for.
 
 ## What changes, and what does not
+
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-pdlc-vs.dark.webp"><img alt="Traditional PDLC against the agentic PDLC: six stages decided once, against four phases, a hard gate and the incident as the next brief" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-pdlc-vs.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/">Open the live, interactive version</a></sub>
 
 Most of the discipline you have still applies. The honest list of what changes:
 

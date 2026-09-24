@@ -3,7 +3,7 @@
 
 *Four phases, one hard gate and a line that comes back. The whole framework in one sitting, with the reason behind each piece.*
 
-**9 min read** · Beginner · Lesson 1 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)
+**10 min read** · Beginner · Lesson 1 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)
 
 > [!TIP]
 > **The agentic PDLC in one sentence.** It is a product lifecycle for software in which an AI model
@@ -123,6 +123,10 @@ two-way. [Why the gate sits exactly there](The-Hard-Gate-in-Agentic-Delivery).
 ## How it fits beside AI-DLC, BMAD, spec-driven development and Scrum
 
 The agentic PDLC is a spine, not a rival method. The methods you have heard of each occupy part of it.
+
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-methods.dark.webp"><img alt="Four methods on one spine: SDD, BMAD, AI-DLC and AiDD, filled where each speaks to a phase and dashed where it is silent" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-methods.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/">Open the live, interactive version</a></sub>
 
 | Method | What it is | Where it sits |
 | --- | --- | --- |

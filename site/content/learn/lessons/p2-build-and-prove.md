@@ -95,6 +95,8 @@ bar of 80 — but the lower bound was 79.1%, so the slice was not yet proven and
 
 ### Step 4 · Put an independent checker after the risky steps
 
+{{frameworks:chain}}
+
 Chained steps multiply: four steps at 90% each are right 66% of the time end to end. Keep the chain
 short, then put a checker after each step where a wrong answer is expensive — and make it
 **independent**, a different model or a fresh context with an adversarial brief. At SkyWays a

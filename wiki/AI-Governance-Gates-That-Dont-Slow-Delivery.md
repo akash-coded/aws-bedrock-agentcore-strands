@@ -93,6 +93,10 @@ side effect, because a number reported alone gets pushed.
 
 ## Who signs what
 
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-ladder.dark.webp"><img alt="The risk ladder: a change inherits the band of whatever it touches, from R1 reviewed at the end to R5 not delegated" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-ladder.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/">Open the live, interactive version</a></sub>
+
 | Artefact | Accountable |
 | --- | --- |
 | Pain register, AI-fit verdict, eight-field spec, acceptance bars | Product manager |

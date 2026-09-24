@@ -58,35 +58,35 @@ The lessons are written once and published twice: here, with the live diagrams, 
 
 ### 1 · [Getting started](Tutorial-Getting-Started)
 
-*What the agentic PDLC is, in one sitting, and how to get the most out of the lessons that follow.* — 2 lessons, about 16 minutes.
+*What the agentic PDLC is, in one sitting, and how to get the most out of the lessons that follow.* — 2 lessons, about 17 minutes.
 
-1. **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)** — 9 min
+1. **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)** — 10 min
 2. **[How This Tutorial Works, and Why Every Lesson Looks the Same](How-This-Tutorial-Works)** — 7 min
 
 ### 2 · [Agentic PDLC fundamentals](Tutorial-Fundamentals)
 
-*The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off — the model every other track builds on.* — 9 lessons, about 65 minutes.
+*The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off — the model every other track builds on.* — 9 lessons, about 67 minutes.
 
-1. **[The Evolution of the PDLC: From Waterfall to Agentic Delivery](The-Evolution-of-the-PDLC)** — 7 min
+1. **[The Evolution of the PDLC: From Waterfall to Agentic Delivery](The-Evolution-of-the-PDLC)** — 8 min
 2. **[Why Agentic AI Projects Fail: 7 Failure Modes and Their Fixes](Why-Agentic-AI-Projects-Fail)** — 7 min
 3. **[P0 Frame: How to Decide If an AI Agent Is Worth Building](P0-Frame-Is-an-AI-Agent-Worth-Building)** — 8 min
 4. **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build)** — 8 min
 5. **[The Hard Gate: The One Hand-off You Can't Skip in AI Delivery](The-Hard-Gate-in-Agentic-Delivery)** — 7 min
-6. **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices)** — 7 min
+6. **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices)** — 8 min
 7. **[P3 Run & Learn: How to Run an AI Agent in Production Safely](P3-Run-and-Learn-Run-an-AI-Agent-in-Production)** — 7 min
 8. **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](The-8-Feedback-Loops-of-Agentic-Delivery)** — 7 min
 9. **[The Evidence Pack: What Must Exist Before Each AI Hand-off](The-Evidence-Pack-Before-Each-Hand-off)** — 7 min
 
 ### 3 · [Methods decoded](Tutorial-Methods-Decoded)
 
-*AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.* — 7 lessons, about 45 minutes.
+*AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.* — 7 lessons, about 46 minutes.
 
 1. **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC)** — 7 min
 2. **[What Is AI-DLC? The AI-Driven Development Lifecycle Explained](What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle)** — 7 min
 3. **[What Is AI-Driven Development (AIDD)? The Daily Craft, Defined](What-Is-AIDD-AI-Driven-Development)** — 7 min
 4. **[What Is the BMAD Method? Agile AI Personas, Explained](What-Is-the-BMAD-Method)** — 6 min
 5. **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](What-Is-Spec-Driven-Development)** — 6 min
-6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum)** — 6 min
+6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum)** — 7 min
 7. **[How Much Process Does a Change Need? Sizing Agentic Work](How-Much-Process-Does-a-Change-Need)** — 6 min
 
 ### 4 · [Running delivery](Tutorial-Running-Delivery)

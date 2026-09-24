@@ -1,21 +1,27 @@
-# The site: SkyWays Architect on GitHub Pages
+# The site: the agentic manual on GitHub Pages
 
 **Live:** https://akash-coded.github.io/aws-bedrock-agentcore-strands/
 
-SkyWays Architect is an interactive walk-through of one agentic feature, a disruption assistant for a
-fictional airline, taken through the agentic PDLC: six architect decisions, thirty-eight scenarios, the
-artefacts each team produces, and role-by-role deep dives (product manager, solution architect, engineering
-and QA) from P0 to P3. It is an original work and the intellectual property of **Akash Das**, open-sourced
-under the repository's [MIT Licence](../LICENSE) for knowledge and experience sharing.
+The site is an operating manual for the agentic era, by role: a home page that opens with the four-phase
+spine, one journey page per role, the libraries of templates and prompts, the operating protocol for
+leadership, twelve mental models, the frameworks decoder, a 55-lesson tutorial under `/learn/`, and the
+SkyWays playbook (an interactive simulator of one airline's ninety-day build) at `/simulator/`. It is an
+original work and the intellectual property of **Akash Das**, open-sourced under the repository's
+[MIT Licence](../LICENSE) for knowledge and experience sharing.
 
 ## How the site is put together
 
 | Path | What it is |
 | --- | --- |
-| [`app/SkyWays-Architect.html`](app/SkyWays-Architect.html) | **The tool, pristine.** A single self-contained file with no external dependencies. It is never edited here. |
-| [`build.py`](build.py) | Copies the tool to `_site/index.html` and injects, at the document boundaries only, the metadata and the site frame. Refuses to build if the tool's own bytes changed. |
+| [`build.py`](build.py) | Builds `_site/`: renders the manual, copies the tool byte for byte, injects the site frame into the `/simulator/` copy, writes the sitemap and `robots.txt`. Refuses to build if the tool's own bytes changed. `--shots` also writes the screenshot sheet the wiki uses. |
+| [`render.py`](render.py) | The page shell (header with the categorised drawer menu, breadcrumbs, footer, structured data, the walkthrough hook) and the home, role, library and frameworks pages. |
+| [`pages/`](pages/) | One module per kind of page or picture: [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the home page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
+| [`content/`](content/) | The words: `roles/*.json` (generated from `roles/_src/`), `learn/` (the tutorial's lessons and curriculum), `library/frameworks.json`. |
+| [`theme/`](theme/) | [`base.css`](theme/base.css) (one stylesheet, light and dark), [`site.js`](theme/site.js) (theme, copy buttons, the steps rail), [`engine.js`](theme/engine.js) (lenses, calculators, self-checks, steppers, boards), [`guide.js`](theme/guide.js) (the drawer menu, the per-page walkthrough narrated by Pip), [`learn.js`](theme/learn.js) (mermaid, drawn in the reader's theme). Every behaviour is progressive enhancement: the pages read without script. |
+| [`app/SkyWays-Architect.html`](app/SkyWays-Architect.html) | **The tool, pristine.** A single self-contained file with no external dependencies. Published unchanged at `app/` and, with the site frame, at `simulator/`. |
 | [`frame/`](frame/) | The layer around the tool: [`config.js`](frame/config.js) (links, contact delivery), [`frame.js`](frame/frame.js) (attribution, licence and disclaimer, ideas invitation, contact drawer), [`frame.css`](frame/frame.css). Everything is prefixed `sw-` and appended to the end of `<body>`. |
-| [`assets/`](assets/) | Favicon and the social preview image. |
+| [`tools/`](tools/) | [`shoot.mjs`](tools/shoot.mjs) (screenshots every embeddable picture, light and dark, for the wiki), [`simshots.mjs`](tools/simshots.mjs), [`check_diagrams.py`](tools/check_diagrams.py) (renders every mermaid diagram and fails on what a reader would notice). |
+| [`assets/`](assets/) | Favicon, the social preview image, and `learn/` (the wiki's screenshots of the site's pictures). |
 | [`contact-relay/`](contact-relay/) | Optional AWS backend for the contact form: Lambda Function URL, DynamoDB, SES, and a private GitHub mirror. Infrastructure as code, one command to deploy. |
 | [`404.html`](404.html) | Custom not-found page. |
 | [`../.github/workflows/pages.yml`](../.github/workflows/pages.yml) | Builds and deploys on every push that touches `site/`. |
@@ -23,6 +29,24 @@ under the repository's [MIT Licence](../LICENSE) for knowledge and experience sh
 The frameless tool is also published, unchanged, at
 [`app/SkyWays-Architect.html`](https://akash-coded.github.io/aws-bedrock-agentcore-strands/app/SkyWays-Architect.html)
 for full-screen sessions and embedding.
+
+## Wayfinding
+
+Every page opens the same way: the title, then a strip that says **who the page is for, what to use it
+for, and how**, with a **Show me around** button. The button starts a walkthrough — Pip, the guide,
+highlights one element at a time and says what it does. The walkthrough is offered once per kind of
+page on a first visit (the choice is remembered in `localStorage`, nothing else is stored), and is
+always available from the bottom-left button. The **Menu** at the top left is a drawer with every page
+by category; **breadcrumbs** sit under the header on every page but the home page.
+
+## The pictures
+
+Two picture systems, one grammar (the `explainer-illustrations` skill): the HTML **boards** in
+`pages/boards.py` for wide, text-heavy comparisons that must wrap and read aloud, and the SVG
+**illustrations** in `pages/illos.py`, drawn with the primitives in `pages/bb.py` — a title row with
+pills, panels with a solid label column, white nodes with flat icons, dashed flows that move, callouts
+and "Best for" lists. Colours are `--bb-*` tokens, so a picture follows the theme. A lesson embeds one
+with `{{frameworks:<name>}}`; the wiki shows a screenshot of it, produced by `tools/shoot.mjs`.
 
 ## Updating the tool
 

@@ -97,6 +97,8 @@ side effect, because a number reported alone gets pushed.
 
 ## Who signs what
 
+{{frameworks:ladder}}
+
 | Artefact | Accountable |
 | --- | --- |
 | Pain register, AI-fit verdict, eight-field spec, acceptance bars | Product manager |

@@ -29,12 +29,35 @@
      are visible, which is longer but never wrong. */
   var LENS_KEY = "manual-lens";
 
-  function applyLens(mode) {
+  function applyLens(mode, byUser) {
     document.documentElement.setAttribute("data-lens-mode", mode);
     $$("[data-lens-toggle] button").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lens-set") === mode));
     });
-    try { localStorage.setItem(LENS_KEY, mode); } catch (e) { /* private mode */ }
+    try { localStorage.setItem(LENS_KEY, mode); } catch (e) { /* ignore */ }
+    if (!byUser) return;
+    // The change has to be seen. Settle the readings that just appeared, say which one is
+    // showing, and if none of them is on screen, go to the first.
+    var shown = $$('[data-lens="' + mode + '"]');
+    shown.forEach(function (el) {
+      el.classList.remove("lens-in"); void el.offsetWidth; el.classList.add("lens-in");
+    });
+    var label = "";
+    $$("[data-lens-toggle] button").forEach(function (b) {
+      if (b.getAttribute("data-lens-set") === mode) label = b.textContent.trim();
+    });
+    $$("[data-lens-hint]").forEach(function (h) {
+      var rest = h.getAttribute("data-rest-" + mode);
+      h.innerHTML = "Showing <b>" + label.toLowerCase() + "</b>" + (rest ? ". " + rest : ".");
+    });
+    var onScreen = shown.some(function (el) {
+      var r = el.getBoundingClientRect();
+      return r.top < innerHeight - 40 && r.bottom > 120;
+    });
+    if (!onScreen && shown.length) {
+      var top = shown[0].getBoundingClientRect().top + scrollY - 150;
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    }
   }
 
   function wireLenses() {
@@ -45,7 +68,7 @@
     groups.forEach(function (g) {
       g.addEventListener("click", function (ev) {
         var b = ev.target.closest("button[data-lens-set]");
-        if (b) applyLens(b.getAttribute("data-lens-set"));
+        if (b) applyLens(b.getAttribute("data-lens-set"), true);
       });
     });
     applyLens(saved);

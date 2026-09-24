@@ -126,6 +126,8 @@ two-way. [Why the gate sits exactly there](lesson:the-hard-gate).
 
 The agentic PDLC is a spine, not a rival method. The methods you have heard of each occupy part of it.
 
+{{frameworks:methods}}
+
 | Method | What it is | Where it sits |
 | --- | --- | --- |
 | **AWS AI-DLC** | AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days | Inception ≈ P0–P1 · Construction ≈ P2 · Operations ≈ P3 |

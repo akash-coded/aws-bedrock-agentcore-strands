@@ -3,7 +3,7 @@
 
 *Lay every method on the same four phases and two things appear: they mostly agree, and they all leave the same decisions open.*
 
-**6 min read** · Intermediate · Lesson 6 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)
+**7 min read** · Intermediate · Lesson 6 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)
 
 > [!TIP]
 > **The map in one sentence.** Every building method fits onto the agentic PDLC's four phases — most
@@ -65,6 +65,10 @@ The map settles the first by showing that the methods mostly agree. It exposes t
 as gaps that a lifecycle has to fill, whichever method you choose.
 
 ## Where does each method sit?
+
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-methods.dark.webp"><img alt="Four methods on one spine: SDD, BMAD, AI-DLC and AiDD, filled where each speaks to a phase and dashed where it is silent" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-methods.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/">Open the live, interactive version</a></sub>
 
 | Method | P0 · Frame | P1 · Design & Spec | P2 · Build & Prove | P3 · Run & Learn |
 | --- | --- | --- | --- | --- |

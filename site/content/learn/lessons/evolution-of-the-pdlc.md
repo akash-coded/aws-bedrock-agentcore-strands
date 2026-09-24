@@ -95,6 +95,8 @@ may authorise each action, and noticing when it stops being true. That is what t
 
 ## What changes, and what does not
 
+{{frameworks:pdlc_vs}}
+
 Most of the discipline you have still applies. The honest list of what changes:
 
 | You already have | What a model in the middle changes |

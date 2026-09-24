@@ -3,16 +3,16 @@
 
 The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off — the model every other track builds on.
 
-**9 lessons · about 65 minutes** · The spine, phase by phase · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/fundamentals/)
+**9 lessons · about 67 minutes** · The spine, phase by phase · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/fundamentals/)
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[The Evolution of the PDLC: From Waterfall to Agentic Delivery](The-Evolution-of-the-PDLC)** | How the product lifecycle evolved from waterfall to agile, DevOps and agentic delivery — and what genuinely changes when a model does part of the work. | 7 min |
+| 1 | **[The Evolution of the PDLC: From Waterfall to Agentic Delivery](The-Evolution-of-the-PDLC)** | How the product lifecycle evolved from waterfall to agile, DevOps and agentic delivery — and what genuinely changes when a model does part of the work. | 8 min |
 | 2 | **[Why Agentic AI Projects Fail: 7 Failure Modes and Their Fixes](Why-Agentic-AI-Projects-Fail)** | Gartner expects over 40% of agentic AI projects to be cancelled by 2027. The seven failure modes behind that, why normal checks miss them, and the fix for each. | 7 min |
 | 3 | **[P0 Frame: How to Decide If an AI Agent Is Worth Building](P0-Frame-Is-an-AI-Agent-Worth-Building)** | P0 Frame is the agentic PDLC's first phase: turn a request into a measured pain, test whether it needs AI at all, size the value and set autonomy per action. | 8 min |
 | 4 | **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build)** | P1 Design & Spec turns a framed problem into an eight-field spec with EARS acceptance, a bar per slice and an authority budget an AI agent can build from. | 8 min |
 | 5 | **[The Hard Gate: The One Hand-off You Can't Skip in AI Delivery](The-Hard-Gate-in-Agentic-Delivery)** | Only one hand-off in the agentic PDLC halts the build. Which decisions are hard, which run behind a placeholder, and the four questions that tell them apart. | 7 min |
-| 6 | **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices)** | P2 Build & Prove builds an AI agent in bolts of hours or days, gates every merge on a per-slice bar and ends with a shadow run beside the people doing the job. | 7 min |
+| 6 | **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices)** | P2 Build & Prove builds an AI agent in bolts of hours or days, gates every merge on a per-slice bar and ends with a shadow run beside the people doing the job. | 8 min |
 | 7 | **[P3 Run & Learn: How to Run an AI Agent in Production Safely](P3-Run-and-Learn-Run-an-AI-Agent-in-Production)** | P3 Run & Learn covers cut-over, rollback, drift and cost for AI agents in production — and the two-number report that decides whether the programme survives. | 7 min |
 | 8 | **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](The-8-Feedback-Loops-of-Agentic-Delivery)** | Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three — cost, incident and governance — close only if a named person makes them. | 7 min |
 | 9 | **[The Evidence Pack: What Must Exist Before Each AI Hand-off](The-Evidence-Pack-Before-Each-Hand-off)** | The minimum artefacts owed at each hand-off of an agentic AI project, and the one column that separates a real gate from a formality: enforced, or only written? | 7 min |

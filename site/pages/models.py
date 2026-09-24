@@ -29,7 +29,7 @@ def g_decay() -> str:
         x = 18 + i * 40
         bars.append(f'<rect x="{x}" y="{104-h:.0f}" width="26" height="{h:.0f}" rx="3" '
                     f'fill="var(--accent)" opacity="{0.95 - i*0.12:.2f}"/>')
-        bars.append(f'<text x="{x+13}" y="{100-h:.0f}" text-anchor="middle" font-size="9.5" '
+        bars.append(f'<text x="{x+13}" y="{100-h:.0f}" text-anchor="middle" font-size="11" '
                     f'fill="currentColor" opacity=".65">{p*100:.0f}</text>')
     return _svg("".join(bars) + '<line x1="10" y1="104" x2="250" y2="104" stroke="currentColor" opacity=".28"/>',
                 "Six bars falling from 90 to 53 as steps are chained")
@@ -40,12 +40,12 @@ def g_doors() -> str:
         '<rect x="20" y="26" width="86" height="76" rx="5" fill="none" stroke="var(--sage)" stroke-width="2"/>'
         '<path d="M42 64 H86 M78 56 l8 8 -8 8" stroke="var(--sage)" stroke-width="2" fill="none"/>'
         '<path d="M84 46 H40 M48 38 l-8 8 8 8" stroke="var(--sage)" stroke-width="2" fill="none"/>'
-        '<text x="63" y="118" text-anchor="middle" font-size="10" fill="var(--sage)" font-weight="600">two-way</text>'
+        '<text x="63" y="118" text-anchor="middle" font-size="11.5" fill="var(--sage)" font-weight="600">two-way</text>'
         '<rect x="154" y="26" width="86" height="76" rx="5" fill="none" stroke="var(--stop)" stroke-width="2"/>'
         '<path d="M176 64 H220 M212 56 l8 8 -8 8" stroke="var(--stop)" stroke-width="2" fill="none"/>'
         '<path d="M218 46 H174" stroke="var(--stop)" stroke-width="2" stroke-dasharray="3 3" opacity=".5"/>'
         '<path d="M190 38 l14 14 M204 38 l-14 14" stroke="var(--stop)" stroke-width="2"/>'
-        '<text x="197" y="118" text-anchor="middle" font-size="10" fill="var(--stop)" font-weight="600">one-way</text>',
+        '<text x="197" y="118" text-anchor="middle" font-size="11.5" fill="var(--stop)" font-weight="600">one-way</text>',
         "A two-way door with arrows both ways, and a one-way door with the return crossed out")
 
 
@@ -57,23 +57,23 @@ def g_lever() -> str:
         '<text x="31" y="78" text-anchor="middle" font-size="11" fill="var(--dg-on)" font-weight="700">$$$</text>'
         '<circle cx="228" cy="42" r="11" fill="var(--sage)"/>'
         '<path d="M224 42 l3 4 6 -8" stroke="var(--dg-on)" stroke-width="2" fill="none"/>'
-        '<text x="31" y="106" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">damage</text>'
-        '<text x="228" y="70" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">one person</text>',
+        '<text x="31" y="106" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">damage</text>'
+        '<text x="228" y="70" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">one person</text>',
         "A lever: one person at the long end lifts the damage at the short end")
 
 
 def g_wall() -> str:
     return _svg(
-        '<text x="62" y="22" text-anchor="middle" font-size="10" fill="var(--warn)" font-weight="700">PROMPT</text>'
+        '<text x="62" y="22" text-anchor="middle" font-size="11.5" fill="var(--warn)" font-weight="700">PROMPT</text>'
         + "".join(f'<rect x="{22+i*22}" y="34" width="14" height="58" rx="2" fill="none" '
                   f'stroke="var(--warn)" stroke-width="2" stroke-dasharray="4 4"/>' for i in range(4))
         + '<path d="M28 62 H112" stroke="var(--stop)" stroke-width="2.5" marker-end="url(#mk)"/>'
-        '<text x="62" y="110" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">gets through</text>'
-        '<text x="196" y="22" text-anchor="middle" font-size="10" fill="var(--ok)" font-weight="700">SIGNATURE</text>'
+        '<text x="62" y="110" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">gets through</text>'
+        '<text x="196" y="22" text-anchor="middle" font-size="11.5" fill="var(--ok)" font-weight="700">SIGNATURE</text>'
         '<rect x="158" y="34" width="76" height="58" rx="3" fill="var(--ok)" opacity=".16" stroke="var(--ok)" stroke-width="2"/>'
         '<path d="M140 62 H156" stroke="var(--stop)" stroke-width="2.5"/>'
         '<path d="M150 54 l10 8 -10 8" fill="none" stroke="var(--stop)" stroke-width="2.5" opacity=".35"/>'
-        '<text x="196" y="110" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">raises</text>'
+        '<text x="196" y="110" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">raises</text>'
         '<defs><marker id="mk" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">'
         '<path d="M0 0 L7 3.5 L0 7 z" fill="var(--stop)"/></marker></defs>',
         "A dashed fence a line passes through, beside a solid wall that stops it")
@@ -84,9 +84,9 @@ def g_average() -> str:
         '<rect x="18" y="30" width="150" height="34" rx="4" fill="var(--accent)" opacity=".28"/>'
         '<text x="93" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">overall 84%</text>'
         '<rect x="18" y="74" width="118" height="17" rx="3" fill="var(--sage)" opacity=".7"/>'
-        '<text x="142" y="87" font-size="9.5" fill="currentColor" opacity=".75">easy, 89%</text>'
+        '<text x="142" y="87" font-size="11" fill="currentColor" opacity=".75">easy, 89%</text>'
         '<rect x="18" y="96" width="26" height="17" rx="3" fill="var(--stop)"/>'
-        '<text x="50" y="109" font-size="9.5" fill="var(--stop)" font-weight="600">the risky one, 77%</text>'
+        '<text x="50" y="109" font-size="11" fill="var(--stop)" font-weight="600">the risky one, 77%</text>'
         '<line x1="18" y1="22" x2="18" y2="118" stroke="currentColor" opacity=".2"/>',
         "A wide average bar above a large passing slice and a small failing one")
 
@@ -95,17 +95,17 @@ def g_bound() -> str:
     return _svg(
         '<line x1="30" y1="84" x2="244" y2="84" stroke="currentColor" opacity=".25"/>'
         '<line x1="150" y1="20" x2="150" y2="100" stroke="var(--ink2)" stroke-width="2" stroke-dasharray="4 3"/>'
-        '<text x="150" y="114" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">the bar</text>'
+        '<text x="150" y="114" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">the bar</text>'
         '<line x1="96" y1="44" x2="206" y2="44" stroke="var(--stop)" stroke-width="2"/>'
         '<line x1="96" y1="38" x2="96" y2="50" stroke="var(--stop)" stroke-width="2"/>'
         '<line x1="206" y1="38" x2="206" y2="50" stroke="var(--stop)" stroke-width="2"/>'
         '<circle cx="172" cy="44" r="5" fill="var(--stop)"/>'
-        '<text x="222" y="40" font-size="9.5" fill="var(--stop)" font-weight="600">n=40</text>'
+        '<text x="222" y="40" font-size="11" fill="var(--stop)" font-weight="600">n=40</text>'
         '<line x1="158" y1="72" x2="196" y2="72" stroke="var(--ok)" stroke-width="2"/>'
         '<line x1="158" y1="66" x2="158" y2="78" stroke="var(--ok)" stroke-width="2"/>'
         '<line x1="196" y1="66" x2="196" y2="78" stroke="var(--ok)" stroke-width="2"/>'
         '<circle cx="177" cy="72" r="5" fill="var(--ok)"/>'
-        '<text x="212" y="76" font-size="9.5" fill="var(--ok)" font-weight="600">n=500</text>',
+        '<text x="212" y="76" font-size="11" fill="var(--ok)" font-weight="600">n=500</text>',
         "Two point estimates with error bars: the wide one crosses the bar, the narrow one clears it")
 
 
@@ -115,7 +115,7 @@ def g_funnel() -> str:
     return _svg(
         '<path d="M44 24 H216 L164 72 V104 H96 V72 Z" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/>'
         + drops +
-        '<text x="130" y="122" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">'
+        '<text x="130" y="122" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">'
         '5% of traffic = 12 cases a day</text>',
         "A funnel with a narrow neck and a slow trickle of cases")
 
@@ -149,9 +149,9 @@ def g_fanout() -> str:
                   f'<circle cx="104" cy="{34+i*16}" r="4" fill="var(--sage)"/>' for i in range(5))
     return _svg(
         '<circle cx="42" cy="66" r="13" fill="var(--sage)"/>' + fan +
-        '<text x="62" y="120" text-anchor="middle" font-size="9.5" fill="var(--sage)" font-weight="600">one agent, 0 hand-offs</text>'
+        '<text x="62" y="120" text-anchor="middle" font-size="11" fill="var(--sage)" font-weight="600">one agent, 0 hand-offs</text>'
         + "".join(lines) + dots +
-        '<text x="192" y="120" text-anchor="middle" font-size="9.5" fill="var(--stop)" font-weight="600">five agents, 10</text>',
+        '<text x="192" y="120" text-anchor="middle" font-size="11" fill="var(--stop)" font-weight="600">five agents, 10</text>',
         "One agent fanning out to five tools, beside five agents joined by ten lines")
 
 
@@ -161,10 +161,10 @@ def g_dial() -> str:
         '<path d="M46 96 A56 56 0 0 1 72 49" fill="none" stroke="var(--sage)" stroke-width="7"/>'
         '<line x1="102" y1="96" x2="72" y2="52" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>'
         '<circle cx="102" cy="96" r="5" fill="var(--ink)"/>'
-        '<text x="46" y="114" text-anchor="middle" font-size="9" fill="currentColor" opacity=".7">a fix</text>'
-        '<text x="158" y="114" text-anchor="middle" font-size="9" fill="currentColor" opacity=".7">a new system</text>'
-        '<text x="212" y="62" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75">depth is</text>'
-        '<text x="212" y="76" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75">per change</text>',
+        '<text x="46" y="114" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">a fix</text>'
+        '<text x="158" y="114" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">a new system</text>'
+        '<text x="212" y="62" text-anchor="middle" font-size="11.5" fill="currentColor" opacity=".75">depth is</text>'
+        '<text x="212" y="76" text-anchor="middle" font-size="11.5" fill="currentColor" opacity=".75">per change</text>',
         "A dial turned low, running from a fix to a new system")
 
 
@@ -173,12 +173,12 @@ def g_baton() -> str:
         '<circle cx="48" cy="58" r="15" fill="var(--accent)" opacity=".85"/>'
         '<circle cx="200" cy="58" r="15" fill="var(--accent)" opacity=".5"/>'
         '<rect x="88" y="48" width="72" height="22" rx="4" fill="var(--ochre)" opacity=".3" stroke="var(--ochre)"/>'
-        '<text x="124" y="63" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ochre)">artefact</text>'
+        '<text x="124" y="63" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ochre)">artefact</text>'
         '<path d="M66 58 H86" stroke="currentColor" stroke-width="2" opacity=".5"/>'
         '<path d="M162 58 H182" stroke="currentColor" stroke-width="2" opacity=".5"/>'
-        '<text x="124" y="102" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">'
+        '<text x="124" y="102" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">'
         'the phase ends when this crosses</text>'
-        '<text x="124" y="116" text-anchor="middle" font-size="9.5" fill="var(--stop)" opacity=".8">not on Friday</text>',
+        '<text x="124" y="116" text-anchor="middle" font-size="11" fill="var(--stop)" opacity=".8">not on Friday</text>',
         "Two runners passing an artefact rather than a baton")
 
 
@@ -189,9 +189,9 @@ def g_drift() -> str:
         f'<polyline points="{flat}" fill="none" stroke="var(--sage)" stroke-width="2.5"/>'
         f'<polyline points="{slide}" fill="none" stroke="var(--stop)" stroke-width="2.5"/>'
         '<line x1="130" y1="22" x2="130" y2="100" stroke="currentColor" opacity=".25" stroke-dasharray="3 3"/>'
-        '<text x="74" y="110" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">no deploy</text>'
-        '<text x="186" y="110" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">no error</text>'
-        '<text x="196" y="34" text-anchor="middle" font-size="9.5" fill="var(--stop)" font-weight="600">still no alarm</text>',
+        '<text x="74" y="110" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">no deploy</text>'
+        '<text x="186" y="110" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">no error</text>'
+        '<text x="196" y="34" text-anchor="middle" font-size="11" fill="var(--stop)" font-weight="600">still no alarm</text>',
         "A flat line that begins sliding downwards with no marker for the change")
 
 
@@ -416,23 +416,36 @@ def build(shell, urls: dict) -> str:
     index = "".join(
         f'<li><a href="#{E(m["id"])}"><b>{E(m["name"])}</b><span>{m["one"]}</span></a></li>'
         for m in MODELS)
-    body = f"""<div class="wrap"><main id="main" style="padding:40px 0 84px">
+    orient = k.orient(
+        "Anyone who has to make a call this manual never covered: a forward-deployed engineer in front of a "
+        "customer, a product manager in a review, an architect choosing how many agents.",
+        "Predict what will happen before you start. Each model is a picture, what it predicts, the mistake it "
+        "prevents, and a test for whether it has landed.",
+        ["Skim the twelve tiles; click one to jump to it.",
+         "Read <b>The model</b> first. Then switch the toggle to <b>The subtlety</b> — the boundary each one has.",
+         "Use the <b>Landed when</b> line as the test: not whether you can recite it, whether the question shows up in your reviews."])
+    tour = k.tour([
+        {"sel": ".mix", "title": "Twelve shapes", "body": "One tile per model, in the order they pay. Click a tile to jump to its card."},
+        {"sel": ".lensbar", "title": "Two readings", "body": "<b>The model</b> is what it predicts and the mistake it prevents. <b>The subtlety</b> is the boundary: where the model stops applying. The toggle switches every card at once, and the cards below settle in when they change."},
+        {"sel": ".mm .mmg", "title": "The picture", "body": "Each glyph is a mnemonic, drawn to the same frame. It is meant to come back to you in a meeting, not to carry data."},
+        {"sel": ".mm .ml", "title": "Landed when", "body": "The test. A model you can recite and do not use is a slogan; this line says what using it looks like."},
+        {"sel": ".mm .mw", "title": "Where it lives", "body": "Every model points to the steps and lessons where it does its work."},
+    ])
+    body = f"""<div class="wrap"><main id="main" style="padding:34px 0 84px">
 <div class="sec" style="max-width:74ch">
   <div class="kicker">Intuition</div>
   <h1>Twelve shapes that make the rest predictable</h1>
   <p class="lede">A procedure tells you what to do on Tuesday. A model tells you what to expect
   before you start, which is what lets somebody make a good call on a case this manual never
   covered. These twelve are the ones that keep paying.</p>
-  <p>Each one is a picture, what it predicts, the mistake it prevents, and a test for whether it has
-  actually landed. The test is the useful part: a model you can recite and do not use is a slogan.</p>
-  <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:18px">
-  {k.lens_toggle("The model", "The subtlety")}
-  <span style="font-size:13px;color:var(--soft);flex:1 1 300px;min-width:240px">Read the models
-  first. The second view holds the qualification each one needs before you apply it somewhere it
-  does not fit.</span></div>
 </div>
 
+{orient}
+
 <div class="sec"><ol class="mix">{index}</ol></div>
+
+<div class="lensbar" id="reading">{k.lens_toggle("The model", "The subtlety")}
+<span class="lh" data-lens-hint data-rest-black="What each one predicts and the mistake it prevents. Switch to see where each stops applying." data-rest-white="The qualification each one needs before you apply it somewhere it does not fit.">Showing <b>the model</b>. What each one predicts and the mistake it prevents. Switch to see where each stops applying.</span></div>
 
 {cards}
 
@@ -464,4 +477,5 @@ confidence</a>.</p></div>
                       "reversibility, the hold as a lever, requests versus boundaries, and the eight "
                       "others that keep paying.",
                  body=body, depth=1, nav_id="models",
-                 canonical=urls["base"] + "models/")
+                 canonical=urls["base"] + "models/",
+                 crumbs=[("For leadership", "../protocol/"), ("Mental models", "")], tour=tour, kind="models")

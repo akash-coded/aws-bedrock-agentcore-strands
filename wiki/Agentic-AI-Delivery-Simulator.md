@@ -55,14 +55,16 @@ The evidence pack is kept in your browser only.
 Thirteen episodes, each opening at a moment with a number in it and closing one loop. Read them in
 order and the artefacts arrive in the order a real team produces them. [Open the story](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/story)
 
-<p align="center"><img alt="The simulator's story page: thirteen dated episodes down the left rail, and the four people of the SkyWays team" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-story.webp" width="1200"></p>
+![The simulator's story page: thirteen dated episodes down the left rail, and the four people of the SkyWays team](https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-story.webp)
+
 ### Step 2 · Run a simulation twice
 
 Each of the nine simulations is a sequence of decisions on the SkyWays case, and each option shows what
 it does to the steps that follow and the artefact it leaves behind. Run each one twice: once on the path
 that closes the loop, and once on the path that feels faster — the second run is where the lesson is.
 
-<p align="center"><img alt="The incident simulation, step one of five: choosing to ask which enforced control would have made the incident impossible, and what that choice leads to" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-simulation.webp" width="856"></p>
+![The incident simulation, step one of five: choosing to ask which enforced control would have made the incident impossible, and what that choice leads to](https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-simulation.webp)
+
 The nine are the NFR workshop, the paper agent, build, buy or borrow, ninety days of SkyWays, the
 six-week deadline, the review bottleneck, the pricing-page walk, the bill blowout and the incident.
 [All simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations)
@@ -73,7 +75,8 @@ Every tool arrives filled in, so the result can be read before anything is typed
 with your project's and the result and the artefact change as you type. Each tool shows the formula or
 rule it uses.
 
-<p align="center"><img alt="The golden-set confidence calculator, prefilled with 412 correct out of 500 against an 80% bar, showing a lower bound under the bar and the cases still needed" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-toolkit.webp" width="856"></p>
+![The golden-set confidence calculator, prefilled with 412 correct out of 500 against an 80% bar, showing a lower bound under the bar and the cases still needed](https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-toolkit.webp)
+
 The calculator uses the same rule as this tutorial — **z = 1.96**, the lower end of a two-sided 95%
 interval — so SkyWays' 412 of 500 reads 79.1% and 968 cases in both places. It also offers one-sided
 bounds, for a team that has chosen one in advance. [The toolkit](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit)
@@ -84,14 +87,16 @@ One picture that every page returns to: four phases drawn as a closing loop, the
 written on the arrows, and the eight loops numbered around it. Select a phase or a loop to see where it
 is worked through.
 
-<p align="center"><img alt="The Loop Map: the four phases P0 to P3 as a ring, the hard gate between P1 and P2, the hand-off artefacts on the arrows and eight numbered loops" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-loopmap.webp" width="836"></p>
+![The Loop Map: the four phases P0 to P3 as a ring, the hard gate between P1 and P2, the hand-off artefacts on the arrows and eight numbered loops](https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-loopmap.webp)
+
 ### Step 5 · Collect the evidence pack
 
 The pack lists the documents that the product manager, the architect and the engineering lead hand to
 each other at the four hand-offs, marks the ones you already hold, and downloads as one markdown file
 that can go straight into a repository. [The evidence pack](The-Evidence-Pack-Before-Each-Hand-off)
 
-<p align="center"><img alt="The evidence pack's hard-gate hand-off: the eight-field spec, the acceptance bar sheet, decision records, the authority budget and the other artefacts owed, each with where it is produced" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-evidence.webp" width="514"></p>
+![The evidence pack's hard-gate hand-off: the eight-field spec, the acceptance bar sheet, decision records, the authority budget and the other artefacts owed, each with where it is produced](https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/sim-evidence.webp)
+
 ### Step 6 · Go deeper by role
 
 Three playbooks — Solution Architect, Product Manager, and Engineering and QA — walk the same case from

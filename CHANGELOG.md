@@ -8,6 +8,44 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-24 · The site gets a front door, a guide, and pictures drawn to one grammar
+
+### Added
+- **A home page that sets the scene** — a hero that says who the manual is for (forward-deployed
+  engineers, product managers and FDPMs, architects, engineers, QA, platform, sponsors, organisations,
+  interview candidates) with one entrance per chair, the positioning in one line (every agentic
+  delivery method, one manual, by role), the spine drawn as a picture beside it, and a background that
+  reads as a system in both themes
+- **Pip, the guide** — a small drawn character with a speech bubble on the home page and a
+  **walkthrough on every kind of page**: one highlighted element at a time, what it is and what to do
+  with it. Offered once per kind of page on a first visit, never a takeover, always available from the
+  **Show me around** button. Keyboard-driven, respects reduced motion, stores only which tours were seen
+- **An opening strip on every page** — who it is for, what to use it for, and how, in three short
+  cells, so no page starts with a wall of prose
+- **Wayfinding** — a home button, breadcrumbs under the header on every page, and a **Menu** drawer
+  with every page by category (start, roles, leadership, libraries, play, elsewhere), collapsible per
+  category and usable without script
+- **[`site/pages/bb.py`](site/pages/bb.py) and [`illos.py`](site/pages/illos.py)** — a port of the
+  ByteByteGo illustration grammar (title pills, solid label columns, white nodes with flat icons,
+  dashed flows that move, callouts, "Best for" lists) as build-time SVG that follows the theme. Five
+  pictures drawn with it: the spine in one picture, traditional against agentic PDLC, the R1–R5 risk
+  ladder, chained probability, and four methods on one spine as a plug board. They replace the three
+  hand-drawn diagrams on the frameworks page and are embedded in five lessons, with wiki screenshots
+
+### Changed
+- **The mental models page** — the model/subtlety toggle used to sit above a twelve-tile index, so
+  switching it changed nothing on screen. It now sits with the cards, says what is showing, and the
+  readings that appear settle in visibly; the same feedback applies to the leadership page's lens
+- **Templates and prompts** — the two libraries now say what they are and are not (documents you
+  write versus messages you send), show the difference side by side, and every block names the step
+  that produces it and when to use it
+- **"Simulator" is now "Playbook"** in the navigation, cards and footer: it is the whole method as an
+  interactive playbook, and the framed copy at `/simulator/` is the one linked
+- **Sizes** — the smallest text on the boards, cards, rails and glyphs raised by half a point to a
+  point; mermaid diagrams in lessons draw at 15px and grow up to a third to fill the column
+- The tutorial's start page and lessons carry the opening strip, breadcrumbs via the shared shell, and
+  the walkthrough
+
 ## 2026-09-22 · A page for the board, an intuition layer, and an interaction engine
 
 ### Added

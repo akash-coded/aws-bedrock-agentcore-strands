@@ -3,7 +3,7 @@
 
 *Build the exact parts first, measure the guessing parts by slice, and let a harness — not a meeting — decide what merges.*
 
-**7 min read** · Intermediate · Lesson 6 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
+**8 min read** · Intermediate · Lesson 6 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
 
 > [!TIP]
 > **P2 in one sentence.** P2 Build & Prove builds the agent in **bolts** — slices of hours or days,
@@ -92,6 +92,10 @@ rejected it. **Report the lower bound, never the score**: codeshare scored 412 o
 bar of 80 — but the lower bound was 79.1%, so the slice was not yet proven and owed more cases.
 
 ### Step 4 · Put an independent checker after the risky steps
+
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-chain.dark.webp"><img alt="Chained steps multiply: each right 90% of the time, six steps are right 53% of the time" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-chain.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/">Open the live, interactive version</a></sub>
 
 Chained steps multiply: four steps at 90% each are right 66% of the time end to end. Keep the chain
 short, then put a checker after each step where a wrong answer is expensive — and make it

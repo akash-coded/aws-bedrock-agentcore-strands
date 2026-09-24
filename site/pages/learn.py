@@ -225,8 +225,7 @@ class Links:
 # ---------------------------------------------------------------------------------------- visuals
 def _visuals() -> dict[str, dict]:
     """Every picture a lesson may embed: how to draw it live, what it says, where it lives."""
-    from pages import boards, figures, models
-    import render as R
+    from pages import boards, figures, models, illos
 
     def m(fn, label):
         return lambda: f'<figure class="lmodel" aria-label="{_E(label, quote=True)}">{fn()}</figure>'
@@ -256,12 +255,16 @@ def _visuals() -> dict[str, dict]:
                                     "read-only to not delegated, and the band belongs to the tool", "solution-architect/"),
         "figure:two_numbers": (figures.two_numbers, "The two numbers a sponsor reports together: the saving and "
                                "the spend", "protocol/"),
-        "frameworks:ring": (R.svg_ring, "The agentic PDLC as a ring: four phases, one hard gate, and production "
-                            "feeding the next frame", "frameworks/"),
-        "frameworks:ladder": (R.svg_ladder, "The risk ladder: a change inherits the band of whatever it touches, "
+        "frameworks:spine": (illos.spine, "The agentic PDLC in one picture: four phases, one hard gate, and "
+                             "production feeding the next frame", "frameworks/"),
+        "frameworks:pdlc_vs": (illos.pdlc_vs, "Traditional PDLC against the agentic PDLC: six stages decided once, "
+                               "against four phases, a hard gate and the incident as the next brief", "frameworks/"),
+        "frameworks:ladder": (illos.ladder, "The risk ladder: a change inherits the band of whatever it touches, "
                               "from R1 reviewed at the end to R5 not delegated", "frameworks/"),
-        "frameworks:chain": (R.svg_chain, "Chained steps multiply: each right 90% of the time, eight steps are right "
-                             "43% of the time", "frameworks/"),
+        "frameworks:chain": (illos.chain, "Chained steps multiply: each right 90% of the time, six steps are right "
+                             "53% of the time", "frameworks/"),
+        "frameworks:methods": (illos.methods, "Four methods on one spine: SDD, BMAD, AI-DLC and AiDD, filled where "
+                               "each speaks to a phase and dashed where it is silent", "frameworks/"),
     }
     for g, label in (("g_decay", "Length is the enemy"), ("g_doors", "Reversibility is the hinge"),
                      ("g_lever", "A hold is a lever, not a brake"), ("g_wall", "A prompt is a request; a signature is a boundary"),
@@ -740,7 +743,6 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     html_ = f"""<div class="cols lcols">
 {_rail(tracks, les.slug)}
 <main id="main" class="lesson">
-  <nav class="crumb" aria-label="Breadcrumb"><a href="../">Learn</a><span>›</span><a href="../{t.id}/">{_E(t.title)}</a><span>›</span><span>Lesson {les.n}</span></nav>
   <h1>{_E(les.title)}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
   <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
@@ -754,8 +756,16 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
 </div>"""
     if link.problems:
         raise SystemExit(f"lessons/{les.slug}.md: " + "; ".join(sorted(set(link.problems))))
+    tour = [
+        {"sel": ".lrail", "title": "Every lesson, in order", "body": f"Eight tracks. You are in <b>{_E(t.title)}</b>, lesson {les.n} of {len(t.lessons)}. Read a track top to bottom, or jump to the one your role needs."},
+        {"sel": ".otp", "title": "On this page", "body": "Every lesson has the same shape: the answer in one sentence, a picture, the sound-familiar symptoms, the how-to, where you'll use it, a try-it exercise, takeaways, an FAQ and <b>how to apply it in your role</b>."},
+        {"sel": ".prose .callout", "title": "The answer first", "body": "The green box is the whole lesson in one sentence. If it is enough, move on; the rest is the argument and the practice."},
+        {"sel": "#apply-it-in-your-role", "title": "Apply it in your role", "body": "Near the end: what to do as a forward-deployed engineer, a product manager or an engineer, an AI-augmented shortcut for each, how it runs across an enterprise, and a ten-minute workflow with a prompt to paste."},
+        {"sel": ".pn", "title": "Next lesson", "body": "Lessons chain in order. Previous and next are always at the bottom."},
+    ]
     return shell(title=les.title, desc=les.description, body=html_, depth=2, nav_id="learn",
-                 canonical=les.url, head_extra=head + MERMAID_HEAD, own_ld=True)
+                 canonical=les.url, head_extra=head + MERMAID_HEAD, own_ld=True,
+                 crumbs=[("Learn", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson")
 
 
 MERMAID_HEAD = f'<script type="module" src="../../theme/learn.js" data-mermaid="{MERMAID}"></script>'
@@ -773,7 +783,6 @@ def track_page(t: Track, tracks, lessons, shell) -> str:
     html_ = f"""<div class="cols lcols">
 {_rail(tracks, t.id)}
 <main id="main" class="lesson">
-  <nav class="crumb" aria-label="Breadcrumb"><a href="../">Learn</a><span>›</span><span>{_E(t.title)}</span></nav>
   <h1>{_E(t.title)}</h1>
   <p class="lede">{_E(t.blurb)}</p>
   <p class="lmeta"><span><b>{len(t.lessons)} lessons</b></span><span>about {total} minutes</span><span>{_E(t.promise)}</span></p>
@@ -790,10 +799,12 @@ def track_page(t: Track, tracks, lessons, shell) -> str:
     head = f'<script type="application/ld+json">{_graph(ld)}</script>'
     desc = f"{t.title}: {t.blurb}"[:160]
     return shell(title=f"{t.title} · Agentic PDLC tutorial", desc=desc, body=html_, depth=2, nav_id="learn",
-                 canonical=t.url, head_extra=head, own_ld=True)
+                 canonical=t.url, head_extra=head, own_ld=True,
+                 crumbs=[("Learn", "../"), (t.title, "")], kind="track")
 
 
 def start_page(meta, tracks, lessons, shell, visual) -> str:
+    from pages import _kit as kit
     src = (LEARN / "start-here.md").read_text(encoding="utf-8")
     smeta, sbody = _front(src, "start-here.md")
     link = Links("site", lessons, tracks)
@@ -816,6 +827,14 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
   <p class="kicker">Free tutorial · {sum(len(t.lessons) for t in tracks)} lessons</p>
   <h1>{_E(smeta['title'])}</h1>
   <p class="lede">{inline(smeta.get('dek', ''), link)}</p>
+  {kit.orient(
+      "Anyone running, building, testing, operating or funding software where a model does part of the work — "
+      "and anyone preparing for an interview for such a job.",
+      "Learn the agentic PDLC in five-to-ten-minute lessons, in order, then apply each one in your own role "
+      "with the shortcut and the ten-minute workflow at the end of every lesson.",
+      ["New? Read <b>Getting started</b>, then <b>Fundamentals</b>, top to bottom.",
+       "In a hurry? Use <b>Start where you are</b> below to jump to your role's lesson.",
+       "Every lesson ends with <b>Apply it in your role</b> and a prompt to paste; every diagram is drawn live."])}
   <article class="prose">
 {body}
   </article>
@@ -828,8 +847,15 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
            "description": smeta["description"], "url": f"{BASE_URL}learn/", "inLanguage": "en",
            "author": _ld_person(), "hasPart": [{"@type": "Course", "name": t.title, "url": t.url} for t in tracks]}]
     head = f'<script type="application/ld+json">{_graph(ld)}</script>' + MERMAID_HEAD.replace("../../", "../")
+    tour = [
+        {"sel": ".lrail", "title": "Every lesson, in order", "body": "Eight tracks, top to bottom: getting started, fundamentals, methods decoded, running delivery, by role, teams and organisation, the case study, interviews and careers."},
+        {"sel": ".orient", "title": "How to use the tutorial", "body": "Read in order if you are new; jump by role if you are not. Each lesson is five to ten minutes and ends with how to apply it in your role."},
+        {"sel": "#by-role", "title": "Your role across the phases", "body": "One row per role, one column per phase. Hover a cell to light its row and column; click one to open that step of the role's page."},
+        {"sel": "#the-tracks", "title": "The tracks", "body": "Each card is a track with its lesson count and reading time. Start with the first; the interview banks are last."},
+    ]
     return shell(title=smeta["title"], desc=smeta["description"], body=html_, depth=1, nav_id="learn",
-                 canonical=f"{BASE_URL}learn/", head_extra=head, own_ld=True)
+                 canonical=f"{BASE_URL}learn/", head_extra=head, own_ld=True,
+                 crumbs=[("Learn", "")], tour=tour, kind="learn")
 
 
 def site_markdown(les: Lesson, lessons, tracks) -> str:
@@ -908,7 +934,7 @@ def shots_page(out: Path, shell) -> str:
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
     cells = "".join(
-        f'<div class="shot {"wide" if k.startswith("board:") else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
+        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
         f'{reg[k]["draw"]()}</div>' for k in used_visuals())
     body = f'<main id="main" class="shots">{cells}</main>'
     html_ = shell(title="shots", desc="Screenshot sheet. Not for readers.", body=body, depth=2, nav_id="",

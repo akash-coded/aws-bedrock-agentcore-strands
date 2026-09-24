@@ -29,7 +29,8 @@ if (sources.length && tag) {
     mermaid.initialize({
       startOnLoad: false, theme: mode, securityLevel: "strict",
       fontFamily: "Inter, -apple-system, 'Segoe UI', Roboto, sans-serif",
-      flowchart: { htmlLabels: true, curve: "basis" },
+      themeVariables: { fontSize: "15px", fontFamily: "Inter, -apple-system, 'Segoe UI', Roboto, sans-serif" },
+      flowchart: { htmlLabels: true, curve: "basis", padding: 14, nodeSpacing: 34, rankSpacing: 44 },
     });
     for (const pre of sources) {
       let out = pre.nextElementSibling;
@@ -42,6 +43,10 @@ if (sources.length && tag) {
         const { svg } = await mermaid.render(`mmd-${n++}`, pre.textContent);
         out.innerHTML = svg;
         pre.classList.add("drawn");
+        // mermaid sizes a drawing to its content; a small one may grow, up to a third, to read
+        const el = out.querySelector("svg");
+        const nat = parseFloat((el.style.maxWidth || "").replace("px", "")) || el.viewBox?.baseVal?.width || 0;
+        if (nat) { el.style.maxWidth = Math.round(nat * 1.32) + "px"; el.style.width = "100%"; }
       } catch (e) {
         // leave the source visible: a readable diagram beats an empty box
         out.remove();

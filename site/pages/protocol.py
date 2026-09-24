@@ -22,11 +22,17 @@ def _hero() -> str:
 right <em>a share of the time</em>, and that single fact changes what you fund, what you sign, and
 what you accept as evidence. This page is the whole operating model on one screen, for the person
 who owns the outcome rather than the implementation.</p>
-<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:20px">
-{k.lens_toggle("What it means", "How it works")}
-<span style="font-size:13px;color:var(--soft);flex:1 1 300px;min-width:240px">Every claim here can
-be opened to its mechanism. Start on the left; switch when you want to check one.</span></div>
-</div>"""
+</div>
+{k.orient(
+    "The <strong>sponsor</strong>, the executive, the head of product or engineering — whoever owns the outcome "
+    "and the budget rather than the implementation. Also the FDE or FDPM who has to brief them.",
+    "See the whole operating model on one screen: what changes, who does what, the four decisions only you can "
+    "make, how you will know it is working, and a ninety-day rollout.",
+    ["Read <b>If you read nothing else</b>: five claims, each with a mechanism behind it.",
+     "Keep the toggle on <b>What it means</b>; switch to <b>How it works</b> when a claim needs checking.",
+     "Take the four questions to your next review, and the first thirty days to your calendar."])}
+<div class="lensbar" id="reading">{k.lens_toggle("What it means", "How it works")}
+<span class="lh" data-lens-hint data-rest-black="Every claim can be opened to its mechanism: switch when you want to check one." data-rest-white="The mechanism under each claim. Switch back for the plain reading.">Showing <b>what it means</b>. Every claim can be opened to its mechanism: switch when you want to check one.</span></div>"""
 
 
 def _one_page() -> str:
@@ -477,7 +483,7 @@ questions, and the artefacts are each about an afternoon's work.</p></div>
 
 
 def build(shell, urls: dict) -> str:
-    body = ("<div class=\"wrap\"><main id=\"main\" style=\"padding:40px 0 84px\">"
+    body = ("<div class=\"wrap\"><main id=\"main\" style=\"padding:34px 0 84px\">"
             + _hero() + _one_page() + _changes() + _operating_model() + _decisions()
             + _knowing() + _rollout() + _tooling() + _redflags() + _first30()
             + f"""<div class="sec" style="border-top:1px solid var(--rule);padding-top:26px">
@@ -494,6 +500,13 @@ def build(shell, urls: dict) -> str:
     desc = ("The agentic operating protocol: what changes, who does what, the four decisions only "
             "leadership can make, how to know it is working, and a ninety-day rollout. For "
             "executives and business owners.")
+    tour = k.tour([
+        {"sel": ".lensbar", "title": "Two readings", "body": "<b>What it means</b> is the claim. <b>How it works</b> is the mechanism underneath it. Switch when you want to check one; every block on the page follows."},
+        {"sel": ".acts", "title": "If you read nothing else", "body": "Five things that change when part of the product is right a share of the time. Each is one sentence, then the reason."},
+        {"sel": "[data-score]", "title": "The six-control check", "body": "Tick what the team can show in ten minutes. The number is your maturity level; the next unticked box is the next control to fund."},
+        {"sel": ".stp", "title": "Ninety days, step by step", "body": "A rollout you can walk: one panel per stage, with the trap each stage sets."},
+    ])
     return shell(title="The agentic operating protocol · for whoever owns the P&L",
                  desc=desc, body=body, depth=1, nav_id="protocol",
-                 canonical=urls["base"] + "protocol/")
+                 canonical=urls["base"] + "protocol/",
+                 crumbs=[("For leadership", "")], tour=tour, kind="protocol")

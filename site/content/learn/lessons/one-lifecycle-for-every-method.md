@@ -70,6 +70,8 @@ as gaps that a lifecycle has to fill, whichever method you choose.
 
 ## Where does each method sit?
 
+{{frameworks:methods}}
+
 | Method | P0 · Frame | P1 · Design & Spec | P2 · Build & Prove | P3 · Run & Learn |
 | --- | --- | --- | --- | --- |
 | **AWS AI-DLC** | Inception: the business intent | Inception: Mob Elaboration, units of work | Construction: Mob Construction, in bolts | Operations: infrastructure and deployment |
