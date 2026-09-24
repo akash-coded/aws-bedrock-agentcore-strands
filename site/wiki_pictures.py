@@ -65,7 +65,7 @@ PAGES: dict[str, list[str]] = {
 JOURNEYS = {rid: f"wikimap:journey-{rid}" for rid in ("product-manager", "solution-architect", "engineering", "qa", "devops")}
 
 FENCE = re.compile(r"```mermaid\n[\s\S]*?\n```\n?")
-BLOCK = re.compile(r"<!-- picture:([a-z_:-]+) -->[\s\S]*?<!-- /picture -->\n?")
+BLOCK = re.compile(r"<!-- picture:([a-z0-9_:-]+) -->[\s\S]*?<!-- /picture -->\n?")
 
 
 def keys() -> list[str]:

@@ -1,5 +1,7 @@
 # QA lead · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From 'it works' to a number you can defend**
 
 8 steps · 56 sub-steps · 8 templates · 23 prompts

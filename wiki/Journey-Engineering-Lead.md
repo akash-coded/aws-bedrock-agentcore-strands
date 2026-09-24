@@ -1,5 +1,7 @@
 # Engineering lead · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For engineers](Agentic-PDLC-for-Software-Engineers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From a story file to a shipped bolt**
 
 8 steps · 50 sub-steps · 8 templates · 24 prompts

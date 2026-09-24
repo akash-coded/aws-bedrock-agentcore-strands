@@ -1,5 +1,7 @@
 # DevOps and platform · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From a laptop to production, repeatably**
 
 8 steps · 53 sub-steps · 8 templates · 24 prompts
