@@ -21,47 +21,47 @@
 
 ### 📗 Method and reference
 
-**The playbook**
-[The Agentic PDLC](The-Agentic-PDLC)
-[The Eight Loops](The-Eight-Loops)
-[Gates & Governance](Gates-and-Governance)
+**The playbook**<br>
+[The Agentic PDLC](The-Agentic-PDLC)<br>
+[The Eight Loops](The-Eight-Loops)<br>
+[Gates & Governance](Gates-and-Governance)<br>
 [The Evidence Pack](The-Evidence-Pack)
 
-**The journey · end to end**
-[Product manager](Journey-Product-Manager)
-[Solution architect](Journey-Solution-Architect)
-[Engineering lead](Journey-Engineering-Lead)
-[QA lead](Journey-QA-Lead)
+**The journey · end to end**<br>
+[Product manager](Journey-Product-Manager)<br>
+[Solution architect](Journey-Solution-Architect)<br>
+[Engineering lead](Journey-Engineering-Lead)<br>
+[QA lead](Journey-QA-Lead)<br>
 [DevOps & platform](Journey-DevOps)
 
-**The method · by role**
-[Product manager](Role-Product-Manager)
-[Solution architect](Role-Solution-Architect)
-[Engineering lead](Role-Engineering-Lead)
-[QA lead](Role-QA-Lead)
-[DevOps and platform](Role-DevOps)
+**The method · by role**<br>
+[Product manager](Role-Product-Manager)<br>
+[Solution architect](Role-Solution-Architect)<br>
+[Engineering lead](Role-Engineering-Lead)<br>
+[QA lead](Role-QA-Lead)<br>
+[DevOps and platform](Role-DevOps)<br>
 [Sponsor](Role-Sponsor)
 
-**How to**
-[Run an NFR workshop](How-to-Run-an-NFR-Workshop)
-[Design an agent on paper](How-to-Design-an-Agent-on-Paper)
-[Build, buy or borrow](How-to-Choose-Build-Buy-or-Borrow)
-[Cut sprints into bolts](How-to-Cut-Sprints-into-Bolts)
-[Review by risk band](How-to-Review-by-Risk-Band)
-[Prove the bar](How-to-Prove-the-Bar)
-[Control the token bill](How-to-Control-the-Token-Bill)
-[Hold the security boundary](How-to-Hold-the-Security-Boundary)
+**How to**<br>
+[Run an NFR workshop](How-to-Run-an-NFR-Workshop)<br>
+[Design an agent on paper](How-to-Design-an-Agent-on-Paper)<br>
+[Build, buy or borrow](How-to-Choose-Build-Buy-or-Borrow)<br>
+[Cut sprints into bolts](How-to-Cut-Sprints-into-Bolts)<br>
+[Review by risk band](How-to-Review-by-Risk-Band)<br>
+[Prove the bar](How-to-Prove-the-Bar)<br>
+[Control the token bill](How-to-Control-the-Token-Bill)<br>
+[Hold the security boundary](How-to-Hold-the-Security-Boundary)<br>
 [Run a missing-control postmortem](How-to-Run-a-Missing-Control-Postmortem)
 
-**Reference**
-[Mental Models](Mental-Models)
-[Playbook Glossary](Playbook-Glossary)
-[Formulas & Calculators](Formulas-and-Calculators)
-[Decision Trees](Decision-Trees)
-[Scenario Library](Scenario-Library)
-[Exercises & Answers](Exercises-and-Answers)
-[Anti-Patterns](Anti-Patterns)
-[Sources & Confidence](Sources-and-Confidence)
+**Reference**<br>
+[Mental Models](Mental-Models)<br>
+[Playbook Glossary](Playbook-Glossary)<br>
+[Formulas & Calculators](Formulas-and-Calculators)<br>
+[Decision Trees](Decision-Trees)<br>
+[Scenario Library](Scenario-Library)<br>
+[Exercises & Answers](Exercises-and-Answers)<br>
+[Anti-Patterns](Anti-Patterns)<br>
+[Sources & Confidence](Sources-and-Confidence)<br>
 [Where do I find…?](Where-do-I-find-it)
 
 ---
@@ -93,7 +93,7 @@
 </details>
 <!-- course:end -->
 
-[Learning paths](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/docs/learning-paths) · [Field guide](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets)
+[Learning paths](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/docs/learning-paths) · [Field guide](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets)<br>
 [Study Plans](Study-Plans)
 
 ---
@@ -119,34 +119,34 @@
 
 ### 💬 Community and maintenance
 
-**Living notes**
-[Error Index](Error-Index)
-[Community Answers](Community-Answers)
-[Field Notes](Field-Notes)
-[Model & Region Notes](Model-and-Region-Notes)
-[Cost Log](Cost-Log)
+**Living notes**<br>
+[Error Index](Error-Index)<br>
+[Community Answers](Community-Answers)<br>
+[Field Notes](Field-Notes)<br>
+[Model & Region Notes](Model-and-Region-Notes)<br>
+[Cost Log](Cost-Log)<br>
 [Scoreboard](Scoreboard) 🧪
 
-**The project**
-[Roadmap](Roadmap)
-[Editing this wiki](Contributing-to-this-Wiki)
+**The project**<br>
+[Roadmap](Roadmap)<br>
+[Editing this wiki](Contributing-to-this-Wiki)<br>
 [Maintainer Runbook](Maintainer-Runbook)
 
 ---
 
 ### 📦 Elsewhere
 
-[📘 The manual · live](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
-[🛫 The SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)
-[👔 For leadership](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)
-[🧠 Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)
-[Templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) · [Prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)
-[Frameworks & acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)
+[📘 The manual · live](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)<br>
+[🛫 The SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)<br>
+[👔 For leadership](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)<br>
+[🧠 Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)<br>
+[Templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) · [Prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)<br>
+[Frameworks & acronyms](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/)<br>
 [The repository](https://github.com/akash-coded/aws-bedrock-agentcore-strands) · [Setup](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/setup/aws-account-setup.md)
 
-**Pinned discussions**
-[Discussion map](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/65) — where to post what
-[Exercise & lab index](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64)
-[Simulator Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) — get a lab graded
-[Pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101)
+**Pinned discussions**<br>
+[Discussion map](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/65) — where to post what<br>
+[Exercise & lab index](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64)<br>
+[Simulator Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) — get a lab graded<br>
+[Pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101)<br>
 [All discussions →](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)
