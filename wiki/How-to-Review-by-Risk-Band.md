@@ -1,6 +1,6 @@
 # How to review by risk band
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[Review AI code by risk](How-to-Review-AI-Generated-Code-by-Risk)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Review AI code by risk](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 Nine pull requests, a four-day queue, and two reviewers who cannot read any faster. Adding a third
 reviewer takes three months to hire and the agent will produce more changes long before then.

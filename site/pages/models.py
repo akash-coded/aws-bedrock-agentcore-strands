@@ -227,7 +227,8 @@ MODELS = [
         landed="Your first question about a new action is “can we undo it, and how fast”, "
                "before anyone has mentioned accuracy.",
         where=[("Autonomy, per action", "../product-manager/#frame"),
-               ("The risk ladder", "../frameworks/")]),
+               ("The risk ladder", "../frameworks/"),
+               ("Decide it for one action", "../simulator/#/toolkit/autonomy")]),
     dict(
         id="lever", name="A hold is a lever, not a brake", glyph=g_lever,
         one="Putting a person in the loop lowers the damage, and therefore lowers the accuracy you "
@@ -243,7 +244,7 @@ MODELS = [
         landed="When somebody says the accuracy is not good enough, you ask what a mistake costs "
                "before you ask how to improve the model.",
         where=[("Derive the bar", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar"),
-               ("Try the arithmetic", "../protocol/#")]),
+               ("Try the arithmetic", "../simulator/#/toolkit/bar")]),
     dict(
         id="boundary", name="A prompt is a request; a signature is a boundary", glyph=g_wall,
         one="A rule the model reads lowers a probability. A rule the code enforces closes a path.",
@@ -260,7 +261,8 @@ MODELS = [
         landed="When told a control exists, you ask to be shown it, and you notice whether somebody "
                "opens prose or code.",
         where=[("The six controls", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Hold-the-Security-Boundary"),
-               ("In code", "../engineering/#gate")]),
+               ("In code", "../engineering/#gate"),
+               ("Map the control per tool", "../simulator/#/toolkit/gates")]),
     dict(
         id="average", name="The average hides the slice that matters", glyph=g_average,
         one="Aggregate quality is dominated by the easy, high-volume cases.",
@@ -310,7 +312,8 @@ MODELS += [
         landed="When asked for a launch date you reach for a division, and you can say what the "
                "window buys as well as what it costs.",
         where=[("Cut over and widen", "../qa/#shadow"),
-               ("The arithmetic", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators")]),
+               ("The arithmetic", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators"),
+               ("Days per traffic share", "../simulator/#/toolkit/cutover")]),
     dict(
         id="habits", name="Cost is a product of habits", glyph=g_multiply,
         one="A bill is four ordinary behaviours multiplying, not one runaway.",
@@ -326,7 +329,8 @@ MODELS += [
         landed="A surprise invoice makes you open the per-call log rather than the price list, and "
                "you expect to find four things rather than one.",
         where=[("Decompose a bill", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill"),
-               ("In the platform", "../devops/#observe")]),
+               ("In the platform", "../devops/#observe"),
+               ("Find the leak", "../simulator/#/toolkit/leaks")]),
     dict(
         id="fanout", name="Parallelism is a property of a tool, not a headcount", glyph=g_fanout,
         one="Things happening at once does not mean several agents.",
@@ -371,7 +375,8 @@ MODELS += [
         landed="You ask what crossed rather than whether the phase finished, and an empty evidence "
                "line reads to you as a blocked merge.",
         where=[("What crosses each hand-off", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Evidence-Pack"),
-               ("Hard and soft gates", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Gates-and-Governance")]),
+               ("Hard and soft gates", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Gates-and-Governance"),
+               ("What a complete pack holds", "../simulator/#/evidence")]),
     dict(
         id="drift", name="Drift is the defect with no error message", glyph=g_drift,
         one="A probabilistic system changes behaviour when the world moves, with no deploy.",

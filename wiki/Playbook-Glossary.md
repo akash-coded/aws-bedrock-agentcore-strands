@@ -800,7 +800,7 @@ nobody argued about all quarter is either settled or unused — find out which.
 
 The playbook teaches **55 concepts**, grouped by the loop they belong to. Browse them with their
 worked example and the episode each first appears in:
-[the concept map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/concepts).
+[the concept map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/concepts).
 
 | Group | Concepts |
 | --- | --- |

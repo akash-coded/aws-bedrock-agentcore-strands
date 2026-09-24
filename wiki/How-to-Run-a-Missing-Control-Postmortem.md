@@ -1,6 +1,6 @@
 # How to run a missing-control postmortem
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[AI incident postmortems](Postmortems-for-AI-Incidents-Find-the-Missing-Control)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[AI incident postmortems](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 A $2,000 refund went out that was not owed. The room is tense, and somebody has already opened the
 commit history to find out who wrote the prompt.

@@ -16,6 +16,8 @@ Anyone with repository access can edit any page — click **Edit** at the top ri
 
 **The test:** *would being slightly wrong for a week be acceptable?* If yes, wiki. If no, it belongs in the repo behind a review.
 
+**Pages that say *generated* at the top are written by a script** from a source in the repository — the tutorial index from `site/content/learn/`, the course companion from `modules/` and `labs/`. Edit the source; the page's footer links it. An edit made on the wiki is replaced at the next export, and the Wiki edits workflow opens an issue telling you where the source is.
+
 **Never duplicate a repo page here.** Two copies drift, and the wiki copy is the one people find by search — so the wiki becomes the wrong answer. Link instead. If a repo page is hard to find, that is a job for [Where do I find…?](Where-do-I-find-it), not a copy.
 
 ---

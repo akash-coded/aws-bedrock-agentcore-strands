@@ -3,20 +3,25 @@
 
 How each discipline works in the agentic PDLC — product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not.
 
-**9 lessons · about 55 minutes** · Your job, phase by phase · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/roles/)
+**9 lessons · about 55 minutes** · Your job, phase by phase
+
+Every lesson opens on the site, where the pictures are live and the text is searchable:
+**[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/roles/)**, or pick a lesson.
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[The Agentic PDLC for Product Managers: What Changes Monday](Agentic-PDLC-for-Product-Managers)** | What an AI product manager does in the agentic PDLC: measure the pain, decide if it is AI at all, set autonomy per action, derive the bar, report two numbers. | 6 min |
-| 2 | **[Agentic PDLC for Program Managers: Boards, Bolts, Reporting](Agentic-PDLC-for-Program-Managers)** | How a program or delivery manager runs agentic AI delivery: the board, the cadence, the decision log, the review queue, gate conditions and two numbers. | 6 min |
-| 3 | **[Agentic PDLC for Solution Architects: Authority and Topology](Agentic-PDLC-for-Solution-Architects)** | What a solution architect decides in agentic AI: which steps may be probabilistic, how many agents, the authority budget, where caps live, and the records. | 6 min |
-| 4 | **[The Agentic PDLC for Software Engineers: Build With Agents](Agentic-PDLC-for-Software-Engineers)** | How software engineers work in the agentic PDLC: a context file, story files, exact code first, gated tools, a harness that decides merges, and a bolt a day. | 6 min |
-| 5 | **[AI-DLC and AIDD for Forward-Deployed Engineers: Field Guide](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers)** | How a forward-deployed engineer runs AI-DLC and AIDD at a customer: measure their pain, have their risk owner sign the limits, build in their stack, hand over. | 7 min |
-| 6 | **[The Agentic PDLC for QA: How to Test Probabilistic Software](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** | How QA works in the agentic PDLC: the proof each step owes, golden sets by slice, lower bounds instead of scores, injection suites, shadow runs and drift. | 6 min |
-| 7 | **[The Agentic PDLC for DevOps and Platform Teams](Agentic-PDLC-for-DevOps-and-Platform-Teams)** | What DevOps and platform teams own in agentic AI: the landing zone, one model gateway, pinned versions, the harness as a required check, flags and rollbacks. | 6 min |
-| 8 | **[The Agentic PDLC for Business Sponsors: Ask for Two Numbers](Agentic-PDLC-for-Business-Sponsors)** | What a business sponsor owns in an agentic AI programme: funding past cycle one, the autonomy ceiling, what counts as evidence, and three reports to insist on. | 6 min |
-| 9 | **[Agentic AI for Executives: Four Decisions Only You Can Make](Agentic-AI-for-Executives)** | The four agentic AI decisions nobody below an executive can make, four questions to ask every cycle, seven red flags, and a first thirty days with no budget. | 6 min |
+| 1 | **[The Agentic PDLC for Product Managers: What Changes Monday](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)** | What an AI product manager does in the agentic PDLC: measure the pain, decide if it is AI at all, set autonomy per action, derive the bar, report two numbers. | 6 min |
+| 2 | **[Agentic PDLC for Program Managers: Boards, Bolts, Reporting](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/)** | How a program or delivery manager runs agentic AI delivery: the board, the cadence, the decision log, the review queue, gate conditions and two numbers. | 6 min |
+| 3 | **[Agentic PDLC for Solution Architects: Authority and Topology](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)** | What a solution architect decides in agentic AI: which steps may be probabilistic, how many agents, the authority budget, where caps live, and the records. | 6 min |
+| 4 | **[The Agentic PDLC for Software Engineers: Build With Agents](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)** | How software engineers work in the agentic PDLC: a context file, story files, exact code first, gated tools, a harness that decides merges, and a bolt a day. | 6 min |
+| 5 | **[AI-DLC and AIDD for Forward-Deployed Engineers: Field Guide](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-for-forward-deployed-engineers/)** | How a forward-deployed engineer runs AI-DLC and AIDD at a customer: measure their pain, have their risk owner sign the limits, build in their stack, hand over. | 7 min |
+| 6 | **[The Agentic PDLC for QA: How to Test Probabilistic Software](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)** | How QA works in the agentic PDLC: the proof each step owes, golden sets by slice, lower bounds instead of scores, injection suites, shadow runs and drift. | 6 min |
+| 7 | **[The Agentic PDLC for DevOps and Platform Teams](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)** | What DevOps and platform teams own in agentic AI: the landing zone, one model gateway, pinned versions, the harness as a required check, flags and rollbacks. | 6 min |
+| 8 | **[The Agentic PDLC for Business Sponsors: Ask for Two Numbers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)** | What a business sponsor owns in an agentic AI programme: funding past cycle one, the autonomy ceiling, what counts as evidence, and three reports to insist on. | 6 min |
+| 9 | **[Agentic AI for Executives: Four Decisions Only You Can Make](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/)** | The four agentic AI decisions nobody below an executive can make, four questions to ask every cycle, seven red flags, and a first thirty days with no budget. | 6 min |
 
-**Next track:** [Teams and organisation](Tutorial-Teams-and-Organisation) · **[All lessons](Start-Here)**
+[← Running delivery](Tutorial-Running-Delivery) · **[All tracks](Start-Here)** · [Teams and organisation →](Tutorial-Teams-and-Organisation)
+
+**Teaching it?** [Session 8 · Practice and roles](Cohort-Session-8-Practice-and-Roles) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
 <sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>

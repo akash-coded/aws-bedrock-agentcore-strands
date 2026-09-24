@@ -495,7 +495,9 @@ def build(shell, urls: dict) -> str:
 <tr><td>Whether it actually works, with a number</td><td><a href="../qa/">The QA lead's eight steps</a></td></tr>
 <tr><td>Making it repeatable, observable and reversible</td><td><a href="../devops/">DevOps and platform's eight steps</a></td></tr>
 <tr><td>Wanting the artefacts, not the argument</td><td><a href="../templates/">40 templates</a> · <a href="../prompts/">116 prompts</a></td></tr>
-<tr><td>Wanting to see it happen to somebody else first</td><td><a href="../simulator/">The simulator</a> — the same ninety days, playable</td></tr>
+<tr><td>Wanting to see it happen to somebody else first</td><td><a href="../simulator/#/story">The playbook's thirteen episodes</a> — the same ninety days, playable</td></tr>
+<tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../simulator/#/governance/gv-gates">The gates, in the playbook</a> · <a href="../simulator/#/evidence">what a complete evidence pack holds</a></td></tr>
+<tr><td>Wanting the maturity conversation with a number</td><td><a href="../simulator/#/toolkit/maturity">The maturity self-check</a> · <a href="../simulator/#/toolkit/aifit">is this work for a model at all?</a></td></tr>
 </tbody></table></div></div></main></div>""")
     desc = ("The agentic operating protocol: what changes, who does what, the four decisions only "
             "leadership can make, how to know it is working, and a ninety-day rollout. For "

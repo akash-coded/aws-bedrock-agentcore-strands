@@ -36,9 +36,15 @@ PAGES = {
 }
 
 
+def live(href: str) -> str:
+    """A site-relative href as a live URL. A role page sits one level below the root, so ``../x`` is ``x``."""
+    return LIVE + re.sub(r"^(\.\./)+", "", href)
+
+
 def unmd(s: str) -> str:
-    """Site markdown-lite is already markdown; only relative hrefs need absolutising."""
-    return re.sub(r"\]\((?!https?:|#)([^)]+)\)", lambda m: f"]({LIVE}{m.group(1)})", s)
+    """Site markdown-lite is already markdown; only relative hrefs need absolutising. A role page sits
+    one level below the site root, so a ``../x`` from it is ``x`` at the root."""
+    return re.sub(r"\]\((?!https?:|#)([^)]+)\)", lambda m: f"]({live(re.sub(r'^(\.\./)+', '', m.group(1)))})", s)
 
 
 def fence(body: str, lang: str) -> str:
@@ -135,7 +141,7 @@ def arc_diagram(role: dict) -> str:
 
 def page(role: dict) -> str:
     slug, role_page = PAGES[role["id"]]
-    live = f"{LIVE}{role['id']}/"
+    live_url = f"{live(role['id'])}/"
     n_p = sum(len(s["prompts"]) for s in role["steps"])
     n_a = sum(len(s["activities"]) for s in role["steps"])
 
@@ -143,7 +149,7 @@ def page(role: dict) -> str:
          f"**{unmd(role['tagline'])}**", "",
          f"{len(role['steps'])} steps · {n_a} sub-steps · {len(role['steps'])} templates · {n_p} prompts",
          "",
-         f"This is the reading copy. The [interactive version]({live}) has a copy button on every "
+         f"This is the reading copy. The [interactive version]({live_url}) has a copy button on every "
          f"template and prompt, which is what you want when you are actually doing the work."]
     if role_page:
         L += ["", f"This page is the walk. For the standing definition of the job — what you own, "
@@ -223,7 +229,7 @@ def page(role: dict) -> str:
         L += ["", f"**Done when** — {unmd(s['done_when'])}", "", "---", ""]
 
     L += ["## Read next", ""]
-    L += [f"- [{l}]({h if h.startswith('http') else LIVE + h})" for l, h in role["reads"]]
+    L += [f"- [{l}]({h if h.startswith('http') else live(h)})" for l, h in role["reads"]]
     others = [f"[{PAGES[r][0].replace('-', ' ').replace('Journey ', '')}]({PAGES[r][0]})"
               for r in PAGES if r != role["id"] and (CONTENT / f"{r}.json").exists()]
     if others:

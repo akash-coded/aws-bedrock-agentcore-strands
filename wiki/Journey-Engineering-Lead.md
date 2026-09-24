@@ -1,6 +1,6 @@
 # Engineering lead · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For engineers](Agentic-PDLC-for-Software-Engineers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*The short version is the lesson **[For engineers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
 
 **From a story file to a shipped bolt**
 
@@ -1511,7 +1511,7 @@ Finish with the amended ADR line, if a decision changed, in one sentence.
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Engineering-Lead)
-- [The same case, walked step by step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/../simulator/#/eng/step-1)
+- [The same case, walked step by step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/eng/step-1)
 - [Where the bill goes, and how to get it back](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)

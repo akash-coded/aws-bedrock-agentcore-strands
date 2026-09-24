@@ -25,7 +25,11 @@ The rule is: **would being slightly wrong for a week be acceptable?**
 | `Cost-Log` | Community-measured numbers, dated. `docs/setup/cost-controls.md` is the guidance |
 | `Community-Answers` | Curated from Discussions as they get answered |
 | `Study-Plans` | Calendar-shaped. The repo's learning paths are role-shaped |
-| `Maintainer-Runbook` | Operational, not learner-facing |
+| `Maintainer-Runbook` · `Roadmap` | Operational, not learner-facing; the roadmap is revised when something ships |
+| `Start-Here` · the eight `Tutorial-*` pages | **Generated** by `site/learn_export.py`: the tutorial's index, linking each lesson on the site |
+| `Course-Companion` · `Labs-Companion` · the sixteen `Module-*` pages | **Generated** by `site/course_export.py` from `modules/` and `labs/`: reading order per module, with the lesson and playbook tool beside it |
+| `Cohort-Kit` · `Cohort-Session-*` | Eight ninety-minute sessions and a template; teaching material is edited by the people teaching it |
+| `Field-Notes` | What happened when somebody ran the method on a real project, dated and first person |
 
 Nothing here duplicates a repo page. Where the two touch, the wiki links out.
 

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Write the tutorial into the wiki: one page per lesson, one per track, a Start Here page, and the
-tutorial blocks at the top of the sidebar and Home.
+"""Put the tutorial's index on the wiki: a Start Here page, one short page per track, and the
+tutorial blocks at the top of the sidebar and Home. The lessons themselves live on the site only.
 
     python3 site/wiki_export.py           # the Journey pages, if the roles changed
     python3 site/learn_export.py          # then: python3 wiki/check.py --strict && bash wiki/sync.sh
 
-The source is site/content/learn/. The site copy is canonical and indexed; this copy is the mirror
-on GitHub, where the boards are screenshots (site/tools/shoot.mjs) inside a <picture> that follows
-the reader's colour mode. Every generated page starts with a marker, and the exporter refuses to
-overwrite any wiki page that does not carry it — so a lesson can never replace a hand-written page.
-The sidebar and Home keep everything outside their marked tutorial block.
+The source is site/content/learn/. The site copy is canonical and indexed; the wiki keeps a thin index
+so a reader who lives on GitHub can still find every lesson in order, and so the reference pages can
+point at the lesson that teaches them. Every generated page starts with a marker, and the exporter
+refuses to overwrite any wiki page that does not carry it. Generated pages whose source is gone (the
+55 full lesson mirrors, since 2026-09-24) are deleted, and named.
 """
 from __future__ import annotations
 
@@ -57,54 +57,51 @@ def body_for_wiki(md: str, link, les_url: str, reg: dict) -> str:
     return "".join(parts)
 
 
-def lesson_page(les, lessons, tracks, reg) -> str:
-    link = learn.Links("wiki", lessons, tracks)
-    t = les.track
-    body = body_for_wiki(les.body, link, les.url, reg)
-    if link.problems:
-        sys.exit(f"{les.slug}: " + "; ".join(sorted(set(link.problems))))
-    prev = f"[← {les.prev.short}]({les.prev.wiki})" if les.prev else "[← Start here](Start-Here)"
-    nxt = f"[{les.next.short} →]({les.next.wiki})" if les.next else "[Back to Start here →](Start-Here)"
-    return f"""{MARK}
-# {les.title}
-
-*{les.dek}*
-
-**{learn.minutes(les.body)} min read** · {les.level} · Lesson {les.n} of {len(t.lessons)} in [{t.title}]({t.wiki}) · Updated {learn.fmt_date(les.updated)} · [Read it on the site, with live diagrams ↗]({les.url})
-
-{body}
-
----
-
-| | |
-| :--- | ---: |
-| {prev} | {nxt} |
-
-**[All lessons](Start-Here)** · **[{t.title}]({t.wiki})** · [This lesson on the site]({les.url})
-
-<sub>✏️ This page is generated from [`site/content/learn/lessons/{les.slug}.md`]({learn.REPO}/blob/main/site/content/learn/lessons/{les.slug}.md). To change it, [edit the lesson]({learn.REPO}/edit/main/site/content/learn/lessons/{les.slug}.md) — an edit made here is replaced at the next sync.</sub>
-"""
+# Cohort sessions (hand-written) that teach each track; a track page links to its sessions when they exist.
+SESSIONS = {
+    "getting-started": [("Cohort-Session-1-Kick-off", "Session 1 · Kick-off")],
+    "fundamentals": [("Cohort-Session-1-Kick-off", "Session 1 · Kick-off"),
+                     ("Cohort-Session-2-Frame-and-Spec", "Session 2 · Frame and spec"),
+                     ("Cohort-Session-3-Build-Run-and-Loops", "Session 3 · Build, run and the loops")],
+    "methods": [("Cohort-Session-4-Methods-Decoded", "Session 4 · Methods decoded")],
+    "delivery": [("Cohort-Session-5-Plan-and-Review", "Session 5 · Plan and review"),
+                 ("Cohort-Session-6-Prove-and-Ship", "Session 6 · Prove and ship"),
+                 ("Cohort-Session-7-Govern-and-Scale", "Session 7 · Govern and scale")],
+    "roles": [("Cohort-Session-8-Practice-and-Roles", "Session 8 · Practice and roles")],
+    "organisation": [("Cohort-Session-7-Govern-and-Scale", "Session 7 · Govern and scale")],
+    "practice": [("Cohort-Session-8-Practice-and-Roles", "Session 8 · Practice and roles")],
+    "interviews": [("Cohort-Session-8-Practice-and-Roles", "Session 8 · Practice and roles")],
+}
 
 
 def track_page(t, tracks) -> str:
     k = tracks.index(t)
-    rows = "\n".join(f"| {l.n} | **[{l.title}]({l.wiki})** | {l.description} | {learn.minutes(l.body)} min |"
+    rows = "\n".join(f"| {l.n} | **[{l.title}]({l.url})** | {l.description} | {learn.minutes(l.body)} min |"
                      for l in t.lessons)
     total = sum(learn.minutes(l.body) for l in t.lessons)
+    prev = tracks[k - 1] if k else None
     nxt = tracks[k + 1] if k + 1 < len(tracks) else None
-    after = f"**Next track:** [{nxt.title}]({nxt.wiki}) · " if nxt else ""
+    steps = " · ".join(x for x in [f"[← {prev.title}]({prev.wiki})" if prev else "",
+                                   "**[All tracks](Start-Here)**",
+                                   f"[{nxt.title} →]({nxt.wiki})" if nxt else ""] if x)
+    sessions = [(page, name) for page, name in SESSIONS.get(t.id, []) if (WIKI / f"{page}.md").exists()]
+    teach = ("\n\n**Teaching it?** " + " · ".join(f"[{name}]({page})" for page, name in sessions)
+             + " in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions." if sessions else "")
     return f"""{MARK}
 # {t.title}
 
 {t.blurb}
 
-**{len(t.lessons)} lessons · about {total} minutes** · {t.promise} · [This track on the site ↗]({t.url})
+**{len(t.lessons)} lessons · about {total} minutes** · {t.promise}
+
+Every lesson opens on the site, where the pictures are live and the text is searchable:
+**[start this track ↗]({t.url})**, or pick a lesson.
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
 {rows}
 
-{after}**[All lessons](Start-Here)**
+{steps}{teach}
 
 <sub>✏️ This page is generated from [`site/content/learn/curriculum.py`]({learn.REPO}/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>
 """
@@ -115,7 +112,7 @@ def contents(tracks) -> str:
     blocks = []
     for k, t in enumerate(tracks, 1):
         total = sum(learn.minutes(l.body) for l in t.lessons)
-        items = "\n".join(f"{l.n}. **[{l.title}]({l.wiki})** — {learn.minutes(l.body)} min" for l in t.lessons)
+        items = "\n".join(f"{l.n}. **[{l.title}]({l.url})** — {learn.minutes(l.body)} min" for l in t.lessons)
         blocks.append(f"### {k} · [{t.title}]({t.wiki})\n\n*{t.blurb}* — {len(t.lessons)} lessons, "
                       f"about {total} minutes.\n\n{items}")
     return "\n\n".join(blocks)
@@ -151,17 +148,12 @@ and [the Glossary](Playbook-Glossary). Every lesson links into them where you ne
 
 
 def sidebar_block(tracks) -> str:
-    groups = []
-    for k, t in enumerate(tracks):
-        items = "\n".join(f"{l.n}. [{l.short}]({l.wiki})" for l in t.lessons)
-        # The sidebar is the same on every page; the first two tracks open, the rest read as contents.
-        state = " open" if k < 2 else ""
-        groups.append(f"<details{state}><summary><b>{t.title}</b> · {len(t.lessons)}</summary>\n\n{items}\n\n</details>")
+    n = sum(len(t.lessons) for t in tracks)
+    items = "\n".join(f"{k}. [{t.title}]({t.wiki}) · {len(t.lessons)}" for k, t in enumerate(tracks, 1))
     return ("<!-- tutorial:start · generated by site/learn_export.py -->\n"
-            "### 📘 Learn the agentic PDLC\n\n"
-            "**[▶ Start here](Start-Here)**\n\n"
-            + "\n\n".join(groups) +
-            f"\n\n[All lessons, on the site ↗]({learn.BASE_URL}learn/)\n\n---\n<!-- tutorial:end -->\n")
+            "### 📘 The tutorial\n\n"
+            f"**[▶ Start here](Start-Here)** · {n} lessons, [on the site ↗]({learn.BASE_URL}learn/)\n\n"
+            f"{items}\n\n---\n<!-- tutorial:end -->\n")
 
 
 def home_block(tracks) -> str:
@@ -179,13 +171,13 @@ with strong answers for AI product managers, forward deployed engineers, GenAI, 
 Each lesson opens with the answer, carries a picture, ends with how to apply it in your role, and
 credits its sources.
 
-**[▶ Start here](Start-Here)** · or go straight to **[{first.title}]({first.wiki})**
+**[▶ Start here](Start-Here)** · or go straight to **[{first.title}]({first.url})**
 
 | Track | What it covers | Lessons |
 | --- | --- | --- |
 {rows}
 
-*{n} lessons so far.* The same tutorial, with live diagrams, is at [akash-coded.github.io/…/learn]({learn.BASE_URL}learn/).
+*{n} lessons so far.* The lessons live on the site, with live diagrams: [akash-coded.github.io/…/learn]({learn.BASE_URL}learn/). The wiki keeps this index, the reference pages, the [course companion](Course-Companion) and the [cohort kit](Cohort-Kit).
 
 ---
 
@@ -229,7 +221,7 @@ POINTER = re.compile(r"\n\n<!-- tutorial:lesson -->[^\n]*<!-- /tutorial:lesson -
 
 
 def pointer_line(les, kind: str) -> str:
-    to = f"**[{les.short}]({les.wiki})**"
+    to = f"**[{les.short}]({les.url})**"
     say = {
         LEARN_IT: f"New to this? Start with the lesson {to} — the idea step by step, with a worked "
                   f"problem. This page is the reference.",
@@ -283,9 +275,6 @@ def main() -> int:
     for t in tracks:
         write(WIKI / f"{t.wiki}.md", track_page(t, tracks))
         written.append(t.wiki)
-        for les in t.lessons:
-            write(WIKI / f"{les.wiki}.md", lesson_page(les, lessons, tracks, reg))
-            written.append(les.wiki)
     write(WIKI / "Start-Here.md", start_page(lessons, tracks, reg))
     written.append("Start-Here")
     put_block(WIKI / "_Sidebar.md", sidebar_block(tracks), after="**[🏠 Wiki Home](Home)**")
@@ -293,13 +282,16 @@ def main() -> int:
     by_slug = {les.slug: les for t in tracks for les in t.lessons}
     for page, (slug, kind) in POINTERS.items():
         put_pointer(WIKI / f"{page}.md", pointer_line(by_slug[slug], kind))
-    # a generated page whose lesson was removed or renamed would linger; name it so it can be deleted
-    stale = [p.name for p in WIKI.glob("*.md") if p.stem not in written
+    # a generated page whose source is gone (a renamed track, or the old per-lesson mirrors) is deleted:
+    # only pages carrying this exporter's marker qualify, so a hand-written page is never touched
+    stale = [p for p in WIKI.glob("*.md") if p.stem not in written
              and p.read_text(encoding="utf-8").startswith(MARK)]
+    for p in stale:
+        p.unlink()
     print(f"wrote {len(written)} wiki pages; sidebar and Home tutorial blocks updated; "
-          f"{len(POINTERS)} reference pages point to their lessons")
-    for s in stale:
-        print(f"  stale generated page, delete it: wiki/{s}")
+          f"{len(POINTERS)} reference pages point to their lessons; {len(stale)} stale generated pages deleted")
+    for p in stale:
+        print(f"  deleted wiki/{p.name}")
     return 0
 
 

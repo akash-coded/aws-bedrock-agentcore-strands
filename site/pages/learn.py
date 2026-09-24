@@ -2,8 +2,8 @@
 
 Source lives in ``site/content/learn/``: ``curriculum.py`` fixes the order, ``lessons/*.md`` hold
 the words. This module renders them as indexed pages under ``/learn/`` on the site, where the
-boards are the live ones. ``site/learn_export.py`` turns the same source into wiki pages, where the
-boards are screenshots. The wiki is not indexed by search engines (GitHub only indexes wikis with
+boards are the live ones. ``site/learn_export.py`` puts the tutorial's index and track pages on the
+wiki, linking back here for the lessons themselves. The wiki is not indexed by search engines (GitHub only indexes wikis with
 500+ stars and closed editing), so the site copy is the canonical one and both say so.
 
 The markdown is a deliberate subset — headings, paragraphs, lists, tables, fences, blockquotes and
@@ -76,10 +76,6 @@ class Lesson:
     @property
     def url(self) -> str:
         return f"{BASE_URL}learn/{self.slug}/"
-
-    @property
-    def wiki_url(self) -> str:
-        return f"{WIKI}/{self.wiki}"
 
 
 @dataclass
@@ -203,7 +199,8 @@ class Links:
             if les is None:
                 self.problems.append(f"unknown lesson {path!r}")
                 return href
-            return f"{les.wiki}{frag}" if self.target == "wiki" else f"../{les.slug}/{frag}"
+            # the wiki no longer mirrors the lessons (2026-09-24): a lesson link from a wiki page goes to the site
+            return f"{les.url}{frag}" if self.target == "wiki" else f"../{les.slug}/{frag}"
         if scheme == "track":
             tr = self.tracks.get(path)
             if tr is None:
@@ -761,7 +758,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
 {body}
   </article>
   <nav class="pn" aria-label="Lesson navigation">{''.join(pn)}</nav>
-  <p class="lalt">Prefer GitHub? The same lesson is <a href="{les.wiki_url}">on the wiki</a>, and <a href="index.md">as markdown</a>. Found a mistake? <a href="{REPO}/edit/main/site/content/learn/lessons/{les.slug}.md">Edit this lesson</a>, or <a href="{REPO}/discussions/101">say so</a>.</p>
+  <p class="lalt">Prefer GitHub? This track is <a href="{WIKI}/{t.wiki}">on the wiki</a>, and this lesson is <a href="index.md">markdown</a>. Found a mistake? <a href="{REPO}/edit/main/site/content/learn/lessons/{les.slug}.md">Edit this lesson</a>, or <a href="{REPO}/discussions/101">say so</a>.</p>
 </main>
 </div>"""
     if link.problems:

@@ -82,10 +82,12 @@ def main() -> int:
             if anchor and not target and anchor not in heads:
                 problems.append(f"{name}: anchor '#{anchor}' matches no heading here")
 
-        opened = len(re.findall(r"<details(?:\s[^>]*)?>", text))   # <details open> counts too
-        if opened != text.count("</details>"):
+        # a `<details>` inside an inline code span is prose about the tag, not the tag
+        tags = re.sub(r"`[^`\n]*`", "", prose)
+        opened = len(re.findall(r"<details(?:\s[^>]*)?>", tags))   # <details open> counts too
+        if opened != tags.count("</details>"):
             problems.append(f"{name}: unbalanced <details> "
-                            f"({opened} open, {text.count('</details>')} close)")
+                            f"({opened} open, {tags.count('</details>')} close)")
         if text.count("```") % 2:
             problems.append(f"{name}: odd number of ``` fences")
         for m in re.finditer(r"```mermaid\n([\s\S]*?)```", text):

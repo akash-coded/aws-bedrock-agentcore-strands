@@ -1,6 +1,6 @@
 # How to design an agent on paper
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[P1 · Design & Spec](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[P1 · Design & Spec](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 Seven decisions, end to end, before any code exists. If you cannot make these seven on paper, writing
 code will not help you make them; it will only make them implicitly, in whatever order the compiler

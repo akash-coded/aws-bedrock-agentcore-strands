@@ -569,7 +569,7 @@ protect the programme.
 | 20 minutes | One scenario. Ask the room for the AI-fit verdict and the autonomy level, then reveal |
 | 60 minutes | Three from three different industries, same questions each. The pattern is the lesson |
 | 90 minutes | One scenario per loop your team scored **open** or **absent** on [The Eight Loops](The-Eight-Loops) |
-| Half a day | The SkyWays episodes in order, with the [simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/simulations/master) at days 9, 20, 75 and 82 |
+| Half a day | The SkyWays episodes in order, with the [simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/master) at days 9, 20, 75 and 82 |
 | A full day | The above, plus each participant writing the paper agent for their **own** product |
 
 The single most useful question in all of them, asked before anything else: **"which of these is

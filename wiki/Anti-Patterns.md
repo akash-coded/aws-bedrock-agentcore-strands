@@ -1,6 +1,6 @@
 # Anti-patterns
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[Why agentic AI projects fail](Why-Agentic-AI-Projects-Fail)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Why agentic AI projects fail](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 Eighteen ways this goes wrong, what each one costs, and the move that prevents it.
 

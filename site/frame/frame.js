@@ -48,6 +48,13 @@
       "the walk-through is illustrative and dated to when it was written; check it against your own numbers before " +
       "you decide anything. This site is not affiliated with, sponsored by or endorsed by Amazon Web Services or any " +
       "airline, and is provided as is, without warranty of any kind.</div></section>" +
+      (links.manual ?
+        "<section><h2>The manual around this tool</h2>" +
+        '<p>This playbook is the interactive part of <a href="' + links.manual + '">The agentic manual</a>: the same ' +
+        "method as a tutorial, five role journeys, the templates, the prompts and the pictures.</p><ul>" +
+        '<li><a href="' + links.manual + '">&#8592; Back to the manual</a></li>' +
+        (links.manualPages || []).map(function (p) { return '<li><a href="' + p[1] + '">' + p[0] + "</a></li>"; }).join("") +
+        "</ul></section>" : "") +
       "<section><h2>Pitch in</h2>" +
       "<p>Have an idea, a disagreement, or a scenario the simulator gets wrong? Every suggestion is read, and the " +
       "ones that ship are credited.</p><ul>" +
@@ -170,10 +177,37 @@
     if (opener && opener.focus) opener.focus();
   }
 
+  /* ---------- the way back: a strip above the tool and a pill that never scrolls away ---------- */
+  function strip() {
+    var s = h("div", { "class": "sw-strip", role: "navigation", "aria-label": "The agentic manual" });
+    s.appendChild(h("a", { "class": "sw-strip-back", href: links.manual }, [
+      h("span", { "class": "sw-long", text: "\u2190 Back to the agentic manual" }),
+      h("span", { "class": "sw-short", text: "\u2190 The manual" })]));
+    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the playbook, the interactive part of the manual." }));
+    var pages = h("span", { "class": "sw-strip-links" });
+    (links.manualPages || []).forEach(function (p) { pages.appendChild(h("a", { href: p[1], text: p[0] })); });
+    s.appendChild(pages);
+    return s;
+  }
+  function backPill() {
+    // a landmark of its own, so the pill is reachable by region as well as by tab
+    return h("nav", { "class": "sw-backnav", "aria-label": "Back to the agentic manual" }, [
+      h("a", { "class": "sw-back", href: links.manual }, [
+        h("span", { "class": "sw-back-ic", html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>' }),
+        "The manual"])]);
+  }
+
   function build() {
     if (document.getElementById("sw-about")) return;
-    // Manual pages ship their own footer; there we contribute only the pill and the drawer.
-    if (!document.querySelector("[data-site-footer]")) document.body.appendChild(footer());
+    // Manual pages ship their own footer and navigation; there we contribute only the pill and the drawer.
+    var framed = !document.querySelector("[data-site-footer]");
+    if (framed) {
+      if (links.manual) {
+        document.body.insertBefore(strip(), document.body.firstChild);
+        document.body.appendChild(backPill());
+      }
+      document.body.appendChild(footer());
+    }
     buildDrawer();
     var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open }, [
       h("span", { "class": "sw-dot" }), "Built by " + author, h("small", { text: "· Ideas & contact" })]);

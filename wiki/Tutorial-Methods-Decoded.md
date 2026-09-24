@@ -3,18 +3,23 @@
 
 AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.
 
-**7 lessons · about 46 minutes** · AI-DLC, AIDD, BMAD and SDD, placed · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/methods/)
+**7 lessons · about 46 minutes** · AI-DLC, AIDD, BMAD and SDD, placed
+
+Every lesson opens on the site, where the pictures are live and the text is searchable:
+**[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/methods/)**, or pick a lesson.
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC)** | AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development and BMAD: who coined each term, what it names, and the question it answers. | 7 min |
-| 2 | **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle)** | AI-DLC is AWS's AI-Driven Development Life Cycle: AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days. | 7 min |
-| 3 | **[What Is AI-Driven Development (AIDD)? The Daily Craft](What-Is-AIDD-AI-Driven-Development)** | AI-driven development (AIDD) is the everyday craft of building software with coding agents: context files, story files, exact code first, and review by risk. | 7 min |
-| 4 | **[What Is the BMAD Method? Agile AI Personas, Explained](What-Is-the-BMAD-Method)** | The BMAD Method structures AI-driven development like an agile team: agent personas, each handing the next a versioned document. When it pays, and when not. | 6 min |
-| 5 | **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](What-Is-Spec-Driven-Development)** | Spec-driven development means writing the spec before the code and building from it with AI. How Kiro and GitHub Spec Kit do it, and the honest critiques. | 6 min |
-| 6 | **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum)** | Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-gate sit on the agentic PDLC's four phases — and the decisions none of them makes. | 7 min |
-| 7 | **[How Much Process Does a Change Need? Sizing Agentic Work](How-Much-Process-Does-a-Change-Need)** | Size process by a change's risk, not its size: four questions choose shallow, standard or deep work, and one trigger raises the depth mid-flight. | 6 min |
+| 1 | **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)** | AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development and BMAD: who coined each term, what it names, and the question it answers. | 7 min |
+| 2 | **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/)** | AI-DLC is AWS's AI-Driven Development Life Cycle: AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days. | 7 min |
+| 3 | **[What Is AI-Driven Development (AIDD)? The Daily Craft](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-aidd/)** | AI-driven development (AIDD) is the everyday craft of building software with coding agents: context files, story files, exact code first, and review by risk. | 7 min |
+| 4 | **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)** | The BMAD Method structures AI-driven development like an agile team: agent personas, each handing the next a versioned document. When it pays, and when not. | 6 min |
+| 5 | **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)** | Spec-driven development means writing the spec before the code and building from it with AI. How Kiro and GitHub Spec Kit do it, and the honest critiques. | 6 min |
+| 6 | **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)** | Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-gate sit on the agentic PDLC's four phases — and the decisions none of them makes. | 7 min |
+| 7 | **[How Much Process Does a Change Need? Sizing Agentic Work](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)** | Size process by a change's risk, not its size: four questions choose shallow, standard or deep work, and one trigger raises the depth mid-flight. | 6 min |
 
-**Next track:** [Running delivery](Tutorial-Running-Delivery) · **[All lessons](Start-Here)**
+[← Agentic PDLC fundamentals](Tutorial-Fundamentals) · **[All tracks](Start-Here)** · [Running delivery →](Tutorial-Running-Delivery)
+
+**Teaching it?** [Session 4 · Methods decoded](Cohort-Session-4-Methods-Decoded) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
 <sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>

@@ -1,13 +1,13 @@
 # Gates and governance
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[The five governance gates](AI-Governance-Gates-That-Dont-Slow-Delivery)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[The five governance gates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 A gate is **a decision, with evidence in front of a named person, and their name on it.** It is not a
 click, not a status column, and not a meeting that happens to end in "fine".
 
 This page holds the five gates, the hard-and-soft split, the R1–R5 risk ladder, and the two-number
 report. Live version:
-[Governance](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/governance/gv-gates).
+[Governance](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/governance/gv-gates).
 
 ---
 
@@ -510,7 +510,7 @@ REPORT:
 ```
 </details>
 
-Build it: [Two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/toolkit/report)
+Build it: [Two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report)
 · [Formulas and Calculators](Formulas-and-Calculators) · [Role: Sponsor](Role-Sponsor)
 
 ---
@@ -585,7 +585,7 @@ Owner: <name>   Due: <date>   Its test, which we will run on that date: <the tes
 ```
 </details>
 
-Run it: [Maturity self-check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#/toolkit/maturity)
+Run it: [Maturity self-check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/maturity)
 
 ---
 

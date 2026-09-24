@@ -9,7 +9,7 @@ with strong answers for AI product managers, forward deployed engineers, GenAI, 
 Each lesson opens with the answer, carries a picture, ends with how to apply it in your role, and
 credits its sources.
 
-**[▶ Start here](Start-Here)** · or go straight to **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)**
+**[▶ Start here](Start-Here)** · or go straight to **[What Is the Agentic PDLC? The P0–P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)**
 
 | Track | What it covers | Lessons |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ credits its sources.
 | **[Practice](Tutorial-Practice)** | The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers. | 4 |
 | **[Interviews and careers](Tutorial-Interviews-and-Careers)** | What a forward deployed engineer does, six frameworks for answering AI interview questions, and deep question banks with strong answers for AI product managers, forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles. | 7 |
 
-*55 lessons so far.* The same tutorial, with live diagrams, is at [akash-coded.github.io/…/learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/).
+*55 lessons so far.* The lessons live on the site, with live diagrams: [akash-coded.github.io/…/learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/). The wiki keeps this index, the reference pages, the [course companion](Course-Companion) and the [cohort kit](Cohort-Kit).
 
 ---
 
@@ -97,18 +97,20 @@ Four drawings carry the whole method, and each one links back into the page that
 
 ## What is on this wiki, and what is not
 
-The repository is **canonical**: versioned, reviewed, and it ships with the code. Do not look for the curriculum here.
+The repository is **canonical**: versioned, reviewed, and it ships with the code. The site is where the
+tutorial and the playbook live, indexed and searchable. This wiki is the layer between them, in five
+sections that the sidebar follows:
 
-This wiki is the **connective and volatile layer** — the cross-surface maps, and the notes that would be embarrassing to freeze in a reviewed file:
+| Section | What it holds | Why it lives here |
+| --- | --- | --- |
+| **Start** | [Start Here](Start-Here) and one short page per tutorial track, each linking its lessons on the site | A reader who lives on GitHub still gets every lesson in order |
+| **Method and reference** | [The playbook pages](The-Agentic-PDLC), the journeys, the roles, nine how-tos, formulas, trees, scenarios, exercises | The method in writing. It changes as the practice does, and anyone can correct a number |
+| **Course and labs** | [The course companion](Course-Companion): a page per module with its reading order, and the [labs companion](Labs-Companion) | Generated from the repository, with the tutorial lesson and playbook tool beside each module |
+| **Cohort kit** | [Eight ninety-minute sessions](Cohort-Kit) and a template, for anyone running this with a team | Teaching material is edited by the people teaching it |
+| **Community and maintenance** | [Error Index](Error-Index), [Community Answers](Community-Answers), [Field Notes](Field-Notes), [Cost Log](Cost-Log), region notes, the [Roadmap](Roadmap), the runbook | Grows with no PR; wrong for a week is acceptable |
 
-| Page | Why it lives here |
-| --- | --- |
-| [The playbook pages](The-Agentic-PDLC) | The method behind the [live simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/), in writing. It changes as the practice does, and anyone can correct a number |
-| [Error Index](Error-Index) | Grows every time somebody hits a new one. No PR needed |
-| [Model & Region Notes](Model-and-Region-Notes) | Availability changes monthly; a versioned file would be wrong within a quarter |
-| [Cost Log](Cost-Log) | Real measured numbers from real people, not estimates |
-| [Community Answers](Community-Answers) | Curated from discussions as they get answered |
-| [Study Plans](Study-Plans) | Calendar-shaped, and everyone's calendar differs |
-| [Maintainer Runbook](Maintainer-Runbook) | How the repo is run — not learner-facing |
+Pages marked *generated* at the top are written by a script from a source in the repository; edit the
+source, not the page, and the [Wiki edits workflow](Contributing-to-this-Wiki) will tell you where if
+you forget. Everything else is hand-written and yours to improve.
 
 **Anyone can edit these.** That is the point. [How to](Contributing-to-this-Wiki).

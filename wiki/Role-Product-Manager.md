@@ -1,6 +1,6 @@
 # Role: product manager
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For product managers](Agentic-PDLC-for-Product-Managers)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*The short version is the lesson **[For product managers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
 
 You are on the hook for **what gets built, why, and how much the machine may do without asking.**
 Nothing about that is new. What is new is that the thing you write is read by a machine that cannot

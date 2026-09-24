@@ -1144,3 +1144,8 @@ a.md:hover b{color:var(--c)}
 .mr span{font-size:11.5px;color:var(--accent);font-weight:650}
 .mr small{font-size:12.5px;color:var(--soft);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mr .none{padding:8px 10px;font-size:13px;color:var(--soft)}
+
+/* "try it in the playbook" pointers under a picture: one line, quiet, never a button */
+p.try{margin:-6px 0 18px;font-size:13.5px;color:var(--soft)}
+p.try a{color:var(--slate);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--slate) 35%,transparent)}
+p.try a:hover{border-bottom-color:var(--slate)}

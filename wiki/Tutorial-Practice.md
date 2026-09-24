@@ -3,15 +3,20 @@
 
 The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers.
 
-**4 lessons · about 29 minutes** · A case, a simulator, twelve problems · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/practice/)
+**4 lessons · about 29 minutes** · A case, a simulator, twelve problems
+
+Every lesson opens on the site, where the pictures are live and the text is searchable:
+**[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/practice/)**, or pick a lesson.
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof](Agentic-AI-Case-Study-SkyWays)** | A worked agentic AI case study: a fictional airline's rebooking assistant in thirteen episodes, from 31 requirements on day 1 to two numbers on day 90. | 6 min |
-| 2 | **[Agentic Delivery Cadence: What Runs Daily, Weekly, Quarterly](Agentic-Delivery-Cadence-Daily-Weekly-Quarterly)** | The operating rhythm of an agentic AI project: what runs every day, on every change, every week, every cycle and every quarter — and who owns each check. | 7 min |
-| 3 | **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](Agentic-AI-Delivery-Simulator)** | A free, browser-only agentic AI simulator: 13 dated episodes, 9 decision simulations, 17 prefilled tools and an evidence pack that downloads as one file. | 7 min |
-| 4 | **[Agentic PDLC Exercises: 12 Problems with Worked Answers](Agentic-PDLC-Exercises-with-Answers)** | Twelve agentic AI delivery exercises with worked answers, three per phase: AI-fit, value, gates, bars, chains, bounds, cases, queues, bills, drift, controls. | 9 min |
+| 1 | **[Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/)** | A worked agentic AI case study: a fictional airline's rebooking assistant in thirteen episodes, from 31 requirements on day 1 to two numbers on day 90. | 6 min |
+| 2 | **[Agentic Delivery Cadence: What Runs Daily, Weekly, Quarterly](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)** | The operating rhythm of an agentic AI project: what runs every day, on every change, every week, every cycle and every quarter — and who owns each check. | 7 min |
+| 3 | **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-simulator/)** | A free, browser-only agentic AI simulator: 13 dated episodes, 9 decision simulations, 17 prefilled tools and an evidence pack that downloads as one file. | 7 min |
+| 4 | **[Agentic PDLC Exercises: 12 Problems with Worked Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/)** | Twelve agentic AI delivery exercises with worked answers, three per phase: AI-fit, value, gates, bars, chains, bounds, cases, queues, bills, drift, controls. | 9 min |
 
-**Next track:** [Interviews and careers](Tutorial-Interviews-and-Careers) · **[All lessons](Start-Here)**
+[← Teams and organisation](Tutorial-Teams-and-Organisation) · **[All tracks](Start-Here)** · [Interviews and careers →](Tutorial-Interviews-and-Careers)
+
+**Teaching it?** [Session 8 · Practice and roles](Cohort-Session-8-Practice-and-Roles) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
 <sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>

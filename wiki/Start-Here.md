@@ -19,21 +19,21 @@
 
 | If you are… | Start with | Because |
 | --- | --- | --- |
-| New to agentic delivery | [What is the agentic PDLC?](What-Is-the-Agentic-PDLC) | Everything else assumes the four phases |
-| A product manager | [For product managers](Agentic-PDLC-for-Product-Managers) | The pain, the autonomy and the bar are yours |
-| A programme or delivery manager | [For programme managers](Agentic-PDLC-for-Program-Managers) | The board, the cadence and the review queue |
-| A solution architect | [For solution architects](Agentic-PDLC-for-Solution-Architects) | Which steps may guess, and where the caps live |
-| An engineer or engineering lead | [For software engineers](Agentic-PDLC-for-Software-Engineers) | Bolts, the harness and the merge gate |
-| A forward-deployed engineer | [AI-DLC and AIDD in the field](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers) | Their pain, their risk owner, their stack |
-| In QA | [For QA](Agentic-PDLC-for-QA-Testing-Probabilistic-Software) | "It works" becomes a number you can defend |
-| In DevOps or platform | [For DevOps and platform](Agentic-PDLC-for-DevOps-and-Platform-Teams) | The gateway, the flags and the rollback |
-| A sponsor | [For business sponsors](Agentic-PDLC-for-Business-Sponsors) | Two numbers, on one line, every cycle |
-| An executive | [For executives](Agentic-AI-for-Executives) | Four decisions nobody else can make |
-| Leading the change | [Rolling it out in 90 days](How-to-Roll-Out-Agentic-AI-Delivery) | One feature, five phases, one trap each |
-| Wanting practice | [The SkyWays case study](Agentic-AI-Case-Study-SkyWays) | Ninety days, thirteen episodes, failures left in |
-| Preparing for an interview | [Six answer frameworks](How-to-Answer-AI-Interview-Questions) | Then the bank for your role, with strong answers |
-| Curious about forward-deployed work | [What is an FDE?](What-Is-a-Forward-Deployed-Engineer-FDE) | The role, where it came from, and the FDPM beside it |
-| Wondering why these projects go wrong | [Why agentic AI projects fail](Why-Agentic-AI-Projects-Fail) | The failure modes are new, and quiet |
+| New to agentic delivery | [What is the agentic PDLC?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/) | Everything else assumes the four phases |
+| A product manager | [For product managers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/) | The pain, the autonomy and the bar are yours |
+| A programme or delivery manager | [For programme managers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/) | The board, the cadence and the review queue |
+| A solution architect | [For solution architects](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/) | Which steps may guess, and where the caps live |
+| An engineer or engineering lead | [For software engineers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/) | Bolts, the harness and the merge gate |
+| A forward-deployed engineer | [AI-DLC and AIDD in the field](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-for-forward-deployed-engineers/) | Their pain, their risk owner, their stack |
+| In QA | [For QA](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/) | "It works" becomes a number you can defend |
+| In DevOps or platform | [For DevOps and platform](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/) | The gateway, the flags and the rollback |
+| A sponsor | [For business sponsors](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/) | Two numbers, on one line, every cycle |
+| An executive | [For executives](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/) | Four decisions nobody else can make |
+| Leading the change | [Rolling it out in 90 days](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/rolling-out-agentic-delivery/) | One feature, five phases, one trap each |
+| Wanting practice | [The SkyWays case study](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/) | Ninety days, thirteen episodes, failures left in |
+| Preparing for an interview | [Six answer frameworks](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-answer-ai-interview-questions/) | Then the bank for your role, with strong answers |
+| Curious about forward-deployed work | [What is an FDE?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/) | The role, where it came from, and the FDPM beside it |
+| Wondering why these projects go wrong | [Why agentic AI projects fail](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/) | The failure modes are new, and quiet |
 
 ## What you will be able to do
 
@@ -50,7 +50,7 @@ track turns all of it into answers for AI product, FDE, GenAI, agentic and AWS r
 
 ## How the lessons work
 
-Every lesson has the same slots in the same order: the answer first, a picture, the problem stated plainly, the idea step by step, a problem to try, three takeaways, and its sources — each marked **Borrowed**, **Adapted** or **Original** to this playbook. [Why it is built that way](How-This-Tutorial-Works).
+Every lesson has the same slots in the same order: the answer first, a picture, the problem stated plainly, the idea step by step, a problem to try, three takeaways, and its sources — each marked **Borrowed**, **Adapted** or **Original** to this playbook. [Why it is built that way](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/).
 
 The lessons are written once and published twice: here, with the live diagrams, and [on the GitHub wiki](Start-Here), where they sit beside the playbook's full reference pages.
 
@@ -60,96 +60,96 @@ The lessons are written once and published twice: here, with the live diagrams, 
 
 *What the agentic PDLC is, in one sitting, and how to get the most out of the lessons that follow.* — 2 lessons, about 17 minutes.
 
-1. **[What Is the Agentic PDLC? The P0–P3 Framework Explained](What-Is-the-Agentic-PDLC)** — 10 min
-2. **[How This Tutorial Works, and Why Every Lesson Looks the Same](How-This-Tutorial-Works)** — 7 min
+1. **[What Is the Agentic PDLC? The P0–P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)** — 10 min
+2. **[How This Tutorial Works, and Why Every Lesson Looks the Same](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)** — 7 min
 
 ### 2 · [Agentic PDLC fundamentals](Tutorial-Fundamentals)
 
 *The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off — the model every other track builds on.* — 9 lessons, about 67 minutes.
 
-1. **[Evolution of the PDLC: From Waterfall to Agentic Delivery](The-Evolution-of-the-PDLC)** — 8 min
-2. **[Why Agentic AI Projects Fail: 7 Failure Modes and Fixes](Why-Agentic-AI-Projects-Fail)** — 7 min
-3. **[P0 Frame: How to Decide If an AI Agent Is Worth Building](P0-Frame-Is-an-AI-Agent-Worth-Building)** — 8 min
-4. **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](P1-Design-and-Spec-Write-a-Spec-an-Agent-Can-Build)** — 8 min
-5. **[The Hard Gate: The Hand-off You Can't Skip in AI Delivery](The-Hard-Gate-in-Agentic-Delivery)** — 7 min
-6. **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](P2-Build-and-Prove-Build-an-AI-Agent-in-Slices)** — 8 min
-7. **[P3 Run & Learn: How to Run an AI Agent in Production Safely](P3-Run-and-Learn-Run-an-AI-Agent-in-Production)** — 7 min
-8. **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](The-8-Feedback-Loops-of-Agentic-Delivery)** — 7 min
-9. **[The Evidence Pack: What Must Exist Before Each AI Hand-off](The-Evidence-Pack-Before-Each-Hand-off)** — 7 min
+1. **[Evolution of the PDLC: From Waterfall to Agentic Delivery](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/)** — 8 min
+2. **[Why Agentic AI Projects Fail: 7 Failure Modes and Fixes](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/)** — 7 min
+3. **[P0 Frame: How to Decide If an AI Agent Is Worth Building](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)** — 8 min
+4. **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** — 8 min
+5. **[The Hard Gate: The Hand-off You Can't Skip in AI Delivery](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/)** — 7 min
+6. **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)** — 8 min
+7. **[P3 Run & Learn: How to Run an AI Agent in Production Safely](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)** — 7 min
+8. **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)** — 7 min
+9. **[The Evidence Pack: What Must Exist Before Each AI Hand-off](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/)** — 7 min
 
 ### 3 · [Methods decoded](Tutorial-Methods-Decoded)
 
 *AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.* — 7 lessons, about 46 minutes.
 
-1. **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC)** — 7 min
-2. **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle)** — 7 min
-3. **[What Is AI-Driven Development (AIDD)? The Daily Craft](What-Is-AIDD-AI-Driven-Development)** — 7 min
-4. **[What Is the BMAD Method? Agile AI Personas, Explained](What-Is-the-BMAD-Method)** — 6 min
-5. **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](What-Is-Spec-Driven-Development)** — 6 min
-6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum)** — 7 min
-7. **[How Much Process Does a Change Need? Sizing Agentic Work](How-Much-Process-Does-a-Change-Need)** — 6 min
+1. **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)** — 7 min
+2. **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/)** — 7 min
+3. **[What Is AI-Driven Development (AIDD)? The Daily Craft](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-aidd/)** — 7 min
+4. **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)** — 6 min
+5. **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)** — 6 min
+6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)** — 7 min
+7. **[How Much Process Does a Change Need? Sizing Agentic Work](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)** — 6 min
 
 ### 4 · [Running delivery](Tutorial-Running-Delivery)
 
 *The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems.* — 13 lessons, about 81 minutes.
 
-1. **[How to Run an Agentic AI Project: A Step-by-Step Playbook](How-to-Run-an-Agentic-AI-Project)** — 7 min
-2. **[Bolts vs Sprints: Planning Work When AI Writes the Code](Bolts-vs-Sprints-Planning-When-AI-Writes-the-Code)** — 6 min
-3. **[How to Set Up a Kanban Board for an Agentic AI Project](How-to-Set-Up-a-Kanban-Board-for-an-Agentic-AI-Project)** — 7 min
-4. **[Cut Delivery from Months to Weeks: What Shrinks, What Won't](How-to-Cut-Delivery-from-Months-to-Weeks)** — 6 min
-5. **[How to Review AI-Generated Code: By Risk, Not by Diff Size](How-to-Review-AI-Generated-Code-by-Risk)** — 6 min
-6. **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](How-Accurate-Does-an-AI-Agent-Need-to-Be)** — 6 min
-7. **[Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar](How-to-Prove-an-AI-Agent-Meets-Its-Bar)** — 6 min
-8. **[Shadow Mode and Canary Releases for AI Agents, Step by Step](Shadow-Mode-and-Canary-Releases-for-AI-Agents)** — 6 min
-9. **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](Why-Your-AI-Agent-Costs-4x-the-Estimate)** — 7 min
-10. **[AI Agent Guardrails That Hold: Why a Prompt Is Not a Control](AI-Agent-Guardrails-That-Hold)** — 6 min
-11. **[AI Governance Gates That Don't Slow Delivery: The Five Gates](AI-Governance-Gates-That-Dont-Slow-Delivery)** — 6 min
-12. **[AI Drift: How to Catch the Defect With No Error Message](AI-Drift-How-to-Catch-the-Defect-With-No-Error-Message)** — 6 min
-13. **[Postmortems for AI Incidents: Find the Missing Control](Postmortems-for-AI-Incidents-Find-the-Missing-Control)** — 6 min
+1. **[How to Run an Agentic AI Project: A Step-by-Step Playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-run-an-agentic-ai-project/)** — 7 min
+2. **[Bolts vs Sprints: Planning Work When AI Writes the Code](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/bolts-vs-sprints/)** — 6 min
+3. **[How to Set Up a Kanban Board for an Agentic AI Project](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)** — 7 min
+4. **[Cut Delivery from Months to Weeks: What Shrinks, What Won't](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/)** — 6 min
+5. **[How to Review AI-Generated Code: By Risk, Not by Diff Size](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)** — 6 min
+6. **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)** — 6 min
+7. **[Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)** — 6 min
+8. **[Shadow Mode and Canary Releases for AI Agents, Step by Step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/shadow-mode-and-cutover/)** — 6 min
+9. **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** — 7 min
+10. **[AI Agent Guardrails That Hold: Why a Prompt Is Not a Control](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-guardrails-that-hold/)** — 6 min
+11. **[AI Governance Gates That Don't Slow Delivery: The Five Gates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)** — 6 min
+12. **[AI Drift: How to Catch the Defect With No Error Message](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-drift-monitoring/)** — 6 min
+13. **[Postmortems for AI Incidents: Find the Missing Control](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)** — 6 min
 
 ### 5 · [By role](Tutorial-By-Role)
 
 *How each discipline works in the agentic PDLC — product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not.* — 9 lessons, about 55 minutes.
 
-1. **[The Agentic PDLC for Product Managers: What Changes Monday](Agentic-PDLC-for-Product-Managers)** — 6 min
-2. **[Agentic PDLC for Program Managers: Boards, Bolts, Reporting](Agentic-PDLC-for-Program-Managers)** — 6 min
-3. **[Agentic PDLC for Solution Architects: Authority and Topology](Agentic-PDLC-for-Solution-Architects)** — 6 min
-4. **[The Agentic PDLC for Software Engineers: Build With Agents](Agentic-PDLC-for-Software-Engineers)** — 6 min
-5. **[AI-DLC and AIDD for Forward-Deployed Engineers: Field Guide](AI-DLC-and-AIDD-for-Forward-Deployed-Engineers)** — 7 min
-6. **[The Agentic PDLC for QA: How to Test Probabilistic Software](Agentic-PDLC-for-QA-Testing-Probabilistic-Software)** — 6 min
-7. **[The Agentic PDLC for DevOps and Platform Teams](Agentic-PDLC-for-DevOps-and-Platform-Teams)** — 6 min
-8. **[The Agentic PDLC for Business Sponsors: Ask for Two Numbers](Agentic-PDLC-for-Business-Sponsors)** — 6 min
-9. **[Agentic AI for Executives: Four Decisions Only You Can Make](Agentic-AI-for-Executives)** — 6 min
+1. **[The Agentic PDLC for Product Managers: What Changes Monday](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)** — 6 min
+2. **[Agentic PDLC for Program Managers: Boards, Bolts, Reporting](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/)** — 6 min
+3. **[Agentic PDLC for Solution Architects: Authority and Topology](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)** — 6 min
+4. **[The Agentic PDLC for Software Engineers: Build With Agents](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)** — 6 min
+5. **[AI-DLC and AIDD for Forward-Deployed Engineers: Field Guide](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-for-forward-deployed-engineers/)** — 7 min
+6. **[The Agentic PDLC for QA: How to Test Probabilistic Software](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)** — 6 min
+7. **[The Agentic PDLC for DevOps and Platform Teams](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)** — 6 min
+8. **[The Agentic PDLC for Business Sponsors: Ask for Two Numbers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)** — 6 min
+9. **[Agentic AI for Executives: Four Decisions Only You Can Make](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/)** — 6 min
 
 ### 6 · [Teams and organisation](Tutorial-Teams-and-Organisation)
 
 *How to structure teams, measure productivity without fooling yourself, assess maturity by controls rather than tools, and roll the method out in ninety days.* — 4 lessons, about 26 minutes.
 
-1. **[How to Structure Teams for Agentic AI: Roles, Pods and Seams](How-to-Structure-Teams-for-Agentic-AI)** — 6 min
-2. **[How to Measure AI Productivity Without Fooling Yourself](How-to-Measure-AI-Productivity)** — 7 min
-3. **[AI Maturity Model: Six Controls You Can Test in Ten Minutes](AI-Delivery-Maturity-Model)** — 6 min
-4. **[How to Roll Out Agentic AI Delivery: A 90-Day Plan](How-to-Roll-Out-Agentic-AI-Delivery)** — 7 min
+1. **[How to Structure Teams for Agentic AI: Roles, Pods and Seams](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/)** — 6 min
+2. **[How to Measure AI Productivity Without Fooling Yourself](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/)** — 7 min
+3. **[AI Maturity Model: Six Controls You Can Test in Ten Minutes](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/)** — 6 min
+4. **[How to Roll Out Agentic AI Delivery: A 90-Day Plan](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/rolling-out-agentic-delivery/)** — 7 min
 
 ### 7 · [Practice](Tutorial-Practice)
 
 *The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers.* — 4 lessons, about 29 minutes.
 
-1. **[Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof](Agentic-AI-Case-Study-SkyWays)** — 6 min
-2. **[Agentic Delivery Cadence: What Runs Daily, Weekly, Quarterly](Agentic-Delivery-Cadence-Daily-Weekly-Quarterly)** — 7 min
-3. **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](Agentic-AI-Delivery-Simulator)** — 7 min
-4. **[Agentic PDLC Exercises: 12 Problems with Worked Answers](Agentic-PDLC-Exercises-with-Answers)** — 9 min
+1. **[Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/)** — 6 min
+2. **[Agentic Delivery Cadence: What Runs Daily, Weekly, Quarterly](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)** — 7 min
+3. **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-simulator/)** — 7 min
+4. **[Agentic PDLC Exercises: 12 Problems with Worked Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/)** — 9 min
 
 ### 8 · [Interviews and careers](Tutorial-Interviews-and-Careers)
 
 *What a forward deployed engineer does, six frameworks for answering AI interview questions, and deep question banks with strong answers for AI product managers, forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles.* — 7 lessons, about 70 minutes.
 
-1. **[What Is a Forward Deployed Engineer? The FDE Role, Explained](What-Is-a-Forward-Deployed-Engineer-FDE)** — 7 min
-2. **[How to Answer AI Interview Questions: Six Frameworks](How-to-Answer-AI-Interview-Questions)** — 8 min
-3. **[AI Product Manager Interview Questions, with Frameworks](AI-Product-Manager-Interview-Questions)** — 11 min
-4. **[Forward Deployed Engineer Interview Questions and Answers](Forward-Deployed-Engineer-Interview-Questions)** — 11 min
-5. **[GenAI Engineer Interview Questions: RAG, Evals and Cost](GenAI-Engineer-Interview-Questions)** — 11 min
-6. **[Agentic AI Engineer Interview Questions and Answers](Agentic-AI-Engineer-Interview-Questions)** — 10 min
-7. **[AWS Generative AI Interview Questions: Bedrock, AgentCore](AWS-Generative-AI-Interview-Questions)** — 12 min
+1. **[What Is a Forward Deployed Engineer? The FDE Role, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/)** — 7 min
+2. **[How to Answer AI Interview Questions: Six Frameworks](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-answer-ai-interview-questions/)** — 8 min
+3. **[AI Product Manager Interview Questions, with Frameworks](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/)** — 11 min
+4. **[Forward Deployed Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/)** — 11 min
+5. **[GenAI Engineer Interview Questions: RAG, Evals and Cost](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/genai-engineer-interview-questions/)** — 11 min
+6. **[Agentic AI Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/)** — 10 min
+7. **[AWS Generative AI Interview Questions: Bedrock, AgentCore](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/)** — 12 min
 
 ---
 

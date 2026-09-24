@@ -63,7 +63,9 @@ The hand-written wiki pages carry pictures too: [`wiki_pictures.py`](wiki_pictur
 mermaid fence for a marker-owned `<picture>` block (`<!-- picture:key -->`), drawn from `pages/wikimaps.py`
 or reusing a lesson's map, and regenerates the block on every run. The journey pages get theirs from
 `wiki_export.py`. Order: `build.py --shots`, `tools/shoot.mjs`, `wiki_export.py`, `wiki_pictures.py`,
-`learn_export.py`, `wiki/check.py --strict`, then `wiki/sync.sh` once the site has deployed.
+`learn_export.py` (the tutorial's index and track pages; the lessons themselves live only on the site),
+`course_export.py` (a companion page per module, the hub and the labs page, from `modules/` and `labs/`),
+`wiki/check.py --strict`, then `wiki/sync.sh` once the site has deployed.
 
 ## Updating the tool
 

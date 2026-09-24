@@ -1,9 +1,10 @@
 # Writing a lesson
 
-The tutorial is written once, here, and published twice: as indexed pages under `/learn/` on the
-site (canonical), and as wiki pages (a mirror — GitHub does not let search engines index a wiki
-with fewer than 500 stars or open editing). `python3 site/build.py` renders and validates the site
-copy; `python3 site/learn_export.py` writes the wiki copy.
+The tutorial is written once, here, and published under `/learn/` on the site, which is the only
+copy (GitHub does not let search engines index a wiki with fewer than 500 stars or open editing).
+`python3 site/build.py` renders and validates it; `python3 site/learn_export.py` puts a thin index on
+the wiki — Start Here and one page per track, each linking the lessons here — and a pointer line on
+the reference pages a lesson introduces.
 
 The build refuses a lesson that breaks the rules marked **must**. The rest are warnings.
 

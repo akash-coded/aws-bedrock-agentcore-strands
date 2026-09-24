@@ -8,6 +8,31 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-24 · The wiki reorganised; the way back from the playbook
+
+### Changed
+- **The wiki is five sections** — Start, Method and reference, Course and labs, Cohort kit, Community
+  and maintenance — and the sidebar follows them. The 55 full lesson mirrors are retired: the tutorial
+  lives on the site only, and the wiki keeps a thin index (Start Here and one page per track, each
+  linking its lessons) plus the pointer line on every reference page a lesson introduces
+- **The playbook has a way back.** Every framed playbook page now carries a strip above the tool
+  (back to the manual, plus Learn, Roles, Templates, Prompts, Mental models), a fixed pill at the bottom
+  left, and a footer section for the manual. All of it is in the frame layer (`site/frame/`), not the tool
+- **Focused links into the playbook** from the manual: each picture on the frameworks page, five mental
+  models and three rows of the leadership page's "where to send people" table now open the calculator,
+  simulation or governance view that exercises the same idea. One dead link on the mental-models page fixed
+
+### Added
+- **The course companion** (`site/course_export.py`) — a wiki page per module, generated from its README
+  with every link made absolute, plus the tutorial lesson that frames it, the playbook tool that exercises
+  it and where its errors and questions are collected; a hub page; a labs companion with the catalog and
+  which module teaches each lab; a marked block in the sidebar
+- **The cohort kit** — eight ninety-minute sessions that turn the tutorial into a programme for a team,
+  each with pre-reading, a run-sheet, exercises from the bank and the playbook, a decision and homework;
+  a session template; the track pages link their sessions
+- **Field Notes** and **Roadmap** pages; the wiki-edit backport now recognises every generator and names
+  the source from the page's own footer
+
 ## 2026-09-24 · A content, search and social pass
 
 Audited against published skills for AI-search optimisation, schema, site architecture and copy

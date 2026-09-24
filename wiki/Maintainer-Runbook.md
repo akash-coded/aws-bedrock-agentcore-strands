@@ -217,6 +217,7 @@ changes substantively, the wiki pages are what need re-checking — they carry t
 | Turn the contact relay on | `site/contact-relay/deploy.sh` in your own AWS account → click the SES verification link → paste the Function URL into `site/frame/config.js` |
 | Mirror messages into GitHub | Create the `skyways-contact-relay/github` secret in Secrets Manager with a fine-grained token limited to the `inbox` repo (Issues: read/write) |
 | Preview locally | `python site/build.py && python -m http.server -d site/_site 8000` |
+| Regenerate the wiki's generated pages | In order: `python3 site/build.py --shots`, `node site/tools/shoot.mjs`, `python3 site/wiki_export.py` (journeys), `python3 site/wiki_pictures.py` (pictures on hand-written pages), `python3 site/learn_export.py` (tutorial index), `python3 site/course_export.py` (course and labs companion), `python3 wiki/check.py --strict`, push, wait for Pages, `bash wiki/sync.sh`. Every generated page names its source in its footer |
 
 ---
 

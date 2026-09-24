@@ -12,7 +12,11 @@ window.SKYWAYS_SITE = {
     issues: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/issues/new/choose",
     license: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/LICENSE",
     source: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/app/SkyWays-Architect.html",
-    frameless: "app/SkyWays-Architect.html"
+    frameless: "app/SkyWays-Architect.html",
+    // The manual this tool belongs to, relative to the framed copy at /simulator/. Empty = no way back.
+    manual: "../",
+    manualPages: [["Learn", "../learn/"], ["Roles", "../product-manager/"], ["Templates", "../templates/"],
+                  ["Prompts", "../prompts/"], ["Mental models", "../models/"]]
   },
   // How the contact form delivers messages.
   //   endpoint  – leave empty and the form opens the visitor's mail app with the message ready to send.

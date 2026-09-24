@@ -3,18 +3,23 @@
 
 What a forward deployed engineer does, six frameworks for answering AI interview questions, and deep question banks with strong answers for AI product managers, forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles.
 
-**7 lessons · about 70 minutes** · Five roles, frameworks, real depth · [This track on the site ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/interviews/)
+**7 lessons · about 70 minutes** · Five roles, frameworks, real depth
+
+Every lesson opens on the site, where the pictures are live and the text is searchable:
+**[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/interviews/)**, or pick a lesson.
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[What Is a Forward Deployed Engineer? The FDE Role, Explained](What-Is-a-Forward-Deployed-Engineer-FDE)** | What a forward deployed engineer (FDE) does, where the role came from, how it differs from a solutions architect, and why AI labs now hire FDEs. | 7 min |
-| 2 | **[How to Answer AI Interview Questions: Six Frameworks](How-to-Answer-AI-Interview-Questions)** | Six frameworks for AI interview questions — design, "is it good enough?", wrong answers, cost, incidents and behavioural stories — each with a worked example. | 8 min |
-| 3 | **[AI Product Manager Interview Questions, with Frameworks](AI-Product-Manager-Interview-Questions)** | Ten deep AI product manager interview questions on AI judgement, design, metrics, evaluation, strategy, cost and leadership, each with a framework and answer. | 11 min |
-| 4 | **[Forward Deployed Engineer Interview Questions and Answers](Forward-Deployed-Engineer-Interview-Questions)** | Ten forward deployed engineer (FDE) interview questions — discovery, demos, evaluation, debugging, design, handover and pushback — with strong answers. | 11 min |
-| 5 | **[GenAI Engineer Interview Questions: RAG, Evals and Cost](GenAI-Engineer-Interview-Questions)** | Ten deep GenAI engineer interview questions on RAG failures, evaluation, fine-tuning, latency, cost, prompt injection, structured output and memory. | 11 min |
-| 6 | **[Agentic AI Engineer Interview Questions and Answers](Agentic-AI-Engineer-Interview-Questions)** | Ten agentic AI engineer interview questions: the agent loop, enforced limits, tool design, MCP security, multi-agent systems, evaluation and runaways. | 10 min |
-| 7 | **[AWS Generative AI Interview Questions: Bedrock, AgentCore](AWS-Generative-AI-Interview-Questions)** | Ten AWS generative AI interview questions on Bedrock, AgentCore, Strands, Knowledge Bases, Guardrails, IAM, cost and resilience, with architecture answers. | 12 min |
+| 1 | **[What Is a Forward Deployed Engineer? The FDE Role, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/)** | What a forward deployed engineer (FDE) does, where the role came from, how it differs from a solutions architect, and why AI labs now hire FDEs. | 7 min |
+| 2 | **[How to Answer AI Interview Questions: Six Frameworks](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-answer-ai-interview-questions/)** | Six frameworks for AI interview questions — design, "is it good enough?", wrong answers, cost, incidents and behavioural stories — each with a worked example. | 8 min |
+| 3 | **[AI Product Manager Interview Questions, with Frameworks](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/)** | Ten deep AI product manager interview questions on AI judgement, design, metrics, evaluation, strategy, cost and leadership, each with a framework and answer. | 11 min |
+| 4 | **[Forward Deployed Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/)** | Ten forward deployed engineer (FDE) interview questions — discovery, demos, evaluation, debugging, design, handover and pushback — with strong answers. | 11 min |
+| 5 | **[GenAI Engineer Interview Questions: RAG, Evals and Cost](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/genai-engineer-interview-questions/)** | Ten deep GenAI engineer interview questions on RAG failures, evaluation, fine-tuning, latency, cost, prompt injection, structured output and memory. | 11 min |
+| 6 | **[Agentic AI Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/)** | Ten agentic AI engineer interview questions: the agent loop, enforced limits, tool design, MCP security, multi-agent systems, evaluation and runaways. | 10 min |
+| 7 | **[AWS Generative AI Interview Questions: Bedrock, AgentCore](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/)** | Ten AWS generative AI interview questions on Bedrock, AgentCore, Strands, Knowledge Bases, Guardrails, IAM, cost and resilience, with architecture answers. | 12 min |
 
-**[All lessons](Start-Here)**
+[← Practice](Tutorial-Practice) · **[All tracks](Start-Here)**
+
+**Teaching it?** [Session 8 · Practice and roles](Cohort-Session-8-Practice-and-Roles) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
 <sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>
