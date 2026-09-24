@@ -3,7 +3,7 @@
 
 *AI PM loops test one thing under many names: whether you can decide what software that is right only most of the time should be allowed to do.*
 
-**11 min read** · Advanced · Lesson 3 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/)
+**11 min read** · Advanced · Lesson 3 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/)
 
 > [!TIP]
 > **The bank in one sentence.** AI product manager interviews probe judgement about uncertainty — whether

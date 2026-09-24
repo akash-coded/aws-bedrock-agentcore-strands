@@ -2,11 +2,11 @@
 title: Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar
 short: Prove the agent meets its bar
 wiki: How-to-Prove-an-AI-Agent-Meets-Its-Bar
-description: A score from a test set is an estimate with a width. How to report the lower bound, count the cases a slice still owes, and give a verdict a sceptic will accept.
+description: A score from a test set is an estimate with a width. How to report the lower bound, count the cases a slice still owes, and give a verdict a sceptic accepts.
 dek: 82% on forty cases and 82% on five hundred are different claims. Against an 80% bar, neither is proof — and here is why.
 level: Intermediate
 keywords: how to evaluate an AI agent, LLM evaluation statistics, confidence interval accuracy, sample size for AI evaluation, golden dataset, AI test set size, Wilson score interval, eval harness
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

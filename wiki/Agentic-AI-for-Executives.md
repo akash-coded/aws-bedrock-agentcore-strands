@@ -3,7 +3,7 @@
 
 *Delivery decisions belong to delivery. These four do not, because each trades a business risk against a business return — and the trade is yours.*
 
-**6 min read** · Beginner · Lesson 9 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/)
+**6 min read** · Beginner · Lesson 9 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-for-executives/)
 
 > [!TIP]
 > **The short version.** An executive leading agentic AI makes four decisions nobody below can make —

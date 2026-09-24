@@ -3,7 +3,7 @@
 
 *You do not own a phase. You own the system the phases run in — and the waits between them, which is where agentic programmes lose their weeks.*
 
-**6 min read** · Beginner · Lesson 2 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/)
+**6 min read** · Beginner · Lesson 2 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-program-managers/)
 
 > [!TIP]
 > **The role in one sentence.** In agentic delivery the programme or delivery manager owns the system

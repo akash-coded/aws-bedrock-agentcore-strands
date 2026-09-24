@@ -6,7 +6,7 @@ description: An AI agent's bill rarely has one cause: context, model tier, cache
 dek: No runaway, no single mistake — four sensible decisions by careful people, multiplying on flat traffic. And the dashboard alarm that gets the one fix that works switched off.
 level: Intermediate
 keywords: reduce LLM costs, AI agent cost optimization, LLM token cost, prompt caching cost, model routing, AI cost per case, why is my OpenAI bill so high, Bedrock cost optimization
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

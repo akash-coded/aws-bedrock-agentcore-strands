@@ -6,7 +6,7 @@ description: The operating rhythm of an agentic AI project: what runs every day,
 dek: Most failures in an agentic system are silent. The checks that catch them have to run on a clock, because nobody will complain in time.
 level: Intermediate
 keywords: AI project cadence, operating rhythm AI team, how often to evaluate LLM, AI agent monitoring schedule, agile ceremonies AI, LLM regression testing, AI governance cadence, AI ops review
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

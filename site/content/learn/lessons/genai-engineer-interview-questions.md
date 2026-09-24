@@ -6,7 +6,7 @@ description: Ten deep GenAI engineer interview questions on RAG failures, evalua
 dek: GenAI engineering interviews reward the candidate who measures before fixing. Every question below has a wrong answer that sounds right.
 level: Advanced
 keywords: GenAI engineer interview questions, generative AI engineer interview, LLM engineer interview questions, RAG interview questions, LLM evaluation interview, prompt engineering interview, AI engineer interview questions, LLM system design interview
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

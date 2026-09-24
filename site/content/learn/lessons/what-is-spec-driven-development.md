@@ -6,7 +6,7 @@ description: Spec-driven development means writing the spec before the code and 
 dek: The spec becomes the thing you maintain. Two tools, three levels of commitment — and the part no tool decides for you.
 level: Beginner
 keywords: spec-driven development, SDD, what is spec-driven development, Kiro specs, GitHub Spec Kit, requirements.md design.md tasks.md, EARS requirements, spec-first development, spec as source
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -3,7 +3,7 @@
 
 *Build the exact parts first, measure the guessing parts by slice, and let a harness — not a meeting — decide what merges.*
 
-**8 min read** · Intermediate · Lesson 6 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
+**8 min read** · Intermediate · Lesson 6 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)
 
 > [!TIP]
 > **P2 in one sentence.** P2 Build & Prove builds the agent in **bolts** — slices of hours or days,

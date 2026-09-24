@@ -6,7 +6,7 @@ description: An AI agent's accuracy bar comes from money, not a round number: di
 dek: Every bar in the document is 80%, and nobody knows why. Here is where the real number comes from — and why a human hold can lower it.
 level: Intermediate
 keywords: how accurate should an AI agent be, AI accuracy threshold, acceptance criteria for AI, AI agent evaluation threshold, LLM accuracy requirements, human in the loop accuracy, break-even accuracy
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

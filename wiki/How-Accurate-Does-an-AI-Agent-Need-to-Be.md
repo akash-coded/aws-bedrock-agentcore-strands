@@ -3,7 +3,7 @@
 
 *Every bar in the document is 80%, and nobody knows why. Here is where the real number comes from — and why a human hold can lower it.*
 
-**6 min read** · Intermediate · Lesson 6 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)
+**6 min read** · Intermediate · Lesson 6 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)
 
 > [!TIP]
 > **The answer in one sentence.** An AI agent must be accurate enough that its right answers pay for

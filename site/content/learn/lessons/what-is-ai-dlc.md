@@ -1,12 +1,12 @@
 ---
-title: What Is AI-DLC? The AI-Driven Development Lifecycle Explained
+title: What Is AI-DLC? AWS's AI-Driven Development Lifecycle
 short: What is AI-DLC?
 wiki: What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle
 description: AI-DLC is AWS's AI-Driven Development Life Cycle: AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days.
 dek: Three phases, two rituals, one new unit of work — and what AI-DLC deliberately leaves for you to decide.
 level: Beginner
 keywords: what is AI-DLC, AWS AI-DLC, AI-driven development life cycle, AIDLC AWS, mob elaboration, mob construction, bolts vs sprints, aidlc-workflows, AI-DLC explained
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

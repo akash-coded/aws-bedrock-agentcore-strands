@@ -6,7 +6,7 @@ description: P1 Design & Spec turns a framed problem into an eight-field spec wi
 dek: One screen, eight fields, and the five decisions nobody had made yet. Plus the limits that have to live in code, not in the prompt.
 level: Intermediate
 keywords: how to write a spec for AI agents, AI agent requirements, spec-driven development, EARS requirements, PRD for AI features, AI acceptance criteria, agent authority, P1 design and spec
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

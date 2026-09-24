@@ -3,7 +3,7 @@
 
 *82% on forty cases and 82% on five hundred are different claims. Against an 80% bar, neither is proof — and here is why.*
 
-**6 min read** · Intermediate · Lesson 7 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)
+**6 min read** · Intermediate · Lesson 7 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)
 
 > [!TIP]
 > **The answer in one sentence.** A score on a test set proves an AI agent meets its bar only when

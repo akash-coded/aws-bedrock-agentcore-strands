@@ -3,7 +3,7 @@
 
 *Agent interviews are permission interviews. The candidate who puts the limit in the tool, not the prompt, is the one who has run an agent in production.*
 
-**10 min read** · Advanced · Lesson 6 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/)
+**10 min read** · Advanced · Lesson 6 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/)
 
 > [!TIP]
 > **The bank in one sentence.** Agentic AI engineer interviews test whether you can run a loop that chooses

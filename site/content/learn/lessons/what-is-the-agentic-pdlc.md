@@ -6,7 +6,7 @@ description: The agentic PDLC is a four-phase lifecycle — Frame, Design & Spec
 dek: Four phases, one hard gate and a line that comes back. The whole framework in one sitting, with the reason behind each piece.
 level: Beginner
 keywords: agentic PDLC, P0 to P3 framework, agentic product development lifecycle, AI product development lifecycle, agentic SDLC, AI-DLC, how to run agentic AI projects
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

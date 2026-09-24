@@ -3,7 +3,7 @@
 
 *The unit of planning shrinks to match the speed of building. The hard part is not the cadence — it is the cut.*
 
-**6 min read** · Intermediate · Lesson 2 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/bolts-vs-sprints/)
+**6 min read** · Intermediate · Lesson 2 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/bolts-vs-sprints/)
 
 > [!TIP]
 > **Bolts in one sentence.** A bolt is a thin, shippable slice of work carrying **one unknown**,

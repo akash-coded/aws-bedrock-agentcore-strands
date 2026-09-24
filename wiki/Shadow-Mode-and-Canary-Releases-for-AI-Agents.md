@@ -3,7 +3,7 @@
 
 *The golden set proves the agent is right about the cases you chose. A shadow run proves it agrees with today's traffic — including the rule nobody wrote down.*
 
-**6 min read** · Intermediate · Lesson 8 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/shadow-mode-and-cutover/)
+**6 min read** · Intermediate · Lesson 8 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/shadow-mode-and-cutover/)
 
 > [!TIP]
 > **The launch in one sentence.** Launch an AI agent in four states, one action at a time — **shadow**,

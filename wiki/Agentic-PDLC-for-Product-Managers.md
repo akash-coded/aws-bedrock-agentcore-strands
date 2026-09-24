@@ -3,7 +3,7 @@
 
 *Your leverage moves upstream. The slow part of building is no longer the building — it is deciding precisely what right means, and who may act.*
 
-**6 min read** · Beginner · Lesson 1 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)
+**6 min read** · Beginner · Lesson 1 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC the product manager turns requests into measured

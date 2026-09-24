@@ -3,7 +3,7 @@
 
 *No runaway, no single mistake — four sensible decisions by careful people, multiplying on flat traffic. And the dashboard alarm that gets the one fix that works switched off.*
 
-**7 min read** · Intermediate · Lesson 9 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)
+**7 min read** · Intermediate · Lesson 9 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)
 
 > [!TIP]
 > **The answer in one sentence.** An AI agent's bill usually grows because four ordinary habits

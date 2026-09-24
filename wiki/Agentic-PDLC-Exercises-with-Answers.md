@@ -3,7 +3,7 @@
 
 *Reading a formula and using it with a room waiting are different skills. These are the calculations the work actually asks for, in the order it asks.*
 
-**9 min read** · Intermediate · Lesson 4 of 4 in [Practice](Tutorial-Practice) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/)
+**9 min read** · Intermediate · Lesson 4 of 4 in [Practice](Tutorial-Practice) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/)
 
 > [!TIP]
 > **The set in one sentence.** Twelve problems, three per phase, each a decision the agentic PDLC asks

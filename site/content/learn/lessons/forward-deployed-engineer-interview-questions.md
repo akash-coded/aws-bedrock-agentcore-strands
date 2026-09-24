@@ -6,7 +6,7 @@ description: Ten forward deployed engineer (FDE) interview questions — discove
 dek: FDE loops test whether you can ship a model into someone else's systems, prove it with their evidence, and leave something that keeps working.
 level: Advanced
 keywords: forward deployed engineer interview questions, FDE interview, OpenAI forward deployed engineer interview, Anthropic forward deployed engineer interview, Palantir FDSE interview, forward deployed engineer case study, AI deployment engineer interview, customer engineer AI interview
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

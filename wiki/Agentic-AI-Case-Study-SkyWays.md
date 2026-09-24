@@ -3,7 +3,7 @@
 
 *A case study with its failures left in. Three of the thirteen episodes go wrong, and they teach more than the ten that go right.*
 
-**6 min read** · Beginner · Lesson 1 of 4 in [Practice](Tutorial-Practice) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/)
+**6 min read** · Beginner · Lesson 1 of 4 in [Practice](Tutorial-Practice) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/skyways-case-study/)
 
 > [!TIP]
 > **The case in one sentence.** SkyWays is this playbook's worked example — a fictional airline building

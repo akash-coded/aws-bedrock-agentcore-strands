@@ -6,7 +6,7 @@ description: A worked agentic AI case study: a fictional airline's rebooking ass
 dek: A case study with its failures left in. Three of the thirteen episodes go wrong, and they teach more than the ten that go right.
 level: Beginner
 keywords: agentic AI case study, AI agent case study, AI project example, AI rebooking assistant, generative AI case study airline, AI project lifecycle example, worked example AI delivery, AI product case study
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

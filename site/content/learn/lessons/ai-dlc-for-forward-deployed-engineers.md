@@ -1,12 +1,12 @@
 ---
-title: AI-DLC and AIDD for Forward-Deployed Engineers: A Field Guide
+title: AI-DLC and AIDD for Forward-Deployed Engineers: Field Guide
 short: For forward-deployed engineers
 wiki: AI-DLC-and-AIDD-for-Forward-Deployed-Engineers
 description: How a forward-deployed engineer runs AI-DLC and AIDD at a customer: measure their pain, have their risk owner sign the limits, build in their stack, hand over.
 dek: You carry the whole lifecycle into someone else's organisation — and the decisions that are theirs to make stay theirs, even when it would be faster to make them yourself.
 level: Intermediate
 keywords: forward deployed engineer, FDE AI, forward deployed engineer AI agents, customer engineer AI deployment, AI-DLC for FDE, AIDD for forward deployed engineers, deploying AI agents at customer sites
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

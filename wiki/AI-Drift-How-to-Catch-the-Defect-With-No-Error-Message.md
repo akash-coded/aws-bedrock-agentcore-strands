@@ -3,7 +3,7 @@
 
 *No code changed, nothing threw, no alert fired — and three months later a customer noticed the assistant offers credits where it used to offer refunds.*
 
-**6 min read** · Intermediate · Lesson 12 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-drift-monitoring/)
+**6 min read** · Intermediate · Lesson 12 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-drift-monitoring/)
 
 > [!TIP]
 > **Drift in one sentence.** Drift is an AI system changing its behaviour with no deploy, no error and

@@ -6,7 +6,7 @@ description: P3 Run & Learn covers cut-over, rollback, drift and cost for AI age
 dek: Widen on evidence, rehearse the way back, watch the output mix, and report the saving beside the spend — every cycle, before anyone asks.
 level: Intermediate
 keywords: AI agent in production, LLM monitoring, AI drift detection, canary release AI, AI rollback, AI cost monitoring, AI ROI reporting, LLMOps, P3 run and learn
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

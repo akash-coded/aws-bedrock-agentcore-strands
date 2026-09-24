@@ -20,8 +20,8 @@ original work and the intellectual property of **Akash Das**, open-sourced under
 | [`theme/`](theme/) | [`base.css`](theme/base.css) (one stylesheet, light and dark), [`site.js`](theme/site.js) (theme, copy buttons, the steps rail), [`engine.js`](theme/engine.js) (lenses, calculators, self-checks, steppers, boards), [`guide.js`](theme/guide.js) (the drawer menu, the per-page walkthrough narrated by Pip), [`learn.js`](theme/learn.js) (mermaid, drawn in the reader's theme). Every behaviour is progressive enhancement: the pages read without script. |
 | [`app/SkyWays-Architect.html`](app/SkyWays-Architect.html) | **The tool, pristine.** A single self-contained file with no external dependencies. Published unchanged at `app/` and, with the site frame, at `simulator/`. |
 | [`frame/`](frame/) | The layer around the tool: [`config.js`](frame/config.js) (links, contact delivery), [`frame.js`](frame/frame.js) (attribution, licence and disclaimer, ideas invitation, contact drawer), [`frame.css`](frame/frame.css). Everything is prefixed `sw-` and appended to the end of `<body>`. |
-| [`tools/`](tools/) | [`shoot.mjs`](tools/shoot.mjs) (screenshots every embeddable picture, light and dark, for the wiki), [`simshots.mjs`](tools/simshots.mjs), [`check_diagrams.py`](tools/check_diagrams.py) (renders every mermaid diagram and fails on what a reader would notice). |
-| [`assets/`](assets/) | Favicon, the social preview image, and `learn/` (the wiki's screenshots of the site's pictures). |
+| [`tools/`](tools/) | [`shoot.mjs`](tools/shoot.mjs) (screenshots every embeddable picture, light and dark, for the wiki), [`ogshots.mjs`](tools/ogshots.mjs) (one 1200×630 social card per page, from `pages/ogcards.py`), [`simshots.mjs`](tools/simshots.mjs), [`check_diagrams.py`](tools/check_diagrams.py) (renders every mermaid diagram and fails on what a reader would notice). |
+| [`assets/`](assets/) | Favicon, the default social preview image, `og/` (a social card per page) and `learn/` (the wiki's screenshots of the site's pictures). |
 | [`contact-relay/`](contact-relay/) | Optional AWS backend for the contact form: Lambda Function URL, DynamoDB, SES, and a private GitHub mirror. Infrastructure as code, one command to deploy. |
 | [`404.html`](404.html) | Custom not-found page. |
 | [`../.github/workflows/pages.yml`](../.github/workflows/pages.yml) | Builds and deploys on every push that touches `site/`. |
@@ -38,6 +38,16 @@ highlights one element at a time and says what it does. The walkthrough is offer
 page on a first visit (the choice is remembered in `localStorage`, nothing else is stored), and is
 always available from the bottom-left button. The **Menu** at the top left is a drawer with every page
 by category; **breadcrumbs** sit under the header on every page but the home page.
+
+## Search, and what machines read
+
+The drawer's search box (also `/` on any page) looks through `search.json`, written at build time by
+`render.search_index`: every lesson, track, role, role step, mental model, manual page and hand-written
+wiki page, with a title, one line and a kind. `llms.txt` indexes the tutorial, the role journeys (with
+their markdown twins on the wiki), the reference pages and the playbook for AI assistants;
+`llms-full.txt` carries every lesson in full; `robots.txt` says the AI crawlers are welcome. Every
+lesson has a markdown twin at `index.md` and FAQ, breadcrumb and article structured data; the home
+page is a `WebSite`; the author is one `Person` entity throughout.
 
 ## The pictures
 

@@ -2,11 +2,11 @@
 title: Cut Delivery from Months to Weeks: What Shrinks, What Won't
 short: Cut delivery from months to weeks
 wiki: How-to-Cut-Delivery-from-Months-to-Weeks
-description: AI makes building fast; delivery is more than building. What compresses, what compresses only by design, and what never compresses — with the arithmetic for each.
+description: AI makes building fast; delivery is more than building. What compresses, what compresses only by design, what never compresses, with the arithmetic for each.
 dek: The claims say days instead of months. Some of it is true. The rest is where your programme will actually spend its time.
 level: Intermediate
 keywords: reduce time to market AI, faster software delivery with AI, shorten development cycle, AI productivity delivery time, months to weeks, lead time reduction, value stream AI development
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

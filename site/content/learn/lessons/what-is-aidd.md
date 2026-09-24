@@ -1,12 +1,12 @@
 ---
-title: What Is AI-Driven Development (AIDD)? The Daily Craft, Defined
+title: What Is AI-Driven Development (AIDD)? The Daily Craft
 short: What is AIDD?
 wiki: What-Is-AIDD-AI-Driven-Development
 description: AI-driven development (AIDD) is the everyday craft of building software with coding agents: context files, story files, exact code first, and review by risk.
 dek: Five habits that decide whether a coding agent makes a team faster or just busier — and the evidence that the habits, not the tool, are what matter.
 level: Beginner
 keywords: AI-driven development, AIDD, AI coding agent best practices, CLAUDE.md, AGENTS.md, context engineering, how to use Claude Code, Copilot instructions, vibe coding vs AI-driven development
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -3,7 +3,7 @@
 
 *One engineer, one customer, many capabilities — and a duty to carry what the customer taught them back into the product.*
 
-**7 min read** · Beginner · Lesson 1 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/)
+**7 min read** · Beginner · Lesson 1 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-a-forward-deployed-engineer/)
 
 > [!TIP]
 > **The role in one sentence.** A forward deployed engineer (FDE) is a software engineer who embeds with

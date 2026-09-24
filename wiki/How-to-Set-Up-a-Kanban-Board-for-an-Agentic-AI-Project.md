@@ -3,7 +3,7 @@
 
 *A board that moves cards on evidence, not on status. Nine columns, five lanes, and the three numbers a programme manager actually needs.*
 
-**7 min read** · Intermediate · Lesson 3 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)
+**7 min read** · Intermediate · Lesson 3 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)
 
 > [!TIP]
 > **The board in one sentence.** An agentic delivery board has columns whose **exit rules are

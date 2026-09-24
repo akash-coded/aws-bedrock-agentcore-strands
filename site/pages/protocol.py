@@ -509,4 +509,4 @@ def build(shell, urls: dict) -> str:
     return shell(title="The agentic operating protocol · for whoever owns the P&L",
                  desc=desc, body=body, depth=1, nav_id="protocol",
                  canonical=urls["base"] + "protocol/",
-                 crumbs=[("For leadership", "")], tour=tour, kind="protocol")
+                 crumbs=[("For leadership", "")], tour=tour, kind="protocol", og="protocol")

@@ -3,7 +3,7 @@
 
 *"Never refund more than $400" was in the prompt, the design and the slide deck. It was not in the code, and on day 82 a $2,000 refund went out.*
 
-**6 min read** · Intermediate · Lesson 10 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-guardrails-that-hold/)
+**6 min read** · Intermediate · Lesson 10 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-guardrails-that-hold/)
 
 > [!TIP]
 > **The rule in one sentence.** A limit an AI agent reads in its prompt only lowers the probability

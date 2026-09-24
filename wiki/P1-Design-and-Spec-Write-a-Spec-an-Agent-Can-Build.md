@@ -3,7 +3,7 @@
 
 *One screen, eight fields, and the five decisions nobody had made yet. Plus the limits that have to live in code, not in the prompt.*
 
-**8 min read** · Intermediate · Lesson 4 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)
+**8 min read** · Intermediate · Lesson 4 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)
 
 > [!TIP]
 > **P1 in one sentence.** P1 Design & Spec writes down what will be built so precisely that a coding

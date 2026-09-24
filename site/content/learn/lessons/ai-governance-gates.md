@@ -6,7 +6,7 @@ description: Five gates govern an AI agent from idea to wide use: intent, plan, 
 dek: A gate is a decision with evidence in front of a named person — not a click, a status column, or a meeting that ends in "fine".
 level: Intermediate
 keywords: AI governance framework, AI approval process, AI risk management, responsible AI governance, AI go-live approval, AI model governance, NIST AI RMF, who approves AI agents
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -6,7 +6,7 @@ description: A project board for AI agent delivery: evidence as the exit rule fo
 dek: A board that moves cards on evidence, not on status. Nine columns, five lanes, and the three numbers a programme manager actually needs.
 level: Intermediate
 keywords: kanban board for AI projects, AI project board, agile board for AI agents, Jira for AI development, GitHub Projects AI, WIP limits, AI program management, how to track AI agent development
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

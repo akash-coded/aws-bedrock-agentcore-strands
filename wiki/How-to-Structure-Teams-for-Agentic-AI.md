@@ -3,7 +3,7 @@
 
 *Your org chart is already a system design. In agentic AI it decides where the agent boundaries fall — whether you meant it to or not.*
 
-**6 min read** · Intermediate · Lesson 1 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/)
+**6 min read** · Intermediate · Lesson 1 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/team-structure-for-agentic-ai/)
 
 > [!TIP]
 > **The answer in one sentence.** Agentic AI needs no new roles and removes none: keep a small product

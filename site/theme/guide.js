@@ -203,6 +203,66 @@
     setTimeout(offer, 1400);
   }
 
-  function init() { wireMenu(); wireTour(); }
+  /* ------------------------------------------------------------------ search */
+  /* The drawer's search box looks through search.json: every lesson, step, model and
+     page, one line each. Fetched on first focus, never before. "/" opens it. */
+  function wireSearch() {
+    var input = $("[data-search]");
+    var list = $("[data-search-results]");
+    if (!input || !list) return;
+    var base = input.getAttribute("data-index").replace(/search\.json$/, "");
+    var rows = null, timer = null;
+    function load() {
+      if (rows) return Promise.resolve(rows);
+      return fetch(input.getAttribute("data-index")).then(function (r) { return r.json(); })
+        .then(function (j) { rows = j; return rows; }).catch(function () { rows = []; return rows; });
+    }
+    function href(u) { return /^https?:/.test(u) ? u : base + u; }
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function run() {
+      var q = input.value.trim().toLowerCase();
+      if (q.length < 2) { list.hidden = true; list.innerHTML = ""; return; }
+      load().then(function (all) {
+        var terms = q.split(/\s+/);
+        var hits = all.map(function (r) {
+          var t = r.t.toLowerCase(), d = (r.d || "").toLowerCase(), k = (r.k || "").toLowerCase();
+          var score = 0;
+          for (var i = 0; i < terms.length; i++) {
+            var w = terms[i];
+            if (t.indexOf(w) === 0) score += 6; else if (t.indexOf(w) >= 0) score += 4;
+            else if (k.indexOf(w) >= 0) score += 2; else if (d.indexOf(w) >= 0) score += 1;
+            else return null;
+          }
+          return { r: r, s: score };
+        }).filter(Boolean).sort(function (a, b) { return b.s - a.s; }).slice(0, 8);
+        list.hidden = false;
+        list.innerHTML = hits.length ? hits.map(function (h) {
+          return '<li><a href="' + esc(href(h.r.u)) + '"><span>' + esc(h.r.k) + "</span><b>" + esc(h.r.t) + "</b>" +
+            (h.r.d ? "<small>" + esc(h.r.d) + "</small>" : "") + "</a></li>";
+        }).join("") : '<li class="none">Nothing matches. Try one word, or a phase like "P2".</li>';
+      });
+    }
+    input.addEventListener("focus", function () { load(); });
+    input.addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(run, 70); });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { var a = $("a", list); if (a) { e.preventDefault(); location.href = a.href; } }
+      if (e.key === "Escape") { input.value = ""; run(); }
+      if (e.key === "ArrowDown") { var f = $("a", list); if (f) { e.preventDefault(); f.focus(); } }
+    });
+    list.addEventListener("keydown", function (e) {
+      var items = $$("a", list), i = items.indexOf(document.activeElement);
+      if (e.key === "ArrowDown" && i < items.length - 1) { e.preventDefault(); items[i + 1].focus(); }
+      if (e.key === "ArrowUp") { e.preventDefault(); (i > 0 ? items[i - 1] : input).focus(); }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      var tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();
+      if (tag === "input" || tag === "textarea" || tag === "select" || document.activeElement.isContentEditable) return;
+      var d = $("[data-menu]"); if (!d) return;
+      e.preventDefault(); d.open = true; setTimeout(function () { input.focus(); }, 40);
+    });
+  }
+
+  function init() { wireMenu(); wireTour(); wireSearch(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

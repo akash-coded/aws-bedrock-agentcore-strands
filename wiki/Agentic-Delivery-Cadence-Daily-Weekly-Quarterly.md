@@ -3,7 +3,7 @@
 
 *Most failures in an agentic system are silent. The checks that catch them have to run on a clock, because nobody will complain in time.*
 
-**7 min read** · Intermediate · Lesson 2 of 4 in [Practice](Tutorial-Practice) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)
+**7 min read** · Intermediate · Lesson 2 of 4 in [Practice](Tutorial-Practice) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-cadence/)
 
 > [!TIP]
 > **The rhythm in one sentence.** Agentic delivery runs on six clocks: every day a bolt is built,

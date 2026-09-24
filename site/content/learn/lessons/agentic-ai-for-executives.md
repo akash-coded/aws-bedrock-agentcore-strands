@@ -6,7 +6,7 @@ description: The four agentic AI decisions nobody below an executive can make, f
 dek: Delivery decisions belong to delivery. These four do not, because each trades a business risk against a business return — and the trade is yours.
 level: Beginner
 keywords: agentic AI for executives, AI strategy for leaders, CEO guide to AI agents, AI operating model, AI leadership decisions, how to lead AI transformation, board AI questions, CIO AI agents
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

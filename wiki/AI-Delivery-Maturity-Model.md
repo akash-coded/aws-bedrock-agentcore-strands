@@ -3,7 +3,7 @@
 
 *Tool adoption is the metric that rewards the least mature behaviour available. Count what is enforced instead.*
 
-**6 min read** · Intermediate · Lesson 3 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/)
+**6 min read** · Intermediate · Lesson 3 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-delivery-maturity-model/)
 
 > [!TIP]
 > **The model in one sentence.** Agentic delivery maturity is a count of six controls, not of tools:

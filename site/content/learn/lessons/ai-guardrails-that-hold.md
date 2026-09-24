@@ -6,7 +6,7 @@ description: A limit in a prompt can be talked past; a limit in a tool's signatu
 dek: "Never refund more than $400" was in the prompt, the design and the slide deck. It was not in the code, and on day 82 a $2,000 refund went out.
 level: Intermediate
 keywords: AI agent guardrails, LLM security, prompt injection defence, AI agent permissions, excessive agency, OWASP LLM top 10, least privilege AI agents, tool calling security, human in the loop approval
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

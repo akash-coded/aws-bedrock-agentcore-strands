@@ -6,7 +6,7 @@ description: Twelve agentic AI delivery exercises with worked answers, three per
 dek: Reading a formula and using it with a room waiting are different skills. These are the calculations the work actually asks for, in the order it asks.
 level: Intermediate
 keywords: agentic AI exercises, AI project management exercises, AI product manager interview questions, LLM evaluation practice problems, AI delivery quiz, acceptance bar exercise, confidence interval exercise, AI training problems
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

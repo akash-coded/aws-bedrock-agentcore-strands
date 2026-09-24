@@ -8,6 +8,30 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-24 · A content, search and social pass
+
+Audited against published skills for AI-search optimisation, schema, site architecture and copy
+editing (coreyhaines31/marketingskills), and Google's own guidance to write for people.
+
+### Added
+- **Search** — a box in the drawer menu, and `/` from anywhere: every lesson, track, role, role step,
+  mental model, manual page and wiki page, from a `search.json` written at build time. Keyboard
+  through the results; Enter opens the first
+- **A social card per page** — 76 1200×630 cards drawn in the site's grammar (`pages/ogcards.py`,
+  `tools/ogshots.mjs`), so a shared link shows the page's own title and line, not one generic image
+- **On lesson pages**: a copy button on every code block (the ten-minute-workflow prompts), a link
+  on every heading, and a thin reading-progress line at the top
+- `robots.txt` names the AI crawlers it welcomes; `llms.txt` now indexes the role journeys, the
+  reference pages and the playbook as well as the tutorial; the home page carries `WebSite`
+  structured data and the author is one `Person` entity, with `sameAs`, on every page; role pages
+  link to the lesson for that role
+
+### Changed
+- Seven lesson titles trimmed to 60 characters and eleven descriptions to 160, per the house rules
+  the build already states; every lesson's date reflects today's changes; "in order to" and
+  "utilise" gone from the prose. Nothing else in the lessons was rewritten: the audit found no
+  clichés, little passive voice, and a register worth keeping
+
 ## 2026-09-24 · The site gets a front door, a guide, and pictures drawn to one grammar
 
 ### Added

@@ -9,7 +9,7 @@ The SkyWays case study in thirteen episodes, the operating rhythm from daily to 
 | --- | --- | --- | --- |
 | 1 | **[Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof](Agentic-AI-Case-Study-SkyWays)** | A worked agentic AI case study: a fictional airline's rebooking assistant in thirteen episodes, from 31 requirements on day 1 to two numbers on day 90. | 6 min |
 | 2 | **[Agentic Delivery Cadence: What Runs Daily, Weekly, Quarterly](Agentic-Delivery-Cadence-Daily-Weekly-Quarterly)** | The operating rhythm of an agentic AI project: what runs every day, on every change, every week, every cycle and every quarter — and who owns each check. | 7 min |
-| 3 | **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](Agentic-AI-Delivery-Simulator)** | A free, browser-only agentic AI simulator: 13 dated episodes, 9 decision simulations, 17 prefilled tools and an evidence pack that downloads as one markdown file. | 7 min |
+| 3 | **[Agentic AI Simulator: Practise 90 Days of Delivery Decisions](Agentic-AI-Delivery-Simulator)** | A free, browser-only agentic AI simulator: 13 dated episodes, 9 decision simulations, 17 prefilled tools and an evidence pack that downloads as one file. | 7 min |
 | 4 | **[Agentic PDLC Exercises: 12 Problems with Worked Answers](Agentic-PDLC-Exercises-with-Answers)** | Twelve agentic AI delivery exercises with worked answers, three per phase: AI-fit, value, gates, bars, chains, bounds, cases, queues, bills, drift, controls. | 9 min |
 
 **Next track:** [Interviews and careers](Tutorial-Interviews-and-Careers) · **[All lessons](Start-Here)**

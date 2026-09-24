@@ -6,7 +6,7 @@ description: AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development 
 dek: Eight names in two years, several spelled almost the same. One question sorts them: is AI building the software, or is AI inside it?
 level: Beginner
 keywords: AI-DLC vs AIDD, AIDLC meaning, AIDDLC, agentic SDLC, AI-driven development lifecycle, AI PDLC, spec-driven development vs AI-DLC, BMAD vs AI-DLC, difference between SDLC and PDLC
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

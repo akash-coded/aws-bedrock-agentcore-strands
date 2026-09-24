@@ -6,7 +6,7 @@ description: What an AI product manager does in the agentic PDLC: measure the pa
 dek: Your leverage moves upstream. The slow part of building is no longer the building — it is deciding precisely what right means, and who may act.
 level: Beginner
 keywords: AI product manager, product management for AI agents, how AI changes product management, AI PM skills, AI product requirements, agentic AI product management, PM role in AI projects
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

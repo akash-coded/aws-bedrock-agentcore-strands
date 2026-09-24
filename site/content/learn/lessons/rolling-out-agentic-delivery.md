@@ -6,7 +6,7 @@ description: A 90-day plan for rolling out agentic AI delivery: pick for provabi
 dek: The sequence that works is deliberately unglamorous in the middle — and each phase has one trap that reliably catches capable teams.
 level: Intermediate
 keywords: AI rollout plan, how to roll out AI in an organisation, AI adoption roadmap, 90 day AI plan, AI transformation plan, AI pilot to production, AI change management, scaling AI agents
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

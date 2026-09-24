@@ -3,7 +3,7 @@
 
 *Widen on evidence, rehearse the way back, watch the output mix, and report the saving beside the spend — every cycle, before anyone asks.*
 
-**7 min read** · Intermediate · Lesson 7 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)
+**7 min read** · Intermediate · Lesson 7 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)
 
 > [!TIP]
 > **P3 in one sentence.** P3 Run & Learn widens the agent's share of live traffic only as evidence

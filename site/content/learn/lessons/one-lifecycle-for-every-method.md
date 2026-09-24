@@ -6,7 +6,7 @@ description: Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-g
 dek: Lay every method on the same four phases and two things appear: they mostly agree, and they all leave the same decisions open.
 level: Intermediate
 keywords: AI-DLC vs Scrum, BMAD vs Spec Kit, AI development methodology comparison, agile with AI agents, Shape Up AI, spec-driven development vs agile, which AI development method, method-agnostic AI lifecycle
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

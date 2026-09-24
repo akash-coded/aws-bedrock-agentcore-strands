@@ -2,11 +2,11 @@
 title: Shadow Mode and Canary Releases for AI Agents, Step by Step
 short: Shadow mode and cut-over
 wiki: Shadow-Mode-and-Canary-Releases-for-AI-Agents
-description: How to launch an AI agent safely: run it in shadow beside the people doing the job, cut over at 5% per action, widen only on evidence, and rehearse the way back.
+description: How to launch an AI agent safely: run it in shadow beside the people doing the job, cut over at 5% per action, widen on evidence, and rehearse the way back.
 dek: The golden set proves the agent is right about the cases you chose. A shadow run proves it agrees with today's traffic — including the rule nobody wrote down.
 level: Intermediate
 keywords: shadow mode AI, canary release AI agent, how to launch an AI agent, AI rollout strategy, feature flags for AI, AI deployment best practices, gradual rollout LLM, dark launch
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

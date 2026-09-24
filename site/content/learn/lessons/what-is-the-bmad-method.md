@@ -6,7 +6,7 @@ description: The BMAD Method structures AI-driven development like an agile team
 dek: A pipeline of personas that leaves a paper trail — excellent for audited, multi-team work, and six documents too many for a one-line fix.
 level: Beginner
 keywords: BMAD method, BMAD-METHOD, breakthrough method for agile AI-driven development, BMAD agents, BMAD vs spec-driven development, BMAD vs AI-DLC, AI agent personas for software development
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

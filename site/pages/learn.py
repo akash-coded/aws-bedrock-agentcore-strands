@@ -445,7 +445,10 @@ class Html:
                     out.append(f'<figure class="mmd"><pre class="mermaid">{_E(src)}</pre></figure>')
                 else:
                     cls = f' class="language-{lang}"' if lang else ""
-                    out.append(f"<pre tabindex=\"0\"><code{cls}>{_E(src)}</code></pre>")
+                    self._cb = getattr(self, "_cb", 0) + 1
+                    out.append(f'<div class="codebox"><button type="button" class="cp" data-copy="cb-{self._cb}" '
+                               f'aria-label="Copy this block">Copy</button>'
+                               f'<pre id="cb-{self._cb}" tabindex="0"><code{cls}>{_E(src)}</code></pre></div>')
                 continue
             d = DIRECTIVE.match(line.strip())
             if d:
@@ -455,7 +458,9 @@ class Html:
             h = re.match(r"^(#{1,6})\s+(.*?)\s*#*\s*$", line)
             if h:
                 lvl, text = len(h.group(1)), h.group(2)
-                out.append(f'<h{lvl} id="{self._id(text)}">{inline(text, self.link)}</h{lvl}>')
+                hid = self._id(text)
+                out.append(f'<h{lvl} id="{hid}">{inline(text, self.link)}'
+                           f'<a class="hl" href="#{hid}" aria-label="Link to this section">#</a></h{lvl}>')
                 i += 1
                 continue
             if re.match(r"^\s*(-{3,}|\*{3,})\s*$", line):
@@ -697,7 +702,8 @@ def _toc(md: str) -> str:
 
 
 def _ld_person() -> dict:
-    return {"@type": "Person", "name": AUTHOR, "url": AUTHOR_URL}
+    return {"@type": "Person", "name": AUTHOR, "url": AUTHOR_URL, "sameAs": [AUTHOR_URL],
+            "jobTitle": "Solution architect and trainer, agentic AI on AWS"}
 
 
 def _graph(nodes: list[dict]) -> str:
@@ -769,7 +775,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     ]
     return shell(title=les.title, desc=les.description, body=html_, depth=2, nav_id="learn",
                  canonical=les.url, head_extra=head + MERMAID_HEAD, own_ld=True,
-                 crumbs=[("Learn", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson")
+                 crumbs=[("Learn", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson", og=f"learn-{les.slug}")
 
 
 MERMAID_HEAD = f'<script type="module" src="../../theme/learn.js" data-mermaid="{MERMAID}"></script>'
@@ -804,7 +810,7 @@ def track_page(t: Track, tracks, lessons, shell) -> str:
     desc = f"{t.title}: {t.blurb}"[:160]
     return shell(title=f"{t.title} · Agentic PDLC tutorial", desc=desc, body=html_, depth=2, nav_id="learn",
                  canonical=t.url, head_extra=head, own_ld=True,
-                 crumbs=[("Learn", "../"), (t.title, "")], kind="track")
+                 crumbs=[("Learn", "../"), (t.title, "")], kind="track", og=f"learn-{t.id}")
 
 
 def start_page(meta, tracks, lessons, shell, visual) -> str:
@@ -859,7 +865,7 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
     ]
     return shell(title=smeta["title"], desc=smeta["description"], body=html_, depth=1, nav_id="learn",
                  canonical=f"{BASE_URL}learn/", head_extra=head, own_ld=True,
-                 crumbs=[("Learn", "")], tour=tour, kind="learn")
+                 crumbs=[("Learn", "")], tour=tour, kind="learn", og="learn")
 
 
 def site_markdown(les: Lesson, lessons, tracks) -> str:
@@ -975,9 +981,25 @@ def llms_txt(tracks: list[Track]) -> str:
         lines.append("")
         lines += [f"- [{l.title}]({l.url}): {l.description}" for l in t.lessons]
         lines.append("")
-    lines += ["## Optional", "",
-              f"- [The playbook home]({BASE_URL}): the method drawn as four boards, by role",
-              f"- [The simulator]({BASE_URL}simulator/): ninety days of one airline's agentic build, playable",
+    lines += ["## The manual, by role", "",
+              f"- [Product manager]({BASE_URL}product-manager/): eight steps from a vibe to a number you can defend "
+              f"(markdown: {WIKI}/Journey-Product-Manager)",
+              f"- [Solution architect]({BASE_URL}solution-architect/): from requirements to a system that holds "
+              f"(markdown: {WIKI}/Journey-Solution-Architect)",
+              f"- [Engineering lead]({BASE_URL}engineering/): from a story file to a shipped bolt "
+              f"(markdown: {WIKI}/Journey-Engineering-Lead)",
+              f"- [QA lead]({BASE_URL}qa/): from 'it works' to a number you can defend (markdown: {WIKI}/Journey-QA-Lead)",
+              f"- [DevOps and platform]({BASE_URL}devops/): from a laptop to production, repeatably "
+              f"(markdown: {WIKI}/Journey-DevOps)", "",
+              "## Reference", "",
+              f"- [The operating protocol]({BASE_URL}protocol/): for whoever funds the work; the four decisions only leadership can make",
+              f"- [Twelve mental models]({BASE_URL}models/): what each predicts, the mistake it prevents, and a test for whether it landed",
+              f"- [Frameworks, acronyms and the pictures]({BASE_URL}frameworks/): AI-DLC, AIDD, BMAD and SDD placed on one spine",
+              f"- [Templates]({BASE_URL}templates/) and [prompts]({BASE_URL}prompts/): every artefact skeleton and every prompt, copyable",
+              f"- [The wiki]({WIKI}): the method written down, with decision trees, formulas, scenarios and exercises", "",
+              "## Optional", "",
+              f"- [Home]({BASE_URL}): the method drawn as four boards, by role",
+              f"- [The SkyWays playbook]({BASE_URL}simulator/): ninety days of one airline's agentic build, playable",
               f"- [Source repository]({REPO}): curriculum, labs and this tutorial's source", ""]
     return "\n".join(lines)
 

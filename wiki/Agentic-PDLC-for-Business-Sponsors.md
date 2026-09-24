@@ -3,7 +3,7 @@
 
 *You are the only person on the programme with no delivery deadline — which is exactly why the governance loop, and the stop decision, are yours.*
 
-**6 min read** · Beginner · Lesson 8 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)
+**6 min read** · Beginner · Lesson 8 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)
 
 > [!TIP]
 > **The role in one sentence.** The business sponsor of an agentic programme owns whether it is funded

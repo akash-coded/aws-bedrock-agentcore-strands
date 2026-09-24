@@ -2,11 +2,11 @@
 title: The Agentic PDLC for QA: How to Test Probabilistic Software
 short: For QA
 wiki: Agentic-PDLC-for-QA-Testing-Probabilistic-Software
-description: How QA works in the agentic PDLC: the proof each kind of step owes, golden sets by slice, lower bounds instead of scores, injection suites, shadow runs and drift.
+description: How QA works in the agentic PDLC: the proof each step owes, golden sets by slice, lower bounds instead of scores, injection suites, shadow runs and drift.
 dek: "It works" stops being a yes or a no. Your job becomes the number that says how often it works, and whether that number is proof.
 level: Intermediate
 keywords: testing AI agents, QA for LLM applications, AI quality assurance, how to test probabilistic software, LLM evaluation, AI test automation, golden dataset testing, QA lead AI
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

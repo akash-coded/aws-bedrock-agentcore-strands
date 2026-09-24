@@ -3,7 +3,7 @@
 
 *Eight names in two years, several spelled almost the same. One question sorts them: is AI building the software, or is AI inside it?*
 
-**7 min read** · Beginner · Lesson 1 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)
+**7 min read** · Beginner · Lesson 1 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)
 
 > [!TIP]
 > **The short answer.** **AI-DLC** is AWS's 2025 methodology in which AI proposes and people decide

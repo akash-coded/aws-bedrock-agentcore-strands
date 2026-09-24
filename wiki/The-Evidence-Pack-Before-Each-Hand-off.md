@@ -3,7 +3,7 @@
 
 *Thirty documents, owed across four hand-offs — and the check that a document exists is the least important check you can run on it.*
 
-**7 min read** · Intermediate · Lesson 9 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/)
+**7 min read** · Intermediate · Lesson 9 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/)
 
 > [!TIP]
 > **The evidence pack in one sentence.** It is the minimum set of artefacts owed at each hand-off of

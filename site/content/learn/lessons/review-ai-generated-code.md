@@ -6,7 +6,7 @@ description: When agents write most of the code, review is the bottleneck. How t
 dek: The policy is the bottleneck, not the people. Two readers on a money tool, one on a reversible write, none on a read-only change — and a count of what escapes.
 level: Intermediate
 keywords: how to review AI generated code, code review AI agents, AI code review best practices, pull request review bottleneck, risk-based code review, CODEOWNERS, review queue
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

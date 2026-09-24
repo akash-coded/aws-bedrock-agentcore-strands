@@ -3,7 +3,7 @@
 
 *Lay every method on the same four phases and two things appear: they mostly agree, and they all leave the same decisions open.*
 
-**7 min read** · Intermediate · Lesson 6 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)
+**7 min read** · Intermediate · Lesson 6 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)
 
 > [!TIP]
 > **The map in one sentence.** Every building method fits onto the agentic PDLC's four phases — most

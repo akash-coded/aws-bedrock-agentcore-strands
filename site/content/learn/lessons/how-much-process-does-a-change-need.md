@@ -6,7 +6,7 @@ description: Size process by a change's risk, not its size: four questions choos
 dek: A one-line change to a refund cap is tiny and deep. A large refactor of a read-only report is big and shallow. Anything that sizes ceremony to the diff gets both backwards.
 level: Intermediate
 keywords: right-sizing process, process overhead AI development, change risk assessment, adaptive workflow AI-DLC, lightweight vs heavyweight process, when to use BMAD, risk-based development process
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

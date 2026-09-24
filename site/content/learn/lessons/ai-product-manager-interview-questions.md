@@ -6,7 +6,7 @@ description: Ten deep AI product manager interview questions on AI judgement, de
 dek: AI PM loops test one thing under many names: whether you can decide what software that is right only most of the time should be allowed to do.
 level: Advanced
 keywords: AI product manager interview questions, AI PM interview, Google AI product manager interview, product manager interview generative AI, AI PM interview questions and answers, product sense AI, AI product strategy interview, forward deployed product manager interview
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

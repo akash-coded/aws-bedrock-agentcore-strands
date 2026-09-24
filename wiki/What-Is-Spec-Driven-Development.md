@@ -3,7 +3,7 @@
 
 *The spec becomes the thing you maintain. Two tools, three levels of commitment — and the part no tool decides for you.*
 
-**6 min read** · Beginner · Lesson 5 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)
+**6 min read** · Beginner · Lesson 5 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)
 
 > [!TIP]
 > **Spec-driven development in one sentence.** Spec-driven development (SDD) means writing a

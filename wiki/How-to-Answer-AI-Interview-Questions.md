@@ -3,7 +3,7 @@
 
 *Most AI interview questions are one of six kinds. Each kind has a structure that turns what you know into an answer an interviewer can score.*
 
-**8 min read** · Intermediate · Lesson 2 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-answer-ai-interview-questions/)
+**8 min read** · Intermediate · Lesson 2 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-answer-ai-interview-questions/)
 
 > [!TIP]
 > **The method in one sentence.** Most AI interview questions are one of six kinds, and each has a

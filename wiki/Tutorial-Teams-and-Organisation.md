@@ -7,7 +7,7 @@ How to structure teams, measure productivity without fooling yourself, assess ma
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[How to Structure Teams for Agentic AI: Roles, Pods and Seams](How-to-Structure-Teams-for-Agentic-AI)** | No new roles, none disappears — but two boundaries move. How to organise product teams, a platform team and governance for agentic AI, and where to put the seams. | 6 min |
+| 1 | **[How to Structure Teams for Agentic AI: Roles, Pods and Seams](How-to-Structure-Teams-for-Agentic-AI)** | No new roles, none disappears, but two boundaries move. How to organise product teams, a platform team and governance for agentic AI, and where the seams go. | 6 min |
 | 2 | **[How to Measure AI Productivity Without Fooling Yourself](How-to-Measure-AI-Productivity)** | Measure AI productivity against a baseline taken before the pilot, and report the saving beside the spend, review hours and re-runs, with a worked example. | 7 min |
 | 3 | **[AI Maturity Model: Six Controls You Can Test in Ten Minutes](AI-Delivery-Maturity-Model)** | An AI maturity model that counts controls, not tools: six controls, each proven by a test you run in minutes, and how to pick the next one to build. | 6 min |
 | 4 | **[How to Roll Out Agentic AI Delivery: A 90-Day Plan](How-to-Roll-Out-Agentic-AI-Delivery)** | A 90-day plan for rolling out agentic AI delivery: pick for provability, write the artefacts, build in slices, shadow beside the humans, report two numbers. | 7 min |

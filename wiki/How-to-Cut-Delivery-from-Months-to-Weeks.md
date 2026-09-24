@@ -3,7 +3,7 @@
 
 *The claims say days instead of months. Some of it is true. The rest is where your programme will actually spend its time.*
 
-**6 min read** · Intermediate · Lesson 4 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/)
+**6 min read** · Intermediate · Lesson 4 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/)
 
 > [!TIP]
 > **The answer in one sentence.** AI shortens the time to *build* dramatically, but delivery also

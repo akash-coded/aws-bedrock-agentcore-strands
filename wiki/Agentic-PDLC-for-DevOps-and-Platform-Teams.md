@@ -3,7 +3,7 @@
 
 *Some of what this workload needs bills for existing, the model version is part of the environment, and the prompt is a deployable artefact.*
 
-**6 min read** · Intermediate · Lesson 7 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)
+**6 min read** · Intermediate · Lesson 7 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC DevOps and platform make the system repeatable,

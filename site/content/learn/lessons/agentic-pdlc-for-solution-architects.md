@@ -6,7 +6,7 @@ description: What a solution architect decides in agentic AI: which steps may be
 dek: You stop specifying model settings and start specifying behaviours — and exactly where each limit lives in code.
 level: Intermediate
 keywords: AI solution architect, agentic AI architecture, AI agent architecture design, multi-agent vs single agent, AI agent permissions design, architecture decision records AI, LLM system design
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -1,12 +1,12 @@
 ---
-title: Why Agentic AI Projects Fail: 7 Failure Modes and Their Fixes
+title: Why Agentic AI Projects Fail: 7 Failure Modes and Fixes
 short: Why agentic AI projects fail
 wiki: Why-Agentic-AI-Projects-Fail
 description: Gartner expects over 40% of agentic AI projects to be cancelled by 2027. The seven failure modes behind that, why normal checks miss them, and the fix for each.
 dek: None of these failures throws an error. That is why the tests stay green, the dashboard stays up, and the project is cancelled anyway.
 level: Beginner
 keywords: why AI agent projects fail, agentic AI failure, AI project failure rate, Gartner agentic AI 40 percent canceled, AI agent risks, LLM failure modes, AI project management
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -3,7 +3,7 @@
 
 *Reading about a shadow run is not the same as deciding whether to end one. The simulator puts you in the chair, with the consequences shown.*
 
-**7 min read** · Beginner · Lesson 3 of 4 in [Practice](Tutorial-Practice) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-simulator/)
+**7 min read** · Beginner · Lesson 3 of 4 in [Practice](Tutorial-Practice) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-delivery-simulator/)
 
 > [!TIP]
 > **The simulator in one sentence.** The SkyWays simulator is a free companion to this tutorial that

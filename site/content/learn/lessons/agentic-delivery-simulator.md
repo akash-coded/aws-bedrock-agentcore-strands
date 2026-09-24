@@ -2,11 +2,11 @@
 title: Agentic AI Simulator: Practise 90 Days of Delivery Decisions
 short: The simulator
 wiki: Agentic-AI-Delivery-Simulator
-description: A free, browser-only agentic AI simulator: 13 dated episodes, 9 decision simulations, 17 prefilled tools and an evidence pack that downloads as one markdown file.
+description: A free, browser-only agentic AI simulator: 13 dated episodes, 9 decision simulations, 17 prefilled tools and an evidence pack that downloads as one file.
 dek: Reading about a shadow run is not the same as deciding whether to end one. The simulator puts you in the chair, with the consequences shown.
 level: Beginner
 keywords: agentic AI simulator, AI project simulation, AI delivery training, AI product management simulation, AI decision game, LLM project workshop, AI training exercise, interactive AI playbook
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

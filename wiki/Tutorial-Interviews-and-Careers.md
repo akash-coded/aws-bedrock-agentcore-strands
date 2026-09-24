@@ -13,7 +13,7 @@ What a forward deployed engineer does, six frameworks for answering AI interview
 | 4 | **[Forward Deployed Engineer Interview Questions and Answers](Forward-Deployed-Engineer-Interview-Questions)** | Ten forward deployed engineer (FDE) interview questions — discovery, demos, evaluation, debugging, design, handover and pushback — with strong answers. | 11 min |
 | 5 | **[GenAI Engineer Interview Questions: RAG, Evals and Cost](GenAI-Engineer-Interview-Questions)** | Ten deep GenAI engineer interview questions on RAG failures, evaluation, fine-tuning, latency, cost, prompt injection, structured output and memory. | 11 min |
 | 6 | **[Agentic AI Engineer Interview Questions and Answers](Agentic-AI-Engineer-Interview-Questions)** | Ten agentic AI engineer interview questions: the agent loop, enforced limits, tool design, MCP security, multi-agent systems, evaluation and runaways. | 10 min |
-| 7 | **[AWS Generative AI Interview Questions: Bedrock, AgentCore](AWS-Generative-AI-Interview-Questions)** | Ten AWS generative AI interview questions on Bedrock, AgentCore, Strands, Knowledge Bases, Guardrails, IAM, cost and resilience, with architecture-level answers. | 12 min |
+| 7 | **[AWS Generative AI Interview Questions: Bedrock, AgentCore](AWS-Generative-AI-Interview-Questions)** | Ten AWS generative AI interview questions on Bedrock, AgentCore, Strands, Knowledge Bases, Guardrails, IAM, cost and resilience, with architecture answers. | 12 min |
 
 **[All lessons](Start-Here)**
 

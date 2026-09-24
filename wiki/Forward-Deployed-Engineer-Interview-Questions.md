@@ -3,7 +3,7 @@
 
 *FDE loops test whether you can ship a model into someone else's systems, prove it with their evidence, and leave something that keeps working.*
 
-**11 min read** · Advanced · Lesson 4 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/)
+**11 min read** · Advanced · Lesson 4 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/)
 
 > [!TIP]
 > **The bank in one sentence.** Forward deployed engineer interviews test three things at once — whether

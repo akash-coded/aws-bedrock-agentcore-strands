@@ -3,7 +3,7 @@
 
 *A one-line change to a refund cap is tiny and deep. A large refactor of a read-only report is big and shallow. Anything that sizes ceremony to the diff gets both backwards.*
 
-**6 min read** · Intermediate · Lesson 7 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)
+**6 min read** · Intermediate · Lesson 7 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)
 
 > [!TIP]
 > **The rule in one sentence.** Decide how much process a change deserves from four questions about

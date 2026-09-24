@@ -3,7 +3,7 @@
 
 *AWS interviews for AI roles reward the architect who knows where the service stops and their own design has to start.*
 
-**12 min read** · Advanced · Lesson 7 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/)
+**12 min read** · Advanced · Lesson 7 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/)
 
 > [!TIP]
 > **The bank in one sentence.** AWS generative AI interviews test whether you can assemble Amazon Bedrock,

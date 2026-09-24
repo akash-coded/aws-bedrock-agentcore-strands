@@ -6,7 +6,7 @@ description: What DevOps and platform teams own in agentic AI: the landing zone,
 dek: Some of what this workload needs bills for existing, the model version is part of the environment, and the prompt is a deployable artefact.
 level: Intermediate
 keywords: LLMOps, DevOps for AI agents, AI platform engineering, model gateway, deploying LLM applications, AI observability, feature flags AI, AI rollback, MLOps vs LLMOps
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

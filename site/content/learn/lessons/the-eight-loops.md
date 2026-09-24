@@ -2,11 +2,11 @@
 title: The 8 Feedback Loops of AI Delivery and the 3 Teams Forget
 short: The eight loops
 wiki: The-8-Feedback-Loops-of-Agentic-Delivery
-description: Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three — cost, incident and governance — close only if a named person makes them.
+description: Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three (cost, incident, governance) close only if a named person makes them.
 dek: A phase ends; a loop comes back. The loops with nobody waiting at the far end are the ones that decide whether a project becomes a practice.
 level: Intermediate
 keywords: feedback loops software delivery, AI project feedback loop, continuous improvement AI, AI incident postmortem, AI cost control loop, AI governance, agentic PDLC loops
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

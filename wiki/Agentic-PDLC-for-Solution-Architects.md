@@ -3,7 +3,7 @@
 
 *You stop specifying model settings and start specifying behaviours — and exactly where each limit lives in code.*
 
-**6 min read** · Intermediate · Lesson 3 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)
+**6 min read** · Intermediate · Lesson 3 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC the solution architect decides the shape of the

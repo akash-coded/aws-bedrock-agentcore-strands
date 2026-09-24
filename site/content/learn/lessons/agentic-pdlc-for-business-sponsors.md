@@ -6,7 +6,7 @@ description: What a business sponsor owns in an agentic AI programme: funding pa
 dek: You are the only person on the programme with no delivery deadline — which is exactly why the governance loop, and the stop decision, are yours.
 level: Beginner
 keywords: AI project sponsor, executive sponsor AI, AI business case, how to fund AI projects, AI ROI reporting, AI steering committee, AI programme governance, business owner AI agent
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

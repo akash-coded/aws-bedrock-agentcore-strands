@@ -3,7 +3,7 @@
 
 *"It works" stops being a yes or a no. Your job becomes the number that says how often it works, and whether that number is proof.*
 
-**6 min read** · Intermediate · Lesson 6 of 9 in [By role](Tutorial-By-Role) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)
+**6 min read** · Intermediate · Lesson 6 of 9 in [By role](Tutorial-By-Role) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)
 
 > [!TIP]
 > **The role in one sentence.** In the agentic PDLC the QA lead decides what proof each kind of step

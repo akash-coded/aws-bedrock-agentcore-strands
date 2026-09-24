@@ -479,4 +479,4 @@ confidence</a>.</p></div>
                       "others that keep paying.",
                  body=body, depth=1, nav_id="models",
                  canonical=urls["base"] + "models/",
-                 crumbs=[("For leadership", "../protocol/"), ("Mental models", "")], tour=tour, kind="models")
+                 crumbs=[("For leadership", "../protocol/"), ("Mental models", "")], tour=tour, kind="models", og="models")

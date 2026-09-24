@@ -6,7 +6,7 @@ description: How a program or delivery manager runs agentic AI delivery: the boa
 dek: You do not own a phase. You own the system the phases run in — and the waits between them, which is where agentic programmes lose their weeks.
 level: Beginner
 keywords: AI program manager, technical program manager AI, delivery manager AI projects, how to manage AI agent projects, AI project reporting, agile delivery manager AI, AI project risk management
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

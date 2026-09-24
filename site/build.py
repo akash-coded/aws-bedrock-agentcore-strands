@@ -88,7 +88,11 @@ BODY = """
 <script src="../frame/frame.js"></script>
 """
 
-ROBOTS = f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}sitemap.xml\n"
+ROBOTS = ("User-agent: *\nAllow: /\n\n"
+          "# AI assistants are welcome to read and cite this site; llms.txt is the index for them.\n"
+          + "".join(f"User-agent: {b}\nAllow: /\n" for b in
+                    ("GPTBot", "ChatGPT-User", "ClaudeBot", "anthropic-ai", "PerplexityBot", "Google-Extended", "Bingbot"))
+          + f"\nSitemap: {BASE_URL}sitemap.xml\n")
 
 
 def sitemap(today: str) -> str:
@@ -132,9 +136,11 @@ def build(out: Path, shots: bool = False) -> None:
     (out / ".nojekyll").write_text("", encoding="utf-8")
 
     if shots:
-        # A local-only sheet of every embeddable visual, for site/tools/shoot.mjs. Never deployed.
-        from pages import learn
+        # Local-only sheets: every embeddable visual for site/tools/shoot.mjs, and every page's social
+        # card for site/tools/ogshots.mjs. Neither is deployed.
+        from pages import learn, ogcards
         print("  shots:", learn.shots_page(out, render.shell))
+        print("  og cards:", ogcards.sheet(out, ogcards.all_cards(render.load_roles())))
 
     # The tool must survive the build untouched, in both copies.
     if (out / "app" / SRC.name).read_text(encoding="utf-8") != original:

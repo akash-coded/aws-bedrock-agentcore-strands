@@ -3,7 +3,7 @@
 
 *Five layers of defence were claimed. None was enforced. The hour that followed produced a typed cap, a confirmation token, a lower autonomy level and six new test cases.*
 
-**6 min read** · Intermediate · Lesson 13 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)
+**6 min read** · Intermediate · Lesson 13 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-incident-postmortem/)
 
 > [!TIP]
 > **The method in one sentence.** A postmortem for an AI incident starts from one question — **which

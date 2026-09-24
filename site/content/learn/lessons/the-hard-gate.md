@@ -1,12 +1,12 @@
 ---
-title: The Hard Gate: The One Hand-off You Can't Skip in AI Delivery
+title: The Hard Gate: The Hand-off You Can't Skip in AI Delivery
 short: The one hard gate
 wiki: The-Hard-Gate-in-Agentic-Delivery
 description: Only one hand-off in the agentic PDLC halts the build. Which decisions are hard, which run behind a placeholder, and the four questions that tell them apart.
 dek: Most decisions in an agentic build should not stop anything. Three must. Knowing which is how you keep speed without buying an incident.
 level: Intermediate
 keywords: stage gate AI project, AI governance gate, hard gate soft gate, go no-go decision AI, one-way door two-way door, AI project decision making, agentic PDLC gate
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

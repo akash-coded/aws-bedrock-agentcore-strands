@@ -3,7 +3,7 @@
 
 *A phase ends; a loop comes back. The loops with nobody waiting at the far end are the ones that decide whether a project becomes a practice.*
 
-**7 min read** · Intermediate · Lesson 8 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)
+**7 min read** · Intermediate · Lesson 8 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)
 
 > [!TIP]
 > **The eight loops in one sentence.** Each loop opens in one phase of the agentic PDLC and closes in

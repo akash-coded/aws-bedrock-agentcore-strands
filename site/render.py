@@ -18,6 +18,7 @@ from __future__ import annotations
 import html
 import json
 import re
+from datetime import date
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -30,6 +31,8 @@ GOOGLE_SITE_VERIFICATION = "Vs7qR2LsTIfuxi6iYvweDaC4f5nEVaRWcgzGEv2C0-0"
 REPO = "https://github.com/akash-coded/aws-bedrock-agentcore-strands"
 WIKI = REPO + "/wiki"
 AUTHOR = "Akash Das"
+PERSON = {"@type": "Person", "name": AUTHOR, "url": "https://github.com/akash-coded",
+          "sameAs": ["https://github.com/akash-coded"], "jobTitle": "Solution architect and trainer, agentic AI on AWS"}
 
 # Roles in journey order. Those without a JSON file render as "in progress" on the home page.
 ROLE_ORDER = [
@@ -88,8 +91,17 @@ def accent_var(accent: str) -> str:
 HOUSE = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11.5 12 4l9 7.5"/>'
          '<path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>')
 BURGER = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>')
+ROLE_LESSON = {"product-manager": "agentic-pdlc-for-product-managers", "solution-architect": "agentic-pdlc-for-solution-architects",
+               "engineering": "agentic-pdlc-for-engineers", "qa": "agentic-pdlc-for-qa", "devops": "agentic-pdlc-for-devops"}
 NAV_LABEL = {"product-manager": "Product", "solution-architect": "Architect",
              "engineering": "Engineering", "qa": "QA", "devops": "DevOps"}
+
+
+def og_image(name: str) -> str:
+    """The page's own social card if it has been rendered (assets/og/<name>.jpg), else the site's."""
+    if name and (SITE / "assets" / "og" / f"{name}.jpg").exists():
+        return f"{BASE_URL}assets/og/{name}.jpg"
+    return f"{BASE_URL}assets/og.png"
 
 
 def _menu(up: str, nav_id: str) -> str:
@@ -122,6 +134,8 @@ def _menu(up: str, nav_id: str) -> str:
     return (f'<details class="menu" data-menu><summary aria-label="All pages" title="All pages">{BURGER}'
             f'<span>Menu</span></summary><div class="mp"><div class="mph"><b>Everything, by category</b>'
             f'<button type="button" class="mx" data-menu-close aria-label="Close menu">×</button></div>'
+            f'<div class="ms"><input type="search" data-search data-index="{up}search.json" placeholder="Search lessons, steps, pages…" '
+            f'aria-label="Search the manual" autocomplete="off"><ol class="mr" data-search-results hidden></ol></div>'
             f'{"".join(out)}<p class="mpf">Lost? Every page has a <b>Show me around</b> button near the top.</p>'
             f"</div></details>")
 
@@ -129,12 +143,13 @@ def _menu(up: str, nav_id: str) -> str:
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
           nav_id: str = "", canonical: str = "", head_extra: str = "", own_ld: bool = False,
           crumbs: list[tuple[str, str]] | None = None, tour: list[dict] | None = None,
-          kind: str = "") -> str:
+          kind: str = "", og: str = "") -> str:
     """The frame every page shares. ``crumbs`` are (label, href) after Home, href relative to the
     page; ``tour`` is the page's walkthrough for guide.js; ``kind`` names the page type so the
     tour is offered once per type, not once per page."""
     up = "../" * depth
     accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
+    og_img = og_image(og)
     nav = [f'<a class="home" href="{up}" aria-label="Home"{" aria-current=page" if nav_id == "home" else ""}>{HOUSE}</a>',
            f'<a href="{up}learn/"{' aria-current="page"' if nav_id == "learn" else ""}>Learn</a>']
     for rid, name, short, _c, _t in ROLE_ORDER:
@@ -169,8 +184,8 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     ld = {
         "@context": "https://schema.org", "@type": "TechArticle", "headline": title,
         "description": desc, "url": canonical or BASE_URL,
-        "author": {"@type": "Person", "name": AUTHOR, "url": "https://github.com/akash-coded"},
-        "publisher": {"@type": "Person", "name": AUTHOR},
+        "author": PERSON,
+        "publisher": PERSON,
         "isPartOf": {"@type": "WebSite", "name": "The agentic manual", "url": BASE_URL},
         "license": REPO + "/blob/main/LICENSE", "inLanguage": "en",
     }
@@ -196,8 +211,11 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <meta property="og:title" content="{_E(title, quote=True)}">
 <meta property="og:description" content="{_E(desc, quote=True)}">
 <meta property="og:url" content="{_E(canonical or BASE_URL, quote=True)}">
-<meta property="og:image" content="{BASE_URL}assets/og.png">
+<meta property="og:image" content="{og_img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{og_img}">
 {"" if own_ld else f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -379,7 +397,8 @@ def role_page(role: dict) -> str:
         f"to <em>{_E(role['steps'][-1]['phase'])}</em>, and leave each with the artefact the next person needs.",
         ["Read <b>Yours to own</b> and <b>Not yours</b> first: they are the two boundaries that moved.",
          "Open a step: what you do, where a model helps and where it must not, the artefact, the template, the prompts.",
-         "Copy the template, paste the prompts into your model, and check the <b>Done when</b> line before you move on."])
+         "Copy the template, paste the prompts into your model, and check the <b>Done when</b> line before you move on."],
+        extra=f'<a class="btn" href="../learn/{ROLE_LESSON[role["id"]]}/">The lesson for this role →</a>')
     tour = k.tour([
         {"sel": ".arc", "title": "The journey", "body": f"{len(role['steps'])} steps in the order they happen. Click one to jump to it; the left rail keeps your place as you scroll."},
         {"sel": ".two", "title": "Two boundaries moved", "body": "What is yours to own, and what to stop signing. In agentic delivery these are the two lists that change; everything else is your job as it was."},
@@ -430,7 +449,7 @@ def role_page(role: dict) -> str:
             f"{len(role['steps'])} templates and {n_p} copy-paste prompts for building with AI.")
     return shell(title=f"{role['name']} · The agentic manual", desc=desc, body=body, depth=1,
                  accent=role["accent"], nav_id=role["id"], canonical=f"{BASE_URL}{role['id']}/",
-                 crumbs=[("Roles", ""), (role["name"], "")], tour=tour, kind="role")
+                 crumbs=[("Roles", ""), (role["name"], "")], tour=tour, kind="role", og=role["id"])
 
 
 def library_page(roles: list[dict], kind: str) -> str:
@@ -523,7 +542,7 @@ def library_page(roles: list[dict], kind: str) -> str:
                        + ("the documents each step of the agentic PDLC produces." if is_t else
                           "each states the job, the rules and the output shape.")),
                  body=body, depth=1, nav_id=kind, canonical=f"{BASE_URL}{kind}/",
-                 crumbs=[("Libraries", ""), (label, "")], tour=tour, kind=kind)
+                 crumbs=[("Libraries", ""), (label, "")], tour=tour, kind=kind, og=kind)
 
 
 def home_page(roles: list[dict]) -> str:
@@ -692,11 +711,17 @@ def home_page(roles: list[dict]) -> str:
   </div>
 </main></div>"""
     desc = (f"Every agentic delivery method in one manual: AI-DLC, AIDD, BMAD, spec-driven development and "
-            f"the four-phase agentic PDLC, by role. {n_lessons} lessons, {total_steps} templates, "
-            f"{total_prompts} prompts, a playable case. Built by {AUTHOR}.")
+            f"the agentic PDLC, by role. {n_lessons} lessons, {total_steps} templates, {total_prompts} prompts.")
+    site_ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "WebSite", "@id": BASE_URL + "#site", "name": "The agentic manual", "url": BASE_URL,
+         "description": desc, "inLanguage": "en", "author": PERSON, "publisher": PERSON,
+         "license": REPO + "/blob/main/LICENSE"},
+        {"@type": "WebPage", "@id": BASE_URL, "url": BASE_URL, "name": "The agentic manual", "isPartOf": {"@id": BASE_URL + "#site"},
+         "description": desc, "dateModified": date.today().isoformat()}]}
     return shell(title="The agentic manual · every agentic PDLC, by role, end to end", desc=desc, body=body,
-                 depth=0, nav_id="home", canonical=BASE_URL,
-                 head_extra=LEGACY_HASH_REDIRECT, tour=tour, kind="home")
+                 depth=0, nav_id="home", canonical=BASE_URL, own_ld=True,
+                 head_extra=LEGACY_HASH_REDIRECT + f'<script type="application/ld+json">{json.dumps(site_ld, ensure_ascii=False)}</script>',
+                 tour=tour, kind="home", og="home")
 
 
 # --------------------------------------------------------------------------- diagrams
@@ -799,12 +824,11 @@ def frameworks_page() -> str:
         'rel="noopener">The full sources page &rarr;</a></p></div>'
         "</main></div>")
     return shell(title="Frameworks and acronyms · The agentic manual",
-                 desc="The four named methods and where each sits, every acronym, and the pictures: "
-                      "traditional against agentic, four methods on one spine, the R1-R5 risk ladder and "
-                      "chained probability.",
+                 desc="The four named methods and where each sits, every acronym, and four pictures: "
+                      "traditional vs agentic, four methods on one spine, the risk ladder, chained probability.",
                  body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/",
                  crumbs=[("Reference", ""), ("Frameworks, acronyms and the pictures", "")], tour=tour,
-                 kind="frameworks")
+                 kind="frameworks", og="frameworks")
 
 
 def load_roles() -> list[dict]:
@@ -814,6 +838,43 @@ def load_roles() -> list[dict]:
         if p.exists():
             out.append(json.loads(p.read_text(encoding="utf-8")))
     return out
+
+
+def search_index(roles: list[dict]) -> str:
+    """What the drawer's search box looks through: title, one line, URL and kind, per thing."""
+    import re as _re
+    from pages import learn, models
+    _m, tracks, lessons = learn.load()
+    rows = []
+    for t in tracks:
+        rows.append({"t": t.title, "d": t.blurb, "u": f"learn/{t.id}/", "k": "Track"})
+        for l in t.lessons:
+            rows.append({"t": l.title, "d": l.description, "u": f"learn/{l.slug}/", "k": f"Lesson · {t.short}"})
+    for r in roles:
+        rows.append({"t": r["name"], "d": r["tagline"], "u": f"{r['id']}/", "k": "Role"})
+        for st in r["steps"]:
+            rows.append({"t": f"{st['n']} · {st['phase']}: {_re.sub(r'[*`]', '', st['title'])}",
+                         "d": _re.sub(r'[*`]', '', st["purpose"])[:160], "u": f"{r['id']}/#{st['id']}", "k": f"{r['short']} step"})
+    for m in models.MODELS:
+        rows.append({"t": m["name"], "d": _re.sub(r"<[^>]+>", "", m["one"]), "u": f"models/#{m['id']}", "k": "Mental model"})
+    rows += [
+        {"t": "The operating protocol", "d": "For whoever funds the work: what changes, who does what, the four decisions only leadership can make.", "u": "protocol/", "k": "Leadership"},
+        {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one spine; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
+        {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
+        {"t": "Prompts to paste", "d": "Every prompt in the manual, copyable, by role.", "u": "prompts/", "k": "Library"},
+        {"t": "The SkyWays playbook", "d": "The whole method as an interactive simulator: thirteen episodes, nine simulations, seventeen calculators.", "u": "simulator/", "k": "Play"},
+    ]
+    for w in sorted((SITE.parent / "wiki").glob("*.md")):
+        if w.name.startswith("_") or w.name in ("README.md", "Scoreboard.md"):
+            continue
+        text = w.read_text(encoding="utf-8")
+        if "generated by site/learn_export.py" in text[:400] or w.name.startswith("Journey-"):
+            continue
+        h = _re.search(r"^# (.+)$", text, _re.M)
+        first = _re.search(r"^(?!#|<|\||>|-|!|\s*$)(.{40,220}?)(?:\.\s|$)", text, _re.M)
+        snippet = _re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", first.group(1)).replace("*", "").replace("`", "").strip() + "." if first else ""
+        rows.append({"t": h.group(1).strip() if h else w.stem.replace("-", " "), "d": snippet, "u": f"{WIKI}/{w.stem}", "k": "Wiki"})
+    return json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
 
 
 def render(out_dir: Path) -> list[str]:
@@ -828,6 +889,7 @@ def render(out_dir: Path) -> list[str]:
         p.write_text(text, encoding="utf-8")
         written.append(rel)
 
+    put("search.json", search_index(roles))
     put("index.html", home_page(roles))
     for r in roles:
         put(f"{r['id']}/index.html", role_page(r))

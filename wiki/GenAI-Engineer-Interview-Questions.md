@@ -3,7 +3,7 @@
 
 *GenAI engineering interviews reward the candidate who measures before fixing. Every question below has a wrong answer that sounds right.*
 
-**11 min read** · Advanced · Lesson 5 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/genai-engineer-interview-questions/)
+**11 min read** · Advanced · Lesson 5 of 7 in [Interviews and careers](Tutorial-Interviews-and-Careers) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/genai-engineer-interview-questions/)
 
 > [!TIP]
 > **The bank in one sentence.** GenAI engineer interviews test whether you can make a model-backed system

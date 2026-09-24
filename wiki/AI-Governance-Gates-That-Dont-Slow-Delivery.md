@@ -3,7 +3,7 @@
 
 *A gate is a decision with evidence in front of a named person — not a click, a status column, or a meeting that ends in "fine".*
 
-**6 min read** · Intermediate · Lesson 11 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)
+**6 min read** · Intermediate · Lesson 11 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)
 
 > [!TIP]
 > **The gates in one sentence.** An AI agent passes five gates on its way to wide use — **intent**

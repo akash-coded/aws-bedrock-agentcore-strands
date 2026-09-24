@@ -6,7 +6,7 @@ description: Ten agentic AI engineer interview questions: the agent loop, enforc
 dek: Agent interviews are permission interviews. The candidate who puts the limit in the tool, not the prompt, is the one who has run an agent in production.
 level: Advanced
 keywords: agentic AI engineer interview questions, AI agent engineer interview, agent developer interview, LLM agents interview questions, multi-agent system design interview, MCP interview questions, tool calling interview, agentic AI interview
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

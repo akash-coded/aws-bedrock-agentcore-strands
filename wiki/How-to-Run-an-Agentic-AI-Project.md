@@ -3,7 +3,7 @@
 
 *The whole lifecycle on one page, in the order you will do it. Each step links to the lesson that goes deeper.*
 
-**7 min read** · Beginner · Lesson 1 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-run-an-agentic-ai-project/)
+**7 min read** · Beginner · Lesson 1 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-to-run-an-agentic-ai-project/)
 
 > [!TIP]
 > **The playbook in one sentence.** Run an agentic AI project in twelve steps across four phases:

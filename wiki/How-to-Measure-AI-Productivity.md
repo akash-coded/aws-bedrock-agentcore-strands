@@ -3,7 +3,7 @@
 
 *AI inflates every activity metric you already have. The only honest measure is a change against a baseline, reported beside what it cost.*
 
-**7 min read** · Beginner · Lesson 2 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/)
+**7 min read** · Beginner · Lesson 2 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/measure-ai-productivity/)
 
 > [!TIP]
 > **The method in one sentence.** Measure AI productivity as a change against a baseline taken before

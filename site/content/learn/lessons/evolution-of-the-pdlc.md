@@ -1,12 +1,12 @@
 ---
-title: The Evolution of the PDLC: From Waterfall to Agentic Delivery
+title: Evolution of the PDLC: From Waterfall to Agentic Delivery
 short: The evolution of the PDLC
 wiki: The-Evolution-of-the-PDLC
 description: How the product lifecycle evolved from waterfall to agile, DevOps and agentic delivery — and what genuinely changes when a model does part of the work.
 dek: Each lifecycle fixed the bottleneck of its day and kept most of what came before. Agentic delivery moves the bottleneck again.
 level: Beginner
 keywords: evolution of PDLC, history of SDLC, waterfall to agile to DevOps, agentic SDLC, AI-native software development lifecycle, SDLC vs PDLC, agentic era software delivery
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

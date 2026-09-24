@@ -6,7 +6,7 @@ description: P2 Build & Prove builds an AI agent in bolts of hours or days, gate
 dek: Build the exact parts first, measure the guessing parts by slice, and let a harness — not a meeting — decide what merges.
 level: Intermediate
 keywords: how to build an AI agent, AI agent testing, LLM evaluation in CI, golden set, eval harness, shadow mode AI, bolts instead of sprints, P2 build and prove
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

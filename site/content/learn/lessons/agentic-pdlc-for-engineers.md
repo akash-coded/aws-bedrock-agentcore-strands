@@ -1,12 +1,12 @@
 ---
-title: The Agentic PDLC for Software Engineers: Building With Agents
+title: The Agentic PDLC for Software Engineers: Build With Agents
 short: For engineers
 wiki: Agentic-PDLC-for-Software-Engineers
 description: How software engineers work in the agentic PDLC: a context file, story files, exact code first, gated tools, a harness that decides merges, and a bolt a day.
 dek: The model does the typing and the sweep. You own the floor it stands on, the boundary it cannot cross, and the check that decides what merges.
 level: Beginner
 keywords: software engineer AI agents, how to work with AI coding agents, AI pair programming workflow, Claude Code workflow, building LLM applications, AI engineering best practices, engineering lead AI
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

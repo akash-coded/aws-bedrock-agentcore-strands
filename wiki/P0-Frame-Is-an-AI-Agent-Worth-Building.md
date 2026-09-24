@@ -3,7 +3,7 @@
 
 *Four decisions made on paper, before anything is built — each cheaper now than it will ever be again.*
 
-**8 min read** · Beginner · Lesson 3 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)
+**8 min read** · Beginner · Lesson 3 of 9 in [Agentic PDLC fundamentals](Tutorial-Fundamentals) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)
 
 > [!TIP]
 > **P0 Frame in one sentence.** It is the phase that decides, before anything is designed, whether a

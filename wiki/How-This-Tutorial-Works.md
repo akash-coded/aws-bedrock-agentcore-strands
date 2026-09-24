@@ -3,7 +3,7 @@
 
 *Seven slots, in the same order, in every lesson — and the learning research that put each one there.*
 
-**7 min read** · Beginner · Lesson 2 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)
+**7 min read** · Beginner · Lesson 2 of 2 in [Getting started](Tutorial-Getting-Started) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)
 
 > [!TIP]
 > **The short version.** Each lesson is a five-to-ten-minute read that opens with the answer, shows

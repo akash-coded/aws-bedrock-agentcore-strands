@@ -6,7 +6,7 @@ description: AI drift is behaviour changing with no deploy and no error. Why acc
 dek: No code changed, nothing threw, no alert fired — and three months later a customer noticed the assistant offers credits where it used to offer refunds.
 level: Intermediate
 keywords: AI model drift, LLM drift detection, AI monitoring in production, model performance degradation, output distribution monitoring, concept drift, AI observability, silent model failure
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -6,7 +6,7 @@ description: Six frameworks for AI interview questions — design, "is it good e
 dek: Most AI interview questions are one of six kinds. Each kind has a structure that turns what you know into an answer an interviewer can score.
 level: Intermediate
 keywords: how to answer AI interview questions, AI interview frameworks, AI product manager interview framework, LLM system design interview, GenAI interview preparation, machine learning interview answers, STAR method AI, AI PM interview
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

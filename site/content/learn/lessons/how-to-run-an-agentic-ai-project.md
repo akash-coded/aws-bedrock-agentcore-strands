@@ -2,11 +2,11 @@
 title: How to Run an Agentic AI Project: A Step-by-Step Playbook
 short: How to run an agentic AI project
 wiki: How-to-Run-an-Agentic-AI-Project
-description: Twelve steps, from a vague request to an AI agent in production that someone can defend — who owns each step, what it produces, and the one thing never delegated.
+description: Twelve steps from a vague request to an AI agent in production that someone can defend: who owns each step, what it produces, and what is never delegated.
 dek: The whole lifecycle on one page, in the order you will do it. Each step links to the lesson that goes deeper.
 level: Beginner
 keywords: how to run an AI project, AI agent project plan, agentic AI project management, AI project steps, AI implementation roadmap, how to deliver an AI agent, AI project checklist
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

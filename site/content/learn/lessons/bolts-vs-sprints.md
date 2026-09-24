@@ -6,7 +6,7 @@ description: When AI builds a story in hours, a two-week sprint leaves it idle. 
 dek: The unit of planning shrinks to match the speed of building. The hard part is not the cadence — it is the cut.
 level: Intermediate
 keywords: bolts vs sprints, agile with AI agents, sprint planning with AI, AI-DLC bolts, how to plan AI development, story slicing, walking skeleton, daily integration
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

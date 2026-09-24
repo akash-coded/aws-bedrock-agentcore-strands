@@ -3,7 +3,7 @@
 
 *A pipeline of personas that leaves a paper trail — excellent for audited, multi-team work, and six documents too many for a one-line fix.*
 
-**6 min read** · Beginner · Lesson 4 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)
+**6 min read** · Beginner · Lesson 4 of 7 in [Methods decoded](Tutorial-Methods-Decoded) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)
 
 > [!TIP]
 > **The BMAD Method in one sentence.** BMAD — the *Breakthrough Method for Agile AI-Driven

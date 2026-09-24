@@ -3,7 +3,7 @@
 
 *The sequence that works is deliberately unglamorous in the middle — and each phase has one trap that reliably catches capable teams.*
 
-**7 min read** · Intermediate · Lesson 4 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/rolling-out-agentic-delivery/)
+**7 min read** · Intermediate · Lesson 4 of 4 in [Teams and organisation](Tutorial-Teams-and-Organisation) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/rolling-out-agentic-delivery/)
 
 > [!TIP]
 > **The plan in one sentence.** Roll out agentic delivery one feature at a time over ninety days: pick

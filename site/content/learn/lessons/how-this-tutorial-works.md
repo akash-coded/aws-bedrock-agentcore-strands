@@ -6,7 +6,7 @@ description: Every lesson opens with the answer, shows it as a picture, lets you
 dek: Seven slots, in the same order, in every lesson — and the learning research that put each one there.
 level: Beginner
 keywords: agentic PDLC tutorial, agentic AI course, learn AI project delivery, how to learn AI-DLC, AI product management course
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

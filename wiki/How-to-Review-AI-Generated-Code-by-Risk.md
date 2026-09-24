@@ -3,7 +3,7 @@
 
 *The policy is the bottleneck, not the people. Two readers on a money tool, one on a reversible write, none on a read-only change — and a count of what escapes.*
 
-**6 min read** · Intermediate · Lesson 5 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 23 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)
+**6 min read** · Intermediate · Lesson 5 of 13 in [Running delivery](Tutorial-Running-Delivery) · Updated 24 Sep 2026 · [Read it on the site, with live diagrams ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)
 
 > [!TIP]
 > **The rule in one sentence.** Review AI-generated code by the **risk band of the most dangerous

@@ -6,7 +6,7 @@ description: An AI maturity model that counts controls, not tools: six controls,
 dek: Tool adoption is the metric that rewards the least mature behaviour available. Count what is enforced instead.
 level: Intermediate
 keywords: AI maturity model, AI maturity assessment, AI delivery maturity, how to measure AI maturity, AI governance maturity, AI readiness assessment, generative AI maturity model, AI capability maturity
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

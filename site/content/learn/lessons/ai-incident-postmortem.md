@@ -6,7 +6,7 @@ description: An AI incident postmortem asks which enforced control would have ma
 dek: Five layers of defence were claimed. None was enforced. The hour that followed produced a typed cap, a confirmation token, a lower autonomy level and six new test cases.
 level: Intermediate
 keywords: AI incident postmortem, blameless postmortem AI, AI incident response, root cause analysis AI agent, LLM incident, AI failure analysis, corrective action AI
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]

@@ -2,11 +2,11 @@
 title: How to Structure Teams for Agentic AI: Roles, Pods and Seams
 short: Team structure for agentic AI
 wiki: How-to-Structure-Teams-for-Agentic-AI
-description: No new roles, none disappears — but two boundaries move. How to organise product teams, a platform team and governance for agentic AI, and where to put the seams.
+description: No new roles, none disappears, but two boundaries move. How to organise product teams, a platform team and governance for agentic AI, and where the seams go.
 dek: Your org chart is already a system design. In agentic AI it decides where the agent boundaries fall — whether you meant it to or not.
 level: Intermediate
 keywords: AI team structure, organising teams for AI, AI operating model, AI centre of excellence, platform team AI, team topologies AI, AI org design, roles in AI projects
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 > [!TIP]
