@@ -24,16 +24,11 @@ the evidence under it. It is asked before the word *agent* enters any document, 
 tree assumes this one came back agentic. The questions are ordered by cost: each is cheaper to answer
 than the next, and each "no" ends the exercise before you have spent anything.
 
-```mermaid
-flowchart TD
-  A["A request"] --> Q1{"Genuine judgement call?"}
-  Q1 -->|no| R1["<b>A rule.</b> Code does it."]
-  Q1 -->|yes| Q2{"Volume high enough to be worth<br/>a probabilistic system?"}
-  Q2 -->|no| R2["<b>A person is cheaper.</b>"]
-  Q2 -->|yes| Q3{"Is a wrong answer recoverable?"}
-  Q3 -->|no| R3["<b>A person in the loop.</b><br/>Assisted, gated."]
-  Q3 -->|yes| R4["<b>Agentic</b> — with the<br/>unrecoverable steps gated."]
-```
+<!-- picture:map:p0-frame -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p0-frame.dark.webp"><img alt="The AI-fit funnel: judgement call, volume, recoverability; each no exits to a rule, a person, or a person in the loop" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p0-frame.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 Expect two or three of your top five requests to come back as rules. That is the healthy answer.
 
@@ -100,14 +95,11 @@ For one step inside a feature, which of three kinds it is, and therefore what bu
 proves it. The architect owns the map and the engineering lead builds from it. This is where the
 arithmetic lives, and it is answered per step — a feature of nine steps is answered nine times.
 
-```mermaid
-flowchart TD
-  A["One step of the feature"] --> Q1{"Must it be right<br/><b>every single time?</b>"}
-  Q1 -->|yes| E["<b>EXACT</b><br/>a function · proven by a unit test"]
-  Q1 -->|no| Q2{"Does it change<br/>something real?"}
-  Q2 -->|yes| C["<b>CONSEQUENTIAL</b><br/>a tool + a gate · proven by a confirmation"]
-  Q2 -->|no| B["<b>BEST-GUESS</b><br/>a model call · proven by a measured share"]
-```
+<!-- picture:wikimap:dt-exact -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-exact.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-exact.dark.webp"><img alt="Two questions sort a step into exact, consequential or best-guess" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-exact.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-exact.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 **The rule that never breaks: the best-guess machine never does the exact math.** The model may call
 the function and read the result; it never computes the value.
@@ -146,15 +138,11 @@ What a single action may do without a person. The product manager owns the recor
 the rows that move money, and the architect turns each leaf into a tool signature. It is answered per
 **action**, which is why one feature holds three different leaves at once.
 
-```mermaid
-flowchart TD
-  A["One action"] --> Q1{"Cost of one<br/>wrong action?"}
-  Q1 -->|"~nothing"| Q2{"Reversible?"}
-  Q1 -->|"real money,<br/>identity or policy"| R4["<b>Named approver,<br/>every time</b>"]
-  Q1 -->|"irreversible or<br/>safety-critical"| R5["<b>Not delegated</b>"]
-  Q2 -->|yes| R1["<b>Acts alone</b>"]
-  Q2 -->|"with effort"| R2["<b>Acts, monitored</b><br/>or with a veto window"]
-```
+<!-- picture:wikimap:dt-autonomy -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-autonomy.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-autonomy.dark.webp"><img alt="Three questions set the autonomy level of one action, from not delegated to acts alone" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-autonomy.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-autonomy.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 Per **action**, never per product. **Reversibility is the hinge**, and it is the column that ends most
 arguments. Levels rise only on evidence; an incident usually drops one.
@@ -223,18 +211,11 @@ architect classifies and the delivery lead holds the register. Every open decisi
 the start of the phase and again at each weekly review, because evidence is allowed to change the
 answer in either direction.
 
-```mermaid
-flowchart TD
-  A["An open decision"] --> Q1{"Reversible cheaply once<br/>the build has started?"}
-  Q1 -->|no| H["<b>HARD</b><br/>settle before the phase closes"]
-  Q1 -->|yes| Q2{"Can the build proceed<br/>behind a placeholder?"}
-  Q2 -->|no| H
-  Q2 -->|yes| Q3{"Named owner and a date?"}
-  Q3 -->|no| H
-  Q3 -->|yes| Q4{"Does everything downstream survive<br/>if the answer changes?"}
-  Q4 -->|no| H
-  Q4 -->|yes| S["<b>SOFT</b><br/>runs alongside, behind a stub"]
-```
+<!-- picture:map:the-hard-gate -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-hard-gate.dark.webp"><img alt="Four questions decide whether an open decision is a hard gate or a soft one" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-hard-gate.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 **A single no makes it hard.** For SkyWays, three of eleven are hard and eight run in parallel. Treat
 all eleven as hard and the build waits behind every one.
@@ -301,17 +282,11 @@ The topology: one agent with tools, an orchestrator with workers, or a full team
 decides and writes the hand-off count beside the diagram. The default is not a preference — it is
 where the tree returns unless a named condition moves it.
 
-```mermaid
-flowchart TD
-  A["A feature"] --> B["<b>Start single.</b><br/>One agent with its tools"]
-  B --> Q1{"Does one context<br/>genuinely overload?"}
-  Q1 -->|yes| C["Orchestrator + workers"]
-  Q1 -->|no| Q2{"Parallel sub-tasks that a<br/>fan-out tool cannot express?"}
-  Q2 -->|yes| C
-  Q2 -->|no| Q3{"Complex, multi-team<br/>and audited?"}
-  Q3 -->|yes| D["A full agent team"]
-  Q3 -->|no| B
-```
+<!-- picture:wikimap:dt-agents -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-agents.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-agents.dark.webp"><img alt="Three questions decide whether a feature needs one agent, an orchestrator with workers, or a full team" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-agents.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-agents.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 Five agents have **ten** possible hand-offs. Parallelism is a property of a **tool**, not of an agent
 count. Write the escalation condition down, or the swarm returns by default.
@@ -354,12 +329,11 @@ and the authority budget supplies the input. It is the shortest tree here becaus
 binary: one branch produces something a model can be talked past, the other produces something it
 cannot.
 
-```mermaid
-flowchart TD
-  A["A rule"] --> Q1{"If the model were talked<br/>past it, would it cost money,<br/>expose data or be irreversible?"}
-  Q1 -->|yes| T["<b>The tool signature.</b><br/>Typed, bounded, raises.<br/>Keep the sentence in the prompt as policy."]
-  Q1 -->|no| P["<b>The prompt.</b><br/>It is policy, and policy is fine there."]
-```
+<!-- picture:wikimap:dt-prompt-or-signature -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-prompt-or-signature.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-prompt-or-signature.dark.webp"><img alt="One question decides whether a rule belongs in the prompt or in the tool signature" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-prompt-or-signature.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-prompt-or-signature.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 > A prompt is a **request**. A tool contract is a **boundary**.
 
@@ -432,15 +406,11 @@ How many people read a change before it merges, and which people. The engineerin
 ladder, the architect maps tools to bands from the authority budget, and a path rule in the
 repository applies it. The interesting property is that nobody answers this one by hand.
 
-```mermaid
-flowchart LR
-  A["A change"] --> Q["<b>What is the most dangerous<br/>tool it touches?</b><br/><i>not: how large is it</i>"]
-  Q --> R1["reads only → <b>R1</b><br/>harness, review at end"]
-  Q --> R2["reversible write → <b>R2</b><br/>one reader before merge"]
-  Q --> R3["hard to reverse → <b>R3</b><br/>approve first"]
-  Q --> R4["money · identity · policy → <b>R4</b><br/><b>two readers, every time</b>"]
-  Q --> R5["irreversible → <b>R5</b><br/>not delegated"]
-```
+<!-- picture:wikimap:dt-review-band -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-review-band.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-review-band.dark.webp"><img alt="One question routes a change into one of five review bands" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-review-band.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-review-band.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 A change **inherits the band of whatever it touches**. Three lines in a refund cap is R4; four hundred
 lines of help text is R1. The band comes from a path rule in the repository, never from the author.
@@ -505,16 +475,11 @@ Whether to cache a prompt prefix and, if so, which window. The engineering lead 
 from three facts rather than from instinct: how often the prefix repeats, how large it is, and how
 long the gap is between calls. It is one of the four factors that multiply into a surprise bill.
 
-```mermaid
-flowchart TD
-  A["A prompt prefix"] --> Q1{"Will it be reused<br/><b>more than once?</b>"}
-  Q1 -->|no| N["<b>No.</b> A write costs more than the call"]
-  Q1 -->|yes| Q2{"At least ~1,024<br/>cacheable tokens?"}
-  Q2 -->|no| N
-  Q2 -->|yes| Q3{"Gap between calls?"}
-  Q3 -->|"seconds to minutes"| F["<b>Five-minute cache</b><br/>write 1.25×, refreshes free on each hit"]
-  Q3 -->|"longer than five minutes"| H["<b>One-hour cache</b><br/>write 2× once, beats paying 1.25× every call"]
-```
+<!-- picture:wikimap:dt-cache -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-cache.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-cache.dark.webp"><img alt="Three questions decide whether to cache a prompt prefix, and for five minutes or an hour" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-cache.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-cache.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 And check the layout: **tools → system → stable context → marker → the request.** One model per task;
 no timestamps inside the cached block.
@@ -555,16 +520,11 @@ Which tier serves a class of request. The engineering lead owns the routing tabl
 the classes, and the shadow run settles the boundaries. It is decided per request class, and it is
 one of the eight soft gates — "everything on the mid tier behind the gateway" is a legitimate start.
 
-```mermaid
-flowchart TD
-  A["A request"] --> Q1{"Reasoning it<br/>actually needs?"}
-  Q1 -->|"a lookup"| C["<b>Cheap tier</b>"]
-  Q1 -->|"a policy question"| M["<b>Mid tier</b>"]
-  Q1 -->|"genuinely multi-constraint"| F["<b>Frontier</b>"]
-  C --> W["Every loop gets<br/><b>MAX_LOOPS = 5</b><br/>and a per-transaction token cap"]
-  M --> W
-  F --> W
-```
+<!-- picture:wikimap:dt-tier -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-tier.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-tier.dark.webp"><img alt="A request is routed to a cheap, mid or frontier tier by the reasoning it needs; every loop keeps a cap" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-tier.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-tier.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 Right-sized, not over- or under-routed. **A model too weak produces wrong answers that get re-run,
 which costs more than the right model once.**
@@ -606,17 +566,11 @@ How much ceremony this change gets: which artefacts are produced, which gates ar
 the persona trail runs. The architect decides per change, in ten lines or fewer. Depth belongs to the
 change rather than the team, and a depth decision that takes an hour is its own overhead.
 
-```mermaid
-flowchart LR
-  A["A change"] --> B["One-line fix"]
-  A --> C["A feature"]
-  A --> D["Audited, multi-team"]
-  A --> E["Depth unknown"]
-  B --> B1["Spec + a single agent.<br/>Skip discovery and<br/>most design"]
-  C --> C1["SDD + the five gates"]
-  D --> D1["SDD + the BMAD<br/>persona trail"]
-  E --> E1["AI-DLC: start shallow,<br/>escalate on evidence"]
-```
+<!-- picture:wikimap:depth-of-change -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.dark.webp"><img alt="Four kinds of change and the depth of process each one needs" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 **SDD is the backbone everywhere.** BMAD is layered on only where the work is audited and multi-team —
 on a small feature it is twelve personas between you and a one-line change.
@@ -657,18 +611,11 @@ Whether a change goes live. The QA lead brings the readout, the product manager 
 person signs the release gate. Four questions in a fixed order: the cheap deterministic check comes
 first, and the question about money comes last because it is the one that is never waived.
 
-```mermaid
-flowchart TD
-  A["A change"] --> Q1{"Exact checks green?"}
-  Q1 -->|no| N["<b>Reject</b>"]
-  Q1 -->|yes| Q2{"<b>Every</b> slice at or above its bar?"}
-  Q2 -->|no| N
-  Q2 -->|yes| Q3{"Lower bound clears the bar,<br/>not just the estimate?"}
-  Q3 -->|no| M["<b>Cases owed.</b> Not a rejection"]
-  Q3 -->|yes| Q4{"Money actions still gated?"}
-  Q4 -->|no| N
-  Q4 -->|yes| S["<b>Ship to 5%</b>,<br/>widen on live evidence"]
-```
+<!-- picture:wikimap:dt-ship -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-ship.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-ship.dark.webp"><img alt="Four checks in order decide whether a change ships to five percent" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-ship.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-dt-ship.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 The second box is the one that catches the real regressions: an overall score can rise while the
 slice that carries the risk falls below its bar.

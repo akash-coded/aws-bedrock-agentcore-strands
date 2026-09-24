@@ -13,34 +13,11 @@ Every error this material produces, by the string you actually see. **Search thi
 Seven families, and each has a different first move. Find your branch by what you can **see**, not
 by what you think went wrong — the cause is almost always one layer below the string.
 
-```mermaid
-flowchart LR
-  S(["The exact string<br/>in front of you"])
-  S -->|"denied, or an empty list"| A["<b>Access and identity</b><br/><i>aws sts get-caller-identity</i>"]
-  S -->|"ValidationException, AttributeError"| B["<b>Model IDs and invocation</b><br/><i>aws bedrock list-inference-profiles</i>"]
-  S -->|"the same call twice, or forever"| C["<b>The agent loop</b><br/><i>print the message roles</i>"]
-  S -->|"nothing threw, nothing happened"| D["<b>Agents and action groups</b><br/><i>open the trace, not the response</i>"]
-  S -->|"an answer you do not trust"| E["<b>Retrieval</b><br/><i>read five cited passages yourself</i>"]
-  S -->|"a number moved with no deploy"| F["<b>Cost and platform</b><br/><i>the per-call log, and who answered</i>"]
-  S -->|"labctl, or a SyntaxError"| G["<b>Labs and local environment</b><br/><i>check the Python version</i>"]
+<!-- picture:wikimap:error-index -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-error-index.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-error-index.dark.webp"><img alt="Seven kinds of error string, each pointing to the section that explains it" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-error-index.light.webp" width="100%"></picture></a></p>
 
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:2px
-  classDef acc fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef inv fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef lop fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef agt fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef ret fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef cst fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  classDef lab fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  class S ask
-  class A acc
-  class B inv
-  class C lop
-  class D agt
-  class E ret
-  class F cst
-  class G lab
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-error-index.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 **Three of the seven fail silently.** An empty list is a permissions state, not an outage. An agent
 that cannot reach its Lambda reports it *inside the trace* rather than as a top-level error. A model

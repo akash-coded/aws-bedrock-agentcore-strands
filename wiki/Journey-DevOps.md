@@ -22,42 +22,12 @@ Eight steps. Each one ends in something committed to a repository rather than co
 
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
-```mermaid
-flowchart TB
-  subgraph P0["P0 · Frame"]
-    direction LR
-    S1["1 · Baseline"]
-  end
-  subgraph P1["P1 · Design & Spec"]
-    direction LR
-    S2["2 · Access"] ~~~ S3["3 · Environments"]
-  end
-  subgraph P2["P2 · Build & Prove"]
-    direction LR
-    S4["4 · Pipeline"] ~~~ S5["5 · Deploy"]
-  end
-  subgraph P3["P3 · Run & Learn"]
-    direction LR
-    S6["6 · Observe"] ~~~ S7["7 · Protect"]
-    S8["8 · Recover"]
-  end
-  P0 --> P1
-  P1 -->|"HARD GATE"| P2
-  P2 --> P3
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  class S1 p0
-  style P0 fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  class S2,S3 p1
-  style P1 fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class S4,S5 p2
-  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class S6,S7,S8 p3
-  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
-```
+<!-- picture:wikimap:journey-devops -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-devops.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-devops.dark.webp"><img alt="The devops and platform's eight steps placed on the four phases, with the artefact each one produces" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-devops.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-devops.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
+
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |

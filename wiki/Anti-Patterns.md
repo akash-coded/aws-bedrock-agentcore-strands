@@ -23,28 +23,11 @@ Each stage fails in its own characteristic way, and the way is more useful than 
 italic line in each band first: if it describes something you recognise, the entries in that stage
 are where to look.
 
-```mermaid
-flowchart TB
-  R["<b>In requirements</b><br/>P0 · four of them<br/><i>the record says more<br/>than the room did</i>"]
-  D["<b>In design</b><br/>P1 · four of them<br/><i>a choice nobody<br/>can point at</i>"]
-  B["<b>In building</b><br/>P2 · four of them<br/><i>a control that<br/>is not one</i>"]
-  P["<b>In proving</b><br/>P2 · three of them<br/><i>a number that cannot<br/>carry its claim</i>"]
-  N["<b>In running</b><br/>P3 · three of them<br/><i>a report with<br/>nothing to compare</i>"]
-  R --> D --> B --> P --> N
-  N -.->|"whatever is left here arrives<br/>as next cycle's requirement"| R
+<!-- picture:wikimap:anti-patterns -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-anti-patterns.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-anti-patterns.dark.webp"><img alt="Eighteen anti-patterns across five stages, from requirements to running, with what is left over returning as the next cycle's requirement" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-anti-patterns.light.webp" width="100%"></picture></a></p>
 
-  classDef req fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef des fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef bld fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef prv fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef run fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class R req
-  class D des
-  class B bld
-  class P prv
-  class N run
-  linkStyle 4 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-anti-patterns.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 The dotted line is the one people miss. An anti-pattern left standing in running does not stay in
 running: it comes back as a requirement in the next cycle wearing a different name, which is why the

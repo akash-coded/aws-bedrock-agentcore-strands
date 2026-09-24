@@ -76,19 +76,11 @@ no, it is yours.
 Hand-offs are where agentic programmes actually fail, and the P1 → P2 crossing is the one nothing
 downstream survives without. See [the hand-off table](The-Agentic-PDLC) for the full set.
 
-```mermaid
-flowchart LR
-  SP["Sponsor"] -->|"the request"| ME["Product<br/>manager"]
-  SA["Solution<br/>architect"] -->|"constraints · ratified NFRs · the map"| ME
-  QA["QA lead"] -->|"a lower bound · the shadow run"| ME
-  ME -->|"pain register · AI-fit · the ceiling"| SA
-  ME -->|"spec · a bar per slice · bolt plan"| EN["Engineering<br/>lead"]
-  ME -->|"two numbers · the next P0 brief"| SP
-  classDef me fill:#3E6B8A26,stroke:#3E6B8A,stroke-width:2.5px
-  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
-  class ME me
-  class SP,SA,QA,EN them
-```
+<!-- picture:wikimap:role-product-manager -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-product-manager.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-product-manager.dark.webp"><img alt="What arrives on the product manager's desk, from whom, and what leaves it, to whom" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-product-manager.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-product-manager.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |

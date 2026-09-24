@@ -87,16 +87,11 @@ Two discovery meetings become a credited email of functional requirements, a con
 type, candidate NFRs written as six-part scenarios, a utility tree per stakeholder, a workshop, and a
 ratified set with its sensitivity points named.
 
-```mermaid
-flowchart TB
-  A["Discover<br/>2 meetings"] --> B["Credit<br/>every line, by name"]
-  B --> C["Consolidate<br/>in the email, not the room"]
-  C --> D["Constrain<br/>technical · regulatory · commercial"]
-  D --> E["Candidates<br/>as six-part scenarios"]
-  E --> F["Utility trees<br/>one per stakeholder"]
-  F --> G["Workshop<br/>uncontested first"]
-  G --> H["Ratify<br/>+ name the sensitivity points"]
-```
+<!-- picture:wikimap:eight-loops-workshop -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-workshop.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-workshop.dark.webp"><img alt="The requirements loop in eight moves, from discovery to a ratified list" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-workshop.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-workshop.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 The move that carries the whole loop: **credit before you consolidate.** Send all thirty-one
 requirements with the name of the person who raised each one, duplicates included, *before* you send
@@ -297,18 +292,11 @@ AI-Driven Development Lifecycle. One risk per bolt is the playbook's.*
 The autonomy record sets the level, the authority budget bounds the tools, a golden set with the right
 checker proves the bar, and a shadow run earns a cut-over that starts at five percent of traffic.
 
-```mermaid
-flowchart TB
-  A["Golden set<br/>per slice"] --> B["Score with<br/>its lower bound"]
-  B --> C{"Lower bound<br/>≥ the bar?"}
-  C -->|no| D["More cases,<br/>or fix the slice"]
-  D --> A
-  C -->|yes| E["Shadow run<br/>decides, never acts"]
-  E --> F{"Agrees with<br/>the desk?"}
-  F -->|no| G["You learned<br/>for free"]
-  F -->|yes| H["5% of traffic"]
-  H --> I["Widen on live evidence"]
-```
+<!-- picture:wikimap:eight-loops-proof -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-proof.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-proof.dark.webp"><img alt="The trust loop: score against the bar, shadow beside the desk, then five percent and widen" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-proof.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-eight-loops-proof.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 Two things people skip. The **lower bound**: a score of 82% on forty cases has not proven an 80% bar.
 And **five percent**: cutting over at fifty means half your passengers meet the first-day failure.

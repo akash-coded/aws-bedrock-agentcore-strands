@@ -26,14 +26,11 @@ Run it live:
 
 ## The five moves
 
-```mermaid
-flowchart TD
-  F["<b>1</b> · Frame<br/>whole product · 3 years · the exit"] --> C["<b>2</b> · Criteria and weights<br/>six, from the ratified NFRs"]
-  C --> R["<b>3</b> · Rate the options<br/>score = Σ weight × rating"]
-  R --> T["<b>4</b> · Three-year cost, and the door<br/>count the people · one-way or two"]
-  T --> A["<b>5</b> · The decision record<br/>ADR, with the rejections"]
-  A -.->|month twelve| C
-```
+<!-- picture:wikimap:choose -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-choose.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-choose.dark.webp"><img alt="Five moves from framing the choice to the decision record, with a review at month twelve" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-choose.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-choose.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

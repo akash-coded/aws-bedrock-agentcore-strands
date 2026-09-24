@@ -28,15 +28,11 @@ Run it live:
 
 ## The seven moves
 
-```mermaid
-flowchart TD
-  M1["<b>1</b> · Is it an agent at all?<br/>three questions, in order"] --> M2["<b>2</b> · The two planes<br/>what may happen · what does"]
-  M2 --> M3["<b>3</b> · The agent PRD<br/>eight fields, one screen"]
-  M3 --> M4["<b>4</b> · High-level design<br/>count the hand-offs first"]
-  M4 --> M5["<b>5</b> · Low-level design<br/>behaviours, never knobs"]
-  M5 --> M6["<b>6</b> · Prompts as policy<br/>tools as enforcement"]
-  M6 --> M7["<b>7</b> · The design review<br/>four artefacts, then a signature"]
-```
+<!-- picture:wikimap:design-agent -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-design-agent.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-design-agent.dark.webp"><img alt="Seven moves for designing an agent on paper, ending in a design review" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-design-agent.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-design-agent.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |
@@ -56,16 +52,11 @@ flowchart TD
 
 Three questions, and they come in this order for a reason.
 
-```mermaid
-flowchart TD
-  A["The work"] --> Q1{"Judgement call?"}
-  Q1 -->|no| R1["A rule. Code does it."]
-  Q1 -->|yes| Q2{"Volume high enough?"}
-  Q2 -->|no| R2["A person is cheaper."]
-  Q2 -->|yes| Q3{"Wrong answer<br/>recoverable?"}
-  Q3 -->|no| R3["A person stays in the loop.<br/>Assisted, gated."]
-  Q3 -->|yes| R4["Agentic — with the<br/>unrecoverable steps gated."]
-```
+<!-- picture:map:p0-frame -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p0-frame.dark.webp"><img alt="The AI-fit funnel: judgement call, volume, recoverability; each no exits to a rule, a person, or a person in the loop" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-p0-frame.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 **SkyWays:** there is judgement (which alternative suits this passenger), 240 cases a day, and the work
 is *partly* recoverable — a proposed rebooking can be withdrawn, a refund cannot. So: an agent, with
@@ -454,16 +445,11 @@ The instinct is a manager agent with one specialist per partner airline. Resist 
 | A manager plus four partner specialists | **10** — n(n−1)/2 for n = 5 | Ten places to get coordination wrong, for work a single tool can fan out |
 | **One agent, a fan-out search tool, one MCP server with gated writes, an independent checker** | **0** | The partner searches run in parallel *inside* one tool. Reads open, writes gated |
 
-```mermaid
-flowchart LR
-  P["Passenger request"] --> A["<b>One agent</b>"]
-  A --> T1["fan-out search tool<br/><i>4 partners in parallel</i>"]
-  A --> T2["fare_difference()<br/><i>exact, in code</i>"]
-  A --> M["MCP server<br/><i>reads open · writes gated</i>"]
-  A --> C["Independent checker<br/><i>different model,<br/>adversarial brief</i>"]
-  M --> R["rebook()  R3"]
-  M --> F["issue_refund(≤400)  R4<br/><i>named approver</i>"]
-```
+<!-- picture:wikimap:agent-topology -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-agent-topology.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-agent-topology.dark.webp"><img alt="One agent with four tools; behind the MCP server, two gated writes with their bands" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-agent-topology.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-agent-topology.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 Parallelism is a **tool** property, not an agent-count property. That one sentence prevents most
 multi-agent designs.

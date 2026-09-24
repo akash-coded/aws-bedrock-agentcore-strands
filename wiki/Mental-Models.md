@@ -33,47 +33,11 @@ The table above says what the models are. This says *when you will need them* �
 point. Eight of the twelve land in P1 and P2, the two phases where a number still changes a decision
 instead of explaining one that has already been taken.
 
-```mermaid
-flowchart TB
-  subgraph F["P0 · Frame"]
-    direction LR
-    M2["<b>2</b> · Reversibility<br/>is the hinge"]
-  end
-  subgraph S["P1 · Design and Spec"]
-    direction LR
-    M1["<b>1</b> · Length is<br/>the enemy"] ~~~ M3["<b>3</b> · A hold is<br/>a lever"]
-    M9["<b>9</b> · Parallelism is<br/>a tool property"] ~~~ M10["<b>10</b> · Depth is<br/>a dial"]
-  end
-  subgraph B["P2 · Build and Prove"]
-    direction LR
-    M4["<b>4</b> · A prompt asks,<br/>a signature closes"] ~~~ M5["<b>5</b> · The average<br/>hides the slice"]
-    M6["<b>6</b> · A score<br/>is not proof"] ~~~ M7["<b>7</b> · Evidence at the<br/>speed of traffic"]
-  end
-  subgraph R["P3 · Run and Learn"]
-    direction LR
-    M8["<b>8</b> · Cost is a<br/>product of habits"] ~~~ M12["<b>12</b> · Drift has no<br/>error message"]
-  end
-  F -->|"11 · the brief crosses"| S
-  S -->|"11 · the signed spec crosses<br/>HARD GATE"| B
-  B -->|"11 · the evidence pack crosses"| R
-  R -.-> NX(["<b>The next P0</b><br/><i>8 and 12 are what reopen<br/>a frame somebody had closed</i>"])
+<!-- picture:wikimap:mental-models -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-mental-models.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-mental-models.dark.webp"><img alt="Twelve mental models placed on the four phases" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-mental-models.light.webp" width="100%"></picture></a></p>
 
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class M2 p0
-  class M10,M9,M1,M3 p1
-  class M4,M5,M6,M7 p2
-  class M8,M12 p3
-  class NX p0
-  style F fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  style S fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  style R fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  linkStyle 6 stroke:#0E7F7C,stroke-width:3px
-  linkStyle 8 stroke:#A93F3F,stroke-width:2px,stroke-dasharray:5 4
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-mental-models.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 **Model 11 is the rule of the arrows, which is why it is not in a band.** Every hand-off happens
 because something crossed it, and each label above names the artefact rather than the date. Models 8

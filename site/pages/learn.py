@@ -225,7 +225,7 @@ class Links:
 # ---------------------------------------------------------------------------------------- visuals
 def _visuals() -> dict[str, dict]:
     """Every picture a lesson may embed: how to draw it live, what it says, where it lives."""
-    from pages import boards, figures, models, illos, maps
+    from pages import boards, figures, models, illos, maps, wikimaps
 
     def m(fn, label):
         return lambda: f'<figure class="lmodel" aria-label="{_E(label, quote=True)}">{fn()}</figure>'
@@ -268,6 +268,8 @@ def _visuals() -> dict[str, dict]:
     }
     for slug in maps.slugs():
         v[f"map:{slug}"] = (lambda s=slug: maps.draw(s), maps.alt(slug), f"learn/{slug}/")
+    for slug in wikimaps.keys():
+        v[f"wikimap:{slug}"] = (lambda s=slug: wikimaps.draw(s), wikimaps.alt(slug), "")
     for g, label in (("g_decay", "Length is the enemy"), ("g_doors", "Reversibility is the hinge"),
                      ("g_lever", "A hold is a lever, not a brake"), ("g_wall", "A prompt is a request; a signature is a boundary"),
                      ("g_average", "The average hides the slice that matters"), ("g_bound", "A score is not proof"),
@@ -935,9 +937,11 @@ def shots_page(out: Path, shell) -> str:
     Boards are captured at the width they were drawn for; figures and models at a reading width, so
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
+    import wiki_pictures
+    wanted = used_visuals() + [k for k in wiki_pictures.keys() if k not in used_visuals()]
     cells = "".join(
-        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
-        f'{reg[k]["draw"]()}</div>' for k in used_visuals())
+        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:", "wikimap:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
+        f'{reg[k]["draw"]()}</div>' for k in wanted)
     body = f'<main id="main" class="shots">{cells}</main>'
     html_ = shell(title="shots", desc="Screenshot sheet. Not for readers.", body=body, depth=2, nav_id="",
                   canonical=f"{BASE_URL}learn/", head_extra='<meta name="robots" content="noindex">', own_ld=True)

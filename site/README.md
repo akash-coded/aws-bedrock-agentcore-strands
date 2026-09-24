@@ -15,7 +15,7 @@ original work and the intellectual property of **Akash Das**, open-sourced under
 | --- | --- |
 | [`build.py`](build.py) | Builds `_site/`: renders the manual, copies the tool byte for byte, injects the site frame into the `/simulator/` copy, writes the sitemap and `robots.txt`. Refuses to build if the tool's own bytes changed. `--shots` also writes the screenshot sheet the wiki uses. |
 | [`render.py`](render.py) | The page shell (header with the categorised drawer menu, breadcrumbs, footer, structured data, the walkthrough hook) and the home, role, library and frameworks pages. |
-| [`pages/`](pages/) | One module per kind of page or picture: [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the home page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`maps.py`](pages/maps.py) and [`mapspecs.py`](pages/mapspecs.py) (every lesson's opening map, as a spec drawn in five shapes: bands, flow, pairs, funnel, fan), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
+| [`pages/`](pages/) | One module per kind of page or picture: [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the home page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`maps.py`](pages/maps.py) and [`mapspecs.py`](pages/mapspecs.py) (every lesson's opening map, as a spec drawn in five shapes: bands, flow, pairs, funnel, fan), [`wikimaps.py`](pages/wikimaps.py) (the pictures on the hand-written wiki pages and the five journey arcs, from the same engine), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
 | [`content/`](content/) | The words: `roles/*.json` (generated from `roles/_src/`), `learn/` (the tutorial's lessons and curriculum), `library/frameworks.json`. |
 | [`theme/`](theme/) | [`base.css`](theme/base.css) (one stylesheet, light and dark), [`site.js`](theme/site.js) (theme, copy buttons, the steps rail), [`engine.js`](theme/engine.js) (lenses, calculators, self-checks, steppers, boards), [`guide.js`](theme/guide.js) (the drawer menu, the per-page walkthrough narrated by Pip), [`learn.js`](theme/learn.js) (mermaid, drawn in the reader's theme). Every behaviour is progressive enhancement: the pages read without script. |
 | [`app/SkyWays-Architect.html`](app/SkyWays-Architect.html) | **The tool, pristine.** A single self-contained file with no external dependencies. Published unchanged at `app/` and, with the site frame, at `simulator/`. |
@@ -48,6 +48,12 @@ pills, panels with a solid label column, white nodes with flat icons, dashed flo
 and "Best for" lists. Colours are `--bb-*` tokens, so a picture follows the theme. A lesson embeds one
 with `{{frameworks:<name>}}`, and its own opening map with `{{map:<slug>}}` (the spec lives in
 `pages/mapspecs.py`); the wiki shows a screenshot of each, produced by `tools/shoot.mjs`.
+
+The hand-written wiki pages carry pictures too: [`wiki_pictures.py`](wiki_pictures.py) swaps each page's
+mermaid fence for a marker-owned `<picture>` block (`<!-- picture:key -->`), drawn from `pages/wikimaps.py`
+or reusing a lesson's map, and regenerates the block on every run. The journey pages get theirs from
+`wiki_export.py`. Order: `build.py --shots`, `tools/shoot.mjs`, `wiki_export.py`, `wiki_pictures.py`,
+`learn_export.py`, `wiki/check.py --strict`, then `wiki/sync.sh` once the site has deployed.
 
 ## Updating the tool
 

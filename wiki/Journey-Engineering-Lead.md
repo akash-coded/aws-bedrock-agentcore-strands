@@ -22,44 +22,12 @@ Eight steps, in the order you would actually do them. Each one ends in something
 
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
-```mermaid
-flowchart TB
-  subgraph P0["P0 · Frame"]
-    direction LR
-    P0X["Not on the clock — reads<br/>the brief, starts nothing"]
-  end
-  subgraph P1["P1 · Design & Spec"]
-    direction LR
-    S1["1 · Prepare"]
-  end
-  subgraph P2["P2 · Build & Prove"]
-    direction LR
-    S2["2 · Slice"] ~~~ S3["3 · Floor"]
-    S4["4 · Layer"] ~~~ S5["5 · Gate"]
-    S6["6 · Harness"] ~~~ S7["7 · Ship"]
-  end
-  subgraph P3["P3 · Run & Learn"]
-    direction LR
-    S8["8 · Operate"]
-  end
-  P0 --> P1
-  P1 -->|"HARD GATE"| P2
-  P2 --> P3
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  style P0 fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  class S1 p1
-  style P1 fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class S2,S3,S4,S5,S6,S7 p2
-  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class S8 p3
-  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3
-  class P0X absent
-  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
-```
+<!-- picture:wikimap:journey-engineering -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-engineering.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-engineering.dark.webp"><img alt="The engineering lead's eight steps placed on the four phases, with the artefact each one produces" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-engineering.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-engineering.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
+
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |

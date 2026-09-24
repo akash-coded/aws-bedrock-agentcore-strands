@@ -62,19 +62,11 @@ the room to be followed is a design that has not been written down.
 
 ## What crosses your desk
 
-```mermaid
-flowchart LR
-  PM["Product<br/>manager"] -->|"pain register · AI-fit · the ceiling"| ME["Solution<br/>architect"]
-  EN["Engineering<br/>lead"] -->|"questions against the map"| ME
-  OPS["Platform"] -->|"the bill, by factor"| ME
-  ME -->|"constraints · ratified NFRs · the map"| PM
-  ME -->|"ADRs · authority budget · gate map"| EN
-  ME -->|"caching and routing changes"| OPS
-  classDef me fill:#7A6A4626,stroke:#7A6A46,stroke-width:2.5px
-  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
-  class ME me
-  class PM,EN,OPS them
-```
+<!-- picture:wikimap:role-solution-architect -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-solution-architect.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-solution-architect.dark.webp"><img alt="What arrives on the solution architect's desk, from whom, and what leaves it, to whom" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-solution-architect.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-solution-architect.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |

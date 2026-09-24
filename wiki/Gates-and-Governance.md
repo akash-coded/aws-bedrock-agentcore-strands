@@ -24,14 +24,11 @@ report. Live version:
 **The most common failure is a product manager approving a pull request.** Strike every approval you
 cannot evaluate, and insist on being asked the ones you can. Behaviour and expansion belong to QA.
 
-```mermaid
-flowchart TB
-  I["1 · Intent<br/><b>PM</b>"] --> P["2 · Plan<br/><b>PM + Architect</b>"]
-  P --> B["3 · Behaviour<br/><b>QA</b>"]
-  B --> R["4 · Release<br/><b>PM</b>"]
-  R --> E["5 · Expansion<br/><b>QA</b>"]
-  E -.->|drift alert re-opens| R
-```
+<!-- picture:map:ai-governance-gates -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-governance-gates.dark.webp"><img alt="The five governance gates in order, each with its owner, and the drift alert that re-opens release" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-ai-governance-gates.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 That dotted line is a rule, not a nicety: **a drift alert re-opens the release gate automatically.**
 
@@ -107,18 +104,11 @@ anything. Treating them all as hard is how a build ends up waiting behind eleven
 
 Four questions classify any open decision. **One "no" makes it hard.**
 
-```mermaid
-flowchart TD
-  A["An open decision"] --> Q1{"Can it be reversed cheaply<br/>once the build has started?"}
-  Q1 -->|no| H["HARD GATE<br/>settle before the phase closes"]
-  Q1 -->|yes| Q2{"Can the build proceed<br/>behind a placeholder?"}
-  Q2 -->|no| H
-  Q2 -->|yes| Q3{"Is there a named owner<br/>and a date?"}
-  Q3 -->|no| H
-  Q3 -->|yes| Q4{"Does everything downstream<br/>survive if the answer changes?"}
-  Q4 -->|no| H
-  Q4 -->|yes| S["SOFT GATE<br/>runs alongside the build"]
-```
+<!-- picture:map:the-hard-gate -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-hard-gate.dark.webp"><img alt="Four questions decide whether an open decision is a hard gate or a soft one" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-hard-gate.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 ### The three that are hard
 

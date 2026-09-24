@@ -36,6 +36,13 @@ out, because people bookmark deep links.
   [`maps.py`](site/pages/maps.py) in five shapes (bands, flow, pairs, funnel, fan) with icons, a
   solid label column per band and a callout that says what the picture proves. The site draws them
   live in both themes; the wiki shows screenshots
+- **The wiki's own pictures, in the same grammar** — the 45 mermaid diagrams on the hand-written
+  reference pages (decision trees, how-tos, role pages, the formulas map, the mental-models map, the
+  error index, the study-plan chooser) and the five generated journey arcs are now drawn by
+  [`site/pages/wikimaps.py`](site/pages/wikimaps.py) and placed by
+  [`site/wiki_pictures.py`](site/wiki_pictures.py) as light/dark screenshots served from the site.
+  Eleven of them reuse a lesson's map or a board rather than drawing the same thing twice. The role
+  pages gain a hub picture: what arrives on the desk, from whom, and what leaves it, to whom
 
 ### Changed
 - **The mental models page** — the model/subtlety toggle used to sit above a twelve-tile index, so

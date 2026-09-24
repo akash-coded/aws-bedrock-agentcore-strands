@@ -22,44 +22,12 @@ Eight steps, from the first discovery meeting to the incident that redesigns the
 
 Eight steps, and the four phases they sit in. Where the hard gate falls on your own arc is the thing worth noticing: it is a different place for every role.
 
-```mermaid
-flowchart TB
-  subgraph P0["P0 · Frame"]
-    direction LR
-    S1["1 · Elicit"] ~~~ S2["2 · Constrain"]
-  end
-  subgraph P1["P1 · Design & Spec"]
-    direction LR
-    S3["3 · Map"] ~~~ S4["4 · Shape"]
-    S5["5 · Decide"] ~~~ S6["6 · Bound"]
-    S7["7 · Detail"]
-  end
-  subgraph P2["P2 · Build & Prove"]
-    direction LR
-    P2X["Answers against the map;<br/>does not re-open it"]
-  end
-  subgraph P3["P3 · Run & Learn"]
-    direction LR
-    S8["8 · Evolve"]
-  end
-  P0 --> P1
-  P1 -->|"HARD GATE"| P2
-  P2 --> P3
-  classDef p0 fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  class S1,S2 p0
-  style P0 fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  classDef p1 fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  class S3,S4,S5,S6,S7 p1
-  style P1 fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  classDef p2 fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  style P2 fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:1.5px
-  classDef p3 fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  class S8 p3
-  style P3 fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3
-  class P2X absent
-  linkStyle 4 stroke:#0E7F7C,stroke-width:3px
-```
+<!-- picture:wikimap:journey-solution-architect -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-solution-architect.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-solution-architect.dark.webp"><img alt="The solution architect's eight steps placed on the four phases, with the artefact each one produces" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-solution-architect.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-journey-solution-architect.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
+
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |

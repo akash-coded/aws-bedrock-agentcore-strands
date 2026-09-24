@@ -132,19 +132,11 @@ further along, ships more safely, and costs less.
 
 ## What crosses your desk
 
-```mermaid
-flowchart LR
-  PM["Product<br/>manager"] -->|"AI-fit records · the two numbers"| ME["Sponsor"]
-  QA["QA lead"] -->|"a slice called <i>unproven</i>"| ME
-  SA["Solution<br/>architect"] -->|"the missing-control finding"| ME
-  ME -->|"the autonomy ceiling"| PM
-  ME -->|"what counts as evidence"| QA
-  ME -->|"cycle-two funding"| PM
-  classDef me fill:#9C680326,stroke:#9C6803,stroke-width:2.5px
-  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
-  class ME me
-  class PM,QA,SA them
-```
+<!-- picture:wikimap:role-sponsor -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-sponsor.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-sponsor.dark.webp"><img alt="What arrives on the sponsor's desk, from whom, and what leaves it, to whom" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-sponsor.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-sponsor.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Phase | You receive | You are being asked for |
 | --- | --- | --- |

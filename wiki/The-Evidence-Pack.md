@@ -309,30 +309,11 @@ rollback; [Journey: Product manager](Journey-Product-Manager) for the drift read
 
 ## The pack as one picture
 
-```mermaid
-flowchart TD
-  subgraph A["P0 → P1"]
-    A1["pain · AI-fit · value<br/>autonomy · FRs · constraints · NFRs"]
-  end
-  subgraph B["P1 → P2 · HARD"]
-    B1["spec · bar · ADRs · map<br/>authority · topology · context · stories · golden"]
-  end
-  subgraph C["P2 → P3"]
-    C1["bolt plan · score + bound · lanes<br/>harness · checkers · gated tools · shadow · cut-over"]
-  end
-  subgraph D["P3 → P0"]
-    D1["two numbers · drift · trace<br/>bill root cause · incident brief · maturity"]
-  end
-  A --> B --> C --> D
+<!-- picture:map:the-evidence-pack -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-evidence-pack.dark.webp"><img alt="The evidence pack: what each of the four hand-offs owes, with the test for each" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/map-the-evidence-pack.light.webp" width="100%"></picture></a></p>
 
-  classDef h fill:none,stroke:none
-  class A1,B1,C1,D1 h
-  style A fill:#4B5CC80D,stroke:#4B5CC8,stroke-width:1.5px
-  style B fill:#0E7F7C0D,stroke:#0E7F7C,stroke-width:3px
-  style C fill:#9C68030D,stroke:#9C6803,stroke-width:1.5px
-  style D fill:#5169810D,stroke:#516981,stroke-width:1.5px
-  linkStyle 0 stroke:#0E7F7C,stroke-width:3px
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 ---
 

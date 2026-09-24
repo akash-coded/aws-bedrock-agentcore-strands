@@ -23,23 +23,11 @@ through with one airline, one feature and ninety days.
 P0 and P1 are cheap to get wrong on paper and expensive to get wrong in production. That asymmetry is
 the whole argument for the phases.
 
-```mermaid
-flowchart TB
-  P0["P0 · Frame<br/><i>pain, AI-fit, autonomy</i>"] --> P1["P1 · Design & Spec<br/><i>spec, bar, authority</i>"]
-  P1 -->|HARD GATE| P2["P2 · Build & Prove<br/><i>bolts, harness, shadow</i>"]
-  P2 --> P3["P3 · Run & Learn<br/><i>trace, drift, two numbers</i>"]
-  P3 -.->|incident, drift, cost| P0
-  classDef p0 fill:#51698122,stroke:#516981,stroke-width:2px
-  classDef p1 fill:#4B5CC822,stroke:#4B5CC8,stroke-width:2px
-  classDef p2 fill:#0E7F7C22,stroke:#0E7F7C,stroke-width:2px
-  classDef p3 fill:#9C680322,stroke:#9C6803,stroke-width:2px
-  class P0 p0
-  class P1 p1
-  class P2 p2
-  class P3 p3
-  linkStyle 1 stroke:#0E7F7C,stroke-width:3px
-  linkStyle 3 stroke:#A93F3F,stroke-width:2px
-```
+<!-- picture:frameworks:spine -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-spine.dark.webp"><img alt="The agentic PDLC in one picture: four phases, one hard gate, and production feeding the next frame" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/frameworks-spine.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 > The same picture, drawn out with what each phase leaves behind:
 > [the agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#pdlc).
@@ -350,28 +338,11 @@ P3 MATERIAL:
 Phases are a line. Loops are what make the line a ring: each one opens in one phase and closes in a
 later one, and some close back into an earlier one.
 
-```mermaid
-flowchart TD
-  R["Requirements<br/>P0 → P1"] --> S["Spec<br/>P1 → P2"]
-  S --> D["Decision<br/>P1 → P1"]
-  D --> DE["Delivery<br/>P2 → P2"]
-  S --> DE
-  DE --> T["Trust<br/>P2 → P3"]
-  T --> C["Cost<br/>P3 → P1"]
-  T --> I["Incident<br/>P3 → P0"]
-  C -.->|"back into design"| S
-  I -.->|"back into framing"| R
-  G["Governance<br/>P0 → P3"] -.-> R
-  G -.-> T
-  classDef fwd fill:#51698118,stroke:#516981,stroke-width:1.5px
-  classDef back fill:#A93F3F1F,stroke:#A93F3F,stroke-width:2px
-  classDef gov fill:#7455B31F,stroke:#7455B3,stroke-width:2px
-  class R,S,D,DE,T fwd
-  class C,I back
-  class G gov
-  linkStyle 7,8 stroke:#A93F3F,stroke-width:2px
-  linkStyle 9,10 stroke:#7455B3,stroke-width:2px
-```
+<!-- picture:board:loops -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops make the line a ring: five close forward on their own, three run backwards and need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 > The same eight on a spine, with the three backwards ones drawn beneath it:
 > [eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops).
@@ -577,17 +548,11 @@ different parts of the same spine.
 The decision that matters is not which method. It is **how deep to go on this change**, and that is a
 judgement the architect makes per change. See [Solution architect, step 3](Role-Solution-Architect).
 
-```mermaid
-flowchart LR
-  A{"What kind<br/>of change?"} --> B["One-line fix"]
-  A --> C["A feature"]
-  A --> D["Audited, multi-team"]
-  A --> E["Depth unknown"]
-  B --> B1["Spec + a single agent<br/>editor agent, cheap tier"]
-  C --> C1["SDD + the five gates<br/>chat to spec,<br/>editor to build"]
-  D --> D1["SDD + the BMAD<br/>persona trail<br/>keep the versioned<br/>artefacts"]
-  E --> E1["AI-DLC: start shallow,<br/>escalate on evidence"]
-```
+<!-- picture:wikimap:depth-of-change -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.dark.webp"><img alt="Four kinds of change and the depth of process each one needs" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 ### How it actually goes wrong
 

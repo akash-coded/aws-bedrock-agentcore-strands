@@ -15,7 +15,11 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "pages"))
 
 SITE = Path(__file__).resolve().parent
 CONTENT = SITE / "content" / "roles"
@@ -148,10 +152,11 @@ def page(role: dict) -> str:
     L += ["", "---", ""]
     for para in role["intro"]:
         L += [unmd(para), ""]
+    import wiki_pictures
     L += ["## The arc", "",
           "Eight steps, and the four phases they sit in. Where the hard gate falls on your own "
           "arc is the thing worth noticing: it is a different place for every role.", "",
-          arc_diagram(role), "",
+          wiki_pictures.picture(wiki_pictures.JOURNEYS[role["id"]]), "",
           "| # | Phase | Step | What it produces |", "| --- | --- | --- | --- |"]
     groups = by_phase(role)
     for ph in ORDER:

@@ -62,19 +62,11 @@ it. Every one of them has a person attached and a note saying what was accepted.
 
 ## What crosses your desk
 
-```mermaid
-flowchart LR
-  SA["Solution<br/>architect"] -->|"the map · ADRs · authority budget"| ME["Engineering<br/>lead"]
-  PM["Product<br/>manager"] -->|"spec · a bar per slice · bolt plan"| ME
-  QA["QA lead"] -->|"the golden set · what must block"| ME
-  ME -->|"context file · the boundary line"| QA
-  ME -->|"bolts · a required check · the ledger"| PM
-  ME -->|"caching and routing changes"| SA
-  classDef me fill:#2F6B5726,stroke:#2F6B57,stroke-width:2.5px
-  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
-  class ME me
-  class SA,PM,QA them
-```
+<!-- picture:wikimap:role-engineering-lead -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-engineering-lead.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-engineering-lead.dark.webp"><img alt="What arrives on the engineering lead's desk, from whom, and what leaves it, to whom" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-engineering-lead.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-engineering-lead.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |

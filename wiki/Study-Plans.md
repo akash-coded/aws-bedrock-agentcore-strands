@@ -11,35 +11,11 @@ Pick the one whose time budget you can actually defend to yourself.
 Four questions, six plans. The first question is the one people skip, and it is the one that changes
 the answer most: a plan for a team is not a faster plan for one person, it is a different plan.
 
-```mermaid
-flowchart TD
-  Q1{"Who is reading?"}
-  Q1 -->|"a team, together"| T["<b>Twelve weeks, reading group</b><br/><i>90 minutes a week</i>"]
-  Q1 -->|"me"| Q2{"Is there a date?"}
-  Q2 -->|"an interview in a fortnight"| I["<b>Interview in two weeks</b><br/><i>four labs and two guides</i>"]
-  Q2 -->|"no date"| Q3{"Will you write code?"}
-  Q3 -->|"no, I need the method"| W["<b>One week, no code</b><br/><i>about 4 hours</i>"]
-  Q3 -->|"yes"| Q4{"Do you have AWS?"}
-  Q4 -->|"not yet, or never"| N["<b>No AWS account yet</b><br/><i>about 20 hours, zero cost</i>"]
-  Q4 -->|"yes"| Q5{"What shape is the time?"}
-  Q5 -->|"an hour most evenings"| E["<b>Four weeks, evenings</b><br/><i>about 6 hours a week</i>"]
-  Q5 -->|"one clear block"| K["<b>One weekend</b><br/><i>about 12 hours</i>"]
+<!-- picture:wikimap:study-plans -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-study-plans.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-study-plans.dark.webp"><img alt="Five questions pick one of six study plans" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-study-plans.light.webp" width="100%"></picture></a></p>
 
-  classDef ask fill:#6E6E6E14,stroke:#6E6E6E,stroke-width:2px
-  classDef team fill:#7455B31A,stroke:#7455B3,stroke-width:1.5px
-  classDef intv fill:#A93F3F1A,stroke:#A93F3F,stroke-width:1.5px
-  classDef meth fill:#5169811A,stroke:#516981,stroke-width:1.5px
-  classDef noac fill:#2C7A4B1A,stroke:#2C7A4B,stroke-width:1.5px
-  classDef eve fill:#4B5CC81A,stroke:#4B5CC8,stroke-width:1.5px
-  classDef wknd fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class Q1,Q2,Q3,Q4,Q5 ask
-  class T team
-  class I intv
-  class W meth
-  class N noac
-  class E eve
-  class K wknd
-```
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-study-plans.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 **Every plan ends in something you made, not something you read.** That is the only property they
 share, and it is the one to keep if you invent your own.

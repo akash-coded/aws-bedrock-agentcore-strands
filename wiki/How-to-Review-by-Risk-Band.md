@@ -26,14 +26,11 @@ Run it live:
 
 ## The six moves
 
-```mermaid
-flowchart TD
-  M1["<b>1 · Read the queue</b><br/>slots needed ÷ slots per day"] --> M2["<b>2 · Band by what it touches</b><br/>R1–R5, never by size"]
-  M2 --> M3["<b>3 · Put the band in a path rule</b><br/>from the authority budget"]
-  M3 --> M4["<b>4 · Route the readers</b><br/>two · one · none"]
-  M4 --> M5["<b>5 · The harness-only lane</b><br/>open it, and count the escapes"]
-  M5 --> M6["<b>6 · Measure the policy</b><br/>three numbers, or it is repealed"]
-```
+<!-- picture:wikimap:review-band -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-review-band.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-review-band.dark.webp"><img alt="Six moves for reviewing by risk band, from reading the queue to measuring the policy" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-review-band.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-review-band.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

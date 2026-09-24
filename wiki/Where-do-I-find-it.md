@@ -49,27 +49,11 @@ A how-to is a procedure with an owner, a phase and a loop it closes. Each opens 
 glance** block saying when to reach for it and what you leave with. Pick by what is going wrong, not
 by what sounds relevant.
 
-```mermaid
-flowchart LR
-  Q{"What is going wrong<br/>right now?"} --> A["Nobody has written down<br/>what the thing may do"]
-  Q --> B["We cannot say whether<br/>it works"]
-  Q --> C["The bill left its estimate"]
-  Q --> D["Work is stuck, or arriving<br/>in one lump"]
-  Q --> E["Something got through"]
-  Q --> F["A decision keeps<br/>being re-opened"]
-  A --> A1["Design an Agent on Paper<br/>Run an NFR Workshop"]
-  B --> B1["Prove the Bar"]
-  C --> C1["Control the Token Bill"]
-  D --> D1["Cut Sprints into Bolts<br/>Review by Risk Band"]
-  E --> E1["Hold the Security Boundary<br/>Run a Missing-Control Postmortem"]
-  F --> F1["Choose Build, Buy or Borrow"]
-  classDef q fill:#51698122,stroke:#516981,stroke-width:2px
-  classDef sym fill:#9C68031A,stroke:#9C6803,stroke-width:1.5px
-  classDef out fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class Q q
-  class A,B,C,D,E,F sym
-  class A1,B1,C1,D1,E1,F1 out
-```
+<!-- picture:wikimap:where-do-i-find-it -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-where-do-i-find-it.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-where-do-i-find-it.dark.webp"><img alt="Six symptoms, each pointing to the how-to page that treats it" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-where-do-i-find-it.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-where-do-i-find-it.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Reach for it when | How-to | Owner | Closes |
 | --- | --- | --- | --- |

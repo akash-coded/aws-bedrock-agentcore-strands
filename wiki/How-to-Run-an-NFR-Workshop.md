@@ -26,16 +26,11 @@ architect's journey, told as a procedure rather than as a role.
 
 ## The eight moves
 
-```mermaid
-flowchart TD
-  D1["<b>Day 1</b> · Discovery one<br/>the three closest to the work"] --> D2["<b>Day 2</b> · Discovery two<br/>read back, credited"]
-  D2 --> D4["<b>Day 4</b> · The email<br/>all lines, every name, duplicates kept"]
-  D4 --> D6["<b>Day 6</b> · Constraints by type<br/>technical · regulatory · commercial"]
-  D6 --> D7["<b>Day 7</b> · Candidates<br/>as six-part scenarios"]
-  D7 --> D8["<b>Day 8</b> · Utility trees<br/>one per stakeholder"]
-  D8 --> D9["<b>Day 9</b> · The workshop<br/>uncontested first, then the conflicts"]
-  D9 --> R["<b>Ratify</b><br/>+ name the sensitivity points"]
-```
+<!-- picture:wikimap:nfr-workshop -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-nfr-workshop.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-nfr-workshop.dark.webp"><img alt="The NFR workshop over nine days, from discovery to ratification" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-nfr-workshop.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-nfr-workshop.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

@@ -25,17 +25,11 @@ does not produce a brief has not finished.
 
 ## The five moves
 
-```mermaid
-flowchart TD
-  I["<b>Incident</b> · day 82<br/>$2,000 refund, not owed"] --> M1["<b>1</b> · The question<br/>which enforced control<br/>would have made this impossible?"]
-  M1 --> M2["<b>2</b> · Classify every layer<br/>enforced / a request / absent"]
-  M2 --> M3["<b>3</b> · Choose the fix<br/>closes the path, not lowers the odds"]
-  M3 --> M4["<b>4</b> · Drop the autonomy level<br/>2 to 1, until a 14-day shadow passes"]
-  M4 --> M5["<b>5</b> · Feed it forward<br/>golden cases · ADR · record · brief"]
-  M5 --> P["<b>Next P0</b><br/>refunds as their own slice"]
-  M2 -. the counterfactual .-> M3
-  M4 -. the evidence that restores it .-> P
-```
+<!-- picture:wikimap:postmortem -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-postmortem.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-postmortem.dark.webp"><img alt="The missing-control postmortem from the incident to the next P0 brief" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-postmortem.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-postmortem.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

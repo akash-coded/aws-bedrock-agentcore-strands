@@ -80,19 +80,11 @@ saying out loud early, while nothing is at stake.
 
 ## What crosses your desk
 
-```mermaid
-flowchart LR
-  SA["Solution<br/>architect"] -->|"the map's tags"| ME["QA lead"]
-  PM["Product<br/>manager"] -->|"spec · a bar per slice"| ME
-  EN["Engineering<br/>lead"] -->|"builds, bolt by bolt"| ME
-  ME -->|"proof map · golden set · checker map"| EN
-  ME -->|"a lower bound · the shadow comparison"| PM
-  ME -->|"the missing-control finding"| SA
-  classDef me fill:#8C5B6B26,stroke:#8C5B6B,stroke-width:2.5px
-  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
-  class ME me
-  class SA,PM,EN them
-```
+<!-- picture:wikimap:role-qa-lead -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-qa-lead.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-qa-lead.dark.webp"><img alt="What arrives on the qa lead's desk, from whom, and what leaves it, to whom" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-qa-lead.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-qa-lead.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |

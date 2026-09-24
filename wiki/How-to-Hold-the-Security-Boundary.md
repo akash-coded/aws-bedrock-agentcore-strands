@@ -37,20 +37,11 @@ Everything below is a consequence of that sentence.
 
 ## The six controls
 
-```mermaid
-flowchart TD
-  IN["<b>Text arrives</b><br/>passenger · partner API · document<br/>booking field · knowledge chunk"] --> C4["<b>4</b> · Injection defence<br/>tagged at ingest, read as data"]
-  C4 --> M["<b>The model decides</b><br/>the prompt's policy is a request"]
-  M --> C1["<b>1</b> · Least authority<br/>may it call this tool at all?"]
-  C1 --> C2["<b>2</b> · Bounded tools<br/>over the cap → raises"]
-  C2 --> C3["<b>3</b> · Human gate on money<br/>no valid token → raises"]
-  C3 --> ACT["<b>The money moves</b><br/>within $400, with a named approver"]
-  ACT --> C5["<b>5</b> · Traceability<br/>one redacted row, attempts included"]
-  C6["<b>6</b> · The rule, in the system<br/>every layer classified<br/>enforced / a request / absent"] -. audits .-> C1
-  C6 -. audits .-> C2
-  C6 -. audits .-> C3
-  C6 -. audits .-> C5
-```
+<!-- picture:wikimap:hold-boundary -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-hold-boundary.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-hold-boundary.dark.webp"><img alt="Text arriving, the injection defence, the model deciding, least authority, bounded tools, the human gate, the money moving, and the trace" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-hold-boundary.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-hold-boundary.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

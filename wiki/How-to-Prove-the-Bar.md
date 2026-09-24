@@ -26,18 +26,11 @@ This closes the [trust loop](The-Eight-Loops#trust). The QA lead owns it.
 
 ## The ladder
 
-```mermaid
-flowchart TD
-  A["<b>1 · Set the bar</b><br/>derived per slice, not guessed"] --> B["<b>2 · Build the golden set</b><br/>real cases, tagged by slice"]
-  B --> C["<b>3 · Score it</b><br/>exact checks, then the judge"]
-  C --> D["<b>4 · Report the lower bound</b><br/>not the point estimate"]
-  D --> E{"Lower bound<br/>≥ bar?"}
-  E -->|no| F["Cases owed, or<br/>fix the slice"]
-  F --> C
-  E -->|yes| G["<b>5 · Shadow run</b><br/>decides, never acts"]
-  G --> H["<b>6 · Cut over at 5%</b>"]
-  H --> I["<b>7 · Widen on live evidence</b>"]
-```
+<!-- picture:wikimap:prove-bar -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-prove-bar.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-prove-bar.dark.webp"><img alt="Seven moves for proving the bar, with the lower-bound test as a gate before the shadow run" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-prove-bar.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-prove-bar.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

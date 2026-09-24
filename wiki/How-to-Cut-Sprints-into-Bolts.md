@@ -27,15 +27,11 @@ rather than as a role.
 
 ## The six moves
 
-```mermaid
-flowchart TD
-  M1["<b>1</b> · Set the cadence<br/>how often evidence arrives"] --> M2["<b>2</b> · Cut by dependency<br/>not by priority"]
-  M2 --> M3["<b>3</b> · Change the ceremonies<br/>one question at standup"]
-  M3 --> M4["<b>4</b> · Write the story file<br/>six parts, one file"]
-  M4 --> M5["<b>5</b> · Measure exposure<br/>in unknown-days"]
-  M5 --> M6["<b>6</b> · Re-cut, out loud<br/>before the day is spent"]
-  M6 -.->|the cut was wrong| M2
-```
+<!-- picture:wikimap:cut-sprints -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-cut-sprints.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-cut-sprints.dark.webp"><img alt="Six moves for cutting sprints into bolts, with a re-cut when the cut was wrong" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-cut-sprints.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-cut-sprints.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |
@@ -151,24 +147,11 @@ of day rather than an intention.
 A bolt must be **buildable and testable alone**. That constraint sets the order, and it is not the
 order the backlog is in.
 
-```mermaid
-flowchart TD
-  B1["<b>Day 1</b> · Walking skeleton<br/>read a booking, show it<br/><i>no model in it</i>"]
-  B2["<b>Day 2</b> · fare_difference()<br/><i>exact, unit-tested, standalone</i>"]
-  B3["<b>Day 3</b> · visa + codeshare rules<br/><i>exact, standalone</i>"]
-  B4["<b>Day 4</b> · rank_alternatives()<br/><i>best-guess, measured</i>"]
-  B5["<b>Day 5</b> · checker after ranking"]
-  B6["<b>Day 6</b> · MCP server<br/><i>reads open</i>"]
-  B7["<b>Day 7</b> · rebook() gated write"]
-  B8["<b>Day 8</b> · issue_refund(≤400)<br/><i>+ confirmation token</i>"]
-  B9["<b>Day 9</b> · shadow path behind a flag"]
-  B10["<b>Day 10</b> · golden set + harness in CI"]
-  B1 --> B2 --> B4 --> B5
-  B1 --> B3
-  B1 --> B6 --> B7 --> B8
-  B5 --> B9
-  B8 --> B9 --> B10
-```
+<!-- picture:figure:bolt_days -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-bolt-days.dark.webp"><img alt="A bolt plan: one risk per bolt, the walking skeleton first" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/figure-bolt-days.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/">Open the live, interactive version</a></sub>
+<!-- /picture -->
 
 The ordering rules, in priority order:
 

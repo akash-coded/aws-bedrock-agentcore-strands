@@ -29,14 +29,11 @@ design question, not a finance one.
 
 ## The six moves
 
-```mermaid
-flowchart TD
-  M1["<b>1 · The per-call log</b><br/>four signatures, baseline vs now"] --> M2["<b>2 · Multiply, then order</b><br/>4.40, and (factor−1)÷days"]
-  M2 --> M3["<b>3 · Context and routing</b><br/>the two half-day fixes"]
-  M3 --> M4["<b>4 · Make the cache pay</b><br/>prefix, window, break-even"]
-  M4 --> M5["<b>5 · Breaker + the trap</b><br/>MAX_LOOPS, and mark cache hits"]
-  M5 --> M6["<b>6 · Guards, then P1</b><br/>a watched ratio and an amended record"]
-```
+<!-- picture:wikimap:control-bill -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-control-bill.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-control-bill.dark.webp"><img alt="Six moves from the per-call log to a watched ratio and an amended design record" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-control-bill.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-control-bill.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | # | Move | Produces | Done when |
 | --- | --- | --- | --- |

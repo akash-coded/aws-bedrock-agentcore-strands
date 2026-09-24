@@ -61,18 +61,11 @@ the morning, by somebody who did not build it.
 
 ## What crosses your desk
 
-```mermaid
-flowchart LR
-  SA["Solution<br/>architect"] -->|"authority budget · gate map"| ME["Platform"]
-  QA["QA lead"] -->|"what the harness must block"| ME
-  ME -->|"one gateway · pinned environments · a required check"| EN["Engineering<br/>lead"]
-  ME -->|"cost per case · attempts · drift"| PM["Product<br/>manager"]
-  ME -->|"the bill, by factor"| SA
-  classDef me fill:#78589B26,stroke:#78589B,stroke-width:2.5px
-  classDef them fill:#51698114,stroke:#516981,stroke-width:1.5px
-  class ME me
-  class SA,QA,EN,PM them
-```
+<!-- picture:wikimap:role-devops -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-devops.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-devops.dark.webp"><img alt="What arrives on the platform's desk, from whom, and what leaves it, to whom" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-devops.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-role-devops.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 | Phase | You receive | You hand over | To |
 | --- | --- | --- | --- |

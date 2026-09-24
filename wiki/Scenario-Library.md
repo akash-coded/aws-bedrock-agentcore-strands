@@ -90,23 +90,11 @@ The hardest ones are hard because the right answer is unpopular.
 
 ### Pick by what your team keeps getting wrong
 
-```mermaid
-flowchart LR
-  Q{"What went wrong<br/>the last three times?"} --> A["We built the wrong thing"]
-  Q --> B["We could not say whether it worked"]
-  Q --> C["It worked, then the bill arrived"]
-  Q --> D["Something got through that should not have"]
-  Q --> E["Leadership lost confidence"]
-  A --> A1["1, 4, 6, 11<br/><i>framing and the spec</i>"]
-  B --> B1["14, 15, 16, 17<br/><i>proof and the bar</i>"]
-  C --> C1["18, 19, 20<br/><i>the bill, by factor</i>"]
-  D --> D1["21, 22, 12, 13<br/><i>boundary and review</i>"]
-  E --> E1["23, 24, 10<br/><i>governance and the two numbers</i>"]
-  classDef q fill:#51698122,stroke:#516981,stroke-width:2px
-  classDef out fill:#0E7F7C1A,stroke:#0E7F7C,stroke-width:1.5px
-  class Q q
-  class A1,B1,C1,D1,E1 out
-```
+<!-- picture:wikimap:scenario-library -->
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-scenario-library.light.webp"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-scenario-library.dark.webp"><img alt="Five kinds of past failure, each pointing to the scenarios that rehearse it" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-scenario-library.light.webp" width="100%"></picture></a></p>
+
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-scenario-library.light.webp">Open the picture full size</a></sub>
+<!-- /picture -->
 
 ### How to run one
 
