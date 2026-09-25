@@ -261,4 +261,170 @@ def methods() -> str:
                           "matters is not which method but how deep to go on this change.")
 
 
-PICTURES = {"spine": spine, "pdlc_vs": pdlc_vs, "ladder": ladder, "chain": chain, "methods": methods}
+
+# --------------------------------------------------------------------------------------- tower
+LOOP = "M215 167 H425 A88 88 0 0 1 425 343 H215 A88 88 0 0 1 215 167 Z"   # the runway loop, clockwise
+
+PLANE = ('<path d="M-14 0 H-30" stroke="var(--ink2)" stroke-width="1.2" stroke-dasharray="3 3" opacity=".55"/>'
+         '<path d="M-12 0 L-6 -2.6 L7 -2.6 Q12.5 -2.6 12.5 0 Q12.5 2.6 7 2.6 L-6 2.6 Z" fill="var(--paper)" '
+         'stroke="var(--ink)" stroke-width="1.4"/>'
+         '<path d="M-1 -2.6 L-7 -10 L-3 -10 L3.5 -2.6 Z M-1 2.6 L-7 10 L-3 10 L3.5 2.6 Z M-10 -1.8 L-14 -6 L-12 -6 '
+         'L-7.5 -1.8 Z M-10 1.8 L-14 6 L-12 6 L-7.5 1.8 Z" fill="var(--ink)"/>')
+
+# every rule is prefixed: a style element inside an inline SVG applies to the whole document
+TOWER_CSS = """
+.twr-lane{stroke-dasharray:12 10;animation:twr-march 1.6s linear infinite}
+@keyframes twr-march{to{stroke-dashoffset:-22}}
+.twr-plane{offset-path:path("%s");offset-rotate:auto;animation:twr-fly 26s linear infinite}
+.twr-plane.a{offset-distance:6%%;animation-delay:0s}
+.twr-plane.b{offset-distance:31%%;animation-delay:-6.5s}
+.twr-plane.c{offset-distance:56%%;animation-delay:-13s}
+.twr-plane.d{offset-distance:81%%;animation-delay:-19.5s}
+@keyframes twr-fly{from{offset-distance:0%%}to{offset-distance:100%%}}
+.twr-radar{transform-box:view-box;transform-origin:320px 229px;animation:twr-spin 9s linear infinite}
+@keyframes twr-spin{to{transform:rotate(360deg)}}
+.twr-beacon{animation:twr-blink 1.8s ease-in-out infinite}
+@keyframes twr-blink{0%%,100%%{opacity:1}50%%{opacity:.25}}
+.twr-cloud{animation:twr-drift 40s linear infinite alternate}
+@keyframes twr-drift{to{transform:translateX(26px)}}
+@media (prefers-reduced-motion:reduce){.twr-lane,.twr-plane,.twr-beacon,.twr-cloud{animation:none}.twr-radar{display:none}}
+@supports not (offset-path:path("M0 0h1")){.twr-plane{display:none}}
+""" % LOOP
+
+
+def _twr_label(x: float, y: float, key: str, name: str, hue: str, a: str = "middle") -> str:
+    c = f"color-mix(in oklab,var(--dg-{hue}) 72%,var(--ink))"
+    return (f'<text x="{x}" y="{y}" text-anchor="{a}" font-family="{bb.FONT}" fill="{c}">'
+            f'<tspan font-size="14" font-weight="800">{key}</tspan>'
+            f'<tspan font-size="11.5" font-weight="600" dx="5">{name}</tspan></text>')
+
+
+def tower() -> str:
+    """The hook band's scene: the lifecycle flown as a loop, controlled from a tower.
+
+    Motion is direction only: the lane's dashes march, the planes follow the loop, the
+    radar sweeps. Reduced motion stops all of it and the planes keep their places; a
+    browser without motion paths hides the planes rather than piling them in a corner."""
+    sky = ('<defs><linearGradient id="twr-sky" x1="0" y1="0" x2="0" y2="1">'
+           '<stop offset="0" style="stop-color:color-mix(in oklab,var(--dg-slate) 26%,var(--paper))"/>'
+           '<stop offset="1" style="stop-color:var(--paper)"/></linearGradient></defs>'
+           '<rect width="640" height="400" fill="url(#twr-sky)"/>')
+    clouds = ('<g class="twr-cloud" fill="var(--paper)" opacity=".85">'
+              '<ellipse cx="86" cy="62" rx="34" ry="12"/><ellipse cx="108" cy="54" rx="24" ry="14"/>'
+              '<ellipse cx="548" cy="88" rx="30" ry="11"/><ellipse cx="566" cy="80" rx="20" ry="12"/></g>')
+    lane = f'<path d="{LOOP}" fill="none" stroke="var(--rule2)" stroke-width="18" stroke-linejoin="round"/>'
+
+    def seg(d: str, hue: str) -> str:
+        return (f'<path d="{d}" fill="none" stroke="color-mix(in oklab,var(--dg-{hue}) 58%,var(--paper))" '
+                f'stroke-width="18"/>')
+    segs = (seg("M215 167 H425", "slate") + seg("M425 167 A88 88 0 0 1 425 343", "indigo")
+            + seg("M425 343 H215", "teal") + seg("M215 343 A88 88 0 0 1 215 167", "amber"))
+    centre = f'<path class="twr-lane" d="{LOOP}" fill="none" stroke="var(--paper)" stroke-width="2"/>'
+    # the one hard gate, where P1 hands to P2
+    gate = ('<g transform="translate(425 343)">'
+            '<rect x="-13" y="-16" width="26" height="32" rx="7" fill="var(--dg-teal)"/>'
+            '<rect x="-6.5" y="-2" width="13" height="10" rx="2" fill="none" stroke="var(--dg-on)" stroke-width="1.8"/>'
+            '<path d="M-3.5 -2V-5.5a3.5 3.5 0 0 1 7 0V-2" fill="none" stroke="var(--dg-on)" stroke-width="1.8" '
+            'stroke-linecap="round"/></g>'
+            + bb.text(446, 371, "hard gate", fs=11, b=True, c="color-mix(in oklab,var(--dg-teal) 78%,var(--ink))"))
+    ret = bb.text(196, 151, "production feeds the next frame", fs=10.5, w=600, c="var(--ink2)", a="end")
+    labels = (_twr_label(320, 151, "P0", "Frame", "slate")
+              + _twr_label(528, 250, "P1", "Design &amp; Spec", "indigo", a="start")
+              + _twr_label(320, 383, "P2", "Build &amp; Prove", "teal")
+              + _twr_label(112, 250, "P3", "Run &amp; Learn", "amber", a="end"))
+    radar = ('<path class="twr-radar" d="M320 229 L320 99 A130 130 0 0 1 385 116 Z" fill="var(--dg-slate)" '
+             'opacity=".16"/>')
+    tower_ = ('<g><path d="M306 246 H334 L331 322 H309 Z" fill="var(--ink2)"/>'
+              '<rect x="294" y="318" width="52" height="9" rx="3" fill="var(--ink)"/>'
+              '<rect x="282" y="212" width="76" height="36" rx="9" fill="var(--ink)"/>'
+              '<rect x="289" y="220" width="62" height="13" rx="3" fill="var(--paper)" opacity=".92"/>'
+              '<path d="M304 220v13M320 220v13M336 220v13" stroke="var(--ink)" stroke-width="1.6"/>'
+              '<path d="M320 212V194" stroke="var(--ink)" stroke-width="2"/>'
+              '<circle class="twr-beacon" cx="320" cy="192" r="3.5" fill="var(--dg-rose)"/></g>'
+              + bb.text(296, 296, "control:", fs=10, w=700, c="var(--ink2)", a="end")
+              + bb.text(296, 310, "gates, loops, the sponsor", fs=10, w=600, c="var(--ink2)", a="end"))
+    planes = "".join(f'<g class="twr-plane {k}">{PLANE}</g>' for k in "abcd")
+    inner = sky + clouds + radar + lane + segs + centre + gate + ret + labels + tower_ + planes
+    return ('<svg class="twr" viewBox="0 0 640 400" role="img" aria-label="Four planes fly a loop of four runway '
+            'segments, P0 Frame, P1 Design and Spec, P2 Build and Prove and P3 Run and Learn, past one hard gate, '
+            f'under a control tower with a radar sweep"><style>{TOWER_CSS}</style>{inner}</svg>')
+
+
+_METHOD_HUES = [('SDD', 'b'), ('BMAD', 'k'), ('AI-DLC', 'o'), ('AiDD', 'g')]   # (short name, hue) as METHODS names them
+
+
+# --------------------------------------------------------------------------------------- merge
+def merge() -> str:
+    """How the four methods merge into the SkyWays PDLC: each part lands in the phase it serves.
+
+    Four phase columns hold the parts each phase takes, every part in its method's hue with the
+    method named under it; the columns flow into the spine; the row beneath is what the SkyWays
+    PDLC adds and none of the methods carries."""
+    W, H, CW, GAP = 1180, 486, 270, 20
+    hue_of = {}
+    for name, hue in [(n, h) for n, h in _METHOD_HUES]:
+        hue_of[name] = hue
+    PARTS = {
+        0: [("The brief and the PRD", "BMAD", "analyst and PM personas"),
+            ("Depth judged per change", "AI-DLC", "adaptive: only the stages this change needs"),
+            ("Intent written before code", "SDD", "the spec starts here, lightly")],
+        1: [("The spec is what you maintain", "SDD", "code is generated from it"),
+            ("Architecture and stories", "BMAD", "the architect persona's artefacts"),
+            ("Only the stages that are needed", "AI-DLC", "the architect judges depth")],
+        2: [("Code regenerated from the spec", "SDD", "on every change, not patched"),
+            ("Dev and QA personas, story by story", "BMAD", "each hands a versioned artefact on"),
+            ("Context files and editor agents", "AiDD", "the day-to-day craft"),
+            ("Review by risk, cost habits", "AiDD", "who signs, what it costs")],
+        3: [("Operate, then re-enter at depth", "AI-DLC", "the next change picks its own stages"),
+            ("Cache, route, trace", "AiDD", "cost habits that survive launch"),
+            ("The spec learns from production", "SDD", "updated, then regenerated")],
+    }
+    ADDS = ["The autonomy ceiling, decided before anything is built",
+            "A bar per slice and an authority budget, signed at the hard gate",
+            "Prove the bar first: a lower bound, never a score, before traffic",
+            "The two-number report that starts the next P0"]
+    m = bb.title(34, 12, [("Four methods", "p"), ("merge into",), ("one loop", "n")])
+    # legend: one hue per method, top right
+    lx = W - 20
+    for name, hue in reversed(_METHOD_HUES):
+        pw, _, pm = bb.pill(0, 0, name, hue, fs=11, r=9, hh=24)
+        lx -= pw
+        m += bb.pill(lx, 14, name, hue, fs=11, r=9, hh=24)[2]
+        lx -= 8
+    TY = 56
+    for i, (phue, pname, _ic, _href) in enumerate(PHASES):
+        x = 20 + i * (CW + GAP)
+        parts = PARTS[i]
+        ph = 14 + max(len(v) for v in PARTS.values()) * 52   # parallel slots: every column ends on the same row
+        m += bb.panel(x, TY, CW, ph, phue, r=14)
+        for k, (title_, meth, sub) in enumerate(parts):
+            m += bb.node(x + 10, TY + 10 + k * 52, CW - 20, 44, title_=title_, sub=f"{meth} · {sub}",
+                         hue=hue_of[meth], fs=11.5)
+        cx = x + CW / 2
+        m += bb.flow([(cx, TY + ph + 2), (cx, 314)], sw=2)
+    SY = 318
+    m += (f'<rect x="20" y="{SY}" width="{W - 40}" height="48" rx="24" fill="{bb.solid("n")}"/>'
+          + f'<path d="M40 {SY + 24}H{W - 40}" fill="none" stroke="{bb.ON}" stroke-opacity=".45" '
+            f'stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>')
+    for i, (phue, pname, _ic, _href) in enumerate(PHASES):
+        x = 20 + i * (CW + GAP)
+        pw, _, _ = bb.pill(0, 0, pname, phue, fs=12.5, r=14, hh=28)
+        m += bb.pill(x + CW / 2 - pw / 2, SY + 10, pname, phue, fs=12.5, r=14, hh=28)[2]
+    m += bb.gate(20 + 2 * (CW + GAP) - GAP / 2, SY - 8, 64)
+    m += bb.text(20 + 2 * (CW + GAP) - GAP / 2, SY + 74, "hard gate", a="middle", fs=10.5, b=True, c=bb.dark("k"))
+    AY = 392
+    for i, txt in enumerate(ADDS):
+        x = 20 + i * (CW + GAP)
+        m += bb.callout(x, AY, CW, txt, "n", h=54, fs=11)
+    m += bb.text(20, AY - 8, "What the SkyWays PDLC adds, and none of the four carries", fs=11, b=True, c=bb.dark("n"))
+    m += bb.text(34, 474, "One order, one owner per phase, one hard gate. The parts keep their names; the spine keeps them honest.",
+                 fs=11.5, w=600, c=bb.INK2)
+    return bb.svg(W, H, m, "How the four methods merge into the SkyWays PDLC: the parts of spec-driven development, "
+                  "the BMAD Method, AI-DLC and AiDD placed in the phase each serves, flowing into the four-phase "
+                  "spine with its hard gate, and the row of devices the SkyWays PDLC adds",
+                  caption="<b>Merged, not stacked.</b> Each method keeps the part it does best; the spine gives the "
+                          "parts one order, one owner per phase and one hard gate.")
+
+
+PICTURES = {"spine": spine, "pdlc_vs": pdlc_vs, "ladder": ladder, "chain": chain, "methods": methods,
+            "merge": merge}

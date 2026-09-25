@@ -17,14 +17,21 @@ PHASES = [
       ("Autonomy ceiling", "how much the machine may do")],
      ("You leave with", ["A pain that is a measurement",
                          "A verdict with an alternative named",
-                         "A ceiling, in writing"])),
+                         "A ceiling, in writing"]),
+     "learn/p0-frame/",
+     "Decide whether to build it at all, and whether it is AI at all. The product manager "
+     "owns it. You leave with a pain that is a measurement, an AI-fit verdict and a ceiling "
+     "in writing. Open the lesson."),
     ("indigo", "P1 · Design & Spec", "solution architect", "blueprint",
      "Decide exactly what, and under whose authority.",
      [("Eight-field spec", "what a machine can build from"),
       ("A bar per slice", "derived from damage over saving"),
       ("Authority budget", "what it may do unasked, and where it stops")],
      ("You leave with", ["A signed spec", "A bar per slice, not one bar",
-                         "A named approver per gate"])),
+                         "A named approver per gate"]),
+     "learn/p1-design-and-spec/",
+     "Decide exactly what, and under whose authority. The solution architect owns it. You "
+     "leave with a signed spec, a bar per slice and a named approver per gate. Open the lesson."),
     ("teal", "P2 · Build & Prove", "engineering lead", "prove",
      "Prove it meets the bar, slice by slice.",
      [("Bolts, not sprints", "ten days, one owner, one artefact"),
@@ -32,7 +39,10 @@ PHASES = [
       ("Shadow run", "beside the desk, not instead of it")],
      ("You leave with", ["Evidence at the bar",
                          "A lower bound, never a score",
-                         "A shadow run that agrees"])),
+                         "A shadow run that agrees"]),
+     "learn/p2-build-and-prove/",
+     "Prove it meets the bar, slice by slice. The engineering lead owns it. You leave with "
+     "evidence at the bar, a lower bound and a shadow run that agrees. Open the lesson."),
     ("amber", "P3 · Run & Learn", "the sponsor", "gauge",
      "Watch it, cost it, and feed the next frame.",
      [("Trace and drift", "the three signals a normal stack lacks"),
@@ -40,25 +50,30 @@ PHASES = [
       ("Two-number report", "and the brief the next P0 starts from")],
      ("You leave with", ["Two numbers, not a dashboard",
                          "A drift readout",
-                         "The next P0 brief, with an owner"])),
+                         "The next P0 brief, with an owner"]),
+     "learn/p3-run-and-learn/",
+     "Watch it, cost it and feed the next frame. The sponsor owns it. You leave with two "
+     "numbers, a drift readout and the next P0 brief. Open the lesson."),
 ]
 
 
 def pdlc() -> str:
-    cols = [dg.column(h, n, b, i, t, s, k) for h, n, b, i, t, s, k in PHASES]
+    cols = [dg.column(h, n, b, i, t, s, k, href=u, tip=tp) for h, n, b, i, t, s, k, u, tp in PHASES]
     inner = dg.flow(cols, gate_after=1) + dg.returns(
         "production is where the next frame comes from: incident, drift, cost")
     return dg.board(
-        "The spine", "The agentic PDLC",
-        "Four phases, one hard gate, and a line that comes back. Everything else on this "
-        "site hangs off this picture.",
+        "The spine", "P0 to P3: the SkyWays PDLC loop",
+        "Four phases that run as a spiral rather than a line. Each pass takes an idea a step "
+        "closer to production, and what production teaches starts the next pass. Click a "
+        "phase to open its lesson.",
         inner,
-        note="<b>Why the gate sits there.</b> P0 and P1 are cheap to get wrong on paper and "
-             "expensive to get wrong in production. That asymmetry is the whole argument for "
-             "the phases. P1 to P2 is the one crossing nothing downstream survives without: "
-             "the spec, the bar per slice and the authority budget are signed before a line "
-             "of the agent is written. The other three crossings are soft, and the dashed "
-             "return line at the bottom is the one teams forget to build.",
+        aside_title="What the hard gate is",
+        aside="<p>The one hand-off nobody may skip. The spec, the bar per slice and the "
+              "authority budget are signed before a line of the agent is written.</p>"
+              "<p>It sits between P1 and P2 because paper is cheap to change and production "
+              "is not. The other three crossings are soft: they check evidence and let the "
+              "line move.</p>"
+              '<p><a href="learn/what-is-the-agentic-pdlc/">The four phases in one lesson</a></p>',
         bid="pdlc")
 
 
@@ -123,15 +138,18 @@ ROWS = [
 def by_role() -> str:
     m = dg.matrix(COLS, ROWS, legend="the bar marks the phase this role is accountable for")
     return dg.board(
-        "The same ninety days, five chairs", "Your role, across the four phases",
-        "One row per role, one column per phase. Read across to see your own arc; read "
-        "down to see who else is in the room when yours is the hard part.",
+        "By role", "Your role across P0 to P3",
+        "One row per role, one column per phase. Read across for your own arc; read down "
+        "to see who else is in the room when yours is the hard part. Every cell opens the "
+        "step it names.",
         m,
-        note="<b>Two things this chart is honest about.</b> The dashed cells are not gaps in "
-             "the manual, they are the point: an engineering lead who opens a branch in P0 and "
-             "a QA lead who arrives in P2 are the two most expensive habits in agentic "
-             "delivery. And P3 is accountable to nobody on this chart — it belongs to the "
-             "sponsor, which is why it has its own page.",
+        aside_title="How to read it",
+        aside="<ul><li><b>The bar</b> marks the phase a role is accountable for.</li>"
+              "<li><b>Dashed cells</b> are on purpose. An engineering lead who starts building "
+              "in P0, or a QA lead who arrives in P2, are the two most expensive habits in "
+              "agentic delivery.</li>"
+              '<li><b>P3</b> belongs to the sponsor, which is why it has <a href="protocol/">its '
+              "own page</a>.</li></ul>",
         bid="by-role")
 
 
@@ -196,15 +214,16 @@ def delegation() -> str:
     b = dg.bands([dg.band(h, k, n, s, lanes) for h, k, n, s, lanes in LANES])
     return dg.board(
         "What actually changed", "Where the model helps, and where it must not",
-        "The machine took the drafting. It did not take the judgement — it concentrated "
-        "it. Every step in this manual names a tool, a use, a caution, and exactly one "
-        "thing that is never delegated.",
+        "The machine took the drafting. It did not take the judgement; it concentrated it. "
+        "Every step in this manual names a tool, a use, a caution, and exactly one thing "
+        "that is never delegated.",
         b,
-        note="<b>Read the red column first.</b> Forty steps across five roles produce forty "
-             "of those lines, and they have a shape: every one is a fact about your business, "
-             "your regulator or your ledger that no amount of context makes knowable from "
-             "outside. That is the job now — not less judgement, the same judgement "
-             "concentrated into fewer and larger decisions, each with a name on it.",
+        aside_title="Read the red column first",
+        aside="<p>Forty steps across five roles each name one thing that is never delegated, "
+              "and the forty have a shape: every one is a fact about your business, your "
+              "regulator or your ledger that no context window makes knowable from outside.</p>"
+              "<p>The job did not shrink. It is the same judgement, concentrated into fewer "
+              "and larger decisions, each with a name on it.</p>",
         bid="delegation")
 
 
@@ -304,14 +323,17 @@ def loops() -> str:
              + dg.section_band("The three that run backwards")
              + dg.cards(BACKWARD))
     return dg.board(
-        "The feedback", "Eight loops: the feedback that turns four phases into a cycle",
-        "Each loop opens in one phase and closes in a later one. Five close forwards or "
-        "inside a phase and look after themselves, because somebody downstream is waiting "
-        "and will chase. Three run backwards, and nobody is waiting.",
+        "The feedback", "Eight loops that run every team's workflow, P0 to P3",
+        "Five loops carry work forward, from requirements to trust. Three bring production "
+        "back to the phase that must answer for it: cost, incident and governance.",
         inner,
-        note="<b>The test for a loop that exists.</b> For each of the three backwards loops, "
-             "name the person. Not the team, the person. If you cannot, the loop is absent — "
-             "and absent is the honest word, not <em>informal</em>. A loop is closed when an "
-             "artefact in the opening phase has changed because of evidence from the closing "
-             "one, and you can show the diff.",
+        aside_title="The eight, as drawn",
+        aside='<div class="bxg"><span class="bxk">Forward, five</span>'
+              + "".join(f"<i>{n}</i>" for n in ("Requirements P0 → P1", "Spec P1 → P2", "Trust P2 → P3",
+                                                 "Decision P1 → P1", "Delivery P2 → P2"))
+              + '</div><div class="bxg" style="--c:var(--dg-rose)"><span class="bxk">Back from '
+                'production, three</span><i>Cost P3 → P1</i><i>Incident P3 → P0</i>'
+                '<i style="--c:var(--dg-violet)">Governance P0 → P3</i></div>'
+                "<p>Nobody downstream is waiting for the three, so they have to be built on "
+                "purpose. Name the person who owns each; if you cannot, the loop is absent.</p>",
         bid="loops")

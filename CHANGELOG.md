@@ -8,6 +8,38 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The home page, re-swept
+
+### Changed
+- **Every head spans the row.** The home page's four boards open with two columns: the title and thesis on
+  the left, a boxed key on the right (what the hard gate is; the eight loops named as chips; how to read the
+  role chart; why the red column comes first). The notes that used to sit under the boards, half a page wide
+  with nothing beside them, are folded into those keys. The stats band is a six-cell grid across the page
+- **The spine is named.** "P0 to P3: the SkyWays PDLC loop", four phases that run as a spiral rather than a
+  line. Each phase header is a link to its lesson, shows a hover card that says what the phase decides and
+  what you leave it with, and carries its key in a larger size
+- **The loops board says what the picture shows.** "Eight loops that run every team's workflow, P0 to P3":
+  five carry work forward, three bring production back, and the key lists all eight with their phases
+- **The hook band's photo is a scene.** An animated control tower: four planes fly a loop of four runway
+  segments, P0 to P3, past one hard gate, under a radar sweep. Reduced motion stops everything and keeps the
+  planes in place; a browser without motion paths hides them rather than piling them in a corner
+- **Copy in full sentences.** "Three ways you can use this"; the running case and the lifecycle line as two
+  cards; "Pick the chair you sit in" in one sentence with no unexplained ninety days; the six library cards
+  benefit-first (templates you can use today, prompts you can paste into your LLM, the SkyWays PDLC
+  Simulator, how to invest in AI projects, pictures that explain agentic concepts, the methods merged and
+  written down). "What this is, and what it is not" is gone; the sources link stays in the footer
+- **The frameworks page, rebuilt.** The four-methods picture first; every section head paired with an aside
+  (the simulator links, what the SkyWays PDLC adds, the three lineage pills); headings as sentences ("Why long
+  chains of steps fail, and what to do about it"; "Where each framework came from, and how much to trust it")
+- **The footer** credits SkyWays Consultancy for both products, conceptualised and built by Akash Das, and the
+  dead space under the simulator's footer is gone
+
+### Added
+- **How the four methods merge into the SkyWays PDLC**, a new picture on the frameworks page and in the pack:
+  the parts of SDD, BMAD, AI-DLC and AiDD placed in the phase each serves, flowing into the spine, with the row
+  of devices the SkyWays PDLC adds
+- The tower scene and the merge picture in the picture pack; the four boards re-captured with their new heads
+
 ## 2026-09-25 · The picture pack
 
 ### Added

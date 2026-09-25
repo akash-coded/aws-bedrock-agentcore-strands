@@ -291,7 +291,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .gutter-grid::before{grid-column:1;grid-row:1}
 
 /* ---------- footer ---------- */
-.ft{border-top:1px solid var(--rule);background:var(--paper);margin-top:52px;padding:40px 0 48px}
+.ft{border-top:1px solid var(--rule);background:var(--paper);margin-top:52px;padding:40px 0 64px}
 .ft .in{max-width:var(--wrap);margin:0 auto;padding:0 24px;display:grid;
   grid-template-columns:1.5fr 1fr 1fr;gap:34px}
 @media (max-width:820px){.ft .in{grid-template-columns:1fr;gap:26px;padding:0 16px}}
@@ -1032,7 +1032,8 @@ a.md:hover b{color:var(--c)}
   background:var(--paper);color:var(--ink);font-size:13px;font-weight:600;transition:transform .16s var(--ease),border-color .16s var(--ease)}
 .hero .who a:hover{border-color:var(--w,var(--accent));text-decoration:none;transform:translateY(-1px)}
 .hero .who a i{font-style:normal;width:8px;height:8px;border-radius:50%;background:var(--w,var(--accent));flex:none}
-.stats{display:flex;flex-wrap:wrap;gap:8px 30px;margin:0 0 34px;padding:0 0 22px;border-bottom:1px solid var(--rule)}
+.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px 18px;margin:0 0 34px;padding:0 0 22px;border-bottom:1px solid var(--rule)}
+@media (max-width:760px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .stats span{font-size:13px;color:var(--soft)}
 .stats b{display:block;font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:1px}
 .hero .stats{display:none}
@@ -1290,3 +1291,67 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 .postersec{margin:0 0 30px}
 @media (max-width:900px){.pa-row{grid-template-columns:1fr 1fr}.pr-row{grid-template-columns:20px repeat(5,minmax(0,1fr))}.pr-c b{font-size:11.5px}.pr-h b{font-size:12.5px}}
 @media (max-width:600px){.pa-row{grid-template-columns:1fr}.poster{overflow-x:auto}.pr-grid{min-width:760px}.pics{grid-template-columns:1fr}}
+
+
+/* ---- round N1: heads that span the row -------------------------------------------------
+   A board head with a key: title and thesis on the left, the key boxed on the right, so no
+   head stops half way across the page with nothing beside it. Same for the frameworks page
+   section heads (.rowh/.rowa) and the two pedagogy cards on the home page. */
+.dgb > figcaption.bhd2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:14px 36px;align-items:end;max-width:none}
+.dgb .bhd .bs{max-width:none}
+.dgb .bxa{padding:14px 16px 13px;border:1px solid var(--rule);border-radius:14px;background:var(--paper);font-size:13.5px;line-height:1.5;color:var(--ink2);align-self:stretch}
+.dgb .bxa .bxt{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.dgb .bxa p{font-size:13.5px;margin:0 0 8px;max-width:none}
+.dgb .bxa p:last-child{margin:0}
+.dgb .bxa ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dgb .bxa li{padding-left:14px;position:relative}
+.dgb .bxa li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.dgb .bxa b{color:var(--ink);font-weight:650}
+.dgb .bxg{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 9px;align-items:center}
+.dgb .bxg .bxk{width:100%;font-size:11.5px;font-weight:700;color:var(--soft)}
+.dgb .bxg i{font-style:normal;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;
+  border:1px solid color-mix(in oklab,var(--c,var(--ink2)) 40%,transparent);
+  background:color-mix(in oklab,var(--c,var(--ink2)) 9%,transparent);
+  color:color-mix(in oklab,var(--c,var(--ink2)) 72%,var(--ink))}
+@media (max-width:900px){.dgb > figcaption.bhd2{grid-template-columns:1fr;gap:12px}}
+
+/* the spine's phase headers are doors: a link, a bigger key, a hover card */
+.dgc a.ch{text-decoration:none;position:relative;cursor:pointer;transition:filter .16s var(--ease)}
+.dgc a.ch:hover{filter:brightness(1.07)}
+.dgc a.ch:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.dgc .ch b{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.dgc .ch .ckey{font-style:normal;font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.dgc .ch .cname{font-size:15px;font-weight:700}
+.dgc .ch .tipc{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:6;padding:10px 12px;border-radius:10px;
+  background:var(--ink);color:var(--paper);font:500 12.5px/1.45 var(--f-body);letter-spacing:0;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .16s var(--ease),transform .16s var(--ease),visibility 0s .16s;pointer-events:none}
+.dgc a.ch:hover .tipc,.dgc a.ch:focus .tipc{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.dgc a.ch:hover{z-index:7}
+@media (hover:none){.dgc .ch .tipc{display:none}}
+
+/* the two pedagogy cards: one case, one lifecycle */
+.pedagogy{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 34px}
+.pg{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:18px 20px;border:1px solid var(--rule);border-radius:16px;background:var(--paper);align-items:start}
+.pg .pgi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft,#EEF1F6);color:var(--accent)}
+.pg .pgi svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pg b{display:block;font-family:var(--f-display);font-size:17px;letter-spacing:-.01em;margin:3px 0 6px;color:var(--ink)}
+.pg p{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink2);max-width:none}
+@media (max-width:760px){.pedagogy{grid-template-columns:1fr}}
+
+/* the hook band's tower scene replaces the photo */
+.hook .hi.tower{background:var(--paper)}
+.hook .hi.tower svg{display:block;width:100%;height:auto}
+.hook .hi.tower figcaption{position:static;background:var(--paper);color:var(--ink);font-size:14.5px;font-weight:600;line-height:1.35;padding:10px 14px;border-top:1px solid var(--rule)}
+
+/* section heads that span the row: text left, a boxed aside right */
+.rowh{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:14px 40px;align-items:start;margin:0 0 20px}
+.rowh h1,.rowh h2{margin-top:0}
+.rowh p{max-width:none}
+.rowh p:last-child{margin-bottom:0}
+.rowa{padding:14px 16px;border:1px solid var(--rule);border-radius:14px;background:var(--paper);font-size:14px;line-height:1.5;color:var(--ink2)}
+.rowa>b{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.rowa ol,.rowa ul{margin:0;padding-left:18px;display:grid;gap:5px}
+.rowa .try{margin:0;gap:6px}
+.rowa .try a{font-size:13px;padding:6px 10px 6px 9px}
+@media (max-width:900px){.rowh{grid-template-columns:1fr;gap:12px}}

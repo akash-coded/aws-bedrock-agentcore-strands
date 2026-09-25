@@ -10,10 +10,10 @@
 .sw-pill:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
 @media print{.sw-pill,.sw-drawer,.sw-scrim,.sw-strip,.sw-backnav{display:none!important}}
 
-.sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 100px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */
+.sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 64px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */
 .sw-footer .sw-wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:32px}
 @media (max-width:1100px){.sw-footer .sw-wrap{grid-template-columns:1fr 1fr}}
-@media (max-width:900px){.sw-footer{padding:36px 22px 92px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
+@media (max-width:900px){.sw-footer{padding:36px 22px 68px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
 .sw-footer h2{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft,#77746C);margin:0 0 12px}
 .sw-footer p{font-size:14px;line-height:1.6;margin:0 0 10px;max-width:62ch}
 html .sw-footer a{color:#3E5A82;text-decoration:none;border-bottom:1px solid rgba(62,90,130,.35);transition:border-color 160ms}  /* fixed colour, 6.4:1 on white; the tool's own link rule would otherwise win */

@@ -246,15 +246,16 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <footer class="ft" data-site-footer><div class="in">
   <section>
     <h2>About</h2>
-    <p><strong>The agentic manual</strong> is an original work and the intellectual property of
-    <strong>{AUTHOR}</strong>, open-sourced under the <a href="{REPO}/blob/main/LICENSE">MIT licence</a>
-    for knowledge and experience sharing. Keep the attribution when you reuse it.</p>
+    <p><strong>The agentic manual</strong> and the <strong>SkyWays PDLC Simulator</strong> are products of
+    <strong>SkyWays Consultancy</strong>, conceptualised and built by <strong>{AUTHOR}</strong> and open-sourced
+    under the <a href="{REPO}/blob/main/LICENSE">MIT licence</a> for knowledge and experience sharing. Keep the
+    attribution when you reuse them.</p>
     <p style="font-size:13.5px;color:var(--soft)">SkyWays is a fictional airline. Every figure is
     illustrative and dated; check it against your own numbers. Not affiliated with, sponsored by or
     endorsed by Amazon Web Services or any airline.</p>
   </section>
   <section><h2>Go deeper</h2><ul>
-    <li><a href="{up}simulator/">The SkyWays PDLC Simulator — the same ninety days, playable</a></li>
+    <li><a href="{up}simulator/">The SkyWays PDLC Simulator: the whole method, playable</a></li>
     <li><a href="{up}learn/">The tutorial — every lesson, in order</a></li>
     <li><a href="{WIKI}/The-Agentic-PDLC">The method, as a wiki</a></li>
     <li><a href="{WIKI}/Formulas-and-Calculators">Every formula, worked</a></li>
@@ -265,7 +266,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <li><a href="{REPO}/issues/new/choose">Report a problem</a></li>
     <li><a href="{REPO}">The repository</a></li>
   </ul></section>
-  <div class="lg"><span>&copy; 2026 {AUTHOR}</span>
+  <div class="lg"><span>&copy; 2026 SkyWays Consultancy · {AUTHOR}</span>
     <a href="{REPO}/blob/main/LICENSE">MIT licence</a>
     <a href="{REPO}/tree/main/site/content">Source content</a>
     <a href="{WIKI}/Sources-and-Confidence">Sources and confidence</a></div>
@@ -666,7 +667,7 @@ def home_page(roles: list[dict]) -> str:
         {"sel": ".hero .ill", "title": "The spine", "body": "Four phases, one hard gate, and a loop back from production. Every lesson, board and role page on this site hangs off this picture. Click a phase to open it."},
         {"sel": ".hd nav", "title": "The top bar", "body": "<b>Learn</b> is the tutorial. The five roles are the manual itself. Then leadership, the twelve mental models, the libraries — and the <b>Playbook</b>, the same case as an interactive simulator."},
         {"sel": ".menu", "title": "The menu", "body": "Everything, by category: the tutorial's tracks, the interview banks, the libraries, the wiki. Esc closes it."},
-        {"sel": ".how3", "title": "Three ways in", "body": "Learn the method in short lessons, walk your own role step by step, or go straight to the templates and prompts and play the case."},
+        {"sel": ".how3", "title": "Three ways you can use this", "body": "Learn the method in short lessons, walk your own role step by step, or go straight to the templates and prompts and play the case."},
         {"sel": "#pdlc", "title": "The boards", "body": "Below the fold the home page reads as four boards: the spine in detail, the eight loops, your role across the phases, and where a model helps. Hover a cell to light its row and column."},
         {"sel": ".tgl", "title": "Light or dark", "body": "The whole site follows this, pictures included."},
     ])
@@ -700,15 +701,14 @@ def home_page(roles: list[dict]) -> str:
       <h2>Agentic product development, <em>reimagined</em>.</h2>
       <p>The best of every agentic way of working, AI-DLC, AIDD, BMAD, spec-driven development and the
       operating model that ties them together, in one manual you can run on Monday. Free, credited,
-      method-agnostic, and worked end to end on one airline's ninety days.</p>
+      method-agnostic, and worked end to end on one running case.</p>
       <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a><a class="btn" href="simulator/">Open the simulator</a></div>
     </div>
-    <figure class="hi"><img src="assets/photos/tower.jpg" width="1200" height="400" alt="Two air traffic controllers at work in a control tower cab" loading="lazy">
-      <figcaption>Software that decides needs a tower, not a faster runway. <small>Photo: <a href="https://commons.wikimedia.org/wiki/File:Civilian_air_traffic_controllers,_Memphis.jpg" target="_blank" rel="noopener">Civilian air traffic controllers, Memphis</a>, Zeamays, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>, cropped.</small></figcaption></figure>
+    <figure class="hi tower">{illos.tower()}<figcaption>Software that decides needs a tower, not a faster runway.</figcaption></figure>
   </section>
 
   <div class="sec">
-    <h2>Three ways in</h2>
+    <h2>Three ways you can use this</h2>
     <div class="ways">
       <div><h3>Learn the method</h3>
         <p>{n_lessons} short lessons: the four phases, the methods decoded, running delivery, every role, the
@@ -720,29 +720,30 @@ def home_page(roles: list[dict]) -> str:
         <a class="more" href="product-manager/">Open a role →</a></div>
       <div><h3>Use the libraries, then play</h3>
         <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder,
-        and the SkyWays playbook: ninety days of one airline's build you can replay.</p>
+        and the SkyWays PDLC Simulator: one airline's build, replayed as a game.</p>
         <a class="more" href="simulator/">Open the simulator →</a>
-        <div class="try"><span class="tl">Straight to</span><a href="simulator/#/simulations">Simulations</a><a href="simulator/#/toolkit">Toolkit</a><a href="simulator/#/concepts">Concept map</a><a href="simulator/#/story">The ninety days</a></div></div>
+        <div class="try"><span class="tl">Straight to</span><a href="simulator/#/simulations">Simulations</a><a href="simulator/#/toolkit">Toolkit</a><a href="simulator/#/concepts">Concept map</a><a href="simulator/#/story">The worked case</a></div></div>
     </div>
   </div>
 
-  <div class="sec" style="max-width:74ch">
-    <p class="lede" style="font-size:16.5px">One running case throughout: <strong>SkyWays</strong>, an
-    airline building a rebooking assistant for disrupted passengers. Each role sees the same ninety days
-    from its own angle, so you can switch roles and stay oriented.</p>
-  </div>
-
-  <p class="hookline"><span>One lifecycle for every method</span>Your all-in-one agentic PDLC: four phases, one hard gate, and the eight loops that make it a cycle.</p>
+  <section class="pedagogy" aria-label="How the manual is built">
+    <div class="pg"><span class="pgi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 13.5 3 11l1.5-1.5L11 11l5.5-5.5a2 2 0 0 1 2.8 2.8L13.8 14l1.5 6.5L13.8 22l-3.3-7.3L7 18l-.5 3L5 21l-.5-3.5L1 16l1.5-1.5 3 .5z"/></svg></span>
+      <div><b>One running case throughout</b><p>SkyWays, an airline building a rebooking assistant for disrupted
+      passengers. Every role, lesson and simulation uses the same case, so you can switch chairs and stay oriented.</p></div></div>
+    <div class="pg"><span class="pgi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 4h-6a5 5 0 0 0 0 10h2a5 5 0 0 1 0 10H7"/><path d="M14 1l3 3-3 3M10 21l-3 3 3 3"/></svg></span>
+      <div><b>One lifecycle for every method</b><p>P0 to P3, the SkyWays PDLC: four phases, one hard gate and eight
+      loops. AI-DLC, AIDD, BMAD and spec-driven development each plug into it; none of them replaces it.</p></div></div>
+  </section>
 
   {boards.pdlc()}
 
   {boards.loops()}
 
-  <div class="sec" style="max-width:74ch">
+  <div class="sec">
     <h2>Pick the chair you sit in</h2>
-    <p>The same ninety days look different from each seat. Each role page walks eight steps
-    in order, and every step says what you do, where a model helps, what artefact you owe the
-    next person, the template to write it and the prompts to draft it faster.</p>
+    <p class="lede" style="max-width:none">Whether you work as a product manager, a solution architect, an engineering
+    lead, in QA, or in DevOps and platform, your role page walks P0 to P3 from your chair, step by step, with the
+    artefact each step owes the next person, so you can use it today.</p>
   </div>
 
   <div class="roles">{''.join(cards)}</div>
@@ -750,19 +751,18 @@ def home_page(roles: list[dict]) -> str:
   {boards.by_role()}
 
   <div class="sec more">
-    <div><h3>Templates, not theory</h3><p>Every artefact has a fill-in skeleton with a copy button.
-      <a href="templates/">All templates →</a></p></div>
-    <div><h3>Prompts you can paste</h3><p>Written to be edited: the job, the rules, the output shape.
-      <a href="prompts/">All prompts →</a></p></div>
-    <div><h3>The SkyWays playbook</h3><p>An interactive simulator of the whole method: thirteen dated
-      episodes, nine simulations, seventeen calculators. <a href="simulator/">Open the playbook →</a></p></div>
-    <div><h3>Not doing the work, funding it?</h3><p>The whole operating model on one screen: what changes,
-      who does what, the four decisions only leadership can make, and ninety days.
-      <a href="protocol/">The operating protocol →</a></p></div>
-    <div><h3>Pictures to share</h3><p>Every diagram of the method as an image: the spine, the loops, every role,
+    <div><h3>Templates you can use today</h3><p>Every artefact has a fill-in skeleton with a copy button, from
+      the pain register to the two-number report. <a href="templates/">All templates →</a></p></div>
+    <div><h3>Prompts you can paste into your LLM</h3><p>Written for your workflow and meant to be edited: the job,
+      the inputs, the rules, the output shape. <a href="prompts/">All prompts →</a></p></div>
+    <div><h3>The SkyWays PDLC Simulator</h3><p>The whole method, playable: thirteen dated episodes, nine
+      simulations, seventeen calculators, and a score. <a href="simulator/">Open the simulator →</a></p></div>
+    <div><h3>How to invest in AI projects</h3><p>For whoever funds the work: what changes, who does what, and the
+      four decisions only leadership can make. <a href="protocol/">The operating protocol →</a></p></div>
+    <div><h3>Pictures that explain agentic concepts</h3><p>Every diagram as an image: the spine, the loops, every role,
       every lesson, the posters. Light and dark, captioned, free to reuse. <a href="pictures/">The picture pack →</a></p></div>
-    <div><h3>The method, written down</h3><p>Four phases, eight loops, 37 scenarios, 31 exercises, every
-      formula. <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
+    <div><h3>The methods, merged and written down</h3><p>Four phases, eight loops, 37 scenarios, 31 exercises and every
+      formula, worked. <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>
 
   <hr>
@@ -770,20 +770,6 @@ def home_page(roles: list[dict]) -> str:
   {boards.delegation()}
 
   <hr>
-
-  <div class="sec" style="max-width:74ch">
-    <h2>What this is, and what it is not</h2>
-    <p>It <strong>is</strong> an operating manual: the sub-steps of a real role, in order, with the
-    artefact each one owes the next person. It assumes you already know your job and want to know what
-    changes when part of the product is right <em>a share of the time</em> rather than always.</p>
-    <p>It is <strong>not</strong> a tool tutorial. Tools change every quarter; the decisions do not.
-    Where a specific tool matters — a context file a coding agent reads, a documented cache multiplier —
-    it is named and dated. Everything else is about the judgement.</p>
-    <div class="note"><p><strong>Honesty about numbers.</strong> Figures are marked where they come
-    from. Vendor-documented numbers carry their date. Thresholds this manual invented are defaults to
-    tune on your own traffic, not findings.
-    <a href="{WIKI}/Sources-and-Confidence" target="_blank" rel="noopener">Sources and confidence →</a></p></div>
-  </div>
 
   <div class="sec">
     <h2>Where to start</h2>
@@ -857,79 +843,118 @@ def frameworks_page() -> str:
                 f'border-color:color-mix(in oklab,{colour} 42%,transparent);'
                 f'background:color-mix(in oklab,{colour} 10%,transparent)">{label}</span> {gloss}')
 
-    key = ("<p>"
-           + _key_pill("doc", "a vendor’s published documentation, dated &nbsp; ")
-           + _key_pill("est", "a named, published practice &nbsp; ")
-           + _key_pill("wm", "this manual’s own default, to tune on your own traffic")
-           + "</p>")
+    key = ('<ul style="list-style:none;padding:0;display:grid;gap:7px">'
+           + "".join(f"<li>{_key_pill(c, g)}</li>" for c, g in (
+               ("doc", "a vendor’s published documentation, dated"),
+               ("est", "a named, published practice"),
+               ("wm", "this manual’s own default, to tune on your own traffic")))
+           + "</ul>")
     pic = lambda fn: bb.rebase(fn(), "../")  # noqa: E731
     orient = k.orient(
         "Anyone who keeps meeting <strong>AI-DLC, AIDD, BMAD, SDD</strong> and forty acronyms and wants them "
         "placed on one map — and anyone who wants to know how much to trust a number in this manual.",
         "Settle three questions fast: which method covers what, what an acronym means here, and where a "
         "framework came from. Then carry four pictures in your head.",
-        ["Start with <b>Four methods, one spine</b>: they are not competitors, they cover different phases.",
+        ["Start with the picture: <b>four methods on one spine</b>. They are not competitors, they cover different phases.",
          "Use the <b>pictures</b> as arguments: each one ends in a rule you can apply tomorrow.",
          "Check the <b>lineage</b> column before you quote a figure: documented, established, or this manual's own default."])
     tour = k.tour([
         {"sel": "#methods", "title": "One spine, four methods", "body": "A filled cell is where a method speaks to a phase; a dashed cell is where you bring your own answer. The bottom row is what this manual adds."},
         {"sel": "#vs", "title": "What actually changed", "body": "A traditional lifecycle decides everything once. The agentic one adds a bar per slice, an authority budget, one hard gate — and brings production back to the next frame."},
         {"sel": "#ladder", "title": "Gate by risk", "body": "Five bands from a reversible draft to an action nobody delegates. The band belongs to what the change touches, never to its size."},
-        {"sel": "#chain", "title": "Why length is the enemy", "body": "Every probabilistic step multiplies. The bars show what survives; the list says what to do about it."},
+        {"sel": "#merge", "title": "How they merge", "body": "Each method's parts land in the phase they serve. The bottom row is what the SkyWays PDLC adds and none of them carries."},
+        {"sel": "#chain", "title": "Why long chains fail", "body": "Every probabilistic step multiplies. The bars show what survives; the list says what to do about it."},
         {"sel": "#decoder", "title": "The acronym decoder", "body": "Every short form this manual uses, with what it means here and where it came from."},
         {"sel": "#lineage", "title": "How much to trust it", "body": "Every framework carries a lineage pill: a vendor's documentation, a published practice, or this manual's own working default."},
     ])
+    def rowh(head: str, aside_title: str, aside: str) -> str:
+        return f'<div class="rowh"><div>{head}</div><div class="rowa"><b>{aside_title}</b>{aside}</div></div>'
+    def try_(links: list[tuple[str, str]]) -> str:
+        return '<div class="try">' + "".join(f'<a href="{h}">{t}</a>' for h, t in links) + "</div>"
     body = (
         '<div class="wrap"><main id="main" style="padding:34px 0 80px">'
-        '<div class="sec" style="max-width:72ch"><div class="kicker">Reference</div>'
-        "<h1>Frameworks, acronyms and the pictures</h1>"
-        '<p class="lede">The named methods and where each one actually sits, every acronym this manual '
-        "uses, and the four pictures worth carrying in your head. Every framework says where it came "
-        "from and how much to trust it.</p></div>"
+        + rowh('<div class="kicker">Resources</div><h1>The frameworks, and how they merge into P0 to P3</h1>'
+               '<p class="lede">AI-DLC, AIDD, BMAD and spec-driven development placed on one spine, how their parts '
+               "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "
+               "from, so you know how much to trust it.</p>",
+               "On this page",
+               '<ol><li><a href="#methods">Four methods, one spine</a></li>'
+               '<li><a href="#merge">How they merge into the SkyWays PDLC</a></li>'
+               '<li><a href="#vs">Traditional versus agentic</a></li>'
+               '<li><a href="#ladder">Gate by risk, never by size</a></li>'
+               '<li><a href="#chain">Why long chains fail</a></li>'
+               '<li><a href="#decoder">The acronym decoder</a></li>'
+               '<li><a href="#lineage">Where each framework came from</a></li></ol>')
         + orient +
-        '<div class="sec" id="methods"><h2>Four methods, one spine</h2>'
-        "<p>They are not competitors; they occupy different parts of the same lifecycle. The decision "
-        "that matters is not <em>which method</em> but <strong>how deep to go on this change</strong>.</p>"
-        + pic(illos.methods) +
-        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/compare">Compare any two methods side by side</a></div>'
-        '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
+        '<div class="sec" id="methods">' + pic(illos.methods)
+        + rowh("<h2>Four methods, one spine: where each one sits</h2>"
+               "<p>They are not competitors. Each speaks to part of the lifecycle, and the decision that matters is "
+               "not which method to adopt but how deep to go on this change. A filled cell is where a method says "
+               "something about that phase; a dashed cell is where you bring your own answer.</p>",
+               "Try it in the simulator", try_([("../simulator/#/compare", "Compare any two methods side by side")]))
+        + '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
         f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
 
-        '<div class="sec" id="vs"><h2>What changes when the product decides</h2>'
-        + pic(illos.pdlc_vs) +
-        "<p>Only one of the four hand-offs is a hard gate. Everything downstream is built and measured "
-        "against the spec, the bar and the guardrails, so those three are settled before P2 opens.</p>"
-        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/loopmap">See which loops close each phase</a></div></div>'
+        '<div class="sec" id="merge">'
+        + rowh("<h2>How the four methods merge into the SkyWays PDLC</h2>"
+               "<p>Each method contributes the part it does best, and the spine keeps those parts in one order with "
+               "one owner per phase. What none of them carries, the SkyWays PDLC adds: the hard gate, a bar per "
+               "slice, an authority budget and the report that starts the next pass.</p>",
+               "What the SkyWays PDLC adds",
+               "<ul><li>One hard gate: the signed spec, before anything is built</li>"
+               "<li>A bar per slice, derived from money at risk</li>"
+               "<li>An authority budget for every step the agent takes</li>"
+               "<li>The two-number report that starts the next P0</li></ul>")
+        + pic(illos.merge) + "</div>"
 
-        '<div class="sec" id="ladder"><h2>Gate by risk, never by size</h2>'
-        + pic(illos.ladder) +
-        "<p>Size measures typing. Four hundred lines of help text cannot move money; three lines in a "
-        "refund cap can.</p>"
-        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/toolkit/gateclass">Classify a change as a hard or soft gate</a>'
-        '<a href="../simulator/#/toolkit/gates">Map the control each tool carries</a></div></div>'
+        '<div class="sec" id="vs">'
+        + rowh("<h2>Traditional versus agentic: what changes when the product decides</h2>"
+               "<p>A traditional lifecycle decides everything once, up front. When part of the product is right a "
+               "share of the time rather than always, three things move: a bar per slice, an authority budget, and "
+               "one hard gate before anything is built. Production then feeds the next frame instead of ending the "
+               "story.</p>",
+               "Try it in the simulator", try_([("../simulator/#/loopmap", "See which loops close each phase")]))
+        + pic(illos.pdlc_vs) + "</div>"
 
-        '<div class="sec" id="chain"><h2>Why length is the enemy</h2>'
-        + pic(illos.chain) +
-        "<p>Four chained steps at 90% succeed 66% of the time, and they fail <em>fluently</em>. Two "
-        "defences, in order: keep chains short, then put an independent checker after the steps that "
-        "are costly and easy to miss.</p>"
-        '<div class="try"><span class="tl">In the playbook</span><a href="../simulator/#/toolkit/confidence">Check whether a score has proven the bar</a></div></div>'
+        '<div class="sec" id="ladder">'
+        + rowh("<h2>Gate by risk, never by size</h2>"
+               "<p>Size measures typing. Four hundred lines of help text cannot move money; three lines in a refund "
+               "cap can. The band a change sits in comes from what it touches, and the band decides who reviews it "
+               "and whether a person signs before it ships.</p>",
+               "Try it in the simulator",
+               try_([("../simulator/#/toolkit/gateclass", "Classify a change as a hard or soft gate"),
+                     ("../simulator/#/toolkit/gates", "Map the control each tool carries")]))
+        + pic(illos.ladder) + "</div>"
+
+        '<div class="sec" id="chain">'
+        + rowh("<h2>Why long chains of steps fail, and what to do about it</h2>"
+               "<p>Every step that is only probably right multiplies. Four chained steps at 90 percent succeed 66 "
+               "percent of the time, and they fail fluently, with no error to catch. Two defences, in order: keep "
+               "chains short, then put an independent checker after the steps that are costly and easy to miss.</p>",
+               "Try it in the simulator", try_([("../simulator/#/toolkit/confidence", "Check whether a score has proven the bar")]))
+        + pic(illos.chain) + "</div>"
 
         '<div class="sec" id="decoder"><h2>The acronym decoder</h2>'
+        "<p>Every short form this manual uses, what it means here, and where it came from.</p>"
         '<div class="tw" tabindex="0"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
         f"<th>From</th></tr></thead><tbody>{a_rows}</tbody></table></div></div>"
 
-        '<div class="sec" id="lineage"><h2>Every framework, with its lineage</h2>' + key +
-        '<div class="tw" tabindex="0"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
+        '<div class="sec" id="lineage">'
+        + rowh("<h2>Where each framework came from, and how much to trust it</h2>"
+               "<p>Every framework in this manual carries a lineage pill. Check it before you quote a figure: a "
+               "vendor's documentation is dated, a published practice is named, and this manual's own defaults are "
+               "there to tune on your own traffic, not to cite.</p>",
+               "The three pills", key)
+        + '<div class="tw" tabindex="0"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
         f'<th><span class="vh">Confidence</span></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
         f'<p style="margin-top:14px"><a href="{WIKI}/Sources-and-Confidence" target="_blank" '
         'rel="noopener">The full sources page</a></p></div>'
         "</main></div>")
-    return shell(title="Frameworks and acronyms · The agentic manual",
-                 desc="Four named methods and where each sits, every acronym decoded, and four pictures: "
-                      "traditional vs agentic, one spine, the risk ladder, chained probability.",
+    return shell(title="The frameworks, and how they merge · The agentic manual",
+                 desc="AI-DLC, AIDD, BMAD and spec-driven development on one spine, how their parts merge into the "
+                      "SkyWays PDLC, every acronym decoded, and where each framework came from.",
                  body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/",
-                 crumbs=[("Reference", ""), ("Frameworks, acronyms and the pictures", "")], tour=tour,
+                 crumbs=[("Resources", ""), ("The frameworks, and how they merge", "")], tour=tour,
                  kind="frameworks", og="frameworks")
 
 

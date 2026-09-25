@@ -230,7 +230,7 @@ def _visuals() -> dict[str, dict]:
     v = {
         "board:pdlc": (boards.pdlc, "The agentic PDLC: four phases, one hard gate between P1 and P2, and a "
                        "line from P3 back to the next P0", "#pdlc"),
-        "board:loops": (boards.loops, "Eight loops make the line a ring: five close forward on their own, "
+        "board:loops": (boards.loops, "Eight loops that run every team's workflow: five carry work forward, "
                         "three run backwards and need a named owner", "#loops"),
         "board:by_role": (boards.by_role, "Each role across the four phases, including the cells that should "
                           "stay empty", "#by-role"),
@@ -262,6 +262,12 @@ def _visuals() -> dict[str, dict]:
                              "53% of the time", "frameworks/"),
         "frameworks:methods": (illos.methods, "Four methods on one spine: SDD, BMAD, AI-DLC and AiDD, filled where "
                                "each speaks to a phase and dashed where it is silent", "frameworks/"),
+        "frameworks:merge": (illos.merge, "How the four methods merge into the SkyWays PDLC: the parts of SDD, BMAD, "
+                             "AI-DLC and AiDD placed in the phase each serves, flowing into the spine, and the row "
+                             "of devices the SkyWays PDLC adds", "frameworks/"),
+        "home:tower": (illos.tower, "The lifecycle flown as a loop: four runway segments P0 Frame, P1 Design and "
+                       "Spec, P2 Build and Prove and P3 Run and Learn, one hard gate, four planes and the control "
+                       "tower they answer to", ""),
     }
     for slug in maps.slugs():
         v[f"map:{slug}"] = (lambda s=slug: maps.draw(s), maps.alt(slug), f"learn/{slug}/")

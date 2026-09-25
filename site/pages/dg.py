@@ -36,13 +36,22 @@ def glyph(name: str) -> str:
 
 
 # --------------------------------------------------------------------------- frame
-def board(kicker: str, title: str, sub: str, inner: str, note: str = "", bid: str = "") -> str:
-    """The outer frame every board shares: kicker, title, thesis, canvas, conclusion."""
+def board(kicker: str, title: str, sub: str, inner: str, note: str = "", bid: str = "",
+          aside: str = "", aside_title: str = "") -> str:
+    """The outer frame every board shares: kicker, title, thesis, canvas, conclusion.
+
+    With ``aside`` the head is two columns: title and thesis on the left, a boxed key on
+    the right, so the head spans the board instead of stopping half way across it."""
     i = f' id="{E(bid)}"' if bid else ""
     n = f'<p class="bn">{note}</p>' if note else ""
-    return (f'<figure class="dgb"{i}><figcaption><span class="bk">{E(kicker)}</span>'
-            f'<span class="bt">{E(title)}</span><span class="bs">{sub}</span></figcaption>'
-            f"{inner}{n}</figure>")
+    head = (f'<span class="bk">{E(kicker)}</span><span class="bt">{E(title)}</span>'
+            f'<span class="bs">{sub}</span>')
+    if aside:
+        cap = (f'<figcaption class="bhd2"><div class="bhd">{head}</div>'
+               f'<div class="bxa"><b class="bxt">{E(aside_title)}</b>{aside}</div></figcaption>')
+    else:
+        cap = f"<figcaption>{head}</figcaption>"
+    return f'<figure class="dgb"{i}>{cap}{inner}{n}</figure>'
 
 
 GATE_GLYPH = ('<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" '
@@ -59,7 +68,8 @@ def connector(gate: bool = False) -> str:
 
 
 def column(hue: str, name: str, owner: str, icon: str, thesis: str,
-           steps: list[tuple[str, str]], takeaway: tuple[str, list[str]]) -> str:
+           steps: list[tuple[str, str]], takeaway: tuple[str, list[str]],
+           href: str = "", tip: str = "") -> str:
     """One column of a parallel flow: header, owner, thesis, numbered steps, takeaway.
 
     The owner sits on its own strip rather than inside the header pill: a pill that has to
@@ -68,8 +78,19 @@ def column(hue: str, name: str, owner: str, icon: str, thesis: str,
     li = "".join(f"<li><b>{E(t)}</b><span>{E(s)}</span></li>" for t, s in steps)
     lab, items = takeaway
     tk = "".join(f"<li>{E(x)}</li>" for x in items)
+    key, _, rest = name.partition(" · ")
+    label = (f'<b><i class="ckey">{E(key)}</i><span class="cname">{E(rest)}</span></b>' if rest
+             else f"<b>{E(name)}</b>")
+    if href:
+        # the header is the door to the phase: a link, with a hover card that says what the
+        # phase decides and what you leave it with
+        head = (f'<a class="ch" href="{E(href)}">{glyph(icon)}{label}'
+                f'<span class="tipc" aria-hidden="true">{E(tip)}</span>'
+                f'<span class="vh">: {E(tip)}</span></a>')
+    else:
+        head = f'<header class="ch">{glyph(icon)}{label}</header>'
     return (f'<section class="dgc" style="--c:var(--dg-{hue})">'
-            f'<header class="ch">{glyph(icon)}<b>{E(name)}</b></header>'
+            f"{head}"
             f'<p class="cw">Accountable <b>{E(owner)}</b></p>'
             f'<p class="ct">{E(thesis)}</p><ol class="co">{li}</ol>'
             f'<div class="cb"><span class="bl">{E(lab)}</span><ul>{tk}</ul></div></section>')
