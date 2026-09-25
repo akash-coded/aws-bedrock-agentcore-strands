@@ -106,6 +106,7 @@
     }
     var body = { name: d.name, email: d.email, topic: d.topic, message: d.message,
       page: location.pathname + location.hash, website: "",
+      subject: "[SkyWays] " + d.topic + " from " + d.name, from_name: d.name || "The SkyWays site",
       _subject: "[SkyWays Architect] " + d.topic + " from " + d.name };
     if (contact.accessKey) body.access_key = contact.accessKey;
     sendBtn.disabled = true;

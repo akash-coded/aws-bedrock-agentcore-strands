@@ -33,6 +33,10 @@ WIKI = REPO + "/wiki"
 AUTHOR = "Akash Das"
 PERSON = {"@type": "Person", "name": AUTHOR, "url": "https://github.com/akash-coded",
           "sameAs": ["https://github.com/akash-coded"], "jobTitle": "Solution architect and trainer, agentic AI on AWS"}
+ORG = {"@type": "Organization", "@id": BASE_URL + "#org", "name": "SkyWays Consultancy", "url": BASE_URL,
+       "founder": PERSON, "sameAs": [REPO, "https://github.com/akash-coded"],
+       "description": "The SkyWays PDLC: the best of every agentic way of working, in one operating model. "
+                      "The agentic manual and the SkyWays PDLC Simulator are its products."}
 
 # Roles in journey order. Those without a JSON file render as "in progress" on the home page.
 ROLE_ORDER = [
@@ -115,7 +119,7 @@ def _menu(up: str, nav_id: str) -> str:
         ("For leadership", [("protocol/", "The operating protocol", "protocol"),
                             ("models/", "Twelve mental models", "models")]),
         ("Libraries", [("templates/", "Artefact templates", "templates"),
-                       ("prompts/", "Prompts to paste", "prompts"),
+                       ("prompts/", "Prompt templates", "prompts"),
                        ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks")]),
         ("Play", [("simulator/", "The SkyWays PDLC Simulator · the method, playable", "simulator")]),
         ("Elsewhere", [(WIKI, "The wiki", ""), (REPO, "The repository", ""),
@@ -143,7 +147,7 @@ def _menu(up: str, nav_id: str) -> str:
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
           nav_id: str = "", canonical: str = "", head_extra: str = "", own_ld: bool = False,
           crumbs: list[tuple[str, str]] | None = None, tour: list[dict] | None = None,
-          kind: str = "", og: str = "") -> str:
+          kind: str = "", og: str = "", modified: str = "") -> str:
     """The frame every page shares. ``crumbs`` are (label, href) after Home, href relative to the
     page; ``tour`` is the page's walkthrough for guide.js; ``kind`` names the page type so the
     tour is offered once per type, not once per page."""
@@ -185,10 +189,13 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
         "@context": "https://schema.org", "@type": "TechArticle", "headline": title,
         "description": desc, "url": canonical or BASE_URL,
         "author": PERSON,
-        "publisher": PERSON,
+        "publisher": ORG,
+        "image": og_img,
         "isPartOf": {"@type": "WebSite", "name": "The agentic manual", "url": BASE_URL},
         "license": REPO + "/blob/main/LICENSE", "inLanguage": "en",
     }
+    if modified:
+        ld["dateModified"] = modified
     if ld_crumbs and not own_ld:
         ld = {"@context": "https://schema.org", "@graph": [{k: v for k, v in ld.items() if k != "@context"}, ld_crumbs]}
     tour_html = (f'<script type="application/json" id="tour-steps">{json.dumps(tour, ensure_ascii=False)}</script>'
@@ -204,6 +211,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
 <link rel="canonical" href="{_E(canonical or BASE_URL, quote=True)}">
+<link rel="alternate" type="application/atom+xml" title="The agentic manual: new and updated lessons" href="{up}feed.xml">
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F7F6F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
@@ -215,6 +223,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <meta property="og:image" content="{og_img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{_E(title, quote=True)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{og_img}">
 {"" if own_ld else f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'}
@@ -513,7 +522,7 @@ def library_page(roles: list[dict], kind: str) -> str:
     """One page holding every template, or every prompt, across all roles."""
     from pages import _kit as k
     is_t = kind == "templates"
-    label = "Artefact templates" if is_t else "Prompts to paste"
+    label = "Artefact templates" if is_t else "Prompt templates"
     short = "templates" if is_t else "prompts"
     lede = ("Every artefact in the manual has a fill-in skeleton: the pain register, the eight-field spec, "
             "the bar sheet, the two-number report and thirty-six more. These are <strong>documents you "
@@ -551,7 +560,7 @@ def library_page(roles: list[dict], kind: str) -> str:
                     f'<a href="../{role["id"]}/">open the journey</a></p>{"".join(rows)}</section>')
         toc.append(f'<li><a href="#{role["id"]}">{_E(role["name"])}</a></li>')
 
-    other = ("prompts", "Prompts to paste") if is_t else ("templates", "Artefact templates")
+    other = ("prompts", "Prompt templates") if is_t else ("templates", "Artefact templates")
     compare = f"""<h2 style="margin:0 0 12px">Templates or prompts?</h2>
 <div class="sec two tvp">
   <div class="card{' on' if is_t else ''}"><h3 class="h4">Templates</h3><p>Skeletons for the <b>documents each step produces</b>: a
@@ -790,8 +799,9 @@ def home_page(roles: list[dict]) -> str:
             f"the agentic PDLC, by role. {n_lessons} lessons, {total_steps} templates, {total_prompts} prompts.")
     site_ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebSite", "@id": BASE_URL + "#site", "name": "The agentic manual", "url": BASE_URL,
-         "description": desc, "inLanguage": "en", "author": PERSON, "publisher": PERSON,
+         "description": desc, "inLanguage": "en", "author": PERSON, "publisher": ORG,
          "license": REPO + "/blob/main/LICENSE"},
+        ORG,
         {"@type": "WebPage", "@id": BASE_URL, "url": BASE_URL, "name": "The agentic manual", "isPartOf": {"@id": BASE_URL + "#site"},
          "description": desc, "dateModified": date.today().isoformat()}]}
     return shell(title="The agentic manual · every agentic PDLC, by role, end to end", desc=desc, body=body,
@@ -942,7 +952,7 @@ def search_index(roles: list[dict]) -> str:
         {"t": "The operating protocol", "d": "For whoever funds the work: what changes, who does what, the four decisions only leadership can make.", "u": "protocol/", "k": "Leadership"},
         {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one spine; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
         {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
-        {"t": "Prompts to paste", "d": "Every prompt in the manual, copyable, by role.", "u": "prompts/", "k": "Library"},
+        {"t": "Prompt templates", "d": "Every prompt in the manual as a template, copyable, by role.", "u": "prompts/", "k": "Library"},
         {"t": "The SkyWays playbook", "d": "The whole method as an interactive simulator: thirteen episodes, nine simulations, seventeen calculators.", "u": "simulator/", "k": "Play"},
     ]
     for w in sorted((SITE.parent / "wiki").glob("*.md")):

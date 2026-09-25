@@ -770,7 +770,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
         {"sel": "#apply-it-in-your-role", "title": "Apply it in your role", "body": "Near the end: what to do as a forward-deployed engineer, a product manager or an engineer, an AI-augmented shortcut for each, how it runs across an enterprise, and a ten-minute workflow with a prompt to paste."},
         {"sel": ".pn", "title": "Next lesson", "body": "Lessons chain in order. Previous and next are always at the bottom."},
     ]
-    return shell(title=les.title, desc=les.description, body=html_, depth=2, nav_id="learn",
+    return shell(title=les.title, desc=les.description, body=html_, depth=2, nav_id="learn", modified=les.updated,
                  canonical=les.url, head_extra=head + MERMAID_HEAD, own_ld=True,
                  crumbs=[("Learn", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson", og=f"learn-{les.slug}")
 
@@ -918,6 +918,7 @@ def render(out: Path, shell) -> list[str]:
             put(f"learn/{les.slug}/index.md", site_markdown(les, lessons, tracks))
     put("llms.txt", llms_txt(tracks))
     put("llms-full.txt", llms_full(tracks, lessons))
+    put("feed.xml", feed_xml(lessons))
     return written
 
 
@@ -962,6 +963,22 @@ def urls() -> list[tuple[str, str]]:
         out.append((t.url, max(l.updated for l in t.lessons)))
         out += [(l.url, l.updated) for l in t.lessons]
     return out
+
+
+def feed_xml(lessons: dict[str, Lesson]) -> str:
+    """An Atom feed of the lessons, newest update first, for readers and crawlers that follow feeds."""
+    from xml.sax.saxutils import escape as X
+    items = sorted(lessons.values(), key=lambda x: (x.updated, x.slug), reverse=True)
+    newest = items[0].updated if items else "2026-01-01"
+    entries = "".join(
+        f"  <entry>\n    <title>{X(x.title)}</title>\n    <link href=\"{x.url}\"/>\n    <id>{x.url}</id>\n"
+        f"    <updated>{x.updated}T00:00:00Z</updated>\n    <summary>{X(x.description)}</summary>\n"
+        f"    <author><name>Akash Das</name></author>\n  </entry>\n" for x in items)
+    return (f'<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n'
+            f"  <title>The agentic manual: lessons</title>\n  <subtitle>New and updated lessons on the agentic PDLC, "
+            f"by SkyWays Consultancy</subtitle>\n  <link href=\"{BASE_URL}learn/\"/>\n"
+            f"  <link rel=\"self\" href=\"{BASE_URL}feed.xml\"/>\n  <id>{BASE_URL}feed.xml</id>\n"
+            f"  <updated>{newest}T00:00:00Z</updated>\n{entries}</feed>\n")
 
 
 def llms_txt(tracks: list[Track]) -> str:

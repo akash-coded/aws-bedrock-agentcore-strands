@@ -97,10 +97,43 @@ ROBOTS = ("User-agent: *\nAllow: /\n\n"
           + f"\nSitemap: {BASE_URL}sitemap.xml\n")
 
 
+# What each undated page is built from, so its lastmod is the date the sources last changed rather than
+# the date of the build. Lessons carry their own dates. The Pages workflow fetches full history for this.
+SOURCES = {
+    "": ["site/render.py", "site/pages/boards.py", "site/pages/illos.py", "site/pages/dg.py"],
+    "protocol/": ["site/pages/protocol.py"],
+    "models/": ["site/pages/models.py"],
+    "templates/": ["site/content/roles"],
+    "prompts/": ["site/content/roles", "site/pages/posters.py"],
+    "frameworks/": ["site/content/library/frameworks.json", "site/pages/illos.py"],
+    "pictures/": ["site/pages/pictures.py", "site/assets/pictures", "site/assets/learn"],
+    "app/SkyWays-Architect.html": ["site/app/SkyWays-Architect.html"],
+    "simulator/": ["site/app/SkyWays-Architect.html", "site/frame"],
+}
+
+
+def git_date(paths: list[str]) -> str | None:
+    """The commit date of the newest change under any of the paths, or None outside a git checkout."""
+    import subprocess
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", *paths], cwd=SITE.parent,
+                             capture_output=True, text=True, timeout=30).stdout.strip()
+        return out or None
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
 def sitemap(today: str) -> str:
     # The tutorial carries its own dates; a page that did not change should not claim it did.
     urls = render.dated_urls() + [(BASE_URL + "simulator/", None)]
-    body = "".join(f"  <url><loc>{u}</loc><lastmod>{d or today}</lastmod></url>\n" for u, d in urls)
+    dated = []
+    for u, d in urls:
+        rel = u[len(BASE_URL):]
+        if not d:
+            src = SOURCES.get(rel) or (["site/content/roles/" + rel.rstrip("/") + ".json"] if rel.endswith("/") else None)
+            d = git_date(src) if src else None
+        dated.append((u, d or today))
+    body = "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in dated)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
 
