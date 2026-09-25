@@ -99,7 +99,7 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
   max-width:var(--wrap);margin:0 auto;padding:0 24px;align-items:start}
 .rail,.toc{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow-y:auto;padding:26px 0 40px;
   scrollbar-width:thin}
-main{padding:26px 0 96px;min-width:0}
+main{padding:26px 0 36px;min-width:0}
 @media (max-width:1180px){.cols{grid-template-columns:var(--rail) minmax(0,1fr)}.toc{display:none}}
 @media (max-width:900px){.cols{grid-template-columns:1fr;gap:0;padding:0 16px}
   .rail{position:static;max-height:none;padding:16px 0;border-bottom:1px solid var(--rule)}}
@@ -259,7 +259,9 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 
 /* ---------- role cards (home) ---------- */
 .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:14px;margin:0 0 28px}
-@media (max-width:1140px){.roles{grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}}
+@media (max-width:1140px){.roles{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}}
+@media (max-width:1000px){.roles{grid-template-columns:1fr 1fr}.roles .rc:nth-child(5){grid-column:1/-1}}
+@media (max-width:560px){.roles{grid-template-columns:1fr}.roles .rc:nth-child(5){grid-column:auto}}
 .rc{display:block;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:24px;
   transition:border-color .18s var(--ease),background .18s var(--ease)}
 .rc:hover{border-color:var(--rc);background:color-mix(in oklab,var(--rc) 4%,var(--paper));text-decoration:none}
@@ -291,7 +293,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .gutter-grid::before{grid-column:1;grid-row:1}
 
 /* ---------- footer ---------- */
-.ft{border-top:1px solid var(--rule);background:var(--paper);margin-top:52px;padding:40px 0 64px}
+.ft{border-top:1px solid var(--rule);background:var(--paper);margin-top:26px;padding:40px 0 64px}
 .ft .in{max-width:var(--wrap);margin:0 auto;padding:0 24px;display:grid;
   grid-template-columns:1.5fr 1fr 1fr;gap:34px}
 @media (max-width:820px){.ft .in{grid-template-columns:1fr;gap:26px;padding:0 16px}}
@@ -1075,10 +1077,10 @@ a.md:hover b{color:var(--c)}
 .ways p{font-size:14.5px;color:var(--ink2);margin:0}
 .ways a.more{font-size:13.5px;font-weight:600}
 @media (max-width:820px){.ways{grid-template-columns:1fr;gap:6px}}
-.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 36px;margin:0 0 8px}
-.more>div{padding:14px 0;border-top:1px solid var(--rule)}
-.more h3{font-size:15.5px;margin:0 0 4px}
-.more p{font-size:14px;color:var(--ink2);margin:0}
+.sec.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 36px;margin:0 0 8px}  /* scoped: a.more is a link */
+.sec.more>div{padding:14px 0;border-top:1px solid var(--rule)}
+.sec.more h3{font-size:15.5px;margin:0 0 4px}
+.sec.more p{font-size:14px;color:var(--ink2);margin:0}
 
 /* ==========================================================================================
    ILLUSTRATIONS — the ByteByteGo grammar, drawn by site/pages/bb.py. One hue per subject, a
@@ -1297,23 +1299,20 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
    A board head with a key: title and thesis on the left, the key boxed on the right, so no
    head stops half way across the page with nothing beside it. Same for the frameworks page
    section heads (.rowh/.rowa) and the two pedagogy cards on the home page. */
-.dgb > figcaption.bhd2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:14px 36px;align-items:end;max-width:none}
-.dgb .bhd .bs{max-width:none}
-.dgb .bxa{padding:14px 16px 13px;border:1px solid var(--rule);border-radius:14px;background:var(--paper);font-size:13.5px;line-height:1.5;color:var(--ink2);align-self:stretch}
-.dgb .bxa .bxt{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
-.dgb .bxa p{font-size:13.5px;margin:0 0 8px;max-width:none}
-.dgb .bxa p:last-child{margin:0}
-.dgb .bxa ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.dgb .bxa li{padding-left:14px;position:relative}
-.dgb .bxa li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-.dgb .bxa b{color:var(--ink);font-weight:650}
-.dgb .bxg{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 9px;align-items:center}
-.dgb .bxg .bxk{width:100%;font-size:11.5px;font-weight:700;color:var(--soft)}
+.dgb > figcaption{max-width:none}
+.dgb .bs{max-width:none}
+.dgb .bkey{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 26px;align-items:start;margin:0 0 18px;padding:14px 18px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
+.dgb .bkey .bxt{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);padding-top:2px}
+.dgb .bkb{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 28px}
+.dgb .bkc{font-size:13.5px;line-height:1.5;color:var(--ink2)}
+.dgb .bkc b{color:var(--ink);font-weight:650}
+.dgb .bkc .bxk{display:block;font-size:11.5px;font-weight:700;color:var(--soft);margin:0 0 6px}
+.dgb .bxg{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 .dgb .bxg i{font-style:normal;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;
   border:1px solid color-mix(in oklab,var(--c,var(--ink2)) 40%,transparent);
   background:color-mix(in oklab,var(--c,var(--ink2)) 9%,transparent);
   color:color-mix(in oklab,var(--c,var(--ink2)) 72%,var(--ink))}
-@media (max-width:900px){.dgb > figcaption.bhd2{grid-template-columns:1fr;gap:12px}}
+@media (max-width:760px){.dgb .bkey{grid-template-columns:1fr;gap:8px}}
 
 /* the spine's phase headers are doors: a link, a bigger key, a hover card */
 .dgc a.ch{text-decoration:none;position:relative;cursor:pointer;transition:filter .16s var(--ease)}
@@ -1355,3 +1354,74 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 .rowa .try{margin:0;gap:6px}
 .rowa .try a{font-size:13px;padding:6px 10px 6px 9px}
 @media (max-width:900px){.rowh{grid-template-columns:1fr;gap:12px}}
+
+
+/* ---- round N2: the hero question, the stats question, the role boundaries, the libraries, the models ---- */
+.hero h1{max-width:24ch}
+.hero .ill .guide{margin:16px 0 0;max-width:none}
+.stats .sq{grid-column:1/-1;font-family:var(--f-display);font-size:15px;font-weight:700;color:var(--ink);margin:0 0 2px}
+@media (min-width:1000px){.stats{grid-template-columns:auto repeat(6,minmax(0,1fr))}.stats .sq{grid-column:auto;align-self:center;padding-right:10px;margin:0}}
+.two .card.yes{background:color-mix(in oklab,var(--ok,#2E7D32) 9%,var(--paper));border-color:color-mix(in oklab,var(--ok,#2E7D32) 32%,transparent)}
+.two .card.yes h3{color:color-mix(in oklab,var(--ok,#2E7D32) 70%,var(--ink))}
+.two .card.no{background:color-mix(in oklab,var(--stop,#C62828) 8%,var(--paper));border-color:color-mix(in oklab,var(--stop,#C62828) 30%,transparent)}
+.two .card.no h3{color:color-mix(in oklab,var(--stop,#C62828) 68%,var(--ink))}
+.readsg{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.readsg li{margin:0}
+.readsg a{display:block;padding:12px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);font-size:14px;font-weight:600;color:var(--ink);text-decoration:none}
+.readsg a:hover{border-color:var(--accent);background:var(--bone)}
+.usewhen{list-style:none;margin:0 0 12px;padding:12px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);display:grid;gap:6px;font-size:13.5px;line-height:1.5;color:var(--ink2)}
+.usewhen li{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px}
+.usewhen li b{font-size:12px;font-weight:700;color:var(--soft);padding-top:2px}
+.usewhen li span{max-width:none}
+@media (max-width:560px){.usewhen li{grid-template-columns:1fr;gap:2px}}
+.pill.pp0{background:color-mix(in oklab,var(--dg-slate) 16%,var(--paper));border-color:color-mix(in oklab,var(--dg-slate) 45%,transparent);color:color-mix(in oklab,var(--dg-slate) 75%,var(--ink))}
+.pill.pp1{background:color-mix(in oklab,var(--dg-indigo) 16%,var(--paper));border-color:color-mix(in oklab,var(--dg-indigo) 45%,transparent);color:color-mix(in oklab,var(--dg-indigo) 75%,var(--ink))}
+.pill.pp2{background:color-mix(in oklab,var(--dg-teal) 16%,var(--paper));border-color:color-mix(in oklab,var(--dg-teal) 45%,transparent);color:color-mix(in oklab,var(--dg-teal) 75%,var(--ink))}
+.pill.pp3{background:color-mix(in oklab,var(--dg-amber) 16%,var(--paper));border-color:color-mix(in oklab,var(--dg-amber) 45%,transparent);color:color-mix(in oklab,var(--dg-amber) 75%,var(--ink))}
+.tmplgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.tmplgrid .card{padding:16px 18px}
+.tmplgrid .acts{gap:10px}
+.tmplgrid .acts li span{font-size:13.5px}
+.tmplgrid .ticks li{font-size:14px;max-width:none}
+.exblk{margin:0;padding:12px 14px;border-radius:10px;background:var(--bone);border:1px solid var(--rule);font-size:12.5px;line-height:1.5;white-space:pre-wrap;overflow-x:auto}
+@media (max-width:1000px){.tmplgrid{grid-template-columns:1fr}}
+.mm{border-left:4px solid var(--sev,var(--rule));padding-left:18px}
+.mk{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px;flex-wrap:wrap}
+.sevchip{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in oklab,var(--sev) 14%,var(--paper));color:color-mix(in oklab,var(--sev) 45%,var(--ink));border:1px solid color-mix(in oklab,var(--sev) 45%,transparent)}
+.mnum{font-size:12px;font-weight:600;color:var(--soft)}
+.mmd{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 18px;margin:12px 0 12px}
+.mmd dt{font-size:12px;font-weight:700;color:var(--soft);padding-top:3px}
+.mmd dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink2);max-width:none}
+.mmd dd code{font-size:13px}
+.mw span{font-size:12px;font-weight:700;color:var(--soft);margin-right:6px}
+@media (max-width:640px){.mmd{grid-template-columns:1fr;gap:2px 0}.mmd dd{margin-bottom:8px}.mm{padding-left:14px}}
+
+/* the leadership page: claims, cells and pairs that share the row */
+.allure{font-size:17px;line-height:1.6;color:var(--ink2);max-width:none;margin:0}
+.allure em{font-style:italic;color:var(--accent)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin:0 0 14px}
+.pair>div{padding:12px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.pair>div p{margin:0 0 8px;max-width:none;font-size:14.5px}
+.pair>div p:last-child{margin:0}
+.pair .pl{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin:0 0 6px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.claims{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.three .card,.four .card,.claims .card{padding:16px 18px}
+.three .card p,.four .card p,.claims .card p{font-size:14.5px;max-width:none;margin:0 0 8px}
+.three .card p:last-child,.four .card p:last-child,.claims .card p:last-child{margin:0}
+.claims .mech{font-size:13.5px;color:var(--soft)}
+@media (max-width:1000px){.four{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.pair,.three,.four{grid-template-columns:1fr}}
+
+.wide{max-width:none}
+.acts.acts2{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+@media (max-width:760px){.acts.acts2{grid-template-columns:1fr}}
+.rolehead{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;margin:0 0 14px}
+.rolehead h2{margin:0}
+.rolehead .try{margin:0}
+.dgb .bkc a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+
+.ways>div{min-width:0}
+.ways>div>*{min-width:0;max-width:100%}
+.ways .try{min-width:0;max-width:100%}

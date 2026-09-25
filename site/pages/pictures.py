@@ -223,12 +223,9 @@ def build(shell, urls: dict) -> str:
         {"sel": ".pic", "title": "A picture", "body": "Title, what it shows, the page it comes from, and a download. Click the picture for full size."},
     ])
     body = f"""<div class="wrap"><main id="main" class="picpage">
-  <div class="sec"><div class="kicker">The picture pack</div>
-  <h1>Every picture in the manual and the simulator, ready to share</h1>
-  <p class="lede">{len(items)} diagrams, boards, decision trees and posters, each with a title, a caption and the page
-  that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p>
-  <p><span class="pill acc">{len(items)} pictures</span> <span class="pill">light and dark</span>
-     <span class="pill">MIT licence, credit the author</span></p></div>
+  <div class="rowh"><div><div class="kicker">The picture pack</div><h1>Every picture in the manual and the simulator, ready to share</h1><p class="lede">{len(items)} diagrams, boards, decision trees and posters, each with a title, a caption and the page
+  that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p></div><div class="rowa"><b>On this page</b><p><span class="pill acc">{len(items)} pictures</span> <span class="pill">light and dark</span>
+     <span class="pill">MIT licence, credit the author</span></p><p style="margin:10px 0 0;font-size:13.5px">Six groups, each picture with a title, a caption, the page it comes from, and a download in light and dark.</p></div></div>
   {orient}
   <div class="picks" role="group" aria-label="Show a group">{chips}</div>
   {"".join(sections)}

@@ -8,6 +8,36 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · Every page, for the reader in front of it
+
+### Changed
+- **The hero asks the question the site answers.** "So many agentic methods. Which one should your team
+  follow?", then the one-stop answer and the SkyWays Consultancy line. The chair list closes its sentence,
+  Pip sits under the picture, and the stats band answers "What is on this site?"
+- **Board keys span the row.** The key under each home board is now a strip: a label and cells that share
+  one line, instead of a column beside the title that left blank paper above the heading
+- **Mental models, rewritten for readers.** Twelve imperatives ("Keep every chain of model steps short",
+  "Gate by reversibility, not by accuracy", "Put every hard limit in code, not in the prompt") in place of
+  slogans. Every card now shows, in order: in plain words, the SkyWays case, what it predicts, the mistake it
+  prevents, the subtlety, and the test. Cards are tinted by the cost of ignoring the rule, yellow to red, and
+  every "where it does its work" link opens in a new tab. The toggle that hid half of each card is gone
+- **Templates, with a way in.** The page opens with what the templates are for, how to use one in three steps,
+  and a pain register filled in for SkyWays. Every template carries its phase badge, P0 to P3, and a block
+  saying when to use it, what you produce and who owns it, where to start, what good looks like, and the step
+  that explains it. Role sections are titled plainly and link to the role and to its prompts
+- **The leadership page, written for executives.** For the C-suite, entrepreneurs and business owners: why
+  the economics and the risk moved; five things that change; every team transformed, function by function,
+  with the effort level it needs and the gain to expect; where the money is, efficiency or cost or both; what
+  the four frameworks mean in leadership terms; LLMs across the board at three levels; and the ninety-day
+  rollout. Every claim shows what it means and how it works side by side; nothing sits behind a toggle
+- **Role pages.** "Yours to own" is tinted green and "Not yours" red; the head pairs with its counts; the
+  read-next list is a row of cards
+- **Every link into the wiki opens in a new tab**, so a reader keeps their place in the manual
+- **Layout, measured.** A page audit flags any block that sits alone in its row with content under 72 percent
+  of the width. Home, models, templates, prompts, pictures, frameworks, the roles and leadership all pass at
+  1440 and 1100 pixels; the footer no longer floats below a quarter-page of empty paper; the closed contact
+  drawer no longer widens the page at some viewports
+
 ## 2026-09-25 · The home page, re-swept
 
 ### Changed

@@ -40,18 +40,16 @@ def board(kicker: str, title: str, sub: str, inner: str, note: str = "", bid: st
           aside: str = "", aside_title: str = "") -> str:
     """The outer frame every board shares: kicker, title, thesis, canvas, conclusion.
 
-    With ``aside`` the head is two columns: title and thesis on the left, a boxed key on
-    the right, so the head spans the board instead of stopping half way across it."""
+    With ``aside`` a key strip sits under the head: a label and cells (``.bkc``) that share
+    one row, so the head and its key both span the board."""
     i = f' id="{E(bid)}"' if bid else ""
     n = f'<p class="bn">{note}</p>' if note else ""
-    head = (f'<span class="bk">{E(kicker)}</span><span class="bt">{E(title)}</span>'
-            f'<span class="bs">{sub}</span>')
-    if aside:
-        cap = (f'<figcaption class="bhd2"><div class="bhd">{head}</div>'
-               f'<div class="bxa"><b class="bxt">{E(aside_title)}</b>{aside}</div></figcaption>')
-    else:
-        cap = f"<figcaption>{head}</figcaption>"
-    return f'<figure class="dgb"{i}>{cap}{inner}{n}</figure>'
+    cap = (f'<figcaption><span class="bk">{E(kicker)}</span><span class="bt">{E(title)}</span>'
+           f'<span class="bs">{sub}</span></figcaption>')
+    # the key is a strip under the head that spans the board: a label, then cells that share the row
+    key = (f'<div class="bkey"><b class="bxt">{E(aside_title)}</b><div class="bkb">{aside}</div></div>'
+           if aside else "")
+    return f'<figure class="dgb"{i}>{cap}{key}{inner}{n}</figure>'
 
 
 GATE_GLYPH = ('<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" '

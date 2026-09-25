@@ -198,7 +198,9 @@ def g_drift() -> str:
 # --------------------------------------------------------------------- models
 MODELS = [
     dict(
-        id="length", name="Length is the enemy", glyph=g_decay,
+        id="length", name="Keep every chain of model steps short", glyph=g_decay, cost=3,
+        plain="Every model call is right only most of the time. Chain calls and the chances multiply: two steps at 90 percent are right 81 percent of the time, four are right 66 percent of the time. A chain does not average its steps; it compounds their errors.",
+        example="The rebooking assistant ran four model steps in a row: read the disruption, find the fare rule, pick the options, write the message. Each tested at about 90 percent. End to end it was right two times in three, and every wrong answer read as confidently as a right one.",
         one="Chained probabilistic steps multiply. They do not average.",
         predicts="Four steps each right 90% of the time are right 66% of the time end to end, and "
                  "they fail fluently — no exception, no red test, a confident wrong answer. Every "
@@ -213,7 +215,9 @@ MODELS = [
         where=[("The arithmetic", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators"),
                ("Where the checkers go", "../solution-architect/#detail")]),
     dict(
-        id="doors", name="Reversibility is the hinge", glyph=g_doors,
+        id="doors", name="Gate by reversibility, not by accuracy", glyph=g_doors, cost=4,
+        plain="A two-way door is a decision you can walk back cheaply: a draft, a proposal, a suggested list. A one-way door cannot be undone: a refund paid, an email sent, a booking cancelled. Two actions with the same accuracy need different controls when one is a two-way door and the other is one-way.",
+        example="Proposing three rebooking options is a two-way door: the passenger picks, and a poor option costs nothing. Paying the refund is a one-way door: once paid, it is gone. SkyWays let the model propose on its own and put a person on every refund, whatever the accuracy figure said.",
         one="What a mistake costs matters less than whether you can undo it.",
         predicts="Two actions with the same expected loss need different controls if one can be "
                  "withdrawn and the other cannot. A proposal can be retracted; a cash refund cannot. "
@@ -230,7 +234,9 @@ MODELS = [
                ("The risk ladder", "../frameworks/"),
                ("Decide it for one action", "../simulator/#/toolkit/autonomy")]),
     dict(
-        id="lever", name="A hold is a lever, not a brake", glyph=g_lever,
+        id="lever", name="Use a human hold to lower the bar, not to slow the line", glyph=g_lever, cost=2,
+        plain="A hold is a person checking the model's work before it takes effect. It does not slow the line; it lowers the damage a mistake can do. Because the acceptance bar is derived from damage, a hold also lowers the accuracy you need before you can ship.",
+        example="A refund step with $600 of damage per mistake needed 98 percent accuracy to break even. With an agent checking the charge before it went out, the damage fell to $30 and the same step needed 71 percent. Nothing about the model changed; the arithmetic did.",
         one="Putting a person in the loop lowers the damage, and therefore lowers the accuracy you "
             "need.",
         predicts="A refund with $600 of damage needs 98% accuracy to break even. Put a person on the "
@@ -246,7 +252,9 @@ MODELS = [
         where=[("Derive the bar", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar"),
                ("Try the arithmetic", "../simulator/#/toolkit/bar")]),
     dict(
-        id="boundary", name="A prompt is a request; a signature is a boundary", glyph=g_wall,
+        id="boundary", name="Put every hard limit in code, not in the prompt", glyph=g_wall, cost=4,
+        plain="A rule written in the prompt is a request: the model usually follows it, but text arriving from anywhere can talk it out of it. A rule written into the tool's signature, as a typed parameter that raises, is a boundary nothing can argue with. Keep both: the prompt for good behaviour by default, the code for the day the prompt is talked past.",
+        example="The first refund cap lived in a prompt: never refund more than $400. A pasted customer email carrying new instructions got past it in testing. The cap moved into the refund tool's signature, where any value over $400 raises and the call stops.",
         one="A rule the model reads lowers a probability. A rule the code enforces closes a path.",
         predicts="Every limit written in prose will eventually be crossed, because a model can be "
                  "talked past a request and text arriving from anywhere can do the talking. A typed "
@@ -264,7 +272,9 @@ MODELS = [
                ("In code", "../engineering/#gate"),
                ("Map the control per tool", "../simulator/#/toolkit/gates")]),
     dict(
-        id="average", name="The average hides the slice that matters", glyph=g_average,
+        id="average", name="Read quality per slice, never as one average", glyph=g_average, cost=3,
+        plain="One overall score is dominated by the easy, high-volume cases. The slice that carries the risk can fall below its bar while the average rises. Read quality per slice, each slice against its own bar.",
+        example="The overall score rose from 79 to 84 percent in one release. The codeshare slice, the one with the money in it, fell from 81 to 77 against a bar of 80. The headline number endorsed a regression.",
         one="Aggregate quality is dominated by the easy, high-volume cases.",
         predicts="An overall score can rise while the slice carrying all the risk falls below its "
                  "bar. It happened at SkyWays: 79% to 84% overall, and codeshare down from 81% to "
@@ -279,7 +289,9 @@ MODELS = [
         where=[("Per-slice readouts", "../qa/#measure"),
                ("Rare slices", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library")]),
     dict(
-        id="bound", name="A score is not proof", glyph=g_bound,
+        id="bound", name="Quote every score with its sample size and its lower bound", glyph=g_bound, cost=3,
+        plain="A score from a sample is an estimate with a width. Forty cases at 82 percent could really be 70 percent; five hundred cases at 82 percent are at least 79 percent. Only the lower bound can prove a bar, and proving a score that sits just above the bar takes far more cases than proving one well above it.",
+        example="QA reported 82 percent on forty codeshare cases against a bar of 80. The lower bound was near 70, so nothing was proven. They owed another 460 cases and said so, which turned an argument into a plan.",
         one="A measurement from a sample is an estimate with a width, and the width is the argument.",
         predicts="82% on forty cases and 82% on five hundred are different claims. The first has a "
                  "lower bound near 70%, the second near 79%. Against an 80% bar, neither is proven — "
@@ -298,7 +310,9 @@ MODELS = [
 
 MODELS += [
     dict(
-        id="speed", name="Evidence arrives at the speed of traffic", glyph=g_funnel,
+        id="speed", name="Plan a cut-over by cases per day, not by the calendar", glyph=g_funnel, cost=2,
+        plain="Production evidence arrives at the rate of the traffic you expose. At five percent of 240 cases a day you see twelve cases a day, so five hundred cases takes forty-two days whatever the deadline says. A cut-over is a schedule for widening exposure, not a date.",
+        example="SkyWays wanted a launch date. Dividing the cases needed by the cases per day gave forty-two days at five percent, so they widened to fifteen percent after two clean weeks and reached the number in twenty-four days.",
         one="You cannot learn faster than your sample accumulates.",
         predicts="At 240 cases a day and five percent of traffic you see twelve cases a day, so five "
                  "hundred cases takes forty-two days. That number is fixed by arithmetic, not by "
@@ -315,7 +329,9 @@ MODELS += [
                ("The arithmetic", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators"),
                ("Days per traffic share", "../simulator/#/toolkit/cutover")]),
     dict(
-        id="habits", name="Cost is a product of habits", glyph=g_multiply,
+        id="habits", name="Decompose the bill into its four habits before you fix anything", glyph=g_multiply, cost=3,
+        plain="A surprising bill is rarely one runaway. It is four ordinary habits multiplying: a bloated context, no routing to cheaper models, a cache that never hits, and retries. Each looks sensible alone. Fix the habit that removes the most multiplier per day of work.",
+        example="The bill came in at 4.4 times the estimate on flat traffic: context 1.6, no routing 1.5, a discarded cache 1.3, retries 1.4. The retry breaker felt most urgent and was the smallest factor of the four.",
         one="A bill is four ordinary behaviours multiplying, not one runaway.",
         predicts="Context bloat 1.6, no routing 1.5, a discarded cache 1.3, extra attempts 1.4 — and "
                  "the invoice is 4.4 times its estimate on flat traffic. Each decision was sensible "
@@ -332,7 +348,9 @@ MODELS += [
                ("In the platform", "../devops/#observe"),
                ("Find the leak", "../simulator/#/toolkit/leaks")]),
     dict(
-        id="fanout", name="Parallelism is a property of a tool, not a headcount", glyph=g_fanout,
+        id="fanout", name="Start with one agent, and add another only for a named limit", glyph=g_fanout, cost=2,
+        plain="Work that happens at once does not need several agents. One agent with a tool that fans out can search four partners in parallel with no hand-offs. Five agents have ten possible hand-offs, and the coordination grows faster than the work.",
+        example="The first design had five agents: one per partner airline plus a coordinator. It became one agent with a fan-out search tool. Same parallelism, zero hand-offs, and a calculator in code where a pricing agent had been guessing.",
         one="Things happening at once does not mean several agents.",
         predicts="Five agents have ten possible hand-offs, and coordination cost grows faster than "
                  "the work. One agent with a fan-out tool searches four partners in parallel with "
@@ -348,7 +366,9 @@ MODELS += [
         where=[("How many agents", "../solution-architect/#shape"),
                ("On paper", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Design-an-Agent-on-Paper")]),
     dict(
-        id="depth", name="Depth is a dial, not a constant", glyph=g_dial,
+        id="depth", name="Set the depth of process per change, not per programme", glyph=g_dial, cost=2,
+        plain="Not every change deserves the whole process. A one-line fix and a new subsystem need different amounts of discovery, records and gates. The architect sets the depth per change: the spec stays everywhere, and everything around it flexes.",
+        example="Eleven gates went on a printer-helpdesk question, and the reputation that earned got the gates skipped on the refund tool, where they mattered. After that, every change was classified before a process was chosen for it.",
         one="Run only the lifecycle stages this particular change actually needs.",
         predicts="One process for everything over-serves the one-line fix and under-serves the new "
                  "subsystem. Both failures are expensive, and the first is the one that gives the "
@@ -363,7 +383,9 @@ MODELS += [
         where=[("Depth per change", "../solution-architect/#shape"),
                ("The helpdesk case", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Scenario-Library")]),
     dict(
-        id="artefact", name="A phase ends on an artefact, not a date", glyph=g_baton,
+        id="artefact", name="End a phase on an artefact, never on a date", glyph=g_baton, cost=2,
+        plain="A phase is finished when the next person holds what they cannot start without: a signed spec, a bar sheet, a report. A date hands over nothing. Only one hand-off is hard; the others may cross with a placeholder, a named owner and a date.",
+        example="A spec was signed off in a meeting with five of its eight fields undecided. The engineer decided them by default, because the code had to do something. Three weeks later the missing decision was rediscovered, as the wrong one.",
         one="A hand-off happens when the next person has what they cannot start without.",
         predicts="Phases that end on dates hand over nothing, and the receiving team rediscovers the "
                  "missing decision three weeks later — usually the one nobody wanted to make.",
@@ -378,7 +400,9 @@ MODELS += [
                ("Hard and soft gates", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Gates-and-Governance"),
                ("What a complete pack holds", "../simulator/#/evidence")]),
     dict(
-        id="drift", name="Drift is the defect with no error message", glyph=g_drift,
+        id="drift", name="Watch the output mix, because drift raises no error", glyph=g_drift, cost=3,
+        plain="A probabilistic system changes behaviour when the world changes, with no deploy and no error. Accuracy needs labels and arrives late, so watch the mix of outputs instead, week on week and against a frozen baseline.",
+        example="Nothing changed in the code for three months. A customer noticed the assistant now offered credits where it used to offer refunds. No alert had fired, because nothing was watching the mix of outcomes.",
         one="A probabilistic system changes behaviour when the world moves, with no deploy.",
         predicts="No code changed, nothing threw, no alert fired, and three months later a customer "
                  "notices the assistant offers credits where it used to offer refunds. Your existing "
@@ -396,70 +420,72 @@ MODELS += [
 ]
 
 
-def _card(m: dict) -> str:
-    where = " · ".join(
-        f'<a href="{E(h)}"{" target=_blank rel=noopener" if h.startswith("http") else ""}>{E(l)}</a>'
-        for l, h in m["where"])
-    return f"""<section class="mm" id="{E(m['id'])}">
+COST = {1: ("low", "#E9C46A"), 2: ("moderate", "#F4A261"), 3: ("high", "#E76F51"), 4: ("severe", "#C0392B")}
+
+
+def _card(m: dict, n: int) -> str:
+    where = " · ".join(f'<a href="{E(h)}" target="_blank" rel="noopener">{E(l)}</a>' for l, h in m["where"])
+    label, hue = COST[m["cost"]]
+    return f"""<section class="mm" id="{E(m['id'])}" style="--sev:{hue}">
   <div class="mmg">{m['glyph']()}</div>
   <div class="mmb">
+    <p class="mk"><span class="sevchip">Cost of ignoring it: {label}</span><span class="mnum">{n} of {len(MODELS)}</span></p>
     <h3>{E(m['name'])}</h3>
     <p class="mo">{m['one']}</p>
-    <div class="mtabs"><span>Read</span>{k.lens_toggle("The model", "The subtlety")}</div>
-    {k.lens(
-      f'<p><strong>What it predicts.</strong> {m["predicts"]}</p>'
-      f'<p><strong>The mistake it prevents.</strong> {m["prevents"]}</p>',
-      f'<p><strong>The part that is easy to miss.</strong> {m["subtle"]}</p>',
-      "The model", "The subtlety")}
-    <p class="ml"><span>Landed when</span> {m['landed']}</p>
-    <p class="mw">{where}</p>
+    <dl class="mmd">
+      <dt>In plain words</dt><dd>{m['plain']}</dd>
+      <dt>At SkyWays</dt><dd>{m['example']}</dd>
+      <dt>What it predicts</dt><dd>{m['predicts']}</dd>
+      <dt>The mistake it prevents</dt><dd>{m['prevents']}</dd>
+      <dt>The subtlety</dt><dd>{m['subtle']}</dd>
+      <dt>You have it when</dt><dd>{m['landed']}</dd>
+    </dl>
+    <p class="mw"><span>Where it does its work</span> {where}</p>
   </div>
 </section>"""
 
 
 def build(shell, urls: dict) -> str:
-    cards = "".join(_card(m) for m in MODELS)
+    cards = "".join(_card(m, i + 1) for i, m in enumerate(MODELS))
     index = "".join(
         f'<li><a href="#{E(m["id"])}"><b>{E(m["name"])}</b><span>{m["one"]}</span></a></li>'
         for m in MODELS)
     orient = k.orient(
-        "Anyone who has to make a call this manual never covered: a forward-deployed engineer in front of a "
-        "customer, a product manager in a review, an architect choosing how many agents.",
-        "Predict what will happen before you start. Each model is a picture, what it predicts, the mistake it "
-        "prevents, and a test for whether it has landed.",
-        ["Skim the twelve tiles; click one to jump to it.",
-         "Read <b>The model</b> first. Then switch the toggle to <b>The subtlety</b> — the boundary each one has.",
-         "Use the <b>Landed when</b> line as the test: not whether you can recite it, whether the question shows up in your reviews."])
+        "Anyone who has to make a call this manual never covered.",
+        "Predict what will happen before you start, and name the mistake before it is made.",
+        ["Skim the twelve tiles and jump to one.",
+         "Read the card top to bottom: plain words, the SkyWays case, what it predicts, the mistake, the subtlety.",
+         "Use the last line, <b>You have it when</b>, as the test."])
     tour = k.tour([
         {"sel": ".mix", "title": "Twelve shapes", "body": "One tile per model, in the order they pay. Click a tile to jump to its card."},
-        {"sel": ".lensbar", "title": "Two readings", "body": "<b>The model</b> is what it predicts and the mistake it prevents. <b>The subtlety</b> is the boundary: where the model stops applying. The toggle switches every card at once, and the cards below settle in when they change."},
+        {"sel": ".mm .sevchip", "title": "The tint", "body": "Cards are tinted by the cost of ignoring the rule, from yellow to red. Start with the red ones."},
         {"sel": ".mm .mmg", "title": "The picture", "body": "Each glyph is a mnemonic, drawn to the same frame. It is meant to come back to you in a meeting, not to carry data."},
-        {"sel": ".mm .ml", "title": "Landed when", "body": "The test. A model you can recite and do not use is a slogan; this line says what using it looks like."},
+        {"sel": ".mm .mmd", "title": "The card", "body": "Plain words first, then the SkyWays case, what it predicts, the mistake it prevents, the subtlety, and the test: <b>You have it when</b>."},
         {"sel": ".mm .mw", "title": "Where it lives", "body": "Every model points to the steps and lessons where it does its work."},
     ])
-    body = f"""<div class="wrap"><main id="main" style="padding:34px 0 84px">
-<div class="sec" style="max-width:74ch">
+    body = f"""<div class="wrap"><main id="main" style="padding:34px 0 28px">
+<div class="rowh"><div>
   <div class="kicker">Intuition</div>
-  <h1>Twelve shapes that make the rest predictable</h1>
-  <p class="lede">A procedure tells you what to do on Tuesday. A model tells you what to expect
-  before you start, which is what lets somebody make a good call on a case this manual never
-  covered. These twelve are the ones that keep paying.</p>
-</div>
+  <h1>Twelve rules of thumb for software that decides</h1>
+  <p class="lede">A procedure tells you what to do on Tuesday. A rule of thumb tells you what to expect before you
+  start, so you can make a good call on a case this manual never covered. Each one below is explained in plain
+  words, shown at SkyWays, and given the mistake it prevents and the test for whether you have it.</p>
+</div><div class="rowa"><b>How each card is built</b><ol>
+  <li>In plain words: the idea, with no jargon</li><li>At SkyWays: the case where it bit</li>
+  <li>What it predicts, and the mistake it prevents</li><li>The subtlety: where it stops applying</li>
+  <li>You have it when: the test</li></ol>
+  <p style="margin:10px 0 0;font-size:13.5px">Cards are tinted by the cost of ignoring the rule, yellow to red.
+  All twelve on one page: <a href="../pictures/#pic-wikimap-mental-models">the poster</a>.</p></div></div>
 
 {orient}
 
-<div class="sec"><ol class="mix">{index}</ol></div>
-
-<h2 style="margin:6px 0 12px">The twelve, one by one</h2>
-<p class="lalt">All twelve on one page: <a href="../pictures/#pic-wikimap-mental-models">the poster</a> in the picture pack.</p>
-<div class="lensbar" id="reading">{k.lens_toggle("The model", "The subtlety")}
-<span class="lh" data-lens-hint data-rest-black="What each one predicts and the mistake it prevents. Switch to see where each stops applying." data-rest-white="The qualification each one needs before you apply it somewhere it does not fit.">Showing <b>the model</b>. What each one predicts and the mistake it prevents. Switch to see where each stops applying.</span></div>
+<div class="sec"><h2 style="margin:0 0 12px">Twelve rules, each with the mistake it prevents</h2><ol class="mix">{index}</ol></div>
 
 {cards}
 
-<div class="sec" style="border-top:1px solid var(--rule);padding-top:28px;max-width:74ch">
-<h2>How to use these</h2>
-<ol class="acts">
+<div class="sec" style="border-top:1px solid var(--rule);padding-top:28px">
+<h2>How to make them stick</h2>
+<ol class="acts acts2">
 <li><b>Teach one a week, not twelve at once.</b><span>A model lands when somebody uses it unprompted
 in an argument. That takes a fortnight of the same idea being available, not an hour of all of
 them.</span></li>

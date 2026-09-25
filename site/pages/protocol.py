@@ -14,25 +14,199 @@ from . import _kit as k
 E = k.E
 
 
+def pair(meaning: str, mechanism: str, la: str = "What it means", lb: str = "How it works") -> str:
+    """The two readings of a claim, side by side, so neither is hidden behind a toggle."""
+    return (f'<div class="pair"><div><b class="pl">{E(la)}</b>{meaning}</div>'
+            f'<div><b class="pl">{E(lb)}</b>{mechanism}</div></div>')
+
+
 def _hero() -> str:
-    return f"""<div class="sec" style="max-width:76ch">
-<div class="kicker">The operating protocol</div>
+    return f"""<div class="rowh"><div>
+<div class="kicker">For leadership</div>
 <h1>Organisational DNA for software that decides</h1>
-<p class="lede">An agent in production is not a faster team. It is a part of your product that is
-right <em>a share of the time</em>, and that single fact changes what you fund, what you sign, and
-what you accept as evidence. This page is the whole operating model on one screen, for the person
-who owns the outcome rather than the implementation.</p>
-</div>
+<p class="lede">For executives, leaders, the C-suite, entrepreneurs and business owners: the people who fund
+product development and answer for its results.</p>
+<p class="allure">If you lead an organisation, large language models have already changed the economics of
+building software. <em>Drafting is nearly free, judgement is the bottleneck, and part of every product you ship
+is now right only a share of the time.</em> This page shows what that does to your teams, your costs and your
+risks, and how to run product development as <em>one operating model, P0 to P3, across the whole organisation</em>,
+rather than as five teams each adopting a tool.</p>
+</div><div class="rowa"><b>On this page</b><ol>
+<li><a href="#why">Why this matters to you now</a></li>
+<li><a href="#claims">Five things that change</a></li>
+<li><a href="#teams">Your teams, transformed</a></li>
+<li><a href="#money">Where the money is</a></li>
+<li><a href="#changes">What changes, and what does not</a></li>
+<li><a href="#who">Who does what</a></li>
+<li><a href="#frameworks">What the frameworks mean for you</a></li>
+<li><a href="#decisions">The four decisions only you can make</a></li>
+<li><a href="#knowing">How you will know it is working</a></li>
+<li><a href="#llms">LLMs across the board, at three levels</a></li>
+<li><a href="#rollout">Ninety days, without rejection</a></li>
+<li><a href="#escalate">Seven things to escalate on</a></li>
+<li><a href="#first30">Your first thirty days</a></li></ol></div></div>
 {k.orient(
-    "The <strong>sponsor</strong>, the executive, the head of product or engineering — whoever owns the outcome "
-    "and the budget rather than the implementation. Also the FDE or FDPM who has to brief them.",
-    "See the whole operating model on one screen: what changes, who does what, the four decisions only you can "
-    "make, how you will know it is working, and a ninety-day rollout.",
-    ["Read <b>If you read nothing else</b>: five claims, each with a mechanism behind it.",
-     "Keep the toggle on <b>What it means</b>; switch to <b>How it works</b> when a claim needs checking.",
-     "Take the four questions to your next review, and the first thirty days to your calendar."])}
-<div class="lensbar" id="reading">{k.lens_toggle("What it means", "How it works")}
-<span class="lh" data-lens-hint data-rest-black="Every claim can be opened to its mechanism: switch when you want to check one." data-rest-white="The mechanism under each claim. Switch back for the plain reading.">Showing <b>what it means</b>. Every claim can be opened to its mechanism: switch when you want to check one.</span></div>"""
+    "The <strong>sponsor</strong>, the executive, the head of product or engineering: whoever owns the outcome "
+    "and the budget rather than the implementation.",
+    "See the whole operating model on one screen, and leave with four questions for your next review.",
+    ["Read <b>Five things that change</b> and <b>Your teams, transformed</b>.",
+     "Take <b>the four decisions</b> to your next review.",
+     "Put <b>the first thirty days</b> in your calendar."])}
+"""
+
+
+def _why() -> str:
+    cells = [
+        ("The economics moved",
+         "A model drafts a spec, a test suite or a customer reply in seconds, so the cost of producing "
+         "work is close to zero. The cost has moved to judgement: deciding what to build, checking what "
+         "was drafted, and proving it works. Organisations that keep paying for production and skimp "
+         "on judgement get more output and worse outcomes."),
+        ("The risk moved",
+         "Part of your product is now probabilistic: right most of the time, wrong fluently, with no "
+         "error message. That is survivable when a mistake can be undone and expensive when it cannot. "
+         "The control is not more accuracy; it is a person, or a cap in code, on every action that "
+         "is a one-way door."),
+        ("The organisation has to move with it",
+         "Five teams each adopting a tool is not a strategy. One operating model, P0 to P3, gives "
+         "every team the same phases, the same gates and the same evidence, so a product manager's "
+         "spec, an engineer's slice and QA's proof fit together. It also creates a sixth role, "
+         "governance, and that one is yours."),
+    ]
+    body = "".join(f'<div class="card"><h3 class="h4">{E(t)}</h3><p>{E(b)}</p></div>' for t, b in cells)
+    return f"""<div class="sec" id="why">
+<h2>Why this matters to you now</h2>
+<div class="three">{body}</div>
+</div>"""
+
+
+def _teams() -> str:
+    rows = [
+        ("Product management", "Frames the work as measured pain and rules on AI fit before anyone builds; "
+         "writes specs a machine can build from", "Low effort: a chat assistant with your documents",
+         "Fewer wrong bets; a backlog where most items come back as rules, cheaper than agents"),
+        ("Engineering", "Builds from story files with coding agents, a shippable slice a day; caps live in "
+         "code, not prompts", "High effort: coding agents and agent frameworks, behind a gateway",
+         "Cycle time in days, not fortnights; a wrong turn costs a day"),
+        ("Quality", "Owns the bar per slice, the golden set and the harness that gates every merge",
+         "Mid effort: evaluation tooling wired into CI", "Quality you can quote with a number and a lower bound; "
+         "fewer incidents that reach a customer"),
+        ("Platform and operations", "Runs one gateway, a per-call log, a trace that redacts, and a rehearsed "
+         "rollback", "High effort: the platform under every agent", "A bill attributable per feature; "
+         "an incident contained in minutes"),
+        ("Customer operations and support", "Lets an assistant draft and propose, and keeps a person on "
+         "every action that moves money or cannot be undone", "Mid effort: an agent platform with holds",
+         "Handling time falls on the high-volume cases; the risky ones stay human"),
+        ("Finance", "Receives two numbers every cycle, the saving and the spend, and can read a bill as "
+         "four habits multiplying", "Low effort: the reports, not the tools",
+         "No surprise invoice; cost that turns positive from cycle two"),
+        ("Legal, risk and compliance", "Signs the authority budget: what the agent may do alone, per action, "
+         "and the trace that proves it", "Low effort: the records and the trace", "Auditability by design; "
+         "a regulator's question answered from the log"),
+        ("Sales, marketing and every other function", "Drafts, summarises and restructures with a chat "
+         "assistant, under one rule about what may enter it", "Low effort: a chat surface",
+         "Throughput on written work, with no access to systems and no new risk"),
+    ]
+    body = "".join(f"<tr><td><strong>{E(a)}</strong></td><td>{E(b)}</td><td>{E(c)}</td><td>{E(d)}</td></tr>"
+                   for a, b, c, d in rows)
+    return f"""<div class="sec" id="teams">
+<h2>Your teams, transformed</h2>
+<p class="wide">The same four phases run through every function. What each team does in them, the level of tooling it
+needs, and the gain you should expect to see.</p>
+<div class="tw" tabindex="0"><table><thead><tr><th>Team</th><th>What changes in how they work</th><th>What they use</th>
+<th>The gain</th></tr></thead><tbody>{body}</tbody></table></div>
+<p class="lalt">The effort levels, low, mid and high, are explained in <a href="#llms">LLMs across the board</a>
+below, and each role's eight steps are on <a href="#who">its own page</a>.</p>
+</div>"""
+
+
+def _money() -> str:
+    rows = [
+        ("Drafting time", "Models draft; people check. Review hours are high in cycle one and fall as specs, "
+         "bars and context files sharpen.", "Efficiency", "Person-days per story, before and after, with the "
+         "review row visible"),
+        ("Cycle time", "Work ships in slices of a day, each proven before the next, so a wrong turn costs a "
+         "day rather than a fortnight.", "Efficiency", "Something merged most days by day 45"),
+        ("Cost of quality", "A bar per slice, derived from what a mistake costs, and a lower bound that must "
+         "clear it before traffic widens.", "Both", "Incidents that reached a customer, per quarter"),
+        ("Run cost", "Context discipline, routing to cheaper models, a cache that hits, and a retry breaker: "
+         "four habits that otherwise multiply into a bill 4.4 times its estimate.", "Cost",
+         "Token spend per story, decomposed into its four factors"),
+        ("Cost of risk", "Every action that cannot be undone has a person or a cap in code on it, so the "
+         "expensive mistake is impossible rather than unlikely.", "Cost", "The authority record, and the cap "
+         "shown in code"),
+    ]
+    body = "".join(f"<tr><td><strong>{E(a)}</strong></td><td>{E(b)}</td><td>{E(c)}</td><td>{E(d)}</td></tr>"
+                   for a, b, c, d in rows)
+    return f"""<div class="sec" id="money">
+<h2>Where the money is: efficiency, cost, or both</h2>
+<p class="wide">Five levers. Start with efficiency on high-volume, low-damage work, where a first cycle pays for itself in
+time; take cost through the gateway, because without a per-call log a bill cannot be diagnosed.</p>
+<div class="tw" tabindex="0"><table><thead><tr><th>Lever</th><th>The mechanism</th><th>Gain</th><th>What to ask for</th></tr></thead>
+<tbody>{body}</tbody></table></div>
+{pair("<p>A first cycle that saves time and costs more is normal and survivable, if the two numbers reach you "
+      "from the team. Fund the second cycle on a trajectory: review hours falling, re-runs falling.</p>",
+      "<p>The value line nets token cost and review load off the gross saving. Review falls as artefacts "
+      "sharpen; if it has not fallen by cycle three the artefacts are the problem, not the model. The "
+      "calculator under <a href='#decisions'>decision four</a> lets you drag each term.</p>")}
+</div>"""
+
+
+def _frameworks_exec() -> str:
+    cells = [
+        ("AI-DLC, from AWS", "Run only the lifecycle stages a change actually needs. The judgement of depth is "
+         "made per change, by an architect, which is what stops a one-line fix from costing a programme."),
+        ("AIDD", "The daily craft of building with coding agents: context files the agent reads, story files "
+         "it builds from, review by risk, and the cost habits that keep the bill flat."),
+        ("The BMAD Method", "A pipeline of AI personas, analyst to QA, each handing a versioned artefact to the "
+         "next. Right for complex, audited work; twelve personas too many for a small change."),
+        ("Spec-driven development", "The specification is the asset you maintain; code is generated from it "
+         "and regenerated on change. It is the backbone every other method plugs into."),
+    ]
+    body = "".join(f'<div class="card"><h3 class="h4">{E(t)}</h3><p>{E(b)}</p></div>' for t, b in cells)
+    return f"""<div class="sec" id="frameworks">
+<h2>What the frameworks mean for you</h2>
+<p class="wide">Four named methods are in the market, and each is right about part of the lifecycle. You do not adopt four.
+The SkyWays PDLC takes the part each does best, keeps them in one order with one owner per phase, and adds the
+devices none of them carries: one hard gate, a bar per slice, an authority budget and the two-number report.</p>
+<div class="four">{body}</div>
+<p class="lalt"><a href="../frameworks/">How the four merge into P0 to P3</a>, with the picture.</p>
+</div>"""
+
+
+def _llms() -> str:
+    rows = [
+        ("Low effort", "Chat assistants: Claude, ChatGPT, Gemini, and the same models inside your office suite",
+         "Everyone, any function: drafting, summarising, restructuring, arguing with a plan",
+         "No access to systems; the output is a draft by a capable stranger",
+         "Nothing enters it that you would not email externally"),
+        ("Mid effort", "Agent platforms with your documents and workflows: Copilot Studio, Bedrock Agents, "
+         "Dify, n8n and their peers", "Product, analysis, support, operations: proposals grounded in your data",
+         "Read-only by default; it proposes and a person decides and signs",
+         "Named documents only, never the whole drive"),
+        ("High effort", "Agents you build: LangGraph, LangChain, Strands, CrewAI, behind your own gateway",
+         "Engineering and platform: the agent inside your product", "Caps and confirmations in tool "
+         "signatures; reads open, writes gated; every consequential action leaves a trace",
+         "Review by risk band; money paths get two readers, always"),
+    ]
+    body = "".join(f"<tr><td><strong>{E(a)}</strong></td><td>{E(b)}</td><td>{E(c)}</td><td>{E(d)}</td>"
+                   f"<td>{E(e)}</td></tr>" for a, b, c, d, e in rows)
+    return f"""<div class="sec" id="llms">
+<h2>LLMs across the board, at three levels of effort</h2>
+<p class="wide">Most of the value in an organisation comes from the low and mid levels, and most of the risk lives at the
+high one. The products change every quarter; the three levels and the control on each do not.</p>
+<div class="tw" tabindex="0"><table><thead><tr><th>Level</th><th>What</th><th>Who, for what</th><th>The control on it</th>
+<th>The rule</th></tr></thead><tbody>{body}</tbody></table></div>
+{pair("<p><strong>The decision to take centrally</strong> is not which assistant. It is that every model call "
+      "in production passes through one layer you own, so routing, budgets and the per-call log exist in one "
+      "place. Teams then choose their own editor.</p>",
+      "<p>A coding assistant reads a committed context file at session start: <code>CLAUDE.md</code> for Claude "
+      "Code, <code>AGENTS.md</code> for Codex, <code>.github/copilot-instructions.md</code> for Copilot. The file "
+      "drives autonomous actions, which is why it is committed and reviewed rather than personal.</p>")}
+<div class="note"><p><strong>One thing worth funding centrally on day one:</strong> the model gateway. It is
+unglamorous, it takes a fortnight, and without it a surprise invoice is a mystery rather than a diagnosis.</p></div>
+<p class="lalt">Try it: <a href="../simulator/#/effort">which level fits which task</a>, an exercise per department in the simulator.</p>
+</div>"""
 
 
 def _one_page() -> str:
@@ -71,10 +245,11 @@ def _one_page() -> str:
          "production evidence by segment with drift watched."),
     ]
     rows = "".join(
-        f'<li><b>{E(t)}</b>{k.lens(f"<p>{b}</p>", f"<p>{w}</p>")}</li>' for t, b, w in points)
-    return f"""<div class="sec">
-<h2>If you read nothing else</h2>
-<ol class="acts" style="gap:22px">{rows}</ol>
+        f'<div class="card"><h3 class="h4">{E(t)}</h3><p>{b}</p><p class="mech"><b>Why:</b> {w}</p></div>'
+        for t, b, w in points)
+    return f"""<div class="sec" id="claims">
+<h2>Five things that change, in one sentence each</h2>
+<div class="claims">{rows}</div>
 </div>"""
 
 
@@ -101,10 +276,10 @@ def _changes() -> str:
          "A gate is a person's name against a decision. No model holds one"),
     ]
     body = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in rows)
-    return f"""<div class="sec">
-<h2>What actually changes</h2>
-<p>Less than the market implies, and in sharper places. The honest list, so nobody has to rebuild a
-working discipline to adopt this.</p>
+    return f"""<div class="sec" id="changes">
+<h2>What changes in your organisation, and what does not</h2>
+<p class="wide">Less than the market implies, and in sharper places. The honest list, so nobody has to rebuild a working
+discipline to adopt this.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Activity</th><th>Verdict</th><th>Why</th></tr></thead>
 <tbody>{body}</tbody></table></div>
 <div class="note"><p><strong>The pattern.</strong> Everything that changed, changed because part of
@@ -142,11 +317,12 @@ def _operating_model() -> str:
             f'<div class="card" style="--rc:{colour};border-left:3px solid {colour}">'
             f'<h3 class="h4" style="color:{colour}">{E(name)}</h3>'
             f'<p style="font-size:14.5px;margin-bottom:10px">{E(one)}</p>'
-            f'{k.lens(f"<p style=font-size:14px><strong>The shift:</strong> {E(shift)}</p>", f"<p style=font-size:14px><strong>Owns:</strong> {E(owns)}</p>", "What changes for them", "What they own")}'
+            f'<p style="font-size:14px;margin:0 0 6px"><strong>The shift:</strong> {E(shift)}</p>'
+            f'<p style="font-size:14px;margin:0 0 10px"><strong>Owns:</strong> {E(owns)}</p>'
             f'<p style="font-size:13.5px;margin:0"><a href="../{slug}/">Their eight steps →</a></p></div>')
-    return f"""<div class="sec">
-<h2>Who does what</h2>
-<p>Five roles. None of them is new, and none of them disappears. What moves is the boundary between
+    return f"""<div class="sec" id="who">
+<h2>Who does what, and the boundary that moves</h2>
+<p class="wide">Five roles. None of them is new, and none of them disappears. What moves is the boundary between
 them, and the two places it moves are worth knowing: <strong>the product manager stops approving
 things they cannot evaluate</strong>, and <strong>QA gains a veto that is arithmetic rather than
 opinion</strong>.</p>
@@ -161,13 +337,13 @@ def _decisions() -> str:
     bar = calcs.render("bar")
     value = calcs.render("value")
 
-    return f"""<div class="sec">
-<h2>The four decisions nobody can make for you</h2>
-<p>Delivery decisions belong to delivery. These four do not, because each one trades a business risk
+    return f"""<div class="sec" id="decisions">
+<h2>The four decisions only you can make</h2>
+<p class="wide">Delivery decisions belong to delivery. These four do not, because each one trades a business risk
 against a business return, and the trade is yours.</p>
 
 <h3>1 · Which work is genuinely AI work</h3>
-{k.lens(
+{pair(
     "<p>Ask it of the roadmap, not of one feature, and expect most of it to come back as rules. A "
     "team under an agent-first directive will build agents for things a rule does better and will "
     "not tell you, because you asked for agents.</p>",
@@ -175,22 +351,22 @@ against a business return, and the trade is yours.</p>
     "call — could two competent people differ? Is the volume high enough to carry evaluation, gates "
     "and a harness? Is a wrong answer recoverable? Only yes-yes-yes is fully agentic; the rest is "
     "code, a person, or an assisted mix with the unrecoverable steps gated.</p>")}
-<p><strong>Ask for:</strong> an AI-fit record per candidate, with the rejected alternative and why.
+<p class="wide"><strong>Ask for:</strong> an AI-fit record per candidate, with the rejected alternative and why.
 <strong>Healthy answer:</strong> two or three of your top five are rules.</p>
 
 <h3>2 · What the agent may do without a person</h3>
-{k.lens(
+{pair(
     "<p>Per action, never per product, and it follows what a mistake costs and whether you can undo "
     "it. Set it per product and you force everything to the strictness of the riskiest action, or — "
     "worse — to the looseness of the safest.</p>",
     "<p>Five rungs: acts alone, acts monitored, acts inside a veto window, named approver every "
     "time, not delegated at all. Reversibility is the hinge. Levels rise on evidence, one step at a "
     "time, and an incident drops the level of the action involved automatically.</p>")}
-<p><strong>Ask for:</strong> the autonomy record, and then the follow-up that matters —
+<p class="wide"><strong>Ask for:</strong> the autonomy record, and then the follow-up that matters —
 <em>show me the cap</em>. If somebody opens a prompt file, you have found a gap.</p>
 
 <h3>3 · What you will accept as evidence</h3>
-{k.lens(
+{pair(
     "<p>This is the decision that most often goes by default. If you accept a demo, you will be "
     "shown demos. If you accept a single accuracy figure, the slice carrying the risk will hide "
     "inside the average.</p>",
@@ -198,12 +374,12 @@ against a business return, and the trade is yours.</p>
     "shadow-run comparison against the humans doing the work today. Reject any single headline "
     "number, and reject a score quoted without its sample size.</p>")}
 {bar}
-<p><strong>Read it this way:</strong> the bar is not a target somebody chose. It falls out of what a
+<p class="wide"><strong>Read it this way:</strong> the bar is not a target somebody chose. It falls out of what a
 mistake costs. Push the third slider — that is a person checking the work before it takes effect,
 and it is why a gate is a commercial instrument rather than a brake.</p>
 
 <h3>4 · What you will fund past cycle one</h3>
-{k.lens(
+{pair(
     "<p>A first cycle that saves time and costs more is normal. Funding it past that point should "
     "depend on a trajectory, not a promise: the review load falling, and the re-run count falling "
     "with it.</p>",
@@ -211,7 +387,7 @@ and it is why a gate is a commercial instrument rather than a brake.</p>
     "in cycle one because the artefacts are rough; it falls as specs, bars and context files "
     "sharpen. If it does not fall by cycle three, the artefacts are the problem, not the model.</p>")}
 {value}
-<p><strong>The term to watch is review.</strong> Drag it and you will see why a pilot that worked can
+<p class="wide"><strong>The term to watch is review.</strong> Drag it and you will see why a pilot that worked can
 stop working at scale: saving and token cost both scale with volume, and the review load only falls
 if somebody is deliberately making it fall.</p>
 </div>"""
@@ -250,15 +426,15 @@ def _knowing() -> str:
     ]
     qrows = "".join(f'<tr><td><strong>{E(q)}</strong></td><td>{E(a)}</td><td>{E(g)}</td></tr>'
                     for q, a, g in questions)
-    return f"""<div class="sec">
+    return f"""<div class="sec" id="knowing">
 <h2>How you will know it is working</h2>
-<p>Four questions, asked consistently, and most of the failure modes in this manual cannot survive in
+<p class="wide">Four questions, asked consistently, and most of the failure modes in this manual cannot survive in
 your organisation. They take ten minutes a cycle.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Ask</th><th>Of what</th><th>A good answer looks like</th></tr></thead>
 <tbody>{qrows}</tbody></table></div>
 
 <h3>The maturity check, in ten minutes</h3>
-{k.lens(
+{pair(
     "<p>Tool adoption is the metric that rewards the least mature behaviour available. This is the "
     "replacement: six controls that a team either has or does not, each verifiable by asking to be "
     "shown it.</p>",
@@ -275,7 +451,7 @@ your organisation. They take ten minutes a cycle.</p>
 <tr><td>Review hours added per story</td><td>1.2</td><td>2.0</td><td>+0.8</td></tr>
 <tr><td>Re-runs per story</td><td>—</td><td>1.4</td><td></td></tr>
 </tbody></table></div>
-<p>Three rules make that table trustworthy. The <strong>baseline is taken before the pilot</strong>,
+<p class="wide">Three rules make that table trustworthy. The <strong>baseline is taken before the pilot</strong>,
 which costs an afternoon and is unrecoverable afterwards. The <strong>review row stays visible</strong>,
 or cycle two reads as a regression when it is the recovery. And the <strong>re-run row stays
 visible</strong>, because it is where leaks appear first.</p>
@@ -345,9 +521,9 @@ def _rollout() -> str:
          "<p><strong>The signal that it took:</strong> the second feature needs less of your "
          "attention than the first, because the artefacts now exist to copy.</p>"),
     ]
-    return f"""<div class="sec">
-<h2>Ninety days, without the organisation rejecting it</h2>
-<p>This is the sequence that works, and each phase has one trap that reliably catches capable teams.
+    return f"""<div class="sec" id="rollout">
+<h2>Ninety days to a running operating model, without the organisation rejecting it</h2>
+<p class="wide">This is the sequence that works, and each phase has one trap that reliably catches capable teams.
 It is deliberately unglamorous in the middle.</p>
 {k.stepper(steps, "The ninety-day rollout")}
 
@@ -401,12 +577,12 @@ def _tooling() -> str:
                    f"<td>{E(d)}</td><td>{E(e)}</td></tr>" for a, b, c, d, e in rows)
     return f"""<div class="sec">
 <h2>Tooling, by level</h2>
-<p>The specific products change every quarter and the shape does not. Four levels, each with a
+<p class="wide">The specific products change every quarter and the shape does not. Four levels, each with a
 different blast radius, and the governance is what separates them — not the vendor.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Who</th><th>What</th><th>For</th><th>The control on it</th>
 <th>The rule</th></tr></thead><tbody>{body}</tbody></table></div>
 
-{k.lens(
+{pair(
     "<p><strong>The decision you should take centrally</strong> is not which assistant. It is that "
     "every model call in production passes through one layer you own, so that routing, budgets and "
     "the per-call log exist in one place. Teams can then choose their own editor.</p>",
@@ -448,9 +624,9 @@ def _redflags() -> str:
     ]
     body = "".join(f"<tr><td><strong>{E(a)}</strong></td><td>{E(b)}</td><td>{E(c)}</td></tr>"
                    for a, b, c in flags)
-    return f"""<div class="sec">
+    return f"""<div class="sec" id="escalate">
 <h2>Seven things to escalate on</h2>
-<p>None of these is a failure. Each is a signal that a decision is being made by default, somewhere
+<p class="wide">None of these is a failure. Each is a signal that a decision is being made by default, somewhere
 below the level that should be making it.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Signal</th><th>Why it matters</th><th>The question</th></tr></thead>
 <tbody>{body}</tbody></table></div>
@@ -458,10 +634,10 @@ below the level that should be making it.</p>
 
 
 def _first30() -> str:
-    return f"""<div class="sec">
+    return f"""<div class="sec" id="first30">
 <h2>Your first thirty days</h2>
-<p>Six actions, in order, none of which needs a budget approval.</p>
-<ol class="acts">
+<p class="wide">Six actions, in order, none of which needs a budget approval.</p>
+<ol class="acts acts2">
 <li><b>Ask the four questions at the next review.</b><span>Which of these are rules · what may it do
 without a person, and who decided · what are the two numbers · what level are we and what is the
 next control. Then say nothing for ten seconds.</span></li>
@@ -483,9 +659,9 @@ questions, and the artefacts are each about an afternoon's work.</p></div>
 
 
 def build(shell, urls: dict) -> str:
-    body = ("<div class=\"wrap\"><main id=\"main\" style=\"padding:34px 0 84px\">"
-            + _hero() + _one_page() + _changes() + _operating_model() + _decisions()
-            + _knowing() + _rollout() + _tooling() + _redflags() + _first30()
+    body = ("<div class=\"wrap\"><main id=\"main\" style=\"padding:34px 0 28px\">"
+            + _hero() + _why() + _one_page() + _teams() + _money() + _changes() + _operating_model()
+            + _frameworks_exec() + _decisions() + _knowing() + _llms() + _rollout() + _redflags() + _first30()
             + f"""<div class="sec" style="border-top:1px solid var(--rule);padding-top:26px">
 <h2>Where to send people</h2>
 <div class="tw" tabindex="0"><table><thead><tr><th>They own</th><th>Send them to</th></tr></thead><tbody>
@@ -495,15 +671,15 @@ def build(shell, urls: dict) -> str:
 <tr><td>Whether it actually works, with a number</td><td><a href="../qa/">The QA lead's eight steps</a></td></tr>
 <tr><td>Making it repeatable, observable and reversible</td><td><a href="../devops/">DevOps and platform's eight steps</a></td></tr>
 <tr><td>Wanting the artefacts, not the argument</td><td><a href="../templates/">40 templates</a> · <a href="../prompts/">116 prompts</a></td></tr>
-<tr><td>Wanting to see it happen to somebody else first</td><td><a href="../simulator/#/story">The playbook's thirteen episodes</a> — the same ninety days, playable</td></tr>
-<tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../simulator/#/governance/gv-gates">The gates, in the playbook</a> · <a href="../simulator/#/evidence">what a complete evidence pack holds</a></td></tr>
+<tr><td>Wanting to see it happen to somebody else first</td><td><a href="../simulator/#/story">The simulator's thirteen episodes</a>: the worked case, playable</td></tr>
+<tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../simulator/#/governance/gv-gates">The gates, in the simulator</a> · <a href="../simulator/#/evidence">what a complete evidence pack holds</a></td></tr>
 <tr><td>Wanting the maturity conversation with a number</td><td><a href="../simulator/#/toolkit/maturity">The maturity self-check</a> · <a href="../simulator/#/toolkit/aifit">is this work for a model at all?</a></td></tr>
 </tbody></table></div></div></main></div>""")
-    desc = ("The agentic operating protocol for executives: what changes, who does what, the four decisions "
-            "only leadership makes, how to know it works, the 90-day rollout.")
+    desc = ("For executives and business owners: why agentic product development changes your economics and risk, "
+            "how every team is transformed by P0 to P3, where the money is, the four decisions only leadership "
+            "makes, LLMs at three levels, and the 90-day rollout.")
     tour = k.tour([
-        {"sel": ".lensbar", "title": "Two readings", "body": "<b>What it means</b> is the claim. <b>How it works</b> is the mechanism underneath it. Switch when you want to check one; every block on the page follows."},
-        {"sel": ".acts", "title": "If you read nothing else", "body": "Five things that change when part of the product is right a share of the time. Each is one sentence, then the reason."},
+        {"sel": ".claims", "title": "Five things that change", "body": "One sentence each, with the reason underneath. Every claim on this page shows what it means and how it works side by side; nothing is behind a toggle."},
         {"sel": "[data-score]", "title": "The six-control check", "body": "Tick what the team can show in ten minutes. The number is your maturity level; the next unticked box is the next control to fund."},
         {"sel": ".stp", "title": "Ninety days, step by step", "body": "A rollout you can walk: one panel per stage, with the trap each stage sets."},
     ])

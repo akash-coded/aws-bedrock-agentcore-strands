@@ -68,12 +68,13 @@ def pdlc() -> str:
         "phase to open its lesson.",
         inner,
         aside_title="What the hard gate is",
-        aside="<p>The one hand-off nobody may skip. The spec, the bar per slice and the "
-              "authority budget are signed before a line of the agent is written.</p>"
-              "<p>It sits between P1 and P2 because paper is cheap to change and production "
-              "is not. The other three crossings are soft: they check evidence and let the "
-              "line move.</p>"
-              '<p><a href="learn/what-is-the-agentic-pdlc/">The four phases in one lesson</a></p>',
+        aside='<div class="bkc"><b>The one hand-off nobody may skip.</b> The spec, the bar per slice '
+              "and the authority budget are signed before a line of the agent is written.</div>"
+              '<div class="bkc"><b>Why it sits between P1 and P2.</b> Paper is cheap to change and '
+              "production is not. The other three crossings are soft: they check evidence and let "
+              "the line move.</div>"
+              '<div class="bkc"><b>Go deeper.</b> <a href="learn/what-is-the-agentic-pdlc/">The four '
+              'phases in one lesson</a> · <a href="learn/p1-design-and-spec/">What the gate checks</a></div>',
         bid="pdlc")
 
 
@@ -144,12 +145,12 @@ def by_role() -> str:
         "step it names.",
         m,
         aside_title="How to read it",
-        aside="<ul><li><b>The bar</b> marks the phase a role is accountable for.</li>"
-              "<li><b>Dashed cells</b> are on purpose. An engineering lead who starts building "
-              "in P0, or a QA lead who arrives in P2, are the two most expensive habits in "
-              "agentic delivery.</li>"
-              '<li><b>P3</b> belongs to the sponsor, which is why it has <a href="protocol/">its '
-              "own page</a>.</li></ul>",
+        aside='<div class="bkc"><b>The bar</b> marks the phase a role is accountable for.</div>'
+              '<div class="bkc"><b>Dashed cells are on purpose.</b> An engineering lead who starts '
+              "building in P0, or a QA lead who arrives in P2, are the two most expensive habits "
+              "in agentic delivery.</div>"
+              '<div class="bkc"><b>P3 belongs to the sponsor</b>, which is why it has '
+              '<a href="protocol/">its own page</a>.</div>',
         bid="by-role")
 
 
@@ -219,11 +220,11 @@ def delegation() -> str:
         "that is never delegated.",
         b,
         aside_title="Read the red column first",
-        aside="<p>Forty steps across five roles each name one thing that is never delegated, "
-              "and the forty have a shape: every one is a fact about your business, your "
-              "regulator or your ledger that no context window makes knowable from outside.</p>"
-              "<p>The job did not shrink. It is the same judgement, concentrated into fewer "
-              "and larger decisions, each with a name on it.</p>",
+        aside='<div class="bkc"><b>Forty lines, one shape.</b> Each of the forty steps names one thing '
+              "that is never delegated, and every one is a fact about your business, your regulator "
+              "or your ledger that no context window makes knowable from outside.</div>"
+              '<div class="bkc"><b>The job did not shrink.</b> It is the same judgement, concentrated '
+              "into fewer and larger decisions, each with a name on it.</div>",
         bid="delegation")
 
 
@@ -328,12 +329,12 @@ def loops() -> str:
         "back to the phase that must answer for it: cost, incident and governance.",
         inner,
         aside_title="The eight, as drawn",
-        aside='<div class="bxg"><span class="bxk">Forward, five</span>'
+        aside='<div class="bkc"><span class="bxk">Forward, five</span><div class="bxg">'
               + "".join(f"<i>{n}</i>" for n in ("Requirements P0 → P1", "Spec P1 → P2", "Trust P2 → P3",
                                                  "Decision P1 → P1", "Delivery P2 → P2"))
-              + '</div><div class="bxg" style="--c:var(--dg-rose)"><span class="bxk">Back from '
-                'production, three</span><i>Cost P3 → P1</i><i>Incident P3 → P0</i>'
-                '<i style="--c:var(--dg-violet)">Governance P0 → P3</i></div>'
-                "<p>Nobody downstream is waiting for the three, so they have to be built on "
-                "purpose. Name the person who owns each; if you cannot, the loop is absent.</p>",
+              + '</div></div><div class="bkc" style="--c:var(--dg-rose)"><span class="bxk">Back from '
+                'production, three</span><div class="bxg"><i>Cost P3 → P1</i><i>Incident P3 → P0</i>'
+                '<i style="--c:var(--dg-violet)">Governance P0 → P3</i></div></div>'
+                '<div class="bkc"><b>Nobody downstream is waiting for the three</b>, so they have to be '
+                "built on purpose. Name the person who owns each; if you cannot, the loop is absent.</div>",
         bid="loops")

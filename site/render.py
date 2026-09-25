@@ -145,6 +145,17 @@ def _menu(up: str, nav_id: str) -> str:
             f"</div></details>")
 
 
+def _wiki_blank(html_: str) -> str:
+    """Every link into the wiki opens in a new tab: the wiki is a different site, and a reader
+    who followed a reference should still have the manual where they left it."""
+    import re as _re
+
+    def fix(m: _re.Match) -> str:
+        tag = m.group(0)
+        return tag if "target=" in tag else tag[:-1] + ' target="_blank" rel="noopener">'
+    return _re.sub(r'<a\b[^>]*href="' + _re.escape(WIKI) + r'[^"]*"[^>]*>', fix, html_)
+
+
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
           nav_id: str = "", canonical: str = "", head_extra: str = "", own_ld: bool = False,
           crumbs: list[tuple[str, str]] | None = None, tour: list[dict] | None = None,
@@ -201,7 +212,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
         ld = {"@context": "https://schema.org", "@graph": [{k: v for k, v in ld.items() if k != "@context"}, ld_crumbs]}
     tour_html = (f'<script type="application/json" id="tour-steps">{json.dumps(tour, ensure_ascii=False)}</script>'
                  if tour else "")
-    return f"""<!DOCTYPE html>
+    return _wiki_blank(f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -280,7 +291,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <script src="{up}theme/guide.js" defer></script>
 </body>
 </html>
-"""
+""")
 
 
 def block(kind: str, title: str, subtitle: str, body: str, bid: str) -> str:
@@ -481,12 +492,15 @@ def role_page(role: dict) -> str:
      style="background:var(--paper);color:var(--ink2);border-color:var(--rule)">Expand all</button></p>
 </aside>
 <main id="main">
-  <div class="sec">
+  <div class="rowh"><div>
     <div class="kicker">Eight steps, end to end</div>
     <h1>{_E(role['name'])}</h1>
-    <p class="lede">{md(role['tagline'])}</p>
-    <p><span class="pill acc">{len(role['steps'])} steps</span> <span class="pill">{n_a} sub-steps</span>
+    <p class="lede">{md(role['tagline'])}</p></div>
+    <div class="rowa"><b>On this page</b>
+    <p style="margin:0"><span class="pill acc">{len(role['steps'])} steps</span> <span class="pill">{n_a} sub-steps</span>
        <span class="pill">{len(role['steps'])} templates</span> <span class="pill">{n_p} prompts</span>{extra_pills}</p>
+    <p style="margin:10px 0 0;font-size:13.5px">Every step: what you do, where a model helps and where it must not, the artefact you owe the
+    next person, its template and the prompts to draft it.</p></div>
   </div>
 
   {orient}
@@ -497,8 +511,8 @@ def role_page(role: dict) -> str:
 
   <h2 style="margin:0 0 12px">What is yours, and what is not</h2>
   <div class="sec two">
-    <div class="card"><h3 class="h4" style="color:var(--accent)">Yours to own</h3><ul class="ticks">{owns}</ul></div>
-    <div class="card"><h3 class="h4" style="color:var(--soft)">Not yours — stop signing these</h3>
+    <div class="card yes"><h3 class="h4">Yours to own</h3><ul class="ticks">{owns}</ul></div>
+    <div class="card no"><h3 class="h4">Not yours: stop signing these</h3>
       <ul class="ticks no">{nots}</ul></div>
   </div>
 
@@ -508,8 +522,8 @@ def role_page(role: dict) -> str:
   <h2 style="margin:0 0 16px">The journey, step by step</h2>
   {steps}
 
-  <div class="sec" style="margin-top:36px"><div class="lbl">Read next</div>
-    <ul class="ticks">{reads}</ul></div>
+  <div class="sec" style="margin-top:36px"><h2 style="margin:0 0 12px">Read next</h2>
+    <ul class="readsg">{reads}</ul></div>
 </main>
 <aside class="toc" aria-label="On this page"><h2>On this page</h2><ul>{toc}</ul></aside>
 </div>"""
@@ -534,16 +548,25 @@ def library_page(roles: list[dict], kind: str) -> str:
             "— Claude, ChatGPT, Bedrock, your coding agent — and edit: each states the job, the rules and the "
             "output shape, because a prompt that does not say what shape it wants gets a different shape "
             "every time. The documents they help you write are on the templates page.")
+    other = ("prompts", "Prompt templates") if is_t else ("templates", "Artefact templates")
     secs, toc, count = [], [], 0
     for role in roles:
         rows = []
         for s in role["steps"]:
             if is_t:
                 count += 1
+                art = s["artifact"]
+                first_do = s["activities"][0]["do"] if s.get("activities") else ""
                 rows.append(f'<h3 style="margin:22px 0 8px">{s["n"]}. {md(s["template"]["title"])}'
-                            f' <span class="pill" style="margin-left:6px">{_E(s["phase"])}</span></h3>'
-                            f'<p class="bwhy">Produced by <a href="../{role["id"]}/#{s["id"]}">step {s["n"]}, '
-                            f'{_E(s["phase"])}</a>. Good looks like: {md(s["artifact"]["good"])}</p>'
+                            f' <span class="pill pp{s["pdlc"][1]}" title="Phase {s["pdlc"]}">{s["pdlc"]}</span>'
+                            f' <span class="pill" style="margin-left:2px">{_E(s["phase"])}</span></h3>'
+                            f'<ul class="usewhen"><li><b>Use it when</b><span>{md(s["when"])}.</span></li>'
+                            f'<li><b>You produce</b><span>{md(art["name"])}'
+                            + (f', owned by {md(art["owner"])}' if art.get("owner") else "") + '.</span></li>'
+                            + (f'<li><b>Start with</b><span>{md(first_do)}.</span></li>' if first_do else "")
+                            + f'<li><b>Good looks like</b><span>{md(art["good"])}</span></li>'
+                            f'<li><b>Explained in</b><span><a href="../{role["id"]}/#{s["id"]}">step {s["n"]}, '
+                            f'{_E(s["phase"])}</a></span></li></ul>'
                             + block("template", s["template"]["title"],
                                     f'{role["short"]} step {s["n"]} · {s["artifact"]["name"]}',
                                     s["template"]["body"], f'lt-{role["id"]}-{s["id"]}'))
@@ -556,13 +579,13 @@ def library_page(roles: list[dict], kind: str) -> str:
                                 f'<a href="../{role["id"]}/#{s["id"]}">step {s["n"]}, {_E(s["phase"])}</a>.</p>'
                                 + block("prompt", p["title"], p["when"], p["body"],
                                         f'lp-{role["id"]}-{s["id"]}-{i}'))
+        n_here = len(role["steps"]) if is_t else sum(len(s["prompts"]) for s in role["steps"])
         secs.append(f'<section id="{role["id"]}" style="scroll-margin-top:84px;margin:0 0 44px">'
-                    f'<h2 style="color:{accent_var(role["accent"])}">{_E(role["name"])}</h2>'
-                    f'<p class="lede" style="font-size:16px">{md(role["tagline"])} · '
-                    f'<a href="../{role["id"]}/">open the journey</a></p>{"".join(rows)}</section>')
+                    f'<div class="rolehead"><h2 style="color:{accent_var(role["accent"])}">{_E(role["name"])}: {n_here} {short}, P0 to P3</h2>'
+                    f'<div class="try"><span class="tl">Also</span><a href="../{role["id"]}/">The role, step by step</a>'
+                    f'<a href="../{other[0]}/#{role["id"]}">The {other[0]} for this role</a></div></div>{"".join(rows)}</section>')
         toc.append(f'<li><a href="#{role["id"]}">{_E(role["name"])}</a></li>')
 
-    other = ("prompts", "Prompt templates") if is_t else ("templates", "Artefact templates")
     compare = f"""<h2 style="margin:0 0 12px">Templates or prompts?</h2>
 <div class="sec two tvp">
   <div class="card{' on' if is_t else ''}"><h3 class="h4">Templates</h3><p>Skeletons for the <b>documents each step produces</b>: a
@@ -592,6 +615,27 @@ def library_page(roles: list[dict], kind: str) -> str:
         {"sel": ".blk", "title": "One block per " + ("template" if is_t else "prompt"), "body": "The header says which step it belongs to. The line above says " + ("what good looks like." if is_t else "when to use it.") + " Angle brackets are yours to fill."},
         {"sel": ".blk .cp", "title": "Copy", "body": "One click copies the whole block, ready to paste."},
     ])
+    opener = "" if not is_t else """<div class="sec tmplopen"><h2 style="margin:0 0 12px">What these templates are for, and how to use one</h2>
+<div class="tmplgrid">
+  <div class="card"><h3 class="h4">What they are for</h3><ul class="ticks">
+    <li>Each is the document one step of the SkyWays PDLC produces and the next person needs: a register, a spec, a bar sheet, a report.</li>
+    <li>They carry the fields that get forgotten, so the next person never has to ask what you meant.</li>
+    <li>Kept in the repository, they are the evidence pack a gate is judged on.</li></ul></div>
+  <div class="card"><h3 class="h4">How to use one</h3><ol class="acts">
+    <li><b>Find your step.</b><span>Pick your role, then the step you are on; the phase badge says where it sits, P0 to P3.</span></li>
+    <li><b>Copy and fill.</b><span>Press Copy, paste it into your document, and replace every angle bracket with your own material. Delete what does not apply; do not leave a placeholder.</span></li>
+    <li><b>Hand it on.</b><span>Check the "Good looks like" line, then give it to the person the step names. The step it comes from explains every field.</span></li></ol></div>
+  <div class="card ex"><h3 class="h4">One of them, filled in</h3>
+    <p style="font-size:13.5px;margin:0 0 8px">The pain register, after two discovery calls at SkyWays:</p>
+<pre class="exblk"><code># Pain register · SkyWays rebooking
+Pain: Rebooking after a cancellation takes 40 minutes on the phone
+Who said it: 6 of 6 transcripts (3 agents, 3 passengers)
+Count: 1,850 a month (ticket export, June)
+Cost per case: $11.20 agent time + $38 goodwill credit when it goes wrong
+Source: tickets tagged REBOOK, Jan to Jun
+Owner of the number: Priya (PM)</code></pre>
+    <p style="font-size:13.5px;margin:8px 0 0">One line per pain, every number with a source. That is what turns a vibe into something a sponsor can fund.</p></div>
+</div></div>"""
     from pages import posters
     posters_html = "" if is_t else (
         '<div class="sec postersec"><h2 style="margin:0 0 6px">How a prompt template is built</h2>'
@@ -602,11 +646,13 @@ def library_page(roles: list[dict], kind: str) -> str:
     body = f"""<div class="cols">
 <aside class="rail" aria-label="Roles"><h2>By role</h2><ul class="ticks">{''.join(toc)}</ul></aside>
 <main id="main">
-  <div class="sec"><div class="kicker">The {"template" if is_t else "prompt"} library</div><h1>{label}</h1>
-  <p class="lede">{lede}</p>
-  <p><span class="pill acc">{count} {short}</span>
-     <span class="pill">copy button on each</span> <span class="pill">every angle bracket is yours to fill</span></p></div>
+  <div class="rowh"><div><div class="kicker">The {"template" if is_t else "prompt"} library</div><h1>{label}</h1>
+  <p class="lede">{lede}</p></div>
+  <div class="rowa"><b>On this page</b><p style="margin:0"><span class="pill acc">{count} {short}</span>
+     <span class="pill">copy button on each</span> <span class="pill">every angle bracket is yours to fill</span></p>
+  <p style="margin:10px 0 0;font-size:13.5px">Five roles in journey order, each {"template" if is_t else "prompt"} marked with its phase, P0 to P3.</p></div></div>
   {orient}
+  {opener}
   {compare}
   {posters_html}
   {''.join(secs)}
@@ -674,26 +720,28 @@ def home_page(roles: list[dict]) -> str:
 
     hero = f"""<section class="hero" id="top" aria-label="Introduction"><div class="in">
   <div class="hx">
-    <p class="kicker">PDLCs for the agentic era</p>
-    <h1>Every agentic delivery method. One manual. <em>Your role, end to end.</em></h1>
-    <p class="lede">AI-DLC, AIDD, BMAD, spec-driven development and the PDLC that ties them together,
-    walked from the first conversation to the number you report. Free, credited, method-agnostic.</p>
-    <p class="by">A product of <b>SkyWays Consultancy</b>. The SkyWays PDLC brings the best of every agentic way of
-    working into one operating model: your one stop for running product development in the LLM era.</p>
-    <div class="who"><p class="wl">If you are…</p><ul>{who_html}</ul></div>
+    <p class="kicker">Agentic product development</p>
+    <h1>So many agentic methods. <em>Which one should your team follow?</em></h1>
+    <p class="lede">AI-DLC, AIDD, BMAD, spec-driven development, agentic SDLC: each is right about part of the
+    lifecycle and silent on the rest. This is your one stop to understand them all, and to run the best of them
+    as one method, P0 to P3, that any team can follow.</p>
+    <p class="by"><b>SkyWays Consultancy</b> brings you the <b>SkyWays PDLC</b>: the best parts of every agentic
+    framework and technique, rolled into one operating model you can run in your own organisation.</p>
+    <div class="who"><p class="wl">Start from your own chair:</p><ul>{who_html}</ul></div>
+  </div>
+  <div class="ill">{illos.spine()}
     <div class="guide">{k.pip()}<div class="bubble"><p><b>Hi, I'm Pip.</b> New here? I can show you round in
       thirty seconds, or take you straight to the tutorial or the simulator.</p>
       <div class="ba"><button type="button" class="btn pri" data-tour-start>Show me around</button>
       <a class="btn" href="learn/">Start the tutorial</a>
       <a class="btn" href="simulator/">Open the simulator</a></div></div></div>
   </div>
-  <div class="ill">{illos.spine()}</div>
 </div></section>"""
 
     body = f"""{hero}
 <div class="wrap">
-<main id="main" style="padding:34px 0 80px">
-  <div class="stats" aria-label="What is here">{stats_html}</div>
+<main id="main" style="padding:34px 0 28px">
+  <div class="stats" aria-label="What is on this site"><b class="sq">What is on this site?</b>{stats_html}</div>
 
   <section class="hook" aria-label="What this manual is">
     <div class="ht">
@@ -872,7 +920,7 @@ def frameworks_page() -> str:
     def try_(links: list[tuple[str, str]]) -> str:
         return '<div class="try">' + "".join(f'<a href="{h}">{t}</a>' for h, t in links) + "</div>"
     body = (
-        '<div class="wrap"><main id="main" style="padding:34px 0 80px">'
+        '<div class="wrap"><main id="main" style="padding:34px 0 28px">'
         + rowh('<div class="kicker">Resources</div><h1>The frameworks, and how they merge into P0 to P3</h1>'
                '<p class="lede">AI-DLC, AIDD, BMAD and spec-driven development placed on one spine, how their parts '
                "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "

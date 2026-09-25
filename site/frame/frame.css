@@ -30,6 +30,7 @@ html .sw-footer a:hover{border-bottom-color:#3E5A82}
 
 .sw-scrim{position:fixed;inset:0;z-index:9500;background:rgba(28,27,25,.34);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity 220ms var(--ease,ease)}
 .sw-scrim.on{opacity:1;pointer-events:auto}
+html{overflow-x:clip}  /* the closed drawer is translated off the right edge; without this Chrome counts it as page width at some viewports */
 .sw-drawer{position:fixed;top:0;right:0;bottom:0;z-index:9600;width:min(460px,100vw);background:var(--paper,#fff);border-left:1px solid var(--rule,#E6E2D9);box-shadow:-20px 0 60px rgba(28,27,25,.18);transform:translateX(102%);transition:transform 320ms var(--ease,ease);display:flex;flex-direction:column;color:var(--ink,#1C1B19)}
 .sw-drawer.on{transform:none}
 .sw-drawer header{padding:22px 24px 14px;border-bottom:1px solid var(--rule,#E6E2D9);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
