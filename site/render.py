@@ -630,7 +630,8 @@ def home_page(roles: list[dict]) -> str:
       <div><h3>Use the libraries, then play</h3>
         <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder,
         and the SkyWays playbook: ninety days of one airline's build you can replay.</p>
-        <a class="more" href="simulator/">Open the playbook →</a></div>
+        <a class="more" href="simulator/">Open the playbook →</a>
+        <div class="try"><span class="tl">Straight to</span><a href="simulator/#/simulations">Simulations</a><a href="simulator/#/toolkit">Toolkit</a><a href="simulator/#/concepts">Concept map</a><a href="simulator/#/story">The ninety days</a></div></div>
     </div>
   </div>
 

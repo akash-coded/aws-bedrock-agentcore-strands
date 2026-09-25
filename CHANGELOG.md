@@ -8,6 +8,32 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The playbook, taken further: navigation, the map as levels, simulations by role
+
+### Changed
+- **The way back sits in the navigation.** The floating "Back to the manual" pill is gone; a Manual chip
+  sits beside Home, a first row in the phone menu, and the strip above the tool names its links. The contact
+  control is a quiet round button that grows its label on hover; the attribution stays in the footer
+- **One pill system.** Every pill and chip shares a height, border and hover; the home hero's role chips
+  and the router's chips no longer differ in size
+- **The rail groups its links under their phase**, each group a tinted card; the walkthrough's rail becomes a
+  sticky strip of steps on phones
+- **The concept map reads as three levels**: all loops, a loop, a concept. A click on a loop flies to it and
+  the panel lists its concepts; a click on a concept frames it with what it builds on and leads to and reads
+  it; a breadcrumb and Esc step back up. Plain scrolling scrolls the page; zoom needs ⌘ or Ctrl. The panel is
+  never half empty: at the top level it lists the eight loops with counts. "The same map, read by role" is now
+  "By role", as labels, with a button that shows that role on the map
+- **The concept dialog has a picture.** The empty state shows the ring of eight loops; a tap on one narrows
+  the list. Every concept ends with "Where it sits", the same ring with its loop lit
+- **Simulations say what they are.** The cockpit photo is gone. The page opens with how a simulation works in
+  four steps, a process map placing all nine walks on the four phases, and the walks grouped by role with
+  phase, day, decision count and time. Each walk's card names whose chair you sit in and the phase, explains
+  the loop on the first step, letters its options and never overflows
+- **The walkthrough has a front**: title, one line, the four role chips and a numbered stepper of the ten
+  stops; every stage's role bar carries the chips too, so "change role" never sends you back to the start
+- **Reference imagery is larger**; "open" says "Go to it" with an arrow
+- **The manual's home page** links straight to Simulations, Toolkit, the Concept map and the ninety days
+
 ## 2026-09-25 · The playbook, made foolproof and guided: five UX passes
 
 All in `site/app/SkyWays-Architect.html` (the tool) and `site/frame/`, verified headlessly per pass and on

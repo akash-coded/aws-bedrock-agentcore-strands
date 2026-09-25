@@ -1186,3 +1186,6 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 .try a:hover::after{background:var(--ink);transform:translateX(2px)}
 .try a:focus-visible{outline:3px solid var(--slate);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.try a,.try a::after{transition:none}}
+
+.ways .try{margin:6px 0 0}
+.ways .try a{font-size:13px;padding:6px 10px 6px 9px}
