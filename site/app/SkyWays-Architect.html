@@ -818,13 +818,13 @@ h1{font-size:32px;font-weight:600;color:var(--navy)}
 .illos{margin-top:28px}.illos>h2{margin-bottom:4px}.illos>p{font-size:15px;color:var(--ink2);margin:0 0 14px}
 .illo{margin:0 0 18px;padding:14px 16px 12px;border-radius:var(--r2)}
 .illo figcaption{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin-bottom:8px}.illo figcaption b{font-size:16.5px;color:var(--navy)}.illo figcaption span{font-size:13.5px;color:var(--ink2)}
-.illo svg{width:100%;height:auto;display:block;border-radius:12px;background:#fff}
+.illo>svg{width:100%;height:auto;display:block;border-radius:12px;background:#fff}
 .illo .illo-go{display:inline-block;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--navy);text-decoration:none;padding:7px 12px;border-radius:999px;border:1px solid var(--line2);background:#fff}.illo .illo-go:hover{border-color:var(--navy)}
 .illo svg a{cursor:pointer}.illo svg a:hover rect{stroke-width:2.6}
 .bb-flow{animation:bbDash 1.1s linear infinite}
 @keyframes bbDash{to{stroke-dashoffset:-24}}
 @media (prefers-reduced-motion:reduce){.bb-flow{animation:none}}
-@media (max-width:760px){.illo{padding:10px}.illo svg{min-width:640px}.illo{overflow-x:auto}}
+@media (max-width:760px){.illo{padding:10px}.illo>svg{min-width:640px}.illo{overflow-x:auto}}
 
 /* =====================================================================
    THE RE-SKIN · one palette, one grammar, across every page
@@ -1604,6 +1604,50 @@ a.xl:hover,.xl:hover{color:#08507F!important}
 .xclimb-hud .hint{margin:0;font-size:12px;color:var(--soft)}
 @media (max-width:1100px){.xclimb-body{grid-template-columns:1fr}.xclimb-hud{flex-direction:row;flex-wrap:wrap;align-items:center}.xclimb-hud .m{flex:1 1 140px}.xclimb-hud .xbtn{margin-top:0}}
 @media (max-width:700px){.xclimb-tower{flex-direction:column-reverse}.xclimb-floor{grid-template-columns:1fr;gap:8px;border-top:0;border-bottom:2px solid var(--navy)}.xclimb-cab{border-top:2px solid var(--navy)}.xclimb-side{white-space:normal}.xclimb-ground{border-top:0}}
+
+/* pass G4: the three pictures scroll sideways on phones instead of shrinking to nothing */
+@media (max-width:700px){.xsec.illos .illo{overflow-x:auto;-webkit-overflow-scrolling:touch;contain:inline-size}.xsec.illos .illo>svg{min-width:920px;width:920px}#illo-pdlc figcaption span::after{content:" Scroll sideways to read the picture."}}
+
+/* pass G4b: the roles and methods grids */
+.xg-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--navy);margin:4px 0 14px;padding-left:12px;border-left:4px solid #22C55E;font-family:var(--display)}
+.xg-title span{display:inline-block;padding:3px 14px;border-radius:9px;color:#fff}
+.xrg,.xmg{position:relative;--lx:150px}
+.xrg-head,.xrg-row{display:grid;grid-template-columns:var(--lx) repeat(4,minmax(0,1fr));gap:10px;align-items:stretch}
+.xrg-head{padding:0 8px;margin-bottom:8px}
+.xrg-ph,.xmg-ph{justify-self:center;font-size:13px;font-weight:700;color:#fff;background:var(--pc);padding:4px 12px;border-radius:8px;white-space:nowrap}
+.xrg-row{padding:8px;border-radius:14px;background:var(--rt);border:1.5px solid var(--rb);margin-bottom:10px}
+.xrg-role{display:flex;flex-direction:column;justify-content:center;gap:2px;background:var(--rc);color:#fff;border-radius:11px;padding:10px 12px;min-height:92px}
+.xrg-role b{font-size:14px;line-height:1.2}
+.xrg-role small{font-size:11.5px;opacity:.92}
+.xrg-ic{margin-bottom:4px}
+.xrg-ic,.xmg-ic{width:26px;height:26px;flex:none;display:inline-block}
+.xrg-cell{display:flex;flex-direction:column;justify-content:center;gap:5px;min-width:0}
+.xrg-chip{display:block;padding:6px 10px;border-radius:9px;background:#fff;border:1.5px solid var(--rc);font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;line-height:1.25;overflow-wrap:anywhere;transition:background 140ms}
+.xrg-chip:hover{background:color-mix(in oklab,var(--rc) 10%,#fff)}
+.xrg-chip:focus-visible{outline:3px solid #1D9BF0;outline-offset:1px}
+.xrg-empty{display:block;border-top:2px dashed color-mix(in oklab,var(--rc) 45%,#fff);margin:0 8px}
+.xrg-gate{position:absolute;top:42px;bottom:88px;left:calc(8px + var(--lx) + 25px + 2 * ((100% - 56px - var(--lx)) / 4) - 1.5px);width:3px;background:#DB2777;border-radius:2px;pointer-events:none}
+.xrg-gate::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:28px;border-radius:7px;background:#DB2777;background-image:linear-gradient(#fff,#fff),linear-gradient(#fff,#fff);background-size:10px 2px,10px 2px;background-position:5px 10px,5px 16px;background-repeat:no-repeat}
+.xrg-gate span{position:absolute;top:100%;left:50%;transform:translate(-50%,10px);white-space:nowrap;background:#DB2777;color:#fff;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:8px}
+.xrg-note,.xmg-note{margin:68px 0 0;font-size:12.5px;color:var(--ink2)}
+.xmg-note{margin-top:14px}
+.xmg-head,.xmg-row,.xmg-spine{display:grid;grid-template-columns:300px repeat(4,minmax(0,1fr));gap:10px;align-items:center}
+.xmg-head{padding:0 10px;margin-bottom:8px}
+.xmg-head>span:first-child{font-size:11.5px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
+.xmg-row{padding:10px;border-radius:14px;background:var(--mt);border:1.5px solid var(--mb);margin-bottom:10px}
+.xmg-name>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.xmg-pill{display:inline-block;background:var(--mc);color:#fff;font-weight:700;font-size:13.5px;padding:4px 12px;border-radius:9px}
+.xmg-name p{margin:6px 0 0;font-size:13px;color:var(--ink2);line-height:1.4}
+.xmg-cell{display:flex;align-items:center;gap:8px;min-height:64px;padding:8px 10px;border-radius:10px;background:#fff;border:1.8px solid var(--mc);font-size:13px;font-weight:600;color:var(--ink);line-height:1.3;min-width:0}
+.xmg-cell.silent{border:1.5px dashed var(--mb);background:transparent;color:var(--ink2);font-weight:500;justify-content:center}
+.xmg-ic{flex:none}
+.xmg-spine{background:#0B1437;color:#fff;border-radius:999px;padding:10px 16px;margin:6px 0 16px;position:relative}
+.xmg-spine b{font-size:14px}
+.xmg-spine span{justify-self:center;font-size:13px;font-weight:700;color:#fff;background:var(--pc);padding:5px 12px;border-radius:999px;white-space:nowrap}
+.xmg-gate{position:absolute;top:-10px;bottom:-10px;left:calc(341px + 2 * ((100% - 372px) / 4) - 1.5px);width:3px;background:#DB2777;border-radius:2px}
+.xmg-gate::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:28px;border-radius:7px;background:#DB2777;background-image:linear-gradient(#fff,#fff),linear-gradient(#fff,#fff);background-size:10px 2px,10px 2px;background-position:5px 10px,5px 16px;background-repeat:no-repeat}
+@media (max-width:1000px){.xrg,.xmg{--lx:118px}.xmg-head,.xmg-row,.xmg-spine{grid-template-columns:200px repeat(4,minmax(0,1fr))}.xmg-gate{left:calc(241px + 2 * ((100% - 272px) / 4) - 1.5px)}.xrg-role{min-height:0}.xrg-chip,.xmg-cell{font-size:12.5px}}
+@media (max-width:700px){.xrg-head,.xmg-head,.xrg-gate,.xmg-gate,.xmg-cell.silent{display:none}.xrg-row,.xmg-row{grid-template-columns:1fr;gap:8px}.xrg-cell:not(:has(.xrg-chip)){display:none}.xrg-cell::before,.xmg-cell::before{content:attr(data-ph);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink2);flex-basis:100%}.xrg-cell{flex-direction:row;flex-wrap:wrap;gap:6px}.xrg-chip{display:inline-block}.xmg-cell{flex-wrap:wrap}.xmg-cell::before{flex-basis:100%}.xrg-role{flex-direction:row;align-items:center;gap:10px;min-height:0;padding:8px 12px}.xrg-role b{flex:1}.xrg-ic{margin:0}.xmg-spine{display:flex;flex-wrap:wrap;gap:8px;border-radius:16px}.xmg-spine b{flex-basis:100%}.xrg-note{margin-top:8px}}
 </style>
 </head>
 <body>
@@ -4317,15 +4361,15 @@ eng:[[],[["Context file and story file",1],["Harness in CI",3],["Exact-code inve
 qa:[[],[["Acceptance lines to tests",1],["Golden set with witnesses",2]],[["Judge, calibrated",3],["Lower bound, not the score",4],["Three sets: golden, red, drift",5]],[["Shadow scoring, cut-over",6],["Injection weekly, escapes",7]]],
 ops:[[],[["A gateway for every call",1]],[["Per-call log, four meters",2],["Cache, tiers, breakers",4],["Flag: shadow to on",5]],[["Redacted traces, alerts",6],["Model-switch runbook",8]]],
 hop:[[["Sign the measurement",1]],[["Authority budget first",2],["The hard gate",3]],[["Read the lower bound",4]],[["Two numbers, then the next P0",5]]]};
-function illoRoles(){const W=1180,H=760,LX=180,CW=245,ph=[["P0 · Frame",BB.g],["P1 · Specify",BB.b],["P2 · Build and prove",BB.p],["P3 · Run and learn",BB.o]];
+function illoRoles(){const W=1180,H=884,LX=180,CW=245,ph=[["P0 · Frame",BB.g],["P1 · Specify",BB.b],["P2 · Build and prove",BB.p],["P3 · Run and learn",BB.o]];
  let m=bbTitle(34,12,[["Six roles","b"],["along"],["four phases","p"]]);
- ph.forEach((p,i)=>{const P=bbPill(0,0,p[0],p[1],{fs:12.5,r:8,h:28});m+=bbPill(LX+i*CW+CW/2-P.w/2,62,p[0],p[1],{fs:12.5,r:8,h:28}).m;});
- ILLO_ROLES.forEach((r,k)=>{const y=100+k*102,c=r[3];m+=bbPanel(20,y,1140,94,c,{r:14});
-  m+=`<rect x="28" y="${y+7}" width="144" height="80" rx="11" fill="${c.s}"/>`+bbIcon(r[4],54,y+31,26,{c:"#fff",ink:"#fff",fill:"rgba(255,255,255,.25)"})+bbLines(74,y+40,wrapTx(r[1],13).slice(0,2),{fs:12.5,b:1,c:"#fff",lh:13})+bbText(36,y+78,esc(r[2]),{fs:10.5,c:"#fff",w:500});
-  m+=`<path d="M${LX+4} ${y+47}H1150" fill="none" stroke="${c.b}" stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>`;
-  ILLO_CELLS[r[0]].forEach((cell,ci)=>{const cx=LX+ci*CW+8,n=cell.length,top=y+47-(n*26-2)/2;cell.forEach((ch,j)=>{m+=bbNode(cx,top+j*26,CW-16,24,{title:ch[0],fs:10.8,r:7,s:c.s,f:"#fff",href:"#/process/step-"+r[0]+"-"+ch[1]});});});});
- m+=bbGate(LX+2*CW,96,606,{hard:true});const gl="Hard gate: the spec, the bar and the guardrails, signed before anyone builds",G=bbPill(0,0,gl,BB.k,{fs:11.5,r:8,h:26});m+=bbPill(LX+2*CW-G.w/2,706,gl,BB.k,{fs:11.5,r:8,h:26}).m;
- m+=bbText(34,748,"Every chip opens the step on the operating process page. An empty cell means the role has nothing to do in that phase yet.",{fs:10.5,c:BB.ink2,w:500});
+ ph.forEach((p,i)=>{const P=bbPill(0,0,p[0],p[1],{fs:13.5,r:8,h:30});m+=bbPill(LX+i*CW+CW/2-P.w/2,60,p[0],p[1],{fs:13.5,r:8,h:30}).m;});
+ ILLO_ROLES.forEach((r,k)=>{const y=104+k*118,c=r[3];m+=bbPanel(20,y,1140,110,c,{r:14});
+  m+=`<rect x="28" y="${y+7}" width="144" height="96" rx="11" fill="${c.s}"/>`+bbIcon(r[4],54,y+36,26,{c:"#fff",ink:"#fff",fill:"rgba(255,255,255,.25)"})+bbLines(74,y+45,wrapTx(r[1],13).slice(0,2),{fs:13.5,b:1,c:"#fff",lh:15})+bbText(36,y+92,esc(r[2]),{fs:11.5,c:"#fff",w:500});
+  m+=`<path d="M${LX+4} ${y+55}H1150" fill="none" stroke="${c.b}" stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>`;
+  ILLO_CELLS[r[0]].forEach((cell,ci)=>{const cx=LX+ci*CW+8,n=cell.length,top=y+55-(n*30-2)/2;cell.forEach((ch,j)=>{m+=bbNode(cx,top+j*30,CW-16,28,{title:ch[0],fs:12,r:7,s:c.s,f:"#fff",href:"#/process/step-"+r[0]+"-"+ch[1]});});});});
+ m+=bbGate(LX+2*CW,100,700,{hard:true});const gl="Hard gate: the spec, the bar and the guardrails, signed before anyone builds",G=bbPill(0,0,gl,BB.k,{fs:12.5,r:8,h:28});m+=bbPill(LX+2*CW-G.w/2,814,gl,BB.k,{fs:12.5,r:8,h:28}).m;
+ m+=bbText(34,862,"Every chip opens the step on the operating process page. An empty cell means the role has nothing to do in that phase yet.",{fs:11.5,c:BB.ink2,w:500});
  return sv(W,H,m);}
 // ---------- illustration 3 · five methods on one spine, as a plug board ----------
 const ILLO_METHODS=[
@@ -4335,21 +4379,30 @@ const ILLO_METHODS=[
  {n:"AI-DLC (AWS)",c:BB.o,mark:"doc",about:"Three phases and bolts of hours or days replace sprints, with a human approval at every boundary.",ph:[["flag","inception: an intent becomes units of work"],["users","mob elaboration, NFRs captured"],["bolt","construction in bolts, mob construction"],["gear","operations, run adaptively"]]},
  {n:"AiDD, the daily craft",c:BB.g,mark:"wm",about:"How an engineer works with a coding agent day to day, whichever method frames it.",ph:[null,null,["code","context files, story files, a harness in CI, review by risk"],null]},
  {n:"This playbook adds",c:BB.n,mark:"wm",about:"The parts none of the methods above decide, on the spine where they belong.",ph:[["target","the 20-2-1 test and the value line"],["gate","the hard gate: spec, bar, guardrails; the authority budget"],["ladder","one unknown per bolt, review by band, the shadow run"],["chart","the two-number report, drift, the incident as the next P0"]]}];
-function illoMethods(){const W=1180,H=606,LX=320,CW=210;let m=bbTitle(34,12,[["Five methods","p"],["on one"],["spine","b"]]);
+function illoMethods(){const W=1180,H=728,LX=340,CW=205;let m=bbTitle(34,12,[["Five methods","p"],["on one"],["spine","b"]]);
  const ph=[["P0 · Frame",BB.g],["P1 · Specify",BB.b],["P2 · Build and prove",BB.p],["P3 · Run and learn",BB.o]];
- const row=(r,y)=>{m+=`<rect x="20" y="${y}" width="1140" height="62" rx="12" fill="${r.c.t}" stroke="${r.c.b}" stroke-width="1.6"/>`;const P=bbPill(30,y+8,r.n,r.c,{fs:12,r:8,h:24});m+=P.m+`<foreignObject x="${30+P.w+8}" y="${y+8}" width="${LX-30-P.w-8}" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="padding-top:5px">${conf(r.mark)}</div></foreignObject>`+bbLines(30,y+42,wrapTx(r.about,50).slice(0,2),{fs:9.8,c:BB.ink2,w:500,lh:11});
-  r.ph.forEach((p,i)=>{const x=LX+i*CW+4,w=CW-8;if(!p){m+=`<rect x="${x}" y="${y+8}" width="${w}" height="46" rx="9" fill="none" stroke="${r.c.b}" stroke-width="1.2" stroke-dasharray="4 4"/>`+bbText(x+w/2,y+35,"silent",{a:"middle",fs:10.5,c:BB.ink2,w:500});return;}
-   m+=`<rect x="${x}" y="${y+8}" width="${w}" height="46" rx="9" fill="#fff" stroke="${r.c.s}" stroke-width="1.8"/>`+bbIcon(p[0],x+22,y+16,26,{c:r.c.s,ink:BB.ink,fill:r.c.t})+(()=>{const L=wrapTx(p[1],29).slice(0,3);return bbLines(x+42,y+31-(L.length-1)*5.5,L,{fs:10,b:1,lh:11.5});})();});};
- ILLO_METHODS.slice(0,3).forEach((r,k)=>row(r,64+k*70));
- const SY=282;m+=`<rect x="20" y="${SY}" width="1140" height="48" rx="24" fill="${BB.n.s}"/>`+bbText(40,SY+29,"Agentic PDLC · the spine",{fs:13,b:1,c:"#fff"})+`<path d="M${LX+10} ${SY+24}H1140" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>`;
+ const row=(r,y)=>{m+=`<rect x="20" y="${y}" width="1140" height="80" rx="12" fill="${r.c.t}" stroke="${r.c.b}" stroke-width="1.6"/>`;const P=bbPill(30,y+9,r.n,r.c,{fs:13,r:8,h:26});m+=P.m+`<foreignObject x="${30+P.w+8}" y="${y+9}" width="${LX-30-P.w-8}" height="26"><div xmlns="http://www.w3.org/1999/xhtml" style="padding-top:6px">${conf(r.mark)}</div></foreignObject>`+bbLines(30,y+50,wrapTx(r.about,50).slice(0,2),{fs:11.5,c:BB.ink2,w:500,lh:14});
+  r.ph.forEach((p,i)=>{const x=LX+i*CW+4,w=CW-8;if(!p){m+=`<rect x="${x}" y="${y+10}" width="${w}" height="60" rx="9" fill="none" stroke="${r.c.b}" stroke-width="1.2" stroke-dasharray="4 4"/>`+bbText(x+w/2,y+44,"silent",{a:"middle",fs:11.5,c:BB.ink2,w:500});return;}
+   m+=`<rect x="${x}" y="${y+10}" width="${w}" height="60" rx="9" fill="#fff" stroke="${r.c.s}" stroke-width="1.8"/>`+bbIcon(p[0],x+22,y+27,26,{c:r.c.s,ink:BB.ink,fill:r.c.t})+(()=>{const L=wrapTx(p[1],22).slice(0,3);return bbLines(x+42,y+40-(L.length-1)*6.5,L,{fs:11.5,b:1,lh:13});})();});};
+ ILLO_METHODS.slice(0,3).forEach((r,k)=>row(r,64+k*88));
+ const SY=340;m+=`<rect x="20" y="${SY}" width="1140" height="48" rx="24" fill="${BB.n.s}"/>`+bbText(40,SY+29,"Agentic PDLC · the spine",{fs:13,b:1,c:"#fff"})+`<path d="M${LX+10} ${SY+24}H1140" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>`;
  ph.forEach((p,i)=>{const P=bbPill(0,0,p[0],p[1],{fs:12.5,r:14,h:28});m+=bbPill(LX+i*CW+CW/2-P.w/2,SY+10,p[0],p[1],{fs:12.5,r:14,h:28}).m;});
  m+=bbGate(LX+2*CW,SY-6,60,{hard:true});
- ILLO_METHODS.slice(3).forEach((r,k)=>row(r,350+k*70));
- m+=bbText(34,588,"A filled cell is where the method says something about that phase; a dashed cell is where a team has to bring its own answer. The last row is where this playbook's own devices sit.",{fs:10.5,c:BB.ink2,w:500});
+ ILLO_METHODS.slice(3).forEach((r,k)=>row(r,SY+64+k*88));
+ m+=bbText(34,696,"A filled cell is where the method says something about that phase; a dashed cell is where a team has to bring its own answer. The last row is where this playbook's own devices sit.",{fs:11.5,c:BB.ink2,w:500});
  return sv(W,H,m);}
 // ---------- placement: the Start page, the process page and the compare page ----------
 function illoFigure(id,title,sub,svg,link,linkText){return `<figure class="illo glass" id="${id}"><figcaption><b>${title}</b><span>${sub}</span></figcaption>${svg}${link?`<a class="illo-go" href="${link}">${linkText}</a>`:""}</figure>`;}
-const ILLO_HTML=()=>illoFigure("illo-pdlc","The method, in one picture","What a traditional lifecycle assumes, and what changes once the product contains something that decides.",illoPDLC(),"#/learn","Learn it one picture at a time")+illoFigure("illo-roles","Who does what, when","Six roles along the four phases; every chip opens that step of the operating process.",illoRoles(),"#/process","Open the operating process")+illoFigure("illo-methods","Where each method plugs in","Spec Kit, Kiro, BMAD, AI-DLC and AiDD on the spine, and what this playbook adds where they are silent.",illoMethods(),"#/compare","Compare any two, side by side");
+
+// ---------- pass G4b: the roles and methods pictures as HTML grids (start page) ----------
+const XG_PH=()=>[["P0","Frame",BB.g],["P1","Specify",BB.b],["P2","Build and prove",BB.p],["P3","Run and learn",BB.o]];
+function xgIcon(n,cls,c,ink,fill){return bbIcon(n,13,0,26,{c:c,ink:ink,fill:fill}).replace("<g ",`<svg class="${cls}" viewBox="0 0 26 26" width="26" height="26" aria-hidden="true"><g `).replace(/<\/g>$/,"</g></svg>");}
+function illoRolesHTML(){const PH=XG_PH();
+ return `<div class="xg-title"><span style="background:${BB.b.s}">Six roles</span> along <span style="background:${BB.p.s}">four phases</span></div><div class="xrg"><div class="xrg-head" aria-hidden="true"><span></span>${PH.map(p=>`<span class="xrg-ph" style="--pc:${p[2].s}">${p[0]} · ${p[1]}</span>`).join("")}</div>${ILLO_ROLES.map(r=>{const c=r[3];return `<div class="xrg-row" style="--rc:${c.s};--rt:${c.t};--rb:${c.b}"><div class="xrg-role">${xgIcon(r[4],"xrg-ic","#fff","#fff","rgba(255,255,255,.25)")}<b>${r[1]}</b><small>${esc(r[2])}</small></div>${ILLO_CELLS[r[0]].map((cell,i)=>`<div class="xrg-cell" data-ph="${PH[i][0]} · ${PH[i][1]}">${cell.length?cell.map(ch=>`<a class="xrg-chip" href="#/process/step-${r[0]}-${ch[1]}">${ch[0]}</a>`).join(""):`<i class="xrg-empty" title="nothing to do in this phase yet"></i>`}</div>`).join("")}</div>`;}).join("")}<div class="xrg-gate" aria-hidden="true"><span>Hard gate: the spec, the bar and the guardrails, signed before anyone builds</span></div><p class="xrg-note">Every chip opens that step on the operating process page. A dashed line means the role has nothing to do in that phase yet.</p></div>`;}
+function illoMethodsHTML(){const PH=XG_PH();
+ const row=r=>`<div class="xmg-row" style="--mc:${r.c.s};--mt:${r.c.t};--mb:${r.c.b}"><div class="xmg-name"><div><span class="xmg-pill">${r.n}</span>${conf(r.mark)}</div><p>${r.about}</p></div>${r.ph.map((p,i)=>p?`<div class="xmg-cell" data-ph="${PH[i][0]} · ${PH[i][1]}">${xgIcon(p[0],"xmg-ic",r.c.s,BB.ink,r.c.t)}<span>${p[1]}</span></div>`:`<div class="xmg-cell silent" data-ph="${PH[i][0]} · ${PH[i][1]}"><span>silent</span></div>`).join("")}</div>`;
+ return `<div class="xg-title"><span style="background:${BB.p.s}">Five methods</span> on one <span style="background:${BB.b.s}">spine</span></div><div class="xmg"><div class="xmg-head" aria-hidden="true"><span>Method</span>${PH.map(p=>`<span class="xmg-ph" style="--pc:${p[2].s}">${p[0]} · ${p[1]}</span>`).join("")}</div>${ILLO_METHODS.slice(0,3).map(row).join("")}<div class="xmg-spine"><b>Agentic PDLC · the spine</b>${PH.map(p=>`<span style="--pc:${p[2].s}">${p[0]} · ${p[1]}</span>`).join("")}<i class="xmg-gate" title="the hard gate"></i></div>${ILLO_METHODS.slice(3).map(row).join("")}<p class="xmg-note">A filled cell is where the method says something about that phase; a dashed cell is where a team has to bring its own answer. The last row is where this playbook's own devices sit.</p></div>`;}
+const ILLO_HTML=()=>illoFigure("illo-pdlc","The method, in one picture","What a traditional lifecycle assumes, and what changes once the product contains something that decides.",illoPDLC(),"#/learn","Learn it one picture at a time")+illoFigure("illo-roles","Who does what, when","Six roles along the four phases; every chip opens that step of the operating process.",illoRolesHTML(),"#/process","Open the operating process")+illoFigure("illo-methods","Where each method plugs in","Spec Kit, Kiro, BMAD, AI-DLC and AiDD on the spine, and what this playbook adds where they are silent.",illoMethodsHTML(),"#/compare","Compare any two, side by side");
 if(NP.start){const _sb3=NP.start.build;NP.start.build=function(){_sb3.call(this);const M=document.getElementById("startMain");if(M&&!M.querySelector("#illo-pdlc")){const hero=M.querySelector(".xhero");const sec=document.createElement("div");sec.className="xsec illos";sec.innerHTML=`<h2>The method in three pictures</h2><p>Read them in order: the method, then the roles inside it, then the published methods it borrows from.</p>${ILLO_HTML()}`;(hero||M.firstElementChild).after(sec);fixLinks(sec);}};}
 const _prb=prBuild;prBuild=function(){const first=!document.getElementById("processMain").dataset.built;_prb();if(first){const M=document.getElementById("processMain"),top=M.querySelector(".prtop");if(top&&!M.querySelector("#illo-roles")){top.insertAdjacentHTML("afterend",illoFigure("illo-roles","Who does what, when","Six roles along the four phases; every chip opens the step below.",illoRoles(),"","")); fixLinks(M);}}};
 const _cmb=cmpBuild;cmpBuild=function(){const first=!document.getElementById("compareMain").dataset.built;_cmb();if(first){const M=document.getElementById("compareMain"),pick=M.querySelector(".cmp-pick");if(pick&&!M.querySelector("#illo-methods")){pick.insertAdjacentHTML("beforebegin",illoFigure("illo-methods","Where each method plugs in","The five methods on the spine, and what this playbook adds where they are silent.",illoMethods(),"","")); fixLinks(M);}}};

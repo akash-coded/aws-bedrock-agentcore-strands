@@ -8,6 +8,16 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The roles and the methods, readable
+
+### Changed
+- **"Who does what, when" and "Where each method plugs in" are HTML grids on the start page**, not scaled
+  drawings: 13px chips and cells that wrap, real links on every chip, the hard gate drawn between P1 and
+  P2, and on phones a stack per role and per method with the phase named above each group and the silent
+  cells left out. The drawings themselves were also redrawn larger for the process and compare pages, and
+  the one remaining drawing on the start page, the traditional-versus-agentic picture, scrolls sideways on
+  phones instead of shrinking to nothing
+
 ## 2026-09-25 · The playbook's front: the hero back, a nav that fits, a tower that starts on the ground
 
 ### Fixed
