@@ -90,7 +90,7 @@ html .sw-footer a:hover{border-bottom-color:#3E5A82}
    scrollable column: extra padding lets the last link scroll clear of the back pill. The contact pill sits above the
    tool's bottom-right launcher instead of on top of it. */
 html.sw-framed .rail-show{top:calc(var(--topnav,60px) + 12px + var(--sw-top,0px))}
-html.sw-framed .rail2{padding-bottom:96px}
+@media (min-width:901px){html.sw-framed .rail2{padding-bottom:96px}}
 
 .sw-pill .sw-mail{display:none}
 /* last, so it wins over the label rules above. Phones: both pills are icon-only circles, one in each corner; the labels stay for screen readers */
