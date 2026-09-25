@@ -7,7 +7,7 @@
 
 Multi-agent is not automatically better. This module teaches the patterns as a menu with costs attached: what each buys you, what it costs in tokens and latency, and the failure mode each invites.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/07-strands-multi-agent-patterns/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/07-strands-multi-agent-patterns/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -82,4 +82,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 06 · Strands Foundations: Tools, Memory and MCP](Module-06-Strands-Foundations-Tools-Memory-and-MCP) · **[All modules](Course-Companion)** · [Module 08 · LangChain and LangGraph →](Module-08-LangChain-and-LangGraph)
 
-<sub>✏️ This page is generated from [`modules/07-strands-multi-agent-patterns/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/07-strands-multi-agent-patterns/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/07-strands-multi-agent-patterns/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/07-strands-multi-agent-patterns/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/07-strands-multi-agent-patterns/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/07-strands-multi-agent-patterns/README.md): an edit made here is replaced at the next sync.</sub>

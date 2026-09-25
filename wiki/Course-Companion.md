@@ -63,10 +63,10 @@ Nobody needs all sixteen in the same order. Each path is a subset, in a sequence
 
 ## Prove it, then teach it
 
-- **[The labs companion](Labs-Companion)** — auto-graded labs that try to break your solution, and which module teaches each one.
-- **[The cohort kit](Cohort-Kit)** — ninety-minute sessions that turn the tutorial and this course into a programme for a team.
-- **[Study plans](Study-Plans)** — the same material fitted to a week, a weekend, four weeks of evenings or twelve weeks of reading group.
+- **[The labs companion](Labs-Companion)**: auto-graded labs that try to break your solution, and which module teaches each one.
+- **[The cohort kit](Cohort-Kit)**: ninety-minute sessions that turn the tutorial and this course into a programme for a team.
+- **[Study plans](Study-Plans)**: the same material fitted to a week, a weekend, four weeks of evenings or twelve weeks of reading group.
 
 ---
 
-<sub>✏️ This page is generated from [`modules/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/README.md), the module READMEs and [`docs/learning-paths/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/learning-paths/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/README.md), the module READMEs and [`docs/learning-paths/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/learning-paths/README.md): an edit made here is replaced at the next sync.</sub>

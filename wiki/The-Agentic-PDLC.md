@@ -1,6 +1,6 @@
 # The agentic PDLC
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[What is the agentic PDLC?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[What is the agentic PDLC?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)**, the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 Four phases and eight loops. This is the spine every other page on this wiki hangs from, and the
 structure the [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) walks

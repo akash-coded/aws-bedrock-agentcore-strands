@@ -1,6 +1,6 @@
 # Gates and governance
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[The five governance gates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[The five governance gates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-governance-gates/)**, the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 A gate is **a decision, with evidence in front of a named person, and their name on it.** It is not a
 click, not a status column, and not a meeting that happens to end in "fine".

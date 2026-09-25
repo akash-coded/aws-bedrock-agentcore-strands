@@ -7,7 +7,7 @@
 
 Zero math. This module builds the intuition you need to make model choices you can defend — context windows, tokenisation, mixture-of-experts, temperature — and then connects each concept to the AWS surface where you will actually use it.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/01-llm-and-aws-bridge/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/01-llm-and-aws-bridge/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -72,4 +72,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 00 · Agentic Foundations](Module-00-Agentic-Foundations) · **[All modules](Course-Companion)** · [Module 02 · Amazon Bedrock Essentials →](Module-02-Amazon-Bedrock-Essentials)
 
-<sub>✏️ This page is generated from [`modules/01-llm-and-aws-bridge/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/01-llm-and-aws-bridge/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/01-llm-and-aws-bridge/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/01-llm-and-aws-bridge/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/01-llm-and-aws-bridge/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/01-llm-and-aws-bridge/README.md): an edit made here is replaced at the next sync.</sub>

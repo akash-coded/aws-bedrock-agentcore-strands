@@ -7,7 +7,7 @@
 
 The largest module, and the one with the most production value. Naive RAG is easy and usually bad. This module walks the whole pipeline — corpus, chunking, lexical and dense retrieval, fusion, reranking, context packing, evaluation — with a reusable `ragkit` library you can lift into your own work.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/10-rag-opensearch-litellm/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/10-rag-opensearch-litellm/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -97,4 +97,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 09 · LLM Memory Mechanics](Module-09-LLM-Memory-Mechanics) · **[All modules](Course-Companion)** · [Module 11 · Amazon Bedrock AgentCore →](Module-11-Amazon-Bedrock-AgentCore)
 
-<sub>✏️ This page is generated from [`modules/10-rag-opensearch-litellm/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/10-rag-opensearch-litellm/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/10-rag-opensearch-litellm/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/10-rag-opensearch-litellm/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/10-rag-opensearch-litellm/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/10-rag-opensearch-litellm/README.md): an edit made here is replaced at the next sync.</sub>

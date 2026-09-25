@@ -7,7 +7,7 @@
 
 Non-deterministic systems need a different testing discipline. This module gives you golden sets, contract tests, multi-agent tests, a quality gate with real thresholds, and a CI step that actually blocks a bad deploy.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/13-agentic-qa-and-evaluation/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/13-agentic-qa-and-evaluation/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -85,4 +85,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 12 · A2A and A2UI: Agent Interoperability](Module-12-A2A-and-A2UI-Agent-Interoperability) · **[All modules](Course-Companion)** · [Module 14 · End-to-End Production Pipeline →](Module-14-End-to-End-Production-Pipeline)
 
-<sub>✏️ This page is generated from [`modules/13-agentic-qa-and-evaluation/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/13-agentic-qa-and-evaluation/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/13-agentic-qa-and-evaluation/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/13-agentic-qa-and-evaluation/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/13-agentic-qa-and-evaluation/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/13-agentic-qa-and-evaluation/README.md): an edit made here is replaced at the next sync.</sub>

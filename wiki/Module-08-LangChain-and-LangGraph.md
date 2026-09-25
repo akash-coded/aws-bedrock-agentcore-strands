@@ -7,7 +7,7 @@
 
 LangChain is the framework you will meet in most existing codebases. This module builds it up from first principles — why it exists, what it actually does — then puts it directly against Strands so you can choose with evidence rather than allegiance.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/08-langchain-and-langgraph/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/08-langchain-and-langgraph/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -83,4 +83,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 07 · Multi-Agent Patterns with Strands](Module-07-Multi-Agent-Patterns-with-Strands) · **[All modules](Course-Companion)** · [Module 09 · LLM Memory Mechanics →](Module-09-LLM-Memory-Mechanics)
 
-<sub>✏️ This page is generated from [`modules/08-langchain-and-langgraph/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/08-langchain-and-langgraph/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/08-langchain-and-langgraph/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/08-langchain-and-langgraph/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/08-langchain-and-langgraph/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/08-langchain-and-langgraph/README.md): an edit made here is replaced at the next sync.</sub>

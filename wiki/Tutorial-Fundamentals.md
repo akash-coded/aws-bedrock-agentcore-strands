@@ -24,4 +24,4 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 
 **Teaching it?** [Session 1 · Kick-off](Cohort-Session-1-Kick-off) · [Session 2 · Frame and spec](Cohort-Session-2-Frame-and-Spec) · [Session 3 · Build, run and the loops](Cohort-Session-3-Build-Run-and-Loops) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
-<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py): an edit made here is replaced at the next sync.</sub>

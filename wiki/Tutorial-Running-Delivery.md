@@ -28,4 +28,4 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 
 **Teaching it?** [Session 5 · Plan and review](Cohort-Session-5-Plan-and-Review) · [Session 6 · Prove and ship](Cohort-Session-6-Prove-and-Ship) · [Session 7 · Govern and scale](Cohort-Session-7-Govern-and-Scale) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
-<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py): an edit made here is replaced at the next sync.</sub>

@@ -1,6 +1,6 @@
 # Role: QA lead
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For QA](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*The short version is the lesson **[For QA](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)**, the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
 
 You are on the hook for **whether anyone can say the thing works, and mean something by it.** Your
 three words are *proven*, *failed* and *unproven*, and the third one is the one that makes the other

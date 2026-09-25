@@ -7,7 +7,7 @@
 
 Everything so far ran in a notebook. AgentCore is how an agent becomes a service with an identity, a memory store, a gateway, traces and a bill. This module deploys agents three ways — Strands, LangGraph, and no framework at all — so you can see the runtime is framework-agnostic.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/11-bedrock-agentcore/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/11-bedrock-agentcore/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -106,4 +106,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 10 · RAG, OpenSearch and LiteLLM](Module-10-RAG-OpenSearch-and-LiteLLM) · **[All modules](Course-Companion)** · [Module 12 · A2A and A2UI: Agent Interoperability →](Module-12-A2A-and-A2UI-Agent-Interoperability)
 
-<sub>✏️ This page is generated from [`modules/11-bedrock-agentcore/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/11-bedrock-agentcore/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/11-bedrock-agentcore/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/11-bedrock-agentcore/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/11-bedrock-agentcore/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/11-bedrock-agentcore/README.md): an edit made here is replaced at the next sync.</sub>

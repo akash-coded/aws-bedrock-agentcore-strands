@@ -1,6 +1,6 @@
 # Role: DevOps and platform
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For DevOps and platform](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*The short version is the lesson **[For DevOps and platform](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)**, the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
 
 You are on the hook for **the floor everything else stands on** — and for the three signals a normal
 stack does not have. You hold no product gate. You build the gates, which is a larger job and a

@@ -1,6 +1,6 @@
 # How to control the token bill
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[Why the AI bill is 4× the estimate](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Why the AI bill is 4× the estimate](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)**, the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 The bill is 4.4 times the estimate, traffic is flat, and finance wants an answer by Friday.
 

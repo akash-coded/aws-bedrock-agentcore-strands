@@ -1,5 +1,7 @@
 # Product manager · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For product managers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)**, the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From a vibe to a number you can defend**
 
 8 steps · 50 sub-steps · 8 templates · 21 prompts

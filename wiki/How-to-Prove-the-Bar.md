@@ -1,6 +1,6 @@
 # How to prove the bar
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[Prove the agent meets its bar](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Prove the agent meets its bar](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)**, the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 A score is not proof. This page is the ladder from "the model seems good" to "we have earned wider
 use", and every rung has a number on it.

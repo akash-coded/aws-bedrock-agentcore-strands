@@ -7,7 +7,7 @@
 
 This is where AWS enters properly. One API — `Converse` — carries you from a hello-world call all the way to tool use and retrieval. Learn it well here and every later module gets easier.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/02-bedrock-essentials/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/02-bedrock-essentials/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -87,4 +87,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 01 · LLM Intuition and the AWS Bridge](Module-01-LLM-Intuition-and-the-AWS-Bridge) · **[All modules](Course-Companion)** · [Module 03 · Amazon Bedrock Agents →](Module-03-Amazon-Bedrock-Agents)
 
-<sub>✏️ This page is generated from [`modules/02-bedrock-essentials/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/02-bedrock-essentials/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/02-bedrock-essentials/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/02-bedrock-essentials/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/02-bedrock-essentials/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/02-bedrock-essentials/README.md): an edit made here is replaced at the next sync.</sub>

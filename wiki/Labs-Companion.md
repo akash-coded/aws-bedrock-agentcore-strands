@@ -109,8 +109,7 @@ More labs are specified and open for contribution: the **[full pathway](https://
 
 ## Drills, when you have ten minutes
 
-Nineteen 8–12-minute drills in [`drills/`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs/drills), thread-native and bot-graded, in four kinds: **implement**,
-**fix** (a planted bug), **blank**, and **predict** (say what the code does before running it). Two laps; the first:
+
 
 Post `/drill AGL-101` in the [Simulator Arena](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/75) and a bot grades it in the thread; progress lands on the [Scoreboard](Scoreboard).
 
@@ -126,4 +125,4 @@ Post `/drill AGL-101` in the [Simulator Arena](https://github.com/akash-coded/aw
 
 **[The course companion](Course-Companion)** · **[Teach it: the cohort kit](Cohort-Kit)** · [Exercises with answers](Exercises-and-Answers)
 
-<sub>✏️ This page is generated from [`labs/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/labs/README.md) and the lab manifests — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`labs/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/labs/README.md) and the lab manifests, an edit made here is replaced at the next sync.</sub>

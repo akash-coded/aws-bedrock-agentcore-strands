@@ -1,6 +1,6 @@
 # Role: sponsor
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For business sponsors](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*The short version is the lesson **[For business sponsors](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-business-sponsors/)**, the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
 
 You are on the hook for **P3 — whether it is still doing what you launched, and what it cost.** You
 are also the only person on the programme with no delivery deadline, which is why the governance loop

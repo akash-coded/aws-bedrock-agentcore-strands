@@ -1,6 +1,6 @@
 # Role: engineering lead
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For engineers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*The short version is the lesson **[For engineers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-engineers/)**, the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
 
 You are on the hook for **whether it meets the bar, slice by slice, and whether anyone can tell.** P2
 is yours. It ends when the golden set clears the bar and a shadow run agrees — not when the code is

@@ -1,6 +1,6 @@
 # How to cut sprints into bolts
 
-<!-- tutorial:lesson -->*New to this? Start with the lesson **[Bolts vs sprints](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/bolts-vs-sprints/)** — the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
+<!-- tutorial:lesson -->*New to this? Start with the lesson **[Bolts vs sprints](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/bolts-vs-sprints/)**, the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
 When building is fast, the unit of planning shrinks to match. A **bolt** is a thin, shippable slice
 reviewed and integrated the same day.

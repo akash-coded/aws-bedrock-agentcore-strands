@@ -7,7 +7,7 @@
 
 Strands is AWS's open-source agent framework. This module covers the three things that turn a chat wrapper into an agent: tools it can call, memory it can keep, and MCP servers it can connect to.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/06-strands-foundations/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/06-strands-foundations/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -92,4 +92,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 [← Module 05 · The Agent Loop: No Framework to Strands](Module-05-The-Agent-Loop-No-Framework-to-Strands) · **[All modules](Course-Companion)** · [Module 07 · Multi-Agent Patterns with Strands →](Module-07-Multi-Agent-Patterns-with-Strands)
 
-<sub>✏️ This page is generated from [`modules/06-strands-foundations/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/06-strands-foundations/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/06-strands-foundations/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/06-strands-foundations/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/06-strands-foundations/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/06-strands-foundations/README.md): an edit made here is replaced at the next sync.</sub>

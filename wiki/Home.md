@@ -2,7 +2,7 @@
 # Learn the agentic PDLC
 
 A free tutorial in short lessons on running software projects where an AI model does part of the
-work — the four phases, the one hard gate and the eight loops; how AWS AI-DLC, AIDD, the BMAD Method
+work: the four phases, the one hard gate and the eight loops; how AWS AI-DLC, AIDD, the BMAD Method
 and spec-driven development fit onto them; what changes for each role, from engineer to executive;
 how an organisation adopts it; a ninety-day case with twelve exercises; and interview question banks
 with strong answers for AI product managers, forward deployed engineers, GenAI, agentic and AWS roles.

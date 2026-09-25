@@ -7,7 +7,7 @@
 
 The most expensive mistake in agentic AI is building an agent for a job a `for` loop could do. This module gives you the vocabulary and the decision tools to tell the difference, and the artefacts to defend that decision to a stakeholder.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/00-agentic-foundations/)** — the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/00-agentic-foundations/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
 
 ## Read first, on the site
 
@@ -79,4 +79,4 @@ Every error anyone has hit in this course is in the **[Error Index](Error-Index)
 
 **[All modules](Course-Companion)** · [Module 01 · LLM Intuition and the AWS Bridge →](Module-01-LLM-Intuition-and-the-AWS-Bridge)
 
-<sub>✏️ This page is generated from [`modules/00-agentic-foundations/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/00-agentic-foundations/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/00-agentic-foundations/README.md) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`modules/00-agentic-foundations/README.md`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/modules/00-agentic-foundations/README.md). To change it, [edit the module README](https://github.com/akash-coded/aws-bedrock-agentcore-strands/edit/main/modules/00-agentic-foundations/README.md): an edit made here is replaced at the next sync.</sub>

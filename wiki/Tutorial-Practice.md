@@ -19,4 +19,4 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 
 **Teaching it?** [Session 8 · Practice and roles](Cohort-Session-8-Practice-and-Roles) in the [Cohort Kit](Cohort-Kit) turn this track into ninety-minute sessions.
 
-<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py) — an edit made here is replaced at the next sync.</sub>
+<sub>✏️ This page is generated from [`site/content/learn/curriculum.py`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/content/learn/curriculum.py): an edit made here is replaced at the next sync.</sub>

@@ -1,5 +1,7 @@
 # QA lead · the journey, end to end
 
+<!-- tutorial:lesson -->*The short version is the lesson **[For QA](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)**, the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
+
 **From 'it works' to a number you can defend**
 
 8 steps · 56 sub-steps · 8 templates · 23 prompts
