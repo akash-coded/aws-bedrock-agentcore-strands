@@ -2,11 +2,12 @@
    Layered onto the tool at build time by site/build.py. Every selector is prefixed "sw-" so nothing here
    can collide with the tool's own styles, and the palette reuses the tool's custom properties. */
 
-.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:10px;padding:10px 15px 10px 13px;border-radius:999px;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:500 13px/1 inherit;letter-spacing:.01em;border:0;cursor:pointer;box-shadow:0 10px 30px rgba(28,27,25,.22);transition:transform 220ms var(--ease,ease),box-shadow 220ms var(--ease,ease)}
-.sw-pill:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(28,27,25,.28)}
+.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font:600 13px/1 inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 200ms var(--ease,ease),padding 200ms var(--ease,ease),border-color 160ms,background 160ms;overflow:hidden;white-space:nowrap}
+.sw-pill .sw-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sw-pill .sw-long{display:none;margin-left:8px}
+.sw-pill:hover,.sw-pill:focus-visible{width:auto;padding:0 16px 0 13px;border-color:#16150F;background:#fff}
+.sw-pill:hover .sw-long,.sw-pill:focus-visible .sw-long{display:inline}
 .sw-pill:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
-.sw-pill .sw-dot{width:8px;height:8px;border-radius:50%;background:var(--sage,#5F8A7B);box-shadow:0 0 0 3px rgba(95,138,123,.28)}
-.sw-pill small{opacity:.72;font-weight:400;font-size:12px}
 @media print{.sw-pill,.sw-drawer,.sw-scrim,.sw-strip,.sw-backnav{display:none!important}}
 
 .sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 100px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */
@@ -57,7 +58,7 @@ html .sw-footer a:hover{border-bottom-color:#3E5A82}
 @media (prefers-reduced-motion:reduce){.sw-drawer,.sw-scrim,.sw-pill{transition:none}}
 
 /* the way back to the manual: a strip above the tool, and a pill that stays put (bottom left; the contact pill is bottom right) */
-.sw-strip{position:relative;z-index:9001;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 18px;background:#16150F;color:#E9E7E0;font:500 13px/1.3 inherit;border-bottom:1px solid rgba(255,255,255,.08)}
+.sw-strip{position:relative;z-index:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 18px;background:#16150F;color:#E9E7E0;font:500 13px/1.3 inherit;border-bottom:1px solid rgba(255,255,255,.08)}
 .sw-strip a{color:#fff;text-decoration:none;border:0}
 .sw-strip .sw-strip-back{display:inline-flex;align-items:center;gap:7px;font-weight:650;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);white-space:nowrap}
 .sw-ic{display:inline-flex;line-height:0}.sw-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform 180ms var(--ease,ease)}
@@ -104,3 +105,16 @@ html.sw-framed .rail-show{top:calc(var(--topnav,60px) + 12px + var(--sw-top,0px)
 
 /* the contact drawer's links inside the tool: a fixed colour with enough contrast, whatever the tool's link rule says */
 html .sw-drawer a{color:#3E5A82}
+
+/* the strip: one pill back, then the parts of the manual as quiet links */
+.sw-strip .sw-strip-here{opacity:.8;font-weight:500}
+.sw-strip .sw-strip-links{margin-left:0}
+.sw-strip .sw-strip-links a{padding:4px 8px;opacity:.92;font-weight:600}
+/* the Manual chip in the tool's nav, and the row in its phone menu */
+#topnav .sw-manual{gap:6px;padding:0 12px 0 9px;width:auto;margin-right:8px;color:#16150F;text-decoration:none}
+#topnav .sw-manual .sw-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#topnav .sw-manual span:last-child{display:inline;font-size:13px}
+@media (max-width:640px){#topnav .sw-manual span:last-child{display:none}#topnav .sw-manual{padding:0 9px}}
+.sw-sheet-back{display:flex;align-items:center;gap:10px;margin:8px 12px 4px;padding:12px 14px;border-radius:12px;background:#16150F;color:#fff;text-decoration:none;font:600 15px/1.2 inherit}
+.sw-sheet-back .sw-ic svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sw-backnav{display:none}

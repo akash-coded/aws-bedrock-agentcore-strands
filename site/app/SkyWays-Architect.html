@@ -1264,6 +1264,27 @@ a.xl:hover,.xl:hover{color:#08507F!important}
 .cheat .ch{color:color-mix(in oklab,var(--cc,var(--stage)) 68%,#0B1437)}
 .xzm .hint .ht{display:none}
 @media (max-width:700px){.xzm .hint .hp{display:none}.xzm .hint .ht{display:inline}.xzb{width:42px;height:42px;font-size:20px}.xzb.fit{padding:0 14px;font-size:14px}.xzm .tb{gap:4px;top:auto;bottom:10px;right:10px}.xzm .hint{max-width:calc(100% - 175px);bottom:12px}}  /* on phones the controls sit at the bottom, clear of the sticky rail strip */
+
+/* ---------- UX pass A: one pill system, phase-grouped rail, opener wraps, walkthrough rail on phones ---------- */
+.xpill{height:36px;padding:0 14px;font-size:14px;font-weight:600;border:1px solid rgba(13,20,51,.16);background:#fff;box-shadow:none;border-radius:999px;transition:border-color 140ms,background 140ms,color 140ms;line-height:1}
+.xpill:hover{border-color:var(--ink);background:var(--bone)}
+.xpill.xicon{padding:0 12px}
+.xpill.xprimary{background:var(--navy);border-color:var(--navy);color:#fff}
+.xpill.xprimary:hover{background:#0B1437;border-color:#0B1437}
+.xpill:focus-visible{outline:3px solid #1D9BF0;outline-offset:2px}
+.xchip{height:34px;padding:0 13px;font-size:13.5px;font-weight:600;border:1px solid rgba(13,20,51,.16);background:#fff;box-shadow:none;transition:border-color 140ms,background 140ms,color 140ms;line-height:1}
+.xchip:hover{border-color:var(--ink);background:var(--bone);transform:none}
+.xchip.on,.xchip.on:hover{background:var(--cc,var(--navy));border-color:var(--cc,var(--navy));color:#fff}
+.hero2 .who a{height:34px;padding:0 12px 0 10px;box-sizing:border-box}
+.hero2 .who a:hover{transform:none;border-color:currentColor;background:rgba(255,255,255,.14)}
+.xhome{height:38px;box-sizing:border-box}
+.opener .oh b{white-space:normal;line-height:1.35}
+.rail2 .rg{margin:8px 0 12px;padding:8px 6px 6px;border-radius:12px;background:color-mix(in oklab,var(--phc,var(--ha)) 6%,#fff);border:1px solid color-mix(in oklab,var(--phc,var(--ha)) 18%,#fff);box-shadow:0 1px 2px rgba(13,20,51,.04),inset 0 1px 0 #fff}
+.rail2 .rg .ph2{margin:0 0 4px;padding:2px 8px 6px}
+.rail2 .rg a{padding:6px 8px;border-left-width:3px}
+.rail2 .rg a.on{background:#fff;box-shadow:0 1px 3px rgba(13,20,51,.08)}
+@media (max-width:900px){.rail2 .rg{display:contents}}
+@media (max-width:900px){.rail{position:sticky;top:var(--topnav);z-index:5;height:auto;padding:8px 12px;gap:0;background:color-mix(in oklab,var(--bone) 92%,white)}.rail .brand,.rail .dl,.rail .foot{display:none}.rail nav{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:2px;margin-top:0;scrollbar-width:none}.rail nav::-webkit-scrollbar{display:none}.rail .step{flex:0 0 auto;min-width:0;padding:6px 10px;border-radius:999px;border:1px solid var(--rule);background:#fff}.rail .step .sub{display:none}.rail .step .label{font-size:13px;white-space:nowrap}}
 </style>
 </head>
 <body>
@@ -2014,7 +2035,7 @@ document.addEventListener("click",e=>{if(!e.target.closest(".xmenu"))closeMenus(
 // ---------- pages and routes ----------
 const _basePage=page,_built={};let _cur="overview";
 function showPage(n){let fresh=false;if(_cur!==n||!document.querySelector(`.page.on[data-page="${n}"]`)){_basePage(n);_cur=n;fresh=true;}const h=HUES[n]||HUES.overview,r=document.documentElement.style;r.setProperty("--ha",h[0]);r.setProperty("--hb",h[1]);if(n!=="overview")r.setProperty("--stage",h[0]);if(fresh){const mn=document.querySelector(`.page.on main`);if(mn){mn.classList.remove("xenter");void mn.offsetWidth;mn.classList.add("xenter");}}document.querySelectorAll(".xmenu").forEach(m=>m.classList.toggle("here",m.dataset.pages.split(",").includes(n)));document.title="SkyWays · "+(TITLES[n]||n);
- if(NP[n]&&!_built[n]){_built[n]=true;try{NP[n].build();fixLinks(document.getElementById(n+"Main"));fixLinks(document.getElementById(n+"Rail"));watchFigs(document.getElementById(n+"Main"));}catch(e){console.error("build "+n,e);}}}
+ if(NP[n]&&!_built[n]){_built[n]=true;try{NP[n].build();fixLinks(document.getElementById(n+"Main"));fixLinks(document.getElementById(n+"Rail"));if(typeof xrailGroups==="function")xrailGroups(document.getElementById(n+"Rail"));watchFigs(document.getElementById(n+"Main"));}catch(e){console.error("build "+n,e);}}}
 function scrollToId(id,tries=0){const el=document.getElementById(id);if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-74,behavior:"smooth"});el.classList.add("xflash");setTimeout(()=>el.classList.remove("xflash"),1600);}else if(tries<8)setTimeout(()=>scrollToId(id,tries+1),90);}
 // content rendered by a sub-route arrives after the page was built, so figures are looked for again after every route
 function route(){routeInner();watchFigs();}
@@ -4195,4 +4216,9 @@ function xzmSync(){if(!XZ||!document.body.contains(XZ.S))return;const cur=XZ.hov
  XZ.S.querySelectorAll(".xe").forEach(p=>{const on=cur&&(p.dataset.a===cur||p.dataset.b===cur);p.classList.toggle("on",!!on);p.classList.toggle("in",!!on&&p.dataset.b===cur);p.classList.toggle("off",!!cur&&!on);});
  XZ.S.querySelectorAll(".xc").forEach(g=>{const any=[...g.querySelectorAll(".xn")].some(n=>!n.classList.contains("dim"));g.classList.toggle("quiet",!any);});}
 
+
+// ---------- UX pass A: the rail reads as phase groups ----------
+function xrailGroups(rail){if(!rail||rail.dataset.grouped)return;const kids=[...rail.children];if(!kids.some(k=>k.classList&&k.classList.contains("ph2")))return;rail.dataset.grouped="1";let g=null;
+ kids.forEach(k=>{if(k.classList.contains("ph2")){g=document.createElement("div");g.className="rg";g.style.cssText=k.getAttribute("style")||"";rail.insertBefore(g,k);g.appendChild(k);}else if(g&&k.tagName==="A"){g.appendChild(k);}else{g=null;}});}
+document.querySelectorAll(".rail2").forEach(xrailGroups);
 </script></body></html>

@@ -187,13 +187,26 @@
       h("span", { "class": "sw-ic", html: BACK }),
       h("span", { "class": "sw-long", text: "Back to the agentic manual" }),
       h("span", { "class": "sw-short", text: "The manual" })]));
-    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the playbook, the interactive part of the manual." }));
+    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the playbook. Straight to a part of the manual:" }));
     var pages = h("span", { "class": "sw-strip-links" });
     (links.manualPages || []).forEach(function (p) {
       pages.appendChild(h("a", { href: p[1] }, [p[0], h("span", { "class": "sw-ic sw-go", html: GO })]));
     });
     s.appendChild(pages);
     return s;
+  }
+  // A "Manual" chip beside the tool's Home chip, and a first row in its phone menu: the way back sits where
+  // the tool's own navigation is, instead of floating over its content.
+  function navChip() {
+    var home = document.querySelector("#topnav .xhome");
+    if (home && !document.querySelector("#topnav .sw-manual")) {
+      home.after(h("a", { "class": "xhome sw-manual", href: links.manual, title: "Back to the agentic manual", "aria-label": "Back to the agentic manual" }, [
+        h("span", { "class": "sw-ic", html: BACK }), h("span", { text: "Manual" })]));
+    }
+    var sheet = document.querySelector("#xsheet .sh");
+    if (sheet && !document.querySelector("#xsheet .sw-sheet-back")) {
+      sheet.after(h("a", { "class": "sw-sheet-back", href: links.manual }, [h("span", { "class": "sw-ic", html: BACK }), "Back to the agentic manual"]));
+    }
   }
   function backPill() {
     // a landmark of its own, so the pill is reachable by region as well as by tab
@@ -213,7 +226,7 @@
       if (links.manual) {
         var s = strip();
         document.body.insertBefore(s, document.body.firstChild);
-        document.body.appendChild(backPill());
+        navChip();
         // The tool positions its "Show menu" button from the top of the viewport, where the strip now is
         // until it scrolls away. --sw-top is the strip's visible height, and frame.css adds it to that offset.
         var pending = false;
@@ -232,10 +245,9 @@
     buildDrawer();
     // On phones both pills are icon-only circles; the label survives for assistive tech.
     var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open,
-      "aria-label": "Ideas and contact. Built by " + author }, [
-      h("span", { "class": "sw-dot" }), h("span", { "class": "sw-long", text: "Built by " + author }),
-      h("small", { text: "· Ideas & contact" }),
-      h("span", { "class": "sw-ic sw-mail", html: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>' })]);
+      title: "Ideas and contact. Built by " + author, "aria-label": "Ideas and contact. Built by " + author }, [
+      h("span", { "class": "sw-ic sw-mail", html: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>' }),
+      h("span", { "class": "sw-long", text: "Ideas & contact" })]);
     document.body.appendChild(pill);
     Array.prototype.forEach.call(document.querySelectorAll("[data-sw-open]"), function (b) { b.addEventListener("click", open); });
     if (/[?#]contact\b/.test(location.href)) open();
