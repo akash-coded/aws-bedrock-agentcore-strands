@@ -15,7 +15,7 @@ window.SKYWAYS_SITE = {
     frameless: "app/SkyWays-Architect.html",
     // The manual this tool belongs to, relative to the framed copy at /simulator/. Empty = no way back.
     manual: "../",
-    manualPages: [["Learn", "../learn/"], ["Roles", "../product-manager/"], ["Templates", "../templates/"],
+    manualPages: [["Tutorial", "../learn/"], ["Roles", "../product-manager/"], ["Templates", "../templates/"],
                   ["Prompts", "../prompts/"], ["Mental models", "../models/"]]
   },
   // How the contact form delivers messages.

@@ -730,7 +730,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     body = Html(link, visual).render(les.body)
     t = les.track
     mins = minutes(les.body)
-    crumbs = [("Learn", f"{BASE_URL}learn/"), (t.title, t.url), (les.short, les.url)]
+    crumbs = [("Tutorial", f"{BASE_URL}learn/"), (t.title, t.url), (les.short, les.url)]
     pn = []
     if les.prev:
         pn.append(f'<a class="pv" href="../{les.prev.slug}/"><span class="k">Previous</span>'
@@ -790,7 +790,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     ]
     return shell(title=les.title, desc=les.description, body=html_, depth=2, nav_id="learn", modified=les.updated,
                  canonical=les.url, head_extra=head + MERMAID_HEAD, own_ld=True,
-                 crumbs=[("Learn", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson", og=f"learn-{les.slug}")
+                 crumbs=[("Tutorial", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson", og=f"learn-{les.slug}")
 
 
 MERMAID_HEAD = f'<script type="module" src="../../theme/learn.js" data-mermaid="{MERMAID}"></script>'
@@ -819,13 +819,13 @@ def track_page(t: Track, tracks, lessons, shell) -> str:
            "url": t.url, "provider": _ld_person(), "inLanguage": "en", "isAccessibleForFree": True,
            "hasPart": [{"@type": "TechArticle", "name": l.title, "url": l.url} for l in t.lessons]},
           {"@type": "BreadcrumbList", "itemListElement": [
-              {"@type": "ListItem", "position": 1, "name": "Learn", "item": f"{BASE_URL}learn/"},
+              {"@type": "ListItem", "position": 1, "name": "Tutorial", "item": f"{BASE_URL}learn/"},
               {"@type": "ListItem", "position": 2, "name": t.title, "item": t.url}]}]
     head = f'<script type="application/ld+json">{_graph(ld)}</script>'
     desc = f"{t.title}: {t.blurb}"[:160]
     return shell(title=f"{t.title} · Agentic PDLC tutorial", desc=desc, body=html_, depth=2, nav_id="learn",
                  canonical=t.url, head_extra=head, own_ld=True,
-                 crumbs=[("Learn", "../"), (t.title, "")], kind="track", og=f"learn-{t.id}")
+                 crumbs=[("Tutorial", "../"), (t.title, "")], kind="track", og=f"learn-{t.id}")
 
 
 def start_page(meta, tracks, lessons, shell, visual) -> str:
@@ -880,7 +880,7 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
     ]
     return shell(title=smeta["title"], desc=smeta["description"], body=html_, depth=1, nav_id="learn",
                  canonical=f"{BASE_URL}learn/", head_extra=head, own_ld=True,
-                 crumbs=[("Learn", "")], tour=tour, kind="learn", og="learn")
+                 crumbs=[("Tutorial", "")], tour=tour, kind="learn", og="learn")
 
 
 def site_markdown(les: Lesson, lessons, tracks) -> str:

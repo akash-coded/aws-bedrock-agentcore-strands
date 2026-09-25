@@ -167,7 +167,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
     og_img = og_image(og)
     nav = [f'<a class="home" href="{up}" aria-label="Home"{" aria-current=page" if nav_id == "home" else ""}>{HOUSE}</a>',
-           f'<a href="{up}learn/"{" aria-current=page" if nav_id == "learn" else ""}>Learn</a>']
+           f'<a href="{up}learn/"{" aria-current=page" if nav_id == "learn" else ""}>Tutorial</a>']
     for rid, name, short, _c, _t in ROLE_ORDER:
         if not (CONTENT / f"{rid}.json").exists():
             continue
@@ -711,7 +711,7 @@ def home_page(roles: list[dict]) -> str:
     tour = k.tour([
         {"sel": ".hero .who", "title": "Pick your chair", "body": "Nine entrances, one per kind of reader. Each opens the pages written for that chair. Start with yours; the rest will make sense from there."},
         {"sel": ".hero .ill", "title": "The spine", "body": "Four phases, one hard gate, and a loop back from production. Every lesson, board and role page on this site hangs off this picture. Click a phase to open it."},
-        {"sel": ".hd nav", "title": "The top bar", "body": "<b>Learn</b> is the tutorial. The five roles are the manual itself. Then leadership, the twelve mental models, the libraries — and the <b>Playbook</b>, the same case as an interactive simulator."},
+        {"sel": ".hd nav", "title": "The top bar", "body": "<b>Tutorial</b> is the course: 55 lessons in eight tracks. The five roles are the manual itself. Then leadership, the twelve mental models, the libraries — and the <b>Playbook</b>, the same case as an interactive simulator."},
         {"sel": ".menu", "title": "The menu", "body": "Everything, by category: the tutorial's tracks, the interview banks, the libraries, the wiki. Esc closes it."},
         {"sel": ".how3", "title": "Three ways you can use this", "body": "Learn the method in short lessons, walk your own role step by step, or go straight to the templates and prompts and play the case."},
         {"sel": "#pdlc", "title": "The boards", "body": "Below the fold the home page reads as four boards: the spine in detail, the eight loops, your role across the phases, and where a model helps. Hover a cell to light its row and column."},
@@ -741,6 +741,13 @@ def home_page(roles: list[dict]) -> str:
     body = f"""{hero}
 <div class="wrap">
 <main id="main" style="padding:34px 0 28px">
+  <a class="xlink" href="simulator/" aria-label="Open the SkyWays PDLC Simulator">
+    <span class="xli" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="currentColor" stroke="none"/></svg></span>
+    <span class="xlt"><b>Prefer to learn by playing?</b> The SkyWays PDLC Simulator is the same method as a game: thirteen dated
+    episodes, nine simulations, seventeen calculators, and a score you keep.</span>
+    <span class="btn pri">Open the simulator →</span>
+  </a>
+
   <div class="stats" aria-label="What is on this site"><b class="sq">What is on this site?</b>{stats_html}</div>
 
   <section class="hook" aria-label="What this manual is">

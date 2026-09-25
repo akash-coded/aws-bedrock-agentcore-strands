@@ -1425,3 +1425,13 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 .ways>div{min-width:0}
 .ways>div>*{min-width:0;max-width:100%}
 .ways .try{min-width:0;max-width:100%}
+
+/* the callout under the hero: another way in, well spaced, one button */
+.xlink{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 20px;align-items:center;margin:0 0 26px;padding:16px 20px;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(120deg,color-mix(in oklab,var(--accent) 9%,var(--paper)),var(--paper) 65%);text-decoration:none;color:var(--ink);transition:border-color .16s,transform .16s}
+.xlink:hover{border-color:var(--accent);transform:translateY(-1px);text-decoration:none}
+.xlink .xli{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--ink);color:var(--paper)}
+.xlink .xli svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.xlink .xlt{font-size:15px;line-height:1.5;color:var(--ink2)}
+.xlink .xlt b{color:var(--ink);font-family:var(--f-display);font-size:17px;margin-right:6px}
+.xlink .btn{white-space:nowrap}
+@media (max-width:760px){.xlink{grid-template-columns:auto minmax(0,1fr)}.xlink .btn{grid-column:2}}

@@ -8,6 +8,27 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The simulator's last cleanups, and the two sites pointing at each other
+
+### Changed
+- **The concept map reads at Fit.** Eight loop panels packed into three columns under a legend bar, one
+  concept per row, every name visible at the default zoom in the map's own pane; lines carry the colour of
+  the loop they start in, and hovering a loop or a concept lights its lines
+- **The walk-through's parts.** The button that moves to the next part is now distinct from "Next scenario"
+  and says which part it opens ("Move to part 2 of 10 · Choose the method"); every part carries its own
+  part number with previous and next buttons under its title; the ten-stops strip wraps its labels instead
+  of clipping them, and drops to two rows of five below 1500 pixels
+- **The context layers as nested sets.** Shared holds Domain holds Product holds Task, tinted by depth, with
+  what each layer reaches; the "who inherits" exercise highlights the nested sets, and the new-product
+  scenario shows the same picture
+- **Learn is now Tutorial** in the manual's nav, crumbs and the simulator's manual menu; the address stays
+  `/learn/`
+
+### Added
+- **Under the manual's hero:** "Prefer to learn by playing?", with the simulator as a button
+- **Under the simulator's hero:** "Prefer to read?" to the manual and "Want to learn it like a course?" to
+  the tutorial
+
 ## 2026-09-25 · Every page, for the reader in front of it
 
 ### Changed
