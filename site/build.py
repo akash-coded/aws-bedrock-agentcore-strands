@@ -26,6 +26,8 @@ import sys
 from datetime import date
 from pathlib import Path
 
+if sys.version_info < (3, 9):
+    sys.exit(f"site/build.py needs Python 3.9 or newer; this is {sys.version.split()[0]}")
 import render
 
 SITE = Path(__file__).resolve().parent

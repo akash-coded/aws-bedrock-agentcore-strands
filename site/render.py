@@ -151,7 +151,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
     og_img = og_image(og)
     nav = [f'<a class="home" href="{up}" aria-label="Home"{" aria-current=page" if nav_id == "home" else ""}>{HOUSE}</a>',
-           f'<a href="{up}learn/"{' aria-current="page"' if nav_id == "learn" else ""}>Learn</a>']
+           f'<a href="{up}learn/"{" aria-current=page" if nav_id == "learn" else ""}>Learn</a>']
     for rid, name, short, _c, _t in ROLE_ORDER:
         if not (CONTENT / f"{rid}.json").exists():
             continue

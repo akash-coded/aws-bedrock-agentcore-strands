@@ -8,6 +8,29 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The walkthrough on phones, and a build that runs on the system Python
+
+### Fixed
+- **The walkthrough's column grew with its widest content on phones**: a two-button segment, a code sample
+  or a four-column table pushed the column past the viewport, so situation boxes and tables were clipped at
+  the right edge on eight scenarios. The column is now capped at the viewport (`minmax(0,1fr)`); tables
+  scroll inside their box; code samples scroll inside theirs
+- **The "full architecture cycle" scenario lost its Review step's tier segment** on every width: the segment
+  was generated with the id `w7tr`, the same id as the step trace, so the trace overwrote it. The trace has
+  its own id and the Review row can be set again; the page has no duplicate ids
+- **The stage strips rule reached every illustration in the tool**; it is scoped to the walkthrough's
+  stages. On the learn page the progress block, on the guide page the cheat-sheet tables and a ledger
+  value, on the engineering page a JSON sample, and on the toolkit the hidden selects behind the quick-fill
+  segments no longer reach past a phone's viewport
+- **`site/build.py` ran only on Python 3.12+** because two f-strings used 3.12-only syntax; the build, the
+  wiki checker and the export scripts now run on the system's Python 3.9, and the build says so if it is
+  given anything older
+
+### Changed
+- **Touch targets on phones**: switches are 46×27 and the whole gate row toggles them; sliders have a 26px
+  thumb on a 6px track; the scenario tab row is a single strip that keeps the current tab in view; scenario
+  padding is tighter; the smallest badges are 11px
+
 ## 2026-09-25 · The scenarios speak to your role; the tower's rooms carry their openers
 
 ### Changed

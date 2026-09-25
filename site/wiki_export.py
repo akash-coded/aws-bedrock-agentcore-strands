@@ -44,7 +44,10 @@ def live(href: str) -> str:
 def unmd(s: str) -> str:
     """Site markdown-lite is already markdown; only relative hrefs need absolutising. A role page sits
     one level below the site root, so a ``../x`` from it is ``x`` at the root."""
-    return re.sub(r"\]\((?!https?:|#)([^)]+)\)", lambda m: f"]({live(re.sub(r'^(\.\./)+', '', m.group(1)))})", s)
+    def _abs(m):
+        target = re.sub(r"^(\.\./)+", "", m.group(1))
+        return f"]({live(target)})"
+    return re.sub(r"\]\((?!https?:|#)([^)]+)\)", _abs, s)
 
 
 def fence(body: str, lang: str) -> str:
