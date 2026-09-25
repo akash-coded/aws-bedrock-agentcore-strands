@@ -8,6 +8,16 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The home page, shorter, and checked on a phone
+
+### Changed
+- **The six tiles under the hero are gone**; the hero's buttons and the climb cover their destinations, and
+  the desktop page is a screen shorter
+- **On phones the six role rows of "Who does what, when" and the six cards of "What you will be able to do"
+  open on a tap**, the first of each open by default, with a hint line and a chevron; chips sit left-aligned;
+  the method marks and the rail strip's links are touch-sized. The phone page is 2,500px shorter and
+  nothing overflows
+
 ## 2026-09-25 · The roles and the methods, readable
 
 ### Changed

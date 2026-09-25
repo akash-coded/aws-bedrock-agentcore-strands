@@ -1649,6 +1649,22 @@ a.xl:hover,.xl:hover{color:#08507F!important}
 .xmg-gate::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:28px;border-radius:7px;background:#DB2777;background-image:linear-gradient(#fff,#fff),linear-gradient(#fff,#fff);background-size:10px 2px,10px 2px;background-position:5px 10px,5px 16px;background-repeat:no-repeat}
 @media (max-width:1000px){.xrg,.xmg{--lx:118px}.xmg-head,.xmg-row,.xmg-spine{grid-template-columns:200px repeat(4,minmax(0,1fr))}.xmg-gate{left:calc(241px + 2 * ((100% - 272px) / 4) - 1.5px)}.xrg-role{min-height:0}.xrg-chip,.xmg-cell{font-size:12.5px}}
 @media (max-width:700px){.xrg-head,.xmg-head,.xrg-gate,.xmg-gate,.xmg-cell.silent{display:none}.xrg-row,.xmg-row{grid-template-columns:1fr;gap:8px}.xrg-cell:not(:has(.xrg-chip)){display:none}.xrg-cell::before,.xmg-cell::before{content:attr(data-ph);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink2);flex-basis:100%}.xrg-cell{flex-direction:row;flex-wrap:wrap;gap:6px}.xrg-chip{display:inline-block}.xmg-cell{flex-wrap:wrap}.xmg-cell::before{flex-basis:100%}.xrg-role{flex-direction:row;align-items:center;gap:10px;min-height:0;padding:8px 12px}.xrg-role b{flex:1}.xrg-ic{margin:0}.xmg-spine{display:flex;flex-wrap:wrap;gap:8px;border-radius:16px}.xmg-spine b{flex-basis:100%}.xrg-note{margin-top:8px}}
+
+/* pass G5: the home page on phones */
+.xfold-hint{display:none}
+@media (max-width:700px){
+.xfold-hint{display:block;font-size:12.5px;color:var(--ink2);margin:0 0 10px}
+.xrg-cell{justify-content:flex-start}
+.xrg-role{cursor:pointer;position:relative;padding-right:38px}
+.xrg-role::after,#st-roles .glass h3::after{content:"";position:absolute;right:16px;top:50%;width:10px;height:10px;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:translateY(-70%) rotate(45deg);transition:transform 160ms;opacity:.85}
+.xrg-row.fold .xrg-role::after,#st-roles .glass.fold h3::after{transform:translateY(-30%) rotate(-45deg)}
+.xrg-row.fold .xrg-cell{display:none}
+#st-roles .glass h3{position:relative;padding-right:34px;cursor:pointer;margin-bottom:0}
+#st-roles .glass:not(.fold) h3{margin-bottom:10px}
+#st-roles .glass.fold ul,#st-roles .glass.fold a.xl{display:none}
+.xmg-name>div span:not(.xmg-pill){font-size:11.5px!important}
+[id$="Rail"] .rg a{padding:8px 10px}
+}
 </style>
 </head>
 <body>
@@ -4547,8 +4563,7 @@ function buildHero(){const M=document.getElementById("startMain");if(!M||M.query
 <div class="sky">${skyMascot(72)}<div class="bub"><span><b>${HERO_LINES[0][0]}</b>${HERO_LINES[0][1]}</span></div></div></div>
 <div class="vis">${heroPhases(mode==="dark")}<div class="cap"><span>P0 to P3 is the spine</span><a href="#/loopmap">See the eight loops on it</a></div></div></div>`;
  old.before(h);fixLinks(h);
- if(!M.querySelector(".xtiles")){const nsim=Object.keys(SIMS).length,ntool=(typeof TOOLS!=="undefined"?TOOLS.length:0);const tiles=[["#/start/pm","route","Your role's route","Product, architecture, engineering, QA, sponsor or trainer: an ordered set of stops, each saying what you leave with.","6 roles","#2563EB"],["#/simulations","sim","Simulations","Decide one step at a time with both paths open; every run leaves an artefact.",nsim+" to play","#7C3AED"],["#/toolkit","calc","Toolkit","Calculators that write the artefact for you, prefilled with the airline case.",ntool+" tools","#0D9488"],["#/story","story","Ninety days of SkyWays","Thirteen dated episodes; each opens on a number and closes a loop.","13 episodes","#F59E0B"],["#/learn","book","The guided path","Eight chapters, a picture you can move in every unit; the checks pay points.","8 chapters","#16A34A"],["#/concepts","map","The concept map","Every concept in one sentence, placed by loop, phase and role. Zoom in.",CONCEPTS.length+" concepts","#EA580C"]];
-  const T=document.createElement("section");T.className="xtiles";T.setAttribute("aria-label","Ways in");T.innerHTML=tiles.map(t=>`<a class="xtile" href="${t[0]}" data-goal="${t[0]}" style="--tc:${t[5]}"><span class="ic">${XICO[t[1]]}</span><b>${t[2]}</b><small>${t[3]}</small><em>${t[4]}${XICO.go}</em></a>`).join("");h.after(T);fixLinks(T);xploreRefresh();}
+ xploreRefresh();
  h.querySelector(".mode").onclick=()=>{const m2=h.dataset.mode==="dark"?"light":"dark";try{localStorage.setItem("skyways.heromode",m2);}catch(e){}h.remove();buildHero();};
  let k=0;const sp=h.querySelector(".sky .bub span");setInterval(()=>{if(!document.body.contains(sp))return;sp.classList.add("out");setTimeout(()=>{k=(k+1)%HERO_LINES.length;sp.innerHTML=`<b>${HERO_LINES[k][0]}</b>${HERO_LINES[k][1]}`;sp.classList.remove("out");},320);},6500);}
 (function(){const _sb=NP.start.build;NP.start.build=function(){_sb.call(this);buildHero();};})();
@@ -4561,6 +4576,14 @@ function miniTower(){const rh=e=>(e.page&&typeof EPISODE_PAGES!=="undefined"&&EP
 <div class="xclimb-body"><div class="xclimb-tower"><div class="xclimb-cab"><b>The cab · Day 90</b><span>both numbers in front of the steering committee, and the next P0</span></div>${[...PH4].reverse().map(floor).join("")}<div class="xclimb-ground"><span><b>Ground floor</b>Start here: the climb begins on Day 1, at the bottom.</span><a class="xbtn dark" href="${next?rh(next):"#/evidence"}">${next?(nC?"Continue at ":"Begin at ")+next.day:"Open the vault"}</a></div></div>
 <aside class="xclimb-hud" aria-label="Your climb so far"><div class="rk"><small>Your rank</small><b>${rank}</b></div>${[["Rooms cleared",nC,13,"#F59E0B"],["Simulations finished",nS,Object.keys(SIMS).length,RC.sa],["Tools used",nT,TOOLS.length,RC.eng]].map(m=>`<div class="m"><span>${m[0]}</span><b>${m[1]}<em>of ${m[2]}</em></b><i><u style="width:${Math.min(100,100*m[1]/m[2])}%;background:${m[3]}"></u></i></div>`).join("")}<a class="xbtn" href="#/quest">The whole tower, floor by floor</a><p class="hint">Progress is kept in this browser only.</p></aside></div>`;}
 (function(){const _sb=NP.start.build;NP.start.build=function(){_sb.call(this);const M=document.getElementById("startMain");const xh=M&&M.querySelector(".xhero");if(!xh)return;const sec=document.createElement("section");sec.className="xclimb";sec.id="xboard";sec.setAttribute("aria-label","The ninety days, as a climb");sec.innerHTML=miniTower();xh.replaceWith(sec);fixLinks(sec);};})();
+
+// ---------- pass G5: the home page on phones folds its role rows and role cards; tap a role to open it ----------
+(function(){const _sb=NP.start.build;NP.start.build=function(){_sb.call(this);if(!matchMedia("(max-width:700px)").matches)return;const M=document.getElementById("startMain");if(!M)return;
+ const bind=(box,head,open)=>{if(!head)return;if(!open)box.classList.add("fold");head.setAttribute("role","button");head.tabIndex=0;head.setAttribute("aria-expanded",String(open));const tg=()=>{const f=box.classList.toggle("fold");head.setAttribute("aria-expanded",String(!f));};head.onclick=tg;head.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tg();}};};
+ const hint=(before,text)=>{if(!before||before.previousElementSibling?.classList.contains("xfold-hint"))return;const p=document.createElement("p");p.className="xfold-hint";p.textContent=text;before.before(p);};
+ const rows=[...M.querySelectorAll(".xrg-row")];rows.forEach((r,i)=>bind(r,r.querySelector(".xrg-role"),i===0));hint(M.querySelector(".xrg"),"Tap a role to open its steps.");
+ const cards=[...M.querySelectorAll("#st-roles .glass")];cards.forEach((c,i)=>bind(c,c.querySelector("h3"),i===0));hint(M.querySelector("#st-roles .xroles"),"Tap a role to open its list.");
+};})();
 
 // ---------- page openers and guided tours ----------
 const PAGE_GUIDE={
