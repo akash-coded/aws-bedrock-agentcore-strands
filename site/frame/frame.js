@@ -209,9 +209,23 @@
     // Manual pages ship their own footer and navigation; there we contribute only the pill and the drawer.
     var framed = !document.querySelector("[data-site-footer]");
     if (framed) {
+      document.documentElement.classList.add("sw-framed");
       if (links.manual) {
-        document.body.insertBefore(strip(), document.body.firstChild);
+        var s = strip();
+        document.body.insertBefore(s, document.body.firstChild);
         document.body.appendChild(backPill());
+        // The tool positions its "Show menu" button from the top of the viewport, where the strip now is
+        // until it scrolls away. --sw-top is the strip's visible height, and frame.css adds it to that offset.
+        var pending = false;
+        var publish = function () {
+          pending = false;
+          var b = s.getBoundingClientRect().bottom;
+          document.documentElement.style.setProperty("--sw-top", (b > 0 ? Math.round(b) : 0) + "px");
+        };
+        var onScroll = function () { if (!pending) { pending = true; requestAnimationFrame(publish); } };
+        addEventListener("scroll", onScroll, { passive: true });
+        addEventListener("resize", onScroll, { passive: true });
+        publish();
       }
       document.body.appendChild(footer());
     }

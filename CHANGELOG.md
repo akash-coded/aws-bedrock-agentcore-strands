@@ -18,6 +18,14 @@ out, because people bookmark deep links.
   in it; verified on seven routes, menu shown and hidden, framed and frameless. Carry this patch
   forward when the tool is next replaced with a new export
 
+- **With the menu hidden the page hugged the left edge, the tool's "Show menu" button sat under its own
+  nav while the strip was in view, and the frame's pills could cover the rail's last link and the footer's
+  legal row.** The hidden-menu column is now centred (the same rule in the tool); frame.js publishes the
+  strip's visible height as `--sw-top` and frame.css adds it to the button's offset; the rail and the footer
+  get bottom padding; the contact pill sits above the tool's bottom-right corner rather than in it. Checked
+  with a box-overlap sweep at 2000, 1440, 1280 and 390 wide, menu shown and hidden, at the top, just past
+  the strip and at the end of the page
+
 ### Changed
 - **The way back carries an arrow.** The strip's "Back to the agentic manual" and the fixed pill now lead
   with a back-arrow icon; the strip's manual links end in a forward chevron; on phones the strip stays
