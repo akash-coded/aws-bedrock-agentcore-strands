@@ -101,3 +101,6 @@ html.sw-framed .rail2{padding-bottom:96px}
   .sw-pill{right:12px;bottom:12px}
   .sw-ic svg{width:18px;height:18px}
 }
+
+/* the contact drawer's links inside the tool: a fixed colour with enough contrast, whatever the tool's link rule says */
+html .sw-drawer a{color:#3E5A82}
