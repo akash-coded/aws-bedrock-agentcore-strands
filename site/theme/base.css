@@ -415,7 +415,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .mm:first-of-type{border-top:0}
 @media (max-width:900px){.mm{grid-template-columns:1fr;gap:16px}}
 .mmg{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px;
-  position:sticky;top:78px}
+  position:static}
 @media (max-width:900px){.mmg{position:static}}
 .mg{width:100%;height:auto;display:block;color:var(--ink)}
 .mmb h3{font-size:21px;margin:0 0 8px}
@@ -632,7 +632,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dglb .lr .lk{font-size:11px;font-weight:700;letter-spacing:.06em;opacity:.8}
 .dglb .lr b{font-family:var(--f-display);font-size:17px;font-weight:700;line-height:1.2}
 .dglb .lr .ls{font-size:12.5px;line-height:1.45;opacity:.86;margin-top:3px}
-.dglb .ll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+.dglb .dgll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
   background:var(--rule);padding:1px}
 .dglb .lane{background:var(--paper);padding:12px 14px;display:grid;align-content:start;gap:8px;
   min-width:0}
@@ -646,7 +646,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dglb .lane.stop li{color:var(--ink)}
 @media (max-width:880px){
   .dglb{grid-template-columns:minmax(0,1fr)}
-  .dglb .ll{grid-template-columns:minmax(0,1fr)}
+  .dglb .dgll{grid-template-columns:minmax(0,1fr)}
 }
 .dgm .md.q{border-style:dashed;background:transparent}
 .dgm .md.q b{color:var(--soft);font-weight:600}
@@ -986,7 +986,7 @@ a.md:hover b{color:var(--c)}
 /* a lens change must be seen: the reading that just appeared settles in */
 [data-lens].lens-in{animation:lensin .5s var(--ease)}
 @keyframes lensin{from{opacity:0;transform:translateY(6px)}}
-.lensbar{position:sticky;top:64px;z-index:20;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 6px;
+.lensbar{position:static;z-index:20;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 6px;
   padding:10px 14px;border:1px solid var(--rule);border-radius:14px;
   background:color-mix(in oklab,var(--bone) 92%,transparent);backdrop-filter:blur(8px)}
 .lensbar .lh{font-size:13.5px;color:var(--ink2);flex:1 1 280px;min-width:220px}
@@ -1196,3 +1196,38 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 /* the home hero's positioning line */
 .hero .by{font-size:15px;line-height:1.55;color:var(--ink-2,var(--soft));max-width:62ch;margin:2px 0 18px}
 .hero .by b{color:var(--ink);font-weight:700}
+
+/* ---- M1: the hook band, the hook line, the roadmap, the model card switch ---- */
+.hook{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:center;margin:26px 0 40px;padding:30px 32px;border:1px solid var(--rule);border-radius:22px;background:linear-gradient(135deg,color-mix(in oklab,var(--accent-soft,#EEF1F6) 70%,var(--paper)),var(--paper) 60%)}
+.hook .ht .kicker{margin:0 0 8px}
+.hook h2{font-family:var(--f-display);font-size:clamp(28px,3.4vw,42px);line-height:1.08;letter-spacing:-.025em;margin:0 0 14px;color:var(--ink)}
+.hook h2 em{font-style:normal;color:var(--accent)}
+.hook .ht p:not(.kicker){font-size:16px;line-height:1.6;color:var(--ink2);max-width:56ch;margin:0 0 18px}
+.hook .ba{display:flex;gap:10px;flex-wrap:wrap}
+.hook .hi{margin:0;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--rule);background:var(--rule2)}
+.hook .hi img{display:block;width:100%;height:100%;min-height:280px;object-fit:cover;aspect-ratio:3/2}
+.hook .hi figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72));color:#fff;font-size:15px;font-weight:600;line-height:1.35}
+.hook .hi figcaption small{display:block;font-size:11.5px;font-weight:400;opacity:.85;margin-top:4px}
+.hook .hi figcaption a{color:#fff}
+@media (max-width:900px){.hook{grid-template-columns:1fr;padding:22px 20px;gap:18px}.hook .hi img{min-height:0;aspect-ratio:16/9}}
+.hookline{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:6px 0 18px;font-size:17px;line-height:1.45;color:var(--ink)}
+.hookline span{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding:4px 10px;border-radius:999px;background:var(--accent-soft,#EEF1F6)}
+.roadmap{margin:0 0 30px}
+.roadmap .rh h2{font-size:22px;margin:0 0 6px}
+.roadmap .rh p{margin:0 0 16px;font-size:15px;line-height:1.55;color:var(--ink2);max-width:76ch}
+.roadmap .rt{display:flex;gap:10px;align-items:stretch}
+.roadmap .rg{flex:var(--n) 1 0;min-width:0;padding:10px 10px 12px;border-radius:16px;border:1.5px solid color-mix(in oklab,var(--c) 45%,transparent);background:color-mix(in oklab,var(--c) 7%,var(--paper));position:relative}
+.roadmap .rg + .rg::before{content:"";position:absolute;left:-12px;top:50%;width:14px;border-top:2px dashed color-mix(in oklab,var(--ink) 35%,transparent)}
+.roadmap .rp{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink2);margin:0 0 10px 4px}
+.roadmap .rp b{font-family:var(--f-mono);font-size:11px;font-weight:700;color:#fff;background:color-mix(in oklab,var(--c) 70%,#111);padding:2px 7px;border-radius:6px}
+.roadmap .rns{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px}
+.roadmap .rn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 6px 10px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);text-decoration:none;color:var(--ink);text-align:center;position:relative;transition:transform 150ms var(--ease),border-color 150ms}
+.roadmap .rn:hover{transform:translateY(-2px);border-color:color-mix(in oklab,var(--c) 70%,var(--ink));text-decoration:none}
+.roadmap .rn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.roadmap .ri{width:38px;height:38px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:color-mix(in oklab,var(--c) 14%,var(--paper));color:color-mix(in oklab,var(--c) 75%,#111)}
+.roadmap .ri svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.roadmap .rnum{font-family:var(--f-mono);font-size:11px;color:var(--soft)}
+.roadmap .rname{font-size:14px;font-weight:600;line-height:1.2}
+@media (max-width:900px){.roadmap .rt{flex-direction:column}.roadmap .rg + .rg::before{left:50%;top:-12px;width:0;height:14px;border-top:0;border-left:2px dashed color-mix(in oklab,var(--ink) 35%,transparent)}.roadmap .rns{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}}
+.mtabs{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;color:var(--soft)}
+.mtabs .lens button{padding:5px 10px;font-size:12.5px}

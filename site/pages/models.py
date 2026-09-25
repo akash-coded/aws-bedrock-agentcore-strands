@@ -405,6 +405,7 @@ def _card(m: dict) -> str:
   <div class="mmb">
     <h3>{E(m['name'])}</h3>
     <p class="mo">{m['one']}</p>
+    <div class="mtabs"><span>Read</span>{k.lens_toggle("The model", "The subtlety")}</div>
     {k.lens(
       f'<p><strong>What it predicts.</strong> {m["predicts"]}</p>'
       f'<p><strong>The mistake it prevents.</strong> {m["prevents"]}</p>',
@@ -480,8 +481,7 @@ confidence</a>.</p></div>
 </main></div>"""
     return shell(title="Mental models · The agentic manual",
                  desc="Twelve mental models for building software that decides: chained probability, "
-                      "reversibility, the hold as a lever, requests versus boundaries, and the eight "
-                      "others that keep paying.",
+                      "reversibility, the hold as a lever, requests versus boundaries, and eight more.",
                  body=body, depth=1, nav_id="models",
                  canonical=urls["base"] + "models/",
                  crumbs=[("For leadership", "../protocol/"), ("Mental models", "")], tour=tour, kind="models", og="models")

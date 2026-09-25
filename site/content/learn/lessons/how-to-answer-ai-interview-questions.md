@@ -2,7 +2,7 @@
 title: How to Answer AI Interview Questions: Six Frameworks
 short: Six answer frameworks
 wiki: How-to-Answer-AI-Interview-Questions
-description: Six frameworks for AI interview questions — design, "is it good enough?", wrong answers, cost, incidents and behavioural stories — each with a worked example.
+description: Six frameworks for AI interview questions: design, good enough or not, wrong answers, cost, incidents and behavioural stories, each with a worked example.
 dek: Most AI interview questions are one of six kinds. Each kind has a structure that turns what you know into an answer an interviewer can score.
 level: Intermediate
 keywords: how to answer AI interview questions, AI interview frameworks, AI product manager interview framework, LLM system design interview, GenAI interview preparation, machine learning interview answers, STAR method AI, AI PM interview

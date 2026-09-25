@@ -304,7 +304,7 @@ def loops() -> str:
              + dg.section_band("The three that run backwards")
              + dg.cards(BACKWARD))
     return dg.board(
-        "The spine, continued", "Eight loops make the line a ring",
+        "The feedback", "Eight loops: the feedback that turns four phases into a cycle",
         "Each loop opens in one phase and closes in a later one. Five close forwards or "
         "inside a phase and look after themselves, because somebody downstream is waiting "
         "and will chase. Three run backwards, and nobody is waiting.",

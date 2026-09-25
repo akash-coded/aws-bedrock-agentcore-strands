@@ -201,6 +201,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <title>{_E(title)}</title>
 <meta name="description" content="{_E(desc, quote=True)}">
 <meta name="author" content="{AUTHOR}">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
 <link rel="canonical" href="{_E(canonical or BASE_URL, quote=True)}">
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
@@ -362,15 +363,71 @@ def step_html(role: dict, s: dict) -> str:
 </details>"""
 
 
+
+STEP_ICON = {
+    "search": "Discover Elicit", "check": "Qualify Check Measure", "frame": "Frame Map Baseline Floor",
+    "doc": "Specify Define Detail Prepare", "list": "Plan Curate", "lock": "Gate Bound Protect",
+    "flag": "Launch Ship Deploy", "chart": "Learn Watch Observe Evolve", "sliders": "Constrain Shape Decide",
+    "layers": "Layer Environments Slice", "tool": "Harness Pipeline Operate", "key": "Access",
+    "shield": "Attack", "eye": "Shadow", "refresh": "Recover",
+}
+STEP_ICON_SVG = {
+    "search": '<circle cx="10.5" cy="10.5" r="6"/><path d="m20 20-5-5"/>',
+    "check": '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+    "frame": '<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><rect x="8" y="8" width="8" height="8" rx="1"/>',
+    "doc": '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
+    "list": '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="5" cy="6" r="1.2"/><circle cx="5" cy="12" r="1.2"/><circle cx="5" cy="18" r="1.2"/>',
+    "lock": '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+    "flag": '<path d="M6 21V4"/><path d="M6 4h11l-2 4 2 4H6"/>',
+    "chart": '<path d="M4 20h16"/><path d="M7 17v-6M12 17V7M17 17v-9"/>',
+    "sliders": '<path d="M5 8h14M5 16h14"/><circle cx="9" cy="8" r="2.2" fill="var(--paper)"/><circle cx="15" cy="16" r="2.2" fill="var(--paper)"/>',
+    "layers": '<path d="m12 4 8 4-8 4-8-4z"/><path d="m4 12 8 4 8-4M4 16l8 4 8-4"/>',
+    "tool": '<path d="M14.5 5.5a4 4 0 0 0-5 5L4 16l4 4 5.5-5.5a4 4 0 0 0 5-5l-2.5 2.5-2-2z"/>',
+    "key": '<circle cx="8" cy="14" r="4"/><path d="m11 11 8-8M16 6l2 2M13 9l2 2"/>',
+    "shield": '<path d="M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6z"/>',
+    "eye": '<path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/>',
+    "refresh": '<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/>',
+}
+_ICON_BY_STEP = {name: ic for ic, names in STEP_ICON.items() for name in names.split()}
+PHASE_HUE = {"P0": "slate", "P1": "indigo", "P2": "teal", "P3": "amber"}
+PHASE_SHORT = {"P0": "Frame", "P1": "Design &amp; Spec", "P2": "Build &amp; Prove", "P3": "Run &amp; Learn"}
+
+
+def roadmap(role: dict) -> str:
+    """The role's steps as one connected track, grouped by the phase each belongs to."""
+    groups: list[tuple[str, list[dict]]] = []
+    for s in role["steps"]:
+        if groups and groups[-1][0] == s["pdlc"]:
+            groups[-1][1].append(s)
+        else:
+            groups.append((s["pdlc"], [s]))
+    out = []
+    for ph, steps in groups:
+        nodes = "".join(
+            f'<a class="rn" href="#{s["id"]}"><span class="ri"><svg viewBox="0 0 24 24" aria-hidden="true">'
+            f'{STEP_ICON_SVG[_ICON_BY_STEP.get(s["phase"], "doc")]}</svg></span>'
+            f'<span class="rnum">{s["n"]}</span><span class="rname">{_E(s["phase"])}</span></a>'
+            for s in steps)
+        out.append(f'<div class="rg" style="--c:var(--dg-{PHASE_HUE[ph]});--n:{len(steps)}">'
+                   f'<span class="rp"><b>{ph}</b> {PHASE_SHORT[ph]}</span><div class="rns">{nodes}</div></div>')
+    n = len(role["steps"])
+    name = role["name"].lower()
+    return (f'<section class="roadmap" aria-label="The steps of this role, by phase">'
+            f'<div class="rh"><h2>Your {NUM.get(n, str(n))} steps, in the agentic era</h2>'
+            f'<p>Your job has not changed. These are the things a {_E(name)} already does, in the order they '
+            f'happen; each has gained an agentic part, and each ends on the artefact the next person needs.</p></div>'
+            f'<div class="rt">{"".join(out)}</div></section>')
+
+
+NUM = {6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
+
 def role_page(role: dict) -> str:
     from pages import _kit as k
     rail = "".join(
         f'<li><a class="rl" data-for="{s["id"]}" href="#{s["id"]}">'
         f'<span class="rn">{s["n"]}</span><span>{_E(s["phase"])}</span></a></li>'
         for s in role["steps"])
-    arc = "".join(
-        f'<a href="#{s["id"]}"><span class="an">{s["n"]}</span>{_E(s["phase"])}</a>'
-        for s in role["steps"])
+    arc = roadmap(role)
     intro = "".join(f"<p>{md(p)}</p>" for p in role["intro"])
     owns = "".join(f"<li>{md(x)}</li>" for x in role["owns"])
     nots = "".join(f"<li>{md(x)}</li>" for x in role["not_yours"])
@@ -400,7 +457,7 @@ def role_page(role: dict) -> str:
          "Copy the template, paste the prompts into your model, and check the <b>Done when</b> line before you move on."],
         extra=f'<a class="btn" href="../learn/{ROLE_LESSON[role["id"]]}/">The lesson for this role →</a>')
     tour = k.tour([
-        {"sel": ".arc", "title": "The journey", "body": f"{len(role['steps'])} steps in the order they happen. Click one to jump to it; the left rail keeps your place as you scroll."},
+        {"sel": ".roadmap", "title": "The journey", "body": f"{len(role['steps'])} steps in the order they happen, grouped by the phase each belongs to. Click one to jump to it; the left rail keeps your place as you scroll."},
         {"sel": ".two", "title": "Two boundaries moved", "body": "What is yours to own, and what to stop signing. In agentic delivery these are the two lists that change; everything else is your job as it was."},
         {"sel": "details.step", "title": "A step, unpacked", "body": "Every step has the same shape: <b>what you actually do</b>, <b>where a model helps and where it must not</b>, the artefact you owe the next person, its template, prompts to paste, a worked SkyWays example, pitfalls and a <b>Done when</b> line."},
         {"sel": "details.step .cp", "title": "Copy, paste, fill in", "body": "Templates and prompts each have a copy button. Fill in the angle brackets; the step explains why each field is there."},
@@ -423,7 +480,7 @@ def role_page(role: dict) -> str:
 
   {orient}
 
-  <div class="arc">{arc}</div>
+  {arc}
 
   <div class="sec">{intro}</div>
 
@@ -618,6 +675,20 @@ def home_page(roles: list[dict]) -> str:
 <div class="wrap">
 <main id="main" style="padding:34px 0 80px">
   <div class="stats" aria-label="What is here">{stats_html}</div>
+
+  <section class="hook" aria-label="What this manual is">
+    <div class="ht">
+      <p class="kicker">SkyWays Consultancy</p>
+      <h2>Agentic product development, <em>reimagined</em>.</h2>
+      <p>The best of every agentic way of working, AI-DLC, AIDD, BMAD, spec-driven development and the
+      operating model that ties them together, in one manual you can run on Monday. Free, credited,
+      method-agnostic, and worked end to end on one airline's ninety days.</p>
+      <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a><a class="btn" href="simulator/">Open the simulator</a></div>
+    </div>
+    <figure class="hi"><img src="assets/photos/tower.jpg" width="1200" height="400" alt="Two air traffic controllers at work in a control tower cab" loading="lazy">
+      <figcaption>Software that decides needs a tower, not a faster runway. <small>Photo: <a href="https://commons.wikimedia.org/wiki/File:Civilian_air_traffic_controllers,_Memphis.jpg" target="_blank" rel="noopener">Civilian air traffic controllers, Memphis</a>, Zeamays, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>, cropped.</small></figcaption></figure>
+  </section>
+
   <div class="sec">
     <h2>Three ways in</h2>
     <div class="ways">
@@ -642,6 +713,8 @@ def home_page(roles: list[dict]) -> str:
     airline building a rebooking assistant for disrupted passengers. Each role sees the same ninety days
     from its own angle, so you can switch roles and stay oriented.</p>
   </div>
+
+  <p class="hookline"><span>One lifecycle for every method</span>Your all-in-one agentic PDLC: four phases, one hard gate, and the eight loops that make it a cycle.</p>
 
   {boards.pdlc()}
 
@@ -832,8 +905,8 @@ def frameworks_page() -> str:
         'rel="noopener">The full sources page</a></p></div>'
         "</main></div>")
     return shell(title="Frameworks and acronyms · The agentic manual",
-                 desc="The four named methods and where each sits, every acronym, and four pictures: "
-                      "traditional vs agentic, four methods on one spine, the risk ladder, chained probability.",
+                 desc="Four named methods and where each sits, every acronym decoded, and four pictures: "
+                      "traditional vs agentic, one spine, the risk ladder, chained probability.",
                  body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/",
                  crumbs=[("Reference", ""), ("Frameworks, acronyms and the pictures", "")], tour=tour,
                  kind="frameworks", og="frameworks")

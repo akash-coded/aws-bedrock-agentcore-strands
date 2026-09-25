@@ -132,7 +132,7 @@ def band(hue: str, key: str, name: str, sub: str, lanes: list[tuple[str, str, li
     return (f'<section class="dglb" style="--c:var(--dg-{hue})">'
             f'<div class="lr"><span class="lk">{E(key)}</span><b>{E(name)}</b>'
             f'<span class="ls">{E(sub)}</span></div>'
-            f'<div class="ll">{"".join(ln)}</div></section>')
+            f'<div class="dgll">{"".join(ln)}</div></section>')
 
 
 def bands(items: list[str]) -> str:

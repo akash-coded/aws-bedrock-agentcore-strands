@@ -499,9 +499,8 @@ def build(shell, urls: dict) -> str:
 <tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../simulator/#/governance/gv-gates">The gates, in the playbook</a> · <a href="../simulator/#/evidence">what a complete evidence pack holds</a></td></tr>
 <tr><td>Wanting the maturity conversation with a number</td><td><a href="../simulator/#/toolkit/maturity">The maturity self-check</a> · <a href="../simulator/#/toolkit/aifit">is this work for a model at all?</a></td></tr>
 </tbody></table></div></div></main></div>""")
-    desc = ("The agentic operating protocol: what changes, who does what, the four decisions only "
-            "leadership can make, how to know it is working, and a ninety-day rollout. For "
-            "executives and business owners.")
+    desc = ("The agentic operating protocol for executives: what changes, who does what, the four decisions "
+            "only leadership makes, how to know it works, the 90-day rollout.")
     tour = k.tour([
         {"sel": ".lensbar", "title": "Two readings", "body": "<b>What it means</b> is the claim. <b>How it works</b> is the mechanism underneath it. Switch when you want to check one; every block on the page follows."},
         {"sel": ".acts", "title": "If you read nothing else", "body": "Five things that change when part of the product is right a share of the time. Each is one sentence, then the reason."},

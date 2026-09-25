@@ -8,6 +8,29 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The manual's home and role pages, polished; the contact button; back to top
+
+### Fixed
+- **The contact button on both sites showed as an empty circle**: its envelope was hidden on desktop by a
+  phone-only rule. It is a navy button with a white envelope now, and grows its label on hover
+- **"Where the model helps, and where it must not" laid its lanes out wrongly**: the lanes' container shared
+  the class of the rail links, whose numbering pseudo-element became a grid cell and pushed the three lanes
+  out of place, leaving beige gaps. The container has its own class; the three lanes sit across each band
+- **On the mental models page the picture pinned to the top while its text scrolled**, and the reading
+  switch sat far away in a bar at the top. The picture scrolls with its card, and every card carries its
+  own "The model / The subtlety" switch; the bar no longer floats
+- Four page descriptions were over the length search engines show in full
+
+### Added
+- **A back-to-top control** at the bottom left of every page on both sites, appearing after the first screen
+- **A hook band after the first scroll of the manual's home page**: "Agentic product development, reimagined",
+  the positioning line, and a licensed photograph of a control tower with its credit; and a hook line,
+  "Your all-in-one agentic PDLC", above the PDLC board
+- **The role pages open with a roadmap**: "Your eight steps, in the agentic era", the steps grouped by the
+  phase each belongs to, with an icon per step and a line that says the job has not changed
+- The loops board is titled "Eight loops: the feedback that turns four phases into a cycle"
+- A robots meta tag asks for large image previews and full snippets
+
 ## 2026-09-25 · AA contrast and labels on every route
 
 ### Fixed

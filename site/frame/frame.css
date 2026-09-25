@@ -93,7 +93,7 @@ html .sw-footer a:hover{border-bottom-color:#3E5A82}
 html.sw-framed .rail-show{top:calc(var(--topnav,60px) + 12px + var(--sw-top,0px))}
 @media (min-width:901px){html.sw-framed .rail2{padding-bottom:96px}}
 
-.sw-pill .sw-mail{display:none}
+.sw-pill .sw-mail{display:inline-flex}
 /* last, so it wins over the label rules above. Phones: both pills are icon-only circles, one in each corner; the labels stay for screen readers */
 @media (max-width:640px){
   .sw-pill,.sw-back{width:44px;height:44px;padding:0;justify-content:center;gap:0}
@@ -121,3 +121,17 @@ html .sw-drawer a{color:#3E5A82}
 #topnav .sw-manual span:last-child{font-size:13.5px;font-weight:600}
 #topnav .sw-manual:hover .sw-ic svg{transform:translateX(-2px)}
 @media (max-width:640px){#topnav .sw-manual span:last-child{display:none}#topnav .sw-manual{padding:8px 10px}}
+
+/* the contact button reads as a button: navy, white envelope, label on hover */
+.sw-pill{background:#16150F;color:#fff;border:1.5px solid #16150F;box-shadow:0 6px 18px -8px rgba(22,21,15,.55)}
+.sw-pill:hover,.sw-pill:focus-visible{background:#16150F;color:#fff;border-color:#16150F}
+.sw-pill .sw-ic svg{stroke:#fff}
+/* back to top: bottom-left, appears after the first screen */
+.sw-top{position:fixed;left:18px;bottom:18px;z-index:9000;width:42px;height:42px;border-radius:999px;border:1.5px solid rgba(22,21,15,.25);background:rgba(255,255,255,.94);color:#16150F;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px -8px rgba(22,21,15,.45);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 180ms,transform 180ms,background 140ms}
+.sw-top.on{opacity:1;transform:none;pointer-events:auto}
+.sw-top:hover{background:#fff;border-color:#16150F}
+.sw-top:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
+.sw-top svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:640px){.sw-top{left:12px;bottom:12px;width:44px;height:44px}}
+@media (prefers-reduced-motion:reduce){.sw-top{transition:none}}
+@media print{.sw-top{display:none!important}}

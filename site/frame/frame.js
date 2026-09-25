@@ -212,6 +212,20 @@
       sheet.after(h("a", { "class": "sw-sheet-back", href: links.manual }, [h("span", { "class": "sw-ic", html: BACK }), "Back to the agentic manual"]));
     }
   }
+  function topButton() {
+    var b = h("button", { "class": "sw-top", type: "button", title: "Back to top", "aria-label": "Back to top",
+      html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6"/><path d="m5 12 7-7 7 7"/></svg>' });
+    b.addEventListener("click", function () {
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      var main = document.getElementById("main") || document.querySelector("h1");
+      if (main && main.focus) { main.setAttribute("tabindex", "-1"); main.focus({ preventScroll: true }); }
+    });
+    var tick = null;
+    var update = function () { b.classList.toggle("on", window.scrollY > 600); };
+    window.addEventListener("scroll", function () { if (tick) return; tick = setTimeout(function () { tick = null; update(); }, 80); }, { passive: true });
+    document.body.appendChild(b); update();
+  }
   function backPill() {
     // a landmark of its own, so the pill is reachable by region as well as by tab
     return h("nav", { "class": "sw-backnav", "aria-label": "Back to the agentic manual" }, [
@@ -247,6 +261,7 @@
       document.body.appendChild(footer());
     }
     buildDrawer();
+    topButton();
     // On phones both pills are icon-only circles; the label survives for assistive tech.
     var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open,
       title: "Ideas and contact. Built by " + author, "aria-label": "Ideas and contact. Built by " + author }, [
