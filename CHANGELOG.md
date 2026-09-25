@@ -8,6 +8,25 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The worked case as a flight plan
+
+### Changed
+- **The ninety days are named for what they are**: the worked case. Every idea in the simulator is shown on
+  one product, an airline's rebooking assistant, and thirteen days of it are worked in full. The home page,
+  the story page, the menu and the tours say so
+- **The tower is a flight plan.** The route reads P0 to P3 left to right on a desktop and top to bottom on a
+  phone, under the sky with the plane and the sun; the four legs stand on the runway, the gates between legs
+  are drawn and labelled, and the control tower is Day 90 at the end. One renderer serves the home page's
+  compact panel (thirteen stop chips, side-quest counts, your rank and progress) and the full route page
+  (each stop with its opening line, the side quests on each leg). The rail lists the route from the runway
+- **The route page** adds "Around the airport" for the five places off the main line, draws the three ways
+  to fly instead of describing them, puts the gates in their own section, and makes every entry in the key
+  a link: the cast open their playbooks, the legs their part of the route, the marks their reference
+
+### Fixed
+- Three role headers in "Who does what, when" and the amber phase pills failed contrast; the soft-gate badge
+  is a darker green
+
 ## 2026-09-25 · SkyWays Consultancy, the PDLC Simulator, and a nav that says what it is
 
 ### Changed
