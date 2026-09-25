@@ -1101,9 +1101,9 @@ a.md:hover b{color:var(--c)}
 .bbw svg.bb{width:100%;height:auto;display:block;min-width:700px;font-family:var(--f-body)}
 .bbw figcaption{font-size:13.5px;color:var(--soft);margin:10px 2px 0;line-height:1.5;max-width:80ch}
 /* on a phone the picture keeps its size and scrolls sideways; say so */
-@media (max-width:740px){.bbw{position:relative;padding-bottom:30px}
-  .bbw::after{content:"← scroll sideways to see the whole picture →";position:absolute;left:0;right:0;bottom:8px;
-    text-align:center;font-size:11.5px;color:var(--soft);pointer-events:none}}
+@media (max-width:740px){.bbw{position:relative;padding-bottom:10px}
+  .bbw::after{content:"← scroll sideways to see the whole picture →";display:block;margin-top:8px;
+    text-align:center;font-size:11.5px;color:var(--soft);pointer-events:none}}  /* in flow, below the caption, so the two never overlap */
 .bbw figcaption b{color:var(--ink2)}
 .bb .bb-flow{stroke-dasharray:7 5;animation:bbflow 1.1s linear infinite}
 @keyframes bbflow{to{stroke-dashoffset:-24}}
@@ -1189,3 +1189,6 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 
 .ways .try{margin:6px 0 0}
 .ways .try a{font-size:13px;padding:6px 10px 6px 9px}
+
+/* phones: the orient card stacks to one column below 480px */
+@media (max-width:480px){.orient{grid-template-columns:1fr!important}}

@@ -8,6 +8,26 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · Round three: phones, the tower, the scenarios, the last accessibility items
+
+### Fixed
+- **Accessibility, the tool's own items**: heading order on the start, simulations, concepts, reference,
+  story and tower pages (cards use h3 under their h2; the story and the tower carry an h2); the design ledger
+  is keyboard-scrollable; every page's rail is a labelled landmark, as are the tower's wings; the ledger
+  score, the role bar, the episode labels, the storey badges, the room day badge, the landing titles and all
+  text links pass AA. Axe is clean on the start, concepts, simulations, walkthrough and tower pages
+- **The tower's room badges** showed as blank blue blocks: the day text used a colour that matched its
+  background. Fixed, with a cleared state on rooms and a "next rank at N rooms" line in the HUD
+- **The walkthrough on phones** no longer shows its title twice; **the site's hero picture on phones** no
+  longer overlaps its caption with the scroll hint; the orient card stacks below 480px
+
+### Changed
+- **Scenarios read as decisions**: a numbered title, a labelled situation, a labelled "why it matters",
+  uppercase takeaway labels, pill tabs with a filled current tab, rounded buttons with a forward arrow
+- **Simulations on phones** show the walks as a phase list instead of the process map, which was
+  unreadable at that width
+- **The tower on phones** stacks each floor with its side quests above and below it
+
 ## 2026-09-25 · The playbook, taken further: navigation, the map as levels, simulations by role
 
 ### Changed
