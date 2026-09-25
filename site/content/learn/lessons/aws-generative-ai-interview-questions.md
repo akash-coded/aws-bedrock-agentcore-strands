@@ -12,7 +12,7 @@ updated: 2026-09-24
 > [!TIP]
 > **The bank in one sentence.** AWS generative AI interviews test whether you can assemble Amazon Bedrock,
 > Bedrock AgentCore, Strands Agents and Knowledge Bases into a system that is secure, observable,
-> affordable and resilient — and whether you know the details that break in production: inference
+> affordable and resilient, and whether you know the details that break in production: inference
 > profiles and the permissions they need, what bills while idle, what cannot be changed after creation,
 > and where AWS's controls stop and your own must begin. Ten questions, each with a framework, a strong
 > answer, the follow-up and the red flag; AWS details were checked against AWS documentation in September 2026.
@@ -29,7 +29,7 @@ updated: 2026-09-24
 
 - You can name every AgentCore service, and not what each one bills for.
 - Your architecture diagram has Guardrails on it, and your refund limit lives in a prompt.
-- Cross-region inference "just works" — until an organisation's region policy meets it.
+- Cross-region inference "just works", until an organisation's region policy meets it.
 
 The questions below go one level below the service names.
 
@@ -38,18 +38,18 @@ The questions below go one level below the service names.
 **Architecture judgement with AWS specifics.** Expect a design question set in a customer's world, deep
 dives into services you claim to have used, and a debugging question with a real error message. Strong
 candidates keep two things separate: what the managed service guarantees, and what the design still has
-to enforce — authority over actions, evaluation, and cost per task.
+to enforce: authority over actions, evaluation, and cost per task.
 
 ## Architecture
 
 ### Q1 · "Design a customer-support agent on AWS for a regulated company."
 
-**Tests:** assembling services into a defensible system · **Framework:** the P0–P3 answer, then the
+**Tests:** assembling services into a defensible system · **Framework:** the P0 to P3 answer, then the
 Well-Architected pillars
 
 <details><summary>What a strong answer covers</summary>
 
-- **Frame first**: slices of cases, a bar per slice, and autonomy per action — refunds stay with a named
+- **Frame first**: slices of cases, a bar per slice, and autonomy per action, refunds stay with a named
   approver until evidence says otherwise.
 - **The agent**: a Strands agent calling models on Amazon Bedrock through the Converse API with an inference
   profile; tools that are exact code where the work is exact.
@@ -58,7 +58,7 @@ Well-Architected pillars
 - **Tools**: existing APIs and Lambda functions exposed as MCP tools through AgentCore Gateway; outbound
   credentials held by AgentCore Identity, outside the model's context.
 - **Knowledge**: Bedrock Knowledge Bases over the policy corpus, with citations kept from each result's source.
-- **Safety**: Bedrock Guardrails for harmful content, prompt attacks and PII masking — and, separately,
+- **Safety**: Bedrock Guardrails for harmful content, prompt attacks and PII masking, and, separately,
   refund limits in the refund tool's signature with an approval token.
 - **Operations**: AgentCore Observability traces in CloudWatch, model invocation logging, cost tags per
   feature, a budget alarm.
@@ -66,13 +66,13 @@ Well-Architected pillars
   actions is always the design's job.
 
 **The follow-up:** "An auditor asks why a refund was issued." → the trace: the retrieved passages, the tool
-calls, the approval record — stored with the decision.
+calls, the approval record, stored with the decision.
 
 **Red flag:** a list of services with no limit on any action.
 
 </details>
 
-### Q2 · "Strands, Bedrock Agents, AgentCore or LangGraph — how do you choose?"
+### Q2 · "Strands, Bedrock Agents, AgentCore or LangGraph: how do you choose?"
 
 **Tests:** knowing what kind of thing each one is · **Framework:** SDK, managed agent, runtime platform,
 orchestration framework
@@ -80,17 +80,17 @@ orchestration framework
 <details><summary>What a strong answer covers</summary>
 
 - **Strands Agents** is an open-source SDK with a model-driven loop: tools are decorated functions whose
-  docstrings and type hints become their descriptions and schemas, with multi-agent patterns — agents as
-  tools, graphs and swarms — that compose.
+  docstrings and type hints become their descriptions and schemas, with multi-agent patterns (agents as
+  tools, graphs and swarms) that compose.
 - **Bedrock Agents** is a managed agent: configured action groups and knowledge bases, orchestration run by
   the service.
-- **AgentCore** is not a framework at all: it is the infrastructure to deploy and operate agents — Runtime,
-  Memory, Gateway, Identity, Observability — and it is framework-agnostic.
+- **AgentCore** is not a framework at all: it is the infrastructure to deploy and operate agents (Runtime,
+  Memory, Gateway, Identity, Observability) and it is framework-agnostic.
 - **LangGraph** is a graph-based orchestration framework for explicit, stateful flows.
-- **Choose by** how much control and determinism you need, and how much portability; they combine — a
+- **Choose by** how much control and determinism you need, and how much portability; they combine: a
   Strands or LangGraph agent can run on AgentCore Runtime.
 - **The insight:** "framework or platform?" is a false choice; the real decision is which parts are portable
-  — the loop, the tools, the evaluation — and which are not.
+ (the loop, the tools, the evaluation) and which are not.
 
 **The follow-up:** "How locked in are we?" → itemise it: agent logic, tool design and evaluation move; the
 platform layer does not.
@@ -110,11 +110,11 @@ platform layer does not.
 - **ValidationException on the model ID**: many models must be called through an inference profile ID with a
   geography prefix, such as `us.`, rather than the bare model ID.
 - **AccessDeniedException**: model access not enabled in the region; or IAM that allows the inference profile
-  but not the foundation model in *every* destination region — Bedrock authorises the profile, the model in
+  but not the foundation model in *every* destination region. Bedrock authorises the profile, the model in
   the source region and the model in each candidate destination region.
 - **Service control policies**: a region allowlist that omits a destination region breaks cross-region
   inference, unless it carries an exception using the `bedrock:InferenceProfileArn` condition key.
-- **Also check**: the right client — `bedrock-runtime` for inference, not `bedrock`.
+- **Also check**: the right client: `bedrock-runtime` for inference, not `bedrock`.
 - **The insight:** a missing destination-region permission fails only when a request is routed there, so the
   error looks intermittent.
 
@@ -162,7 +162,7 @@ vault, scoped to that user, with consent.
   result's source location for citations.
 - **Know the vector store's billing**: a classic OpenSearch Serverless collection bills a minimum capacity
   whether or not it is queried, while newer collection types can scale to zero.
-- **Build your own pipeline** when you need control the managed service does not give — custom ranking,
+- **Build your own pipeline** when you need control the managed service does not give, custom ranking,
   unusual sources, or a store you already run.
 - **The insight:** retrieval recall at k is measured, not assumed; top-k and chunk size are usually set by
   habit.
@@ -183,13 +183,13 @@ Check whether the passage was retrieved before changing the prompt.
 <details><summary>What a strong answer covers</summary>
 
 - **Measure per case**: tokens per call, share on the expensive model, cache hit ratio, attempts.
-- **Prompt caching**: explicit cache checkpoints on stable content first — a model-specific minimum number of
+- **Prompt caching**: explicit cache checkpoints on stable content first, a model-specific minimum number of
   tokens per checkpoint, up to four checkpoints, and a five-minute lifetime, or an hour on some models.
 - **Batch inference** for work that is not real-time: select models are priced 50% below on-demand.
 - **Service tiers** trade availability and latency for cost without changing the model; route easy calls to
   smaller models.
 - **AgentCore Runtime** bills per second for CPU and memory consumed: CPU drops to zero while waiting on the
-  model or tools, but memory stays billable until the session ends — so the idle timeout is a cost lever.
+  model or tools, but memory stays billable until the session ends, so the idle timeout is a cost lever.
 - **The insight:** a timestamp at the top of a system prompt silently defeats caching; the fix is ordering,
   not spending.
 
@@ -202,13 +202,13 @@ token and loop caps for control.
 
 ### Q7 · "The agent is throttled at peak, and one region has an outage. What is your resilience design?"
 
-**Tests:** capacity and failure planning · **Framework:** capacity, routing, degradation — and logging which
+**Tests:** capacity and failure planning · **Framework:** capacity, routing, degradation, and logging which
 model answered
 
 <details><summary>What a strong answer covers</summary>
 
 - **Cross-region inference profiles** spread requests: geographic profiles keep processing within a geography,
-  global profiles route more widely — a data-residency decision as much as a capacity one.
+  global profiles route more widely, a data-residency decision as much as a capacity one.
 - **Quotas are per model and region**: know them, request increases ahead of launches, and consider reserved
   capacity where throughput must be guaranteed.
 - **Retries with backoff and jitter**, a circuit breaker, and a queue for work that can wait.
@@ -286,7 +286,7 @@ and resume in a new session.
 - **Cost optimisation**: cost per task, caching, batch where latency allows, routing by difficulty.
 - **Sustainability**: smaller models and fewer tokens for the same outcome.
 - **The insight:** AWS publishes a Well-Architected Generative AI Lens; citing it and then adding what no lens
-  decides for you — the bar per slice and authority per action — is the senior answer.
+  decides for you, the bar per slice and authority per action, is the senior answer.
 
 **The follow-up:** "Which pillar do teams neglect most?" → cost per task, until the first bill.
 
@@ -303,8 +303,8 @@ AccessDeniedException about a third of the time. The IAM policy allows the infer
 
 **The request is sometimes routed to a region the permissions do not cover.** Bedrock authorises the
 inference profile, the foundation model in the source region and the foundation model in each destination
-region. A policy that allows only the profile — or an organisation's region allowlist without an
-inference-profile exception — fails whenever routing picks another region, which is why the failure looks
+region. A policy that allows only the profile, or an organisation's region allowlist without an
+inference-profile exception, fails whenever routing picks another region, which is why the failure looks
 random. Allow the model in every destination region, or add the `bedrock:InferenceProfileArn` exception.
 
 </details>
@@ -313,7 +313,7 @@ random. Allow the model in every destination region, or add the `bedrock:Inferen
 
 1. **Know where the service stops**: Guardrails filter content; authority over actions stays in your tools.
 2. **Know what breaks in production**: inference-profile permissions, idle billing, choices fixed at creation.
-3. **Measure per task**: cost, latency split, the answering model — on every response.
+3. **Measure per task**: cost, latency split, the answering model, on every response.
 
 ## FAQ
 
@@ -336,7 +336,7 @@ Geographic profiles stay within a geography; the permissions must cover the mode
 ### How do I prepare for an AWS generative AI interview?
 
 Build and deploy one agent end to end: a Strands agent on AgentCore Runtime with one Gateway tool, a
-Knowledge Base, a Guardrail, a cap in a tool signature and a trace in CloudWatch — then be ready to explain
+Knowledge Base, a Guardrail, a cap in a tool signature and a trace in CloudWatch, then be ready to explain
 its cost per task and one thing that broke.
 
 ## Apply it in your role
@@ -347,8 +347,8 @@ its cost per task and one thing that broke.
 | **A product manager or FDPM** | Use Q6 and Q10 to review an architecture for cost and for what no service decides. | Have a model turn the design into a cost-per-task estimate with its assumptions listed. |
 | **A GenAI or agentic AI engineer** | Build the Q9 checklist into your deployment pipeline. | Ask a coding agent to add a pre-deploy check for retention, identity and teardown. |
 
-**Across the enterprise.** Standardise the landing zone once — inference-profile permissions, SCP exceptions,
-cost tags, observability setup — so every team's first deployment inherits it instead of rediscovering it.
+**Across the enterprise.** Standardise the landing zone once (inference-profile permissions, SCP exceptions,
+cost tags, observability setup) so every team's first deployment inherits it instead of rediscovering it.
 
 **The ten-minute workflow.** An architecture review before the interview, or the design review:
 
@@ -363,11 +363,11 @@ creation, where each consequential action's limit lives, and how cost per task i
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The questions, frameworks and strong answers | **Original** — this tutorial | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
-| AgentCore Runtime sessions, lifecycle and pricing | **Borrowed** — documented, September 2026 | [How AgentCore Runtime works](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-how-it-works.html) · [AgentCore pricing](https://aws.amazon.com/bedrock/agentcore/pricing/) |
-| Cross-region inference authorisation and SCP exceptions | **Borrowed** — documented | [Geographic cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/geographic-cross-region-inference.html) |
-| Guardrails policy types | **Borrowed** — documented | [Amazon Bedrock Guardrails components](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-components.html) |
-| Prompt caching checkpoints and lifetimes | **Borrowed** — documented | [Prompt caching](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) |
-| Knowledge Base chunking and its fixed choice | **Borrowed** — documented | [Customise ingestion](https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-customize-ingestion.html) |
+| The questions, frameworks and strong answers | **Original**: this tutorial | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
+| AgentCore Runtime sessions, lifecycle and pricing | **Borrowed**: documented, September 2026 | [How AgentCore Runtime works](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-how-it-works.html) · [AgentCore pricing](https://aws.amazon.com/bedrock/agentcore/pricing/) |
+| Cross-region inference authorisation and SCP exceptions | **Borrowed**: documented | [Geographic cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/geographic-cross-region-inference.html) |
+| Guardrails policy types | **Borrowed**: documented | [Amazon Bedrock Guardrails components](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-components.html) |
+| Prompt caching checkpoints and lifetimes | **Borrowed**: documented | [Prompt caching](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) |
+| Knowledge Base chunking and its fixed choice | **Borrowed**: documented | [Customise ingestion](https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-customize-ingestion.html) |
 | The Well-Architected Generative AI Lens | **Borrowed** | AWS (2025). [Generative AI Lens](https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html) |
-| Identity per tool; the three vital signs | **Original** — this repository | [AgentCore quick reference](repo:cheatsheets/quick-reference/agentcore.md) |
+| Identity per tool; the three vital signs | **Original**: this repository | [AgentCore quick reference](repo:cheatsheets/quick-reference/agentcore.md) |

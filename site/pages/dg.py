@@ -164,7 +164,7 @@ def section_band(label: str) -> str:
 
 # --------------------------------------------------------------------------- svg + cards
 def svg(width: int, height: int, inner: str, label: str) -> str:
-    """A board-scale drawing. Used only where the geometry is the argument — a ring, a
+    """A board-scale drawing. Used only where the geometry is the argument, a ring, a
     set of arcs, a spine with returns. Anything text-heavy stays in HTML."""
     return (f'<div class="dgs"><svg viewBox="0 0 {width} {height}" role="img" '
             f'aria-label="{E(label)}">{inner}</svg></div>')

@@ -11,7 +11,7 @@
   {
    "name": "BMAD",
    "full": "Breakthrough Method for Agile AI-Driven Development",
-   "what": "A pipeline of AI personas — analyst, PM, architect, dev, QA — each handing a versioned artefact to the next.",
+   "what": "A pipeline of AI personas (analyst, PM, architect, dev, QA) each handing a versioned artefact to the next.",
    "where": "P0 to P2 as a persona pipeline",
    "when": "Complex, multi-team, audited work. On a one-line change it is twelve personas between you and the change.",
    "weight": "heavy"
@@ -50,7 +50,7 @@
    "AiDD",
    "AI-driven development",
    "The craft of building software with coding agents.",
-   "—"
+   ": "
   ],
   [
    "ATAM",
@@ -62,7 +62,7 @@
    "BMAD",
    "Breakthrough Method for Agile AI-Driven Development",
    "A persona pipeline with versioned hand-offs.",
-   "—"
+   ": "
   ],
   [
    "EARS",
@@ -89,7 +89,7 @@
    "Stage-gate, Cooper 1990"
   ],
   [
-   "R1–R5",
+   "R1 to R5",
    "The risk ladder",
    "Reversible draft, reversible change, hard to reverse, money/identity/policy, irreversible.",
    "this playbook"
@@ -98,30 +98,30 @@
    "RACI",
    "Responsible, accountable, consulted, informed",
    "One accountable **name** per artefact, never a committee.",
-   "—"
+   " ("
   ],
   [
    "SDD",
    "Spec-driven development",
    "Maintain the spec; regenerate the code.",
-   "—"
+   ") "
   ],
   [
    "TCO",
    "Total cost of ownership",
-   "Three years, with the **people** counted — usually the larger number.",
+   "Three years, with the **people** counted, usually the larger number.",
    "Gartner, 1987"
   ],
   [
    "p^n",
    "Chained probability",
    "Steps multiply. Four steps at 90% is 66%. Length is the enemy.",
-   "—"
+   ": "
   ]
  ],
  "frameworks": [
   [
-   "The P0–P3 spine",
+   "The P0 to P3 spine",
    "Four phases every method walks: frame, specify, build and prove, run and learn.",
    "Stage-gate systems (Cooper, 1990). The phase names are the playbook's.",
    "wm"
@@ -163,7 +163,7 @@
    "wm"
   ],
   [
-   "The risk ladder R1–R5",
+   "The risk ladder R1 to R5",
    "The check grows with the band. A change inherits the band of whatever it touches.",
    "Least privilege (Saltzer and Schroeder, 1975).",
    "wm"

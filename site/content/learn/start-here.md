@@ -1,12 +1,12 @@
 ---
 title: Agentic PDLC Tutorial: Run AI Agent Projects, Step by Step
-description: A free, step-by-step tutorial on the agentic PDLC: how to frame, specify, build, prove and run software where an AI model does the work — for every role.
-dek: Short lessons on running software projects where an AI model does part of the work — what to decide, in what order, and how to know you got it right. Free, method-agnostic, and credited.
+description: A free, step-by-step tutorial on the agentic PDLC: how to frame, specify, build, prove and run software where an AI model does the work, for every role.
+dek: Short lessons on running software projects where an AI model does part of the work, what to decide, in what order, and how to know you got it right. Free, method-agnostic, and credited.
 ---
 
 > [!TIP]
 > **What this is.** A free tutorial in five-to-ten-minute lessons on the **agentic PDLC**: a four-phase
-> lifecycle — P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & Learn — for products in which a
+> lifecycle (P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & Learn) for products in which a
 > model drafts, decides or acts. It works with whatever method you already use, including AWS AI-DLC,
 > the BMAD Method, spec-driven development and Scrum.
 
@@ -37,7 +37,7 @@ dek: Short lessons on running software projects where an AI model does part of t
 By the end of the fundamentals you will be able to:
 
 1. **Frame** an AI feature as a measured pain, decide whether it needs a model at all, and set how much the machine may do on its own.
-2. **Specify** it so a coding agent, or an engineer who was not in the room, can build it without asking — with an acceptance bar per slice.
+2. **Specify** it so a coding agent, or an engineer who was not in the room, can build it without asking, with an acceptance bar per slice.
 3. **Build and prove** it in bolts, against a bar, with evidence a sceptic accepts.
 4. **Run** it: cut over safely, catch drift, and report what it saved beside what it cost.
 
@@ -47,6 +47,6 @@ track turns all of it into answers for AI product, FDE, GenAI, agentic and AWS r
 
 ## How the lessons work
 
-Every lesson has the same slots in the same order: the answer first, a picture, the problem stated plainly, the idea step by step, a problem to try, three takeaways, and its sources — each marked **Borrowed**, **Adapted** or **Original** to this playbook. [Why it is built that way](lesson:how-this-tutorial-works).
+Every lesson has the same slots in the same order: the answer first, a picture, the problem stated plainly, the idea step by step, a problem to try, three takeaways, and its sources, each marked **Borrowed**, **Adapted** or **Original** to this playbook. [Why it is built that way](lesson:how-this-tutorial-works).
 
 The lessons are written once and published twice: here, with the live diagrams, and [on the GitHub wiki](wiki:Start-Here), where they sit beside the playbook's full reference pages.

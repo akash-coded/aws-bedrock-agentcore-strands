@@ -231,7 +231,7 @@ def delegation() -> str:
 # --------------------------------------------------------------------------- D · the loops
 # Geometry, stated once so the drawing below is readable. Four phase nodes on a spine;
 # forward loops arc over it, loops that close inside a phase dip just under it, and the
-# three that run backwards swing deep below — which is the whole point of the picture.
+# three that run backwards swing deep below, which is the whole point of the picture.
 _PX = [("slate", "P0", "Frame", 150), ("indigo", "P1", "Design & Spec", 420),
        ("teal", "P2", "Build & Prove", 690), ("amber", "P3", "Run & Learn", 960)]
 _NW, _TOP, _BOT = 190, 150, 212

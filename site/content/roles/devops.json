@@ -15,25 +15,25 @@
   "Recover"
  ],
  "intro": [
-  "Your job has not changed. Accounts, pipelines, deployments, permissions, recovery — the list is the same list, and most of what you already know transfers intact. Three things underneath it are new, and every step below is one of them working through. The **model version is part of the environment**, so an environment can change behaviour with no deploy and no diff. The **bill moves with behaviour** rather than with traffic, so capacity planning becomes cost instrumentation. And **text is an attack surface**, so an input is now something that can instruct.",
+  "Your job has not changed. Accounts, pipelines, deployments, permissions, recovery, the list is the same list, and most of what you already know transfers intact. Three things underneath it are new, and every step below is one of them working through. The **model version is part of the environment**, so an environment can change behaviour with no deploy and no diff. The **bill moves with behaviour** rather than with traffic, so capacity planning becomes cost instrumentation. And **text is an attack surface**, so an input is now something that can instruct.",
   "The second thing that changes is the order. A budget alarm is worth little in month three and a great deal in week one. Model access sits in somebody else's approval queue, so it is a lead-time item started on day one rather than a task scheduled for the week you need it. And the evaluation harness has to be a required status check *before* the first release is under time pressure, because that is the week it would otherwise quietly be made optional.",
   "Eight steps. Each one ends in something committed to a repository rather than configured in a console, because the capability you are actually building is the ability to destroy an environment and get it back."
  ],
  "owns": [
-  "The **landing zone** — accounts, isolation, and a tag scheme that makes cost attributable per feature",
-  "The **model gateway** — one layer every call passes through, with a per-call log nobody can route around",
+  "The **landing zone** (accounts, isolation, and a tag scheme that makes cost attributable per feature",
+  "The **model gateway**) one layer every call passes through, with a per-call log nobody can route around",
   "The pipeline, including the evaluation harness as a required status check rather than a comment",
   "Three deployable artefacts and three rollback paths: the code, the prompt, and the model version",
-  "The **enforced** controls — execution role scope, egress, caps in tool signatures — as distinct from the requested ones",
+  "The **enforced** controls (execution role scope, egress, caps in tool signatures) as distinct from the requested ones",
   "The kill switch, the containment caps, and the rehearsed recovery times"
  ],
  "not_yours": [
   "The **acceptance bar** per slice. The product manager derives it and QA curates the cases; your job is to make the gate unarguable, not to set it",
   "**Prompt content.** You version it, deploy it and roll it back. You do not write it",
-  "Which slices exist and what a wrong answer costs in each — that is the business's answer, and it is the input to your caps rather than your output",
+  "Which slices exist and what a wrong answer costs in each. That is the business's answer, and it is the input to your caps rather than your output",
   "The behaviour, release and expansion gates. You supply the evidence and the rollback; somebody else signs"
  ],
- "ai_stance": "Use a model where there is a schema to be right against and a cheap way to check. It is genuinely strong at CloudFormation, workflow YAML, IAM policy shapes and the first draft of a script, and it is confidently wrong about your account boundaries, your regions, your quotas and what a permission actually reaches. The pattern that works: the model writes the change, a machine judges it — `cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test — and you read the diff rather than the prose. Anything that widens a permission, opens an egress path or touches a production boundary is read line by line by a person, because a model cannot estimate a blast radius it has never had to unwind. Where a step below says *do not delegate*, that is the reason.",
+ "ai_stance": "Use a model where there is a schema to be right against and a cheap way to check. It is genuinely strong at CloudFormation, workflow YAML, IAM policy shapes and the first draft of a script, and it is confidently wrong about your account boundaries, your regions, your quotas and what a permission actually reaches. The pattern that works: the model writes the change, a machine judges it (`cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test) and you read the diff rather than the prose. Anything that widens a permission, opens an egress path or touches a production boundary is read line by line by a person, because a model cannot estimate a blast radius it has never had to unwind. Where a step below says *do not delegate*, that is the reason.",
  "reads": [
   [
    "How the whole lifecycle fits together",
@@ -55,7 +55,7 @@
    "phase": "Baseline",
    "title": "Stand up the account, the tags and the budget first",
    "when": "Week one, alongside discovery, before any resource exists",
-   "purpose": "The platform question for an agentic workload is not different in kind from any other. It is different in *when*. Some of what this workload needs bills for **existing** rather than for use — a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance bills from boot until it is stopped, and stored long-term memory bills by the hour — so the ordinary habit of standing something up to try it and tidying up later produces a fixed monthly charge with no feature attached to it. Four things go in before the first feature branch: an account boundary, a tag scheme that attributes cost per feature, infrastructure as code, and a budget alarm.",
+   "purpose": "The platform question for an agentic workload is not different in kind from any other. It is different in *when*. Some of what this workload needs bills for **existing** rather than for use, a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance bills from boot until it is stopped, and stored long-term memory bills by the hour, so the ordinary habit of standing something up to try it and tidying up later produces a fixed monthly charge with no feature attached to it. Four things go in before the first feature branch: an account boundary, a tag scheme that attributes cost per feature, infrastructure as code, and a budget alarm.",
    "activities": [
     {
      "do": "Separate the accounts before you separate the stacks",
@@ -100,7 +100,7 @@
     },
     {
      "tool": "Do not delegate",
-     "use": "The account boundary, and what is allowed to live in production. Blast radius is a business fact — which failures you can survive and who has to explain them — and a model has no way to estimate it.",
+     "use": "The account boundary, and what is allowed to live in production. Blast radius is a business fact, which failures you can survive and who has to explain them, and a model has no way to estimate it.",
      "caution": null
     }
    ],
@@ -133,12 +133,12 @@
    ],
    "example": {
     "title": "SkyWays · the line item nobody could name",
-    "body": "In week two an engineer stood up an OpenSearch Serverless collection to try retrieval over the fare rules. It was never wired into anything, and it was never switched off. On day 75 the bill came in at 4.4 times its estimate; that multiple was traced to four ordinary habits compounding, and the collection was not even part of it — it was a separate line that took an afternoon to attribute, because it carried no `Feature` tag and belonged to no stack. Two controls would have made it a two-minute question: a tag activated in week one, and a weekly read of the always-on register."
+    "body": "In week two an engineer stood up an OpenSearch Serverless collection to try retrieval over the fare rules. It was never wired into anything, and it was never switched off. On day 75 the bill came in at 4.4 times its estimate; that multiple was traced to four ordinary habits compounding, and the collection was not even part of it. It was a separate line that took an afternoon to attribute, because it carried no `Feature` tag and belonged to no stack. Two controls would have made it a two-minute question: a tag activated in week one, and a weekly read of the always-on register."
    },
    "pitfalls": [
     "Standing up a search collection or a runtime instance to try something, and relying on remembering to remove it. Both bill for existing, so a forgotten experiment is a fixed monthly cost attached to no feature and no owner.",
     "Tagging by team. The re-org lands in nine months and the question *what did rebooking cost* becomes permanently unanswerable for every month before it.",
-    "Activating cost allocation tags late. The tags were there all along, the cost data was not, and the first three months of spend can never be attributed — which is exactly the period you will be asked about."
+    "Activating cost allocation tags late. The tags were there all along, the cost data was not, and the first three months of spend can never be attributed, which is exactly the period you will be asked about."
    ],
    "done_when": "You can destroy a whole environment and rebuild it from the repository, and Cost Explorer can tell you what one feature cost last month without anyone opening a spreadsheet.",
    "pdlc": "P0"
@@ -149,7 +149,7 @@
    "phase": "Access",
    "title": "Get model access, then put every call behind one gateway",
    "when": "The request on day one; the gateway before the second team calls Bedrock directly",
-   "purpose": "Two things happen here and they move at different speeds. Model access in Bedrock is granted per model, **per region**, on request, and the approval sits in somebody else's queue — which makes it a lead-time item started on day one, not a task scheduled for the week you need it. The gateway is a build: one layer every model call passes through, so routing, budgets, fallbacks and a per-call log exist in one place instead of in four codebases. Without the per-call log you cannot diagnose a bill. You can only argue about it.",
+   "purpose": "Two things happen here and they move at different speeds. Model access in Bedrock is granted per model, **per region**, on request, and the approval sits in somebody else's queue, which makes it a lead-time item started on day one, not a task scheduled for the week you need it. The gateway is a build: one layer every model call passes through, so routing, budgets, fallbacks and a per-call log exist in one place instead of in four codebases. Without the per-call log you cannot diagnose a bill. You can only argue about it.",
    "activities": [
     {
      "do": "Request model access on day one, per model and per region",
@@ -157,7 +157,7 @@
     },
     {
      "do": "Use the inference profile ID, not the bare model ID",
-     "detail": "Many current models are only callable through a cross-region inference profile, whose identifier carries a geography prefix — `us.`, `eu.`, `apac.` — in front of the model ID. A bare ID returns a validation error telling you to retry with an inference profile. This is the single most common first-day error, and it reads like a permissions problem, so teams spend the morning in IAM."
+     "detail": "Many current models are only callable through a cross-region inference profile, whose identifier carries a geography prefix (`us.`, `eu.`, `apac.`) in front of the model ID. A bare ID returns a validation error telling you to retry with an inference profile. This is the single most common first-day error, and it reads like a permissions problem, so teams spend the morning in IAM."
     },
     {
      "do": "Read the quotas that actually apply to this account",
@@ -235,7 +235,7 @@
    },
    "pitfalls": [
     "Treating model access as a task rather than a lead-time item. It sits in someone else's queue, so a plan that schedules it as a day's work in week four discovers the truth in week five.",
-    "The bare model ID. It fails with something that reads like a permissions error, so the team spends the morning widening IAM policies — which then ship, over-permissive, and are never narrowed again.",
+    "The bare model ID. It fails with something that reads like a permissions error, so the team spends the morning widening IAM policies, which then ship, over-permissive, and are never narrowed again.",
     "Letting one team call Bedrock directly 'just for now'. The per-call log then has a hole in it, and the hole is always exactly the team whose spend you were asked to explain."
    ],
    "done_when": "Every model call in every environment goes through one endpoint, and you can produce yesterday's cost split by feature from its log without asking anybody for anything.",
@@ -287,7 +287,7 @@
     },
     {
      "tool": "Chat LLM",
-     "use": "Ask what could differ between two environments that a manifest diff would *not* catch — a quota, a data volume, a warm cache, a partner sandbox that behaves differently under load.",
+     "use": "Ask what could differ between two environments that a manifest diff would *not* catch, a quota, a data volume, a warm cache, a partner sandbox that behaves differently under load.",
      "caution": "Its list is a prompt for your own list, not a checklist. It does not know your partners and it will not mention the one that matters."
     },
     {
@@ -325,7 +325,7 @@
    ],
    "example": {
     "title": "SkyWays · twelve invented cases",
-    "body": "The first evaluation environment was seeded with twelve cases somebody wrote by hand on a Friday. Every one had a single passenger, a single delayed leg, a same-day alternative and no partner airline. The harness returned 94% and the team believed it for a fortnight. Codeshare — 11% of real traffic and the slice carrying all the risk — was not in the seed at all, because nobody imagines a mess they have not read. Re-seeding from a redacted export of 400 real cases took a day and dropped the score to 79%, which was the first honest number the project had."
+    "body": "The first evaluation environment was seeded with twelve cases somebody wrote by hand on a Friday. Every one had a single passenger, a single delayed leg, a same-day alternative and no partner airline. The harness returned 94% and the team believed it for a fortnight. Codeshare, 11% of real traffic and the slice carrying all the risk, was not in the seed at all, because nobody imagines a mess they have not read. Re-seeding from a redacted export of 400 real cases took a day and dropped the score to 79%, which was the first honest number the project had."
    },
    "pitfalls": [
     "A floating model alias in one environment. The score moves with no deploy, and the first three hours go into reading a diff that is empty, because the thing that changed was not in the repository.",
@@ -341,7 +341,7 @@
    "phase": "Pipeline",
    "title": "Make the harness a status check the merge cannot bypass",
    "when": "P1 into P2, before the first feature branch and before the first deadline",
-   "purpose": "CI for a system that is right *a share of the time* keeps every stage you already have and adds two: the evaluation harness, and a gate that reads its output per slice. The difference from ordinary CI is economic rather than technical. Tests are fast and free, so they run on everything; evaluation is slow and costs real money, so it cannot. The shape that works is the touched slice on every pull request, the full set nightly, cached model responses so a fixed golden set replays deterministically, and a required status check — because a gate a person can click past is a report.",
+   "purpose": "CI for a system that is right *a share of the time* keeps every stage you already have and adds two: the evaluation harness, and a gate that reads its output per slice. The difference from ordinary CI is economic rather than technical. Tests are fast and free, so they run on everything; evaluation is slow and costs real money, so it cannot. The shape that works is the touched slice on every pull request, the full set nightly, cached model responses so a fixed golden set replays deterministically, and a required status check, because a gate a person can click past is a report.",
    "activities": [
     {
      "do": "Keep the fast, free stages first and unchanged",
@@ -423,7 +423,7 @@
    ],
    "example": {
     "title": "SkyWays · the check that could be clicked past",
-    "body": "For three weeks the harness ran on every pull request and posted a comment. Nobody disabled it and nobody ignored it on principle. Then on the Thursday before the pilot the codeshare slice came back red, the release was in the calendar, and a senior engineer merged with the comment open in another tab — reasonably, in the moment, and with every intention of fixing it on Monday. The fix afterwards was one setting: the harness became a required status check. The argument that setting ended had been running since the harness was built."
+    "body": "For three weeks the harness ran on every pull request and posted a comment. Nobody disabled it and nobody ignored it on principle. Then on the Thursday before the pilot the codeshare slice came back red, the release was in the calendar, and a senior engineer merged with the comment open in another tab, reasonably, in the moment, and with every intention of fixing it on Monday. The fix afterwards was one setting: the harness became a required status check. The argument that setting ended had been running since the harness was built."
    },
    "pitfalls": [
     "Running the full evaluation on every push. It is slow and it is paid, so within a fortnight somebody makes it optional to unblock a release, and an optional gate is not a gate.",
@@ -440,7 +440,7 @@
    "phase": "Deploy",
    "title": "Ship behind a flag, and treat the prompt as a deployable artefact",
    "when": "The end of P2, at cut-over, and on every change after it",
-   "purpose": "The flag is the deployment primitive, because the rollback has to be faster than the incident. Four states, taken one at a time: **shadow**, where the agent decides on real traffic and acts on nothing; **5% canary**; **widen on evidence**; then all of it. The flag is also the rollback, which is why it gets tested rather than believed. The part teams miss is that code is not the only deployable thing here. A prompt change and a model version change alter behaviour with no build, so they need the same versioning, the same review and the same rollback path as the binary — and a prompt change is the most common production change there is.",
+   "purpose": "The flag is the deployment primitive, because the rollback has to be faster than the incident. Four states, taken one at a time: **shadow**, where the agent decides on real traffic and acts on nothing; **5% canary**; **widen on evidence**; then all of it. The flag is also the rollback, which is why it gets tested rather than believed. The part teams miss is that code is not the only deployable thing here. A prompt change and a model version change alter behaviour with no build, so they need the same versioning, the same review and the same rollback path as the binary, and a prompt change is the most common production change there is.",
    "activities": [
     {
      "do": "Make shadow a state of the system, not a branch",
@@ -452,7 +452,7 @@
     },
     {
      "do": "Blue/green the runtime and keep both warm through the window",
-     "detail": "Two versions serving, traffic shifted by the flag rather than by DNS, the old one warm until the widening finishes. AgentCore runtime versions behind an alias, or two task sets behind a load balancer — the mechanism matters far less than being able to shift back in seconds without a deploy."
+     "detail": "Two versions serving, traffic shifted by the flag rather than by DNS, the old one warm until the widening finishes. AgentCore runtime versions behind an alias, or two task sets behind a load balancer, the mechanism matters far less than being able to shift back in seconds without a deploy."
     },
     {
      "do": "Version the prompt and the model as first-class artefacts",
@@ -495,7 +495,7 @@
    ],
    "artifact": {
     "name": "Flag configuration and the deploy path",
-    "good": "One flag per action, each with its state, its prompt and model version, its widening condition and its owner, deployed from the same source as the code — and a rollback a person has actually thrown.",
+    "good": "One flag per action, each with its state, its prompt and model version, its widening condition and its owner, deployed from the same source as the code, and a rollback a person has actually thrown.",
     "owner": "Platform engineer, with the product manager on the states"
    },
    "template": {
@@ -526,7 +526,7 @@
    },
    "pitfalls": [
     "One flag for the whole feature. Refunds then sit at the same setting as showing options, so the only way to be careful about the dangerous action is to be slow about every safe one.",
-    "Shipping a prompt change outside the pipeline. It is a behaviour change with no build, no line in the release notes and nothing to roll back to — and it is the most common production change an agent gets.",
+    "Shipping a prompt change outside the pipeline. It is a behaviour change with no build, no line in the release notes and nothing to roll back to, and it is the most common production change an agent gets.",
     "A shadow path that is a separate code branch. It proves the shadow branch works. The first live call then executes code that has never run against real traffic."
    ],
    "done_when": "You can move any single action from on to shadow and back in under a minute through a recorded config change, and every trace says which flag state and prompt version produced it.",
@@ -554,11 +554,11 @@
     },
     {
      "do": "Chart the output mix weekly and alarm at five percentage points",
-     "detail": "The proportions of the decisions the agent makes — refund versus credit versus rebook. A probabilistic system changes behaviour when the world changes, with no deploy and no error. Five points week over week is this playbook's default starting threshold, and the alert re-opens the release gate automatically, which is what turns a chart into a control."
+     "detail": "The proportions of the decisions the agent makes, refund versus credit versus rebook. A probabilistic system changes behaviour when the world changes, with no deploy and no error. Five points week over week is this playbook's default starting threshold, and the alert re-opens the release gate automatically, which is what turns a chart into a control."
     },
     {
      "do": "Alarm on the three failure shapes specific to this workload",
-     "detail": "Cost per case above three times the estimate, sustained for an hour — a retry loop or a context that has grown. Loop-cap trips above baseline — the agent is going in circles and the cap is quietly doing all the work. Cache hit ratio collapsing — somebody moved a timestamp to the front of the prompt and every call is now full price."
+     "detail": "Cost per case above three times the estimate, sustained for an hour, a retry loop or a context that has grown. Loop-cap trips above baseline, the agent is going in circles and the cap is quietly doing all the work. Cache hit ratio collapsing, somebody moved a timestamp to the front of the prompt and every call is now full price."
     },
     {
      "do": "Give the product manager the readout in the shape of their bar sheet",
@@ -616,14 +616,14 @@
    ],
    "example": {
     "title": "SkyWays · the four habits, found in an afternoon",
-    "body": "On day 75 the bill was 4.4 times its estimate. There was no runaway and no single cause. There were four ordinary habits multiplying: the whole conversation resent as context on every turn (1.6x), the capable model used for classification as well as for the judgement call (1.5x), a cache being missed because a timestamp sat at the front of the prompt (1.3x), and uncapped retries (1.41x). Multiply those and you get 4.4. Finding it took an afternoon rather than a fortnight, and only because the per-call log carried tokens, **cached tokens** and a feature column on every row. Without the cached-token column the third habit is invisible — and the third habit is the one that is free to fix."
+    "body": "On day 75 the bill was 4.4 times its estimate. There was no runaway and no single cause. There were four ordinary habits multiplying: the whole conversation resent as context on every turn (1.6x), the capable model used for classification as well as for the judgement call (1.5x), a cache being missed because a timestamp sat at the front of the prompt (1.3x), and uncapped retries (1.41x). Multiply those and you get 4.4. Finding it took an afternoon rather than a fortnight, and only because the per-call log carried tokens, **cached tokens** and a feature column on every row. Without the cached-token column the third habit is invisible, and the third habit is the one that is free to fix."
    },
    "pitfalls": [
     "Counting a cache hit as a fresh call, or worse, as a failure. The first overstates the bill; the second has got a working system switched off by a team that believed its accuracy had collapsed overnight.",
     "Redacting by omission. The schema passes review, the incident arrives, and the row that would have explained it is precisely the row that was dropped for safety.",
     "Scraping cost metrics out of text logs. The regex survives until somebody reformats a message, and then it fails silently: the chart goes flat, which reads as good news."
    ],
-   "done_when": "For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it — with nothing unmasked that should not be.",
+   "done_when": "For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it, with nothing unmasked that should not be.",
    "figure": "bill_factors",
    "calc": "bill",
    "pdlc": "P3"
@@ -634,7 +634,7 @@
    "phase": "Protect",
    "title": "Give the agent the smallest identity that can do the job",
    "when": "Before the first write tool exists, and again at every new tool",
-   "purpose": "Least privilege is fifty years old — Saltzer and Schroeder set it out in 1975 — and nothing about an agent changes the principle. What changes is that the thing holding the privilege now decides for itself what to do with it, and it decides partly on text that arrived from outside. So the platform does two jobs. The first is ordinary and rigorous: separate identities for reading and writing, an execution role scoped to the tools this job actually has, egress that cannot reach an arbitrary endpoint, and a residency answer expressed in configuration. The second is new. Every ingested text is untrusted, **including a partner's API response**, and the only defence that holds is that the cap and the confirmation live in the tool contract and the IAM policy rather than in a prompt.",
+   "purpose": "Least privilege is fifty years old, Saltzer and Schroeder set it out in 1975, and nothing about an agent changes the principle. What changes is that the thing holding the privilege now decides for itself what to do with it, and it decides partly on text that arrived from outside. So the platform does two jobs. The first is ordinary and rigorous: separate identities for reading and writing, an execution role scoped to the tools this job actually has, egress that cannot reach an arbitrary endpoint, and a residency answer expressed in configuration. The second is new. Every ingested text is untrusted, **including a partner's API response**, and the only defence that holds is that the cap and the confirmation live in the tool contract and the IAM policy rather than in a prompt.",
    "activities": [
     {
      "do": "Split read from write",
@@ -642,11 +642,11 @@
     },
     {
      "do": "Scope the execution role to the tools in this job's contract",
-     "detail": "Not the service — the operations and the resources. `bedrock:InvokeModel` on the two inference profile ARNs you pinned, not on `*`. When a tool is removed from the agent, its permission comes out in the same pull request, or the role only ever grows."
+     "detail": "Not the service: the operations and the resources. `bedrock:InvokeModel` on the two inference profile ARNs you pinned, not on `*`. When a tool is removed from the agent, its permission comes out in the same pull request, or the role only ever grows."
     },
     {
      "do": "Put the cap and the approver in the tool contract and the policy",
-     "detail": "A refund tool whose signature cannot express an amount above the cap cannot issue one, whatever it is told. A prompt saying *never refund more than $400* is a request, and a request can be argued with — by a passenger, by a partner's error text, or by a model that has reasoned its way somewhere reasonable. This is the whole of the lesson."
+     "detail": "A refund tool whose signature cannot express an amount above the cap cannot issue one, whatever it is told. A prompt saying *never refund more than $400* is a request, and a request can be argued with, by a passenger, by a partner's error text, or by a model that has reasoned its way somewhere reasonable. This is the whole of the lesson."
     },
     {
      "do": "Control egress explicitly",
@@ -654,7 +654,7 @@
     },
     {
      "do": "Treat every ingested text as untrusted, partner responses included",
-     "detail": "A passenger message, an uploaded PDF, a web page and a partner API's free-text `remarks` field are all inputs an attacker can reach. Delimit them, never concatenate them into instructions, strip control sequences — and assume the model will sometimes follow them anyway, which is exactly why the cap is the control and this is only the mitigation."
+     "detail": "A passenger message, an uploaded PDF, a web page and a partner API's free-text `remarks` field are all inputs an attacker can reach. Delimit them, never concatenate them into instructions, strip control sequences, and assume the model will sometimes follow them anyway, which is exactly why the cap is the control and this is only the mitigation."
     },
     {
      "do": "Answer residency in the configuration, not in a policy document",
@@ -719,11 +719,11 @@
     "body": "On day 82 the agent issued a $2,000 refund. Nothing was hacked and nothing crashed. The $400 cap and the named approver had both been decided on day 12, written into the autonomy record, and repeated clearly in the system prompt. Neither was in the code. The refund tool's signature accepted any amount, and the execution role could invoke it. A passenger message and a partner's delay note between them produced a case the model read as exceptional, and it acted entirely within its permissions and entirely outside its policy. The fix was two lines in a tool signature and one statement in an IAM policy. The postmortem's finding was not a person; it was an absent control."
    },
    "pitfalls": [
-    "A cap that lives in the prompt. A prompt is a request, and a request can be argued past — by a passenger, by a partner's error text, or by the model's own reasoning — and the amount is real money.",
+    "A cap that lives in the prompt. A prompt is a request, and a request can be argued past (by a passenger, by a partner's error text, or by the model's own reasoning) and the amount is real money.",
     "One role for the whole agent. The retrieval step then holds write permission for the entire run, so the blast radius of a single injected instruction is everything the agent could ever do.",
     "Trusting a partner's API response because it arrived over TLS from a company you have a contract with. The channel is authenticated; the free-text field inside it is typed by somebody you have never met."
    ],
-   "done_when": "A reviewer can read the execution role in two minutes and name, for every statement, which tool in the contract needs it — and the injection suite runs on every pull request with the cap assertion in it.",
+   "done_when": "A reviewer can read the execution role in two minutes and name, for every statement, which tool in the contract needs it, and the injection suite runs on every pull request with the cap assertion in it.",
    "pdlc": "P3"
   },
   {
@@ -732,7 +732,7 @@
    "phase": "Recover",
    "title": "Rehearse the rollback and cap the runaway",
    "when": "Before cut-over, then after every incident, forever",
-   "purpose": "Rollback is a capability, and a capability nobody has used is a belief. Rehearse it before cut-over, with a stopwatch, and write the measured time down. Two things differ from an ordinary service. You may need to roll back a **prompt** or a **model version** rather than code, so each is a versioned artefact with its own path and its own rehearsal. And the failure that costs most here is not a crash but a runaway: an agent that loops, or spends, or acts, faster than anybody is watching. That has three controls — a loop cap, a per-transaction token and cost cap, and a kill switch that degrades to the human desk rather than to an error page.",
+   "purpose": "Rollback is a capability, and a capability nobody has used is a belief. Rehearse it before cut-over, with a stopwatch, and write the measured time down. Two things differ from an ordinary service. You may need to roll back a **prompt** or a **model version** rather than code, so each is a versioned artefact with its own path and its own rehearsal. And the failure that costs most here is not a crash but a runaway: an agent that loops, or spends, or acts, faster than anybody is watching. That has three controls, a loop cap, a per-transaction token and cost cap, and a kill switch that degrades to the human desk rather than to an error page.",
    "activities": [
     {
      "do": "Rehearse every rollback before cut-over, with a stopwatch",
@@ -776,12 +776,12 @@
     },
     {
      "tool": "Chat LLM",
-     "use": "Turn a postmortem transcript into the five-part brief — pain, evidence, the missing enforced control, the fix, the value — and hold that format while the room is still looking for a person to blame.",
+     "use": "Turn a postmortem transcript into the five-part brief (pain, evidence, the missing enforced control, the fix, the value) and hold that format while the room is still looking for a person to blame.",
      "caution": "Check that its 'control' is genuinely enforceable. It will happily propose a clearer prompt, which is a request wearing a control's clothes."
     },
     {
      "tool": "Do not delegate",
-     "use": "Declaring the incident over. Somebody with accountability looks at the state of the world — what was written, what was refunded, what passengers were told — and says so with their name on it.",
+     "use": "Declaring the incident over. Somebody with accountability looks at the state of the world (what was written, what was refunded, what passengers were told) and says so with their name on it.",
      "caution": null
     }
    ],
@@ -814,7 +814,7 @@
    ],
    "example": {
     "title": "SkyWays · eleven minutes, known in advance",
-    "body": "Before cut-over the on-call engineer threw all four switches with a stopwatch: kill switch 40 seconds, flag to shadow 2 minutes, prompt rollback 3 minutes, model rollback 11 minutes because it redeploys the runtime. Those four numbers went into the runbook beside the date. On day 82, when the $2,000 refund surfaced, the question in the room was never *can we stop it* — it was *which switch*. Refunds went back to gated in two minutes while the tool signature was fixed properly over the next two days, and the rest of the assistant kept running, because the flags were per action. Nobody had to be brave."
+    "body": "Before cut-over the on-call engineer threw all four switches with a stopwatch: kill switch 40 seconds, flag to shadow 2 minutes, prompt rollback 3 minutes, model rollback 11 minutes because it redeploys the runtime. Those four numbers went into the runbook beside the date. On day 82, when the $2,000 refund surfaced, the question in the room was never *can we stop it*: it was *which switch*. Refunds went back to gated in two minutes while the tool signature was fixed properly over the next two days, and the rest of the assistant kept running, because the flags were per action. Nobody had to be brave."
    },
    "pitfalls": [
     "A rollback that has only ever been described. The first attempt happens during an incident, with the wrong person at the keyboard, and the eleven minutes nobody measured turn into forty.",

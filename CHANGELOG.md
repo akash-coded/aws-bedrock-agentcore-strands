@@ -8,6 +8,28 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · Every page checked against the writing and design skills
+
+### Changed
+- **No dashes in prose anywhere on the site.** 1,358 em and en dashes across the 64 lessons, the five role
+  journeys, the leadership page, the mental models and the frameworks data became commas, full stops, colons or
+  parentheses, chosen by what the dash was doing: a paired aside becomes commas, or parentheses when it holds a
+  list; a dash after a short lead becomes a colon; a dash before a new clause becomes a full stop; a numeric range
+  reads "1 to 15". Dashes that are data, an empty table cell, stay
+- **Contrasts and stock words.** "The platform question is not different in kind. It is different in when" and
+  "the decision is not which assistant, it is that…" now state the point; "leverage" and "deep dive" are gone
+- **Measured design rules.** Every transition on the manual sits on the motion-token scale (150, 250, 350 or 400
+  milliseconds) with the smooth-out easing; every tap target on a phone is at least 44 pixels tall, including
+  copy buttons, the theme toggle, the menu, the drawer's groups and links, the tour buttons and the stepper dots;
+  no label is under 11 pixels
+
+### Kept on purpose
+- The interview banks' "The insight" and "Red flag" labels and the glossary-style definition lists: labels that
+  carry structure, not decoration
+- Contrasts that correct a real belief, such as "show blocked decisions, not just blocked work"
+- The body font, Inter, which the taste skill would replace; changing it is a visible design decision, left to
+  the author
+
 ## 2026-09-25 · The home page in plain sentences
 
 ### Changed

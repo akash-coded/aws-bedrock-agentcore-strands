@@ -3,7 +3,7 @@ title: How to Review AI-Generated Code: By Risk, Not by Diff Size
 short: Review AI code by risk
 wiki: How-to-Review-AI-Generated-Code-by-Risk
 description: When agents write most of the code, review is the bottleneck. How to band changes by what they touch, route readers by band, and halve a review queue.
-dek: The policy is the bottleneck, not the people. Two readers on a money tool, one on a reversible write, none on a read-only change — and a count of what escapes.
+dek: The policy is the bottleneck, not the people. Two readers on a money tool, one on a reversible write, none on a read-only change, and a count of what escapes.
 level: Intermediate
 keywords: how to review AI generated code, code review AI agents, AI code review best practices, pull request review bottleneck, risk-based code review, CODEOWNERS, review queue
 updated: 2026-09-24
@@ -11,8 +11,8 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The rule in one sentence.** Review AI-generated code by the **risk band of the most dangerous
-> thing a change touches** — two named readers on money, identity or policy, one reader on a
-> reversible or hard-to-reverse write, and the harness alone on read-only changes — enforce the band
+> thing a change touches**: two named readers on money, identity or policy, one reader on a
+> reversible or hard-to-reverse write, and the harness alone on read-only changes, enforce the band
 > with a path rule nobody sets for their own work, and report three numbers monthly so the policy
 > survives: slots needed, days in the queue, and escapes from the no-reader lane.
 
@@ -37,7 +37,7 @@ read them, so a policy that ignores risk will always produce a queue.
 
 When agents write most of the code, **reading becomes the scarce resource**. Hiring a reviewer takes
 months; the agents will produce more changes long before then. So the only lever you control is how
-much reading each change needs — and the size of a diff is the wrong way to decide it. A one-line
+much reading each change needs, and the size of a diff is the wrong way to decide it. A one-line
 change to a refund cap is the most dangerous change of the week; a large refactor of a read-only
 report may be the safest.
 
@@ -52,13 +52,13 @@ policy needed 18 slots against 4.5 a day: **a four-day queue**.
 
 ### Step 2 · Band every change by what it touches
 
-Give every tool and path a band from the authority budget — R1 read-only, R2 reversible write, R3
-hard-to-reverse write, R4 money, R5 irreversible — and let a change inherit the band of the most
+Give every tool and path a band from the authority budget (R1 read-only, R2 reversible write, R3
+hard-to-reverse write, R4 money, R5 irreversible) and let a change inherit the band of the most
 dangerous thing it touches. No band is ever decided by the size of a diff.
 
 ### Step 3 · Put the band in a path rule nobody sets for their own work
 
-Generate a rule file in the repository — a `CODEOWNERS` file, for example — from the authority budget,
+Generate a rule file in the repository (a `CODEOWNERS` file, for example) from the authority budget,
 so the band of a change is decided by the paths it touches, not by the author. Self-assessed risk is
 not a control.
 
@@ -75,14 +75,14 @@ the same people reading at the same speed.
 
 ### Step 5 · Open the no-reader lane, and count the escapes
 
-A lane with no reader is exactly as safe as its harness, so **count the escapes** — defects that reach
-production through it — every week. Zero escapes over *n* merges bounds the escape rate at about
+A lane with no reader is exactly as safe as its harness, so **count the escapes**, defects that reach
+production through it, every week. Zero escapes over *n* merges bounds the escape rate at about
 **3 ÷ n** (the rule of three): 3% after 100 merges, 1.5% after 200. Write the lane's charter before
-opening it, including the condition that closes it — and close it on the first escape.
+opening it, including the condition that closes it, and close it on the first escape.
 
 ### Step 6 · Report three numbers, monthly, together
 
-Report **review slots needed**, **days in the queue** and **escapes from the no-reader lane** — and
+Report **review slots needed**, **days in the queue** and **escapes from the no-reader lane**, and
 report the escape count even when it is zero. Any one alone can be argued with; together they answer
 whether you went faster without going blind.
 
@@ -95,7 +95,7 @@ whether you went faster without going blind.
 ## Why it matters
 
 Adding reviewers is slow and does not scale with agents. Changing the policy takes an afternoon and
-cuts most of the queue — while *raising* the scrutiny on the changes that can actually do harm.
+cuts most of the queue, while *raising* the scrutiny on the changes that can actually do harm.
 
 ## Try it
 
@@ -106,7 +106,7 @@ the refund tool. The current policy is two reviewers on everything, and the team
 <details><summary>Show the answer</summary>
 
 **Now: 18 slots ÷ 4 = 4.5 days.** Nine changes × two readers. **After routing: 8 slots ÷ 4 = 2 days**
-— the three read-only changes need none, the four reversible writes need one each, and the two refund
+the three read-only changes need none, the four reversible writes need one each, and the two refund
 changes keep two each: 0 + 4 + 4 = 8. The refund changes lose nothing; the queue halves.
 
 </details>
@@ -114,7 +114,7 @@ changes keep two each: 0 + 4 + 4 = 8. The refund changes lose nothing; the queue
 ## Key takeaways
 
 1. **Reading is the scarce resource**: measure the queue in slots, and change the policy, not the headcount.
-2. **Band by what a change touches**, enforced by a path rule — two readers on money, one on writes, none on reads.
+2. **Band by what a change touches**, enforced by a path rule, two readers on money, one on writes, none on reads.
 3. **Count the escapes**, and report slots, queue days and escapes together every month.
 
 ## FAQ
@@ -133,7 +133,7 @@ reviews by risk keeps scrutiny where the harm is.
 
 ### Is it safe to merge code without a human reviewer?
 
-For read-only, low-risk changes, only as safe as the automated checks that gate the merge — which is
+For read-only, low-risk changes, only as safe as the automated checks that gate the merge, which is
 why the no-reader lane needs a written charter, a weekly count of escaped defects, and a rule that
 closes it on the first escape.
 
@@ -166,8 +166,8 @@ List any path you could not place, and any file that serves more than one band.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Risk bands, routing by band, the no-reader lane and the three numbers | **Original** — this playbook | [How to review by risk band](wiki:How-to-Review-by-Risk-Band) |
+| Risk bands, routing by band, the no-reader lane and the three numbers | **Original**: this playbook | [How to review by risk band](wiki:How-to-Review-by-Risk-Band) |
 | Queue time = slots needed ÷ slots per day | **Borrowed** | Little, J. D. C. (1961). *Operations Research* 9(3) |
 | The rule of three for zero observed failures | **Borrowed** | Hanley, J. A. & Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? *JAMA* 249(13) |
 | Code owners as a path rule | **Borrowed** | GitHub Docs. [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) |
-| The SkyWays queue | **Illustrative** — a fictional airline | [Try the queue calculator](sim:#/toolkit/queue) |
+| The SkyWays queue | **Illustrative**: a fictional airline | [Try the queue calculator](sim:#/toolkit/queue) |

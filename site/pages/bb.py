@@ -1,9 +1,9 @@
 """The explainer-illustration grammar, as SVG primitives.
 
 A port of the ``explainer-illustrations`` skill's ``bb-engine.js`` to the build: the same vocabulary
-— a title row with a green accent bar and solid pills, rounded panels with a pale fill, a solid
+a title row with a green accent bar and solid pills, rounded panels with a pale fill, a solid
 label column at the left of each panel, white nodes with a flat two-tone icon, dashed flows that
-move, numbered circles, tinted callouts and "Best for" lists — drawn once here so every picture
+move, numbered circles, tinted callouts and "Best for" lists, drawn once here so every picture
 on the site is the same picture.
 
 Colours are CSS tokens (``--bb-*`` in base.css), never literals, so a drawing follows the theme.

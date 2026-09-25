@@ -35,7 +35,7 @@ how agentic projects end up rebuilt.
 
 ## The twelve steps
 
-### P0 · Frame — is it worth doing, and is it AI at all?
+### P0 · Frame: is it worth doing, and is it AI at all?
 
 **Step 1 · Measure the pain.** Turn the request into one line: who has the problem, how often, what
 it costs today, and the evidence. *Owner: product manager.* [P0 Frame](lesson:p0-frame)
@@ -46,7 +46,7 @@ wrong? Two or three of your top five requests will come back as rules. *Owner: p
 **Step 3 · Size the value and set autonomy per action.** Net value after running and checking it, and
 an autonomy level for each action from what a mistake costs. *Owner: product manager, with the sponsor.*
 
-### P1 · Design & Spec — what exactly, and under whose authority?
+### P1 · Design & Spec: what exactly, and under whose authority?
 
 **Step 4 · Map every step.** Tag each step exact, best-guess or consequential; exact work goes in
 code. *Owner: solution architect.* [P1 Design & Spec](lesson:p1-design-and-spec)
@@ -59,7 +59,7 @@ per slice from damage and saving. *Owner: product manager, with QA.*
 signature with a test. Nothing enters P2 until the spec, the bars and the budget are signed.
 *Owner: solution architect.* [The hard gate](lesson:the-hard-gate)
 
-### P2 · Build & Prove — does it meet the bar, slice by slice?
+### P2 · Build & Prove: does it meet the bar, slice by slice?
 
 **Step 7 · Cut bolts, walking skeleton first.** One unknown per bolt, cut by dependency, integrated
 the same day. *Owner: engineering lead.* [Bolts vs sprints](lesson:bolts-vs-sprints)
@@ -74,7 +74,7 @@ when a touched slice falls below its bar. *Owner: QA lead.* [Prove the bar](less
 **Step 10 · Run it in shadow.** The agent decides on live traffic and acts on nothing; agreement per
 slice over a window fixed in advance. *Owner: QA lead.* [Shadow and cut-over](lesson:shadow-mode-and-cutover)
 
-### P3 · Run & Learn — is it still true, and what did it cost?
+### P3 · Run & Learn: is it still true, and what did it cost?
 
 **Step 11 · Cut over at 5%, widen on evidence, rehearse the rollback.** Each widening names the
 evidence that earned it. *Owner: product manager and DevOps.* [P3 Run & Learn](lesson:p3-run-and-learn)
@@ -89,14 +89,14 @@ The board above draws it phase by phase: **the model drafts, you check, and one 
 never delegated**. The model can draft the pain register from interview notes, the spec from the
 PRD, the tests from the spec and the postmortem from the trace. It must not decide what a mistake
 costs your business, which actions it may take alone, whether a slice is good enough, or who is
-accountable — those are facts about your business, regulator and ledger that no context makes
+accountable: those are facts about your business, regulator and ledger that no context makes
 knowable from outside.
 
 ## Where you'll use it
 
 - **As the project plan's skeleton**: twelve steps, each with an owner and an artefact, instead of one
   "build the agent" bar.
-- **In a kick-off**, to show every role where it is accountable — and where it deliberately is not.
+- **In a kick-off**, to show every role where it is accountable, and where it deliberately is not.
 - **As an audit checklist** for a project already under way: find the first step that was skipped.
 
 ## Why it matters
@@ -113,7 +113,7 @@ A team has a working prototype of a refund agent, a slide deck, and a launch dat
 
 <details><summary>Show the answer</summary>
 
-**Most likely steps 1, 5 and 6** — the measured pain, the bar per slice and the authority budget —
+**Most likely steps 1, 5 and 6** (the measured pain, the bar per slice and the authority budget)
 because a prototype-first project jumps from an idea to step 8. Doing them now is still cheap: a pain
 line and a value line are an afternoon; the bars are arithmetic once the damage and saving per slice
 are known; and the authority budget is a table plus a typed cap and two tests in the refund tool. What
@@ -123,7 +123,7 @@ is expensive is skipping them and discovering the gaps after launch.
 
 ## Key takeaways
 
-1. **Twelve steps, four phases, one owner each** — and the order is what makes later steps cheap.
+1. **Twelve steps, four phases, one owner each**, and the order is what makes later steps cheap.
 2. **Every step leaves an artefact**, so "done" is something a sceptic can open.
 3. **The model drafts, you check**, and one decision per step is never delegated.
 
@@ -145,8 +145,8 @@ worked example, ran ninety days.
 
 ### Who should lead an agentic AI project?
 
-Each phase has one accountable owner — product manager, solution architect, engineering lead, and
-the sponsor for the running system — and the sponsor owns the lifecycle as a whole. A programme or
+Each phase has one accountable owner (product manager, solution architect, engineering lead, and
+the sponsor for the running system) and the sponsor owns the lifecycle as a whole. A programme or
 delivery manager runs the cadence and the board across them.
 
 ### What is the most common mistake?
@@ -164,7 +164,7 @@ defending decisions nobody made on purpose.
 | **A GenAI or agentic AI engineer** | Automate the evidence: the harness, the per-call log and the drift job make steps 8 to 12 cheap to prove. | Ask a coding agent to scaffold all three in the repository on day one. |
 
 **Across the enterprise.** Run every AI project on the same twelve steps. The portfolio view is then
-comparable — which step, which evidence, which owner — whatever method each team uses inside it.
+comparable (which step, which evidence, which owner) whatever method each team uses inside it.
 
 **The ten-minute workflow.** An honest status report in one prompt:
 
@@ -178,8 +178,8 @@ authority in code, bolts, harness, shadow, widen, drift, two numbers. List what 
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The twelve steps, their order and owners | **Original** — this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC) · [Gates and Governance](wiki:Gates-and-Governance#who-signs-what) |
-| The model drafts, you check, one thing never delegated | **Original** — this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#where-the-model-helps-and-where-it-must-not) |
+| The twelve steps, their order and owners | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC) · [Gates and Governance](wiki:Gates-and-Governance#who-signs-what) |
+| The model drafts, you check, one thing never delegated | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#where-the-model-helps-and-where-it-must-not) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
 | Bolts | **Adapted** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
-| The SkyWays timeline | **Illustrative** — a fictional airline | [The simulator](sim:#/) |
+| The SkyWays timeline | **Illustrative**: a fictional airline | [The simulator](sim:#/) |

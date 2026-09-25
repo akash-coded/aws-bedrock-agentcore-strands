@@ -3,7 +3,7 @@ title: What Is AI-DLC? AWS's AI-Driven Development Lifecycle
 short: What is AI-DLC?
 wiki: What-Is-AI-DLC-AWS-AI-Driven-Development-Lifecycle
 description: AI-DLC is AWS's AI-Driven Development Life Cycle: AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days.
-dek: Three phases, two rituals, one new unit of work — and what AI-DLC deliberately leaves for you to decide.
+dek: Three phases, two rituals, one new unit of work, and what AI-DLC deliberately leaves for you to decide.
 level: Beginner
 keywords: what is AI-DLC, AWS AI-DLC, AI-driven development life cycle, AIDLC AWS, mob elaboration, mob construction, bolts vs sprints, aidlc-workflows, AI-DLC explained
 updated: 2026-09-24
@@ -12,8 +12,8 @@ updated: 2026-09-24
 > [!TIP]
 > **AI-DLC in one sentence.** The AI-Driven Development Life Cycle, published by AWS in July 2025, is
 > a methodology in which AI creates the plans, asks the clarifying questions and does the
-> implementation while people make the critical decisions, run in three phases — **Inception**,
-> **Construction** and **Operations** — in short **bolts** of hours or days instead of sprints, with
+> implementation while people make the critical decisions, run in three phases (**Inception**,
+> **Construction** and **Operations**) in short **bolts** of hours or days instead of sprints, with
 > the whole team validating the AI's proposals together in **mob** sessions.
 
 {{map:what-is-ai-dlc}}
@@ -28,37 +28,37 @@ updated: 2026-09-24
 
 - The coding agent builds a story in hours, then waits two weeks for the sprint review.
 - Requirements are "clarified" in a thread nobody else reads, and the agent builds its own interpretation.
-- Every task, from a typo to a new service, gets the same ceremony — so the team starts skipping it.
+- Every task, from a typo to a new service, gets the same ceremony, so the team starts skipping it.
 
 AI-DLC was written for exactly these three: planning cycles too long for how fast AI builds,
 clarification that happens in private, and process that does not scale with the task.
 
 ## What is AI-DLC?
 
-AI-DLC — the **AI-Driven Development Life Cycle** — is a software engineering methodology introduced
+AI-DLC, the **AI-Driven Development Life Cycle**, is a software engineering methodology introduced
 by Raja SP of AWS in July 2025. Its central inversion is who starts the work: the AI **initiates**,
 producing plans, questions and implementations, and people **validate**, making the decisions that
 need judgement, accountability or context the AI does not have. It describes itself as a
-machine–human collaboration, where earlier methods such as Scrum were designed around people doing
+machine to human collaboration, where earlier methods such as Scrum were designed around people doing
 all of the work.
 
 ## How AI-DLC works, step by step
 
-### Step 1 · Inception — turn intent into units of work, together
+### Step 1 · Inception: turn intent into units of work, together
 
 The team states a business intent, and the AI turns it into requirements, stories and **units of
-work** — AI-DLC's replacement for epics. It does this through **Mob Elaboration**: the whole team in
+work**: AI-DLC's replacement for epics. It does this through **Mob Elaboration**: the whole team in
 one session, answering the AI's clarifying questions and validating its proposals in real time,
 instead of each person reviewing a document alone.
 
-### Step 2 · Construction — AI proposes the design and the code, the team decides
+### Step 2 · Construction: AI proposes the design and the code, the team decides
 
 Using the validated context from Inception, the AI proposes a logical architecture, domain models,
 code and tests. **Mob Construction** is the equivalent ritual: the team clarifies technical decisions
 and architectural choices as they arise. Engineering disciplines such as domain-driven design and
 test-driven development are part of the workflow rather than optional extras.
 
-### Step 3 · Operations — deploy from the context you built up
+### Step 3 · Operations: deploy from the context you built up
 
 In Operations the AI applies everything accumulated in the earlier phases to infrastructure as code
 and deployment, with the team overseeing. The context is the thread that runs through all three
@@ -73,7 +73,7 @@ for most of the fortnight; the bolt matches the planning cycle to the building s
 ### Step 5 · Let the workflow size itself
 
 In November 2025 AWS open-sourced AI-DLC's **adaptive workflows**, which choose both the breadth of a
-task — which stages to include — and the depth of each stage, from the complexity of the intent. A
+task, which stages to include, and the depth of each stage, from the complexity of the intent. A
 simple defect fix skips elaborate requirements analysis; a new service gets the full treatment. The
 project, `awslabs/aidlc-workflows`, is MIT-0 licensed and runs inside several coding agents,
 including Claude Code, Kiro, Cursor, Codex and GitHub Copilot.
@@ -99,14 +99,14 @@ most of what you need. If it calls a model, you need the rest.
 ## Where you'll use it
 
 - **When your team builds with coding agents** and the sprint no longer matches the building speed.
-- **When clarification keeps happening in private threads** — mob sessions make it shared and recorded.
-- **When process is one-size-fits-all** — adaptive depth is the fix, whichever method you run.
+- **When clarification keeps happening in private threads**: mob sessions make it shared and recorded.
+- **When process is one-size-fits-all**: adaptive depth is the fix, whichever method you run.
 
 ## Why it matters
 
 AI-DLC is the most complete published answer, from a major vendor, to how software teams should
-reorganise when AI does most of the building. Knowing precisely what it covers — and what it does
-not — lets you adopt it without assuming it also decides your acceptance bars and guardrails.
+reorganise when AI does most of the building. Knowing precisely what it covers, and what it does
+not, lets you adopt it without assuming it also decides your acceptance bars and guardrails.
 
 ## Try it
 
@@ -165,7 +165,7 @@ the MIT-0 licence.
 | --- | --- | --- |
 | **A forward-deployed engineer** | Run Mob Elaboration with the customer: the AI proposes units of work and asks the questions, the customer's people answer in the room, and the answers become the spec. | Have a model generate the clarifying questions from the brief beforehand, so the session starts at the hard ones. |
 | **A product manager or FDPM** | Plan in bolts of hours or days, and treat the AI's plan as a proposal to validate, not accept. The critical decisions stay yours. | Ask the model to list its own assumptions in the plan, each with how you would check it. |
-| **A GenAI or agentic AI engineer** | Keep the accumulated context — decisions, records, specs — in the repository, so every bolt starts informed. | Have the coding agent read the context folder first and say what it will build before it builds. |
+| **A GenAI or agentic AI engineer** | Keep the accumulated context (decisions, records, specs) in the repository, so every bolt starts informed. | Have the coding agent read the context folder first and say what it will build before it builds. |
 
 **Across the enterprise.** AI-DLC scales across teams when the context artefacts are standard and the
 mob rituals are timeboxed. Add what the method leaves to you: the bar per slice and the authority budget.
@@ -185,5 +185,5 @@ how much of the plan each answer changes. For each question, say who in the room
 | AI-DLC: its principle, phases, rituals, units of work and bolts | **Borrowed** | Raja SP (2025). [AI-Driven Development Life Cycle: Reimagining Software Engineering](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS, 31 July |
 | Adaptive breadth and depth per task | **Borrowed** | Matos, W., Jain, R., Jog, S. & Raja SP (2025). [Open-sourcing adaptive workflows for AI-DLC](https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/). AWS, 29 November |
 | The adaptive workflow rules and the harnesses they run in | **Borrowed** | [awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows) |
-| AI-DLC as a machine–human methodology, with DDD and TDD built in | **Borrowed** | IBM. [What is AI-DLC?](https://www.ibm.com/think/topics/ai-dlc) |
-| The mapping onto P0–P3, and what the lifecycle adds | **Original** — this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
+| AI-DLC as a machine to human methodology, with DDD and TDD built in | **Borrowed** | IBM. [What is AI-DLC?](https://www.ibm.com/think/topics/ai-dlc) |
+| The mapping onto P0 to P3, and what the lifecycle adds | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |

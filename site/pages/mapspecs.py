@@ -116,7 +116,7 @@ MAPS["agentic-pdlc-for-program-managers"] = dict(
         [_c("5 · Daily rhythm", "one question at standup", "users"), _c("6 · Review queue", "slots, not tickets", "table")],
         [_c("7 · Gate conditions", "evidence, never dates", "gate"), _c("8 · Two numbers", "and the maturity check", "chart")],
     ]),
-    callout=("The programme manager owns the board, the cadence and the review queue — and reports evidence, never dates.", "t", 44),
+    callout=("The programme manager owns the board, the cadence and the review queue, and reports evidence, never dates.", "t", 44),
     alt="The programme manager's eight steps across the four phases",
 )
 
@@ -196,7 +196,7 @@ MAPS["p0-frame"] = dict(
     ],
     end=_c("Agentic", "unrecoverable steps gated", "robot", P0),
     aside=("The first no ends it", ["Most of a roadmap comes back as rules", "A person is cheaper below the volume line", "Recoverability sets the autonomy, not capability"], P0),
-    callout=("Four decisions on paper, before anything is built — each cheaper now than it will ever be again.", P0, 40),
+    callout=("Four decisions on paper, before anything is built, each cheaper now than it will ever be again.", P0, 40),
     alt="The AI-fit funnel: judgement call, volume, recoverability; each no exits to a rule, a person, or a person in the loop",
 )
 
@@ -452,10 +452,10 @@ MAPS["ai-delivery-maturity-model"] = dict(
 
 MAPS["rolling-out-agentic-delivery"] = dict(
     kind="flow", title=[("Ninety days", P0), ("one feature, five stages, one trap each",)], hue=P0, tall=True, gap=26,
-    nodes=[_c("Days 1–15 · Choose", "for provability, not value · trap: the flagship", "target"),
-           _c("Days 15–30 · Specify", "spec, bars, authority · trap: the persuasive demo", "spec"),
-           _c("Days 30–60 · Build", "a slice a day, in CI · signal: merges most days", "bolt"),
-           _c("Days 60–90 · Shadow", "beside the people, then 5% · rule: widen on evidence", "eye")],
+    nodes=[_c("Days 1 to 15 · Choose", "for provability, not value · trap: the flagship", "target"),
+           _c("Days 15 to 30 · Specify", "spec, bars, authority · trap: the persuasive demo", "spec"),
+           _c("Days 30 to 60 · Build", "a slice a day, in CI · signal: merges most days", "bolt"),
+           _c("Days 60 to 90 · Shadow", "beside the people, then 5% · rule: widen on evidence", "eye")],
     terminal=_c("Day 90 on · Report", "two numbers, every cycle", h="n"),
     callout=("Feature two needs less of you than feature one did. That, not the demo, is the signal the method has landed.", P0, 40),
     alt="A ninety-day rollout in five stages from choosing the feature to reporting two numbers every cycle",
@@ -479,14 +479,14 @@ MAPS["team-structure-for-agentic-ai"] = dict(
 MAPS["skyways-case-study"] = dict(
     kind="bands", title=[("SkyWays", P1), ("ninety days, thirteen episodes",)],
     bands=[
-        {"hue": P0, "key": "P0 · days 1–9", "name": "Frame", "cells": [
+        {"hue": P0, "key": "P0 · days 1 to 9", "name": "Frame", "cells": [
             _c("Day 1 · Requirements", "31, four the same", "doc"), _c("Day 4 · The email", "every line credited", "mail"),
             _c("Day 6 · A $400 limit", "reshapes three NFRs", "money"), _c("Day 9 · NFR workshop", "nine ratified", "users")]},
-        {"hue": P1, "key": "P1 · days 12–20", "name": "Spec", "cells": [
+        {"hue": P1, "key": "P1 · days 12 to 20", "name": "Spec", "cells": [
             _c("Day 12 · Two ADRs", "one per tension", "scale"), _c("Day 15 · Eight fields", "from a 30-page PRD", "spec"), _c("Day 20 · Buy or build", "fast start, closed door", "swap")]},
-        {"hue": P2, "key": "P2 · days 30–60", "name": "Build", "cells": [
+        {"hue": P2, "key": "P2 · days 30 to 60", "name": "Build", "cells": [
             _c("Day 30 · First bolt", "on screen by 4 pm", "bolt"), _c("Day 45 · 82.4% vs 80", "a score, not a proof", "chart"), _c("Day 60 · A 4-day queue", "two of nine touch money", "clock")]},
-        {"hue": P3, "key": "P3 · days 75–90", "name": "Run", "cells": [
+        {"hue": P3, "key": "P3 · days 75 to 90", "name": "Run", "cells": [
             _c("Day 75 · A 4.4× bill", "flat traffic, cold cache", "bill"), _c("Day 82 · A refund", "$2,000, not owed", "warn"), _c("Day 90 · Both numbers", "time saved, money spent", "trend")]},
     ],
     callout=("Failures left in: the score that was not a proof, the queue that was money, the bill that was habits. Each closed a loop.", P1, 40),
@@ -543,7 +543,7 @@ MAPS["how-to-answer-ai-interview-questions"] = dict(
         _c("Design an AI product", "", "target"), _c("Is 92% good enough?", "", "scale"), _c("Why is it wrong?", "", "ask"),
         _c("Why did cost jump?", "", "bill"), _c("It caused harm. Now?", "", "warn"), _c("Tell me about a time", "", "person")]},
     right={"hue": P1, "name": "…reach for", "cells": [
-        _c("The P0–P3 answer", "", "layers"), _c("The bar in three lines", "", "chart"), _c("The grounding triangle", "", "search"),
+        _c("The P0 to P3 answer", "", "layers"), _c("The bar in three lines", "", "chart"), _c("The grounding triangle", "", "search"),
         _c("The four signatures", "", "lock"), _c("The missing control", "", "shield"), _c("STAR, number, change", "", "trend")]},
     callout=("Six question shapes, six frameworks. Each framework is a structure the interviewer can follow and a number they can check.", P1, 40),
     alt="Six kinds of AI interview question, each matched to the framework for answering it",

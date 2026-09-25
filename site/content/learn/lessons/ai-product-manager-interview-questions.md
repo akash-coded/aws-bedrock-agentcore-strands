@@ -10,9 +10,9 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The bank in one sentence.** AI product manager interviews probe judgement about uncertainty — whether
+> **The bank in one sentence.** AI product manager interviews probe judgement about uncertainty, whether
 > a job needs a model at all, how good is good enough per slice, what the product may do without the
-> user, how you prove it and what it costs — and these ten questions cover that ground, each with the
+> user, how you prove it and what it costs, and these ten questions cover that ground, each with the
 > framework to structure the answer, what a strong answer contains, the follow-up interviewers use to
 > find the edge of your understanding, and the red flag they listen for.
 
@@ -34,8 +34,8 @@ Each question below is built to expose exactly one of those.
 
 ## What does an AI PM interview test?
 
-**Judgement about software that is right a share of the time.** Big-tech PM loops — Google's is the best
-known — are commonly reported to cover product sense, analytics, strategy, technical depth and
+**Judgement about software that is right a share of the time.** Big-tech PM loops, Google's is the best
+known, are commonly reported to cover product sense, analytics, strategy, technical depth and
 leadership; Google does not publish official round names. For AI roles each round gains a twist: product
 sense asks whether it is AI work at all, analytics asks how good is good enough per slice, strategy asks
 where the advantage really lies, the technical round asks whether you can tell a retrieval failure from a
@@ -46,15 +46,15 @@ not leaked questions; they are the questions the work itself asks.
 
 ### Q1 · "Leadership wants an AI agent in every product surface this year. How do you respond?"
 
-**Tests:** whether you can serve a strategy by declining its literal form · **Framework:** the P0–P3
+**Tests:** whether you can serve a strategy by declining its literal form · **Framework:** the P0 to P3
 answer, starting at AI-fit
 
 <details><summary>What a strong answer covers</summary>
 
 - **Agree with the goal, change the unit.** The goal is value from AI, not a count of agents; propose
-  outcome targets — time saved and cost per case — instead.
+  outcome targets, time saved and cost per case, instead.
 - **Run AI-fit across the candidates**: a genuine judgement call, enough volume, a recoverable mistake.
-  Expect most to come back as rules or as assisted features, and **publish the rejected list** — it is
+  Expect most to come back as rules or as assisted features, and **publish the rejected list**: it is
   the most credible artefact you will circulate all year.
 - **Offer the two or three that pass**, each with a bar per slice and autonomy per action, and a first
   feature chosen for provability.
@@ -62,7 +62,7 @@ answer, starting at AI-fit
   and proves less; the PM's job is to stop the count from becoming the strategy.
 
 **The follow-up:** "Which one ships first?" → the provable one: high volume, low damage per mistake, and an
-existing human process to compare against — not the flagship.
+existing human process to compare against, not the flagship.
 
 **Red flag:** agreeing and listing features, or refusing without an alternative.
 
@@ -70,7 +70,7 @@ existing human process to compare against — not the flagship.
 
 ### Q2 · "Design an AI feature that helps small businesses answer customer email."
 
-**Tests:** product sense with a probabilistic component · **Framework:** the P0–P3 answer, sliced
+**Tests:** product sense with a probabilistic component · **Framework:** the P0 to P3 answer, sliced
 
 <details><summary>What a strong answer covers</summary>
 
@@ -79,8 +79,8 @@ existing human process to compare against — not the flagship.
 - **Slice the work**: order status is a lookup (a tool, not generation); returns need policy; complaints
   need tone and escalation; sales questions need product facts.
 - **Autonomy per slice**: auto-send order status once proven; draft-only for complaints, where the owner
-  sends; never promise refunds the policy does not allow — that is a tool with a cap.
-- **Measure what users generate**: share of drafts sent without edits, edit distance, time to reply —
+  sends; never promise refunds the policy does not allow. That is a tool with a cap.
+- **Measure what users generate**: share of drafts sent without edits, edit distance, time to reply,
   paired with a sampled quality audit, because lazy acceptance inflates "sent unedited".
 - **Launch**: shadow drafts first, then per-slice widening.
 
@@ -118,20 +118,20 @@ veto window, rather than raising autonomy on the irreversible ones.
 
 ### Q4 · "How would you measure whether an LLM feature is good?"
 
-**Tests:** metric design for probabilistic output · **Framework:** four questions, per slice — is it
+**Tests:** metric design for probabilistic output · **Framework:** four questions, per slice, is it
 right, is it useful, what does it cost, is it safe?
 
 <details><summary>What a strong answer covers</summary>
 
 - **Right**: offline golden sets from real inputs, labelled by people, per slice, reported with lower bounds.
-- **Useful**: online outcomes — tasks completed, time saved, the feature's retention — against a baseline.
+- **Useful**: online outcomes (tasks completed, time saved, the feature's retention) against a baseline.
 - **Cost**: cost per task, review time added, retries.
 - **Safe**: policy violations, harmful outputs, escalations.
 - **The insight:** LLM features have metric traps. Thumbs-up rates are self-selected; engagement can rise
   when quality falls, because users regenerate. Treat regenerations and immediate edits as negative signals.
 
 **The follow-up:** "Thumbs-up rose ten points after a model change. Ship?" → did the vote rate change,
-which slices moved, did regenerations and cost change — and what does an A/B on the outcome metric say?
+which slices moved, did regenerations and cost change, and what does an A/B on the outcome metric say?
 
 **Red flag:** one metric, or "accuracy" with no named set.
 
@@ -147,7 +147,7 @@ which slices moved, did regenerations and cost change — and what does an A/B o
   system fails and the ones it should decline.
 - **How many cases**: 92% on 200 has a lower bound of 88.2%, so a 90% bar is not yet proven.
 - **Where the 8% sits**: a risky slice of 30 cases at 90% has a Wilson lower bound near 74%.
-- **Against what bar**: derived from what a mistake costs against what a success saves, per slice — and
+- **Against what bar**: derived from what a mistake costs against what a success saves, per slice, and
   against the human baseline, which is never 100%.
 - **The plan**: launch the proven slices, keep the others assisted, and collect evidence in shadow.
 
@@ -162,19 +162,19 @@ it from real inputs with human labels.
 
 ### Q6 · "Should we fine-tune our own model, call a frontier model's API, or run open weights?"
 
-**Tests:** strategy under technical uncertainty · **Framework:** a weighted decision per slice — quality on
+**Tests:** strategy under technical uncertainty · **Framework:** a weighted decision per slice, quality on
 your slices, cost at your volume, latency, data control, and whether the door is one-way
 
 <details><summary>What a strong answer covers</summary>
 
-- **Start from the slices and bars**, not the technology. Most product value comes from context — data,
-  tools, workflow — rather than from weights.
+- **Start from the slices and bars**, not the technology. Most product value comes from context (data,
+  tools, workflow) rather than from weights.
 - **API first, behind an interface**: the fastest learning and a two-way door.
 - **Fine-tune when a measured gap on a slice survives** prompting and retrieval and the volume pays for the
   data and upkeep; **open weights** when residency, latency or unit cost at scale demand it.
 - **Count three-year cost**, people included.
 - **The insight:** the moat is rarely the model. It is proprietary data loops, integration into the
-  workflow, trust — and the evaluation set, which is an asset competitors cannot copy.
+  workflow, trust: and the evaluation set, which is an asset competitors cannot copy.
 
 **The follow-up:** "A competitor fine-tuned and claims ten points better." → on which benchmark, against
 your slices? A public benchmark is weaker evidence than your own golden set.
@@ -235,9 +235,9 @@ learning and teaches nothing about which signature caused it.
 <details><summary>What a strong answer covers</summary>
 
 - **Situation and task**: what was promised, and the decision that was yours.
-- **Action**: the evidence you gathered — the bar, the lower bound, the cost per case, the shadow run.
+- **Action**: the evidence you gathered, the bar, the lower bound, the cost per case, the shadow run.
 - **Result, with the number**: what shipped instead and what it saved or avoided.
-- **The change**: the process you altered so the next project cannot repeat it — an AI-fit record now
+- **The change**: the process you altered so the next project cannot repeat it, an AI-fit record now
   required, a lower bound now in every report.
 - **The insight:** interviewers are testing whether you can disappoint a stakeholder with data and keep the
   relationship.
@@ -250,13 +250,13 @@ learning and teaches nothing about which signature caused it.
 
 ### Q10 · "As a forward-deployed PM, three enterprise customers ask for three different custom features. How do you decide what becomes product?"
 
-**Tests:** the FDPM's core call — configuration, service or product · **Framework:** the pattern test
+**Tests:** the FDPM's core call, configuration, service or product · **Framework:** the pattern test
 
 <details><summary>What a strong answer covers</summary>
 
 - **Classify each request**: configuration (the product can already expose it), service (bespoke work an
   FDE delivers), or product (a capability many customers need).
-- **Look for the pattern underneath**: three different asks may be one need — for example, an approval
+- **Look for the pattern underneath**: three different asks may be one need, for example, an approval
   step before money moves.
 - **Weigh the evidence**: customers affected, revenue at stake, effort, and fit with the product's model.
 - **Defend the call both ways**: to the customer, what they get and when; to product, the evidence.
@@ -264,7 +264,7 @@ learning and teaches nothing about which signature caused it.
   everything turns a product company into a consultancy one fork at a time.
 
 **The follow-up:** "The largest customer will churn without their feature." → a time-boxed service with an
-owner and a sunset, or a product commitment if it matches the pattern — never an unowned fork.
+owner and a sunset, or a product commitment if it matches the pattern, never an unowned fork.
 
 **Red flag:** "whoever pays the most."
 
@@ -288,7 +288,7 @@ does not self-select: the per-slice golden set with lower bounds, and an A/B tes
 
 1. **AI PM questions test judgement about uncertainty**, not vocabulary.
 2. **Every strong answer carries a number** and a decision per slice or per action.
-3. **The senior signal is the change** — the process that stops the failure recurring.
+3. **The senior signal is the change**: the process that stops the failure recurring.
 
 ## FAQ
 
@@ -306,7 +306,7 @@ staged on evidence, costs vary with behaviour rather than usage, and autonomy ha
 ### How technical does an AI product manager need to be?
 
 Technical enough to separate a retrieval failure from a generation failure, to read an evaluation report
-with sample sizes, and to explain why a limit belongs in code rather than in a prompt — without needing to
+with sample sizes, and to explain why a limit belongs in code rather than in a prompt, without needing to
 write the code.
 
 ### What is a forward deployed product manager?
@@ -338,8 +338,8 @@ thing I left out.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The questions, frameworks and strong answers | **Original** — this tutorial, from the playbook's methods | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
-| The commonly reported shape of big-tech PM loops | **Compare** — Google does not publish round names | Candidate reports collected by interview-preparation guides, e.g. [Exponent](https://www.tryexponent.com/guides/google-product-manager-interview) |
+| The questions, frameworks and strong answers | **Original**: this tutorial, from the playbook's methods | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
+| The commonly reported shape of big-tech PM loops | **Compare**. Google does not publish round names | Candidate reports collected by interview-preparation guides, e.g. [Exponent](https://www.tryexponent.com/guides/google-product-manager-interview) |
 | Complacency and bias in human oversight of automation | **Borrowed** | Parasuraman, R. & Manzey, D. H. (2010). *Human Factors* 52(3) |
-| The configuration, service or product call | **Borrowed** — public role descriptions | Forward Deployed Product Manager postings, September 2026 |
+| The configuration, service or product call | **Borrowed**: public role descriptions | Forward Deployed Product Manager postings, September 2026 |
 | A companion interview guide | **Compare** | [Interview guide: AI product manager](repo:cheatsheets/interviews/product-manager.md) |

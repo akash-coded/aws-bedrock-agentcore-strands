@@ -11,9 +11,9 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The bank in one sentence.** GenAI engineer interviews test whether you can make a model-backed system
-> measurably right, fast and affordable — by separating retrieval failures from generation failures,
+> measurably right, fast and affordable, by separating retrieval failures from generation failures,
 > evaluating against your own data, splitting latency and cost into the parts you control, and designing
-> for the model being tricked — and these ten questions each come with the framework, a strong answer, the
+> for the model being tricked, and these ten questions each come with the framework, a strong answer, the
 > follow-up that finds the limit of your experience, and the red flag.
 
 {{map:genai-engineer-interview-questions}}
@@ -35,7 +35,7 @@ Each question below has an answer that sounds right and is wrong; the strong ans
 ## What does a GenAI engineer interview test?
 
 **Whether you measure before you fix.** Expect coding (often an LLM call with tools or retrieval), a
-system design for an LLM feature, and deep-dive questions on your own systems. The deep dives are where
+system design for an LLM feature, and detailed questions on your own systems. Those are where
 candidates separate: the strong ones can say what their system costs per task, how they know it is right,
 and which failure they found in production and what now prevents it.
 
@@ -43,7 +43,7 @@ and which failure they found in production and what now prevents it.
 
 ### Q1 · "Your RAG system gives wrong answers. How do you find out whether retrieval or generation is at fault?"
 
-**Tests:** diagnosis before remedy · **Framework:** the grounding triangle — retrieved, cited, verified
+**Tests:** diagnosis before remedy · **Framework:** the grounding triangle, retrieved, cited, verified
 
 <details><summary>What a strong answer covers</summary>
 
@@ -51,7 +51,7 @@ and which failure they found in production and what now prevents it.
   at k** (is the needed passage in the top k?) and, for cases where it was, **faithfulness** (does the
   answer follow from the passage?).
 - **Bucket the failures**, because the fixes differ: chunking by meaning rather than by size, hybrid
-  keyword-plus-vector search, a reranker, query rewriting — or, for generation, citations per claim and
+  keyword-plus-vector search, a reranker, query rewriting, or, for generation, citations per claim and
   abstaining when support is missing.
 - **The insight:** raising k often lowers accuracy. Models use information in the middle of a long context
   less reliably than at the edges, so extra passages dilute the right one. Measure accuracy against k; it
@@ -76,12 +76,12 @@ production sample
   reported with lower bounds.
 - **Model judges, calibrated**: a judge from a different model family, a rubric, and a measured agreement
   rate with human labels. Judges are known to favour the first answer shown, longer answers, and their own
-  model family's outputs — randomise order and control for length.
+  model family's outputs: randomise order and control for length.
 - **After launch**: a shadow run against the current process, then a canary, then a sampled human review
   and a watch on the mix of outputs for drift.
 - **The insight:** a golden set built from cases the system already passes is a mirror; it can only go down.
 
-**The follow-up:** "How big should the set be?" → sized per slice by how close the score is to its bar —
+**The follow-up:** "How big should the set be?" → sized per slice by how close the score is to its bar,
 the cases needed grow with the square of the gap.
 
 **Red flag:** public benchmarks as the main evidence.
@@ -97,11 +97,11 @@ prompts, consistency and cost in fine-tuning
 
 - **Retrieval for knowledge** that changes or must be cited.
 - **Prompting and examples for behaviour** you can describe.
-- **Fine-tuning for consistency at scale** — format, style, a narrow task — or to distil a large model's
+- **Fine-tuning for consistency at scale** (format, style, a narrow task) or to distil a large model's
   behaviour into a smaller, cheaper, faster one, once you have enough good examples and a gap that
   prompting did not close.
 - **Not for facts**: fine-tuned knowledge goes stale silently and cannot be cited.
-- **The insight:** fine-tuning moves cost from inference to data and operations — every base-model update
+- **The insight:** fine-tuning moves cost from inference to data and operations, every base-model update
   means re-training and re-evaluating. Measure the gap it closes before paying that tax.
 
 **The follow-up:** "The fine-tuned model is better on the benchmark and worse in production." → the
@@ -115,17 +115,17 @@ benchmark is not your distribution; evaluate on your own slices.
 
 ### Q4 · "Latency is eight seconds; the product needs two. What do you do?"
 
-**Tests:** performance engineering · **Framework:** the three clocks — model, tool, orchestration
+**Tests:** performance engineering · **Framework:** the three clocks, model, tool, orchestration
 
 <details><summary>What a strong answer covers</summary>
 
 - **Measure the split first.** Model time: cap output tokens, stream, use a faster model on easy routes,
   cache a long stable prefix. Tool time: parallelise independent calls, cache, set timeouts. Orchestration:
-  fewer turns — route known paths to a workflow.
+  fewer turns: route known paths to a workflow.
 - **Ask which clock the requirement is about**: time to first token or total time. Streaming the first
   token in 400 ms can make an eight-second answer feel fast.
 - **The insight:** most latency programmes optimise the model clock because it is visible, while the
-  orchestration clock — turns multiplied by round trips — is the one that dominates agentic systems.
+  orchestration clock, turns multiplied by round trips, is the one that dominates agentic systems.
 
 **The follow-up:** "Streaming is not allowed; the output is JSON." → then fewer turns, smaller outputs,
 parallel tools, and a faster model per slice where its bar still holds.
@@ -162,7 +162,7 @@ provider's minimum cacheable length and cache lifetime.
 
 - **Define slices and bars first**, then test two or three candidates on the golden set.
 - **Route by slice**: the cheapest model that clears each slice's bar, a stronger one for the rest.
-- **Pin versions**, log which model answered every response, and plan the fallback — a fallback to a larger
+- **Pin versions**, log which model answered every response, and plan the fallback, a fallback to a larger
   model is a cost cliff, and a fallback to a smaller one is a silent quality drop.
 - **Re-evaluate on every model update**, as a change like any other.
 - **The insight:** routing by difficulty usually saves more than any single model switch, and logging the
@@ -190,7 +190,7 @@ the blast radius
   egress allowlists.
 - **Filter outputs** for data exfiltration patterns, and log every tool call.
 - **Test continuously**: an attack suite on every prompt, tool or context change, from every entry point.
-- **The insight:** the question is not whether the model can be tricked — it can — but what is the worst it
+- **The insight:** the question is not whether the model can be tricked, it can, but what is the worst it
   can do when it is. Injection is a permissions problem more than a prompt problem.
 
 **The follow-up:** "A partner API adds a free-text field." → a new entry point: extend the attack suite to it
@@ -251,7 +251,7 @@ and design for the gap.
 <details><summary>What a strong answer covers</summary>
 
 - **The numbers**: cost per task, latency split, golden-set size and slices, lower bounds.
-- **The failure**: how it was found — which signal — and the root cause.
+- **The failure**: how it was found, which signal, and the root cause.
 - **The change**: the guard, test or check that now makes that failure impossible or visible.
 - **The insight:** interviewers use this question to check everything above. A candidate who shipped
   something real can answer it with numbers without pausing.
@@ -271,7 +271,7 @@ and design for the gap.
 **Which model answered, what changed in the inputs, and what changed in the retrieved data.** First the
 per-call log: did traffic fail over to a different model, or did the provider update the model behind an
 alias? Then the inputs: a new customer segment or a new question type shifts the mix. Then the data: new or
-changed documents in the index, or a broken ingestion job. Only then the prompt — and nobody changed it.
+changed documents in the index, or a broken ingestion job. Only then the prompt, and nobody changed it.
 
 </details>
 
@@ -286,7 +286,7 @@ changed documents in the index, or a broken ingestion job. Only then the prompt 
 ### What questions are asked in a GenAI engineer interview?
 
 Retrieval design and failure analysis, evaluation, when to fine-tune, latency and cost, model selection,
-prompt injection, structured output and memory — plus deep dives into systems you have built, with numbers.
+prompt injection, structured output and memory, plus detailed questions on systems you have built, with numbers.
 
 ### How do I prepare for an LLM engineer interview?
 
@@ -297,7 +297,7 @@ and what now prevents it.
 ### What is the difference between a GenAI engineer and an ML engineer?
 
 An ML engineer typically trains and serves models; a GenAI engineer mostly builds applications on models
-someone else trains — retrieval, prompts, tools, evaluation, cost and safety — and fine-tunes only when a
+someone else trains (retrieval, prompts, tools, evaluation, cost and safety) and fine-tunes only when a
 measured gap justifies it.
 
 ### What is LLM-as-a-judge, and can it be trusted?
@@ -314,8 +314,7 @@ position, verbosity and self-preference biases.
 | **A product manager or FDPM** | Use Q2 and Q6 to check that your team's evaluation and model choices hold up. | Have a model turn Q2's strong answer into a checklist for your next review. |
 | **A GenAI or agentic AI engineer** | Prepare Q10 from your own system, with every number you would be asked for. | Ask a coding agent to pull cost per task, latency split and slice scores from your logs. |
 
-**Across the enterprise.** Use Q1 to Q8 as the technical bar for GenAI hiring across teams, and Q10 as the
-deep dive every panel runs the same way.
+**Across the enterprise.** Use Q1 to Q8 as the technical bar for GenAI hiring across teams, and Q10 as the long question every panel runs the same way.
 
 **The ten-minute workflow.** A diagnostic drill with a broken system:
 
@@ -330,9 +329,9 @@ would have needed, and what I should have asked first.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The questions, frameworks and strong answers | **Original** — this tutorial | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
+| The questions, frameworks and strong answers | **Original**: this tutorial | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) |
 | Models use information in the middle of long contexts less reliably | **Borrowed** | Liu, N. F. et al. (2024). Lost in the middle: how language models use long contexts. *TACL* 12 |
 | Position, verbosity and self-preference biases in model judges | **Borrowed** | Zheng, L. et al. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. *NeurIPS* |
 | Prompt injection as the top LLM risk | **Borrowed** | OWASP (2025). [Top 10 for LLM Applications](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) |
-| Retrieved, cited, verified; the three clocks; the token taxes | **Original** — this repository | [Frameworks](repo:cheatsheets/frameworks/README.md) |
-| Prompt caches match an exact prefix | **Borrowed** — documented | [Amazon Bedrock: prompt caching](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) |
+| Retrieved, cited, verified; the three clocks; the token taxes | **Original**: this repository | [Frameworks](repo:cheatsheets/frameworks/README.md) |
+| Prompt caches match an exact prefix | **Borrowed**: documented | [Amazon Bedrock: prompt caching](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) |

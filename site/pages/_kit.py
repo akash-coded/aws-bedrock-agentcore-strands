@@ -54,7 +54,7 @@ def calc(name: str, title: str, subtitle: str, inputs: list[dict], outputs: list
             rows.append(f'<div class="cv" data-out="{E(o["key"])}">{E(o.get("value", ""))}</div>')
         else:
             rows.append(f'<div class="cr{cls}"><span>{E(o["label"])}</span>'
-                        f'<output data-out="{E(o["key"])}">{E(o.get("value", "—"))}</output></div>')
+                        f'<output data-out="{E(o["key"])}">{E(o.get("value", ": "))}</output></div>')
     foot = f'<div class="cf">{E(formula)}</div>' if formula else ""
     return (f'<div class="calc" data-calc="{E(name)}">'
             f'<div class="ch"><b>{E(title)}</b><span>{E(subtitle)}</span></div>'
@@ -89,7 +89,7 @@ def stepper(steps: list[tuple[str, str]], label: str = "") -> str:
 
 
 # ------------------------------------------------------------------------------ orientation
-# Every page opens with the same three answers — who it is for, what to use it for, how — and a
+# Every page opens with the same three answers (who it is for, what to use it for, how) and a
 # way to be shown round. The strip is short on purpose: it sits between the title and the content
 # and must never become the content.
 PIP = """<svg class="pip" viewBox="0 0 64 74" aria-hidden="true" focusable="false">
@@ -107,7 +107,7 @@ def pip() -> str:
 
 
 def orient(audience: str, use: str, steps: list[str], tour: bool = True, extra: str = "") -> str:
-    """The opening strip: for whom, for what, how — and the tour button when the page has one."""
+    """The opening strip: for whom, for what, how, and the tour button when the page has one."""
     st = "".join(f"<li><span>{s}</span></li>" for s in steps)
     btn = (f'<button type="button" class="tourbtn" data-tour-start>{PIP}'
            f"<span>Show me around</span></button>") if tour else ""
@@ -119,7 +119,7 @@ def orient(audience: str, use: str, steps: list[str], tour: bool = True, extra: 
 
 
 def tour(steps: list[dict]) -> list[dict]:
-    """A page's walkthrough: [{sel, title, body, pos?}] — sel is a CSS selector on this page."""
+    """A page's walkthrough: [{sel, title, body, pos?}]: sel is a CSS selector on this page."""
     for s in steps:
         assert {"sel", "title", "body"} <= set(s), s
     return steps

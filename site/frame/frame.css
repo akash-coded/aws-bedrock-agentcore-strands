@@ -2,7 +2,7 @@
    Layered onto the tool at build time by site/build.py. Every selector is prefixed "sw-" so nothing here
    can collide with the tool's own styles, and the palette reuses the tool's custom properties. */
 
-.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font:600 13px/1 inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 200ms var(--ease,ease),padding 200ms var(--ease,ease),border-color 160ms,background 160ms;overflow:hidden;white-space:nowrap}
+.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font:600 13px/1 inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 250ms var(--ease,ease),padding 250ms var(--ease,ease),border-color 150ms,background 150ms;overflow:hidden;white-space:nowrap}
 .sw-pill .sw-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sw-pill .sw-long{display:none;margin-left:8px}
 .sw-pill:hover,.sw-pill:focus-visible{width:auto;padding:0 16px 0 13px;border-color:#16150F;background:#fff}
@@ -16,11 +16,11 @@
 @media (max-width:900px){.sw-footer{padding:36px 22px 68px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
 .sw-footer h2{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft,#77746C);margin:0 0 12px}
 .sw-footer p{font-size:14px;line-height:1.6;margin:0 0 10px;max-width:62ch}
-html .sw-footer a{color:#3E5A82;text-decoration:none;border-bottom:1px solid rgba(62,90,130,.35);transition:border-color 160ms}  /* fixed colour, 6.4:1 on white; the tool's own link rule would otherwise win */
+html .sw-footer a{color:#3E5A82;text-decoration:none;border-bottom:1px solid rgba(62,90,130,.35);transition:border-color 150ms}  /* fixed colour, 6.4:1 on white; the tool's own link rule would otherwise win */
 html .sw-footer a:hover{border-bottom-color:#3E5A82}
 .sw-footer .sw-name{font-weight:600;color:var(--ink,#1C1B19)}
 .sw-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:14px}
-.sw-footer .sw-btn{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:10px 14px;border-radius:10px;border:1px solid var(--rule,#E6E2D9);background:var(--bone,#F7F6F2);color:var(--ink,#1C1B19);font:500 13.5px/1 inherit;cursor:pointer;transition:border-color 160ms,background 160ms}
+.sw-footer .sw-btn{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:10px 14px;border-radius:10px;border:1px solid var(--rule,#E6E2D9);background:var(--bone,#F7F6F2);color:var(--ink,#1C1B19);font:500 13.5px/1 inherit;cursor:pointer;transition:border-color 150ms,background 150ms}
 .sw-footer .sw-btn:hover{border-color:var(--slate,#5B6B8C);background:#fff}
 .sw-footer .sw-notice{padding:14px 16px;border:1px solid var(--rule,#E6E2D9);border-radius:12px;background:var(--bone,#F7F6F2);font-size:13px;line-height:1.55;color:var(--ink2,#4A4843)}
 .sw-footer .sw-notice b{color:var(--ink,#1C1B19)}
@@ -28,10 +28,10 @@ html .sw-footer a:hover{border-bottom-color:#3E5A82}
 .sw-footer .sw-legal a{color:var(--soft,#77746C);border-bottom-color:transparent}
 .sw-footer .sw-legal a:hover{color:var(--ink,#1C1B19);border-bottom-color:var(--soft,#77746C)}
 
-.sw-scrim{position:fixed;inset:0;z-index:9500;background:rgba(28,27,25,.34);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity 220ms var(--ease,ease)}
+.sw-scrim{position:fixed;inset:0;z-index:9500;background:rgba(28,27,25,.34);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity 250ms var(--ease,ease)}
 .sw-scrim.on{opacity:1;pointer-events:auto}
 html{overflow-x:clip}  /* the closed drawer is translated off the right edge; without this Chrome counts it as page width at some viewports */
-.sw-drawer{position:fixed;top:0;right:0;bottom:0;z-index:9600;width:min(460px,100vw);background:var(--paper,#fff);border-left:1px solid var(--rule,#E6E2D9);box-shadow:-20px 0 60px rgba(28,27,25,.18);transform:translateX(102%);transition:transform 320ms var(--ease,ease);display:flex;flex-direction:column;color:var(--ink,#1C1B19)}
+.sw-drawer{position:fixed;top:0;right:0;bottom:0;z-index:9600;width:min(460px,100vw);background:var(--paper,#fff);border-left:1px solid var(--rule,#E6E2D9);box-shadow:-20px 0 60px rgba(28,27,25,.18);transform:translateX(102%);transition:transform 350ms var(--ease,ease);display:flex;flex-direction:column;color:var(--ink,#1C1B19)}
 .sw-drawer.on{transform:none}
 .sw-drawer header{padding:22px 24px 14px;border-bottom:1px solid var(--rule,#E6E2D9);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .sw-drawer header h2{font-size:18px;font-weight:600;letter-spacing:-.01em;margin:0}
@@ -46,7 +46,7 @@ html{overflow-x:clip}  /* the closed drawer is translated off the right edge; wi
 .sw-field input:focus,.sw-field select:focus,.sw-field textarea:focus{outline:2px solid color-mix(in oklab,var(--slate,#5B6B8C) 45%,transparent);outline-offset:1px;border-color:var(--slate,#5B6B8C)}
 .sw-hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .sw-consent{font-size:12.5px;color:var(--soft,#77746C);line-height:1.5}
-.sw-send{padding:12px 16px;border-radius:10px;border:0;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:600 14px/1 inherit;cursor:pointer;transition:opacity 160ms}
+.sw-send{padding:12px 16px;border-radius:10px;border:0;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:600 14px/1 inherit;cursor:pointer;transition:opacity 150ms}
 .sw-send:hover{opacity:.92}
 .sw-send[disabled]{opacity:.55;cursor:progress}
 .sw-status{font-size:13.5px;line-height:1.5;padding:12px 14px;border-radius:10px;border:1px solid var(--rule,#E6E2D9);background:var(--bone,#F7F6F2);display:none}
@@ -62,7 +62,7 @@ html{overflow-x:clip}  /* the closed drawer is translated off the right edge; wi
 .sw-strip{position:relative;z-index:1;display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:8px 18px;background:#16150F;color:#E9E7E0;font:500 13px/1.3 inherit;border-bottom:1px solid rgba(255,255,255,.08)}
 .sw-strip a{color:#fff;text-decoration:none;border:0}
 .sw-strip .sw-strip-back{display:inline-flex;align-items:center;gap:7px;font-weight:650;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);white-space:nowrap}
-.sw-ic{display:inline-flex;line-height:0}.sw-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform 180ms var(--ease,ease)}
+.sw-ic{display:inline-flex;line-height:0}.sw-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform 150ms var(--ease,ease)}
 .sw-strip .sw-strip-back:hover .sw-ic svg{transform:translateX(-2px)}
 .sw-strip .sw-strip-links a{display:inline-flex;align-items:center;gap:2px}.sw-strip .sw-go svg{width:12px;height:12px;opacity:.6}.sw-strip .sw-strip-links a:hover .sw-go svg{opacity:1;transform:translateX(1px)}
 .sw-strip .sw-strip-back:hover{background:rgba(255,255,255,.22)}
@@ -76,7 +76,7 @@ html{overflow-x:clip}  /* the closed drawer is translated off the right edge; wi
 @media (max-width:560px){.sw-strip{padding:7px 12px;gap:8px;flex-wrap:nowrap}.sw-strip .sw-long{display:none}.sw-strip .sw-short{display:inline}.sw-strip .sw-strip-links a:nth-child(n+3){display:none}}
 @media (max-width:400px){.sw-strip .sw-strip-links a:nth-child(n+2){display:none}}
 .sw-backnav{position:fixed;left:18px;bottom:18px;z-index:9000}
-.sw-back{display:inline-flex;align-items:center;gap:8px;padding:10px 15px 10px 12px;border-radius:999px;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:500 13px/1 inherit;letter-spacing:.01em;text-decoration:none;border:0;box-shadow:0 10px 30px rgba(28,27,25,.22);transition:transform 220ms var(--ease,ease),box-shadow 220ms var(--ease,ease)}
+.sw-back{display:inline-flex;align-items:center;gap:8px;padding:10px 15px 10px 12px;border-radius:999px;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:500 13px/1 inherit;letter-spacing:.01em;text-decoration:none;border:0;box-shadow:0 10px 30px rgba(28,27,25,.22);transition:transform 250ms var(--ease,ease),box-shadow 250ms var(--ease,ease)}
 .sw-back:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(28,27,25,.28);color:var(--sw-on,#fff)}
 .sw-back:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
 .sw-back:hover .sw-ic svg{transform:translateX(-2px)}
@@ -128,7 +128,7 @@ html .sw-drawer a{color:#3E5A82}
 .sw-pill:hover,.sw-pill:focus-visible{background:#16150F;color:#fff;border-color:#16150F}
 .sw-pill .sw-ic svg{stroke:#fff}
 /* back to top: bottom-left, appears after the first screen */
-.sw-top{position:fixed;left:18px;bottom:18px;z-index:9000;width:42px;height:42px;border-radius:999px;border:1.5px solid rgba(22,21,15,.25);background:rgba(255,255,255,.94);color:#16150F;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px -8px rgba(22,21,15,.45);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 180ms,transform 180ms,background 140ms}
+.sw-top{position:fixed;left:18px;bottom:18px;z-index:9000;width:42px;height:42px;border-radius:999px;border:1.5px solid rgba(22,21,15,.25);background:rgba(255,255,255,.94);color:#16150F;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px -8px rgba(22,21,15,.45);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 150ms,transform 150ms,background 150ms}
 .sw-top.on{opacity:1;transform:none;pointer-events:auto}
 .sw-top:hover{background:#fff;border-color:#16150F}
 .sw-top:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
@@ -136,3 +136,5 @@ html .sw-drawer a{color:#3E5A82}
 @media (max-width:640px){.sw-top{left:12px;bottom:12px;width:44px;height:44px}}
 @media (prefers-reduced-motion:reduce){.sw-top{transition:none}}
 @media print{.sw-top{display:none!important}}
+
+@media (max-width:820px){.sw-send,.sw-btn,.sw-x{min-height:44px}.sw-x{min-width:44px}}

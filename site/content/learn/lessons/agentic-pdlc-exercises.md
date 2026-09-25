@@ -21,8 +21,8 @@ updated: 2026-09-24
 **In this lesson** you'll practise:
 
 - the four decisions of P0 and P1 that fix a project's shape and its bar;
-- the proof arithmetic of P2 — lower bounds, cases needed, days of evidence, review queues;
-- the production arithmetic of P3 — the bill, drift and what counts as a control.
+- the proof arithmetic of P2 (lower bounds, cases needed, days of evidence, review queues;
+- the production arithmetic of P3) the bill, drift and what counts as a control.
 
 ## Sound familiar?
 
@@ -49,7 +49,7 @@ transfers above $10,000. **Which is AI work?**
 
 <details><summary>Show the answer</summary>
 
-**Only (b).** (a) has no judgement call — two competent people would route the same code the same way —
+**Only (b).** (a) has no judgement call, two competent people would route the same code the same way,
 so it is a rule. (b) has judgement, volume and a recoverable mistake, because a draft is reviewed before
 it goes. (c) may involve judgement, but a wrong transfer is not recoverable, so at most it is assisted:
 the model can prepare the case, and a named person approves every transfer.
@@ -68,7 +68,7 @@ if the review share falls to 10%?**
 
 **$2,472 a day, rising to $2,664.** Gross: 300 × 12 × $0.80 = $2,880. Run cost: 300 × $0.40 = $120.
 Review: 300 × 30% × 4 × $0.80 = $288. Net: $2,880 − $120 − $288 = $2,472. At 10% reviewed the review
-line is $96, so the net is $2,664 — which is why the review share belongs in the value line from day one.
+line is $96, so the net is $2,664, which is why the review share belongs in the value line from day one.
 
 </details>
 
@@ -82,8 +82,8 @@ without an approver: nobody has decided, and the refund bolt starts next week. *
 
 <details><summary>Show the answer</summary>
 
-**(b) is hard; (a) is soft.** Ask the four questions — reversible cheaply, a placeholder, an owner and a
-date, downstream survives a change — and one "no" makes it hard. (a) passes all four. (b) fails the
+**(b) is hard; (a) is soft.** Ask the four questions (reversible cheaply, a placeholder, an owner and a
+date, downstream survives a change) and one "no" makes it hard. (a) passes all four. (b) fails the
 first three: the decision cannot be cheaply reversed once refunds are being paid, "the model behaves
 sensibly" is not a placeholder, and nobody owns it with a date. Settle it before the gate.
 
@@ -95,13 +95,13 @@ Learn it: [The hard gate](lesson:the-hard-gate)
 
 ### Exercise 4 · Derive the bar
 
-A wrong answer costs $45 to put right; a right one saves $5. **What is the bar — and what is it if a
+A wrong answer costs $45 to put right; a right one saves $5. **What is the bar, and what is it if a
 person checks each answer before it lands, so that a mistake costs only the $15 of their time?**
 
 <details><summary>Show the answer</summary>
 
 **90%, falling to 75%.** The bar is damage ÷ (damage + saving): 45 ÷ 50 = 90%. With the check, 15 ÷ 20 =
-75%. A human hold on the risky step lowers the damage, and therefore the bar — which is how a feature
+75%. A human hold on the risky step lowers the damage, and therefore the bar, which is how a feature
 ships safely at a score it could never have reached unaided.
 
 </details>
@@ -110,7 +110,7 @@ Learn it: [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-age
 
 ### Exercise 5 · Chained steps
 
-A plan chains six steps, each right 95% of the time. **How often is the whole chain right — and which
+A plan chains six steps, each right 95% of the time. **How often is the whole chain right, and which
 helps more: raising one step to 99%, or replacing one step with exact code?**
 
 <details><summary>Show the answer</summary>
@@ -131,8 +131,8 @@ should each extra agent have to earn?**
 <details><summary>Show the answer</summary>
 
 **Twenty-one.** Seven agents have 7 × 6 ÷ 2 = 21 possible pairings, and each is a place where context is
-lost and a limit must hold. Start with one agent and tools; add an agent only for a named limit — a
-context overflow, or parallel work a tool cannot express — and give its hand-off a named limit of its own.
+lost and a limit must hold. Start with one agent and tools; add an agent only for a named limit (a
+context overflow, or parallel work a tool cannot express) and give its hand-off a named limit of its own.
 
 </details>
 
@@ -148,7 +148,7 @@ has proven its bar?**
 <details><summary>Show the answer</summary>
 
 **Only A.** A: 0.92 − 1.96 × √(0.92 × 0.08 ÷ 200) = 0.882, above 85%. B has under 100 cases, so use the
-Wilson bound: 78.6%, below 85% — its score is five points above the bar and proves nothing yet. A score
+Wilson bound: 78.6%, below 85%: its score is five points above the bar and proves nothing yet. A score
 without its sample size has said nothing.
 
 </details>
@@ -172,14 +172,14 @@ Learn it: [Cut over and widen on evidence](lesson:shadow-mode-and-cutover#step-4
 
 ### Exercise 9 · The review queue
 
-Twelve changes are waiting: three touch money (R4), five are other writes (R2–R3) and four are read-only
+Twelve changes are waiting: three touch money (R4), five are other writes (R2 to R3) and four are read-only
 (R1). Reviewers complete five review slots a day. **How long is the queue with two readers on everything,
 and with readers routed by band?**
 
 <details><summary>Show the answer</summary>
 
-**4.8 days, falling to 2.2.** Two readers each: 24 slots ÷ 5 = 4.8 days. By band — two readers for R4,
-one for R2–R3, the harness alone for R1 — 3 × 2 + 5 × 1 + 4 × 0 = 11 slots ÷ 5 = 2.2 days, with the money
+**4.8 days, falling to 2.2.** Two readers each: 24 slots ÷ 5 = 4.8 days. By band (two readers for R4,
+one for R2 to R3, the harness alone for R1) 3 × 2 + 5 × 1 + 4 × 0 = 11 slots ÷ 5 = 2.2 days, with the money
 changes read first and by more people than before.
 
 </details>
@@ -241,7 +241,7 @@ Learn it: [AI incident postmortems](lesson:ai-incident-postmortem)
 
 1. **Twelve problems, one per decision** the agentic PDLC asks for, three per phase.
 2. **A few formulas carry most of it**: the bar, the lower bound, cases needed, the queue, the multiplier.
-3. **Commit to an answer first** — then open the worked one, and the lesson behind it.
+3. **Commit to an answer first**, then open the worked one, and the lesson behind it.
 
 ## FAQ
 
@@ -257,8 +257,8 @@ compare working. Credit the tutorial when you reuse them.
 
 ### Where can I practise with my own numbers?
 
-The simulator's toolkit has a calculator for most of them — the bar, golden-set confidence, the review
-queue, cut-over evidence and bill leaks — each prefilled and editable.
+The simulator's toolkit has a calculator for most of them (the bar, golden-set confidence, the review
+queue, cut-over evidence and bill leaks) each prefilled and editable.
 
 ### Where can I find more exercises?
 
@@ -281,7 +281,7 @@ defensible if it is fixed before anyone sees a score and written on the bar shee
 | **A GenAI or agentic AI engineer** | Turn exercises 5, 8 and 9 into code: a chain calculator, a cases-needed function, a queue estimator. | Ask a coding agent to write them as tested functions in the team's utilities. |
 
 **Across the enterprise.** Use the set as a shared baseline in training. A team that can do this arithmetic
-argues about assumptions instead of definitions — which is the argument worth having.
+argues about assumptions instead of definitions, which is the argument worth having.
 
 **The ten-minute workflow.** Endless practice from one set:
 
@@ -295,8 +295,8 @@ the answers separate, with the working shown.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The twelve exercises | **Original** — this tutorial | Numbers hypothetical |
-| The bar, the value line, the four gate questions, fix order | **Original** — this playbook | [Frameworks](site:frameworks/) |
+| The twelve exercises | **Original**: this tutorial | Numbers hypothetical |
+| The bar, the value line, the four gate questions, fix order | **Original**: this playbook | [Frameworks](site:frameworks/) |
 | The Wilson score interval | **Borrowed** | Wilson, E. B. (1927). *JASA* 22(158) |
 | Queue time from slots and throughput | **Borrowed** | Little, J. D. C. (1961). *Operations Research* 9(3) |
 | One-way and two-way doors | **Borrowed** | Bezos, J. (2015). Letter to shareholders |

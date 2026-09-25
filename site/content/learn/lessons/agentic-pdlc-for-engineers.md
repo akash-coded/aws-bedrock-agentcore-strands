@@ -13,7 +13,7 @@ updated: 2026-09-24
 > **The role in one sentence.** In the agentic PDLC the engineering lead writes the context file every
 > coding agent reads, builds each bolt from a story file, puts every number the product acts on in
 > tested code, enforces every limit in a tool's signature, wires the harness that blocks a merge when a
-> slice falls below its bar, and ships a slice a day — letting the model type, never letting it hold the
+> slice falls below its bar, and ships a slice a day, letting the model type, never letting it hold the
 > boundary.
 
 {{map:agentic-pdlc-for-engineers}}
@@ -42,21 +42,21 @@ cannot cross, and the check that decides whether what it built may merge.
 
 ## Your eight steps
 
-### P0 · Frame — not on the clock
+### P0 · Frame: not on the clock
 
 You read the brief and start nothing. An engineer who starts building in P0 is building the prototype
 the requirements will later be written around.
 
 ### P1 · Design & Spec
 
-**1 · Prepare** the context file every coding tool reads — stack, context layers by path, conventions,
+**1 · Prepare** the context file every coding tool reads, stack, context layers by path, conventions,
 commands that have actually been run, a never-touch list. An hour's work, and the biggest quality lever
 you have. [AIDD's five habits](lesson:what-is-aidd)
 
-### P2 · Build & Prove — the phase you lead
+### P2 · Build & Prove: the phase you lead
 
 **2 · Slice**: build each bolt from a six-part story file, never a chat thread. **3 · Floor**: every
-number that gets acted on is a function with a unit test — SkyWays' prompt returned $80 where the ledger
+number that gets acted on is a function with a unit test. SkyWays' prompt returned $80 where the ledger
 said $62. **4 · Layer**: the model calls on top, with an independent checker after the expensive ones.
 **5 · Gate**: caps and confirmation tokens in tool signatures, each with two tests seen failing first.
 **6 · Harness**: the golden set in CI as a required check, in cost order, per slice.
@@ -73,16 +73,16 @@ from. [Why the bill is 4×](lesson:ai-agent-costs)
 
 | Yours to own | Not yours |
 | --- | --- |
-| The context file, and the story file every bolt is built from | The bolt cut — the architect's; you say whether each bolt can be built alone |
-| The deterministic floor: every acted-on number is a tested function | The acceptance bar — the product manager derives it; you make it run |
-| The boundary: caps and confirmation tokens in signatures | The golden set's contents and the judge rubric — QA's |
-| The harness in CI, and the per-slice rule that blocks a merge | The cut-over and widening — you build the flag; the PM throws it |
+| The context file, and the story file every bolt is built from | The bolt cut, the architect's; you say whether each bolt can be built alone |
+| The deterministic floor: every acted-on number is a tested function | The acceptance bar, the product manager derives it; you make it run |
+| The boundary: caps and confirmation tokens in signatures | The golden set's contents and the judge rubric. QA's |
+| The harness in CI, and the per-slice rule that blocks a merge | The cut-over and widening, you build the flag; the PM throws it |
 | Build order within the cut, integrated the same day, and the ledger | |
 
 ## How to use a model in this role
 
 Use a model for **the typing and the sweep, never for the boundary**. It will write a correct function
-faster than you can — and just as happily write a cap into a prompt and report the cap as done. Let it
+faster than you can, and just as happily write a cap into a prompt and report the cap as done. Let it
 draft *inside* something you wrote: a context file, a story file, a signature you already fixed. Every
 line that moves money, changes a booking or writes a trace row is read by a person before it merges.
 
@@ -95,7 +95,7 @@ line that moves money, changes a booking or writes a trace row is read by a pers
 ## Why it matters
 
 Coding agents amplify whatever habits surround them. With a floor, a boundary and a harness, they
-produce more working software; without them, they produce more plausible software, faster — and the
+produce more working software; without them, they produce more plausible software, faster, and the
 difference only shows in production.
 
 ## Try it
@@ -106,7 +106,7 @@ An agent wrote `issue_credit(customer_id, amount)` and the prompt says credits o
 <details><summary>Show the answer</summary>
 
 **The signature, and two tests.** Give `amount` a bound so a value over $50 raises unless a valid
-confirmation token — created only by a person's approval — is passed; write `test_over_cap_raises` and
+confirmation token, created only by a person's approval, is passed; write `test_over_cap_raises` and
 `test_no_confirmation_raises`, and see both fail before the fix makes them pass. Keep the sentence in the
 prompt so the agent behaves well by default. Band the tool as money, so the change needs two named
 readers.
@@ -125,7 +125,7 @@ readers.
 
 By giving the agent what it needs to be right and taking away what lets it be dangerous: a context file
 it reads every session, a story file per unit of work, tested functions for anything exact, limits in
-tool signatures, and a harness that blocks merges when quality drops — then reviewing by risk.
+tool signatures, and a harness that blocks merges when quality drops, then reviewing by risk.
 
 ### What does an engineering lead own in an AI project?
 
@@ -141,8 +141,7 @@ records is read by people before it merges.
 
 ### What is a deterministic floor?
 
-The set of functions, each with a unit test, that do every exact thing the feature relies on —
-arithmetic, lookups, published rules — so that no number the product acts on ever comes from a model.
+The set of functions, each with a unit test, that do every exact thing the feature relies on (arithmetic, lookups, published rules) so that no number the product acts on ever comes from a model.
 
 ## Apply it in your role
 
@@ -152,7 +151,7 @@ arithmetic, lookups, published rules — so that no number the product acts on e
 | **A product manager or FDPM** | Give engineers story files with the spec lines and the done-when. A coding agent cannot ask you what you meant. | Ask a model to rewrite a ticket as a story file and list every question an engineer would still have. |
 | **A GenAI or agentic AI engineer** | Your loop: exact code first, then the model step with its checker. The harness decides the merge, and caps live in signatures. | Run the coding agent from the story file with a failing test first, and let the test define done. |
 
-**Across the enterprise.** Standard scaffolding — context file, story template, harness, per-call log —
+**Across the enterprise.** Standard scaffolding (context file, story template, harness, per-call log)
 across repositories makes any engineer productive on any team's agent in a day.
 
 **The ten-minute workflow.** Test-first with a coding agent:
@@ -168,7 +167,7 @@ what "right" means for a step.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The engineering lead's eight steps, owns and not-yours | **Original** — this playbook | [Engineering lead, end to end](site:engineering/) · [Role: Engineering lead](wiki:Role-Engineering-Lead) |
-| The shift: stop treating a prompt rule as a control | **Original** — this playbook | [For leadership](site:protocol/) |
+| The engineering lead's eight steps, owns and not-yours | **Original**: this playbook | [Engineering lead, end to end](site:engineering/) · [Role: Engineering lead](wiki:Role-Engineering-Lead) |
+| The shift: stop treating a prompt rule as a control | **Original**: this playbook | [For leadership](site:protocol/) |
 | The walking skeleton | **Borrowed** | Cockburn, A. (2004). *Crystal Clear*. Addison-Wesley |
-| The SkyWays examples | **Illustrative** — a fictional airline | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |
+| The SkyWays examples | **Illustrative**: a fictional airline | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |

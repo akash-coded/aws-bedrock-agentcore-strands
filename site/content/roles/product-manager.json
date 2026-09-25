@@ -20,18 +20,18 @@
   "Eight steps. Each one ends in an artefact somebody else needs, with the template to write it and the prompts to draft it faster."
  ],
  "owns": [
-  "The **intent** gate — is this worth doing at all?",
-  "The **release** gate — is it safe to show real users?",
+  "The **intent** gate (is this worth doing at all?",
+  "The **release** gate) is it safe to show real users?",
   "The **plan** gate, shared with the architect",
   "The autonomy level per action, and the door it sits behind",
   "The acceptance bar per slice, derived rather than guessed",
   "The two-number report to whoever funds this"
  ],
  "not_yours": [
-  "**Behaviour** and **expansion** gates — those are the QA lead's, and your name on them helps nobody",
+  "**Behaviour** and **expansion** gates. Those are the QA lead's, and your name on them helps nobody",
   "Pull request approvals you cannot evaluate",
-  "Model choice, temperature, framework — behaviours are yours, knobs are engineering's",
-  "The golden set's contents — you set the bar, QA curates the cases"
+  "Model choice, temperature, framework (behaviours are yours, knobs are engineering's",
+  "The golden set's contents) you set the bar, QA curates the cases"
  ],
  "ai_stance": "Use a model for the **drafting and the arithmetic**, never for the judgement. It can turn six interview transcripts into a deduplicated pain register in a minute, and it will happily invent a value line if you let it. The pattern that works: you bring the numbers and the decision, the model brings the structure and the first draft, and every artefact leaves your hands having been read by you. Where a step below says *do not delegate*, that is a judgement the model has no standing to make.",
  "reads": [
@@ -55,7 +55,7 @@
    "phase": "Discover",
    "title": "Turn the vibe into a measurement",
    "when": "Week one, before anyone designs anything",
-   "purpose": "Requests arrive as vibes. *Make rebooking smarter.* You cannot size a vibe, prioritise it, or hand it to a machine. This step converts it into four facts — who has the pain, how often, what it costs today, and the evidence — and everything downstream refers back to that line. It is the old product discipline, now mandatory, because the machine downstream cannot ask you what you meant.",
+   "purpose": "Requests arrive as vibes. *Make rebooking smarter.* You cannot size a vibe, prioritise it, or hand it to a machine. This step converts it into four facts (who has the pain, how often, what it costs today, and the evidence) and everything downstream refers back to that line. It is the old product discipline, now mandatory, because the machine downstream cannot ask you what you meant.",
    "activities": [
     {
      "do": "Find who actually holds the pain",
@@ -67,7 +67,7 @@
     },
     {
      "do": "Cost it",
-     "detail": "Minutes per case × loaded cost per minute, plus anything that leaks — a lost passenger, a goodwill credit, an SLA breach. Cost per case is the number you will be asked for and the one nobody has."
+     "detail": "Minutes per case × loaded cost per minute, plus anything that leaks, a lost passenger, a goodwill credit, an SLA breach. Cost per case is the number you will be asked for and the one nobody has."
     },
     {
      "do": "Find the evidence",
@@ -112,13 +112,13 @@
    "template": {
     "title": "Pain register",
     "lang": "markdown",
-    "body": "# Pain register · <product>\n_Last updated: <date> · Owner: <name>_\n\n| # | The pain, in one line | Who holds it | Frequency | Cost today | Evidence |\n|---|----------------------|--------------|-----------|-----------|----------|\n| 1 | <Who> cannot <do what>, so <consequence> | <role, named person> | <n/day> | <$n per case · $n/yr> | [<source>](<link>) |\n| 2 | | | | | |\n\n## How cost per case was computed\n- Handling time: <n> min, from <source>\n- Loaded cost per minute: $<n>, from <source>\n- Leakage per failed case: $<n> — <what leaks, and how it was estimated>\n- **Cost per case = $<n>**\n\n## What is NOT in here\n- <pains raised that were out of scope, and why — so nobody re-raises them>\n\n## Open numbers\n| Missing | Who can produce it | By when |\n|---------|--------------------|---------|\n| <e.g. leakage rate> | <ops lead> | <date> |\n"
+    "body": "# Pain register · <product>\n_Last updated: <date> · Owner: <name>_\n\n| # | The pain, in one line | Who holds it | Frequency | Cost today | Evidence |\n|---|----------------------|--------------|-----------|-----------|----------|\n| 1 | <Who> cannot <do what>, so <consequence> | <role, named person> | <n/day> | <$n per case · $n/yr> | [<source>](<link>) |\n| 2 | | | | | |\n\n## How cost per case was computed\n- Handling time: <n> min, from <source>\n- Loaded cost per minute: $<n>, from <source>\n- Leakage per failed case: $<n>: <what leaks, and how it was estimated>\n- **Cost per case = $<n>**\n\n## What is NOT in here\n- <pains raised that were out of scope, and why, so nobody re-raises them>\n\n## Open numbers\n| Missing | Who can produce it | By when |\n|---------|--------------------|---------|\n| <e.g. leakage rate> | <ops lead> | <date> |\n"
    },
    "prompts": [
     {
      "title": "Deduplicate discovery notes, with credit",
      "when": "After the interviews, before you write the register",
-     "body": "You are helping a product manager consolidate discovery notes.\n\nBelow are <n> interview transcripts about <problem area>.\n\nProduce a table with one row per DISTINCT pain:\n| Pain, in one sentence | Everyone who raised it (names) | Their exact words (shortest quote) | Frequency mentioned | Cost mentioned |\n\nRules:\n- Keep EVERY name. If four people said the same thing, all four names go on that row.\n- Do not merge two pains that have different causes, even if they have the same symptom.\n- If a frequency or cost was not mentioned, write \"not stated\" — never estimate.\n- At the end, list separately: things stated as solutions rather than pains.\n\nTRANSCRIPTS:\n<paste>"
+     "body": "You are helping a product manager consolidate discovery notes.\n\nBelow are <n> interview transcripts about <problem area>.\n\nProduce a table with one row per DISTINCT pain:\n| Pain, in one sentence | Everyone who raised it (names) | Their exact words (shortest quote) | Frequency mentioned | Cost mentioned |\n\nRules:\n- Keep EVERY name. If four people said the same thing, all four names go on that row.\n- Do not merge two pains that have different causes, even if they have the same symptom.\n- If a frequency or cost was not mentioned, write \"not stated\", never estimate.\n- At the end, list separately: things stated as solutions rather than pains.\n\nTRANSCRIPTS:\n<paste>"
     },
     {
      "title": "Turn a vibe into a measured statement",
@@ -128,7 +128,7 @@
     {
      "title": "Cost-per-case arithmetic from a ticket export",
      "when": "You have data and need the number defensible",
-     "body": "I have a ticket export at <path>. Columns: <list them>.\n\nWrite and run a script that reports:\n- tickets per week for the last 12 weeks, and the trend\n- median and p90 handling time, for <category> only\n- the share that were reopened or escalated\n- cost per case = median handling minutes x $<rate>/min\n\nThen print the assumptions you made as a list, and flag any column you had to\ninterpret. Show me the script before the numbers — I need to check the date column\nand the category filter."
+     "body": "I have a ticket export at <path>. Columns: <list them>.\n\nWrite and run a script that reports:\n- tickets per week for the last 12 weeks, and the trend\n- median and p90 handling time, for <category> only\n- the share that were reopened or escalated\n- cost per case = median handling minutes x $<rate>/min\n\nThen print the assumptions you made as a list, and flag any column you had to\ninterpret. Show me the script before the numbers. I need to check the date column\nand the category filter."
     }
    ],
    "example": {
@@ -157,7 +157,7 @@
     },
     {
      "do": "Ask: is the volume high enough?",
-     "detail": "A probabilistic system carries fixed costs — evaluation, gates, a harness. Below some volume a person is simply cheaper, and saying so is a service to everyone."
+     "detail": "A probabilistic system carries fixed costs, evaluation, gates, a harness. Below some volume a person is simply cheaper, and saying so is a service to everyone."
     },
     {
      "do": "Ask: is a wrong answer recoverable?",
@@ -201,13 +201,13 @@
    "template": {
     "title": "AI-fit decision record",
     "lang": "markdown",
-    "body": "# AI-fit · <feature>\n_Decided: <date> · Decided by: <name> · Status: accepted / superseded_\n\n## The three questions\n| # | Question | Answer | Why |\n|---|----------|--------|-----|\n| 1 | Is there a genuine judgement call? | yes / no | <two competent people could differ about ...> |\n| 2 | Is the volume high enough to carry a probabilistic system? | yes / no | <n cases/day> |\n| 3 | Is a wrong answer recoverable? | yes / no / partly | <what happens, and how fast it can be undone> |\n\n## Verdict\n**<Rule in code | Assisted, person decides | Agentic with gates | Fully agentic>**\n\n## What we rejected, and why\n- **Rule in code** — <rejected because ... / chosen because ...>\n- **A person** — <cost at this volume>\n- **Fully agentic** — <rejected because step <x> is unrecoverable>\n\n## Consequence\n- The unrecoverable steps are: <list> — these are gated regardless of how good the model gets.\n- Revisit when: <named trigger, e.g. \"the regulator's rule changes\" — not a date>\n"
+    "body": "# AI-fit · <feature>\n_Decided: <date> · Decided by: <name> · Status: accepted / superseded_\n\n## The three questions\n| # | Question | Answer | Why |\n|---|----------|--------|-----|\n| 1 | Is there a genuine judgement call? | yes / no | <two competent people could differ about ...> |\n| 2 | Is the volume high enough to carry a probabilistic system? | yes / no | <n cases/day> |\n| 3 | Is a wrong answer recoverable? | yes / no / partly | <what happens, and how fast it can be undone> |\n\n## Verdict\n**<Rule in code | Assisted, person decides | Agentic with gates | Fully agentic>**\n\n## What we rejected, and why\n- **Rule in code**, <rejected because ... / chosen because ...>\n- **A person**, <cost at this volume>\n- **Fully agentic**, <rejected because step <x> is unrecoverable>\n\n## Consequence\n- The unrecoverable steps are: <list>: these are gated regardless of how good the model gets.\n- Revisit when: <named trigger, e.g. \"the regulator's rule changes\", not a date>\n"
    },
    "prompts": [
     {
      "title": "Triage a backlog for AI fit",
      "when": "You have ten requests and an agent-first directive",
-     "body": "For each item below, answer these three questions IN ORDER and stop at the first \"no\":\n\n1. Is there a genuine judgement call — could two competent people reasonably differ?\n   (If the criteria are published and unambiguous, answer NO: it is a rule.)\n2. Is the volume high enough to justify evaluation, gates and a harness?\n3. Is a wrong answer recoverable?\n\nThen classify: RULE (code) / ASSISTED (model drafts, person decides) / AGENTIC WITH GATES /\nFULLY AGENTIC.\n\nOutput a table: Item | Q1 | Q2 | Q3 | Verdict | One-line justification.\n\nBe strict on Q1. Most backlog items are rules. If you are unsure, answer NO and say what\nwould have to be true for it to be a judgement call.\n\nITEMS:\n<paste>"
+     "body": "For each item below, answer these three questions IN ORDER and stop at the first \"no\":\n\n1. Is there a genuine judgement call, could two competent people reasonably differ?\n   (If the criteria are published and unambiguous, answer NO: it is a rule.)\n2. Is the volume high enough to justify evaluation, gates and a harness?\n3. Is a wrong answer recoverable?\n\nThen classify: RULE (code) / ASSISTED (model drafts, person decides) / AGENTIC WITH GATES /\nFULLY AGENTIC.\n\nOutput a table: Item | Q1 | Q2 | Q3 | Verdict | One-line justification.\n\nBe strict on Q1. Most backlog items are rules. If you are unsure, answer NO and say what\nwould have to be true for it to be a judgement call.\n\nITEMS:\n<paste>"
     },
     {
      "title": "Argue the opposite",
@@ -217,14 +217,14 @@
    ],
    "example": {
     "title": "SkyWays · the verdict that shaped everything",
-    "body": "Judgement: yes — which alternative suits this passenger depends on their connection, their fare rules, whether they will accept an overnight. Volume: 240 a day. Recoverable: **partly** — a proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was *agentic with gates*, and the gate went on the refund. That single 'partly' is why the product has a named approver on refunds ninety days later, and why the $2,000 incident on day 82 was a failure to implement a decision already made rather than a failure to make it."
+    "body": "Judgement: yes: which alternative suits this passenger depends on their connection, their fare rules, whether they will accept an overnight. Volume: 240 a day. Recoverable: **partly**: a proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was *agentic with gates*, and the gate went on the refund. That single 'partly' is why the product has a named approver on refunds ninety days later, and why the $2,000 incident on day 82 was a failure to implement a decision already made rather than a failure to make it."
    },
    "pitfalls": [
     "Treating the directive as the answer. *Everything must be agent-first* is a strategy, not a design input, and the AI-fit record is how you serve the strategy honestly rather than theatrically.",
     "Answering question three with 'we would notice'. Noticing is not recovering. The test is whether the action can be undone, and how fast.",
     "Recording the verdict without the rejected options. A verdict with no alternatives reads as a preference and gets re-litigated at the first incident."
    ],
-   "done_when": "You can hand the record to a sceptical executive and they can see what you decided, what you rejected, and what would change your mind — without you in the room.",
+   "done_when": "You can hand the record to a sceptical executive and they can see what you decided, what you rejected, and what would change your mind, without you in the room.",
    "pdlc": "P0"
   },
   {
@@ -296,17 +296,17 @@
     {
      "title": "Build the value line, with sensitivity",
      "when": "You have the pain register numbers",
-     "body": "Compute a value line from these inputs and SHOW THE ARITHMETIC at each step.\n\nnet per day = (cases x minutes_saved x cost_per_minute)\n            - (cases x run_cost_per_case)\n            - (cases x review_share x review_minutes x cost_per_minute)\n\nINPUTS:\n- cases per day: <n>\n- minutes saved per case: <n>\n- loaded cost per minute: $<n>\n- run cost per case: $<n>\n- review share: <n>%\n- review minutes per reviewed case: <n>\n\nThen:\n1. Give me the net per day, per month, per year.\n2. Sensitivity: for each input, show the net if it were 20% worse. Rank them by impact.\n3. Tell me which single input is both high-impact AND least evidenced — that is the one\n   I should go and measure before I present this."
+     "body": "Compute a value line from these inputs and SHOW THE ARITHMETIC at each step.\n\nnet per day = (cases x minutes_saved x cost_per_minute)\n            - (cases x run_cost_per_case)\n            - (cases x review_share x review_minutes x cost_per_minute)\n\nINPUTS:\n- cases per day: <n>\n- minutes saved per case: <n>\n- loaded cost per minute: $<n>\n- run cost per case: $<n>\n- review share: <n>%\n- review minutes per reviewed case: <n>\n\nThen:\n1. Give me the net per day, per month, per year.\n2. Sensitivity: for each input, show the net if it were 20% worse. Rank them by impact.\n3. Tell me which single input is both high-impact AND least evidenced. That is the one\n   I should go and measure before I present this."
     },
     {
      "title": "Draft the autonomy table",
      "when": "You have the action list and need a first pass",
-     "body": "Here are the actions <feature> can take: <list them>.\n\nFor each, produce a row:\n| Action | What ONE wrong instance costs | Reversible? (yes / with effort / no) | Suggested level |\n\nLevels, in order: acts alone · acts monitored · acts with a veto window · named approver\nevery time · not delegated at all.\n\nRules:\n- Set the level from cost-of-mistake and reversibility ONLY. Ignore how capable the model is.\n- Anything involving money, identity or a regulatory commitment defaults to \"named approver\".\n- Anything irreversible defaults to \"not delegated\".\n- Where you do not know our costs, write UNKNOWN — do not estimate.\n\nThen list the questions I must answer before this table can be signed."
+     "body": "Here are the actions <feature> can take: <list them>.\n\nFor each, produce a row:\n| Action | What ONE wrong instance costs | Reversible? (yes / with effort / no) | Suggested level |\n\nLevels, in order: acts alone · acts monitored · acts with a veto window · named approver\nevery time · not delegated at all.\n\nRules:\n- Set the level from cost-of-mistake and reversibility ONLY. Ignore how capable the model is.\n- Anything involving money, identity or a regulatory commitment defaults to \"named approver\".\n- Anything irreversible defaults to \"not delegated\".\n- Where you do not know our costs, write UNKNOWN, do not estimate.\n\nThen list the questions I must answer before this table can be signed."
     },
     {
      "title": "Pressure-test an autonomy level",
      "when": "Someone wants a level raised",
-     "body": "An executive wants <action> raised from <level A> to <level B>, because\n\"it has been right every time for <period>\".\n\nAct as a sceptical risk reviewer. Tell me:\n1. What sample size would be needed to support that claim, given the bar for this action?\n   (bar = damage / (damage + saving); show the arithmetic)\n2. What the lower bound of the observed success rate actually is at the sample size we have.\n3. What is the DOOR — if we raise it and it goes wrong, how fast can we go back?\n4. The smallest safe step: what is the ONE level up, with what monitoring?\n\nOur numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>."
+     "body": "An executive wants <action> raised from <level A> to <level B>, because\n\"it has been right every time for <period>\".\n\nAct as a sceptical risk reviewer. Tell me:\n1. What sample size would be needed to support that claim, given the bar for this action?\n   (bar = damage / (damage + saving); show the arithmetic)\n2. What the lower bound of the observed success rate actually is at the sample size we have.\n3. What is the DOOR, if we raise it and it goes wrong, how fast can we go back?\n4. The smallest safe step: what is the ONE level up, with what monitoring?\n\nOur numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>."
     }
    ],
    "example": {
@@ -328,7 +328,7 @@
    "phase": "Specify",
    "title": "Write the spec a machine can build from",
    "when": "P1, before the first bolt is cut",
-   "purpose": "A thirty-page PRD is read by nobody and interpreted differently by everyone, and when handed to a coding agent it produces the wrong thing confidently. The spec is the one place the machine can look, so it must be exact and small: three classical fields plus five agentic ones, on one screen. The five agentic fields are almost always the decisions nobody had made — which is the real value of the exercise, not the document.",
+   "purpose": "A thirty-page PRD is read by nobody and interpreted differently by everyone, and when handed to a coding agent it produces the wrong thing confidently. The spec is the one place the machine can look, so it must be exact and small: three classical fields plus five agentic ones, on one screen. The five agentic fields are almost always the decisions nobody had made, which is the real value of the exercise, not the document.",
    "activities": [
     {
      "do": "Keep the three classical fields",
@@ -363,7 +363,7 @@
     {
      "tool": "Chat LLM (cheap tier)",
      "use": "Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage delegation in the role: mechanical, verifiable, and it takes you an hour by hand.",
-     "caution": "It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself — the guesses are the exact thing you are trying to surface."
+     "caution": "It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself, the guesses are the exact thing you are trying to surface."
     },
     {
      "tool": "Chat LLM",
@@ -377,7 +377,7 @@
     },
     {
      "tool": "Do not delegate",
-     "use": "The bar and the autonomy fields. Both are business risk decisions with your name on them, and both have a formula — use the formula, not the model.",
+     "use": "The bar and the autonomy fields. Both are business risk decisions with your name on them, and both have a formula, use the formula, not the model.",
      "caution": null
     }
    ],
@@ -389,13 +389,13 @@
    "template": {
     "title": "The eight-field agentic spec",
     "lang": "markdown",
-    "body": "# Spec · <feature>\n_Version <n> · <date> · Owner: <name> · Source PRD: <link>_\n\n**1 · Title**\n<one line>\n\n**2 · Value**\n<the value-line net, and the pain register line it serves>\n\n**3 · Acceptance criteria (EARS)**\nWHEN <trigger> AND <condition>\nTHE SYSTEM SHALL <observable behaviour>\nWITHIN <measure: time, count or threshold>.\n\nWHEN <...> THE SYSTEM SHALL <...> WITHIN <...>.\n\nBOUNDARY  The system shall NEVER <thing that must not happen>.\nBOUNDARY  The system shall NEVER <...>.\n\n**4 · The model's role**\n<Which steps the model decides, in one sentence. Which steps are exact code. Which\n step changes something real.>\n\n**5 · Autonomy**\n| Action | Level | Approver |\n|--------|-------|----------|\n| <action> | <level> | <role, if gated> |\n\n**6 · The bar, per slice**\n| Slice | Saving per right case | Damage per wrong case | Bar | With a hold? |\n|-------|----------------------|----------------------|-----|--------------|\n| <same-day> | $<n> | $<n> | <n>% | |\n| <codeshare> | $<n> | $<n> | <n>% | |\n| <refund> | $<n> | $<n> | <n>% | yes — <what the hold is> |\n\n**7 · Fallback**\n<What happens when the model cannot meet the bar on a case, or a tool fails. Who or what\n catches it, and what the passenger/user sees.>\n\n**8 · Records**\n<What must be written for every consequential action: which fields, redacted how, kept\n how long.>\n\n---\n## Reading test\nHanded to <name> on <date>. Questions they asked:\n1. <question> -> field <n> updated\n2. <...>\n"
+    "body": "# Spec · <feature>\n_Version <n> · <date> · Owner: <name> · Source PRD: <link>_\n\n**1 · Title**\n<one line>\n\n**2 · Value**\n<the value-line net, and the pain register line it serves>\n\n**3 · Acceptance criteria (EARS)**\nWHEN <trigger> AND <condition>\nTHE SYSTEM SHALL <observable behaviour>\nWITHIN <measure: time, count or threshold>.\n\nWHEN <...> THE SYSTEM SHALL <...> WITHIN <...>.\n\nBOUNDARY  The system shall NEVER <thing that must not happen>.\nBOUNDARY  The system shall NEVER <...>.\n\n**4 · The model's role**\n<Which steps the model decides, in one sentence. Which steps are exact code. Which\n step changes something real.>\n\n**5 · Autonomy**\n| Action | Level | Approver |\n|--------|-------|----------|\n| <action> | <level> | <role, if gated> |\n\n**6 · The bar, per slice**\n| Slice | Saving per right case | Damage per wrong case | Bar | With a hold? |\n|-------|----------------------|----------------------|-----|--------------|\n| <same-day> | $<n> | $<n> | <n>% | |\n| <codeshare> | $<n> | $<n> | <n>% | |\n| <refund> | $<n> | $<n> | <n>% | yes, <what the hold is> |\n\n**7 · Fallback**\n<What happens when the model cannot meet the bar on a case, or a tool fails. Who or what\n catches it, and what the passenger/user sees.>\n\n**8 · Records**\n<What must be written for every consequential action: which fields, redacted how, kept\n how long.>\n\n---\n## Reading test\nHanded to <name> on <date>. Questions they asked:\n1. <question> -> field <n> updated\n2. <...>\n"
    },
    "prompts": [
     {
      "title": "Shard a PRD into eight-field specs",
      "when": "You have a long PRD and need per-feature specs",
-     "body": "Below is a product requirements document.\n\nSplit it into one spec per feature. For each, output EXACTLY these eight fields:\n1 Title\n2 Value\n3 Acceptance criteria — in EARS: WHEN <trigger> AND <condition> THE SYSTEM SHALL\n  <behaviour> WITHIN <measure>. Plus BOUNDARY lines for anything that must never happen.\n4 The model's role\n5 Autonomy\n6 The bar, per slice\n7 Fallback\n8 Records\n\nCRITICAL: for fields 4-8, write \"NOT DECIDED — <the question that must be answered>\"\nwherever the PRD does not actually say. Do NOT infer, do NOT use a sensible default.\nThose gaps are the output I am looking for.\n\nPRD:\n<paste>"
+     "body": "Below is a product requirements document.\n\nSplit it into one spec per feature. For each, output EXACTLY these eight fields:\n1 Title\n2 Value\n3 Acceptance criteria, in EARS: WHEN <trigger> AND <condition> THE SYSTEM SHALL\n  <behaviour> WITHIN <measure>. Plus BOUNDARY lines for anything that must never happen.\n4 The model's role\n5 Autonomy\n6 The bar, per slice\n7 Fallback\n8 Records\n\nCRITICAL: for fields 4-8, write \"NOT DECIDED, <the question that must be answered>\"\nwherever the PRD does not actually say. Do NOT infer, do NOT use a sensible default.\nThose gaps are the output I am looking for.\n\nPRD:\n<paste>"
     },
     {
      "title": "Prose to EARS, with a ambiguity count",
@@ -410,7 +410,7 @@
    ],
    "example": {
     "title": "SkyWays · thirty pages to eight fields",
-    "body": "The PRD was thirty pages and the spec was one screen. Three fields transferred straight across. Of the five agentic fields, **five were undecided** — nobody had said what the model's role was versus the fare engine's, what autonomy refunds had, what accuracy counted as good, what happened when it could not decide, or what had to be logged. Each was settled with its owner in under an hour. The document took a morning; the decisions it forced were the point. The one that mattered most was the fallback: without it, the engineer would have chosen one by default, because the code has to do something."
+    "body": "The PRD was thirty pages and the spec was one screen. Three fields transferred straight across. Of the five agentic fields, **five were undecided**: nobody had said what the model's role was versus the fare engine's, what autonomy refunds had, what accuracy counted as good, what happened when it could not decide, or what had to be logged. Each was settled with its owner in under an hour. The document took a morning; the decisions it forced were the point. The one that mattered most was the fallback: without it, the engineer would have chosen one by default, because the code has to do something."
    },
    "pitfalls": [
     "Letting the model fill the five agentic fields. Its guesses are plausible and they are exactly the decisions you were trying to surface.",
@@ -444,7 +444,7 @@
     },
     {
      "do": "Hand the cut to the architect for dependency order",
-     "detail": "You decide the cadence; they decide the order. This division matters — a plan ordered by business priority will schedule a gated write before the plug it needs."
+     "detail": "You decide the cadence; they decide the order. This division matters: a plan ordered by business priority will schedule a gated write before the plug it needs."
     },
     {
      "do": "Put the shadow run in the plan as a milestone",
@@ -485,23 +485,23 @@
    "template": {
     "title": "Bolt plan",
     "lang": "markdown",
-    "body": "# Bolt plan · <feature> · <cycle>\n_Cadence: one bolt per day, reviewed and integrated same day_\n\n| Day | Bolt | The ONE unknown it retires | Depends on | Slice it serves | Done when |\n|-----|------|---------------------------|-----------|-----------------|-----------|\n| 1 | Walking skeleton — <read X, show it>, no model | do the pieces connect? | — | all | end to end, in staging |\n| 2 | <exact function> | <...> | — | <slice> | unit tests green |\n| 3 | | | | | |\n\n## Rules for this plan\n- A bolt that cannot be built alone was cut wrong — send it back before starting it.\n- Exact code early: it stands alone and never blocks.\n- The plug (MCP / integration) lands before any gated write that needs it.\n- The proof (harness, golden set) is last, because it needs something to run against.\n\n## Milestones that are not dates\n| Milestone | Condition, not date |\n|-----------|--------------------|\n| Shadow run starts | harness green on all slices at their bar |\n| Shadow run ends | <n> days AND <n>% agreement per slice |\n| Cut-over to 5% | shadow threshold met; rollback rehearsed |\n| Widen | live lower bound holds above bar, per slice |\n\n## What leadership sees\nDaily: what merged yesterday. Weekly: the two numbers.\n"
+    "body": "# Bolt plan · <feature> · <cycle>\n_Cadence: one bolt per day, reviewed and integrated same day_\n\n| Day | Bolt | The ONE unknown it retires | Depends on | Slice it serves | Done when |\n|-----|------|---------------------------|-----------|-----------------|-----------|\n| 1 | Walking skeleton, <read X, show it>, no model | do the pieces connect? | — | all | end to end, in staging |\n| 2 | <exact function> | <...> | — | <slice> | unit tests green |\n| 3 | | | | | |\n\n## Rules for this plan\n- A bolt that cannot be built alone was cut wrong, send it back before starting it.\n- Exact code early: it stands alone and never blocks.\n- The plug (MCP / integration) lands before any gated write that needs it.\n- The proof (harness, golden set) is last, because it needs something to run against.\n\n## Milestones that are not dates\n| Milestone | Condition, not date |\n|-----------|--------------------|\n| Shadow run starts | harness green on all slices at their bar |\n| Shadow run ends | <n> days AND <n>% agreement per slice |\n| Cut-over to 5% | shadow threshold met; rollback rehearsed |\n| Widen | live lower bound holds above bar, per slice |\n\n## What leadership sees\nDaily: what merged yesterday. Weekly: the two numbers.\n"
    },
    "prompts": [
     {
      "title": "Cut stories into bolts",
      "when": "You have a sprint backlog and need daily slices",
-     "body": "Cut these stories into bolts. A bolt is a thin slice that can be built, tested and\nintegrated in ONE day, ALONE.\n\nFor each bolt give me:\n| Bolt | The ONE unknown it retires | Depends on | Can it be built alone? |\n\nRules:\n- If a bolt would retire two unknowns, split it.\n- If a bolt cannot be built alone, say so and explain what it needs.\n- Put a walking skeleton first: the thinnest end-to-end path with NO model in it.\n- Pure deterministic code (calculations, validations) should come early — it stands alone.\n- Anything that writes or changes real data comes after the integration it depends on.\n\nFinally: list any story that resisted splitting, and say what two risks it is hiding.\n\nSTORIES:\n<paste>"
+     "body": "Cut these stories into bolts. A bolt is a thin slice that can be built, tested and\nintegrated in ONE day, ALONE.\n\nFor each bolt give me:\n| Bolt | The ONE unknown it retires | Depends on | Can it be built alone? |\n\nRules:\n- If a bolt would retire two unknowns, split it.\n- If a bolt cannot be built alone, say so and explain what it needs.\n- Put a walking skeleton first: the thinnest end-to-end path with NO model in it.\n- Pure deterministic code (calculations, validations) should come early, it stands alone.\n- Anything that writes or changes real data comes after the integration it depends on.\n\nFinally: list any story that resisted splitting, and say what two risks it is hiding.\n\nSTORIES:\n<paste>"
     },
     {
      "title": "Draft tomorrow's story file",
      "when": "The bolt is chosen and engineering needs a self-contained brief",
-     "body": "Write an agent-ready story file for this bolt. It must be buildable with NO chat\nhistory and NO access to me.\n\nSections, exactly:\n## Context — LINKS ONLY to the context layers and ADRs. Do not paste their contents.\n## Spec — the EARS criteria for THIS slice only, copied from the spec verbatim.\n## Tools — signatures the bolt may call, with their risk band.\n## Tests — the golden slice it must pass and its bar, plus unit assertions.\n## Done when — one testable line.\n## Cost — expected tokens per call and the tier.\n\nBOLT: <name and the one unknown>\nSPEC EXTRACT: <paste the relevant EARS lines>\nCONTEXT LAYERS: <paths>"
+     "body": "Write an agent-ready story file for this bolt. It must be buildable with NO chat\nhistory and NO access to me.\n\nSections, exactly:\n## Context: LINKS ONLY to the context layers and ADRs. Do not paste their contents.\n## Spec (the EARS criteria for THIS slice only, copied from the spec verbatim.\n## Tools) signatures the bolt may call, with their risk band.\n## Tests (the golden slice it must pass and its bar, plus unit assertions.\n## Done when) one testable line.\n## Cost: expected tokens per call and the tier.\n\nBOLT: <name and the one unknown>\nSPEC EXTRACT: <paste the relevant EARS lines>\nCONTEXT LAYERS: <paths>"
     }
    ],
    "example": {
     "title": "SkyWays · ten days, ten proofs",
-    "body": "The sprint held five stories and a demo on day fourteen. Recut, it became ten bolts. Day one was a walking skeleton that read a booking and displayed it — no model, half a day, and it found a credentials problem in the reservation adapter that would otherwise have surfaced on day nine. Day two was the fare-difference function, unit tested, standing alone. The first model call did not appear until day four, by which point everything it depended on was proven. The wrong turn that cycle cost one day."
+    "body": "The sprint held five stories and a demo on day fourteen. Recut, it became ten bolts. Day one was a walking skeleton that read a booking and displayed it, no model, half a day, and it found a credentials problem in the reservation adapter that would otherwise have surfaced on day nine. Day two was the fare-difference function, unit tested, standing alone. The first model call did not appear until day four, by which point everything it depended on was proven. The wrong turn that cycle cost one day."
    },
    "pitfalls": [
     "Ordering by business priority. That is the right way to choose what is in the plan and the wrong way to sequence it; the architect's dependency order is what makes each day buildable.",
@@ -518,7 +518,7 @@
    "phase": "Gate",
    "title": "Hold the three gates that are yours",
    "when": "Throughout P2, at every bolt and every release",
-   "purpose": "Five gates exist across the lifecycle and you own three. A gate is a decision with evidence in front of a named person and their name on it — not a click, not a status column, not a meeting that ends in 'fine'. The common failure is a product manager approving a pull request they cannot evaluate while nobody asks them the one thing they can judge, which is whether it is worth doing at all.",
+   "purpose": "Five gates exist across the lifecycle and you own three. A gate is a decision with evidence in front of a named person and their name on it, not a click, not a status column, not a meeting that ends in 'fine'. The common failure is a product manager approving a pull request they cannot evaluate while nobody asks them the one thing they can judge, which is whether it is worth doing at all.",
    "activities": [
     {
      "do": "Claim intent, plan and release; decline the other two",
@@ -607,7 +607,7 @@
    "phase": "Launch",
    "title": "Shadow, then five percent, then widen",
    "when": "The end of P2 into P3",
-   "purpose": "Never switch on with nothing to compare against. A shadow run puts the agent beside the live process, deciding and logged but taking no action, for a window fixed in advance. Then five percent of real traffic, then wider — and the widening is earned by live evidence rather than by a date. If it does not match the humans, you learned that for free.",
+   "purpose": "Never switch on with nothing to compare against. A shadow run puts the agent beside the live process, deciding and logged but taking no action, for a window fixed in advance. Then five percent of real traffic, then wider, and the widening is earned by live evidence rather than by a date. If it does not match the humans, you learned that for free.",
    "activities": [
     {
      "do": "Put a shadow window in the plan before any switch-on date exists",
@@ -664,7 +664,7 @@
    "template": {
     "title": "Shadow run and cut-over decision",
     "lang": "markdown",
-    "body": "# Cut-over decision · <feature>\n_Shadow window: <start> to <end> (<n> days) · Decided: <date> · By: <name>_\n\n## Agreement, per slice\n| Slice | Decisions compared | Agreed | Agreement | Threshold | Met? |\n|-------|--------------------|--------|-----------|-----------|------|\n| <same-day> | <n> | <n> | <n>% | 95% | |\n| <codeshare> | <n> | <n> | <n>% | 95% | |\n| <refund> | <n> | <n> | <n>% | n/a — stays gated | |\n\n**Money actions are excluded from automatic agreement and remain gated regardless.**\n\n## Disagreements — the themes\n| Theme | Count | Agent right / desk right | Action |\n|-------|-------|--------------------------|--------|\n| | | | |\n\n## Rollback\n- Mechanism: <the flag>\n- Rehearsed on <date> by <name>; time to revert: <n> minutes\n- Who can throw it without asking: <names>\n\n## Widening schedule — conditions, not dates\n| Share | Cases needed | Days at this share | Widen when |\n|-------|--------------|--------------------|-----------|\n| 5% | <n> | <n> | live lower bound >= bar on <slice> |\n| 25% | <n> | <n> | as above, plus zero <class> incidents |\n| 100% | | | |\n\n## Decision\n<cut over to 5% on <date> | extend the shadow by <n> days | do not proceed, because ...>\n"
+    "body": "# Cut-over decision · <feature>\n_Shadow window: <start> to <end> (<n> days) · Decided: <date> · By: <name>_\n\n## Agreement, per slice\n| Slice | Decisions compared | Agreed | Agreement | Threshold | Met? |\n|-------|--------------------|--------|-----------|-----------|------|\n| <same-day> | <n> | <n> | <n>% | 95% | |\n| <codeshare> | <n> | <n> | <n>% | 95% | |\n| <refund> | <n> | <n> | <n>% | n/a, stays gated | |\n\n**Money actions are excluded from automatic agreement and remain gated regardless.**\n\n## Disagreements, the themes\n| Theme | Count | Agent right / desk right | Action |\n|-------|-------|--------------------------|--------|\n| | | | |\n\n## Rollback\n- Mechanism: <the flag>\n- Rehearsed on <date> by <name>; time to revert: <n> minutes\n- Who can throw it without asking: <names>\n\n## Widening schedule: conditions, not dates\n| Share | Cases needed | Days at this share | Widen when |\n|-------|--------------|--------------------|-----------|\n| 5% | <n> | <n> | live lower bound >= bar on <slice> |\n| 25% | <n> | <n> | as above, plus zero <class> incidents |\n| 100% | | | |\n\n## Decision\n<cut over to 5% on <date> | extend the shadow by <n> days | do not proceed, because ...>\n"
    },
    "prompts": [
     {
@@ -675,17 +675,17 @@
     {
      "title": "Cluster the disagreements",
      "when": "You have a week of shadow output",
-     "body": "Here are <n> cases where the agent and the human desk disagreed.\n\n1. Cluster them into at most 6 themes. Name each theme in plain words.\n2. For each theme: how many cases, and is the AGENT or the DESK more often right? Say\n   which and why — do not assume the human is the ground truth.\n3. Rank the themes by estimated cost of being wrong, not by frequency.\n4. For the top theme, tell me whether the fix is the spec, the prompt, the tools, or the\n   bar — and what specifically I would change.\n\nDISAGREEMENTS:\n<paste>"
+     "body": "Here are <n> cases where the agent and the human desk disagreed.\n\n1. Cluster them into at most 6 themes. Name each theme in plain words.\n2. For each theme: how many cases, and is the AGENT or the DESK more often right? Say\n   which and why, do not assume the human is the ground truth.\n3. Rank the themes by estimated cost of being wrong, not by frequency.\n4. For the top theme, tell me whether the fix is the spec, the prompt, the tools, or the\n   bar, and what specifically I would change.\n\nDISAGREEMENTS:\n<paste>"
     },
     {
      "title": "Widening schedule arithmetic",
      "when": "Shadow passed and you need a credible plan",
-     "body": "Compute a widening schedule.\n\nFor each slice give me: cases needed to prove the bar, then days of live evidence at 5%,\n25% and 100% of traffic.\n\ncases needed = 1.96^2 * p * (1-p) / (p - bar)^2\ndays = cases needed / (share x cases per day)\n\nThen write the schedule as CONDITIONS, never dates: \"widen to 25% when the live lower\nbound on <slice> holds at or above <bar> for <n> consecutive days\".\n\nFlag any slice where 5% would take more than 30 days — those need a bigger starting\nshare or a different approach, and I need to know now.\n\nSlices, observed scores, bars, cases/day: <paste>"
+     "body": "Compute a widening schedule.\n\nFor each slice give me: cases needed to prove the bar, then days of live evidence at 5%,\n25% and 100% of traffic.\n\ncases needed = 1.96^2 * p * (1-p) / (p - bar)^2\ndays = cases needed / (share x cases per day)\n\nThen write the schedule as CONDITIONS, never dates: \"widen to 25% when the live lower\nbound on <slice> holds at or above <bar> for <n> consecutive days\".\n\nFlag any slice where 5% would take more than 30 days, those need a bigger starting\nshare or a different approach, and I need to know now.\n\nSlices, observed scores, bars, cases/day: <paste>"
     }
    ],
    "example": {
     "title": "SkyWays · what seven days bought",
-    "body": "The full plan needed ten weeks and the sponsor had six, so the shadow window was cut from fourteen days to seven — but only on the simple slice, and with every disagreement read. Seven days at 144 same-day cases a day is about a thousand decisions, which bounds a 97% slice tightly. Codeshare stayed at 76% against a bar of 80 and did not ship, and nobody pretended otherwise. The sponsor heard it as a trade rather than a delay: sixty percent of the load in six weeks, proven, with codeshare next."
+    "body": "The full plan needed ten weeks and the sponsor had six, so the shadow window was cut from fourteen days to seven, but only on the simple slice, and with every disagreement read. Seven days at 144 same-day cases a day is about a thousand decisions, which bounds a 97% slice tightly. Codeshare stayed at 76% against a bar of 80 and did not ship, and nobody pretended otherwise. The sponsor heard it as a trade rather than a delay: sixty percent of the load in six weeks, proven, with codeshare next."
    },
    "pitfalls": [
     "Cutting over at fifty percent. Half your users meet the first-day failure, and first-day failures are the ones that get remembered.",
@@ -703,7 +703,7 @@
    "phase": "Learn",
    "title": "Report two numbers and turn incidents into the next frame",
    "when": "P3, every cycle, forever",
-   "purpose": "This is the step that decides whether the programme survives. A first cycle can genuinely save time and cost more, and that is survivable — if it arrives from you rather than from finance. Then production becomes the source of the next P0: drift is a KPI you watch, and an incident is a brief you write, not a name you find.",
+   "purpose": "This is the step that decides whether the programme survives. A first cycle can genuinely save time and cost more, and that is survivable, if it arrives from you rather than from finance. Then production becomes the source of the next P0: drift is a KPI you watch, and an incident is a brief you write, not a name you find.",
    "activities": [
     {
      "do": "Take the baseline before the pilot",
@@ -764,18 +764,18 @@
    "template": {
     "title": "Two-number report and next-P0 brief",
     "lang": "markdown",
-    "body": "# Cycle <n> · <feature> · <date>\n\n## The two numbers\n| | Baseline | Now | Change |\n|---|---------|-----|--------|\n| Person-days per story | <n> | <n> | <n>% |\n| Token spend per story | — | $<n> | |\n| Review hours added per story | <n> | <n> | +<n> |\n| Re-runs per story | — | <n> | |\n\n**Net this cycle:** saved <n> person-days, spent $<n> and <n> review hours.\n**Trajectory:** review load falls to ~<n>h in cycle <n+1> as <what sharpens>; net becomes <n>.\n\n_Baseline taken <date>, BEFORE the pilot, from <source>._\n\n## Drift\n| Output mix watched | Last week | This week | Change | Alert at |\n|--------------------|-----------|-----------|--------|----------|\n| <e.g. % refund vs credit> | <n>% | <n>% | <n>pp | 5pp w/w |\n\nA drift alert re-opens the release gate automatically. Last triggered: <date / never>.\n\n## Maturity\n| # | Control | Have it? |\n|---|---------|----------|\n| 1 | A context file the agent reads | |\n| 2 | Every item has a spec, a bar and an owner | |\n| 3 | The harness gates the merge, per slice | |\n| 4 | Caps live in tool signatures, not prompts | |\n| 5 | The trace redacts | |\n| 6 | Production evidence by segment, drift watched | |\n\n**Level: <n> of 6. Next: <the first missing one>.**\n\n---\n# Next P0 · <title>\n**Pain** — <what happened, as a measurement>\n**Evidence** — <trace id, date, link>\n**Finding** — the enforced control that was missing: <name it>\n**Fix** — <the control, where it will live>\n**Value** — <this class of incident becomes impossible, not less likely>\n"
+    "body": "# Cycle <n> · <feature> · <date>\n\n## The two numbers\n| | Baseline | Now | Change |\n|---|---------|-----|--------|\n| Person-days per story | <n> | <n> | <n>% |\n| Token spend per story | — | $<n> | |\n| Review hours added per story | <n> | <n> | +<n> |\n| Re-runs per story | — | <n> | |\n\n**Net this cycle:** saved <n> person-days, spent $<n> and <n> review hours.\n**Trajectory:** review load falls to ~<n>h in cycle <n+1> as <what sharpens>; net becomes <n>.\n\n_Baseline taken <date>, BEFORE the pilot, from <source>._\n\n## Drift\n| Output mix watched | Last week | This week | Change | Alert at |\n|--------------------|-----------|-----------|--------|----------|\n| <e.g. % refund vs credit> | <n>% | <n>% | <n>pp | 5pp w/w |\n\nA drift alert re-opens the release gate automatically. Last triggered: <date / never>.\n\n## Maturity\n| # | Control | Have it? |\n|---|---------|----------|\n| 1 | A context file the agent reads | |\n| 2 | Every item has a spec, a bar and an owner | |\n| 3 | The harness gates the merge, per slice | |\n| 4 | Caps live in tool signatures, not prompts | |\n| 5 | The trace redacts | |\n| 6 | Production evidence by segment, drift watched | |\n\n**Level: <n> of 6. Next: <the first missing one>.**\n\n---\n# Next P0 · <title>\n**Pain** (<what happened, as a measurement>\n**Evidence**) <trace id, date, link>\n**Finding**, the enforced control that was missing: <name it>\n**Fix**, <the control, where it will live>\n**Value**, <this class of incident becomes impossible, not less likely>\n"
    },
    "prompts": [
     {
      "title": "Build the two-number report",
      "when": "End of cycle, from the engineering ledger",
-     "body": "Build a two-number cycle report from this ledger.\n\nMUST include, in this order:\n1. Person-days per story: baseline vs now, and % change\n2. Token spend per story\n3. Review hours added per story (this keeps number 1 honest — never omit it)\n4. Re-runs per story (the leak signal)\n5. A net line: \"saved X person-days, spent $Y plus Z review hours\"\n\nThen:\n- State the trajectory: what happens to the review load next cycle and why.\n- Flag any number where the baseline was taken AFTER the pilot started, because that\n  number is not defensible and I need to say so rather than be caught.\n\nDo NOT drop a row because it is unflattering. Do not editorialise.\n\nLEDGER:\n<paste>"
+     "body": "Build a two-number cycle report from this ledger.\n\nMUST include, in this order:\n1. Person-days per story: baseline vs now, and % change\n2. Token spend per story\n3. Review hours added per story (this keeps number 1 honest, never omit it)\n4. Re-runs per story (the leak signal)\n5. A net line: \"saved X person-days, spent $Y plus Z review hours\"\n\nThen:\n- State the trajectory: what happens to the review load next cycle and why.\n- Flag any number where the baseline was taken AFTER the pilot started, because that\n  number is not defensible and I need to say so rather than be caught.\n\nDo NOT drop a row because it is unflattering. Do not editorialise.\n\nLEDGER:\n<paste>"
     },
     {
      "title": "Postmortem to next-P0 brief",
      "when": "After an incident, while the room is still arguing",
-     "body": "Turn this incident into a P0 brief. Use EXACTLY this structure:\n\n**Pain** — what happened, as a measurement (amount, count, who was affected)\n**Evidence** — the trace or log reference\n**Finding** — the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE\n**Fix** — where that control will live (a tool signature, a gate, a permission)\n**Value** — what class of incident becomes impossible\n\nRules:\n- Do not name a person. Do not name the input that triggered it.\n- \"A better prompt\" is NOT a control — a prompt is a request that a model can be talked\n  past. If your finding is a prompt change, you have not found the control yet.\n- Distinguish detection (an alert) from prevention (a cap). Say which yours is.\n- If several layers failed, list each as ENFORCED / A REQUEST / ABSENT.\n\nINCIDENT:\n<paste>"
+     "body": "Turn this incident into a P0 brief. Use EXACTLY this structure:\n\n**Pain** (what happened, as a measurement (amount, count, who was affected)\n**Evidence**) the trace or log reference\n**Finding** (the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE\n**Fix**) where that control will live (a tool signature, a gate, a permission)\n**Value**: what class of incident becomes impossible\n\nRules:\n- Do not name a person. Do not name the input that triggered it.\n- \"A better prompt\" is NOT a control, a prompt is a request that a model can be talked\n  past. If your finding is a prompt change, you have not found the control yet.\n- Distinguish detection (an alert) from prevention (a cap). Say which yours is.\n- If several layers failed, list each as ENFORCED / A REQUEST / ABSENT.\n\nINCIDENT:\n<paste>"
     },
     {
      "title": "The sceptical CFO rehearsal",
@@ -785,7 +785,7 @@
    ],
    "example": {
     "title": "SkyWays · day ninety",
-    "body": "The report said 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, with the review hours and the re-run count beside them. The review row was up, and it was in the report, with the reason and the expected fall. The programme continued — not because the numbers were flattering, but because both of them came from the team. The counterfactual is well documented elsewhere: every cycle showing time saved, none showing spend, and a CFO arriving at a budget review with a number nobody in the programme had seen."
+    "body": "The report said 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, with the review hours and the re-run count beside them. The review row was up, and it was in the report, with the reason and the expected fall. The programme continued: not because the numbers were flattering, but because both of them came from the team. The counterfactual is well documented elsewhere: every cycle showing time saved, none showing spend, and a CFO arriving at a budget review with a number nobody in the programme had seen."
    },
    "pitfalls": [
     "Taking the baseline after the pilot started. Unrecoverable, and everyone can tell.",

@@ -34,7 +34,7 @@ The first rewards buying tools, the second scores intent, and the third mistakes
 
 ## What is an AI maturity model?
 
-**A way to say how safely and repeatably a team delivers with AI — and what to improve next.** Most
+**A way to say how safely and repeatably a team delivers with AI, and what to improve next.** Most
 maturity models are staged ladders, in the tradition of the Capability Maturity Model's five levels. For
 agentic delivery that shape misleads, because the controls that matter are independent and very unequal
 in cost: capping a tool in its signature is an afternoon's work, while production evidence by segment
@@ -59,7 +59,7 @@ ten minutes. [Run the self-check](sim:#/toolkit/maturity)
 
 ### Step 2 · Mark a decided control as absent
 
-Decided is not enforced. At SkyWays — this playbook's fictional airline — the refund cap was decided,
+Decided is not enforced. At SkyWays, this playbook's fictional airline, the refund cap was decided,
 written into the autonomy record and repeated in the system prompt, so control 4 was marked present. On
 day 82 a $2,000 refund went out that was not owed, because the refund tool's signature accepted any
 amount. The test exists to catch exactly this.
@@ -67,7 +67,7 @@ amount. The test exists to catch exactly this.
 ### Step 3 · Read the list, not the number
 
 The level is the count, **deliberately unweighted**, so that it cannot be argued about. The price is
-that a team can score four with the two hardest controls missing — so report which controls are missing,
+that a team can score four with the two hardest controls missing, so report which controls are missing,
 not only how many.
 
 ### Step 4 · Build the next control, and only that one
@@ -83,15 +83,15 @@ switched from required to optional during a crunch. A score that only ever rises
 ## Where you'll use it
 
 - **Every quarter**, per team, in ten minutes.
-- **When a board asks how mature the organisation is** — answer with a number out of six and the next
+- **When a board asks how mature the organisation is**: answer with a number out of six and the next
   control, not with a tool count.
 - **Before widening an agent's use**, where controls 4 to 6 are the ones that matter.
 
 ## Why it matters
 
 Adoption metrics reward buying tools; this rewards controlling them. Each of the six maps to a failure
-this tutorial covers — an uninformed agent, an unmeasured bar, a regression hidden in an average, a cap
-talked past, a leak in a log, drift nobody saw — so the score is a count of failures a team has closed.
+this tutorial covers: an uninformed agent, an unmeasured bar, a regression hidden in an average, a cap
+talked past, a leak in a log, drift nobody saw, so the score is a count of failures a team has closed.
 
 ## Try it
 
@@ -102,16 +102,16 @@ re-open the gate. **What is its level, and what does it build next?**
 
 <details><summary>Show the answer</summary>
 
-**Two out of six** — the harness (3) and the redacting trace (5). The context file is not current (1),
+**Two out of six**: the harness (3) and the redacting trace (5). The context file is not current (1),
 one story in three has no bar (2), the cap is decided but not enforced (4), and an alert that does not
 re-open the gate is not control 6. The next control is the first missing one: bring the context file up
-to date — an afternoon — then re-run its test.
+to date, an afternoon, then re-run its test.
 
 </details>
 
 ## Key takeaways
 
-1. **Count controls, not tools** — six of them, each present or absent.
+1. **Count controls, not tools**: six of them, each present or absent.
 2. **Score by running the test**: decided is not enforced.
 3. **Build the first missing control**, one at a time, and re-run the check every quarter.
 
@@ -164,8 +164,8 @@ redacts personal data; (6) a drift alert re-opens the release gate. Report each 
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Six controls, each with a test; the level is the count | **Original** — this playbook | [Maturity: control, not tool count](wiki:Gates-and-Governance#maturity-control-not-tool-count) |
-| Read the list, not the number; build the first missing control | **Original** — this playbook | [For leadership](site:protocol/) |
+| Six controls, each with a test; the level is the count | **Original**: this playbook | [Maturity: control, not tool count](wiki:Gates-and-Governance#maturity-control-not-tool-count) |
+| Read the list, not the number; build the first missing control | **Original**: this playbook | [For leadership](site:protocol/) |
 | Staged maturity levels, which this model departs from | **Compare** | Paulk, M. C. et al. (1993). *Capability Maturity Model for Software, Version 1.1*. SEI, CMU/SEI-93-TR-024 |
-| A yes-or-no check of a team that takes minutes | **Compare** — the same form | Spolsky, J. (2000). *The Joel Test: 12 Steps to Better Code*. Joel on Software |
-| The day-82 refund | **Illustrative** — a fictional airline | [The simulator](sim:#/) |
+| A yes-or-no check of a team that takes minutes | **Compare**: the same form | Spolsky, J. (2000). *The Joel Test: 12 Steps to Better Code*. Joel on Software |
+| The day-82 refund | **Illustrative**: a fictional airline | [The simulator](sim:#/) |

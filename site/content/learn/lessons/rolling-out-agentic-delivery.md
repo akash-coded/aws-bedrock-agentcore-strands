@@ -3,7 +3,7 @@ title: How to Roll Out Agentic AI Delivery: A 90-Day Plan
 short: Rolling it out in 90 days
 wiki: How-to-Roll-Out-Agentic-AI-Delivery
 description: A 90-day plan for rolling out agentic AI delivery: pick for provability, write the artefacts, build in slices, shadow beside the humans, report two numbers.
-dek: The sequence that works is deliberately unglamorous in the middle — and each phase has one trap that reliably catches capable teams.
+dek: The sequence that works is deliberately unglamorous in the middle, and each phase has one trap that reliably catches capable teams.
 level: Intermediate
 keywords: AI rollout plan, how to roll out AI in an organisation, AI adoption roadmap, 90 day AI plan, AI transformation plan, AI pilot to production, AI change management, scaling AI agents
 updated: 2026-09-24
@@ -11,9 +11,9 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The plan in one sentence.** Roll out agentic delivery one feature at a time over ninety days: pick
-> a feature for provability rather than value and take a baseline (days 1–15); write the spec, the bars,
-> the authority budget and a context file (15–30); build in daily slices proven in CI (30–60); run it in
-> shadow beside the people doing the work, then cut over at 5% (60–90); and report two numbers from the
+> a feature for provability rather than value and take a baseline (days 1 to 15); write the spec, the bars,
+> the authority budget and a context file (15 to 30); build in daily slices proven in CI (30 to 60); run it in
+> shadow beside the people doing the work, then cut over at 5% (60 to 90); and report two numbers from the
 > first cycle.
 
 {{map:rolling-out-agentic-delivery}}
@@ -36,41 +36,41 @@ Each is a sequencing mistake, and none needs a reorganisation to fix.
 
 **One feature proven end to end, whose artefacts the second feature can copy.** Not a portfolio of
 pilots, and not tool adoption. The first feature buys the organisation a spec template, a bar derivation,
-an authority budget, a harness in CI and a rehearsed rollback — and the evidence that the method works
+an authority budget, a harness in CI and a rehearsed rollback, and the evidence that the method works
 here. The second feature should then need less attention than the first.
 
 ## Roll it out, step by step
 
-### Step 1 · Days 1–15 — pick the wrong-looking thing
+### Step 1 · Days 1 to 15: pick the wrong-looking thing
 
 Choose one feature for **provability rather than value**: high volume, low damage per mistake, and an
 existing human process to compare against. Run the three AI-fit questions across the top ten candidates
-and publish the ones that came back as rules. **Take the baseline now** — person-days per story, before
+and publish the ones that came back as rules. **Take the baseline now**: person-days per story, before
 anything changes. **The trap:** starting with the flagship, which has the highest bar, the least
 tolerance for a first attempt and the most spectators. [Is it AI work?](lesson:p0-frame)
 
-### Step 2 · Days 15–30 — write the artefacts nobody wants to write
+### Step 2 · Days 15 to 30: write the artefacts nobody wants to write
 
 The eight-field spec, the acceptance bar per slice, the authority budget and a context file in the
 repository. Five of the eight spec fields will be undecided, and those five are the value of the
 exercise. **The trap:** a demo exists by now and it is persuasive. A demo is the easy 20%; it cannot tell
 you how often the system is wrong on the cases you did not choose. [P1 · Design and Spec](lesson:p1-design-and-spec)
 
-### Step 3 · Days 30–60 — build in slices, prove in CI
+### Step 3 · Days 30 to 60: build in slices, prove in CI
 
 A shippable slice a day, each proven before the next: a walking skeleton with no model in it first, caps
 moved out of prompts into tool signatures, the golden set at fifty real cases running in CI, review
 routed by risk band. **The signal:** something merged most days. If the demo is still the only evidence
 at day 45, the slices are not slices. [P2 · Build and Prove](lesson:p2-build-and-prove)
 
-### Step 4 · Days 60–90 — prove it beside the humans
+### Step 4 · Days 60 to 90: prove it beside the humans
 
 Run it in shadow next to the people doing the work, deciding but never acting, for a window agreed in
 advance and read daily per slice. Keep money actions gated whatever the shadow shows. Rehearse the
 rollback before the cut-over, then cut over at 5% and widen on live evidence rather than on a date. If it
 does not match, you learned that for free. [Shadow and cut-over](lesson:shadow-mode-and-cutover)
 
-### Step 5 · Day 90 onward — report honestly, and let production set the agenda
+### Step 5 · Day 90 onward: report honestly, and let production set the agenda
 
 Two numbers from the first cycle: the saving and the spend. A surprise bill goes back into the design,
 an incident produces a control rather than a name, drift is watched weekly, and the maturity check is
@@ -81,9 +81,9 @@ the first, because the artefacts now exist to copy. [The maturity model](lesson:
 
 | What you will hear | What is underneath | What answers it |
 | --- | --- | --- |
-| "This slows us down" | True for the first feature, untrue by the third | Show the artefacts being reused — the second spec takes an hour |
+| "This slows us down" | True for the first feature, untrue by the third | Show the artefacts being reused, the second spec takes an hour |
 | "The model is good enough already" | Judged on curated examples | Ask for the score on the slice nobody picked, with its sample size |
-| "We already have gates" | Approvals, not gates — clicks without evidence | Ask what would have made the last approver say no |
+| "We already have gates" | Approvals, not gates, clicks without evidence | Ask what would have made the last approver say no |
 | "Engineering says the cap is handled" | Handled in a prompt | Ask to be shown it: prose or code decides the answer |
 | "We cannot take a baseline, we have started" | True, and recoverable on the next feature | Say so in the report, and take one next time |
 | "Our people will resist automation" | Often they resist being measured by it | Put the frontline in discovery first, and credit their requirements by name |
@@ -116,7 +116,7 @@ start with the drafts?** (Hypothetical numbers; assume the agent is right 96% of
 <details><summary>Show the answer</summary>
 
 **Because the refund slice cannot be proven inside a quarter.** Its bar is 19 ÷ 20 = 95%. Proving 95%
-when the agent is right 96% of the time needs about 1.96² × 0.96 × 0.04 ÷ 0.01² ≈ 1,475 cases — at twelve
+when the agent is right 96% of the time needs about 1.96² × 0.96 × 0.04 ÷ 0.01² ≈ 1,475 cases, at twelve
 a day, about four months of evidence before the shadow run can end. The drafts' bar is 2 ÷ 3 ≈ 67%, and at
 80% the Wilson lower bound clears it on about fifty cases. Start with the drafts, keep refunds with a
 person, and let the first feature's artefacts carry the second.
@@ -175,9 +175,9 @@ between people as open questions. Do not merge or drop anything silently.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The ninety days, their traps and signals, and the resistance table | **Original** — this playbook | [For leadership](site:protocol/) |
-| Choose the first feature for provability; the bar as damage ÷ (damage + saving) | **Original** — this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
+| The ninety days, their traps and signals, and the resistance table | **Original**: this playbook | [For leadership](site:protocol/) |
+| Choose the first feature for provability; the bar as damage ÷ (damage + saving) | **Original**: this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
 | The walking skeleton | **Borrowed** | Cockburn, A. (2004). *Crystal Clear*. Addison-Wesley |
-| Shadow deployment and canary release | **Borrowed** — general practice | See [Sources and Confidence](wiki:Sources-and-Confidence) |
+| Shadow deployment and canary release | **Borrowed**: general practice | See [Sources and Confidence](wiki:Sources-and-Confidence) |
 | Early, visible wins sustain a change programme | **Compare** | Kotter, J. P. (1995). Leading change: why transformation efforts fail. *Harvard Business Review* 73(2) |
 | The Wilson score interval | **Borrowed** | Wilson, E. B. (1927). *JASA* 22(158) |

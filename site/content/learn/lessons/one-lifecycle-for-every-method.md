@@ -2,7 +2,7 @@
 title: How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle
 short: One lifecycle for every method
 wiki: One-Lifecycle-for-AI-DLC-BMAD-Spec-Kit-and-Scrum
-description: Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-gate sit on the agentic PDLC's four phases — and the decisions none of them makes.
+description: Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-gate sit on the agentic PDLC's four phases, and the decisions none of them makes.
 dek: Lay every method on the same four phases and two things appear: they mostly agree, and they all leave the same decisions open.
 level: Intermediate
 keywords: AI-DLC vs Scrum, BMAD vs Spec Kit, AI development methodology comparison, agile with AI agents, Shape Up AI, spec-driven development vs agile, which AI development method, method-agnostic AI lifecycle
@@ -10,8 +10,8 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The map in one sentence.** Every building method fits onto the agentic PDLC's four phases — most
-> of their stages land in P1 and P2 — and laying them side by side shows the same gap in all of them:
+> **The map in one sentence.** Every building method fits onto the agentic PDLC's four phases, most
+> of their stages land in P1 and P2, and laying them side by side shows the same gap in all of them:
 > none sets an acceptance bar per slice from what a mistake costs, none enforces authority per action,
 > and almost none says how to watch a model in production and report its value beside its cost.
 
@@ -25,7 +25,7 @@ updated: 2026-09-24
 
 ## Sound familiar?
 
-- The team runs Scrum, the architects want Spec Kit, and a vendor is pitching AI-DLC — and the argument is about which one wins.
+- The team runs Scrum, the architects want Spec Kit, and a vendor is pitching AI-DLC, and the argument is about which one wins.
 - Every method you evaluate has a planning phase and a building phase, and none has a clear answer to "is it good enough to ship?"
 - After launch, nobody's method says who watches the agent, or who tells the sponsor what it cost.
 
@@ -43,7 +43,7 @@ as gaps that a lifecycle has to fill, whichever method you choose.
 | **Kiro** | — | `requirements.md`, `design.md` | `tasks.md`, task by task | — |
 | **GitHub Spec Kit** | — | Constitution, specify, plan, tasks | Implement | — |
 | **BMAD Method** | The analyst's brief | The product manager's requirements, the architect's design | Stories, developer, QA | Learn and adjust, into the next plan |
-| **Scrum** | Backlog refinement | Sprint planning | Sprints — here, bolts — and the review | The retrospective |
+| **Scrum** | Backlog refinement | Sprint planning | Sprints (here, bolts) and the review | The retrospective |
 | **Shape Up** | Shaping and the betting table | The shaped pitch | The six-week cycle | — |
 | **Stage-gate** | Discovery and scoping | The business case | Development, testing and validation | Launch |
 
@@ -52,7 +52,7 @@ as gaps that a lifecycle has to fill, whichever method you choose.
 ### Step 1 · Map your method's stages onto the four phases
 
 Write your method's stages against P0 to P3, as in the table. Most land in P1 and P2, because most
-methods are about how to build. That is not a flaw — it is what they are for.
+methods are about how to build. That is not a flaw. It is what they are for.
 
 ### Step 2 · Find the empty cells and the thin ones
 
@@ -77,7 +77,7 @@ and the two numbers to the review you already give the sponsor.
 ### Step 4 · Keep one spec, whatever the method
 
 Every method above produces some form of specification. Keep one, in the repository, as the artefact
-agents build from — whether your tool calls it `requirements.md`, a spec, a PRD or a pitch. The eight
+agents build from: whether your tool calls it `requirements.md`, a spec, a PRD or a pitch. The eight
 fields of the [agentic spec](lesson:p1-design-and-spec#step-2--write-the-eight-field-spec) are what it
 must contain.
 
@@ -97,7 +97,7 @@ still skip every exit; a team that holds the exits can run any of them.
 ## Why it matters
 
 Method arguments are expensive and mostly beside the point. The failures that cancel agentic projects
-— escalating cost, unclear value, weak risk controls — live in the cells that every building method
+ (escalating cost, unclear value, weak risk controls) live in the cells that every building method
 leaves empty. Mapping them makes that visible in one table.
 
 ## Try it
@@ -110,7 +110,7 @@ customer replies. **Using the map, which phase has no owner at all?**
 **P3, Run & Learn.** Spec Kit stops at *implement*, and Scrum's retrospective looks at the team, not at
 the agent's behaviour in production. Nobody is watching the mix of the agent's replies for drift, nobody
 has rehearsed switching it back to drafting-only, and nobody reports what it saved beside what it
-costs. The fix is an owner for each inside existing ceremonies — not a new method.
+costs. The fix is an owner for each inside existing ceremonies, not a new method.
 
 </details>
 
@@ -125,19 +125,19 @@ costs. The fix is an owner for each inside existing ceremonies — not a new met
 ### Can I use AI-DLC with Scrum?
 
 Yes. The ceremonies can stay; the planning unit shrinks from the sprint to the bolt, and Inception's
-Mob Elaboration can replace or feed sprint planning. The phase exits — especially the hard gate between
-design and build — apply whichever you keep.
+Mob Elaboration can replace or feed sprint planning. The phase exits, especially the hard gate between
+design and build, apply whichever you keep.
 
 ### What is the best AI development methodology?
 
 There is no best one in general. The methods mostly agree on how to build and differ in ceremony and
 tooling; choose the one that fits your team and tools. What decides success is whether the decisions
-they all leave open — the bar, the authority budget, the operating loop — have owners.
+they all leave open (the bar, the authority budget, the operating loop) have owners.
 
 ### Is Shape Up compatible with AI-driven development?
 
 Yes. Shaping and the betting table are a strong P0; the shaped pitch is a P1 input; and the six-week
-cycle can be run as a sequence of bolts. Shape Up's appetite — how much time an idea deserves — pairs
+cycle can be run as a sequence of bolts. Shape Up's appetite, how much time an idea deserves, pairs
 naturally with the value line.
 
 ### What replaces the sprint when AI writes the code?
@@ -149,7 +149,7 @@ AWS's AI-DLC; the rule of one unknown per bolt is this playbook's.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Map the customer's method onto P0–P3 in the first meeting, then fill the three gaps every method shares: the bar, authority in code, production evidence. | Ask a model to place each stage of the customer's process on the four phases. |
+| **A forward-deployed engineer** | Map the customer's method onto P0 to P3 in the first meeting, then fill the three gaps every method shares: the bar, authority in code, production evidence. | Ask a model to place each stage of the customer's process on the four phases. |
 | **A product manager or FDPM** | Run mixed-method teams on one lifecycle: the phases and hand-offs are shared, the method inside each team is theirs. | Have a model generate the hand-off checklist per phase for each method in use. |
 | **A GenAI or agentic AI engineer** | Whatever the method, the harness, the caps and the per-call log are the same code. Build them once, as a library. | Ask a coding agent to extract them into a shared package with its own tests. |
 
@@ -175,4 +175,4 @@ acceptance bar per slice, authority enforced per action, and production evidence
 | Scrum's events | **Borrowed** | Schwaber, K. & Sutherland, J. (2020). [The Scrum Guide](https://scrumguides.org/) |
 | Shaping, betting and six-week cycles | **Borrowed** | Singer, R. (2019). [*Shape Up*](https://basecamp.com/shapeup). Basecamp |
 | Stage-gate | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
-| The mapping, and the gaps it shows | **Original** — this tutorial | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
+| The mapping, and the gaps it shows | **Original**: this tutorial | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |

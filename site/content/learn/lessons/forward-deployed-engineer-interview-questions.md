@@ -2,7 +2,7 @@
 title: Forward Deployed Engineer Interview Questions and Answers
 short: FDE interview questions
 wiki: Forward-Deployed-Engineer-Interview-Questions
-description: Ten forward deployed engineer (FDE) interview questions — discovery, demos, evaluation, debugging, design, handover and pushback — with strong answers.
+description: Ten forward deployed engineer (FDE) interview questions (discovery, demos, evaluation, debugging, design, handover and pushback) with strong answers.
 dek: FDE loops test whether you can ship a model into someone else's systems, prove it with their evidence, and leave something that keeps working.
 level: Advanced
 keywords: forward deployed engineer interview questions, FDE interview, OpenAI forward deployed engineer interview, Anthropic forward deployed engineer interview, Palantir FDSE interview, forward deployed engineer case study, AI deployment engineer interview, customer engineer AI interview
@@ -10,10 +10,10 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The bank in one sentence.** Forward deployed engineer interviews test three things at once — whether
+> **The bank in one sentence.** Forward deployed engineer interviews test three things at once, whether
 > you can build production software in an environment you do not control, whether you can turn a vague
 > customer ask into a provable scope, and whether what you leave behind keeps working and feeds the
-> product — and these ten questions probe each, with the framework, a strong answer, the follow-up that
+> product: and these ten questions probe each, with the framework, a strong answer, the follow-up that
 > finds your limit, and the red flag.
 
 {{map:forward-deployed-engineer-interview-questions}}
@@ -53,7 +53,7 @@ hand over, with lead-time items first
 
 - **Day one, the lead-time items**: model access in the right regions, data access, network and identity,
   the security review. They set the calendar, not the build.
-- **Measure the pain in their data**: cases, minutes, money — and who owns the risk.
+- **Measure the pain in their data**: cases, minutes, money: and who owns the risk.
 - **Pick a provable first slice**, and write the AI-fit verdict with what was rejected.
 - **A walking skeleton in their environment** in week one: their authentication, their data path, no model.
 - **Agree what done means**: the bar per slice, signed by their risk owner, and the evidence that will prove it.
@@ -61,7 +61,7 @@ hand over, with lead-time items first
   model is usually waiting for a firewall rule by week three.
 
 **The follow-up:** "The security review takes six weeks." → start it on day one, build against redacted or
-synthetic data meanwhile, and design for their constraints — private networking, no data leaving the account.
+synthetic data meanwhile, and design for their constraints, private networking, no data leaving the account.
 
 **Red flag:** "I'd build a quick demo first."
 
@@ -118,7 +118,7 @@ step, lower bounds
 
 <details><summary>What a strong answer covers</summary>
 
-- **Real contracts, redacted, labelled by the customer's lawyers** — never by the model.
+- **Real contracts, redacted, labelled by the customer's lawyers**: never by the model.
 - **Slices**: clause types, jurisdictions, contract families, plus an abstention slice for genuinely ambiguous
   clauses.
 - **A checker per kind of step**: exact checks for extracted fields such as dates and amounts; a rubric and a
@@ -165,13 +165,13 @@ answered, and what changed in the inputs?
 
 - **Map the steps**: read the exception (exact), classify the cause (best-guess), look up records (exact
   tools), propose a resolution (best-guess), execute it (consequential).
-- **Authority per action**: read tools open; writes gated; payments never autonomous at first — a named
+- **Authority per action**: read tools open; writes gated; payments never autonomous at first, a named
   approver, caps in the tool signatures, idempotency keys so a retry cannot pay twice.
 - **Tools as MCP servers** over the bank's core systems, each with its own least-privilege identity.
 - **An audit trail as a product requirement**: who, what, why and on what evidence, redacted, for every action.
 - **Prove it**: per-slice bars, then a shadow run against the operations team.
-- **The insight:** in a bank, the explanation of a decision is the evidence it was based on — the records
-  and tool calls — not a paragraph the model writes afterwards.
+- **The insight:** in a bank, the explanation of a decision is the evidence it was based on, the records
+  and tool calls, not a paragraph the model writes afterwards.
 
 **The follow-up:** "The regulator requires an explanation of every decision." → store the evidence with
 each decision and generate explanations from the trace.
@@ -190,9 +190,9 @@ each decision and generate explanations from the trace.
 
 - **Code in their repository**, with tests, a context file and decision records.
 - **The harness and golden sets**, running in their CI.
-- **Runbooks with timed rollbacks**, a drift chart, a cost-per-case report — each with a named owner.
+- **Runbooks with timed rollbacks**, a drift chart, a cost-per-case report, each with a named owner.
 - **The authority budget and the refusal tests** for every cap.
-- **Back home**: the patterns, written up — the MCP server, the skill, the sub-agent — for the product team.
+- **Back home**: the patterns, written up (the MCP server, the skill, the sub-agent) for the product team.
 - **The insight:** the test of an FDE is what keeps working when they are no longer in the room.
 
 **The follow-up:** "Who owns the cost and incident loops?" → a named person each, agreed before you leave.
@@ -248,11 +248,11 @@ incident rate is, and show what evidence would justify the change here.
 <details><summary>What a strong answer covers</summary>
 
 - **The repeat**: the same connector, evaluation or approval flow built at more than one customer.
-- **What you built instead**: a configurable, tested asset — an MCP server, a skill, a harness template.
+- **What you built instead**: a configurable, tested asset, an MCP server, a skill, a harness template.
 - **The number**: time saved at the next deployment, or defects avoided.
-- **The change**: how it reached the product team and changed a roadmap item — the eval-driven feedback
+- **The change**: how it reached the product team and changed a roadmap item, the eval-driven feedback
   the role exists to produce.
-- **The insight:** an FDE's leverage is the loop back into the product. Delivery alone does not scale.
+- **The insight:** an FDE's lasting effect is the loop back into the product. Delivery alone does not scale.
 
 **The follow-up:** "What did the product team reject, and why?" → shows you understand product trade-offs.
 
@@ -267,7 +267,7 @@ system and let it handle the backlog." **What do you say, in under a minute?**
 
 <details><summary>Show the answer</summary>
 
-**Yes to the backlog, no to unsupervised refunds — and a date for the evidence.** Agree the goal, then
+**Yes to the backlog, no to unsupervised refunds, and a date for the evidence.** Agree the goal, then
 split it: the agent can triage and draft the whole backlog this week, with people approving every refund;
 refunds under a cap can move to a veto window once a shadow run shows agreement with their staff on that
 slice. Put the cap in the refund tool itself, and name the day the shadow numbers will be ready. You have
@@ -278,7 +278,7 @@ kept the momentum and the customer's money safe in the same sentence.
 ## Key takeaways
 
 1. **FDE questions are set in someone else's world**: their access, data, identity and risk owner.
-2. **Your evidence is the customer's evidence** — their labels, their bar, their shadow run.
+2. **Your evidence is the customer's evidence**: their labels, their bar, their shadow run.
 3. **The senior signal is the handover and the pattern** you carry back to the product.
 
 ## FAQ
@@ -328,8 +328,8 @@ customer would, then score me on scoping, evidence, security and handover.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The questions, frameworks and strong answers | **Original** — this tutorial | [AI-DLC and AIDD for FDEs](lesson:ai-dlc-for-forward-deployed-engineers) |
-| What an OpenAI FDE owns and how success is measured | **Borrowed** — public posting, September 2026 | [OpenAI careers: Forward Deployed Engineer](https://openai.com/careers/forward-deployed-engineer-(fde)-sf-san-francisco/) |
-| FDE deliverables such as MCP servers, sub-agents and agent skills | **Borrowed** — public posting, September 2026 | [Anthropic: Forward Deployed Engineer, Applied AI](https://job-boards.greenhouse.io/anthropic/jobs/5391021008) |
+| The questions, frameworks and strong answers | **Original**: this tutorial | [AI-DLC and AIDD for FDEs](lesson:ai-dlc-for-forward-deployed-engineers) |
+| What an OpenAI FDE owns and how success is measured | **Borrowed**: public posting, September 2026 | [OpenAI careers: Forward Deployed Engineer](https://openai.com/careers/forward-deployed-engineer-(fde)-sf-san-francisco/) |
+| FDE deliverables such as MCP servers, sub-agents and agent skills | **Borrowed**: public posting, September 2026 | [Anthropic: Forward Deployed Engineer, Applied AI](https://job-boards.greenhouse.io/anthropic/jobs/5391021008) |
 | Saying no as part of doing the job well | **Borrowed** | Orosz, G. (2025). [What are Forward Deployed Engineers?](https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers) *The Pragmatic Engineer* |
-| Tools that fail loudly; the agent loop's failure signatures | **Original** — this repository | [Failure Signature Catalog](repo:cheatsheets/frameworks/failure-signature-catalog.md) |
+| Tools that fail loudly; the agent loop's failure signatures | **Original**: this repository | [Failure Signature Catalog](repo:cheatsheets/frameworks/failure-signature-catalog.md) |

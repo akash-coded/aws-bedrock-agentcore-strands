@@ -1,4 +1,4 @@
-"""Mental models — the twelve shapes that make the rest of the manual predictable.
+"""Mental models: the twelve shapes that make the rest of the manual predictable.
 
 A procedure tells you what to do on Tuesday. A mental model tells you what to expect before you
 start, which is what lets somebody make a good call on a case this manual never covered. Each entry
@@ -203,7 +203,7 @@ MODELS = [
         example="The rebooking assistant ran four model steps in a row: read the disruption, find the fare rule, pick the options, write the message. Each tested at about 90 percent. End to end it was right two times in three, and every wrong answer read as confidently as a right one.",
         one="Chained probabilistic steps multiply. They do not average.",
         predicts="Four steps each right 90% of the time are right 66% of the time end to end, and "
-                 "they fail fluently — no exception, no red test, a confident wrong answer. Every "
+                 "they fail fluently: no exception, no red test, a confident wrong answer. Every "
                  "step you add is a tax on every step before it.",
         prevents="Judging a pipeline by its weakest step, or by the mean of its steps. Both readings "
                  "are optimistic, and the second is the one that gets written in a status report.",
@@ -294,7 +294,7 @@ MODELS = [
         example="QA reported 82 percent on forty codeshare cases against a bar of 80. The lower bound was near 70, so nothing was proven. They owed another 460 cases and said so, which turned an argument into a plan.",
         one="A measurement from a sample is an estimate with a width, and the width is the argument.",
         predicts="82% on forty cases and 82% on five hundred are different claims. The first has a "
-                 "lower bound near 70%, the second near 79%. Against an 80% bar, neither is proven — "
+                 "lower bound near 70%, the second near 79%. Against an 80% bar, neither is proven. "
                  "and no realistic sample will prove it, because the estimate sits too close.",
         prevents="Shipping on a point estimate, and rejecting a slice that is merely unproven. The "
                  "second matters: “not proven” with a cases-owed number is a plan, where "
@@ -333,14 +333,14 @@ MODELS += [
         plain="A surprising bill is rarely one runaway. It is four ordinary habits multiplying: a bloated context, no routing to cheaper models, a cache that never hits, and retries. Each looks sensible alone. Fix the habit that removes the most multiplier per day of work.",
         example="The bill came in at 4.4 times the estimate on flat traffic: context 1.6, no routing 1.5, a discarded cache 1.3, retries 1.4. The retry breaker felt most urgent and was the smallest factor of the four.",
         one="A bill is four ordinary behaviours multiplying, not one runaway.",
-        predicts="Context bloat 1.6, no routing 1.5, a discarded cache 1.3, extra attempts 1.4 — and "
+        predicts="Context bloat 1.6, no routing 1.5, a discarded cache 1.3, extra attempts 1.4: and "
                  "the invoice is 4.4 times its estimate on flat traffic. Each decision was sensible "
                  "and made by a careful person.",
         prevents="Hunting for the one thing that broke, and fixing the biggest <em>ratio change</em> "
                  "first. Attempts rose more than five-fold in relative terms and contribute the "
                  "smallest factor of the four.",
         subtle="Because they multiply, the right fix order is what removes the most multiplier per "
-               "day of work — <code>(factor − 1) ÷ days</code> — which is usually not the fix that "
+               "day of work, <code>(factor − 1) ÷ days</code>, which is usually not the fix that "
                "feels most urgent. The retry breaker is the right fix in the wrong position.",
         landed="A surprise invoice makes you open the per-call log rather than the price list, and "
                "you expect to find four things rather than one.",
@@ -358,7 +358,7 @@ MODELS += [
         prevents="The reflex that turns “these run concurrently” into “these need "
                  "separate agents”, which is how a swarm arrives without anyone choosing one.",
         subtle="The rule is start single and escalate on a <em>named limit</em> written into the "
-               "record — a context that genuinely overloads, or parallel sub-tasks a tool cannot "
+               "record: a context that genuinely overloads, or parallel sub-tasks a tool cannot "
                "express. Without the written limit the swarm returns by default at the next design "
                "review, because nobody can point at what was decided.",
         landed="You ask what limit justifies each hand-off, and you notice that a calculator behind "
@@ -373,7 +373,7 @@ MODELS += [
         predicts="One process for everything over-serves the one-line fix and under-serves the new "
                  "subsystem. Both failures are expensive, and the first is the one that gives the "
                  "method a reputation for slowing teams down.",
-        prevents="Eleven gates on a printer-helpdesk question — and the reputation that earns, which "
+        prevents="Eleven gates on a printer-helpdesk question, and the reputation that earns, which "
                  "is then used to skip the gates on the refund tool, where they mattered.",
         subtle="The spec stays everywhere; it is the backbone. What flexes is everything around it: "
                "the persona trail, the depth of discovery, the number of records. And the judgement "
@@ -388,7 +388,7 @@ MODELS += [
         example="A spec was signed off in a meeting with five of its eight fields undecided. The engineer decided them by default, because the code had to do something. Three weeks later the missing decision was rediscovered, as the wrong one.",
         one="A hand-off happens when the next person has what they cannot start without.",
         predicts="Phases that end on dates hand over nothing, and the receiving team rediscovers the "
-                 "missing decision three weeks later — usually the one nobody wanted to make.",
+                 "missing decision three weeks later, usually the one nobody wanted to make.",
         prevents="A spec signed off in a meeting with five of its eight fields undecided, which the "
                  "engineer then decides by default because the code has to do something.",
         subtle="Only one of the four hand-offs is a hard gate. The other three can cross with a "
@@ -409,7 +409,7 @@ MODELS += [
                  "monitoring was never looking for this.",
         prevents="Believing that “nothing changed” means nothing changed, and treating "
                  "post-launch quality as a testing problem rather than an operational one.",
-        subtle="Watch the <em>output mix</em>, not the accuracy — accuracy needs labels and arrives "
+        subtle="Watch the <em>output mix</em>, not the accuracy, accuracy needs labels and arrives "
                "late. And watch two thresholds: the week-on-week step, and the level against a "
                "frozen baseline, because a slide of two points a week never trips a five percent "
                "rule and still moves you thirty points in a quarter.",
@@ -492,7 +492,7 @@ them.</span></li>
 <li><b>Use the landed-when line as the test.</b><span>Not whether the team can define it. Whether
 the question it implies has started showing up in reviews.</span></li>
 <li><b>Expect three to be resisted.</b><span>Usually the hold as a lever, the average hiding the
-slice, and depth as a dial — because each one contradicts something a competent person currently
+slice, and depth as a dial, because each one contradicts something a competent person currently
 believes is good practice.</span></li>
 <li><b>Pair each with its arithmetic once.</b><span>The intuition is what you carry; the formula is
 what settles the argument. A model without its number loses to a confident opinion.</span></li>
@@ -500,7 +500,7 @@ what settles the argument. A model without its number loses to a confident opini
 past its boundary does more damage than no model, because it comes with confidence.</span></li>
 </ol>
 <div class="note"><p><strong>Where they came from.</strong> Some are established ideas applied to a
-new setting — one-way doors, least privilege, Little's law. Some are this manual's own constructions
+new setting: one-way doors, least privilege, Little's law. Some are this manual's own constructions
 and are defaults to argue with rather than findings. Which is which is recorded on
 <a href="{urls['wiki']}/Sources-and-Confidence" target="_blank" rel="noopener">Sources and
 confidence</a>.</p></div>

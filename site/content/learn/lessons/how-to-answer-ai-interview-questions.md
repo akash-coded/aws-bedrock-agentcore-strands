@@ -11,7 +11,7 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The method in one sentence.** Most AI interview questions are one of six kinds, and each has a
-> structure: design questions take **the P0–P3 answer**, "is it good enough?" takes **the bar in three
+> structure: design questions take **the P0 to P3 answer**, "is it good enough?" takes **the bar in three
 > lines**, "why is it wrong?" takes **the grounding triangle**, cost questions take **the four
 > signatures**, harm questions take **the missing control**, and behavioural questions take **STAR, plus
 > the number and the change**. Clarify, state assumptions, say numbers, name the trade-off, end on the risk.
@@ -34,8 +34,8 @@ Frameworks fix the first; knowing what each question tests fixes the other two.
 
 ## What are AI interviews actually testing?
 
-**Whether you can make software that is right only most of the time accountable** — with numbers,
-limits and evidence — and explain it to someone who will not read the code. Recall of terms is the
+**Whether you can make software that is right only most of the time accountable** (with numbers,
+limits and evidence) and explain it to someone who will not read the code. Recall of terms is the
 floor, not the test. The strongest signal in almost every loop is the same: does the candidate ask what
 a mistake costs before choosing how good is good enough?
 
@@ -43,7 +43,7 @@ a mistake costs before choosing how good is good enough?
 
 Each comes with a sixty-second worked answer. The numbers in the answers are illustrative; the arithmetic is not.
 
-### Step 1 · Design questions → the P0–P3 answer
+### Step 1 · Design questions → the P0 to P3 answer
 
 Walk the four phases in order, one or two sentences each, with a number in every phase:
 **Frame** (who, the pain measured, AI-fit, autonomy per action) → **Specify** (the slices, a bar per
@@ -70,7 +70,7 @@ run) → **Run** (widen on evidence, watch drift, report the saving beside the c
 ### Step 3 · "Why is it wrong?" → the grounding triangle
 
 Separate the three claims: was the right passage **retrieved**, was it **cited**, and does the cited
-passage **support** the claim? Each has a different fix — retrieval (chunking, hybrid search, reranking),
+passage **support** the claim? Each has a different fix, retrieval (chunking, hybrid search, reranking),
 citation (a contract test that every factual claim carries one), or verification (an entailment check,
 or abstaining when support is missing).
 
@@ -84,11 +84,11 @@ From the per-call log, not the price list: **tokens per call**, **tier mix**, **
 **attempts per case**. The four ratios multiply to the bill's ratio; fix in order of
 (factor − 1) ÷ days to fix, and add a breaker so that a runaway is impossible.
 
-> *"The bill tripled with flat traffic."* 1.5 × 1.4 × 1.2 × 1.2 ≈ 3.0 — longer prompts, more calls on
+> *"The bill tripled with flat traffic."* 1.5 × 1.4 × 1.2 × 1.2 ≈ 3.0: longer prompts, more calls on
 > the large model, a cache that stopped hitting and more retries. The cheapest large factor usually goes
 > first; the breaker goes last and still matters.
 
-### Step 5 · "It caused harm — now what?" → the missing control
+### Step 5 · "It caused harm: now what?" → the missing control
 
 **Contain** (switch the action off or lower its autonomy) → **evidence** (the trace, the answering model,
 the tool calls) → **classify every layer** (enforced, a request, or absent) → **the enforced control that
@@ -100,18 +100,18 @@ closes the path**, with a test → **what restores autonomy** → the brief for 
 
 ### Step 6 · "Tell me about a time" → STAR, plus the number and the change
 
-**Situation, Task, Action, Result** — then two more beats: **the number** that proves the result, and
+**Situation, Task, Action, Result**, then two more beats: **the number** that proves the result, and
 **the change** you made to the system so it cannot recur. The last beat is what distinguishes a senior
 answer: you fixed the process, not just the instance.
 
 > *"Tell me about a launch you delayed."* The score looked like a pass; its lower bound did not clear the
 > bar on the refund slice. I shipped the other three slices on time and ran refunds in shadow for two
 > weeks. Refund disagreements fell from 11 to 2 per hundred. Since then every slice report carries its
-> lower bound — the template will not render without it.
+> lower bound: the template will not render without it.
 
 ## Four habits that work with every framework
 
-1. **Clarify two things, then state your assumptions** — out loud, as numbers.
+1. **Clarify two things, then state your assumptions**: out loud, as numbers.
 2. **Say the number**, even an estimate, and where it would come from.
 3. **Name the trade-off you are choosing**, and what would make you choose the other side.
 4. **End on the risk** and how you would know it had happened.
@@ -136,7 +136,7 @@ and what is your first question?**
 <details><summary>Show the answer</summary>
 
 **The bar in three lines, starting with "what are the other 30%?"** Some are correct abstentions, some are
-out of scope, some are failures — the same number with opposite meanings. Then per slice: what does a wrong
+out of scope, some are failures, the same number with opposite meanings. Then per slice: what does a wrong
 resolution cost against a right one, and what is each slice's bar? A 90% blended target can be wrong in both
 directions: too high for a slice where a mistake is costly and a person should stay, too low for one where
 mistakes are cheap. Answer with bars per slice, proven by lower bounds, and a route for the rest.
@@ -145,9 +145,9 @@ mistakes are cheap. Answer with bars per slice, proven by lower bounds, and a ro
 
 ## Key takeaways
 
-1. **Six kinds of question, six structures** — pick the frame before you answer.
+1. **Six kinds of question, six structures**: pick the frame before you answer.
 2. **Every framework carries a number**: a bar, a bound, a ratio, a count.
-3. **End senior answers with the change** — the process that now makes the failure impossible.
+3. **End senior answers with the change**: the process that now makes the failure impossible.
 
 ## FAQ
 
@@ -171,7 +171,7 @@ orchestration time), cost per task, observability and rollback.
 
 ### What should I do if I don't know the answer in an AI interview?
 
-Say so, then say how you would find out — what you would measure and how long it would take. Interviewers
+Say so, then say how you would find out, what you would measure and how long it would take. Interviewers
 for AI roles value calibrated uncertainty; a confident wrong answer is the failure they screen for.
 
 ## Apply it in your role
@@ -198,9 +198,9 @@ and risk, and say which framework I should have used.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The six frameworks and the four habits | **Original** — this tutorial, from the playbook's methods | [The agentic PDLC](lesson:what-is-the-agentic-pdlc) |
-| The bar, the lower bound and the cases needed | **Original** — this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
-| Retrieved, cited, verified | **Original** — this repository | [The Grounding Triangle](repo:cheatsheets/frameworks/grounding-triangle.md) |
-| Product-design answer structure | **Compare** | Lin, L. C. (2013). *Decode and Conquer*. Impact Interview — the CIRCLES method |
-| Situation, task, action, result | **Borrowed** — standard behavioural interviewing | Often credited to DDI's Targeted Selection method |
+| The six frameworks and the four habits | **Original**: this tutorial, from the playbook's methods | [The agentic PDLC](lesson:what-is-the-agentic-pdlc) |
+| The bar, the lower bound and the cases needed | **Original**: this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
+| Retrieved, cited, verified | **Original**: this repository | [The Grounding Triangle](repo:cheatsheets/frameworks/grounding-triangle.md) |
+| Product-design answer structure | **Compare** | Lin, L. C. (2013). *Decode and Conquer*. Impact Interview: the CIRCLES method |
+| Situation, task, action, result | **Borrowed**: standard behavioural interviewing | Often credited to DDI's Targeted Selection method |
 | The questions an AI interviewer asks | **Compare** | [Interview guides](repo:cheatsheets/interviews/README.md) in this repository |

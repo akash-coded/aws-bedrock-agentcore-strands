@@ -11,9 +11,9 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The rule in one sentence.** A limit an AI agent reads in its prompt only lowers the probability
-> of crossing it, while a limit enforced in the tool it calls — a typed, bounded parameter that raises,
+> of crossing it, while a limit enforced in the tool it calls, a typed, bounded parameter that raises,
 > a confirmation token the model cannot create, an identity that cannot reach what the job does not
-> need — closes the path entirely, so every consequential limit must live in code, with a test that
+> need: closes the path entirely, so every consequential limit must live in code, with a test that
 > proves it refuses.
 
 {{model:g_wall}}
@@ -26,7 +26,7 @@ updated: 2026-09-24
 
 ## Sound familiar?
 
-- "We have a cap" — said about a cap that exists only as a sentence in the system prompt.
+- "We have a cap", said about a cap that exists only as a sentence in the system prompt.
 - The injection tests passed before launch and have not been run since three prompt edits ago.
 - A reviewer approved the change because nothing in the diff looked like a rule being removed.
 
@@ -35,8 +35,8 @@ The only way to find one is to ask to be shown the line of code that refuses.
 
 ## Why is a prompt not a control?
 
-A model follows its instructions most of the time, and any text it reads — a customer's message, an
-email, a web page, a partner's API notes field — can contain instructions too. Prompt injection has
+A model follows its instructions most of the time, and any text it reads (a customer's message, an
+email, a web page, a partner's API notes field) can contain instructions too. Prompt injection has
 held the top spot in OWASP's Top 10 for LLM applications for two editions running, because a model
 processes instructions and data in the same channel. So a limit in the prompt is a **request**: it
 lowers the probability of crossing it, and can be talked past. A typed parameter that raises is a
@@ -55,7 +55,7 @@ be talked into calling a tool it does not have. This is the defence against what
 
 ### Step 2 · Bounded tools
 
-Put every cap inside the tool's signature — `issue_refund(amount: ≤ 400)` — as a parameter that
+Put every cap inside the tool's signature, `issue_refund(amount: ≤ 400)`, as a parameter that
 raises when exceeded. *The test: an over-cap call raises, in a test that ran today.*
 
 ### Step 3 · A human gate on money
@@ -65,7 +65,7 @@ the model cannot mint one. *The test: a call without a valid token raises.*
 
 ### Step 4 · Injection defence where input arrives
 
-Tag everything that arrives from outside — messages, documents, retrieved pages — as data, not
+Tag everything that arrives from outside (messages, documents, retrieved pages) as data, not
 instructions, and run an **injection suite** as a regression test: one file of attack strings, every
 entry point crossed with every gated tool, run weekly and on every prompt, tool or context change.
 *The test: every attack string, from every entry point, moves no money.*
@@ -73,7 +73,7 @@ entry point crossed with every gated tool, run weekly and on every prompt, tool 
 ### Step 5 · Traceability
 
 Write one redacted trace row for every consequential action: what was decided, by which model and
-prompt version, what it did, and who approved it — with personal data masked. *The test: a passport
+prompt version, what it did, and who approved it, with personal data masked. *The test: a passport
 number never reaches a trace row, and that is a test too.*
 
 ### Step 6 · Classify every layer, in the system
@@ -85,14 +85,14 @@ control lives only in a prompt.*
 
 ## Where you'll use it
 
-- **In P1**, when the authority budget is set — every cap decided there gets a signature and two tests.
+- **In P1**, when the authority budget is set, every cap decided there gets a signature and two tests.
 - **In P2**, before the first bolt that writes anything.
 - **In every review of a change to a gated tool**, where two named readers check the limit, not the style.
 
 ## Why it matters
 
 The most expensive sentence in agentic software is "we have a cap", said about a cap that lives in a
-prompt. It passes every review, because it reads like a rule, and it fails all at once — in production,
+prompt. It passes every review, because it reads like a rule, and it fails all at once, in production,
 with money. The six controls turn a decision into a guarantee.
 
 ## Try it
@@ -103,19 +103,19 @@ credits. **Is the $50 limit a boundary, and what would make it one?**
 
 <details><summary>Show the answer</summary>
 
-**No — it is a request.** The prompt asks; the tool accepts any amount; the monthly report finds a breach
+**No: it is a request.** The prompt asks; the tool accepts any amount; the monthly report finds a breach
 weeks after the money has gone. To make it a boundary: change the signature so an amount over $50
 raises, add a test that proves it raises and a test that a call without a confirmation token raises,
 require a person's approval token above the cap, and add the credit tool to the injection suite. Keep the
-sentence in the prompt too — it helps the agent behave well by default.
+sentence in the prompt too, it helps the agent behave well by default.
 
 </details>
 
 ## Key takeaways
 
-1. **A prompt is a request; a tool's signature is a boundary** — keep both, and rely only on the second.
+1. **A prompt is a request; a tool's signature is a boundary**: keep both, and rely only on the second.
 2. **Six controls**: least authority, bounded tools, a human gate on money, injection defence, traceability, every layer classified.
-3. **Every control has a test** that proves it refuses — run the injection suite as a regression, not once.
+3. **Every control has a test** that proves it refuses, run the injection suite as a regression, not once.
 
 ## FAQ
 
@@ -133,7 +133,7 @@ require a person's approval token for money, and run an injection suite on every
 
 ### Are guardrail products enough on their own?
 
-Managed guardrails — content filters, denied topics, sensitive-data detection — are a useful layer, but
+Managed guardrails (content filters, denied topics, sensitive-data detection) are a useful layer, but
 most are classifiers, which are probabilistic too. For money, identity and policy, the boundary has to
 be deterministic code that raises, with a test.
 
@@ -149,7 +149,7 @@ actions. Least authority and bounded tools are the direct defences.
 | --- | --- | --- |
 | **A forward-deployed engineer** | Audit the customer's existing agents for limits that live only in prompts. It is the fastest way to show value in week one. | Ask a coding agent to find every number and never/always rule in the prompts, and its enforcement in code. |
 | **A product manager or FDPM** | Ask "show me the cap" for every consequential action. If someone opens a prompt, it is not a guardrail. | Have a model list each consequential action and where its limit is enforced. |
-| **A GenAI or agentic AI engineer** | Enforce limits in the tool: typed, bounded parameters, confirmation tokens the model cannot create, the least identity that works — and test that each one refuses. | Ask a coding agent for two tests per cap: within the limit passes, over it raises. |
+| **A GenAI or agentic AI engineer** | Enforce limits in the tool: typed, bounded parameters, confirmation tokens the model cannot create, the least identity that works, and test that each one refuses. | Ask a coding agent for two tests per cap: within the limit passes, over it raises. |
 
 **Across the enterprise.** Make "caps in signatures" a platform rule that CI checks across every agent.
 A guardrail that exists only as a paragraph fails the build.
@@ -169,5 +169,5 @@ the line. Output: rule, prompt file, enforcing code (or NONE), and a test that p
 | Prompt injection (LLM01), excessive agency (LLM06), unbounded consumption (LLM10) | **Borrowed** | OWASP (2025). [Top 10 for LLM Applications 2025](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) |
 | Least privilege | **Borrowed** | Saltzer, J. H. & Schroeder, M. D. (1975). The protection of information in computer systems. *Proceedings of the IEEE* 63(9) |
 | Layered defences that fail when the holes line up | **Borrowed** | Reason, J. (2000). Human error: models and management. *BMJ* 320 |
-| The six controls and "a prompt is a request, a signature is a boundary" | **Original** — this playbook | [How to hold the security boundary](wiki:How-to-Hold-the-Security-Boundary) |
-| The SkyWays incident | **Illustrative** — a fictional airline | [Try the injection simulator](sim:#/toolkit/inject) |
+| The six controls and "a prompt is a request, a signature is a boundary" | **Original**: this playbook | [How to hold the security boundary](wiki:How-to-Hold-the-Security-Boundary) |
+| The SkyWays incident | **Illustrative**: a fictional airline | [Try the injection simulator](sim:#/toolkit/inject) |

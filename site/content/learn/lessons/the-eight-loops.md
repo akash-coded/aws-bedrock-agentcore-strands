@@ -12,8 +12,8 @@ updated: 2026-09-24
 > [!TIP]
 > **The eight loops in one sentence.** Each loop opens in one phase of the agentic PDLC and closes in
 > a later one when evidence from the far end **changes an artefact at the near end**; five close on
-> their own because someone downstream is waiting, while three — cost back into design, incidents
-> back into framing, and governance across the whole line — close only if a named person makes them.
+> their own because someone downstream is waiting, while three (cost back into design, incidents
+> back into framing, and governance across the whole line) close only if a named person makes them.
 
 {{board:loops}}
 
@@ -29,7 +29,7 @@ updated: 2026-09-24
 - The postmortem produced eleven action items in a tracker, and the incident recurred with a different name.
 - Numbers reach the steering committee only when the steering committee asks for them.
 
-Each is a loop that was never closed — handled as a conversation instead of as a change to the design.
+Each is a loop that was never closed, handled as a conversation instead of as a change to the design.
 
 ## What are the eight loops?
 
@@ -57,7 +57,7 @@ closes backwards into framing, and governance spans the whole line and belongs t
 ### Step 1 · Agree what "closed" means
 
 A loop is closed when something learned at the far end has changed an artefact at the near end, and
-you can point at the change — not a discussion, not a ticket, not a lesson learned.
+you can point at the change, not a discussion, not a ticket, not a lesson learned.
 
 | Word | Means | The test |
 | --- | --- | --- |
@@ -70,14 +70,14 @@ with better manners.
 
 ### Step 2 · Name one person for each loop
 
-For each of the eight, write a name — a person, not a team. The five forward loops usually already
+For each of the eight, write a name, a person, not a team. The five forward loops usually already
 have one. For the three backward-running loops, the honest first answer is often that nobody owns
 them, and "absent" is the right word for that.
 
 ### Step 3 · Close the cost loop into the design
 
-A bill that left its estimate is a **design** question, not a finance question. At SkyWays — the
-fictional airline this playbook follows — the day-75 bill was 4.4 times its estimate on flat traffic.
+A bill that left its estimate is a **design** question, not a finance question. At SkyWays, the
+fictional airline this playbook follows, the day-75 bill was 4.4 times its estimate on flat traffic.
 Handled as a budget question, it recurs next quarter with a different multiple. Handled as a loop,
 the per-call log traced it to four habits, and the model-tier decision record got a second version:
 classification moved to the cheap tier, judgement stayed on the capable one, and cost per case became
@@ -96,7 +96,7 @@ P0 exists, with an owner.**
 
 Governance is the only loop the delivery roles do not own: a minimum set of artefacts at each
 hand-off, hard gates that halt and soft gates that do not, one accountable name per artefact, and
-**two numbers reported together every cycle** — the saving and the spend. It is the loop most often
+**two numbers reported together every cycle**: the saving and the spend. It is the loop most often
 absent, because nobody downstream is waiting for it.
 
 ## Where you'll use it
@@ -108,7 +108,7 @@ absent, because nobody downstream is waiting for it.
 ## Why it matters
 
 A programme that runs the phases but not the loops ships once and then drifts. The two loops that
-close backwards are what turn a project into a practice — the first time a bill changes a design, or
+close backwards are what turn a project into a practice, the first time a bill changes a design, or
 an incident changes a frame, the team stops paying for the same lesson twice.
 
 ## Try it
@@ -118,10 +118,10 @@ prompt; review refund logs monthly"*. **Is the incident loop closed?**
 
 <details><summary>Show the answer</summary>
 
-**No — it is absent, dressed as open.** None of the three actions is an enforced control: training
+**No: it is absent, dressed as open.** None of the three actions is an enforced control: training
 and a prompt note are both requests, and a monthly log review finds the next incident after it has
-happened. The loop closes when a control that makes the incident impossible exists — a typed cap in
-the refund tool with a test beside it, say — and a brief for the next P0 has an owner and a date.
+happened. The loop closes when a control that makes the incident impossible exists (a typed cap in
+the refund tool with a test beside it, say) and a brief for the next P0 has an owner and a date.
 
 </details>
 
@@ -129,15 +129,15 @@ the refund tool with a test beside it, say — and a brief for the next P0 has a
 
 1. **Eight loops, eight owners**: each opens in one phase and closes when evidence changes an artefact in another.
 2. **Closed means a diff**, open means an owner and a date, absent means you cannot name a person.
-3. **Cost, incident and governance have nobody waiting** — close them on purpose, or they do not close.
+3. **Cost, incident and governance have nobody waiting**: close them on purpose, or they do not close.
 
 ## FAQ
 
 ### What is a feedback loop in software delivery?
 
 A path by which something learned later in delivery changes something decided earlier. In the
-agentic PDLC a loop only counts as closed when the earlier artefact — a spec, a decision record, a
-brief — has actually been changed by the evidence, and the change can be shown.
+agentic PDLC a loop only counts as closed when the earlier artefact (a spec, a decision record, a
+brief) has actually been changed by the evidence, and the change can be shown.
 
 ### Why do the backward loops matter most?
 
@@ -149,25 +149,25 @@ recurring.
 ### Who owns the incident loop?
 
 Every role. The postmortem asks which enforced control was missing, and the answer usually belongs to
-several roles at once — the architect's authority budget, the engineer's tool signature, QA's
+several roles at once, the architect's authority budget, the engineer's tool signature, QA's
 injection suite. The product manager then owns the brief it produces for the next P0.
 
-### How is this different from the Lean Startup build–measure–learn loop?
+### How is this different from the Lean Startup build to measure to learn loop?
 
-Build–measure–learn is one loop about whether a product meets a market need. The eight loops are
+Build to measure to learn is one loop about whether a product meets a market need. The eight loops are
 narrower and more operational: each has one owner, a phase where it opens, a phase where it closes,
-and a test — the diff — for whether it did.
+and a test, the diff, for whether it did.
 
 ## Apply it in your role
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Before you leave a customer, name an owner for the three loops nobody waits for — cost, incident, governance — or they stop closing the week you go. | Have a model build a loop-ownership table from the customer's org chart and your handover notes. |
+| **A forward-deployed engineer** | Before you leave a customer, name an owner for the three loops nobody waits for (cost, incident, governance) or they stop closing the week you go. | Have a model build a loop-ownership table from the customer's org chart and your handover notes. |
 | **A product manager or FDPM** | Hold a loop review each quarter: which loops closed and with what evidence, which are open without an owner. | Ask a model to scan the decision log and incident list and mark each loop closed, open or stuck. |
 | **A GenAI or agentic AI engineer** | Close loops in code where you can: a drift breach re-opens the release gate, and a cost signature opens a design ticket. | Ask a coding agent for both automations as scheduled jobs, each with a dry-run mode. |
 
-**Across the enterprise.** Across a portfolio, the backward loops need a central owner — usually the
-platform or governance lead — because no product team is waiting at the far end of them.
+**Across the enterprise.** Across a portfolio, the backward loops need a central owner, usually the
+platform or governance lead, because no product team is waiting at the far end of them.
 
 **The ten-minute workflow.** Find the loops nobody is closing:
 
@@ -182,10 +182,10 @@ with nobody first.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The eight loops, their owners, and closed, open and absent | **Original** — this playbook | [The Eight Loops](wiki:The-Eight-Loops) |
-| The missing-control question | **Original** — this playbook | [How to run a missing-control postmortem](wiki:How-to-Run-a-Missing-Control-Postmortem) |
+| The eight loops, their owners, and closed, open and absent | **Original**: this playbook | [The Eight Loops](wiki:The-Eight-Loops) |
+| The missing-control question | **Original**: this playbook | [How to run a missing-control postmortem](wiki:How-to-Run-a-Missing-Control-Postmortem) |
 | Blameless postmortems | **Borrowed** | Beyer, B. et al. (2016). *Site Reliability Engineering*. O'Reilly |
 | Layered defences that fail when the holes line up | **Borrowed** | Reason, J. (2000). Human error: models and management. *BMJ* 320 |
 | Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
-| Build–measure–learn, for comparison | **Borrowed** | Ries, E. (2011). *The Lean Startup*. Crown Business |
-| The SkyWays figures | **Illustrative** — a fictional airline | [Walk the loop map](site:#loops) |
+| Build to measure to learn, for comparison | **Borrowed** | Ries, E. (2011). *The Lean Startup*. Crown Business |
+| The SkyWays figures | **Illustrative**: a fictional airline | [Walk the loop map](site:#loops) |

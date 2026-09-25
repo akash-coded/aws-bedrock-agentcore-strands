@@ -1,6 +1,6 @@
 """The order of the tutorial. Change it here and every sidebar, prev/next link, track page, sitemap
 entry and llms.txt line follows. A lesson file that is not listed, or a listed lesson with no file,
-stops the build — see site/pages/learn.py.
+stops the build: see site/pages/learn.py.
 
 Titles are chosen for the query a practitioner actually types (the first four tracks' titles were
 checked against live results in September 2026), then made more specific than what already ranks.
@@ -30,7 +30,7 @@ TRACKS = [
         "short": "Fundamentals",
         "wiki": "Tutorial-Fundamentals",
         "blurb": "The four phases, the one hard gate, the eight loops and the evidence that crosses each "
-                 "hand-off — the model every other track builds on.",
+                 "hand-off: the model every other track builds on.",
         "promise": "The spine, phase by phase",
         "lessons": [
             "evolution-of-the-pdlc",
@@ -92,7 +92,7 @@ TRACKS = [
         "title": "By role",
         "short": "By role",
         "wiki": "Tutorial-By-Role",
-        "blurb": "How each discipline works in the agentic PDLC — product, programme, architecture, "
+        "blurb": "How each discipline works in the agentic PDLC, product, programme, architecture, "
                  "engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what "
                  "changes, what is theirs, and what is not.",
         "promise": "Your job, phase by phase",

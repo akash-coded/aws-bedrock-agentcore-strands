@@ -76,7 +76,7 @@ LEGACY_HASH_REDIRECT = (
 
 # A role page overrides --accent. Emitting the literal hex defeats dark mode, because
 # base.css already defines a lifted value for each of these tokens and a hard-coded
-# light hex cannot follow it — which is how the phase label on every role page came to
+# light hex cannot follow it, which is how the phase label on every role page came to
 # sit at about 3:1 against a dark background. Emit the token, not the colour.
 ACCENT_TOKEN = {"#3E6B8A": "slate", "#2F6B57": "sage", "#7A6A46": "ochre",
                 "#8C5B6B": "plum", "#6B4E8A": "violet"}
@@ -324,10 +324,10 @@ def calc_section(step: dict) -> str:
             f"{calcs.render(name)}</section>")
 
 
-PHASE_TITLE = {"P0": "P0 · Frame — is this worth doing, and is it AI at all?",
-               "P1": "P1 · Design & Spec — what exactly, and under whose authority?",
-               "P2": "P2 · Build & Prove — does it meet the bar, slice by slice?",
-               "P3": "P3 · Run & Learn — is it still doing it, and what did it cost?"}
+PHASE_TITLE = {"P0": "P0 · Frame (is this worth doing, and is it AI at all?",
+               "P1": "P1 · Design & Spec) what exactly, and under whose authority?",
+               "P2": "P2 · Build & Prove (does it meet the bar, slice by slice?",
+               "P3": "P3 · Run & Learn) is it still doing it, and what did it cost?"}
 
 
 def step_html(role: dict, s: dict) -> str:
@@ -470,7 +470,7 @@ def role_page(role: dict) -> str:
         extra_pills += f' <span class="pill">{n_c} calculators</span>'
     first = role["steps"][0]
     orient = k.orient(
-        f"<strong>{_E(role['name'])}s</strong> and anyone who has to work with one — plus the "
+        f"<strong>{_E(role['name'])}s</strong> and anyone who has to work with one, plus the "
         f"forward-deployed version of the role, who does this on a customer's site.",
         f"Walk the {len(role['steps'])} steps of this role in order, from <em>{_E(first['phase'])}</em> "
         f"to <em>{_E(role['steps'][-1]['phase'])}</em>, and leave each with the artefact the next person needs.",
@@ -542,10 +542,10 @@ def library_page(roles: list[dict], kind: str) -> str:
     short = "templates" if is_t else "prompts"
     lede = ("Every artefact in the manual has a fill-in skeleton: the pain register, the eight-field spec, "
             "the bar sheet, the two-number report and thirty-six more. These are <strong>documents you "
-            "write</strong>, not prompts you send — the prompts are on their own page."
+            "write</strong>, not prompts you send, the prompts are on their own page."
             if is_t else
             "Every prompt in the manual, on one page. These are <strong>messages you paste into a model</strong> "
-            "— Claude, ChatGPT, Bedrock, your coding agent — and edit: each states the job, the rules and the "
+            " (Claude, ChatGPT, Bedrock, your coding agent) and edit: each states the job, the rules and the "
             "output shape, because a prompt that does not say what shape it wants gets a different shape "
             "every time. The documents they help you write are on the templates page.")
     other = ("prompts", "Prompt templates") if is_t else ("templates", "Artefact templates")
@@ -592,15 +592,15 @@ def library_page(roles: list[dict], kind: str) -> str:
     register, a spec, a bar sheet, a report. You fill the angle brackets and keep the file.</p>
     <p class="eg2">e.g. <code># Pain register · &lt;product&gt;</code></p></div>
   <div class="card{'' if is_t else ' on'}"><h3 class="h4">Prompts</h3><p>Messages you <b>paste into a model</b> to draft, check or
-    decompose something — with the job, the rules and the output shape spelled out.</p>
+    decompose something: with the job, the rules and the output shape spelled out.</p>
     <p class="eg2">e.g. <code>You are helping a product manager consolidate discovery notes…</code></p></div>
 </div>"""
     orient = k.orient(
-        ("Anyone about to <strong>write an artefact</strong> the manual asks for — a product manager drafting a pain "
+        ("Anyone about to <strong>write an artefact</strong> the manual asks for, a product manager drafting a pain "
          "register, an architect writing the spec, a QA lead building the bar sheet, a sponsor's two-number report."
          if is_t else
-         "Anyone about to <strong>ask a model for help</strong> with a step — drafting, deduplicating, checking, "
-         "decomposing — and who wants a prompt that says what shape the answer must take."),
+         "Anyone about to <strong>ask a model for help</strong> with a step (drafting, deduplicating, checking, "
+         "decomposing) and who wants a prompt that says what shape the answer must take."),
         (f"Find the template for the step you are on, copy it, fill in the angle brackets, and keep it as the "
          f"artefact you hand to the next person." if is_t else
          "Find the prompt for the step you are on, copy it, paste it into your model, replace the angle "
@@ -711,7 +711,7 @@ def home_page(roles: list[dict]) -> str:
     tour = k.tour([
         {"sel": ".hero .who", "title": "Pick your chair", "body": "Nine entrances, one per kind of reader. Each opens the pages written for that chair. Start with yours; the rest will make sense from there."},
         {"sel": ".hero .ill", "title": "The spine", "body": "Four phases, one hard gate, and a loop back from production. Every lesson, board and role page on this site hangs off this picture. Click a phase to open it."},
-        {"sel": ".hd nav", "title": "The top bar", "body": "<b>Tutorial</b> is the course: 55 lessons in eight tracks. The five roles are the manual itself. Then leadership, the twelve mental models, the libraries — and the <b>Playbook</b>, the same case as an interactive simulator."},
+        {"sel": ".hd nav", "title": "The top bar", "body": "<b>Tutorial</b> is the course: 55 lessons in eight tracks. The five roles are the manual itself. Then leadership, the twelve mental models, the libraries, and the <b>Playbook</b>, the same case as an interactive simulator."},
         {"sel": ".menu", "title": "The menu", "body": "Everything, by category: the tutorial's tracks, the interview banks, the libraries, the wiki. Esc closes it."},
         {"sel": ".how3", "title": "Three ways you can use this", "body": "Learn the method in short lessons, walk your own role step by step, or go straight to the templates and prompts and play the case."},
         {"sel": "#pdlc", "title": "The boards", "body": "Below the fold the home page reads as four boards: the spine in detail, the eight loops, your role across the phases, and where a model helps. Hover a cell to light its row and column."},
@@ -828,21 +828,21 @@ def home_page(roles: list[dict]) -> str:
   <div class="sec">
     <h2>Where to start</h2>
     <div class="tw" tabindex="0"><table><thead><tr><th>You are</th><th>Start here</th><th>Time</th></tr></thead><tbody>
-      <tr><td>New to agentic delivery</td><td><a href="learn/what-is-the-agentic-pdlc/">What is the agentic PDLC?</a> — the
+      <tr><td>New to agentic delivery</td><td><a href="learn/what-is-the-agentic-pdlc/">What is the agentic PDLC?</a>, the
         four phases in one sitting</td><td>8 min</td></tr>
       <tr><td>A forward-deployed engineer</td><td><a href="learn/ai-dlc-for-forward-deployed-engineers/">AI-DLC and AIDD in the
-        field</a> — their pain, their risk owner, their stack</td><td>10 min</td></tr>
+        field</a>, their pain, their risk owner, their stack</td><td>10 min</td></tr>
       <tr><td>About to write a spec</td><td><a href="product-manager/#specify">The eight-field spec</a>, with
         the template</td><td>20 min</td></tr>
       <tr><td>About to launch</td><td><a href="product-manager/#launch">Shadow, then five percent</a></td><td>15 min</td></tr>
       <tr><td>Asked for a business case</td><td><a href="product-manager/#frame">The value line</a>, with the
         arithmetic</td><td>15 min</td></tr>
-      <tr><td>Funding this, not building it</td><td><a href="protocol/">The operating protocol</a> — what
+      <tr><td>Funding this, not building it</td><td><a href="protocol/">The operating protocol</a>, what
         changes, who does what, and the four questions to ask</td><td>20 min</td></tr>
       <tr><td>Preparing for an interview</td><td><a href="learn/how-to-answer-ai-interview-questions/">Six answer
         frameworks</a>, then the bank for your role</td><td>25 min</td></tr>
       <tr><td>Running a workshop</td><td><a href="{WIKI}/Scenario-Library" target="_blank" rel="noopener">37
-        scenarios</a> across twenty sectors</td><td>—</td></tr>
+        scenarios</a> across twenty sectors</td><td>, </td></tr>
     </tbody></table></div>
   </div>
 </main></div>"""
@@ -862,7 +862,7 @@ def home_page(roles: list[dict]) -> str:
 
 
 # --------------------------------------------------------------------------- diagrams
-# Confidence marks. Tokens, so the pills follow the theme — the literals these
+# Confidence marks. Tokens, so the pills follow the theme, the literals these
 # replaced sat on a dark page at the value they were picked for a light one.
 CONF = {"doc": ("documented", "var(--dg-indigo)"),
         "est": ("established", "var(--dg-teal)"),
@@ -906,7 +906,7 @@ def frameworks_page() -> str:
     pic = lambda fn: bb.rebase(fn(), "../")  # noqa: E731
     orient = k.orient(
         "Anyone who keeps meeting <strong>AI-DLC, AIDD, BMAD, SDD</strong> and forty acronyms and wants them "
-        "placed on one map — and anyone who wants to know how much to trust a number in this manual.",
+        "placed on one map, and anyone who wants to know how much to trust a number in this manual.",
         "Settle three questions fast: which method covers what, what an acronym means here, and where a "
         "framework came from. Then carry four pictures in your head.",
         ["Start with the picture: <b>four methods on one spine</b>. They are not competitors, they cover different phases.",
@@ -914,7 +914,7 @@ def frameworks_page() -> str:
          "Check the <b>lineage</b> column before you quote a figure: documented, established, or this manual's own default."])
     tour = k.tour([
         {"sel": "#methods", "title": "One spine, four methods", "body": "A filled cell is where a method speaks to a phase; a dashed cell is where you bring your own answer. The bottom row is what this manual adds."},
-        {"sel": "#vs", "title": "What actually changed", "body": "A traditional lifecycle decides everything once. The agentic one adds a bar per slice, an authority budget, one hard gate — and brings production back to the next frame."},
+        {"sel": "#vs", "title": "What actually changed", "body": "A traditional lifecycle decides everything once. The agentic one adds a bar per slice, an authority budget, one hard gate, and brings production back to the next frame."},
         {"sel": "#ladder", "title": "Gate by risk", "body": "Five bands from a reversible draft to an action nobody delegates. The band belongs to what the change touches, never to its size."},
         {"sel": "#merge", "title": "How they merge", "body": "Each method's parts land in the phase they serve. The bottom row is what the SkyWays PDLC adds and none of them carries."},
         {"sel": "#chain", "title": "Why long chains fail", "body": "Every probabilistic step multiplies. The bars show what survives; the list says what to do about it."},

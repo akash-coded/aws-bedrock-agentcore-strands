@@ -4,7 +4,7 @@ Each function returns a figure. Links inside a picture are written as if the pic
 site root (``product-manager/#frame``); the page that embeds it rebases them to its own depth
 with :func:`bb.rebase`.
 
-    spine()     the four phases, the hard gate and the loop back, compact — the home page's hero
+    spine()     the four phases, the hard gate and the loop back, compact, the home page's hero
     pdlc_vs()   traditional PDLC against the agentic one, stacked
     ladder()    R1 to R5: gate by risk, never by size
     chain()     why length is the enemy: six steps at 90% are right 53% of the time
@@ -110,7 +110,7 @@ def pdlc_vs() -> str:
     return bb.svg(W, H, m, "Traditional PDLC, six stages decided once, against the agentic PDLC: four phases, "
                   "a hard gate before the build, and the incident feeding the next frame",
                   caption="<b>What changes.</b> A traditional lifecycle decides everything once, before the build. "
-                          "The agentic one adds a bar per slice, an authority budget and one hard gate — and "
+                          "The agentic one adds a bar per slice, an authority budget and one hard gate, and "
                           "brings production back to the next frame.")
 
 

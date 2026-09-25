@@ -6,8 +6,8 @@ boards are the live ones. ``site/learn_export.py`` puts the tutorial's index and
 wiki, linking back here for the lessons themselves. The wiki is not indexed by search engines (GitHub only indexes wikis with
 500+ stars and closed editing), so the site copy is the canonical one and both say so.
 
-The markdown is a deliberate subset — headings, paragraphs, lists, tables, fences, blockquotes and
-GitHub alerts, links, images, raw ``<details>``/``<picture>`` lines — because a subset can be
+The markdown is a deliberate subset (headings, paragraphs, lists, tables, fences, blockquotes and
+GitHub alerts, links, images, raw ``<details>``/``<picture>`` lines) because a subset can be
 validated. Anything outside it is a build error rather than a silent mis-render.
 
 Five link schemes resolve per target, so one source works in both places:
@@ -312,7 +312,7 @@ ASSETS = Path(__file__).resolve().parents[1] / "assets"
 
 def image_size(href: str) -> tuple[int, int] | None:
     """CSS size of a ``site:assets/…`` WebP, read from its header. Every picture the tutorial ships
-    is captured at 2x (site/tools/shoot.mjs, simshots.mjs), so the CSS size is half the pixels —
+    is captured at 2x (site/tools/shoot.mjs, simshots.mjs), so the CSS size is half the pixels,
     declaring it keeps a narrow screenshot at its own size and stops the page shifting as it loads."""
     if not (href.startswith("site:assets/") and href.endswith(".webp")):
         return None
@@ -620,9 +620,9 @@ def validate(meta: dict, tracks: list[Track], lessons: dict[str, Lesson]) -> tup
             warn.append(f"{w}: title is {len(les.title)} characters; 60 or fewer shows in full on most results")
         dl = len(les.description)
         if not 90 <= dl <= 175:
-            err.append(f"{w}: description is {dl} characters; aim for 120–160")
+            err.append(f"{w}: description is {dl} characters; aim for 120 to 160")
         elif not 115 <= dl <= 162:
-            warn.append(f"{w}: description is {dl} characters; 120–160 shows in full")
+            warn.append(f"{w}: description is {dl} characters; 120 to 160 shows in full")
         if les.level not in LEVELS:
             err.append(f"{w}: level must be one of {', '.join(LEVELS)}")
         try:
@@ -637,7 +637,7 @@ def validate(meta: dict, tracks: list[Track], lessons: dict[str, Lesson]) -> tup
             if need not in h2:
                 err.append(f"{w}: missing the '## {need}' section")
         if visuals_in(les.body) < 1:
-            err.append(f"{w}: every lesson carries at least one picture — a board, a figure or a diagram")
+            err.append(f"{w}: every lesson carries at least one picture, a board, a figure or a diagram")
         for line in les.body.splitlines():
             d = DIRECTIVE.match(line.strip())
             if d and f"{d.group(1)}:{d.group(2)}" not in keys:
@@ -680,7 +680,7 @@ def validate(meta: dict, tracks: list[Track], lessons: dict[str, Lesson]) -> tup
             elif kind == "track" and target not in {t.id for t in tracks}:
                 err.append(f"start-here.md: links to unknown track {target!r}")
         if not 90 <= len(smeta.get("description", "")) <= 175:
-            err.append("start-here.md: description should be 120–160 characters")
+            err.append("start-here.md: description should be 120 to 160 characters")
     return err, warn
 
 
@@ -853,7 +853,7 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
   <h1>{_E(smeta['title'])}</h1>
   <p class="lede">{inline(smeta.get('dek', ''), link)}</p>
   {kit.orient(
-      "Anyone running, building, testing, operating or funding software where a model does part of the work — "
+      "Anyone running, building, testing, operating or funding software where a model does part of the work. "
       "and anyone preparing for an interview for such a job.",
       "Learn the agentic PDLC in five-to-ten-minute lessons, in order, then apply each one in your own role "
       "with the shortcut and the ten-minute workflow at the end of every lesson.",
@@ -1001,7 +1001,7 @@ def feed_xml(lessons: dict[str, Lesson]) -> str:
 
 def llms_txt(tracks: list[Track]) -> str:
     """The llms.txt proposal (llmstxt.org, Howard 2024): a markdown index an assistant can read."""
-    lines = ["# The agentic manual — Agentic PDLC tutorial", "",
+    lines = ["# The agentic manual. Agentic PDLC tutorial", "",
              "> A free, method-agnostic tutorial for running software projects where an AI model does the "
              "work: the four-phase agentic PDLC (P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & "
              "Learn), how AWS AI-DLC, AIDD, the BMAD Method and spec-driven development fit onto it, and what "
@@ -1038,7 +1038,7 @@ def llms_txt(tracks: list[Track]) -> str:
 
 
 def llms_full(tracks: list[Track], lessons: dict[str, Lesson]) -> str:
-    parts = [f"# The agentic manual — every lesson, in order\n\nSource: {BASE_URL}learn/\n"]
+    parts = [f"# The agentic manual, every lesson, in order\n\nSource: {BASE_URL}learn/\n"]
     for t in tracks:
         parts.append(f"\n\n# Track: {t.title}\n\n{t.blurb}\n")
         parts += ["\n\n" + site_markdown(l, lessons, tracks) for l in t.lessons]

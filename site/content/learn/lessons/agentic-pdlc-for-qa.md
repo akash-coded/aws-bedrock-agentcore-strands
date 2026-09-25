@@ -13,7 +13,7 @@ updated: 2026-09-24
 > **The role in one sentence.** In the agentic PDLC the QA lead decides what proof each kind of step
 > owes, curates the golden set by slice, reports the lower bound rather than the score, matches a checker
 > to each kind of work, runs the injection suite as a regression, compares the shadow run with the
-> people doing the job, and watches for drift — and owns the behaviour and expansion gates.
+> people doing the job, and watches for drift, and owns the behaviour and expansion gates.
 
 {{map:agentic-pdlc-for-qa}}
 
@@ -35,13 +35,13 @@ proof that is a number, with a width, per slice.
 ## What changes for QA?
 
 **You stop signing off on a demo, and start reporting a lower bound.** Exact work still gets exact tests.
-But best-guess work — ranking, drafting, classifying — can only be measured as a share, against a bar,
+But best-guess work (ranking, drafting, classifying) can only be measured as a share, against a bar,
 on a sample; and a share from a sample is an estimate, not a fact. QA's new authority is arithmetic
 rather than opinion: a slice whose lower bound is below its bar does not pass, whoever wants it to.
 
 ## Your eight steps
 
-### P0 · Frame — one question
+### P0 · Frame: one question
 
 Ask what *right* will mean, and who says so. That is all P0 needs from you, and it is the question the
 rest of your work depends on.
@@ -50,14 +50,14 @@ rest of your work depends on.
 
 **1 · Define** the proof each kind of step owes: **exact** work a unit test, green or red; **best-guess**
 work a measured share against a derived bar; **consequential** work a gate and a test that it refuses.
-**2 · Curate** the golden set from real cases — fifty to start, five hundred to trust — each tagged by
+**2 · Curate** the golden set from real cases (fifty to start, five hundred to trust) each tagged by
 slice. SkyWays' first fifty took an afternoon, and twenty-four failed.
 
-### P2 · Build & Prove — the phase you lead
+### P2 · Build & Prove: the phase you lead
 
 **3 · Check**: an exact check in code for arithmetic and rules, an independent judge for drafted text,
 calibrated against human labels. **4 · Harness**: build → exact checks → golden slice → judge → per-slice
-score → merge or reject, on every change. **5 · Measure**: the lower bound, never the score — 412 of 500
+score → merge or reject, on every change. **5 · Measure**: the lower bound, never the score, 412 of 500
 is 82.4%, and its lower bound of 79.1% does not prove an 80% bar. **6 · Attack**: the injection suite, every
 entry point against every gated tool, weekly. **7 · Shadow**: agreement per slice over a fixed window,
 money actions reported separately. [Prove the bar](lesson:prove-ai-accuracy)
@@ -71,10 +71,10 @@ every incident into an enforced control plus new golden cases. [Drift](lesson:ai
 
 | Yours to own | Not yours |
 | --- | --- |
-| The behaviour gate: does it meet the spec, per slice, with the lower bound? | The bar itself — the PM derives it; you make it executable |
-| The expansion gate: have we earned wider use? | The intent and plan gates — you are consulted |
-| The golden set: which cases count, what each expects, its slice | The fix — you name the defect and the proof it owes |
-| The checker per kind of step, and the judge's measured accuracy | Model, temperature, prompt wording — you assert on behaviour |
+| The behaviour gate: does it meet the spec, per slice, with the lower bound? | The bar itself, the PM derives it; you make it executable |
+| The expansion gate: have we earned wider use? | The intent and plan gates. You are consulted |
+| The golden set: which cases count, what each expects, its slice | The fix, you name the defect and the proof it owes |
+| The checker per kind of step, and the judge's measured accuracy | Model, temperature, prompt wording, you assert on behaviour |
 | The injection suite and its weekly run; the drift chart and its alert | |
 
 ## How to use a model in this role
@@ -94,7 +94,7 @@ against people.
 ## Why it matters
 
 In an agentic system QA is the only role whose gates are arithmetic. That makes QA the brake nobody can
-argue with — and the reason a launch can be defended afterwards, because "it passed" means a lower bound
+argue with: and the reason a launch can be defended afterwards, because "it passed" means a lower bound
 cleared a derived bar on a sample someone can inspect.
 
 ## Try it
@@ -104,9 +104,9 @@ do you ask before accepting it?**
 
 <details><summary>Show the answer</summary>
 
-**Per slice, lower bound, and the judge.** Which slices moved, and did any fall — an overall rise can
+**Per slice, lower bound, and the judge.** Which slices moved, and did any fall, an overall rise can
 hide a drop on the slice that matters. What is the lower bound: on 100 cases, 85% has a Wilson lower
-bound of about 77%, so against a bar above that it proves nothing yet. And how was "accurate" judged —
+bound of about 77%, so against a bar above that it proves nothing yet. And how was "accurate" judged,
 by an exact check, or by a model judge calibrated against human labels? Then run it through the harness
 rather than accepting the report.
 
@@ -136,7 +136,7 @@ compares the shadow run with the people doing the job, and owns the behaviour an
 ### How big should an AI test set be?
 
 Fifty real cases per important slice to start finding problems, and around five hundred to prove a bar
-with confidence — more when the score sits close to the bar, because the cases needed grow with the
+with confidence: more when the score sits close to the bar, because the cases needed grow with the
 square of the gap.
 
 ### Can an LLM grade another LLM?
@@ -149,12 +149,12 @@ unproven score.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | At a customer you are often the QA lead too: build the golden set from their data with their labels, and report lower bounds from the first run. | Have a model draft candidate cases from redacted tickets — then let the customer's experts label them, never the model. |
+| **A forward-deployed engineer** | At a customer you are often the QA lead too: build the golden set from their data with their labels, and report lower bounds from the first run. | Have a model draft candidate cases from redacted tickets, then let the customer's experts label them, never the model. |
 | **A product manager or FDPM** | Ask QA for the lower bound per slice before any launch conversation. "It works" is a number with a width. | Have a model restate QA's report for the steering committee without dropping the sample sizes. |
 | **A GenAI or agentic AI engineer** | Give QA a checker for each kind of step, and calibrate any model judge against human labels before trusting it. | Ask a coding agent for a judge-agreement report: the judge against people, on a held-back sample. |
 
-**Across the enterprise.** A shared evaluation practice — one harness, judge calibration, golden-set
-standards — lets QA leads in every team produce evidence a governance board can compare.
+**Across the enterprise.** A shared evaluation practice (one harness, judge calibration, golden-set
+standards) lets QA leads in every team produce evidence a governance board can compare.
 
 **The ten-minute workflow.** Find out whether your judge can be trusted:
 
@@ -169,7 +169,7 @@ on which slices it is not.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The QA lead's eight steps, owns and not-yours | **Original** — this playbook | [QA lead, end to end](site:qa/) · [Role: QA lead](wiki:Role-QA-Lead) |
+| The QA lead's eight steps, owns and not-yours | **Original**: this playbook | [QA lead, end to end](site:qa/) · [Role: QA lead](wiki:Role-QA-Lead) |
 | The Wilson score interval | **Borrowed** | Wilson, E. B. (1927). *JASA* 22(158) |
 | Prompt injection as the top LLM risk | **Borrowed** | OWASP (2025). [Top 10 for LLM Applications 2025](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) |
-| The SkyWays examples | **Illustrative** — a fictional airline | [Journey: QA lead](wiki:Journey-QA-Lead) |
+| The SkyWays examples | **Illustrative**: a fictional airline | [Journey: QA lead](wiki:Journey-QA-Lead) |

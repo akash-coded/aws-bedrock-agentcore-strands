@@ -3,7 +3,7 @@ title: AI-DLC and AIDD for Forward-Deployed Engineers: Field Guide
 short: For forward-deployed engineers
 wiki: AI-DLC-and-AIDD-for-Forward-Deployed-Engineers
 description: How a forward-deployed engineer runs AI-DLC and AIDD at a customer: measure their pain, have their risk owner sign the limits, build in their stack, hand over.
-dek: You carry the whole lifecycle into someone else's organisation — and the decisions that are theirs to make stay theirs, even when it would be faster to make them yourself.
+dek: You carry the whole lifecycle into someone else's organisation, and the decisions that are theirs to make stay theirs, even when it would be faster to make them yourself.
 level: Intermediate
 keywords: forward deployed engineer, FDE AI, forward deployed engineer AI agents, customer engineer AI deployment, AI-DLC for FDE, AIDD for forward deployed engineers, deploying AI agents at customer sites
 updated: 2026-09-24
@@ -11,8 +11,8 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The field guide in one sentence.** A forward-deployed engineer runs the whole agentic lifecycle
-> inside a customer's organisation — measuring the pain in *their* data, running AI-DLC's mob sessions
-> with *their* people, building with AIDD habits in *their* stack — while making sure every decision
+> inside a customer's organisation, measuring the pain in *their* data, running AI-DLC's mob sessions
+> with *their* people, building with AIDD habits in *their* stack, while making sure every decision
 > that trades their risk against their return is signed by *their* owner, and leaving behind an evidence
 > pack and a named person to run it.
 
@@ -30,8 +30,8 @@ updated: 2026-09-24
 - You set the refund limit yourself because the customer's risk team was slow, and now it is yours.
 - The deployment worked while you were on site, and quietly degraded after you left.
 
-Each is a decision that belonged to the customer being made — or left unowned — by the person who was
-there. A forward-deployed engineer's leverage is speed; the risk is that speed moves decisions to the
+Each is a decision that belonged to the customer being made, or left unowned, by the person who was
+there. A forward-deployed engineer's advantage is speed; the risk is that speed moves decisions to the
 wrong side of the contract.
 
 ## What is a forward-deployed engineer?
@@ -39,7 +39,7 @@ wrong side of the contract.
 A forward-deployed engineer (FDE) is a software engineer embedded with a customer to make a technical
 deployment succeed in that customer's systems and workflows. The role was popularised by Palantir and is
 now common at AI companies, including OpenAI and Anthropic. Where a product engineer builds one
-capability for many customers, an FDE builds whatever one customer needs — which, with AI agents, means
+capability for many customers, an FDE builds whatever one customer needs, which, with AI agents, means
 running the whole lifecycle, fast, in someone else's organisation.
 
 ## The field guide, step by step
@@ -47,32 +47,32 @@ running the whole lifecycle, fast, in someone else's organisation.
 ### Step 1 · Measure the pain in their data, in week one
 
 Replace the pitch with a pain register line from the customer's own records: who, how often, what it
-costs, and the evidence. It is also your first test of their data access — which is usually the
+costs, and the evidence. It is also your first test of their data access, which is usually the
 longest lead time you will meet. [P0 Frame](lesson:p0-frame)
 
 ### Step 2 · Name their risk owner before you design anything
 
-Find the person in the customer's organisation who can accept risk on each consequential action — money,
+Find the person in the customer's organisation who can accept risk on each consequential action, money,
 identity, customer communications. If nobody can, you have found the first blocker, and it is not a
 technical one.
 
 ### Step 3 · Run Inception as a mob, with their people
 
 AI-DLC's **Mob Elaboration** is well suited to a customer site: the AI proposes requirements and asks its
-clarifying questions, and the customer's own experts answer in the room. Record who answered what — the
+clarifying questions, and the customer's own experts answer in the room. Record who answered what, the
 customer's decisions should carry the customer's names. [What is AI-DLC?](lesson:what-is-ai-dlc)
 
 ### Step 4 · Get the authority budget signed by them
 
 Autonomy per action, the caps and the approvals are **theirs**: a table of actions, each with a level
 and an approver, signed by the risk owner from step 2. You then enforce every cap in a tool signature
-with tests — but you do not choose the numbers.
+with tests: but you do not choose the numbers.
 [Guardrails that hold](lesson:ai-guardrails-that-hold)
 
 ### Step 5 · Build with AIDD habits in their stack
 
 A context file in *their* repository, story files per bolt, exact code first, and a walking skeleton
-against *their* real system on day one — it will find the credentials, network and data problems while
+against *their* real system on day one. It will find the credentials, network and data problems while
 they are cheap. Start their lead-time items immediately: model access in the region their data must stay
 in, security review, change approvals. [AIDD](lesson:what-is-aidd)
 
@@ -83,13 +83,13 @@ wire the harness into *their* CI so the check outlives you. [Prove the bar](less
 
 ### Step 7 · Shadow beside their staff
 
-A shadow run at a customer finds the rules that live in people's heads. At SkyWays — this playbook's
-fictional airline — fourteen disagreements were all one rule: the evening shift never uses a certain
+A shadow run at a customer finds the rules that live in people's heads. At SkyWays, this playbook's
+fictional airline, fourteen disagreements were all one rule: the evening shift never uses a certain
 partner after 18:00, because its transfer desk closes. No spec had it. [Shadow and cut-over](lesson:shadow-mode-and-cutover)
 
 ### Step 8 · Hand over evidence and an owner, then leave
 
-Leave behind the evidence pack, the two-number report and — most important — a **named person in their
+Leave behind the evidence pack, the two-number report and, most important, a **named person in their
 organisation** who owns the running system: the drift watch, the rollback switches, the next brief. A
 deployment with no owner after the FDE leaves has no P3. [The evidence pack](lesson:the-evidence-pack)
 
@@ -122,8 +122,8 @@ A customer's compliance team will take three weeks to approve a refund limit. Yo
 
 <details><summary>Show the answer</summary>
 
-**Ship everything except the unapproved action.** Run the refund action in shadow — deciding, logged,
-never acting — while the rest of the pilot goes live on its own evidence. Record the open decision with
+**Ship everything except the unapproved action.** Run the refund action in shadow (deciding, logged,
+never acting) while the rest of the pilot goes live on its own evidence. Record the open decision with
 the compliance owner's name and date, and build the refund tool with the cap as a typed parameter so the
 approved number is a one-line configuration change. Do not choose the limit yourself: that turns their
 risk into yours.
@@ -132,7 +132,7 @@ risk into yours.
 
 ## Key takeaways
 
-1. An FDE runs **the whole lifecycle in someone else's organisation** — in their data, stack and pipeline.
+1. An FDE runs **the whole lifecycle in someone else's organisation**: in their data, stack and pipeline.
 2. **Their risk owner signs** the autonomy, the limits and the widening; you enforce them in code.
 3. **Hand over evidence and a named operator**, or the deployment has no P3 after you leave.
 
@@ -140,7 +140,7 @@ risk into yours.
 
 ### What does a forward-deployed engineer do?
 
-Embeds with a customer to make a technical deployment succeed in that customer's systems — scoping the
+Embeds with a customer to make a technical deployment succeed in that customer's systems, scoping the
 real problem, integrating with their data and infrastructure, building and adapting the solution, and
 handing it over. With AI agents, that means running the full lifecycle quickly at the customer site.
 
@@ -152,7 +152,7 @@ short engagements, and the adaptive workflows keep small customer requests from 
 
 ### What is the biggest risk in forward-deployed AI work?
 
-That the engineer makes the customer's risk decisions — limits, autonomy, acceptance — because it is
+That the engineer makes the customer's risk decisions (limits, autonomy, acceptance) because it is
 faster, and then leaves. The decisions should be signed by the customer's owner, and the running system
 should have a named operator in the customer's organisation.
 
@@ -166,9 +166,9 @@ production.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Run the field loop — discover, scope, prove, hand over — and turn every pattern you repeat into a template the product team can ship. | After each engagement, ask a model to extract the reusable patterns from your notes as product feedback. |
+| **A forward-deployed engineer** | Run the field loop (discover, scope, prove, hand over) and turn every pattern you repeat into a template the product team can ship. | After each engagement, ask a model to extract the reusable patterns from your notes as product feedback. |
 | **A product manager or FDPM** | Pair with the FDE: they own the how, you own the what and the why at the point of deployment, and you decide what becomes product. | Have a model group FDE field notes from several customers into patterns, with counts. |
-| **A GenAI or agentic AI engineer** | Productise what FDEs keep rebuilding — the MCP server, the connector, the evaluation harness. The third copy is a platform backlog item. | Ask a coding agent to compare three customer repositories and propose the shared library. |
+| **A GenAI or agentic AI engineer** | Productise what FDEs keep rebuilding, the MCP server, the connector, the evaluation harness. The third copy is a platform backlog item. | Ask a coding agent to compare three customer repositories and propose the shared library. |
 
 **Across the enterprise.** An FDE programme scales when every engagement feeds a pattern library and the
 product roadmap. FDEs who only ever deliver bespoke work turn a product company into a services firm.
@@ -188,5 +188,5 @@ with the customer evidence.
 | --- | --- | --- |
 | The forward-deployed engineer role and its origin | **Borrowed** | Wikipedia. [Forward Deployed Engineer](https://en.wikipedia.org/wiki/Forward_Deployed_Engineer) |
 | Mob Elaboration and bolts | **Borrowed** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
-| The field guide, and the split between what the FDE does and the customer decides | **Original** — this tutorial | [The Agentic PDLC](wiki:The-Agentic-PDLC) |
-| The SkyWays shadow finding | **Illustrative** — a fictional airline | [DevOps, step 5](site:devops/) |
+| The field guide, and the split between what the FDE does and the customer decides | **Original**: this tutorial | [The Agentic PDLC](wiki:The-Agentic-PDLC) |
+| The SkyWays shadow finding | **Illustrative**: a fictional airline | [DevOps, step 5](site:devops/) |

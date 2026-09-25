@@ -3,16 +3,16 @@ title: Agentic AI for Executives: Four Decisions Only You Can Make
 short: For executives
 wiki: Agentic-AI-for-Executives
 description: The four agentic AI decisions nobody below an executive can make, four questions to ask every cycle, seven red flags, and a first thirty days with no budget.
-dek: Delivery decisions belong to delivery. These four do not, because each trades a business risk against a business return — and the trade is yours.
+dek: Delivery decisions belong to delivery. These four do not, because each trades a business risk against a business return, and the trade is yours.
 level: Beginner
 keywords: agentic AI for executives, AI strategy for leaders, CEO guide to AI agents, AI operating model, AI leadership decisions, how to lead AI transformation, board AI questions, CIO AI agents
 updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The short version.** An executive leading agentic AI makes four decisions nobody below can make —
+> **The short version.** An executive leading agentic AI makes four decisions nobody below can make,
 > **which work is genuinely AI work**, **what agents may do without a person**, **what counts as
-> evidence**, and **what gets funded past the first cycle** — and keeps them true with four questions
+> evidence**, and **what gets funded past the first cycle**, and keeps them true with four questions
 > asked every cycle, which take about ten minutes and defeat most of the ways these programmes fail.
 
 {{map:agentic-ai-for-executives}}
@@ -37,7 +37,7 @@ below the level that should be making it.
 ### Decision 1 · Which work is genuinely AI work
 
 Ask it of the roadmap, not of one feature, and expect most of it to come back as rules. Three questions
-in order — is there a genuine judgement call, is the volume high enough, is a wrong answer recoverable —
+in order (is there a genuine judgement call, is the volume high enough, is a wrong answer recoverable)
 and the first "no" ends it. A team under an agent-first directive will build agents for things a rule
 does better, and will not tell you, because you asked for agents. **Ask for** an AI-fit record per
 candidate, with the rejected alternative. **Healthy answer:** two or three of your top five are rules.
@@ -46,7 +46,7 @@ candidate, with the rejected alternative. **Healthy answer:** two or three of yo
 
 Per action, never per product, following what a mistake costs and whether it can be undone: acts alone,
 acts monitored, acts inside a veto window, needs a named approver every time, or is not delegated at
-all. **Ask for** the autonomy record — then the follow-up that matters: *show me the cap*. If someone
+all. **Ask for** the autonomy record, then the follow-up that matters: *show me the cap*. If someone
 opens a prompt file rather than a code file, you have found the gap that produces incidents.
 
 ### Decision 3 · What you will accept as evidence
@@ -57,8 +57,7 @@ derived bar, with its lower bound, plus a shadow run against the people doing th
 
 ### Decision 4 · What you will fund past the first cycle
 
-A first cycle that saves time and costs more is normal. Funding past it should depend on a trajectory —
-the review load falling, the re-run count falling with it — not on a promise. **Ask for** two numbers,
+A first cycle that saves time and costs more is normal. Funding past it should depend on a trajectory (the review load falling, the re-run count falling with it) not on a promise. **Ask for** two numbers,
 every cycle, from the team: the time saved and the money spent, on one line.
 
 ## The four questions, every cycle
@@ -70,7 +69,7 @@ every cycle, from the team: the time saved and the money spent, on one line.
 | What are the two numbers? | Every cycle | Saving and spend, with review hours and re-runs beside them |
 | What level are we, and what is the next control? | The team | A number out of six, and the first missing control by name |
 
-The last question replaces the most misleading metric in the field — tools adopted — with a count of six
+The last question replaces the most misleading metric in the field, tools adopted, with a count of six
 controls a team either has or does not. [The maturity model](lesson:ai-delivery-maturity-model)
 
 ## Seven signals worth escalating
@@ -82,12 +81,12 @@ decision being made by default.
 
 ## Your first thirty days
 
-1. **Ask the four questions** at the next review — then say nothing for ten seconds.
+1. **Ask the four questions** at the next review, then say nothing for ten seconds.
 2. **Ask to be shown one cap** the team says is enforced.
-3. **Take a baseline** — person-days per story — on whatever starts next. It cannot be recovered later.
+3. **Take a baseline**, person-days per story, on whatever starts next. It cannot be recovered later.
 4. **Run the six-control check** with the team, ticking only what can be shown in ten minutes.
 5. **Name who owns governance.** If the answer is "we all do", nobody does.
-6. **Fund the gateway** — a fortnight of platform work that turns every cost conversation into a diagnosis.
+6. **Fund the gateway**: a fortnight of platform work that turns every cost conversation into a diagnosis.
 
 None of this needs a reorganisation, a new function or a vendor commitment.
 [Rolling out agentic delivery](lesson:rolling-out-agentic-delivery)
@@ -105,10 +104,10 @@ the four decisions does this pre-empt, and what would you ask for instead?**
 
 <details><summary>Show the answer</summary>
 
-**Decision 1 — which work is genuinely AI work.** A quota for agents rewards building them where a rule
+**Decision 1: which work is genuinely AI work.** A quota for agents rewards building them where a rule
 would be better, cheaper and provable, and teams will comply without telling you. Ask instead for an
-AI-fit record across the roadmap, with the rejected alternatives, and set the target on outcomes — the
-two numbers — rather than on the number of agents.
+AI-fit record across the roadmap, with the rejected alternatives, and set the target on outcomes, the
+two numbers, rather than on the number of agents.
 
 </details>
 
@@ -124,11 +123,11 @@ two numbers — rather than on the number of agents.
 
 That most of the portfolio is not AI work; that "does it work" is a number per kind of case, derived from
 what a mistake costs; that autonomy is decided per action and enforced in code, not in prompts; and that a
-first cycle can save time and cost more — which is survivable only if the team reports both numbers.
+first cycle can save time and cost more, which is survivable only if the team reports both numbers.
 
 ### What questions should a board ask about AI agents?
 
-Which of these are rules? What may it do without a person, and who decided? What are the two numbers —
+Which of these are rules? What may it do without a person, and who decided? What are the two numbers,
 the saving and the spend? What maturity level are we, and what is the next control?
 
 ### How do you measure AI maturity in an organisation?
@@ -166,7 +165,7 @@ number or a named owner.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The four decisions, four questions, seven signals and first thirty days | **Original** — this playbook | [For leadership](site:protocol/) · [Role: Sponsor](wiki:Role-Sponsor) |
-| The six-control maturity check | **Original** — this playbook | [Gates and Governance](wiki:Gates-and-Governance#maturity-control-not-tool-count) |
+| The four decisions, four questions, seven signals and first thirty days | **Original**: this playbook | [For leadership](site:protocol/) · [Role: Sponsor](wiki:Role-Sponsor) |
+| The six-control maturity check | **Original**: this playbook | [Gates and Governance](wiki:Gates-and-Governance#maturity-control-not-tool-count) |
 | Over 40% of agentic AI projects cancelled by 2027, and why | **Borrowed** | Gartner (2025). [Press release, 25 June](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) |
 | Why a single number gets pushed | **Borrowed** | Goodhart, C. (1975). Goodhart's law |

@@ -3,7 +3,7 @@ title: How This Tutorial Works, and Why Every Lesson Looks the Same
 short: How this tutorial works
 wiki: How-This-Tutorial-Works
 description: Every lesson opens with the answer, shows it as a picture, lets you try it, and credits its sources. Here is why, with the research behind each choice.
-dek: Seven slots, in the same order, in every lesson — and the learning research that put each one there.
+dek: Seven slots, in the same order, in every lesson, and the learning research that put each one there.
 level: Beginner
 keywords: agentic PDLC tutorial, agentic AI course, learn AI project delivery, how to learn AI-DLC, AI product management course
 updated: 2026-09-24
@@ -37,7 +37,7 @@ every idea, and it lets you enter at your role.
 ### Step 1 · The answer comes first
 
 The first box in every lesson answers the question in the title, completely, in one paragraph.
-Newspapers settled on this order — the most important fact first — around the turn of the twentieth
+Newspapers settled on this order, the most important fact first, around the turn of the twentieth
 century, partly because a telegraphed story could be cut off at any point. A reader arriving from a
 search is in the same position: they may stop after one paragraph, so that paragraph has to be the
 whole answer.
@@ -45,8 +45,7 @@ whole answer.
 ### Step 2 · A picture, before the detail
 
 Every lesson carries at least one picture, and the rule is strict: a board, a figure or a diagram,
-never decoration. People learn more from words and pictures together than from words alone —
-the **multimedia principle** — provided the picture carries the idea rather than illustrating it.
+never decoration. People learn more from words and pictures together than from words alone, the **multimedia principle**, provided the picture carries the idea rather than illustrating it.
 On the site the boards are live; on the wiki they are screenshots of the same boards.
 
 ### Step 3 · The problem, stated rather than asked
@@ -58,15 +57,14 @@ attach to.
 ### Step 4 · Step by step, one idea at a time
 
 The core of a lesson is short numbered steps, each carrying one idea. Splitting material into
-learner-paced segments helps people who are new to it — the **segmenting principle** — and cutting
+learner-paced segments helps people who are new to it, the **segmenting principle**, and cutting
 anything that would survive unchanged in a lesson on a different topic helps everyone: the
 **coherence principle**. That second rule is why these lessons are short.
 
-### Step 5 · Try it — commit before you look
+### Step 5 · Try it: commit before you look
 
 Each lesson ends its teaching with one problem, and the answer is hidden until you open it. Trying to
-recall or apply an idea strengthens memory of it more than reading it again — the **testing effect**
-— and the benefit holds even when your first attempt is wrong.
+recall or apply an idea strengthens memory of it more than reading it again, the **testing effect**, and the benefit holds even when your first attempt is wrong.
 
 ### Step 6 · Three takeaways
 
@@ -96,7 +94,7 @@ is on [Sources and Confidence](wiki:Sources-and-Confidence).
 | Here for one phase | [P0](lesson:p0-frame) · [P1](lesson:p1-design-and-spec) · [P2](lesson:p2-build-and-prove) · [P3](lesson:p3-run-and-learn) | The next phase |
 
 Each lesson shows its reading time, level and position in its track at the top. Reading time is
-counted at 238 words a minute — the average for adults reading non-fiction silently — plus a few
+counted at 238 words a minute, the average for adults reading non-fiction silently, plus a few
 seconds for each picture.
 
 ## Two copies of one source
@@ -108,7 +106,7 @@ The lessons are written once and published in two places:
 
 There are two because GitHub does not let search engines index a wiki unless the repository has at
 least 500 stars *and* its wiki is closed to public editing. The site copy is canonical, and each
-lesson is also available as plain markdown — add `index.md` to its address — for tools that read
+lesson is also available as plain markdown, add `index.md` to its address, for tools that read
 text.
 
 ## Try it
@@ -121,7 +119,7 @@ read?**
 **The answer box at the top and the three key takeaways at the bottom.** Both are written to stand
 alone: the first is the complete answer in one paragraph, and the takeaways are the three things the
 lesson exists to leave you with. The "Sound familiar?" list is a good third if you have another
-thirty seconds — it tells you what problem you are being asked to solve.
+thirty seconds: it tells you what problem you are being asked to solve.
 
 </details>
 
@@ -177,7 +175,7 @@ tell me which step I would have got wrong at work.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The most important fact first | **Borrowed** | Pöttker, H. (2003). News and its communicative quality: the inverted pyramid — when and why did it appear? *Journalism Studies* 4(4) |
+| The most important fact first | **Borrowed** | Pöttker, H. (2003). News and its communicative quality: the inverted pyramid: when and why did it appear? *Journalism Studies* 4(4) |
 | Words with pictures; nothing extraneous; learner-paced segments | **Borrowed** | Mayer, R. E. (2021). *Multimedia Learning*, 3rd ed. Cambridge University Press |
 | Retrieval strengthens memory more than rereading | **Borrowed** | Roediger, H. L. & Karpicke, J. D. (2006). Test-enhanced learning. *Psychological Science* 17(3) |
 | State what the learner will be able to do | **Borrowed** | Mager, R. F. (1962). *Preparing Objectives for Programmed Instruction* |
@@ -185,5 +183,5 @@ tell me which step I would have got wrong at work.
 | Extra seconds for each picture | **Borrowed** | Medium's published read-time method |
 | A sidebar of short lessons, each ending in a summary | **Adapted** | the structure of mysqltutorial.org |
 | A problem to try inside the lesson | **Adapted** | Brilliant's problem-first lessons |
-| The seven-slot anatomy and the three origin marks | **Original** — this tutorial | [The authoring guide](repo:site/content/learn/README.md) |
+| The seven-slot anatomy and the three origin marks | **Original**: this tutorial | [The authoring guide](repo:site/content/learn/README.md) |
 | When search engines index a GitHub wiki | **Borrowed** | GitHub Docs, [About wikis](https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis) |

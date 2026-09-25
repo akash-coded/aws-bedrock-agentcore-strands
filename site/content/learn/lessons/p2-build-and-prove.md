@@ -3,15 +3,15 @@ title: P2 Build & Prove: How to Build an AI Agent in Proven Slices
 short: P2 · Build & Prove
 wiki: P2-Build-and-Prove-Build-an-AI-Agent-in-Slices
 description: P2 Build & Prove builds an AI agent in bolts of hours or days, gates every merge on a per-slice bar and ends with a shadow run beside the people doing the job.
-dek: Build the exact parts first, measure the guessing parts by slice, and let a harness — not a meeting — decide what merges.
+dek: Build the exact parts first, measure the guessing parts by slice, and let a harness, not a meeting, decide what merges.
 level: Intermediate
 keywords: how to build an AI agent, AI agent testing, LLM evaluation in CI, golden set, eval harness, shadow mode AI, bolts instead of sprints, P2 build and prove
 updated: 2026-09-24
 ---
 
 > [!TIP]
-> **P2 in one sentence.** P2 Build & Prove builds the agent in **bolts** — slices of hours or days,
-> one risk each — puts every exact step in tested code, measures every best-guess step against its bar
+> **P2 in one sentence.** P2 Build & Prove builds the agent in **bolts** (slices of hours or days,
+> one risk each) puts every exact step in tested code, measures every best-guess step against its bar
 > on a golden set in CI so that a merge dropping any slice below its bar is blocked, and ends with a
 > **shadow run** in which the agent works beside the live process without acting.
 
@@ -51,36 +51,36 @@ priority: a walking skeleton that runs end to end with no model in it goes first
 early because it never blocks, and a gated write goes only after the control it needs exists.
 
 At SkyWays a two-week sprint with five stories and a demo became ten one-day bolts. Day one's
-skeleton — read a booking, display it, no model — took half a day and found a credentials problem in
+skeleton (read a booking, display it, no model) took half a day and found a credentials problem in
 the reservation adapter that would otherwise have surfaced in week two.
 
 ### Step 2 · Build the exact floor, then the gates, in code
 
 Every number the feature computes and then acts on is a function with a unit test, never a prompt.
 A model doing arithmetic fails **fluently**: at SkyWays it returned $80 where the ledger said $62,
-with no error. Then put each boundary in the tool itself — a typed, bounded parameter that raises —
+with no error. Then put each boundary in the tool itself (a typed, bounded parameter that raises)
 with two tests that were seen failing before they passed: one over the cap, one without the
 confirmation the model cannot create for itself.
 
 ### Step 3 · Measure every slice against its bar
 
 The golden set is the acceptance bar made executable: real past cases, each with the expected
-outcome and a slice tag — fifty to start, five hundred to trust. A harness runs it in CI as a
+outcome and a slice tag, fifty to start, five hundred to trust. A harness runs it in CI as a
 required check, in cost order, so the cheap definitive checks reject before you pay for a judge:
 
 {{map:p2-build-and-prove}}
 
 Two rules make it honest. **Report per slice, never overall**: SkyWays' prompt v7 lifted same-day
 cases by three points and dropped refunds by four, the overall number rose, and the per-slice gate
-rejected it. **Report the lower bound, never the score**: codeshare scored 412 of 500 — 82.4% against a
-bar of 80 — but the lower bound was 79.1%, so the slice was not yet proven and owed more cases.
+rejected it. **Report the lower bound, never the score**: codeshare scored 412 of 500, 82.4% against a
+bar of 80, but the lower bound was 79.1%, so the slice was not yet proven and owed more cases.
 
 ### Step 4 · Put an independent checker after the risky steps
 
 {{frameworks:chain}}
 
 Chained steps multiply: four steps at 90% each are right 66% of the time end to end. Keep the chain
-short, then put a checker after each step where a wrong answer is expensive — and make it
+short, then put a checker after each step where a wrong answer is expensive, and make it
 **independent**, a different model or a fresh context with an adversarial brief. At SkyWays a
 "review your answer before returning it" step changed no scores and raised the bill by a fifth,
 because the model was grading its own work with its own reasoning still in view.
@@ -88,12 +88,12 @@ because the model was grading its own work with its own reasoning still in view.
 ### Step 5 · Run the shadow before you run instead of it
 
 The golden set proves the agent is right about cases *you chose*. A **shadow run** proves it agrees
-with the live desk on *today's* traffic — the storm day, the partner outage — by deciding every case
+with the live desk on *today's* traffic (the storm day, the partner outage) by deciding every case
 and acting on none, for a window fixed in advance. Report agreement per slice, keep money actions
 separate, and read every disagreement.
 
 SkyWays cleared its threshold with 96% agreement over fourteen days against a 95% default. Inside
-that 96%, the agent had disagreed with the desk on four of eleven refunds — which is why money
+that 96%, the agent had disagreed with the desk on four of eleven refunds, which is why money
 actions are never averaged into the headline.
 
 ## Where you'll use it
@@ -118,7 +118,7 @@ bar 50%), codeshare **86% → 80%** (n = 500, bar 80%), refunds unchanged. The o
 
 <details><summary>Show the answer</summary>
 
-**No.** Codeshare was proven before — the lower bound of 86% on 500 cases is about 83% — and now it is
+**No.** Codeshare was proven before, the lower bound of 86% on 500 cases is about 83%, and now it is
 not: 80% sits exactly on the bar as a point estimate, but its lower bound on 500 cases is about 76%. The harness should reject the merge regardless of the rise in the overall score,
 which is the easy, high-volume slice lifting the average over the hard one.
 
@@ -126,16 +126,16 @@ which is the easy, high-volume slice lifting the average over the hard one.
 
 ## Key takeaways
 
-1. **Build in bolts** — one unknown each, the walking skeleton first, integrated the same day.
-2. **Exact work in code, best-guess work measured per slice** — and a merge that drops any touched slice below its bar is blocked.
+1. **Build in bolts**: one unknown each, the walking skeleton first, integrated the same day.
+2. **Exact work in code, best-guess work measured per slice**, and a merge that drops any touched slice below its bar is blocked.
 3. **Prove with lower bounds and a shadow run**, not with a demo or an average.
 
 ## FAQ
 
 ### How do you test an AI agent?
 
-Split the work first. Exact steps — arithmetic, lookups, rules — get ordinary unit tests. Best-guess
-steps — ranking, drafting, classifying — are measured as a share on a golden set of real, tagged
+Split the work first. Exact steps (arithmetic, lookups, rules) get ordinary unit tests. Best-guess
+steps (ranking, drafting, classifying) are measured as a share on a golden set of real, tagged
 cases, per slice, against a bar derived from what a mistake costs. Consequential actions get tests
 that prove their limits raise. Then a shadow run compares the agent with the live process.
 
@@ -161,7 +161,7 @@ the rule that each bolt carries exactly one unknown.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Ship a walking skeleton in the customer's environment on day one — their authentication, their data, no model. Integration is where engagements stall. | Ask a coding agent to scaffold the skeleton against the customer's API specification, with contract tests. |
+| **A forward-deployed engineer** | Ship a walking skeleton in the customer's environment on day one, their authentication, their data, no model. Integration is where engagements stall. | Ask a coding agent to scaffold the skeleton against the customer's API specification, with contract tests. |
 | **A product manager or FDPM** | Read the per-slice report, never only the average. A merge that lifts the average and drops a slice is rejected, and you should be able to say why. | Ask a model to explain each failed harness run in one sentence for the stakeholder update. |
 | **A GenAI or agentic AI engineer** | Make the harness a required check with a bar per slice, and put an independent checker after every risky best-guess step. | Have a coding agent write the harness from the golden-set schema, failing on any touched slice below its bar. |
 
@@ -181,11 +181,11 @@ checker>, and compute score, n and the lower bound: p − 1.96·√(p(1−p)/n),
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Bolts of hours or days | **Adapted** — one unknown per bolt is this playbook's rule | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
+| Bolts of hours or days | **Adapted**: one unknown per bolt is this playbook's rule | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
 | The walking skeleton | **Borrowed** | Cockburn, A. (2004). *Crystal Clear*. Addison-Wesley |
 | Risk-first ordering | **Borrowed** | Boehm, B. (1988). A spiral model of software development and enhancement. *Computer* 21(5) |
-| The harness in cost order, per-slice gating and the checker rules | **Original** — this playbook | [QA lead](site:qa/) · [Engineering lead](site:engineering/) |
-| Lower bound of a proportion | **Borrowed** | Wilson, E. B. (1927). *JASA* 22 — worked in [Formulas](wiki:Formulas-and-Calculators#the-lower-bound-of-a-score--established-wilson-1927) |
+| The harness in cost order, per-slice gating and the checker rules | **Original**: this playbook | [QA lead](site:qa/) · [Engineering lead](site:engineering/) |
+| Lower bound of a proportion | **Borrowed** | Wilson, E. B. (1927). *JASA* 22: worked in [Formulas](wiki:Formulas-and-Calculators#the-lower-bound-of-a-score--established-wilson-1927) |
 | Stratified samples, one per slice | **Borrowed** | Neyman, J. (1934). *Journal of the Royal Statistical Society* 97(4) |
 | Shadow deployment and canary release | **Borrowed** | General practice; see [Shadow, then five percent](site:qa/#shadow) |
-| The SkyWays figures | **Illustrative** — a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |

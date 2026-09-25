@@ -3,7 +3,7 @@ title: Agentic PDLC for Solution Architects: Authority and Topology
 short: For solution architects
 wiki: Agentic-PDLC-for-Solution-Architects
 description: What a solution architect decides in agentic AI: which steps may be probabilistic, how many agents, the authority budget, where caps live, and the records.
-dek: You stop specifying model settings and start specifying behaviours — and exactly where each limit lives in code.
+dek: You stop specifying model settings and start specifying behaviours, and exactly where each limit lives in code.
 level: Intermediate
 keywords: AI solution architect, agentic AI architecture, AI agent architecture design, multi-agent vs single agent, AI agent permissions design, architecture decision records AI, LLM system design
 updated: 2026-09-24
@@ -13,7 +13,7 @@ updated: 2026-09-24
 > **The role in one sentence.** In the agentic PDLC the solution architect decides the shape of the
 > system: which steps are exact, best-guess or consequential, how many agents it needs (start with one),
 > what each tool may do and where its cap lives, where the checkers sit, and which few decisions earn a
-> record — then turns every bill and incident into a design change.
+> record: then turns every bill and incident into a design change.
 
 {{map:agentic-pdlc-for-solution-architects}}
 
@@ -25,7 +25,7 @@ updated: 2026-09-24
 
 ## Sound familiar?
 
-- The design document specifies the model, the temperature and the framework version — and every one is wrong by the next release.
+- The design document specifies the model, the temperature and the framework version, and every one is wrong by the next release.
 - An engineer built fifteen agents to show what the framework could do, and nobody can say why there are fifteen.
 - The refund limit is in the design, the prompt and the slides, and not in the code.
 
@@ -34,34 +34,34 @@ authority lives** and **where probability is allowed**.
 
 ## What changes for a solution architect?
 
-**You stop specifying model settings and start specifying behaviours — and where the caps live.**
+**You stop specifying model settings and start specifying behaviours, and where the caps live.**
 Temperature and framework versions belong to engineering and go stale; what does not go stale is which
 steps may be probabilistic at all, what each tool may do, and where the checks sit. Those are the
 decisions that make an agentic system safe.
 
 ## Your eight steps
 
-### P0 · Frame — the evidence under the product manager's verdict
+### P0 · Frame: the evidence under the product manager's verdict
 
 **1 · Elicit.** Two discovery meetings split by proximity to the work, every requirement credited to
 the person who raised it. SkyWays: 31 lines from six people. **2 · Constrain.** Constraints sorted by
-type *before* any quality target is set, because a constraint can make a target impossible — the $400
+type *before* any quality target is set, because a constraint can make a target impossible, the $400
 refund rule reshaped three of nine quality targets.
 
-### P1 · Design & Spec — the phase you lead
+### P1 · Design & Spec: the phase you lead
 
 **3 · Map** every step as exact, best-guess or consequential. **4 · Shape**: start with one agent and add
-one only on a named limit — SkyWays' fifteen agents collapsed to one agent, a fan-out tool, a function
+one only on a named limit. SkyWays' fifteen agents collapsed to one agent, a fan-out tool, a function
 and a checker. **5 · Decide**: merge the stakeholders' utility trees and write a decision record only at
-the sensitivity points. **6 · Bound**: the authority budget before the token budget — every tool banded,
+the sensitivity points. **6 · Bound**: the authority budget before the token budget, every tool banded,
 every cap in a signature with tests. **7 · Detail**: layered context, one server per legacy system with
 reads open and writes gated, and an independent checker after each expensive step.
 [P1 Design & Spec](lesson:p1-design-and-spec)
 
-### P2 · Build & Prove — answer, do not re-open
+### P2 · Build & Prove: answer, do not re-open
 
 In P2 you answer questions against the map; you do not re-open it. Every bolt was cut against the
-design as signed, so a redesign mid-build moves the ground under work already in flight — if the map is
+design as signed, so a redesign mid-build moves the ground under work already in flight, if the map is
 wrong, say so and re-cut in the open, rather than changing it quietly.
 
 ### P3 · Run & Learn
@@ -73,9 +73,9 @@ becomes a typed parameter rather than a name. [The cost loop](lesson:ai-agent-co
 
 | Yours to own | Not yours |
 | --- | --- |
-| The ratified quality targets and their sensitivity points | The intent and release gates — the product manager's |
-| The exact / best-guess / consequential map, and the proof each kind needs | Temperature, top-p, framework version — engineering picks the knobs |
-| The shape: how many agents, and the limit that would justify another | The golden set's contents and the judge rubric — QA's |
+| The ratified quality targets and their sensitivity points | The intent and release gates, the product manager's |
+| The exact / best-guess / consequential map, and the proof each kind needs | Temperature, top-p, framework version, engineering picks the knobs |
+| The shape: how many agents, and the limit that would justify another | The golden set's contents and the judge rubric. QA's |
 | The authority budget and gate map, every cap in a signature | Which pain is worth solving, and what a mistake costs the business |
 | The decision records, one per trade-off point, and the plan gate with the PM | |
 
@@ -107,10 +107,10 @@ ask for?**
 <details><summary>Show the answer</summary>
 
 **A named limit for every agent beyond the first.** Five agents have ten possible hand-offs. Policy
-lookup is exact — a function or a tool, not an agent. Payout calculation is arithmetic — a tested
+lookup is exact: a function or a tool, not an agent. Payout calculation is arithmetic, a tested
 function, never a model. Intake and fraud scoring may be one agent with tools. The reviewer is the one
 worth keeping separate, because a checker's value is its independence. Likely result: one agent, a few
-tools and functions, and one checker — with the limit that would justify a second agent written into
+tools and functions, and one checker, with the limit that would justify a second agent written into
 the record.
 
 </details>
@@ -127,11 +127,11 @@ the record.
 
 Decides which steps may be probabilistic, how many agents the system needs, what each tool may do and
 where its limits are enforced, how context is layered, where independent checkers sit, and which
-decisions deserve a record — and turns production bills and incidents into design changes.
+decisions deserve a record, and turns production bills and incidents into design changes.
 
 ### Should I use a multi-agent architecture?
 
-Start with a single agent and add another only when you can name the limit that forces it — a context
+Start with a single agent and add another only when you can name the limit that forces it, a context
 that genuinely overflows, or parallel work a tool cannot express. Each added agent multiplies hand-offs;
 a fan-out tool usually gives the parallelism without them.
 
@@ -143,8 +143,8 @@ signature with a test, and require a confirmation token the model cannot create 
 
 ### What goes in an architecture decision record for AI systems?
 
-Only the decisions at genuine trade-off points — where changing the decision would change a quality
-target — each naming the options it rejected and why. Model settings and framework versions do not
+Only the decisions at genuine trade-off points, where changing the decision would change a quality
+target, each naming the options it rejected and why. Model settings and framework versions do not
 belong in one; they go stale in weeks.
 
 ## Apply it in your role
@@ -155,8 +155,8 @@ belong in one; they go stale in weeks.
 | **A product manager or FDPM** | Ask the architect for the authority budget in plain language: what the agent does alone, with a veto, with an approver, and never. | Have a model translate the authority budget into a one-page table for the sponsor. |
 | **A GenAI or agentic AI engineer** | Build to the architect's decisions: caps in signatures, one agent until a named limit justifies a second, checkers after risky steps. | Ask a coding agent to compare the code with the decision records and list every divergence. |
 
-**Across the enterprise.** An architecture review for agents reviews three artefacts — the step map, the
-authority budget and the topology — rather than slides.
+**Across the enterprise.** An architecture review for agents reviews three artefacts (the step map, the
+authority budget and the topology) rather than slides.
 
 **The ten-minute workflow.** An authority budget that refuses to guess:
 
@@ -171,9 +171,9 @@ Do not assign a band I have not given you evidence for.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The architect's eight steps, owns and not-yours | **Original** — this playbook | [Solution architect, end to end](site:solution-architect/) · [Role: Solution architect](wiki:Role-Solution-Architect) |
+| The architect's eight steps, owns and not-yours | **Original**: this playbook | [Solution architect, end to end](site:solution-architect/) · [Role: Solution architect](wiki:Role-Solution-Architect) |
 | Utility trees and sensitivity points | **Borrowed** | Kazman, R., Klein, M. & Clements, P. (2000). *ATAM: Method for Architecture Evaluation*. SEI |
 | Architecture decision records | **Borrowed** | Nygard, M. (2011). Documenting architecture decisions |
 | Start with the simplest solution; add agents only when needed | **Borrowed** | Schluntz, E. & Zhang, B. (2024). [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Anthropic |
 | Least privilege | **Borrowed** | Saltzer, J. H. & Schroeder, M. D. (1975). *Proceedings of the IEEE* 63(9) |
-| The SkyWays examples | **Illustrative** — a fictional airline | [Journey: Solution architect](wiki:Journey-Solution-Architect) |
+| The SkyWays examples | **Illustrative**: a fictional airline | [Journey: Solution architect](wiki:Journey-Solution-Architect) |

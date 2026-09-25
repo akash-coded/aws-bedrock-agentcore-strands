@@ -3,17 +3,17 @@ title: AI Governance Gates That Don't Slow Delivery: The Five Gates
 short: The five governance gates
 wiki: AI-Governance-Gates-That-Dont-Slow-Delivery
 description: Five gates govern an AI agent from idea to wide use: intent, plan, behaviour, release and expansion. Who owns each, and the evidence each one needs.
-dek: A gate is a decision with evidence in front of a named person — not a click, a status column, or a meeting that ends in "fine".
+dek: A gate is a decision with evidence in front of a named person, not a click, a status column, or a meeting that ends in "fine".
 level: Intermediate
 keywords: AI governance framework, AI approval process, AI risk management, responsible AI governance, AI go-live approval, AI model governance, NIST AI RMF, who approves AI agents
 updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The gates in one sentence.** An AI agent passes five gates on its way to wide use — **intent**
+> **The gates in one sentence.** An AI agent passes five gates on its way to wide use, **intent**
 > (is it worth doing?), **plan** (the right slice at the right control level?), **behaviour** (does it
 > meet the spec?), **release** (safe to show a few real users?) and **expansion** (have we earned wider
-> use?) — each owned by one named person deciding on written evidence, with a drift alert that re-opens
+> use?): each owned by one named person deciding on written evidence, with a drift alert that re-opens
 > the release gate automatically.
 
 {{map:ai-governance-gates}}
@@ -68,7 +68,7 @@ governance becomes the bottleneck.
 ### Step 4 · Wire the drift alert to the release gate
 
 A released agent can stop being good enough with no deploy at all. When the output mix breaches its
-drift threshold, the release gate **re-opens automatically** — nobody has to decide to reconsider.
+drift threshold, the release gate **re-opens automatically**: nobody has to decide to reconsider.
 [Drift monitoring](lesson:ai-drift-monitoring)
 
 ### Step 5 · Report two numbers, paired, every cycle
@@ -101,7 +101,7 @@ side effect, because a number reported alone gets pushed.
 
 Gartner lists inadequate risk controls among the three reasons it expects over 40% of agentic AI
 projects to be cancelled by 2027. Controls fail less often from a lack of rules than from a lack of
-owners and evidence. Five gates, each with a named owner deciding on written evidence, supply both —
+owners and evidence. Five gates, each with a named owner deciding on written evidence, supply both,
 without adding a single meeting.
 
 ## Try it
@@ -115,14 +115,14 @@ A company's AI approval process is a monthly committee that reviews a slide deck
 denominators; a monthly meeting cannot re-open a release when drift appears on a Tuesday; and a single
 approval cannot distinguish intent from behaviour from expansion, which are different questions with
 different evidence and different owners. The committee can stay as the place the two-number report is
-read — the decisions move to named owners.
+read: the decisions move to named owners.
 
 </details>
 
 ## Key takeaways
 
 1. **Five gates**, each with **one owner** who can evaluate it: intent, plan, behaviour, release, expansion.
-2. A gate is **a decision record with evidence and denominators**, signed — not a click or a vote.
+2. A gate is **a decision record with evidence and denominators**, signed, not a click or a vote.
 3. **Drift re-opens the release gate automatically**, and governance reports **two numbers, paired**.
 
 ## FAQ
@@ -131,12 +131,12 @@ read — the decisions move to named owners.
 
 Named people making specific decisions on written evidence at defined points: whether an AI feature is
 worth doing, whether its plan and controls are right, whether it meets its bar, whether it is safe to
-release, and whether it has earned wider use — plus a standing rule for what re-opens those decisions.
+release, and whether it has earned wider use, plus a standing rule for what re-opens those decisions.
 
 ### Who should approve an AI agent for production?
 
-Different people for different questions. In this playbook the product manager owns release — is it
-safe to show a few real users? — on the evidence of a shadow run and a rehearsed rollback, while the QA
+Different people for different questions. In this playbook the product manager owns release, is it
+safe to show a few real users?: on the evidence of a shadow run and a rehearsed rollback, while the QA
 lead owns behaviour and expansion, which are questions of measured evidence.
 
 ### How do you govern AI without slowing delivery?
@@ -147,7 +147,7 @@ That is usually faster than the process it replaces.
 
 ### How does this relate to NIST's AI Risk Management Framework?
 
-The NIST AI RMF describes four functions — govern, map, measure and manage — for managing AI risk
+The NIST AI RMF describes four functions (govern, map, measure and manage) for managing AI risk
 across an organisation. The five gates are one concrete way to run those functions for a single
 product: named decisions, specific evidence and a standing trigger for re-evaluation.
 
@@ -174,9 +174,9 @@ re-open it. Flag any gate whose evidence is a meeting rather than a document.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The five gates, their owners and evidence; the gate decision record | **Original** — this playbook | [Gates and Governance](wiki:Gates-and-Governance) |
+| The five gates, their owners and evidence; the gate decision record | **Original**: this playbook | [Gates and Governance](wiki:Gates-and-Governance) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
 | Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
 | Govern, map, measure, manage | **Borrowed** | NIST (2023). [AI Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework) |
 | Inadequate risk controls as a cause of cancellation | **Borrowed** | Gartner (2025). [Press release, 25 June](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) |
-| The SkyWays gates | **Illustrative** — a fictional airline | [Try the gate classifier](sim:#/toolkit/gateclass) |
+| The SkyWays gates | **Illustrative**: a fictional airline | [Try the gate classifier](sim:#/toolkit/gateclass) |

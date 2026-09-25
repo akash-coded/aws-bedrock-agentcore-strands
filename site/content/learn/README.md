@@ -3,7 +3,7 @@
 The tutorial is written once, here, and published under `/learn/` on the site, which is the only
 copy (GitHub does not let search engines index a wiki with fewer than 500 stars or open editing).
 `python3 site/build.py` renders and validates it; `python3 site/learn_export.py` puts a thin index on
-the wiki — Start Here and one page per track, each linking the lessons here — and a pointer line on
+the wiki (Start Here and one page per track, each linking the lessons here) and a pointer line on
 the reference pages a lesson introduces.
 
 The build refuses a lesson that breaks the rules marked **must**. The rest are warnings.
@@ -13,13 +13,13 @@ The build refuses a lesson that breaks the rules marked **must**. The rest are w
 Every lesson opens with a picture drawn in the site's illustration grammar, not a mermaid fence. The
 lesson embeds it with `{{map:<slug>}}` on a line of its own (the slug is the lesson's), and the picture
 itself is a short spec in [`site/pages/mapspecs.py`](../../pages/mapspecs.py): a title row, then one of
-five shapes — `bands` (rows per phase or theme), `flow` (a chain, with an optional gate, terminal or
+five shapes: `bands` (rows per phase or theme), `flow` (a chain, with an optional gate, terminal or
 decision), `pairs` (two panels, row-aligned), `funnel` (a ladder of questions) or `fan` (one question,
-its outcomes) — with a callout that says what the picture proves. Change the spec, not the lesson, to
+its outcomes): with a callout that says what the picture proves. Change the spec, not the lesson, to
 change the picture. The wiki shows a screenshot of it (`python3 site/build.py --shots`, then
 `node site/tools/shoot.mjs`). Mermaid still works anywhere else in a lesson.
 
-## Anatomy — every lesson, same slots, same order
+## Anatomy: every lesson, same slots, same order
 
 Parallel slots are what let a reader skim twelve lessons and know where the answer is in each.
 
@@ -76,7 +76,7 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
   check [Sources and Confidence](../../../wiki/Sources-and-Confidence.md) and the primary source.
 - **No fluff.** Delete any sentence that would survive unchanged in a lesson about a different topic.
 - **British spelling** in prose, as the rest of the playbook. Put American variants in `keywords`.
-- **Length:** 900–1,500 words, and up to about 3,000 for an interview bank; the build warns above 14 minutes.
+- **Length:** 900 to 1,500 words, and up to about 3,000 for an interview bank; the build warns above 14 minutes.
 - **Prompts** in "The ten-minute workflow" ask the model to question you rather than invent your numbers, and
   say what output shape you want. A prompt that would work unchanged for any lesson is not specific enough.
 - **Edit here, never on the wiki.** Every wiki copy of a lesson is regenerated; an edit made on the wiki
@@ -116,10 +116,10 @@ A hex cannot follow a theme, so use only these, which clear 3:1 on white and on 
 | yours / evidence · green | `#2C7A4B` | `#2C7A4B1A` | — |
 | meta / questions · grey | `#6E6E6E` | `#6E6E6E14` | — |
 
-Keep each label line short enough not to wrap — mermaid breaks any line wider than about 200px, so
+Keep each label line short enough not to wrap, mermaid breaks any line wider than about 200px, so
 about 22 characters bold and 25 italic; put a `<br/>` where the phrase breaks instead. Never set
 `color:` on a node. Style every `subgraph` band with `style <id> fill:…0D,stroke:…`.
-Never point an edge back at an earlier node inside a banded diagram — end on a terminal node. Count
+Never point an edge back at an earlier node inside a banded diagram, end on a terminal node. Count
 the invisible `~~~` links when numbering `linkStyle`. Keep a diagram's intrinsic width under ~700px:
 stack bands vertically, two nodes across. `site/tools/check_diagrams.py` renders every block in both
 themes and fails on small text, low contrast and bands out of order, and warns on wrapped lines and
@@ -128,7 +128,7 @@ drawings wider than 720px.
 ## Screenshots
 
 A screenshot of the simulator goes on its own line as `![alt](site:assets/learn/name.webp)`.
-Capture it with `node site/tools/simshots.mjs <simulator url> site/assets/learn` — at 2x, as WebP,
-clipped to one element — and the renderer reads its size from the file, so a narrow one stays narrow
+Capture it with `node site/tools/simshots.mjs <simulator url> site/assets/learn` (at 2x, as WebP,
+clipped to one element) and the renderer reads its size from the file, so a narrow one stays narrow
 on the site and on the wiki. Write the alt text as the sentence the screenshot proves. Never capture
 the simulator's photographs; clip to the part of the page that is the playbook's own work.

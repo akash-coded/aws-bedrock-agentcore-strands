@@ -272,7 +272,7 @@ SPECS["hold-boundary"] = dict(
            _c("Human gate on money", "no valid token: raises", "users"),
            _c("The money moves", "within $400, with a named approver", "money", "n"),
            _c("Traceability", "one redacted row, attempts included", "eye")],
-    callout=("The sixth control is the rule in the system: every layer classified as enforced, a request, or absent — and audited as such.", "k", 40),
+    callout=("The sixth control is the rule in the system: every layer classified as enforced, a request, or absent, and audited as such.", "k", 40),
     alt="Text arriving, the injection defence, the model deciding, least authority, bounded tools, the human gate, the money moving, and the trace",
 )
 

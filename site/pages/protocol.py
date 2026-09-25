@@ -1,4 +1,4 @@
-"""The agentic operating protocol — the page for whoever owns the P&L.
+"""The agentic operating protocol, the page for whoever owns the P&L.
 
 Every other page on this site is written for someone doing the work. This one is written for the
 person funding it, and it answers four questions in order: what actually changes, who does what,
@@ -197,7 +197,7 @@ def _llms() -> str:
 high one. The products change every quarter; the three levels and the control on each do not.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Level</th><th>What</th><th>Who, for what</th><th>The control on it</th>
 <th>The rule</th></tr></thead><tbody>{body}</tbody></table></div>
-{pair("<p><strong>The decision to take centrally</strong> is not which assistant. It is that every model call "
+{pair("<p><strong>The decision to take centrally</strong> is that every model call "
       "in production passes through one layer you own, so routing, budgets and the per-call log exist in one "
       "place. Teams then choose their own editor.</p>",
       "<p>A coding assistant reads a committed context file at session start: <code>CLAUDE.md</code> for Claude "
@@ -348,7 +348,7 @@ against a business return, and the trade is yours.</p>
     "team under an agent-first directive will build agents for things a rule does better and will "
     "not tell you, because you asked for agents.</p>",
     "<p>Three questions in order, and the first “no” ends it. Is there a genuine judgement "
-    "call — could two competent people differ? Is the volume high enough to carry evaluation, gates "
+    "call: could two competent people differ? Is the volume high enough to carry evaluation, gates "
     "and a harness? Is a wrong answer recoverable? Only yes-yes-yes is fully agentic; the rest is "
     "code, a person, or an assisted mix with the unrecoverable steps gated.</p>")}
 <p class="wide"><strong>Ask for:</strong> an AI-fit record per candidate, with the rejected alternative and why.
@@ -357,12 +357,12 @@ against a business return, and the trade is yours.</p>
 <h3>2 · What the agent may do without a person</h3>
 {pair(
     "<p>Per action, never per product, and it follows what a mistake costs and whether you can undo "
-    "it. Set it per product and you force everything to the strictness of the riskiest action, or — "
-    "worse — to the looseness of the safest.</p>",
+    "it. Set it per product and you force everything to the strictness of the riskiest action, or, "
+    "worse, to the looseness of the safest.</p>",
     "<p>Five rungs: acts alone, acts monitored, acts inside a veto window, named approver every "
     "time, not delegated at all. Reversibility is the hinge. Levels rise on evidence, one step at a "
     "time, and an incident drops the level of the action involved automatically.</p>")}
-<p class="wide"><strong>Ask for:</strong> the autonomy record, and then the follow-up that matters —
+<p class="wide"><strong>Ask for:</strong> the autonomy record, and then the follow-up that matters,
 <em>show me the cap</em>. If somebody opens a prompt file, you have found a gap.</p>
 
 <h3>3 · What you will accept as evidence</h3>
@@ -375,7 +375,7 @@ against a business return, and the trade is yours.</p>
     "number, and reject a score quoted without its sample size.</p>")}
 {bar}
 <p class="wide"><strong>Read it this way:</strong> the bar is not a target somebody chose. It falls out of what a
-mistake costs. Push the third slider — that is a person checking the work before it takes effect,
+mistake costs. Push the third slider. That is a person checking the work before it takes effect,
 and it is why a gate is a commercial instrument rather than a brake.</p>
 
 <h3>4 · What you will fund past cycle one</h3>
@@ -408,11 +408,11 @@ def _knowing() -> str:
          "Ask what automatically re-opens the release gate"),
     ]
     chk = k.check(controls,
-                  ["Level 0 — nothing is enforced yet",
-                   "Level 1 — assisted; one team, no gates",
-                   "Level 2 — specified; the work is written down",
-                   "Level 3 — governed; the gates hold",
-                   "Level 4 — evidence-led; production proves it"],
+                  ["Level 0 (nothing is enforced yet",
+                   "Level 1) assisted; one team, no gates",
+                   "Level 2 (specified; the work is written down",
+                   "Level 3) governed; the gates hold",
+                   "Level 4: evidence-led; production proves it"],
                   "Tick only what you could be shown in ten minutes.")
     questions = [
         ("Which of these are rules?", "The roadmap, not one feature",
@@ -439,7 +439,7 @@ your organisation. They take ten minutes a cycle.</p>
     "replacement: six controls that a team either has or does not, each verifiable by asking to be "
     "shown it.</p>",
     "<p>The level is the count. It is deliberately unweighted, so a team can read as level four with "
-    "the two hardest controls missing — read the list, not the number. The next control to build is "
+    "the two hardest controls missing, read the list, not the number. The next control to build is "
     "always the first unticked one.</p>")}
 {chk}
 
@@ -447,9 +447,9 @@ your organisation. They take ten minutes a cycle.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th><span class="vh">Measure</span></th><th>Baseline</th><th>Now</th><th>Change</th></tr></thead>
 <tbody>
 <tr><td>Person-days per story</td><td>8.0</td><td>4.6</td><td><strong>−43%</strong></td></tr>
-<tr><td>Token spend per story</td><td>—</td><td>$310</td><td></td></tr>
+<tr><td>Token spend per story</td><td>, </td><td>$310</td><td></td></tr>
 <tr><td>Review hours added per story</td><td>1.2</td><td>2.0</td><td>+0.8</td></tr>
-<tr><td>Re-runs per story</td><td>—</td><td>1.4</td><td></td></tr>
+<tr><td>Re-runs per story</td><td>, </td><td>1.4</td><td></td></tr>
 </tbody></table></div>
 <p class="wide">Three rules make that table trustworthy. The <strong>baseline is taken before the pilot</strong>,
 which costs an afternoon and is unrecoverable afterwards. The <strong>review row stays visible</strong>,
@@ -464,20 +464,20 @@ with the second. This is usually done by people trying to protect the programme.
 
 def _rollout() -> str:
     steps = [
-        ("Days 1–15 · Pick the wrong-looking thing",
+        ("Days 1 to 15 · Pick the wrong-looking thing",
          "<p><strong>Choose one feature, and choose it for provability rather than for value.</strong> "
          "The instinct is to start where the prize is largest, which is usually the hardest slice, "
          "the one that cannot clear its bar and cannot be proven inside a quarter.</p>"
          "<ul class='ticks'>"
          "<li>Run the three AI-fit questions across the top ten candidates. Publish the ones that "
-         "came back as rules — that list is the most credible thing you will circulate all year</li>"
+         "came back as rules, that list is the most credible thing you will circulate all year</li>"
          "<li>Pick a feature with high volume, low damage per mistake, and an existing human process "
          "to compare against</li>"
          "<li><b>Take the baseline now.</b> Person-days per story, today, before anything changes. "
          "An afternoon, and it cannot be recovered later</li></ul>"
          "<p><strong>The trap:</strong> starting with the flagship. It has the highest bar, the "
          "least tolerance for a first attempt, and the most spectators.</p>"),
-        ("Days 15–30 · Write the artefacts nobody wants to write",
+        ("Days 15 to 30 · Write the artefacts nobody wants to write",
          "<p><strong>This fortnight produces documents, and it is the fortnight that decides the "
          "outcome.</strong> Teams skip it because it feels like overhead beside a working demo.</p>"
          "<ul class='ticks'>"
@@ -488,7 +488,7 @@ def _rollout() -> str:
          "<li>A context file in the repository, so every session starts informed</li></ul>"
          "<p><strong>The trap:</strong> a demo exists by now and it is persuasive. A demo is the easy "
          "20%. What it cannot tell you is how often it is wrong on the cases you did not choose.</p>"),
-        ("Days 30–60 · Build in slices, prove in CI",
+        ("Days 30 to 60 · Build in slices, prove in CI",
          "<p><strong>A shippable slice a day, each one proven before the next.</strong> The point is "
          "not speed; it is that a wrong turn costs one day instead of a fortnight.</p>"
          "<ul class='ticks'>"
@@ -498,7 +498,7 @@ def _rollout() -> str:
          "<li>Review routes by risk band, from a path rule rather than from an argument</li></ul>"
          "<p><strong>What you should see:</strong> something merged most days. If the demo is still "
          "the only evidence at day 45, the slices are not slices.</p>"),
-        ("Days 60–90 · Prove it beside the humans",
+        ("Days 60 to 90 · Prove it beside the humans",
          "<p><strong>Run it next to the people doing the work, deciding but never acting.</strong> "
          "You cannot reason your way to knowing whether it agrees with them.</p>"
          "<ul class='ticks'>"
@@ -506,13 +506,13 @@ def _rollout() -> str:
          "<li>Money actions stay gated regardless of what the shadow shows</li>"
          "<li>Rehearse the rollback before the cut-over, not during</li>"
          "<li>Cut over at five percent and widen on live evidence rather than on a date</li></ul>"
-         "<p><strong>If it does not match, you learned that for free</strong> — which is the whole "
+         "<p><strong>If it does not match, you learned that for free</strong>, which is the whole "
          "argument for the window.</p>"),
         ("Day 90 onward · Report honestly, and let production set the agenda",
          "<p><strong>Two numbers, both of them, from the first cycle.</strong> Then the loops that "
          "most organisations never close.</p>"
          "<ul class='ticks'>"
-         "<li>Cost is a design question, not a finance escalation — a surprise bill closes back into "
+         "<li>Cost is a design question, not a finance escalation, a surprise bill closes back into "
          "the design, and the fix order is arithmetic</li>"
          "<li>An incident produces a control, a record and a brief, never a name</li>"
          "<li>Drift is watched weekly like any business metric, and an alert re-opens the release "
@@ -533,7 +533,7 @@ It is deliberately unglamorous in the middle.</p>
 <td>Show the artefacts being reused. The second spec takes an hour</td></tr>
 <tr><td>"The model is good enough already"</td><td>Judged on curated examples</td>
 <td>Ask for the score on the slice nobody picked, with its sample size</td></tr>
-<tr><td>"We already have gates"</td><td>Approvals, not gates — clicks without evidence</td>
+<tr><td>"We already have gates"</td><td>Approvals, not gates, clicks without evidence</td>
 <td>Ask what evidence was in front of the last approver, and what would have made them say no</td></tr>
 <tr><td>"Engineering says the cap is handled"</td><td>Handled in a prompt</td>
 <td>Ask to be shown it. Prose or code decides the answer</td></tr>
@@ -560,7 +560,7 @@ def _tooling() -> str:
          "Consolidating discovery, converting prose to testable criteria, building the arithmetic",
          "Read-only. It proposes; a person decides and signs",
          "Named documents only, never the whole drive"),
-        ("Engineering", "An editor agent — Claude Code, Codex, Copilot",
+        ("Engineering", "An editor agent: Claude Code, Codex, Copilot",
          "Multi-file changes, failing-test loops, building from a story file",
          "Reads a committed context file. Changes arrive as reviewable diffs",
          "Review by risk band. Money paths get two readers, always"),
@@ -578,17 +578,17 @@ def _tooling() -> str:
     return f"""<div class="sec">
 <h2>Tooling, by level</h2>
 <p class="wide">The specific products change every quarter and the shape does not. Four levels, each with a
-different blast radius, and the governance is what separates them — not the vendor.</p>
+different blast radius, and the governance is what separates them, not the vendor.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Who</th><th>What</th><th>For</th><th>The control on it</th>
 <th>The rule</th></tr></thead><tbody>{body}</tbody></table></div>
 
 {pair(
-    "<p><strong>The decision you should take centrally</strong> is not which assistant. It is that "
+    "<p><strong>The decision you should take centrally</strong> is that "
     "every model call in production passes through one layer you own, so that routing, budgets and "
     "the per-call log exist in one place. Teams can then choose their own editor.</p>",
     "<p>A coding assistant's configuration file is read at session start: <code>CLAUDE.md</code> for "
     "Claude Code, <code>.github/copilot-instructions.md</code> for Copilot, <code>AGENTS.md</code> "
-    "for Codex. Copilot's steers inline suggestions; Claude Code's drives autonomous actions — the "
+    "for Codex. Copilot's steers inline suggestions; Claude Code's drives autonomous actions, the "
     "same sentence carries more weight in the second case, which is why the file is committed and "
     "reviewed rather than personal.</p>")}
 

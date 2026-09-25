@@ -12,7 +12,7 @@ updated: 2026-09-24
 > [!TIP]
 > **The hard gate in one sentence.** Of the four hand-offs in the agentic PDLC only P1 → P2 halts the
 > build, because the spec, the acceptance bar per slice and the authority budget are what everything
-> downstream is built and measured against — every other open decision runs alongside the build
+> downstream is built and measured against, every other open decision runs alongside the build
 > behind a placeholder, with a named owner and a date.
 
 {{map:the-hard-gate}}
@@ -29,7 +29,7 @@ updated: 2026-09-24
 - A decision that "could be changed later" turned out to be built into everything by the time anyone tried.
 - The gate was passed in a meeting that ended in "fine", and nobody can say what evidence was in the room.
 
-Both failures — halting on everything and halting on nothing — come from treating every decision the
+Both failures, halting on everything and halting on nothing, come from treating every decision the
 same way.
 
 ## What is the hard gate?
@@ -68,7 +68,7 @@ In a typical build three decisions come back hard, and each for a different reas
 
 ### Step 3 · Put a placeholder behind every soft one
 
-The rest — SkyWays had eight — run beside the build. What makes that safe is a **real placeholder**
+The rest, SkyWays had eight, run beside the build. What makes that safe is a **real placeholder**
 that lets the work proceed while the decision is measured: an interface layer in front of the
 framework, a stub that returns a file instead of a retrieval system, every call on a mid-tier model
 behind a gateway until the shadow run shows which slices need more. Each has an owner and a date on
@@ -79,7 +79,7 @@ refund action, cost SkyWays $2,000 on day 82.
 
 ### Step 4 · Record the gate decision with its evidence
 
-A gate is a decision with evidence in front of a named person and their name on it — not a click, a
+A gate is a decision with evidence in front of a named person and their name on it, not a click, a
 status column or a meeting that ends in "fine". The record says what question the gate asks, what
 evidence was in the room, with denominators, and what would have made the answer no.
 
@@ -95,7 +95,7 @@ from a completed one six weeks later.
 ## Where you'll use it
 
 - **At the end of every P1**, however small the change: the three artefacts may be one line each.
-- **In the weekly review**, re-asking the four questions of every soft decision — some turn hard as
+- **In the weekly review**, re-asking the four questions of every soft decision, some turn hard as
   the build learns more.
 - **When somebody proposes treating everything as hard** "to be safe": that is how a build waits three
   weeks for a reversible framework choice.
@@ -105,7 +105,7 @@ from a completed one six weeks later.
 The hard gate is the difference between a limit that was *decided* and a limit that was *enforced*.
 SkyWays crossed P1 → P2 with all three artefacts written and the authority budget only partly
 implemented: the $400 cap was in the autonomy record and the prompt, and not in the refund tool. One
-column in the hand-off record — *implemented, or written down?* — would have caught it.
+column in the hand-off record (*implemented, or written down?*) would have caught it.
 
 ## Try it
 
@@ -116,7 +116,7 @@ retrieval design; the dashboard layout; and whether a human approves cross-partn
 <details><summary>Show the answer</summary>
 
 **Two: the refund approval threshold and the approval rule for cross-partner rebookings.** Both are
-autonomy decisions on consequential actions — money, and a rebooking that is hard to reverse — so
+autonomy decisions on consequential actions (money, and a rebooking that is hard to reverse) so
 everything downstream, from the tool signatures to the tests, depends on them, and they fail the first
 question. The model family can sit behind a gateway, the retrieval design behind a stub, and the
 dashboard can wait for P3; each needs only an owner and a date.
@@ -126,7 +126,7 @@ dashboard can wait for P3; each needs only an owner and a date.
 ## Key takeaways
 
 1. **Only P1 → P2 is hard**: the spec, the bar per slice and the authority budget must be signed before P2 opens.
-2. **Four questions, one "no" makes it hard** — reversibility, a placeholder, an owner and a date, and downstream survival.
+2. **Four questions, one "no" makes it hard**: reversibility, a placeholder, an owner and a date, and downstream survival.
 3. **Every soft decision needs a real placeholder**, and every crossing on credit needs a written waiver.
 
 ## FAQ
@@ -153,7 +153,7 @@ building on decisions that will move.
 ### Who signs the hard gate?
 
 The solution architect is accountable for P1 and signs its exit; the product manager and architect
-jointly own the plan gate — the bolt cut, the authority budget and the gate map. A waiver for crossing
+jointly own the plan gate, the bolt cut, the authority budget and the gate map. A waiver for crossing
 without the full set is approved by the sponsor.
 
 ## Apply it in your role
@@ -162,7 +162,7 @@ without the full set is approved by the sponsor.
 | --- | --- | --- |
 | **A forward-deployed engineer** | The hard gate is where you protect the engagement: refuse to build past an unsigned autonomy decision, and put every soft one behind a placeholder with an owner. | Have a model sort the open-decisions list with the four questions and draft the placeholder for each soft one. |
 | **A product manager or FDPM** | Chair the gate: three hard decisions signed, every soft one with an owner and a date, any waiver in writing. | Ask a model to produce the gate record from the decision log and flag decisions with no owner. |
-| **A GenAI or agentic AI engineer** | Build behind an interface for every soft decision — framework, model, retrieval — so changing the answer is configuration, not a rewrite. | Ask a coding agent for the interface and a stub for each soft decision, with a test that swaps the implementation. |
+| **A GenAI or agentic AI engineer** | Build behind an interface for every soft decision (framework, model, retrieval) so changing the answer is configuration, not a rewrite. | Ask a coding agent for the interface and a stub for each soft decision, with a test that swaps the implementation. |
 
 **Across the enterprise.** Make P1 → P2 the one gate the portfolio enforces centrally, and let everything
 else run in parallel. One hard gate is how governance stops slowing delivery down.
@@ -180,9 +180,9 @@ decision, the four answers, HARD or SOFT — and the placeholder for each SOFT o
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| One hard hand-off, three soft ones, and the four classifying questions | **Original** — this playbook | [Gates and Governance](wiki:Gates-and-Governance#hard-gates-and-soft-gates) |
-| The hard-gate waiver | **Original** — this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#the-one-hard-hand-off--p1--p2) |
+| One hard hand-off, three soft ones, and the four classifying questions | **Original**: this playbook | [Gates and Governance](wiki:Gates-and-Governance#hard-gates-and-soft-gates) |
+| The hard-gate waiver | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#the-one-hard-hand-off--p1--p2) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
-| One-way and two-way doors | **Borrowed** | Bezos, J. 2015 letter to Amazon shareholders — Type 1 and Type 2 decisions |
+| One-way and two-way doors | **Borrowed** | Bezos, J. 2015 letter to Amazon shareholders. Type 1 and Type 2 decisions |
 | Architecture decisions recorded where they are sensitive | **Borrowed** | Nygard, M. (2011). Documenting architecture decisions |
-| The SkyWays figures | **Illustrative** — a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |

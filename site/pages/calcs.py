@@ -2,7 +2,7 @@
 
 The maths lives in ``theme/engine.js``; this is only the shape of the controls and the readout.
 Defaults are the SkyWays case, so a calculator that has not been touched still shows a worked
-example — which is what a reader without JavaScript sees, and what a printed page carries.
+example: which is what a reader without JavaScript sees, and what a printed page carries.
 """
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ SPECS: dict[str, dict] = {
         inputs=[
             {"key": "saving", "label": "Value of one right answer ($)", "min": 1, "max": 100, "value": 9},
             {"key": "damage", "label": "Cost of one wrong answer ($)", "min": 1, "max": 1000, "value": 36},
-            {"key": "holdcut", "label": "A person checks it first — damage falls to (%)",
+            {"key": "holdcut", "label": "A person checks it first, damage falls to (%)",
              "min": 1, "max": 100, "value": 25}],
         outputs=[{"key": "n", "label": "Right answers one mistake undoes"},
                  {"key": "bar", "label": "Required accuracy", "big": True},
@@ -100,8 +100,8 @@ SPECS: dict[str, dict] = {
         title="What routing review by band does to the queue",
         sub="capacity is fixed by people; slots needed is a policy choice",
         formula="queue = slots needed ÷ slots available per day",
-        inputs=[{"key": "r45", "label": "Changes touching money or identity (R4–R5)", "min": 0, "max": 30, "value": 2},
-                {"key": "r23", "label": "Changes touching real work (R2–R3)", "min": 0, "max": 30, "value": 3},
+        inputs=[{"key": "r45", "label": "Changes touching money or identity (R4 to R5)", "min": 0, "max": 30, "value": 2},
+                {"key": "r23", "label": "Changes touching real work (R2 to R3)", "min": 0, "max": 30, "value": 3},
                 {"key": "r1", "label": "Read-only or docs changes (R1)", "min": 0, "max": 30, "value": 4},
                 {"key": "capacity", "label": "Review slots available per day", "min": 0.5, "max": 20,
                  "step": 0.5, "value": 4.5}],

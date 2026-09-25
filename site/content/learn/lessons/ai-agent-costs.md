@@ -3,7 +3,7 @@ title: Why Your AI Agent Costs 4× the Estimate, and How to Fix It
 short: Why the AI bill is 4× the estimate
 wiki: Why-Your-AI-Agent-Costs-4x-the-Estimate
 description: An AI agent's bill rarely has one cause: context, model tier, cache and retries multiply. How to find each in the per-call log and fix them in order.
-dek: No runaway, no single mistake — four sensible decisions by careful people, multiplying on flat traffic. And the dashboard alarm that gets the one fix that works switched off.
+dek: No runaway, no single mistake, four sensible decisions by careful people, multiplying on flat traffic. And the dashboard alarm that gets the one fix that works switched off.
 level: Intermediate
 keywords: reduce LLM costs, AI agent cost optimization, LLM token cost, prompt caching cost, model routing, AI cost per case, why is my OpenAI bill so high, Bedrock cost optimization
 updated: 2026-09-24
@@ -11,8 +11,8 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The answer in one sentence.** An AI agent's bill usually grows because four ordinary habits
-> **multiply** — more context sent per call, a larger share on the expensive model, a cache that stops
-> hitting, and more attempts per case — so read the per-call log rather than the price list, confirm
+> **multiply**: more context sent per call, a larger share on the expensive model, a cache that stops
+> hitting, and more attempts per case, so read the per-call log rather than the price list, confirm
 > the four ratios multiply to the invoice ratio, and fix them in order of **(factor − 1) ÷ days to fix**.
 
 {{figure:bill_factors}}
@@ -35,15 +35,15 @@ per call.
 ## Why does an AI agent cost more than estimated?
 
 Because cost is **a product of habits**, not one runaway. Each habit is a sensible decision made by a
-careful person, and each on its own looks modest. At SkyWays — the fictional airline this playbook
-follows — the day-75 bill was **4.4 times** its estimate with traffic flat. Four ratios explained it:
+careful person, and each on its own looks modest. At SkyWays, the fictional airline this playbook
+follows, the day-75 bill was **4.4 times** its estimate with traffic flat. Four ratios explained it:
 
 | Habit | Baseline → now | Factor |
 | --- | --- | --- |
-| **Context** — the whole conversation resent every turn | 2,100 → 3,360 tokens a call | 1.6 |
-| **Tier** — the capable model used for easy calls too | 50% → 100% on the frontier tier | 1.5 |
-| **Cache** — the prefix stopped being reused | 71% → 9% hit ratio | 1.3 |
-| **Attempts** — more retries per case | 1.2 → 1.7 attempts | about 1.4 |
+| **Context**: the whole conversation resent every turn | 2,100 → 3,360 tokens a call | 1.6 |
+| **Tier**: the capable model used for easy calls too | 50% → 100% on the frontier tier | 1.5 |
+| **Cache**: the prefix stopped being reused | 71% → 9% hit ratio | 1.3 |
+| **Attempts**: more retries per case | 1.2 → 1.7 attempts | about 1.4 |
 
 1.6 × 1.5 × 1.3 × 1.4 ≈ **4.4**. Cost per case went from $0.60 to $2.64.
 
@@ -52,13 +52,13 @@ follows — the day-75 bill was **4.4 times** its estimate with traffic flat. Fo
 ### Step 1 · Read the per-call log, not the price list
 
 Take the log of individual model calls for a baseline week and for now, and compute the four ratios.
-If you do not have a per-call log — tokens in, tokens out, cache tokens read, model, attempts, per
-case — that is the first fix: route every call through one gateway that writes it.
+If you do not have a per-call log (tokens in, tokens out, cache tokens read, model, attempts, per
+case) that is the first fix: route every call through one gateway that writes it.
 
 ### Step 2 · Check that the factors multiply to the invoice
 
 Multiply the four ratios. If the product matches the ratio of this month's bill to the estimate, you
-have found the whole story. If it does not, a fifth cause exists — often idle infrastructure that
+have found the whole story. If it does not, a fifth cause exists, often idle infrastructure that
 bills for existing rather than for use.
 
 ### Step 3 · Fix in order of multiplier removed per day
@@ -79,7 +79,7 @@ impossible, however it is triggered.
 
 A cached prefix costs a little more to write and much less to read. Against the input price, a
 five-minute cache write costs about **1.25×**, an hour-long write about **2×**, and a read about
-**0.1×** — so a prefix used twice has already paid for itself, and one used ten times costs about a
+**0.1×**: so a prefix used twice has already paid for itself, and one used ten times costs about a
 fifth. But it only pays if it hits: put nothing volatile inside the cached block, keep the request
 after the marker, and use one model per task, because the cache is scoped to the model.
 
@@ -88,7 +88,7 @@ after the marker, and use one model per task, because the cache is scoped to the
 ### Step 5 · Avoid the dashboard trap
 
 Cache hits return fast. A latency dashboard that flags very fast responses as suspected failures will
-report hundreds of them — and someone will propose switching the cache off, raising the bill by about a
+report hundreds of them, and someone will propose switching the cache off, raising the bill by about a
 third within a day, because the anomaly *was the cache working*. Put the cache tokens read in every
 trace row, and exclude cache hits from the alert.
 
@@ -100,7 +100,7 @@ record gets a new version, and cost per case becomes a monitored number with an 
 
 ## Where you'll use it
 
-- **The first time a bill surprises anyone** — before any budget conversation.
+- **The first time a bill surprises anyone**: before any budget conversation.
 - **In P1 design**, where the context layout, routing and caching are decided.
 - **In P3 operation**, with cost per case on the same dashboard as quality.
 
@@ -108,7 +108,7 @@ record gets a new version, and cost per case becomes a monitored number with an 
 
 Escalating cost is one of the three reasons Gartner gives for expecting over 40% of agentic AI
 projects to be cancelled by 2027. A bill handled as a budget question recurs next quarter with a
-different multiple; handled as a design question, it falls — and stays down.
+different multiple; handled as a design question, it falls, and stays down.
 
 ## Try it
 
@@ -127,7 +127,7 @@ removes the least multiplier per day.
 
 ## Key takeaways
 
-1. A surprise bill is usually **four habits multiplying** — context, tier, cache, attempts — visible only per call.
+1. A surprise bill is usually **four habits multiplying** (context, tier, cache, attempts) visible only per call.
 2. Fix in order of **(factor − 1) ÷ days**, and fit a **breaker** so a runaway is impossible.
 3. **Make the cache hit, mark hits in the trace**, and close the loop in the design with a monitored cost per case.
 
@@ -149,12 +149,12 @@ changing sits inside the cached block, or if the model changes mid-task.
 
 There is no normal; there is your estimate, derived from tokens per call, calls per case and the price
 of each tier, and there is your measured cost per case against it. Track the ratio, and alert when it
-passes a threshold — this playbook's default is 3×.
+passes a threshold: this playbook's default is 3×.
 
 ### Why did our AI costs go up with no traffic change?
 
 Because behaviour changed: longer context, more calls on the expensive model, a cache that stopped
-hitting, or more retries — or infrastructure that bills while idle. The per-call log shows which; the
+hitting, or more retries, or infrastructure that bills while idle. The per-call log shows which; the
 invoice cannot.
 
 ## Apply it in your role
@@ -181,8 +181,8 @@ multiply to the bill's ratio, and rank the fixes by (factor − 1) ÷ days to fi
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The four bill factors and the fix order (factor − 1) ÷ days | **Original** — this playbook | [How to control the token bill](wiki:How-to-Control-the-Token-Bill) |
-| Cache write and read multipliers, and model-scoped caches | **Borrowed** — documented, September 2026; prices change | Anthropic and Amazon Bedrock prompt-caching documentation; see [Formulas](wiki:Formulas-and-Calculators#cache-break-even--documented) |
+| The four bill factors and the fix order (factor − 1) ÷ days | **Original**: this playbook | [How to control the token bill](wiki:How-to-Control-the-Token-Bill) |
+| Cache write and read multipliers, and model-scoped caches | **Borrowed**: documented, September 2026; prices change | Anthropic and Amazon Bedrock prompt-caching documentation; see [Formulas](wiki:Formulas-and-Calculators#cache-break-even--documented) |
 | Escalating costs as a cause of cancellation | **Borrowed** | Gartner (2025). [Press release, 25 June](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) |
-| The 3× cost alert | **Original** — a working default to tune | [Sources and Confidence](wiki:Sources-and-Confidence#the-working-methods-and-how-to-tune-each) |
-| The SkyWays bill | **Illustrative** — a fictional airline | [Try the cache calculator](sim:#/toolkit/cache) |
+| The 3× cost alert | **Original**: a working default to tune | [Sources and Confidence](wiki:Sources-and-Confidence#the-working-methods-and-how-to-tune-each) |
+| The SkyWays bill | **Illustrative**: a fictional airline | [Try the cache calculator](sim:#/toolkit/cache) |

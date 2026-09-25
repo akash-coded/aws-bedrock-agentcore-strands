@@ -34,8 +34,8 @@ The simulator is built for all three: decisions with consequences, and every tem
 
 ## What is the SkyWays simulator?
 
-**One web page, no sign-in, and nothing you type leaves your browser.** It follows SkyWays — this
-playbook's fictional airline — through the same ninety days as [the case study](lesson:skyways-case-study),
+**One web page, no sign-in, and nothing you type leaves your browser.** It follows SkyWays, this
+playbook's fictional airline, through the same ninety days as [the case study](lesson:skyways-case-study),
 and every concept in it links to where it is taught, where it is practised and the tool that applies it.
 The evidence pack is kept in your browser only.
 
@@ -52,7 +52,7 @@ order and the artefacts arrive in the order a real team produces them. [Open the
 
 Each of the nine simulations is a sequence of decisions on the SkyWays case, and each option shows what
 it does to the steps that follow and the artefact it leaves behind. Run each one twice: once on the path
-that closes the loop, and once on the path that feels faster — the second run is where the lesson is.
+that closes the loop, and once on the path that feels faster, the second run is where the lesson is.
 
 ![The incident simulation, step one of five: choosing to ask which enforced control would have made the incident impossible, and what that choice leads to](site:assets/learn/sim-simulation.webp)
 
@@ -68,8 +68,8 @@ rule it uses.
 
 ![The golden-set confidence calculator, prefilled with 412 correct out of 500 against an 80% bar, showing a lower bound under the bar and the cases still needed](site:assets/learn/sim-toolkit.webp)
 
-The calculator uses the same rule as this tutorial — **z = 1.96**, the lower end of a two-sided 95%
-interval — so SkyWays' 412 of 500 reads 79.1% and 968 cases in both places. It also offers one-sided
+The calculator uses the same rule as this tutorial (**z = 1.96**, the lower end of a two-sided 95%
+interval) so SkyWays' 412 of 500 reads 79.1% and 968 cases in both places. It also offers one-sided
 bounds, for a team that has chosen one in advance. [The toolkit](sim:#/toolkit)
 
 ### Step 4 · Keep the Loop Map in view
@@ -90,7 +90,7 @@ that can go straight into a repository. [The evidence pack](lesson:the-evidence-
 
 ### Step 6 · Go deeper by role
 
-Three playbooks — Solution Architect, Product Manager, and Engineering and QA — walk the same case from
+Three playbooks (Solution Architect, Product Manager, and Engineering and QA) walk the same case from
 P0 to P3 in eighteen steps each, with the traditional practice and the agentic change side by side. The
 simulator's own guide suggests paths by the time you have: a 90-minute briefing, a half-day workshop or a
 full day. [How to use the simulator](sim:#/guide/g-how)
@@ -115,9 +115,9 @@ evidence change?**
 
 <details><summary>Show the answer</summary>
 
-**No — only the convention did.** 0.824 − 1.645 × √(0.824 × 0.176 ÷ 500) = 0.796 is a one-sided 95%
+**No: only the convention did.** 0.824 − 1.645 × √(0.824 × 0.176 ÷ 500) = 0.796 is a one-sided 95%
 bound; with 1.96 it is 0.791, which is one-sided 97.5%. Cases needed scale with the square of the
-constant: 1.96² ÷ 1.645² ≈ 1.42, and 682 × 1.42 ≈ 968. The verdict is the same under both — not yet
+constant: 1.96² ÷ 1.645² ≈ 1.42, and 682 × 1.42 ≈ 968. The verdict is the same under both, not yet
 proven. Fix the convention before anyone sees a score, and write it on the bar sheet: choosing it
 afterwards is how a team talks itself into a launch.
 
@@ -126,7 +126,7 @@ afterwards is how a team talks itself into a launch.
 ## Key takeaways
 
 1. **Five parts**: the story, nine simulations, seventeen tools, the Loop Map and the evidence pack.
-2. **Run each simulation twice** — the path that feels faster is where the lesson is.
+2. **Run each simulation twice**: the path that feels faster is where the lesson is.
 3. **Every tool starts filled in**: read SkyWays' result first, then replace the numbers with yours.
 
 ## FAQ
@@ -138,7 +138,7 @@ browser, and nothing you type is sent anywhere.
 
 ### Which simulation should I run first?
 
-"Ninety days of SkyWays" for the whole arc — one decision per episode — then the one closest to your
+"Ninety days of SkyWays" for the whole arc, one decision per episode, then the one closest to your
 next hard decision: the review bottleneck, the bill blowout or the incident.
 
 ### Can I use the simulator for team training?
@@ -155,7 +155,7 @@ markdown file to keep it or share it.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Run the simulator with the customer's team in a workshop — one simulation, twice — before their first real decision. | Ask a model to adapt the simulation's debrief questions to the customer's domain. |
+| **A forward-deployed engineer** | Run the simulator with the customer's team in a workshop (one simulation, twice) before their first real decision. | Ask a model to adapt the simulation's debrief questions to the customer's domain. |
 | **A product manager or FDPM** | Use the prefilled tools with your own numbers to produce real artefacts: the bar sheet, the value line, the two-number report. | Download the evidence pack and have a model check it against your repository. |
 | **A GenAI or agentic AI engineer** | Use the confidence and bill-leak calculators on your own logs before a review. | Ask a coding agent to export your per-call log in the columns the bill-leak calculator expects. |
 
@@ -174,7 +174,7 @@ it to our project <describe>, and the one artefact the team should leave with.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The simulator, its simulations, tools and evidence pack | **Original** — this playbook | [The simulator](sim:#/) |
+| The simulator, its simulations, tools and evidence pack | **Original**: this playbook | [The simulator](sim:#/) |
 | Active learning outperforms lecture | **Borrowed** | Freeman, S. et al. (2014). Active learning increases student performance in science, engineering, and mathematics. *PNAS* 111(23) |
 | The Wilson bound the calculator shows beside the normal one | **Borrowed** | Wilson, E. B. (1927). *JASA* 22(158) |
-| SkyWays and its figures | **Illustrative** — a fictional airline | [Ninety days of SkyWays](sim:#/story) |
+| SkyWays and its figures | **Illustrative**: a fictional airline | [Ninety days of SkyWays](sim:#/story) |

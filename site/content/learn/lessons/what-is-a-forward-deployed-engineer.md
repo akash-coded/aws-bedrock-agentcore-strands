@@ -3,7 +3,7 @@ title: What Is a Forward Deployed Engineer? The FDE Role, Explained
 short: What is an FDE?
 wiki: What-Is-a-Forward-Deployed-Engineer-FDE
 description: What a forward deployed engineer (FDE) does, where the role came from, how it differs from a solutions architect, and why AI labs now hire FDEs.
-dek: One engineer, one customer, many capabilities — and a duty to carry what the customer taught them back into the product.
+dek: One engineer, one customer, many capabilities, and a duty to carry what the customer taught them back into the product.
 level: Beginner
 keywords: forward deployed engineer, what is a forward deployed engineer, FDE, FDE meaning, forward deployed engineer vs solutions architect, forward deployed product manager, FDPM, OpenAI forward deployed engineer, Anthropic forward deployed engineer, Palantir forward deployed software engineer
 updated: 2026-09-24
@@ -11,8 +11,8 @@ updated: 2026-09-24
 
 > [!TIP]
 > **The role in one sentence.** A forward deployed engineer (FDE) is a software engineer who embeds with
-> a customer to make a complex product work in the customer's own environment — owning discovery,
-> scoping, build and rollout — and who carries the patterns they find back into the product. The role
+> a customer to make a complex product work in the customer's own environment (owning discovery,
+> scoping, build and rollout) and who carries the patterns they find back into the product. The role
 > began at Palantir in the early 2010s; frontier AI labs such as OpenAI and Anthropic now hire FDEs to put
 > models into production with their most strategic customers.
 
@@ -42,8 +42,8 @@ capabilities". The public descriptions from AI labs make the modern version conc
 
 | Company | What the posting says an FDE owns |
 | --- | --- |
-| **OpenAI** | End-to-end deployments of frontier models with strategic customers: discovery, technical scoping, system design, build and production rollout — measured by production adoption, workflow impact, and eval-driven feedback that changes product and model roadmaps |
-| **Anthropic** | Production applications with Claude inside customer systems, and technical artefacts such as MCP servers, sub-agents and agent skills — plus codifying repeatable deployment patterns for the product and engineering teams |
+| **OpenAI** | End-to-end deployments of frontier models with strategic customers: discovery, technical scoping, system design, build and production rollout, measured by production adoption, workflow impact, and eval-driven feedback that changes product and model roadmaps |
+| **Anthropic** | Production applications with Claude inside customer systems, and technical artefacts such as MCP servers, sub-agents and agent skills, plus codifying repeatable deployment patterns for the product and engineering teams |
 
 Two threads run through both: **the FDE ships to production, not to a demo**, and **the FDE's second
 customer is their own product team**.
@@ -53,14 +53,14 @@ customer is their own product team**.
 ### Step 1 · Discover in the customer's data, not the pitch
 
 The first weeks are spent where the work happens: measuring the pain in cases, minutes and money,
-reading the systems the agent must touch, and finding who owns the risk. Lead-time items — model
-access, data access, security review — start on day one, because they set the calendar.
+reading the systems the agent must touch, and finding who owns the risk. Lead-time items (model
+access, data access, security review) start on day one, because they set the calendar.
 [AI-DLC and AIDD in the field](lesson:ai-dlc-for-forward-deployed-engineers)
 
 ### Step 2 · Scope the smallest thing that can be proven
 
 An FDE says no more than most engineers: to the flagship first feature, to building past an unsigned
-autonomy decision, to meetings that produce no artefact. The first slice is chosen for provability —
+autonomy decision, to meetings that produce no artefact. The first slice is chosen for provability,
 high volume, low damage per mistake, an existing process to compare against.
 
 ### Step 3 · Build in their stack, with their people
@@ -75,7 +75,7 @@ compares the agent with their staff. An FDE's claims are the customer's numbers,
 
 ### Step 5 · Hand over, and bring the pattern home
 
-The engagement ends with an evidence pack, runbooks and named owners — and, back at the vendor, with the
+The engagement ends with an evidence pack, runbooks and named owners, and, back at the vendor, with the
 patterns written up: the connector built for the third time, the evaluation that exposed a model gap.
 
 ## How is an FDE different from a solutions architect?
@@ -96,7 +96,7 @@ work of a solutions architect.
 
 A **forward deployed product manager (FDPM)** works from inside the same deployments and owns the *what*
 and *why* while the FDE owns the *how*. The FDPM's hardest call is sorting every customer request into
-configuration, a service, or a product capability — and defending that call to the customer and to the
+configuration, a service, or a product capability, and defending that call to the customer and to the
 product team. The title is posted by companies including Scale AI, Salesforce and Cresta.
 
 ## Where you'll use it
@@ -108,7 +108,7 @@ product team. The title is posted by companies including Scale AI, Salesforce an
 ## Why it matters
 
 Models are capable; deployments are hard. Most of the distance between the two is integration, access,
-evidence and trust — work that is specific to one customer and cannot be done from a distance. The FDE is
+evidence and trust: work that is specific to one customer and cannot be done from a distance. The FDE is
 how a product company closes that distance without becoming a consultancy, provided the patterns flow back.
 
 ## Try it
@@ -120,7 +120,7 @@ three the FDE built for other customers. **What should the FDE do, and who else 
 
 **Build it once more only as the reusable version, and take the pattern home.** Three copies of the same
 integration are a product gap, not a customer request: the FDE should build it as a configurable
-connector — an MCP server, say — and write the case for the product team with the evidence of all four
+connector (an MCP server, say) and write the case for the product team with the evidence of all four
 customers. The FDPM, if there is one, decides whether it becomes product; the customer gets a supported
 capability instead of a fourth bespoke fork.
 
@@ -130,7 +130,7 @@ capability instead of a fourth bespoke fork.
 
 1. **An FDE owns production outcomes at one customer**, from discovery to rollout.
 2. **The second customer is the product team**: repeated work becomes a pattern, then a product.
-3. **FDEs say no by design** — to the flagship first, to unsigned autonomy, to bespoke forks.
+3. **FDEs say no by design**: to the flagship first, to unsigned autonomy, to bespoke forks.
 
 ## FAQ
 
@@ -181,7 +181,7 @@ a reusable service or a product capability.
 | Idea | Origin | Source |
 | --- | --- | --- |
 | The role's origin at Palantir; "one capability, many customers" against "one customer, many capabilities" | **Borrowed** | Orosz, G. (2025, 12 August). [What are Forward Deployed Engineers, and why are they so in demand?](https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers) *The Pragmatic Engineer* |
-| What an OpenAI FDE owns and how success is measured | **Borrowed** — public posting, September 2026 | [OpenAI careers: Forward Deployed Engineer](https://openai.com/careers/forward-deployed-engineer-(fde)-sf-san-francisco/) |
-| What an Anthropic FDE delivers | **Borrowed** — public posting, September 2026 | [Anthropic: Forward Deployed Engineer, Applied AI](https://job-boards.greenhouse.io/anthropic/jobs/5391021008) |
-| The forward deployed PM owns what and why at the point of deployment | **Borrowed** — public postings | Scale AI, Salesforce and Cresta job postings for Forward Deployed Product Manager, September 2026 |
-| The five steps and the pattern log | **Original** — this tutorial | [AI-DLC and AIDD for FDEs](lesson:ai-dlc-for-forward-deployed-engineers) |
+| What an OpenAI FDE owns and how success is measured | **Borrowed**: public posting, September 2026 | [OpenAI careers: Forward Deployed Engineer](https://openai.com/careers/forward-deployed-engineer-(fde)-sf-san-francisco/) |
+| What an Anthropic FDE delivers | **Borrowed**: public posting, September 2026 | [Anthropic: Forward Deployed Engineer, Applied AI](https://job-boards.greenhouse.io/anthropic/jobs/5391021008) |
+| The forward deployed PM owns what and why at the point of deployment | **Borrowed**: public postings | Scale AI, Salesforce and Cresta job postings for Forward Deployed Product Manager, September 2026 |
+| The five steps and the pattern log | **Original**: this tutorial | [AI-DLC and AIDD for FDEs](lesson:ai-dlc-for-forward-deployed-engineers) |

@@ -1,6 +1,6 @@
 """Figures for a step's worked example.
 
-A step earns a figure when the shape of the thing is the lesson — a bar sheet, a prompt layout, a
+A step earns a figure when the shape of the thing is the lesson, a bar sheet, a prompt layout, a
 ten-day cut, a widening cut-over. Where prose is clearer, the step has no figure, which is most of
 them. All share one frame so a role page reads as one document, and all use theme tokens so they
 follow light and dark.
@@ -96,7 +96,7 @@ def cache_prefix() -> str:
     out.append(f'<text x="{x+4+(540-x)/2:.0f}" y="71" text-anchor="middle" font-size="11.5" '
                f'fill="var(--dg-rose)">the request</text>')
     out.append('<text x="12" y="120" font-size="11" fill="currentColor" opacity=".78">'
-               'stable — written once at 1.25×, read at 0.1×</text>')
+               'stable: written once at 1.25×, read at 0.1×</text>')
     out.append('<text x="12" y="150" font-size="11.5" fill="currentColor" opacity=".8">'
                'Move the request before the marker and no two calls share a prefix.</text>')
     out.append('<text x="12" y="168" font-size="11.5" fill="var(--dg-rose)" opacity=".9">'
@@ -124,11 +124,11 @@ def bolt_days() -> str:
                        f'fill="{colour}">{word}</text>')
     out.append('<path d="M36 104 V116 H520" stroke="currentColor" opacity=".3" fill="none"/>')
     out.append('<text x="12" y="140" font-size="11.5" fill="currentColor" opacity=".8">'
-               'Skeleton first with no model in it. Exact code early — it stands alone.</text>')
+               'Skeleton first with no model in it. Exact code early: it stands alone.</text>')
     out.append('<text x="12" y="158" font-size="11.5" fill="currentColor" opacity=".8">'
                'The plug lands before the gated write that needs it. The proof goes last.</text>')
     out.append('<text x="12" y="176" font-size="11" fill="var(--dg-rose)" opacity=".85">'
-               'A bolt that cannot be built alone was cut wrong — say so before you start it.</text>')
+               'A bolt that cannot be built alone was cut wrong, say so before you start it.</text>')
     return _svg("".join(out), "Ten daily bolts in dependency order across two weeks",
                 "The cut is by dependency, not by priority. One unknown per day.")
 
@@ -215,9 +215,9 @@ def authority_ladder() -> str:
 def two_numbers() -> str:
     out = ['<rect x="12" y="14" width="536" height="120" rx="8" fill="var(--paper)" stroke="var(--rule)"/>']
     rows = [("person-days per story", "8.0", "4.6", "−43%", "var(--dg-green)"),
-            ("token spend per story", "—", "$310", "", "var(--dg-amber)"),
+            ("token spend per story", " (", "$310", "", "var(--dg-amber)"),
             ("review hours added", "1.2", "2.0", "+0.8", "var(--dg-amber)"),
-            ("re-runs per story", "—", "1.4", "", "var(--soft)")]
+            ("re-runs per story", ") ", "1.4", "", "var(--soft)")]
     out.append('<text x="300" y="32" font-size="10" fill="currentColor" opacity=".78">baseline</text>')
     out.append('<text x="388" y="32" font-size="10" fill="currentColor" opacity=".78">now</text>')
     out.append('<text x="490" y="32" font-size="10" fill="currentColor" opacity=".78">change</text>')
