@@ -198,7 +198,7 @@
   function backPill() {
     // a landmark of its own, so the pill is reachable by region as well as by tab
     return h("nav", { "class": "sw-backnav", "aria-label": "Back to the agentic manual" }, [
-      h("a", { "class": "sw-back", href: links.manual }, [
+      h("a", { "class": "sw-back", href: links.manual, "aria-label": "Back to the agentic manual" }, [
         h("span", { "class": "sw-ic", html: BACK }),
         h("span", { "class": "sw-long", text: "Back to the manual" }),
         h("span", { "class": "sw-short", text: "Manual" })])]);
@@ -230,8 +230,12 @@
       document.body.appendChild(footer());
     }
     buildDrawer();
-    var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open }, [
-      h("span", { "class": "sw-dot" }), "Built by " + author, h("small", { text: "· Ideas & contact" })]);
+    // On phones both pills are icon-only circles; the label survives for assistive tech.
+    var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open,
+      "aria-label": "Ideas and contact. Built by " + author }, [
+      h("span", { "class": "sw-dot" }), h("span", { "class": "sw-long", text: "Built by " + author }),
+      h("small", { text: "· Ideas & contact" }),
+      h("span", { "class": "sw-ic sw-mail", html: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>' })]);
     document.body.appendChild(pill);
     Array.prototype.forEach.call(document.querySelectorAll("[data-sw-open]"), function (b) { b.addEventListener("click", open); });
     if (/[?#]contact\b/.test(location.href)) open();

@@ -26,6 +26,9 @@ out, because people bookmark deep links.
   with a box-overlap sweep at 2000, 1440, 1280 and 390 wide, menu shown and hidden, at the top, just past
   the strip and at the end of the page
 
+- **On phones both pills are icon-only circles** (a back arrow bottom-left, an envelope bottom-right), 44px
+  each, with their labels kept for assistive tech, so the bottom band of a phone screen stays clear
+
 ### Changed
 - **The way back carries an arrow.** The strip's "Back to the agentic manual" and the fixed pill now lead
   with a back-arrow icon; the strip's manual links end in a forward chevron; on phones the strip stays

@@ -7,13 +7,12 @@
 .sw-pill:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
 .sw-pill .sw-dot{width:8px;height:8px;border-radius:50%;background:var(--sage,#5F8A7B);box-shadow:0 0 0 3px rgba(95,138,123,.28)}
 .sw-pill small{opacity:.72;font-weight:400;font-size:12px}
-@media (max-width:640px){.sw-pill small{display:none}}
 @media print{.sw-pill,.sw-drawer,.sw-scrim,.sw-strip,.sw-backnav{display:none!important}}
 
-.sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 130px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */
+.sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 100px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */
 .sw-footer .sw-wrap{max-width:1120px;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:32px}
 @media (max-width:1100px){.sw-footer .sw-wrap{grid-template-columns:1fr 1fr}}
-@media (max-width:900px){.sw-footer{padding:36px 22px 120px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
+@media (max-width:900px){.sw-footer{padding:36px 22px 92px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
 .sw-footer h2{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft,#77746C);margin:0 0 12px}
 .sw-footer p{font-size:14px;line-height:1.6;margin:0 0 10px;max-width:62ch}
 .sw-footer a{color:var(--slate,#5B6B8C);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--slate,#5B6B8C) 35%,transparent);transition:border-color 160ms}
@@ -82,7 +81,7 @@
 .sw-back .sw-short{display:none}
 /* below 1440px the centred column's gutter is narrower than the full pill, so the short label keeps the pill clear of content */
 @media (max-width:1439px){.sw-back .sw-long{display:none}.sw-back .sw-short{display:inline}}
-@media (max-width:640px){.sw-backnav{left:12px;bottom:12px}.sw-back{padding:9px 12px 9px 10px}}
+@media (max-width:640px){.sw-backnav{left:12px;bottom:12px}}
 @media (prefers-reduced-motion:reduce){.sw-back,.sw-ic svg{transition:none}}
 
 /* ---- living beside the tool's own floating things (framed pages only) ----
@@ -92,5 +91,13 @@
    tool's bottom-right launcher instead of on top of it. */
 html.sw-framed .rail-show{top:calc(var(--topnav,60px) + 12px + var(--sw-top,0px))}
 html.sw-framed .rail2{padding-bottom:96px}
-html.sw-framed .sw-pill{bottom:84px}
-@media (max-width:640px){html.sw-framed .sw-pill{bottom:76px}}
+
+.sw-pill .sw-mail{display:none}
+/* last, so it wins over the label rules above. Phones: both pills are icon-only circles, one in each corner; the labels stay for screen readers */
+@media (max-width:640px){
+  .sw-pill,.sw-back{width:44px;height:44px;padding:0;justify-content:center;gap:0}
+  .sw-pill small,.sw-pill .sw-long,.sw-pill .sw-dot,.sw-back .sw-long,.sw-back .sw-short{display:none}
+  .sw-pill .sw-mail{display:inline-flex}
+  .sw-pill{right:12px;bottom:12px}
+  .sw-ic svg{width:18px;height:18px}
+}
