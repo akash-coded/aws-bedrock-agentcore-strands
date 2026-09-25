@@ -8,6 +8,34 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The playbook, made foolproof and guided: five UX passes
+
+All in `site/app/SkyWays-Architect.html` (the tool) and `site/frame/`, verified headlessly per pass and on
+the live site.
+
+### Fixed
+- **Tours** no longer start on their own; a tour locks the page, has an X, progress dots and a count,
+  focuses Next, ends on Done, Esc, X, the backdrop or navigation, and cannot be left dangling
+- **Every modal** (search, concepts, contact) has the same X in the same place and locks the page behind
+  it; Esc and navigation close them all
+- **Contrast**: one link colour that passes AA everywhere but dark surfaces; hue-filled badges, segmented
+  controls, phase headings, confidence marks and cheat-sheet titles darkened; the frame's footer is a
+  labelled section so the tool keeps its single contentinfo landmark
+
+### Added
+- **The bot everywhere the tour is**: the opener under each title is Sky speaking, with the page's stops
+  as numbered chips that scroll to and flash their target, the how-to line, and "Show me around" with
+  its stop count; the hero's tour button carries the bot too
+- **Six tiles** under the home hero, one per way in, with icons, counts and a check once visited
+- **Quick-fill toolkits**: every short select is a segmented control, every number has a slider sized
+  from its own default, Reset restores the SkyWays case, actions carry icons and roles
+- **A zoomable concept map**: eight loop panels, every concept a pill, relations as curves; wheel, pinch,
+  drag, fly-to-loop, click-to-read in a side panel, role dimming, deep links, keyboard, reduced motion
+- **Shapes in the reference**: a drawn shape beside each of the 22 frameworks and in each cheat sheet's header
+- **Your exploration**: the guide shows the six ways in with what you have opened and a progress bar
+- **Nav and rail**: current section marked, a clearer index, Copy link and Concepts with icons, a larger
+  labelled Home, button roles (primary, secondary, ghost, bot)
+
 ## 2026-09-24 · The playbook's hidden-menu collapse; icons on the way in and the way back
 
 ### Fixed

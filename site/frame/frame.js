@@ -36,7 +36,7 @@
 
   /* ---------- footer: attribution, licence, disclaimer, invitation ---------- */
   function footer() {
-    var f = h("footer", { "class": "sw-footer", id: "sw-about", "aria-label": "About this site" });
+    var f = h("section", { "class": "sw-footer", id: "sw-about", "aria-label": "About this site" });  // a section, not a footer: the tool has its own contentinfo landmark
     f.innerHTML =
       '<div class="sw-wrap">' +
       "<section><h2>About this tool</h2>" +
