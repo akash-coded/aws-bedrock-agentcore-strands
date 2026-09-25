@@ -8,6 +8,22 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · Three efforts, one method
+
+### Added
+- **"Which agent, for which task"**, a new page under Practise. An agent is not one thing: most tasks deserve a
+  chat, some a platform, a few code, and the method scales with the effort. The page lays the three tiers
+  side by side (who builds, time to a result, what you build it with, what it fits and is not for, how much
+  of the SkyWays PDLC applies, and the tricks that make each tier work), shows one task built three ways,
+  decides a task of yours in five questions, and sets a scored exercise: six departments, six tasks each,
+  with the reason and the trick behind every answer. A first-try answer pays three points on the flight plan
+- **A "Three efforts, one method" strip on the simulator's home page**, after the method, with the three
+  tiers and a way into the exercise
+
+### Fixed
+- Table headers that were empty, and card headings that skipped a level, on the evidence, governance, loop
+  map and episode pages
+
 ## 2026-09-25 · Every page says what it holds; every tool says how to use it
 
 ### Changed
