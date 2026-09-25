@@ -8,6 +8,34 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The picture pack
+
+### Added
+- **The picture pack** at `/pictures/`: every diagram of the method and the simulator as an image, with a
+  title, a caption, alt text, the page it comes from, a download, and light and dark versions. Six groups:
+  the method, roles, decisions and how-tos, lesson maps, the simulator, posters. The page carries an
+  ImageGallery of ImageObjects with licence, creator and credit, and the sitemap lists every picture under
+  it, so image search can find them. Linked from the menu, the home page and the mental models page
+- **Two posters on the prompt templates page**, also in the pack: "The anatomy of a prompt template" (the
+  job, the inputs, do, the output shape, then the check, with one prompt taken apart) and "116 prompt
+  templates, five roles, one glance" (every role's steps with the prompt each ships with)
+- **The simulator's pictures** captured for the pack by `site/tools/simshots.mjs`: the flight plan, the line
+  or the loop, the spine, the methods, the roles, the three efforts, the same task three ways, the concept
+  map, the Loop Map and the gates
+- The screenshot sheet now captures every registered picture, not only the ones a lesson embeds
+
+## 2026-09-25 · Search and assistant discoverability; prompt templates
+
+### Changed
+- **The sitemap dates each page by the commit that last changed its sources**, not by the day it was built,
+  so a page that did not change no longer claims it did. The Pages workflow fetches full history for this
+- **SkyWays Consultancy is the publisher** in the structured data on every page and the site node; lessons
+  carry dateModified and their own social image; every page has og:image:alt and links an Atom feed of the
+  lessons at `/feed.xml`
+- **"Prompts to paste" is "Prompt templates"** in the menu, the page and the search index
+- **The contact form sends `subject` and `from_name`**, the fields Web3Forms reads, alongside the ones it
+  already sent
+
 ## 2026-09-25 · The manual's home and role pages, polished; the contact button; back to top
 
 ### Fixed

@@ -133,8 +133,18 @@ def sitemap(today: str) -> str:
             src = SOURCES.get(rel) or (["site/content/roles/" + rel.rstrip("/") + ".json"] if rel.endswith("/") else None)
             d = git_date(src) if src else None
         dated.append((u, d or today))
-    body = "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in dated)
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
+    from pages import pictures
+    imgs = pictures.image_entries(BASE_URL)
+    lines = []
+    for u, d in dated:
+        if u == BASE_URL + "pictures/" and imgs:
+            inner = "".join(f"    <image:image><image:loc>{i['loc']}</image:loc></image:image>\n" for i in imgs)
+            lines.append(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod>\n{inner}  </url>\n")
+        else:
+            lines.append(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n")
+    body = "".join(lines)
+    return (f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+            f'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n{body}</urlset>\n')
 
 
 def inject(html: str) -> str:

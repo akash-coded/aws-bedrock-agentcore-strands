@@ -267,6 +267,9 @@ def _visuals() -> dict[str, dict]:
         v[f"map:{slug}"] = (lambda s=slug: maps.draw(s), maps.alt(slug), f"learn/{slug}/")
     for slug in wikimaps.keys():
         v[f"wikimap:{slug}"] = (lambda s=slug: wikimaps.draw(s), wikimaps.alt(slug), "")
+    from pages import posters
+    for pid, (fn, alt, live) in posters.POSTERS.items():
+        v[f"poster:{pid}"] = (fn, alt, live)
     for g, label in (("g_decay", "Length is the enemy"), ("g_doors", "Reversibility is the hinge"),
                      ("g_lever", "A hold is a lever, not a brake"), ("g_wall", "A prompt is a request; a signature is a boundary"),
                      ("g_average", "The average hides the slice that matters"), ("g_bound", "A score is not proof"),
@@ -698,6 +701,15 @@ def _toc(md: str) -> str:
     return f'<details class="otp" open><summary>On this page</summary><ol>{items}</ol></details>'
 
 
+def _ld_org() -> dict:
+    return {"@type": "Organization", "@id": BASE_URL + "#org", "name": "SkyWays Consultancy", "url": BASE_URL}
+
+
+def _og_for(slug: str) -> str:
+    p = Path(__file__).resolve().parents[1] / "assets" / "og" / f"learn-{slug}.jpg"
+    return f"{BASE_URL}assets/og/learn-{slug}.jpg" if p.exists() else BASE_URL + "assets/og.png"
+
+
 def _ld_person() -> dict:
     return {"@type": "Person", "name": AUTHOR, "url": AUTHOR_URL, "sameAs": [AUTHOR_URL],
             "jobTitle": "Solution architect and trainer, agentic AI on AWS"}
@@ -729,7 +741,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
         "@type": "TechArticle", "@id": les.url + "#article", "headline": les.title,
         "description": les.description, "url": les.url, "mainEntityOfPage": les.url,
         "datePublished": les.updated, "dateModified": les.updated, "inLanguage": "en",
-        "author": _ld_person(), "publisher": _ld_person(), "image": BASE_URL + "assets/og.png",
+        "author": _ld_person(), "publisher": _ld_org(), "image": _og_for(les.slug),
         "keywords": ", ".join(les.keywords), "educationalLevel": les.level,
         "timeRequired": f"PT{mins}M", "wordCount": plain_words(les.body),
         "isPartOf": {"@type": "Course", "name": t.title, "url": t.url,
@@ -942,9 +954,9 @@ def shots_page(out: Path, shell) -> str:
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
     import wiki_pictures
-    wanted = used_visuals() + [k for k in wiki_pictures.keys() if k not in used_visuals()]
+    wanted = list(reg)  # every picture, so the picture pack has all of them
     cells = "".join(
-        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:", "wikimap:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
+        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:", "wikimap:", "poster:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
         f'{reg[k]["draw"]()}</div>' for k in wanted)
     body = f'<main id="main" class="shots">{cells}</main>'
     html_ = shell(title="shots", desc="Screenshot sheet. Not for readers.", body=body, depth=2, nav_id="",
@@ -989,7 +1001,8 @@ def llms_txt(tracks: list[Track]) -> str:
              "Learn), how AWS AI-DLC, AIDD, the BMAD Method and spec-driven development fit onto it, and what "
              "each role does. By Akash Das. MIT licence.", "",
              "Each lesson is also available as markdown at the same URL with index.md appended. The full text "
-             f"of every lesson is at {BASE_URL}llms-full.txt.", ""]
+             f"of every lesson is at {BASE_URL}llms-full.txt. Every diagram, with its caption, is listed at "
+             f"{BASE_URL}pictures/.", ""]
     for t in tracks:
         lines.append(f"## {t.title}")
         lines.append("")

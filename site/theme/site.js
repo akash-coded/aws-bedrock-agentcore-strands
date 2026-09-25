@@ -109,6 +109,23 @@
     tick(); addEventListener("scroll", tick, { passive: true }); addEventListener("resize", tick);
   }
 
-  function init() { wireTheme(); wireCopy(); wireSteps(); wireExpand(); wireProgress(); }
+  /* The picture pack's group picker: one group, or all. */
+  function wirePicks() {
+    var bar = document.querySelector(".picks");
+    if (!bar) return;
+    bar.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-pick]");
+      if (!b) return;
+      var pick = b.getAttribute("data-pick");
+      bar.querySelectorAll("[data-pick]").forEach(function (x) {
+        var on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-pressed", String(on));
+      });
+      document.querySelectorAll(".picsec").forEach(function (s) {
+        s.hidden = pick !== "all" && s.getAttribute("data-group") !== pick;
+      });
+    });
+  }
+
+  function init() { wireTheme(); wireCopy(); wireSteps(); wireExpand(); wireProgress(); wirePicks(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

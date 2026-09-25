@@ -120,6 +120,7 @@ def _menu(up: str, nav_id: str) -> str:
                             ("models/", "Twelve mental models", "models")]),
         ("Libraries", [("templates/", "Artefact templates", "templates"),
                        ("prompts/", "Prompt templates", "prompts"),
+                       ("pictures/", "The picture pack", "pictures"),
                        ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks")]),
         ("Play", [("simulator/", "The SkyWays PDLC Simulator · the method, playable", "simulator")]),
         ("Elsewhere", [(WIKI, "The wiki", ""), (REPO, "The repository", ""),
@@ -590,6 +591,13 @@ def library_page(roles: list[dict], kind: str) -> str:
         {"sel": ".blk", "title": "One block per " + ("template" if is_t else "prompt"), "body": "The header says which step it belongs to. The line above says " + ("what good looks like." if is_t else "when to use it.") + " Angle brackets are yours to fill."},
         {"sel": ".blk .cp", "title": "Copy", "body": "One click copies the whole block, ready to paste."},
     ])
+    from pages import posters
+    posters_html = "" if is_t else (
+        '<div class="sec postersec"><h2 style="margin:0 0 6px">How a prompt template is built</h2>'
+        '<p class="lede" style="font-size:15.5px">Every prompt in this library has the same five parts, in the same order. '
+        'The second picture is the whole library at a glance, by role and by step.</p>'
+        + posters.prompt_anatomy() + posters.prompts_by_role()
+        + '<p class="lalt">Both pictures are in <a href="../pictures/#pics-posters">the picture pack</a>, with every other diagram of the method.</p></div>')
     body = f"""<div class="cols">
 <aside class="rail" aria-label="Roles"><h2>By role</h2><ul class="ticks">{''.join(toc)}</ul></aside>
 <main id="main">
@@ -599,6 +607,7 @@ def library_page(roles: list[dict], kind: str) -> str:
      <span class="pill">copy button on each</span> <span class="pill">every angle bracket is yours to fill</span></p></div>
   {orient}
   {compare}
+  {posters_html}
   {''.join(secs)}
 </main>
 <aside class="toc" aria-label="On this page"><h2>On this page</h2><ul>{''.join(toc)}</ul></aside>
@@ -750,6 +759,8 @@ def home_page(roles: list[dict]) -> str:
     <div><h3>Not doing the work, funding it?</h3><p>The whole operating model on one screen: what changes,
       who does what, the four decisions only leadership can make, and ninety days.
       <a href="protocol/">The operating protocol →</a></p></div>
+    <div><h3>Pictures to share</h3><p>Every diagram of the method as an image: the spine, the loops, every role,
+      every lesson, the posters. Light and dark, captioned, free to reuse. <a href="pictures/">The picture pack →</a></p></div>
     <div><h3>The method, written down</h3><p>Four phases, eight loops, 37 scenarios, 31 exercises, every
       formula. <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>
@@ -953,6 +964,7 @@ def search_index(roles: list[dict]) -> str:
         {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one spine; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
         {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
         {"t": "Prompt templates", "d": "Every prompt in the manual as a template, copyable, by role.", "u": "prompts/", "k": "Library"},
+{"t": "The picture pack", "d": "Every diagram of the method as an image to share, with a caption, light and dark.", "u": "pictures/", "k": "Library"},
         {"t": "The SkyWays playbook", "d": "The whole method as an interactive simulator: thirteen episodes, nine simulations, seventeen calculators.", "u": "simulator/", "k": "Play"},
     ]
     for w in sorted((SITE.parent / "wiki").glob("*.md")):
@@ -989,10 +1001,11 @@ def render(out_dir: Path) -> list[str]:
     put("templates/index.html", library_page(roles, "templates"))
     put("prompts/index.html", library_page(roles, "prompts"))
     put("frameworks/index.html", frameworks_page())
-    from pages import models, protocol
+    from pages import models, protocol, pictures
     ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
     put("protocol/index.html", protocol.build(shell, ctx))
     put("models/index.html", models.build(shell, ctx))
+    put("pictures/index.html", pictures.build(shell, ctx))
     from pages import learn
     written += learn.render(out_dir, shell)
     return written
@@ -1001,6 +1014,7 @@ def render(out_dir: Path) -> list[str]:
 def urls() -> list[str]:
     u = [BASE_URL, BASE_URL + "protocol/", BASE_URL + "models/", BASE_URL + "templates/",
          BASE_URL + "prompts/",
+         BASE_URL + "pictures/",
          BASE_URL + "frameworks/",
          BASE_URL + "app/SkyWays-Architect.html"]
     return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]
