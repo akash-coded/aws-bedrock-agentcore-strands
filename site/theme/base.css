@@ -1,3 +1,7 @@
+/* self-hosted variable fonts (OFL), latin subset; one file per family covers every weight the site uses */
+@font-face{font-family:'Geist';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/geist.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400 600;font-display:swap;src:url(../assets/fonts/geist-mono.woff2) format('woff2')}
+@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/instrument-sans.woff2) format('woff2')}
 /* ==========================================================================
    The agentic manual — design system
    One stylesheet for every generated page. The palette is the SkyWays tool's,
@@ -15,8 +19,8 @@
   --ease:cubic-bezier(.22,1,.36,1);
   --wrap:1280px; --rail:248px; --toc:208px;
   --f-display:"Instrument Sans",Inter,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body:Inter,-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif;
-  --f-mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  --f-body:Geist,Inter,-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+  --f-mono:"Geist Mono","SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){

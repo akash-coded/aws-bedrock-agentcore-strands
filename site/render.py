@@ -217,6 +217,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{{var t=localStorage.getItem("manual-theme");if(t)document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <title>{_E(title)}</title>
 <meta name="description" content="{_E(desc, quote=True)}">
 <meta name="author" content="{AUTHOR}">
@@ -239,10 +240,10 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{og_img}">
 {"" if own_ld else f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
-<link rel="stylesheet" href="{up}theme/base.css">{accent_css}{head_extra}
+<link rel="preload" href="{up}assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{up}assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{up}theme/base.css">
+<link rel="stylesheet" href="{up}frame/frame.css">{accent_css}{head_extra}
 </head>
 <body{f' data-page="{_E(kind, quote=True)}"' if kind else ""}>
 <a class="skip" href="#main">Skip to content</a>
@@ -283,7 +284,6 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <a href="{WIKI}/Sources-and-Confidence">Sources and confidence</a></div>
 </div></footer>
 {tour_html}
-<link rel="stylesheet" href="{up}frame/frame.css">
 <script src="{up}frame/config.js" defer></script>
 <script src="{up}frame/frame.js" defer></script>
 <script src="{up}theme/site.js" defer></script>

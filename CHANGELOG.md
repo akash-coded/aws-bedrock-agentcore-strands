@@ -8,6 +8,17 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · Geist, and pages that open in the right mode at once
+
+### Changed
+- **Body text is Geist, code is Geist Mono; headings stay Instrument Sans.** All three are served from this
+  site as one variable file per family instead of the Google Fonts stylesheet, which was a render-blocking
+  request to a third party on every page. The two faces the first paint needs are preloaded
+- **No more flash of the other theme.** A reader's saved theme is applied by a two-line script in the head
+  before the first paint. Until now the deferred script applied it after the page had already painted in the
+  system mode, so a light-theme reader on a dark system saw every page open dark for a moment
+- The frame stylesheet moved from the end of the body into the head, so nothing is restyled after it appears
+
 ## 2026-09-25 · Every page checked against the writing and design skills
 
 ### Changed
