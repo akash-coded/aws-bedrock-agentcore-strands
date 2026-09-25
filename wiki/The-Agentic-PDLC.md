@@ -339,7 +339,7 @@ Phases are a line. Loops are what make the line a ring: each one opens in one ph
 later one, and some close back into an earlier one.
 
 <!-- picture:board:loops -->
-<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops make the line a ring: five close forward on their own, three run backwards and need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops that run every team's workflow: five carry work forward, three run backwards and need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
 
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops">Open the live, interactive version</a></sub>
 <!-- /picture -->

@@ -8,7 +8,7 @@ browser tab, printed, or pasted into a document.
     python site/wiki_export.py          # writes ../wiki/Journey-<Role>.md
 
 Existing hand-written ``Role-*.md`` pages are left alone. They are the standing definition of each
-job — what it is accountable for, what it may settle alone, what crosses its desk and how it fails.
+job: what it is accountable for, what it may settle alone, what crosses its desk and how it fails.
 These are the day-to-day walk. Each links to the other, and neither repeats the other.
 """
 from __future__ import annotations
@@ -97,7 +97,7 @@ def arc_diagram(role: dict) -> str:
     """The role's eight steps, grouped into the four phases they actually belong to.
 
     The arc table says what each step produces. This says where each step sits on the
-    spine — which is the thing a reader cannot get from a numbered list, and the reason
+    spine: which is the thing a reader cannot get from a numbered list, and the reason
     the hard gate lands in a different place for each role.
     """
     groups = by_phase(role)
@@ -133,7 +133,7 @@ def arc_diagram(role: dict) -> str:
             L.append(f"  class {','.join(classes[ph])} {ph.lower()}")
         L.append(f"  style {ph} fill:{hue}0D,stroke:{hue},stroke-width:1.5px")
     if absent:
-        # no color: — no fixed grey clears 4.5:1 for text in both modes; the dash carries "absent"
+        # no color:: no fixed grey clears 4.5:1 for text in both modes; the dash carries "absent"
         L.append("  classDef absent fill:none,stroke:#8A8A8A,stroke-width:1.2px,stroke-dasharray:4 3")
         L.append(f"  class {','.join(absent)} absent")
     # the three phase links follow every invisible one, so the gate is the second of them
@@ -155,8 +155,8 @@ def page(role: dict) -> str:
          f"This is the reading copy. The [interactive version]({live_url}) has a copy button on every "
          f"template and prompt, which is what you want when you are actually doing the work."]
     if role_page:
-        L += ["", f"This page is the walk. For the standing definition of the job — what you own, "
-                  f"what you may settle alone, what crosses your desk and how the role fails — see "
+        L += ["", f"This page is the walk. For the standing definition of the job, what you own, "
+                  f"what you may settle alone, what crosses your desk and how the role fails, see "
                   f"[{role_page.replace('-', ' ')}]({role_page})."]
     L += ["", "---", ""]
     for para in role["intro"]:
@@ -170,15 +170,15 @@ def page(role: dict) -> str:
     groups = by_phase(role)
     for ph in ORDER:
         if not groups[ph]:
-            L.append(f"| — | {ph} | *{role['pdlc_absent'][ph]}* | — |")
+            L.append(f"|  —  | {ph} | *{role['pdlc_absent'][ph]}* |  —  |")
             continue
         for s in groups[ph]:
-            L.append(f"| {s['n']} | {ph} | [**{s['phase']}** — {unmd(s['title'])}](#{s['n']}--"
+            L.append(f"| {s['n']} | {ph} | [**{s['phase']}**, {unmd(s['title'])}](#{s['n']}--"
                      f"{re.sub(r'[^a-z0-9]+', '-', s['phase'].lower()).strip('-')}) | "
                      f"{unmd(s['artifact']['name'])} |")
 
     L += ["", "## What is yours, and what is not", "",
-          "| Yours to own | Not yours — stop signing these |", "| --- | --- |"]
+          "| Yours to own | Not yours, stop signing these |", "| --- | --- |"]
     owns, nots = role["owns"], role["not_yours"]
     for i in range(max(len(owns), len(nots))):
         a = unmd(owns[i]) if i < len(owns) else ""
@@ -193,14 +193,14 @@ def page(role: dict) -> str:
     for s in role["steps"]:
         if s["pdlc"] not in seen:
             seen.add(s["pdlc"])
-            L += [f"> **{PHASE_NAME[s['pdlc']]} begins here** — *{PHASE_ASKS[s['pdlc']]}*", ""]
+            L += [f"> **{PHASE_NAME[s['pdlc']]} begins here**, *{PHASE_ASKS[s['pdlc']]}*", ""]
             # The gate belongs where this role's walk LEAVES P1, which is not always at a
             # P2 step: the architect has no P2 step at all and still signs it.
             if "P1" in has and ORDER.index(s["pdlc"]) > ORDER.index("P1") and not gated:
                 gated = True
-                L += ["> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on "
+                L += ["> ⛔ **The hard gate. P1 to P2.** Everything past this point depends on "
                       "the spec, the acceptance bar per slice and the authority budget being "
-                      "signed. It is the one crossing nothing downstream survives without — "
+                      "signed. It is the one crossing nothing downstream survives without. "
                       "[why](The-Agentic-PDLC).", ""]
         L += [f"## {s['n']} · {s['phase']}", "",
               f"### {unmd(s['title'])}", "",
@@ -208,7 +208,7 @@ def page(role: dict) -> str:
               unmd(s["purpose"]), "",
               "**What you actually do**", ""]
         for i, a in enumerate(s["activities"], 1):
-            L.append(f"{i}. **{unmd(a['do'])}** — {unmd(a['detail'])}")
+            L.append(f"{i}. **{unmd(a['do'])}**: {unmd(a['detail'])}")
         L += ["", "**Where a model helps, and where it must not**", "",
               "| Tool | Use it for |", "| --- | --- |"]
         for a in s["ai"]:
@@ -224,12 +224,12 @@ def page(role: dict) -> str:
               "", f"<details><summary><b>Template · {s['template']['title']}</b></summary>", "",
               fence(s["template"]["body"], s["template"].get("lang", "markdown")), "", "</details>", ""]
         for p in s["prompts"]:
-            L += [f"<details><summary><b>Prompt · {p['title']}</b> — {unmd(p['when'])}</summary>", "",
+            L += [f"<details><summary><b>Prompt · {p['title']}</b>, {unmd(p['when'])}</summary>", "",
                   fence(p["body"], "text"), "", "</details>", ""]
         L += [f"**Worked example · {unmd(s['example']['title'])}**", "",
               f"> {unmd(s['example']['body'])}", "", "**Pitfalls**", ""]
         L += [f"- {unmd(p)}" for p in s["pitfalls"]]
-        L += ["", f"**Done when** — {unmd(s['done_when'])}", "", "---", ""]
+        L += ["", f"**Done when**, {unmd(s['done_when'])}", "", "---", ""]
 
     L += ["## Read next", ""]
     L += [f"- [{l}]({h if h.startswith('http') else live(h)})" for l, h in role["reads"]]

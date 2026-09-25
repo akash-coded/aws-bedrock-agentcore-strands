@@ -10,7 +10,7 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[What Is the Agentic PDLC? The P0–P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)** | The agentic PDLC is a four-phase lifecycle — Frame, Design & Spec, Build & Prove, Run & Learn — for software in which an AI model does part of the work. | 10 min |
+| 1 | **[What Is the Agentic PDLC? The P0 to P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)** | The agentic PDLC is a four-phase lifecycle (Frame, Design & Spec, Build & Prove, Run & Learn) for software in which an AI model does part of the work. | 10 min |
 | 2 | **[How This Tutorial Works, and Why Every Lesson Looks the Same](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/)** | Every lesson opens with the answer, shows it as a picture, lets you try it, and credits its sources. Here is why, with the research behind each choice. | 7 min |
 
 **[All tracks](Start-Here)** · [Agentic PDLC fundamentals →](Tutorial-Fundamentals)

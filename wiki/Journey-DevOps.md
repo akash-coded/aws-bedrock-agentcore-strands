@@ -1,18 +1,16 @@
 # DevOps and platform · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For DevOps and platform](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-devops/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
-
 **From a laptop to production, repeatably**
 
 8 steps · 53 sub-steps · 8 templates · 24 prompts
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/devops/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role DevOps](Role-DevOps).
+This page is the walk. For the standing definition of the job, what you own, what you may settle alone, what crosses your desk and how the role fails, see [Role DevOps](Role-DevOps).
 
 ---
 
-Your job has not changed. Accounts, pipelines, deployments, permissions, recovery — the list is the same list, and most of what you already know transfers intact. Three things underneath it are new, and every step below is one of them working through. The **model version is part of the environment**, so an environment can change behaviour with no deploy and no diff. The **bill moves with behaviour** rather than with traffic, so capacity planning becomes cost instrumentation. And **text is an attack surface**, so an input is now something that can instruct.
+Your job has not changed. Accounts, pipelines, deployments, permissions, recovery, the list is the same list, and most of what you already know transfers intact. Three things underneath it are new, and every step below is one of them working through. The **model version is part of the environment**, so an environment can change behaviour with no deploy and no diff. The **bill moves with behaviour** rather than with traffic, so capacity planning becomes cost instrumentation. And **text is an attack surface**, so an input is now something that can instruct.
 
 The second thing that changes is the order. A budget alarm is worth little in month three and a great deal in week one. Model access sits in somebody else's approval queue, so it is a lead-time item started on day one rather than a task scheduled for the week you need it. And the evaluation harness has to be a required status check *before* the first release is under time pressure, because that is the week it would otherwise quietly be made optional.
 
@@ -31,33 +29,33 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |
-| 1 | P0 | [**Baseline** — Stand up the account, the tags and the budget first](#1--baseline) | Landing zone stack and cost baseline |
-| 2 | P1 | [**Access** — Get model access, then put every call behind one gateway](#2--access) | Model access matrix and gateway config |
-| 3 | P1 | [**Environments** — Make the environments comparable, model version included](#3--environments) | Environment manifest set |
-| 4 | P2 | [**Pipeline** — Make the harness a status check the merge cannot bypass](#4--pipeline) | Pipeline definition and the slice map |
-| 5 | P2 | [**Deploy** — Ship behind a flag, and treat the prompt as a deployable artefact](#5--deploy) | Flag configuration and the deploy path |
-| 6 | P3 | [**Observe** — Instrument the three signals a normal stack does not have](#6--observe) | Trace schema, cost record and the alarm set |
-| 7 | P3 | [**Protect** — Give the agent the smallest identity that can do the job](#7--protect) | Execution role policy, egress allowlist and injection suite |
-| 8 | P3 | [**Recover** — Rehearse the rollback and cap the runaway](#8--recover) | Rehearsed recovery runbook and the containment caps |
+| 1 | P0 | [**Baseline**, Stand up the account, the tags and the budget first](#1--baseline) | Landing zone stack and cost baseline |
+| 2 | P1 | [**Access**, Get model access, then put every call behind one gateway](#2--access) | Model access matrix and gateway config |
+| 3 | P1 | [**Environments**, Make the environments comparable, model version included](#3--environments) | Environment manifest set |
+| 4 | P2 | [**Pipeline**, Make the harness a status check the merge cannot bypass](#4--pipeline) | Pipeline definition and the slice map |
+| 5 | P2 | [**Deploy**, Ship behind a flag, and treat the prompt as a deployable artefact](#5--deploy) | Flag configuration and the deploy path |
+| 6 | P3 | [**Observe**, Instrument the three signals a normal stack does not have](#6--observe) | Trace schema, cost record and the alarm set |
+| 7 | P3 | [**Protect**, Give the agent the smallest identity that can do the job](#7--protect) | Execution role policy, egress allowlist and injection suite |
+| 8 | P3 | [**Recover**, Rehearse the rollback and cap the runaway](#8--recover) | Rehearsed recovery runbook and the containment caps |
 
 ## What is yours, and what is not
 
-| Yours to own | Not yours — stop signing these |
+| Yours to own | Not yours, stop signing these |
 | --- | --- |
-| The **landing zone** — accounts, isolation, and a tag scheme that makes cost attributable per feature | The **acceptance bar** per slice. The product manager derives it and QA curates the cases; your job is to make the gate unarguable, not to set it |
-| The **model gateway** — one layer every call passes through, with a per-call log nobody can route around | **Prompt content.** You version it, deploy it and roll it back. You do not write it |
-| The pipeline, including the evaluation harness as a required status check rather than a comment | Which slices exist and what a wrong answer costs in each — that is the business's answer, and it is the input to your caps rather than your output |
+| The **landing zone** (accounts, isolation, and a tag scheme that makes cost attributable per feature | The **acceptance bar** per slice. The product manager derives it and QA curates the cases; your job is to make the gate unarguable, not to set it |
+| The **model gateway**) one layer every call passes through, with a per-call log nobody can route around | **Prompt content.** You version it, deploy it and roll it back. You do not write it |
+| The pipeline, including the evaluation harness as a required status check rather than a comment | Which slices exist and what a wrong answer costs in each. That is the business's answer, and it is the input to your caps rather than your output |
 | Three deployable artefacts and three rollback paths: the code, the prompt, and the model version | The behaviour, release and expansion gates. You supply the evidence and the rollback; somebody else signs |
-| The **enforced** controls — execution role scope, egress, caps in tool signatures — as distinct from the requested ones |  |
+| The **enforced** controls (execution role scope, egress, caps in tool signatures) as distinct from the requested ones |  |
 | The kill switch, the containment caps, and the rehearsed recovery times |  |
 
 ## How to use a model in this role
 
-> Use a model where there is a schema to be right against and a cheap way to check. It is genuinely strong at CloudFormation, workflow YAML, IAM policy shapes and the first draft of a script, and it is confidently wrong about your account boundaries, your regions, your quotas and what a permission actually reaches. The pattern that works: the model writes the change, a machine judges it — `cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test — and you read the diff rather than the prose. Anything that widens a permission, opens an egress path or touches a production boundary is read line by line by a person, because a model cannot estimate a blast radius it has never had to unwind. Where a step below says *do not delegate*, that is the reason.
+> Use a model where there is a schema to be right against and a cheap way to check. It is genuinely strong at CloudFormation, workflow YAML, IAM policy shapes and the first draft of a script, and it is confidently wrong about your account boundaries, your regions, your quotas and what a permission actually reaches. The pattern that works: the model writes the change, a machine judges it (`cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test) and you read the diff rather than the prose. Anything that widens a permission, opens an egress path or touches a production boundary is read line by line by a person, because a model cannot estimate a blast radius it has never had to unwind. Where a step below says *do not delegate*, that is the reason.
 
 ---
 
-> **P0 · Frame begins here** — *is this worth doing, is it AI at all, and how much may the machine do?*
+> **P0 · Frame begins here**, *is this worth doing, is it AI at all, and how much may the machine do?*
 
 ## 1 · Baseline
 
@@ -65,16 +63,16 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 *Week one, alongside discovery, before any resource exists*
 
-The platform question for an agentic workload is not different in kind from any other. It is different in *when*. Some of what this workload needs bills for **existing** rather than for use — a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance bills from boot until it is stopped, and stored long-term memory bills by the hour — so the ordinary habit of standing something up to try it and tidying up later produces a fixed monthly charge with no feature attached to it. Four things go in before the first feature branch: an account boundary, a tag scheme that attributes cost per feature, infrastructure as code, and a budget alarm.
+The platform question for an agentic workload is not different in kind from any other. It is different in *when*. Some of what this workload needs bills for **existing** rather than for use, a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance bills from boot until it is stopped, and stored long-term memory bills by the hour, so the ordinary habit of standing something up to try it and tidying up later produces a fixed monthly charge with no feature attached to it. Four things go in before the first feature branch: an account boundary, a tag scheme that attributes cost per feature, infrastructure as code, and a budget alarm.
 
 **What you actually do**
 
-1. **Separate the accounts before you separate the stacks** — One account per environment, under Organizations or Control Tower. It is a blast-radius boundary and a billing boundary at the same time, and it is the only one of the two that cannot be retrofitted cheaply. An experiment in the production account is a quota and a bill you will be untangling in month three.
-2. **Tag per feature, not per team** — `Feature`, `Environment`, `Owner`, `CostCentre`. Teams re-org and features do not. The question you will be asked is *what did rebooking cost last month*, and a team tag cannot answer it for any month before the re-org.
-3. **Activate the cost allocation tags in the payer account the same day** — A tag on a resource is invisible to Cost Explorer until that user-defined tag key is activated in the management account, and the data starts flowing from activation. A backfill request exists; do not plan around it. A tag activated in month three does not label months one and two.
-4. **Put every resource in CDK or CloudFormation from the very first one** — Not because click-ops is untidy. Because the first thing you will genuinely need is to delete an environment entirely and rebuild it, and the console has no undo. Teardown is the feature you are buying.
-5. **Create the budget and its alarm before anything that costs money** — An actual `AWS::Budgets::Budget` with an SNS action and a named owner, not a calendar reminder. Put the threshold at the forecast the product manager defended, with a notification on actual spend and a second on *forecast*, which is the one that gives you a fortnight's warning instead of a bill.
-6. **Keep a written register of what bills for existing** — Search collections, runtime instances, stored memory, provisioned throughput, NAT gateways, idle endpoints. Each with an owner and a teardown command, in the repository, reviewed weekly. Nothing goes quiet when the traffic does, so the only control is a list somebody reads.
+1. **Separate the accounts before you separate the stacks**: One account per environment, under Organizations or Control Tower. It is a blast-radius boundary and a billing boundary at the same time, and it is the only one of the two that cannot be retrofitted cheaply. An experiment in the production account is a quota and a bill you will be untangling in month three.
+2. **Tag per feature, not per team**: `Feature`, `Environment`, `Owner`, `CostCentre`. Teams re-org and features do not. The question you will be asked is *what did rebooking cost last month*, and a team tag cannot answer it for any month before the re-org.
+3. **Activate the cost allocation tags in the payer account the same day**: A tag on a resource is invisible to Cost Explorer until that user-defined tag key is activated in the management account, and the data starts flowing from activation. A backfill request exists; do not plan around it. A tag activated in month three does not label months one and two.
+4. **Put every resource in CDK or CloudFormation from the very first one**: Not because click-ops is untidy. Because the first thing you will genuinely need is to delete an environment entirely and rebuild it, and the console has no undo. Teardown is the feature you are buying.
+5. **Create the budget and its alarm before anything that costs money**: An actual `AWS::Budgets::Budget` with an SNS action and a named owner, not a calendar reminder. Put the threshold at the forecast the product manager defended, with a notification on actual spend and a second on *forecast*, which is the one that gives you a fortnight's warning instead of a bill.
+6. **Keep a written register of what bills for existing**: Search collections, runtime instances, stored memory, provisioned throughput, NAT gateways, idle endpoints. Each with an owner and a teardown command, in the repository, reviewed weekly. Nothing goes quiet when the traffic does, so the only control is a list somebody reads.
 
 **Where a model helps, and where it must not**
 
@@ -83,7 +81,7 @@ The platform question for an agentic workload is not different in kind from any 
 | **Claude Code** | Generate the landing-zone stack from a written statement of your boundaries, and have it run `cfn-lint` and `cdk diff` itself. The review you then do is of a diff rather than of prose, which is the difference between checking and reading.<br>⚠ It will invent a region and a partition. Check every hard-coded region and every `arn:aws:` against the residency answer you actually have. |
 | **Claude Code, read-only credentials** | Point it at an existing account and have it produce two lists: resources with no `Feature` tag, and resources belonging to no stack. Those two lists are the whole of the cost problem in most inherited accounts.<br>⚠ Give it a role that cannot delete or modify anything. An audit script that tidies up as it goes is how a shared dev environment disappears on a Friday. |
 | **Chat LLM** | Draft the tag dictionary and its allowed values, then ask it which of your four cost questions the scheme still cannot answer. It is reliable at finding the question with no tag behind it. |
-| **Do not delegate** | The account boundary, and what is allowed to live in production. Blast radius is a business fact — which failures you can survive and who has to explain them — and a model has no way to estimate it. |
+| **Do not delegate** | The account boundary, and what is allowed to live in production. Blast radius is a business fact, which failures you can survive and who has to explain them, and a model has no way to estimate it. |
 
 **The artefact**
 
@@ -160,7 +158,7 @@ Resources:
 
 </details>
 
-<details><summary><b>Prompt · Baseline stack from a boundary statement</b> — Nothing exists yet and you are about to create the first resource</summary>
+<details><summary><b>Prompt · Baseline stack from a boundary statement</b>, Nothing exists yet and you are about to create the first resource</summary>
 
 ```text
 You are writing the baseline infrastructure for a new agentic feature. Nothing
@@ -186,7 +184,7 @@ OUR BOUNDARIES:
 
 </details>
 
-<details><summary><b>Prompt · Find what is billing for existing</b> — You inherited an account, or the bill has a line nobody can name</summary>
+<details><summary><b>Prompt · Find what is billing for existing</b>, You inherited an account, or the bill has a line nobody can name</summary>
 
 ```text
 Audit this account for resources that bill for EXISTING rather than for use.
@@ -212,7 +210,7 @@ deliberate>
 
 </details>
 
-<details><summary><b>Prompt · Does this tag scheme answer the questions</b> — Before you activate cost allocation tags, because activation is not retroactive</summary>
+<details><summary><b>Prompt · Does this tag scheme answer the questions</b>, Before you activate cost allocation tags, because activation is not retroactive</summary>
 
 ```text
 Review this tag scheme against the only four questions it will ever be asked.
@@ -240,19 +238,19 @@ SCHEME: <paste>
 
 **Worked example · SkyWays · the line item nobody could name**
 
-> In week two an engineer stood up an OpenSearch Serverless collection to try retrieval over the fare rules. It was never wired into anything, and it was never switched off. On day 75 the bill came in at 4.4 times its estimate; that multiple was traced to four ordinary habits compounding, and the collection was not even part of it — it was a separate line that took an afternoon to attribute, because it carried no `Feature` tag and belonged to no stack. Two controls would have made it a two-minute question: a tag activated in week one, and a weekly read of the always-on register.
+> In week two an engineer stood up an OpenSearch Serverless collection to try retrieval over the fare rules. It was never wired into anything, and it was never switched off. On day 75 the bill came in at 4.4 times its estimate; that multiple was traced to four ordinary habits compounding, and the collection was not even part of it. It was a separate line that took an afternoon to attribute, because it carried no `Feature` tag and belonged to no stack. Two controls would have made it a two-minute question: a tag activated in week one, and a weekly read of the always-on register.
 
 **Pitfalls**
 
 - Standing up a search collection or a runtime instance to try something, and relying on remembering to remove it. Both bill for existing, so a forgotten experiment is a fixed monthly cost attached to no feature and no owner.
 - Tagging by team. The re-org lands in nine months and the question *what did rebooking cost* becomes permanently unanswerable for every month before it.
-- Activating cost allocation tags late. The tags were there all along, the cost data was not, and the first three months of spend can never be attributed — which is exactly the period you will be asked about.
+- Activating cost allocation tags late. The tags were there all along, the cost data was not, and the first three months of spend can never be attributed, which is exactly the period you will be asked about.
 
-**Done when** — You can destroy a whole environment and rebuild it from the repository, and Cost Explorer can tell you what one feature cost last month without anyone opening a spreadsheet.
+**Done when**, You can destroy a whole environment and rebuild it from the repository, and Cost Explorer can tell you what one feature cost last month without anyone opening a spreadsheet.
 
 ---
 
-> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
+> **P1 · Design & Spec begins here**, *what exactly is being built, and under whose authority?*
 
 ## 2 · Access
 
@@ -260,17 +258,17 @@ SCHEME: <paste>
 
 *The request on day one; the gateway before the second team calls Bedrock directly*
 
-Two things happen here and they move at different speeds. Model access in Bedrock is granted per model, **per region**, on request, and the approval sits in somebody else's queue — which makes it a lead-time item started on day one, not a task scheduled for the week you need it. The gateway is a build: one layer every model call passes through, so routing, budgets, fallbacks and a per-call log exist in one place instead of in four codebases. Without the per-call log you cannot diagnose a bill. You can only argue about it.
+Two things happen here and they move at different speeds. Model access in Bedrock is granted per model, **per region**, on request, and the approval sits in somebody else's queue, which makes it a lead-time item started on day one, not a task scheduled for the week you need it. The gateway is a build: one layer every model call passes through, so routing, budgets, fallbacks and a per-call log exist in one place instead of in four codebases. Without the per-call log you cannot diagnose a bill. You can only argue about it.
 
 **What you actually do**
 
-1. **Request model access on day one, per model and per region** — Access granted in `us-east-1` is not access in `eu-west-1`. Some models ask for a use case before approval and some approvals are not instant. Put the requests in before the architecture is finished; withdrawing an unused request costs nothing and waiting on a missing one costs a week.
-2. **Use the inference profile ID, not the bare model ID** — Many current models are only callable through a cross-region inference profile, whose identifier carries a geography prefix — `us.`, `eu.`, `apac.` — in front of the model ID. A bare ID returns a validation error telling you to retry with an inference profile. This is the single most common first-day error, and it reads like a permissions problem, so teams spend the morning in IAM.
-3. **Read the quotas that actually apply to this account** — Requests and tokens per minute are per account, per region, per model, and the account default is not the published headline. Get the real numbers from Service Quotas on day one. An increase is another lead-time item with another queue.
-4. **Put one gateway in front of everything** — LiteLLM is the common choice: an OpenAI-compatible endpoint in front of Bedrock, so routing, retries, fallback and budgets are configuration rather than code. The value is not the abstraction. It is that there is one place to change a model and one place that sees every call.
-5. **Make the per-call log non-optional** — Request id, feature, environment, model version, input tokens, output tokens, **cached tokens**, latency, cost, case id. Without the cached-token column the cache is a belief rather than a measurement. Without the feature column the bill is one number.
-6. **Write routing and fallback as policy, not as a try/except** — Cheap tier for classification and extraction, the capable tier for the judgement call, a named fallback when a region throttles. In the gateway config, reviewed like code, identical in every environment. A retry policy buried in application code is a cost multiplier nobody can find.
-7. **Issue a gateway key per feature, with its own budget** — Not a key per person and not one shared key. A virtual key per feature makes the budget enforceable at the call rather than at the month end, and it splits the bill on exactly the same boundary as your resource tags.
+1. **Request model access on day one, per model and per region**: Access granted in `us-east-1` is not access in `eu-west-1`. Some models ask for a use case before approval and some approvals are not instant. Put the requests in before the architecture is finished; withdrawing an unused request costs nothing and waiting on a missing one costs a week.
+2. **Use the inference profile ID, not the bare model ID**: Many current models are only callable through a cross-region inference profile, whose identifier carries a geography prefix (`us.`, `eu.`, `apac.`) in front of the model ID. A bare ID returns a validation error telling you to retry with an inference profile. This is the single most common first-day error, and it reads like a permissions problem, so teams spend the morning in IAM.
+3. **Read the quotas that actually apply to this account**: Requests and tokens per minute are per account, per region, per model, and the account default is not the published headline. Get the real numbers from Service Quotas on day one. An increase is another lead-time item with another queue.
+4. **Put one gateway in front of everything**: LiteLLM is the common choice: an OpenAI-compatible endpoint in front of Bedrock, so routing, retries, fallback and budgets are configuration rather than code. The value is not the abstraction. It is that there is one place to change a model and one place that sees every call.
+5. **Make the per-call log non-optional**: Request id, feature, environment, model version, input tokens, output tokens, **cached tokens**, latency, cost, case id. Without the cached-token column the cache is a belief rather than a measurement. Without the feature column the bill is one number.
+6. **Write routing and fallback as policy, not as a try/except**: Cheap tier for classification and extraction, the capable tier for the judgement call, a named fallback when a region throttles. In the gateway config, reviewed like code, identical in every environment. A retry policy buried in application code is a cost multiplier nobody can find.
+7. **Issue a gateway key per feature, with its own budget**: Not a key per person and not one shared key. A virtual key per feature makes the budget enforceable at the call rather than at the month end, and it splits the bill on exactly the same boundary as your resource tags.
 
 **Where a model helps, and where it must not**
 
@@ -348,7 +346,7 @@ general_settings:
 
 </details>
 
-<details><summary><b>Prompt · Probe what this account can actually call</b> — Day one, before anyone designs around a particular model</summary>
+<details><summary><b>Prompt · Probe what this account can actually call</b>, Day one, before anyone designs around a particular model</summary>
 
 ```text
 You are helping a platform engineer establish which Bedrock models this account
@@ -376,7 +374,7 @@ PAIRS: <paste model ids and regions>
 
 </details>
 
-<details><summary><b>Prompt · Gateway config from the access matrix</b> — The matrix is settled and the second team is about to start calling Bedrock</summary>
+<details><summary><b>Prompt · Gateway config from the access matrix</b>, The matrix is settled and the second team is about to start calling Bedrock</summary>
 
 ```text
 Write a LiteLLM proxy config from the access matrix below.
@@ -399,7 +397,7 @@ MATRIX: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Triage a first-day Bedrock failure</b> — The first call fails and someone has already opened the IAM console</summary>
+<details><summary><b>Prompt · Triage a first-day Bedrock failure</b>, The first call fails and someone has already opened the IAM console</summary>
 
 ```text
 A Bedrock call is failing. Work through these IN ORDER and tell me which it is,
@@ -431,10 +429,10 @@ ERROR, VERBATIM, plus the call site and region:
 **Pitfalls**
 
 - Treating model access as a task rather than a lead-time item. It sits in someone else's queue, so a plan that schedules it as a day's work in week four discovers the truth in week five.
-- The bare model ID. It fails with something that reads like a permissions error, so the team spends the morning widening IAM policies — which then ship, over-permissive, and are never narrowed again.
+- The bare model ID. It fails with something that reads like a permissions error, so the team spends the morning widening IAM policies, which then ship, over-permissive, and are never narrowed again.
 - Letting one team call Bedrock directly 'just for now'. The per-call log then has a hole in it, and the hole is always exactly the team whose spend you were asked to explain.
 
-**Done when** — Every model call in every environment goes through one endpoint, and you can produce yesterday's cost split by feature from its log without asking anybody for anything.
+**Done when**, Every model call in every environment goes through one endpoint, and you can produce yesterday's cost split by feature from its log without asking anybody for anything.
 
 ---
 
@@ -448,12 +446,12 @@ Environment parity is an old discipline with a new member. For a deterministic s
 
 **What you actually do**
 
-1. **Pin the model version per environment, in the manifest** — The full versioned identifier, never a floating alias. An alias that moves silently is the same failure as `latest` on a container image, except that the symptom is a score drop with no deploy to blame and three hours spent reading an empty diff.
-2. **Treat a model upgrade as a deployment** — Its own pull request, its own harness run, its own rollback path, its own note in the release record. The new version is better on average and *different on your slices*, and average is not what you ship.
-3. **Promote the model through environments in the same order as the code** — Evaluation first, then staging, then production. A production model version ahead of the one the harness ran against means your gate measured something you are not running, and nobody will notice until the numbers stop matching the complaints.
-4. **Keep secrets out of prompts, context files and traces** — Three leak paths an ordinary application does not have: a prompt is logged, a context file is committed, and a trace is read by people outside the team. Store in AWS Secrets Manager and resolve at runtime with `{{resolve:secretsmanager:<secret-id>:SecretString:<json-key>}}`, so the value is never in the template, the repository, the log or your shell history.
-5. **Seed the evaluation environment with real cases, redacted** — Mask field by field and keep the shape, the volume and the mess. Invented cases are drawn from what somebody imagined the input looks like, which is precisely the distribution the system already handles well.
-6. **Give each environment a different failure mode for real actions** — Dev holds no credential for the partner API at all; evaluation uses a recorded double; staging writes to a sandbox tenant; only production can move money. If dev *can* reach the real endpoint, one day at 23:40 it will.
+1. **Pin the model version per environment, in the manifest**: The full versioned identifier, never a floating alias. An alias that moves silently is the same failure as `latest` on a container image, except that the symptom is a score drop with no deploy to blame and three hours spent reading an empty diff.
+2. **Treat a model upgrade as a deployment**: Its own pull request, its own harness run, its own rollback path, its own note in the release record. The new version is better on average and *different on your slices*, and average is not what you ship.
+3. **Promote the model through environments in the same order as the code**: Evaluation first, then staging, then production. A production model version ahead of the one the harness ran against means your gate measured something you are not running, and nobody will notice until the numbers stop matching the complaints.
+4. **Keep secrets out of prompts, context files and traces**: Three leak paths an ordinary application does not have: a prompt is logged, a context file is committed, and a trace is read by people outside the team. Store in AWS Secrets Manager and resolve at runtime with `{{resolve:secretsmanager:<secret-id>:SecretString:<json-key>}}`, so the value is never in the template, the repository, the log or your shell history.
+5. **Seed the evaluation environment with real cases, redacted**: Mask field by field and keep the shape, the volume and the mess. Invented cases are drawn from what somebody imagined the input looks like, which is precisely the distribution the system already handles well.
+6. **Give each environment a different failure mode for real actions**: Dev holds no credential for the partner API at all; evaluation uses a recorded double; staging writes to a sandbox tenant; only production can move money. If dev *can* reach the real endpoint, one day at 23:40 it will.
 
 **Where a model helps, and where it must not**
 
@@ -461,7 +459,7 @@ Environment parity is an old discipline with a new member. For a deterministic s
 | --- | --- |
 | **Claude Code** | Write the redaction pass over a production export: masked field by field with the format preserved, plus a manifest of exactly which fields it touched. The manifest is the reviewable artefact, and it is the part a person signs.<br>⚠ Read the field manifest, not the output. A redactor that missed a column produces output that looks perfectly clean, because the column it missed looks like data. |
 | **Claude Code** | Have it diff two environment manifests and report every difference, not only the ones you asked about: model version, region, temperature, tool list, timeout, cap. Then make that diff a CI step. |
-| **Chat LLM** | Ask what could differ between two environments that a manifest diff would *not* catch — a quota, a data volume, a warm cache, a partner sandbox that behaves differently under load.<br>⚠ Its list is a prompt for your own list, not a checklist. It does not know your partners and it will not mention the one that matters. |
+| **Chat LLM** | Ask what could differ between two environments that a manifest diff would *not* catch, a quota, a data volume, a warm cache, a partner sandbox that behaves differently under load.<br>⚠ Its list is a prompt for your own list, not a checklist. It does not know your partners and it will not mention the one that matters. |
 | **Do not delegate** | Confirming that a redacted export is safe to put in an evaluation environment. Somebody with accountability reads the rows, because the cost of being wrong is a regulator rather than a re-run. |
 
 **The artefact**
@@ -528,7 +526,7 @@ flags:
 
 </details>
 
-<details><summary><b>Prompt · Redact a production export for the evaluation environment</b> — Seeding evaluation, before anyone writes a case by hand</summary>
+<details><summary><b>Prompt · Redact a production export for the evaluation environment</b>, Seeding evaluation, before anyone writes a case by hand</summary>
 
 ```text
 Redact this production export so it can be used as evaluation seed data.
@@ -555,7 +553,7 @@ SCHEMA / SAMPLE: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Diff two environment manifests like a reviewer</b> — Before every promotion, and whenever a score moves with no deploy</summary>
+<details><summary><b>Prompt · Diff two environment manifests like a reviewer</b>, Before every promotion, and whenever a score moves with no deploy</summary>
 
 ```text
 Compare these two environment manifests.
@@ -579,7 +577,7 @@ MANIFEST B: <paste>
 
 </details>
 
-<details><summary><b>Prompt · A model upgrade as a change record</b> — A newer model version is available and somebody wants it</summary>
+<details><summary><b>Prompt · A model upgrade as a change record</b>, A newer model version is available and somebody wants it</summary>
 
 ```text
 Write the change record for upgrading <feature> from <model version A> to
@@ -605,7 +603,7 @@ CONTEXT: <paste the current manifest, the slice list and the last harness readou
 
 **Worked example · SkyWays · twelve invented cases**
 
-> The first evaluation environment was seeded with twelve cases somebody wrote by hand on a Friday. Every one had a single passenger, a single delayed leg, a same-day alternative and no partner airline. The harness returned 94% and the team believed it for a fortnight. Codeshare — 11% of real traffic and the slice carrying all the risk — was not in the seed at all, because nobody imagines a mess they have not read. Re-seeding from a redacted export of 400 real cases took a day and dropped the score to 79%, which was the first honest number the project had.
+> The first evaluation environment was seeded with twelve cases somebody wrote by hand on a Friday. Every one had a single passenger, a single delayed leg, a same-day alternative and no partner airline. The harness returned 94% and the team believed it for a fortnight. Codeshare, 11% of real traffic and the slice carrying all the risk, was not in the seed at all, because nobody imagines a mess they have not read. Re-seeding from a redacted export of 400 real cases took a day and dropped the score to 79%, which was the first honest number the project had.
 
 **Pitfalls**
 
@@ -613,13 +611,13 @@ CONTEXT: <paste the current manifest, the slice list and the last harness readou
 - A secret in a prompt or a context file. It is now in the trace store, in the log aggregator and in the request that left your account, and rotating it is the easy part of what follows.
 - Seeding evaluation with invented cases. They are drawn from what somebody imagined the input looks like, so the harness measures the system against the easy half of its own traffic and reports it as a score.
 
-**Done when** — A diff between any two environment manifests shows only differences you can name and defend, and the pinned model version is one of the lines it shows.
+**Done when**, A diff between any two environment manifests shows only differences you can name and defend, and the pinned model version is one of the lines it shows.
 
 ---
 
-> **P2 · Build & Prove begins here** — *does it meet the bar, slice by slice?*
+> **P2 · Build & Prove begins here**, *does it meet the bar, slice by slice?*
 
-> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
+> ⛔ **The hard gate. P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without. [why](The-Agentic-PDLC).
 
 ## 4 · Pipeline
 
@@ -627,17 +625,17 @@ CONTEXT: <paste the current manifest, the slice list and the last harness readou
 
 *P1 into P2, before the first feature branch and before the first deadline*
 
-CI for a system that is right *a share of the time* keeps every stage you already have and adds two: the evaluation harness, and a gate that reads its output per slice. The difference from ordinary CI is economic rather than technical. Tests are fast and free, so they run on everything; evaluation is slow and costs real money, so it cannot. The shape that works is the touched slice on every pull request, the full set nightly, cached model responses so a fixed golden set replays deterministically, and a required status check — because a gate a person can click past is a report.
+CI for a system that is right *a share of the time* keeps every stage you already have and adds two: the evaluation harness, and a gate that reads its output per slice. The difference from ordinary CI is economic rather than technical. Tests are fast and free, so they run on everything; evaluation is slow and costs real money, so it cannot. The shape that works is the touched slice on every pull request, the full set nightly, cached model responses so a fixed golden set replays deterministically, and a required status check, because a gate a person can click past is a report.
 
 **What you actually do**
 
-1. **Keep the fast, free stages first and unchanged** — Build, lint, types, unit tests, and the **exact** tests over the deterministic parts: the fare rules, the cap arithmetic, the schema validation. Most bugs in an agentic system are ordinary bugs, and they should fail in ninety seconds rather than after twelve minutes of paid evaluation.
-2. **Run only the touched slice on a pull request** — A committed file maps paths to slices, so a change under the codeshare prompt runs the codeshare set. Ten minutes and a few dollars, not ninety minutes and a few hundred. The map is reviewed like code, because a wrong map is a silent gap in the gate.
-3. **Run the full set nightly, and on any prompt or model change** — Those two changes touch every slice by definition, so the slice map does not apply to them. Wire that as a condition in the workflow rather than as a convention, because a convention is what gets skipped at 18:40 on a Thursday.
-4. **Cache model responses so the golden set replays deterministically** — Key on (model version, prompt hash, input hash). A run over an unchanged golden set with an unchanged prompt should cost close to nothing and produce the same answer twice. When it does not, that divergence is itself the finding and you want to know immediately.
-5. **Pin and version the judge** — The judge is a model call too. Pin its version, keep its prompt in the repository, and re-run the calibration set whenever either changes. An unpinned judge moves every score at once, which looks exactly like a product regression and costs a week.
-6. **Gate on the per-slice score with its lower bound** — The gate reads the bar sheet the product manager owns and fails when any slice's 95% lower bound sits below its bar. One overall percentage is how the easy high-volume slice carries the average while the slice with the money in it ships broken.
-7. **Make it a required status check in branch protection** — Not a job that posts a comment. If a human can merge past it while the room is waiting for a release, then eventually someone will, and the person who does it will be senior enough that nobody objects.
+1. **Keep the fast, free stages first and unchanged**: Build, lint, types, unit tests, and the **exact** tests over the deterministic parts: the fare rules, the cap arithmetic, the schema validation. Most bugs in an agentic system are ordinary bugs, and they should fail in ninety seconds rather than after twelve minutes of paid evaluation.
+2. **Run only the touched slice on a pull request**: A committed file maps paths to slices, so a change under the codeshare prompt runs the codeshare set. Ten minutes and a few dollars, not ninety minutes and a few hundred. The map is reviewed like code, because a wrong map is a silent gap in the gate.
+3. **Run the full set nightly, and on any prompt or model change**: Those two changes touch every slice by definition, so the slice map does not apply to them. Wire that as a condition in the workflow rather than as a convention, because a convention is what gets skipped at 18:40 on a Thursday.
+4. **Cache model responses so the golden set replays deterministically**: Key on (model version, prompt hash, input hash). A run over an unchanged golden set with an unchanged prompt should cost close to nothing and produce the same answer twice. When it does not, that divergence is itself the finding and you want to know immediately.
+5. **Pin and version the judge**: The judge is a model call too. Pin its version, keep its prompt in the repository, and re-run the calibration set whenever either changes. An unpinned judge moves every score at once, which looks exactly like a product regression and costs a week.
+6. **Gate on the per-slice score with its lower bound**: The gate reads the bar sheet the product manager owns and fails when any slice's 95% lower bound sits below its bar. One overall percentage is how the easy high-volume slice carries the average while the slice with the money in it ships broken.
+7. **Make it a required status check in branch protection**: Not a job that posts a comment. If a human can merge past it while the room is waiting for a release, then eventually someone will, and the person who does it will be senior enough that nobody objects.
 
 **Where a model helps, and where it must not**
 
@@ -723,7 +721,7 @@ jobs:
 
 </details>
 
-<details><summary><b>Prompt · Build the file-to-slice map</b> — Setting the pipeline up, and again whenever a slice is added</summary>
+<details><summary><b>Prompt · Build the file-to-slice map</b>, Setting the pipeline up, and again whenever a slice is added</summary>
 
 ```text
 Build the map from repository paths to evaluation slices, so a pull request runs
@@ -753,7 +751,7 @@ OUR SLICES AND LAYOUT: <paste the tree and the slice names>
 
 </details>
 
-<details><summary><b>Prompt · Per-slice gate readout</b> — The harness runs but nobody can read its output</summary>
+<details><summary><b>Prompt · Per-slice gate readout</b>, The harness runs but nobody can read its output</summary>
 
 ```text
 Write the gate step that turns harness output into a decision.
@@ -780,7 +778,7 @@ BAR SHEET: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Cost the pipeline before you switch it on</b> — Before making the harness a required check, so nobody can argue it later</summary>
+<details><summary><b>Prompt · Cost the pipeline before you switch it on</b>, Before making the harness a required check, so nobody can argue it later</summary>
 
 ```text
 Work out what this pipeline will cost to run, so the number arrives before the
@@ -806,7 +804,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>
 
 **Worked example · SkyWays · the check that could be clicked past**
 
-> For three weeks the harness ran on every pull request and posted a comment. Nobody disabled it and nobody ignored it on principle. Then on the Thursday before the pilot the codeshare slice came back red, the release was in the calendar, and a senior engineer merged with the comment open in another tab — reasonably, in the moment, and with every intention of fixing it on Monday. The fix afterwards was one setting: the harness became a required status check. The argument that setting ended had been running since the harness was built.
+> For three weeks the harness ran on every pull request and posted a comment. Nobody disabled it and nobody ignored it on principle. Then on the Thursday before the pilot the codeshare slice came back red, the release was in the calendar, and a senior engineer merged with the comment open in another tab, reasonably, in the moment, and with every intention of fixing it on Monday. The fix afterwards was one setting: the harness became a required status check. The argument that setting ended had been running since the harness was built.
 
 **Pitfalls**
 
@@ -814,7 +812,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>
 - Gating on one overall score. The easy slice is the high-volume one, so it lifts the average while the slice carrying the money fails quietly underneath it.
 - An unpinned judge. Its version moves, every score moves with it, and a week goes into hunting a product regression that is actually a change in the measuring instrument.
 
-**Done when** — A pull request with any slice below its bar cannot be merged, and the person who tried can see which slice and by how much without opening a log.
+**Done when**, A pull request with any slice below its bar cannot be merged, and the person who tried can see which slice and by how much without opening a log.
 
 ---
 
@@ -824,17 +822,17 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>
 
 *The end of P2, at cut-over, and on every change after it*
 
-The flag is the deployment primitive, because the rollback has to be faster than the incident. Four states, taken one at a time: **shadow**, where the agent decides on real traffic and acts on nothing; **5% canary**; **widen on evidence**; then all of it. The flag is also the rollback, which is why it gets tested rather than believed. The part teams miss is that code is not the only deployable thing here. A prompt change and a model version change alter behaviour with no build, so they need the same versioning, the same review and the same rollback path as the binary — and a prompt change is the most common production change there is.
+The flag is the deployment primitive, because the rollback has to be faster than the incident. Four states, taken one at a time: **shadow**, where the agent decides on real traffic and acts on nothing; **5% canary**; **widen on evidence**; then all of it. The flag is also the rollback, which is why it gets tested rather than believed. The part teams miss is that code is not the only deployable thing here. A prompt change and a model version change alter behaviour with no build, so they need the same versioning, the same review and the same rollback path as the binary, and a prompt change is the most common production change there is.
 
 **What you actually do**
 
-1. **Make shadow a state of the system, not a branch** — Same code path, same inputs, decisions written to the trace store, the write side disabled by the flag. A separate shadow branch tests the shadow branch, and the first live call then runs code nobody has exercised.
-2. **Make 'shadow never writes' an automated test** — An assertion in the harness *and* a scheduled canary in production: with the flag in shadow, any call reaching a write tool fails the build and pages. The sentence in the runbook is a request; the assertion is the control.
-3. **Blue/green the runtime and keep both warm through the window** — Two versions serving, traffic shifted by the flag rather than by DNS, the old one warm until the widening finishes. AgentCore runtime versions behind an alias, or two task sets behind a load balancer — the mechanism matters far less than being able to shift back in seconds without a deploy.
-4. **Version the prompt and the model as first-class artefacts** — A prompt lives in the repository with a hash, ships as a versioned object, and is referenced *by version* at runtime. It gets a pull request, a harness run and a rollback path. Editing a prompt in a console is a behaviour change with no diff and nothing to go back to.
-5. **Keep one flag per action, not one per feature** — Refunds can go back to gated while same-day rebooking stays at 100%. A single feature flag forces the whole feature to the caution of its riskiest action, so being careful about one thing means being slow about everything.
-6. **Record the flag state and the prompt version in every decision** — Otherwise a trace from three weeks ago cannot be explained, because you no longer know which prompt produced it or whether it was live. This is two fields and it is the difference between an incident review and an argument.
-7. **Write the widening condition before the cut-over, not during it** — The live lower bound at or above the bar on that slice for n consecutive days, gated actions still gated. Written while nobody is under pressure, because the conversation at 5% with a sponsor waiting is not the one in which to invent a threshold.
+1. **Make shadow a state of the system, not a branch**: Same code path, same inputs, decisions written to the trace store, the write side disabled by the flag. A separate shadow branch tests the shadow branch, and the first live call then runs code nobody has exercised.
+2. **Make 'shadow never writes' an automated test**: An assertion in the harness *and* a scheduled canary in production: with the flag in shadow, any call reaching a write tool fails the build and pages. The sentence in the runbook is a request; the assertion is the control.
+3. **Blue/green the runtime and keep both warm through the window**: Two versions serving, traffic shifted by the flag rather than by DNS, the old one warm until the widening finishes. AgentCore runtime versions behind an alias, or two task sets behind a load balancer, the mechanism matters far less than being able to shift back in seconds without a deploy.
+4. **Version the prompt and the model as first-class artefacts**: A prompt lives in the repository with a hash, ships as a versioned object, and is referenced *by version* at runtime. It gets a pull request, a harness run and a rollback path. Editing a prompt in a console is a behaviour change with no diff and nothing to go back to.
+5. **Keep one flag per action, not one per feature**: Refunds can go back to gated while same-day rebooking stays at 100%. A single feature flag forces the whole feature to the caution of its riskiest action, so being careful about one thing means being slow about everything.
+6. **Record the flag state and the prompt version in every decision**: Otherwise a trace from three weeks ago cannot be explained, because you no longer know which prompt produced it or whether it was live. This is two fields and it is the difference between an incident review and an argument.
+7. **Write the widening condition before the cut-over, not during it**: The live lower bound at or above the bar on that slice for n consecutive days, gated actions still gated. Written while nobody is under pressure, because the conversation at 5% with a sponsor waiting is not the one in which to invent a threshold.
 
 **Where a model helps, and where it must not**
 
@@ -850,7 +848,7 @@ The flag is the deployment primitive, because the rollback has to be faster than
 | | |
 | --- | --- |
 | Produces | **Flag configuration and the deploy path** |
-| Good looks like | One flag per action, each with its state, its prompt and model version, its widening condition and its owner, deployed from the same source as the code — and a rollback a person has actually thrown. |
+| Good looks like | One flag per action, each with its state, its prompt and model version, its widening condition and its owner, deployed from the same source as the code, and a rollback a person has actually thrown. |
 | Owner | Platform engineer, with the product manager on the states |
 
 <details><summary><b>Template · Feature flags, one per action</b></summary>
@@ -918,7 +916,7 @@ The flag is the deployment primitive, because the rollback has to be faster than
 
 </details>
 
-<details><summary><b>Prompt · Write the shadow-never-writes test</b> — Before the shadow run starts, not after the first write</summary>
+<details><summary><b>Prompt · Write the shadow-never-writes test</b>, Before the shadow run starts, not after the first write</summary>
 
 ```text
 Write the control that makes "shadow never writes" true rather than intended.
@@ -942,7 +940,7 @@ OUR WRITE TOOLS AND FLAG SOURCE: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Turn a prompt change into a deployment</b> — Somebody wants to 'just tweak the prompt'</summary>
+<details><summary><b>Prompt · Turn a prompt change into a deployment</b>, Somebody wants to 'just tweak the prompt'</summary>
 
 ```text
 Write the change record for this prompt change. Treat it as a deployment.
@@ -967,7 +965,7 @@ PROMPT DIFF: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Plan the canary and its automatic rollback</b> — Cut-over is scheduled and the flag states need deciding</summary>
+<details><summary><b>Prompt · Plan the canary and its automatic rollback</b>, Cut-over is scheduled and the flag states need deciding</summary>
 
 ```text
 Plan the canary for <action>, as a config, not as a narrative.
@@ -1000,14 +998,14 @@ CONTEXT: <slices, bars, cases per day, current flag states>
 **Pitfalls**
 
 - One flag for the whole feature. Refunds then sit at the same setting as showing options, so the only way to be careful about the dangerous action is to be slow about every safe one.
-- Shipping a prompt change outside the pipeline. It is a behaviour change with no build, no line in the release notes and nothing to roll back to — and it is the most common production change an agent gets.
+- Shipping a prompt change outside the pipeline. It is a behaviour change with no build, no line in the release notes and nothing to roll back to, and it is the most common production change an agent gets.
 - A shadow path that is a separate code branch. It proves the shadow branch works. The first live call then executes code that has never run against real traffic.
 
-**Done when** — You can move any single action from on to shadow and back in under a minute through a recorded config change, and every trace says which flag state and prompt version produced it.
+**Done when**, You can move any single action from on to shadow and back in under a minute through a recorded config change, and every trace says which flag state and prompt version produced it.
 
 ---
 
-> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
+> **P3 · Run & Learn begins here**, *is it still doing what we launched, and what did it cost?*
 
 ## 6 · Observe
 
@@ -1019,12 +1017,12 @@ Your existing observability answers whether it is up and whether it is fast, and
 
 **What you actually do**
 
-1. **Emit cost per case, with cache hits marked** — Input tokens, output tokens, **cached tokens**, model version and the derived cost, on one record keyed by case. Marking the cache hit is not tidiness: a cache hit counted as a fresh call inflates the bill you report, and a cache hit counted as a wrong answer gets a working system switched off, which is worse and has happened.
-2. **Write one trace row per consequential action, redacted by masking** — Mask, never omit. `card ****4471` is a row you can reconcile; a missing row is an incident you cannot explain. Each row carries the case id, the action, the model version, the prompt version, the tools called, the cap that applied, the approver if there was one, tokens and cost.
-3. **Use structured metrics rather than log scraping** — Embedded Metric Format on the log line, so the metric and the row that produced it are the same write and a cost number always has its case beside it. Or OpenTelemetry spans carrying the same attributes. A regex over a text log breaks the first time somebody reformats a message, and it breaks silently.
-4. **Chart the output mix weekly and alarm at five percentage points** — The proportions of the decisions the agent makes — refund versus credit versus rebook. A probabilistic system changes behaviour when the world changes, with no deploy and no error. Five points week over week is this playbook's default starting threshold, and the alert re-opens the release gate automatically, which is what turns a chart into a control.
-5. **Alarm on the three failure shapes specific to this workload** — Cost per case above three times the estimate, sustained for an hour — a retry loop or a context that has grown. Loop-cap trips above baseline — the agent is going in circles and the cap is quietly doing all the work. Cache hit ratio collapsing — somebody moved a timestamp to the front of the prompt and every call is now full price.
-6. **Give the product manager the readout in the shape of their bar sheet** — Per slice, with the lower bound, not one number. The dashboard that gets read is the one shaped like the decision somebody has to make, and the shape is yours to choose.
+1. **Emit cost per case, with cache hits marked**: Input tokens, output tokens, **cached tokens**, model version and the derived cost, on one record keyed by case. Marking the cache hit is not tidiness: a cache hit counted as a fresh call inflates the bill you report, and a cache hit counted as a wrong answer gets a working system switched off, which is worse and has happened.
+2. **Write one trace row per consequential action, redacted by masking**: Mask, never omit. `card ****4471` is a row you can reconcile; a missing row is an incident you cannot explain. Each row carries the case id, the action, the model version, the prompt version, the tools called, the cap that applied, the approver if there was one, tokens and cost.
+3. **Use structured metrics rather than log scraping**: Embedded Metric Format on the log line, so the metric and the row that produced it are the same write and a cost number always has its case beside it. Or OpenTelemetry spans carrying the same attributes. A regex over a text log breaks the first time somebody reformats a message, and it breaks silently.
+4. **Chart the output mix weekly and alarm at five percentage points**: The proportions of the decisions the agent makes, refund versus credit versus rebook. A probabilistic system changes behaviour when the world changes, with no deploy and no error. Five points week over week is this playbook's default starting threshold, and the alert re-opens the release gate automatically, which is what turns a chart into a control.
+5. **Alarm on the three failure shapes specific to this workload**: Cost per case above three times the estimate, sustained for an hour, a retry loop or a context that has grown. Loop-cap trips above baseline, the agent is going in circles and the cap is quietly doing all the work. Cache hit ratio collapsing, somebody moved a timestamp to the front of the prompt and every call is now full price.
+6. **Give the product manager the readout in the shape of their bar sheet**: Per slice, with the lower bound, not one number. The dashboard that gets read is the one shaped like the decision somebody has to make, and the shape is yours to choose.
 
 **Where a model helps, and where it must not**
 
@@ -1110,7 +1108,7 @@ def emit(case_id, slice_name, action, model, prompt_version, flag_state,
 
 </details>
 
-<details><summary><b>Prompt · Design the trace row from an incident you will have to explain</b> — Before the shadow run, while the schema is still cheap to change</summary>
+<details><summary><b>Prompt · Design the trace row from an incident you will have to explain</b>, Before the shadow run, while the schema is still cheap to change</summary>
 
 ```text
 Design the trace row by working backwards from the incident.
@@ -1136,7 +1134,7 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Generate the alarm set from a threshold table</b> — Before cut-over, so the thresholds exist in a file rather than in a console</summary>
+<details><summary><b>Prompt · Generate the alarm set from a threshold table</b>, Before cut-over, so the thresholds exist in a file rather than in a console</summary>
 
 ```text
 Turn this threshold table into CloudWatch alarms as infrastructure as code.
@@ -1162,7 +1160,7 @@ OUR THRESHOLDS AND TRAFFIC: <paste>
 
 </details>
 
-<details><summary><b>Prompt · What can this dashboard not answer</b> — After the dashboard exists and before you rely on it</summary>
+<details><summary><b>Prompt · What can this dashboard not answer</b>, After the dashboard exists and before you rely on it</summary>
 
 ```text
 Here is our observability setup: <paste dashboards, metrics, alarms, trace schema>.
@@ -1189,7 +1187,7 @@ RULES:
 
 **Worked example · SkyWays · the four habits, found in an afternoon**
 
-> On day 75 the bill was 4.4 times its estimate. There was no runaway and no single cause. There were four ordinary habits multiplying: the whole conversation resent as context on every turn (1.6x), the capable model used for classification as well as for the judgement call (1.5x), a cache being missed because a timestamp sat at the front of the prompt (1.3x), and uncapped retries (1.41x). Multiply those and you get 4.4. Finding it took an afternoon rather than a fortnight, and only because the per-call log carried tokens, **cached tokens** and a feature column on every row. Without the cached-token column the third habit is invisible — and the third habit is the one that is free to fix.
+> On day 75 the bill was 4.4 times its estimate. There was no runaway and no single cause. There were four ordinary habits multiplying: the whole conversation resent as context on every turn (1.6x), the capable model used for classification as well as for the judgement call (1.5x), a cache being missed because a timestamp sat at the front of the prompt (1.3x), and uncapped retries (1.41x). Multiply those and you get 4.4. Finding it took an afternoon rather than a fortnight, and only because the per-call log carried tokens, **cached tokens** and a feature column on every row. Without the cached-token column the third habit is invisible, and the third habit is the one that is free to fix.
 
 **Pitfalls**
 
@@ -1197,7 +1195,7 @@ RULES:
 - Redacting by omission. The schema passes review, the incident arrives, and the row that would have explained it is precisely the row that was dropped for safety.
 - Scraping cost metrics out of text logs. The regex survives until somebody reformats a message, and then it fails silently: the chart goes flat, which reads as good news.
 
-**Done when** — For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it — with nothing unmasked that should not be.
+**Done when**, For any case in the last thirty days you can produce, in one query, what it cost, which model and prompt version decided it, what it did and who approved it, with nothing unmasked that should not be.
 
 ---
 
@@ -1207,17 +1205,17 @@ RULES:
 
 *Before the first write tool exists, and again at every new tool*
 
-Least privilege is fifty years old — Saltzer and Schroeder set it out in 1975 — and nothing about an agent changes the principle. What changes is that the thing holding the privilege now decides for itself what to do with it, and it decides partly on text that arrived from outside. So the platform does two jobs. The first is ordinary and rigorous: separate identities for reading and writing, an execution role scoped to the tools this job actually has, egress that cannot reach an arbitrary endpoint, and a residency answer expressed in configuration. The second is new. Every ingested text is untrusted, **including a partner's API response**, and the only defence that holds is that the cap and the confirmation live in the tool contract and the IAM policy rather than in a prompt.
+Least privilege is fifty years old, Saltzer and Schroeder set it out in 1975, and nothing about an agent changes the principle. What changes is that the thing holding the privilege now decides for itself what to do with it, and it decides partly on text that arrived from outside. So the platform does two jobs. The first is ordinary and rigorous: separate identities for reading and writing, an execution role scoped to the tools this job actually has, egress that cannot reach an arbitrary endpoint, and a residency answer expressed in configuration. The second is new. Every ingested text is untrusted, **including a partner's API response**, and the only defence that holds is that the cap and the confirmation live in the tool contract and the IAM policy rather than in a prompt.
 
 **What you actually do**
 
-1. **Split read from write** — Two roles, two credentials, two audit trails. The retrieval and reasoning path never holds a credential that can change anything. Most of an agent's work is reading, so most of its runtime should be structurally unable to write.
-2. **Scope the execution role to the tools in this job's contract** — Not the service — the operations and the resources. `bedrock:InvokeModel` on the two inference profile ARNs you pinned, not on `*`. When a tool is removed from the agent, its permission comes out in the same pull request, or the role only ever grows.
-3. **Put the cap and the approver in the tool contract and the policy** — A refund tool whose signature cannot express an amount above the cap cannot issue one, whatever it is told. A prompt saying *never refund more than $400* is a request, and a request can be argued with — by a passenger, by a partner's error text, or by a model that has reasoned its way somewhere reasonable. This is the whole of the lesson.
-4. **Control egress explicitly** — Private subnets with no route out except through endpoints you named: VPC endpoints for the AWS services it uses, an allowlist for the partner APIs, everything else refused and logged. An agent that can reach an arbitrary URL can be told to reach one.
-5. **Treat every ingested text as untrusted, partner responses included** — A passenger message, an uploaded PDF, a web page and a partner API's free-text `remarks` field are all inputs an attacker can reach. Delimit them, never concatenate them into instructions, strip control sequences — and assume the model will sometimes follow them anyway, which is exactly why the cap is the control and this is only the mitigation.
-6. **Answer residency in the configuration, not in a policy document** — Which geography may see which data, expressed as the region of the inference profile, the region of the collection, and a `Deny` on `aws:RequestedRegion` outside the allowed set. A residency answer that exists only in a Word document is not an answer, and it will be tested by a fallback at 03:00.
-7. **Treat denials as signal** — An `AccessDenied` from the agent's role is either a tool the job needs and does not have, or the first visible symptom of an injection that partly worked. Both want a human. Alarm on the rate, and never resolve one by widening the policy to make it stop.
+1. **Split read from write**: Two roles, two credentials, two audit trails. The retrieval and reasoning path never holds a credential that can change anything. Most of an agent's work is reading, so most of its runtime should be structurally unable to write.
+2. **Scope the execution role to the tools in this job's contract**: Not the service: the operations and the resources. `bedrock:InvokeModel` on the two inference profile ARNs you pinned, not on `*`. When a tool is removed from the agent, its permission comes out in the same pull request, or the role only ever grows.
+3. **Put the cap and the approver in the tool contract and the policy**: A refund tool whose signature cannot express an amount above the cap cannot issue one, whatever it is told. A prompt saying *never refund more than $400* is a request, and a request can be argued with, by a passenger, by a partner's error text, or by a model that has reasoned its way somewhere reasonable. This is the whole of the lesson.
+4. **Control egress explicitly**: Private subnets with no route out except through endpoints you named: VPC endpoints for the AWS services it uses, an allowlist for the partner APIs, everything else refused and logged. An agent that can reach an arbitrary URL can be told to reach one.
+5. **Treat every ingested text as untrusted, partner responses included**: A passenger message, an uploaded PDF, a web page and a partner API's free-text `remarks` field are all inputs an attacker can reach. Delimit them, never concatenate them into instructions, strip control sequences, and assume the model will sometimes follow them anyway, which is exactly why the cap is the control and this is only the mitigation.
+6. **Answer residency in the configuration, not in a policy document**: Which geography may see which data, expressed as the region of the inference profile, the region of the collection, and a `Deny` on `aws:RequestedRegion` outside the allowed set. A residency answer that exists only in a Word document is not an answer, and it will be tested by a fallback at 03:00.
+7. **Treat denials as signal**: An `AccessDenied` from the agent's role is either a tool the job needs and does not have, or the first visible symptom of an injection that partly worked. Both want a human. Alarm on the rate, and never resolve one by widening the policy to make it stop.
 
 **Where a model helps, and where it must not**
 
@@ -1303,7 +1301,7 @@ Least privilege is fifty years old — Saltzer and Schroeder set it out in 1975 
 
 </details>
 
-<details><summary><b>Prompt · Derive the policy from the tool contracts</b> — A tool is added, or the role has grown and nobody remembers why</summary>
+<details><summary><b>Prompt · Derive the policy from the tool contracts</b>, A tool is added, or the role has grown and nobody remembers why</summary>
 
 ```text
 Derive the least-privilege execution role from these tool contracts. Work from the
@@ -1329,7 +1327,7 @@ CURRENT POLICY: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Build the prompt-injection suite</b> — Before the agent ingests anything it did not author, which is week one</summary>
+<details><summary><b>Prompt · Build the prompt-injection suite</b>, Before the agent ingests anything it did not author, which is week one</summary>
 
 ```text
 Write the injection test suite for our harness. Every ingested text is untrusted,
@@ -1359,7 +1357,7 @@ OUR TOOLS, CAPS AND INGESTION POINTS: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Find the over-grant from real traffic</b> — A week after go-live, and quarterly thereafter</summary>
+<details><summary><b>Prompt · Find the over-grant from real traffic</b>, A week after go-live, and quarterly thereafter</summary>
 
 ```text
 Compare what this role is ALLOWED to do against what it has actually done.
@@ -1388,11 +1386,11 @@ RULES:
 
 **Pitfalls**
 
-- A cap that lives in the prompt. A prompt is a request, and a request can be argued past — by a passenger, by a partner's error text, or by the model's own reasoning — and the amount is real money.
+- A cap that lives in the prompt. A prompt is a request, and a request can be argued past (by a passenger, by a partner's error text, or by the model's own reasoning) and the amount is real money.
 - One role for the whole agent. The retrieval step then holds write permission for the entire run, so the blast radius of a single injected instruction is everything the agent could ever do.
 - Trusting a partner's API response because it arrived over TLS from a company you have a contract with. The channel is authenticated; the free-text field inside it is typed by somebody you have never met.
 
-**Done when** — A reviewer can read the execution role in two minutes and name, for every statement, which tool in the contract needs it — and the injection suite runs on every pull request with the cap assertion in it.
+**Done when**, A reviewer can read the execution role in two minutes and name, for every statement, which tool in the contract needs it, and the injection suite runs on every pull request with the cap assertion in it.
 
 ---
 
@@ -1402,17 +1400,17 @@ RULES:
 
 *Before cut-over, then after every incident, forever*
 
-Rollback is a capability, and a capability nobody has used is a belief. Rehearse it before cut-over, with a stopwatch, and write the measured time down. Two things differ from an ordinary service. You may need to roll back a **prompt** or a **model version** rather than code, so each is a versioned artefact with its own path and its own rehearsal. And the failure that costs most here is not a crash but a runaway: an agent that loops, or spends, or acts, faster than anybody is watching. That has three controls — a loop cap, a per-transaction token and cost cap, and a kill switch that degrades to the human desk rather than to an error page.
+Rollback is a capability, and a capability nobody has used is a belief. Rehearse it before cut-over, with a stopwatch, and write the measured time down. Two things differ from an ordinary service. You may need to roll back a **prompt** or a **model version** rather than code, so each is a versioned artefact with its own path and its own rehearsal. And the failure that costs most here is not a crash but a runaway: an agent that loops, or spends, or acts, faster than anybody is watching. That has three controls, a loop cap, a per-transaction token and cost cap, and a kill switch that degrades to the human desk rather than to an error page.
 
 **What you actually do**
 
-1. **Rehearse every rollback before cut-over, with a stopwatch** — The person who will do it at 02:00 does it once at 14:00 with the runbook open, and the measured time goes into the runbook. If it takes eleven minutes then the incident is eleven minutes long, and everybody can plan around a number they have seen.
-2. **Rehearse the prompt and model rollbacks separately** — Three artefacts, three paths. Reverting the container does not revert the prompt version the flag points at, and it does not revert a model version pinned in a manifest. Most teams have only ever tested the first, and discover the other two during the incident.
-3. **Cap the loop, the tokens and the spend per transaction** — `MAX_LOOPS=5` as this playbook's default, a token ceiling per case, and a cost ceiling per case, all enforced in the runtime and all emitting a metric when they trip. A cap that trips silently is a cap you learn about from the bill, by which time it has been holding the system together for a month.
-4. **Make the kill switch degrade to the desk, not to an error** — Off means the case goes to a human queue with its context attached, not a 500 and a passenger with nothing. A kill switch that causes an outage is one the team hesitates to throw, and the hesitation is most of the cost of the incident.
-5. **Name who can throw it without asking** — A list, with times of day, and no approval step. If the on-call engineer needs a director at 02:00, the switch has a four-hour latency written into the org chart rather than into the runbook, and nobody will find it until it matters.
-6. **Know what is stateful and rehearse the restore** — The runtime is disposable. Three things are not: the **trace store**, which is your only account of what happened; the **golden set**, which is the measurement itself; and the **vector index**, which is expensive to rebuild and needs its source retained to rebuild from. Back up those three, test the restore, and let the rest be `cdk deploy`.
-7. **Turn every incident into a control rather than a name** — The postmortem is finished when it names the enforced control that would have made this class of incident impossible, and where that control will live: a tool signature, a policy statement, a cap. A better prompt is not a control.
+1. **Rehearse every rollback before cut-over, with a stopwatch**: The person who will do it at 02:00 does it once at 14:00 with the runbook open, and the measured time goes into the runbook. If it takes eleven minutes then the incident is eleven minutes long, and everybody can plan around a number they have seen.
+2. **Rehearse the prompt and model rollbacks separately**: Three artefacts, three paths. Reverting the container does not revert the prompt version the flag points at, and it does not revert a model version pinned in a manifest. Most teams have only ever tested the first, and discover the other two during the incident.
+3. **Cap the loop, the tokens and the spend per transaction**: `MAX_LOOPS=5` as this playbook's default, a token ceiling per case, and a cost ceiling per case, all enforced in the runtime and all emitting a metric when they trip. A cap that trips silently is a cap you learn about from the bill, by which time it has been holding the system together for a month.
+4. **Make the kill switch degrade to the desk, not to an error**: Off means the case goes to a human queue with its context attached, not a 500 and a passenger with nothing. A kill switch that causes an outage is one the team hesitates to throw, and the hesitation is most of the cost of the incident.
+5. **Name who can throw it without asking**: A list, with times of day, and no approval step. If the on-call engineer needs a director at 02:00, the switch has a four-hour latency written into the org chart rather than into the runbook, and nobody will find it until it matters.
+6. **Know what is stateful and rehearse the restore**: The runtime is disposable. Three things are not: the **trace store**, which is your only account of what happened; the **golden set**, which is the measurement itself; and the **vector index**, which is expensive to rebuild and needs its source retained to rebuild from. Back up those three, test the restore, and let the rest be `cdk deploy`.
+7. **Turn every incident into a control rather than a name**: The postmortem is finished when it names the enforced control that would have made this class of incident impossible, and where that control will live: a tool signature, a policy statement, a cap. A better prompt is not a control.
 
 **Where a model helps, and where it must not**
 
@@ -1420,8 +1418,8 @@ Rollback is a capability, and a capability nobody has used is a belief. Rehearse
 | --- | --- |
 | **Claude Code** | Write the rollback as a script rather than a runbook paragraph, and schedule it to run against a rehearsal environment weekly. A rollback exercised every week in staging is one that works in production at 02:00.<br>⚠ Require a typed confirmation and have it print exactly what it is about to change. A rollback script that can run unattended is a new and creative way to have an incident. |
 | **Claude Code** | Have it write the cap tests: a case engineered to loop, a case engineered to grow context without bound, and an assertion that each stops at the cap, emits its metric and lands in the desk queue. |
-| **Chat LLM** | Turn a postmortem transcript into the five-part brief — pain, evidence, the missing enforced control, the fix, the value — and hold that format while the room is still looking for a person to blame.<br>⚠ Check that its 'control' is genuinely enforceable. It will happily propose a clearer prompt, which is a request wearing a control's clothes. |
-| **Do not delegate** | Declaring the incident over. Somebody with accountability looks at the state of the world — what was written, what was refunded, what passengers were told — and says so with their name on it. |
+| **Chat LLM** | Turn a postmortem transcript into the five-part brief (pain, evidence, the missing enforced control, the fix, the value) and hold that format while the room is still looking for a person to blame.<br>⚠ Check that its 'control' is genuinely enforceable. It will happily propose a clearer prompt, which is a request wearing a control's clothes. |
+| **Do not delegate** | Declaring the incident over. Somebody with accountability looks at the state of the world (what was written, what was refunded, what passengers were told) and says so with their name on it. |
 
 **The artefact**
 
@@ -1498,7 +1496,7 @@ echo "Done at $(date -u +%FT%TZ). Put the elapsed time in the runbook."
 
 </details>
 
-<details><summary><b>Prompt · Turn the runbook into a rehearsed script</b> — Two weeks before cut-over, while there is still time to find it does not work</summary>
+<details><summary><b>Prompt · Turn the runbook into a rehearsed script</b>, Two weeks before cut-over, while there is still time to find it does not work</summary>
 
 ```text
 Turn this rollback runbook into a script, then into a rehearsal.
@@ -1527,7 +1525,7 @@ RUNBOOK: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Design the containment caps and their tests</b> — Before the first live traffic, because a runaway is fast</summary>
+<details><summary><b>Prompt · Design the containment caps and their tests</b>, Before the first live traffic, because a runaway is fast</summary>
 
 ```text
 Design the containment caps for this agent, and the tests that prove each one.
@@ -1556,7 +1554,7 @@ OUR AGENT AND ITS TOOLS: <paste>
 
 </details>
 
-<details><summary><b>Prompt · Work out what is actually stateful</b> — Before you write a DR plan, so it covers the right three things</summary>
+<details><summary><b>Prompt · Work out what is actually stateful</b>, Before you write a DR plan, so it covers the right three things</summary>
 
 ```text
 Given this architecture, tell me what cannot be rebuilt from the repository.
@@ -1582,7 +1580,7 @@ ARCHITECTURE: <paste>
 
 **Worked example · SkyWays · eleven minutes, known in advance**
 
-> Before cut-over the on-call engineer threw all four switches with a stopwatch: kill switch 40 seconds, flag to shadow 2 minutes, prompt rollback 3 minutes, model rollback 11 minutes because it redeploys the runtime. Those four numbers went into the runbook beside the date. On day 82, when the $2,000 refund surfaced, the question in the room was never *can we stop it* — it was *which switch*. Refunds went back to gated in two minutes while the tool signature was fixed properly over the next two days, and the rest of the assistant kept running, because the flags were per action. Nobody had to be brave.
+> Before cut-over the on-call engineer threw all four switches with a stopwatch: kill switch 40 seconds, flag to shadow 2 minutes, prompt rollback 3 minutes, model rollback 11 minutes because it redeploys the runtime. Those four numbers went into the runbook beside the date. On day 82, when the $2,000 refund surfaced, the question in the room was never *can we stop it*: it was *which switch*. Refunds went back to gated in two minutes while the tool signature was fixed properly over the next two days, and the rest of the assistant kept running, because the flags were per action. Nobody had to be brave.
 
 **Pitfalls**
 
@@ -1590,7 +1588,7 @@ ARCHITECTURE: <paste>
 - Rolling back the container and believing you rolled back the behaviour. The prompt version and the model version are separate artefacts, and the deploy you just reverted may not have touched either.
 - A kill switch that returns an error. It produces an outage instead of a queue, so the team hesitates to throw it, and the hesitation is the expensive part of every incident it was built for.
 
-**Done when** — Every rollback path has a measured time in the runbook next to the date it was last rehearsed, and a case that hits the loop cap or the cost cap ends in the desk queue with a metric rather than in a retry.
+**Done when**, Every rollback path has a measured time in the runbook next to the date it was last rehearsed, and a case that hits the loop cap or the cost cap ends in the desk queue with a metric rather than in a retry.
 
 ---
 

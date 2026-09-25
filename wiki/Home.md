@@ -9,15 +9,15 @@ with strong answers for AI product managers, forward deployed engineers, GenAI, 
 Each lesson opens with the answer, carries a picture, ends with how to apply it in your role, and
 credits its sources.
 
-**[▶ Start here](Start-Here)** · or go straight to **[What Is the Agentic PDLC? The P0–P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)**
+**[▶ Start here](Start-Here)** · or go straight to **[What Is the Agentic PDLC? The P0 to P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)**
 
 | Track | What it covers | Lessons |
 | --- | --- | --- |
 | **[Getting started](Tutorial-Getting-Started)** | What the agentic PDLC is, in one sitting, and how to get the most out of the lessons that follow. | 2 |
-| **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** | The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off — the model every other track builds on. | 9 |
+| **[Agentic PDLC fundamentals](Tutorial-Fundamentals)** | The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off: the model every other track builds on. | 9 |
 | **[Methods decoded](Tutorial-Methods-Decoded)** | AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide. | 7 |
 | **[Running delivery](Tutorial-Running-Delivery)** | The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems. | 13 |
-| **[By role](Tutorial-By-Role)** | How each discipline works in the agentic PDLC — product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not. | 9 |
+| **[By role](Tutorial-By-Role)** | How each discipline works in the agentic PDLC, product, programme, architecture, engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what changes, what is theirs, and what is not. | 9 |
 | **[Teams and organisation](Tutorial-Teams-and-Organisation)** | How to structure teams, measure productivity without fooling yourself, assess maturity by controls rather than tools, and roll the method out in ninety days. | 4 |
 | **[Practice](Tutorial-Practice)** | The SkyWays case study in thirteen episodes, the operating rhythm from daily to quarterly, the simulator, and twelve exercises with worked answers. | 4 |
 | **[Interviews and careers](Tutorial-Interviews-and-Careers)** | What a forward deployed engineer does, six frameworks for answering AI interview questions, and deep question banks with strong answers for AI product managers, forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles. | 7 |

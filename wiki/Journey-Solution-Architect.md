@@ -1,14 +1,12 @@
 # Solution architect · the journey, end to end
 
-<!-- tutorial:lesson -->*The short version is the lesson **[For solution architects](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)** — the whole role in one sitting. This page goes deeper.*<!-- /tutorial:lesson -->
-
 **From requirements to a system that holds**
 
 8 steps · 55 sub-steps · 8 templates · 24 prompts
 
 This is the reading copy. The [interactive version](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/) has a copy button on every template and prompt, which is what you want when you are actually doing the work.
 
-This page is the walk. For the standing definition of the job — what you own, what you may settle alone, what crosses your desk and how the role fails — see [Role Solution Architect](Role-Solution-Architect).
+This page is the walk. For the standing definition of the job, what you own, what you may settle alone, what crosses your desk and how the role fails, see [Role Solution Architect](Role-Solution-Architect).
 
 ---
 
@@ -31,34 +29,34 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |
-| 1 | P0 | [**Elicit** — Run two discovery meetings and credit every line](#1--elicit) | Credited requirements email |
-| 2 | P0 | [**Constrain** — Sort the constraints, then write every NFR as a scenario](#2--constrain) | Constraint register + candidate NFR scenarios |
-| 3 | P1 | [**Map** — Tag every step exact, best-guess or consequential](#3--map) | Exact / best-guess / consequential map |
-| 4 | P1 | [**Shape** — Decide how many agents, and how deep the process runs](#4--shape) | Agent-fit and process-depth decision |
-| 5 | P1 | [**Decide** — Merge the utility trees, then write only the ADRs that earn one](#5--decide) | Ratified NFR sheet + the ADRs at the sensitivity points |
-| 6 | P1 | [**Bound** — Set the authority budget before the token budget](#6--bound) | Authority budget + gate map |
-| 7 | P1 | [**Detail** — Layer the context, wrap the system, place the checker](#7--detail) | Layered context spec + server schema + checker placement |
-| — | P2 | *Answers against the map; does not re-open it* | — |
-| 8 | P3 | [**Evolve** — Make the running system cheap, auditable and able to redesign itself](#8--evolve) | Caching and routing config · redacted trace spec · the incident ADR |
+| 1 | P0 | [**Elicit**, Run two discovery meetings and credit every line](#1--elicit) | Credited requirements email |
+| 2 | P0 | [**Constrain**, Sort the constraints, then write every NFR as a scenario](#2--constrain) | Constraint register + candidate NFR scenarios |
+| 3 | P1 | [**Map**, Tag every step exact, best-guess or consequential](#3--map) | Exact / best-guess / consequential map |
+| 4 | P1 | [**Shape**, Decide how many agents, and how deep the process runs](#4--shape) | Agent-fit and process-depth decision |
+| 5 | P1 | [**Decide**, Merge the utility trees, then write only the ADRs that earn one](#5--decide) | Ratified NFR sheet + the ADRs at the sensitivity points |
+| 6 | P1 | [**Bound**, Set the authority budget before the token budget](#6--bound) | Authority budget + gate map |
+| 7 | P1 | [**Detail**, Layer the context, wrap the system, place the checker](#7--detail) | Layered context spec + server schema + checker placement |
+|  —  | P2 | *Answers against the map; does not re-open it* |  —  |
+| 8 | P3 | [**Evolve**, Make the running system cheap, auditable and able to redesign itself](#8--evolve) | Caching and routing config · redacted trace spec · the incident ADR |
 
 ## What is yours, and what is not
 
-| Yours to own | Not yours — stop signing these |
+| Yours to own | Not yours, stop signing these |
 | --- | --- |
-| The **ratified NFRs**, their sensitivity points, and the workshop that produces them | The **intent** and **release** gates — those are the product manager's, and your name on them dilutes the two you do hold |
-| The **exact / best-guess / consequential map**, and the proof each kind needs | Temperature, top-p, framework version, SDK call shape — you specify behaviours, engineering picks the knobs, and a knob in a design document is wrong at the next release |
-| The shape — how many agents, and the named limit that would justify another one | The golden set's contents and the judge rubric — QA curates the cases, you place the checker |
+| The **ratified NFRs**, their sensitivity points, and the workshop that produces them | The **intent** and **release** gates. Those are the product manager's, and your name on them dilutes the two you do hold |
+| The **exact / best-guess / consequential map**, and the proof each kind needs | Temperature, top-p, framework version, SDK call shape, you specify behaviours, engineering picks the knobs, and a knob in a design document is wrong at the next release |
+| The shape: how many agents, and the named limit that would justify another one | The golden set's contents and the judge rubric. QA curates the cases, you place the checker |
 | The **authority budget** and the gate map: every cap in a tool signature | Which pain is worth solving, and what a mistake costs the business |
 | The architecture decision records, one per trade-off point and nowhere else |  |
 | The **plan gate**, shared with the product manager, and the drift tests at every bolt |  |
 
 ## How to use a model in this role
 
-> Use a model where the work is **mechanical and checkable**, and nowhere near the trade-offs. It will turn two transcripts into a credited requirement register, rewrite nine adjectives as six-part scenarios, grep a repository for arithmetic hiding in prompts, and draft an MCP schema from an API surface — all of it faster than you and none of it beyond your ability to verify. It will also band a money tool R2 because the diff is one line, put everything in the shared context layer, and write an ADR whose rejected-options section flatters the decision you already made. Where a step below says *do not delegate*, the reason is always the same: the answer is a fact about your business, your regulator or your risk appetite, and the model has no way to know any of them.
+> Use a model where the work is **mechanical and checkable**, and nowhere near the trade-offs. It will turn two transcripts into a credited requirement register, rewrite nine adjectives as six-part scenarios, grep a repository for arithmetic hiding in prompts, and draft an MCP schema from an API surface, all of it faster than you and none of it beyond your ability to verify. It will also band a money tool R2 because the diff is one line, put everything in the shared context layer, and write an ADR whose rejected-options section flatters the decision you already made. Where a step below says *do not delegate*, the reason is always the same: the answer is a fact about your business, your regulator or your risk appetite, and the model has no way to know any of them.
 
 ---
 
-> **P0 · Frame begins here** — *is this worth doing, is it AI at all, and how much may the machine do?*
+> **P0 · Frame begins here**, *is this worth doing, is it AI at all, and how much may the machine do?*
 
 ## 1 · Elicit
 
@@ -70,19 +68,19 @@ Six people have a say, and putting all six in one room first is the mistake. You
 
 **What you actually do**
 
-1. **Split discovery in two, by proximity to the work** — The three most senior give you cost and control and no frontline view; the three closest to the work give you speed and systems and no compliance view. Either order works. What does not work is one room of six.
-2. **Read every requirement back, with the name attached** — Eleven minutes for thirty-one lines. The duplicates get read out four times and nobody objects, because each of the four belongs to somebody sitting there.
-3. **Refuse to consolidate on the whiteboard** — Live consolidation produces twelve clean lines and two people who spend the project believing theirs was deleted. Consolidation is an editing job and it belongs in the email, where the reasoning can sit beside it.
-4. **Send all the lines, credited, duplicates kept** — The consolidation goes underneath with its rationale. Sending only the twelve saves one page and costs an afternoon of replies, all asking the same question.
-5. **Flag the requirements that describe a model's behaviour** — Usually three of them. They cannot be satisfied by a function, and their acceptance will be a measured share rather than a pass or a fail — so the shape is settled here instead of argued in the sprint that has to test them.
-6. **Write down who was not in either room** — Name them, name the constraint they hold, and book the meeting. An unheard stakeholder is a late constraint, and a late constraint re-opens NFRs that were already ratified.
+1. **Split discovery in two, by proximity to the work**: The three most senior give you cost and control and no frontline view; the three closest to the work give you speed and systems and no compliance view. Either order works. What does not work is one room of six.
+2. **Read every requirement back, with the name attached**: Eleven minutes for thirty-one lines. The duplicates get read out four times and nobody objects, because each of the four belongs to somebody sitting there.
+3. **Refuse to consolidate on the whiteboard**: Live consolidation produces twelve clean lines and two people who spend the project believing theirs was deleted. Consolidation is an editing job and it belongs in the email, where the reasoning can sit beside it.
+4. **Send all the lines, credited, duplicates kept**: The consolidation goes underneath with its rationale. Sending only the twelve saves one page and costs an afternoon of replies, all asking the same question.
+5. **Flag the requirements that describe a model's behaviour**: Usually three of them. They cannot be satisfied by a function, and their acceptance will be a measured share rather than a pass or a fail, so the shape is settled here instead of argued in the sprint that has to test them.
+6. **Write down who was not in either room**: Name them, name the constraint they hold, and book the meeting. An unheard stakeholder is a late constraint, and a late constraint re-opens NFRs that were already ratified.
 
 **Where a model helps, and where it must not**
 
 | Tool | Use it for |
 | --- | --- |
 | **Chat LLM** | Paste both transcripts and ask for one row per distinct requirement with every speaker's name on it. It is very good at noticing that four people described one thing four ways.<br>⚠ It merges and drops attribution by default. Require a name on every line, then check the count: distinct rows plus duplicates should equal what you actually heard. |
-| **Claude Code** | Have it hold the register as a file — id, verbatim line, person, meeting — and generate the consolidation map from it, so the email is produced rather than retyped.<br>⚠ Make it assert that every source requirement appears in exactly one consolidated line. A requirement that appears in none is the one that comes back in week five. |
+| **Claude Code** | Have it hold the register as a file (id, verbatim line, person, meeting) and generate the consolidation map from it, so the email is produced rather than retyped.<br>⚠ Make it assert that every source requirement appears in exactly one consolidated line. A requirement that appears in none is the one that comes back in week five. |
 | **Chat LLM (cheap tier)** | Separate the requirements from the things that are not requirements: motivations, solutions and preferences. Three piles, and only one of them belongs in the email.<br>⚠ It accepts a solution as a requirement when it is phrased as one. Re-read every line that names a technology; almost none of them are requirements. |
 | **Do not delegate** | The read-back itself. The mechanism is a person hearing their own words said aloud with their name attached, and there is no version of that a model performs on your behalf. |
 
@@ -122,7 +120,7 @@ here. The consolidation follows underneath, with the reasoning for each merge.
 **Coverage:** every one of the <n> lines above appears in exactly one consolidated
 requirement. Nothing was dropped.
 
-## Conflicts — for the workshop, not for an editor
+## Conflicts: for the workshop, not for an editor
 | ID | Requirement A | Requirement B | Who holds each | Workshop item |
 |----|--------------|---------------|----------------|---------------|
 | X-1 | <FR-07, faster options> | <FR-22, lower cost per case> | <name> / <name> | <date> |
@@ -131,7 +129,7 @@ requirement. Nothing was dropped.
 These cannot be satisfied by a function. Their acceptance will be a measured share
 on real cases, not a pass or a fail, and they are flagged now so that nobody writes
 their acceptance criteria in the wrong shape.
-- FR-<n> — <why two competent people could differ>
+- FR-<n>: <why two competent people could differ>
 
 ## Raised, but not a requirement
 | Raised as | What it actually is | Where it went |
@@ -147,18 +145,18 @@ their acceptance criteria in the wrong shape.
 ## What happens next
 Constraints sorted by type on <date>. Candidate NFRs as six-part scenarios on
 <date>. The ratification workshop on <date>. Reply if a line is wrong, missing or
-credited to the wrong person — that correction is free now and expensive in week five.
+credited to the wrong person, that correction is free now and expensive in week five.
 ```
 
 </details>
 
-<details><summary><b>Prompt · Consolidate two discovery transcripts, credit intact</b> — After the second meeting, before you write the email</summary>
+<details><summary><b>Prompt · Consolidate two discovery transcripts, credit intact</b>, After the second meeting, before you write the email</summary>
 
 ```text
 You are helping a solution architect consolidate two discovery meetings about
 <problem area>.
 
-OUTPUT SHAPE — one markdown table, one row per DISTINCT requirement:
+OUTPUT SHAPE: one markdown table, one row per DISTINCT requirement:
 | FR id | The requirement, in the words it was raised | Everyone who raised it (names) | Meeting(s) |
 
 RULES:
@@ -173,16 +171,16 @@ RULES:
   these are requirements.
 - Finish with three counts: distinct requirements, total lines heard, names credited.
 
-TRANSCRIPT 1 — <who was in the room>:
+TRANSCRIPT 1, <who was in the room>:
 <paste>
 
-TRANSCRIPT 2 — <who was in the room>:
+TRANSCRIPT 2, <who was in the room>:
 <paste>
 ```
 
 </details>
 
-<details><summary><b>Prompt · Build the consolidation map, and prove it is complete</b> — You have the full credited list and need the short one</summary>
+<details><summary><b>Prompt · Build the consolidation map, and prove it is complete</b>, You have the full credited list and need the short one</summary>
 
 ```text
 Here is the full credited requirement list: <paste>.
@@ -207,7 +205,7 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Find the requirements that describe a model's behaviour</b> — Before the constraint review, so acceptance is shaped correctly</summary>
+<details><summary><b>Prompt · Find the requirements that describe a model's behaviour</b>, Before the constraint review, so acceptance is shaped correctly</summary>
 
 ```text
 Below is a consolidated functional requirement list: <paste>.
@@ -236,7 +234,7 @@ list has not been consolidated tightly enough.
 
 **Worked example · SkyWays · thirty-one lines from six people**
 
-> Day one, the three closest to the work: seventeen requirements, eleven of them about speed and the systems the assistant would have to touch, and no compliance view at all. Day two, the other three, opening with a credited read-back of day one: fourteen more, nine about cost and control. **Thirty-one lines from six people**, four of which were the same requirement said four ways. The read-back took eleven minutes and every duplicate was read out with its author's name on it. The email went on day four with all thirty-one lines and the consolidation to twelve underneath. Nobody replied asking where their requirement had gone. One line — *every refund must be attributable to a person*, from compliance — became the $400 cap two days later, and it was on the list only because somebody who was not in the first meeting was invited to the second.
+> Day one, the three closest to the work: seventeen requirements, eleven of them about speed and the systems the assistant would have to touch, and no compliance view at all. Day two, the other three, opening with a credited read-back of day one: fourteen more, nine about cost and control. **Thirty-one lines from six people**, four of which were the same requirement said four ways. The read-back took eleven minutes and every duplicate was read out with its author's name on it. The email went on day four with all thirty-one lines and the consolidation to twelve underneath. Nobody replied asking where their requirement had gone. One line (*every refund must be attributable to a person*, from compliance) became the $400 cap two days later, and it was on the list only because somebody who was not in the first meeting was invited to the second.
 
 **Pitfalls**
 
@@ -244,7 +242,7 @@ list has not been consolidated tightly enough.
 - Consolidating live, in front of everyone. The whiteboard version looks efficient and it produces two stakeholders who believe their requirement was deleted, which surfaces as resistance later.
 - Sending only the consolidated list. It saves one page and costs an afternoon of replies, and every reply is the same question about where a line went.
 
-**Done when** — Any of the six can open the email, find their own words verbatim with their name beside them, and follow the line to the consolidated requirement it became.
+**Done when**, Any of the six can open the email, find their own words verbatim with their name beside them, and follow the line to the consolidated requirement it became.
 
 ---
 
@@ -254,17 +252,17 @@ list has not been consolidated tightly enough.
 
 *Days six to nine, and never after ratification*
 
-A constraint can make a quality target impossible, so constraints come first — and they are sorted **by type**, because the type decides what each one does to the design. A technical constraint reshapes the integration, a regulatory one becomes a number inside a tool signature, and a commercial one bounds the tier you may choose. Only then the quality requirements, written as six-part scenarios, because an adjective cannot be tested, ranked or traded off. Two of them are the ones teams forget to write and then need: the **autonomy level** and the **cost per case**.
+A constraint can make a quality target impossible, so constraints come first, and they are sorted **by type**, because the type decides what each one does to the design. A technical constraint reshapes the integration, a regulatory one becomes a number inside a tool signature, and a commercial one bounds the tier you may choose. Only then the quality requirements, written as six-part scenarios, because an adjective cannot be tested, ranked or traded off. Two of them are the ones teams forget to write and then need: the **autonomy level** and the **cost per case**.
 
 **What you actually do**
 
-1. **Sort every constraint into technical, regulatory or commercial** — The type is not a filing convenience. Regulatory becomes a typed parameter, technical forces an adapter or a server in front of something, commercial bounds the model tier and therefore the latency you can promise.
-2. **Strike the motivations that are pretending to be constraints** — *No headcount this year* does not bound the design; it is the reason the assistant exists, and it belongs in the pain register. The test is whether the line names a design it rules out.
-3. **Turn each regulatory constraint into a number and a place** — Refunds over $400 need a named approver is a number and a location — a typed parameter and a token the model cannot mint. Left as a sentence it stays a sentence, and a sentence is what a postmortem finds missing.
-4. **Write every candidate NFR in six parts** — Source, stimulus, artefact, environment, response, measure. The part everyone omits is environment — under what load, at what hour, in what degraded state — and its absence is precisely what makes a latency target arguable for two hours.
-5. **Add autonomy level and cost per case to the candidate list** — Both are quality attributes and both are measurable. A ratified cost per case is what makes an unexpected bill a monitored number with an alert rather than a surprise arriving four weeks late.
-6. **Ground every measure in something real before the workshop** — Pull the current P95 from the request log. A measure invented in the room is ratified in the room and missed in production, and nobody can say when it became unachievable.
-7. **Hold the constraint review before anything is ratified** — Ratify first and add constraints after, and the room signs a latency target the legacy adapter cannot meet. Then the workshop is held twice, with the same six people.
+1. **Sort every constraint into technical, regulatory or commercial**: The type is not a filing convenience. Regulatory becomes a typed parameter, technical forces an adapter or a server in front of something, commercial bounds the model tier and therefore the latency you can promise.
+2. **Strike the motivations that are pretending to be constraints**: *No headcount this year* does not bound the design; it is the reason the assistant exists, and it belongs in the pain register. The test is whether the line names a design it rules out.
+3. **Turn each regulatory constraint into a number and a place**: Refunds over $400 need a named approver is a number and a location, a typed parameter and a token the model cannot mint. Left as a sentence it stays a sentence, and a sentence is what a postmortem finds missing.
+4. **Write every candidate NFR in six parts**: Source, stimulus, artefact, environment, response, measure. The part everyone omits is environment (under what load, at what hour, in what degraded state) and its absence is precisely what makes a latency target arguable for two hours.
+5. **Add autonomy level and cost per case to the candidate list**: Both are quality attributes and both are measurable. A ratified cost per case is what makes an unexpected bill a monitored number with an alert rather than a surprise arriving four weeks late.
+6. **Ground every measure in something real before the workshop**: Pull the current P95 from the request log. A measure invented in the room is ratified in the room and missed in production, and nobody can say when it became unachievable.
+7. **Hold the constraint review before anything is ratified**: Ratify first and add constraints after, and the room signs a latency target the legacy adapter cannot meet. Then the workshop is held twice, with the same six people.
 
 **Where a model helps, and where it must not**
 
@@ -318,8 +316,8 @@ be empty, it is not a constraint.
 | Response | <proposes ranked alternatives> |
 | Measure | <within 30 seconds at P95> |
 
-_Measure grounded in:_ <request log, <date> — today's P95 is <n>s>
-_Constraint it must respect:_ <C-2 — the adapter adds <n>s>
+_Measure grounded in:_ <request log, <date>, today's P95 is <n>s>
+_Constraint it must respect:_ <C-2, the adapter adds <n>s>
 
 ### NFR-<n> · autonomy level
 | Part | Value |
@@ -350,7 +348,7 @@ _Constraint it must respect:_ <C-2 — the adapter adds <n>s>
 
 </details>
 
-<details><summary><b>Prompt · Adjective to six-part scenario</b> — You have a list of quality requirements and none of them can be tested</summary>
+<details><summary><b>Prompt · Adjective to six-part scenario</b>, You have a list of quality requirements and none of them can be tested</summary>
 
 ```text
 Rewrite each quality requirement below as a six-part scenario.
@@ -368,7 +366,7 @@ RULES:
 - Never invent a number. Where the original has no measure, write
   <MEASURE NOT STATED> and collect it in a list at the end.
 - Never invent an environment. Write <ENVIRONMENT NOT STATED>. Do NOT write "under
-  normal load" — that is the invented clause that gets ratified and then argued about
+  normal load". That is the invented clause that gets ratified and then argued about
   for the rest of the project.
 - The MEASURE must carry a statistic: P95, per case, per week, percentage of a named
   slice. "Fast" and "under 30 seconds" are both unfinished, for different reasons.
@@ -382,7 +380,7 @@ REQUIREMENTS:
 
 </details>
 
-<details><summary><b>Prompt · Sort a constraint list, and test every line</b> — You have a dump of constraints from four sources</summary>
+<details><summary><b>Prompt · Sort a constraint list, and test every line</b>, You have a dump of constraints from four sources</summary>
 
 ```text
 Sort the lines below into TECHNICAL, REGULATORY, COMMERCIAL or NOT A CONSTRAINT.
@@ -409,14 +407,14 @@ LINES:
 
 </details>
 
-<details><summary><b>Prompt · Write the two NFRs everyone forgets</b> — Your candidate list is complete and you suspect it is not</summary>
+<details><summary><b>Prompt · Write the two NFRs everyone forgets</b>, Your candidate list is complete and you suspect it is not</summary>
 
 ```text
 I am writing candidate NFRs for <feature>. I have <n> so far, listed below.
 
 Write exactly two more, as six-part scenarios, and only these two:
-1. AUTONOMY LEVEL — what the system may do without a person, per action.
-2. COST PER CASE — the run cost of one completed case, across every model call.
+1. AUTONOMY LEVEL: what the system may do without a person, per action.
+2. COST PER CASE: the run cost of one completed case, across every model call.
 
 RULES:
 - Both must be measurable and both must carry a number in the MEASURE part.
@@ -439,7 +437,7 @@ MY CURRENT LIST:
 
 **Worked example · SkyWays · the sentence that should have been a signature**
 
-> Day six, the constraints went up sorted by type. Regulatory: **every refund over $400 needs a named approver**, and *passenger data stays in region*. Technical: the reservation system exposes SOAP only, which decided the integration shape before anyone argued about it. Commercial: a licence ceiling that later became a weight in the build/buy/borrow matrix. One line — *no headcount this year* — was struck as a motivation and moved to the pain register. Nine candidates went into the workshop as six-part scenarios, and two of them, **autonomy level** and **cost per case at $0.60**, were on the list only because someone asked what was missing. The $400 was a number from day six. It was still only a number in a document on day 82, when a $2,000 refund went out with neither the cap nor the approver anywhere in the code — which is a failure of step six, not of this one, and the difference is worth being precise about.
+> Day six, the constraints went up sorted by type. Regulatory: **every refund over $400 needs a named approver**, and *passenger data stays in region*. Technical: the reservation system exposes SOAP only, which decided the integration shape before anyone argued about it. Commercial: a licence ceiling that later became a weight in the build/buy/borrow matrix. One line, *no headcount this year*, was struck as a motivation and moved to the pain register. Nine candidates went into the workshop as six-part scenarios, and two of them, **autonomy level** and **cost per case at $0.60**, were on the list only because someone asked what was missing. The $400 was a number from day six. It was still only a number in a document on day 82, when a $2,000 refund went out with neither the cap nor the approver anywhere in the code, which is a failure of step six, not of this one, and the difference is worth being precise about.
 
 **Pitfalls**
 
@@ -447,11 +445,11 @@ MY CURRENT LIST:
 - An NFR that is an adjective. *Fast*, *reliable* and *secure* survive the workshop because nobody can disagree with them, and then they cannot be tested, ranked or traded against anything.
 - Leaving cost per case off the candidate list. It is the quality attribute that arrives as an invoice, and a number nobody ratified is a number nobody monitors.
 
-**Done when** — Every candidate NFR has all six parts with a statistic in the measure and a source for that number, and every line on the constraint register names a design it rules out.
+**Done when**, Every candidate NFR has all six parts with a statistic in the measure and a source for that number, and every line on the constraint register names a design it rules out.
 
 ---
 
-> **P1 · Design & Spec begins here** — *what exactly is being built, and under whose authority?*
+> **P1 · Design & Spec begins here**, *what exactly is being built, and under whose authority?*
 
 ## 3 · Map
 
@@ -459,24 +457,24 @@ MY CURRENT LIST:
 
 *P0, the first design artefact, and it takes an hour for one feature*
 
-The product manager sorted the feature — this is a judgement, this is arithmetic. That is right and it is not enough. You sort at the level of **every step**, and you add the column that decides both what gets built and how it gets proven. Exact steps are functions proven by a unit test. Best-guess steps are model calls proven by a measured share on real cases. Consequential steps are a tool plus a gate, proven by a required confirmation. Choosing the kind of evidence each step will need, before anybody builds it, is what the artefact is for.
+The product manager sorted the feature. This is a judgement, this is arithmetic. That is right and it is not enough. You sort at the level of **every step**, and you add the column that decides both what gets built and how it gets proven. Exact steps are functions proven by a unit test. Best-guess steps are model calls proven by a measured share on real cases. Consequential steps are a tool plus a gate, proven by a required confirmation. Choosing the kind of evidence each step will need, before anybody builds it, is what the artefact is for.
 
 **What you actually do**
 
-1. **List steps, not features** — Read the booking, find candidates, compute the fare difference, check eligibility, draft the message, rebook, refund. Seven rows for one feature is normal, and the rows are where the design actually lives.
-2. **Tag each step exact, best-guess or consequential** — Exact means right every single time. Best-guess means right a share of the time. Consequential means it changes something real, and a step is often consequential as well as one of the other two rather than instead of it.
-3. **Fill the proof column before anything else** — A unit test, a measured share on a named slice, or a required confirmation. Engineering builds from the kind column and QA builds their test plan from the proof column, which is what makes an hour's work worth an hour.
-4. **Draw the data flow and mark where numbers cross** — Numbers flow from an exact step into a best-guess one and never the other way. Drawing the arrows is how you find the step that computes a value and then acts on it.
-5. **Apply the rule that never breaks** — The best-guess machine never does the exact math. The model may call the function and read the result; it never computes the value it then acts on. A fluent wrong number is the failure no prompt-level test catches — $80 when the ledger says $62.
-6. **Grep the prompts for calculate, compute and total** — Each hit is a function waiting to exist. It takes ten minutes and it is the most reliably productive ten minutes available to this role.
-7. **Hand the map to QA as their test plan** — The proof column is already the shape of their work: which steps need assertions, which need a golden slice with a bar, and which need a confirmation test that fails closed.
+1. **List steps, not features**: Read the booking, find candidates, compute the fare difference, check eligibility, draft the message, rebook, refund. Seven rows for one feature is normal, and the rows are where the design actually lives.
+2. **Tag each step exact, best-guess or consequential**: Exact means right every single time. Best-guess means right a share of the time. Consequential means it changes something real, and a step is often consequential as well as one of the other two rather than instead of it.
+3. **Fill the proof column before anything else**: A unit test, a measured share on a named slice, or a required confirmation. Engineering builds from the kind column and QA builds their test plan from the proof column, which is what makes an hour's work worth an hour.
+4. **Draw the data flow and mark where numbers cross**: Numbers flow from an exact step into a best-guess one and never the other way. Drawing the arrows is how you find the step that computes a value and then acts on it.
+5. **Apply the rule that never breaks**: The best-guess machine never does the exact math. The model may call the function and read the result; it never computes the value it then acts on. A fluent wrong number is the failure no prompt-level test catches, $80 when the ledger says $62.
+6. **Grep the prompts for calculate, compute and total**: Each hit is a function waiting to exist. It takes ten minutes and it is the most reliably productive ten minutes available to this role.
+7. **Hand the map to QA as their test plan**: The proof column is already the shape of their work: which steps need assertions, which need a golden slice with a bar, and which need a confirmation test that fails closed.
 
 **Where a model helps, and where it must not**
 
 | Tool | Use it for |
 | --- | --- |
 | **Chat LLM** | Give it the step list and the three definitions and ask for a tagged table with the proof column filled. A good first pass on an unfamiliar feature, and it surfaces steps you had quietly folded together.<br>⚠ It under-uses **consequential**. Re-read every row: anything that writes, sends, books, cancels or moves money is consequential whatever else it also is. |
-| **Claude Code** | Have it search the repository — prompt files, system messages, tool descriptions, long string literals — for arithmetic verbs and currency symbols, and list every hit with its file and line.<br>⚠ It matches vocabulary, not intent. *Tell the passenger what they owe* is arithmetic in a prompt and contains none of the words you searched for. |
+| **Claude Code** | Have it search the repository (prompt files, system messages, tool descriptions, long string literals) for arithmetic verbs and currency symbols, and list every hit with its file and line.<br>⚠ It matches vocabulary, not intent. *Tell the passenger what they owe* is arithmetic in a prompt and contains none of the words you searched for. |
 | **Chat LLM, adversarially** | Ask it to find the step that is doing two things at once. A step you cannot classify is almost always a judgement and a calculation bundled into one call, and both halves classify immediately once they are separated. |
 | **Do not delegate** | Deciding what counts as money. Whether a fee waiver, a goodwill credit or a seat upgrade is a consequential action is a fact about your business, and the model guesses from the wording of the step. |
 
@@ -539,15 +537,15 @@ Acted-on values are the urgent list. Displayed-only values can wait a cycle.
 
 </details>
 
-<details><summary><b>Prompt · Tag a feature's steps, with the proof column</b> — You have the step list and need the map in front of engineering today</summary>
+<details><summary><b>Prompt · Tag a feature's steps, with the proof column</b>, You have the step list and need the map in front of engineering today</summary>
 
 ```text
 Tag every step of this feature. Use exactly three kinds.
 
-EXACT — must be right every single time. Built as a function. Proven by a unit test.
-BEST-GUESS — right a share of the time. Built as a model call. Proven by a measured
+EXACT: must be right every single time. Built as a function. Proven by a unit test.
+BEST-GUESS: right a share of the time. Built as a model call. Proven by a measured
   share on real cases.
-CONSEQUENTIAL — changes something real. Built as a tool PLUS a gate. Proven by a
+CONSEQUENTIAL: changes something real. Built as a tool PLUS a gate. Proven by a
   required confirmation.
 
 OUTPUT SHAPE, one table:
@@ -573,7 +571,7 @@ STEPS:
 
 </details>
 
-<details><summary><b>Prompt · Find the arithmetic hiding in the prompts</b> — Monday morning, on any repository that already has an agent in it</summary>
+<details><summary><b>Prompt · Find the arithmetic hiding in the prompts</b>, Monday morning, on any repository that already has an agent in it</summary>
 
 ```text
 Search this repository for arithmetic that lives in a prompt instead of in code.
@@ -599,7 +597,7 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Split the step that does two things</b> — One step will not classify and the map is stuck on it</summary>
+<details><summary><b>Prompt · Split the step that does two things</b>, One step will not classify and the map is stuck on it</summary>
 
 ```text
 This step resisted classification as exact, best-guess or consequential:
@@ -611,21 +609,21 @@ judgement and a calculation, or a judgement and a write.
 
 1. Name the two things it is doing.
 2. Split it into two steps and classify each.
-3. For the exact half, write the function signature — name, typed parameters, return
-   type — and the one unit test that would prove it.
+3. For the exact half, write the function signature (name, typed parameters, return
+   type) and the one unit test that would prove it.
 4. For the best-guess half, write what it is deciding in one sentence, and the slice
    its measured share would be reported on.
 5. State what may pass between them, and in which direction.
 
 If it genuinely is one thing, say so, tell me which kind it is, and tell me why the
-classification felt hard — that reason is usually itself a finding.
+classification felt hard, that reason is usually itself a finding.
 ```
 
 </details>
 
 **Worked example · SkyWays · the row that was worth the hour**
 
-> Seven steps, three kinds. Reading the booking, checking visa and codeshare eligibility and computing the fare difference came out **exact** — lookups and rules, proven by unit tests. Ranking the alternatives and drafting the passenger message came out **best-guess**, proven by a measured share with the codeshare bar at 80%. Rebooking the seat and issuing a refund came out **consequential**: a tool plus a gate, proven by a confirmation. The row that paid for the whole artefact was the fare difference. It had been sitting inside a prompt as *work out what they owe*, and a prompt that computes money produces $80 when the ledger says $62 — fluently, with no error and no red test. Ten minutes of grepping found two more like it in the same feature.
+> Seven steps, three kinds. Reading the booking, checking visa and codeshare eligibility and computing the fare difference came out **exact**: lookups and rules, proven by unit tests. Ranking the alternatives and drafting the passenger message came out **best-guess**, proven by a measured share with the codeshare bar at 80%. Rebooking the seat and issuing a refund came out **consequential**: a tool plus a gate, proven by a confirmation. The row that paid for the whole artefact was the fare difference. It had been sitting inside a prompt as *work out what they owe*, and a prompt that computes money produces $80 when the ledger says $62, fluently, with no error and no red test. Ten minutes of grepping found two more like it in the same feature.
 
 **Pitfalls**
 
@@ -633,7 +631,7 @@ classification felt hard — that reason is usually itself a finding.
 - A prompt that computes a number the agent then acts on. It fails fluently, with no exception and no red test, and the first person to notice is the passenger reading the wrong figure.
 - Filling the kind column and leaving the proof column for later. Later is the sprint where QA asks what good looks like for step four, and the answer gets invented under deadline pressure.
 
-**Done when** — Every step has a kind and a proof, and a grep of the prompts for arithmetic verbs and currency symbols returns nothing whose value the agent then acts on.
+**Done when**, Every step has a kind and a proof, and a grep of the prompts for arithmetic verbs and currency symbols returns nothing whose value the agent then acts on.
 
 ---
 
@@ -643,17 +641,17 @@ classification felt hard — that reason is usually itself a finding.
 
 *P0, straight after the map and before any framework is named*
 
-Leadership said agent-first and an engineer has built fifteen agents to show what is possible. Your answer is a number and a condition. **Start single, escalate only on a named limit** — because each added agent is another context to manage and another hand-off to get wrong, and n agents have **n(n-1)/2** possible hand-offs between them. The same judgement governs process: run only the lifecycle stages a given change actually needs, decided per change rather than per programme.
+Leadership said agent-first and an engineer has built fifteen agents to show what is possible. Your answer is a number and a condition. **Start single, escalate only on a named limit**, because each added agent is another context to manage and another hand-off to get wrong, and n agents have **n(n-1)/2** possible hand-offs between them. The same judgement governs process: run only the lifecycle stages a given change actually needs, decided per change rather than per programme.
 
 **What you actually do**
 
-1. **Start single, and put the burden of proof on the second agent** — One agent with its tools handles almost every feature. The default is not a preference; it is the only position that makes an addition explain itself.
-2. **Count the hand-offs before agreeing to any topology** — Five agents have ten possible hand-offs, fifteen have a hundred and five, and none of them appears in the diagram. Coordination cost grows faster than the work it splits.
-3. **Test every proposed agent against a fan-out tool** — Parallelism is a property of a **tool**, not of an agent count. Four partner searches run at once inside one call with zero hand-offs; as four agents they cost six.
-4. **Separate out the roles that are not agents at all** — The pricer is exact work and becomes a function. The reviewer is the one separation that usually earns itself, because independence is the entire mechanism of a checker.
-5. **Write the escalation condition as a limit with a number in it** — *We move to an orchestrator when a single context exceeds X on multi-leg international* is a decision. *We might need more agents later* is how a swarm comes back by default the first time somebody wants more speed.
-6. **Set the process depth per change, not per programme** — A one-line fix skips discovery and most design; a new subsystem runs everything; a regulatory rule change runs design and validation and no discovery. The living spec is the backbone on every row.
-7. **Put 'revisit at the trace review' on the record** — Shape is re-decided on evidence, and the evidence arrives in production. A shape decision with no review date hardens into an assumption nobody remembers making.
+1. **Start single, and put the burden of proof on the second agent**: One agent with its tools handles almost every feature. The default is not a preference; it is the only position that makes an addition explain itself.
+2. **Count the hand-offs before agreeing to any topology**: Five agents have ten possible hand-offs, fifteen have a hundred and five, and none of them appears in the diagram. Coordination cost grows faster than the work it splits.
+3. **Test every proposed agent against a fan-out tool**: Parallelism is a property of a **tool**, not of an agent count. Four partner searches run at once inside one call with zero hand-offs; as four agents they cost six.
+4. **Separate out the roles that are not agents at all**: The pricer is exact work and becomes a function. The reviewer is the one separation that usually earns itself, because independence is the entire mechanism of a checker.
+5. **Write the escalation condition as a limit with a number in it**: *We move to an orchestrator when a single context exceeds X on multi-leg international* is a decision. *We might need more agents later* is how a swarm comes back by default the first time somebody wants more speed.
+6. **Set the process depth per change, not per programme**: A one-line fix skips discovery and most design; a new subsystem runs everything; a regulatory rule change runs design and validation and no discovery. The living spec is the backbone on every row.
+7. **Put 'revisit at the trace review' on the record**: Shape is re-decided on evidence, and the evidence arrives in production. A shape decision with no review date hardens into an assumption nobody remembers making.
 
 **Where a model helps, and where it must not**
 
@@ -681,10 +679,10 @@ _Decided: <date> · Owner: <name> · Revisit at: the P3 trace review_
 ## How many agents
 | Question | Answer | Evidence |
 |----------|--------|----------|
-| Is this AI at all? | <yes — the PM's AI-fit record> | <link> |
+| Is this AI at all? | <yes: the PM's AI-fit record> | <link> |
 | How many agents? | **<n>, with tools** | |
-| Does one context genuinely overload? | <no — largest case measured at <n> tokens against a <n> limit> | <measurement, date> |
-| Are there parallel sub-tasks a fan-out tool cannot express? | <no — <n> partner searches run inside one tool> | |
+| Does one context genuinely overload? | <no: largest case measured at <n> tokens against a <n> limit> | <measurement, date> |
+| Are there parallel sub-tasks a fan-out tool cannot express? | <no: <n> partner searches run inside one tool> | |
 | Is the build audited and multi-team? | <no> | |
 
 ## The hand-off arithmetic
@@ -700,7 +698,7 @@ diagram that made the design look reasonable.
 ## What was proposed, and what it actually is
 | Proposed agent | What it really is | Where it goes |
 |----------------|-------------------|---------------|
-| <the pricer> | exact work | a function — map, step <n> |
+| <the pricer> | exact work | a function, map, step <n> |
 | <the searcher> | parallelism | a fan-out tool, <n> calls in one |
 | <the reviewer> | independence | a checker: different model, or fresh adversarial context |
 | <the planner> | the agent itself | the single agent |
@@ -727,7 +725,7 @@ layered on only where the work is audited and multi-team. Depth flexes per chang
 
 </details>
 
-<details><summary><b>Prompt · Collapse a proposed topology</b> — Someone has proposed several agents and you have to answer today</summary>
+<details><summary><b>Prompt · Collapse a proposed topology</b>, Someone has proposed several agents and you have to answer today</summary>
 
 ```text
 Here is a proposed multi-agent design: <paste, including each agent's job>.
@@ -739,7 +737,7 @@ OUTPUT SHAPE:
    Allowed values for the middle column: EXACT WORK (a function) · PARALLELISM (a
    fan-out tool) · INDEPENDENCE (a checker) · THE AGENT ITSELF · GENUINELY A SECOND AGENT.
 2. The hand-off count for each design, computed as n(n-1)/2, with n stated.
-3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it — a number,
+3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it, a number,
    not an adjective.
 
 RULES:
@@ -754,13 +752,13 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Write the escalation condition</b> — Before the shape decision goes on the record</summary>
+<details><summary><b>Prompt · Write the escalation condition</b>, Before the shape decision goes on the record</summary>
 
 ```text
 I am recording a single-agent design for <feature>. Write the escalation condition
 that would justify moving to an orchestrator with workers.
 
-OUTPUT SHAPE — exactly two bullets, each in this form:
+OUTPUT SHAPE: exactly two bullets, each in this form:
   "We move to <topology> when <measurable thing> exceeds <number> on <named case class>."
 
 Then, below them:
@@ -781,7 +779,7 @@ latency budget, how many parallel calls the fan-out tool makes>
 
 </details>
 
-<details><summary><b>Prompt · Assign a depth row to this week's changes</b> — The team wants one process for everything</summary>
+<details><summary><b>Prompt · Assign a depth row to this week's changes</b>, The team wants one process for everything</summary>
 
 ```text
 Here are the changes my team has in flight: <paste, one per line>.
@@ -791,7 +789,7 @@ Assign each a process depth. Run only the lifecycle stages the change actually n
 OUTPUT SHAPE, one table:
 | Change | P0 | P1 | P2 | P3 | Method weight | The stage I am skipping, and why that is safe |
 
-Allowed cell values: full · yes · light · —
+Allowed cell values: full · yes · light ·, 
 
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
@@ -808,7 +806,7 @@ RULES:
 
 **Worked example · SkyWays · fifteen agents, a hundred and five hand-offs**
 
-> An engineer had built fifteen agents to show what the framework could do. The collapse took an afternoon and one table. The pricer was exact work and became a function. The searcher was parallelism and became a fan-out tool running four partner queries inside a single call. The planner was the agent itself. Only the reviewer survived as something separate, because independence is the entire mechanism of a checker. One agent, one fan-out tool, one function and one checker — **zero hand-offs against a hundred and five**. The line that mattered most went on the record underneath: an orchestrator when a single context exceeds the measured limit on multi-leg international cases, or when more than three partner calls must run in parallel and one tool cannot express it. Without a number in that sentence the swarm returns by default, and it returns with a reasonable explanation attached.
+> An engineer had built fifteen agents to show what the framework could do. The collapse took an afternoon and one table. The pricer was exact work and became a function. The searcher was parallelism and became a fan-out tool running four partner queries inside a single call. The planner was the agent itself. Only the reviewer survived as something separate, because independence is the entire mechanism of a checker. One agent, one fan-out tool, one function and one checker, **zero hand-offs against a hundred and five**. The line that mattered most went on the record underneath: an orchestrator when a single context exceeds the measured limit on multi-leg international cases, or when more than three partner calls must run in parallel and one tool cannot express it. Without a number in that sentence the swarm returns by default, and it returns with a reasonable explanation attached.
 
 **Pitfalls**
 
@@ -816,7 +814,7 @@ RULES:
 - Buying parallelism with agents. Four partner searches run at once inside one fan-out tool with no hand-offs at all; as four agents they cost six hand-offs, a coordinator and four contexts.
 - One process weight for the whole programme. Heavy ceremony on a one-line fix is twelve personas between an engineer and a change, and light ceremony on the audited module is the audit finding.
 
-**Done when** — The record states a number of agents, the hand-off count that number implies, and a limit with a figure in it that would justify the next one.
+**Done when**, The record states a number of agents, the hand-off count that number implies, and a limit with a figure in it that would justify the next one.
 
 ---
 
@@ -826,17 +824,17 @@ RULES:
 
 *Day nine, the ratification workshop, and the dated records that follow it*
 
-Nine candidates, six people, two hours. Without the trees the room argues about words and runs out of time exactly on the contested items; with them, the uncontested NFRs go through in twenty minutes and the remaining hundred go to the conflicts, which are the only reason six people were needed at once. A conflict is not a difference of taste. It is a **priority gap of five or more between two stakeholders**, and each one owes a decision record. Records are written at trade-off points and nowhere else — forty records in a week buries the three that mattered.
+Nine candidates, six people, two hours. Without the trees the room argues about words and runs out of time exactly on the contested items; with them, the uncontested NFRs go through in twenty minutes and the remaining hundred go to the conflicts, which are the only reason six people were needed at once. A conflict is not a difference of taste. It is a **priority gap of five or more between two stakeholders**, and each one owes a decision record. Records are written at trade-off points and nowhere else, forty records in a week buries the three that mattered.
 
 **What you actually do**
 
-1. **Score every candidate on value and complexity, per stakeholder** — One to three on each, from each person's own point of view. The scoring is quick; the value is that two people who would have argued now disagree in a column you can read.
-2. **Compute priority = value × (4 − complexity) and merge the trees** — The formula rewards high value at low difficulty, which is the order a workshop should actually take things in. Merging is what turns six opinions into one agenda.
-3. **Mark every gap of five or more as a conflict** — Below five it is a difference of emphasis and the room will settle it in a minute. At five and above there is a genuine trade-off underneath, and that is what a record is for.
-4. **Ratify the uncontested candidates first, as one block** — Six go through in twenty minutes because the trees already agree. Working down the list in order at thirteen minutes each runs out of time precisely on the conflicts.
-5. **Name the sensitivity points and give each a date for its record** — A sensitivity point is rated high on both importance and difficulty: one design decision changes the outcome. Stop at the ratified list and in week three somebody re-opens the model tier with no record of why it was settled.
-6. **Write a record only where there was a trade-off** — An ADR is earned by a decision that could reasonably have gone the other way. A record for every decision is the same as none, because the three that matter are unfindable.
-7. **Run build, buy or borrow as a matrix, a three-year cost, a door and a flip test** — Weights come from the ratified NFRs, so you are not inventing them. Count the people and not just the licence, and assess whether the decision is a one-way door before you let the score decide.
+1. **Score every candidate on value and complexity, per stakeholder**: One to three on each, from each person's own point of view. The scoring is quick; the value is that two people who would have argued now disagree in a column you can read.
+2. **Compute priority = value × (4 − complexity) and merge the trees**: The formula rewards high value at low difficulty, which is the order a workshop should actually take things in. Merging is what turns six opinions into one agenda.
+3. **Mark every gap of five or more as a conflict**: Below five it is a difference of emphasis and the room will settle it in a minute. At five and above there is a genuine trade-off underneath, and that is what a record is for.
+4. **Ratify the uncontested candidates first, as one block**: Six go through in twenty minutes because the trees already agree. Working down the list in order at thirteen minutes each runs out of time precisely on the conflicts.
+5. **Name the sensitivity points and give each a date for its record**: A sensitivity point is rated high on both importance and difficulty: one design decision changes the outcome. Stop at the ratified list and in week three somebody re-opens the model tier with no record of why it was settled.
+6. **Write a record only where there was a trade-off**: An ADR is earned by a decision that could reasonably have gone the other way. A record for every decision is the same as none, because the three that matter are unfindable.
+7. **Run build, buy or borrow as a matrix, a three-year cost, a door and a flip test**: Weights come from the ratified NFRs, so you are not inventing them. Count the people and not just the licence, and assess whether the decision is a one-way door before you let the score decide.
 
 **Where a model helps, and where it must not**
 
@@ -867,14 +865,14 @@ _Workshop: <n> people, <n> candidates, two hours · Chair: <name>_
 | NFR | <frontline> | <compliance> | <finance> | <ops> | Gap | Conflict? |
 |-----|------------|--------------|-----------|-------|-----|-----------|
 | <latency 30s P95> | <6> | <2> | <2> | <4> | <4> | no |
-| <cost per case $0.60> | <1> | <2> | <9> | <3> | <8> | **yes — ADR-<n>** |
-| <accuracy 80% codeshare> | <9> | <6> | <2> | <6> | <7> | **yes — ADR-<n>** |
-| <refunds over $400 approved> | <2> | <9> | <4> | <3> | <7> | **yes — ADR-<n>** |
+| <cost per case $0.60> | <1> | <2> | <9> | <3> | <8> | **yes. ADR-<n>** |
+| <accuracy 80% codeshare> | <9> | <6> | <2> | <6> | <7> | **yes. ADR-<n>** |
+| <refunds over $400 approved> | <2> | <9> | <4> | <3> | <7> | **yes. ADR-<n>** |
 
 **Rule:** a gap of 5 or more between any two stakeholders is a conflict, and every
 conflict is a decision-record trigger.
 
-**Not a real conflict, though it looks like one:** <auditability against latency —
+**Not a real conflict, though it looks like one:** <auditability against latency, 
 logging costs milliseconds, the model choice costs seconds>. The trees show this,
 which is why you build them instead of debating them.
 
@@ -894,7 +892,7 @@ which is why you build them instead of debating them.
 **Status** <accepted> · <date> · supersedes <none>
 **Context** <the conflict in one sentence, with the two priorities that produced it>
 
-**Options, weighted from the ratified NFRs** — score = sum(weight x rating), rated 1-3
+**Options, weighted from the ratified NFRs**: score = sum(weight x rating), rated 1-3
 | Criterion | Weight | <build> | <buy> | <borrow> |
 |-----------|--------|---------|-------|----------|
 | <portability> | 3 | <2> | <1> | <3> |
@@ -917,7 +915,7 @@ one-way-ish, and the exit cost grows every month>
 
 </details>
 
-<details><summary><b>Prompt · Merge the utility trees and find the conflicts</b> — You have every stakeholder's scores and the workshop is tomorrow</summary>
+<details><summary><b>Prompt · Merge the utility trees and find the conflicts</b>, You have every stakeholder's scores and the workshop is tomorrow</summary>
 
 ```text
 Merge these stakeholder utility trees and find the conflicts.
@@ -933,7 +931,7 @@ OUTPUT SHAPE:
    the formula.
 3. CONFLICTS: every NFR whose gap is 5 or more. Each one owes a decision record.
 4. FALSE CONFLICTS: pairs that look opposed and are not, with the reason. The usual
-   example is auditability against latency — logging costs milliseconds and the model
+   example is auditability against latency, logging costs milliseconds and the model
    choice costs seconds.
 5. A proposed agenda: the uncontested NFRs first as one time-boxed block, then the
    conflicts one at a time.
@@ -949,12 +947,12 @@ SCORES:
 
 </details>
 
-<details><summary><b>Prompt · Score build, buy or borrow, and run the flip test</b> — A framework or platform decision is on the table</summary>
+<details><summary><b>Prompt · Score build, buy or borrow, and run the flip test</b>, A framework or platform decision is on the table</summary>
 
 ```text
 Score this decision as a weighted matrix, then test how firm the answer is.
 
-CRITERIA AND WEIGHTS — these come from my ratified NFRs. Do not change them:
+CRITERIA AND WEIGHTS: these come from my ratified NFRs. Do not change them:
 <paste: criterion, weight 1-3>
 
 OPTIONS: <build / buy / borrow, or the named options>
@@ -978,12 +976,12 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Draft the ADR, with the rejections argued from the numbers</b> — The decision is made and the record is what makes it stay made</summary>
+<details><summary><b>Prompt · Draft the ADR, with the rejections argued from the numbers</b>, The decision is made and the record is what makes it stay made</summary>
 
 ```text
 Draft an architecture decision record from my notes below.
 
-OUTPUT SHAPE — exactly these sections, in this order:
+OUTPUT SHAPE: exactly these sections, in this order:
   Status (accepted or superseded, with the date and what it supersedes)
   Context (the trade-off that forced a decision, in three sentences)
   Decision (what we are doing, and the named review point)
@@ -994,7 +992,7 @@ OUTPUT SHAPE — exactly these sections, in this order:
 RULES:
 - The Rejected section is the part that matters and the part that gets written badly.
   Every rejection cites the matrix score, the three-year cost or the door. A rejection
-  that reads as a preference is a failure — rewrite it, or tell me the number is missing.
+  that reads as a preference is a failure, rewrite it, or tell me the number is missing.
 - Do not flatter the decision. If an option scored within a point of the winner, that
   belongs in Context, not in Rejected.
 - Keep it to one screen. A coding agent reads this in its context pack, which is exactly
@@ -1009,7 +1007,7 @@ MY NOTES:
 
 **Worked example · SkyWays · nine ratified, three records owed**
 
-> The nine candidates went into a two-hour workshop with the trees already merged. Six were uncontested and were ratified in twenty minutes; the remaining hundred minutes went to the three conflicts, which were the only reason six people had been put in one room. **Nine ratified NFRs with three sensitivity points**, each given a date for its record rather than a promise. The conflict that turned up is the one that usually turns up — latency against cost per case, because the faster answer needs the larger model. **ADR-004** was the framework decision and it repays a second read: the weighted totals came out four points apart across three options, and buy and borrow tied at $360,000 over three years once the people were counted, which made the licence the small number all along. The matrix did not break the tie. The **door** did: borrow, behind an interface layer, with a named review at month twelve — two weeks of work now to keep a swap at weeks rather than quarters.
+> The nine candidates went into a two-hour workshop with the trees already merged. Six were uncontested and were ratified in twenty minutes; the remaining hundred minutes went to the three conflicts, which were the only reason six people had been put in one room. **Nine ratified NFRs with three sensitivity points**, each given a date for its record rather than a promise. The conflict that turned up is the one that usually turns up, latency against cost per case, because the faster answer needs the larger model. **ADR-004** was the framework decision and it repays a second read: the weighted totals came out four points apart across three options, and buy and borrow tied at $360,000 over three years once the people were counted, which made the licence the small number all along. The matrix did not break the tie. The **door** did: borrow, behind an interface layer, with a named review at month twelve, two weeks of work now to keep a swap at weeks rather than quarters.
 
 **Pitfalls**
 
@@ -1017,7 +1015,7 @@ MY NOTES:
 - A record for every decision. Forty in a week and the three that mattered cannot be found; an ADR is earned by a trade-off, not by a meeting having happened.
 - A record with no rejected options. It reads as a preference, and the first incident re-litigates it from the beginning because there is nothing on paper to defend.
 
-**Done when** — Every ratified NFR carries a number, every sensitivity point carries a dated record, and every record names what it rejected with the score that rejected it.
+**Done when**, Every ratified NFR carries a number, every sensitivity point carries a dated record, and every record names what it rejected with the score that rejected it.
 
 ---
 
@@ -1031,21 +1029,21 @@ The first question is not how much the agent may spend. It is **what it may chan
 
 **What you actually do**
 
-1. **List every tool the agent can call, before anyone sizes its tokens** — Authority comes first because it is the thing a budget cannot fix. An agent with a small token allowance and a refund tool is the dangerous configuration.
-2. **Band each tool R1 to R5 by what the action could damage** — Reversible draft, reversible change to real work, hard to reverse with a small blast radius, money or identity or policy, irreversible. The band belongs to the tool and is assigned once, so it is never argued per pull request.
-3. **Move every cap into the tool signature and delete it from the prompt** — An injected instruction can override a sentence. It cannot override a typed parameter that raises. This is a morning's work and it is the highest-value morning in P1.
-4. **Keep the sentence that explains the rule** — The prompt carries the policy and makes the agent behave well by default; the signature carries the enforcement and makes bad behaviour impossible. You want both, and confusing them is how a design lists five controls and enforces none.
-5. **Mint the confirmation token outside the model's reach** — A token the model can produce is not a gate. Bind it to the booking, the amount and the approver, give it an expiry, and write the test that a forged or reused one raises.
-6. **Tag every ingested text source untrusted, including partner APIs** — The partner is not attacking you; whoever can write into their free-text field might be. Trust is a property of the channel you control, not of the organisation at the other end of it.
-7. **Classify every open decision hard or soft, then give the soft ones a placeholder** — Four questions and one *no* makes it hard. A soft gate with no stub or interface layer behind it is a hard gate nobody has admitted to, and the build queues anyway.
+1. **List every tool the agent can call, before anyone sizes its tokens**: Authority comes first because it is the thing a budget cannot fix. An agent with a small token allowance and a refund tool is the dangerous configuration.
+2. **Band each tool R1 to R5 by what the action could damage**: Reversible draft, reversible change to real work, hard to reverse with a small blast radius, money or identity or policy, irreversible. The band belongs to the tool and is assigned once, so it is never argued per pull request.
+3. **Move every cap into the tool signature and delete it from the prompt**: An injected instruction can override a sentence. It cannot override a typed parameter that raises. This is a morning's work and it is the highest-value morning in P1.
+4. **Keep the sentence that explains the rule**: The prompt carries the policy and makes the agent behave well by default; the signature carries the enforcement and makes bad behaviour impossible. You want both, and confusing them is how a design lists five controls and enforces none.
+5. **Mint the confirmation token outside the model's reach**: A token the model can produce is not a gate. Bind it to the booking, the amount and the approver, give it an expiry, and write the test that a forged or reused one raises.
+6. **Tag every ingested text source untrusted, including partner APIs**: The partner is not attacking you; whoever can write into their free-text field might be. Trust is a property of the channel you control, not of the organisation at the other end of it.
+7. **Classify every open decision hard or soft, then give the soft ones a placeholder**: Four questions and one *no* makes it hard. A soft gate with no stub or interface layer behind it is a hard gate nobody has admitted to, and the build queues anyway.
 
 **Where a model helps, and where it must not**
 
 | Tool | Use it for |
 | --- | --- |
-| **Chat LLM** | Band a tool list R1 to R5 with a reason per row and the control location named. A good first pass, and it is consistent in a way a room full of people is not.<br>⚠ It bands by the size of the change. A one-line change to a refund cap is R4 — re-read every R1 and R2 that touches money, identity or a policy commitment. |
+| **Chat LLM** | Band a tool list R1 to R5 with a reason per row and the control location named. A good first pass, and it is consistent in a way a room full of people is not.<br>⚠ It bands by the size of the change. A one-line change to a refund cap is R4, re-read every R1 and R2 that touches money, identity or a policy commitment. |
 | **Claude Code** | Grep every prompt and tool description for currency symbols, *never*, *always*, *ask before* and *do not*, then have it write the enforced version and both tests for each hit that would cost money or be irreversible.<br>⚠ A hit list is not a fix. Require the over-cap test and the no-confirmation test in the same pass, or the work stops at the list and the list gets stale. |
-| **Chat LLM** | Run the four hard-or-soft questions over your open decisions and propose a placeholder for each soft one — a stub, an interface layer, a default tier behind a gateway.<br>⚠ It marks almost everything soft, because everything looks reversible on paper. Question one is the one it answers too generously. |
+| **Chat LLM** | Run the four hard-or-soft questions over your open decisions and propose a placeholder for each soft one, a stub, an interface layer, a default tier behind a gateway.<br>⚠ It marks almost everything soft, because everything looks reversible on paper. Question one is the one it answers too generously. |
 | **Do not delegate** | Whether a wrong action can be undone, and how fast. That is a fact about your ledger, your regulator and your customers, and *we would notice* is not an answer to it. |
 
 **The artefact**
@@ -1115,16 +1113,16 @@ Four questions, in order. **One "no" makes it hard.**
 
 </details>
 
-<details><summary><b>Prompt · Band a tool list by risk of action</b> — You have the tool surface and no bands yet</summary>
+<details><summary><b>Prompt · Band a tool list by risk of action</b>, You have the tool surface and no bands yet</summary>
 
 ```text
 Band every tool below on the R1-R5 ladder.
 
-R1  reversible draft or sandbox — review at the end
-R2  reversible change to real work — review before merge
-R3  hard to reverse, small blast radius — approve first
-R4  money, identity or a policy commitment — a NAMED approver, every time
-R5  irreversible or safety-critical — not delegated at all
+R1  reversible draft or sandbox, review at the end
+R2  reversible change to real work, review before merge
+R3  hard to reverse, small blast radius (approve first
+R4  money, identity or a policy commitment) a NAMED approver, every time
+R5  irreversible or safety-critical, not delegated at all
 
 OUTPUT SHAPE, one table:
 | Tool | Band | What ONE wrong call could damage | Where the control must live | The test that proves it |
@@ -1135,7 +1133,7 @@ RULES:
 - The control column may not say "the prompt". It says: a typed parameter, a required
   confirmation token, a permission scope, or "no tool exists".
 - Every R4 row names the approver role.
-- Every R5 row says that no tool exists — not that the tool is discouraged.
+- Every R5 row says that no tool exists, not that the tool is discouraged.
 - Flag any tool carrying a generic action parameter. One broad manage_<thing>(action)
   tool is accidental authority and must be split, because any path through it could
   cancel something.
@@ -1146,7 +1144,7 @@ TOOLS:
 
 </details>
 
-<details><summary><b>Prompt · Move the caps out of the prompts, with the tests</b> — Monday morning, on any repository with an agent in it</summary>
+<details><summary><b>Prompt · Move the caps out of the prompts, with the tests</b>, Monday morning, on any repository with an agent in it</summary>
 
 ```text
 Search every prompt, system message and tool description in this repository for rules
@@ -1165,7 +1163,7 @@ RULES:
 - The enforced version is a typed parameter that raises, a required confirmation token,
   or a narrowed permission. Never a better sentence.
 - For every row that needs enforcing, WRITE the two tests: the over-limit case and the
-  missing-confirmation case. Both assert that the call RAISES — never that the reply
+  missing-confirmation case. Both assert that the call RAISES, never that the reply
   contains an apology, because wording changes with the next prompt edit.
 - Do not remove the explanatory sentence from the prompt. Say which sentences to keep.
 - Show me the search commands before the results.
@@ -1173,7 +1171,7 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Classify the open decisions hard or soft</b> — The build is queuing behind a list of open questions</summary>
+<details><summary><b>Prompt · Classify the open decisions hard or soft</b>, The build is queuing behind a list of open questions</summary>
 
 ```text
 Classify each open decision below. Ask the four questions IN ORDER and stop at the
@@ -1204,7 +1202,7 @@ DECISIONS:
 
 **Worked example · SkyWays · the cap that existed everywhere except the code**
 
-> The engineer had wired the assistant to do everything, to show how capable it was. The authority budget put search and drafting at R1 and R2, cancelling a hold at R3, rebooking and refunds at R4 with a named approver, and changing a passenger identity at R5 with no tool existing at all. The **$400** from the day-six constraint register became a typed parameter on the refund signature, with two tests beside it. That is what the artefact said. On **day 82** a passenger received a **$2,000 refund** that was not owed, and the postmortem reconstructed the state exactly: with either the cap or the approver enforced the refund is impossible, so both were absent from the code. Five layers had been listed in the design and none was enforced. Two of them were written down — in the prompt — which is precisely why *we had a cap* felt true and was not.
+> The engineer had wired the assistant to do everything, to show how capable it was. The authority budget put search and drafting at R1 and R2, cancelling a hold at R3, rebooking and refunds at R4 with a named approver, and changing a passenger identity at R5 with no tool existing at all. The **$400** from the day-six constraint register became a typed parameter on the refund signature, with two tests beside it. That is what the artefact said. On **day 82** a passenger received a **$2,000 refund** that was not owed, and the postmortem reconstructed the state exactly: with either the cap or the approver enforced the refund is impossible, so both were absent from the code. Five layers had been listed in the design and none was enforced. Two of them were written down, in the prompt, which is precisely why *we had a cap* felt true and was not.
 
 **Pitfalls**
 
@@ -1212,7 +1210,7 @@ DECISIONS:
 - A cap that lives in prompt text. It lowers a probability and closes no path, and it reads exactly like a control in a design review, which is the whole reason it is dangerous.
 - Treating every open decision as hard. The build queues behind eleven questions that could each have run behind a stub, and the delay gets blamed on governance rather than on the classification.
 
-**Done when** — A grep of every prompt returns no cap, no currency amount and no 'ask before', and each rule you removed has an over-cap or no-confirmation test standing in its place.
+**Done when**, A grep of every prompt returns no cap, no currency amount and no 'ask before', and each rule you removed has an over-cap or no-confirmation test standing in its place.
 
 ---
 
@@ -1226,21 +1224,21 @@ Three details decide whether the design works, and none of them is visible in a 
 
 **What you actually do**
 
-1. **Draw the four context layers, each inherited by the one below** — Shared for org-wide standards, security and tone; domain for the business model; product for this application; task for this feature. A new product writes only the last two and onboards in a day instead of a week.
-2. **Name what is genuinely domain-level** — This is the layer teams forget and it holds most of the real reuse — the booking model, the fare rules, the things every product in the area needs and each one currently re-invents in its own prompt.
-3. **Make every override declare its reason and its scope** — A silent override is drift with a good explanation attached. Declared, it is a decision somebody can review; undeclared, it is the stale copy nobody can find.
-4. **Send the slice a task needs, never the whole stack** — Forty thousand tokens of standards in every call is both the bill and the quality problem: a bigger context makes answers worse, not better, and it is the habit that hides behind *for context*.
-5. **Wrap each system as one server with three primitives** — Tools are actions the model may invoke, resources are read-only data the application supplies, prompts are templates a person picks. Split reads from writes and require a confirmation on every write in the contract, not in the description.
-6. **Multiply the chain, do not average it** — Four steps at 90% is 66%, end to end wrong one time in three. Length is the enemy, so the first defence is removing a step — every step you remove multiplies back.
-7. **Place an independent checker after each costly, easy-to-miss generating step** — Independent means a different model, or the same model in a fresh context with an adversarial brief. A model reading its own output shares its own blind spots, which is exactly why *review your answer* does not work.
+1. **Draw the four context layers, each inherited by the one below**: Shared for org-wide standards, security and tone; domain for the business model; product for this application; task for this feature. A new product writes only the last two and onboards in a day instead of a week.
+2. **Name what is genuinely domain-level**: This is the layer teams forget and it holds most of the real reuse, the booking model, the fare rules, the things every product in the area needs and each one currently re-invents in its own prompt.
+3. **Make every override declare its reason and its scope**: A silent override is drift with a good explanation attached. Declared, it is a decision somebody can review; undeclared, it is the stale copy nobody can find.
+4. **Send the slice a task needs, never the whole stack**: Forty thousand tokens of standards in every call is both the bill and the quality problem: a bigger context makes answers worse, not better, and it is the habit that hides behind *for context*.
+5. **Wrap each system as one server with three primitives**: Tools are actions the model may invoke, resources are read-only data the application supplies, prompts are templates a person picks. Split reads from writes and require a confirmation on every write in the contract, not in the description.
+6. **Multiply the chain, do not average it**: Four steps at 90% is 66%, end to end wrong one time in three. Length is the enemy, so the first defence is removing a step, every step you remove multiplies back.
+7. **Place an independent checker after each costly, easy-to-miss generating step**: Independent means a different model, or the same model in a fresh context with an adversarial brief. A model reading its own output shares its own blind spots, which is exactly why *review your answer* does not work.
 
 **Where a model helps, and where it must not**
 
 | Tool | Use it for |
 | --- | --- |
 | **Chat LLM** | Paste a product's prompt dump and ask it to sort every line into shared, domain, product or task, with one line of reasoning each. It is fast and it makes the duplication obvious.<br>⚠ It puts almost everything in shared, because shared is where general-sounding sentences go. The domain layer is the one it will not find for you. |
-| **Claude Code** | Have it generate the server schema from an existing API surface: resources for read-only data, tools split into open reads and gated writes, prompts for the templates a person picks.<br>⚠ It offers one broad manage_thing(action) tool because that is tidy. Any path through such a tool carries the authority of the worst action it can reach — reject it and make it enumerate. |
-| **Chat LLM** | Write the checker's brief. It is an adversarial instruction — find what is wrong, list the violations, do not rewrite — and it is a different artefact from the brief that generated the answer.<br>⚠ Never run the checker in the context that produced the output, and prefer a different model. Self-review returns a confident yes and no finding. |
+| **Claude Code** | Have it generate the server schema from an existing API surface: resources for read-only data, tools split into open reads and gated writes, prompts for the templates a person picks.<br>⚠ It offers one broad manage_thing(action) tool because that is tidy. Any path through such a tool carries the authority of the worst action it can reach, reject it and make it enumerate. |
+| **Chat LLM** | Write the checker's brief. It is an adversarial instruction (find what is wrong, list the violations, do not rewrite) and it is a different artefact from the brief that generated the answer.<br>⚠ Never run the checker in the context that produced the output, and prefer a different model. Self-review returns a confident yes and no finding. |
 | **Do not delegate** | Deciding where the checkers go. Each one costs a call, and putting them everywhere is the same error as putting them nowhere; the judgement is which wrong answers are both expensive and easy to miss. |
 
 **The artefact**
@@ -1275,21 +1273,21 @@ _Owner: <name> · <date> · Read by: engineering and QA_
 ## 2 · The server for <system>
 | Primitive | Controlled by | Entries |
 |-----------|---------------|---------|
-| resources — read-only data | the application | <booking_record · passenger_history · fare_rules> |
-| tools — open reads | the model | <search_flights · check_availability> |
-| tools — gated writes | the model, within the contract | <rebook (CONFIRM)> · <issue_refund (CONFIRM, amount at or below the cap)> |
-| prompts — templates | the person | <draft_disruption_reply> |
+| resources, read-only data | the application | <booking_record · passenger_history · fare_rules> |
+| tools, open reads | the model | <search_flights · check_availability> |
+| tools, gated writes | the model, within the contract | <rebook (CONFIRM)> · <issue_refund (CONFIRM, amount at or below the cap)> |
+| prompts, templates | the person | <draft_disruption_reply> |
 
 - Transport: <Streamable HTTP in production, stdio for local development>
 - Auth: <as the specification's authorization framework requires>
-- Trace: every tool call logged — input, decision, output, model version
-- **Rejected:** <one broad manage_booking(action) tool — any path through it could cancel>
+- Trace: every tool call logged (input, decision, output, model version
+- **Rejected:** <one broad manage_booking(action) tool) any path through it could cancel>
 
 M applications times N systems becomes M + N. Build the server once and any compliant
 client plugs into it.
 
 ## 3 · The chain, and where the checkers go
-> <0.9> x <0.9> x <0.9> x <0.9> = **<0.66>** — multiply, never average
+> <0.9> x <0.9> x <0.9> x <0.9> = **<0.66>**: multiply, never average
 
 | # | Step | Kind | Checker? | Why |
 |---|------|------|----------|-----|
@@ -1299,7 +1297,7 @@ client plugs into it.
 | <4> | <draft the message> | best-guess | **yes** | <false claims and tone, invisible to the drafter> |
 | <5> | <rebook> | consequential | no | <a confirmation, not a checker> |
 
-**Independence** — each checker runs on <a different model> OR <the same model in a
+**Independence**: each checker runs on <a different model> OR <the same model in a
 fresh context with an adversarial brief>. Never a self-review, and never inside the
 context that produced the output.
 
@@ -1311,7 +1309,7 @@ every stated constraint? List the violations. Do not rewrite.>
 
 </details>
 
-<details><summary><b>Prompt · Sort a prompt dump into context layers</b> — Every product pastes the same forty pages and one copy has gone stale</summary>
+<details><summary><b>Prompt · Sort a prompt dump into context layers</b>, Every product pastes the same forty pages and one copy has gone stale</summary>
 
 ```text
 Below is everything currently pasted into the prompts of <product>.
@@ -1343,7 +1341,7 @@ PROMPT DUMP:
 
 </details>
 
-<details><summary><b>Prompt · Draft the server schema, reads open and writes gated</b> — Before anyone writes a third custom integration to the same system</summary>
+<details><summary><b>Prompt · Draft the server schema, reads open and writes gated</b>, Before anyone writes a third custom integration to the same system</summary>
 
 ```text
 Design a single server exposing <system> to any compliant AI client.
@@ -1376,7 +1374,7 @@ SYSTEM: <the API surface, or a link to it>
 
 </details>
 
-<details><summary><b>Prompt · Compute the chain and place the checkers</b> — Engineering says ninety percent is solid</summary>
+<details><summary><b>Prompt · Compute the chain and place the checkers</b>, Engineering says ninety percent is solid</summary>
 
 ```text
 Here are the steps of <feature>, with each best-guess step's measured or estimated
@@ -1407,7 +1405,7 @@ RULES:
 
 **Worked example · SkyWays · 66%, and the layer nobody had written**
 
-> Two findings came out of the same afternoon. The chain had three best-guess steps in it, and multiplied rather than averaged it came out well below what the bar sheet implied — failing fluently, which is why nobody had noticed. Two checkers went in, after choosing the flights and after drafting the message, each on a different model with an adversarial brief and a re-draft cap of two rounds. The second finding was quieter. Every product was pasting forty pages of standards into every call; a security rule had changed the month before and two products still carried the old one with nobody able to say which. Four layers fixed it, and the layer that was missing entirely was **domain** — the booking model and the fare rules that every product in the area needed and each had re-invented. The same afternoon put the fifteen-year-old reservation system behind one server: resources for the read-only data, search open, rebook and refund gated in the contract, and a single broad manage_booking tool rejected because any path through it could cancel a booking.
+> Two findings came out of the same afternoon. The chain had three best-guess steps in it, and multiplied rather than averaged it came out well below what the bar sheet implied, failing fluently, which is why nobody had noticed. Two checkers went in, after choosing the flights and after drafting the message, each on a different model with an adversarial brief and a re-draft cap of two rounds. The second finding was quieter. Every product was pasting forty pages of standards into every call; a security rule had changed the month before and two products still carried the old one with nobody able to say which. Four layers fixed it, and the layer that was missing entirely was **domain**: the booking model and the fare rules that every product in the area needed and each had re-invented. The same afternoon put the fifteen-year-old reservation system behind one server: resources for the read-only data, search open, rebook and refund gated in the contract, and a single broad manage_booking tool rejected because any path through it could cancel a booking.
 
 **Pitfalls**
 
@@ -1415,13 +1413,13 @@ RULES:
 - One broad tool with an action parameter. It looks tidy in the schema, and it means every path through it carries the authority of the most dangerous action it can reach.
 - A checker reading its own output in its own context. It shares the blind spots that produced the error, so it returns a confident yes and the chain keeps its 66%.
 
-**Done when** — Every rule has exactly one place it can be edited, every write tool requires a confirmation the model cannot mint, and the chain accuracy is a multiplication with a checker after each step whose errors are expensive and invisible.
+**Done when**, Every rule has exactly one place it can be edited, every write tool requires a confirmation the model cannot mint, and the chain accuracy is a multiplication with a checker after each step whose errors are expensive and invisible.
 
 ---
 
-> **P3 · Run & Learn begins here** — *is it still doing what we launched, and what did it cost?*
+> **P3 · Run & Learn begins here**, *is it still doing what we launched, and what did it cost?*
 
-> ⛔ **The hard gate — P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without — [why](The-Agentic-PDLC).
+> ⛔ **The hard gate. P1 to P2.** Everything past this point depends on the spec, the acceptance bar per slice and the authority budget being signed. It is the one crossing nothing downstream survives without. [why](The-Agentic-PDLC).
 
 ## 8 · Evolve
 
@@ -1429,25 +1427,25 @@ RULES:
 
 *P2 into P3, and then for as long as the system runs*
 
-Three things decide whether an architecture survives contact with production. The **bill**, which is a design question and not a finance one: caching pays only if the layout lets it hit, and routing pays only if a breaker stops the runaway. The **trace**, which has to be replayable by audit without becoming a breach target, which means redact rather than omit. And the **incident**, which is where your next design decision comes from — a postmortem that produces a name has not finished; one that produces an enforced control has.
+Three things decide whether an architecture survives contact with production. The **bill**, which is a design question and not a finance one: caching pays only if the layout lets it hit, and routing pays only if a breaker stops the runaway. The **trace**, which has to be replayable by audit without becoming a breach target, which means redact rather than omit. And the **incident**, which is where your next design decision comes from, a postmortem that produces a name has not finished; one that produces an enforced control has.
 
 **What you actually do**
 
-1. **Lay the prompt out for the cache, with the marker on the last stable block** — The cache matches an exact prefix in the order tools, system, messages. Put the passenger's request first *for emphasis* and no two calls share a prefix, so caching is switched on and never hits.
-2. **Count the reuse before turning caching on** — cost with cache = ( w + 0.1 × (N − 1) ) × T × p against N × T × p without. The documented multipliers, read September 2026: a five-minute write is 1.25× input, a one-hour write 2×, a read 0.1×, and Fable and Mythos 5.1 read at 0.025×. Break-even is the **second** use; at one use it costs more.
-3. **Choose the window from the traffic pattern, not from the cheaper write** — Five minutes everywhere is the trap. On traffic arriving every twelve minutes the five-minute cache has always expired, so every call pays a write — and the cheaper write paid on every call costs more than the dearer write paid once.
-4. **Route by complexity and put a breaker on every loop** — A delay lookup should not cost what a multi-leg international rebooking costs. MAX_LOOPS = 5, then a hard stop and a hand-off, because no legitimate case needs fifty and a runaway burns until somebody notices.
-5. **Redact the trace, and mark the cache hits in it** — Masking keeps the decision replayable and the identifier out of the store; omitting the field breaks the audit. Then exclude cache hits from the latency alert, or a fast response gets reported as a suspected failure.
-6. **Rewrite every incident as the missing-control question** — Which control, if present, would have made this impossible? Reconstruct the state from that question rather than from the timeline, and the answer is an ADR and a tool signature rather than a ticket and a name.
-7. **Migrate legacy piece by piece, with a rule sheet where the docs are missing** — Score each module on risk, documentation, coupling, reversibility and how much it teaches; wrap it behind a clean interface, route a slice, grow the new, retire the old. Payments last, and never the whole codebase in one context.
+1. **Lay the prompt out for the cache, with the marker on the last stable block**: The cache matches an exact prefix in the order tools, system, messages. Put the passenger's request first *for emphasis* and no two calls share a prefix, so caching is switched on and never hits.
+2. **Count the reuse before turning caching on**: cost with cache = ( w + 0.1 × (N − 1) ) × T × p against N × T × p without. The documented multipliers, read September 2026: a five-minute write is 1.25× input, a one-hour write 2×, a read 0.1×, and Fable and Mythos 5.1 read at 0.025×. Break-even is the **second** use; at one use it costs more.
+3. **Choose the window from the traffic pattern, not from the cheaper write**: Five minutes everywhere is the trap. On traffic arriving every twelve minutes the five-minute cache has always expired, so every call pays a write, and the cheaper write paid on every call costs more than the dearer write paid once.
+4. **Route by complexity and put a breaker on every loop**: A delay lookup should not cost what a multi-leg international rebooking costs. MAX_LOOPS = 5, then a hard stop and a hand-off, because no legitimate case needs fifty and a runaway burns until somebody notices.
+5. **Redact the trace, and mark the cache hits in it**: Masking keeps the decision replayable and the identifier out of the store; omitting the field breaks the audit. Then exclude cache hits from the latency alert, or a fast response gets reported as a suspected failure.
+6. **Rewrite every incident as the missing-control question**: Which control, if present, would have made this impossible? Reconstruct the state from that question rather than from the timeline, and the answer is an ADR and a tool signature rather than a ticket and a name.
+7. **Migrate legacy piece by piece, with a rule sheet where the docs are missing**: Score each module on risk, documentation, coupling, reversibility and how much it teaches; wrap it behind a clean interface, route a slice, grow the new, retire the old. Payments last, and never the whole codebase in one context.
 
 **Where a model helps, and where it must not**
 
 | Tool | Use it for |
 | --- | --- |
-| **Claude Code** | Reorder one live prompt for the cache and add the assertion that proves it — cache tokens read above zero on the second call. Then have it pull the four ratios from the per-call log: tokens per call, tier mix, cache hit ratio, retries per conversation.<br>⚠ Make it check for anything volatile inside the cached block. One timestamp or request id misses the prefix on every call, and the config file will still say caching is on. |
+| **Claude Code** | Reorder one live prompt for the cache and add the assertion that proves it, cache tokens read above zero on the second call. Then have it pull the four ratios from the per-call log: tokens per call, tier mix, cache hit ratio, retries per conversation.<br>⚠ Make it check for anything volatile inside the cached block. One timestamp or request id misses the prefix on every call, and the config file will still say caching is on. |
 | **Chat LLM** | Compute the break-even and the saving for your reuse count and window, and tell you which window the traffic pattern actually argues for.<br>⚠ Paste the vendor's current pricing page into the prompt rather than trusting its memory of the multipliers. A stale multiplier turns the arithmetic into a decision you cannot defend in front of finance. |
-| **Claude Code** | Extract a rule sheet from a legacy module — rule id, condition, action, source line, confidence — so the agent reads a few hundred tokens of intent instead of four thousand lines that bury it.<br>⚠ Everything below 0.9 confidence goes to a person first. Those rows are where the code is doing something the comments deny, which is the part worth reading yourself. |
+| **Claude Code** | Extract a rule sheet from a legacy module (rule id, condition, action, source line, confidence) so the agent reads a few hundred tokens of intent instead of four thousand lines that bury it.<br>⚠ Everything below 0.9 confidence goes to a person first. Those rows are where the code is doing something the comments deny, which is the part worth reading yourself. |
 | **Do not delegate** | The missing-control finding. Naming the control that would have made an incident impossible is the one judgement in the postmortem, and a model will happily propose a better prompt, which is a request rather than a control. |
 
 **The artefact**
@@ -1483,7 +1481,7 @@ _Owner: <name> · <date> · Config reviewed like code: <path>_
 |-----------------------|---------------|
 | The request placed first, for emphasis | <no> |
 | A timestamp, request id or session id inside the cached block | <no> |
-| A model switch mid-task — the cache is model-scoped | <forbidden in the team rules> |
+| A model switch mid-task, the cache is model-scoped | <forbidden in the team rules> |
 | Fewer than the minimum cacheable tokens | <no> |
 
 ## Routing and the breaker
@@ -1511,22 +1509,22 @@ model version · approver · cost · cache tokens read
 
 ## Incident to design change · <date>
 **Reconstruct** <with the cap enforced: impossible. With the approver enforced:
-impossible. Therefore both were absent — that is the state the system was in.>
+impossible. Therefore both were absent. That is the state the system was in.>
 **Finding** the enforced control that was missing: <name it>
 **Not the finding** <the input, the person who typed it, or any control that would only
 have detected it afterwards>
-**Change** <the typed parameter, the gate or the permission — and the file it lives in>
+**Change** <the typed parameter, the gate or the permission, and the file it lives in>
 **Record** <ADR-<n>> · autonomy on <action> drops one level, raised again only on evidence
 **Verify** <QA re-runs the attack; it must now be stopped twice over>
 ```
 
 </details>
 
-<details><summary><b>Prompt · Diagnose a bill that left its estimate</b> — The invoice has moved and traffic has not</summary>
+<details><summary><b>Prompt · Diagnose a bill that left its estimate</b>, The invoice has moved and traffic has not</summary>
 
 ```text
 My token bill is <n>x its estimate and traffic is flat. Diagnose it from the
-per-call log at <path>, not from the price list — the prices did not change.
+per-call log at <path>, not from the price list, the prices did not change.
 
 Compute four ratios, the baseline period against now:
 - tokens per call
@@ -1553,22 +1551,22 @@ RULES:
 
 </details>
 
-<details><summary><b>Prompt · Turn the incident into an enforced control</b> — After any incident, while the room is still discussing the input</summary>
+<details><summary><b>Prompt · Turn the incident into an enforced control</b>, After any incident, while the room is still discussing the input</summary>
 
 ```text
 Turn this incident into a design change. Use EXACTLY this structure.
 
-**Timeline** — what happened, minute by minute, from the input to the consequence
-**Reconstruct** — for each control that was supposed to exist, state whether the
+**Timeline** (what happened, minute by minute, from the input to the consequence
+**Reconstruct**) for each control that was supposed to exist, state whether the
   incident is POSSIBLE or IMPOSSIBLE with it enforced. The combination that is possible
   is the state the system was actually in.
-**Finding** — the ENFORCED control that, if present, would have made this IMPOSSIBLE
-**Not the finding** — the input, the person, and any control that would only have
+**Finding** (the ENFORCED control that, if present, would have made this IMPOSSIBLE
+**Not the finding**) the input, the person, and any control that would only have
   DETECTED it
-**Change** — the typed parameter, the confirmation token or the permission, and the
+**Change** (the typed parameter, the confirmation token or the permission, and the
   file it will live in
-**Record** — the record number, and the autonomy level that drops as a result
-**Verify** — the test QA re-runs, and what "stopped twice over" means here
+**Record**) the record number, and the autonomy level that drops as a result
+**Verify**: the test QA re-runs, and what "stopped twice over" means here
 
 RULES:
 - Do not name a person. Do not name the input that triggered it.
@@ -1585,7 +1583,7 @@ INCIDENT:
 
 </details>
 
-<details><summary><b>Prompt · Extract a rule sheet from a legacy module</b> — A team lead wants to feed the whole codebase to the agent</summary>
+<details><summary><b>Prompt · Extract a rule sheet from a legacy module</b>, A team lead wants to feed the whole codebase to the agent</summary>
 
 ```text
 Extract a rule sheet from this legacy module, so an agent can read the intent
@@ -1618,7 +1616,7 @@ MODULE: <path>
 
 **Worked example · SkyWays · day 75 and day 82**
 
-> Two numbers from the same fortnight, and two different kinds of design change. On **day 75 the bill was 4.4 times its estimate** with traffic flat, which meant behaviour had changed and behaviour is only visible per call. The four ratios explained it exactly: tokens per call 1.6, frontier share 1.5, cache hit ratio 1.3, retries 1.41, and 1.6 × 1.5 × 1.3 × 1.41 = 4.40. Four habits, each a sensible decision made by a careful person. It had started with an engineer reordering a prompt for clarity and moving the passenger's request to the front, which changed the prefix on every call and left caching switched on and never hitting. The fix order came from (factor − 1) ÷ days, which put the context trim first and the retry breaker last — the breaker being the right fix in the wrong position. Then **day 82** and the $2,000 refund, which produced the other kind of change: not a ticket and not a name, but an ADR, a typed parameter and an autonomy level dropped by one. The cost-per-case NFR had been ratified on day nine at $0.60 and then never measured, which is how four weeks passed before anybody looked. The record was amended to make it a monitored number with a named owner and an alert at three times.
+> Two numbers from the same fortnight, and two different kinds of design change. On **day 75 the bill was 4.4 times its estimate** with traffic flat, which meant behaviour had changed and behaviour is only visible per call. The four ratios explained it exactly: tokens per call 1.6, frontier share 1.5, cache hit ratio 1.3, retries 1.41, and 1.6 × 1.5 × 1.3 × 1.41 = 4.40. Four habits, each a sensible decision made by a careful person. It had started with an engineer reordering a prompt for clarity and moving the passenger's request to the front, which changed the prefix on every call and left caching switched on and never hitting. The fix order came from (factor − 1) ÷ days, which put the context trim first and the retry breaker last, the breaker being the right fix in the wrong position. Then **day 82** and the $2,000 refund, which produced the other kind of change: not a ticket and not a name, but an ADR, a typed parameter and an autonomy level dropped by one. The cost-per-case NFR had been ratified on day nine at $0.60 and then never measured, which is how four weeks passed before anybody looked. The record was amended to make it a monitored number with a named owner and an alert at three times.
 
 **Pitfalls**
 
@@ -1626,7 +1624,7 @@ MODULE: <path>
 - A latency alert that flags cache hits as suspected failures. It reports hundreds of them, somebody proposes switching the cache off, and the bill rises by about a third within a day because the anomaly was the cache working.
 - A postmortem that ends in a name, or in a better prompt. Neither is a control, and the next incident of the same class is already scheduled.
 
-**Done when** — The second call on a live prompt reports cache tokens read, a runaway loop stops at five, a passport number never reaches a trace row, and your last incident produced a typed parameter rather than a name.
+**Done when**, The second call on a live prompt reports cache tokens read, a runaway loop stops at five, a passport number never reaches a trace row, and your last incident produced a typed parameter rather than a name.
 
 ---
 

@@ -11,7 +11,7 @@ Zero math. This module builds the intuition you need to make model choices you c
 
 ## Read first, on the site
 
-The lesson that frames this module is **[What Is the Agentic PDLC? The P0–P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)** (10 min): why software with a model in it needs a different lifecycle.
+The lesson that frames this module is **[What Is the Agentic PDLC? The P0 to P3 Framework Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)** (10 min): why software with a model in it needs a different lifecycle.
 
 ## What you will be able to do
 
