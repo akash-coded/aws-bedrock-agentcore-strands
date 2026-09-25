@@ -8,6 +8,32 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The playbook's front: the hero back, a nav that fits, a tower that starts on the ground
+
+### Fixed
+- **The start page had lost its hero, its six tiles and its ninety-days timeline** since round three: a
+  wrapper that adds icons to the role cards looked for an `h4` that the heading-order fix had turned into
+  an `h3`, threw, and the page's error handling logged it to the console and carried on with the fallback
+  lede and the episodes table. The wrapper accepts either heading; the verification now reads console
+  errors on every route, not only thrown exceptions
+- **The top nav overflowed at every width between 960px and 1600px**, by up to 264px, and cut off its
+  last controls. It now yields by tier: the tagline goes below 1700px, the Search, Concepts and Copy
+  labels below 1440px, the Home and Manual labels below 1300px, the Pack label and the Copy button below
+  1100px, the Concepts button and the Contact label below 1024px, and the phone menu takes over at 900px.
+  The Pack and Contact controls carry icons so their labels can go
+- **The Manual chip lost its icon below 1300px** along with its label; the icon always shows
+
+### Changed
+- **The tower opens on the ground floor.** On a desktop the tower sits in a viewport that starts scrolled
+  to the ground, so P0 is the first floor you meet; climbing is scrolling up inside it or taking the lift
+  beside it, which also shows which floor you are on. The rail lists the floors from the ground up and its
+  links scroll the tower. On phones, where the ground was already first, the page scrolls as before and
+  the lift is a row above the tower
+- **The ninety days sit on the home page as a climb**: a compact tower with the thirteen rooms on their
+  four floors, each floor's side-quest count, the ground floor's "Begin at Day 1", and your rank and
+  progress beside it. It replaces the second lede and the episodes board; the rail and the tour say
+  "as a climb"
+
 ## 2026-09-25 · The walkthrough on phones, and a build that runs on the system Python
 
 ### Fixed
