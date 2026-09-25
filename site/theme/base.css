@@ -1173,7 +1173,7 @@ main a[href*="simulator/#/compare"]{--ic:var(--ic-cols)}
 main a[href*="simulator/#/evidence"]{--ic:var(--ic-pack)}
 main a[href*="simulator/#/process"],main a[href*="simulator/#/pm/"],main a[href*="simulator/#/sa/"],main a[href*="simulator/#/eng/"]{--ic:var(--ic-steps)}
 main a[href*="simulator/#/learn"],main a[href*="simulator/#/concepts"],main a[href*="simulator/#/guide"]{--ic:var(--ic-book)}
-main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inline-block;width:1.05em;height:1.05em;margin-right:.36em;vertical-align:-.17em;background:currentColor;
+main a[href*="simulator/"]:not(.btn):not(.more):not(.xlink)::before{content:"";display:inline-block;width:1.05em;height:1.05em;margin-right:.36em;vertical-align:-.17em;background:currentColor;
   -webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 /* the header's Playbook link uses the same play mark */
 .play::before{content:"";display:inline-block;width:13px;height:13px;margin-right:6px;vertical-align:-2px;background:var(--sage);
