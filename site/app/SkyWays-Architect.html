@@ -1121,6 +1121,63 @@ html.tour-on,html.xmodal-open{overflow:hidden}
 .xbtn.bot small{font-size:11.5px;font-weight:500;color:#3B6E9C;margin-left:2px}
 .xbtn.bot:hover{border-color:#0B4A8A;background:linear-gradient(180deg,#E9F5FF,#D6EBFD)}
 .hero2 .xbtn.bot{background:rgba(29,155,240,.14);border-color:rgba(29,155,240,.6);color:inherit}
+
+/* ---------- UX pass 2/4: overview chips, home tiles, nav and rail, button roles, quick-fill ---------- */
+.opener .oh b{display:block;margin-bottom:6px}
+.opener .stops{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:2px 0 8px}
+.opener .stops .sl{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--soft);margin-right:2px}
+.opener .stops .sl svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.opener .stop{font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line2);border-radius:999px;padding:4px 11px 4px 4px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:border-color 140ms,transform 140ms,box-shadow 140ms}
+.opener .stop i{width:20px;height:20px;border-radius:50%;background:var(--ha);color:#fff;font-style:normal;font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.opener .stop:hover{border-color:var(--ha);transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(13,20,51,.35)}
+.opener .steps{font-size:12.5px;color:var(--ink2)}
+.opener .steps span{display:inline-flex;align-items:center;gap:6px;margin-right:12px}
+.opener .steps i{width:16px;height:16px;border-radius:50%;background:color-mix(in oklab,var(--ha) 16%,#fff);color:var(--ha);font-style:normal;font-size:10.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.xflash{animation:xflash 1.5s var(--ez)}
+@keyframes xflash{0%{box-shadow:0 0 0 0 rgba(29,155,240,.0)}15%{box-shadow:0 0 0 4px rgba(29,155,240,.55)}100%{box-shadow:0 0 0 0 rgba(29,155,240,0)}}
+.xtiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:-8px 0 30px}
+@media (max-width:1100px){.xtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.xtiles{grid-template-columns:1fr}}
+.xtile{display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto auto auto;column-gap:14px;row-gap:2px;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#FBFCFE);text-decoration:none;color:var(--ink);transition:transform 160ms var(--ez),border-color 160ms,box-shadow 160ms;position:relative;overflow:hidden}
+.xtile::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--tc)}
+.xtile .ic{grid-row:1/4;width:44px;height:44px;border-radius:12px;background:color-mix(in oklab,var(--tc) 12%,#fff);color:var(--tc);display:inline-flex;align-items:center;justify-content:center}
+.xtile .ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.xtile b{font-size:15.5px;letter-spacing:-.01em}
+.xtile small{font-size:13px;color:var(--ink2);line-height:1.45}
+.xtile em{font-style:normal;font-size:12.5px;font-weight:600;color:var(--tc);display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+.xtile em svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform 160ms}
+.xtile:hover{transform:translateY(-2px);border-color:var(--tc);box-shadow:0 14px 30px -18px rgba(13,20,51,.35)}
+.xtile:hover em svg{transform:translateX(3px)}
+.xtile:focus-visible{outline:3px solid var(--tc);outline-offset:2px}
+.topnav{background:rgba(255,255,255,.94);border-bottom:1px solid var(--rule);box-shadow:0 1px 0 rgba(13,20,51,.03);gap:2px}
+.xmenu>button{font-weight:600;color:var(--ink);padding:9px 11px;border-radius:9px}
+.xmenu>button .chev{opacity:.5}
+.xmenu.here>button{box-shadow:inset 0 -2px 0 var(--ha);border-radius:9px 9px 0 0}
+.xright{gap:6px}
+.xpill{font-weight:600}
+.rail2{padding:16px 12px 100px}
+.rail2 .ph2{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;margin:18px 0 6px;padding-left:10px;color:var(--phc,var(--ha))}
+.rail2 a{font-size:13.5px;padding:7px 10px;border-radius:9px;border-left:3px solid transparent;color:var(--ink2);line-height:1.35}
+.rail2 a:hover{background:color-mix(in oklab,var(--phc,var(--ha)) 8%,#fff);color:var(--ink)}
+.rail2 a.on{background:color-mix(in oklab,var(--phc,var(--ha)) 12%,#fff);border-left-color:var(--phc,var(--ha));color:var(--ink);font-weight:600}
+.xbtn{gap:7px}
+.xbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.xbtn:active{transform:translateY(1px)}
+.xbtn.ghost{border-color:transparent;background:transparent;color:var(--ink2);box-shadow:none;padding-left:8px;padding-right:8px}
+.xbtn.ghost:hover{color:var(--ink);background:rgba(13,20,51,.05);border-color:transparent}
+.xhid{position:absolute!important;width:1px;height:1px;opacity:0;pointer-events:none;margin:0}
+.xseg{display:flex;flex-wrap:wrap;gap:6px}
+.xseg button{font:inherit;font-size:13px;font-weight:500;padding:7px 11px;border-radius:9px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer;text-align:left;flex:1 1 auto;line-height:1.3;transition:border-color 140ms,background 140ms,color 140ms}
+.xseg button:hover{border-color:var(--ha)}
+.xseg button.on{background:color-mix(in oklab,var(--ha) 28%,#0B1437);border-color:transparent;color:#fff;font-weight:600}
+.xseg button:focus-visible{outline:3px solid color-mix(in oklab,var(--ha) 40%,transparent)}
+.xrng{-webkit-appearance:none;appearance:none;width:100%;height:4px;margin:8px 0 2px;border-radius:2px;background:color-mix(in oklab,var(--ha) 22%,#E6E2D9);box-shadow:none;border:0;padding:0}
+.xrng::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--ha);box-shadow:0 2px 6px rgba(13,20,51,.2);cursor:pointer}
+.xrng::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--ha);cursor:pointer}
+.xrng:focus-visible{outline:3px solid color-mix(in oklab,var(--ha) 40%,transparent);outline-offset:4px}
+/* contrast: page-hue fills carry white text, so the fill is the hue darkened; phase headings likewise */
+.xkick{background:color-mix(in oklab,var(--ha) 34%,#0B1437)!important;box-shadow:none!important}
+#tph-P0>h2{color:#1F7A3F!important}#tph-P1>h2{color:#1868A8!important}#tph-P2>h2{color:#0E7A76!important}#tph-P3>h2{color:#A3600A!important}
 </style>
 </head>
 <body>
@@ -1145,6 +1202,9 @@ html.tour-on,html.xmodal-open{overflow:hidden}
 <footer class="xfoot" id="xfoot"><div class="in"><div style="max-width:70ch"><b>Built by Akash Das for education purposes.</b> SkyWays is a fictional airline, and its people and figures are illustrative. Every framework carries its lineage and a confidence mark on the Reference page.</div><div><button type="button" class="xbtn" data-contact>Contact</button></div><div>© 2026 Akash Das. All rights reserved.</div></div></footer>
 <div class="xmodal" id="xcontact" role="dialog" aria-modal="true" aria-labelledby="xcontactT"><div class="xbox"><button type="button" class="xclose" data-close aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button><h3 id="xcontactT">Write to Akash</h3><p>A question on the playbook, a correction, or a session for your team. Sending opens your own mail app with the message ready; nothing leaves this page otherwise.</p><form><label for="xc1">Your name</label><input id="xc1" name="name" autocomplete="name"><label for="xc2">Organisation</label><input id="xc2" name="org" placeholder="optional"><label for="xc3">Your e-mail, so a reply can reach you</label><input id="xc3" name="email" type="email" autocomplete="email"><label for="xc4">Topic</label><input id="xc4" name="topic" placeholder="for example: the requirements chain"><label for="xc5">Message</label><textarea id="xc5" name="message" rows="5"></textarea><div class="xrow"><button type="button" class="xbtn" data-close>Cancel</button><button type="submit" class="xbtn dark">Open in mail</button></div></form></div></div>
 <script>
+// ---------- UX pass 2/4 icons ----------
+const XICO={route:'<svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h2a4 4 0 0 0 4-4v-1M6 16v-1a4 4 0 0 1 4-4h2"/></svg>',sim:'<svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 15V3M18 9a9 9 0 0 1-9 9"/></svg>',calc:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 7.5h7M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg>',story:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="currentColor" stroke="none"/></svg>',book:'<svg viewBox="0 0 24 24"><path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/></svg>',map:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M6.5 7.5 10 10.5M17.5 7.5 14 10.5M6.5 16.5 10 13.5M17.5 16.5 14 13.5"/></svg>',copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',pack:'<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v6M9 14h6"/></svg>',reset:'<svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>',pin:'<svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>',go:'<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'};
+
 // =====================================================================
 // ROLE LENS
 // =====================================================================
@@ -2742,10 +2802,10 @@ NPage("toolkit",{title:"Toolkit",hue:["#F0A030","#C08A3E"],has:s=>!!TOOLS.find(t
  build(){const M=document.getElementById("toolkitMain"),R=document.getElementById("toolkitRail");
   M.innerHTML=`<div class="xkick">Toolkit</div><h1 class="xh1">${TOOLS.length} tools that write the artefact for you</h1><p class="xlede">Every tool arrives filled in with the SkyWays case, so that the result can be read before anything is typed. Replace the values with your own project's and the result and the artefact change as you type. Each tool shows the formula or the rule it uses, and each artefact can be copied or added to your <a class="xl" href="#/evidence">evidence pack</a>.</p>
 <div class="xopen glass">On Day 15 Priya needs an acceptance bar for the codeshare slice by the afternoon. One wrong rebooking costs <b>$32</b> and one right one saves <b>$8</b>, so the bar is four in five, and the tool below writes the line that goes into the spec.</div>
-${Object.keys(TPH).map(ph=>`<div class="xsec" id="tph-${ph}"><h2 style="color:${TPH[ph][1]}">${TPH[ph][0]}</h2>${TOOLS.filter(t=>t.ph===ph).map(t=>`<div class="xtool glass" id="tool-${t.id}"><div class="xtoolh"><b>${t.name}</b><span>decides ${t.decides}</span>${conf(t.mark)}</div><p>${t.intro}</p><div class="xtb"><div class="xin" data-tool="${t.id}">${t.inputs}</div><div class="xout"><div class="xres" id="tres-${t.id}"></div><textarea id="tart-${t.id}" readonly aria-label="${t.name}: the artefact"></textarea><div class="xtf"><button type="button" class="xbtn" data-copy="${t.id}">Copy</button><button type="button" class="xbtn dark" data-add="${t.id}">Add to the evidence pack</button><span class="ok" id="tok-${t.id}"></span></div></div></div></div>`).join("")}</div>`).join("")}`;
+${Object.keys(TPH).map(ph=>`<div class="xsec" id="tph-${ph}"><h2 style="color:${TPH[ph][1]}">${TPH[ph][0]}</h2>${TOOLS.filter(t=>t.ph===ph).map(t=>`<div class="xtool glass" id="tool-${t.id}"><div class="xtoolh"><b>${t.name}</b><span>decides ${t.decides}</span>${conf(t.mark)}</div><p>${t.intro}</p><div class="xtb"><div class="xin" data-tool="${t.id}">${t.inputs}</div><div class="xout"><div class="xres" id="tres-${t.id}"></div><textarea id="tart-${t.id}" readonly aria-label="${t.name}: the artefact"></textarea><div class="xtf"><button type="button" class="xbtn dark" data-add="${t.id}">${XICO.pack}Add to the evidence pack</button><button type="button" class="xbtn" data-copy="${t.id}">${XICO.copy}Copy</button><button type="button" class="xbtn ghost" data-reset="${t.id}" title="Put the SkyWays numbers back">${XICO.reset}Reset</button><span class="ok" id="tok-${t.id}"></span></div></div></div></div>`).join("")}</div>`).join("")}`;
   R.innerHTML=Object.keys(TPH).map(ph=>`<div class="ph2" style="--phc:${TPH[ph][1]}">${TPH[ph][0].toUpperCase()}</div>`+TOOLS.filter(t=>t.ph===ph).map(t=>`<a href="#/toolkit/${t.id}" style="--phc:${TPH[ph][1]}">${t.name}</a>`).join("")).join("");
   const run=t=>{let o;try{o=t.compute();}catch(e){o={res:"Check the values: "+e.message,art:""};}const R_=document.getElementById("tres-"+t.id);R_.innerHTML=o.res;R_.classList.remove("ping");void R_.offsetWidth;R_.classList.add("ping");document.getElementById("tart-"+t.id).value=o.art;};
-  TOOLS.forEach(t=>{run(t);const box=M.querySelector(`[data-tool="${t.id}"]`);box.addEventListener("input",()=>run(t));box.addEventListener("change",()=>run(t));});
+  TOOLS.forEach(t=>{const box=M.querySelector(`[data-tool="${t.id}"]`);xquick(box);run(t);box.addEventListener("input",()=>run(t));box.addEventListener("change",()=>run(t));});M.addEventListener("click",e=>{const r=e.target.closest("[data-reset]");if(!r)return;const box=M.querySelector(`[data-tool="${r.dataset.reset}"]`);xreset(box);run(TOOLS.find(t=>t.id===r.dataset.reset));xtoast("Back to the SkyWays numbers.",1400);});
   M.addEventListener("click",e=>{const c=e.target.closest("[data-copy]"),a=e.target.closest("[data-add]");if(c){const ta=document.getElementById("tart-"+c.dataset.copy);ta.select();try{navigator.clipboard.writeText(ta.value);}catch(x){try{document.execCommand("copy");}catch(y){}}document.getElementById("tok-"+c.dataset.copy).textContent="copied";}if(a){const t=TOOLS.find(x=>x.id===a.dataset.add);mineAdd(t.name,document.getElementById("tart-"+t.id).value);document.getElementById("tok-"+t.id).textContent="in the pack";}});},
  onRoute(sub){if(sub){document.querySelectorAll("#toolkitRail a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#/toolkit/"+sub));scrollToId("tool-"+sub);}else window.scrollTo({top:0});}});
 // ---------- the Evidence pack page ----------
@@ -3874,6 +3934,8 @@ function buildHero(){const M=document.getElementById("startMain");if(!M||M.query
 <div class="sky">${skyMascot(72)}<div class="bub"><span><b>${HERO_LINES[0][0]}</b>${HERO_LINES[0][1]}</span></div></div></div>
 <div class="vis">${heroPhases(mode==="dark")}<div class="cap"><span>P0 to P3 is the spine</span><a href="#/loopmap">See the eight loops on it</a></div></div></div>`;
  old.before(h);fixLinks(h);
+ if(!M.querySelector(".xtiles")){const nsim=Object.keys(SIMS).length,ntool=(typeof TOOLS!=="undefined"?TOOLS.length:0);const tiles=[["#/start/pm","route","Your role's route","Product, architecture, engineering, QA, sponsor or trainer: an ordered set of stops, each saying what you leave with.","6 roles","#2563EB"],["#/simulations","sim","Simulations","Decide one step at a time with both paths open; every run leaves an artefact.",nsim+" to play","#7C3AED"],["#/toolkit","calc","Toolkit","Calculators that write the artefact for you, prefilled with the airline case.",ntool+" tools","#0D9488"],["#/story","story","Ninety days of SkyWays","Thirteen dated episodes; each opens on a number and closes a loop.","13 episodes","#F59E0B"],["#/learn","book","The guided path","Eight chapters, a picture you can move in every unit; the checks pay points.","8 chapters","#16A34A"],["#/concepts","map","The concept map","Every concept in one sentence, placed by loop, phase and role. Zoom in.",CONCEPTS.length+" concepts","#EA580C"]];
+  const T=document.createElement("section");T.className="xtiles";T.setAttribute("aria-label","Ways in");T.innerHTML=tiles.map(t=>`<a class="xtile" href="${t[0]}" style="--tc:${t[5]}"><span class="ic">${XICO[t[1]]}</span><b>${t[2]}</b><small>${t[3]}</small><em>${t[4]}${XICO.go}</em></a>`).join("");h.after(T);fixLinks(T);}
  h.querySelector(".mode").onclick=()=>{const m2=h.dataset.mode==="dark"?"light":"dark";try{localStorage.setItem("skyways.heromode",m2);}catch(e){}h.remove();buildHero();};
  let k=0;const sp=h.querySelector(".sky .bub span");setInterval(()=>{if(!document.body.contains(sp))return;sp.classList.add("out");setTimeout(()=>{k=(k+1)%HERO_LINES.length;sp.innerHTML=`<b>${HERO_LINES[k][0]}</b>${HERO_LINES[k][1]}`;sp.classList.remove("out");},320);},6500);}
 (function(){const _sb=NP.start.build;NP.start.build=function(){_sb.call(this);buildHero();};})();
@@ -3914,7 +3976,9 @@ function tourEnd(){if(!TOUR)return;clearTimeout(TOUR.t);TOUR.spot.remove();TOUR.
 function tourSeen(key){try{return localStorage.getItem("skyways.tours.off")==="1"||localStorage.getItem("skyways.tour."+key)==="1";}catch(e){return true;}}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-tour]");if(!b)return;e.preventDefault();const k=b.dataset.tour==="auto"?guideKey():b.dataset.tour;tourStart(k);});
 function placeOpener(){const key=guideKey(),g=key&&PAGE_GUIDE[key],pg=document.querySelector(".page.on");if(!g||!pg||key==="start")return;const main=pg.querySelector(".ddmain")||pg.querySelector("main")||pg;const h1=main.querySelector(".xh1")||main.querySelector("h1");if(!h1||main.querySelector(".opener[data-key='"+key+"']"))return;main.querySelectorAll(".opener").forEach(o=>o.remove());
- const o=document.createElement("div");o.className="opener";o.dataset.key=key;o.setAttribute("aria-label","Sky, the guide");o.innerHTML=`<div class="om">${skyMascot(56)}</div><div class="oh"><b>${g.what}</b><div class="steps">${g.steps.map((s,i)=>`<span><i>${i+1}</i>${s[0]}</span>`).join("")}</div></div><button type="button" class="xbtn bot" data-tour="${key}">${skyMascot(18)}Show me around<small>${(g.tour||[]).length} stops · 30 s</small></button>`;h1.after(o);}
+ const stops=(g.tour||[]).filter(st=>{const el=document.querySelector(".page.on "+st[0])||document.querySelector(st[0]);return el&&el.getBoundingClientRect().width>0;});
+ const o=document.createElement("div");o.className="opener";o.dataset.key=key;o.setAttribute("aria-label","Sky, the guide");o.innerHTML=`<div class="om">${skyMascot(56)}</div><div class="oh"><b>${g.what}</b>${stops.length?`<div class="stops" aria-label="On this page"><span class="sl">${XICO.pin}On this page</span>${stops.map((st,i)=>`<button type="button" class="stop" data-stop="${st[0].replace(/"/g,"&quot;")}" title="${(st[2]||"").replace(/"/g,"&quot;")}"><i>${i+1}</i>${st[1]}</button>`).join("")}</div>`:""}<div class="steps">${g.steps.map((st,i)=>`<span><i>${i+1}</i>${st[0]}</span>`).join("")}</div></div><button type="button" class="xbtn bot" data-tour="${key}">${skyMascot(18)}Show me around<small>${stops.length} stops · 30 s</small></button>`;h1.after(o);}
+document.addEventListener("click",e=>{const b=e.target.closest(".opener .stop");if(!b)return;const sel=b.dataset.stop,el=document.querySelector(".page.on "+sel)||document.querySelector(sel);if(!el)return;el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.remove("xflash");void el.offsetWidth;el.classList.add("xflash");setTimeout(()=>el.classList.remove("xflash"),1600);});
 // ---------- breadcrumbs, home, rail ----------
 function crumbs(){const pg=document.querySelector(".page.on");if(!pg)return;const main=pg.querySelector(".ddmain")||pg.querySelector("main");if(!main)return;const hash=location.hash||"#/start";if(hash==="#/start"){const c=main.querySelector(".crumbs");if(c)c.remove();return;}
  const base="#/"+hash.replace(/^#\/?/,"").split("/")[0];let group=null,item=null;if(base==="#/episode"){group="Learn";item="Ninety days of SkyWays";}MENU.forEach(g=>g[1].forEach(it=>{if(it[0]===base||hash===it[0]){group=g[0];item=it[1];}}));if(!item){MENU.forEach(g=>g[1].forEach(it=>{if(hash.startsWith(it[0])){group=g[0];item=it[1];}}));}
@@ -3942,4 +4006,15 @@ route();
 // ---------- UX pass (2026-09-25): toast, modal scroll lock ----------
 function xtoast(msg,ms){let t=document.getElementById("xtoast");if(!t){t=document.createElement("div");t.id="xtoast";t.className="xtoast";t.setAttribute("role","status");t.setAttribute("aria-live","polite");document.body.appendChild(t);}t.textContent=msg;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),ms||2200);}
 new MutationObserver(()=>{document.documentElement.classList.toggle("xmodal-open",!!document.querySelector(".xmodal.on"));}).observe(document.body,{subtree:true,attributes:true,attributeFilter:["class"]});
+
+
+// ---------- UX pass 4: quick-fill controls for every tool ----------
+// A select with up to five options becomes a segmented control (the select stays, hidden, as the value the tool reads);
+// a number gets a slider whose range comes from its own default; Reset puts the SkyWays case back.
+function xnice(v){if(!(v>0))return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));const m=v/p;return (m<1.5?1:m<3.5?2:m<7.5?5:10)*p;}
+function xquick(box){if(!box||box.dataset.quick)return;box.dataset.quick="1";
+ box.querySelectorAll("select").forEach(sel=>{const opts=[...sel.options];if(opts.length>5||opts.some(o=>o.textContent.length>44))return;const g=document.createElement("div");g.className="xseg";g.setAttribute("role","group");const lab=box.querySelector(`label[for="${sel.id}"]`);if(lab)g.setAttribute("aria-label",lab.textContent);g.innerHTML=opts.map(o=>`<button type="button" data-v="${o.value.replace(/"/g,"&quot;")}"${o.selected?' class="on" aria-pressed="true"':' aria-pressed="false"'}>${o.textContent}</button>`).join("");g.onclick=e=>{const b=e.target.closest("button[data-v]");if(!b)return;sel.value=b.dataset.v;g.querySelectorAll("button").forEach(x=>{const on=x===b;x.classList.toggle("on",on);x.setAttribute("aria-pressed",on?"true":"false");});sel.dispatchEvent(new Event("change",{bubbles:true}));};sel.classList.add("xhid");sel.after(g);});
+ box.querySelectorAll('input[type="number"]').forEach(inp=>{const d=parseFloat(inp.value);if(!isFinite(d))return;const min=inp.min!==""?parseFloat(inp.min):0,maxAttr=inp.max!==""?parseFloat(inp.max):null;const max=maxAttr!==null?maxAttr:(d>0?xnice(d*4):100);const step=inp.step&&inp.step!=="any"?parseFloat(inp.step):(d>0&&d<=1?0.01:d>0&&d<=10?0.1:d>0&&d<=100?1:xnice(Math.max(1,d/50)));const r=document.createElement("input");r.type="range";r.className="xrng";r.min=min;r.max=max;r.step=step;r.value=Math.min(max,Math.max(min,d));r.setAttribute("aria-label",(box.querySelector(`label[for="${inp.id}"]`)||{}).textContent||"slider");r.addEventListener("input",()=>{inp.value=r.value;});inp.addEventListener("input",()=>{const v=parseFloat(inp.value);if(isFinite(v)){if(v>parseFloat(r.max))r.max=xnice(v*2);r.value=v;}});inp.after(r);});
+ box.querySelectorAll("input,select,textarea").forEach(el=>{el.dataset.init=el.value;});}
+function xreset(box){if(!box)return;box.querySelectorAll("input,select,textarea").forEach(el=>{if(el.type==="range")return;if(el.dataset.init!==undefined){el.value=el.dataset.init;}});box.querySelectorAll("select").forEach(sel=>{const g=sel.nextElementSibling;if(g&&g.classList.contains("xseg"))g.querySelectorAll("button").forEach(x=>{const on=x.dataset.v===sel.value;x.classList.toggle("on",on);x.setAttribute("aria-pressed",on?"true":"false");});});box.querySelectorAll('input[type="number"]').forEach(inp=>{const r=inp.nextElementSibling;if(r&&r.classList.contains("xrng"))r.value=inp.value;});}
 </script></body></html>

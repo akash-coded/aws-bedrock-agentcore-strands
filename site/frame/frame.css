@@ -15,8 +15,8 @@
 @media (max-width:900px){.sw-footer{padding:36px 22px 92px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
 .sw-footer h2{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft,#77746C);margin:0 0 12px}
 .sw-footer p{font-size:14px;line-height:1.6;margin:0 0 10px;max-width:62ch}
-.sw-footer a{color:var(--slate,#5B6B8C);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--slate,#5B6B8C) 35%,transparent);transition:border-color 160ms}
-.sw-footer a:hover{border-bottom-color:var(--slate,#5B6B8C)}
+html .sw-footer a{color:#3E5A82;text-decoration:none;border-bottom:1px solid rgba(62,90,130,.35);transition:border-color 160ms}  /* fixed colour, 6.4:1 on white; the tool's own link rule would otherwise win */
+html .sw-footer a:hover{border-bottom-color:#3E5A82}
 .sw-footer .sw-name{font-weight:600;color:var(--ink,#1C1B19)}
 .sw-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:14px}
 .sw-footer .sw-btn{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:10px 14px;border-radius:10px;border:1px solid var(--rule,#E6E2D9);background:var(--bone,#F7F6F2);color:var(--ink,#1C1B19);font:500 13.5px/1 inherit;cursor:pointer;transition:border-color 160ms,background 160ms}
