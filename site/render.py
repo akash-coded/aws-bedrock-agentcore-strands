@@ -266,8 +266,8 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     endorsed by Amazon Web Services or any airline.</p>
   </section>
   <section><h2>Go deeper</h2><ul>
-    <li><a href="{up}simulator/">The SkyWays PDLC Simulator: the whole method, playable</a></li>
-    <li><a href="{up}learn/">The tutorial — every lesson, in order</a></li>
+    <li><a href="{up}simulator/">The SkyWays PDLC Simulator, the whole method as a game</a></li>
+    <li><a href="{up}learn/">The tutorial, every lesson in order</a></li>
     <li><a href="{WIKI}/The-Agentic-PDLC">The method, as a wiki</a></li>
     <li><a href="{WIKI}/Formulas-and-Calculators">Every formula, worked</a></li>
     <li><a href="{WIKI}/Scenario-Library">37 scenarios across twenty sectors</a></li>
@@ -720,14 +720,12 @@ def home_page(roles: list[dict]) -> str:
 
     hero = f"""<section class="hero" id="top" aria-label="Introduction"><div class="in">
   <div class="hx">
-    <p class="kicker">Agentic product development</p>
-    <h1>So many agentic methods. <em>Which one should your team follow?</em></h1>
-    <p class="lede">AI-DLC, AIDD, BMAD, spec-driven development, agentic SDLC: each is right about part of the
-    lifecycle and silent on the rest. This is your one stop to understand them all, and to run the best of them
-    as one method, P0 to P3, that any team can follow.</p>
-    <p class="by"><b>SkyWays Consultancy</b> brings you the <b>SkyWays PDLC</b>: the best parts of every agentic
-    framework and technique, rolled into one operating model you can run in your own organisation.</p>
-    <div class="who"><p class="wl">Start from your own chair:</p><ul>{who_html}</ul></div>
+    <p class="kicker">SkyWays Consultancy</p>
+    <h1>Which agentic method should your team follow?</h1>
+    <p class="lede">AI-DLC, AIDD, BMAD and spec-driven development each cover part of the product lifecycle.
+    The SkyWays PDLC joins the best of them into one method, P0 to P3, and this manual shows every role how
+    to run it.</p>
+    <div class="who"><p class="wl">Start from your chair:</p><ul>{who_html}</ul></div>
   </div>
   <div class="ill">{illos.spine()}
     <div class="guide">{k.pip()}<div class="bubble"><p><b>Hi, I'm Pip.</b> New here? I can show you round in
@@ -743,8 +741,8 @@ def home_page(roles: list[dict]) -> str:
 <main id="main" style="padding:34px 0 28px">
   <a class="xlink" href="simulator/" aria-label="Open the SkyWays PDLC Simulator">
     <span class="xli" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="currentColor" stroke="none"/></svg></span>
-    <span class="xlt"><b>Prefer to learn by playing?</b> The SkyWays PDLC Simulator is the same method as a game: thirteen dated
-    episodes, nine simulations, seventeen calculators, and a score you keep.</span>
+    <span class="xlt"><b>Prefer to learn by playing?</b> The SkyWays PDLC Simulator plays the same method as a game, with
+    thirteen dated episodes, nine simulations, seventeen calculators and a score you keep.</span>
     <span class="btn pri">Open the simulator →</span>
   </a>
 
@@ -754,9 +752,9 @@ def home_page(roles: list[dict]) -> str:
     <div class="ht">
       <p class="kicker">SkyWays Consultancy</p>
       <h2>Agentic product development, <em>reimagined</em>.</h2>
-      <p>The best of every agentic way of working, AI-DLC, AIDD, BMAD, spec-driven development and the
-      operating model that ties them together, in one manual you can run on Monday. Free, credited,
-      method-agnostic, and worked end to end on one running case.</p>
+      <p>One manual for building software with AI agents. It covers the four named methods and the operating
+      model that ties them together, and it is written to be used on Monday. Free, open source, and worked end
+      to end on one running case.</p>
       <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a><a class="btn" href="simulator/">Open the simulator</a></div>
     </div>
     <figure class="hi tower">{illos.tower()}<figcaption>Software that decides needs a tower, not a faster runway.</figcaption></figure>
@@ -766,7 +764,7 @@ def home_page(roles: list[dict]) -> str:
     <h2>Three ways you can use this</h2>
     <div class="ways">
       <div><h3>Learn the method</h3>
-        <p>{n_lessons} short lessons: the four phases, the methods decoded, running delivery, every role, the
+        <p>{n_lessons} short lessons cover the four phases, the methods, running delivery, every role, the
         organisation, the SkyWays case and {n_banks} interview banks with answer frameworks.</p>
         <a class="more" href="learn/">Start the tutorial →</a></div>
       <div><h3>Walk your role</h3>
@@ -774,8 +772,8 @@ def home_page(roles: list[dict]) -> str:
         the artefact you owe the next person, its template and the prompts to draft it.</p>
         <a class="more" href="product-manager/">Open a role →</a></div>
       <div><h3>Use the libraries, then play</h3>
-        <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder,
-        and the SkyWays PDLC Simulator: one airline's build, replayed as a game.</p>
+        <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder.
+        Then the SkyWays PDLC Simulator, which replays one airline's build as a game.</p>
         <a class="more" href="simulator/">Open the simulator →</a>
         <div class="try"><span class="tl">Straight to</span><a href="simulator/#/simulations">Simulations</a><a href="simulator/#/toolkit">Toolkit</a><a href="simulator/#/concepts">Concept map</a><a href="simulator/#/story">The worked case</a></div></div>
     </div>
@@ -786,8 +784,9 @@ def home_page(roles: list[dict]) -> str:
       <div><b>One running case throughout</b><p>SkyWays, an airline building a rebooking assistant for disrupted
       passengers. Every role, lesson and simulation uses the same case, so you can switch chairs and stay oriented.</p></div></div>
     <div class="pg"><span class="pgi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 4h-6a5 5 0 0 0 0 10h2a5 5 0 0 1 0 10H7"/><path d="M14 1l3 3-3 3M10 21l-3 3 3 3"/></svg></span>
-      <div><b>One lifecycle for every method</b><p>P0 to P3, the SkyWays PDLC: four phases, one hard gate and eight
-      loops. AI-DLC, AIDD, BMAD and spec-driven development each plug into it; none of them replaces it.</p></div></div>
+      <div><b>One lifecycle for every method</b><p>The SkyWays PDLC runs from P0 to P3 in four phases, with one hard
+      gate and eight loops. AI-DLC, AIDD, BMAD and spec-driven development each plug into it, and none of them
+      replaces it.</p></div></div>
   </section>
 
   {boards.pdlc()}
@@ -808,14 +807,14 @@ def home_page(roles: list[dict]) -> str:
   <div class="sec more">
     <div><h3>Templates you can use today</h3><p>Every artefact has a fill-in skeleton with a copy button, from
       the pain register to the two-number report. <a href="templates/">All templates →</a></p></div>
-    <div><h3>Prompts you can paste into your LLM</h3><p>Written for your workflow and meant to be edited: the job,
-      the inputs, the rules, the output shape. <a href="prompts/">All prompts →</a></p></div>
-    <div><h3>The SkyWays PDLC Simulator</h3><p>The whole method, playable: thirteen dated episodes, nine
-      simulations, seventeen calculators, and a score. <a href="simulator/">Open the simulator →</a></p></div>
-    <div><h3>How to invest in AI projects</h3><p>For whoever funds the work: what changes, who does what, and the
-      four decisions only leadership can make. <a href="protocol/">The operating protocol →</a></p></div>
-    <div><h3>Pictures that explain agentic concepts</h3><p>Every diagram as an image: the spine, the loops, every role,
-      every lesson, the posters. Light and dark, captioned, free to reuse. <a href="pictures/">The picture pack →</a></p></div>
+    <div><h3>Prompts you can paste into your LLM</h3><p>Each prompt states the job, the inputs, the rules and the
+      shape of the answer, and is written to be edited. <a href="prompts/">All prompts →</a></p></div>
+    <div><h3>The SkyWays PDLC Simulator</h3><p>Play the whole method through thirteen dated episodes, nine
+      simulations and seventeen calculators, and keep your score. <a href="simulator/">Open the simulator →</a></p></div>
+    <div><h3>How to invest in AI projects</h3><p>For whoever funds the work. It says what changes, who does what,
+      and which four decisions only leadership can make. <a href="protocol/">The operating protocol →</a></p></div>
+    <div><h3>Pictures that explain agentic concepts</h3><p>Every diagram of the method as an image, in light and dark,
+      captioned and free to reuse. <a href="pictures/">The picture pack →</a></p></div>
     <div><h3>The methods, merged and written down</h3><p>Four phases, eight loops, 37 scenarios, 31 exercises and every
       formula, worked. <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
   </div>

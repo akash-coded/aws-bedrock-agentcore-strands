@@ -8,6 +8,18 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The home page in plain sentences
+
+### Changed
+- **The hero asks one question and answers it in two sentences.** "Which agentic method should your team
+  follow?", then: the four named methods each cover part of the product lifecycle, and the SkyWays PDLC joins
+  the best of them into one method, P0 to P3, that this manual shows every role how to run. The by-line and
+  its bold labels are gone; the chair list reads "Start from your chair"
+- **Every card and strip on the home page reads as a sentence** with its own shape, instead of a fragment, a
+  colon and a list repeated six times; the footer loses its dash
+- Copy on this site is now checked against the humanizer and no-ai-slop writing patterns, and layout and
+  motion against the taste, UI/UX and transitions skills, before it ships
+
 ## 2026-09-25 · The simulator's last cleanups, and the two sites pointing at each other
 
 ### Changed
