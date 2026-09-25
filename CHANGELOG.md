@@ -8,6 +8,22 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · Every page says what it holds; every tool says how to use it
+
+### Changed
+- **Page heads in three cells.** The opener under every page title now reads as "What is here", "How to
+  use it" and "You leave with", each with an icon, the jump chips under the first and the numbered steps
+  under the second; the bot and "Show me around" stay beside them. Eighteen pages carry a "leave with" line
+- **Every tool has "How to use this tool"**: a button under the tool's introduction opens what it is for and
+  which phase it belongs to, three steps, and the worked example: the SkyWays inputs the tool opened with
+  and how it read them, with a button to put those numbers back after you have typed your own
+- **The evidence page fills its width**: a hand-off strip at the top (what you hold, and the four hand-offs
+  with how many artefacts each owes and where they come from), your pack under it, and the four artefact
+  tables in two columns
+
+### Fixed
+- In the governance page's gate scene the "placeholder · owner · date" chip crossed the lane's title
+
 ## 2026-09-25 · The simulator's home page tells the method in order
 
 ### Changed
