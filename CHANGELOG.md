@@ -8,6 +8,29 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The scenarios speak to your role; the tower's rooms carry their openers
+
+### Changed
+- **Every scenario ends with a line written for your role.** The walkthrough's 35 decision scenarios each
+  carry four short lines, one per role, grounded in that scenario's mechanic; before, the same stage-level
+  paragraph repeated under every scenario. The stage's "Your Monday" list is shown once, as a card under the
+  deck, with a prompt to choose a role when none is chosen
+- **Situations lead with the situation.** Twelve scenarios that opened with an instruction ("Pick a layer…")
+  now open with the state of the world, then the instruction. The role picker and the bring-your-own-feature
+  scenario are labelled "Start here" and "Optional" rather than "The situation"
+- **The site-map scenario** in the walkthrough's first stage describes the site as it is now: the story, the
+  simulations and tools, the playbooks and the reference, instead of a layout the site no longer has
+- **The tower's rooms** show each episode's opening line under the title, so a room says what happens in it
+  before you enter; the HUD's points line sets the best streak on its own line
+
+### Fixed
+- **A ledger question read "How do I get a good write an architecture decision record out of my
+  assistant?"**; it now reads "How do I get my assistant to write an architecture decision record well?"
+- **The compound-scenario tab** was stretched to a three-column grid, because its class collided with the
+  tool's comparison-table class. It is a normal pill again
+- **The stage strips on phones** were scaled to a six-point font; they now keep their size and scroll
+  sideways inside their card
+
 ## 2026-09-25 · Round three: phones, the tower, the scenarios, the last accessibility items
 
 ### Fixed
