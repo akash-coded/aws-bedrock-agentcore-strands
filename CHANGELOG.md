@@ -8,6 +8,25 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · The simulator's home page tells the method in order
+
+### Changed
+- **"The method, in order"** replaces the three pictures. It reads top to bottom: a traditional lifecycle as a
+  line beside the SkyWays PDLC as a loop, with the five published methods drawn plugging into the loop where
+  each speaks; why the field has no standard and what this one proposes; the four phases as a strip with the
+  gates between them and what each leaves you with; where each method sits on the spine; and who does what,
+  where every chip now carries the step it opens ("Problem in three numbers" reads "State the problem in
+  cases, minutes and money" underneath)
+- **"What you will be able to do afterwards" is six tabs, one per role**, with that role's four outcomes, a
+  route button and a link to its playbook, instead of six cards of text
+- **Your route has its own page.** The boarding-pass router and the guided path moved to `#/route`; the
+  hero's "I am" chips, the rail and the walkthrough links go there, and `#/start/<role>` forwards to it
+- **"Why an airline on its worst day" moved to the story page**, where the worked case is introduced, with a
+  rail entry
+
+### Fixed
+- Contrast on the figure title pills, the roles grid headers and the chosen outcome tab
+
 ## 2026-09-25 · The worked case as a flight plan
 
 ### Changed
