@@ -8,6 +8,22 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · AA contrast and labels on every route
+
+### Fixed
+- **Every route of the simulator now passes axe at WCAG AA**, checked in one sweep over all twenty routes. Before,
+  twelve failed: hue colours used for small text (step numbers, lane labels, phase badges, kickers, the
+  playbooks' "on Monday" headings, the learn path's unit numbers, the compare page's spine, the guide's paths,
+  episode principles) and hue badges under white text (chosen chips, phase pills, figure numbers, slot
+  numbers). Each is darkened by a fixed mix towards navy at the rule that wins for it, so the hues stay
+  recognisable. Six range sliders on the playbook pages have labels; the episode slot labels are headings, so
+  the order no longer skips a level; four number columns have a hidden header
+- The previous entry's claim that the governance and loop map pages were clean was wrong; they are now
+- **Two layout faults found on the way**: the compare page's spine drew its four phase headers as tall grey
+  boxes, because the `ph` class also names the phase cards elsewhere; and on the process page the lane labels
+  ("Draft it with a model") wrapped into four lines in a 43px column, because the bold line beneath sized the
+  header's first column. Both read as intended now
+
 ## 2026-09-25 · Three efforts, one method
 
 ### Added
