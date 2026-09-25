@@ -117,7 +117,7 @@ def _menu(up: str, nav_id: str) -> str:
         ("Libraries", [("templates/", "Artefact templates", "templates"),
                        ("prompts/", "Prompts to paste", "prompts"),
                        ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks")]),
-        ("Play", [("simulator/", "The SkyWays playbook · interactive simulator", "simulator")]),
+        ("Play", [("simulator/", "The SkyWays PDLC Simulator · the method, playable", "simulator")]),
         ("Elsewhere", [(WIKI, "The wiki", ""), (REPO, "The repository", ""),
                        (REPO + "/discussions/101", "Ideas and contact", "")]),
     ]
@@ -162,7 +162,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
                         ("frameworks", "Frameworks")):
         cur = ' aria-current="page"' if nav_id == slug else ""
         nav.append(f'<a href="{up}{slug}/"{cur}>{label}</a>')
-    nav.append(f'<a href="{up}simulator/" class="play">Playbook</a>')
+    nav.append(f'<a href="{up}simulator/" class="play">Simulator</a>')
 
     crumb_html = ""
     ld_crumbs = None
@@ -243,7 +243,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     endorsed by Amazon Web Services or any airline.</p>
   </section>
   <section><h2>Go deeper</h2><ul>
-    <li><a href="{up}simulator/">The SkyWays playbook — the same ninety days, playable</a></li>
+    <li><a href="{up}simulator/">The SkyWays PDLC Simulator — the same ninety days, playable</a></li>
     <li><a href="{up}learn/">The tutorial — every lesson, in order</a></li>
     <li><a href="{WIKI}/The-Agentic-PDLC">The method, as a wiki</a></li>
     <li><a href="{WIKI}/Formulas-and-Calculators">Every formula, worked</a></li>
@@ -602,12 +602,14 @@ def home_page(roles: list[dict]) -> str:
     <h1>Every agentic delivery method. One manual. <em>Your role, end to end.</em></h1>
     <p class="lede">AI-DLC, AIDD, BMAD, spec-driven development and the PDLC that ties them together,
     walked from the first conversation to the number you report. Free, credited, method-agnostic.</p>
+    <p class="by">A product of <b>SkyWays Consultancy</b>. The SkyWays PDLC brings the best of every agentic way of
+    working into one operating model: your one stop for running product development in the LLM era.</p>
     <div class="who"><p class="wl">If you are…</p><ul>{who_html}</ul></div>
     <div class="guide">{k.pip()}<div class="bubble"><p><b>Hi, I'm Pip.</b> New here? I can show you round in
-      thirty seconds, or take you straight to the tutorial or the playbook.</p>
+      thirty seconds, or take you straight to the tutorial or the simulator.</p>
       <div class="ba"><button type="button" class="btn pri" data-tour-start>Show me around</button>
       <a class="btn" href="learn/">Start the tutorial</a>
-      <a class="btn" href="simulator/">Play the playbook</a></div></div></div>
+      <a class="btn" href="simulator/">Open the simulator</a></div></div></div>
   </div>
   <div class="ill">{illos.spine()}</div>
 </div></section>"""
@@ -630,7 +632,7 @@ def home_page(roles: list[dict]) -> str:
       <div><h3>Use the libraries, then play</h3>
         <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder,
         and the SkyWays playbook: ninety days of one airline's build you can replay.</p>
-        <a class="more" href="simulator/">Open the playbook →</a>
+        <a class="more" href="simulator/">Open the simulator →</a>
         <div class="try"><span class="tl">Straight to</span><a href="simulator/#/simulations">Simulations</a><a href="simulator/#/toolkit">Toolkit</a><a href="simulator/#/concepts">Concept map</a><a href="simulator/#/story">The ninety days</a></div></div>
     </div>
   </div>

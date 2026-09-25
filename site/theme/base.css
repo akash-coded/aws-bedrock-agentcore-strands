@@ -1192,3 +1192,7 @@ main a[href*="simulator/"]:not(.btn):not(.more)::before{content:"";display:inlin
 
 /* phones: the orient card stacks to one column below 480px */
 @media (max-width:480px){.orient{grid-template-columns:1fr!important}}
+
+/* the home hero's positioning line */
+.hero .by{font-size:15px;line-height:1.55;color:var(--ink-2,var(--soft));max-width:62ch;margin:2px 0 18px}
+.hero .by b{color:var(--ink);font-weight:700}

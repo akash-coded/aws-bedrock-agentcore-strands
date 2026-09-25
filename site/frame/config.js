@@ -3,7 +3,7 @@
 window.SKYWAYS_SITE = {
   author: "Akash Das",
   // The tool's own name, used in the footer's first sentence and the drawer.
-  siteName: "SkyWays, the agentic PDLC operating playbook",
+  siteName: "The SkyWays PDLC Simulator",
   year: 2026,
   links: {
     repo: "https://github.com/akash-coded/aws-bedrock-agentcore-strands",

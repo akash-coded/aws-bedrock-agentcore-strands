@@ -8,6 +8,24 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-09-25 · SkyWays Consultancy, the PDLC Simulator, and a nav that says what it is
+
+### Changed
+- **Positioning.** The manual and the tool are products of SkyWays Consultancy: the framework is the SkyWays
+  PDLC and the tool is the SkyWays PDLC Simulator. The tool's brand, title and footer say so; the hero on both
+  home pages carries the line "the best of every agentic way of working, in one operating model"; the manual's
+  nav link and buttons say Simulator; the disclaimer says the worked case is set at a fictional airline that
+  shares the name
+- **The Manual link sits at the right end of the simulator's nav**, where the manual keeps its Simulator link,
+  and Home comes first. The strip above reads as one sentence
+- **Menus and pills say what they are**: "By role" and "Resources" replace "Roles" and "Reference"; the Pack
+  pill says "Evidence pack" and the star says "Points"; Search and Copy link are icons only
+- **The nav's tiers were re-cut** after the labels grew, and it fits at every width from 901px to 1920px
+
+### Fixed
+- **Switching the hero between light and dark made it vanish**: the rebuild looked for a block the climb had
+  replaced. It anchors on the climb now
+
 ## 2026-09-25 · The home page, shorter, and checked on a phone
 
 ### Changed

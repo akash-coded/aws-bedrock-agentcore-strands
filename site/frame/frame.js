@@ -40,17 +40,19 @@
     f.innerHTML =
       '<div class="sw-wrap">' +
       "<section><h2>About this tool</h2>" +
-      '<p><span class="sw-name">' + siteName + '</span> is an original work and the intellectual property of ' +
-      '<span class="sw-name">' + author + "</span>. It is open-sourced under the " + a(links.license, "MIT Licence") +
+      '<p><span class="sw-name">' + siteName + '</span> is a product of <span class="sw-name">SkyWays Consultancy</span>, ' +
+      'conceptualised and built by <span class="sw-name">' + author + "</span>: the published agentic methods, in-house " +
+      "innovation and R&amp;D, and how forward-deployed teams and product leaders actually run their projects, brought " +
+      "into one operating model. It is open-sourced under the " + a(links.license, "MIT Licence") +
       " for knowledge and experience sharing: study it, fork it, teach with it, and keep the copyright notice and " +
       "attribution when you reuse any part of it.</p>" +
-      '<div class="sw-notice"><b>Disclaimer.</b> SkyWays is a fictional airline. Every figure, benchmark and price in ' +
+      '<div class="sw-notice"><b>Disclaimer.</b> The worked case is set at a fictional airline, also called SkyWays. Every figure, benchmark and price in ' +
       "the walk-through is illustrative and dated to when it was written; check it against your own numbers before " +
       "you decide anything. This site is not affiliated with, sponsored by or endorsed by Amazon Web Services or any " +
       "airline, and is provided as is, without warranty of any kind.</div></section>" +
       (links.manual ?
         "<section><h2>The manual around this tool</h2>" +
-        '<p>This playbook is the interactive part of <a href="' + links.manual + '">The agentic manual</a>: the same ' +
+        '<p>This simulator is the interactive part of <a href="' + links.manual + '">The agentic manual</a>: the same ' +
         "method as a tutorial, five role journeys, the templates, the prompts and the pictures.</p><ul>" +
         '<li><a href="' + links.manual + '">&#8592; Back to the manual</a></li>' +
         (links.manualPages || []).map(function (p) { return '<li><a href="' + p[1] + '">' + p[0] + "</a></li>"; }).join("") +
@@ -187,7 +189,7 @@
       h("span", { "class": "sw-ic", html: BACK }),
       h("span", { "class": "sw-long", text: "Back to the agentic manual" }),
       h("span", { "class": "sw-short", text: "The manual" })]));
-    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the playbook. Straight to a part of the manual:" }));
+    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the simulator. Straight to a part of the manual:" }));
     var pages = h("span", { "class": "sw-strip-links" });
     (links.manualPages || []).forEach(function (p) {
       pages.appendChild(h("a", { href: p[1] }, [p[0], h("span", { "class": "sw-ic sw-go", html: GO })]));
@@ -198,10 +200,12 @@
   // A "Manual" chip beside the tool's Home chip, and a first row in its phone menu: the way back sits where
   // the tool's own navigation is, instead of floating over its content.
   function navChip() {
-    var home = document.querySelector("#topnav .xhome");
-    if (home && !document.querySelector("#topnav .sw-manual")) {
-      home.after(h("a", { "class": "xhome sw-manual", href: links.manual, title: "Back to the agentic manual", "aria-label": "Back to the agentic manual" }, [
-        h("span", { "class": "sw-ic", html: BACK }), h("span", { text: "Manual" })]));
+    var right = document.querySelector("#topnav .xright");
+    if (right && !document.querySelector("#topnav .sw-manual")) {
+      var chip = h("a", { "class": "xpill sw-manual", href: links.manual, title: "Back to the agentic manual", "aria-label": "Back to the agentic manual" }, [
+        h("span", { "class": "sw-ic", html: BACK }), h("span", { text: "Manual" })]);
+      var burger = right.querySelector("#xburger");
+      if (burger) burger.before(chip); else right.appendChild(chip);
     }
     var sheet = document.querySelector("#xsheet .sh");
     if (sheet && !document.querySelector("#xsheet .sw-sheet-back")) {
