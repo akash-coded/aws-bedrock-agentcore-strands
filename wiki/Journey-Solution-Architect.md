@@ -791,7 +791,7 @@ Assign each a process depth. Run only the lifecycle stages the change actually n
 OUTPUT SHAPE, one table:
 | Change | P0 | P1 | P2 | P3 | Method weight | The stage I am skipping, and why that is safe |
 
-Allowed cell values: full · yes · light ·, 
+Allowed cell values: full · yes · light · —
 
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
@@ -874,7 +874,7 @@ _Workshop: <n> people, <n> candidates, two hours · Chair: <name>_
 **Rule:** a gap of 5 or more between any two stakeholders is a conflict, and every
 conflict is a decision-record trigger.
 
-**Not a real conflict, though it looks like one:** <auditability against latency, 
+**Not a real conflict, though it looks like one:** <auditability against latency:
 logging costs milliseconds, the model choice costs seconds>. The trees show this,
 which is why you build them instead of debating them.
 

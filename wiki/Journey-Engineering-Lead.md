@@ -544,7 +544,7 @@ OUTPUT a table:
 
 RULES:
 - "Acted on" means the value reaches a tool call, a customer, a ledger or a document.
-  A number that only appears in an explanation to a human is not the same category, 
+  A number that only appears in an explanation to a human is not the same category;
   mark it EXPLANATORY and leave it alone.
 - Propose a signature for every acted-on hit, with Decimal for money.
 - Do not change any file. Return the table and the signatures only.

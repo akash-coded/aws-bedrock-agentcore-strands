@@ -311,7 +311,7 @@
     {
      "title": "Sweep the prompts for arithmetic",
      "when": "Weekly, and after every prompt change",
-     "body": "Search every file under <src/prompts/> for arithmetic that a model is being asked\nto perform: the words calculate, compute, total, sum, difference, percentage, fee,\ncharge, and any currency symbol.\n\nOUTPUT a table:\n| File and line | The sentence | Is the number ACTED ON? | Function it should become |\n\nRULES:\n- \"Acted on\" means the value reaches a tool call, a customer, a ledger or a document.\n  A number that only appears in an explanation to a human is not the same category, \n  mark it EXPLANATORY and leave it alone.\n- Propose a signature for every acted-on hit, with Decimal for money.\n- Do not change any file. Return the table and the signatures only.\n- At the end, give me the one-line shell command for this grep so I can put it in CI."
+     "body": "Search every file under <src/prompts/> for arithmetic that a model is being asked\nto perform: the words calculate, compute, total, sum, difference, percentage, fee,\ncharge, and any currency symbol.\n\nOUTPUT a table:\n| File and line | The sentence | Is the number ACTED ON? | Function it should become |\n\nRULES:\n- \"Acted on\" means the value reaches a tool call, a customer, a ledger or a document.\n  A number that only appears in an explanation to a human is not the same category;\n  mark it EXPLANATORY and leave it alone.\n- Propose a signature for every acted-on hit, with Decimal for money.\n- Do not change any file. Return the table and the signatures only.\n- At the end, give me the one-line shell command for this grep so I can put it in CI."
     },
     {
      "title": "Edge cases for an exact function",
