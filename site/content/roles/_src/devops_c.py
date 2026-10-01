@@ -6,7 +6,7 @@ STEPS_C = [
  "title": "Give the agent the smallest identity that can do the job",
  "when": "Before the first write tool exists, and again at every new tool",
  "purpose": (
-   "Least privilege is fifty years old — Saltzer and Schroeder set it out in 1975 — and nothing about "
+   "Least privilege is fifty years old, Saltzer and Schroeder set it out in 1975, and nothing about "
    "an agent changes the principle. What changes is that the thing holding the privilege now decides "
    "for itself what to do with it, and it decides partly on text that arrived from outside. So the "
    "platform does two jobs. The first is ordinary and rigorous: separate identities for reading and "
@@ -21,13 +21,13 @@ STEPS_C = [
               "holds a credential that can change anything. Most of an agent's work is reading, so "
               "most of its runtime should be structurally unable to write."},
    {"do": "Scope the execution role to the tools in this job's contract",
-    "detail": "Not the service — the operations and the resources. `bedrock:InvokeModel` on the two "
+    "detail": "Not the service: the operations and the resources. `bedrock:InvokeModel` on the two "
               "inference profile ARNs you pinned, not on `*`. When a tool is removed from the agent, "
               "its permission comes out in the same pull request, or the role only ever grows."},
    {"do": "Put the cap and the approver in the tool contract and the policy",
     "detail": "A refund tool whose signature cannot express an amount above the cap cannot issue one, "
               "whatever it is told. A prompt saying *never refund more than $400* is a request, and a "
-              "request can be argued with — by a passenger, by a partner's error text, or by a model "
+              "request can be argued with, by a passenger, by a partner's error text, or by a model "
               "that has reasoned its way somewhere reasonable. This is the whole of the lesson."},
    {"do": "Control egress explicitly",
     "detail": "Private subnets with no route out except through endpoints you named: VPC endpoints for "
@@ -36,7 +36,7 @@ STEPS_C = [
    {"do": "Treat every ingested text as untrusted, partner responses included",
     "detail": "A passenger message, an uploaded PDF, a web page and a partner API's free-text `remarks` "
               "field are all inputs an attacker can reach. Delimit them, never concatenate them into "
-              "instructions, strip control sequences — and assume the model will sometimes follow them "
+              "instructions, strip control sequences, and assume the model will sometimes follow them "
               "anyway, which is exactly why the cap is the control and this is only the mitigation."},
    {"do": "Answer residency in the configuration, not in a policy document",
     "detail": "Which geography may see which data, expressed as the region of the inference profile, "
@@ -218,15 +218,15 @@ RULES:
            "The fix was two lines in a tool signature and one statement in an IAM policy. The "
            "postmortem's finding was not a person; it was an absent control."},
  "pitfalls": [
-   "A cap that lives in the prompt. A prompt is a request, and a request can be argued past — by a "
-   "passenger, by a partner's error text, or by the model's own reasoning — and the amount is real money.",
+   "A cap that lives in the prompt. A prompt is a request, and a request can be argued past (by a "
+   "passenger, by a partner's error text, or by the model's own reasoning) and the amount is real money.",
    "One role for the whole agent. The retrieval step then holds write permission for the entire run, so "
    "the blast radius of a single injected instruction is everything the agent could ever do.",
    "Trusting a partner's API response because it arrived over TLS from a company you have a contract with. "
    "The channel is authenticated; the free-text field inside it is typed by somebody you have never met.",
  ],
  "done_when": "A reviewer can read the execution role in two minutes and name, for every statement, which "
-              "tool in the contract needs it — and the injection suite runs on every pull request with "
+              "tool in the contract needs it, and the injection suite runs on every pull request with "
               "the cap assertion in it.",
 },
 {
@@ -239,7 +239,7 @@ RULES:
    "service. You may need to roll back a **prompt** or a **model version** rather than code, so each "
    "is a versioned artefact with its own path and its own rehearsal. And the failure that costs most "
    "here is not a crash but a runaway: an agent that loops, or spends, or acts, faster than anybody is "
-   "watching. That has three controls — a loop cap, a per-transaction token and cost cap, and a kill "
+   "watching. That has three controls, a loop cap, a per-transaction token and cost cap, and a kill "
    "switch that degrades to the human desk rather than to an error page."),
  "activities": [
    {"do": "Rehearse every rollback before cut-over, with a stopwatch",
@@ -286,14 +286,14 @@ RULES:
            "the desk queue.",
     "caution": None},
    {"tool": "Chat LLM",
-    "use": "Turn a postmortem transcript into the five-part brief — pain, evidence, the missing enforced "
-           "control, the fix, the value — and hold that format while the room is still looking for a "
+    "use": "Turn a postmortem transcript into the five-part brief (pain, evidence, the missing enforced "
+           "control, the fix, the value) and hold that format while the room is still looking for a "
            "person to blame.",
     "caution": "Check that its 'control' is genuinely enforceable. It will happily propose a clearer "
                "prompt, which is a request wearing a control's clothes."},
    {"tool": "Do not delegate",
-    "use": "Declaring the incident over. Somebody with accountability looks at the state of the world — "
-           "what was written, what was refunded, what passengers were told — and says so with their name "
+    "use": "Declaring the incident over. Somebody with accountability looks at the state of the world "
+           "(what was written, what was refunded, what passengers were told) and says so with their name "
            "on it.",
     "caution": None},
  ],
@@ -441,7 +441,7 @@ ARCHITECTURE: <paste>"""},
            "40 seconds, flag to shadow 2 minutes, prompt rollback 3 minutes, model rollback 11 minutes "
            "because it redeploys the runtime. Those four numbers went into the runbook beside the date. "
            "On day 82, when the $2,000 refund surfaced, the question in the room was never *can we stop "
-           "it* — it was *which switch*. Refunds went back to gated in two minutes while the tool "
+           "it*: it was *which switch*. Refunds went back to gated in two minutes while the tool "
            "signature was fixed properly over the next two days, and the rest of the assistant kept "
            "running, because the flags were per action. Nobody had to be brave."},
  "pitfalls": [

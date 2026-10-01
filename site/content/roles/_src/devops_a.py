@@ -8,7 +8,7 @@ HEAD = {
     "tagline": "From a laptop to production, repeatably",
     "arc": ["Baseline", "Access", "Environments", "Pipeline", "Deploy", "Observe", "Protect", "Recover"],
     "intro": [
-        "Your job has not changed. Accounts, pipelines, deployments, permissions, recovery — the list "
+        "Your job has not changed. Accounts, pipelines, deployments, permissions, recovery, the list "
         "is the same list, and most of what you already know transfers intact. Three things underneath "
         "it are new, and every step below is one of them working through. The **model version is part "
         "of the environment**, so an environment can change behaviour with no deploy and no diff. The "
@@ -25,11 +25,11 @@ HEAD = {
         "environment and get it back.",
     ],
     "owns": [
-        "The **landing zone** — accounts, isolation, and a tag scheme that makes cost attributable per feature",
-        "The **model gateway** — one layer every call passes through, with a per-call log nobody can route around",
+        "The **landing zone**: accounts, isolation, and a tag scheme that makes cost attributable per feature",
+        "The **model gateway**: one layer every call passes through, with a per-call log nobody can route around",
         "The pipeline, including the evaluation harness as a required status check rather than a comment",
         "Three deployable artefacts and three rollback paths: the code, the prompt, and the model version",
-        "The **enforced** controls — execution role scope, egress, caps in tool signatures — as distinct "
+        "The **enforced** controls (execution role scope, egress, caps in tool signatures) as distinct "
         "from the requested ones",
         "The kill switch, the containment caps, and the rehearsed recovery times",
     ],
@@ -37,7 +37,7 @@ HEAD = {
         "The **acceptance bar** per slice. The product manager derives it and QA curates the cases; your "
         "job is to make the gate unarguable, not to set it",
         "**Prompt content.** You version it, deploy it and roll it back. You do not write it",
-        "Which slices exist and what a wrong answer costs in each — that is the business's answer, and it "
+        "Which slices exist and what a wrong answer costs in each. That is the business's answer, and it "
         "is the input to your caps rather than your output",
         "The behaviour, release and expansion gates. You supply the evidence and the rollback; somebody "
         "else signs",
@@ -47,7 +47,7 @@ HEAD = {
         "genuinely strong at CloudFormation, workflow YAML, IAM policy shapes and the first draft of a "
         "script, and it is confidently wrong about your account boundaries, your regions, your quotas "
         "and what a permission actually reaches. The pattern that works: the model writes the change, a "
-        "machine judges it — `cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test — and "
+        "machine judges it (`cfn-lint`, `cdk diff`, a plan output, IAM Access Analyzer, a test) and "
         "you read the diff rather than the prose. Anything that widens a permission, opens an egress "
         "path or touches a production boundary is read line by line by a person, because a model cannot "
         "estimate a blast radius it has never had to unwind. Where a step below says *do not delegate*, "
@@ -67,9 +67,9 @@ STEPS_A = [
  "when": "Week one, alongside discovery, before any resource exists",
  "purpose": (
    "The platform question for an agentic workload is not different in kind from any other. It is "
-   "different in *when*. Some of what this workload needs bills for **existing** rather than for use — "
+   "different in *when*. Some of what this workload needs bills for **existing** rather than for use, "
    "a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance "
-   "bills from boot until it is stopped, and stored long-term memory bills by the hour — so the ordinary habit of standing something up to try it and tidying up "
+   "bills from boot until it is stopped, and stored long-term memory bills by the hour, so the ordinary habit of standing something up to try it and tidying up "
    "later produces a fixed monthly charge with no feature attached to it. Four things go in before the "
    "first feature branch: an account boundary, a tag scheme that attributes cost per feature, "
    "infrastructure as code, and a budget alarm."),
@@ -123,7 +123,7 @@ STEPS_A = [
     "caution": None},
    {"tool": "Do not delegate",
     "use": "The account boundary, and what is allowed to live in production. Blast radius is a business "
-           "fact — which failures you can survive and who has to explain them — and a model has no way "
+           "fact, which failures you can survive and who has to explain them, and a model has no way "
            "to estimate it.",
     "caution": None},
  ],
@@ -266,7 +266,7 @@ SCHEME: <paste>"""},
    "body": "In week two an engineer stood up an OpenSearch Serverless collection to try retrieval over "
            "the fare rules. It was never wired into anything, and it was never switched off. On day 75 "
            "the bill came in at 4.4 times its estimate; that multiple was traced to four ordinary habits "
-           "compounding, and the collection was not even part of it — it was a separate line that took "
+           "compounding, and the collection was not even part of it. It was a separate line that took "
            "an afternoon to attribute, because it carried no `Feature` tag and belonged to no stack. "
            "Two controls would have made it a two-minute question: a tag activated in week one, and a "
            "weekly read of the always-on register."},
@@ -277,7 +277,7 @@ SCHEME: <paste>"""},
    "Tagging by team. The re-org lands in nine months and the question *what did rebooking cost* becomes "
    "permanently unanswerable for every month before it.",
    "Activating cost allocation tags late. The tags were there all along, the cost data was not, and the "
-   "first three months of spend can never be attributed — which is exactly the period you will be asked about.",
+   "first three months of spend can never be attributed, which is exactly the period you will be asked about.",
  ],
  "done_when": "You can destroy a whole environment and rebuild it from the repository, and Cost Explorer "
               "can tell you what one feature cost last month without anyone opening a spreadsheet.",
@@ -288,7 +288,7 @@ SCHEME: <paste>"""},
  "when": "The request on day one; the gateway before the second team calls Bedrock directly",
  "purpose": (
    "Two things happen here and they move at different speeds. Model access in Bedrock is granted per "
-   "model, **per region**, on request, and the approval sits in somebody else's queue — which makes it "
+   "model, **per region**, on request, and the approval sits in somebody else's queue, which makes it "
    "a lead-time item started on day one, not a task scheduled for the week you need it. The gateway is "
    "a build: one layer every model call passes through, so routing, budgets, fallbacks and a per-call "
    "log exist in one place instead of in four codebases. Without the per-call log you cannot diagnose "
@@ -301,7 +301,7 @@ SCHEME: <paste>"""},
               "missing one costs a week."},
    {"do": "Use the inference profile ID, not the bare model ID",
     "detail": "Many current models are only callable through a cross-region inference profile, whose "
-              "identifier carries a geography prefix — `us.`, `eu.`, `apac.` — in front of the model ID. "
+              "identifier carries a geography prefix (`us.`, `eu.`, `apac.`) in front of the model ID. "
               "A bare ID returns a validation error telling you to retry with an inference profile. "
               "This is the single most common first-day error, and it reads like a permissions problem, "
               "so teams spend the morning in IAM."},
@@ -488,7 +488,7 @@ ERROR, VERBATIM, plus the call site and region:
    "Treating model access as a task rather than a lead-time item. It sits in someone else's queue, so a "
    "plan that schedules it as a day's work in week four discovers the truth in week five.",
    "The bare model ID. It fails with something that reads like a permissions error, so the team spends the "
-   "morning widening IAM policies — which then ship, over-permissive, and are never narrowed again.",
+   "morning widening IAM policies, which then ship, over-permissive, and are never narrowed again.",
    "Letting one team call Bedrock directly 'just for now'. The per-call log then has a hole in it, and the "
    "hole is always exactly the team whose spend you were asked to explain.",
  ],
@@ -548,7 +548,7 @@ ERROR, VERBATIM, plus the call site and region:
            "diff a CI step.",
     "caution": None},
    {"tool": "Chat LLM",
-    "use": "Ask what could differ between two environments that a manifest diff would *not* catch — a "
+    "use": "Ask what could differ between two environments that a manifest diff would *not* catch, a "
            "quota, a data volume, a warm cache, a partner sandbox that behaves differently under load.",
     "caution": "Its list is a prompt for your own list, not a checklist. It does not know your partners "
                "and it will not mention the one that matters."},
@@ -682,7 +682,7 @@ CONTEXT: <paste the current manifest, the slice list and the last harness readou
    "body": "The first evaluation environment was seeded with twelve cases somebody wrote by hand on a "
            "Friday. Every one had a single passenger, a single delayed leg, a same-day alternative and "
            "no partner airline. The harness returned 94% and the team believed it for a fortnight. "
-           "Codeshare — 11% of real traffic and the slice carrying all the risk — was not in the seed at "
+           "Codeshare, 11% of real traffic and the slice carrying all the risk, was not in the seed at "
            "all, because nobody imagines a mess they have not read. Re-seeding from a redacted export of "
            "400 real cases took a day and dropped the score to 79%, which was the first honest number "
            "the project had."},

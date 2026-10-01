@@ -7,7 +7,7 @@ STEPS_C = [
  "when": "Throughout P2, at every bolt and every release",
  "purpose": (
    "Five gates exist across the lifecycle and you own three. A gate is a decision with evidence in "
-   "front of a named person and their name on it — not a click, not a status column, not a meeting "
+   "front of a named person and their name on it, not a click, not a status column, not a meeting "
    "that ends in 'fine'. The common failure is a product manager approving a pull request they cannot "
    "evaluate while nobody asks them the one thing they can judge, which is whether it is worth doing "
    "at all."),
@@ -142,7 +142,7 @@ Then give me the short script I can use to hand the wrong ones back."""},
  "purpose": (
    "Never switch on with nothing to compare against. A shadow run puts the agent beside the live "
    "process, deciding and logged but taking no action, for a window fixed in advance. Then five "
-   "percent of real traffic, then wider — and the widening is earned by live evidence rather than by a "
+   "percent of real traffic, then wider, and the widening is earned by live evidence rather than by a "
    "date. If it does not match the humans, you learned that for free."),
  "activities": [
    {"do": "Put a shadow window in the plan before any switch-on date exists",
@@ -197,11 +197,11 @@ _Shadow window: <start> to <end> (<n> days) · Decided: <date> · By: <name>_
 |-------|--------------------|--------|-----------|-----------|------|
 | <same-day> | <n> | <n> | <n>% | 95% | |
 | <codeshare> | <n> | <n> | <n>% | 95% | |
-| <refund> | <n> | <n> | <n>% | n/a — stays gated | |
+| <refund> | <n> | <n> | <n>% | n/a, stays gated | |
 
 **Money actions are excluded from automatic agreement and remain gated regardless.**
 
-## Disagreements — the themes
+## Disagreements, the themes
 | Theme | Count | Agent right / desk right | Action |
 |-------|-------|--------------------------|--------|
 | | | | |
@@ -211,7 +211,7 @@ _Shadow window: <start> to <end> (<n> days) · Decided: <date> · By: <name>_
 - Rehearsed on <date> by <name>; time to revert: <n> minutes
 - Who can throw it without asking: <names>
 
-## Widening schedule — conditions, not dates
+## Widening schedule: conditions, not dates
 | Share | Cases needed | Days at this share | Widen when |
 |-------|--------------|--------------------|-----------|
 | 5% | <n> | <n> | live lower bound >= bar on <slice> |
@@ -245,10 +245,10 @@ Our slices: <list>. Our data: <where the decisions are logged>."""},
 
 1. Cluster them into at most 6 themes. Name each theme in plain words.
 2. For each theme: how many cases, and is the AGENT or the DESK more often right? Say
-   which and why — do not assume the human is the ground truth.
+   which and why, do not assume the human is the ground truth.
 3. Rank the themes by estimated cost of being wrong, not by frequency.
 4. For the top theme, tell me whether the fix is the spec, the prompt, the tools, or the
-   bar — and what specifically I would change.
+   bar, and what specifically I would change.
 
 DISAGREEMENTS:
 <paste>"""},
@@ -265,7 +265,7 @@ days = cases needed / (share x cases per day)
 Then write the schedule as CONDITIONS, never dates: "widen to 25% when the live lower
 bound on <slice> holds at or above <bar> for <n> consecutive days".
 
-Flag any slice where 5% would take more than 30 days — those need a bigger starting
+Flag any slice where 5% would take more than 30 days, those need a bigger starting
 share or a different approach, and I need to know now.
 
 Slices, observed scores, bars, cases/day: <paste>"""},
@@ -273,7 +273,7 @@ Slices, observed scores, bars, cases/day: <paste>"""},
  "example": {
    "title": "SkyWays · what seven days bought",
    "body": "The full plan needed ten weeks and the sponsor had six, so the shadow window was cut from "
-           "fourteen days to seven — but only on the simple slice, and with every disagreement read. "
+           "fourteen days to seven, but only on the simple slice, and with every disagreement read. "
            "Seven days at 144 same-day cases a day is about a thousand decisions, which bounds a 97% "
            "slice tightly. Codeshare stayed at 76% against a bar of 80 and did not ship, and nobody "
            "pretended otherwise. The sponsor heard it as a trade rather than a delay: sixty percent of "
@@ -295,7 +295,7 @@ Slices, observed scores, bars, cases/day: <paste>"""},
  "when": "P3, every cycle, forever",
  "purpose": (
    "This is the step that decides whether the programme survives. A first cycle can genuinely save "
-   "time and cost more, and that is survivable — if it arrives from you rather than from finance. "
+   "time and cost more, and that is survivable, if it arrives from you rather than from finance. "
    "Then production becomes the source of the next P0: drift is a KPI you watch, and an incident is a "
    "brief you write, not a name you find."),
  "activities": [
@@ -385,11 +385,11 @@ A drift alert re-opens the release gate automatically. Last triggered: <date / n
 
 ---
 # Next P0 · <title>
-**Pain** — <what happened, as a measurement>
-**Evidence** — <trace id, date, link>
-**Finding** — the enforced control that was missing: <name it>
-**Fix** — <the control, where it will live>
-**Value** — <this class of incident becomes impossible, not less likely>
+**Pain** (<what happened, as a measurement>
+**Evidence**) <trace id, date, link>
+**Finding**, the enforced control that was missing: <name it>
+**Fix**, <the control, where it will live>
+**Value**, <this class of incident becomes impossible, not less likely>
 """},
  "prompts": [
    {"title": "Build the two-number report",
@@ -399,7 +399,7 @@ A drift alert re-opens the release gate automatically. Last triggered: <date / n
 MUST include, in this order:
 1. Person-days per story: baseline vs now, and % change
 2. Token spend per story
-3. Review hours added per story (this keeps number 1 honest — never omit it)
+3. Review hours added per story (this keeps number 1 honest, never omit it)
 4. Re-runs per story (the leak signal)
 5. A net line: "saved X person-days, spent $Y plus Z review hours"
 
@@ -416,15 +416,15 @@ LEDGER:
     "when": "After an incident, while the room is still arguing",
     "body": """Turn this incident into a P0 brief. Use EXACTLY this structure:
 
-**Pain** — what happened, as a measurement (amount, count, who was affected)
-**Evidence** — the trace or log reference
-**Finding** — the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE
-**Fix** — where that control will live (a tool signature, a gate, a permission)
-**Value** — what class of incident becomes impossible
+**Pain** (what happened, as a measurement (amount, count, who was affected)
+**Evidence**) the trace or log reference
+**Finding** (the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE
+**Fix**) where that control will live (a tool signature, a gate, a permission)
+**Value**: what class of incident becomes impossible
 
 Rules:
 - Do not name a person. Do not name the input that triggered it.
-- "A better prompt" is NOT a control — a prompt is a request that a model can be talked
+- "A better prompt" is NOT a control, a prompt is a request that a model can be talked
   past. If your finding is a prompt change, you have not found the control yet.
 - Distinguish detection (an alert) from prevention (a cap). Say which yours is.
 - If several layers failed, list each as ENFORCED / A REQUEST / ABSENT.
@@ -449,7 +449,7 @@ Do not be polite."""},
    "title": "SkyWays · day ninety",
    "body": "The report said 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, "
            "with the review hours and the re-run count beside them. The review row was up, and it was in "
-           "the report, with the reason and the expected fall. The programme continued — not because the "
+           "the report, with the reason and the expected fall. The programme continued: not because the "
            "numbers were flattering, but because both of them came from the team. The counterfactual is "
            "well documented elsewhere: every cycle showing time saved, none showing spend, and a CFO "
            "arriving at a budget review with a number nobody in the programme had seen."},

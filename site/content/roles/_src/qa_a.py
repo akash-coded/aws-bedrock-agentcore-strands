@@ -8,8 +8,8 @@ HEAD = {
     "tagline": "From 'it works' to a number you can defend",
     "arc": ["Define", "Curate", "Check", "Harness", "Measure", "Attack", "Shadow", "Watch"],
     "intro": [
-        "You own the two gates nobody else in the room can judge: **behaviour** — does it meet the "
-        "spec? — and **expansion** — have we earned wider use? The craft does not change. Test plans "
+        "You own the two gates nobody else in the room can judge: **behaviour**: does it meet the "
+        "spec?, and **expansion**, have we earned wider use? The craft does not change. Test plans "
         "from requirements, regression suites, exploratory testing and a sign-off before release are "
         "all still the job.",
         "What changes is that half of what you test is right *a share of the time*. So a pass becomes "
@@ -22,15 +22,15 @@ HEAD = {
         "without its n.",
     ],
     "owns": [
-        "The **behaviour** gate — does it meet the spec, per slice, with the lower bound?",
-        "The **expansion** gate — have we earned wider use?",
+        "The **behaviour** gate: does it meet the spec, per slice, with the lower bound?",
+        "The **expansion** gate: have we earned wider use?",
         "The golden set: which cases count, what each one expects, and the slice it belongs to",
         "The checker for each kind of step, and the judge's own measured accuracy",
         "The injection suite, and the weekly run that keeps it a regression test rather than a launch check",
         "The drift chart, its two thresholds, and the alert wired to the release gate",
     ],
     "not_yours": [
-        "The **bar** itself — the PM derives it from damage and saving; you make it executable and "
+        "The **bar** itself: the PM derives it from damage and saving; you make it executable and "
         "refuse to gate without it",
         "The **intent** and **plan** gates. You are consulted; your name on them dilutes the two that are yours",
         "The fix. You name the defect and the proof it owes; engineering chooses how to close it",
@@ -40,7 +40,7 @@ HEAD = {
     "ai_stance": (
         "Use a model for the **volume**, never for the verdict. It will turn a redacted ticket export "
         "into three hundred candidate cases, cluster forty shadow disagreements into four themes, and "
-        "write the harness that runs them — all work that used to price this role out of doing its job "
+        "write the harness that runs them, all work that used to price this role out of doing its job "
         "properly. What it must not do is decide what counts as right, or grade its own family of "
         "outputs and hand you the number unlabelled. A judge model is a measuring instrument with an "
         "unknown error until you calibrate it against human labels, so calibrate it and report that "
@@ -61,9 +61,9 @@ STEPS_A = [
  "when": "P1, the day the architect's step map exists and before a single test is written",
  "purpose": (
    "Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** "
-   "work — the fare arithmetic — owes a unit test, green or red, and it fails loudly. **Best-guess** "
-   "work — which alternative suits this passenger — owes a measured share per slice, and it fails "
-   "*fluently*: confident, well-worded and wrong. **Consequential** work — the refund — owes a "
+   "work, the fare arithmetic, owes a unit test, green or red, and it fails loudly. **Best-guess** "
+   "work, which alternative suits this passenger, owes a measured share per slice, and it fails "
+   "*fluently*: confident, well-worded and wrong. **Consequential** work, the refund, owes a "
    "required confirmation, and it fails silently until money moves. Get the tags right and the test "
    "plan writes itself; get them wrong and you will prove the wrong thing thoroughly."),
  "activities": [
@@ -131,7 +131,7 @@ _Owner: <name> · Source: the architect's step map <version> · <date>_
 | # | Step | Kind | The proof it owes | Fails how |
 |---|------|------|-------------------|-----------|
 | 1 | <fare difference> | exact | a unit test, green or red | loudly, in CI |
-| 2 | <choose the alternative> | best-guess | measured share on <slice>, vs its bar | **fluently** — confident and wrong |
+| 2 | <choose the alternative> | best-guess | measured share on <slice>, vs its bar | **fluently**: confident and wrong |
 | 3 | <issue the refund> | consequential | over-cap raises AND no-confirm raises | silently, until money moves |
 | 4 | | | | |
 
@@ -150,7 +150,7 @@ A step you want to give two tags is two steps. Send it back to the map.
 **The hold is the lever.** It lowers the damage, so it lowers the bar. Shipping at 71%
 with a person confirming the charge beats waiting for a 98% you will never reach.
 
-## Consequential steps — the two tests
+## Consequential steps: the two tests
 | Tool | Cap, in the signature | Who mints the token | over-cap raises | no-confirm raises |
 |------|----------------------|---------------------|-----------------|-------------------|
 | <issue_refund> | $<n> | <the approver's screen> | | |
@@ -161,7 +161,7 @@ be talked past a sentence.
 
 ## Where the numbers came from
 - Saving per right case: <source, date>
-- Damage per wrong case: <source — the leak as well as the transaction>
+- Damage per wrong case: <source: the leak as well as the transaction>
 - Agreed with <PM name> on <date>
 
 ## Open
@@ -178,11 +178,11 @@ For EVERY step below, output one row:
 | # | Step | Kind | Proof it owes | How it fails | Why this kind |
 
 Kinds, and only these three:
-- EXACT — published, unambiguous criteria. Arithmetic, schema, eligibility.
+- EXACT: published, unambiguous criteria. Arithmetic, schema, eligibility.
   Proof: a unit test. Fails loudly.
-- BEST-GUESS — two competent people could differ. Proof: a measured share on real
+- BEST-GUESS: two competent people could differ. Proof: a measured share on real
   cases, per slice, against a bar. Fails fluently: confident and wrong.
-- CONSEQUENTIAL — it moves money, changes an identity, or makes a commitment.
+- CONSEQUENTIAL: it moves money, changes an identity, or makes a commitment.
   Proof: over-cap raises AND no-confirmation raises. Fails silently until money moves.
 
 RULES:
@@ -243,7 +243,7 @@ ARCHITECTURE NOTES:
    "title": "SkyWays · four bars, and the one that moved",
    "body": "Four slices, four derived bars. Same-day lookup saves $4 and a wrong one costs $4, so N is "
            "1 and the bar is **50%**. Codeshare saves $9 and costs $36, so N is 4 and the bar is "
-           "**80%**. An unheld refund saves $12 and costs $600 — N of 50, a bar of **98%**, which "
+           "**80%**. An unheld refund saves $12 and costs $600. N of 50, a bar of **98%**, which "
            "nobody was ever going to reach. The fourth row is the one that changed the product: the "
            "same refund with a named approver has $30 of damage rather than $600, so N falls to 2.5 "
            "and the bar falls to **71%**. The team had spent three weeks trying to raise a score. The "
@@ -257,8 +257,8 @@ ARCHITECTURE NOTES:
    "Accepting one test on a consequential step. Over-cap and no-confirmation are different holes, and "
    "the $2,000 on day 82 went through both of them at once.",
  ],
- "done_when": "Every step on the architect's map has a tag, the proof that tag owes, and — where it is "
-              "best-guess — a bar with the two money figures it was derived from written beside it.",
+ "done_when": "Every step on the architect's map has a tag, the proof that tag owes, and, where it is "
+              "best-guess, a bar with the two money figures it was derived from written beside it.",
 },
 {
  "n": 2, "id": "curate", "phase": "Curate",
@@ -267,7 +267,7 @@ ARCHITECTURE NOTES:
  "purpose": (
    "The golden set is the acceptance bar made executable: real historical cases with the expected "
    "outcome, one per line, tagged by slice, re-scored on every change. **Fifty cases to start, five "
-   "hundred to trust.** The judgement in it is yours and it is the whole value — engineering makes it "
+   "hundred to trust.** The judgement in it is yours and it is the whole value, engineering makes it "
    "runnable, but somebody has to decide what counts as right. The part everyone gets wrong is the "
    "sampling: a set drawn in proportion to traffic is representative of traffic and not of risk, so "
    "you oversample the rare hard slice deliberately."),
@@ -283,7 +283,7 @@ ARCHITECTURE NOTES:
     "detail": "The bar applies per slice, so an untagged case can only ever contribute to an average. "
               "Make a missing tag fail the harness rather than fall quietly into the overall number."},
    {"do": "Oversample the rare hard slice, deliberately",
-    "detail": "Codeshare is 11% of traffic, so a representative 500 gives you 55 codeshare cases — and "
+    "detail": "Codeshare is 11% of traffic, so a representative 500 gives you 55 codeshare cases, and "
               "proving 86% against an 80% bar takes 129. Stratify by slice and size each stratum from "
               "what its bar needs, not from what the traffic looks like."},
    {"do": "Include the cases the system currently fails",
@@ -309,13 +309,13 @@ ARCHITECTURE NOTES:
            "needs to prove its bar at a plausible score. It turns the stratification into arithmetic.",
     "caution": None},
    {"tool": "Chat LLM (cheap tier)",
-    "use": "Generate paraphrase variants of a real case — same facts, different phrasing — to test "
+    "use": "Generate paraphrase variants of a real case (same facts, different phrasing) to test "
            "that the agent is reading the situation rather than the wording.",
     "caution": "Mark every generated line `\"source\":\"synthetic\"` and never let it count toward a "
                "slice's n. A bar proven on synthetic cases is proven against your own imagination."},
    {"tool": "Do not delegate",
     "use": "The expected outcome. That single field is the judgement the entire set rests on, and it "
-           "is the one thing a model cannot recover from the data — the data records what happened, "
+           "is the one thing a model cannot recover from the data, the data records what happened, "
            "not what should have.",
     "caution": None},
  ],
@@ -366,7 +366,7 @@ Write and run a script that emits one JSON object per line with EXACTLY this sha
 
 RULES:
 - `expect` is ALWAYS null. Do not infer the expected outcome from what the agent or the
-  desk actually did — that turns the set into a snapshot of current behaviour.
+  desk actually did, that turns the set into a snapshot of current behaviour.
 - Redact every passenger identifier: name, email, passport, card. Keep the PNR masked.
 - Assign the slice from the booking facts, not from the ticket's own category field.
 - Drop any row where you had to guess the slice, and list those separately at the end.
@@ -390,7 +390,7 @@ OUTPUT: one table.
 Then three lines:
 1. Which slice a representative sample would under-serve most, and by how much.
 2. Which slice is cheapest to prove per case curated.
-3. Any slice where the cases needed exceeds the history available — those need a hold to
+3. Any slice where the cases needed exceeds the history available, those need a hold to
    lower the bar, not more curation, and I need to know now.
 
 Show the arithmetic for one row so I can check it.
@@ -423,12 +423,12 @@ SLICE COUNTS AND CASE NOTES:
  "example": {
    "title": "SkyWays · fifty in an afternoon, five hundred by day forty-five",
    "body": "The first set was fifty cases written in an afternoon from a redacted export of March "
-           "disruptions, and twenty-four of them were red when it was frozen — which is what made it "
+           "disruptions, and twenty-four of them were red when it was frozen, which is what made it "
            "worth running. The sampling decision came next. Codeshare is 11% of traffic, so a "
            "representative five hundred would have held about **55** codeshare cases, and proving "
            "codeshare against an 80% bar needs **129** even at a comfortable 86%. So codeshare got its own "
            "file and grew to **500** cases while same-day stayed at 120. Same-day runs at 97% against "
-           "a 50% bar, where the cases-needed formula returns less than one case — which is the "
+           "a 50% bar, where the cases-needed formula returns less than one case, which is the "
            "formula saying the bar is not what constrains that slice. It kept its 120 anyway, for "
            "regression cover."},
  "pitfalls": [
@@ -449,7 +449,7 @@ SLICE COUNTS AND CASE NOTES:
  "purpose": (
    "Three kinds of work, three kinds of checker. Arithmetic, schema and eligibility get an **exact "
    "check** written in code, because code does published rules perfectly and provably. A drafted "
-   "message gets an **independent judge** against a rubric, run *after* the exact checks — running it "
+   "message gets an **independent judge** against a rubric, run *after* the exact checks, running it "
    "first spends money grading outputs the schema check would have rejected for free. A category gets "
    "a **classifier** scored against the golden labels. And the drafter never grades itself, because a "
    "model that has seen its own reasoning grades the intention rather than the output."),
@@ -482,7 +482,7 @@ SLICE COUNTS AND CASE NOTES:
  ],
  "ai": [
    {"tool": "Claude Code",
-    "use": "Write the exact checks as ordinary tests — schema validation, fare recomputation from the "
+    "use": "Write the exact checks as ordinary tests, schema validation, fare recomputation from the "
            "source rules, tax and eligibility assertions. This is normal test code and it is the "
            "cheapest part of the harness to get right.",
     "caution": "Make it recompute the expected value from the fare rules, not read it from the agent's "
@@ -596,7 +596,7 @@ OUTPUT: the test file, then a list of the steps you refused to write an exact te
 STEPS AND SOURCE RULES:
 <paste>"""},
    {"title": "The judge prompt itself",
-    "when": "Every judged run — this is the prompt the judge receives",
+    "when": "Every judged run. This is the prompt the judge receives",
     "body": """You are an independent reviewer. You did not write the message below and you have no
 stake in it passing.
 
@@ -604,9 +604,9 @@ You will see: the passenger's request, the agent's final message, the booking da
 the policy extract. You will NOT see the agent's reasoning, and you must not infer it.
 
 Score against EXACTLY these three criteria, each pass or fail:
-1. TONE — <the tone criterion from the rubric>
-2. POLICY — <the policy criterion, with the extract below>
-3. FALSE CLAIM — every factual statement is supported by the booking data supplied.
+1. TONE: <the tone criterion from the rubric>
+2. POLICY: <the policy criterion, with the extract below>
+3. FALSE CLAIM: every factual statement is supported by the booking data supplied.
    A hedged statement counts as a claim. <or: does not count - state which>
 
 RULES:
@@ -639,7 +639,7 @@ OUTPUT:
 1. Agreement: matches / n, as a percentage, with its 95% lower bound. Use the Wilson
    interval if n is under 100, and say which interval you used.
 2. A confusion breakdown: judge-fail/human-pass and judge-pass/human-fail, separately.
-   These are different problems — the first wastes engineering time, the second ships.
+   These are different problems, the first wastes engineering time, the second ships.
 3. For every disagreement, which criterion it turned on.
 4. Whichever criterion accounts for the most disagreements: the sentence the rubric is
    missing, written as a rubric line I can paste.
@@ -661,7 +661,7 @@ HUMAN LABELS:
            "and the judge was broken. Nobody argued about the case, which is the move: the rubric had "
            "never said whether *the partner usually allows this* counts as a claim, so both readings "
            "were defensible and the argument was unwinnable by design. Twenty judged cases went to a "
-           "person for blind relabelling and the judge agreed on seventeen — 85%, whose Wilson lower "
+           "person for blind relabelling and the judge agreed on seventeen, 85%, whose Wilson lower "
            "bound at n=20 is **64%**, which is not a number you want underneath a behaviour gate. So "
            "two things shipped: rubric v1 with the hedged-statement boundary written down, and a "
            "hundred-case calibration sample before anyone quoted a judged score again."},

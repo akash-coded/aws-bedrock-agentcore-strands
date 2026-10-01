@@ -10,10 +10,10 @@ HEAD = {
     "intro": [
         "Your tests, your reviews and your releases all still exist. What changes is that part of "
         "the system is right *a share of the time*, so 'it works' stops being a yes or a no and "
-        "becomes a number per slice — and the boundary that stops the thing doing harm has to live "
+        "becomes a number per slice, and the boundary that stops the thing doing harm has to live "
         "in your code, because **a prompt is a request and a tool contract is a boundary**.",
         "Two habits carry most of the difference. Everything the agent needs arrives in a **file it "
-        "can read** — a context file at session start, a story file per bolt — rather than in a chat "
+        "can read** (a context file at session start, a story file per bolt) rather than in a chat "
         "thread nobody can diff or re-run. And the work is split before it is written: exact work is "
         "a function with a unit test, best-guess work is a model call with a measured share, and the "
         "best-guess machine never does the exact math.",
@@ -23,24 +23,24 @@ HEAD = {
     ],
     "owns": [
         "The **context file** every coding tool reads, and the story file every bolt is built from",
-        "The **deterministic floor** — every number that gets acted on is a function with a test",
+        "The **deterministic floor**: every number that gets acted on is a function with a test",
         "The **boundary**: caps and confirmation tokens in tool signatures, never in prompt text",
         "The eval harness in CI, and the per-slice rule that blocks a merge",
         "The build order within the architect's dependency sequence, integrated the same day",
         "The effort-and-token ledger the product manager's cost number is built from",
     ],
     "not_yours": [
-        "The **bolt cut** itself — the architect decides the cut; you decide whether each one can be "
+        "The **bolt cut** itself, the architect decides the cut; you decide whether each one can be "
         "built alone, and say so before you start it",
-        "The **acceptance bar** per slice — the PM derives it from damage and saving. You make it run",
-        "The golden set's contents and the judge's rubric — those belong to the QA lead",
-        "The cut-over and the widening — you build the flag and rehearse the rollback; the PM throws it",
+        "The **acceptance bar** per slice, the PM derives it from damage and saving. You make it run",
+        "The golden set's contents and the judge's rubric: those belong to the QA lead",
+        "The cut-over and the widening: you build the flag and rehearse the rollback; the PM throws it",
     ],
     "ai_stance": (
         "Use a model for **the typing and the sweep**, never for the boundary. It will write a correct "
         "`fare_difference()` faster than you can, and it will just as happily write a cap into a prompt "
         "and report the cap as done. The pattern that works: the model drafts *inside* something you "
-        "wrote — a context file, a story file, a signature you already fixed — and every line that "
+        "wrote (a context file, a story file, a signature you already fixed) and every line that "
         "moves money, changes a booking or writes a trace row is read by a person before it merges. "
         "Where a step below says *do not delegate*, the model has no standing, and it is almost always "
         "because the decision is about what the code must **refuse** rather than what it should do."
@@ -74,7 +74,7 @@ STEPS_A = [
               "same sentence about never editing an applied migration is advice in the first case and "
               "a standing instruction in the second, so write the never-touch list for the second."},
    {"do": "Write four sections and nothing else",
-    "detail": "Stack, conventions, commands, never-touch. Anything longer stops being read — by the "
+    "detail": "Stack, conventions, commands, never-touch. Anything longer stops being read, by the "
               "model, because the rules are diluted, and by the engineer who is supposed to maintain "
               "it. Under a hundred lines is a working target."},
    {"do": "Point at the context layers, never copy them",
@@ -91,7 +91,7 @@ STEPS_A = [
  ],
  "ai": [
    {"tool": "Claude Code",
-    "use": "Point it at the repository and ask for a first draft from what is actually there — the "
+    "use": "Point it at the repository and ask for a first draft from what is actually there, the "
            "build files, the test runner, the directory layout. It reads the tree faster than you do "
            "and it gets the stack section right.",
     "caution": "Make it run every command it proposes and paste the output into the session. Left "
@@ -128,7 +128,7 @@ mirrored to .github/copilot-instructions.md (inline suggestions) and AGENTS.md.
 - Tests <pytest> · Lint <ruff> · Types <mypy --strict on src/tools/**>
 - Infra <CDK in infra/> · Deploy <how, and who is allowed to>
 
-## Context layers — READ THESE BY PATH. Do not paste them into a prompt.
+## Context layers. READ THESE BY PATH. Do not paste them into a prompt.
 - /context/shared/standards.md        org standards, security, tone
 - /context/domain/<booking-model>.md  the domain vocabulary
 - /context/product/architecture.md    this product, plus ADR-001..ADR-<n>
@@ -137,10 +137,10 @@ If a rule here disagrees with a layer, the layer wins and this file is out of da
 ## Conventions
 - Exact work is a function with a unit test. Never compute money in a prompt.
 - Every tool that writes takes a confirmation token. Reads do not.
-- One model per task — the cache is model-scoped and a switch discards it.
+- One model per task, the cache is model-scoped and a switch discards it.
 - A new dependency is an issue first, never an addition made in passing.
 
-## Commands — every one of these has been run. Use them; do not improvise.
+## Commands: every one of these has been run. Use them; do not improvise.
 | To do this | Run |
 |------------|-----|
 | Unit tests | `<make test>` |
@@ -149,18 +149,18 @@ If a rule here disagrees with a layer, the layer wins and this file is out of da
 | Local stack up | `<make up>` |
 
 ## Never touch
-- `<config/caps.yaml>` — the authority budget. Changing a cap is an R4 change.
-- `<src/tools/refund/**>` — two named reviewers, every time.
-- `<migrations/>` — never edit an applied migration. Add a new one.
-- `<src/trace/redact.py>` — security reviews every change here.
+- `<config/caps.yaml>`: the authority budget. Changing a cap is an R4 change.
+- `<src/tools/refund/**>` (two named reviewers, every time.
+- `<migrations/>`) never edit an applied migration. Add a new one.
+- `<src/trace/redact.py>`: security reviews every change here.
 
 ## Ask before
 - Adding a tool to the agent's tool list
-- Editing anything under `<src/prompts/>` — it re-runs the injection suite
+- Editing anything under `<src/prompts/>`, it re-runs the injection suite
 - Touching a golden-set file. Those belong to QA, not to this repo's authors.
 
 ---
-_Last rule added <date> — <the rule that bit us last week, in one line>_
+_Last rule added <date>, <the rule that bit us last week, in one line>_
 """},
  "prompts": [
    {"title": "Draft the context file from the repository itself",
@@ -172,10 +172,10 @@ and the shared context layers live under </context/shared/>.
 Read the repository first. Do not ask me questions you can answer by reading.
 
 Produce EXACTLY four sections and nothing else:
-1. Stack — language, framework, package manager, test runner, linter, type checker
-2. Context layers — paths only, no pasted content
-3. Commands — a table of task and command
-4. Never touch — files where a mistake is expensive, one reason each
+1. Stack: language, framework, package manager, test runner, linter, type checker
+2. Context layers: paths only, no pasted content
+3. Commands: a table of task and command
+4. Never touch: files where a mistake is expensive, one reason each
 
 RULES:
 - Run every command you put in section 3 and paste its output below the draft. If a
@@ -201,7 +201,7 @@ RULES:
 - Merge comments that say the same thing differently; keep the clearest wording.
 - Mark as "not a rule" anything that was a one-off judgement about that change. Those
   do not belong in a context file and adding them is how the file becomes unreadable.
-- For each rule, say whether it could be ENFORCED instead — a lint rule, a CI check, a
+- For each rule, say whether it could be ENFORCED instead, a lint rule, a CI check, a
   type. A rule that can be enforced should not be a line in a markdown file.
 
 COMMENTS:
@@ -212,13 +212,13 @@ COMMENTS:
 
 Audit it and report, in this order:
 
-1. DEAD COMMANDS — any command in the file that does not exist or does not run. Run each.
-2. STALE PATHS — any path referenced that is not in the repository.
-3. COPIED CONTEXT — any text that looks like a pasted copy of a shared standard rather
+1. DEAD COMMANDS: any command in the file that does not exist or does not run. Run each.
+2. STALE PATHS: any path referenced that is not in the repository.
+3. COPIED CONTEXT: any text that looks like a pasted copy of a shared standard rather
    than a reference to it. Copies go stale silently; say where the original should be.
-4. VAGUE RULES — any line containing "appropriate", "correct", "as needed", "try to",
+4. VAGUE RULES: any line containing "appropriate", "correct", "as needed", "try to",
    "where possible". Rewrite each as something checkable, or recommend deleting it.
-5. MISSING — of stack / context layers / conventions / commands / never-touch, which
+5. MISSING: of stack / context layers / conventions / commands / never-touch, which
    section is absent or thin?
 
 Finish with the THREE lines you would add first, and the evidence for each.
@@ -229,7 +229,7 @@ Do not rewrite the whole file. I want the diff, not a replacement."""},
    "body": "The first `CLAUDE.md` was twenty-two lines written in an hour: stack, four commands that "
            "had been run, and a never-touch list with `migrations/` on it. It grew twice. Once after "
            "an agent re-implemented the fare arithmetic inline rather than calling "
-           "`fare_difference()` and returned $80 where the ledger said $62 — the line added was "
+           "`fare_difference()` and returned $80 where the ledger said $62, the line added was "
            "*never compute money in a prompt; call the function*. Once after a session switched model "
            "mid-task and the cache hit ratio collapsed, which added *one model per task*. Two "
            "sentences, and neither failure has recurred. That is the whole evidence the file needs."},
@@ -283,8 +283,8 @@ Do not rewrite the whole file. I want the diff, not a replacement."""},
  "ai": [
    {"tool": "Claude Code",
     "use": "Give it the bolt's one-line description, the ADR numbers and the authority budget, and "
-           "have it assemble the six sections. The mechanical part — resolving paths, copying the "
-           "signature, pulling the band — is exactly what it is good at.",
+           "have it assemble the six sections. The mechanical part (resolving paths, copying the "
+           "signature, pulling the band) is exactly what it is good at.",
     "caution": "It will produce a spec sentence containing 'appropriately' or 'correctly'. Every one "
                "of those words is a decision nobody has made; strike it and write the number."},
    {"tool": "A chat surface",
@@ -312,7 +312,7 @@ Do not rewrite the whole file. I want the diff, not a replacement."""},
    "body": r"""# Bolt <7> · <rebook() gated write>
 _Author <name> · Date <date> · Architect's cut: bolt <7> of <10>_
 
-## 1 · Context — BY REFERENCE. These are not pasted into any prompt.
+## 1 · Context. BY REFERENCE. These are not pasted into any prompt.
 - /context/shared/standards.md
 - /context/domain/<booking-model>.md
 - /context/product/architecture.md
@@ -333,7 +333,7 @@ BOUNDARY  <Never rebook a segment that has already departed.>
 | `get_booking(pnr) -> Booking` | R1 | reads |
 
 ## 4 · Tests
-- Golden slice `<rebook>` — <40> cases, bar <85>%
+- Golden slice `<rebook>`, <40> cases, bar <85>%
 - Unit `<rebook_requires_fare_delta>` · `<rebook_is_idempotent>` ·
        `<rebook_rejects_a_departed_segment>`
 - Injection: <every attack string, aimed at rebook, from the passenger message
@@ -350,7 +350,7 @@ BOUNDARY  <Never rebook a segment that has already departed.>
 - Expected cost per case $<0.04>. Alert at 3x.
 
 ## Can this bolt be built alone?
-yes  /  **no — and if no, this is raised NOW, not at 2pm**: <what it needs that
+yes  /  **no: and if no, this is raised NOW, not at 2pm**: <what it needs that
 does not exist yet, and who owns the re-cut>
 """},
  "prompts": [
@@ -390,7 +390,7 @@ Then, separately, one BOUNDARY line per thing the system must refuse.
 
 RULES:
 - Preserve every precondition as its own AND line. Do not summarise two into one.
-- If a limit is missing, write WITHIN <UNSPECIFIED> — never invent a number.
+- If a limit is missing, write WITHIN <UNSPECIFIED>, never invent a number.
 - List any word in the original that hides a decision ("appropriate", "quickly",
   "if possible") and say what decision it is hiding and who should make it.
 - At the end, list anything in the prose that is a SOLUTION rather than a requirement.
@@ -417,8 +417,8 @@ file, and then you are going to build from it with this conversation closed."""}
  ],
  "example": {
    "title": "SkyWays · the file that let the chat window stay shut",
-   "body": "Bolt seven was `rebook()`. Its first story file pasted the booking model — nine hundred "
-           "lines — into the context section. That session cost three times its estimate and produced "
+   "body": "Bolt seven was `rebook()`. Its first story file pasted the booking model, nine hundred "
+           "lines, into the context section. That session cost three times its estimate and produced "
            "a function that re-derived the fare delta rather than taking it as a parameter. The second "
            "version replaced the paste with two paths and added one BOUNDARY line: *never rebook "
            "without a computed fare difference*. That line became a raise in the signature the same "
@@ -503,7 +503,7 @@ file, and then you are going to build from it with this conversation closed."""}
    "owner": "Engineering lead"},
  "template": {
    "title": "The deterministic floor, and the test that comes first", "lang": "python",
-   "body": r"""# src/exact/fare.py — the deterministic floor for <bolt 2>.
+   "body": r"""# src/exact/fare.py: the deterministic floor for <bolt 2>.
 # Every number here is acted on, so none of it may live in a prompt.
 from dataclasses import dataclass
 from decimal import ROUND_HALF_UP, Decimal
@@ -531,7 +531,7 @@ def fare_difference(original: Fare, replacement: Fare) -> Decimal:
     return owed.quantize(PENNY, rounding=ROUND_HALF_UP)
 
 
-# tests/exact/test_fare.py — the assertion comes from the spec and is written
+# tests/exact/test_fare.py: the assertion comes from the spec and is written
 # BEFORE the body above. A test written afterwards tests the implementation.
 import pytest
 
@@ -568,7 +568,7 @@ def test_rounds_half_up_exactly_once(before, after, owed):
 
 For EVERY step marked EXACT, produce:
 1. A function signature with precise types. Money is Decimal, never float.
-2. ONE assertion taken from the spec clause — not from any implementation.
+2. ONE assertion taken from the spec clause, not from any implementation.
 3. The exception it raises when its precondition is violated, named.
 
 RULES:
@@ -593,7 +593,7 @@ OUTPUT a table:
 
 RULES:
 - "Acted on" means the value reaches a tool call, a customer, a ledger or a document.
-  A number that only appears in an explanation to a human is not the same category —
+  A number that only appears in an explanation to a human is not the same category, 
   mark it EXPLANATORY and leave it alone.
 - Propose a signature for every acted-on hit, with Decimal for money.
 - Do not change any file. Return the table and the signatures only.
@@ -619,7 +619,7 @@ RULES:
  "example": {
    "title": "SkyWays · $80 where the ledger said $62",
    "body": "The fare difference began life inside the prompt, in a sentence containing the word "
-           "*exactly*. It returned $80 where the ledger said $62 — fluently, with no error, and the "
+           "*exactly*. It returned $80 where the ledger said $62, fluently, with no error, and the "
            "passenger was the first to know. The fix was about forty lines: `fare_difference()` "
            "taking two `Decimal` fares, raising on a currency mismatch, rounding half up once, with "
            "one assertion asserting 62.00 and the number removed from the prompt entirely. What made "

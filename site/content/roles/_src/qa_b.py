@@ -29,7 +29,7 @@ STEPS_B = [
     "detail": "Each of those silently converts a per-slice gate into an average. Make the harness "
               "refuse rather than quietly do the wrong arithmetic."},
    {"do": "Emit the report in the shape of the bar sheet",
-    "detail": "Slice, score, n, lower bound, bar, verdict — and no overall number above the table. "
+    "detail": "Slice, score, n, lower bound, bar, verdict, and no overall number above the table. "
               "Whatever sits at the top of a report is the number people quote."},
    {"do": "Make a threshold change a reviewed commit of its own",
     "detail": "Never in the same commit as the code it would let through, and reviewed by someone who "
@@ -63,7 +63,7 @@ STEPS_B = [
            "report in the shape of the bar sheet with no overall number above the per-slice table.",
    "owner": "QA lead, with engineering on the plumbing"},
  "template": {
-   "title": "CI job — the harness, in order", "lang": "yaml",
+   "title": "CI job: the harness, in order", "lang": "yaml",
    "body": """# .github/workflows/eval-harness.yml
 # Required check on <branch>. A slice below its bar exits non-zero and blocks the merge.
 name: eval harness
@@ -167,7 +167,7 @@ and a verdict of PROVEN / UNPROVEN / FAILED:
 
 RULES:
 - Exit 1 if any slice is not PROVEN. Exit 2 on a malformed report, an untagged case, a
-  slice with no bar, or a slice with n = 0 — a configuration failure must not look like
+  slice with no bar, or a slice with n = 0, a configuration failure must not look like
   a content failure.
 - Print the per-slice table first. Do not print an overall number at all.
 - No network calls, no model calls.
@@ -203,7 +203,7 @@ for each line."""},
            "it took to run, and the engineer who wrote v7 found out the same afternoon rather than "
            "three weeks later from a passenger. The second fight was the bill. A full five-hundred-case "
            "judged run costs about $5; at nine pull requests a day, running it on every one is $45 a "
-           "day. A nightly full run plus the touched slice — typically 120 cases, about $1.20 — costs "
+           "day. A nightly full run plus the touched slice (typically 120 cases, about $1.20) costs "
            "$15.80 a day, roughly a third, and that arithmetic is the only reason the harness survived "
            "its first month."},
  "pitfalls": [
@@ -268,7 +268,7 @@ for each line."""},
            "number behind it and the one thing that would change it.",
     "caution": None},
    {"tool": "Chat LLM",
-    "use": "Price the three options for an unproven slice — more cases, a better score, or a hold — in "
+    "use": "Price the three options for an unproven slice (more cases, a better score, or a hold) in "
            "days and in money, so the trade is visible rather than argued.",
     "caution": "Paste the formulas into the prompt. Models do this arithmetic from memory badly and "
                "confidently, and it is the one set of numbers in your role that has to be right."},
@@ -280,7 +280,7 @@ for each line."""},
  ],
  "artifact": {
    "name": "Behaviour-gate readout",
-   "good": "One row per slice — score, n, lower bound, bar, verdict — with the cases owed on every "
+   "good": "One row per slice (score, n, lower bound, bar, verdict) with the cases owed on every "
            "unproven row, and no overall number anywhere above the table.",
    "owner": "QA lead"},
  "template": {
@@ -358,7 +358,7 @@ RULES:
 - lower bound = p - 1.96 * sqrt(p*(1-p)/n). Under n = 100 use the Wilson interval instead,
   and mark which rows used which.
 - PROVEN only when the LOWER BOUND is at or above the bar. Never the point estimate.
-- FAILED when the score itself is at or below the bar — no sample size fixes that.
+- FAILED when the score itself is at or below the bar, no sample size fixes that.
 - UNPROVEN otherwise. Cases owed = 1.96^2 * p * (1-p) / (p - bar)^2, minus the cases held.
 - Flag any slice that got WORSE than the previous run, even where it still passes.
 - Do NOT compute an overall number. If I gave you one, ignore it.
@@ -384,7 +384,7 @@ Price all THREE routes to proven, using these formulas, and show the arithmetic:
 3. LOWER THE DAMAGE WITH A HOLD
    bar = N / (N + 1) where N = damage / saving. Recompute the bar for a damage of
    <damage with a named approver>. Then say whether the CURRENT score, at the CURRENT n,
-   clears the new bar — lower bound, not point estimate.
+   clears the new bar, lower bound, not point estimate.
 
 OUTPUT: a three-row table of route, cost, elapsed days, and what it gives up. Then name
 the route you would take and the one assumption that would change your answer."""},
@@ -393,7 +393,7 @@ the route you would take and the one assumption that would change your answer.""
    "title": "SkyWays · day forty-five, 412 of 500",
    "body": "The codeshare slice came back at **412 right out of 500**, which is 82.4% against a bar of "
            "80, and the room read it as a pass. The 95% lower bound is **79.1%**, so it was not one. "
-           "Proving 82.4% against an 80% bar takes **968** cases — 468 more than the set held, "
+           "Proving 82.4% against an 80% bar takes **968** cases, 468 more than the set held, "
            "which at roughly 26 codeshare disruptions a day is about eighteen days of history to "
            "curate. That was the honest readout, and it had three lines rather than one: collect 468 "
            "cases, raise the score, or put a hold on codeshare rebooking and let the bar come down to "
@@ -580,7 +580,7 @@ OUTPUT:
 
 RULES:
 - Do not name a person and do not include the real booking reference.
-- If the write-up does not say which entry point the text came in through, say so — that
+- If the write-up does not say which entry point the text came in through, say so, that
   is a gap in the trace and it is a finding in its own right.
 - Write the cases as data, not as prose.
 
@@ -592,7 +592,7 @@ INCIDENT:
 broken.
 
 For each test, answer:
-1. Could this pass because the agent failed for an UNRELATED reason — a timeout, a tool
+1. Could this pass because the agent failed for an UNRELATED reason, a timeout, a tool
    that was not registered, an empty input, a booking that does not exist?
 2. Does it assert on the model's wording anywhere, directly or through a helper?
 3. Does it assert BOTH that the action did not happen AND that the attempt was recorded?
@@ -608,7 +608,7 @@ SUITE:
    "title": "SkyWays · green since launch, and a $2,000 refund on day eighty-two",
    "body": "The suite was written before launch, passed, and was not run again through three prompt "
            "edits. On day 82 a refund of **$2,000** went out that was not owed. The postmortem listed "
-           "five claimed layers and found **none** of them enforced — two of the five existed only in "
+           "five claimed layers and found **none** of them enforced, two of the five existed only in "
            "the prompt. Be honest about what the suite would have done: it would not have stopped the "
            "money, because injection defence changes the odds and only the cap or the approver could "
            "have closed the path. What it would have done is go red in week two, when the third prompt "
@@ -619,8 +619,8 @@ SUITE:
    "for the wrong reason at the one after, and deleted by somebody who is not wrong to delete it.",
    "One entry point. Nearly every suite tests the passenger's message and nothing else, and the "
    "partner API response field is the one that is trusted by default and parsed without question.",
-   "A launch check. It passed in week zero, and the things it protects — the prompt, the tools, the "
-   "context files — have each changed several times since, none of them in a way that looked like a "
+   "A launch check. It passed in week zero, and the things it protects (the prompt, the tools, the "
+   "context files) have each changed several times since, none of them in a way that looked like a "
    "security change.",
  ],
  "done_when": "Every gated tool is attacked from every entry point on a schedule, each case asserts both "

@@ -7,7 +7,7 @@ STEPS_B = [
  "when": "P0, straight after the map and before any framework is named",
  "purpose": (
    "Leadership said agent-first and an engineer has built fifteen agents to show what is possible. "
-   "Your answer is a number and a condition. **Start single, escalate only on a named limit** — "
+   "Your answer is a number and a condition. **Start single, escalate only on a named limit**, "
    "because each added agent is another context to manage and another hand-off to get wrong, and n "
    "agents have **n(n-1)/2** possible hand-offs between them. The same judgement governs process: "
    "run only the lifecycle stages a given change actually needs, decided per change rather than per "
@@ -73,10 +73,10 @@ _Decided: <date> · Owner: <name> · Revisit at: the P3 trace review_
 ## How many agents
 | Question | Answer | Evidence |
 |----------|--------|----------|
-| Is this AI at all? | <yes — the PM's AI-fit record> | <link> |
+| Is this AI at all? | <yes: the PM's AI-fit record> | <link> |
 | How many agents? | **<n>, with tools** | |
-| Does one context genuinely overload? | <no — largest case measured at <n> tokens against a <n> limit> | <measurement, date> |
-| Are there parallel sub-tasks a fan-out tool cannot express? | <no — <n> partner searches run inside one tool> | |
+| Does one context genuinely overload? | <no: largest case measured at <n> tokens against a <n> limit> | <measurement, date> |
+| Are there parallel sub-tasks a fan-out tool cannot express? | <no: <n> partner searches run inside one tool> | |
 | Is the build audited and multi-team? | <no> | |
 
 ## The hand-off arithmetic
@@ -92,7 +92,7 @@ diagram that made the design look reasonable.
 ## What was proposed, and what it actually is
 | Proposed agent | What it really is | Where it goes |
 |----------------|-------------------|---------------|
-| <the pricer> | exact work | a function — map, step <n> |
+| <the pricer> | exact work | a function, map, step <n> |
 | <the searcher> | parallelism | a fan-out tool, <n> calls in one |
 | <the reviewer> | independence | a checker: different model, or fresh adversarial context |
 | <the planner> | the agent itself | the single agent |
@@ -128,7 +128,7 @@ OUTPUT SHAPE:
    Allowed values for the middle column: EXACT WORK (a function) · PARALLELISM (a
    fan-out tool) · INDEPENDENCE (a checker) · THE AGENT ITSELF · GENUINELY A SECOND AGENT.
 2. The hand-off count for each design, computed as n(n-1)/2, with n stated.
-3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it — a number,
+3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it, a number,
    not an adjective.
 
 RULES:
@@ -144,7 +144,7 @@ RULES:
     "body": """I am recording a single-agent design for <feature>. Write the escalation condition
 that would justify moving to an orchestrator with workers.
 
-OUTPUT SHAPE — exactly two bullets, each in this form:
+OUTPUT SHAPE: exactly two bullets, each in this form:
   "We move to <topology> when <measurable thing> exceeds <number> on <named case class>."
 
 Then, below them:
@@ -170,7 +170,7 @@ Assign each a process depth. Run only the lifecycle stages the change actually n
 OUTPUT SHAPE, one table:
 | Change | P0 | P1 | P2 | P3 | Method weight | The stage I am skipping, and why that is safe |
 
-Allowed cell values: full · yes · light · —
+Allowed cell values: full · yes · light ·, 
 
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
@@ -189,7 +189,7 @@ RULES:
            "searcher was parallelism and became a fan-out tool running four partner queries inside a "
            "single call. The planner was the agent itself. Only the reviewer survived as something "
            "separate, because independence is the entire mechanism of a checker. One agent, one "
-           "fan-out tool, one function and one checker — **zero hand-offs against a hundred and "
+           "fan-out tool, one function and one checker, **zero hand-offs against a hundred and "
            "five**. The line that mattered most went on the record underneath: an orchestrator when a "
            "single context exceeds the measured limit on multi-leg international cases, or when more "
            "than three partner calls must run in parallel and one tool cannot express it. Without a "
@@ -217,7 +217,7 @@ RULES:
    "minutes and the remaining hundred go to the conflicts, which are the only reason six people were "
    "needed at once. A conflict is not a difference of taste. It is a **priority gap of five or more "
    "between two stakeholders**, and each one owes a decision record. Records are written at "
-   "trade-off points and nowhere else — forty records in a week buries the three that mattered."),
+   "trade-off points and nowhere else, forty records in a week buries the three that mattered."),
  "activities": [
    {"do": "Score every candidate on value and complexity, per stakeholder",
     "detail": "One to three on each, from each person's own point of view. The scoring is quick; the "
@@ -281,14 +281,14 @@ _Workshop: <n> people, <n> candidates, two hours · Chair: <name>_
 | NFR | <frontline> | <compliance> | <finance> | <ops> | Gap | Conflict? |
 |-----|------------|--------------|-----------|-------|-----|-----------|
 | <latency 30s P95> | <6> | <2> | <2> | <4> | <4> | no |
-| <cost per case $0.60> | <1> | <2> | <9> | <3> | <8> | **yes — ADR-<n>** |
-| <accuracy 80% codeshare> | <9> | <6> | <2> | <6> | <7> | **yes — ADR-<n>** |
-| <refunds over $400 approved> | <2> | <9> | <4> | <3> | <7> | **yes — ADR-<n>** |
+| <cost per case $0.60> | <1> | <2> | <9> | <3> | <8> | **yes. ADR-<n>** |
+| <accuracy 80% codeshare> | <9> | <6> | <2> | <6> | <7> | **yes. ADR-<n>** |
+| <refunds over $400 approved> | <2> | <9> | <4> | <3> | <7> | **yes. ADR-<n>** |
 
 **Rule:** a gap of 5 or more between any two stakeholders is a conflict, and every
 conflict is a decision-record trigger.
 
-**Not a real conflict, though it looks like one:** <auditability against latency —
+**Not a real conflict, though it looks like one:** <auditability against latency, 
 logging costs milliseconds, the model choice costs seconds>. The trees show this,
 which is why you build them instead of debating them.
 
@@ -308,7 +308,7 @@ which is why you build them instead of debating them.
 **Status** <accepted> · <date> · supersedes <none>
 **Context** <the conflict in one sentence, with the two priorities that produced it>
 
-**Options, weighted from the ratified NFRs** — score = sum(weight x rating), rated 1-3
+**Options, weighted from the ratified NFRs**: score = sum(weight x rating), rated 1-3
 | Criterion | Weight | <build> | <buy> | <borrow> |
 |-----------|--------|---------|-------|----------|
 | <portability> | 3 | <2> | <1> | <3> |
@@ -344,7 +344,7 @@ OUTPUT SHAPE:
    the formula.
 3. CONFLICTS: every NFR whose gap is 5 or more. Each one owes a decision record.
 4. FALSE CONFLICTS: pairs that look opposed and are not, with the reason. The usual
-   example is auditability against latency — logging costs milliseconds and the model
+   example is auditability against latency, logging costs milliseconds and the model
    choice costs seconds.
 5. A proposed agenda: the uncontested NFRs first as one time-boxed block, then the
    conflicts one at a time.
@@ -360,7 +360,7 @@ SCORES:
     "when": "A framework or platform decision is on the table",
     "body": """Score this decision as a weighted matrix, then test how firm the answer is.
 
-CRITERIA AND WEIGHTS — these come from my ratified NFRs. Do not change them:
+CRITERIA AND WEIGHTS: these come from my ratified NFRs. Do not change them:
 <paste: criterion, weight 1-3>
 
 OPTIONS: <build / buy / borrow, or the named options>
@@ -384,7 +384,7 @@ RULES:
     "when": "The decision is made and the record is what makes it stay made",
     "body": """Draft an architecture decision record from my notes below.
 
-OUTPUT SHAPE — exactly these sections, in this order:
+OUTPUT SHAPE: exactly these sections, in this order:
   Status (accepted or superseded, with the date and what it supersedes)
   Context (the trade-off that forced a decision, in three sentences)
   Decision (what we are doing, and the named review point)
@@ -395,7 +395,7 @@ OUTPUT SHAPE — exactly these sections, in this order:
 RULES:
 - The Rejected section is the part that matters and the part that gets written badly.
   Every rejection cites the matrix score, the three-year cost or the door. A rejection
-  that reads as a preference is a failure — rewrite it, or tell me the number is missing.
+  that reads as a preference is a failure, rewrite it, or tell me the number is missing.
 - Do not flatter the decision. If an option scored within a point of the winner, that
   belongs in Context, not in Rejected.
 - Keep it to one screen. A coding agent reads this in its context pack, which is exactly
@@ -411,13 +411,13 @@ MY NOTES:
            "uncontested and were ratified in twenty minutes; the remaining hundred minutes went to "
            "the three conflicts, which were the only reason six people had been put in one room. "
            "**Nine ratified NFRs with three sensitivity points**, each given a date for its record "
-           "rather than a promise. The conflict that turned up is the one that usually turns up — "
+           "rather than a promise. The conflict that turned up is the one that usually turns up, "
            "latency against cost per case, because the faster answer needs the larger model. "
            "**ADR-004** was the framework decision and it repays a second read: the weighted totals "
            "came out four points apart across three options, and buy and borrow tied at $360,000 over "
            "three years once the people were counted, which made the licence the small number all "
            "along. The matrix did not break the tie. The **door** did: borrow, behind an interface "
-           "layer, with a named review at month twelve — two weeks of work now to keep a swap at "
+           "layer, with a named review at month twelve, two weeks of work now to keep a swap at "
            "weeks rather than quarters."},
  "pitfalls": [
    "A vote with sticky dots on a wall. The loudest group wins, cost per case collects two dots, and "
@@ -472,7 +472,7 @@ MY NOTES:
    {"tool": "Chat LLM",
     "use": "Band a tool list R1 to R5 with a reason per row and the control location named. A good "
            "first pass, and it is consistent in a way a room full of people is not.",
-    "caution": "It bands by the size of the change. A one-line change to a refund cap is R4 — re-read "
+    "caution": "It bands by the size of the change. A one-line change to a refund cap is R4, re-read "
                "every R1 and R2 that touches money, identity or a policy commitment."},
    {"tool": "Claude Code",
     "use": "Grep every prompt and tool description for currency symbols, *never*, *always*, *ask "
@@ -482,7 +482,7 @@ MY NOTES:
                "the same pass, or the work stops at the list and the list gets stale."},
    {"tool": "Chat LLM",
     "use": "Run the four hard-or-soft questions over your open decisions and propose a placeholder "
-           "for each soft one — a stub, an interface layer, a default tier behind a gateway.",
+           "for each soft one, a stub, an interface layer, a default tier behind a gateway.",
     "caution": "It marks almost everything soft, because everything looks reversible on paper. "
                "Question one is the one it answers too generously."},
    {"tool": "Do not delegate",
@@ -556,11 +556,11 @@ Four questions, in order. **One "no" makes it hard.**
     "when": "You have the tool surface and no bands yet",
     "body": """Band every tool below on the R1-R5 ladder.
 
-R1  reversible draft or sandbox — review at the end
-R2  reversible change to real work — review before merge
-R3  hard to reverse, small blast radius — approve first
-R4  money, identity or a policy commitment — a NAMED approver, every time
-R5  irreversible or safety-critical — not delegated at all
+R1  reversible draft or sandbox, review at the end
+R2  reversible change to real work, review before merge
+R3  hard to reverse, small blast radius (approve first
+R4  money, identity or a policy commitment) a NAMED approver, every time
+R5  irreversible or safety-critical, not delegated at all
 
 OUTPUT SHAPE, one table:
 | Tool | Band | What ONE wrong call could damage | Where the control must live | The test that proves it |
@@ -571,7 +571,7 @@ RULES:
 - The control column may not say "the prompt". It says: a typed parameter, a required
   confirmation token, a permission scope, or "no tool exists".
 - Every R4 row names the approver role.
-- Every R5 row says that no tool exists — not that the tool is discouraged.
+- Every R5 row says that no tool exists, not that the tool is discouraged.
 - Flag any tool carrying a generic action parameter. One broad manage_<thing>(action)
   tool is accidental authority and must be split, because any path through it could
   cancel something.
@@ -596,7 +596,7 @@ RULES:
 - The enforced version is a typed parameter that raises, a required confirmation token,
   or a narrowed permission. Never a better sentence.
 - For every row that needs enforcing, WRITE the two tests: the over-limit case and the
-  missing-confirmation case. Both assert that the call RAISES — never that the reply
+  missing-confirmation case. Both assert that the call RAISES, never that the reply
   contains an apology, because wording changes with the next prompt edit.
 - Do not remove the explanatory sentence from the prompt. Say which sentences to keep.
 - Show me the search commands before the results."""},
@@ -635,7 +635,7 @@ DECISIONS:
            "said. On **day 82** a passenger received a **$2,000 refund** that was not owed, and the "
            "postmortem reconstructed the state exactly: with either the cap or the approver enforced "
            "the refund is impossible, so both were absent from the code. Five layers had been listed "
-           "in the design and none was enforced. Two of them were written down — in the prompt — "
+           "in the design and none was enforced. Two of them were written down, in the prompt, "
            "which is precisely why *we had a cap* felt true and was not."},
  "pitfalls": [
    "Sizing the check to the diff. A one-line change to a refund cap is the highest band there is, and "

@@ -20,18 +20,18 @@ HEAD = {
         "and the prompts to draft it faster.",
     ],
     "owns": [
-        "The **intent** gate — is this worth doing at all?",
-        "The **release** gate — is it safe to show real users?",
+        "The **intent** gate: is this worth doing at all?",
+        "The **release** gate: is it safe to show real users?",
         "The **plan** gate, shared with the architect",
         "The autonomy level per action, and the door it sits behind",
         "The acceptance bar per slice, derived rather than guessed",
         "The two-number report to whoever funds this",
     ],
     "not_yours": [
-        "**Behaviour** and **expansion** gates — those are the QA lead's, and your name on them helps nobody",
+        "**Behaviour** and **expansion** gates. Those are the QA lead's, and your name on them helps nobody",
         "Pull request approvals you cannot evaluate",
-        "Model choice, temperature, framework — behaviours are yours, knobs are engineering's",
-        "The golden set's contents — you set the bar, QA curates the cases",
+        "Model choice, temperature, framework: behaviours are yours, knobs are engineering's",
+        "The golden set's contents: you set the bar, QA curates the cases",
     ],
     "ai_stance": (
         "Use a model for the **drafting and the arithmetic**, never for the judgement. It can turn six "
@@ -55,8 +55,8 @@ STEPS_A = [
  "when": "Week one, before anyone designs anything",
  "purpose": (
    "Requests arrive as vibes. *Make rebooking smarter.* You cannot size a vibe, prioritise it, or hand "
-   "it to a machine. This step converts it into four facts — who has the pain, how often, what it "
-   "costs today, and the evidence — and everything downstream refers back to that line. It is the old "
+   "it to a machine. This step converts it into four facts (who has the pain, how often, what it "
+   "costs today, and the evidence) and everything downstream refers back to that line. It is the old "
    "product discipline, now mandatory, because the machine downstream cannot ask you what you meant."),
  "activities": [
    {"do": "Find who actually holds the pain",
@@ -66,7 +66,7 @@ STEPS_A = [
     "detail": "Cases per day or per week. If nobody knows, that is the first finding, and ops can "
               "usually produce it in an afternoon from a ticket export."},
    {"do": "Cost it",
-    "detail": "Minutes per case × loaded cost per minute, plus anything that leaks — a lost passenger, "
+    "detail": "Minutes per case × loaded cost per minute, plus anything that leaks, a lost passenger, "
               "a goodwill credit, an SLA breach. Cost per case is the number you will be asked for and "
               "the one nobody has."},
    {"do": "Find the evidence",
@@ -116,11 +116,11 @@ _Last updated: <date> · Owner: <name>_
 ## How cost per case was computed
 - Handling time: <n> min, from <source>
 - Loaded cost per minute: $<n>, from <source>
-- Leakage per failed case: $<n> — <what leaks, and how it was estimated>
+- Leakage per failed case: $<n>: <what leaks, and how it was estimated>
 - **Cost per case = $<n>**
 
 ## What is NOT in here
-- <pains raised that were out of scope, and why — so nobody re-raises them>
+- <pains raised that were out of scope, and why, so nobody re-raises them>
 
 ## Open numbers
 | Missing | Who can produce it | By when |
@@ -140,7 +140,7 @@ Produce a table with one row per DISTINCT pain:
 Rules:
 - Keep EVERY name. If four people said the same thing, all four names go on that row.
 - Do not merge two pains that have different causes, even if they have the same symptom.
-- If a frequency or cost was not mentioned, write "not stated" — never estimate.
+- If a frequency or cost was not mentioned, write "not stated", never estimate.
 - At the end, list separately: things stated as solutions rather than pains.
 
 TRANSCRIPTS:
@@ -169,7 +169,7 @@ Write and run a script that reports:
 - cost per case = median handling minutes x $<rate>/min
 
 Then print the assumptions you made as a list, and flag any column you had to
-interpret. Show me the script before the numbers — I need to check the date column
+interpret. Show me the script before the numbers. I need to check the date column
 and the category filter."""},
  ],
  "example": {
@@ -204,7 +204,7 @@ and the category filter."""},
     "detail": "Something where two competent humans could reasonably differ. If the criteria are "
               "published and unambiguous, it is a rule, and code does rules perfectly and provably."},
    {"do": "Ask: is the volume high enough?",
-    "detail": "A probabilistic system carries fixed costs — evaluation, gates, a harness. Below some "
+    "detail": "A probabilistic system carries fixed costs, evaluation, gates, a harness. Below some "
               "volume a person is simply cheaper, and saying so is a service to everyone."},
    {"do": "Ask: is a wrong answer recoverable?",
     "detail": "If not, a person stays in the loop. This is not a maturity level you grow out of; it is a "
@@ -255,20 +255,20 @@ _Decided: <date> · Decided by: <name> · Status: accepted / superseded_
 **<Rule in code | Assisted, person decides | Agentic with gates | Fully agentic>**
 
 ## What we rejected, and why
-- **Rule in code** — <rejected because ... / chosen because ...>
-- **A person** — <cost at this volume>
-- **Fully agentic** — <rejected because step <x> is unrecoverable>
+- **Rule in code**, <rejected because ... / chosen because ...>
+- **A person**, <cost at this volume>
+- **Fully agentic**, <rejected because step <x> is unrecoverable>
 
 ## Consequence
-- The unrecoverable steps are: <list> — these are gated regardless of how good the model gets.
-- Revisit when: <named trigger, e.g. "the regulator's rule changes" — not a date>
+- The unrecoverable steps are: <list>: these are gated regardless of how good the model gets.
+- Revisit when: <named trigger, e.g. "the regulator's rule changes", not a date>
 """},
  "prompts": [
    {"title": "Triage a backlog for AI fit",
     "when": "You have ten requests and an agent-first directive",
     "body": """For each item below, answer these three questions IN ORDER and stop at the first "no":
 
-1. Is there a genuine judgement call — could two competent people reasonably differ?
+1. Is there a genuine judgement call, could two competent people reasonably differ?
    (If the criteria are published and unambiguous, answer NO: it is a rule.)
 2. Is the volume high enough to justify evaluation, gates and a harness?
 3. Is a wrong answer recoverable?
@@ -300,9 +300,9 @@ MY REASONING:
  ],
  "example": {
    "title": "SkyWays · the verdict that shaped everything",
-   "body": "Judgement: yes — which alternative suits this passenger depends on their connection, their "
+   "body": "Judgement: yes: which alternative suits this passenger depends on their connection, their "
            "fare rules, whether they will accept an overnight. Volume: 240 a day. Recoverable: "
-           "**partly** — a proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was "
+           "**partly**: a proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was "
            "*agentic with gates*, and the gate went on the refund. That single 'partly' is why the "
            "product has a named approver on refunds ninety days later, and why the $2,000 incident on "
            "day 82 was a failure to implement a decision already made rather than a failure to make it."},
@@ -315,6 +315,6 @@ MY REASONING:
    "preference and gets re-litigated at the first incident.",
  ],
  "done_when": "You can hand the record to a sceptical executive and they can see what you decided, what "
-              "you rejected, and what would change your mind — without you in the room.",
+              "you rejected, and what would change your mind, without you in the room.",
 },
 ]

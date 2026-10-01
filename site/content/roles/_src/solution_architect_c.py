@@ -18,7 +18,7 @@ STEPS_C = [
               "product for this application; task for this feature. A new product writes only the "
               "last two and onboards in a day instead of a week."},
    {"do": "Name what is genuinely domain-level",
-    "detail": "This is the layer teams forget and it holds most of the real reuse — the booking "
+    "detail": "This is the layer teams forget and it holds most of the real reuse, the booking "
               "model, the fare rules, the things every product in the area needs and each one "
               "currently re-invents in its own prompt."},
    {"do": "Make every override declare its reason and its scope",
@@ -34,7 +34,7 @@ STEPS_C = [
               "confirmation on every write in the contract, not in the description."},
    {"do": "Multiply the chain, do not average it",
     "detail": "Four steps at 90% is 66%, end to end wrong one time in three. Length is the enemy, so "
-              "the first defence is removing a step — every step you remove multiplies back."},
+              "the first defence is removing a step, every step you remove multiplies back."},
    {"do": "Place an independent checker after each costly, easy-to-miss generating step",
     "detail": "Independent means a different model, or the same model in a fresh context with an "
               "adversarial brief. A model reading its own output shares its own blind spots, which "
@@ -52,11 +52,11 @@ STEPS_C = [
            "data, tools split into open reads and gated writes, prompts for the templates a person "
            "picks.",
     "caution": "It offers one broad manage_thing(action) tool because that is tidy. Any path through "
-               "such a tool carries the authority of the worst action it can reach — reject it and "
+               "such a tool carries the authority of the worst action it can reach, reject it and "
                "make it enumerate."},
    {"tool": "Chat LLM",
-    "use": "Write the checker's brief. It is an adversarial instruction — find what is wrong, list "
-           "the violations, do not rewrite — and it is a different artefact from the brief that "
+    "use": "Write the checker's brief. It is an adversarial instruction (find what is wrong, list "
+           "the violations, do not rewrite) and it is a different artefact from the brief that "
            "generated the answer.",
     "caution": "Never run the checker in the context that produced the output, and prefer a "
                "different model. Self-review returns a confident yes and no finding."},
@@ -95,21 +95,21 @@ _Owner: <name> · <date> · Read by: engineering and QA_
 ## 2 · The server for <system>
 | Primitive | Controlled by | Entries |
 |-----------|---------------|---------|
-| resources — read-only data | the application | <booking_record · passenger_history · fare_rules> |
-| tools — open reads | the model | <search_flights · check_availability> |
-| tools — gated writes | the model, within the contract | <rebook (CONFIRM)> · <issue_refund (CONFIRM, amount at or below the cap)> |
-| prompts — templates | the person | <draft_disruption_reply> |
+| resources, read-only data | the application | <booking_record · passenger_history · fare_rules> |
+| tools, open reads | the model | <search_flights · check_availability> |
+| tools, gated writes | the model, within the contract | <rebook (CONFIRM)> · <issue_refund (CONFIRM, amount at or below the cap)> |
+| prompts, templates | the person | <draft_disruption_reply> |
 
 - Transport: <Streamable HTTP in production, stdio for local development>
 - Auth: <as the specification's authorization framework requires>
-- Trace: every tool call logged — input, decision, output, model version
-- **Rejected:** <one broad manage_booking(action) tool — any path through it could cancel>
+- Trace: every tool call logged (input, decision, output, model version
+- **Rejected:** <one broad manage_booking(action) tool) any path through it could cancel>
 
 M applications times N systems becomes M + N. Build the server once and any compliant
 client plugs into it.
 
 ## 3 · The chain, and where the checkers go
-> <0.9> x <0.9> x <0.9> x <0.9> = **<0.66>** — multiply, never average
+> <0.9> x <0.9> x <0.9> x <0.9> = **<0.66>**: multiply, never average
 
 | # | Step | Kind | Checker? | Why |
 |---|------|------|----------|-----|
@@ -119,7 +119,7 @@ client plugs into it.
 | <4> | <draft the message> | best-guess | **yes** | <false claims and tone, invisible to the drafter> |
 | <5> | <rebook> | consequential | no | <a confirmation, not a checker> |
 
-**Independence** — each checker runs on <a different model> OR <the same model in a
+**Independence**: each checker runs on <a different model> OR <the same model in a
 fresh context with an adversarial brief>. Never a self-review, and never inside the
 context that produced the output.
 
@@ -212,13 +212,13 @@ RULES:
  "example": {
    "title": "SkyWays · 66%, and the layer nobody had written",
    "body": "Two findings came out of the same afternoon. The chain had three best-guess steps in it, "
-           "and multiplied rather than averaged it came out well below what the bar sheet implied — "
+           "and multiplied rather than averaged it came out well below what the bar sheet implied, "
            "failing fluently, which is why nobody had noticed. Two checkers went in, after choosing "
            "the flights and after drafting the message, each on a different model with an adversarial "
            "brief and a re-draft cap of two rounds. The second finding was quieter. Every product was "
            "pasting forty pages of standards into every call; a security rule had changed the month "
            "before and two products still carried the old one with nobody able to say which. Four "
-           "layers fixed it, and the layer that was missing entirely was **domain** — the booking "
+           "layers fixed it, and the layer that was missing entirely was **domain**: the booking "
            "model and the fare rules that every product in the area needed and each had re-invented. "
            "The same afternoon put the fifteen-year-old reservation system behind one server: "
            "resources for the read-only data, search open, rebook and refund gated in the contract, "
@@ -245,7 +245,7 @@ RULES:
    "which is a design question and not a finance one: caching pays only if the layout lets it hit, "
    "and routing pays only if a breaker stops the runaway. The **trace**, which has to be replayable "
    "by audit without becoming a breach target, which means redact rather than omit. And the "
-   "**incident**, which is where your next design decision comes from — a postmortem that produces "
+   "**incident**, which is where your next design decision comes from, a postmortem that produces "
    "a name has not finished; one that produces an enforced control has."),
  "activities": [
    {"do": "Lay the prompt out for the cache, with the marker on the last stable block",
@@ -259,7 +259,7 @@ RULES:
               "is the **second** use; at one use it costs more."},
    {"do": "Choose the window from the traffic pattern, not from the cheaper write",
     "detail": "Five minutes everywhere is the trap. On traffic arriving every twelve minutes the "
-              "five-minute cache has always expired, so every call pays a write — and the cheaper "
+              "five-minute cache has always expired, so every call pays a write, and the cheaper "
               "write paid on every call costs more than the dearer write paid once."},
    {"do": "Route by complexity and put a breaker on every loop",
     "detail": "A delay lookup should not cost what a multi-leg international rebooking costs. "
@@ -280,7 +280,7 @@ RULES:
  ],
  "ai": [
    {"tool": "Claude Code",
-    "use": "Reorder one live prompt for the cache and add the assertion that proves it — cache tokens "
+    "use": "Reorder one live prompt for the cache and add the assertion that proves it, cache tokens "
            "read above zero on the second call. Then have it pull the four ratios from the per-call "
            "log: tokens per call, tier mix, cache hit ratio, retries per conversation.",
     "caution": "Make it check for anything volatile inside the cached block. One timestamp or request "
@@ -292,8 +292,8 @@ RULES:
                "memory of the multipliers. A stale multiplier turns the arithmetic into a decision "
                "you cannot defend in front of finance."},
    {"tool": "Claude Code",
-    "use": "Extract a rule sheet from a legacy module — rule id, condition, action, source line, "
-           "confidence — so the agent reads a few hundred tokens of intent instead of four thousand "
+    "use": "Extract a rule sheet from a legacy module (rule id, condition, action, source line, "
+           "confidence) so the agent reads a few hundred tokens of intent instead of four thousand "
            "lines that bury it.",
     "caution": "Everything below 0.9 confidence goes to a person first. Those rows are where the code "
                "is doing something the comments deny, which is the part worth reading yourself."},
@@ -333,7 +333,7 @@ _Owner: <name> · <date> · Config reviewed like code: <path>_
 |-----------------------|---------------|
 | The request placed first, for emphasis | <no> |
 | A timestamp, request id or session id inside the cached block | <no> |
-| A model switch mid-task — the cache is model-scoped | <forbidden in the team rules> |
+| A model switch mid-task, the cache is model-scoped | <forbidden in the team rules> |
 | Fewer than the minimum cacheable tokens | <no> |
 
 ## Routing and the breaker
@@ -361,11 +361,11 @@ model version · approver · cost · cache tokens read
 
 ## Incident to design change · <date>
 **Reconstruct** <with the cap enforced: impossible. With the approver enforced:
-impossible. Therefore both were absent — that is the state the system was in.>
+impossible. Therefore both were absent. That is the state the system was in.>
 **Finding** the enforced control that was missing: <name it>
 **Not the finding** <the input, the person who typed it, or any control that would only
 have detected it afterwards>
-**Change** <the typed parameter, the gate or the permission — and the file it lives in>
+**Change** <the typed parameter, the gate or the permission, and the file it lives in>
 **Record** <ADR-<n>> · autonomy on <action> drops one level, raised again only on evidence
 **Verify** <QA re-runs the attack; it must now be stopped twice over>
 """},
@@ -373,7 +373,7 @@ have detected it afterwards>
    {"title": "Diagnose a bill that left its estimate",
     "when": "The invoice has moved and traffic has not",
     "body": """My token bill is <n>x its estimate and traffic is flat. Diagnose it from the
-per-call log at <path>, not from the price list — the prices did not change.
+per-call log at <path>, not from the price list, the prices did not change.
 
 Compute four ratios, the baseline period against now:
 - tokens per call
@@ -400,17 +400,17 @@ RULES:
     "when": "After any incident, while the room is still discussing the input",
     "body": """Turn this incident into a design change. Use EXACTLY this structure.
 
-**Timeline** — what happened, minute by minute, from the input to the consequence
-**Reconstruct** — for each control that was supposed to exist, state whether the
+**Timeline** (what happened, minute by minute, from the input to the consequence
+**Reconstruct**) for each control that was supposed to exist, state whether the
   incident is POSSIBLE or IMPOSSIBLE with it enforced. The combination that is possible
   is the state the system was actually in.
-**Finding** — the ENFORCED control that, if present, would have made this IMPOSSIBLE
-**Not the finding** — the input, the person, and any control that would only have
+**Finding** (the ENFORCED control that, if present, would have made this IMPOSSIBLE
+**Not the finding**) the input, the person, and any control that would only have
   DETECTED it
-**Change** — the typed parameter, the confirmation token or the permission, and the
+**Change** (the typed parameter, the confirmation token or the permission, and the
   file it will live in
-**Record** — the record number, and the autonomy level that drops as a result
-**Verify** — the test QA re-runs, and what "stopped twice over" means here
+**Record**) the record number, and the autonomy level that drops as a result
+**Verify**: the test QA re-runs, and what "stopped twice over" means here
 
 RULES:
 - Do not name a person. Do not name the input that triggered it.
@@ -460,7 +460,7 @@ MODULE: <path>"""},
            "It had started with an engineer reordering a prompt for clarity and moving the "
            "passenger's request to the front, which changed the prefix on every call and left "
            "caching switched on and never hitting. The fix order came from (factor − 1) ÷ days, "
-           "which put the context trim first and the retry breaker last — the breaker being the "
+           "which put the context trim first and the retry breaker last, the breaker being the "
            "right fix in the wrong position. Then **day 82** and the $2,000 refund, which produced "
            "the other kind of change: not a ticket and not a name, but an ADR, a typed parameter and "
            "an autonomy level dropped by one. The cost-per-case NFR had been ratified on day nine at "

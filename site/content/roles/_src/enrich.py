@@ -73,7 +73,7 @@ PDLC = {
 # A phase a role produces nothing in is not a gap in the manual — it is the
 # point. These are the two most expensive habits in agentic delivery, named.
 PDLC_ABSENT = {
-    ("engineering", "P0"): "Not on the clock — reads the brief, starts nothing",
+    ("engineering", "P0"): "Not on the clock, reads the brief, starts nothing",
     ("qa", "P0"): "Asks one question: what will <i>right</i> mean, and who says so?",
     ("solution-architect", "P2"): "Answers against the map; does not re-open it",
 }

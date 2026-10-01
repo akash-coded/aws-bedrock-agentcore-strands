@@ -25,24 +25,24 @@ HEAD = {
     "owns": [
         "The **ratified NFRs**, their sensitivity points, and the workshop that produces them",
         "The **exact / best-guess / consequential map**, and the proof each kind needs",
-        "The shape — how many agents, and the named limit that would justify another one",
+        "The shape: how many agents, and the named limit that would justify another one",
         "The **authority budget** and the gate map: every cap in a tool signature",
         "The architecture decision records, one per trade-off point and nowhere else",
         "The **plan gate**, shared with the product manager, and the drift tests at every bolt",
     ],
     "not_yours": [
-        "The **intent** and **release** gates — those are the product manager's, and your name on "
+        "The **intent** and **release** gates. Those are the product manager's, and your name on "
         "them dilutes the two you do hold",
-        "Temperature, top-p, framework version, SDK call shape — you specify behaviours, engineering "
+        "Temperature, top-p, framework version, SDK call shape, you specify behaviours, engineering "
         "picks the knobs, and a knob in a design document is wrong at the next release",
-        "The golden set's contents and the judge rubric — QA curates the cases, you place the checker",
+        "The golden set's contents and the judge rubric. QA curates the cases, you place the checker",
         "Which pain is worth solving, and what a mistake costs the business",
     ],
     "ai_stance": (
         "Use a model where the work is **mechanical and checkable**, and nowhere near the trade-offs. "
         "It will turn two transcripts into a credited requirement register, rewrite nine adjectives as "
         "six-part scenarios, grep a repository for arithmetic hiding in prompts, and draft an MCP "
-        "schema from an API surface — all of it faster than you and none of it beyond your ability to "
+        "schema from an API surface, all of it faster than you and none of it beyond your ability to "
         "verify. It will also band a money tool R2 because the diff is one line, put everything in the "
         "shared context layer, and write an ADR whose rejected-options section flatters the decision "
         "you already made. Where a step below says *do not delegate*, the reason is always the same: "
@@ -85,7 +85,7 @@ STEPS_A = [
               "page and costs an afternoon of replies, all asking the same question."},
    {"do": "Flag the requirements that describe a model's behaviour",
     "detail": "Usually three of them. They cannot be satisfied by a function, and their acceptance "
-              "will be a measured share rather than a pass or a fail — so the shape is settled here "
+              "will be a measured share rather than a pass or a fail, so the shape is settled here "
               "instead of argued in the sprint that has to test them."},
    {"do": "Write down who was not in either room",
     "detail": "Name them, name the constraint they hold, and book the meeting. An unheard stakeholder "
@@ -98,7 +98,7 @@ STEPS_A = [
     "caution": "It merges and drops attribution by default. Require a name on every line, then check "
                "the count: distinct rows plus duplicates should equal what you actually heard."},
    {"tool": "Claude Code",
-    "use": "Have it hold the register as a file — id, verbatim line, person, meeting — and generate "
+    "use": "Have it hold the register as a file (id, verbatim line, person, meeting) and generate "
            "the consolidation map from it, so the email is produced rather than retyped.",
     "caution": "Make it assert that every source requirement appears in exactly one consolidated "
                "line. A requirement that appears in none is the one that comes back in week five."},
@@ -144,7 +144,7 @@ here. The consolidation follows underneath, with the reasoning for each merge.
 **Coverage:** every one of the <n> lines above appears in exactly one consolidated
 requirement. Nothing was dropped.
 
-## Conflicts — for the workshop, not for an editor
+## Conflicts: for the workshop, not for an editor
 | ID | Requirement A | Requirement B | Who holds each | Workshop item |
 |----|--------------|---------------|----------------|---------------|
 | X-1 | <FR-07, faster options> | <FR-22, lower cost per case> | <name> / <name> | <date> |
@@ -153,7 +153,7 @@ requirement. Nothing was dropped.
 These cannot be satisfied by a function. Their acceptance will be a measured share
 on real cases, not a pass or a fail, and they are flagged now so that nobody writes
 their acceptance criteria in the wrong shape.
-- FR-<n> — <why two competent people could differ>
+- FR-<n>: <why two competent people could differ>
 
 ## Raised, but not a requirement
 | Raised as | What it actually is | Where it went |
@@ -169,7 +169,7 @@ their acceptance criteria in the wrong shape.
 ## What happens next
 Constraints sorted by type on <date>. Candidate NFRs as six-part scenarios on
 <date>. The ratification workshop on <date>. Reply if a line is wrong, missing or
-credited to the wrong person — that correction is free now and expensive in week five.
+credited to the wrong person, that correction is free now and expensive in week five.
 """},
  "prompts": [
    {"title": "Consolidate two discovery transcripts, credit intact",
@@ -177,7 +177,7 @@ credited to the wrong person — that correction is free now and expensive in we
     "body": """You are helping a solution architect consolidate two discovery meetings about
 <problem area>.
 
-OUTPUT SHAPE — one markdown table, one row per DISTINCT requirement:
+OUTPUT SHAPE: one markdown table, one row per DISTINCT requirement:
 | FR id | The requirement, in the words it was raised | Everyone who raised it (names) | Meeting(s) |
 
 RULES:
@@ -192,10 +192,10 @@ RULES:
   these are requirements.
 - Finish with three counts: distinct requirements, total lines heard, names credited.
 
-TRANSCRIPT 1 — <who was in the room>:
+TRANSCRIPT 1, <who was in the room>:
 <paste>
 
-TRANSCRIPT 2 — <who was in the room>:
+TRANSCRIPT 2, <who was in the room>:
 <paste>"""},
    {"title": "Build the consolidation map, and prove it is complete",
     "when": "You have the full credited list and need the short one",
@@ -249,8 +249,8 @@ list has not been consolidated tightly enough."""},
            "same requirement said four ways. The read-back took eleven minutes and every duplicate "
            "was read out with its author's name on it. The email went on day four with all thirty-one "
            "lines and the consolidation to twelve underneath. Nobody replied asking where their "
-           "requirement had gone. One line — *every refund must be attributable to a person*, from "
-           "compliance — became the $400 cap two days later, and it was on the list only because "
+           "requirement had gone. One line (*every refund must be attributable to a person*, from "
+           "compliance) became the $400 cap two days later, and it was on the list only because "
            "somebody who was not in the first meeting was invited to the second."},
  "pitfalls": [
    "Putting all six in one room to save a meeting. You get the same thirty-one requirements, forty "
@@ -268,7 +268,7 @@ list has not been consolidated tightly enough."""},
  "title": "Sort the constraints, then write every NFR as a scenario",
  "when": "Days six to nine, and never after ratification",
  "purpose": (
-   "A constraint can make a quality target impossible, so constraints come first — and they are "
+   "A constraint can make a quality target impossible, so constraints come first, and they are "
    "sorted **by type**, because the type decides what each one does to the design. A technical "
    "constraint reshapes the integration, a regulatory one becomes a number inside a tool signature, "
    "and a commercial one bounds the tier you may choose. Only then the quality requirements, written "
@@ -285,12 +285,12 @@ list has not been consolidated tightly enough."""},
               "exists, and it belongs in the pain register. The test is whether the line names a "
               "design it rules out."},
    {"do": "Turn each regulatory constraint into a number and a place",
-    "detail": "Refunds over $400 need a named approver is a number and a location — a typed "
+    "detail": "Refunds over $400 need a named approver is a number and a location, a typed "
               "parameter and a token the model cannot mint. Left as a sentence it stays a sentence, "
               "and a sentence is what a postmortem finds missing."},
    {"do": "Write every candidate NFR in six parts",
     "detail": "Source, stimulus, artefact, environment, response, measure. The part everyone omits is "
-              "environment — under what load, at what hour, in what degraded state — and its absence "
+              "environment (under what load, at what hour, in what degraded state) and its absence "
               "is precisely what makes a latency target arguable for two hours."},
    {"do": "Add autonomy level and cost per case to the candidate list",
     "detail": "Both are quality attributes and both are measurable. A ratified cost per case is what "
@@ -363,8 +363,8 @@ be empty, it is not a constraint.
 | Response | <proposes ranked alternatives> |
 | Measure | <within 30 seconds at P95> |
 
-_Measure grounded in:_ <request log, <date> — today's P95 is <n>s>
-_Constraint it must respect:_ <C-2 — the adapter adds <n>s>
+_Measure grounded in:_ <request log, <date>, today's P95 is <n>s>
+_Constraint it must respect:_ <C-2, the adapter adds <n>s>
 
 ### NFR-<n> · autonomy level
 | Part | Value |
@@ -410,7 +410,7 @@ RULES:
 - Never invent a number. Where the original has no measure, write
   <MEASURE NOT STATED> and collect it in a list at the end.
 - Never invent an environment. Write <ENVIRONMENT NOT STATED>. Do NOT write "under
-  normal load" — that is the invented clause that gets ratified and then argued about
+  normal load". That is the invented clause that gets ratified and then argued about
   for the rest of the project.
 - The MEASURE must carry a statistic: P95, per case, per week, percentage of a named
   slice. "Fast" and "under 30 seconds" are both unfinished, for different reasons.
@@ -447,8 +447,8 @@ LINES:
     "body": """I am writing candidate NFRs for <feature>. I have <n> so far, listed below.
 
 Write exactly two more, as six-part scenarios, and only these two:
-1. AUTONOMY LEVEL — what the system may do without a person, per action.
-2. COST PER CASE — the run cost of one completed case, across every model call.
+1. AUTONOMY LEVEL: what the system may do without a person, per action.
+2. COST PER CASE: the run cost of one completed case, across every model call.
 
 RULES:
 - Both must be measurable and both must carry a number in the MEASURE part.
@@ -472,12 +472,12 @@ MY CURRENT LIST:
            "needs a named approver**, and *passenger data stays in region*. Technical: the "
            "reservation system exposes SOAP only, which decided the integration shape before anyone "
            "argued about it. Commercial: a licence ceiling that later became a weight in the "
-           "build/buy/borrow matrix. One line — *no headcount this year* — was struck as a motivation "
+           "build/buy/borrow matrix. One line, *no headcount this year*, was struck as a motivation "
            "and moved to the pain register. Nine candidates went into the workshop as six-part "
            "scenarios, and two of them, **autonomy level** and **cost per case at $0.60**, were on "
            "the list only because someone asked what was missing. The $400 was a number from day six. "
            "It was still only a number in a document on day 82, when a $2,000 refund went out with "
-           "neither the cap nor the approver anywhere in the code — which is a failure of step six, "
+           "neither the cap nor the approver anywhere in the code, which is a failure of step six, "
            "not of this one, and the difference is worth being precise about."},
  "pitfalls": [
    "Ratifying the NFRs and adding the constraints afterwards. The room signs a latency target the "
@@ -495,7 +495,7 @@ MY CURRENT LIST:
  "title": "Tag every step exact, best-guess or consequential",
  "when": "P0, the first design artefact, and it takes an hour for one feature",
  "purpose": (
-   "The product manager sorted the feature — this is a judgement, this is arithmetic. That is right "
+   "The product manager sorted the feature. This is a judgement, this is arithmetic. That is right "
    "and it is not enough. You sort at the level of **every step**, and you add the column that "
    "decides both what gets built and how it gets proven. Exact steps are functions proven by a unit "
    "test. Best-guess steps are model calls proven by a measured share on real cases. Consequential "
@@ -520,7 +520,7 @@ MY CURRENT LIST:
    {"do": "Apply the rule that never breaks",
     "detail": "The best-guess machine never does the exact math. The model may call the function and "
               "read the result; it never computes the value it then acts on. A fluent wrong number is "
-              "the failure no prompt-level test catches — $80 when the ledger says $62."},
+              "the failure no prompt-level test catches, $80 when the ledger says $62."},
    {"do": "Grep the prompts for calculate, compute and total",
     "detail": "Each hit is a function waiting to exist. It takes ten minutes and it is the most "
               "reliably productive ten minutes available to this role."},
@@ -537,8 +537,8 @@ MY CURRENT LIST:
     "caution": "It under-uses **consequential**. Re-read every row: anything that writes, sends, "
                "books, cancels or moves money is consequential whatever else it also is."},
    {"tool": "Claude Code",
-    "use": "Have it search the repository — prompt files, system messages, tool descriptions, long "
-           "string literals — for arithmetic verbs and currency symbols, and list every hit with its "
+    "use": "Have it search the repository (prompt files, system messages, tool descriptions, long "
+           "string literals) for arithmetic verbs and currency symbols, and list every hit with its "
            "file and line.",
     "caution": "It matches vocabulary, not intent. *Tell the passenger what they owe* is arithmetic in "
                "a prompt and contains none of the words you searched for."},
@@ -611,10 +611,10 @@ Acted-on values are the urgent list. Displayed-only values can wait a cycle.
     "when": "You have the step list and need the map in front of engineering today",
     "body": """Tag every step of this feature. Use exactly three kinds.
 
-EXACT — must be right every single time. Built as a function. Proven by a unit test.
-BEST-GUESS — right a share of the time. Built as a model call. Proven by a measured
+EXACT: must be right every single time. Built as a function. Proven by a unit test.
+BEST-GUESS: right a share of the time. Built as a model call. Proven by a measured
   share on real cases.
-CONSEQUENTIAL — changes something real. Built as a tool PLUS a gate. Proven by a
+CONSEQUENTIAL: changes something real. Built as a tool PLUS a gate. Proven by a
   required confirmation.
 
 OUTPUT SHAPE, one table:
@@ -668,25 +668,25 @@ judgement and a calculation, or a judgement and a write.
 
 1. Name the two things it is doing.
 2. Split it into two steps and classify each.
-3. For the exact half, write the function signature — name, typed parameters, return
-   type — and the one unit test that would prove it.
+3. For the exact half, write the function signature (name, typed parameters, return
+   type) and the one unit test that would prove it.
 4. For the best-guess half, write what it is deciding in one sentence, and the slice
    its measured share would be reported on.
 5. State what may pass between them, and in which direction.
 
 If it genuinely is one thing, say so, tell me which kind it is, and tell me why the
-classification felt hard — that reason is usually itself a finding."""},
+classification felt hard, that reason is usually itself a finding."""},
  ],
  "example": {
    "title": "SkyWays · the row that was worth the hour",
    "body": "Seven steps, three kinds. Reading the booking, checking visa and codeshare eligibility "
-           "and computing the fare difference came out **exact** — lookups and rules, proven by unit "
+           "and computing the fare difference came out **exact**: lookups and rules, proven by unit "
            "tests. Ranking the alternatives and drafting the passenger message came out "
            "**best-guess**, proven by a measured share with the codeshare bar at 80%. Rebooking the "
            "seat and issuing a refund came out **consequential**: a tool plus a gate, proven by a "
            "confirmation. The row that paid for the whole artefact was the fare difference. It had "
            "been sitting inside a prompt as *work out what they owe*, and a prompt that computes "
-           "money produces $80 when the ledger says $62 — fluently, with no error and no red test. "
+           "money produces $80 when the ledger says $62, fluently, with no error and no red test. "
            "Ten minutes of grepping found two more like it in the same feature."},
  "pitfalls": [
    "Tagging at the level of the feature. *The rebooking assistant is best-guess* is true and useless; "

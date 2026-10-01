@@ -11,7 +11,7 @@ STEPS_B = [
    "ordinary CI is economic rather than technical. Tests are fast and free, so they run on everything; "
    "evaluation is slow and costs real money, so it cannot. The shape that works is the touched slice "
    "on every pull request, the full set nightly, cached model responses so a fixed golden set replays "
-   "deterministically, and a required status check — because a gate a person can click past is a "
+   "deterministically, and a required status check, because a gate a person can click past is a "
    "report."),
  "activities": [
    {"do": "Keep the fast, free stages first and unchanged",
@@ -207,7 +207,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
    "body": "For three weeks the harness ran on every pull request and posted a comment. Nobody disabled "
            "it and nobody ignored it on principle. Then on the Thursday before the pilot the codeshare "
            "slice came back red, the release was in the calendar, and a senior engineer merged with the "
-           "comment open in another tab — reasonably, in the moment, and with every intention of fixing "
+           "comment open in another tab, reasonably, in the moment, and with every intention of fixing "
            "it on Monday. The fix afterwards was one setting: the harness became a required status "
            "check. The argument that setting ended had been running since the harness was built."},
  "pitfalls": [
@@ -231,7 +231,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
    "nothing; **5% canary**; **widen on evidence**; then all of it. The flag is also the rollback, which "
    "is why it gets tested rather than believed. The part teams miss is that code is not the only "
    "deployable thing here. A prompt change and a model version change alter behaviour with no build, so "
-   "they need the same versioning, the same review and the same rollback path as the binary — and a "
+   "they need the same versioning, the same review and the same rollback path as the binary, and a "
    "prompt change is the most common production change there is."),
  "activities": [
    {"do": "Make shadow a state of the system, not a branch",
@@ -245,7 +245,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
    {"do": "Blue/green the runtime and keep both warm through the window",
     "detail": "Two versions serving, traffic shifted by the flag rather than by DNS, the old one warm "
               "until the widening finishes. AgentCore runtime versions behind an alias, or two task "
-              "sets behind a load balancer — the mechanism matters far less than being able to shift "
+              "sets behind a load balancer, the mechanism matters far less than being able to shift "
               "back in seconds without a deploy."},
    {"do": "Version the prompt and the model as first-class artefacts",
     "detail": "A prompt lives in the repository with a hash, ships as a versioned object, and is "
@@ -289,7 +289,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
  "artifact": {
    "name": "Flag configuration and the deploy path",
    "good": "One flag per action, each with its state, its prompt and model version, its widening "
-           "condition and its owner, deployed from the same source as the code — and a rollback a "
+           "condition and its owner, deployed from the same source as the code, and a rollback a "
            "person has actually thrown.",
    "owner": "Platform engineer, with the product manager on the states"},
  "template": {
@@ -428,7 +428,7 @@ CONTEXT: <slices, bars, cases per day, current flag states>"""},
    "One flag for the whole feature. Refunds then sit at the same setting as showing options, so the only "
    "way to be careful about the dangerous action is to be slow about every safe one.",
    "Shipping a prompt change outside the pipeline. It is a behaviour change with no build, no line in the "
-   "release notes and nothing to roll back to — and it is the most common production change an agent gets.",
+   "release notes and nothing to roll back to, and it is the most common production change an agent gets.",
    "A shadow path that is a separate code branch. It proves the shadow branch works. The first live call "
    "then executes code that has never run against real traffic.",
  ],
@@ -464,14 +464,14 @@ CONTEXT: <slices, bars, cases per day, current flag states>"""},
               "carrying the same attributes. A regex over a text log breaks the first time somebody "
               "reformats a message, and it breaks silently."},
    {"do": "Chart the output mix weekly and alarm at five percentage points",
-    "detail": "The proportions of the decisions the agent makes — refund versus credit versus rebook. A "
+    "detail": "The proportions of the decisions the agent makes, refund versus credit versus rebook. A "
               "probabilistic system changes behaviour when the world changes, with no deploy and no "
               "error. Five points week over week is this playbook's default starting threshold, and the "
               "alert re-opens the release gate automatically, which is what turns a chart into a control."},
    {"do": "Alarm on the three failure shapes specific to this workload",
-    "detail": "Cost per case above three times the estimate, sustained for an hour — a retry loop or a "
-              "context that has grown. Loop-cap trips above baseline — the agent is going in circles "
-              "and the cap is quietly doing all the work. Cache hit ratio collapsing — somebody moved a "
+    "detail": "Cost per case above three times the estimate, sustained for an hour, a retry loop or a "
+              "context that has grown. Loop-cap trips above baseline, the agent is going in circles "
+              "and the cap is quietly doing all the work. Cache hit ratio collapsing, somebody moved a "
               "timestamp to the front of the prompt and every call is now full price."},
    {"do": "Give the product manager the readout in the shape of their bar sheet",
     "detail": "Per slice, with the lower bound, not one number. The dashboard that gets read is the one "
@@ -642,7 +642,7 @@ RULES:
            "(1.3x), and uncapped retries (1.41x). Multiply those and you get 4.4. Finding it took an "
            "afternoon rather than a fortnight, and only because the per-call log carried tokens, "
            "**cached tokens** and a feature column on every row. Without the cached-token column the "
-           "third habit is invisible — and the third habit is the one that is free to fix."},
+           "third habit is invisible, and the third habit is the one that is free to fix."},
  "pitfalls": [
    "Counting a cache hit as a fresh call, or worse, as a failure. The first overstates the bill; the second "
    "has got a working system switched off by a team that believed its accuracy had collapsed overnight.",
@@ -652,7 +652,7 @@ RULES:
    "it fails silently: the chart goes flat, which reads as good news.",
  ],
  "done_when": "For any case in the last thirty days you can produce, in one query, what it cost, which "
-              "model and prompt version decided it, what it did and who approved it — with nothing "
+              "model and prompt version decided it, what it did and who approved it, with nothing "
               "unmasked that should not be.",
 },
 ]

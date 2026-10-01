@@ -6,7 +6,7 @@ STEPS_B = [
  "title": "Add the model calls, and an independent checker after the risky ones",
  "when": "Once the floor is green, mid-bolt",
  "purpose": (
-   "The best-guess layer goes on top of the floor: ranking, drafting, classifying — the work that is "
+   "The best-guess layer goes on top of the floor: ranking, drafting, classifying: the work that is "
    "right a share of the time and has to be measured rather than asserted. Chains multiply, so keep "
    "them short, then put a checker after the steps where a wrong answer is **costly and easy to "
    "miss**. The checker only earns its call if it is independent. A model reviewing its own output "
@@ -22,7 +22,7 @@ STEPS_B = [
               "computing the fare, which needs a unit test, and not after writing the trace row, "
               "which is exact. Every checker is a call you pay for on every case."},
    {"do": "Make the checker independent, and record which kind",
-    "detail": "A different model, or the same model in a fresh context with an adversarial brief — "
+    "detail": "A different model, or the same model in a fresh context with an adversarial brief, "
               "*find what is wrong*. Write which one you chose in a comment beside it, because the "
               "next person to touch this will assume the cheap version was intended."},
    {"do": "Pass the constraints and the output, never the drafter's reasoning",
@@ -69,7 +69,7 @@ STEPS_B = [
    "owner": "Engineering lead"},
  "template": {
    "title": "The best-guess layer with an independent checker", "lang": "python",
-   "body": r"""# src/agent/checked_step.py — the best-guess layer, checked independently.
+   "body": r"""# src/agent/checked_step.py: the best-guess layer, checked independently.
 # Independence here means <a different model family>. If that changes, QA is told.
 from dataclasses import dataclass
 
@@ -194,7 +194,7 @@ opinion. Say which one this is and what evidence would settle it."""},
            "with its own reasoning still in context, so it agreed with the same wrong flight choice "
            "it had just made, confidently, every time. Replacing it with a different model, given the "
            "constraints and the ranked list and nothing else, moved the codeshare slice by four "
-           "points and — more usefully — started producing fails, which was the first evidence the "
+           "points and, more usefully, started producing fails, which was the first evidence the "
            "checker was doing anything at all. The cap of two re-draft rounds was added the same day, "
            "after one case went round eleven times before anyone read the log."},
  "pitfalls": [
@@ -205,8 +205,8 @@ opinion. Say which one this is and what evidence would settle it."""},
    "An uncapped re-draft loop. It looks like diligence until the day a case cannot be fixed, and then "
    "it is a runaway with better manners, burning tokens until somebody reads the bill.",
  ],
- "done_when": "Every checker in the chain can be shown to be independent — a different model, or a "
-              "fresh context with an adversarial brief — and a test proves the drafter's reasoning "
+ "done_when": "Every checker in the chain can be shown to be independent (a different model, or a "
+              "fresh context with an adversarial brief) and a test proves the drafter's reasoning "
               "never reaches it.",
 },
 {
@@ -219,7 +219,7 @@ opinion. Say which one this is and what evidence would settle it."""},
    "talked past. A typed, bounded parameter that raises is a boundary, and it holds whatever the "
    "model has been convinced of. Reads stay open; writes need a confirmation token the model cannot "
    "mint. Keep the sentence in the prompt as **policy**, because it makes the agent behave well by "
-   "default — and never confuse it with enforcement."),
+   "default, and never confuse it with enforcement."),
  "activities": [
    {"do": "Take every cap out of the prompt and into config",
     "detail": "`config/caps.yaml`, reviewed like code, generated from the authority budget. A number "
@@ -240,7 +240,7 @@ opinion. Say which one this is and what evidence would settle it."""},
     "detail": "Over-cap raises. No-confirmation raises. Until both are green the gate does not exist, "
               "whatever the design document says and however many people remember agreeing to it."},
    {"do": "Keep the prompt sentence, and label it POLICY",
-    "detail": "A comment beside it: *policy, not enforcement — the boundary is in issue_refund()*. "
+    "detail": "A comment beside it: *policy, not enforcement: the boundary is in issue_refund()*. "
               "That comment is what stops the next engineer removing the signature check on the "
               "grounds that the prompt already covers it."},
  ],
@@ -317,7 +317,7 @@ def issue_refund(booking_id: str, amount: Decimal,
     return ledger.refund(booking_id, amount)
 
 
-# tests/tools/test_refund_boundary.py — these two tests ARE the step.
+# tests/tools/test_refund_boundary.py: these two tests ARE the step.
 import pytest
 
 from tests.factories import forged_token, valid_token
@@ -351,7 +351,7 @@ RULES:
 - "Cost if ignored" must be concrete: money moved, data exposed, something irreversible
   changed, or nothing. Write "nothing" where that is the honest answer.
 - The ENFORCED VERSION column is a typed bounded parameter, a confirmation token, a
-  permission, or "stays as policy". Do not write "a clearer prompt" — that is the same
+  permission, or "stays as policy". Do not write "a clearer prompt". That is the same
   request in better handwriting.
 - Separate the rows into ACT NOW (money, data, irreversible) and LEAVE AS POLICY.
 - Do not modify any file.
@@ -403,7 +403,7 @@ LAST MONTH'S CHANGES: <paste>"""},
    "title": "SkyWays · day 82, five layers and none enforced",
    "body": "A $2,000 refund went out that was not owed. The design listed five layers: input marked "
            "as data, the prompt's policy, a $400 cap, a named approver, an alert on the trace. Two of "
-           "them were written down — in the prompt — which is exactly why everybody in the room "
+           "them were written down, in the prompt, which is exactly why everybody in the room "
            "believed there was a cap and the ledger disagreed. With either the cap or the approver "
            "enforced in the signature, the refund is impossible; injection defence and traces change "
            "the odds and the visibility, not the outcome. The fix was about thirty lines and two "
@@ -451,7 +451,7 @@ LAST MONTH'S CHANGES: <paste>"""},
               "the golden set grows from fifty cases to five hundred."},
    {"do": "Print n and the lower bound beside every score",
     "detail": "The bar is met by the lower bound, not by the point estimate. A slice with forty cases "
-              "has proven nothing, and the score alone will not say so — it will look like a pass."},
+              "has proven nothing, and the score alone will not say so. It will look like a pass."},
    {"do": "Pin the judge and record its version in the run",
     "detail": "A judge that silently changes model is a harness whose results are not comparable week "
               "to week, and you will spend a day hunting a regression in code that did not change."},
@@ -486,7 +486,7 @@ LAST MONTH'S CHANGES: <paste>"""},
    "owner": "Engineering lead"},
  "template": {
    "title": "harness.yml · the required check", "lang": "yaml",
-   "body": r"""# .github/workflows/harness.yml · <repo> — a REQUIRED check, not a bot comment.
+   "body": r"""# .github/workflows/harness.yml · <repo>: a REQUIRED check, not a bot comment.
 # The order is cost order: the cheap definitive checks reject before the judge is paid.
 name: harness
 
@@ -546,9 +546,9 @@ REQUIRED check, and on a nightly schedule for the full set.
 
 Steps, in THIS order, because it is cost order:
 1. build
-2. exact tests — schema, the money functions, the eligibility rules
+2. exact tests: schema, the money functions, the eligibility rules
 3. work out which slices the changed paths touch
-4. golden run — the touched slices on a pull request, ALL slices on the schedule
+4. golden run: the touched slices on a pull request, ALL slices on the schedule
 5. the independent judge, with a PINNED model id recorded in the run
 6. score against the bar, per slice, printing score, n and the 95% lower bound
 
@@ -570,7 +570,7 @@ Replay the harness against each commit and report:
 
 Then tell me:
 - Every regression the harness would have MISSED, and the specific step that should have
-  caught it — exact test, golden slice, or judge.
+  caught it, exact test, golden slice, or judge.
 - Every clean commit the harness would have REJECTED, and why. A harness that rejects
   good changes gets switched off within a fortnight.
 - The slice with the fewest cases, and whether its lower bound could clear its bar at

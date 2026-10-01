@@ -9,7 +9,7 @@ STEPS_C = [
    "The golden set proves the agent is right about cases **you curated**. A shadow run proves "
    "something different and harder: that it agrees with the live desk on today's traffic, including "
    "the storm day, the partner outage and the fare class that only appears in August. The agent "
-   "decides beside the desk, every decision is logged, and it never acts — and *shadow never writes* "
+   "decides beside the desk, every decision is logged, and it never acts, and *shadow never writes* "
    "is a test in the pipeline rather than an intention in a document. If it does not match, you found "
    "that out for free, which is the entire point of the rung."),
  "activities": [
@@ -74,7 +74,7 @@ _Window: <start> to <end> (<n> days, fixed on <date> before the run) · Owner: <
 |-------|--------------------|--------|-----------|-----------|------|
 | <same-day> | <n> | <n> | <n>% | 95% | |
 | <codeshare> | <n> | <n> | <n>% | 95% | |
-| <refund> | <n> | <n> | <n>% | n/a — excluded, stays gated | — |
+| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | — |
 
 **Money actions are excluded from automatic agreement and remain gated regardless of
 what this table says.** Every other threshold here is tunable; that one is not.
@@ -87,7 +87,7 @@ Any slice under <n> compared decisions is **unproven**, not failed. Say which.
 | no write call from the shadow path | <the nightly job> | <date> |
 | shadow decisions land in <the log>, not <the ledger> | <the nightly job> | <date> |
 
-## Disagreements — themes, not cases
+## Disagreements, themes, not cases
 | Theme | Count | Agent right / desk right / ambiguous | What it changes |
 |-------|-------|--------------------------------------|-----------------|
 | <theme> | <n> | <which> | <golden cases / rubric line / spec defect / nothing> |
@@ -104,7 +104,7 @@ days = cases needed ÷ (traffic share × cases per day) · cases per day = <n>
 Any slice needing more than <30> days at 5% needs a bigger starting share or a hold,
 and that is a decision to take now rather than in week five.
 
-## Widening — conditions, never dates
+## Widening: conditions, never dates
 | Step | Condition |
 |------|-----------|
 | to 5% | threshold met on <slices>; rollback rehearsed on <date> by <name> |
@@ -142,7 +142,7 @@ Our slices: <list>. Our decisions are logged at: <where>. Cases per day: <n>."""
 
 1. Cluster them into at most 6 themes. Name each in plain words, no jargon.
 2. For each theme, mark it AGENT RIGHT / DESK RIGHT / GENUINELY AMBIGUOUS, with the
-   reason. Do NOT treat the desk as ground truth — say so when the desk was wrong.
+   reason. Do NOT treat the desk as ground truth, say so when the desk was wrong.
 3. Rank the themes by the estimated cost of being wrong, not by how often they occur.
 4. For each theme, say what it changes: a golden case, a rubric line, a spec defect,
    or nothing.
@@ -177,8 +177,8 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
  ],
  "example": {
    "title": "SkyWays · 96% that was not a pass",
-   "body": "The shadow run cleared its threshold — **96%** agreement over fourteen days against a 95% "
-           "default — and the room wanted the expansion gate opened. Inside that 96%, the agent had "
+   "body": "The shadow run cleared its threshold, **96%** agreement over fourteen days against a 95% "
+           "default, and the room wanted the expansion gate opened. Inside that 96%, the agent had "
            "disagreed with the desk on **four of eleven** refund decisions, which is **64%** agreement "
            "on the slice that moves money. Two things were wrong and only one of them was the number. "
            "Eleven cases cannot conclude anything about refunds in either direction, so the honest "
@@ -190,7 +190,7 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
    "Reading the aggregate. The slice with the money in it is the small one, and small slices disappear "
    "into averages exactly when it matters most.",
    "A three-day window as a formality. It holds no weekend and no disruption day, so it buys false "
-   "confidence at full price — and worse than no shadow run, because a number is quotable.",
+   "confidence at full price, and worse than no shadow run, because a number is quotable.",
    "Promising a cut-over date before doing the division. At 5% of 240 cases a day you see twelve a "
    "day, so a 500-case slice needs 42 days, and nobody who promised a fortnight had run the numbers.",
  ],
@@ -206,7 +206,7 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
    "Two defects reach production that no suite catches. **Drift** is behaviour changing with no "
    "deploy, no error and no alert, until a customer complains three months later that the assistant "
    "offers credits instead of refunds. And an **incident** is the system telling you which control "
-   "was missing — but only if the room asks the right question, because the wrong question produces a "
+   "was missing, but only if the room asks the right question, because the wrong question produces a "
    "name in five minutes and fifty-five minutes of that person's defence while the refund tool still "
    "accepts any amount. Both of these close back into the golden set, which is what stops the same "
    "failure arriving twice."),
@@ -216,8 +216,8 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
               "escalate. One chart with a threshold, watched like a conversion rate. Not a dashboard "
               "with forty panels that nobody opens."},
    {"do": "Set two thresholds, not one",
-    "detail": "5% week over week catches a jump. It never fires on a slide of under two points a week "
-              "— and under two points a week moves thirteen points in seven weeks. Watch the level "
+    "detail": "5% week over week catches a jump. It never fires on a slide of under two points a week, "
+              "and under two points a week moves thirteen points in seven weeks. Watch the level "
               "against a frozen baseline as well as the step."},
    {"do": "Wire the drift alert to the release gate",
     "detail": "Automatically, with no human deciding to. That single piece of wiring is the difference "
@@ -225,7 +225,7 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
    {"do": "Ask the one question first, in the postmortem",
     "detail": "*Which enforced control would have made this impossible?* Not who wrote the prompt. The "
               "second question is the only one that produces a fix, and blameless framing is not a "
-              "courtesy — it is the only framing under which people tell you what happened."},
+              "courtesy. It is the only framing under which people tell you what happened."},
    {"do": "Classify every claimed layer as enforced, a request, or absent",
     "detail": "Without flattering yourself. A rule that exists only in a prompt is a request, and a "
               "model can be talked past a request. Two layers that fail together are one layer."},
@@ -248,7 +248,7 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
     "use": "Turn a postmortem transcript into the layer table, forcing the enforced / request / absent "
            "classification. It holds the format while the room wants to talk about blame.",
     "caution": "Check every row it marked *enforced*. It will accept a prompt sentence as a control, "
-               "because a prompt sentence reads exactly like a rule — which is also why the room "
+               "because a prompt sentence reads exactly like a rule, which is also why the room "
                "believed it."},
    {"tool": "Chat LLM",
     "use": "Draft the six golden cases the incident owes, as data lines with expected outcomes and "
@@ -280,7 +280,7 @@ _Baseline frozen <date> from <source> · Owner: <name>_
 **Two thresholds, because one is not enough.**
 - Step: alert at **5pp** week over week. Catches a jump.
 - Level: alert at **10pp** against the frozen baseline. Catches the slow slide that a
-  week-over-week rule never fires on — under 2pp a week moves 13pp in seven weeks.
+  week-over-week rule never fires on, under 2pp a week moves 13pp in seven weeks.
 
 A drift alert **re-opens the release gate automatically**. Last triggered: <date / never>.
 Baseline re-frozen only by <name>, and never to make an alert go away.
@@ -299,7 +299,7 @@ Which **enforced** control would have made this impossible?
 | <the prompt's policy> | yes | **a request** | no |
 | <a $400 cap> | yes | <absent from the code> | **yes** |
 | <a named approver> | yes | <absent from the code> | **yes** |
-| <an alert on the trace> | yes | <absent> | no — it reports afterwards |
+| <an alert on the trace> | yes | <absent> | no, it reports afterwards |
 
 Two layers that fail together are one layer. A rule that lives only in a prompt is a
 request, and a model can be talked past a request.
@@ -307,8 +307,8 @@ request, and a model can be talked past a request.
 **3 · The fix**
 | Proposal | Closes the path, or lowers the probability? |
 |----------|--------------------------------------------|
-| <reword the prompt> | lowers the probability — the next attempt is worded differently |
-| <add an alert> | neither — that is detection, not prevention |
+| <reword the prompt> | lowers the probability, the next attempt is worded differently |
+| <add an alert> | neither, that is detection, not prevention |
 | **<cap and confirmation token in the tool signature>** | **closes the path** |
 
 **4 · Autonomy**
@@ -316,7 +316,7 @@ request, and a model can be talked past a request.
 |--------|-----------|-------------|----------------------|
 | <issue_refund> | <2> | <1> | <a 14-day shadow run at or above threshold> |
 
-**5 · Feed forward** — four artefacts leave the room
+**5 · Feed forward**: four artefacts leave the room
 - **Golden cases:** <6> new, in <slice>, each with its expected refusal and reason code
 - **Injection payloads:** the string, tried from every entry point
 - **Amended decision record:** <ADR-nnn> now defines *enforced* as **in the tool signature**
@@ -339,7 +339,7 @@ RULES:
 - Do NOT smooth the series. Smoothing is how a slow slide becomes invisible.
 - If a week has fewer than <n> decisions, report it as thin rather than as a percentage.
 
-OUTPUT: the table, then a one-line verdict per mix, then — if anything breached — the
+OUTPUT: the table, then a one-line verdict per mix, then, if anything breached, the
 sentence I will send to re-open the release gate.
 
 MIXES TO WATCH: <list>."""},
@@ -384,7 +384,7 @@ RULES:
 - The expected outcome is a refusal or an escalation with a REASON CODE. Never
   "behaves sensibly" and never a sentence of prose.
 - Tag every case with the slice whose bar it belongs to. If it belongs to no existing
-  slice, say so — the incident may have revealed that the slice list is wrong.
+  slice, say so, the incident may have revealed that the slice list is wrong.
 - Do not invent facts the write-up does not contain. Mark them <unknown>.
 
 INCIDENT AND FIX:
@@ -394,7 +394,7 @@ INCIDENT AND FIX:
    "title": "SkyWays · thirteen points in seven weeks, and one question in one hour",
    "body": "The refund-versus-credit mix was 61/39 in week one and 48/52 in week eight. No deploy, no "
            "error and no alert, because the alert was set at 5% week over week and the slide averaged "
-           "**1.9 points a week** — so it never fired once while the behaviour moved thirteen points. "
+           "**1.9 points a week**, so it never fired once while the behaviour moved thirteen points. "
            "The chart had been on the wall the whole time. Then on day 82 a **$2,000** refund went out "
            "that was not owed and somebody opened the commit history. Redirected to *which enforced "
            "control would have made this impossible?*, the same hour produced a layer table: **five** "

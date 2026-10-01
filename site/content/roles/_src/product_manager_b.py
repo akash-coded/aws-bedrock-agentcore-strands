@@ -114,7 +114,7 @@ INPUTS:
 Then:
 1. Give me the net per day, per month, per year.
 2. Sensitivity: for each input, show the net if it were 20% worse. Rank them by impact.
-3. Tell me which single input is both high-impact AND least evidenced — that is the one
+3. Tell me which single input is both high-impact AND least evidenced. That is the one
    I should go and measure before I present this."""},
    {"title": "Draft the autonomy table",
     "when": "You have the action list and need a first pass",
@@ -130,7 +130,7 @@ Rules:
 - Set the level from cost-of-mistake and reversibility ONLY. Ignore how capable the model is.
 - Anything involving money, identity or a regulatory commitment defaults to "named approver".
 - Anything irreversible defaults to "not delegated".
-- Where you do not know our costs, write UNKNOWN — do not estimate.
+- Where you do not know our costs, write UNKNOWN, do not estimate.
 
 Then list the questions I must answer before this table can be signed."""},
    {"title": "Pressure-test an autonomy level",
@@ -142,7 +142,7 @@ Act as a sceptical risk reviewer. Tell me:
 1. What sample size would be needed to support that claim, given the bar for this action?
    (bar = damage / (damage + saving); show the arithmetic)
 2. What the lower bound of the observed success rate actually is at the sample size we have.
-3. What is the DOOR — if we raise it and it goes wrong, how fast can we go back?
+3. What is the DOOR, if we raise it and it goes wrong, how fast can we go back?
 4. The smallest safe step: what is the ONE level up, with what monitoring?
 
 Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>."""},
@@ -174,7 +174,7 @@ Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>
    "A thirty-page PRD is read by nobody and interpreted differently by everyone, and when handed to a "
    "coding agent it produces the wrong thing confidently. The spec is the one place the machine can "
    "look, so it must be exact and small: three classical fields plus five agentic ones, on one screen. "
-   "The five agentic fields are almost always the decisions nobody had made — which is the real value "
+   "The five agentic fields are almost always the decisions nobody had made, which is the real value "
    "of the exercise, not the document."),
  "activities": [
    {"do": "Keep the three classical fields",
@@ -204,7 +204,7 @@ Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>
     "use": "Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage "
            "delegation in the role: mechanical, verifiable, and it takes you an hour by hand.",
     "caution": "It will fill the five agentic fields with plausible guesses. Blank them out and decide "
-               "each one yourself — the guesses are the exact thing you are trying to surface."},
+               "each one yourself, the guesses are the exact thing you are trying to surface."},
    {"tool": "Chat LLM",
     "use": "Convert prose acceptance criteria to EARS and report how many 'should's it removed. The "
            "count is a useful measure of how much ambiguity you were shipping.",
@@ -216,7 +216,7 @@ Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>
     "caution": None},
    {"tool": "Do not delegate",
     "use": "The bar and the autonomy fields. Both are business risk decisions with your name on them, "
-           "and both have a formula — use the formula, not the model.",
+           "and both have a formula, use the formula, not the model.",
     "caution": None},
  ],
  "artifact": {
@@ -259,7 +259,7 @@ BOUNDARY  The system shall NEVER <...>.
 |-------|----------------------|----------------------|-----|--------------|
 | <same-day> | $<n> | $<n> | <n>% | |
 | <codeshare> | $<n> | $<n> | <n>% | |
-| <refund> | $<n> | $<n> | <n>% | yes — <what the hold is> |
+| <refund> | $<n> | $<n> | <n>% | yes, <what the hold is> |
 
 **7 · Fallback**
 <What happens when the model cannot meet the bar on a case, or a tool fails. Who or what
@@ -283,7 +283,7 @@ Handed to <name> on <date>. Questions they asked:
 Split it into one spec per feature. For each, output EXACTLY these eight fields:
 1 Title
 2 Value
-3 Acceptance criteria — in EARS: WHEN <trigger> AND <condition> THE SYSTEM SHALL
+3 Acceptance criteria, in EARS: WHEN <trigger> AND <condition> THE SYSTEM SHALL
   <behaviour> WITHIN <measure>. Plus BOUNDARY lines for anything that must never happen.
 4 The model's role
 5 Autonomy
@@ -291,7 +291,7 @@ Split it into one spec per feature. For each, output EXACTLY these eight fields:
 7 Fallback
 8 Records
 
-CRITICAL: for fields 4-8, write "NOT DECIDED — <the question that must be answered>"
+CRITICAL: for fields 4-8, write "NOT DECIDED, <the question that must be answered>"
 wherever the PRD does not actually say. Do NOT infer, do NOT use a sensible default.
 Those gaps are the output I am looking for.
 
@@ -335,7 +335,7 @@ SPEC:
  "example": {
    "title": "SkyWays · thirty pages to eight fields",
    "body": "The PRD was thirty pages and the spec was one screen. Three fields transferred straight "
-           "across. Of the five agentic fields, **five were undecided** — nobody had said what the "
+           "across. Of the five agentic fields, **five were undecided**: nobody had said what the "
            "model's role was versus the fare engine's, what autonomy refunds had, what accuracy counted "
            "as good, what happened when it could not decide, or what had to be logged. Each was settled "
            "with its owner in under an hour. The document took a morning; the decisions it forced were "
@@ -372,7 +372,7 @@ SPEC:
     "detail": "Then a day can fail for one reason and you know which. Two unknowns in a bolt means a "
               "day spent bisecting rather than building."},
    {"do": "Hand the cut to the architect for dependency order",
-    "detail": "You decide the cadence; they decide the order. This division matters — a plan ordered by "
+    "detail": "You decide the cadence; they decide the order. This division matters: a plan ordered by "
               "business priority will schedule a gated write before the plug it needs."},
    {"do": "Put the shadow run in the plan as a milestone",
     "detail": "Not a launch date. A window with a threshold. Fixing it now stops it being negotiated "
@@ -413,12 +413,12 @@ _Cadence: one bolt per day, reviewed and integrated same day_
 
 | Day | Bolt | The ONE unknown it retires | Depends on | Slice it serves | Done when |
 |-----|------|---------------------------|-----------|-----------------|-----------|
-| 1 | Walking skeleton — <read X, show it>, no model | do the pieces connect? | — | all | end to end, in staging |
+| 1 | Walking skeleton, <read X, show it>, no model | do the pieces connect? | — | all | end to end, in staging |
 | 2 | <exact function> | <...> | — | <slice> | unit tests green |
 | 3 | | | | | |
 
 ## Rules for this plan
-- A bolt that cannot be built alone was cut wrong — send it back before starting it.
+- A bolt that cannot be built alone was cut wrong, send it back before starting it.
 - Exact code early: it stands alone and never blocks.
 - The plug (MCP / integration) lands before any gated write that needs it.
 - The proof (harness, golden set) is last, because it needs something to run against.
@@ -447,7 +447,7 @@ Rules:
 - If a bolt would retire two unknowns, split it.
 - If a bolt cannot be built alone, say so and explain what it needs.
 - Put a walking skeleton first: the thinnest end-to-end path with NO model in it.
-- Pure deterministic code (calculations, validations) should come early — it stands alone.
+- Pure deterministic code (calculations, validations) should come early, it stands alone.
 - Anything that writes or changes real data comes after the integration it depends on.
 
 Finally: list any story that resisted splitting, and say what two risks it is hiding.
@@ -460,12 +460,12 @@ STORIES:
 history and NO access to me.
 
 Sections, exactly:
-## Context — LINKS ONLY to the context layers and ADRs. Do not paste their contents.
-## Spec — the EARS criteria for THIS slice only, copied from the spec verbatim.
-## Tools — signatures the bolt may call, with their risk band.
-## Tests — the golden slice it must pass and its bar, plus unit assertions.
-## Done when — one testable line.
-## Cost — expected tokens per call and the tier.
+## Context: LINKS ONLY to the context layers and ADRs. Do not paste their contents.
+## Spec (the EARS criteria for THIS slice only, copied from the spec verbatim.
+## Tools) signatures the bolt may call, with their risk band.
+## Tests (the golden slice it must pass and its bar, plus unit assertions.
+## Done when) one testable line.
+## Cost: expected tokens per call and the tier.
 
 BOLT: <name and the one unknown>
 SPEC EXTRACT: <paste the relevant EARS lines>
@@ -474,7 +474,7 @@ CONTEXT LAYERS: <paths>"""},
  "example": {
    "title": "SkyWays · ten days, ten proofs",
    "body": "The sprint held five stories and a demo on day fourteen. Recut, it became ten bolts. Day one "
-           "was a walking skeleton that read a booking and displayed it — no model, half a day, and it "
+           "was a walking skeleton that read a booking and displayed it, no model, half a day, and it "
            "found a credentials problem in the reservation adapter that would otherwise have surfaced on "
            "day nine. Day two was the fare-difference function, unit tested, standing alone. The first "
            "model call did not appear until day four, by which point everything it depended on was "
