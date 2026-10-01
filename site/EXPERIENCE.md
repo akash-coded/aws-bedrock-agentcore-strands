@@ -76,6 +76,13 @@ head, the same way the simulator's old `/#/…` routes are. The task table ("abo
 | Role rows | The whole row is the link. Hover tints the row in the role's colour and moves the arrow. |
 | Simulator frame | The whole frame is one link to the simulator. |
 | Folded how-to | Closed on arrival. Holds the audience, the use, the steps and the walkthrough button. |
+| Section rail | On a wide screen the role pages and the leadership page list their sections down the left and mark the one being read (`aria-current`): the last one whose top has passed the upper third of the window. On a narrow screen a role page relies on its step track, and the leadership page folds the list under its title. |
+| Role step | The step's head links to its template and its prompts; a tap opens the step if it is shut and lands on the block. "Expand all" sits beside the steps' heading. On a wide screen in a browser that can, a step opens to its height in 250ms; elsewhere it is simply open. |
+| Copy | The button turns green, draws a tick and says "Copied"; a polite live region says so to a screen reader. |
+| Pause control | A checkbox in the corner of the hero and of the tower figure. Ticked, the flight, the globe and the tower hold still. It works without script for everything but the globe, which needs script to turn at all. |
+| Figures | A drawn figure fades in part by part, in drawing order, the first time it is scrolled to. Nothing is hidden beforehand: a figure the observer never reaches is simply there. |
+| Page to page | Where the browser supports it, one page cross-fades into the next with the top bar held still, and a title on both pages (a lesson in its track list, a role in its home-page row) travels to its new place. |
+| Next up | Templates, prompts, mental models, frameworks and the picture pack each end on one sentence, one button and one quiet link. |
 | Walkthrough | Never offered by a popup, and nothing about it is stored. A small face sits bottom left on wide screens and names itself on hover; on a phone it is inside the folded how-to only. |
 | Reveal | A band rises 18px into place the first time it is scrolled to. Without script, or with reduced motion, it is simply there. |
 
@@ -85,14 +92,19 @@ head, the same way the simulator's old `/#/…` routes are. The task table ("abo
   over it; every band is visible, because the script that hides a band for its reveal is the one that
   reveals it; both top-bar lists open and close; the drawer works.
 - **Reduced motion:** the globe is drawn once and does not turn, the plane holds its place between
-  Frame and Design, nothing fades in.
+  Frame and Design, nothing fades in, pages do not cross-fade, connectors do not move, and the pause
+  control is not shown because there is nothing to pause.
+- **Paused:** the plane and the tower hold their place and the globe stops turning.
+- **A browser without scroll timelines, view transitions or animatable `auto` height:** connectors are
+  still, pages change at once, steps snap open. Nothing is missing, only the movement.
 - **Off screen or hidden tab:** the globe stops drawing.
 - **Theme change:** the globe re-reads its colours and redraws; the simulator frame swaps its picture.
 - **Old anchor on the home page:** forwarded to `/method/` before the page paints.
 
 ## Interaction primitives
 
-Transitions sit on the site's scale (150, 250, 350, 400ms) with the one easing. Hover never carries
+Motion has three permitted jobs and two classes; `DESIGN.md` states them. Transitions sit on the site's
+scale (150, 250, 350, 400ms) with the one easing. Hover never carries
 information that focus or the page itself does not. On a phone, buttons, navigation and list rows are
 at least 44px tall; a link inside a sentence, and a checkbox in a self-check, keeps its text's height.
 
@@ -103,6 +115,9 @@ at least 44px tall; a link inside a sentence, and a checkbox in a self-check, ke
   where it passes the 3:1 large-text bar, and a disabled button.
 - The hero scene is `aria-hidden`: it repeats section two, which is real text and a real table.
 - The coverage table has a caption, column and row headers, and a text reading in every cell.
+- Nothing moves on its own for more than five seconds without a control to stop it (WCAG 2.2.2): the
+  two things that do, the hero's flight and the tower, each carry one.
+- "Copied" is announced through a polite live region; the rail marks the current section with `aria-current`.
 - One `h1` per page; bands are labelled sections; the skip link, focus rings and breadcrumbs are kept.
 - No page scrolls sideways at 375px.
 
@@ -119,9 +134,10 @@ landed on the home page.
 
 **Daniel, a product manager, from a link a colleague posted.**
 1. Home: he reads one sentence and scrolls to the roles.
-2. He finds his row: "a vibe → a number you can defend".
-3. The role page opens on his title, one line and the eight steps as a track.
-4. *The moment:* he opens step one and copies the pain register template.
+2. He finds his row: "a vibe → a number you can defend". His title travels with him to the next page.
+3. The role page opens on his title, one line and the eight steps as a track, arriving in order.
+4. He taps the first stop, then "The template" in the step's head.
+5. *The moment:* he presses Copy on the pain register, and the button says so.
 
 **Priyanka, who funds an agent programme, sent straight to `/protocol/`.**
 1. The top bar says SkyWays, the agentic manual, with Leadership marked.
@@ -171,9 +187,32 @@ an instruction strip, a contents box, a walkthrough button and a popup.
 - **Under 760px:** the coverage table drops its questions and one-liners and fits the screen; role rows
   become two lines.
 
+## The second council: the inner pages, and motion
+
+Asked whether to bring the other pages up to the front page's standard and how much motion to add, the
+council (five advisors, five anonymous reviews) agreed on four things: take the text out of its boxes;
+give long pages numbers and air; fix the words a stranger trips on before adding anything that moves;
+and stop the site's own perpetual motion, which broke its duration rule and had no pause.
+
+It split on how much motion. One advisor wanted every figure animated; three wanted almost none. The
+resolution is the test now written in `DESIGN.md`: motion must answer the reader, say where they are, or
+show a sequence. That shipped the page-to-page cross-fade, the ordered arrivals (the hero's words, a
+role's steps, the method bars, the parts of a figure), the opening step and the copy tick. It refused
+numbers that count up, cursor spotlights and glows, a circular theme reveal, hub cities on the globe,
+text that slides in on reading pages, and a second drawing of the role route.
+
+What the peer review added: nobody had defined "done". So there is a gate, `tools/accept.mjs`, that
+checks five things on a page of every kind: nothing hidden without script; nothing hidden or running
+under reduced motion; nothing still moving after four seconds except what follows the scroll or sits on a
+page with a pause control; nothing left hidden once the page has been scrolled through; and on a phone no
+sideways scroll and the title inside the first screen.
+
+Not done, and why: stacked forms of the four-column tables on a phone (they scroll sideways inside their
+own box, which is honest if not pretty); a legend defining "bar", "slice" and "gate" at first use on every
+page (the lessons define them; the role pages still assume them); longer animated explanations of single
+figures, which would each need a still frame, a start control and a pause.
+
 ## Open items
 
-- The home page's social card still carries the previous headline. It is drawn by `pages/ogcards.py`
-  and rendered by `tools/ogshots.mjs`.
-- The wiki's own pages still link to the old home anchors. They are forwarded, and the next
-  `wiki_export.py` run rewrites them.
+- The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy; until it runs,
+  the live wiki keeps its older links, which the home page forwards.

@@ -463,19 +463,23 @@ def build(shell, urls: dict) -> str:
         {"sel": ".mm .mmd", "title": "The card", "body": "Plain words first, then the SkyWays case, what it predicts, the mistake it prevents, the subtlety, and the test: <b>You have it when</b>."},
         {"sel": ".mm .mw", "title": "Where it lives", "body": "Every model points to the steps and lessons where it does its work."},
     ])
+    import render
+    nextup = render.next_up("Each rule points at the steps where it does its work.", "../product-manager/",
+                            "Walk a role, step by step", ("../method/", "The lifecycle they belong to"))
     body = f"""<div class="wrap"><main id="main" style="padding:34px 0 28px">
 <div class="rowh"><div>
   <div class="kicker">Mental models</div>
   <h1>Twelve rules of thumb for software that decides</h1>
   <p class="lede">A procedure tells you what to do on Tuesday. A rule of thumb tells you what to expect before you
   start, so you can make a good call on a case this manual never covered. Each one below is explained in plain
-  words, shown at SkyWays, and given the mistake it prevents and the test for whether you have it.</p>
+  words, shown at SkyWays (the fictional airline this manual works through), and given the mistake it prevents
+  and the test for whether you have it.</p>
 </div><div class="rowa"><b>How each card is built</b><ol>
   <li>In plain words: the idea, with no jargon</li><li>At SkyWays: the case where it bit</li>
   <li>What it predicts, and the mistake it prevents</li><li>The subtlety: where it stops applying</li>
   <li>You have it when: the test</li></ol>
-  <p style="margin:10px 0 0;font-size:13.5px">Cards are tinted by the cost of ignoring the rule, yellow to red.
-  All twelve on one page: <a href="../pictures/#pic-wikimap-mental-models">the poster</a>.</p></div></div>
+  <p style="margin:10px 0 0;font-size:13.5px">The bar down each card's left edge is the cost of ignoring the rule,
+  yellow to red. All twelve on one page: <a href="../pictures/#pic-wikimap-mental-models">the poster</a>.</p></div></div>
 
 {orient}
 
@@ -505,6 +509,7 @@ and are defaults to argue with rather than findings. Which is which is recorded 
 <a href="{urls['wiki']}/Sources-and-Confidence" target="_blank" rel="noopener">Sources and
 confidence</a>.</p></div>
 </div>
+{nextup}
 </main></div>"""
     return shell(title="Mental models · The agentic manual",
                  desc="Twelve mental models for building software that decides: chained probability, "

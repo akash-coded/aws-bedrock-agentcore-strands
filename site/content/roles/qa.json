@@ -20,8 +20,8 @@
   "Eight steps. Each one ends in an artefact somebody else needs, with the template to write it and the prompts to draft it faster. One habit runs through all eight: never quote a score without its n."
  ],
  "owns": [
-  "The **behaviour** gate (does it meet the spec, per slice, with the lower bound?",
-  "The **expansion** gate) have we earned wider use?",
+  "The **behaviour** gate: does it meet the spec, per slice, with the lower bound?",
+  "The **expansion** gate: have we earned wider use?",
   "The golden set: which cases count, what each one expects, and the slice it belongs to",
   "The checker for each kind of step, and the judge's own measured accuracy",
   "The injection suite, and the weekly run that keeps it a regression test rather than a launch check",
@@ -54,7 +54,7 @@
    "id": "define",
    "phase": "Define",
    "title": "Decide what proof each kind of step owes",
-   "when": "P0, the day the architect's step map exists and before a single test is written",
+   "when": "P1, the day the architect's step map exists and before a single test is written",
    "purpose": "Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** work, the fare arithmetic, owes a unit test, green or red, and it fails loudly. **Best-guess** work, which alternative suits this passenger, owes a measured share per slice, and it fails *fluently*: confident, well-worded and wrong. **Consequential** work, the refund, owes a required confirmation, and it fails silently until money moves. Get the tags right and the test plan writes itself; get them wrong and you will prove the wrong thing thoroughly.",
    "activities": [
     {

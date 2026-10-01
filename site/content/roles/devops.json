@@ -20,8 +20,8 @@
   "Eight steps. Each one ends in something committed to a repository rather than configured in a console, because the capability you are actually building is the ability to destroy an environment and get it back."
  ],
  "owns": [
-  "The **landing zone** (accounts, isolation, and a tag scheme that makes cost attributable per feature",
-  "The **model gateway**) one layer every call passes through, with a per-call log nobody can route around",
+  "The **landing zone**: accounts, isolation, and a tag scheme that makes cost attributable per feature",
+  "The **model gateway**: one layer every call passes through, with a per-call log nobody can route around",
   "The pipeline, including the evaluation harness as a required status check rather than a comment",
   "Three deployable artefacts and three rollback paths: the code, the prompt, and the model version",
   "The **enforced** controls (execution role scope, egress, caps in tool signatures) as distinct from the requested ones",

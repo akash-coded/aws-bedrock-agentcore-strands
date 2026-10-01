@@ -44,8 +44,8 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | Yours to own | Not yours, stop signing these |
 | --- | --- |
-| The **landing zone** (accounts, isolation, and a tag scheme that makes cost attributable per feature | The **acceptance bar** per slice. The product manager derives it and QA curates the cases; your job is to make the gate unarguable, not to set it |
-| The **model gateway**) one layer every call passes through, with a per-call log nobody can route around | **Prompt content.** You version it, deploy it and roll it back. You do not write it |
+| The **landing zone**: accounts, isolation, and a tag scheme that makes cost attributable per feature | The **acceptance bar** per slice. The product manager derives it and QA curates the cases; your job is to make the gate unarguable, not to set it |
+| The **model gateway**: one layer every call passes through, with a per-call log nobody can route around | **Prompt content.** You version it, deploy it and roll it back. You do not write it |
 | The pipeline, including the evaluation harness as a required status check rather than a comment | Which slices exist and what a wrong answer costs in each. That is the business's answer, and it is the input to your caps rather than your output |
 | Three deployable artefacts and three rollback paths: the code, the prompt, and the model version | The behaviour, release and expansion gates. You supply the evidence and the rollback; somebody else signs |
 | The **enforced** controls (execution role scope, egress, caps in tool signatures) as distinct from the requested ones |  |

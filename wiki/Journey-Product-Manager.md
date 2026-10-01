@@ -44,10 +44,10 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | Yours to own | Not yours, stop signing these |
 | --- | --- |
-| The **intent** gate (is this worth doing at all? | **Behaviour** and **expansion** gates. Those are the QA lead's, and your name on them helps nobody |
-| The **release** gate) is it safe to show real users? | Pull request approvals you cannot evaluate |
-| The **plan** gate, shared with the architect | Model choice, temperature, framework (behaviours are yours, knobs are engineering's |
-| The autonomy level per action, and the door it sits behind | The golden set's contents) you set the bar, QA curates the cases |
+| The **intent** gate: is this worth doing at all? | **Behaviour** and **expansion** gates. Those are the QA lead's, and your name on them helps nobody |
+| The **release** gate: is it safe to show real users? | Pull request approvals you cannot evaluate |
+| The **plan** gate, shared with the architect | Model choice, temperature, framework: behaviours are yours, knobs are engineering's |
+| The autonomy level per action, and the door it sits behind | The golden set's contents: you set the bar, QA curates the cases |
 | The acceptance bar per slice, derived rather than guessed |  |
 | The two-number report to whoever funds this |  |
 

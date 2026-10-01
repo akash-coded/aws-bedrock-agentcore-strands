@@ -8,6 +8,63 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-01 · The inside pages to the same standard, and motion with a job
+
+A second council judged a list of nineteen proposals for the inner pages and for motion. It kept the ones
+that take something away or that explain something, and refused the ones that only decorate. The rules it
+left behind are in [`site/DESIGN.md`](site/DESIGN.md) under Motion, and there is now a gate that checks them:
+[`site/tools/accept.mjs`](site/tools/accept.mjs).
+
+### Changed
+- **Text is out of its boxes.** On the leadership page, the mental models, the track lists and the tutorial's
+  tracks, paragraphs sit under a hairline instead of inside a bordered card. Boxes are kept for code, tables,
+  diagrams, calculators and verdicts
+- **The leadership page keeps your place.** Its thirteen sections are numbered, spaced, and listed down the
+  left on a wide screen with the current one marked; on a phone the list folds under the title
+- **A role step is one surface.** Its table, artefact and example are ruled instead of boxed, and its head
+  links straight to its template and its prompts. "Expand all" moved beside the steps' heading, and on a phone
+  the page opens on the role's name instead of a strip of step names
+- **Every reference page ends on one way on**: templates, prompts, mental models, frameworks, the picture pack
+- **Reading text stops near 75 characters a line** in lessons, whatever the column's width
+- **Words a stranger trips on.** "P0 to P3" is introduced as four phases and linked to the method where a
+  leader first meets it; "PDLC" is spelled out on the home and method pages; the mental models say that
+  SkyWays is the fictional airline the manual works through
+- **The share image for the home page is the home page**: the headline beside the Earth and the flight. Every
+  card now carries the mark, and the method page has its own
+
+### Motion, each with a reason
+- **One page hands over to the next.** Where the browser supports it, pages cross-fade with the top bar held
+  still, and a lesson's title travels from its row in the track list to the head of the lesson; a role's name
+  does the same from the home page
+- **Things that are sequences arrive in order, once**: the hero's words, a role's eight steps, the four
+  methods drawing along the phases, the parts of a figure the first time it is scrolled to
+- **A step opens to its height** on a wide screen; **Copy draws a tick** and tells a screen reader
+- **A pause control** on the two things that keep moving, the hero's flight and the tower on the method page
+
+### Removed
+- **Perpetual motion.** Diagram connectors marched forever at 1.1 seconds, off the site's own duration scale
+  and with no way to stop them, and the guide blinked and pinged on every page. Connectors now move only while
+  the reader scrolls past them, and the guide blinks when it is reached for
+
+### Fixed
+- **What an earlier dash sweep left behind**: ten "yours to own" and "not yours" lines at the top of four role
+  pages read "The **expansion** gate) have we earned wider use?"; four maturity levels and two table cells on
+  the leadership page had the same damage. Each is a lead and its gloss again, joined by a colon
+- The rail marked the section before the one you jumped to, because an anchor was offset twice; it now marks
+  the section whose top last passed the upper third of the window
+- "Copied" made the copy button grow to twice its size for a second and a half (it shared a class name with
+  the step's "Done when" box)
+- A QA step said it happens in P0 under a P1 badge; it is P1
+- The hard gate lesson's summary line read as if three hand-offs halt the build; it is three decisions at one
+- The hover titles on a step's phase badge had lost their punctuation in an earlier sweep
+- A page opened in a background tab could arm its scroll reveal with no clock running; it no longer arms there
+
+### Refused, on purpose
+- Numbers that count up, cursor spotlights and glows, a circular theme reveal, hub cities and extra arcs on the
+  globe, text that slides in on reading pages, and a second drawing of the role route
+
+---
+
 ## 2026-10-01 · The front of the site, rebuilt around one screen
 
 The home page was doing the whole site's job several times over: it explained the method five times,

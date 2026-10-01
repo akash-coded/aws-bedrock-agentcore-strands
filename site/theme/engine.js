@@ -362,6 +362,36 @@
     });
   }
 
+  /* --------------------------------------------------------------- figures */
+  /* A drawn figure arrives in the order it was drawn, once, the first time it is scrolled to: the
+     parts fade in over about half a second. Nothing is hidden beforehand, so a figure this never
+     reaches is simply there; reduced motion, a hidden tab or no observer and it does not run. */
+  function wireFigures() {
+    var figs = $$("figure.fig > svg, .mmg svg, figure.bbw > svg");
+    if (!figs.length || !("IntersectionObserver" in window) || document.hidden) return;
+    try {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    } catch (e) { return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var kids = [].slice.call(e.target.children).filter(function (k) {
+          var t = k.tagName.toLowerCase();
+          return t !== "defs" && t !== "style" && t !== "title" && t !== "desc";
+        });
+        var step = Math.min(40, 480 / Math.max(1, kids.length));
+        kids.forEach(function (k, i) { k.style.setProperty("--fd", Math.round(i * step) + "ms"); });
+        e.target.classList.add("fig-in");
+      });
+    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
+    figs.forEach(function (f) {
+      // already on screen when the page opens: leave it be, an entrance there would be a blink
+      if (f.getBoundingClientRect().top < innerHeight * 0.88) return;
+      io.observe(f);
+    });
+  }
+
   /* ---------------------------------------------------------------- matrix */
   /* Reading a cell in a five-by-four grid means holding its row and its column
      in your head. Lighting both is the whole feature. Pointer and keyboard
@@ -415,7 +445,7 @@
 
   function init() {
     wireLenses(); wireCalcs(); wireScores(); wireSteppers();
-    wireReveal(); wireMatrix(); wireLoops();
+    wireReveal(); wireFigures(); wireMatrix(); wireLoops();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

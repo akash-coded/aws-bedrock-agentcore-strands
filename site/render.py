@@ -100,6 +100,11 @@ MARK = ('<svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="fal
         'stroke-dasharray="58 24" stroke-linecap="round" transform="rotate(-38 16 16)"/>'
         '<path d="M8 17.5 24.5 9 19 24l-3.4-5.6z" fill="var(--brand)"/>'
         '<path d="M15.6 18.4 24.5 9" stroke="var(--bone)" stroke-width="1.2"/></svg>')
+# Anything that moves on its own for more than a few seconds can be stilled. A checkbox, so it works
+# without script: the stylesheet pauses the animations of whatever holds a checked one, and the
+# script that draws the globe listens to the same box.
+MOTION_TOGGLE = ('<label class="mpause"><input type="checkbox" data-motion-toggle autocomplete="off">'
+                 '<span class="vh">Pause the animation</span><i aria-hidden="true"></i></label>')
 BURGER = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>')
 ROLE_LESSON = {"product-manager": "agentic-pdlc-for-product-managers", "solution-architect": "agentic-pdlc-for-solution-architects",
                "engineering": "agentic-pdlc-for-engineers", "qa": "agentic-pdlc-for-qa", "devops": "agentic-pdlc-for-devops"}
@@ -346,10 +351,10 @@ def calc_section(step: dict) -> str:
             f"{calcs.render(name)}</section>")
 
 
-PHASE_TITLE = {"P0": "P0 · Frame (is this worth doing, and is it AI at all?",
-               "P1": "P1 · Design & Spec) what exactly, and under whose authority?",
-               "P2": "P2 · Build & Prove (does it meet the bar, slice by slice?",
-               "P3": "P3 · Run & Learn) is it still doing it, and what did it cost?"}
+PHASE_TITLE = {"P0": "P0 · Frame: is this worth doing, and is it AI at all?",
+               "P1": "P1 · Design & Spec: what exactly, and under whose authority?",
+               "P2": "P2 · Build & Prove: does it meet the bar, slice by slice?",
+               "P3": "P3 · Run & Learn: is it still doing it, and what did it cost?"}
 
 
 def step_html(role: dict, s: dict) -> str:
@@ -369,7 +374,8 @@ def step_html(role: dict, s: dict) -> str:
 <summary>
   <span class="sn">{s['n']}</span>
   <span class="sh"><span class="ph">{_E(s['phase'])}<i class="pd" title="{PHASE_TITLE[s['pdlc']]}">{s['pdlc']}</i></span><h3>{md(s['title'])}</h3>
-    <span class="wh">{md(s['when'])}</span></span>
+    <span class="wh">{md(s['when'])}</span>
+    <span class="jl"><a href="#t-{s['id']}" data-jump>The template</a><a href="#pr-{s['id']}" data-jump>{len(s['prompts'])} prompt{"" if len(s['prompts']) == 1 else "s"}</a></span></span>
   <span class="chev" aria-hidden="true">▾</span>
 </summary>
 <div class="sb">
@@ -393,7 +399,7 @@ def step_html(role: dict, s: dict) -> str:
     {block('template', s['template']['title'], 'fill in the angle brackets', s['template']['body'], f"t-{s['id']}")}
   </section>
 
-  <section><div class="lbl">Prompts you can paste</div>{prompts}</section>
+  <section id="pr-{s['id']}" tabindex="-1"><div class="lbl">Prompts you can paste</div>{prompts}</section>
 
   <section><div class="lbl">Worked example</div>
     <div class="eg"><h4>{md(s['example']['title'])}</h4><p>{md(s['example']['body'])}</p></div>
@@ -448,17 +454,16 @@ def roadmap(role: dict) -> str:
     out = []
     for ph, steps in groups:
         nodes = "".join(
-            f'<a class="rn" href="#{s["id"]}"><span class="ri"><svg viewBox="0 0 24 24" aria-hidden="true">'
+            f'<a class="rn" href="#{s["id"]}" style="--i:{s["n"] - 1}"><span class="ri"><svg viewBox="0 0 24 24" aria-hidden="true">'
             f'{STEP_ICON_SVG[_ICON_BY_STEP.get(s["phase"], "doc")]}</svg></span>'
             f'<span class="rnum">{s["n"]}</span><span class="rname">{_E(s["phase"])}</span></a>'
             for s in steps)
         out.append(f'<div class="rg" style="--c:var(--dg-{PHASE_HUE[ph]});--n:{len(steps)}">'
                    f'<span class="rp"><b>{ph}</b> {PHASE_SHORT[ph]}</span><div class="rns">{nodes}</div></div>')
     n = len(role["steps"])
-    name = role["name"].lower()
     return (f'<section class="roadmap" aria-label="The steps of this role, by phase">'
             f'<div class="rh"><h2>Your {NUM.get(n, str(n))} steps, in order</h2>'
-            f'<p>The things a {_E(name)} already does, in the order they happen. Each has gained a part a '
+            f'<p>The things this role already does, in the order they happen. Each has gained a part a '
             f'model can do, and each ends on the artefact the next person needs.</p></div>'
             f'<div class="rt">{"".join(out)}</div></section>')
 
@@ -508,14 +513,11 @@ def role_page(role: dict) -> str:
     ])
 
     body = f"""<div class="cols two-col">
-<aside class="rail" aria-label="Steps"><h2>The journey</h2><ol>{rail}</ol>
-  <p style="margin-top:18px"><button class="cp" data-expand
-     style="background:var(--paper);color:var(--ink2);border-color:var(--rule)">Expand all</button></p>
-</aside>
+<aside class="rail wideonly" aria-label="Steps"><p class="railh">The journey</p><ol>{rail}</ol></aside>
 <main id="main">
   <header class="phead in-col">
     <p class="kicker">Your role, end to end</p>
-    <h1>{_E(role['name'])}</h1>
+    <h1 style="view-transition-name:role-{role['id']}">{_E(role['name'])}</h1>
     <p class="lede">{md(role['tagline'])}.</p>
     <p class="pmeta"><span>{len(role['steps'])} steps</span><span>{n_a} sub-steps</span><span>{len(role['steps'])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>
   </header>
@@ -536,7 +538,8 @@ def role_page(role: dict) -> str:
   <div class="sec"><div class="note"><h3 class="h4">How to use a model in this role</h3>
     <p>{md(role['ai_stance'])}</p></div></div>
 
-  <h2 style="margin:0 0 16px">The journey, step by step</h2>
+  <div class="rolehead"><h2>The journey, step by step</h2>
+    <button type="button" class="btn ghost sm" data-expand>Expand all</button></div>
   {steps}
 
   <div class="sec" style="margin-top:36px"><h2 style="margin:0 0 12px">Read next</h2>
@@ -548,6 +551,14 @@ def role_page(role: dict) -> str:
     return shell(title=f"{role['name']} · The agentic manual", desc=desc, body=body, depth=1,
                  accent=role["accent"], nav_id=role["id"], canonical=f"{BASE_URL}{role['id']}/",
                  crumbs=[("Roles", ""), (role["name"], "")], tour=tour, kind="role", og=role["id"])
+
+
+def next_up(lead: str, href: str, label: str, also: tuple[str, str] | None = None) -> str:
+    """The foot of a reference page: one sentence, one button and at most one quiet link beside it,
+    so no page is a dead end."""
+    more = f'<a class="more" href="{also[0]}">{also[1]} <i aria-hidden="true">→</i></a>' if also else ""
+    return (f'<div class="nextup"><p>{lead}</p><div class="ba"><a class="btn pri" href="{href}">{label}</a>'
+            f"{more}</div></div>")
 
 
 def library_page(roles: list[dict], kind: str) -> str:
@@ -658,7 +669,7 @@ Owner of the number: Priya (PM)</code></pre>
         + posters.prompt_anatomy() + posters.prompts_by_role()
         + '<p class="lalt">Both pictures are in <a href="../pictures/#pics-posters">the picture pack</a>, with every other diagram of the method.</p></div>')
     body = f"""<div class="cols two-col">
-<aside class="rail" aria-label="Roles"><h2>By role</h2><ul class="ticks">{''.join(toc)}</ul></aside>
+<aside class="rail" aria-label="Roles"><p class="railh">By role</p><ul class="ticks">{''.join(toc)}</ul></aside>
 <main id="main">
   <header class="phead in-col"><p class="kicker">The library</p><h1>{label}</h1>
     <p class="lede">{lede}</p>
@@ -667,6 +678,9 @@ Owner of the number: Priya (PM)</code></pre>
   {orient.replace("__MORE__", opener + compare)}
   {posters_html}
   {''.join(secs)}
+  {next_up("Each one belongs to a step. The role pages walk them in order." if is_t else "Each prompt drafts one of the documents the manual asks for.",
+           "../product-manager/" if is_t else "../templates/", "Walk a role, step by step" if is_t else "The templates they fill",
+           ("../prompts/", "The prompts that draft them") if is_t else ("../product-manager/", "Walk a role"))}
 </main>
 </div>"""
     return shell(title=f"{label} · The agentic manual",
@@ -712,11 +726,11 @@ def _coverage() -> str:
             f'<td style="--c:var(--dg-{PHASES[i][3]})"{" class=gated" if i == 2 else ""}>'
             f'<i class="bar r{r}"></i><span class="vh">{REACH[r]}</span></td>'
             for i, r in enumerate(reach))
-        rows.append(f'<tr><th scope="row"><a href="{href}">{_E(name)}</a><small>{_E(line)}</small></th>{cells}</tr>')
+        rows.append(f'<tr style="--r:{len(rows)}"><th scope="row"><a href="{href}">{_E(name)}</a><small>{_E(line)}</small></th>{cells}</tr>')
     whole = "".join(
         f'<td style="--c:var(--dg-{PHASES[i][3]})"{" class=gated" if i == 2 else ""}>'
         f'<i class="bar r3"></i><span class="vh">covers this phase</span></td>' for i in range(4))
-    rows.append('<tr class="whole"><th scope="row"><a href="learn/what-is-the-agentic-pdlc/">SkyWays PDLC</a>'
+    rows.append(f'<tr class="whole" style="--r:{len(rows)}"><th scope="row"><a href="learn/what-is-the-agentic-pdlc/">SkyWays PDLC</a>'
                 f'<small>The whole line, with the gate and the way back.</small></th>{whole}</tr>')
     return ('<div class="cover"><table><caption class="vh">Which phases each agentic method covers</caption>'
             f'<thead><tr><th scope="col" class="corner"><span class="vh">Method</span></th>{head}</tr></thead>'
@@ -744,7 +758,7 @@ def home_page(roles: list[dict]) -> str:
         frm, to = (m.group(1), m.group(2)) if m else ("", tagline)
         n_p = sum(len(s["prompts"]) for s in r["steps"])
         seats.append(f'<li><a href="{rid}/" style="--rc:{colour}"><span class="s-code">{_E(short)}</span>'
-                     f'<span class="s-name">{_E(name)}</span>'
+                     f'<span class="s-name" style="view-transition-name:role-{rid}">{_E(name)}</span>'
                      f'<span class="s-route"><span>{md(frm)}</span><i aria-hidden="true">→</i><span class="vh"> to </span><b>{md(to)}</b></span>'
                      f'<span class="s-meta">{len(r["steps"])} steps · {n_p} prompts</span>'
                      f'<span class="s-go" aria-hidden="true">→</span></a></li>')
@@ -756,6 +770,7 @@ def home_page(roles: list[dict]) -> str:
 
     hero = f"""<section class="hero2" id="top" aria-label="Introduction">
   {globe.scene()}
+  {MOTION_TOGGLE}
   <div class="in"><div class="hx">
     <p class="eyebrow">The agentic manual</p>
     <h1>One manual for building software <em>with AI agents.</em></h1>
@@ -775,8 +790,8 @@ def home_page(roles: list[dict]) -> str:
   <header class="sec-h rv"><p class="eyebrow">The method</p>
     <h2 id="h-method">Which agentic method should your team follow? <span>All four. Each one covers part
     of the work.</span></h2>
-    <p>The SkyWays PDLC is the line they sit on: four phases, one hard gate between design and build, and a
-    loop that brings production back to the start.</p></header>
+    <p>The SkyWays PDLC, a product development lifecycle, is the line they sit on: four phases, one hard
+    gate between design and build, and a loop that brings production back to the start.</p></header>
   <div class="rv">{_coverage()}</div>
   <p class="links rv"><a class="more" href="method/">See the whole method on one page <i aria-hidden="true">→</i></a>
     <a class="more" href="frameworks/">Compare the four methods <i aria-hidden="true">→</i></a></p>
@@ -865,9 +880,9 @@ def method_page() -> str:
     body = f"""<div class="wrap"><main id="main" class="page">
   <header class="phead"><div class="pcols"><div><p class="eyebrow">The method</p>
     <h1>The SkyWays PDLC, on one page</h1>
-    <p class="lede">The lifecycle this whole manual hangs from: four phases, one hard gate and eight loops.
-    Each board below answers one question about it.</p></div>
-    <figure class="pfig">{illos.tower()}</figure></div>
+    <p class="lede">The product development lifecycle this whole manual hangs from: four phases (P0 to P3),
+    one hard gate and eight loops. Each board below answers one question about it.</p></div>
+    <figure class="pfig">{illos.tower()}{MOTION_TOGGLE}</figure></div>
     <ol class="jump">{jump}</ol></header>
   {bb.rebase(boards.pdlc(), "../")}
   {bb.rebase(boards.loops(), "../")}
@@ -881,7 +896,7 @@ def method_page() -> str:
                       "eight loops that bring production back, each role across the phases, and what a model may "
                       "draft against what stays with a person.",
                  body=body, depth=1, nav_id="method", canonical=BASE_URL + "method/",
-                 crumbs=[("The method", "")], kind="method", og="home")
+                 crumbs=[("The method", "")], kind="method", og="method")
 
 
 # --------------------------------------------------------------------------- diagrams
@@ -1026,7 +1041,9 @@ def frameworks_page() -> str:
         f'<th><span class="vh">Confidence</span></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
         f'<p style="margin-top:14px"><a href="{WIKI}/Sources-and-Confidence" target="_blank" '
         'rel="noopener">The full sources page</a></p></div>'
-        "</main></div>")
+        + next_up("Seen where the methods sit. The method page draws the lifecycle they sit on.",
+                  "../method/", "The SkyWays PDLC on one page", ("../learn/ai-dlc-vs-aidd-vs-agentic-sdlc/", "The methods, compared in a lesson"))
+        + "</main></div>")
     return shell(title="The frameworks, and how they merge · The agentic manual",
                  desc="AI-DLC, AIDD, BMAD and spec-driven development on one spine, how their parts merge into the "
                       "SkyWays PDLC, every acronym decoded, and where each framework came from.",

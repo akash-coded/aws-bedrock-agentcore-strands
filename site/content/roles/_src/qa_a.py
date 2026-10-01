@@ -58,7 +58,7 @@ STEPS_A = [
 {
  "n": 1, "id": "define", "phase": "Define",
  "title": "Decide what proof each kind of step owes",
- "when": "P0, the day the architect's step map exists and before a single test is written",
+ "when": "P1, the day the architect's step map exists and before a single test is written",
  "purpose": (
    "Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** "
    "work — the fare arithmetic — owes a unit test, green or red, and it fails loudly. **Best-guess** "

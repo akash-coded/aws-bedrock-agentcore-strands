@@ -30,8 +30,8 @@
  "not_yours": [
   "The **bolt cut** itself, the architect decides the cut; you decide whether each one can be built alone, and say so before you start it",
   "The **acceptance bar** per slice, the PM derives it from damage and saving. You make it run",
-  "The golden set's contents and the judge's rubric (those belong to the QA lead",
-  "The cut-over and the widening) you build the flag and rehearse the rollback; the PM throws it"
+  "The golden set's contents and the judge's rubric: those belong to the QA lead",
+  "The cut-over and the widening: you build the flag and rehearse the rollback; the PM throws it"
  ],
  "ai_stance": "Use a model for **the typing and the sweep**, never for the boundary. It will write a correct `fare_difference()` faster than you can, and it will just as happily write a cap into a prompt and report the cap as done. The pattern that works: the model drafts *inside* something you wrote (a context file, a story file, a signature you already fixed) and every line that moves money, changes a booking or writes a trace row is read by a person before it merges. Where a step below says *do not delegate*, the model has no standing, and it is almost always because the decision is about what the code must **refuse** rather than what it should do.",
  "reads": [

@@ -222,6 +222,9 @@ def build(shell, urls: dict) -> str:
         {"sel": ".picks", "title": "Filter", "body": "Six groups. The counts say how many pictures each holds."},
         {"sel": ".pic", "title": "A picture", "body": "Title, what it shows, the page it comes from, and a download. Click the picture for full size."},
     ])
+    import render
+    nextup = render.next_up("Every picture comes from a page that explains it.", "../method/",
+                            "The method, on one page", ("../learn/", "The tutorial, lesson by lesson"))
     body = f"""<div class="wrap"><main id="main" class="picpage">
   <div class="rowh"><div><div class="kicker">The picture pack</div><h1>Every picture in the manual and the simulator, ready to share</h1><p class="lede">{len(items)} diagrams, boards, decision trees and posters, each with a title, a caption and the page
   that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p>
@@ -234,6 +237,7 @@ def build(shell, urls: dict) -> str:
   credit <em>Akash Das, SkyWays Consultancy</em> with a link to the page each one comes from. The ones marked as a
   working method are this manual's own construction; the ones drawn from a published method or vendor documentation say so
   on their page.</p></div></div>
+{nextup}
 </main></div>"""
     gallery_ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "@id": base + "pictures/", "url": base + "pictures/",

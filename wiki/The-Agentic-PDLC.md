@@ -30,7 +30,7 @@ the whole argument for the phases.
 <!-- /picture -->
 
 > The same picture, drawn out with what each phase leaves behind:
-> [the agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#pdlc).
+> [the agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#pdlc).
 
 The dotted line is the point. P3 is not the end of a line, it is the input to the next P0.
 
@@ -339,13 +339,13 @@ Phases are a line. Loops are what make the line a ring: each one opens in one ph
 later one, and some close back into an earlier one.
 
 <!-- picture:board:loops -->
-<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops that run every team's workflow: five carry work forward, three run backwards and need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops that run every team's workflow: five carry work forward, three run backwards and need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
 
-<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops">Open the live, interactive version</a></sub>
+<sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops">Open the live, interactive version</a></sub>
 <!-- /picture -->
 
 > The same eight on a spine, with the three backwards ones drawn beneath it:
-> [eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#loops).
+> [eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops).
 
 Three of them run backwards, and those are the ones teams forget to build:
 
@@ -388,7 +388,7 @@ a shape. Every one is a fact about your business, your regulator or your ledger 
 context makes knowable from outside.
 
 > Drawn as four lanes, phase by phase:
-> [where the model helps, and where it must not](https://akash-coded.github.io/aws-bedrock-agentcore-strands/#delegation).
+> [where the model helps, and where it must not](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#delegation).
 
 ### P0 · Frame
 

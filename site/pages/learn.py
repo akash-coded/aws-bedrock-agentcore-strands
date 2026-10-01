@@ -768,7 +768,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     html_ = f"""<div class="cols lcols">
 {_rail(tracks, les.slug)}
 <main id="main" class="lesson">
-  <h1>{_E(les.title)}</h1>
+  <h1 style="view-transition-name:l-{les.slug}">{_E(les.title)}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
   <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
   {_toc(les.body)}
@@ -799,7 +799,7 @@ MERMAID_HEAD = f'<script type="module" src="../../theme/learn.js" data-mermaid="
 def _cards(t: Track) -> str:
     return "".join(
         f'<li><a class="lc" href="../{l.slug}/"><span class="lcn">{l.n}</span><span class="lcb">'
-        f"<b>{_E(l.title)}</b><span>{_E(l.description)}</span>"
+        f'<b style="view-transition-name:l-{l.slug}">{_E(l.title)}</b><span>{_E(l.description)}</span>'
         f'<small>{minutes(l.body)} min · {l.level}</small></span></a></li>' for l in t.lessons)
 
 

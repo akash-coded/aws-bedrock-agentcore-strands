@@ -23,6 +23,19 @@
     });
   }
 
+  /* One polite live region, made on first use, so a screen reader hears what a sighted reader sees. */
+  var live = null;
+  function wireLive() {      // made with the page, empty, so the first thing said in it is heard
+    if (!document.querySelector("[data-copy]")) return;
+    live = document.createElement("div");
+    live.className = "vh"; live.setAttribute("role", "status"); live.setAttribute("aria-live", "polite");
+    document.body.appendChild(live);
+  }
+  function say(text) {
+    if (!live) return;
+    live.textContent = ""; setTimeout(function () { live.textContent = text; }, 30);
+  }
+
   /* Copy buttons on every template and prompt. */
   function wireCopy() {
     document.querySelectorAll("[data-copy]").forEach(function (btn) {
@@ -34,6 +47,7 @@
           var was = btn.textContent;
           btn.textContent = "Copied";
           btn.classList.add("done");
+          say("Copied to the clipboard");
           setTimeout(function () { btn.textContent = was; btn.classList.remove("done"); }, 1600);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -50,34 +64,67 @@
     });
   }
 
-  /* Open the step a deep link points at, and keep the rail in step with the scroll. */
+  /* Open the step a deep link points at, and keep the rail in step with the scroll. The rail marks
+     whatever its links point at: a role's steps, or the sections of a long page. */
   function wireSteps() {
     var steps = [].slice.call(document.querySelectorAll("details.step"));
-    if (!steps.length) return;
+    var root = document.documentElement;
 
+    // Open a step and go to something inside it. The step opens at once here, with no height
+    // animation: while it is still unfolding its contents cannot be scrolled to or focused.
+    function reveal(d, el) {
+      root.classList.add("all-open");
+      d.open = true;
+      setTimeout(function () {
+        el.scrollIntoView();
+        if (el.focus) el.focus({ preventScroll: true });
+        root.classList.remove("all-open");
+      }, 0);
+    }
     function openFromHash() {
       var id = (location.hash || "").slice(1);
       if (!id) return;
       var el = document.getElementById(id);
       var d = el && el.closest ? el.closest("details.step") : null;
-      if (d && !d.open) { d.open = true; setTimeout(function () { el.scrollIntoView(); }, 0); }
+      if (d && !d.open) reveal(d, el);
     }
-    openFromHash();
-    window.addEventListener("hashchange", openFromHash);
+    if (steps.length) {
+      openFromHash();
+      window.addEventListener("hashchange", openFromHash);
+      // the links in a step's head: open the step if it is shut, then go, even when the hash is already there
+      document.querySelectorAll("[data-jump]").forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          var el = document.getElementById(a.getAttribute("href").slice(1));
+          var d = el && el.closest("details.step");
+          if (!el || !d) return;
+          e.preventDefault();
+          if (history.replaceState) history.replaceState(null, "", a.getAttribute("href"));
+          reveal(d, el);
+        });
+      });
+    }
 
+    // The rail marks the last thing whose top has passed the upper third of the window: the section
+    // being read. Read from the layout on every scroll, so a jump lands on the right mark too.
     var links = {};
     document.querySelectorAll(".rl[data-for]").forEach(function (a) { links[a.getAttribute("data-for")] = a; });
-    if (!("IntersectionObserver" in window)) return;
-    var seen = new Set();
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) seen.add(en.target.id); else seen.delete(en.target.id);
-      });
-      Object.keys(links).forEach(function (k) { links[k].classList.remove("on"); });
-      var first = steps.map(function (s) { return s.id; }).find(function (id) { return seen.has(id); });
-      if (first && links[first]) links[first].classList.add("on");
-    }, { rootMargin: "-80px 0px -70% 0px" });
-    steps.forEach(function (s) { io.observe(s); });
+    var marks = Object.keys(links).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if (!marks.length) return;
+    var was = null, queued = false;
+    function mark() {
+      queued = false;
+      var line = Math.max(140, innerHeight * 0.3), cur = null;
+      marks.forEach(function (m) { if (m.getBoundingClientRect().top < line) cur = m; });
+      var id = cur ? cur.id : null;
+      if (id === was) return;
+      if (was && links[was]) { links[was].classList.remove("on"); links[was].removeAttribute("aria-current"); }
+      if (id) { links[id].classList.add("on"); links[id].setAttribute("aria-current", "true"); }
+      was = id;
+    }
+    function ask() { if (!queued) { queued = true; requestAnimationFrame(mark); } }
+    window.addEventListener("scroll", ask, { passive: true });
+    window.addEventListener("resize", ask);
+    mark();
   }
 
   /* "Open all" for printing or reading straight through. */
@@ -87,12 +134,17 @@
     b.addEventListener("click", function () {
       var steps = [].slice.call(document.querySelectorAll("details.step"));
       var anyClosed = steps.some(function (s) { return !s.open; });
+      // all at once: no height animation, eight of them together would only be noise
+      document.documentElement.classList.add("all-open");
       steps.forEach(function (s) { s.open = anyClosed; });
+      setTimeout(function () { document.documentElement.classList.remove("all-open"); }, 50);
       b.textContent = anyClosed ? "Collapse all" : "Expand all";
     });
     window.addEventListener("beforeprint", function () {
+      document.documentElement.classList.add("all-open");
       document.querySelectorAll("details.step").forEach(function (s) { s.open = true; });
     });
+    window.addEventListener("afterprint", function () { document.documentElement.classList.remove("all-open"); });
   }
 
   /* A thin line at the top of a lesson that fills as you read it. */
@@ -126,6 +178,6 @@
     });
   }
 
-  function init() { wireTheme(); wireCopy(); wireSteps(); wireExpand(); wireProgress(); wirePicks(); }
+  function init() { wireTheme(); wireLive(); wireCopy(); wireSteps(); wireExpand(); wireProgress(); wirePicks(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

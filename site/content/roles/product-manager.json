@@ -20,8 +20,8 @@
   "Eight steps. Each one ends in an artefact somebody else needs, with the template to write it and the prompts to draft it faster."
  ],
  "owns": [
-  "The **intent** gate (is this worth doing at all?",
-  "The **release** gate) is it safe to show real users?",
+  "The **intent** gate: is this worth doing at all?",
+  "The **release** gate: is it safe to show real users?",
   "The **plan** gate, shared with the architect",
   "The autonomy level per action, and the door it sits behind",
   "The acceptance bar per slice, derived rather than guessed",
@@ -30,8 +30,8 @@
  "not_yours": [
   "**Behaviour** and **expansion** gates. Those are the QA lead's, and your name on them helps nobody",
   "Pull request approvals you cannot evaluate",
-  "Model choice, temperature, framework (behaviours are yours, knobs are engineering's",
-  "The golden set's contents) you set the bar, QA curates the cases"
+  "Model choice, temperature, framework: behaviours are yours, knobs are engineering's",
+  "The golden set's contents: you set the bar, QA curates the cases"
  ],
  "ai_stance": "Use a model for the **drafting and the arithmetic**, never for the judgement. It can turn six interview transcripts into a deduplicated pain register in a minute, and it will happily invent a value line if you let it. The pattern that works: you bring the numbers and the decision, the model brings the structure and the first draft, and every artefact leaves your hands having been read by you. Where a step below says *do not delegate*, that is a judgement the model has no standing to make.",
  "reads": [

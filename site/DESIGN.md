@@ -26,8 +26,8 @@ spacing:
   band: "clamp(72px, 9.5vw, 128px) above and below every home section"
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
-motion: {durations: [150ms, 250ms, 350ms, 400ms], easing: "cubic-bezier(.22,1,.36,1)", reduced: "everything still, globe drawn once"}
-components: [header, hero-scene, section-head, coverage-table, role-rows, simulator-frame, shelf-tile, page-head, folded-howto]
+motion: {durations: [150ms, 250ms, 350ms, 400ms], easing: "cubic-bezier(.22,1,.36,1)", stagger: 40ms, reduced: "everything still, globe drawn once"}
+components: [header, hero-scene, section-head, coverage-table, role-rows, simulator-frame, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
 ---
 
 # How the site looks
@@ -78,10 +78,44 @@ with wide tracking. No label is under 11px.
 - One idea per band: a heading, at most one paragraph of thirty words, one picture or list, one way on.
 - Bands are separated by space and a hairline, not by boxes. Cards exist only on the shelf, where each
   one is a destination.
+- On a reading page, text sits on the page under a hairline. A box is kept for what is a thing in
+  itself: code, a table, a diagram, a calculator, a verdict.
+- Reading text is capped near 75 characters a line, whatever the column's width.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
   explains how to use the page is folded behind one line.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
   phone the words come first and the picture follows.
+
+## Motion
+
+Nothing moves for decoration. A thing may move only if the movement does one of three jobs:
+
+1. **It answers something the reader did.** A button pressed, a list opened, a step unfolded, "Copied".
+2. **It says where the reader is.** The rail marking the current section, one page handing over to the
+   next, a title travelling from its row in a list to the head of its own page.
+3. **It shows a thing that is itself a sequence.** The four phases in order, a role's eight steps, the
+   methods drawing along the line, the parts of a figure in the order they were drawn.
+
+Two classes of motion, with different rules.
+
+**Transitions** answer the reader and take 150, 250, 350 or 400ms on the one easing curve. Opening takes
+longer than closing: a list opens in 250ms and leaves at once. Items that arrive in order are 40 to 80ms
+apart, and a sequence finishes in under a second. The one long entrance is the hero's flight: its four
+legs draw 250ms apart and the picture is complete in two seconds.
+
+**Explanatory motion** shows a sequence. It plays once, the first time the thing is scrolled to, and its
+last frame is the complete picture, which is also what a reader with reduced motion gets. Anything that
+keeps moving for more than a few seconds (the hero's flight, the tower on the method page) carries a
+pause control. Dashes on a connector move only while the reader scrolls past them.
+
+Three rules of choreography. One sequence at a time on a screen: on the home page the words settle,
+then the flight draws. An entrance plays once per visit and never again on scrolling back. Every
+animation is designed from its final frame backwards, because the final frame is what most readers,
+every printer and every reduced-motion reader will see.
+
+Refused, each for a reason: numbers that count up (a true number shown false), cursor glows and spotlights
+(nothing on a phone), text that slides in on a reading page (the home page's bands rise once as they are
+reached, and that is the only place), a second drawing of a route the page already draws.
 
 ## Elevation and depth
 
@@ -108,6 +142,12 @@ line.
 | Shelf tile | A count, a name, one line. Two of the six are double width. | `.shelf .tile` |
 | Page head | Eyebrow, name, one line, a row of counts, optionally one or two buttons. | `.phead`, `.pmeta` |
 | Folded how-to | "Who this page is for, and how to use it", closed by default. | `pages/_kit.orient` |
+| Section rail | The sections of a long page down the left on a wide screen, the current one marked. Role pages and the leadership page. | `.rail`, `site.js` |
+| Numbered section | A mono "01" over each heading where the order is real, with 52 to 88px between sections. | `main.numbered` |
+| Ruled columns | Paragraphs that used to sit in bordered cards: a hairline above, no box. | `.three`, `.claims`, `.pair`, `.mix`, `.lc` |
+| Step | One surface. Its table, artefact and example are ruled, not boxed; its head links straight to its template and prompts. | `render.step_html` |
+| Next up | The foot of a reference page: one sentence, one button, and at most one quiet link beside it. | `render.next_up` |
+| Pause control | A checkbox, so it works without script; stills whatever holds it. | `render.MOTION_TOGGLE`, `.mpause` |
 
 ## Do and do not
 

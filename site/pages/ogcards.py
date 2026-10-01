@@ -24,7 +24,24 @@ def card(name: str, kind: str, kicker: str, title: str, line: str) -> str:
     return (f'<div class="ogcard" data-og="{E(name)}" style="--h:{hue}">'
             f'<div class="bar"></div><div class="body"><p class="k">{E(kicker)}</p>'
             f'<h1 style="font-size:{big}px">{E(title)}</h1><p class="l">{E(line)}</p></div>'
-            f'<div class="foot"><span class="brand">The agentic manual</span>'
+            f'<div class="foot"><span class="brand">{MARK}SkyWays<i>The agentic manual</i></span>'
+            f'<span class="url">akash-coded.github.io/aws-bedrock-agentcore-strands</span></div></div>')
+
+
+# the site's mark, in the card's own two inks
+MARK = ('<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" '
+        'stroke-width="2.4" stroke-dasharray="58 24" stroke-linecap="round" transform="rotate(-38 16 16)"/>'
+        '<path d="M8 17.5 24.5 9 19 24l-3.4-5.6z" fill="var(--mk,#3F51C4)"/>'
+        '<path d="M15.6 18.4 24.5 9" stroke="var(--mkl,#F7F6F2)" stroke-width="1.2"/></svg>')
+
+
+def home_card(title: str, line: str, facts: str) -> str:
+    """The home page's card is the home page: the headline beside the Earth and the one flight."""
+    from pages import globe
+    return (f'<div class="ogcard oghome" data-og="home"><div class="scene">{globe.still()}</div>'
+            f'<div class="body"><p class="brand">{MARK}SkyWays<i>The agentic manual</i></p>'
+            f'<h1>{title}</h1><p class="l">{E(line)}</p></div>'
+            f'<div class="foot"><span class="facts">{E(facts)}</span>'
             f'<span class="url">akash-coded.github.io/aws-bedrock-agentcore-strands</span></div></div>')
 
 
@@ -44,7 +61,22 @@ body{margin:0;background:#2a2d33;padding:20px;display:grid;gap:20px;justify-item
   max-width:980px;text-wrap:balance;color:#16150F}
 .ogcard .l{margin:0;font-size:27px;line-height:1.4;color:#44423B;max-width:960px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .ogcard .foot{padding:0 80px 44px 96px;display:flex;justify-content:space-between;align-items:baseline;position:relative;z-index:1}
-.ogcard .brand{font-family:"Instrument Sans",Inter,sans-serif;font-weight:650;font-size:26px}
+.ogcard .brand{font-family:"Instrument Sans",Inter,sans-serif;font-weight:700;font-size:27px;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+.ogcard .brand svg{width:36px;height:36px}
+.ogcard .brand i{font:400 21px Inter,sans-serif;font-style:normal;letter-spacing:0;color:#696660;padding-left:14px;border-left:1.5px solid #D5D0C4}
+.oghome{background:#121316;color:#ECEAE4;background-image:radial-gradient(60% 90% at 78% 50%,rgba(127,169,204,.2),transparent 70%),radial-gradient(40% 60% at 0% 110%,rgba(169,140,208,.16),transparent 70%)}
+.oghome::after{display:none}
+.oghome .scene{position:absolute;right:-8px;top:-28px;width:690px;height:690px}
+.oghome .scene svg{width:100%;height:100%;display:block}
+.oghome .body{padding:0 0 0 72px;max-width:560px}
+.oghome .brand{margin:0 0 54px;color:#ECEAE4;--mk:#8E9BF0;--mkl:#121316}
+.oghome .brand i{color:#93908A;border-left-color:#2B2E34}
+.oghome h1{font-size:62px;line-height:1.02;letter-spacing:-.045em;font-weight:650;color:#ECEAE4;margin:0 0 24px;max-width:560px;text-wrap:balance}
+.oghome h1 em{font-style:normal;color:#7E7D7A}
+.oghome .l{font-size:23px;line-height:1.45;color:#C3C0B8;max-width:500px;-webkit-line-clamp:3}
+.oghome .foot{padding:0 80px 40px 72px;display:grid;gap:6px;justify-content:start}
+.oghome .facts{font:500 19px "Geist Mono",ui-monospace,Menlo,monospace;color:#93908A}
+.oghome .url{color:#93908A}
 .ogcard .url{font-size:20px;color:#696660}
 """
 
@@ -61,13 +93,18 @@ def sheet(out: Path, cards: list[str]) -> Path:
 def all_cards(roles: list[dict]) -> list[str]:
     from pages import learn
     _m, tracks, lessons = learn.load()
-    C = [card("home", "home", "PDLCs for the agentic era", "Every agentic delivery method. One manual. Your role, end to end.",
-              "AI-DLC, AIDD, BMAD, spec-driven development and the PDLC that ties them together, by role."),
+    n_t = sum(len(r["steps"]) for r in roles)
+    n_p = sum(len(s["prompts"]) for r in roles for s in r["steps"])
+    C = [home_card("One manual for building software <em>with AI agents.</em>",
+                   "One lifecycle through five roles, worked end to end on a fictional airline's ninety-day build.",
+                   f"{len(lessons)} lessons · {n_t} templates · {n_p} prompts"),
+         card("method", "home", "The method", "The SkyWays PDLC on one page",
+              "Four phases, one hard gate and eight loops, with each role across them and what a model may draft."),
          card("learn", "learn", "A free tutorial", "Agentic PDLC Tutorial: Run AI Agent Projects, Step by Step",
               f"{len(lessons)} short lessons on running software where an AI model does part of the work."),
-         card("protocol", "protocol", "For leadership", "The agentic operating protocol",
+         card("protocol", "protocol", "For leadership", "What changes for leaders when software decides",
               "What changes, who does what, the four decisions only leadership can make, and ninety days."),
-         card("models", "models", "Intuition", "Twelve mental models for software that decides",
+         card("models", "models", "Mental models", "Twelve rules of thumb for software that decides",
               "What each predicts, the mistake it prevents, and a test for whether it has landed."),
          card("templates", "templates", "The template library", "Artefact templates", "Every artefact skeleton in the manual, by role, with a copy button."),
          card("prompts", "prompts", "The prompt library", "Prompts to paste", "Every prompt in the manual: the job, the rules and the output shape."),

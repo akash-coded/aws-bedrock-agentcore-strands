@@ -47,8 +47,8 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 | --- | --- |
 | The **context file** every coding tool reads, and the story file every bolt is built from | The **bolt cut** itself, the architect decides the cut; you decide whether each one can be built alone, and say so before you start it |
 | The **deterministic floor**: every number that gets acted on is a function with a test | The **acceptance bar** per slice, the PM derives it from damage and saving. You make it run |
-| The **boundary**: caps and confirmation tokens in tool signatures, never in prompt text | The golden set's contents and the judge's rubric (those belong to the QA lead |
-| The eval harness in CI, and the per-slice rule that blocks a merge | The cut-over and the widening) you build the flag and rehearse the rollback; the PM throws it |
+| The **boundary**: caps and confirmation tokens in tool signatures, never in prompt text | The golden set's contents and the judge's rubric: those belong to the QA lead |
+| The eval harness in CI, and the per-slice rule that blocks a merge | The cut-over and the widening: you build the flag and rehearse the rollback; the PM throws it |
 | The build order within the architect's dependency sequence, integrated the same day |  |
 | The effort-and-token ledger the product manager's cost number is built from |  |
 

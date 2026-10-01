@@ -45,8 +45,8 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | Yours to own | Not yours, stop signing these |
 | --- | --- |
-| The **behaviour** gate (does it meet the spec, per slice, with the lower bound? | The **bar** itself: the PM derives it from damage and saving; you make it executable and refuse to gate without it |
-| The **expansion** gate) have we earned wider use? | The **intent** and **plan** gates. You are consulted; your name on them dilutes the two that are yours |
+| The **behaviour** gate: does it meet the spec, per slice, with the lower bound? | The **bar** itself: the PM derives it from damage and saving; you make it executable and refuse to gate without it |
+| The **expansion** gate: have we earned wider use? | The **intent** and **plan** gates. You are consulted; your name on them dilutes the two that are yours |
 | The golden set: which cases count, what each one expects, and the slice it belongs to | The fix. You name the defect and the proof it owes; engineering chooses how to close it |
 | The checker for each kind of step, and the judge's own measured accuracy | Model, temperature, prompt wording. You assert on behaviour and on tool calls, never on how the answer was reached |
 | The injection suite, and the weekly run that keeps it a regression test rather than a launch check |  |
@@ -64,7 +64,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 ### Decide what proof each kind of step owes
 
-*P0, the day the architect's step map exists and before a single test is written*
+*P1, the day the architect's step map exists and before a single test is written*
 
 Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** work, the fare arithmetic, owes a unit test, green or red, and it fails loudly. **Best-guess** work, which alternative suits this passenger, owes a measured share per slice, and it fails *fluently*: confident, well-worded and wrong. **Consequential** work, the refund, owes a required confirmation, and it fails silently until money moves. Get the tags right and the test plan writes itself; get them wrong and you will prove the wrong thing thoroughly.
 

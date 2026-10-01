@@ -272,3 +272,69 @@ def scene() -> str:
     return (f'<div class="scene" aria-hidden="true">{style}{far}'
             f'<canvas class="sc-globe" data-globe width="600" height="600"></canvas>{near}'
             f'<ol class="sc-wp">{labels}</ol></div>')
+
+
+# ------------------------------------------------------------------------------------ a still
+# The same scene with nothing to run it: the Earth projected once, here, and written out as dots.
+# The social card uses it, because a card is a picture and has no script. Colours are literal for
+# the same reason: a card has one look, the night one.
+STILL = {"slate": "#8FA8BE", "indigo": "#8E9BF0", "teal": "#4FBDB6", "amber": "#D9A94A", "rose": "#DE8A8A",
+         "dot": "#6F93B4", "lit": "#DDECFA", "a": "#1D2735", "b": "#0B0D12", "ink": "#ECEAE4", "paper": "#181A1E",
+         "bone": "#121316", "soft": "#93908A"}
+
+
+def still(lon0: float = 58.0, tilt: float = 20.0) -> str:
+    """The hero's picture as one self-contained SVG, 1000 by 1000, drawn as it settles."""
+    c = STILL
+    st, ct = math.sin(math.radians(tilt)), math.cos(math.radians(tilt))
+    lx, ly, lz = -0.46, 0.56, 0.69
+    dots = []
+    d = land()
+    for r, (n, runs) in enumerate(d["rows"]):
+        lat = math.radians(d["lat0"] + r * d["step"])
+        for i in range(0, len(runs), 2):
+            for j in range(runs[i + 1]):
+                lon = math.radians(-180 + (runs[i] + j + 0.5) * 360 / n - lon0)
+                cz = math.cos(lat) * math.cos(lon)
+                z = st * math.sin(lat) + ct * cz
+                if z <= 0.02:
+                    continue
+                x = math.cos(lat) * math.sin(lon)
+                y = ct * math.sin(lat) - st * cz
+                lit = x * lx + y * ly + z * lz
+                a = (0.22 + 0.78 * max(0.0, lit)) * min(1.0, z * 3.2)
+                dots.append(f'<circle cx="{CX + R * x:.1f}" cy="{CY - R * y:.1f}" r="{1.7 * (0.55 + 0.45 * z):.2f}" '
+                            f'fill="{c["lit"] if lit > 0.72 else c["dot"]}" fill-opacity="{a:.2f}"/>')
+    legs = "".join(f'<path d="{_poly(i / 4, (i + 1) / 4)}" fill="none" stroke="{c[hue]}" stroke-width="4" '
+                   f'stroke-linecap="round"/>' for i, (_k, _n, hue) in enumerate(LEGS))
+    stops = "".join(f'<circle cx="{_near(f)[0]:.1f}" cy="{_near(f)[1]:.1f}" r="7.5" fill="{c["bone"]}" '
+                    f'stroke="{c[hue]}" stroke-width="3.2"/>' for f, (_k, _n, hue) in zip(STOPS, LEGS))
+    gx, gy = _near(0.5)
+    gate = (f'<g transform="translate({gx:.1f} {gy:.1f}) rotate({TILT})">'
+            f'<rect x="-5" y="-18" width="10" height="36" rx="5" fill="{c["rose"]}"/></g>')
+    labels = ""
+    for f, (key, name, hue) in zip(STOPS, LEGS):
+        x, y = _near(f)
+        w = 30 + 9.4 * len(name.replace("&amp;", "&")) + 34
+        labels += (f'<g transform="translate({x - w / 2:.1f} {y + 20:.1f})">'
+                   f'<rect width="{w:.0f}" height="36" rx="18" fill="{c["paper"]}" stroke="{c[hue]}" stroke-opacity=".6"/>'
+                   f'<text x="15" y="23.5" font-family="Geist Mono,ui-monospace,monospace" font-size="15" font-weight="600" '
+                   f'fill="{c[hue]}">{key}</text>'
+                   f'<text x="46" y="23.5" font-family="Geist,Inter,sans-serif" font-size="16.5" font-weight="600" '
+                   f'fill="{c["ink"]}">{name}</text></g>')
+    px, py = _near(0.25)
+    a2x, a2y = _near(0.26)
+    ang = math.degrees(math.atan2(a2y - py, a2x - px))
+    plane = (f'<g transform="translate({px:.1f} {py:.1f}) rotate({ang:.1f}) scale(1.9)" fill="{c["ink"]}" '
+             f'stroke="{c["bone"]}" stroke-width=".8">{PLANE}</g>')
+    return (f'<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+            f'<defs><radialGradient id="st-g" cx="31%" cy="29%" r="78%"><stop offset="0" stop-color="{c["a"]}"/>'
+            f'<stop offset="1" stop-color="{c["b"]}"/></radialGradient>'
+            f'<radialGradient id="st-h" cx="50%" cy="50%" r="50%"><stop offset=".62" stop-color="{c["slate"]}" stop-opacity=".0"/>'
+            f'<stop offset=".7" stop-color="{c["slate"]}" stop-opacity=".22"/><stop offset="1" stop-color="{c["slate"]}" stop-opacity="0"/>'
+            f'</radialGradient></defs>'
+            f'<circle cx="{CX}" cy="{CY}" r="{R * 1.45:.0f}" fill="url(#st-h)"/>'
+            f'<path d="{_poly(0, 1, near=False)}" fill="none" stroke="{c["soft"]}" stroke-width="1.8" stroke-dasharray="3 9" '
+            f'stroke-linecap="round" opacity=".75"/>'
+            f'<circle cx="{CX}" cy="{CY}" r="{R}" fill="url(#st-g)" stroke="{c["slate"]}" stroke-opacity=".35"/>'
+            f'{"".join(dots)}{legs}{gate}{stops}{plane}{labels}</svg>')

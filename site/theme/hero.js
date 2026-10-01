@@ -15,7 +15,8 @@
   function wireReveal() {
     var els = [].slice.call(document.querySelectorAll(".rv"));
     if (!els.length) return;
-    if (reduce || !("IntersectionObserver" in window)) return;
+    // A page opened in a background tab has no running clock: nothing is armed there, and it is all simply present.
+    if (reduce || !("IntersectionObserver" in window) || document.hidden) return;
     // Only now are the blocks hidden: this script is the one that brings them back. A block already
     // on screen is left as it is, so nothing the reader can see blinks.
     els.forEach(function (e) { if (e.getBoundingClientRect().top < innerHeight) e.classList.add("in"); });
@@ -26,6 +27,10 @@
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     els.forEach(function (e) { io.observe(e); });
+    // Leaving the tab, or printing, shows everything at once: content this script hid is content it must show.
+    var all = function () { els.forEach(function (e) { e.classList.add("in"); }); io.disconnect(); };
+    document.addEventListener("visibilitychange", function () { if (document.hidden) all(); });
+    window.addEventListener("beforeprint", all);
   }
 
   /* ------------------------------------------------------------------- globe */
@@ -130,7 +135,7 @@
     var CRUISE = (360 / 240) * RAD, TAU = 0.6;        // radians a second; the spin-down's time constant, in seconds
     function tick(now) {
       raf = 0;
-      if (!seen || document.hidden) return;
+      if (!seen || paused || document.hidden) return;
       if (now - last > 32) {
         // Where the globe is depends only on how long it has been turning, so a slow or throttled
         // frame rate arrives at the same place: HOME after the spin-down, then the steady drift.
@@ -141,7 +146,13 @@
       }
       raf = requestAnimationFrame(tick);
     }
-    function go() { if (!raf && seen && !document.hidden) { last = 0; raf = requestAnimationFrame(tick); } }
+    var paused = false;
+    function go() { if (!raf && seen && !paused && !document.hidden) { last = 0; raf = requestAnimationFrame(tick); } }
+    var box = document.querySelector(".hero2 [data-motion-toggle]");
+    if (box) {
+      paused = box.checked;      // a reload can bring the box back ticked
+      box.addEventListener("change", function () { paused = box.checked; go(); });
+    }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (en) { seen = en[0].isIntersecting; go(); }).observe(cv);
     }

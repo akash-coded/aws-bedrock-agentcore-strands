@@ -20,6 +20,28 @@ def pair(meaning: str, mechanism: str, la: str = "What it means", lb: str = "How
             f'<div><b class="pl">{E(lb)}</b>{mechanism}</div></div>')
 
 
+SECTIONS = [("why", "Why this matters to you now"), ("claims", "Five things that change"),
+            ("teams", "Your teams, transformed"), ("money", "Where the money is"),
+            ("changes", "What changes, and what does not"), ("who", "Who does what"),
+            ("frameworks", "What the frameworks mean for you"), ("decisions", "The four decisions only you can make"),
+            ("knowing", "How you will know it is working"), ("llms", "LLMs across the board, at three levels"),
+            ("rollout", "Ninety days, without rejection"), ("escalate", "Seven things to escalate on"),
+            ("first30", "Your first thirty days")]
+
+
+def _rail() -> str:
+    """Thirteen sections down the side on a wide screen, where the page is long enough to lose your place in."""
+    items = "".join(f'<li><a class="rl" data-for="{i}" href="#{i}"><span class="rn">{n}</span><span>{E(t)}</span></a></li>'
+                    for n, (i, t) in enumerate(SECTIONS, 1))
+    return f'<aside class="rail wideonly" aria-label="Sections of this page"><p class="railh">On this page</p><ol>{items}</ol></aside>'
+
+
+def _contents() -> str:
+    """The same list, folded, for a screen with no room for a rail."""
+    items = "".join(f'<li><a href="#{i}">{E(t)}</a></li>' for i, t in SECTIONS)
+    return f'<details class="howto narrowonly"><summary>On this page</summary><ol class="hlist">{items}</ol></details>'
+
+
 def _hero() -> str:
     return f"""<div class="rowh"><div>
 <div class="kicker">For leadership</div>
@@ -28,22 +50,10 @@ def _hero() -> str:
 <p class="allure">If you lead an organisation, large language models have already changed the economics of
 building software. <em>Drafting is nearly free, judgement is the bottleneck, and part of every product you ship
 is now right only a share of the time.</em> This page shows what that does to your teams, your costs and your
-risks, and how to run product development as <em>one operating model, P0 to P3, across the whole organisation</em>,
-rather than as five teams each adopting a tool.</p>
-</div><div class="rowa"><b>On this page</b><ol>
-<li><a href="#why">Why this matters to you now</a></li>
-<li><a href="#claims">Five things that change</a></li>
-<li><a href="#teams">Your teams, transformed</a></li>
-<li><a href="#money">Where the money is</a></li>
-<li><a href="#changes">What changes, and what does not</a></li>
-<li><a href="#who">Who does what</a></li>
-<li><a href="#frameworks">What the frameworks mean for you</a></li>
-<li><a href="#decisions">The four decisions only you can make</a></li>
-<li><a href="#knowing">How you will know it is working</a></li>
-<li><a href="#llms">LLMs across the board, at three levels</a></li>
-<li><a href="#rollout">Ninety days, without rejection</a></li>
-<li><a href="#escalate">Seven things to escalate on</a></li>
-<li><a href="#first30">Your first thirty days</a></li></ol></div></div>
+risks, and how to run product development as <em>one operating model across the whole organisation</em>:
+<a href="../method/">four phases, P0 to P3</a>, the same for every team.</p>
+</div></div>
+{_contents()}
 {k.orient(
     "The <strong>sponsor</strong>, the executive, the head of product or engineering: whoever owns the outcome "
     "and the budget rather than the implementation.",
@@ -407,10 +417,10 @@ def _knowing() -> str:
          "Ask what automatically re-opens the release gate"),
     ]
     chk = k.check(controls,
-                  ["Level 0 (nothing is enforced yet",
-                   "Level 1) assisted; one team, no gates",
-                   "Level 2 (specified; the work is written down",
-                   "Level 3) governed; the gates hold",
+                  ["Level 0: nothing is enforced yet",
+                   "Level 1: assisted; one team, no gates",
+                   "Level 2: specified; the work is written down",
+                   "Level 3: governed; the gates hold",
                    "Level 4: evidence-led; production proves it"],
                   "Tick only what you could be shown in ten minutes.")
     questions = [
@@ -446,9 +456,9 @@ your organisation. They take ten minutes a cycle.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th><span class="vh">Measure</span></th><th>Baseline</th><th>Now</th><th>Change</th></tr></thead>
 <tbody>
 <tr><td>Person-days per story</td><td>8.0</td><td>4.6</td><td><strong>−43%</strong></td></tr>
-<tr><td>Token spend per story</td><td>, </td><td>$310</td><td></td></tr>
+<tr><td>Token spend per story</td><td>none</td><td>$310</td><td></td></tr>
 <tr><td>Review hours added per story</td><td>1.2</td><td>2.0</td><td>+0.8</td></tr>
-<tr><td>Re-runs per story</td><td>, </td><td>1.4</td><td></td></tr>
+<tr><td>Re-runs per story</td><td>none</td><td>1.4</td><td></td></tr>
 </tbody></table></div>
 <p class="wide">Three rules make that table trustworthy. The <strong>baseline is taken before the pilot</strong>,
 which costs an afternoon and is unrecoverable afterwards. The <strong>review row stays visible</strong>,
@@ -658,7 +668,7 @@ questions, and the artefacts are each about an afternoon's work.</p></div>
 
 
 def build(shell, urls: dict) -> str:
-    body = ("<div class=\"wrap\"><main id=\"main\" style=\"padding:34px 0 28px\">"
+    body = ("<div class=\"cols two-col\">" + _rail() + "<main id=\"main\" class=\"numbered\">"
             + _hero() + _why() + _one_page() + _teams() + _money() + _changes() + _operating_model()
             + _frameworks_exec() + _decisions() + _knowing() + _llms() + _rollout() + _redflags() + _first30()
             + f"""<div class="sec" style="border-top:1px solid var(--rule);padding-top:26px">

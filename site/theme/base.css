@@ -91,8 +91,8 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
 .dd[open]>summary::after{transform:translateY(1px) rotate(225deg)}
 .ddp{position:absolute;top:calc(100% + 10px);left:-8px;z-index:60;min-width:290px;padding:8px;border-radius:16px;
   background:var(--paper);border:1px solid var(--rule);box-shadow:0 24px 60px -20px rgba(8,10,20,.35);
-  display:grid;gap:2px;animation:ddin 150ms var(--ease)}
-@keyframes ddin{from{opacity:0;transform:translateY(-6px)}}
+  display:grid;gap:2px;animation:ddin 250ms var(--ease)}
+@keyframes ddin{from{opacity:0;transform:translateY(-6px) scale(.97)}}
 .ddp a{display:grid;gap:1px;padding:10px 12px;border-radius:10px;color:var(--ink)}
 .ddp a:hover{background:var(--rule2);text-decoration:none}
 .ddp a b{font-size:14.5px;font-weight:620}
@@ -191,7 +191,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .ticks.no li::before{background:none;border:1.5px solid var(--faint);width:8px;height:8px;top:.58em;left:5px}
 
 /* ---------- the step ---------- */
-.step{scroll-margin-top:84px;margin:0 0 20px;background:var(--paper);border:1px solid var(--rule);
+.step{margin:0 0 20px;background:var(--paper);border:1px solid var(--rule);
   border-radius:14px;overflow:hidden}
 .step > summary{list-style:none;cursor:pointer;padding:20px 24px;display:grid;
   grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:center}
@@ -245,7 +245,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .cp{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:var(--code-ink);
   border-radius:7px;padding:4px 11px;font-size:12px;font-weight:600;cursor:pointer;flex:none;font-family:var(--f-body)}
 .cp:hover{background:rgba(255,255,255,.15)}
-.cp.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.cp.done{display:inline-block;gap:0;border-radius:7px;padding:4px 11px;background:var(--ok);border-color:var(--ok);color:#fff}
 .blk pre{margin:0;padding:15px;overflow-x:auto;background:var(--code-bg)}
 .blk code{font-family:var(--f-mono);font-size:13.4px;line-height:1.62;color:var(--code-ink);
   background:none;border:0;padding:0;white-space:pre}
@@ -432,7 +432,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .mix span{display:block;font-size:13.5px;color:var(--soft);margin-top:2px;line-height:1.45}
 
 .mm{display:grid;grid-template-columns:284px minmax(0,1fr);gap:28px;align-items:start;
-  padding:26px 0;border-top:1px solid var(--rule);scroll-margin-top:84px}
+  padding:26px 0;border-top:1px solid var(--rule)}
 .mm:first-of-type{border-top:0}
 @media (max-width:900px){.mm{grid-template-columns:1fr;gap:16px}}
 .mmg{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px;
@@ -544,7 +544,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dgx i{display:block;width:28px;height:2.5px;
   background-image:repeating-linear-gradient(90deg,currentColor 0 5px,transparent 5px 10px);
   background-size:10px 2.5px;color:color-mix(in oklab,var(--ink2) 62%,transparent);
-  animation:dgmarch 1.1s linear infinite}
+  }
 .dgx b{position:absolute;right:3px;top:50%;width:0;height:0;margin-top:-5px;
   border:5px solid transparent;border-left:7px solid color-mix(in oklab,var(--ink2) 62%,transparent)}
 /* the one hard crossing: a full-height wall, not a badge in a gap */
@@ -559,7 +559,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dgx.gate .gt{position:relative;font-size:10.5px;font-weight:700;color:color-mix(in oklab,var(--dg-teal) 88%,var(--ink));
   text-align:center;line-height:1.25;
   background:var(--bone);padding:2px 0}
-@keyframes dgmarch{to{background-position:10px 0}}
+@keyframes dgmarch{to{background-position:120px 0}}
 
 /* ---- the return line ---------------------------------------------------- */
 .dgr{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:11px;
@@ -567,12 +567,12 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .dgr i{display:block;height:2px;
   background-image:repeating-linear-gradient(270deg,currentColor 0 5px,transparent 5px 10px);
   background-size:10px 2px;color:color-mix(in oklab,var(--dg-amber) 62%,transparent);
-  animation:dgmarchr 1.4s linear infinite}
+  }
 .dgr span{font-size:11.5px;font-weight:600;color:var(--ink2);white-space:nowrap}
 .dgr b{width:0;height:0;border:4px solid transparent;
   border-right:6px solid color-mix(in oklab,var(--dg-amber) 62%,transparent)}
 .dgr em{font-style:normal;width:0;height:0;border:4px solid transparent;border-left:0}
-@keyframes dgmarchr{to{background-position:-10px 0}}
+@keyframes dgmarchr{to{background-position:-120px 0}}
 
 /* narrow: the return line keeps its arrow and loses its rule, because a nowrap label
    is the one thing on this board wide enough to push the page sideways */
@@ -679,8 +679,8 @@ a.md:hover b{color:var(--c)}
 /* ---- board-scale drawing, and the cards that unpack it ------------------- */
 .dgs{margin:0}
 .dgs svg{width:100%;height:auto;display:block;color:var(--ink);overflow:visible}
-.dgs .fl{stroke-dasharray:7 5;animation:dgflow 1.5s linear infinite}
-@keyframes dgflow{to{stroke-dashoffset:-24}}
+.dgs .fl{stroke-dasharray:7 5}
+@keyframes dgflow{to{stroke-dashoffset:-144}}
 @media (prefers-reduced-motion: reduce){.dgs .fl{animation:none}}
 @media print{.dgs .fl{animation:none}}
 
@@ -792,8 +792,8 @@ a.md:hover b{color:var(--c)}
 .lmeta a{color:var(--soft);text-decoration:underline;text-underline-offset:2px}
 
 .prose{font-size:16.5px;line-height:1.66}
-.prose>h2{margin:44px 0 12px;scroll-margin-top:84px}
-.prose>h3{margin:28px 0 8px;scroll-margin-top:84px}
+.prose>h2{margin:44px 0 12px}
+.prose>h3{margin:28px 0 8px}
 .prose ul,.prose ol{margin:0 0 16px;padding-left:22px;max-width:70ch}
 .prose li{margin:0 0 6px}
 .prose li>ul,.prose li>ol{margin:6px 0 0}
@@ -877,7 +877,7 @@ a.md:hover b{color:var(--c)}
 .menu[open]::before{content:"";position:fixed;inset:0;z-index:80;background:rgba(12,14,18,.38);backdrop-filter:blur(2px)}
 .menu .mp{position:fixed;top:0;left:0;bottom:0;z-index:90;width:min(340px,92vw);background:var(--paper);border-right:1px solid var(--rule);
   box-shadow:20px 0 60px rgba(0,0,0,.18);overflow-y:auto;padding:14px 18px 28px;display:grid;gap:4px;align-content:start;
-  animation:menuin .24s var(--ease)}
+  animation:menuin 250ms var(--ease)}
 @keyframes menuin{from{transform:translateX(-24px);opacity:0}}
 .menu .mph{display:flex;align-items:center;justify-content:space-between;padding:6px 0 12px;border-bottom:1px solid var(--rule);margin-bottom:4px}
 .menu .mph b{font-family:var(--f-display);font-size:15px}
@@ -939,9 +939,9 @@ a.md:hover b{color:var(--c)}
 /* Pip, the guide */
 .pip{width:44px;height:50px;display:block;overflow:visible;flex:none}
 .pip .ph{fill:var(--paper);stroke:var(--ink);stroke-width:2.4}
-.pip .pe{fill:var(--ink);transform-origin:32px 31px;animation:blink 5.2s infinite}
+.pip .pe{fill:var(--ink);transform-origin:32px 31px}
 .pip .pm,.pip .pa,.pip .pc{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
-.pip .pt{fill:var(--accent);animation:ping 2.4s var(--ease) infinite}
+.pip .pt{fill:var(--accent)}
 .pip .pb{fill:var(--accent-soft);stroke:var(--ink);stroke-width:2.4}
 @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
 @keyframes ping{0%,100%{opacity:1}50%{opacity:.4}}
@@ -1024,8 +1024,8 @@ a.md:hover b{color:var(--c)}
   .bbw::after{content:"← scroll sideways to see the whole picture →";display:block;margin-top:8px;
     text-align:center;font-size:11.5px;color:var(--soft);pointer-events:none}}  /* in flow, below the caption, so the two never overlap */
 .bbw figcaption b{color:var(--ink2)}
-.bb .bb-flow{stroke-dasharray:7 5;animation:bbflow 1.1s linear infinite}
-@keyframes bbflow{to{stroke-dashoffset:-24}}
+.bb .bb-flow{stroke-dasharray:7 5}
+@keyframes bbflow{to{stroke-dashoffset:-144}}
 @media (prefers-reduced-motion:reduce){.bb .bb-flow{animation:none}}
 @media print{.bb .bb-flow{animation:none}.bbw{break-inside:avoid}}
 .bb a{cursor:pointer}
@@ -1047,7 +1047,7 @@ a.md:hover b{color:var(--c)}
 .prose h2 .hl,.prose h3 .hl{margin-left:9px;color:var(--faint);text-decoration:none;font-weight:500;font-size:.85em;opacity:0;transition:opacity .15s}
 .prose h2:hover .hl,.prose h3:hover .hl,.prose .hl:focus-visible{opacity:1}
 .rp{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;pointer-events:none}
-.rp i{display:block;height:100%;width:0;background:var(--accent);transition:width .08s linear}
+.rp i{display:block;height:100%;width:0;background:var(--accent)}
 @media print{.rp,.hl,.codebox .cp{display:none!important}}
 
 /* the drawer's search */
@@ -1137,7 +1137,7 @@ main a[href*="simulator/"]:not(.btn):not(.more):not(.simshot)::before{content:""
 .picks .chip:hover{border-color:var(--accent);color:var(--ink)}
 .picks .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .picks .chip.on b{color:var(--paper);opacity:.75}
-.picsec{margin:0 0 34px;scroll-margin-top:84px}
+.picsec{margin:0 0 34px}
 .picsec h2 .cnt{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--soft);margin-left:8px}
 .pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
 .pic{margin:0;display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:14px;background:var(--paper);overflow:hidden}
@@ -1430,7 +1430,7 @@ main.home{padding:0}
 .band .links{display:flex;flex-wrap:wrap;gap:14px 36px;margin:44px 0 0;max-width:none}
 .rv-on .rv{opacity:0;transform:translateY(18px);transition:opacity 400ms var(--ease),transform 400ms var(--ease)}
 .rv-on .rv.in{opacity:1;transform:none}
-@media print{.rv-on .rv{opacity:1;transform:none}}
+@media print{.rv-on .rv{opacity:1;transform:none}.rv-on .cover .bar{scale:1 1}}
 
 /* ---- section two: four methods along the four phases ---- */
 .cover{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:16px}
@@ -1550,7 +1550,7 @@ main.page{padding:0 0 var(--band)}
 .jump a:hover{text-decoration:none;border-top-color:var(--ink)}
 @media (max-width:860px){.jump{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.jump{grid-template-columns:1fr}}
-main.page .dgb{margin:0;padding:clamp(48px,6vw,88px) 0 0;scroll-margin-top:64px}
+main.page .dgb{margin:0;padding:clamp(48px,6vw,88px) 0 0}
 main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px) 0 0}
 
 /* ---- the footer, signed ---- */
@@ -1621,3 +1621,145 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
   .crumbs{padding-top:4px}
 }
 @media (max-width:360px){.hd .in{padding:0 10px;gap:5px}.hd .play{padding:0 10px 0 9px;font-size:13px}}
+
+/* ==========================================================================================
+   THE INSIDE — the reading pages, to the same standard as the front.
+   Text sits on the page, ruled, not in boxes. Boxes are kept for what is a thing in itself:
+   code, a table, a diagram, a calculator, a verdict. Long pages number their sections and
+   give them air. Nothing here moves unless it has one of three jobs: answering something
+   the reader did, saying where they are, or showing a thing that is itself a sequence.
+   ========================================================================================== */
+
+/* ---- text out of its boxes ---- */
+.three .card,.four .card,.claims .card,.pair>div{background:none;border:0;border-top:1px solid var(--rule);border-radius:0;padding:18px 0 0}
+.three,.four,.claims,.pair{gap:28px 36px}
+.three .card h3,.four .card h3,.claims .card h3{font-size:17px}
+.mix{gap:0 32px;border-bottom:1px solid var(--rule)}
+.mix a{border:0;border-top:1px solid var(--rule);border-radius:0;background:none;padding:16px 4px 18px;transition:background 150ms var(--ease)}
+.mix a:hover{background:color-mix(in oklab,var(--accent) 5%,transparent)}
+.mix a::before{color:var(--soft)}
+.lcards,.lkeys{gap:0}
+a.lc,a.lk{border:0;border-top:1px solid var(--rule);border-radius:0;background:none;padding:20px 6px;transition:background 150ms var(--ease)}
+a.lc:hover,a.lk:hover{background:color-mix(in oklab,var(--accent) 5%,transparent)}
+.lcards,.lkeys{border-bottom:1px solid var(--rule)}
+.lkeys.two{gap:0 40px}
+.lcb b,.lkb b{font-family:var(--f-display);font-size:18px;letter-spacing:-.015em;font-weight:620}
+.mmg{background:none;border:0;border-radius:0;padding:0}
+
+/* ---- the role step: one surface, its parts ruled, its template one tap from its head ---- */
+.sb .tw{border:0;border-radius:0;background:none;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.sb .tw thead th{background:none}
+.sb .art{border:0;border-radius:0;background:none;padding:2px 0}
+.sb .eg{border:0;border-left:3px solid var(--ochre);border-radius:0;background:none;padding:2px 0 2px 18px}
+.sh .jl{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px}
+.sh .jl a{font-size:12.5px;font-weight:600;color:var(--ink2);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:color-mix(in oklab,var(--accent) 55%,transparent);text-decoration-thickness:1px}
+.sh .jl a:hover{color:var(--ink);text-decoration-color:var(--accent)}
+.sh .jl a::after{content:" ↓";color:var(--soft)}
+.step pre[id]{scroll-margin-top:64px}
+
+/* ---- long pages: numbered sections, with air ---- */
+main.numbered{counter-reset:sec}
+main.numbered>.sec{margin:0 0 clamp(52px,6.5vw,88px)}
+main.numbered>.sec[id]{counter-increment:sec}
+main.numbered>.sec[id] h2::before{content:counter(sec,decimal-leading-zero);display:block;font:500 12.5px/1 var(--f-mono);
+  letter-spacing:0;color:var(--soft);margin:0 0 14px}
+main.numbered>.sec>h2,main.numbered .rowh h2{font-size:clamp(23px,2.6vw,30px);font-weight:620;letter-spacing:-.028em;margin-bottom:16px}
+main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin-bottom:22px}
+.wideonly .rn{width:20px}
+@media (max-width:900px){.wideonly{display:none}}
+@media (min-width:901px){.narrowonly{display:none}}
+
+/* ---- reading measure: about seventy-five characters, whatever the column ---- */
+.prose>p,.prose>ul,.prose>ol,.prose>blockquote{max-width:58ch}
+
+/* ---- the foot of a reference page: one way on ---- */
+.nextup{margin:clamp(48px,6vw,80px) 0 0;padding:30px 0 0;border-top:1px solid var(--rule)}
+.nextup p{font-family:var(--f-display);font-size:clamp(19px,2vw,23px);font-weight:560;letter-spacing:-.02em;color:var(--ink);max-width:36ch;margin:0 0 20px;line-height:1.25}
+.nextup .ba{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px}
+
+/* ---- the pause: anything that moves on its own can be stilled ---- */
+.mpause{position:absolute;right:76px;bottom:20px;z-index:3;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;cursor:pointer;
+  border:1px solid color-mix(in oklab,var(--ink) 22%,transparent);background:color-mix(in oklab,var(--paper) 80%,transparent);color:var(--ink2);
+  transition:border-color 150ms var(--ease),color 150ms var(--ease)}
+.mpause:hover{border-color:var(--ink2);color:var(--ink)}
+.mpause input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.mpause:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.mpause i{width:10px;height:12px;border-left:3.5px solid currentColor;border-right:3.5px solid currentColor}
+.mpause:has(input:checked) i{width:0;height:0;border:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.pfig{position:relative}
+.pfig .mpause{right:12px;bottom:12px}
+.hero2:has(>.mpause input:checked) .scene .sc-plane{animation-play-state:paused,running!important}
+.pfig:has(.mpause input:checked) svg *{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){.mpause{display:none}}
+@media (max-width:1000px){.hero2>.mpause{right:68px;bottom:14px}}
+@media print{.mpause{display:none}}
+
+/* ---- copied: the one animation every working reader starts ---- */
+.cp{transition:background 150ms var(--ease),border-color 150ms var(--ease),color 150ms var(--ease)}
+.cp.done::before{content:"";display:inline-block;width:11px;height:6px;margin:0 7px 3px 0;border-left:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(-45deg);vertical-align:middle;animation:tick 250ms var(--ease) both}
+@keyframes tick{from{opacity:0;scale:.6}}
+
+/* ---- motion with a job ---- */
+@media (prefers-reduced-motion:no-preference){
+  /* one page hands over to the next: the bar stays, the page cross-fades, and a title that is on
+     both pages (a lesson in its list, a role in its row) travels to its place */
+  @view-transition{navigation:auto}
+  .hd{view-transition-name:site-bar}
+  ::view-transition-old(root){animation:vt-out 150ms var(--ease) both}
+  ::view-transition-new(root){animation:vt-in 250ms var(--ease) both}
+  ::view-transition-group(*){animation-duration:250ms;animation-timing-function:var(--ease)}
+  /* the hero's words arrive in reading order; the headline only moves, so the first paint has it */
+  .hero2 .hx>*{animation:arrive 250ms var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
+  .hero2 .hx>h1{animation-name:arrive-h}
+  .hero2 .hx>:nth-child(2){--i:1}.hero2 .hx>:nth-child(3){--i:2}.hero2 .hx>:nth-child(4){--i:3}.hero2 .hx>:nth-child(5){--i:4}
+  /* a role's steps arrive in the order they are walked */
+  .roadmap .rn{animation:arrive 250ms var(--ease) both;animation-delay:calc(80ms + var(--i,0) * 40ms)}
+  /* the four methods draw along the line, phase by phase, top row first: the bars are time */
+  .rv-on .cover .bar{transform-origin:0 50%;scale:0 1;transition:scale 400ms var(--ease);transition-delay:calc(var(--r,0) * 40ms + var(--k,0) * 80ms)}
+  .rv-on .rv.in .cover .bar{scale:1 1}
+  .cover td:nth-child(3){--k:1}.cover td:nth-child(4){--k:2}.cover td:nth-child(5){--k:3}
+  /* a figure assembles in the order it was drawn */
+  .fig-in>*{animation:fig-part 350ms var(--ease) both;animation-delay:var(--fd,0ms)}
+  /* the guide blinks when you reach for it, and at no other time */
+  .tour-fab:hover .pip .pe,.tourbtn:hover .pip .pe{animation:wink 250ms var(--ease) 1}
+}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0}}
+@keyframes arrive{from{opacity:0;transform:translateY(12px)}}
+@keyframes arrive-h{from{transform:translateY(12px)}}
+@keyframes fig-part{from{opacity:0}}
+@keyframes wink{50%{transform:scaleY(.12)}}
+/* dashes on a connector say which way things flow. They move as the reader scrolls past, and
+   are still otherwise; a browser without scroll timelines leaves them still, which reads the same. */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .dgx i{animation:dgmarch linear both;animation-timeline:view()}
+    .dgr i{animation:dgmarchr linear both;animation-timeline:view()}
+    .dgs .fl{animation:dgflow linear both;animation-timeline:view()}
+    .bb .bb-flow{animation:bbflow linear both;animation-timeline:view()}
+  }
+}
+/* a step opens to its height on a wide screen; on a phone, and where the browser cannot, it is simply open */
+@supports (interpolate-size:allow-keywords){
+  @media (prefers-reduced-motion:no-preference) and (min-width:901px){
+    html:not(.all-open) details.step{interpolate-size:allow-keywords}
+    html:not(.all-open) details.step::details-content{block-size:0;overflow:clip;transition:block-size 250ms var(--ease),content-visibility 250ms allow-discrete}
+    html:not(.all-open) details.step[open]::details-content{block-size:auto}
+  }
+}
+
+/* a quiet button beside a heading, the folded contents list, and a rail's label */
+.btn.sm{padding:7px 13px;font-size:13px;border-radius:9px}
+.howto .hlist{margin:4px 0 0;padding-left:22px;display:grid;gap:2px;font-size:14.5px}
+.howto.narrowonly{margin-bottom:8px}
+.rail .railh{font-size:12.5px;font-weight:650;color:var(--soft);margin:0 0 10px;max-width:none}
+/* inside a page with a rail the column is narrower: three and four across become two, then one */
+@media (max-width:1180px){.cols .three,.cols .four{grid-template-columns:1fr 1fr}}
+@media (max-width:1000px){.cols .three,.cols .four{grid-template-columns:1fr}}
+@media (max-width:820px){
+  .sh .jl a,.howto .hlist a{display:inline-flex;align-items:center;min-height:44px}
+  .sh .jl{gap:0 18px;margin-top:2px}
+  .mpause{width:44px;height:44px}
+}
