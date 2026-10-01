@@ -38,7 +38,7 @@ ORG = {"@type": "Organization", "@id": BASE_URL + "#org", "name": "SkyWays Consu
        "description": "The SkyWays PDLC: the best of every agentic way of working, in one operating model. "
                       "The agentic manual and the SkyWays PDLC Simulator are its products."}
 
-# Roles in journey order. Those without a JSON file render as "in progress" on the home page.
+# Roles in journey order. One without a JSON file yet is left out of the nav and the home page.
 ROLE_ORDER = [
     ("product-manager", "Product manager", "PM", "var(--slate)", "From a vibe to a number you can defend"),
     ("solution-architect", "Solution architect", "SA", "var(--ochre)", "From requirements to a system that holds"),
@@ -70,7 +70,8 @@ def md(text: str) -> str:
 # home page only; every other page is new and has no legacy routes to honour.
 LEGACY_HASH_REDIRECT = (
     "\n<script>(function(){var h=location.hash;"
-    "if(h&&h.charAt(1)===\"/\"){location.replace(\"simulator/\"+h);}})();</script>"
+    "if(h&&h.charAt(1)===\"/\"){location.replace(\"simulator/\"+h);}"
+    "else if(/^#(pdlc|loops|by-role|delegation)$/.test(h)){location.replace(\"method/\"+h);}})();</script>"
 )
 
 
@@ -92,13 +93,17 @@ def accent_var(accent: str) -> str:
     return f"var(--{token})"
 
 
-HOUSE = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11.5 12 4l9 7.5"/>'
-         '<path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>')
+# The mark: one loop, flown. The same ring and plane the simulator carries, drawn in tokens so it
+# follows the theme; the plane keeps one colour on every page, whatever the page's own accent is.
+MARK = ('<svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">'
+        '<circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.4" '
+        'stroke-dasharray="58 24" stroke-linecap="round" transform="rotate(-38 16 16)"/>'
+        '<path d="M8 17.5 24.5 9 19 24l-3.4-5.6z" fill="var(--brand)"/>'
+        '<path d="M15.6 18.4 24.5 9" stroke="var(--bone)" stroke-width="1.2"/></svg>')
 BURGER = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>')
 ROLE_LESSON = {"product-manager": "agentic-pdlc-for-product-managers", "solution-architect": "agentic-pdlc-for-solution-architects",
                "engineering": "agentic-pdlc-for-engineers", "qa": "agentic-pdlc-for-qa", "devops": "agentic-pdlc-for-devops"}
-NAV_LABEL = {"product-manager": "Product", "solution-architect": "Architect",
-             "engineering": "Engineering", "qa": "QA", "devops": "DevOps"}
+
 
 
 def og_image(name: str) -> str:
@@ -114,6 +119,7 @@ def _menu(up: str, nav_id: str) -> str:
     roles = [(f"{rid}/", name, rid) for rid, name, *_ in ROLE_ORDER if (CONTENT / f"{rid}.json").exists()]
     groups = [
         ("Start", [("", "Home", "home"), ("learn/", "The tutorial · lessons in order", "learn"),
+                   ("method/", "The method · four phases on one page", "method"),
                    ("learn/interviews/", "Interview banks and careers", "")]),
         ("Your role, end to end", roles),
         ("For leadership", [("protocol/", "The operating protocol", "protocol"),
@@ -136,13 +142,39 @@ def _menu(up: str, nav_id: str) -> str:
             tgt = ' target="_blank" rel="noopener"' if ext else ""
             li.append(f'<li><a href="{h}"{cur}{tgt}>{_E(label)}</a></li>')
         out.append(f'<details open><summary>{_E(title)}</summary><ul>{"".join(li)}</ul></details>')
-    return (f'<details class="menu" data-menu><summary aria-label="All pages" title="All pages">{BURGER}'
-            f'<span>Menu</span></summary><div class="mp"><div class="mph"><b>Everything, by category</b>'
+    return (f'<details class="menu" data-menu><summary aria-label="Every page, and search" title="Every page, and search">{BURGER}'
+            f'</summary><div class="mp"><div class="mph"><b>Everything, by category</b>'
             f'<button type="button" class="mx" data-menu-close aria-label="Close menu">×</button></div>'
             f'<div class="ms"><input type="search" data-search data-index="{up}search.json" placeholder="Search lessons, steps, pages…" '
             f'aria-label="Search the manual" autocomplete="off"><ol class="mr" data-search-results hidden></ol></div>'
-            f'{"".join(out)}<p class="mpf">Lost? Every page has a <b>Show me around</b> button near the top.</p>'
-            f"</div></details>")
+            f'{"".join(out)}</div></details>')
+
+
+# The top bar: five places, two of them a short list. Everything else is one click deeper, in the
+# drawer or on the page it belongs to.
+LIBRARY = [("templates", "Templates", "The document each step produces"),
+           ("prompts", "Prompts", "Paste into your model, then edit"),
+           ("models", "Mental models", "Rules of thumb for agent work"),
+           ("frameworks", "Frameworks", "The four methods and every acronym"),
+           ("pictures", "Picture pack", "Every diagram, free to reuse")]
+
+
+def _nav(up: str, nav_id: str) -> str:
+    def link(slug: str, label: str) -> str:
+        cur = ' aria-current="page"' if nav_id == slug else ""
+        return f'<a href="{up}{slug}/"{cur}>{label}</a>'
+
+    def drop(label: str, items: list[tuple[str, str, str]]) -> str:
+        on = any(slug == nav_id for slug, _l, _h in items)
+        rows = "".join(
+            f'<a href="{up}{slug}/"{" aria-current=page" if slug == nav_id else ""}>'
+            f'<b>{_E(name)}</b><small>{_E(hint)}</small></a>' for slug, name, hint in items)
+        return (f'<details class="dd{" on" if on else ""}" data-dd><summary>{label}</summary>'
+                f'<div class="ddp">{rows}</div></details>')
+
+    roles = [(rid, name, tagline) for rid, name, _s, _c, tagline in ROLE_ORDER if (CONTENT / f"{rid}.json").exists()]
+    return (link("learn", "Tutorial") + drop("Roles", roles) + link("method", "Method")
+            + drop("Library", LIBRARY) + link("protocol", "Leadership"))
 
 
 def _wiki_blank(html_: str) -> str:
@@ -166,19 +198,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     up = "../" * depth
     accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
     og_img = og_image(og)
-    nav = [f'<a class="home" href="{up}" aria-label="Home"{" aria-current=page" if nav_id == "home" else ""}>{HOUSE}</a>',
-           f'<a href="{up}learn/"{" aria-current=page" if nav_id == "learn" else ""}>Tutorial</a>']
-    for rid, name, short, _c, _t in ROLE_ORDER:
-        if not (CONTENT / f"{rid}.json").exists():
-            continue
-        cur = ' aria-current="page"' if nav_id == rid else ""
-        nav.append(f'<a href="{up}{rid}/"{cur}>{_E(NAV_LABEL.get(rid, name))}</a>')
-    for slug, label in (("protocol", "Leadership"), ("models", "Mental models"),
-                        ("templates", "Templates"), ("prompts", "Prompts"),
-                        ("frameworks", "Frameworks")):
-        cur = ' aria-current="page"' if nav_id == slug else ""
-        nav.append(f'<a href="{up}{slug}/"{cur}>{label}</a>')
-    nav.append(f'<a href="{up}simulator/" class="play">Simulator</a>')
+    nav = _nav(up, nav_id)
 
     crumb_html = ""
     ld_crumbs = None
@@ -217,7 +237,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>try{{var t=localStorage.getItem("manual-theme");if(t)document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
+<script>document.documentElement.classList.add("js");try{{var t=localStorage.getItem("manual-theme");if(t)document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <title>{_E(title)}</title>
 <meta name="description" content="{_E(desc, quote=True)}">
 <meta name="author" content="{AUTHOR}">
@@ -249,13 +269,15 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <a class="skip" href="#main">Skip to content</a>
 <header class="hd"><div class="in">
   {_menu(up, nav_id)}
-  <a class="brand" href="{up}">The agentic manual<small>PDLCs for the agentic era</small></a>
-  <nav aria-label="Sections">{''.join(nav)}</nav>
+  <a class="brand" href="{up}" aria-label="SkyWays, the agentic manual: home">{MARK}<span class="wm">SkyWays</span><small>The agentic manual</small></a>
+  <nav aria-label="Sections">{nav}</nav>
+  <a class="play" href="{up}simulator/">Simulator</a>
   <button class="tgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">◐</button>
 </div></header>
 {crumb_html}
 {body}
 <footer class="ft" data-site-footer><div class="in">
+  <div class="fb">{MARK}<b>SkyWays</b><span>The agentic manual and the PDLC Simulator, free and open source.</span></div>
   <section>
     <h2>About</h2>
     <p><strong>The agentic manual</strong> and the <strong>SkyWays PDLC Simulator</strong> are products of
@@ -435,9 +457,9 @@ def roadmap(role: dict) -> str:
     n = len(role["steps"])
     name = role["name"].lower()
     return (f'<section class="roadmap" aria-label="The steps of this role, by phase">'
-            f'<div class="rh"><h2>Your {NUM.get(n, str(n))} steps, in the agentic era</h2>'
-            f'<p>Your job has not changed. These are the things a {_E(name)} already does, in the order they '
-            f'happen; each has gained an agentic part, and each ends on the artefact the next person needs.</p></div>'
+            f'<div class="rh"><h2>Your {NUM.get(n, str(n))} steps, in order</h2>'
+            f'<p>The things a {_E(name)} already does, in the order they happen. Each has gained a part a '
+            f'model can do, and each ends on the artefact the next person needs.</p></div>'
             f'<div class="rt">{"".join(out)}</div></section>')
 
 
@@ -458,16 +480,15 @@ def role_page(role: dict) -> str:
         f'{" target=_blank rel=noopener" if h.startswith("http") else ""}>{_E(l)}</a></li>'
         for l, h in role["reads"])
     steps = "".join(step_html(role, s) for s in role["steps"])
-    toc = "".join(f'<li><a href="#{s["id"]}">{s["n"]}. {_E(s["phase"])}</a></li>' for s in role["steps"])
     n_p = sum(len(s["prompts"]) for s in role["steps"])
     n_a = sum(len(s["activities"]) for s in role["steps"])
     n_f = sum(1 for s in role["steps"] if s.get("figure"))
     n_c = sum(1 for s in role["steps"] if s.get("calc"))
     extra_pills = ""
     if n_f:
-        extra_pills += f' <span class="pill">{n_f} figures</span>'
+        extra_pills += f'<span>{n_f} figures</span>'
     if n_c:
-        extra_pills += f' <span class="pill">{n_c} calculators</span>'
+        extra_pills += f'<span>{n_c} calculators</span>'
     first = role["steps"][0]
     orient = k.orient(
         f"<strong>{_E(role['name'])}s</strong> and anyone who has to work with one, plus the "
@@ -486,22 +507,18 @@ def role_page(role: dict) -> str:
         {"sel": "[data-expand]", "title": "Read it straight through", "body": "Expand all opens every step, which is also how the page prints."},
     ])
 
-    body = f"""<div class="cols">
+    body = f"""<div class="cols two-col">
 <aside class="rail" aria-label="Steps"><h2>The journey</h2><ol>{rail}</ol>
   <p style="margin-top:18px"><button class="cp" data-expand
      style="background:var(--paper);color:var(--ink2);border-color:var(--rule)">Expand all</button></p>
 </aside>
 <main id="main">
-  <div class="rowh"><div>
-    <div class="kicker">Eight steps, end to end</div>
+  <header class="phead in-col">
+    <p class="kicker">Your role, end to end</p>
     <h1>{_E(role['name'])}</h1>
-    <p class="lede">{md(role['tagline'])}</p></div>
-    <div class="rowa"><b>On this page</b>
-    <p style="margin:0"><span class="pill acc">{len(role['steps'])} steps</span> <span class="pill">{n_a} sub-steps</span>
-       <span class="pill">{len(role['steps'])} templates</span> <span class="pill">{n_p} prompts</span>{extra_pills}</p>
-    <p style="margin:10px 0 0;font-size:13.5px">Every step: what you do, where a model helps and where it must not, the artefact you owe the
-    next person, its template and the prompts to draft it.</p></div>
-  </div>
+    <p class="lede">{md(role['tagline'])}.</p>
+    <p class="pmeta"><span>{len(role['steps'])} steps</span><span>{n_a} sub-steps</span><span>{len(role['steps'])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>
+  </header>
 
   {orient}
 
@@ -525,7 +542,6 @@ def role_page(role: dict) -> str:
   <div class="sec" style="margin-top:36px"><h2 style="margin:0 0 12px">Read next</h2>
     <ul class="readsg">{reads}</ul></div>
 </main>
-<aside class="toc" aria-label="On this page"><h2>On this page</h2><ul>{toc}</ul></aside>
 </div>"""
     desc = (f"{role['name']}: {role['tagline']}. {len(role['steps'])} steps, {n_a} sub-steps, "
             f"{len(role['steps'])} templates and {n_p} copy-paste prompts for building with AI.")
@@ -540,14 +556,11 @@ def library_page(roles: list[dict], kind: str) -> str:
     is_t = kind == "templates"
     label = "Artefact templates" if is_t else "Prompt templates"
     short = "templates" if is_t else "prompts"
-    lede = ("Every artefact in the manual has a fill-in skeleton: the pain register, the eight-field spec, "
-            "the bar sheet, the two-number report and thirty-six more. These are <strong>documents you "
-            "write</strong>, not prompts you send, the prompts are on their own page."
+    lede = ("A fill-in skeleton for every document the manual asks you to write, from the pain register to "
+            "the two-number report."
             if is_t else
-            "Every prompt in the manual, on one page. These are <strong>messages you paste into a model</strong> "
-            " (Claude, ChatGPT, Bedrock, your coding agent) and edit: each states the job, the rules and the "
-            "output shape, because a prompt that does not say what shape it wants gets a different shape "
-            "every time. The documents they help you write are on the templates page.")
+            "Every prompt in the manual. Paste one into your model, fill the angle brackets, and edit the "
+            "rules to taste.")
     other = ("prompts", "Prompt templates") if is_t else ("templates", "Artefact templates")
     secs, toc, count = [], [], 0
     for role in roles:
@@ -608,7 +621,8 @@ def library_page(roles: list[dict], kind: str) -> str:
         ["Pick your role in the left rail (or scroll: they are in journey order).",
          f"Press <b>Copy</b> on the block. {'Paste it into your document.' if is_t else 'Paste it into the model of your choice.'}",
          f"Unsure why a field is there? The line above each block links to the step that explains it."],
-        extra=f'<a class="btn" href="../{other[0]}/" style="margin-top:8px">{other[1]} →</a>')
+        extra=f'<a class="btn" href="../{other[0]}/" style="margin-top:8px">{other[1]} →</a>',
+        more="__MORE__")
     tour = k.tour([
         {"sel": ".tvp", "title": "Templates or prompts?", "body": "Two libraries, two jobs. <b>Templates</b> are documents you write and keep. <b>Prompts</b> are messages you send to a model. This page is the " + ("templates" if is_t else "prompts") + "."},
         {"sel": ".rail", "title": "By role", "body": "Five roles, in journey order. Jump to yours; each section links back to the role's own page."},
@@ -643,21 +657,17 @@ Owner of the number: Priya (PM)</code></pre>
         'The second picture is the whole library at a glance, by role and by step.</p>'
         + posters.prompt_anatomy() + posters.prompts_by_role()
         + '<p class="lalt">Both pictures are in <a href="../pictures/#pics-posters">the picture pack</a>, with every other diagram of the method.</p></div>')
-    body = f"""<div class="cols">
+    body = f"""<div class="cols two-col">
 <aside class="rail" aria-label="Roles"><h2>By role</h2><ul class="ticks">{''.join(toc)}</ul></aside>
 <main id="main">
-  <div class="rowh"><div><div class="kicker">The {"template" if is_t else "prompt"} library</div><h1>{label}</h1>
-  <p class="lede">{lede}</p></div>
-  <div class="rowa"><b>On this page</b><p style="margin:0"><span class="pill acc">{count} {short}</span>
-     <span class="pill">copy button on each</span> <span class="pill">every angle bracket is yours to fill</span></p>
-  <p style="margin:10px 0 0;font-size:13.5px">Five roles in journey order, each {"template" if is_t else "prompt"} marked with its phase, P0 to P3.</p></div></div>
-  {orient}
-  {opener}
-  {compare}
+  <header class="phead in-col"><p class="kicker">The library</p><h1>{label}</h1>
+    <p class="lede">{lede}</p>
+    <p class="pmeta"><span>{count} {short}</span><span>{len(roles)} roles, in journey order</span><span>a copy button on each</span></p>
+  </header>
+  {orient.replace("__MORE__", opener + compare)}
   {posters_html}
   {''.join(secs)}
 </main>
-<aside class="toc" aria-label="On this page"><h2>On this page</h2><ul>{''.join(toc)}</ul></aside>
 </div>"""
     return shell(title=f"{label} · The agentic manual",
                  desc=(f"{count} copy-paste {short} for building software with AI, by role: "
@@ -667,185 +677,164 @@ Owner of the number: Priya (PM)</code></pre>
                  crumbs=[("Libraries", ""), (label, "")], tour=tour, kind=kind, og=kind)
 
 
+PHASES = [
+    ("P0", "Frame", "Is it worth building, and is it AI at all?", "slate", "learn/p0-frame/"),
+    ("P1", "Design &amp; Spec", "What exactly, and who signs for it?", "indigo", "learn/p1-design-and-spec/"),
+    ("P2", "Build &amp; Prove", "Does it meet the bar, slice by slice?", "teal", "learn/p2-build-and-prove/"),
+    ("P3", "Run &amp; Learn", "Is it still working, and what did it cost?", "amber", "learn/p3-run-and-learn/"),
+]
+# How far each method reaches along the line: 2 covers the phase, 1 touches it lightly, 0 says nothing.
+# The same reading as the frameworks page's plug board, which carries the detail.
+COVERAGE = [
+    ("Spec-driven development", "learn/what-is-spec-driven-development/",
+     "You maintain the spec and regenerate the code.", (1, 2, 2, 1)),
+    ("BMAD Method", "learn/what-is-the-bmad-method/",
+     "AI personas plan the way an agile team does.", (2, 2, 2, 0)),
+    ("AI-DLC", "learn/what-is-ai-dlc/",
+     "From AWS: bolts of days in place of sprints.", (2, 2, 2, 2)),
+    ("AIDD", "learn/what-is-aidd/",
+     "The daily craft of working with a coding agent.", (0, 0, 2, 0)),
+]
+REACH = {2: "covers this phase", 1: "touches this phase lightly", 0: "says nothing here"}
+
+
+def _coverage() -> str:
+    """Section two's answer, drawn: four methods as bars along the four phases. A real table, so a
+    screen reader gets rows and columns; the bars are its cells."""
+    head = "".join(
+        f'<th scope="col" style="--c:var(--dg-{hue})"{" class=gated" if key == "P2" else ""}>'
+        f'<a href="{href}"><span class="c-key">{key}</span><span class="c-name">{name}</span>'
+        f'<span class="c-ask">{q}</span></a></th>'
+        for key, name, q, hue, href in PHASES)
+    rows = []
+    for name, href, line, reach in COVERAGE:
+        cells = "".join(
+            f'<td style="--c:var(--dg-{PHASES[i][3]})"{" class=gated" if i == 2 else ""}>'
+            f'<i class="bar r{r}"></i><span class="vh">{REACH[r]}</span></td>'
+            for i, r in enumerate(reach))
+        rows.append(f'<tr><th scope="row"><a href="{href}">{_E(name)}</a><small>{_E(line)}</small></th>{cells}</tr>')
+    whole = "".join(
+        f'<td style="--c:var(--dg-{PHASES[i][3]})"{" class=gated" if i == 2 else ""}>'
+        f'<i class="bar r3"></i><span class="vh">covers this phase</span></td>' for i in range(4))
+    rows.append('<tr class="whole"><th scope="row"><a href="learn/what-is-the-agentic-pdlc/">SkyWays PDLC</a>'
+                f'<small>The whole line, with the gate and the way back.</small></th>{whole}</tr>')
+    return ('<div class="cover"><table><caption class="vh">Which phases each agentic method covers</caption>'
+            f'<thead><tr><th scope="col" class="corner"><span class="vh">Method</span></th>{head}</tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table>'
+            '<p class="cover-key"><span><i class="bar r2"></i>covers the phase</span><span><i class="bar r1"></i>touches it lightly</span>'
+            '<span><i class="bar r0"></i>says nothing</span><span><i class="gatekey"></i>the one hard gate: nothing is built until the spec is signed</span></p></div>')
+
+
 def home_page(roles: list[dict]) -> str:
-    from pages import boards, illos, learn, _kit as k
+    from pages import globe, learn, pictures
     built = {r["id"]: r for r in roles}
-    cards = []
-    for rid, name, short, colour, tagline in ROLE_ORDER:
-        r = built.get(rid)
-        if r:
-            n_p = sum(len(s["prompts"]) for s in r["steps"])
-            n_a = sum(len(s["activities"]) for s in r["steps"])
-            stats = (f'<div class="rs"><i>{len(r["steps"])} steps</i><i>{n_a} sub-steps</i>'
-                     f'<i>{len(r["steps"])} templates</i><i>{n_p} prompts</i></div>')
-            cards.append(f'<a class="rc" href="{rid}/" style="--rc:{colour}">'
-                         f'<span class="rb">{_E(short)}</span><div class="rt">{_E(name)}</div>'
-                         f'<div class="rg">{md(tagline)}</div>{stats}</a>')
-        else:
-            cards.append(f'<div class="rc soon" style="--rc:{colour}">'
-                         f'<span class="rb">{_E(short)}</span><div class="rt">{_E(name)}</div>'
-                         f'<div class="rg">{md(tagline)}</div>'
-                         f'<div class="rs"><i>in progress</i></div></div>')
     total_steps = sum(len(r["steps"]) for r in roles)
     total_prompts = sum(len(s["prompts"]) for r in roles for s in r["steps"])
-    total_acts = sum(len(s["activities"]) for r in roles for s in r["steps"])
-    _meta, tracks, lessons = learn.load()
+    _meta, _tracks, lessons = learn.load()
     n_lessons = len(lessons)
-    n_banks = sum(1 for l in lessons.values() if l.slug.endswith("-interview-questions"))
+    n_pics = len(pictures.catalogue())
 
-    who = [
-        ("learn/ai-dlc-for-forward-deployed-engineers/", "a forward-deployed engineer", "var(--sage)"),
-        ("product-manager/", "a product manager or FDPM", "var(--slate)"),
-        ("solution-architect/", "a solution architect", "var(--ochre)"),
-        ("engineering/", "an engineer or GenAI engineer", "var(--sage)"),
-        ("qa/", "in QA", "var(--plum)"),
-        ("devops/", "in DevOps or platform", "var(--violet)"),
-        ("protocol/", "the sponsor or an executive", "var(--ink)"),
-        ("learn/organisation/", "an organisation adopting agents", "var(--ink)"),
-        ("learn/interviews/", "preparing for an interview", "var(--ink)"),
-    ]
-    who_html = "".join(f'<li><a href="{h}" style="--w:{c}"><i></i>{_E(t)}</a></li>' for h, t, c in who)
-    stats = [(n_lessons, "lessons"), (len(roles), "roles, end to end"), (total_steps, "templates"),
-             (total_prompts, "prompts"), (12, "mental models"), (n_banks, "interview banks")]
-    stats_html = "".join(f"<span><b>{n}</b>{_E(t)}</span>" for n, t in stats)
-    tour = k.tour([
-        {"sel": ".hero .who", "title": "Pick your chair", "body": "Nine entrances, one per kind of reader. Each opens the pages written for that chair. Start with yours; the rest will make sense from there."},
-        {"sel": ".hero .ill", "title": "The spine", "body": "Four phases, one hard gate, and a loop back from production. Every lesson, board and role page on this site hangs off this picture. Click a phase to open it."},
-        {"sel": ".hd nav", "title": "The top bar", "body": "<b>Tutorial</b> is the course: 55 lessons in eight tracks. The five roles are the manual itself. Then leadership, the twelve mental models, the libraries, and the <b>Playbook</b>, the same case as an interactive simulator."},
-        {"sel": ".menu", "title": "The menu", "body": "Everything, by category: the tutorial's tracks, the interview banks, the libraries, the wiki. Esc closes it."},
-        {"sel": ".how3", "title": "Three ways you can use this", "body": "Learn the method in short lessons, walk your own role step by step, or go straight to the templates and prompts and play the case."},
-        {"sel": "#pdlc", "title": "The boards", "body": "Below the fold the home page reads as four boards: the spine in detail, the eight loops, your role across the phases, and where a model helps. Hover a cell to light its row and column."},
-        {"sel": ".tgl", "title": "Light or dark", "body": "The whole site follows this, pictures included."},
-    ])
+    # one row per role: where you start, where you end up
+    seats = []
+    for rid, name, short, colour, tagline in ROLE_ORDER:
+        r = built.get(rid)
+        if not r:
+            continue
+        m = re.match(r"From (.+) to (.+)", tagline)
+        frm, to = (m.group(1), m.group(2)) if m else ("", tagline)
+        n_p = sum(len(s["prompts"]) for s in r["steps"])
+        seats.append(f'<li><a href="{rid}/" style="--rc:{colour}"><span class="s-code">{_E(short)}</span>'
+                     f'<span class="s-name">{_E(name)}</span>'
+                     f'<span class="s-route"><span>{md(frm)}</span><i aria-hidden="true">→</i><span class="vh"> to </span><b>{md(to)}</b></span>'
+                     f'<span class="s-meta">{len(r["steps"])} steps · {n_p} prompts</span>'
+                     f'<span class="s-go" aria-hidden="true">→</span></a></li>')
+    seats.append('<li><a href="protocol/" style="--rc:var(--ink2)"><span class="s-code">EXEC</span>'
+                 '<span class="s-name">Sponsor or executive</span>'
+                 '<span class="s-route"><span>funding the work</span><i aria-hidden="true">→</i><span class="vh"> to </span>'
+                 '<b>the four decisions only you can make</b></span>'
+                 '<span class="s-meta">20 minute read</span><span class="s-go" aria-hidden="true">→</span></a></li>')
 
-    hero = f"""<section class="hero" id="top" aria-label="Introduction"><div class="in">
-  <div class="hx">
-    <p class="kicker">SkyWays Consultancy</p>
-    <h1>Which agentic method should your team follow?</h1>
-    <p class="lede">AI-DLC, AIDD, BMAD and spec-driven development each cover part of the product lifecycle.
-    The SkyWays PDLC joins the best of them into one method, P0 to P3, and this manual shows every role how
-    to run it.</p>
-    <div class="who"><p class="wl">Start from your chair:</p><ul>{who_html}</ul></div>
-  </div>
-  <div class="ill">{illos.spine()}
-    <div class="guide">{k.pip()}<div class="bubble"><p><b>Hi, I'm Pip.</b> New here? I can show you round in
-      thirty seconds, or take you straight to the tutorial or the simulator.</p>
-      <div class="ba"><button type="button" class="btn pri" data-tour-start>Show me around</button>
-      <a class="btn" href="learn/">Start the tutorial</a>
-      <a class="btn" href="simulator/">Open the simulator</a></div></div></div>
-  </div>
-</div></section>"""
+    hero = f"""<section class="hero2" id="top" aria-label="Introduction">
+  {globe.scene()}
+  <div class="in"><div class="hx">
+    <p class="eyebrow">The agentic manual</p>
+    <h1>One manual for building software <em>with AI agents.</em></h1>
+    <p class="lede">It follows one lifecycle through five roles, worked end to end on a fictional airline's
+    ninety-day build. Free and open source.</p>
+    <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a>
+      <a class="btn ghost" href="simulator/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Play the simulator</a></div>
+    <p class="meta"><span><i><b>{n_lessons}</b> lessons</i><i><b>{total_steps}</b> templates</i><i><b>{total_prompts}</b> prompts</i></span>
+      <span><i>MIT licence</i><i>by {AUTHOR}</i></span></p>
+  </div></div>
+</section>"""
 
     body = f"""{hero}
-<div class="wrap">
-<main id="main" style="padding:34px 0 28px">
-  <a class="xlink" href="simulator/" aria-label="Open the SkyWays PDLC Simulator">
-    <span class="xli" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="currentColor" stroke="none"/></svg></span>
-    <span class="xlt"><b>Prefer to learn by playing?</b> The SkyWays PDLC Simulator plays the same method as a game, with
-    thirteen dated episodes, nine simulations, seventeen calculators and a score you keep.</span>
-    <span class="btn pri">Open the simulator →</span>
-  </a>
+<main id="main" class="home">
 
-  <div class="stats" aria-label="What is on this site"><b class="sq">What is on this site?</b>{stats_html}</div>
+<section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
+  <header class="sec-h rv"><p class="eyebrow">The method</p>
+    <h2 id="h-method">Which agentic method should your team follow? <span>All four. Each one covers part
+    of the work.</span></h2>
+    <p>The SkyWays PDLC is the line they sit on: four phases, one hard gate between design and build, and a
+    loop that brings production back to the start.</p></header>
+  <div class="rv">{_coverage()}</div>
+  <p class="links rv"><a class="more" href="method/">See the whole method on one page <i aria-hidden="true">→</i></a>
+    <a class="more" href="frameworks/">Compare the four methods <i aria-hidden="true">→</i></a></p>
+</div></section>
 
-  <section class="hook" aria-label="What this manual is">
-    <div class="ht">
-      <p class="kicker">SkyWays Consultancy</p>
-      <h2>Agentic product development, <em>reimagined</em>.</h2>
-      <p>One manual for building software with AI agents. It covers the four named methods and the operating
-      model that ties them together, and it is written to be used on Monday. Free, open source, and worked end
-      to end on one running case.</p>
-      <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a><a class="btn" href="simulator/">Open the simulator</a></div>
-    </div>
-    <figure class="hi tower">{illos.tower()}<figcaption>Software that decides needs a tower, not a faster runway.</figcaption></figure>
-  </section>
+<section class="band" id="roles" aria-labelledby="h-roles"><div class="wrap">
+  <header class="sec-h rv"><p class="eyebrow">By role</p>
+    <h2 id="h-roles">Start from the job you do. <span>Eight steps per role, from the first question to
+    production.</span></h2>
+    <p>Every step names what you owe the next person, and comes with the template and the prompts to draft it.</p></header>
+  <ol class="seats rv">{''.join(seats)}</ol>
+</div></section>
 
-  <div class="sec">
-    <h2>Three ways you can use this</h2>
-    <div class="ways">
-      <div><h3>Learn the method</h3>
-        <p>{n_lessons} short lessons cover the four phases, the methods, running delivery, every role, the
-        organisation, the SkyWays case and {n_banks} interview banks with answer frameworks.</p>
-        <a class="more" href="learn/">Start the tutorial →</a></div>
-      <div><h3>Walk your role</h3>
-        <p>Eight steps per role, in order. Each says what you do, where a model helps and where it must not,
-        the artefact you owe the next person, its template and the prompts to draft it.</p>
-        <a class="more" href="product-manager/">Open a role →</a></div>
-      <div><h3>Use the libraries, then play</h3>
-        <p>{total_steps} templates, {total_prompts} prompts, twelve mental models and the frameworks decoder.
-        Then the SkyWays PDLC Simulator, which replays one airline's build as a game.</p>
-        <a class="more" href="simulator/">Open the simulator →</a>
-        <div class="try"><span class="tl">Straight to</span><a href="simulator/#/simulations">Simulations</a><a href="simulator/#/toolkit">Toolkit</a><a href="simulator/#/concepts">Concept map</a><a href="simulator/#/story">The worked case</a></div></div>
-    </div>
+<section class="band play" id="simulator" aria-labelledby="h-play"><div class="wrap">
+  <div class="play-t rv"><p class="eyebrow">The simulator</p>
+    <h2 id="h-play">Or play the ninety days yourself.</h2>
+    <p>SkyWays is a fictional airline building a rebooking assistant for stranded passengers. The simulator
+    replays that build in thirteen dated episodes. You make the calls and keep the score.</p>
+    <dl class="nums"><div><dt>13</dt><dd>episodes</dd></div><div><dt>9</dt><dd>simulations</dd></div>
+      <div><dt>17</dt><dd>calculators</dd></div></dl>
+    <div class="ba"><a class="btn pri" href="simulator/">Open the simulator</a>
+      <a class="more" href="learn/skyways-case-study/">Read the case first <i aria-hidden="true">→</i></a></div>
   </div>
+  <a class="simshot rv" href="simulator/" aria-label="Open the SkyWays PDLC Simulator">
+    <span class="simbar" aria-hidden="true"><i></i><i></i><i></i><b>SkyWays PDLC Simulator</b></span>
+    <img class="light" src="assets/pictures/sim-home.light.webp" width="1360" height="850" loading="lazy" decoding="async"
+      alt="The simulator's opening screen: the four phases as a loop, six roles to choose from, and a guided path through the case">
+    <img class="dark" src="assets/pictures/sim-home.dark.webp" width="1360" height="850" loading="lazy" decoding="async" alt=""></a>
+</div></section>
 
-  <section class="pedagogy" aria-label="How the manual is built">
-    <div class="pg"><span class="pgi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 13.5 3 11l1.5-1.5L11 11l5.5-5.5a2 2 0 0 1 2.8 2.8L13.8 14l1.5 6.5L13.8 22l-3.3-7.3L7 18l-.5 3L5 21l-.5-3.5L1 16l1.5-1.5 3 .5z"/></svg></span>
-      <div><b>One running case throughout</b><p>SkyWays, an airline building a rebooking assistant for disrupted
-      passengers. Every role, lesson and simulation uses the same case, so you can switch chairs and stay oriented.</p></div></div>
-    <div class="pg"><span class="pgi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 4h-6a5 5 0 0 0 0 10h2a5 5 0 0 1 0 10H7"/><path d="M14 1l3 3-3 3M10 21l-3 3 3 3"/></svg></span>
-      <div><b>One lifecycle for every method</b><p>The SkyWays PDLC runs from P0 to P3 in four phases, with one hard
-      gate and eight loops. AI-DLC, AIDD, BMAD and spec-driven development each plug into it, and none of them
-      replaces it.</p></div></div>
-  </section>
-
-  {boards.pdlc()}
-
-  {boards.loops()}
-
-  <div class="sec">
-    <h2>Pick the chair you sit in</h2>
-    <p class="lede" style="max-width:none">Whether you work as a product manager, a solution architect, an engineering
-    lead, in QA, or in DevOps and platform, your role page walks P0 to P3 from your chair, step by step, with the
-    artefact each step owes the next person, so you can use it today.</p>
+<section class="band" id="library" aria-labelledby="h-lib"><div class="wrap">
+  <header class="sec-h rv"><p class="eyebrow">The library</p>
+    <h2 id="h-lib">Take what you need. <span>Everything here is free to copy and reuse.</span></h2></header>
+  <div class="shelf rv">
+    <a class="tile wide" href="learn/"><span class="tile-k">{n_lessons} lessons</span><b>The tutorial</b>
+      <span class="tile-d">Five to ten minutes each, in eight tracks. Start with the four phases.</span>
+      <span class="tile-go" aria-hidden="true">→</span></a>
+    <a class="tile" href="templates/"><span class="tile-k">{total_steps} templates</span><b>Templates</b>
+      <span class="tile-d">One document to fill in for every step.</span><span class="tile-go" aria-hidden="true">→</span></a>
+    <a class="tile" href="prompts/"><span class="tile-k">{total_prompts} prompts</span><b>Prompts</b>
+      <span class="tile-d">Each states the job, the inputs and the shape of the answer.</span><span class="tile-go" aria-hidden="true">→</span></a>
+    <a class="tile" href="models/"><span class="tile-k">12 rules of thumb</span><b>Mental models</b>
+      <span class="tile-d">Each one names the mistake it prevents.</span><span class="tile-go" aria-hidden="true">→</span></a>
+    <a class="tile" href="pictures/"><span class="tile-k">{n_pics} pictures</span><b>The picture pack</b>
+      <span class="tile-d">Every diagram here, light and dark, free to reuse.</span><span class="tile-go" aria-hidden="true">→</span></a>
+    <a class="tile wide" href="protocol/"><span class="tile-k">For leadership</span><b>The operating protocol</b>
+      <span class="tile-d">What changes when software decides, who does what, and the four decisions only a sponsor can make.</span>
+      <span class="tile-go" aria-hidden="true">→</span></a>
   </div>
+</div></section>
 
-  <div class="roles">{''.join(cards)}</div>
+<section class="band close" aria-labelledby="h-close"><div class="wrap rv">
+  <h2 id="h-close">New to all this? <span>Read the four phases first. It takes eight minutes.</span></h2>
+  <div class="ba"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">What is the agentic PDLC?</a>
+    <a class="btn ghost" href="learn/">All {n_lessons} lessons</a></div>
+</div></section>
 
-  {boards.by_role()}
-
-  <div class="sec more">
-    <div><h3>Templates you can use today</h3><p>Every artefact has a fill-in skeleton with a copy button, from
-      the pain register to the two-number report. <a href="templates/">All templates →</a></p></div>
-    <div><h3>Prompts you can paste into your LLM</h3><p>Each prompt states the job, the inputs, the rules and the
-      shape of the answer, and is written to be edited. <a href="prompts/">All prompts →</a></p></div>
-    <div><h3>The SkyWays PDLC Simulator</h3><p>Play the whole method through thirteen dated episodes, nine
-      simulations and seventeen calculators, and keep your score. <a href="simulator/">Open the simulator →</a></p></div>
-    <div><h3>How to invest in AI projects</h3><p>For whoever funds the work. It says what changes, who does what,
-      and which four decisions only leadership can make. <a href="protocol/">The operating protocol →</a></p></div>
-    <div><h3>Pictures that explain agentic concepts</h3><p>Every diagram of the method as an image, in light and dark,
-      captioned and free to reuse. <a href="pictures/">The picture pack →</a></p></div>
-    <div><h3>The methods, merged and written down</h3><p>Four phases, eight loops, 37 scenarios, 31 exercises and every
-      formula, worked. <a href="{WIKI}/The-Agentic-PDLC" target="_blank" rel="noopener">The wiki →</a></p></div>
-  </div>
-
-  <hr>
-
-  {boards.delegation()}
-
-  <hr>
-
-  <div class="sec">
-    <h2>Where to start</h2>
-    <div class="tw" tabindex="0"><table><thead><tr><th>You are</th><th>Start here</th><th>Time</th></tr></thead><tbody>
-      <tr><td>New to agentic delivery</td><td><a href="learn/what-is-the-agentic-pdlc/">What is the agentic PDLC?</a>, the
-        four phases in one sitting</td><td>8 min</td></tr>
-      <tr><td>A forward-deployed engineer</td><td><a href="learn/ai-dlc-for-forward-deployed-engineers/">AI-DLC and AIDD in the
-        field</a>, their pain, their risk owner, their stack</td><td>10 min</td></tr>
-      <tr><td>About to write a spec</td><td><a href="product-manager/#specify">The eight-field spec</a>, with
-        the template</td><td>20 min</td></tr>
-      <tr><td>About to launch</td><td><a href="product-manager/#launch">Shadow, then five percent</a></td><td>15 min</td></tr>
-      <tr><td>Asked for a business case</td><td><a href="product-manager/#frame">The value line</a>, with the
-        arithmetic</td><td>15 min</td></tr>
-      <tr><td>Funding this, not building it</td><td><a href="protocol/">The operating protocol</a>, what
-        changes, who does what, and the four questions to ask</td><td>20 min</td></tr>
-      <tr><td>Preparing for an interview</td><td><a href="learn/how-to-answer-ai-interview-questions/">Six answer
-        frameworks</a>, then the bank for your role</td><td>25 min</td></tr>
-      <tr><td>Running a workshop</td><td><a href="{WIKI}/Scenario-Library" target="_blank" rel="noopener">37
-        scenarios</a> across twenty sectors</td><td>, </td></tr>
-    </tbody></table></div>
-  </div>
-</main></div>"""
+</main>"""
     desc = (f"Every agentic delivery method in one manual: AI-DLC, AIDD, BMAD, spec-driven development and "
             f"the agentic PDLC, by role. {n_lessons} lessons, {total_steps} templates, {total_prompts} prompts.")
     site_ld = {"@context": "https://schema.org", "@graph": [
@@ -857,8 +846,42 @@ def home_page(roles: list[dict]) -> str:
          "description": desc, "dateModified": date.today().isoformat()}]}
     return shell(title="The agentic manual · every agentic PDLC, by role, end to end", desc=desc, body=body,
                  depth=0, nav_id="home", canonical=BASE_URL, own_ld=True,
-                 head_extra=LEGACY_HASH_REDIRECT + f'<script type="application/ld+json">{json.dumps(site_ld, ensure_ascii=False)}</script>',
-                 tour=tour, kind="home", og="home")
+                 head_extra=(LEGACY_HASH_REDIRECT
+                             + f'<script type="application/ld+json">{json.dumps(site_ld, ensure_ascii=False)}</script>'
+                             + f'<script type="application/json" id="globe-land">{globe.land_json()}</script>'
+                             + '<script src="theme/hero.js" defer></script>'),
+                 kind="home", og="home")
+
+
+def method_page() -> str:
+    """The lifecycle on one page: the four boards that used to sit on the home page, each answering
+    one question. They keep their ids, so a link to #loops still lands on the loops."""
+    from pages import boards, bb, illos
+    asks = [("pdlc", "What happens in each phase?", "The four phases and the one hard gate"),
+            ("loops", "What brings production back?", "Eight loops, three of them backwards"),
+            ("by-role", "Who does what, and when?", "Five roles across the four phases"),
+            ("delegation", "What may a model draft?", "And the one thing per step that stays with you")]
+    jump = "".join(f'<li><a href="#{i}"><b>{_E(q)}</b><span>{_E(a)}</span></a></li>' for i, q, a in asks)
+    body = f"""<div class="wrap"><main id="main" class="page">
+  <header class="phead"><div class="pcols"><div><p class="eyebrow">The method</p>
+    <h1>The SkyWays PDLC, on one page</h1>
+    <p class="lede">The lifecycle this whole manual hangs from: four phases, one hard gate and eight loops.
+    Each board below answers one question about it.</p></div>
+    <figure class="pfig">{illos.tower()}</figure></div>
+    <ol class="jump">{jump}</ol></header>
+  {bb.rebase(boards.pdlc(), "../")}
+  {bb.rebase(boards.loops(), "../")}
+  {bb.rebase(boards.by_role(), "../")}
+  {bb.rebase(boards.delegation(), "../")}
+  <div class="next"><a class="btn pri" href="../learn/what-is-the-agentic-pdlc/">Read it as a lesson</a>
+    <a class="btn ghost" href="../frameworks/">How the four methods fit it</a></div>
+</main></div>"""
+    return shell(title="The SkyWays PDLC on one page: four phases, one hard gate, eight loops · The agentic manual",
+                 desc="The agentic product development lifecycle in four boards: what happens in each phase, the "
+                      "eight loops that bring production back, each role across the phases, and what a model may "
+                      "draft against what stays with a person.",
+                 body=body, depth=1, nav_id="method", canonical=BASE_URL + "method/",
+                 crumbs=[("The method", "")], kind="method", og="home")
 
 
 # --------------------------------------------------------------------------- diagrams
@@ -1040,6 +1063,7 @@ def search_index(roles: list[dict]) -> str:
         rows.append({"t": m["name"], "d": _re.sub(r"<[^>]+>", "", m["one"]), "u": f"models/#{m['id']}", "k": "Mental model"})
     rows += [
         {"t": "The operating protocol", "d": "For whoever funds the work: what changes, who does what, the four decisions only leadership can make.", "u": "protocol/", "k": "Leadership"},
+        {"t": "The SkyWays PDLC on one page", "d": "Four phases, one hard gate, eight loops, each role across the phases, and what a model may draft.", "u": "method/", "k": "Method"},
         {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one spine; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
         {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
         {"t": "Prompt templates", "d": "Every prompt in the manual as a template, copyable, by role.", "u": "prompts/", "k": "Library"},
@@ -1080,6 +1104,7 @@ def render(out_dir: Path) -> list[str]:
     put("templates/index.html", library_page(roles, "templates"))
     put("prompts/index.html", library_page(roles, "prompts"))
     put("frameworks/index.html", frameworks_page())
+    put("method/index.html", method_page())
     from pages import models, protocol, pictures
     ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
     put("protocol/index.html", protocol.build(shell, ctx))
@@ -1095,6 +1120,7 @@ def urls() -> list[str]:
          BASE_URL + "prompts/",
          BASE_URL + "pictures/",
          BASE_URL + "frameworks/",
+         BASE_URL + "method/",
          BASE_URL + "app/SkyWays-Architect.html"]
     return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]
 

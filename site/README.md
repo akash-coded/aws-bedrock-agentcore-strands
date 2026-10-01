@@ -2,9 +2,10 @@
 
 **Live:** https://akash-coded.github.io/aws-bedrock-agentcore-strands/
 
-The site is an operating manual for the agentic era, by role: a home page that opens with the four-phase
-spine, one journey page per role, the libraries of templates and prompts, the operating protocol for
-leadership, twelve mental models, the frameworks decoder, a 55-lesson tutorial under `/learn/`, and the
+The site is an operating manual for the agentic era, by role: a home page that says what it is in one
+screen, the method on one page at `/method/`, one journey page per role, the libraries of templates and
+prompts, the operating protocol for leadership, twelve mental models, the frameworks decoder, a 55-lesson
+tutorial under `/learn/`, and the
 SkyWays playbook (an interactive simulator of one airline's ninety-day build) at `/simulator/`. It is an
 original work and the intellectual property of **Akash Das**, open-sourced under the repository's
 [MIT Licence](../LICENSE) for knowledge and experience sharing.
@@ -14,10 +15,11 @@ original work and the intellectual property of **Akash Das**, open-sourced under
 | Path | What it is |
 | --- | --- |
 | [`build.py`](build.py) | Builds `_site/`: renders the manual, copies the tool byte for byte, injects the site frame into the `/simulator/` copy, writes the sitemap and `robots.txt`. Refuses to build if the tool's own bytes changed. `--shots` also writes the screenshot sheet the wiki uses. |
-| [`render.py`](render.py) | The page shell (header with the categorised drawer menu, breadcrumbs, footer, structured data, the walkthrough hook) and the home, role, library and frameworks pages. |
-| [`pages/`](pages/) | One module per kind of page or picture: [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the home page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`maps.py`](pages/maps.py) and [`mapspecs.py`](pages/mapspecs.py) (every lesson's opening map, as a spec drawn in five shapes: bands, flow, pairs, funnel, fan), [`wikimaps.py`](pages/wikimaps.py) (the pictures on the hand-written wiki pages and the five journey arcs, from the same engine), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
+| [`render.py`](render.py) | The page shell (the mark and five-place top bar, the drawer menu, breadcrumbs, footer, structured data, the walkthrough hook) and the home, method, role, library and frameworks pages. |
+| [`DESIGN.md`](DESIGN.md), [`EXPERIENCE.md`](EXPERIENCE.md) | How the pages look, and how they work: tokens, layout rules, the information architecture, the reader journeys and the benchmarks behind them. Read these before changing a page's structure. |
+| [`pages/`](pages/) | One module per kind of page or picture: [`globe.py`](pages/globe.py) (the home page's hero: the land as a lattice of dots and the flight around it), [`boards.py`](pages/boards.py) and [`dg.py`](pages/dg.py) (the HTML boards on the method page), [`figures.py`](pages/figures.py) (a step's worked-example SVGs), [`bb.py`](pages/bb.py) and [`illos.py`](pages/illos.py) (the ByteByteGo-grammar pictures: the spine, traditional vs agentic, the risk ladder, chained probability, four methods on one spine), [`maps.py`](pages/maps.py) and [`mapspecs.py`](pages/mapspecs.py) (every lesson's opening map, as a spec drawn in five shapes: bands, flow, pairs, funnel, fan), [`wikimaps.py`](pages/wikimaps.py) (the pictures on the hand-written wiki pages and the five journey arcs, from the same engine), [`models.py`](pages/models.py), [`protocol.py`](pages/protocol.py), [`calcs.py`](pages/calcs.py), [`learn.py`](pages/learn.py) (the tutorial), [`_kit.py`](pages/_kit.py) (the opening strip, lenses, calculators, self-checks, steppers, Pip the guide). |
 | [`content/`](content/) | The words: `roles/*.json` (generated from `roles/_src/`), `learn/` (the tutorial's lessons and curriculum), `library/frameworks.json`. |
-| [`theme/`](theme/) | [`base.css`](theme/base.css) (one stylesheet, light and dark), [`site.js`](theme/site.js) (theme, copy buttons, the steps rail), [`engine.js`](theme/engine.js) (lenses, calculators, self-checks, steppers, boards), [`guide.js`](theme/guide.js) (the drawer menu, the per-page walkthrough narrated by Pip), [`learn.js`](theme/learn.js) (mermaid, drawn in the reader's theme). Every behaviour is progressive enhancement: the pages read without script. |
+| [`theme/`](theme/) | [`base.css`](theme/base.css) (one stylesheet, light and dark), [`site.js`](theme/site.js) (theme, copy buttons, the steps rail), [`engine.js`](theme/engine.js) (lenses, calculators, self-checks, steppers, boards), [`guide.js`](theme/guide.js) (the drawer menu, the top bar's two lists, the per-page walkthrough narrated by Pip), [`hero.js`](theme/hero.js) (the home page's turning globe and the bands that settle in), [`learn.js`](theme/learn.js) (mermaid, drawn in the reader's theme). Every behaviour is progressive enhancement: the pages read without script. |
 | [`app/SkyWays-Architect.html`](app/SkyWays-Architect.html) | **The tool, pristine.** A single self-contained file with no external dependencies. Published unchanged at `app/` and, with the site frame, at `simulator/`. |
 | [`frame/`](frame/) | The layer around the tool: [`config.js`](frame/config.js) (links, contact delivery), [`frame.js`](frame/frame.js) (attribution, licence and disclaimer, ideas invitation, contact drawer), [`frame.css`](frame/frame.css). Everything is prefixed `sw-` and appended to the end of `<body>`. |
 | [`tools/`](tools/) | [`shoot.mjs`](tools/shoot.mjs) (screenshots every embeddable picture, light and dark, for the wiki), [`ogshots.mjs`](tools/ogshots.mjs) (one 1200×630 social card per page, from `pages/ogcards.py`), [`simshots.mjs`](tools/simshots.mjs), [`check_diagrams.py`](tools/check_diagrams.py) (renders every mermaid diagram and fails on what a reader would notice). |
@@ -32,12 +34,13 @@ for full-screen sessions and embedding.
 
 ## Wayfinding
 
-Every page opens the same way: the title, then a strip that says **who the page is for, what to use it
-for, and how**, with a **Show me around** button. The button starts a walkthrough — Pip, the guide,
-highlights one element at a time and says what it does. The walkthrough is offered once per kind of
-page on a first visit (the choice is remembered in `localStorage`, nothing else is stored), and is
-always available from the bottom-left button. The **Menu** at the top left is a drawer with every page
-by category; **breadcrumbs** sit under the header on every page but the home page.
+Every page opens the same way: where you are (the mark, the top bar, the breadcrumbs), the page's name,
+one line, and a row of counts. Then the content. The instructions for a page (who it is for, what to use
+it for, how) are folded behind one line under the title, with a **Show me around** button inside: a
+walkthrough in which Pip, the guide, highlights one element at a time. Nothing pops up on arrival. On a
+wide screen the walkthrough also has a small standing button, bottom left. Nothing is stored for it: the
+only things the site keeps in `localStorage` are the reader's theme and reading lens. The **menu** at the top left is a drawer
+with every page by category and the search; on a phone it is the navigation.
 
 ## Search, and what machines read
 

@@ -124,7 +124,7 @@ is big and shallow. [The named methods on one spine](wiki:The-Agentic-PDLC#how-t
   changes is what each phase must leave behind before the next one starts.
 - **By every role.** Each phase has one accountable owner, but every role works in every phase,
   including the cells where a role should deliberately do nothing, which the
-  [by-role board](site:#by-role) draws.
+  [by-role board](site:method/#by-role) draws.
 
 ## Why it matters
 

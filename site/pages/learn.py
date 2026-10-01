@@ -229,13 +229,13 @@ def _visuals() -> dict[str, dict]:
 
     v = {
         "board:pdlc": (boards.pdlc, "The agentic PDLC: four phases, one hard gate between P1 and P2, and a "
-                       "line from P3 back to the next P0", "#pdlc"),
+                       "line from P3 back to the next P0", "method/#pdlc"),
         "board:loops": (boards.loops, "Eight loops that run every team's workflow: five carry work forward, "
-                        "three run backwards and need a named owner", "#loops"),
+                        "three run backwards and need a named owner", "method/#loops"),
         "board:by_role": (boards.by_role, "Each role across the four phases, including the cells that should "
-                          "stay empty", "#by-role"),
+                          "stay empty", "method/#by-role"),
         "board:delegation": (boards.delegation, "Where the model helps and where it must not: the model drafts, "
-                             "you check, and one thing per step is never delegated", "#delegation"),
+                             "you check, and one thing per step is never delegated", "method/#delegation"),
         "figure:bar_sheet": (figures.bar_sheet, "The acceptance bar rises with the damage a mistake does",
                              "qa/"),
         "figure:chain": (figures.chain, "Chained steps multiply: four steps at 90% each are right 66% of the "
@@ -844,14 +844,21 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
             f'<li><a class="lk" href="{t.id}/"><span class="lkn">{k}</span><span class="lkb"><b>{_E(t.title)}</b>'
             f"<span>{_E(t.blurb)}</span><small>{len(t.lessons)} lessons · about {total} min · "
             f"starts with “{_E(first.short)}”</small></span></a></li>")
+    n_all = sum(len(t.lessons) for t in tracks)
+    mins_all = sum(minutes(l.body) for t in tracks for l in t.lessons)
     rail = _rail(tracks, "start").replace('href="../', 'href="').replace('href="">', 'href="./">')
     rail = rail.replace('class="lstart" href=""', 'class="lstart" href="./"')
     html_ = f"""<div class="cols lcols">
 {rail}
 <main id="main" class="lesson">
-  <p class="kicker">A free tutorial in {sum(len(t.lessons) for t in tracks)} lessons</p>
-  <h1>{_E(smeta['title'])}</h1>
-  <p class="lede">{inline(smeta.get('dek', ''), link)}</p>
+  <header class="phead in-col">
+    <p class="kicker">The tutorial</p>
+    <h1>{_E(smeta['title'])}</h1>
+    <p class="lede">{inline(smeta.get('dek', ''), link)}</p>
+    <div class="ba"><a class="btn pri" href="{tracks[0].lessons[0].slug}/">Start with lesson one</a>
+      <a class="btn ghost" href="#start-where-you-are">Start from your role</a></div>
+    <p class="pmeta"><span>{n_all} lessons</span><span>{len(tracks)} tracks</span><span>about {round(mins_all / 60)} hours in all</span><span>free</span></p>
+  </header>
   {kit.orient(
       "Anyone running, building, testing, operating or funding software where a model does part of the work. "
       "and anyone preparing for an interview for such a job.",
@@ -860,11 +867,11 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
       ["New? Read <b>Getting started</b>, then <b>Fundamentals</b>, top to bottom.",
        "In a hurry? Use <b>Start where you are</b> below to jump to your role's lesson.",
        "Every lesson ends with <b>Apply it in your role</b> and a prompt to paste; every diagram is drawn live."])}
+  <h2 id="the-tracks">Eight tracks, in order</h2>
+  <ol class="lkeys two">{''.join(groups)}</ol>
   <article class="prose">
 {body}
   </article>
-  <h2 id="the-tracks" style="margin-top:36px">The tracks</h2>
-  <ol class="lkeys">{''.join(groups)}</ol>
   <p class="lalt">Also <a href="{WIKI}/Start-Here">on the wiki</a>, and as <a href="../llms.txt">llms.txt</a> for AI assistants.</p>
 </main>
 </div>"""
@@ -875,7 +882,6 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
     tour = [
         {"sel": ".lrail", "title": "Every lesson, in order", "body": "Eight tracks, top to bottom: getting started, fundamentals, methods decoded, running delivery, by role, teams and organisation, the case study, interviews and careers."},
         {"sel": ".orient", "title": "How to use the tutorial", "body": "Read in order if you are new; jump by role if you are not. Each lesson is five to ten minutes and ends with how to apply it in your role."},
-        {"sel": "#by-role", "title": "Your role across the phases", "body": "One row per role, one column per phase. Hover a cell to light its row and column; click one to open that step of the role's page."},
         {"sel": "#the-tracks", "title": "The tracks", "body": "Each card is a track with its lesson count and reading time. Start with the first; the interview banks are last."},
     ]
     return shell(title=smeta["title"], desc=smeta["description"], body=html_, depth=1, nav_id="learn",
@@ -1031,7 +1037,8 @@ def llms_txt(tracks: list[Track]) -> str:
               f"- [Templates]({BASE_URL}templates/) and [prompts]({BASE_URL}prompts/): every artefact skeleton and every prompt, copyable",
               f"- [The wiki]({WIKI}): the method written down, with decision trees, formulas, scenarios and exercises", "",
               "## Optional", "",
-              f"- [Home]({BASE_URL}): the method drawn as four boards, by role",
+              f"- [The method on one page]({BASE_URL}method/): the four phases, the eight loops, each role across the phases, and what a model may draft, as four boards",
+              f"- [Home]({BASE_URL}): what the manual is, the four methods on one line, and a way in by role",
               f"- [The SkyWays playbook]({BASE_URL}simulator/): ninety days of one airline's agentic build, playable",
               f"- [Source repository]({REPO}): curriculum, labs and this tutorial's source", ""]
     return "\n".join(lines)

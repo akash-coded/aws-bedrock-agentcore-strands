@@ -7,12 +7,6 @@
 const tag = document.querySelector("script[data-mermaid]");
 const sources = [...document.querySelectorAll("pre.mermaid")];
 
-// The lesson list and the contents box are open in the HTML so they work without script; on a
-// phone both start closed, so the lesson itself is the first thing on screen.
-if (matchMedia("(max-width: 900px)").matches) {
-  for (const d of document.querySelectorAll(".lnav, .otp")) d.removeAttribute("open");
-}
-
 const dark = () => {
   const t = document.documentElement.getAttribute("data-theme");
   return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;

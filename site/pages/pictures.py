@@ -148,7 +148,7 @@ def catalogue() -> list[dict]:
             title = lessons[slug].title if slug in lessons else slug.replace("-", " ")
         else:
             title = TITLES.get(key, key.split(":", 1)[1].replace("-", " ").replace("_", " ").capitalize())
-        used = v["live"] or ""  # "#pdlc" is a home-page anchor; "qa/" a page
+        used = v["live"] or ""  # a page, or a page and an anchor: "qa/", "method/#pdlc"
         items.append({"id": name, "key": key, "group": _group_of(key), "title": title, "alt": v["alt"],
                       "light": f"assets/learn/{name}.light.webp",
                       "dark": f"assets/learn/{name}.dark.webp" if dark.exists() else None,
@@ -224,8 +224,8 @@ def build(shell, urls: dict) -> str:
     ])
     body = f"""<div class="wrap"><main id="main" class="picpage">
   <div class="rowh"><div><div class="kicker">The picture pack</div><h1>Every picture in the manual and the simulator, ready to share</h1><p class="lede">{len(items)} diagrams, boards, decision trees and posters, each with a title, a caption and the page
-  that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p></div><div class="rowa"><b>On this page</b><p><span class="pill acc">{len(items)} pictures</span> <span class="pill">light and dark</span>
-     <span class="pill">MIT licence, credit the author</span></p><p style="margin:10px 0 0;font-size:13.5px">Six groups, each picture with a title, a caption, the page it comes from, and a download in light and dark.</p></div></div>
+  that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p>
+  <p class="pmeta"><span>{len(items)} pictures</span><span>light and dark</span><span>MIT licence, credit the author</span></p></div></div>
   {orient}
   <div class="picks" role="group" aria-label="Show a group">{chips}</div>
   {"".join(sections)}

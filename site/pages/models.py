@@ -465,7 +465,7 @@ def build(shell, urls: dict) -> str:
     ])
     body = f"""<div class="wrap"><main id="main" style="padding:34px 0 28px">
 <div class="rowh"><div>
-  <div class="kicker">Intuition</div>
+  <div class="kicker">Mental models</div>
   <h1>Twelve rules of thumb for software that decides</h1>
   <p class="lede">A procedure tells you what to do on Tuesday. A rule of thumb tells you what to expect before you
   start, so you can make a good call on a case this manual never covered. Each one below is explained in plain
@@ -511,4 +511,4 @@ confidence</a>.</p></div>
                       "reversibility, the hold as a lever, requests versus boundaries, and eight more.",
                  body=body, depth=1, nav_id="models",
                  canonical=urls["base"] + "models/",
-                 crumbs=[("For leadership", "../protocol/"), ("Mental models", "")], tour=tour, kind="models", og="models")
+                 crumbs=[("Libraries", ""), ("Mental models", "")], tour=tour, kind="models", og="models")

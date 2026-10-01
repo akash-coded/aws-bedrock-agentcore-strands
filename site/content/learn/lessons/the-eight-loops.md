@@ -188,4 +188,4 @@ with nobody first.
 | Layered defences that fail when the holes line up | **Borrowed** | Reason, J. (2000). Human error: models and management. *BMJ* 320 |
 | Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
 | Build to measure to learn, for comparison | **Borrowed** | Ries, E. (2011). *The Lean Startup*. Crown Business |
-| The SkyWays figures | **Illustrative**: a fictional airline | [Walk the loop map](site:#loops) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [Walk the loop map](site:method/#loops) |

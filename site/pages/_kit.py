@@ -106,16 +106,19 @@ def pip() -> str:
     return PIP
 
 
-def orient(audience: str, use: str, steps: list[str], tour: bool = True, extra: str = "") -> str:
-    """The opening strip: for whom, for what, how, and the tour button when the page has one."""
+def orient(audience: str, use: str, steps: list[str], tour: bool = True, extra: str = "", more: str = "") -> str:
+    """Who the page is for, what to use it for and how, folded behind one quiet line. A page opens
+    on its title and its content; this is for the reader who wants the instructions, not for everyone.
+    ``more`` is anything else that explains the page rather than being it; it folds away with the rest."""
     st = "".join(f"<li><span>{s}</span></li>" for s in steps)
     btn = (f'<button type="button" class="tourbtn" data-tour-start>{PIP}'
            f"<span>Show me around</span></button>") if tour else ""
-    return (f'<section class="orient" aria-label="How to use this page">'
+    return (f'<details class="howto"><summary>Who this page is for, and how to use it</summary>'
+            f'<section class="orient" aria-label="How to use this page">'
             f'<div class="oi"><span class="ok">For</span><p>{audience}</p></div>'
             f'<div class="oi"><span class="ok">Use it to</span><p>{use}</p></div>'
             f'<div class="oi"><span class="ok">How</span><ol>{st}</ol></div>'
-            f'<div class="oa">{btn}{extra}</div></section>')
+            f'<div class="oa">{btn}{extra}</div></section>{more}</details>')
 
 
 def tour(steps: list[dict]) -> list[dict]:

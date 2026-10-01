@@ -23,9 +23,8 @@ def pair(meaning: str, mechanism: str, la: str = "What it means", lb: str = "How
 def _hero() -> str:
     return f"""<div class="rowh"><div>
 <div class="kicker">For leadership</div>
-<h1>Organisational DNA for software that decides</h1>
-<p class="lede">For executives, leaders, the C-suite, entrepreneurs and business owners: the people who fund
-product development and answer for its results.</p>
+<h1>What changes for leaders when software decides</h1>
+<p class="lede">For the people who fund product development and answer for its results.</p>
 <p class="allure">If you lead an organisation, large language models have already changed the economics of
 building software. <em>Drafting is nearly free, judgement is the bottleneck, and part of every product you ship
 is now right only a share of the time.</em> This page shows what that does to your teams, your costs and your

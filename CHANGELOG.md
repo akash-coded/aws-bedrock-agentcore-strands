@@ -8,6 +8,59 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-01 · The front of the site, rebuilt around one screen
+
+The home page was doing the whole site's job several times over: it explained the method five times,
+offered five ways to pick a role and listed its inventory three times, in about 2,500 words. It is now
+six bands and about 600 words, 5,800px tall on a desktop where it was 7,300 and 7,000px on a phone where it
+was 15,500. The plan came from a five-advisor council with anonymous peer review, and from two benchmarks:
+ten product home pages and seventeen manuals, courses, libraries and simulators. The rules that came out of
+them are written down in [`site/DESIGN.md`](site/DESIGN.md) and [`site/EXPERIENCE.md`](site/EXPERIENCE.md).
+
+### Changed
+- **The hero.** "One manual for building software with AI agents", one sentence on what is inside it, two
+  buttons, and one line of counts signed by the author. Beside it, a dotted Earth turns once every four
+  minutes with one flight around it: four legs in the phase colours, P0 to P3, and the hard gate between
+  design and build. The globe is a canvas drawn from a lattice built at build time, with no library and no
+  download; it stops off screen and is drawn once for a reader who asked for reduced motion
+- **"Which agentic method should your team follow?" is section two, and it is answered.** Four methods as
+  bars along the four phases, the SkyWays PDLC as the whole line, in a real table
+- **One way to pick a role.** Six rows, five roles and the sponsor, each reading from where you start to
+  where you end up. The nine chips, the five cards, the matrix and the start table are gone from the home page
+- **The simulator is shown as itself**, its own opening screen in a frame, with one button
+- **A name and a mark.** Every page carries the SkyWays ring and plane, the same mark as the simulator, with
+  "The agentic manual" beside it. The top bar went from twelve links to five places and the simulator; Roles
+  and Library open as short lists, and the drawer still holds every page and the search
+- **Landing pages open on their content.** A page's name, one line and a row of counts. The "For / Use it to
+  / How" strip is folded behind one line, the "On this page" boxes and lists that repeated the side rail are
+  gone from the role and library pages, and nothing pops up on arrival: the walkthrough is a small button,
+  bottom left, on wide screens only
+- **The tutorial's landing page leads with its eight tracks** and two buttons: start with lesson one, or
+  start from your role
+- Headings on the leadership, mental models, picture pack and role pages lost their stock phrases
+
+### Added
+- **[`/method/`](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/)**: the SkyWays PDLC on one
+  page. The phase board, the eight loops, the role by phase matrix and the delegation board, each under the
+  question it answers
+
+### Moved, with the old links kept working
+- The four boards kept their ids. Links to `/#pdlc`, `/#loops`, `/#by-role` and `/#delegation` are forwarded
+  to `/method/` by the home page, as the simulator's old routes already are
+
+### Fixed
+- The phase label over each group of steps on a role page was pinned to the top left corner of the window,
+  because its class name was also the reading-progress bar's. The labels now sit over their groups
+- A visually hidden column label inside a scrolling table widened the frameworks page by 12px on a phone
+- A track page on a phone opened with the whole lesson list above its title; the list now starts folded there,
+  as it already did on a lesson
+- The closed contact drawer's shadow drew a grey band down the right edge of every page
+- Text on a solid hue (the role-step phase tags, the prompt posters' headers, two board captions) takes the ink
+  made for it in both themes; several of these sat near 3.8:1
+- Pressing `/` now lands on the search box every time; the drawer's first link used to take the focus first
+
+---
+
 ## 2026-09-25 · Geist, and pages that open in the right mode at once
 
 ### Changed

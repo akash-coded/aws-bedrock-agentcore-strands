@@ -1,7 +1,7 @@
 ---
 title: Agentic PDLC Tutorial: Run AI Agent Projects, Step by Step
 description: A free, step-by-step tutorial on the agentic PDLC: how to frame, specify, build, prove and run software where an AI model does the work, for every role.
-dek: Short lessons on running software projects where an AI model does part of the work, what to decide, in what order, and how to know you got it right. Free, method-agnostic, and credited.
+dek: Short lessons on running software projects where an AI model does part of the work: what to decide, in what order, and how to know you got it right.
 ---
 
 > [!TIP]
@@ -10,7 +10,7 @@ dek: Short lessons on running software projects where an AI model does part of t
 > model drafts, decides or acts. It works with whatever method you already use, including AWS AI-DLC,
 > the BMAD Method, spec-driven development and Scrum.
 
-{{board:by_role}}
+Each role's part in the four phases is drawn on [the method page](site:method/#by-role).
 
 ## Start where you are
 
@@ -31,6 +31,10 @@ dek: Short lessons on running software projects where an AI model does part of t
 | Preparing for an interview | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) | Then the bank for your role, with strong answers |
 | Curious about forward-deployed work | [What is an FDE?](lesson:what-is-a-forward-deployed-engineer) | The role, where it came from, and the FDPM beside it |
 | Wondering why these projects go wrong | [Why agentic AI projects fail](lesson:why-agentic-ai-projects-fail) | The failure modes are new, and quiet |
+| About to write a spec | [The eight-field spec](site:product-manager/#specify) | The step comes with its template |
+| About to launch | [Shadow, then five percent](site:product-manager/#launch) | The order a cut-over goes in |
+| Asked for a business case | [The value line](site:product-manager/#frame) | The arithmetic is worked |
+| Running a workshop | [37 scenarios](wiki:Scenario-Library) | Twenty sectors to choose from |
 
 ## What you will be able to do
 

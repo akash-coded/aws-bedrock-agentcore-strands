@@ -100,7 +100,8 @@ ROBOTS = ("User-agent: *\nAllow: /\n\n"
 # What each undated page is built from, so its lastmod is the date the sources last changed rather than
 # the date of the build. Lessons carry their own dates. The Pages workflow fetches full history for this.
 SOURCES = {
-    "": ["site/render.py", "site/pages/boards.py", "site/pages/illos.py", "site/pages/dg.py"],
+    "": ["site/render.py", "site/pages/globe.py", "site/theme/hero.js"],
+    "method/": ["site/render.py", "site/pages/boards.py", "site/pages/illos.py", "site/pages/dg.py"],
     "protocol/": ["site/pages/protocol.py"],
     "models/": ["site/pages/models.py"],
     "templates/": ["site/content/roles"],

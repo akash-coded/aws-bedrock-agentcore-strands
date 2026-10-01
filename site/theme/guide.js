@@ -5,18 +5,15 @@
      [data-menu]            the drawer: Esc closes it, so does a click on the scrim
      #tour-steps            a walkthrough the page declares as JSON — [{sel, title, body}] —
                             narrated by Pip, the guide, one highlighted element at a time
-     body[data-page]        names the page type, so the tour is offered once per type
+     [data-dd]              the top bar's two short lists: one open at a time
 
-   Nothing here fetches or reports anything. The only storage is which tours were seen. */
+   Nothing here reports anything, and nothing is stored. The search index is fetched from this
+   site the first time the search box is used. */
 (function () {
   "use strict";
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var store = {
-    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } }
-  };
   var PIP_FALLBACK = '<svg class="pip" viewBox="0 0 64 74" aria-hidden="true" focusable="false">' +
     '<path class="pa" d="M32 15V7"/><circle class="pt" cx="32" cy="5.5" r="3.6"/>' +
     '<rect class="ph" x="10" y="15" width="44" height="34" rx="15"/>' +
@@ -48,7 +45,9 @@
     });
     d.addEventListener("toggle", function () {
       document.documentElement.classList.toggle("menu-open", d.open);
-      if (d.open) { var f = $(".mp a", d); if (f) setTimeout(function () { f.focus(); }, 30); }
+      // opened by "/", the search box takes the focus; opened by hand, the first link does
+      if (d.open && !d.hasAttribute("data-for-search")) { var f = $(".mp a", d); if (f) setTimeout(function () { f.focus(); }, 30); }
+      d.removeAttribute("data-for-search");
     });
     // every link inside closes it, so the drawer never survives a same-page anchor
     $$(".mp a", d).forEach(function (a) { a.addEventListener("click", close); });
@@ -59,8 +58,6 @@
 
   /* -------------------------------------------------------------------- tour */
   var steps = null, at = 0, ui = null, opener = null;
-  var kind = document.body.getAttribute("data-page") || location.pathname;
-  var KEY = "manual-tour:" + kind;
 
   function load() {
     var s = $("#tour-steps");
@@ -151,7 +148,6 @@
     steps = steps || load();
     if (!steps || !steps.length) return;
     opener = from || document.activeElement;
-    var offer = $(".tour-offer"); if (offer) offer.remove();
     build();
     show(0);
   }
@@ -163,14 +159,13 @@
     window.removeEventListener("resize", place);
     window.removeEventListener("scroll", place);
     document.documentElement.classList.remove("touring");
-    store.set(KEY, "seen");
     fab();
     if (opener && opener.focus) opener.focus({ preventScroll: true });
   }
 
   /* the small standing invitation, bottom left, once a tour exists on the page */
   function fab() {
-    if ($(".tour-fab") || kind === "home" || !(steps || load())) return;
+    if ($(".tour-fab") || !(steps || load())) return;
     var b = el("button", "tour-fab", pip() + "<span>Show me around</span>");
     b.type = "button";
     b.setAttribute("aria-label", "Show me around this page");
@@ -178,29 +173,19 @@
     document.body.appendChild(b);
   }
 
-  /* the first visit to a page of this kind: an offer, never a takeover */
+  /* A page with a walkthrough keeps one small standing button for it, bottom left. Nothing pops
+     up on arrival: a reader who came for the page gets the page. */
   function offer() {
     steps = load();
     if (!steps || !steps.length) return;
-    if (store.get(KEY) || kind === "home") { fab(); return; }
-    var b = el("div", "tour-offer", pip() +
-      "<div><b>First time on this page?</b><span>I can show you how it works — about thirty seconds.</span></div>" +
-      '<div class="to-a"><button type="button" class="to-yes">Show me</button>' +
-      '<button type="button" class="to-no">No thanks</button></div>');
-    b.setAttribute("role", "status");
-    document.body.appendChild(b);
-    requestAnimationFrame(function () { requestAnimationFrame(function () { b.classList.add("on"); }); });
-    var gone = function () { b.classList.remove("on"); setTimeout(function () { b.remove(); }, 320); };
-    $(".to-yes", b).addEventListener("click", function () { gone(); start(b); });
-    $(".to-no", b).addEventListener("click", function () { store.set(KEY, "declined"); gone(); fab(); });
-    setTimeout(function () { if (document.body.contains(b)) { gone(); fab(); } }, 24000);
+    fab();
   }
 
   function wireTour() {
     $$("[data-tour-start]").forEach(function (b) {
       b.addEventListener("click", function () { start(b); });
     });
-    setTimeout(offer, 1400);
+    offer();
   }
 
   /* ------------------------------------------------------------------ search */
@@ -259,10 +244,42 @@
       var tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || tag === "select" || document.activeElement.isContentEditable) return;
       var d = $("[data-menu]"); if (!d) return;
-      e.preventDefault(); d.open = true; setTimeout(function () { input.focus(); }, 40);
+      e.preventDefault(); d.setAttribute("data-for-search", ""); d.open = true; setTimeout(function () { input.focus(); }, 40);
     });
   }
 
-  function init() { wireMenu(); wireTour(); wireSearch(); }
+  /* ------------------------------------------------------------ the top bar */
+  /* Roles and Library are each a <details>: they open without script. This closes one when the
+     other opens, on Esc, and on a click anywhere else. */
+  function wireDrops() {
+    var dds = $$("[data-dd]");
+    if (!dds.length) return;
+    var shut = function (but) { dds.forEach(function (d) { if (d !== but) d.open = false; }); };
+    dds.forEach(function (d) {
+      d.addEventListener("toggle", function () { if (d.open) shut(d); });
+    });
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest || !e.target.closest("[data-dd]")) shut(null);
+    });
+    // tabbing out of a list closes it, so it is never left open behind the focus
+    dds.forEach(function (d) {
+      d.addEventListener("focusout", function (e) {
+        if (d.open && e.relatedTarget && !d.contains(e.relatedTarget)) d.open = false;
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      dds.forEach(function (d) { if (d.open) { d.open = false; $("summary", d).focus(); } });
+    });
+  }
+
+  /* The tutorial's lesson list and a lesson's contents box are open in the HTML so they work without
+     script; on a phone both start closed, so the page itself is the first thing on screen. */
+  function foldOnPhones() {
+    if (!window.matchMedia || !matchMedia("(max-width: 900px)").matches) return;
+    $$(".lnav, .otp").forEach(function (d) { d.removeAttribute("open"); });
+  }
+
+  function init() { foldOnPhones(); wireMenu(); wireDrops(); wireTour(); wireSearch(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
