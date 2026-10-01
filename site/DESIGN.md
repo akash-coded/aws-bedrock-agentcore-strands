@@ -27,7 +27,7 @@ spacing:
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
 motion: {durations: [150ms, 250ms, 350ms, 400ms], easing: "cubic-bezier(.22,1,.36,1)", stagger: 40ms, reduced: "everything still, globe drawn once"}
-components: [header, hero-scene, section-head, spine-and-strands, role-rows, simulator-frame, track-list, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
+components: [header, hero-scene, section-head, spine, method-table, role-rows, simulator-frame, track-list, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
 ---
 
 # How the site looks
@@ -55,11 +55,8 @@ SkyWays is two things, and the page always says which. **SkyWays** alone is the 
 Near black is the page a reader opens. Warm paper is the light theme, chosen with the toggle and
 remembered; paper is always printed light. One ink ramp (ink, ink2, soft). Colour is spent on meaning only:
 
-- The four phase hues mean P0, P1, P2 and P3 wherever they appear: the hero's flight, the spine in section
-  two, the boards, the role roadmap. A phase never changes hue between pages.
-- A building method is drawn in neutral ink. Colour belongs to the spine, so a method that has a stage in
-  every phase still does not look like a second spine. Pointing at a method's name lends its strand the
-  hues of the phases it reaches.
+- The four phase hues mean P0, P1, P2 and P3 wherever they appear: the hero's flight, the spine, the
+  method table's bars, the boards, the role roadmap. A phase never changes hue between pages.
 - Rose means the hard gate.
 - A role's accent tints its own page and its row on the home page.
 - Indigo is the plane in the mark.
@@ -89,7 +86,7 @@ with wide tracking. No label is under 11px.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
   phone the words come first and the picture follows.
 - A band whose heading has a paragraph sets the two side by side on a wide screen, so the question and
-  its picture share one screen at 1440 by 900.
+  its picture start on the same screen at 1440 by 900.
 
 ## Motion
 
@@ -106,8 +103,8 @@ Two classes of motion, with different rules.
 **Transitions** answer the reader and take 150, 250, 350 or 400ms on the one easing curve. Opening takes
 longer than closing: a list opens in 250ms and leaves at once. Items that arrive in order are 40 to 80ms
 apart, and a sequence finishes in a second. The one long entrance is the hero's flight: its four
-legs draw 250ms apart and the picture is complete in two seconds. Section two arrives in the order it is
-read: the spine's four phases, the strands along it, then the way back.
+legs draw 250ms apart and the picture is complete in two seconds. The spine arrives in the order it is read: its four phases, each with its question, then the way back. The
+method table's bars then draw along it, row by row.
 
 **Explanatory motion** shows a sequence. It plays once, the first time the thing is scrolled to, and its
 last frame is the complete picture, which is also what a reader with reduced motion gets. Anything that
@@ -123,6 +120,12 @@ Refused, each for a reason: numbers that count up (a true number shown false), c
 (nothing on a phone), text that slides in on a reading page (the home page's bands rise once as they are
 reached, and that is the only place), a second drawing of a route the page already draws.
 
+## The simulator's picture
+
+The game at `/simulator/` is the one place the site uses pixel art, and it follows the same rules as
+everything else: hue means phase, rose means the gate and what is owed, words are real type, motion has
+a job and can be paused. Its canvas is drawn at night in both themes. `GAME.md` has the detail.
+
 ## Elevation and depth
 
 Depth is used twice. The hero's globe has a lit side, a limb and a glow in the page's own slate. The
@@ -132,8 +135,8 @@ when hovered. Everything else is flat on the page with a 1px hairline.
 ## Shapes
 
 Buttons are rounded rectangles (11 to 13px). Pills are for things that are tags or the one filled
-button in the header. Tiles are 20px. A strand's segments are 3px-cornered with 3px between them, so a method's stages read as one
-line with its phases still countable.
+button in the header. Tiles are 20px. A method's bars are 3px-cornered with 3px between them, so its stages read as one
+line with the phases still countable.
 
 ## Components
 
@@ -142,7 +145,8 @@ line with its phases still countable.
 | Header | Mark and name, five places (two of them short lists), the simulator button, the theme toggle. The drawer holds every page and the search. | `render.shell`, `render._nav` |
 | Hero scene | A dotted Earth turning once every four minutes, and one flight around it through P0 to P3 with the hard gate. Decorative: section two says the same in words. | `pages/globe.py`, `theme/hero.js` |
 | Section head | Mono eyebrow, a heading that continues in grey, one optional paragraph. | `.sec-h` |
-| Spine and strands | The SkyWays PDLC as one thick line in the phase hues that closes into a loop, a station at the start of each phase, the gate just before the third, the four questions inside. Four methods as thin neutral strands beside it: solid for a stage, dashed for a light touch. Names and phases are links; each strand has a text reading. | `pages/weave.py`, `.weave` |
+| Spine | The SkyWays PDLC as one thick line in the phase hues that closes into a loop: a station at the start of each phase, the gate just before the third. Above the line, the question each phase asks; below it, what a team hears when the question was skipped. | `pages/spine.py` `figure`, `.spine` |
+| Method table | Four methods as bars under the same four phases: solid for a phase covered, dashed for a light touch, hollow for a stage this manual adds (extended BMAD). The last row is the spine's own and is words: what it adds that no method carries. A real table. | `pages/spine.py` `coverage`, `.cover` |
 | Role rows | One row per role: code, name, where you start, where you end up, counts. A list, not cards. | `.seats` |
 | Simulator frame | The real opening screen of the simulator, light and dark. | `.simshot` |
 | Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. | `.jump.tracks` |
@@ -161,9 +165,11 @@ line with its phases still countable.
 Do:
 
 - Cut before you decorate. If a block repeats a link the page already carries, remove the block.
-- Give every band a picture that is the thing itself: the method as a spine with strands, the roles as
+- Give every band a picture that is the thing itself: the method as a spine, the methods as bars on it, the roles as
   rows, the simulator as its own screen, the tutorial as its tracks.
-- Give two kinds of thing two kinds of mark. The lifecycle and a building method are not drawn alike.
+- Give two kinds of thing two kinds of mark. The lifecycle and a building method are not drawn alike: in
+  the method table the methods are bars and the spine's row is words.
+- Show the reason before the thing. The spine is introduced by what goes wrong without it.
 - Keep numbers honest and computed. Lesson, template, prompt and picture counts come from the content
   at build time.
 - Measure contrast and overflow; do not judge them from a screenshot.
@@ -171,7 +177,9 @@ Do:
 Do not:
 
 - Put more than two buttons in one view, or more than one routing device on one page.
-- Explain the method twice on the home page. The boards live on `/method/`.
+- Explain the method twice on the home page. It gets two pictures, and each does one job: the spine says
+  what it is and why, the table says where the methods a reader has heard of sit on it. The boards live
+  on `/method/`.
 - Use a second accent colour, a gradient as decoration, or capitals with wide tracking.
 - Greet a reader with a popup. Nothing appears that was not asked for.
 - Write a heading that is a category ("Overview", "Features", "Resources").

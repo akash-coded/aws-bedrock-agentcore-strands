@@ -216,7 +216,8 @@ class Links:
         if scheme == "repo":
             kind = "tree" if path.endswith("/") or not path else "blob"
             return f"{REPO}/{kind}/main/{path.rstrip('/')}{frag}"
-        return f"{BASE_URL}simulator/{rest}"
+        # sim:#/toolkit/bar is a page of the workbench; a bare sim: is the simulator itself
+        return f"{BASE_URL}{'workbench' if rest.startswith('#/') else 'simulator'}/{rest}"
 
 
 # ---------------------------------------------------------------------------------------- visuals

@@ -71,27 +71,27 @@ DECIDE_KEYS = {"wikimap:choose", "wikimap:control-bill", "wikimap:cut-sprints", 
                "wikimap:hold-boundary", "wikimap:agent-topology", "wikimap:where-do-i-find-it",
                "wikimap:error-index", "wikimap:study-plans", "wikimap:sources", "wikimap:depth-of-change"}
 
-# The simulator's pictures: name, title, alt, the route they come from. Captured by site/tools/simshots.mjs.
+# The workbench's pictures: name, title, alt, the route they come from. Captured by site/tools/simshots.mjs.
 SIM = [
     ("sim-flight-plan", "The flight plan", "The SkyWays PDLC as one route: four legs from P0 to P3 under the sky, "
-     "thirteen stops, the gates between legs, and the control tower at Day 90", "simulator/#/quest"),
+     "thirteen stops, the gates between legs, and the control tower at Day 90", "workbench/#/quest"),
     ("sim-line-vs-loop", "A line, or a loop", "A traditional lifecycle as six stages in a line beside the SkyWays PDLC "
-     "as a loop of four phases, with the five published methods plugging into the loop", "simulator/#/start"),
+     "as a loop of four phases, with the five published methods plugging into the loop", "workbench/#/start"),
     ("sim-spine", "Four phases on one spine", "P0 Frame, P1 Specify, P2 Build and prove, P3 Run and learn, with the "
-     "soft and hard gates between them and what each phase leaves you with", "simulator/#/start"),
+     "soft and hard gates between them and what each phase leaves you with", "workbench/#/start"),
     ("sim-methods", "Where each method plugs in", "Spec Kit, Kiro, BMAD, AI-DLC and AiDD on the spine, and what the "
-     "SkyWays PDLC adds where they are silent", "simulator/#/start"),
-    ("sim-roles", "Who does what, when", "Six roles along the four phases, each step named", "simulator/#/start"),
+     "SkyWays PDLC adds where they are silent", "workbench/#/start"),
+    ("sim-roles", "Who does what, when", "Six roles along the four phases, each step named", "workbench/#/start"),
     ("sim-three-efforts", "Three efforts, one method", "Low effort in a chat, mid effort on a platform, high effort in "
-     "code: who builds, how long, what it fits and how much of the method applies", "simulator/#/effort"),
+     "code: who builds, how long, what it fits and how much of the method applies", "workbench/#/effort"),
     ("sim-same-task", "The same task at three efforts", "Answering customers' booking questions built as a chat, "
-     "as a platform flow and as a product feature", "simulator/#/effort"),
+     "as a platform flow and as a product feature", "workbench/#/effort"),
     ("sim-concept-map", "The concept map", "Fifty-five concepts placed by loop, phase and role, as one map",
-     "simulator/#/concepts"),
+     "workbench/#/concepts"),
     ("sim-loop-map", "The Loop Map", "Four phases on a spine and eight loops that open in one phase and close in "
-     "another, with the hard gate between P1 and P2", "simulator/#/loopmap"),
+     "another, with the hard gate between P1 and P2", "workbench/#/loopmap"),
     ("sim-gates", "Hard gates and soft gates", "The spine with its gates: the hard gate between P1 and P2, the soft "
-     "gates that run alongside the build", "simulator/#/governance"),
+     "gates that run alongside the build", "workbench/#/governance"),
 ]
 
 

@@ -6,10 +6,14 @@ Two things are published and they are kept strictly apart.
 **The manual** — ``content/roles/*.json`` rendered to static HTML by :mod:`render`. Home page, one
 page per role, and the template and prompt libraries.
 
-**The tool** — ``app/SkyWays-Architect.html``, which is never edited. It is copied byte-for-byte to
-``app/SkyWays-Architect.html``, and a second copy at ``simulator/index.html`` carries the site frame
-(attribution, licence, contact) injected only at the document boundaries. The build refuses to
-continue if the tool's own bytes changed.
+**The tool** — ``app/SkyWays-Architect.html``, the workbench: calculators, playbooks and the case in
+depth. The build never edits it. It is copied byte-for-byte to ``app/SkyWays-Architect.html``, and a
+second copy at ``workbench/index.html`` carries the site frame (attribution, licence, contact) injected
+only at the document boundaries. The build refuses to continue if the tool's own bytes changed.
+
+**The simulator** — ``simulator/index.html`` is the game, Ninety Days, rendered by :mod:`pages.play`
+from ``play/``. The workbench used to live at that address, so the game's first script forwards any
+old ``#/…`` route to ``/workbench/``.
 
     python site/build.py            # writes site/_site/
     python -m http.server -d site/_site 8000
@@ -35,14 +39,14 @@ SRC = SITE / "app" / "SkyWays-Architect.html"
 BASE_URL = "https://akash-coded.github.io/aws-bedrock-agentcore-strands/"
 REPO_URL = "https://github.com/akash-coded/aws-bedrock-agentcore-strands"
 AUTHOR = "Akash Das"
-TITLE = "SkyWays · the agentic PDLC operating playbook"
-DESCRIPTION = ("Ninety days of one airline's agentic build, in thirteen episodes: eight loops, nine simulations, "
-               "seventeen calculators and fifty-four role steps from frame to run. Built by Akash Das.")
+TITLE = "The SkyWays workbench · calculators, playbooks and the case in depth"
+DESCRIPTION = ("The workbench behind the SkyWays simulator: ninety days of one airline's agentic build in thirteen "
+               "episodes, eight loops, seventeen calculators and fifty-four role steps. Built by Akash Das.")
 
 JSON_LD = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "SkyWays · the agentic PDLC operating playbook",
+    "name": "The SkyWays workbench",
     "alternateName": "SkyWays Architect",
     "url": BASE_URL,
     "description": DESCRIPTION,
@@ -58,21 +62,21 @@ JSON_LD = {
     "isPartOf": {"@type": "CreativeWork", "name": "Agentic AI on AWS", "url": REPO_URL},
 }
 
-# The framed copy is served from /simulator/, so its links climb one level to the site's shared files,
+# The framed copy is served from /workbench/, so its links climb one level to the site's shared files,
 # and it is canonical for itself — pointing it at the home page told search engines it was a duplicate.
 HEAD = f"""
 <!-- site frame: injected at build time by site/build.py. The tool itself is untouched. -->
 <meta name="description" content="{DESCRIPTION}">
 <meta name="author" content="{AUTHOR}">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="{BASE_URL}simulator/">
+<link rel="canonical" href="{BASE_URL}workbench/">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F7F6F2">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SkyWays Architect">
 <meta property="og:title" content="{TITLE}">
 <meta property="og:description" content="{DESCRIPTION}">
-<meta property="og:url" content="{BASE_URL}simulator/">
+<meta property="og:url" content="{BASE_URL}workbench/">
 <meta property="og:image" content="{BASE_URL}assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -109,7 +113,8 @@ SOURCES = {
     "frameworks/": ["site/content/library/frameworks.json", "site/pages/illos.py"],
     "pictures/": ["site/pages/pictures.py", "site/assets/pictures", "site/assets/learn"],
     "app/SkyWays-Architect.html": ["site/app/SkyWays-Architect.html"],
-    "simulator/": ["site/app/SkyWays-Architect.html", "site/frame"],
+    "workbench/": ["site/app/SkyWays-Architect.html", "site/frame"],
+    "simulator/": ["site/play", "site/pages/play.py"],
 }
 
 
@@ -126,7 +131,7 @@ def git_date(paths: list[str]) -> str | None:
 
 def sitemap(today: str) -> str:
     # The tutorial carries its own dates; a page that did not change should not claim it did.
-    urls = render.dated_urls() + [(BASE_URL + "simulator/", None)]
+    urls = render.dated_urls() + [(BASE_URL + "simulator/", None), (BASE_URL + "workbench/", None)]
     dated = []
     for u, d in urls:
         rel = u[len(BASE_URL):]
@@ -166,15 +171,15 @@ def build(out: Path, shots: bool = False) -> None:
     # 1 · the manual
     pages = render.render(out)
 
-    # 2 · the tool, pristine, and a framed copy at /simulator/
+    # 2 · the tool, pristine, and a framed copy at /workbench/
     original = SRC.read_text(encoding="utf-8")
     (out / "app").mkdir(parents=True, exist_ok=True)
     (out / "app" / SRC.name).write_text(original, encoding="utf-8")
-    (out / "simulator").mkdir(parents=True, exist_ok=True)
-    (out / "simulator" / "index.html").write_text(inject(original), encoding="utf-8")
+    (out / "workbench").mkdir(parents=True, exist_ok=True)
+    (out / "workbench" / "index.html").write_text(inject(original), encoding="utf-8")
 
     # 3 · static assets
-    for folder in ("frame", "assets", "theme"):
+    for folder in ("frame", "assets", "theme", "play"):
         shutil.copytree(SITE / folder, out / folder)
     shutil.copy2(SITE / "404.html", out / "404.html")
     (out / "robots.txt").write_text(ROBOTS, encoding="utf-8")
@@ -191,7 +196,7 @@ def build(out: Path, shots: bool = False) -> None:
     # The tool must survive the build untouched, in both copies.
     if (out / "app" / SRC.name).read_text(encoding="utf-8") != original:
         sys.exit("the pristine copy of the tool differs from the source; refusing to continue")
-    framed = (out / "simulator" / "index.html").read_text(encoding="utf-8")
+    framed = (out / "workbench" / "index.html").read_text(encoding="utf-8")
     if framed.replace(HEAD, "", 1).replace(BODY, "", 1) != original:
         sys.exit("the build changed the tool itself; refusing to continue")
 
@@ -204,7 +209,8 @@ def build(out: Path, shots: bool = False) -> None:
         if p not in learn_pages:
             print(f"    {p} ({(out / p).stat().st_size:,} bytes)")
     print(f"  learn:  {len(learn_pages)} files (lessons, tracks, markdown twins, llms.txt)")
-    print(f"  tool:   app/{SRC.name} (pristine) + simulator/index.html (framed)")
+    print(f"  tool:   app/{SRC.name} (pristine) + workbench/index.html (framed)")
+    print(f"  game:   simulator/index.html + play/")
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ description: The BMAD Method structures AI-driven development like an agile team
 dek: A pipeline of personas that leaves a paper trail, excellent for audited, multi-team work, and six documents too many for a one-line fix.
 level: Beginner
 keywords: BMAD method, BMAD-METHOD, breakthrough method for agile AI-driven development, BMAD agents, BMAD vs spec-driven development, BMAD vs AI-DLC, AI agent personas for software development
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -82,12 +82,28 @@ The failure this playbook sees most is adopting a method as an identity. "We are
 the persona trail runs on a typo fix, and within a month the team quietly skips it everywhere,
 including on the audited work it was built for. [How much process a change needs](lesson:how-much-process-does-a-change-need).
 
+## Extended BMAD: one more hand-off, after launch
+
+BMAD's own loop ends on "learn and adjust". This playbook takes that step literally, runs it as a stage
+of its own after launch, and calls the result **extended BMAD**: the persona trail carries on through
+Run & Learn, so what production teaches arrives as a versioned document like everything before it.
+
+| Persona | Hands on, in Run & Learn | To |
+| --- | --- | --- |
+| QA | The drift report: each slice against its bar, every week | The product manager |
+| Product manager | The two-number report: the saving beside the spend | The sponsor |
+| Analyst | The incident, written up as the next brief | The next P0 |
+
+The extension is this playbook's own and is not part of BMAD as published. It costs three short
+documents a cycle, and it is what closes the loop: without it the trail stops at the merge, and the
+first anyone hears of drift is a customer.
+
 ## Where you'll use it
 
 - **On complex, multi-team or audited work**, where a versioned trail of decisions is the point.
 - **When one long AI conversation has become the design**, and you need the decisions out of it.
-- **Alongside the agentic PDLC**: BMAD structures P0 to P2; the lifecycle adds the bar per slice, the
-  authority budget and the operating loop that BMAD does not decide.
+- **Alongside the agentic PDLC**: BMAD structures P0 to P2 and, extended, hands on through P3; the
+  lifecycle adds the bar per slice and the authority budget that BMAD does not decide.
 
 ## Why it matters
 
@@ -134,6 +150,13 @@ each producing a document for the next. The exact set has changed between releas
 They overlap. Spec-driven development makes the spec the artefact agents build from; BMAD adds a
 pipeline of personas that produce and review those documents. Use spec-driven development on every
 change, and add BMAD's persona trail on complex, multi-team or audited work.
+
+### What is extended BMAD?
+
+This playbook's name for BMAD carried one phase further. BMAD as published plans and builds, and ends on
+"learn and adjust". Extended BMAD makes that a Run & Learn stage with three hand-offs: QA's weekly drift
+report, the product manager's two-number report, and the analyst's write-up of an incident as the next
+brief.
 
 ### Does BMAD work with Claude Code or Cursor?
 

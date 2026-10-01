@@ -82,12 +82,12 @@ The lessons are written once and published twice: here, with the live diagrams, 
 
 ### 3 · [Methods decoded](Tutorial-Methods-Decoded)
 
-*AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.*, 7 lessons, about 46 minutes.
+*AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.*, 7 lessons, about 47 minutes.
 
 1. **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)**, 7 min
 2. **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/)**, 7 min
 3. **[What Is AI-Driven Development (AIDD)? The Daily Craft](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-aidd/)**, 7 min
-4. **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)**, 6 min
+4. **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)**, 7 min
 5. **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)**, 6 min
 6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)**, 7 min
 7. **[How Much Process Does a Change Need? Sizing Agentic Work](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)**, 6 min

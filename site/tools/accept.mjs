@@ -18,7 +18,8 @@
 // any pass fails and prints what failed. It measures; it does not judge taste.
 //
 // What it cannot see: the globe is drawn on a canvas by script, so it is not among the browser's
-// animations; the pause control stopping it is checked by hand.
+// animations; the pause control stopping it is checked by hand. The simulator's canvas reports its own
+// frames, so that one is checked: none under reduced motion, and a pause control when it moves.
 
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
@@ -28,7 +29,10 @@ import { join } from "node:path";
 const BASE = process.argv[2];
 if (!BASE) { console.error("usage: node accept.mjs <site url, ending in />"); process.exit(2); }
 const PAGES = ["", "method/", "product-manager/", "qa/", "protocol/", "models/", "templates/", "prompts/",
-  "frameworks/", "pictures/", "learn/", "learn/fundamentals/", "learn/the-hard-gate/"];
+  "frameworks/", "pictures/", "learn/", "learn/fundamentals/", "learn/the-hard-gate/", "simulator/"];
+// The simulator draws on a canvas from script, which the browser's list of animations cannot see. Its
+// loop counts its own frames in window.NDFrames, so the gate can ask.
+const FRAMES = `(typeof window.NDFrames === "number" ? window.NDFrames : -1)`;
 // animations allowed to keep running, provided the page that runs them carries a pause control
 const PAUSABLE = /^(sc-fly|twr-)/;
 const LOADED = `(() => { const h = document.querySelector('.hd'); return !!h && getComputedStyle(h).position === 'sticky' && !!document.querySelector('main h1, .hero2 h1'); })()`;
@@ -81,7 +85,7 @@ const evaluate = async (expression) => {
 
 // Things that script or an animation may hide, and must have shown by now.
 const HIDDEN = `(() => {
-  const sel = '.rv,.weave .wv-trunk i,.weave .wv-m .wv-lane,.weave .wv-loop,.weave .wv-ph li,.weave .wv-back,.weave .wv-gate,.sc-wp li,.scene .leg,.scene .stop,.roadmap .rn,.hero2 .hx>*,main .sec,.dgb,' +
+  const sel = '.rv,.spine .sp-trunk i,.spine .sp-loop,.spine .sp-ph li,.spine .sp-back,.spine .sp-gate,.cover .bar,.sc-wp li,.scene .leg,.scene .stop,.roadmap .rn,.hero2 .hx>*,main .sec,.dgb,' +
     '.step>summary,.mix a,.lc,.lk,.seats a,.tile,[data-reveal]>*,figure.fig>svg>*,.mmg svg>*';
   const bad = {};
   document.querySelectorAll(sel).forEach((e) => {
@@ -150,11 +154,13 @@ await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, 
   const r = await evaluate(RUNNING);
   if (Object.keys(h).length) out.push("hidden: " + list(h));
   if (Object.keys(r).length) out.push("running: " + list(r));
+  const f = await evaluate(FRAMES);
+  if (f > 0) out.push(`the canvas drew ${f} frames`);
   return out;
 });
 await pass("3. motion allowed: after four seconds only pausable or scroll-led motion remains", { width: 1280, height: 800 }, async () => {
   const out = [];
-  // bands below the fold wait for the scroll, and so does the figure inside section two
+  // bands below the fold wait for the scroll, and so do the figures inside them
   const below = HIDDEN.replace(/'\.rv,[^']*?,\.sc-wp li,/, "'.sc-wp li,");
   if (below === HIDDEN) throw new Error("the selector for bands below the fold no longer matches");
   const h = await evaluate(below);
@@ -164,6 +170,7 @@ await pass("3. motion allowed: after four seconds only pausable or scroll-led mo
   if (Object.keys(h).length) out.push("hidden: " + list(h));
   if (Object.keys(stray).length) out.push("still running: " + list(stray));
   if (pausable && !(await evaluate(HAS_PAUSE))) out.push("something keeps moving and the page has no pause control");
+  if ((await evaluate(FRAMES)) > 0 && !(await evaluate(HAS_PAUSE))) out.push("the canvas keeps moving and the page has no pause control");
   return out;
 });
 await pass("4. scrolled through, motion allowed: nothing left hidden", { width: 1280, height: 800, wait: 1800 }, async () => {

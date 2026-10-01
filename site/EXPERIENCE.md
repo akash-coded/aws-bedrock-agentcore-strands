@@ -15,8 +15,9 @@ pages behave. It records the decisions of the October 2026 restructure and the e
 
 A static site, rendered by Python to plain HTML, one stylesheet and a few small scripts. Every page
 reads without script. Every page opens dark. Light is the reader's choice, made with the toggle in the
-top bar and remembered; paper is always printed light. The simulator is a separate single file, published
-unchanged, and keeps its own day and night switch.
+top bar and remembered; paper is always printed light. The simulator is a game, Ninety Days, with its
+own spine in `GAME.md`. The tool that used to be the simulator is the workbench: a separate single file,
+published unchanged, with its own day and night switch.
 
 Readers arrive cold, from a search ("AI-DLC vs BMAD", "spec-driven development template") or from a
 link a colleague sent. Most land on a deep page, not the home page, and most have never heard of
@@ -26,13 +27,14 @@ this is, show that it is real, and offer one way in.
 ## Information architecture
 
 ```
-Home                      what this is, the methods on one spine, the roles, the simulator, the tutorial, the shelf
+Home                      what this is, why a spine, the methods on it, the roles, the simulator, the tutorial, the shelf
 ├─ Tutorial   /learn/     55 lessons in eight tracks
 ├─ Roles                  product manager, solution architect, engineering lead, QA, DevOps
 ├─ Method     /method/    the four boards: phases, loops, roles by phase, what a model may draft
 ├─ Library                templates, prompts, mental models, frameworks, picture pack
 ├─ Leadership /protocol/  for whoever funds the work
-└─ Simulator  /simulator/ the worked case as a game
+├─ Simulator  /simulator/ Ninety Days: the worked case as a game
+└─ Workbench  /workbench/ the earlier tool: episodes in depth, calculators, role playbooks
 ```
 
 The top bar carries those five places and the simulator. The drawer (top left) still lists every page
@@ -42,23 +44,27 @@ The home page, top to bottom:
 
 1. **Hero.** The headline, one sentence that says what the site is and that it is free, two buttons
    (start the tutorial, play the simulator), one line of counts and the author.
-2. **Which agentic method should you follow?** Answered in the heading (whichever fits, they run along
-   one spine), then drawn: the SkyWays PDLC as one line that closes into a loop, and four methods as
-   strands along it. One link below it sorts the other names a reader may have heard.
-3. **Start from the job you do.** Seven rows: five roles, the forward-deployed engineer and the sponsor.
+2. **Agent projects fail quietly.** The reason to care, then the spine: the SkyWays PDLC as one line that
+   closes into a loop, the question each phase asks above it, and under it the line a team hears when
+   the question was skipped.
+3. **Which agentic method should you follow?** Answered in the heading (whichever fits your team), then
+   drawn as a table: four methods as bars under the same four phases, and a last row for what the spine
+   adds. One link below it sorts the other names a reader may have heard.
+4. **Start from the job you do.** Seven rows: five roles, the forward-deployed engineer and the sponsor.
    The page's only routing device, with one quiet link to the tutorial's nineteen starting points for
    anyone not on the list.
-4. **Or play the ninety days yourself.** The simulator's own opening screen, three numbers, one button.
-5. **Or learn it in order.** The eight tracks, numbered, and one button to lesson one.
-6. **Take what you need.** Four tiles: templates, prompts, mental models, pictures.
+5. **Or play the ninety days yourself.** The game on Day 45 as its own picture, three numbers, one button,
+   and a quiet link to the workbench.
+6. **Or learn it in order.** The eight tracks, numbered, and one button to lesson one.
+7. **Take what you need.** Four tiles: templates, prompts, mental models, pictures.
 
-Bands three to five are one sentence: start from your job, or play it, or learn it in order. The three
+Bands four to six are one sentence: start from your job, or play it, or learn it in order. The three
 headings carry the "or", so nothing has to explain that there are three ways in.
 
 What left the home page went one click deeper, not away. The phase board, the eight loops, the role by
 phase matrix and the delegation board are on `/method/` with their ids unchanged. Old links to
 `/#pdlc`, `/#loops`, `/#by-role` and `/#delegation` are forwarded there by a script in the home page's
-head, the same way the simulator's old `/#/…` routes are. The task table ("about to write a spec",
+head, the same way the workbench's old `/#/…` routes are. The task table ("about to write a spec",
 "about to launch") is on the tutorial's landing page as "Start where you are".
 
 ## Voice and tone
@@ -79,7 +85,8 @@ head, the same way the simulator's old `/#/…` routes are. The task table ("abo
 | --- | --- |
 | Top bar lists (Roles, Library) | Each is a `<details>`: opens on click or Enter without script. Script closes the other one, and closes on Esc, on a click elsewhere and when the focus tabs out. The parent is marked when a child page is current. |
 | Drawer | Unchanged: `<details>`, Esc and scrim close it, `/` opens it on the search box. |
-| Spine and strands | One piece of markup, two layouts. Over 1000px the names fan into a bundle under the spine and the four phases sit inside the loop. At 1000px and under each name sits beside its own strand, the spine first, and the phase questions follow as a list. Method names and phases link to their lessons; each strand has a hidden text reading ("Has a stage in Frame, Design & Spec and Build & Prove."). Pointing at or focusing a name dims the other strands and colours its own. |
+| Spine | One piece of markup, two layouts. Over 1000px the name curves into the line, the four questions sit inside the loop and the four symptoms hang under it. At 1000px and under the line comes first and each phase follows with its question and its symptom. The phases link to their lessons. The drawing is hidden from a screen reader; each symptom is prefixed, for a screen reader, with "Skip it, and you hear". |
+| Method table | Phase headers and method names link to their lessons. Bars are cells with a hidden reading ("covers this phase", "extended in this manual"). Fits a 375px screen without scrolling; there, the spine's row becomes a list under the table. |
 | Role rows | The whole row is the link. Hover tints the row in the role's colour and moves the arrow. Two rows are not role journeys and say so in their counts: the forward-deployed engineer's field guide and the sponsor's page. |
 | Track list | Eight links, numbered in order, each with its lesson count. |
 | Simulator frame | The whole frame is one link to the simulator. |
@@ -111,6 +118,8 @@ head, the same way the simulator's old `/#/…` routes are. The task table ("abo
 - **Theme change:** the globe re-reads its colours and redraws; the simulator frame swaps its picture.
 - **Print:** always the light tokens, whatever the screen shows.
 - **Old anchor on the home page:** forwarded to `/method/` before the page paints.
+- **Old workbench route:** a link to `/simulator/#/…` or `/#/…` is forwarded to `/workbench/#/…` before
+  the page paints. The game never uses a hash that begins with a slash.
 
 ## Interaction primitives
 
@@ -124,9 +133,10 @@ at least 44px tall; a link inside a sentence, and a checkbox in a self-check, ke
 - Text contrast is at least 4.5:1 in both themes, measured on every page type at 375 and 1280px. Two
   things sit under it by design: the grey continuation of a display heading, used only at 29px and above
   where it passes the 3:1 large-text bar, and a disabled button.
-- The hero scene is `aria-hidden`: it repeats section two, which is real text in two labelled lists.
-- Section two's drawing is hidden from a screen reader. What it says is in the markup: two labelled
-  lists, the names (each with a reading of where it has a stage) and the phases (each with its question).
+- The hero scene is `aria-hidden`: it repeats the spine band, which is real text.
+- The spine's drawing is hidden from a screen reader. What it says is in the markup: a list of the four
+  phases, each with its question and its symptom. The method table has a caption, column and row
+  headers, and a text reading in every cell.
 - Nothing moves on its own for more than five seconds without a control to stop it (WCAG 2.2.2): the
   two things that do, the hero's flight and the tower, each carry one.
 - "Copied" is announced through a polite live region; the rail marks the current section with `aria-current`.
@@ -140,9 +150,10 @@ Illustrative readers, used to test the pages. None of them is a real person.
 **Meera, an engineering lead, on her phone between meetings.** She searched "AI-DLC vs BMAD" and
 landed on the home page.
 1. The first screen tells her it is a free manual for teams building with AI agents.
-2. She scrolls once. The heading is her own question, and it answers: whichever fits, they run along one spine.
-3. She reads the strands, each beside its name: BMAD's ends at the build, AIDD has a stage in the build only.
-4. *The moment:* she sees her team can keep its method and still owes the four questions, and taps AI-DLC.
+2. She scrolls once and recognises a line under Build & Prove: the score went up, and so did the complaints.
+3. She scrolls again. The heading is her own question. She reads the bars, each beside its name: AIDD
+   covers the build only, BMAD reaches Run & Learn only as extended here.
+4. *The moment:* she reads the last row, what the spine adds that no method carries, and taps AI-DLC.
 
 **Daniel, a product manager, from a link a colleague posted.**
 1. Home: he reads one sentence and scrolls to the roles.
@@ -163,7 +174,9 @@ landed on the home page.
 
 **Li Wei, who would rather play than read.**
 1. Home: the second button in the hero says "Play the simulator".
-2. *The moment:* the simulator opens on its own start screen, with a guided path through the case.
+2. The first button on the game's first screen is "Start at Day 1". No role or mode has to be picked first.
+3. Twenty seconds in, a call with a price on it. On Day 9 a choice from Day 6 comes back, quoted.
+4. *The moment:* the verdict on Day 90, and the wish to play the other path.
 
 ## Inspiration and anti-patterns
 
@@ -196,9 +209,10 @@ an instruction strip, a contents box, a walkthrough button and a popup.
   band. The first phone screen holds the headline, the sentence, both buttons and the counts.
 - **Under 860px:** the top bar keeps the mark, the simulator and the theme; the five places are in the
   drawer.
-- **1000px and under:** section two becomes rows, the spine first, with the four questions as a list under
-  it. Under 600px two things give way: the methods' one-line glosses are dropped, and the gate is a rose
-  bar before P2 with its name in the key below.
+- **1000px and under:** the spine band becomes the line first, then each phase with its question and its
+  symptom. Under 600px the gate on the line is a rose bar before P2.
+- **Under 760px:** the method table drops its one-liners and fits the screen, and the spine's row becomes
+  a list under it.
 - **Under 760px:** role rows become two lines.
 
 ## The second council: the inner pages, and motion
@@ -254,16 +268,27 @@ the QA lead's eight steps); a pinned scroll sequence; a three-doors band (a seco
 list of audiences (the forward-deployed engineer got a row, everyone else the link to the nineteen
 starting points).
 
+## After the third council: the owner's correction
+
+The strands figure shipped and the owner found it harder to read than the table it replaced, and asked
+for both to be kept, each in a better form, with a reason for the visitor to care. So the page now has
+the two pictures the third council's advisors had argued over, each doing one job. The spine lost its
+strands and gained the reason it exists: under each phase, the line a team hears when that phase's
+question went unasked, taken from the phase's own lesson. The table came back with its bars in the phase
+hues, and with the reviews' finding kept: the SkyWays PDLC is not a fifth bar. Its row is words, what it
+adds in each phase that no method carries. BMAD's Run & Learn cell is hollow: a stage this manual adds,
+called extended BMAD and described in the BMAD lesson.
+
+The first council's rule against explaining the method twice still stands in spirit: two pictures, two
+different questions (why a spine, and where your method sits on it), and neither repeats the other's text.
+
 ## Open items
 
-- The simulator's opening screen names a different set of methods (it adds Spec Kit and Kiro) and uses
-  "AiDD" where the lessons and the home page use "AIDD". So do the frameworks page's figures. The simulator
+- The workbench's opening screen names a different set of methods (it adds Spec Kit and Kiro) and uses
+  "AiDD" where the lessons and the home page use "AIDD". So do the frameworks page's figures. The workbench
   is published unchanged, so the spelling is settled there first or not at all.
 - "Agentic STLC" has an FAQ entry and no lesson. If it earns one, it is built from the QA lead's journey.
 - The product manager's row and the QA lead's row both end on "a number you can defend".
-- BMAD has no stage in Run & Learn in the figure, in `frameworks.json` and on the frameworks page's plug
-  board. The table in the lesson "one lifecycle for every method" gives it one ("learn and adjust, into
-  the next plan"). One of the two should change.
 - The acceptance gate has no print pass. Print was checked by hand for this round.
 
 - The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy; until it runs,

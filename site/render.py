@@ -66,11 +66,11 @@ def md(text: str) -> str:
 
 # Before the manual existed, the tool was served at the root, so links of the form
 # ".../#/pm/step-6" are in the wiki, in discussions and in people's bookmarks. The tool now lives at
-# /simulator/, and this forwards those routes there before anything renders. Runs in <head> on the
+# /workbench/, and this forwards those routes there before anything renders. Runs in <head> on the
 # home page only; every other page is new and has no legacy routes to honour.
 LEGACY_HASH_REDIRECT = (
     "\n<script>(function(){var h=location.hash;"
-    "if(h&&h.charAt(1)===\"/\"){location.replace(\"simulator/\"+h);}"
+    "if(h&&h.charAt(1)===\"/\"){location.replace(\"workbench/\"+h);}"
     "else if(/^#(pdlc|loops|by-role|delegation)$/.test(h)){location.replace(\"method/\"+h);}})();</script>"
 )
 
@@ -133,7 +133,8 @@ def _menu(up: str, nav_id: str) -> str:
                        ("prompts/", "Prompt templates", "prompts"),
                        ("pictures/", "The picture pack", "pictures"),
                        ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks")]),
-        ("Play", [("simulator/", "The SkyWays PDLC Simulator · the method, playable", "simulator")]),
+        ("Play", [("simulator/", "Ninety Days · the simulator", "simulator"),
+                  ("workbench/", "The workbench · calculators, playbooks, the case in depth", "workbench")]),
         ("Elsewhere", [(WIKI, "The wiki", ""), (REPO, "The repository", ""),
                        (REPO + "/discussions/101", "Ideas and contact", "")]),
     ]
@@ -161,7 +162,8 @@ LIBRARY = [("templates", "Templates", "The document each step produces"),
            ("prompts", "Prompts", "Paste into your model, then edit"),
            ("models", "Mental models", "Rules of thumb for agent work"),
            ("frameworks", "Frameworks", "The four methods and every acronym"),
-           ("pictures", "Picture pack", "Every diagram, free to reuse")]
+           ("pictures", "Picture pack", "Every diagram, free to reuse"),
+           ("workbench", "Workbench", "Seventeen calculators and the case in depth")]
 
 
 def _nav(up: str, nav_id: str) -> str:
@@ -281,10 +283,10 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 {crumb_html}
 {body}
 <footer class="ft" data-site-footer><div class="in">
-  <div class="fb">{MARK}<b>SkyWays</b><span>The agentic manual and the PDLC Simulator, free and open source.</span></div>
+  <div class="fb">{MARK}<b>SkyWays</b><span>The agentic manual and its simulator, free and open source.</span></div>
   <section>
     <h2>About</h2>
-    <p><strong>The agentic manual</strong> and the <strong>SkyWays PDLC Simulator</strong> are products of
+    <p><strong>The agentic manual</strong>, its simulator and its workbench are products of
     <strong>SkyWays Consultancy</strong>, conceptualised and built by <strong>{AUTHOR}</strong> and open-sourced
     under the <a href="{REPO}/blob/main/LICENSE">MIT licence</a> for knowledge and experience sharing. Keep the
     attribution when you reuse them.</p>
@@ -293,7 +295,8 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     endorsed by Amazon Web Services or any airline.</p>
   </section>
   <section><h2>Go deeper</h2><ul>
-    <li><a href="{up}simulator/">The SkyWays PDLC Simulator, the whole method as a game</a></li>
+    <li><a href="{up}simulator/">Ninety Days, the simulator: the worked case as a game</a></li>
+    <li><a href="{up}workbench/">The workbench: calculators, playbooks, the case in depth</a></li>
     <li><a href="{up}learn/">The tutorial, every lesson in order</a></li>
     <li><a href="{WIKI}/The-Agentic-PDLC">The method, as a wiki</a></li>
     <li><a href="{WIKI}/Formulas-and-Calculators">Every formula, worked</a></li>
@@ -696,18 +699,27 @@ PHASES = [
     ("P2", "Build &amp; Prove", "Does it meet the bar, slice by slice?", "teal", "learn/p2-build-and-prove/"),
     ("P3", "Run &amp; Learn", "Is it still working, and what did it cost?", "amber", "learn/p3-run-and-learn/"),
 ]
-# How far each method reaches along the line: 2 covers the phase, 1 touches it lightly, 0 says nothing.
-# The same reading as the frameworks page's plug board, which carries the detail.
+# What a team hears when a phase's question went unasked: one line per phase, each from that phase's own
+# lesson ("Sound familiar?").
+SKIPPED = [
+    "The business case says 'significantly faster', and nobody has a number.",
+    "The refund limit is $400 in the deck and in the prompt, and nowhere in the code.",
+    "The overall score went up after a prompt change, and so did the complaints.",
+    "Finance found the token bill before the product manager reported the saving.",
+]
+# How far each method reaches along the spine: 2 covers the phase, 1 touches it lightly, 0 says nothing,
+# "x" is a stage this manual adds to the method (extended BMAD). The same reading as the frameworks
+# page's plug board, which carries the detail.
 COVERAGE = [
     ("AI-DLC", "learn/what-is-ai-dlc/", "From AWS, built in bolts of days", (2, 2, 2, 2)),
-    ("BMAD Method", "learn/what-is-the-bmad-method/", "AI personas, working as an agile team", (2, 2, 2, 0)),
+    ("BMAD Method", "learn/what-is-the-bmad-method/", "AI personas, working as an agile team", (2, 2, 2, "x")),
     ("Spec-driven development", "learn/what-is-spec-driven-development/", "The spec is what you maintain", (1, 2, 2, 1)),
     ("AIDD", "learn/what-is-aidd/", "The daily craft with a coding agent", (0, 0, 2, 0)),
 ]
 
 
 def home_page(roles: list[dict]) -> str:
-    from pages import globe, learn, pictures, weave
+    from pages import globe, illos, learn, pictures, spine
     built = {r["id"]: r for r in roles}
     total_steps = sum(len(r["steps"]) for r in roles)
     total_prompts = sum(len(s["prompts"]) for r in roles for s in r["steps"])
@@ -765,14 +777,24 @@ def home_page(roles: list[dict]) -> str:
     body = f"""{hero}
 <main id="main" class="home">
 
-<section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
-  <header class="sec-h split rv"><p class="eyebrow">The method</p>
-    <h2 id="h-method">Which agentic method should you follow? <span>Whichever fits your team. They all run
-    along one spine.</span></h2>
-    <p>The SkyWays PDLC is that spine, idea to production and back. It keeps the part each method does
-    best, and asks at every phase whether what you built is right.</p></header>
-  <div class="rv">{weave.figure(PHASES, COVERAGE, "learn/what-is-the-agentic-pdlc/")}</div>
+<section class="band" id="why" aria-labelledby="h-why"><div class="wrap">
+  <header class="sec-h split rv"><p class="eyebrow">Sound familiar?</p>
+    <h2 id="h-why">Agent projects fail quietly. <span>A phase ended on a date instead of on evidence.</span></h2>
+    <p>The SkyWays PDLC is four phases, each ending on evidence, with one hard gate and a way back. Skip a
+    phase's question, and you hear the line beneath it.</p></header>
+  <div class="rv">{spine.figure(PHASES, SKIPPED, "learn/what-is-the-agentic-pdlc/")}</div>
   <p class="links rv"><a class="more" href="method/">See the whole spine on one page <i aria-hidden="true">→</i></a>
+    <a class="more" href="learn/why-agentic-ai-projects-fail/">Seven ways these projects fail <i aria-hidden="true">→</i></a></p>
+</div></section>
+
+<section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
+  <header class="sec-h split rv"><p class="eyebrow">The methods</p>
+    <h2 id="h-method">Which agentic method should you follow? <span>Whichever fits your team. Each has
+    its place on the spine.</span></h2>
+    <p>A method tells you how to build. The spine keeps the part each does best, and adds what none of
+    them decides.</p></header>
+  <div class="rv">{spine.coverage(PHASES, COVERAGE, illos.ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
+  <p class="links rv"><a class="more" href="frameworks/">How the four merge into one <i aria-hidden="true">→</i></a>
     <a class="more" href="learn/ai-dlc-vs-aidd-vs-agentic-sdlc/">Agentic SDLC, agentic STLC, AIDLC: every name, sorted <i aria-hidden="true">→</i></a></p>
 </div></section>
 
@@ -788,17 +810,17 @@ def home_page(roles: list[dict]) -> str:
 <section class="band play" id="simulator" aria-labelledby="h-play"><div class="wrap">
   <div class="play-t rv"><p class="eyebrow">The simulator</p>
     <h2 id="h-play">Or play the ninety days yourself.</h2>
-    <p>SkyWays is a fictional airline building a rebooking assistant for stranded passengers. The simulator
-    replays that build in thirteen dated episodes. You make the calls and keep the score.</p>
-    <dl class="nums"><div><dt>13</dt><dd>episodes</dd></div><div><dt>9</dt><dd>simulations</dd></div>
-      <div><dt>17</dt><dd>calculators</dd></div></dl>
-    <div class="ba"><a class="btn pri" href="simulator/">Open the simulator</a>
-      <a class="more" href="learn/skyways-case-study/">Read the case first <i aria-hidden="true">→</i></a></div>
+    <p>SkyWays is a fictional airline building a rebooking assistant for stranded passengers. Thirteen
+    days decide the ninety. Every call has a price in days, and some prices arrive later.</p>
+    <dl class="nums"><div><dt>13</dt><dd>calls to make</dd></div><div><dt>5</dt><dd>hands-on tasks</dd></div>
+      <div><dt>3</dt><dd>ways to play</dd></div></dl>
+    <div class="ba"><a class="btn pri" href="simulator/">Play Ninety Days</a>
+      <a class="more" href="workbench/">Open the workbench <i aria-hidden="true">→</i></a></div>
   </div>
-  <a class="simshot rv" href="simulator/" aria-label="Open the SkyWays PDLC Simulator">
-    <span class="simbar" aria-hidden="true"><i></i><i></i><i></i><b>SkyWays PDLC Simulator</b></span>
+  <a class="simshot rv" href="simulator/" aria-label="Play Ninety Days, the SkyWays simulator">
+    <span class="simbar" aria-hidden="true"><i></i><i></i><i></i><b>Ninety Days</b></span>
     <img class="light" src="assets/pictures/sim-home.light.webp" width="1360" height="850" loading="lazy" decoding="async"
-      alt="The simulator's opening screen: the four phases as a loop, six roles to choose from, and a guided path through the case">
+      alt="The simulator on Day 45: the airline's head office cut open, seven rooms on four floors, the QA room lit, and the day's decision beside it with its price in days">
     <img class="dark" src="assets/pictures/sim-home.dark.webp" width="1360" height="850" loading="lazy" decoding="async" alt=""></a>
 </div></section>
 
@@ -959,7 +981,7 @@ def frameworks_page() -> str:
                "<p>They are not competitors. Each speaks to part of the lifecycle, and the decision that matters is "
                "not which method to adopt but how deep to go on this change. A filled cell is where a method says "
                "something about that phase; a dashed cell is where you bring your own answer.</p>",
-               "Try it in the simulator", try_([("../simulator/#/compare", "Compare any two methods side by side")]))
+               "Try it in the simulator", try_([("../workbench/#/compare", "Compare any two methods side by side")]))
         + '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
         f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
 
@@ -981,7 +1003,7 @@ def frameworks_page() -> str:
                "share of the time rather than always, three things move: a bar per slice, an authority budget, and "
                "one hard gate before anything is built. Production then feeds the next frame instead of ending the "
                "story.</p>",
-               "Try it in the simulator", try_([("../simulator/#/loopmap", "See which loops close each phase")]))
+               "Try it in the simulator", try_([("../workbench/#/loopmap", "See which loops close each phase")]))
         + pic(illos.pdlc_vs) + "</div>"
 
         '<div class="sec" id="ladder">'
@@ -990,8 +1012,8 @@ def frameworks_page() -> str:
                "cap can. The band a change sits in comes from what it touches, and the band decides who reviews it "
                "and whether a person signs before it ships.</p>",
                "Try it in the simulator",
-               try_([("../simulator/#/toolkit/gateclass", "Classify a change as a hard or soft gate"),
-                     ("../simulator/#/toolkit/gates", "Map the control each tool carries")]))
+               try_([("../workbench/#/toolkit/gateclass", "Classify a change as a hard or soft gate"),
+                     ("../workbench/#/toolkit/gates", "Map the control each tool carries")]))
         + pic(illos.ladder) + "</div>"
 
         '<div class="sec" id="chain">'
@@ -999,7 +1021,7 @@ def frameworks_page() -> str:
                "<p>Every step that is only probably right multiplies. Four chained steps at 90 percent succeed 66 "
                "percent of the time, and they fail fluently, with no error to catch. Two defences, in order: keep "
                "chains short, then put an independent checker after the steps that are costly and easy to miss.</p>",
-               "Try it in the simulator", try_([("../simulator/#/toolkit/confidence", "Check whether a score has proven the bar")]))
+               "Try it in the simulator", try_([("../workbench/#/toolkit/confidence", "Check whether a score has proven the bar")]))
         + pic(illos.chain) + "</div>"
 
         '<div class="sec" id="decoder"><h2>The acronym decoder</h2>'
@@ -1061,7 +1083,8 @@ def search_index(roles: list[dict]) -> str:
         {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
         {"t": "Prompt templates", "d": "Every prompt in the manual as a template, copyable, by role.", "u": "prompts/", "k": "Library"},
 {"t": "The picture pack", "d": "Every diagram of the method as an image to share, with a caption, light and dark.", "u": "pictures/", "k": "Library"},
-        {"t": "The SkyWays playbook", "d": "The whole method as an interactive simulator: thirteen episodes, nine simulations, seventeen calculators.", "u": "simulator/", "k": "Play"},
+        {"t": "Ninety Days, the simulator", "d": "The SkyWays case as a game: thirteen decisions, each with a price in days, and consequences that arrive later. Play one role, the whole team, or the sponsor.", "u": "simulator/", "k": "Play"},
+        {"t": "The workbench", "d": "Thirteen episodes in depth, nine step-through simulations, seventeen calculators and the role playbooks.", "u": "workbench/", "k": "Play"},
     ]
     for w in sorted((SITE.parent / "wiki").glob("*.md")):
         if w.name.startswith("_") or w.name in ("README.md", "Scoreboard.md"):
@@ -1098,8 +1121,9 @@ def render(out_dir: Path) -> list[str]:
     put("prompts/index.html", library_page(roles, "prompts"))
     put("frameworks/index.html", frameworks_page())
     put("method/index.html", method_page())
-    from pages import models, protocol, pictures
+    from pages import models, protocol, pictures, play
     ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
+    put("simulator/index.html", play.build(shell, ctx))
     put("protocol/index.html", protocol.build(shell, ctx))
     put("models/index.html", models.build(shell, ctx))
     put("pictures/index.html", pictures.build(shell, ctx))

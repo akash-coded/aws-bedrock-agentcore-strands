@@ -1,0 +1,1340 @@
+{
+  "v": 1,
+  "title": "Ninety Days",
+  "premise": "SkyWays, a fictional airline, has ninety days to put a rebooking assistant in front of stranded passengers. You make the calls.",
+  "rules": {
+    "slack": 18,
+    "slackRole": 20,
+    "trust": 4,
+    "trustMax": 6,
+    "moveDate": {
+      "days": 4,
+      "evidence": 4,
+      "trustWith": 0,
+      "trustWithout": 3
+    },
+    "repairFactor": 2,
+    "pressure": {
+      "days": 2,
+      "onDay": [
+        "d7",
+        "d8",
+        "d10"
+      ],
+      "text": "The booking-system vendor freezes changes for a week."
+    },
+    "capFix": {
+      "from": "d8",
+      "until": "d11",
+      "days": 1,
+      "daysNoBudget": 3
+    },
+    "questions": {
+      "role": 4,
+      "org": 2
+    }
+  },
+  "cast": {
+    "priya": {
+      "name": "Priya",
+      "title": "Product manager",
+      "role": "pm"
+    },
+    "arjun": {
+      "name": "Arjun",
+      "title": "Solution architect",
+      "role": "sa"
+    },
+    "sam": {
+      "name": "Sam",
+      "title": "Engineering lead",
+      "role": "eng"
+    },
+    "maya": {
+      "name": "Maya",
+      "title": "QA lead",
+      "role": "qa"
+    },
+    "lena": {
+      "name": "Lena",
+      "title": "Platform lead",
+      "role": "ops"
+    },
+    "sponsor": {
+      "name": "Ines",
+      "title": "Sponsor",
+      "role": "exec"
+    },
+    "ops": {
+      "name": "Operations lead"
+    },
+    "centre": {
+      "name": "Contact-centre head"
+    },
+    "legal": {
+      "name": "Compliance officer"
+    },
+    "finance": {
+      "name": "Finance controller"
+    },
+    "agent": {
+      "name": "Frontline agent"
+    },
+    "agent2": {
+      "name": "Frontline agent"
+    }
+  },
+  "roles": {
+    "pm": {
+      "who": "priya",
+      "name": "Product manager",
+      "line": "You own what it is worth and what goes to the sponsor."
+    },
+    "sa": {
+      "who": "arjun",
+      "name": "Solution architect",
+      "line": "You own the requirements, the limits and the decisions that cut both ways."
+    },
+    "eng": {
+      "who": "sam",
+      "name": "Engineering lead",
+      "line": "You own what ships, in what order, and who reads it first."
+    },
+    "qa": {
+      "who": "maya",
+      "name": "QA lead",
+      "line": "You own the proof: what the number is, and what it is not."
+    },
+    "ops": {
+      "who": "lena",
+      "name": "Platform lead",
+      "line": "You own the gateway, the bill and the limits that live in code."
+    }
+  },
+  "phases": [
+    {
+      "key": "P0",
+      "name": "Frame"
+    },
+    {
+      "key": "P1",
+      "name": "Design & Spec"
+    },
+    {
+      "key": "P2",
+      "name": "Build & Prove"
+    },
+    {
+      "key": "P3",
+      "name": "Run & Learn"
+    }
+  ],
+  "artefacts": {
+    "register": {
+      "name": "Requirements register",
+      "term": "Register",
+      "plain": "One list of what was asked for, each line with who asked and why."
+    },
+    "credited": {
+      "name": "Credited list, confirmed",
+      "term": "Credited requirements",
+      "plain": "The list sent back with names on it, so merging duplicates costs nobody their credit."
+    },
+    "constraints": {
+      "name": "Constraints, sorted by kind",
+      "term": "Constraints",
+      "plain": "The limits you cannot negotiate: technical, legal and commercial."
+    },
+    "targets": {
+      "name": "Signed quality targets",
+      "term": "NFRs",
+      "plain": "Non-functional requirements: how fast, how safe, how cheap. Signed by the people who own them."
+    },
+    "records": {
+      "name": "Decision records",
+      "term": "ADRs",
+      "plain": "One page per real trade-off: what was chosen and what was given up."
+    },
+    "spec": {
+      "name": "Eight-field spec",
+      "term": "Spec",
+      "plain": "What the assistant may do, how right it must be, and who signs, in a form a coding agent can read."
+    },
+    "bar": {
+      "name": "Acceptance bar per kind of case",
+      "term": "The bar, per slice",
+      "plain": "How often the assistant must be right, for each kind of case (a slice), worked out from what a mistake costs."
+    },
+    "budget": {
+      "name": "Authority budget",
+      "term": "Authority budget",
+      "plain": "What the assistant may do alone, and the limit on each action, signed."
+    },
+    "matrix": {
+      "name": "Framework decision, with a way out",
+      "term": "Decision matrix",
+      "plain": "Options scored on agreed criteria, with the three-year cost and what reversing it would take."
+    },
+    "skeleton": {
+      "name": "Walking skeleton",
+      "term": "Walking skeleton",
+      "plain": "The thinnest version that runs end to end, with no model in it, so the plumbing is proven first."
+    },
+    "proof": {
+      "name": "Score with its margin, per kind of case",
+      "term": "Lower bound",
+      "plain": "A score from a sample is a range. The low end of the range is what has been proven."
+    },
+    "lanes": {
+      "name": "Review lanes by risk",
+      "term": "Risk bands",
+      "plain": "Two readers for changes that move money, one for behaviour, automatic checks alone for the rest."
+    },
+    "rootcause": {
+      "name": "Root cause: four habits",
+      "term": "Per-call log",
+      "plain": "One line per model call. It shows behaviour, where the invoice shows only the total."
+    },
+    "control": {
+      "name": "Postmortem, and the control",
+      "term": "Enforced control",
+      "plain": "A limit the code enforces. A rule the model reads only lowers the odds."
+    },
+    "report": {
+      "name": "Two-number report",
+      "term": "Two numbers",
+      "plain": "What was saved and what was spent, on one line, every cycle."
+    }
+  },
+  "days": [
+    {
+      "id": "d1",
+      "day": 1,
+      "phase": 0,
+      "room": "board",
+      "owner": "arjun",
+      "track": "consultancy",
+      "title": "Two meetings, thirty-one requirements",
+      "with": [
+        "arjun",
+        "ops",
+        "centre",
+        "legal",
+        "finance"
+      ],
+      "scene": [
+        [
+          "arjun",
+          "Six people gave us 31 requirements. Four of them are one requirement, said four ways."
+        ],
+        [
+          "arjun",
+          "And compliance has hardly spoken."
+        ]
+      ],
+      "ask": "What do you do with the 31?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Start the design from the 31 as written",
+          "days": 0,
+          "now": "Design starts this afternoon.",
+          "debt": {
+            "due": "d6",
+            "days": 3,
+            "trust": 0,
+            "tag": "the 31 lines, never reconciled",
+            "text": "The first design review became an argument about which line wins. The quiet stakeholder held the rule that mattered."
+          }
+        },
+        {
+          "id": "b",
+          "label": "Merge them into one list that keeps who asked",
+          "days": 1,
+          "right": true,
+          "now": "31 lines become 12 requirements and 9 quality targets, with the limits still unsorted. Each keeps its source. Compliance has no line yet, and now the gap shows.",
+          "art": "register"
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/episode/req1",
+          "The two discovery meetings, in full"
+        ]
+      ]
+    },
+    {
+      "id": "d2",
+      "day": 4,
+      "phase": 0,
+      "room": "arch",
+      "owner": "arjun",
+      "track": "consultancy",
+      "title": "The email",
+      "with": [
+        "arjun",
+        "priya"
+      ],
+      "needs": "register",
+      "scene": [
+        [
+          "arjun",
+          "I have the list. The six of them have not seen it."
+        ],
+        [
+          "priya",
+          "Each of them will look for their own words first."
+        ]
+      ],
+      "ask": "What goes out?",
+      "options": [
+        {
+          "id": "a",
+          "label": "The full minutes of both meetings",
+          "days": 1,
+          "now": "Eleven pages go out. One of the six replies.",
+          "debt": {
+            "due": "d8",
+            "days": 2,
+            "trust": 1,
+            "tag": "eleven pages nobody read",
+            "text": "Silence was taken as agreement. In week five it turned out that it was not."
+          }
+        },
+        {
+          "id": "b",
+          "label": "The list, each line credited to who raised it",
+          "days": 1,
+          "right": true,
+          "now": "Four people see their words merged into one line, with their names beside it. All six confirm by Friday.",
+          "art": "credited"
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/episode/req1",
+          "The requirements email"
+        ]
+      ]
+    },
+    {
+      "id": "d3",
+      "day": 6,
+      "phase": 0,
+      "room": "arch",
+      "owner": "arjun",
+      "track": "consultancy",
+      "title": "The limits",
+      "with": [
+        "arjun",
+        "legal"
+      ],
+      "needs": "credited",
+      "scene": [
+        [
+          "legal",
+          "Every refund over $400 needs a named approver. That one is the law."
+        ],
+        [
+          "arjun",
+          "The booking system is old and slow. And our partners cap how often we can call them."
+        ]
+      ],
+      "ask": "When do these limits meet the quality targets?",
+      "options": [
+        {
+          "id": "a",
+          "label": "After the targets are agreed, in one pass",
+          "days": 0,
+          "now": "The limits go in a folder for later.",
+          "debt": {
+            "due": "d4",
+            "days": 3,
+            "trust": 0,
+            "tag": "limits left for later",
+            "text": "The room agreed a response time the old booking system cannot deliver. The workshop has to run again."
+          }
+        },
+        {
+          "id": "b",
+          "label": "Now, sorted by kind, before anything is agreed",
+          "days": 1,
+          "right": true,
+          "now": "Response time becomes 30 seconds for 95 in 100 requests, which the old system can meet. Refunds gain a named approver.",
+          "art": "constraints"
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/episode/req1",
+          "Constraints, and the targets they reshape"
+        ]
+      ]
+    },
+    {
+      "id": "d4",
+      "day": 9,
+      "phase": 0,
+      "room": "board",
+      "owner": "arjun",
+      "track": "consultancy",
+      "title": "The workshop",
+      "with": [
+        "arjun",
+        "ops",
+        "centre",
+        "legal",
+        "finance",
+        "priya"
+      ],
+      "needs": "constraints",
+      "scene": [
+        [
+          "arjun",
+          "Nine quality targets, six people, one afternoon."
+        ],
+        [
+          "finance",
+          "They cannot all come first."
+        ]
+      ],
+      "ask": "How does the room decide what comes first?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Dots on a wall: everyone votes, and the count decides",
+          "days": 1,
+          "now": "The room is done by three o'clock. Cost per case gets two dots.",
+          "debt": {
+            "due": "d11",
+            "days": 3,
+            "trust": 1,
+            "tag": "cost per case, voted last",
+            "text": "Nobody set an alert on cost, because the vote put it last. The bill grew for weeks before anyone looked."
+          }
+        },
+        {
+          "id": "b",
+          "label": "Each person ranks what matters and what is hard; merge the six",
+          "days": 2,
+          "right": true,
+          "now": "Nine targets, signed. Three score high on both importance and difficulty. Those three are where a design decision is owed.",
+          "art": "targets"
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/utree",
+          "Build the ranking yourself"
+        ],
+        [
+          "lesson",
+          "learn/agentic-pdlc-for-solution-architects/",
+          "For solution architects"
+        ]
+      ]
+    },
+    {
+      "id": "d5",
+      "day": 12,
+      "phase": 1,
+      "room": "arch",
+      "owner": "arjun",
+      "track": "tech",
+      "title": "Decision records",
+      "with": [
+        "arjun",
+        "sam"
+      ],
+      "needs": "targets",
+      "scene": [
+        [
+          "arjun",
+          "Three of our decisions cut both ways. The team has never written one down."
+        ],
+        [
+          "sam",
+          "So how many do we write?"
+        ]
+      ],
+      "ask": "How many decision records?",
+      "options": [
+        {
+          "id": "a",
+          "label": "One for every design choice the team has made",
+          "days": 4,
+          "now": "Forty records by Friday.",
+          "art": "records",
+          "debt": {
+            "due": "d7",
+            "days": 2,
+            "trust": 0,
+            "tag": "forty records",
+            "text": "Nobody read the forty-first record. The three that mattered are buried, so the framework choice starts from nothing."
+          }
+        },
+        {
+          "id": "b",
+          "label": "One for each real trade-off; the rest go in a design note",
+          "days": 1,
+          "right": true,
+          "now": "Two are written today and the third is dated for week three. Each names what was given up.",
+          "art": "records"
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/episode/adr1",
+          "The first decision records"
+        ]
+      ]
+    },
+    {
+      "id": "d6",
+      "day": 15,
+      "phase": 1,
+      "room": "product",
+      "owner": "priya",
+      "track": "consultancy",
+      "gate": true,
+      "title": "Thirty pages, and the gate",
+      "with": [
+        "priya",
+        "sam",
+        "arjun"
+      ],
+      "needs": "records",
+      "scene": [
+        [
+          "priya",
+          "The requirements document is thirty pages."
+        ],
+        [
+          "sam",
+          "My coding agent will read none of it. It builds what it is given, to the letter."
+        ]
+      ],
+      "ask": "What does the build start from?",
+      "options": [
+        {
+          "id": "a",
+          "label": "The thirty pages, with a summary on top",
+          "days": 0,
+          "now": "The build can start on Monday. How much the assistant may do alone is left to whoever writes the code.",
+          "flags": [
+            "noBudget"
+          ],
+          "after": "Nobody decided what the assistant may pay out alone. It came back on Day 82."
+        },
+        {
+          "id": "b",
+          "label": "One page: what it may do, how right it must be, who signs",
+          "days": 2,
+          "right": true,
+          "now": "Five things turned out to be undecided: the model's role, what it may do alone, how right it must be, the fallback, the records. Each is settled with its owner.",
+          "art": [
+            "spec",
+            "budget"
+          ],
+          "task": "bar"
+        },
+        {
+          "id": "c",
+          "label": "Stop everything until every open question is closed",
+          "days": 5,
+          "now": "Eleven meetings. Eight of those questions could have run beside the build, each with an owner and a date.",
+          "art": [
+            "spec",
+            "budget"
+          ],
+          "task": "bar",
+          "after": "Five days, where two would have done."
+        }
+      ],
+      "deeper": [
+        [
+          "lesson",
+          "learn/the-hard-gate/",
+          "The one hard gate"
+        ],
+        [
+          "workbench",
+          "#/toolkit/gateclass",
+          "Hard or soft? Classify a decision"
+        ]
+      ]
+    },
+    {
+      "id": "d7",
+      "day": 20,
+      "phase": 1,
+      "room": "arch",
+      "owner": "arjun",
+      "track": "tech",
+      "title": "Build, buy or borrow",
+      "with": [
+        "arjun",
+        "sam"
+      ],
+      "needs": "targets",
+      "scene": [
+        [
+          "sam",
+          "We can build the agent framework, buy one, or borrow an open one. I know which I like."
+        ],
+        [
+          "arjun",
+          "Liking it is not a reason we can defend in a year."
+        ]
+      ],
+      "ask": "How is it decided?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Go with the most senior engineer's choice",
+          "days": 0,
+          "now": "Chosen in ten minutes.",
+          "debt": {
+            "due": "d12",
+            "days": 4,
+            "trust": 0,
+            "tag": "a framework chosen by preference",
+            "text": "Nobody can say why this framework was chosen, so the incident reopens the choice."
+          }
+        },
+        {
+          "id": "b",
+          "label": "Score the three on the signed targets and the cost over three years",
+          "days": 2,
+          "right": true,
+          "extraIfMissing": 2,
+          "now": "The criteria come from the signed targets, so the weights are already agreed. The record names what reversing the choice would take.",
+          "art": "matrix"
+        },
+        {
+          "id": "c",
+          "label": "Pause the build until all three are trialled",
+          "days": 6,
+          "now": "Three trials, six working days. The answer matches the scoring.",
+          "art": "matrix",
+          "after": "Six days, for the answer the scoring gave."
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/bvb",
+          "Score build, buy and borrow"
+        ]
+      ]
+    },
+    {
+      "id": "d8",
+      "day": 30,
+      "phase": 2,
+      "room": "eng",
+      "owner": "sam",
+      "track": "tech",
+      "title": "The first build day",
+      "with": [
+        "sam",
+        "maya"
+      ],
+      "needs": "spec",
+      "scene": [
+        [
+          "sam",
+          "Seven things we do not know yet, and a two-week sprint already on the calendar."
+        ]
+      ],
+      "ask": "What ships first?",
+      "options": [
+        {
+          "id": "a",
+          "label": "The model call, drafting a reply to one real case",
+          "days": 1,
+          "now": "A draft reply appears on day two. It is wrong, and it is not clear why.",
+          "debt": {
+            "due": "d9",
+            "days": 3,
+            "trust": 0,
+            "tag": "the model call, built first",
+            "text": "When the draft was wrong it could have been the prompt, the booking adapter or the search tool. Three days went on telling them apart."
+          }
+        },
+        {
+          "id": "b",
+          "label": "The thinnest version that runs end to end, with no model in it",
+          "days": 1,
+          "right": true,
+          "now": "A booking shows on a screen by four in the afternoon. The plumbing is proven, and each day after retires one unknown.",
+          "art": "skeleton"
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/bolts",
+          "Plan the build one proven piece at a time"
+        ],
+        [
+          "lesson",
+          "learn/bolts-vs-sprints/",
+          "Bolts and sprints"
+        ]
+      ]
+    },
+    {
+      "id": "d9",
+      "day": 45,
+      "phase": 2,
+      "room": "qa",
+      "owner": "maya",
+      "track": "tech",
+      "title": "The score",
+      "with": [
+        "maya",
+        "priya"
+      ],
+      "needs": "bar",
+      "scene": [
+        [
+          "maya",
+          "500 real cases. 412 right. That is 82.4 percent."
+        ],
+        [
+          "priya",
+          "And we promised 80. So we pass?"
+        ]
+      ],
+      "ask": "What does Maya report?",
+      "options": [
+        {
+          "id": "a",
+          "label": "A pass: 82.4 beats the 80 we promised",
+          "days": 0,
+          "now": "Everything goes to 5 percent of passengers on Monday.",
+          "debt": {
+            "due": "d10",
+            "days": 3,
+            "trust": 2,
+            "tag": "a pass, with no margin stated",
+            "text": "The live rate read 80. It was always inside the margin. The team spent a fortnight hunting a fault that was not there."
+          }
+        },
+        {
+          "id": "b",
+          "label": "82.4, at least 79.1, then each kind of case on its own",
+          "days": 2,
+          "right": true,
+          "extraIfMissing": 2,
+          "now": "Probably above the bar, and not yet proven. Saying so is what makes the next number believable.",
+          "art": "proof",
+          "task": "score"
+        },
+        {
+          "id": "c",
+          "label": "Hold every kind of case until it clears one bar of 98",
+          "days": 5,
+          "now": "Nothing ships. Same-day changes were ready weeks ago and wait with the rest.",
+          "flags": [
+            "heldBack"
+          ],
+          "after": "The work that was ready waited. It shows in what was saved."
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/confidence",
+          "Has a score proven the bar?"
+        ],
+        [
+          "lesson",
+          "learn/prove-ai-accuracy/",
+          "Prove the accuracy"
+        ]
+      ]
+    },
+    {
+      "id": "d10",
+      "day": 60,
+      "phase": 2,
+      "room": "eng",
+      "owner": "sam",
+      "track": "tech",
+      "title": "The queue",
+      "with": [
+        "sam",
+        "maya"
+      ],
+      "needs": "skeleton",
+      "scene": [
+        [
+          "sam",
+          "Nine changes are waiting for review. The queue is four days long."
+        ],
+        [
+          "maya",
+          "Two of the nine touch money."
+        ]
+      ],
+      "ask": "What changes?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Ask the reviewers to go faster until the queue clears",
+          "days": 0,
+          "now": "They do, for a week.",
+          "flags": [
+            "rushed"
+          ],
+          "debt": {
+            "due": "d12",
+            "days": 2,
+            "trust": 1,
+            "tag": "reviews, done faster",
+            "text": "The change that touched the refund limit got a ninety-second reading on a Friday. It has to be pulled back and read again."
+          }
+        },
+        {
+          "id": "b",
+          "label": "Route by risk: two readers, one, or the automatic checks alone",
+          "days": 1,
+          "right": true,
+          "now": "The two money changes are read first, by people who are no longer tired.",
+          "art": "lanes",
+          "task": "route"
+        },
+        {
+          "id": "c",
+          "label": "Keep two senior readers on every change",
+          "days": 0,
+          "now": "Nothing changes. Every change still waits for the same two people.",
+          "debt": {
+            "due": "d11",
+            "days": 4,
+            "trust": 0,
+            "tag": "two senior readers on everything",
+            "text": "The queue kept growing. Three fixes sat behind a typo correction."
+          }
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/queue",
+          "How long does a change wait?"
+        ],
+        [
+          "lesson",
+          "learn/review-ai-generated-code/",
+          "Review by risk"
+        ]
+      ]
+    },
+    {
+      "id": "d11",
+      "day": 75,
+      "phase": 3,
+      "room": "platform",
+      "owner": "lena",
+      "track": "tech",
+      "title": "The bill",
+      "with": [
+        "lena",
+        "arjun",
+        "finance"
+      ],
+      "needs": "targets",
+      "scene": [
+        [
+          "lena",
+          "The model bill is 4.4 times the estimate. Traffic is flat."
+        ],
+        [
+          "finance",
+          "Then what changed?"
+        ]
+      ],
+      "ask": "What do you open first?",
+      "options": [
+        {
+          "id": "a",
+          "label": "A comparison of cheaper models",
+          "days": 5,
+          "now": "Three weeks of trials. The habits behind the bill carry on at a lower unit price.",
+          "flags": [
+            "billOpen"
+          ],
+          "debt": {
+            "due": "d13",
+            "days": 0,
+            "trust": 1,
+            "tag": "cheaper models, same habits",
+            "text": "Finance asks why the bill is still more than twice the estimate. Nobody can say which habit is behind it."
+          }
+        },
+        {
+          "id": "b",
+          "label": "The log of every model call",
+          "days": 1,
+          "right": true,
+          "now": "Four things moved, and they multiply: 1.6 × 1.5 × 1.3 × 1.41 is 4.4. That is the whole bill.",
+          "art": "rootcause",
+          "task": "leak"
+        },
+        {
+          "id": "c",
+          "label": "Switch the assistant off until it is understood",
+          "days": 0,
+          "now": "The assistant is off for a week. The contact centre goes back to the phones.",
+          "flags": [
+            "frozen",
+            "billOpen"
+          ],
+          "debt": {
+            "due": "d13",
+            "days": 0,
+            "trust": 1,
+            "tag": "the assistant, switched off",
+            "text": "A week back on the phones. The contact-centre head brings it up in the room, and the bill was never explained."
+          }
+        }
+      ],
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/leaks",
+          "Which habit explains the bill?"
+        ],
+        [
+          "lesson",
+          "learn/ai-agent-costs/",
+          "What an agent costs"
+        ]
+      ]
+    },
+    {
+      "id": "d12",
+      "day": 82,
+      "phase": 3,
+      "room": "centre",
+      "owner": "maya",
+      "track": "tech",
+      "title": "The refund",
+      "with": [
+        "maya",
+        "centre",
+        "agent"
+      ],
+      "variants": {
+        "blocked": {
+          "scene": [
+            [
+              "centre",
+              "A passenger was owed $180. The assistant tried to refund $2,000."
+            ],
+            [
+              "maya",
+              "The tool refused it at $400. The limit is in the code."
+            ]
+          ],
+          "ask": "What do you do with a near miss?",
+          "options": [
+            {
+              "id": "a",
+              "label": "Close the case as blocked",
+              "days": 0,
+              "now": "The case is closed. Nobody asks why the assistant wanted $2,000.",
+              "debt": {
+                "due": "d13",
+                "days": 0,
+                "trust": 1,
+                "tag": "a near miss, closed unread",
+                "text": "Ines asks what was learned from the refund that was refused. Nothing was written down."
+              }
+            },
+            {
+              "id": "b",
+              "label": "Add the case to the test set, and review what it may do alone",
+              "days": 1,
+              "right": true,
+              "now": "Six cases like it join the test set. The limit held, and now there is a test that says so every week.",
+              "art": "control"
+            }
+          ]
+        },
+        "paid": {
+          "scene": [
+            [
+              "centre",
+              "A passenger was sent a $2,000 refund that was not owed."
+            ],
+            [
+              "maya",
+              "The $400 limit was written in the prompt. The refund tool accepts any amount."
+            ]
+          ],
+          "ask": "What is the review's first question?",
+          "options": [
+            {
+              "id": "a",
+              "label": "Who wrote that prompt, and who approved it?",
+              "days": 1,
+              "now": "A name is found and a training session is booked.",
+              "debt": {
+                "due": "d13",
+                "days": 0,
+                "trust": 2,
+                "tag": "a name, and no control",
+                "text": "The refund tool still accepted any amount. It happened again in week thirteen."
+              }
+            },
+            {
+              "id": "b",
+              "label": "What limit in the code would have made this impossible?",
+              "days": 2,
+              "right": true,
+              "now": "A limit and a confirmation step go into the tool itself. The assistant may do one level less alone. Six cases like it join the test set.",
+              "art": "control",
+              "flags": [
+                "capInTool"
+              ]
+            }
+          ]
+        }
+      },
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/gates",
+          "Which control does each tool carry?"
+        ],
+        [
+          "lesson",
+          "learn/ai-incident-postmortem/",
+          "The postmortem"
+        ]
+      ]
+    },
+    {
+      "id": "d13",
+      "day": 90,
+      "phase": 3,
+      "room": "board",
+      "owner": "priya",
+      "track": "consultancy",
+      "title": "The steering committee",
+      "with": [
+        "priya",
+        "sponsor",
+        "finance"
+      ],
+      "scene": [
+        [
+          "sponsor",
+          "Ninety days. What did we get, and what did it cost?"
+        ]
+      ],
+      "ask": "Three lines fit on the slide. Which three?",
+      "task": "slide",
+      "deeper": [
+        [
+          "workbench",
+          "#/toolkit/report",
+          "Build the two-number report"
+        ],
+        [
+          "lesson",
+          "learn/measure-ai-productivity/",
+          "Measure without fooling yourself"
+        ]
+      ]
+    }
+  ],
+  "tasks": {
+    "bar": {
+      "title": "Set the bar",
+      "intro": "How often must it be right? Divide what a wrong answer costs by what a right one saves. If a wrong one costs four times as much, it has to be right four times in five.",
+      "slices": [
+        {
+          "id": "same",
+          "name": "Same-day change",
+          "saving": 4,
+          "damage": 4
+        },
+        {
+          "id": "code",
+          "name": "Partner-airline rebooking",
+          "saving": 9,
+          "damage": 36
+        },
+        {
+          "id": "refund",
+          "name": "Refund",
+          "saving": 12,
+          "damage": 600,
+          "damageHeld": 30
+        }
+      ],
+      "hold": "A person approves each refund before it goes out",
+      "after": {
+        "held": "With a person on refunds, a wrong one costs $30, not $600. The bar for refunds falls from 98 to 71.",
+        "unheld": "With nobody checking refunds, a wrong one costs $600. The bar for refunds is 98, which no model on this floor will reach."
+      }
+    },
+    "score": {
+      "title": "Read the score, one kind of case at a time",
+      "intro": "The 500 cases are three kinds of work. For each: ship it to 5 percent of passengers, run it beside the desk with no effect, or keep it with people.",
+      "slices": [
+        {
+          "id": "same",
+          "name": "Same-day change",
+          "n": 400,
+          "right": 340
+        },
+        {
+          "id": "code",
+          "name": "Partner-airline rebooking",
+          "n": 55,
+          "right": 36
+        },
+        {
+          "id": "refund",
+          "name": "Refund",
+          "n": 45,
+          "right": 36
+        }
+      ],
+      "choices": [
+        [
+          "ship",
+          "Ship to 5%"
+        ],
+        [
+          "shadow",
+          "Run beside the desk"
+        ],
+        [
+          "hold",
+          "Keep with people"
+        ]
+      ]
+    },
+    "route": {
+      "title": "Route the nine changes",
+      "intro": "Each change gets two readers, one reader, or the automatic checks alone.",
+      "items": [
+        {
+          "id": "p1",
+          "name": "Raise the refund limit for delays over six hours",
+          "lane": 2
+        },
+        {
+          "id": "p2",
+          "name": "Fix a typo in a log message",
+          "lane": 0
+        },
+        {
+          "id": "p3",
+          "name": "Change who may approve a refund",
+          "lane": 2
+        },
+        {
+          "id": "p4",
+          "name": "Reword the apology in the delay reply",
+          "lane": 1
+        },
+        {
+          "id": "p5",
+          "name": "Update the HTTP library",
+          "lane": 0
+        },
+        {
+          "id": "p6",
+          "name": "Add a tool that reads the seat map",
+          "lane": 1
+        },
+        {
+          "id": "p7",
+          "name": "Add six cases to the test set",
+          "lane": 0
+        },
+        {
+          "id": "p8",
+          "name": "Retry the booking system once on a timeout",
+          "lane": 1
+        },
+        {
+          "id": "p9",
+          "name": "Rename a variable in the search tool",
+          "lane": 0
+        }
+      ],
+      "lanes": [
+        "Checks alone",
+        "One reader",
+        "Two readers"
+      ]
+    },
+    "leak": {
+      "title": "Find the leak",
+      "intro": "The log, against the numbers from the trial run. You have one day. Which fixes go first?",
+      "rows": [
+        {
+          "id": "context",
+          "name": "Tokens sent per call",
+          "was": "2,100",
+          "now": "3,360",
+          "why": "the whole booking history is pasted in",
+          "factor": 1.6,
+          "days": 0.5,
+          "fix": "Trim the history"
+        },
+        {
+          "id": "tier",
+          "name": "Calls sent to the dearest model",
+          "was": "50%",
+          "now": "100%",
+          "why": "set \"to be safe\" after one complaint",
+          "factor": 1.5,
+          "days": 0.5,
+          "fix": "Restore routing by kind of case"
+        },
+        {
+          "id": "cache",
+          "name": "Calls that reuse the stored start of the prompt",
+          "was": "71%",
+          "now": "9%",
+          "why": "the model is switched inside a session",
+          "factor": 1.3,
+          "days": 1,
+          "fix": "Keep one model per session"
+        },
+        {
+          "id": "retry",
+          "name": "Retries per conversation",
+          "was": "0.1",
+          "now": "0.55",
+          "why": "a retry loop with no limit",
+          "factor": 1.41,
+          "days": 2,
+          "fix": "Add a limit of five tries"
+        }
+      ],
+      "budget": 1
+    },
+    "slide": {
+      "title": "Build the slide",
+      "intro": "Three lines fit. Finance has the invoice.",
+      "lines": [
+        {
+          "id": "saving",
+          "kind": "value"
+        },
+        {
+          "id": "bill",
+          "kind": "cost"
+        },
+        {
+          "id": "net",
+          "kind": "net"
+        },
+        {
+          "id": "score",
+          "kind": "other"
+        },
+        {
+          "id": "incident",
+          "kind": "other"
+        },
+        {
+          "id": "shelf",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  "policies": [
+    {
+      "id": "gate",
+      "name": "Nothing is built until what it may do, how right, and its limits are signed",
+      "forces": [
+        "d6"
+      ],
+      "days": 0
+    },
+    {
+      "id": "signed",
+      "name": "Requirements and targets are confirmed by the people who own them",
+      "forces": [
+        "d1",
+        "d2",
+        "d3",
+        "d4"
+      ],
+      "days": 0
+    },
+    {
+      "id": "bound",
+      "name": "Nothing ships on a score alone: its margin is stated too",
+      "forces": [
+        "d9"
+      ],
+      "days": 0
+    },
+    {
+      "id": "code",
+      "name": "Every limit lives in the tool that enforces it",
+      "forces": [
+        "cap",
+        "d12"
+      ],
+      "days": 0
+    },
+    {
+      "id": "risk",
+      "name": "How much process a change gets follows its risk",
+      "forces": [
+        "d5",
+        "d7",
+        "d8",
+        "d10"
+      ],
+      "days": 0
+    },
+    {
+      "id": "both",
+      "name": "Every report carries what was saved and what was spent",
+      "forces": [
+        "d11",
+        "d13"
+      ],
+      "days": 0
+    }
+  ],
+  "verdicts": {
+    "funded": {
+      "name": "Funded for a second cycle",
+      "line": "The room stopped asking whether this is real and started asking what you need next."
+    },
+    "conditional": {
+      "name": "Funded, with conditions",
+      "line": "The programme continues. The sponsor wants the open items closed before any more passengers are added."
+    },
+    "paused": {
+      "name": "Paused for review",
+      "line": "Nobody doubts the effort. The committee cannot tell what it bought."
+    },
+    "stopped": {
+      "name": "Stopped",
+      "line": "The assistant is switched off. The next proposal will have to answer for this one."
+    }
+  }
+}

@@ -232,7 +232,7 @@ MODELS = [
                "before anyone has mentioned accuracy.",
         where=[("Autonomy, per action", "../product-manager/#frame"),
                ("The risk ladder", "../frameworks/"),
-               ("Decide it for one action", "../simulator/#/toolkit/autonomy")]),
+               ("Decide it for one action", "../workbench/#/toolkit/autonomy")]),
     dict(
         id="lever", name="Use a human hold to lower the bar, not to slow the line", glyph=g_lever, cost=2,
         plain="A hold is a person checking the model's work before it takes effect. It does not slow the line; it lowers the damage a mistake can do. Because the acceptance bar is derived from damage, a hold also lowers the accuracy you need before you can ship.",
@@ -250,7 +250,7 @@ MODELS = [
         landed="When somebody says the accuracy is not good enough, you ask what a mistake costs "
                "before you ask how to improve the model.",
         where=[("Derive the bar", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar"),
-               ("Try the arithmetic", "../simulator/#/toolkit/bar")]),
+               ("Try the arithmetic", "../workbench/#/toolkit/bar")]),
     dict(
         id="boundary", name="Put every hard limit in code, not in the prompt", glyph=g_wall, cost=4,
         plain="A rule written in the prompt is a request: the model usually follows it, but text arriving from anywhere can talk it out of it. A rule written into the tool's signature, as a typed parameter that raises, is a boundary nothing can argue with. Keep both: the prompt for good behaviour by default, the code for the day the prompt is talked past.",
@@ -270,7 +270,7 @@ MODELS = [
                "opens prose or code.",
         where=[("The six controls", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Hold-the-Security-Boundary"),
                ("In code", "../engineering/#gate"),
-               ("Map the control per tool", "../simulator/#/toolkit/gates")]),
+               ("Map the control per tool", "../workbench/#/toolkit/gates")]),
     dict(
         id="average", name="Read quality per slice, never as one average", glyph=g_average, cost=3,
         plain="One overall score is dominated by the easy, high-volume cases. The slice that carries the risk can fall below its bar while the average rises. Read quality per slice, each slice against its own bar.",
@@ -305,7 +305,7 @@ MODELS = [
         landed="You never quote a score without its sample size, and you hear “94% accurate” "
                "as an incomplete sentence.",
         where=[("Lower bounds", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar"),
-               ("The calculator", "../simulator/#/toolkit/confidence")]),
+               ("The calculator", "../workbench/#/toolkit/confidence")]),
 ]
 
 MODELS += [
@@ -327,7 +327,7 @@ MODELS += [
                "window buys as well as what it costs.",
         where=[("Cut over and widen", "../qa/#shadow"),
                ("The arithmetic", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators"),
-               ("Days per traffic share", "../simulator/#/toolkit/cutover")]),
+               ("Days per traffic share", "../workbench/#/toolkit/cutover")]),
     dict(
         id="habits", name="Decompose the bill into its four habits before you fix anything", glyph=g_multiply, cost=3,
         plain="A surprising bill is rarely one runaway. It is four ordinary habits multiplying: a bloated context, no routing to cheaper models, a cache that never hits, and retries. Each looks sensible alone. Fix the habit that removes the most multiplier per day of work.",
@@ -346,7 +346,7 @@ MODELS += [
                "you expect to find four things rather than one.",
         where=[("Decompose a bill", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill"),
                ("In the platform", "../devops/#observe"),
-               ("Find the leak", "../simulator/#/toolkit/leaks")]),
+               ("Find the leak", "../workbench/#/toolkit/leaks")]),
     dict(
         id="fanout", name="Start with one agent, and add another only for a named limit", glyph=g_fanout, cost=2,
         plain="Work that happens at once does not need several agents. One agent with a tool that fans out can search four partners in parallel with no hand-offs. Five agents have ten possible hand-offs, and the coordination grows faster than the work.",
@@ -398,7 +398,7 @@ MODELS += [
                "line reads to you as a blocked merge.",
         where=[("What crosses each hand-off", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Evidence-Pack"),
                ("Hard and soft gates", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Gates-and-Governance"),
-               ("What a complete pack holds", "../simulator/#/evidence")]),
+               ("What a complete pack holds", "../workbench/#/evidence")]),
     dict(
         id="drift", name="Watch the output mix, because drift raises no error", glyph=g_drift, cost=3,
         plain="A probabilistic system changes behaviour when the world changes, with no deploy and no error. Accuracy needs labels and arrives late, so watch the mix of outputs instead, week on week and against a frozen baseline.",

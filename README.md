@@ -337,9 +337,10 @@ whether it has actually landed.
 
 [![The agentic manual](docs/assets/skyways-architect.png)](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)
 
-The **[simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)** is the same case, playable: thirteen dated episodes, eight loops,
-nine simulations where a wrong choice plays out in front of you, and seventeen calculators that do the
-arithmetic on your own numbers. The **[wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC)** carries the method in writing,
+The **[simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)** is the same case as a game, Ninety Days: thirteen calls, each with a
+price in days, and consequences that arrive later, played as one role, the whole team or the sponsor. Behind it,
+the **[workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/)** holds the thirteen episodes in depth, nine step-through simulations and
+seventeen calculators that do the arithmetic on your own numbers. The **[wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC)** carries the method in writing,
 and every journey has a [reading copy](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Journey-Product-Manager) there too.
 
 This is an original work and the intellectual property of Akash Das, open-sourced here under the MIT
@@ -382,7 +383,8 @@ Because "how do I design one of these" is the question the demos never answer.
 ├── site/             the manual on GitHub Pages
 │   ├── content/roles/        five role journeys as JSON, authored in Python
 │   ├── render.py             content → static HTML; wiki_export.py → the same, as wiki pages
-│   └── app/                  the SkyWays simulator, published unchanged
+│   ├── play/                 Ninety Days, the simulator: rules, art and page, drawn in code
+│   └── app/                  the SkyWays workbench, published unchanged
 ├── docs/
 │   ├── START-HERE.md         entry point
 │   ├── learning-paths/       5 paths by role and time budget

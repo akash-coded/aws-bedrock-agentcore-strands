@@ -1,0 +1,219 @@
+/* Ninety Days · the page's own styles. Colours, type and motion come from theme/base.css; this file
+   lays out the stage and the panel, and nothing in it loops. The canvases are always dark, in both
+   themes: the building is drawn at night. */
+.nd{padding:clamp(28px,4vw,56px) 0 clamp(56px,7vw,96px)}
+.nd-top{max-width:720px;margin:0 0 clamp(28px,3.5vw,44px)}
+.nd-top h1{font-size:clamp(40px,6vw,78px);line-height:1;letter-spacing:-.045em;font-weight:620;margin:0 0 18px}
+.nd-top .lede{font-size:clamp(17px,1.5vw,19.5px);line-height:1.55;color:var(--ink2);max-width:50ch;margin:0}
+.nd-playing .nd-top{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;max-width:none}
+.nd-playing .nd-top h1{font-size:22px;letter-spacing:-.02em;margin:0}
+.nd-playing .nd-top .lede,.nd-playing .nd-top .eyebrow{display:none}
+.nd-playing .nd-top .nd-quit{display:inline-flex}
+.nd-quit{display:none;margin-left:auto;font-size:13.5px;color:var(--soft)}
+
+.nd-app{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:start}
+.nd-app canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+.nd-stage{position:sticky;top:84px;width:614px}
+.nd-map{position:relative;border-radius:14px;overflow:hidden;background:#10141D;box-shadow:0 0 0 1px var(--rule)}
+.nd-map-cv{cursor:pointer;margin:0 auto}
+.at-title .nd-map-cv,.at-end .nd-map-cv{cursor:default}
+.nd-pause.mpause{position:absolute;right:10px;bottom:10px;top:auto}
+.nd-panel{min-width:0;max-width:640px}
+.nd-panel>.nd-opts{margin-top:26px}
+.nd-panel>*+*{margin-top:18px}
+.nd-k{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0 0 8px;max-width:none}
+
+/* the thirteen days, runway, trust, what is on file */
+.nd-hud{display:grid;gap:14px}
+.nd-strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:3px}
+.nd-strip li{position:relative;margin:0;padding:6px 0 5px;text-align:center;font:500 11.5px/1 var(--f-mono);color:var(--soft);
+  border-top:3px solid color-mix(in oklab,var(--c) 32%,transparent);background:color-mix(in oklab,var(--c) 5%,transparent);border-radius:0 0 4px 4px}
+.nd-strip li.was{border-top-color:var(--c);color:var(--ink2)}
+.nd-strip li.now{border-top-color:var(--c);background:color-mix(in oklab,var(--c) 22%,transparent);color:var(--ink);font-weight:600}
+.nd-strip li i{position:absolute;left:50%;bottom:-7px;width:7px;height:7px;margin-left:-3.5px;border-radius:2px;background:var(--dg-rose)}
+.nd-meters{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0}
+.nd-meters div{display:grid;gap:3px}
+.nd-meters dt{font-family:var(--f-mono);font-size:11.5px;color:var(--soft)}
+.nd-meters dd{margin:0;font-family:var(--f-display);font-size:17px;font-weight:620;letter-spacing:-.01em;color:var(--ink)}
+.nd-meters .bad dd{color:var(--stop)}
+.nd-meters dd.nd-sub{font-family:var(--f-mono);font-size:11.5px;font-weight:400;letter-spacing:0;color:var(--soft)}
+.nd-pips{display:inline-flex;gap:4px;vertical-align:1px}
+.nd-pips i{width:11px;height:11px;border-radius:3px;border:1.5px solid var(--dg-teal)}
+.nd-pips i.on{background:var(--dg-teal)}
+
+/* today's room, close up */
+.nd-scene{position:relative;border-radius:12px;overflow:hidden;background:#171A21;box-shadow:0 0 0 1px var(--rule);display:flex;justify-content:center}
+.nd-app{scroll-margin-top:84px}
+.nd-dayhead h2{font-family:var(--f-display);font-size:clamp(24px,2.5vw,32px);font-weight:620;letter-spacing:-.03em;line-height:1.1;margin:0;outline:0}
+.nd-dayhead p{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:7px 0 0;max-width:none}
+
+/* what arrived this morning: a debt come due, an event, the incident */
+.nd-events{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+.nd-events li{margin:0;max-width:none;padding:11px 14px;border-radius:10px;font-size:15px;line-height:1.5;color:var(--ink2);
+  background:color-mix(in oklab,var(--dg-rose) 9%,transparent);box-shadow:inset 3px 0 0 var(--dg-rose)}
+.nd-events li.ev-pressure{background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--soft)}
+.nd-events li.ev-good,.nd-events li.ev-move{background:color-mix(in oklab,var(--dg-teal) 9%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
+.nd-events b{color:var(--ink)}
+.nd-events em,.nd-out em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);white-space:nowrap}
+
+/* who says what */
+.nd-lines{display:grid;gap:12px}
+.nd-lines p{margin:0;max-width:none;display:grid;grid-template-columns:48px 1fr;gap:2px 14px;align-items:start}
+.nd-face{width:48px;height:48px;border-radius:8px;grid-row:1/3}
+.nd-lines b{font-size:12.5px;font-weight:600;color:var(--soft);font-family:var(--f-mono)}
+.nd-lines span{font-size:17px;line-height:1.5;color:var(--ink)}
+
+/* the call */
+.nd-opts{border:0;margin:26px 0 0;padding:0;min-width:0;display:grid;gap:8px}
+.nd-opts legend{padding:0;margin:0 0 12px;font-family:var(--f-display);font-size:19px;font-weight:620;letter-spacing:-.015em;color:var(--ink)}
+.nd-opt{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:54px;padding:12px 16px;border-radius:12px;
+  border:1px solid color-mix(in oklab,var(--ink) 20%,transparent);background:var(--paper);color:var(--ink);font:inherit;font-size:16px;line-height:1.35;
+  text-align:left;cursor:pointer;transition:border-color 150ms var(--ease),background 150ms var(--ease),transform 150ms var(--ease)}
+.nd-opt:hover{border-color:var(--ink);background:color-mix(in oklab,var(--ink) 5%,var(--paper))}
+.nd-opt:active{transform:scale(.99)}
+.nd-opt-l{font-weight:500}
+.nd-opt-p{flex:none;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);padding:4px 9px;border-radius:999px;background:color-mix(in oklab,var(--ink) 7%,transparent)}
+.nd-acts{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.nd-acts .btn{padding:12px 18px;border-radius:12px;font-size:15px}
+.nd-acts .btn.sm{padding:8px 13px;font-size:13.5px}
+.nd-acts .btn em,.nd-side .btn em{font-style:normal;font-family:var(--f-mono);font-size:12px;opacity:.75;margin-left:4px}
+.nd-plan{padding:14px 16px;border-radius:12px;border:1px dashed color-mix(in oklab,var(--ink) 28%,transparent)}
+
+/* what the call did */
+.nd-out{display:grid;gap:10px;outline:0}
+.nd-out p{margin:0;max-width:none;font-size:16.5px;line-height:1.55;color:var(--ink2)}
+.nd-out p.nd-k{font-size:12px;line-height:1.3;color:var(--soft)}
+.nd-you{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.nd-you b{font-weight:600;color:var(--ink)}
+.nd-sealed{display:flex;align-items:center;gap:10px;font-size:15px!important;color:var(--ink)!important}
+.nd-sealed i{flex:none;width:12px;height:12px;border-radius:3px;background:var(--dg-rose)}
+.nd-filedbox{padding:12px 14px;border-radius:10px;background:color-mix(in oklab,var(--dg-teal) 8%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
+.nd-filed{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.nd-filed li{margin:0;max-width:none;font-size:14.5px;line-height:1.45;color:var(--ink2)}
+.nd-filed b{color:var(--ink);margin-right:6px}
+.nd-deeper{font-size:14px;color:var(--soft);margin:0;max-width:none}
+.nd-deeper a{color:var(--ink2)}
+
+/* the hands-on tasks and the gate */
+.nd-task,.nd-gate{padding:18px 18px 20px;border-radius:14px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:12px}
+.nd-task h3,.nd-gate h3,.nd-task h2{font-family:var(--f-display);font-size:19px;font-weight:620;letter-spacing:-.015em;margin:0;outline:0}
+.nd-task h2{font-size:26px;letter-spacing:-.03em}
+.nd-intro{margin:0;max-width:none;font-size:15px;line-height:1.5;color:var(--ink2)}
+.nd-tb{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed}
+.nd-tb th:first-child{width:36%}
+.nd-tb.stack th:first-child{width:40%}.nd-tb.stack th:last-child,.nd-tb.stack td:last-child{width:17%}
+.nd-tb th,.nd-tb td{text-align:left;padding:8px 10px 8px 0;border:0;border-top:1px solid var(--rule);vertical-align:top;font-weight:400;background:none}
+.nd-tb thead th{border-top:0;font-family:var(--f-mono);font-size:11.5px;color:var(--soft);font-weight:500;white-space:normal}
+.nd-tb tbody th{font-weight:600;color:var(--ink)}
+.nd-tb td b{font-family:var(--f-mono)}
+.nd-tb td i{display:block;height:4px;border-radius:2px;margin-top:5px;background:linear-gradient(90deg,var(--dg-teal) var(--w),color-mix(in oklab,var(--ink) 10%,transparent) var(--w))}
+.nd-tb td.hot b{color:var(--stop)}
+.nd-tb td.hot i{background:linear-gradient(90deg,var(--dg-rose) var(--w),color-mix(in oklab,var(--ink) 10%,transparent) var(--w))}
+.nd-check,.nd-radio{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:10px 12px;border-radius:10px;font-size:15px;line-height:1.4;cursor:pointer;
+  border:1px solid color-mix(in oklab,var(--ink) 16%,transparent)}
+.nd-check input,.nd-radio input{flex:none;width:18px;height:18px;margin:1px 0 0;accent-color:var(--dg-teal)}
+.nd-check:has(input:checked),.nd-radio:has(input:checked){border-color:var(--dg-teal);background:color-mix(in oklab,var(--dg-teal) 9%,transparent)}
+.nd-check.big{font-size:16px}
+.nd-tb .nd-check{border:0;padding:0;min-height:0}
+.nd-slice,.nd-pr{border:0;margin:0;padding:10px 0 0;min-width:0;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:6px}
+.nd-slice legend,.nd-pr legend{padding:0;float:left;width:100%;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:4px}
+.nd-slice .nd-radio,.nd-pr .nd-radio{flex:1 1 150px;padding:8px 10px;min-height:44px;font-size:14px}
+.nd-pr .nd-radio{flex-basis:120px}
+.nd-gauge{flex:1 1 100%;margin:0;max-width:none;font-size:14px;color:var(--ink2);display:grid;gap:7px}
+.nd-gauge i{position:relative;display:block;height:10px;border-radius:3px;background:linear-gradient(90deg,var(--dg-teal) var(--s),color-mix(in oklab,var(--ink) 9%,transparent) var(--s))}
+.nd-gauge i::before{content:"";position:absolute;left:var(--l);right:calc(100% - var(--s));top:3px;height:4px;background:var(--bone);opacity:.7}
+.nd-gauge i::after{content:"";position:absolute;left:var(--b);top:-4px;bottom:-4px;width:2px;background:var(--dg-rose)}
+.nd-count,.nd-status{margin:0;max-width:none;font-family:var(--f-mono);font-size:12.5px;color:var(--soft)}
+.nd-status:not(:empty){color:var(--warn)}
+.nd-lamps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.nd-lamps li{margin:0;max-width:none;padding:12px;border-radius:10px;display:grid;gap:5px;font-size:14px;border:1px solid var(--rule)}
+.nd-lamps li i{width:22px;height:6px;border-radius:3px;background:color-mix(in oklab,var(--ink) 16%,transparent)}
+.nd-lamps li.on i{background:var(--dg-teal)}
+.nd-lamps li span{font-family:var(--f-mono);font-size:12px;color:var(--soft)}
+.nd-lamps li:not(.on) span{color:var(--stop)}
+
+/* debts, the date, and the room you are looking in on */
+.nd-side{display:grid;gap:14px;padding-top:18px;border-top:1px solid var(--rule)}
+.nd-you-are{margin:0;max-width:none;font-size:14.5px;color:var(--ink2)}
+.nd-debts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.nd-debts li{margin:0;max-width:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;font-size:14.5px;color:var(--ink2)}
+.nd-move{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:13.5px;color:var(--soft)}
+.nd-leave{margin:0;max-width:none;font-size:13.5px;color:var(--soft)}
+.nd-leave a{color:var(--ink2)}
+.nd-look{margin-top:16px}
+.nd-rooms{display:flex;flex-wrap:wrap;gap:6px}
+.nd-chip{min-height:36px;padding:6px 12px;border-radius:999px;border:1px solid color-mix(in oklab,var(--ink) 18%,transparent);background:none;color:var(--ink2);
+  font:inherit;font-size:13.5px;cursor:pointer;transition:border-color 150ms var(--ease),background 150ms var(--ease)}
+.nd-chip:hover{border-color:var(--ink)}
+.nd-chip.on{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.nd-card{margin-top:10px;padding:14px 16px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:6px;outline:0}
+.nd-card b{font-family:var(--f-display);font-size:16px}
+.nd-card p{margin:0;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.nd-card .nd-opt{margin-top:6px}
+
+/* the title, and the other two ways to play */
+.nd-pitch{font-size:clamp(19px,1.9vw,24px);line-height:1.4;letter-spacing:-.01em;color:var(--ink);margin:0 0 22px;max-width:26em}
+.nd-title{display:grid;gap:0}
+.nd-best{margin:14px 0 0;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);max-width:none}
+.nd-ways{margin-top:36px;padding-top:22px;border-top:1px solid var(--rule)}
+.nd-waygrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.nd-waygrid b{font-family:var(--f-display);font-size:18px;font-weight:620}
+.nd-waygrid p{margin:6px 0 12px;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.nd-rolebtns{display:flex;flex-wrap:wrap;gap:6px}
+
+/* the ending: a board paper */
+.nd-verdict{padding:22px 22px 24px;border-radius:16px;border:1px solid var(--rule);background:var(--paper);box-shadow:inset 0 4px 0 var(--v,var(--soft))}
+.nd-verdict.v-funded{--v:var(--dg-teal)}.nd-verdict.v-conditional{--v:var(--dg-amber)}.nd-verdict.v-paused{--v:var(--dg-slate)}.nd-verdict.v-stopped{--v:var(--dg-rose)}
+.nd-verdict h2{font-family:var(--f-display);font-size:clamp(28px,3.4vw,42px);font-weight:620;letter-spacing:-.035em;line-height:1.05;margin:0 0 10px;outline:0}
+.nd-verdict p:last-child{margin:0;font-size:17px;line-height:1.5;color:var(--ink2);max-width:36em}
+.nd-meters.end{gap:14px 34px}
+.nd-paper h3{font-family:var(--f-display);font-size:18px;font-weight:620;letter-spacing:-.015em;margin:0 0 10px}
+.nd-paper.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.nd-tb.calls th{white-space:nowrap;padding-right:16px}
+.nd-tb.calls th:first-child{width:5.5em}
+.nd-tb.calls tr.off td:nth-child(2){color:var(--ink)}
+.nd-tb.calls tr.off th{box-shadow:inset 3px 0 0 var(--dg-rose);padding-left:10px}
+.nd-tb.calls tr.ok th{box-shadow:inset 3px 0 0 var(--dg-teal);padding-left:10px}
+.nd-tb.calls td:last-child{color:var(--soft)}
+.nd-monday,.nd-terms{margin:0;padding:0 0 0 20px;display:grid;gap:7px;font-size:15px;line-height:1.45;color:var(--ink2)}
+.nd-terms{list-style:none;padding:0}
+.nd-monday li,.nd-terms li{margin:0;max-width:none}
+.nd-terms b{color:var(--ink)}
+
+/* without script: the thirteen days as a list */
+.nd-plain{max-width:760px}
+.nd-plain h2{font-family:var(--f-display);font-size:22px;letter-spacing:-.02em;margin:34px 0 8px}
+.nd-plain p,.nd-plain li{font-size:16px;line-height:1.6;color:var(--ink2)}
+
+/* one column: the panel first, the building under it */
+@media (max-width:1240px){
+  .nd-app{grid-template-columns:minmax(0,1fr);justify-items:center}
+  .nd-stage{position:static;width:100%;order:2;max-width:640px}
+  .nd-panel{order:1;width:100%}
+}
+/* a short window: the building scrolls with the page, so the room chips are never out of reach */
+@media (max-height:859px){.nd-stage{position:static}}
+@media (max-width:640px){
+  .nd-top h1{font-size:40px}
+  .nd-playing .nd-top{display:none}          /* the day is the heading; leaving is at the foot of the panel */
+  .nd-chip{min-height:44px;padding:8px 14px}
+  .nd-tb.stack .nd-check{min-height:44px;align-items:center}
+  .nd-strip li{font-size:10.5px;padding:5px 0 4px}
+  .nd-strip li span{font-size:11px}
+  .nd-lines span{font-size:16px}
+  .nd-lines p{grid-template-columns:40px 1fr;gap:2px 12px}
+  .nd-face{width:40px;height:40px}
+  .nd-waygrid,.nd-paper.two,.nd-lamps{grid-template-columns:1fr}
+  .nd-opt{padding:11px 13px;font-size:15.5px}
+  .nd-tb{font-size:13px}
+  /* the log, a row to a block: the fix, what the log shows, how long it takes */
+  .nd-tb.stack,.nd-tb.stack tbody,.nd-tb.stack tr,.nd-tb.stack th,.nd-tb.stack td{display:block;width:auto}
+  .nd-tb.stack thead{display:none}
+  .nd-tb.stack tr{padding:10px 0;border-top:1px solid var(--rule)}
+  .nd-tb.stack th,.nd-tb.stack td{border:0;padding:2px 0}
+  .nd-tb.stack th:first-child,.nd-tb.stack td:last-child{width:auto}
+  .nd-task,.nd-gate{padding:14px 14px 16px}
+  .nd-meters{gap:8px 20px}
+}
+@media (prefers-reduced-motion:reduce){.nd-opt{transition:none}}
+@media print{.nd-stage,.nd-scene,.nd-acts,.nd-look,.nd-side{display:none}}

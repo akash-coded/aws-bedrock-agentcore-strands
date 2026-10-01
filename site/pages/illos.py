@@ -194,7 +194,8 @@ METHODS = [
     ("BMAD Method", "k", "users", "documented", "Named AI personas plan like an agile team; sharded story files carry the context.",
      [("users", "the Analyst writes the project brief"),
       ("doc", "PM and Architect: PRD.md and architecture.md"),
-      ("spec", "sharded story files, then the Dev and QA loop"), None]),
+      ("spec", "sharded story files, then the Dev and QA loop"),
+      ("loop", "extended here: learn and adjust, into the next brief")]),
     ("AI-DLC (AWS)", "o", "bolt", "documented", "Three phases and bolts of hours or days replace sprints; a person approves every boundary.",
      [("flag", "inception: an intent becomes units of work"),
       ("users", "mob elaboration, NFRs captured"),
@@ -354,6 +355,14 @@ _METHOD_HUES = [('SDD', 'b'), ('BMAD', 'k'), ('AI-DLC', 'o'), ('AiDD', 'g')]   #
 
 
 # --------------------------------------------------------------------------------------- merge
+# What the SkyWays PDLC adds in each phase and none of the four methods carries. The home page's table
+# ends on the same four lines.
+ADDS = ["The autonomy ceiling, decided before anything is built",
+        "A bar per slice and an authority budget, signed at the hard gate",
+        "Prove the bar first: a lower bound, never a score, before traffic",
+        "The two-number report that starts the next P0"]
+
+
 def merge() -> str:
     """How the four methods merge into the SkyWays PDLC: each part lands in the phase it serves.
 
@@ -376,13 +385,10 @@ def merge() -> str:
             ("Context files and editor agents", "AiDD", "the day-to-day craft"),
             ("Review by risk, cost habits", "AiDD", "who signs, what it costs")],
         3: [("Operate, then re-enter at depth", "AI-DLC", "the next change picks its own stages"),
+            ("Learn and adjust, into the next brief", "BMAD", "extended: the trail runs one hand-off further"),
             ("Cache, route, trace", "AiDD", "cost habits that survive launch"),
             ("The spec learns from production", "SDD", "updated, then regenerated")],
     }
-    ADDS = ["The autonomy ceiling, decided before anything is built",
-            "A bar per slice and an authority budget, signed at the hard gate",
-            "Prove the bar first: a lower bound, never a score, before traffic",
-            "The two-number report that starts the next P0"]
     m = bb.title(34, 12, [("Four methods", "p"), ("merge into",), ("one loop", "n")])
     # legend: one hue per method, top right
     lx = W - 20

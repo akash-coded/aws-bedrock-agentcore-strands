@@ -52,13 +52,13 @@
       "airline, and is provided as is, without warranty of any kind.</div></section>" +
       (links.manual ?
         "<section><h2>The manual around this tool</h2>" +
-        '<p>This simulator is the interactive part of <a href="' + links.manual + '">The agentic manual</a>: the same ' +
+        '<p>This workbench is the hands-on part of <a href="' + links.manual + '">The agentic manual</a>: the same ' +
         "method as a tutorial, five role journeys, the templates, the prompts and the pictures.</p><ul>" +
         '<li><a href="' + links.manual + '">&#8592; Back to the manual</a></li>' +
         (links.manualPages || []).map(function (p) { return '<li><a href="' + p[1] + '">' + p[0] + "</a></li>"; }).join("") +
         "</ul></section>" : "") +
       "<section><h2>Pitch in</h2>" +
-      "<p>Have an idea, a disagreement, or a scenario the simulator gets wrong? Every suggestion is read, and the " +
+      "<p>Have an idea, a disagreement, or a scenario the workbench gets wrong? Every suggestion is read, and the " +
       "ones that ship are credited.</p><ul>" +
       "<li>" + a(links.ideas, "Pitch an idea in the discussion thread") + "</li>" +
       "<li>" + a(links.discussions, "Browse all discussions") + "</li>" +
@@ -190,7 +190,7 @@
       h("span", { "class": "sw-ic", html: BACK }),
       h("span", { "class": "sw-long", text: "Back to the agentic manual" }),
       h("span", { "class": "sw-short", text: "The manual" })]));
-    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the simulator. Straight to a part of the manual:" }));
+    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the workbench. Straight to a part of the manual:" }));
     var pages = h("span", { "class": "sw-strip-links" });
     (links.manualPages || []).forEach(function (p) {
       pages.appendChild(h("a", { href: p[1] }, [p[0], h("span", { "class": "sw-ic sw-go", html: GO })]));

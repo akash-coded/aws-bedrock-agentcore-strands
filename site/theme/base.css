@@ -1062,16 +1062,16 @@ a.md:hover b{color:var(--c)}
   --ic-book:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z'/%3E%3C/svg%3E");
   --ic-go:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
 }
-main a[href*="simulator/"]{--ic:var(--ic-play)}   /* the per-route rules below win by order, so no :not() here */
-main a[href*="simulator/#/toolkit"]{--ic:var(--ic-calc)}
-main a[href*="simulator/#/simulations"]{--ic:var(--ic-sim)}
-main a[href*="simulator/#/governance"]{--ic:var(--ic-shield)}
-main a[href*="simulator/#/loopmap"]{--ic:var(--ic-loop)}
-main a[href*="simulator/#/compare"]{--ic:var(--ic-cols)}
-main a[href*="simulator/#/evidence"]{--ic:var(--ic-pack)}
-main a[href*="simulator/#/process"],main a[href*="simulator/#/pm/"],main a[href*="simulator/#/sa/"],main a[href*="simulator/#/eng/"]{--ic:var(--ic-steps)}
-main a[href*="simulator/#/learn"],main a[href*="simulator/#/concepts"],main a[href*="simulator/#/guide"]{--ic:var(--ic-book)}
-main a[href*="simulator/"]:not(.btn):not(.more):not(.simshot)::before{content:"";display:inline-block;width:1.05em;height:1.05em;margin-right:.36em;vertical-align:-.17em;background:currentColor;
+main a[href*="simulator/"],main a[href*="workbench/"]{--ic:var(--ic-play)}   /* the per-route rules below win by order, so no :not() here */
+main a[href*="workbench/#/toolkit"]{--ic:var(--ic-calc)}
+main a[href*="workbench/#/simulations"]{--ic:var(--ic-sim)}
+main a[href*="workbench/#/governance"]{--ic:var(--ic-shield)}
+main a[href*="workbench/#/loopmap"]{--ic:var(--ic-loop)}
+main a[href*="workbench/#/compare"]{--ic:var(--ic-cols)}
+main a[href*="workbench/#/evidence"]{--ic:var(--ic-pack)}
+main a[href*="workbench/#/process"],main a[href*="workbench/#/pm/"],main a[href*="workbench/#/sa/"],main a[href*="workbench/#/eng/"]{--ic:var(--ic-steps)}
+main a[href*="workbench/#/learn"],main a[href*="workbench/#/concepts"],main a[href*="workbench/#/guide"]{--ic:var(--ic-book)}
+main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inline-block;width:1.05em;height:1.05em;margin-right:.36em;vertical-align:-.17em;background:currentColor;
   -webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 /* the focused pointers under a picture: a labelled row of chips, each with its icon and a go arrow */
 .try{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-4px 0 22px}
@@ -1413,107 +1413,135 @@ main.home{padding:0}
 .rv-on .rv.in{opacity:1;transform:none}
 /* Paper gets the finished picture, whatever the entrance had reached; the globe is a screen thing and stays off it. */
 @media print{.rv-on .rv{opacity:1;transform:none}
-  .weave :is(.wv-trunk i,.wv-ph li,.wv-lane,.wv-loop,.wv-back,.wv-gate){scale:none!important;clip-path:none!important;opacity:1!important}
+  .spine :is(.sp-trunk i,.sp-ph li,.sp-loop,.sp-back,.sp-gate),.cover .bar{scale:none!important;clip-path:none!important;opacity:1!important}
   .hero2 .scene{display:none}}
 
-/* ---- section two: one line, and the methods that run along it (pages/weave.py) ----
-   Two marks for two kinds of thing. The line is thick, in the phase hues, and closes into a loop.
-   A method is a thin neutral strand beside it: solid where it has a stage, dashed where it touches
-   the phase, a hairline where it says nothing. */
-.weave{position:relative;margin:0;--wv:color-mix(in oklab,var(--ink) 60%,var(--bone));--wv-h:color-mix(in oklab,var(--ink) 30%,var(--bone));
-  --wv-b:color-mix(in oklab,var(--ink) 42%,var(--bone))}
-.weave ol{list-style:none;margin:0;padding:0;max-width:none}
-.weave li{margin:0;max-width:none}
-.wv-names a{display:grid;gap:2px;color:var(--ink);text-decoration:none}
-.wv-names b{font-family:var(--f-display);font-size:17.5px;font-weight:620;letter-spacing:-.015em;line-height:1.2}
-.wv-names small{font-size:13px;line-height:1.35;color:var(--soft)}
-.wv-names a:hover{text-decoration:none}
-.wv-names a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.wv-core b{font-size:20px;letter-spacing:-.02em}
-.wv-lane{display:flex;gap:3px;height:6px;background:linear-gradient(var(--wv-h),var(--wv-h)) center/100% 1px no-repeat}
-.wv-lane i{flex:1;display:block;border-radius:3px;transition:background-color 150ms var(--ease)}
-.wv-lane .r2{background:var(--wv)}
-.wv-lane .r1{background:repeating-linear-gradient(90deg,var(--wv) 0 7px,transparent 7px 12px)}
-.wv-trunk{position:relative;gap:0;height:16px;background:none;isolation:isolate}
-.wv-trunk i{position:relative;z-index:1;border-radius:0;background:var(--c)}
-.wv-trunk i:first-of-type{border-radius:8px 0 0 8px}
-.wv-trunk i:nth-of-type(4){border-radius:0 8px 8px 0}
-.wv-trunk i::before{content:"";position:absolute;left:0;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;
+/* ---- the spine: one line that closes into a loop, a question above it, a symptom below (pages/spine.py) ---- */
+.spine{position:relative;margin:0;--sp-b:color-mix(in oklab,var(--ink) 42%,var(--bone))}
+.spine ol{list-style:none;margin:0;padding:0;max-width:none}
+.spine li{margin:0;max-width:none}
+.sp-core a{display:grid;gap:2px;color:var(--ink);text-decoration:none}
+.sp-core b{font-family:var(--f-display);font-size:20px;font-weight:620;letter-spacing:-.02em;line-height:1.2}
+.sp-core small{font-size:13px;line-height:1.35;color:var(--soft)}
+.sp-core a:hover{text-decoration:none}
+.sp-core a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.sp-trunk{position:relative;display:flex;height:16px;isolation:isolate}
+.sp-trunk i{position:relative;z-index:1;flex:1;display:block;background:var(--c)}
+.sp-trunk i:first-of-type{border-radius:8px 0 0 8px}
+.sp-trunk i:nth-of-type(4){border-radius:0 8px 8px 0}
+.sp-trunk i::before{content:"";position:absolute;left:0;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;
   box-sizing:border-box;background:var(--bone);border:4px solid var(--c)}
-.wv-loop{position:absolute;z-index:0;left:-20px;bottom:50%;width:calc(100% + 46px);height:144px;overflow:visible;fill:none;
-  stroke:var(--wv-b);stroke-width:1.5;stroke-dasharray:5 6;stroke-linecap:round}
-.wv-back,.wv-gate{position:absolute;z-index:2;font-style:normal;font-family:var(--f-mono);font-size:11.5px;font-weight:500;line-height:1;
+.sp-loop{position:absolute;z-index:0;left:-20px;bottom:50%;width:calc(100% + 46px);height:144px;overflow:visible;fill:none;
+  stroke:var(--sp-b);stroke-width:1.5;stroke-dasharray:5 6;stroke-linecap:round}
+.sp-back,.sp-gate{position:absolute;z-index:2;font-style:normal;font-family:var(--f-mono);font-size:11.5px;font-weight:500;line-height:1;
   white-space:nowrap;background:var(--bone)}
-.wv-back{left:50%;bottom:calc(50% + 144px);transform:translate(-50%,50%);padding:3px 10px;color:var(--soft);display:inline-flex;align-items:center;gap:7px}
-.wv-back svg{width:12px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.wv-gate{left:50%;top:50%;transform:translate(calc(-100% - 15px),-50%);padding:5px 9px;border-radius:999px;
+.sp-back{left:50%;bottom:calc(50% + 144px);transform:translate(-50%,50%);padding:3px 10px;color:var(--soft);display:inline-flex;align-items:center;gap:7px}
+.sp-back svg{width:12px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sp-gate{left:50%;top:50%;transform:translate(calc(-100% - 15px),-50%);padding:5px 9px;border-radius:999px;
   color:color-mix(in oklab,var(--dg-rose) 80%,var(--ink));border:1px solid color-mix(in oklab,var(--dg-rose) 55%,transparent)}
-.wv-ph a{display:grid;gap:4px;color:inherit;text-decoration:none}
-.wv-ph a:hover{text-decoration:none}
-.wv-ph .c-key{font-family:var(--f-mono);font-size:12px;font-weight:600;color:color-mix(in oklab,var(--c) 82%,var(--ink))}
-.wv-ph .c-name{font-family:var(--f-display);font-size:clamp(17px,1.5vw,20px);font-weight:620;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
-.wv-ph .c-ask{font-size:13.5px;line-height:1.42;color:var(--soft)}
-.wv-ph a:hover .c-name{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.wv-key{display:flex;flex-wrap:wrap;gap:10px 28px;margin:34px 0 0;font-size:13px;color:var(--soft);max-width:none}
-.wv-key span{display:inline-flex;align-items:center;gap:9px}
-.wv-key i{display:block;flex:none;width:30px;height:6px;border-radius:3px;background:color-mix(in oklab,var(--ink) 60%,var(--bone))}
-.wv-key .k1{background:repeating-linear-gradient(90deg,color-mix(in oklab,var(--ink) 60%,var(--bone)) 0 7px,transparent 7px 12px)}
-.wv-key .kg{width:24px;height:12px;border-radius:999px;background:none;border:1px solid color-mix(in oklab,var(--dg-rose) 55%,transparent)}
-/* pointing at a name picks out its strand, in the hues of the phases it reaches */
-.wv-m{transition:opacity 150ms var(--ease)}
-.wv-names:has(.wv-m a:is(:hover,:focus-visible)) .wv-m:not(:has(a:is(:hover,:focus-visible))){opacity:.42}
-.wv-m:has(a:is(:hover,:focus-visible)) .wv-lane .r2{background:var(--c)}
-.wv-m:has(a:is(:hover,:focus-visible)) .wv-lane .r1{background:repeating-linear-gradient(90deg,var(--c) 0 7px,transparent 7px 12px)}
-/* wide: the names fan into one bundle, and the phases sit inside the loop */
+.sp-ph a{display:grid;gap:4px;color:inherit;text-decoration:none}
+.sp-ph a:hover{text-decoration:none}
+.sp-ph .c-key{font-family:var(--f-mono);font-size:12px;font-weight:600;color:color-mix(in oklab,var(--c) 82%,var(--ink))}
+.sp-ph .c-name{font-family:var(--f-display);font-size:clamp(17px,1.5vw,20px);font-weight:620;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
+.sp-ph .c-ask{font-size:13.5px;line-height:1.42;color:var(--ink2)}
+.sp-ph a:hover .c-name{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.sp-skip{margin:0;max-width:none;font-size:13.5px;line-height:1.45;color:var(--ink2);padding-left:12px;
+  border-left:2px solid color-mix(in oklab,var(--c) 55%,transparent)}
+.sp-skip::before{content:"\201C"}.sp-skip::after{content:"\201D"}
+.sp-cap{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0;max-width:none}
+/* wide: the name curves into the line, the questions sit inside the loop, the symptoms hang under it */
 @media (min-width:1001px){
-  .weave{height:292px}
-  .wv-names{width:22%}
-  .wv-names li{display:flex;align-items:center;height:48px}
-  .wv-names li::after{content:"";flex:1;min-width:14px;height:1px;margin-left:14px;background:var(--wv-h)}
-  .wv-names .wv-core{height:72px;margin-bottom:4px}
-  .wv-names .wv-core::after{height:3px;border-radius:2px 0 0 2px;background:var(--dg-slate)}
-  .wv-fan{position:absolute;left:22%;top:0;width:10%;height:292px;overflow:visible;fill:none}
-  .wv-fan path{vector-effect:non-scaling-stroke;stroke:var(--wv-h);stroke-width:1}
-  .wv-fan .f-core{stroke:var(--dg-slate);stroke-width:3}
-  .wv-lane{position:absolute;left:32%;right:3%}
-  .wv-m .wv-lane{top:calc(175px + var(--i) * 15px)}
-  .wv-trunk{position:absolute;top:142px}
-  .wv-ph{position:absolute;left:32%;right:3%;top:20px;height:106px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end}
-  .wv-ph a{padding:0 14px 0 16px}
+  .sp-core{display:contents}      /* its parts are placed against the figure, not against the name */
+  .sp-core a{position:absolute;left:0;top:0;width:22%;height:72px;grid-template-columns:auto minmax(14px,1fr);column-gap:14px;align-content:center}
+  .sp-core a b,.sp-core a small{grid-column:1}
+  .sp-core a::after{content:"";grid-column:2;grid-row:1/3;align-self:center;height:3px;border-radius:2px 0 0 2px;background:var(--dg-slate)}
+  .sp-fan{position:absolute;left:22%;top:0;width:10%;height:190px;overflow:visible;fill:none}
+  .sp-fan path{vector-effect:non-scaling-stroke;stroke:var(--dg-slate);stroke-width:3}
+  .sp-trunk{position:absolute;left:32%;right:3%;top:142px}
+  .spine .sp-ph{margin:0 3% 0 32%;padding-top:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sp-ph li{display:grid;grid-template-rows:106px 54px auto}
+  .sp-ph a{align-self:end;padding:0 14px 0 16px}
+  .sp-skip{grid-row:3;margin:0 16px 0 4px}
+  .sp-cap{position:absolute;left:0;top:181px;width:calc(32% - 22px);text-align:right}
 }
-@media (min-width:1001px) and (max-width:1160px){.wv-names small{display:none}.wv-ph .c-ask{font-size:13px}}
-/* 1000px and under: each name beside its own strand, the line first, the questions as a list below */
+@media (min-width:1001px) and (max-width:1160px){.sp-ph .c-ask,.sp-skip{font-size:13px}}
+/* 1000px and under: the line first, then each phase with its question and its symptom */
 @media (max-width:1000px){
-  .wv-fan{display:none}
-  .wv-names li{display:grid;grid-template-columns:minmax(108px,30%) minmax(0,1fr);gap:0 16px;align-items:center;padding-right:12px;
-    border-top:1px solid var(--rule2)}
-  .wv-names a{min-height:48px;align-content:center;padding:6px 0}
-  .wv-names .wv-core{border-top:0;padding-top:30px;padding-bottom:40px}
-  .wv-names .wv-core+li{border-top-color:var(--rule)}
-  .wv-trunk{height:12px}
-  .wv-trunk i:first-of-type{border-radius:6px 0 0 6px}
-  .wv-trunk i:nth-of-type(4){border-radius:0 6px 6px 0}
-  .wv-trunk i::before{width:14px;height:14px;margin:-7px 0 0 -7px;border-width:3px}
-  .wv-trunk i::after{content:attr(data-k);position:absolute;left:7px;bottom:calc(100% + 11px);font:600 11.5px/1 var(--f-mono);
+  .sp-fan,.sp-cap{display:none}
+  .sp-core{display:grid;grid-template-columns:minmax(108px,30%) minmax(0,1fr);gap:0 16px;align-items:center;padding:30px 12px 44px 0}
+  .sp-trunk{height:12px}
+  .sp-trunk i:first-of-type{border-radius:6px 0 0 6px}
+  .sp-trunk i:nth-of-type(4){border-radius:0 6px 6px 0}
+  .sp-trunk i::before{width:14px;height:14px;margin:-7px 0 0 -7px;border-width:3px}
+  .sp-trunk i::after{content:attr(data-k);position:absolute;left:7px;bottom:calc(100% + 11px);font:600 11.5px/1 var(--f-mono);
     color:color-mix(in oklab,var(--c) 82%,var(--ink))}
-  .wv-loop{left:0;top:50%;bottom:auto;width:calc(100% + 10px);height:28px}
-  .wv-loop rect{rx:13px}
-  .wv-back{bottom:auto;top:calc(50% + 28px);transform:translate(-50%,-50%)}
-  .wv-gate{font-size:11px;padding:3px 7px}
-  .weave .wv-ph{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;padding-top:28px;border-top:1px solid var(--rule)}
-  .wv-ph a{grid-template-columns:auto 1fr;gap:3px 10px;align-items:baseline;min-height:44px}
-  .wv-ph .c-ask{grid-column:1/-1}
-  .wv-ph .c-name{font-size:17px}
+  .sp-loop{left:0;top:50%;bottom:auto;width:calc(100% + 10px);height:28px}
+  .sp-loop rect{rx:13px}
+  .sp-back{bottom:auto;top:calc(50% + 28px);transform:translate(-50%,-50%)}
+  .sp-gate{font-size:11px;padding:3px 7px}
+  .spine .sp-ph{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 28px;padding-top:28px;border-top:1px solid var(--rule)}
+  .sp-ph a{grid-template-columns:auto 1fr;gap:3px 10px;align-items:baseline;min-height:44px}
+  .sp-ph .c-ask{grid-column:1/-1}
+  .sp-ph .c-name{font-size:17px}
+  .sp-skip{margin-top:8px}
 }
 @media (max-width:600px){
-  .wv-names b{font-size:15px}.wv-core b{font-size:16.5px}
-  .wv-m small{display:none}
-  .wv-names li{grid-template-columns:minmax(96px,34%) minmax(0,1fr);gap:0 12px}
-  .weave .wv-ph{grid-template-columns:1fr;gap:16px}
-  /* too narrow for the word: the gate is a rose bar before P2, and the key below names it */
-  .wv-gate{width:4px;height:24px;padding:0;border:0;border-radius:2px;overflow:hidden;color:transparent;font-size:0;
+  .sp-core b{font-size:16.5px}
+  .sp-core{grid-template-columns:minmax(96px,34%) minmax(0,1fr);gap:0 12px}
+  .spine .sp-ph{grid-template-columns:1fr;gap:20px}
+  /* too narrow for the word: the gate is a rose bar before P2 */
+  .sp-gate{width:4px;height:24px;padding:0;border:0;border-radius:2px;overflow:hidden;text-indent:8px;
     background:color-mix(in oklab,var(--dg-rose) 85%,var(--ink));transform:translate(calc(-100% - 10px),-50%)}
-  .wv-key .kg{width:4px;height:16px;border:0;border-radius:2px;background:color-mix(in oklab,var(--dg-rose) 85%,var(--ink))}
+}
+
+/* ---- the methods on the spine: four rows of bars, then what the spine adds (pages/spine.py) ---- */
+.cover{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:16px}
+.cover table{width:100%;min-width:640px;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:inherit}
+.cover th,.cover td{border:0;background:none;padding:0;white-space:normal;vertical-align:middle;font-weight:400}
+.cover thead th{position:relative;vertical-align:top;padding:16px 14px 22px 0;box-shadow:inset 0 3px 0 var(--c,transparent)}
+.cover thead th.corner{width:31%;box-shadow:none}
+.cover thead a{display:grid;gap:5px;color:inherit;text-decoration:none}
+.cover .c-key{font-family:var(--f-mono);font-size:12px;font-weight:600;color:color-mix(in oklab,var(--c) 82%,var(--ink))}
+.cover .c-name{font-family:var(--f-display);font-size:clamp(16px,1.5vw,20px);font-weight:620;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
+.cover thead a:hover .c-name{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.cover tbody th{text-align:left;padding:20px 24px 20px 0;border-top:1px solid var(--rule)}
+.cover tbody th a,.cover-adds p a{display:block;font-family:var(--f-display);font-size:17.5px;font-weight:620;letter-spacing:-.015em;color:var(--ink);text-decoration:none}
+.cover tbody th a:hover,.cover-adds p a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.cover tbody th small,.cover-adds small{display:block;font-size:13.5px;line-height:1.45;color:var(--soft);margin-top:3px}
+.cover tbody td{border-top:1px solid var(--rule);padding:0 3px 0 0}
+.cover .gated{border-left:2px dashed color-mix(in oklab,var(--dg-rose) 70%,transparent)}
+.cover thead th.gated{padding-left:14px}
+.cover tbody td.gated{padding-left:3px}
+.cover thead th.gated::before{content:"hard gate";position:absolute;left:-1px;top:-13px;transform:translateX(-50%);padding:2px 8px;border-radius:999px;
+  font-family:var(--f-mono);font-size:11px;font-weight:500;white-space:nowrap;background:var(--bone);
+  color:color-mix(in oklab,var(--dg-rose) 80%,var(--ink));border:1px solid color-mix(in oklab,var(--dg-rose) 45%,transparent)}
+.bar{display:block;height:12px;border-radius:3px;font-style:normal}
+.bar.r2{background:var(--c)}
+.bar.r1{background:repeating-linear-gradient(90deg,var(--c) 0 7px,transparent 7px 12px);opacity:.8}
+.bar.r0{height:0;border-top:2px dotted var(--faint)}
+.bar.rx{box-sizing:border-box;border:2px solid var(--c);background:color-mix(in oklab,var(--c) 14%,transparent)}
+/* the last row is the spine's own: words, because the lifecycle is not a fifth method */
+.cover tr.adds th a{font-size:19px}
+.cover tr.adds th,.cover tr.adds td{border-top:1px solid var(--ink2);padding-top:22px;padding-bottom:22px;vertical-align:top}
+.cover tr.adds td{font-size:13.5px;line-height:1.45;color:var(--ink2);padding-right:16px}
+.cover tr.adds td::before{content:"";display:block;width:22px;height:3px;border-radius:2px;background:var(--c);margin:3px 0 10px}
+.cover tr.adds td.gated{padding-left:14px}
+.cover-adds{display:none}
+.cover-key{display:flex;flex-wrap:wrap;gap:10px 28px;margin:26px 0 0;font-size:13px;color:var(--soft);max-width:none}
+.cover-key span{display:inline-flex;align-items:center;gap:9px}
+.cover-key .bar{width:34px;height:8px;--c:var(--ink2)}
+.cover-key .gatekey{width:0;height:16px;border-left:2px dashed color-mix(in oklab,var(--dg-rose) 70%,transparent)}
+@media (max-width:760px){.cover tbody th small{display:none}.cover thead th.corner{width:33%}
+  .cover tbody th a{font-size:14.5px;line-height:1.25}
+  .cover table{min-width:0}.cover tbody th{padding:16px 10px 16px 0}.cover thead th{padding:12px 4px 14px 0}
+  .cover thead th.gated{padding-left:7px}.cover .c-name{font-size:12.5px;letter-spacing:-.01em}.cover .c-key{font-size:11px}
+  .bar{height:10px}
+  .cover tr.adds{display:none}
+  .cover-adds{display:block;border-top:1px solid var(--ink2);margin-top:4px;padding-top:18px}
+  .cover-adds p{margin:0 0 14px;max-width:none}
+  .cover-adds ol{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .cover-adds li{margin:0;max-width:none;font-size:14px;line-height:1.45;color:var(--ink2);padding-left:12px;border-left:3px solid var(--c)}
+  .cover-adds li b{display:block;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:color-mix(in oklab,var(--c) 82%,var(--ink));margin-bottom:2px}
 }
 
 /* ---- section three: one row per role, where you start and where you end up ---- */
@@ -1647,6 +1675,8 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 /* phones: every new thing you can tap is at least 44px tall */
 @media (max-width:820px){
   a.more,.howto>summary{min-height:44px}
+  .cover tbody th a,.cover-adds p a{padding:13px 0;margin:-13px 0}
+  .cover thead a{min-height:44px;align-content:start}
 }
 
 /* ---- measured floors, where an older and more specific rule sat under them ---- */
@@ -1754,16 +1784,18 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
   .hero2 .hx>:nth-child(2){--i:1}.hero2 .hx>:nth-child(3){--i:2}.hero2 .hx>:nth-child(4){--i:3}.hero2 .hx>:nth-child(5){--i:4}
   /* a role's steps arrive in the order they are walked */
   .roadmap .rn{animation:arrive 250ms var(--ease) both;animation-delay:calc(80ms + var(--i,0) * 40ms)}
-  /* the line arrives in order: its four phases, then the strands along it, then the way back */
-  .rv-on .weave .wv-trunk i{transform-origin:0 50%;scale:0 1;transition:scale 250ms var(--ease) calc(var(--j,0) * 70ms + 150ms)}
-  .rv-on .weave .wv-ph li{opacity:0;transition:opacity 250ms var(--ease) calc(var(--i,0) * 70ms + 150ms)}
-  .rv-on .weave .wv-m .wv-lane{clip-path:inset(-6px 100% -6px 0);transition:clip-path 400ms var(--ease) calc(var(--i,0) * 40ms + 380ms)}
-  .rv-on .weave .wv-loop{clip-path:inset(-6px -6px -6px 100%);transition:clip-path 350ms var(--ease) 650ms}
-  .rv-on .weave :is(.wv-back,.wv-gate){opacity:0;transition:opacity 150ms var(--ease) 850ms}
-  .rv-on .rv.in .weave .wv-trunk i{scale:1 1}
-  .rv-on .rv.in .weave .wv-ph li,.rv-on .rv.in .weave :is(.wv-back,.wv-gate){opacity:1}
-  .rv-on .rv.in .weave .wv-m .wv-lane{clip-path:inset(-6px 0 -6px 0)}
-  .rv-on .rv.in .weave .wv-loop{clip-path:inset(-6px -6px -6px -6px)}
+  /* the spine arrives in order: its four phases, each with its question, then the way back */
+  .rv-on .spine .sp-trunk i{transform-origin:0 50%;scale:0 1;transition:scale 250ms var(--ease) calc(var(--j,0) * 70ms + 150ms)}
+  .rv-on .spine .sp-ph li{opacity:0;transition:opacity 250ms var(--ease) calc(var(--i,0) * 70ms + 150ms)}
+  .rv-on .spine .sp-loop{clip-path:inset(-6px -6px -6px 100%);transition:clip-path 350ms var(--ease) 600ms}
+  .rv-on .spine :is(.sp-back,.sp-gate){opacity:0;transition:opacity 150ms var(--ease) 800ms}
+  .rv-on .rv.in .spine .sp-trunk i{scale:1 1}
+  .rv-on .rv.in .spine .sp-ph li,.rv-on .rv.in .spine :is(.sp-back,.sp-gate){opacity:1}
+  .rv-on .rv.in .spine .sp-loop{clip-path:inset(-6px -6px -6px -6px)}
+  /* the methods draw along the spine, phase by phase, top row first */
+  .rv-on .cover .bar{transform-origin:0 50%;scale:0 1;transition:scale 400ms var(--ease);transition-delay:calc(var(--r,0) * 40ms + var(--k,0) * 80ms)}
+  .rv-on .rv.in .cover .bar{scale:1 1}
+  .cover td:nth-child(3){--k:1}.cover td:nth-child(4){--k:2}.cover td:nth-child(5){--k:3}
   /* a figure assembles in the order it was drawn */
   .fig-in>*{animation:fig-part 350ms var(--ease) both;animation-delay:var(--fd,0ms)}
   /* the guide blinks when you reach for it, and at no other time */

@@ -3,7 +3,7 @@
 window.SKYWAYS_SITE = {
   author: "Akash Das",
   // The tool's own name, used in the footer's first sentence and the drawer.
-  siteName: "The SkyWays PDLC Simulator",
+  siteName: "The SkyWays workbench",
   year: 2026,
   links: {
     repo: "https://github.com/akash-coded/aws-bedrock-agentcore-strands",
@@ -12,8 +12,8 @@ window.SKYWAYS_SITE = {
     issues: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/issues/new/choose",
     license: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/LICENSE",
     source: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/app/SkyWays-Architect.html",
-    frameless: "app/SkyWays-Architect.html",
-    // The manual this tool belongs to, relative to the framed copy at /simulator/. Empty = no way back.
+    frameless: "../app/SkyWays-Architect.html",
+    // The manual this tool belongs to, relative to the framed copy at /workbench/. Empty = no way back.
     manual: "../",
     manualPages: [["Tutorial", "../learn/"], ["Roles", "../product-manager/"], ["Templates", "../templates/"],
                   ["Prompts", "../prompts/"], ["Mental models", "../models/"]]

@@ -8,6 +8,58 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · The simulator is a game: Ninety Days
+
+The simulator was a reference tool to read. It is now a simulation to play, and the tool is kept behind
+it as the workbench. A council of five advisors and five reviewers set the direction; the record and the
+rules are in [`site/GAME.md`](site/GAME.md).
+
+### Added
+- **Ninety Days**, at `/simulator/`. Thirteen dated days stand for the ninety. Each day is a short scene,
+  one call with its price in days shown, and on five days a hands-on task. A shortcut leaves a sealed
+  debt on a later day, which comes back with the player's own choice quoted. Doing everything properly
+  does not fit the runway, so the date has to move once, and moving it with documents on file costs no
+  trust
+- **Three ways to play**: the whole team; one role, with four questions to ask of colleagues who have
+  habits of their own; and the organisation, where the sponsor picks three rules and watches the days run
+- **A head office drawn in code**: seven rooms on four floors at night, a cast of twelve, the day's room
+  lit and shown close up, walls that show the state of the build. No image files. Everything read or
+  pressed is page text and real controls; the canvases are hidden from a screen reader
+- **One thing nobody asks about.** The refund limit sits in the prompt from Day 30. Looking in on the
+  Platform room shows it. On Day 82 the refund is refused, or paid
+- [`site/tools/sim.test.mjs`](site/tools/sim.test.mjs) walks every path through the rules, and
+  [`site/tools/playtest.mjs`](site/tools/playtest.mjs) plays every mode to its verdict in a browser
+
+### Changed
+- **The earlier tool is the workbench**, at `/workbench/`, unedited apart from its two planes, which now
+  face the way they fly. **Breaking for deep links only in name:** every `/simulator/#/…` and `/#/…` route
+  is forwarded to `/workbench/#/…` before the page paints, so bookmarks and the wiki keep working
+- The home page's simulator band shows the game, and links to the workbench beside it. The menu, the
+  Library list, the footer and the search index carry both
+- The acceptance gate includes the simulator and asks its canvas how many frames it drew: none under
+  reduced motion, and a pause control whenever it moves
+
+---
+
+## 2026-10-02 · The reason first, then the spine, then the methods on it; extended BMAD
+
+The strands figure that replaced the method table was harder to read than the table. Both ideas are kept,
+each in its own picture.
+
+### Changed
+- **A band that says why.** "Agent projects fail quietly. A phase ended on a date instead of on evidence."
+  Under it the SkyWays PDLC as one line that closes into a loop: above the line the question each phase
+  asks, below it the line a team hears when the question was skipped, each from that phase's own lesson
+- **The method table is back**, with its bars in the phase hues and each name beside its row. Its last row
+  is no longer a fifth bar: it is what the spine adds in each phase that no method carries
+- **Extended BMAD.** BMAD's last step, "learn and adjust", is run here as a Run & Learn stage with three
+  hand-offs: QA's drift report, the product manager's two-number report, and the incident written up as
+  the next brief. It is this manual's extension and is marked as one wherever it appears: a hollow bar in
+  the home page's table, a cell on the frameworks page's plug board, a part in the merge figure, a section
+  and an FAQ entry in the BMAD lesson, and the BMAD row of the "one lifecycle for every method" table
+
+---
+
 ## 2026-10-02 · Many names, one spine: section two redrawn, and dark by default
 
 A third council judged a request for a new home section: the method names a reader has heard, resolved

@@ -14,7 +14,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 const [base, outDir] = process.argv.slice(2);
-if (!base || !outDir) { console.error("usage: node simshots.mjs <simulator url> <output dir>"); process.exit(2); }
+if (!base || !outDir) { console.error("usage: node simshots.mjs <workbench url> <output dir>"); process.exit(2); }
 
 const SHOTS = [
   { name: "sim-flight-plan", route: "#/quest", sel: ".xrt" },
