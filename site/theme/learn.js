@@ -7,10 +7,8 @@
 const tag = document.querySelector("script[data-mermaid]");
 const sources = [...document.querySelectorAll("pre.mermaid")];
 
-const dark = () => {
-  const t = document.documentElement.getAttribute("data-theme");
-  return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-};
+// the page is dark unless the reader chose light
+const dark = () => document.documentElement.getAttribute("data-theme") !== "light";
 
 if (sources.length && tag) {
   const { default: mermaid } = await import(tag.dataset.mermaid);
@@ -56,5 +54,4 @@ if (sources.length && tag) {
   } catch {}
   await draw();
   new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
 }

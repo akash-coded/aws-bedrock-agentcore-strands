@@ -251,8 +251,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <link rel="canonical" href="{_E(canonical or BASE_URL, quote=True)}">
 <link rel="alternate" type="application/atom+xml" title="The agentic manual: new and updated lessons" href="{up}feed.xml">
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#F7F6F2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#121316">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="The agentic manual">
 <meta property="og:title" content="{_E(title, quote=True)}">
@@ -289,8 +288,8 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <strong>SkyWays Consultancy</strong>, conceptualised and built by <strong>{AUTHOR}</strong> and open-sourced
     under the <a href="{REPO}/blob/main/LICENSE">MIT licence</a> for knowledge and experience sharing. Keep the
     attribution when you reuse them.</p>
-    <p style="font-size:13.5px;color:var(--soft)">SkyWays is a fictional airline. Every figure is
-    illustrative and dated; check it against your own numbers. Not affiliated with, sponsored by or
+    <p style="font-size:13.5px;color:var(--soft)">The worked case is set at a fictional airline, also called
+    SkyWays. Every figure is illustrative and dated; check it against your own numbers. Not affiliated with, sponsored by or
     endorsed by Amazon Web Services or any airline.</p>
   </section>
   <section><h2>Go deeper</h2><ul>
@@ -700,53 +699,27 @@ PHASES = [
 # How far each method reaches along the line: 2 covers the phase, 1 touches it lightly, 0 says nothing.
 # The same reading as the frameworks page's plug board, which carries the detail.
 COVERAGE = [
-    ("Spec-driven development", "learn/what-is-spec-driven-development/",
-     "You maintain the spec and regenerate the code.", (1, 2, 2, 1)),
-    ("BMAD Method", "learn/what-is-the-bmad-method/",
-     "AI personas plan the way an agile team does.", (2, 2, 2, 0)),
-    ("AI-DLC", "learn/what-is-ai-dlc/",
-     "From AWS: bolts of days in place of sprints.", (2, 2, 2, 2)),
-    ("AIDD", "learn/what-is-aidd/",
-     "The daily craft of working with a coding agent.", (0, 0, 2, 0)),
+    ("AI-DLC", "learn/what-is-ai-dlc/", "From AWS, built in bolts of days", (2, 2, 2, 2)),
+    ("BMAD Method", "learn/what-is-the-bmad-method/", "AI personas, working as an agile team", (2, 2, 2, 0)),
+    ("Spec-driven development", "learn/what-is-spec-driven-development/", "The spec is what you maintain", (1, 2, 2, 1)),
+    ("AIDD", "learn/what-is-aidd/", "The daily craft with a coding agent", (0, 0, 2, 0)),
 ]
-REACH = {2: "covers this phase", 1: "touches this phase lightly", 0: "says nothing here"}
-
-
-def _coverage() -> str:
-    """Section two's answer, drawn: four methods as bars along the four phases. A real table, so a
-    screen reader gets rows and columns; the bars are its cells."""
-    head = "".join(
-        f'<th scope="col" style="--c:var(--dg-{hue})"{" class=gated" if key == "P2" else ""}>'
-        f'<a href="{href}"><span class="c-key">{key}</span><span class="c-name">{name}</span>'
-        f'<span class="c-ask">{q}</span></a></th>'
-        for key, name, q, hue, href in PHASES)
-    rows = []
-    for name, href, line, reach in COVERAGE:
-        cells = "".join(
-            f'<td style="--c:var(--dg-{PHASES[i][3]})"{" class=gated" if i == 2 else ""}>'
-            f'<i class="bar r{r}"></i><span class="vh">{REACH[r]}</span></td>'
-            for i, r in enumerate(reach))
-        rows.append(f'<tr style="--r:{len(rows)}"><th scope="row"><a href="{href}">{_E(name)}</a><small>{_E(line)}</small></th>{cells}</tr>')
-    whole = "".join(
-        f'<td style="--c:var(--dg-{PHASES[i][3]})"{" class=gated" if i == 2 else ""}>'
-        f'<i class="bar r3"></i><span class="vh">covers this phase</span></td>' for i in range(4))
-    rows.append(f'<tr class="whole" style="--r:{len(rows)}"><th scope="row"><a href="learn/what-is-the-agentic-pdlc/">SkyWays PDLC</a>'
-                f'<small>The whole line, with the gate and the way back.</small></th>{whole}</tr>')
-    return ('<div class="cover"><table><caption class="vh">Which phases each agentic method covers</caption>'
-            f'<thead><tr><th scope="col" class="corner"><span class="vh">Method</span></th>{head}</tr></thead>'
-            f'<tbody>{"".join(rows)}</tbody></table>'
-            '<p class="cover-key"><span><i class="bar r2"></i>covers the phase</span><span><i class="bar r1"></i>touches it lightly</span>'
-            '<span><i class="bar r0"></i>says nothing</span><span><i class="gatekey"></i>the one hard gate: nothing is built until the spec is signed</span></p></div>')
 
 
 def home_page(roles: list[dict]) -> str:
-    from pages import globe, learn, pictures
+    from pages import globe, learn, pictures, weave
     built = {r["id"]: r for r in roles}
     total_steps = sum(len(r["steps"]) for r in roles)
     total_prompts = sum(len(s["prompts"]) for r in roles for s in r["steps"])
     _meta, _tracks, lessons = learn.load()
     n_lessons = len(lessons)
     n_pics = len(pictures.catalogue())
+    tracks = "".join(f'<li><a href="learn/{t.id}/"><b>{_E(t.title)}</b>'
+                     f'<span>{len(t.lessons)} lessons</span></a></li>' for t in _tracks)
+    # the tutorial's "Start where you are" table: one row per kind of reader
+    start = (SITE / "content" / "learn" / "start-here.md").read_text(encoding="utf-8")
+    table = start.split("## Start where you are", 1)[1].split("\n## ", 1)[0]
+    n_starts = sum(1 for ln in table.splitlines() if re.match(r"\| (?!If you|---)", ln))
 
     # one row per role: where you start, where you end up
     seats = []
@@ -762,6 +735,12 @@ def home_page(roles: list[dict]) -> str:
                      f'<span class="s-route"><span>{md(frm)}</span><i aria-hidden="true">→</i><span class="vh"> to </span><b>{md(to)}</b></span>'
                      f'<span class="s-meta">{len(r["steps"])} steps · {n_p} prompts</span>'
                      f'<span class="s-go" aria-hidden="true">→</span></a></li>')
+    # Two rows that are not role journeys: the field guide for forward-deployed engineers, and the sponsor's page.
+    seats.append('<li><a href="learn/ai-dlc-for-forward-deployed-engineers/" style="--rc:var(--dg-sky)"><span class="s-code">FDE</span>'
+                 '<span class="s-name">Forward-deployed engineer</span>'
+                 '<span class="s-route"><span>a customer\'s pain</span><i aria-hidden="true">→</i><span class="vh"> to </span>'
+                 '<b>a system they run after you leave</b></span>'
+                 '<span class="s-meta">8 steps · 1 lesson</span><span class="s-go" aria-hidden="true">→</span></a></li>')
     seats.append('<li><a href="protocol/" style="--rc:var(--ink2)"><span class="s-code">EXEC</span>'
                  '<span class="s-name">Sponsor or executive</span>'
                  '<span class="s-route"><span>funding the work</span><i aria-hidden="true">→</i><span class="vh"> to </span>'
@@ -787,22 +766,23 @@ def home_page(roles: list[dict]) -> str:
 <main id="main" class="home">
 
 <section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
-  <header class="sec-h rv"><p class="eyebrow">The method</p>
-    <h2 id="h-method">Which agentic method should your team follow? <span>All four. Each one covers part
-    of the work.</span></h2>
-    <p>The SkyWays PDLC, a product development lifecycle, is the line they sit on: four phases, one hard
-    gate between design and build, and a loop that brings production back to the start.</p></header>
-  <div class="rv">{_coverage()}</div>
-  <p class="links rv"><a class="more" href="method/">See the whole method on one page <i aria-hidden="true">→</i></a>
-    <a class="more" href="frameworks/">Compare the four methods <i aria-hidden="true">→</i></a></p>
+  <header class="sec-h split rv"><p class="eyebrow">The method</p>
+    <h2 id="h-method">Which agentic method should you follow? <span>Whichever fits your team. They all run
+    along one spine.</span></h2>
+    <p>The SkyWays PDLC is that spine, idea to production and back. It keeps the part each method does
+    best, and asks at every phase whether what you built is right.</p></header>
+  <div class="rv">{weave.figure(PHASES, COVERAGE, "learn/what-is-the-agentic-pdlc/")}</div>
+  <p class="links rv"><a class="more" href="method/">See the whole spine on one page <i aria-hidden="true">→</i></a>
+    <a class="more" href="learn/ai-dlc-vs-aidd-vs-agentic-sdlc/">Agentic SDLC, agentic STLC, AIDLC: every name, sorted <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band" id="roles" aria-labelledby="h-roles"><div class="wrap">
-  <header class="sec-h rv"><p class="eyebrow">By role</p>
+  <header class="sec-h split rv"><p class="eyebrow">By role</p>
     <h2 id="h-roles">Start from the job you do. <span>Eight steps per role, from the first question to
     production.</span></h2>
     <p>Every step names what you owe the next person, and comes with the template and the prompts to draft it.</p></header>
   <ol class="seats rv">{''.join(seats)}</ol>
+  <p class="links rv"><a class="more" href="learn/#start-where-you-are">Not on the list? {n_starts} places to start <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band play" id="simulator" aria-labelledby="h-play"><div class="wrap">
@@ -822,13 +802,17 @@ def home_page(roles: list[dict]) -> str:
     <img class="dark" src="assets/pictures/sim-home.dark.webp" width="1360" height="850" loading="lazy" decoding="async" alt=""></a>
 </div></section>
 
+<section class="band" id="tutorial" aria-labelledby="h-learn"><div class="wrap">
+  <header class="sec-h rv"><p class="eyebrow">The tutorial</p>
+    <h2 id="h-learn">Or learn it in order. <span>{n_lessons} lessons in {NUM.get(len(_tracks), len(_tracks))} tracks. The first takes eight minutes.</span></h2></header>
+  <ol class="jump tracks rv">{tracks}</ol>
+  <div class="ba rv"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">Start with lesson one</a></div>
+</div></section>
+
 <section class="band" id="library" aria-labelledby="h-lib"><div class="wrap">
   <header class="sec-h rv"><p class="eyebrow">The library</p>
     <h2 id="h-lib">Take what you need. <span>Everything here is free to copy and reuse.</span></h2></header>
   <div class="shelf rv">
-    <a class="tile wide" href="learn/"><span class="tile-k">{n_lessons} lessons</span><b>The tutorial</b>
-      <span class="tile-d">Five to ten minutes each, in eight tracks. Start with the four phases.</span>
-      <span class="tile-go" aria-hidden="true">→</span></a>
     <a class="tile" href="templates/"><span class="tile-k">{total_steps} templates</span><b>Templates</b>
       <span class="tile-d">One document to fill in for every step.</span><span class="tile-go" aria-hidden="true">→</span></a>
     <a class="tile" href="prompts/"><span class="tile-k">{total_prompts} prompts</span><b>Prompts</b>
@@ -837,21 +821,12 @@ def home_page(roles: list[dict]) -> str:
       <span class="tile-d">Each one names the mistake it prevents.</span><span class="tile-go" aria-hidden="true">→</span></a>
     <a class="tile" href="pictures/"><span class="tile-k">{n_pics} pictures</span><b>The picture pack</b>
       <span class="tile-d">Every diagram here, light and dark, free to reuse.</span><span class="tile-go" aria-hidden="true">→</span></a>
-    <a class="tile wide" href="protocol/"><span class="tile-k">For leadership</span><b>The operating protocol</b>
-      <span class="tile-d">What changes when software decides, who does what, and the four decisions only a sponsor can make.</span>
-      <span class="tile-go" aria-hidden="true">→</span></a>
   </div>
 </div></section>
 
-<section class="band close" aria-labelledby="h-close"><div class="wrap rv">
-  <h2 id="h-close">New to all this? <span>Read the four phases first. It takes eight minutes.</span></h2>
-  <div class="ba"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">What is the agentic PDLC?</a>
-    <a class="btn ghost" href="learn/">All {n_lessons} lessons</a></div>
-</div></section>
-
 </main>"""
-    desc = (f"Every agentic delivery method in one manual: AI-DLC, AIDD, BMAD, spec-driven development and "
-            f"the agentic PDLC, by role. {n_lessons} lessons, {total_steps} templates, {total_prompts} prompts.")
+    desc = (f"One lifecycle for building software with AI agents, the agentic PDLC, with AI-DLC, BMAD, AIDD and "
+            f"spec-driven development placed on it, by role. {n_lessons} lessons, {total_steps} templates, {total_prompts} prompts.")
     site_ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebSite", "@id": BASE_URL + "#site", "name": "The agentic manual", "url": BASE_URL,
          "description": desc, "inLanguage": "en", "author": PERSON, "publisher": ORG,
@@ -859,7 +834,7 @@ def home_page(roles: list[dict]) -> str:
         ORG,
         {"@type": "WebPage", "@id": BASE_URL, "url": BASE_URL, "name": "The agentic manual", "isPartOf": {"@id": BASE_URL + "#site"},
          "description": desc, "dateModified": date.today().isoformat()}]}
-    return shell(title="The agentic manual · every agentic PDLC, by role, end to end", desc=desc, body=body,
+    return shell(title="The agentic manual · the agentic PDLC, by role, end to end", desc=desc, body=body,
                  depth=0, nav_id="home", canonical=BASE_URL, own_ld=True,
                  head_extra=(LEGACY_HASH_REDIRECT
                              + f'<script type="application/ld+json">{json.dumps(site_ld, ensure_ascii=False)}</script>'
@@ -880,8 +855,9 @@ def method_page() -> str:
     body = f"""<div class="wrap"><main id="main" class="page">
   <header class="phead"><div class="pcols"><div><p class="eyebrow">The method</p>
     <h1>The SkyWays PDLC, on one page</h1>
-    <p class="lede">The product development lifecycle this whole manual hangs from: four phases (P0 to P3),
-    one hard gate and eight loops. Each board below answers one question about it.</p></div>
+    <p class="lede">The product development lifecycle this whole manual hangs from, called the agentic PDLC
+    in the lessons: four phases (P0 to P3), one hard gate and eight loops. Each board below answers one
+    question about it.</p></div>
     <figure class="pfig">{illos.tower()}{MOTION_TOGGLE}</figure></div>
     <ol class="jump">{jump}</ol></header>
   {bb.rebase(boards.pdlc(), "../")}
@@ -965,7 +941,7 @@ def frameworks_page() -> str:
         return '<div class="try">' + "".join(f'<a href="{h}">{t}</a>' for h, t in links) + "</div>"
     body = (
         '<div class="wrap"><main id="main" style="padding:34px 0 28px">'
-        + rowh('<div class="kicker">Resources</div><h1>The frameworks, and how they merge into P0 to P3</h1>'
+        + rowh('<div class="kicker">The four methods</div><h1>The frameworks, and how they merge into P0 to P3</h1>'
                '<p class="lede">AI-DLC, AIDD, BMAD and spec-driven development placed on one spine, how their parts '
                "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "
                "from, so you know how much to trust it.</p>",
@@ -1048,7 +1024,7 @@ def frameworks_page() -> str:
                  desc="AI-DLC, AIDD, BMAD and spec-driven development on one spine, how their parts merge into the "
                       "SkyWays PDLC, every acronym decoded, and where each framework came from.",
                  body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/",
-                 crumbs=[("Resources", ""), ("The frameworks, and how they merge", "")], tour=tour,
+                 crumbs=[("Libraries", ""), ("The frameworks, and how they merge", "")], tour=tour,
                  kind="frameworks", og="frameworks")
 
 

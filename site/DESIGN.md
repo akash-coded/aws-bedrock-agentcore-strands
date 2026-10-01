@@ -27,7 +27,7 @@ spacing:
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
 motion: {durations: [150ms, 250ms, 350ms, 400ms], easing: "cubic-bezier(.22,1,.36,1)", stagger: 40ms, reduced: "everything still, globe drawn once"}
-components: [header, hero-scene, section-head, coverage-table, role-rows, simulator-frame, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
+components: [header, hero-scene, section-head, spine-and-strands, role-rows, simulator-frame, track-list, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
 ---
 
 # How the site looks
@@ -52,11 +52,14 @@ SkyWays is two things, and the page always says which. **SkyWays** alone is the 
 
 ## Colours
 
-Warm paper in the light, near black in the dark, with one ink ramp (ink, ink2, soft). Colour is spent on
-meaning only:
+Near black is the page a reader opens. Warm paper is the light theme, chosen with the toggle and
+remembered; paper is always printed light. One ink ramp (ink, ink2, soft). Colour is spent on meaning only:
 
-- The four phase hues mean P0, P1, P2 and P3 wherever they appear: the hero's flight, the coverage bars,
-  the boards, the role roadmap. A phase never changes hue between pages.
+- The four phase hues mean P0, P1, P2 and P3 wherever they appear: the hero's flight, the spine in section
+  two, the boards, the role roadmap. A phase never changes hue between pages.
+- A building method is drawn in neutral ink. Colour belongs to the spine, so a method that has a stage in
+  every phase still does not look like a second spine. Pointing at a method's name lends its strand the
+  hues of the phases it reaches.
 - Rose means the hard gate.
 - A role's accent tints its own page and its row on the home page.
 - Indigo is the plane in the mark.
@@ -85,6 +88,8 @@ with wide tracking. No label is under 11px.
   explains how to use the page is folded behind one line.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
   phone the words come first and the picture follows.
+- A band whose heading has a paragraph sets the two side by side on a wide screen, so the question and
+  its picture share one screen at 1440 by 900.
 
 ## Motion
 
@@ -100,8 +105,9 @@ Two classes of motion, with different rules.
 
 **Transitions** answer the reader and take 150, 250, 350 or 400ms on the one easing curve. Opening takes
 longer than closing: a list opens in 250ms and leaves at once. Items that arrive in order are 40 to 80ms
-apart, and a sequence finishes in under a second. The one long entrance is the hero's flight: its four
-legs draw 250ms apart and the picture is complete in two seconds.
+apart, and a sequence finishes in a second. The one long entrance is the hero's flight: its four
+legs draw 250ms apart and the picture is complete in two seconds. Section two arrives in the order it is
+read: the spine's four phases, the strands along it, then the way back.
 
 **Explanatory motion** shows a sequence. It plays once, the first time the thing is scrolled to, and its
 last frame is the complete picture, which is also what a reader with reduced motion gets. Anything that
@@ -126,8 +132,8 @@ when hovered. Everything else is flat on the page with a 1px hairline.
 ## Shapes
 
 Buttons are rounded rectangles (11 to 13px). Pills are for things that are tags or the one filled
-button in the header. Tiles are 20px. The coverage bars are 3px-cornered so adjoining phases read as one
-line.
+button in the header. Tiles are 20px. A strand's segments are 3px-cornered with 3px between them, so a method's stages read as one
+line with its phases still countable.
 
 ## Components
 
@@ -136,10 +142,11 @@ line.
 | Header | Mark and name, five places (two of them short lists), the simulator button, the theme toggle. The drawer holds every page and the search. | `render.shell`, `render._nav` |
 | Hero scene | A dotted Earth turning once every four minutes, and one flight around it through P0 to P3 with the hard gate. Decorative: section two says the same in words. | `pages/globe.py`, `theme/hero.js` |
 | Section head | Mono eyebrow, a heading that continues in grey, one optional paragraph. | `.sec-h` |
-| Coverage table | Four methods as bars along the four phases, the SkyWays PDLC as the whole line. A real table with row and column headers. | `render._coverage` |
+| Spine and strands | The SkyWays PDLC as one thick line in the phase hues that closes into a loop, a station at the start of each phase, the gate just before the third, the four questions inside. Four methods as thin neutral strands beside it: solid for a stage, dashed for a light touch. Names and phases are links; each strand has a text reading. | `pages/weave.py`, `.weave` |
 | Role rows | One row per role: code, name, where you start, where you end up, counts. A list, not cards. | `.seats` |
 | Simulator frame | The real opening screen of the simulator, light and dark. | `.simshot` |
-| Shelf tile | A count, a name, one line. Two of the six are double width. | `.shelf .tile` |
+| Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. | `.jump.tracks` |
+| Shelf tile | A count, a name, one line. Four of them: templates, prompts, mental models, pictures. | `.shelf .tile` |
 | Page head | Eyebrow, name, one line, a row of counts, optionally one or two buttons. | `.phead`, `.pmeta` |
 | Folded how-to | "Who this page is for, and how to use it", closed by default. | `pages/_kit.orient` |
 | Section rail | The sections of a long page down the left on a wide screen, the current one marked. Role pages and the leadership page. | `.rail`, `site.js` |
@@ -154,8 +161,9 @@ line.
 Do:
 
 - Cut before you decorate. If a block repeats a link the page already carries, remove the block.
-- Give every band a picture that is the thing itself: the method as bars, the roles as rows, the
-  simulator as its own screen.
+- Give every band a picture that is the thing itself: the method as a spine with strands, the roles as
+  rows, the simulator as its own screen, the tutorial as its tracks.
+- Give two kinds of thing two kinds of mark. The lifecycle and a building method are not drawn alike.
 - Keep numbers honest and computed. Lesson, template, prompt and picture counts come from the content
   at build time.
 - Measure contrast and overflow; do not judge them from a screenshot.

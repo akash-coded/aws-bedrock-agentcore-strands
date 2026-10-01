@@ -2,24 +2,30 @@
 (function () {
   "use strict";
 
-  /* Theme: remember the reader's choice, default to the system. */
+  /* Theme: the page opens dark. Light is the reader's choice, and it is remembered. */
   var KEY = "manual-theme";
+  var root = document.documentElement;
+  function isLight() { return root.getAttribute("data-theme") === "light"; }
+  function paint() {      // the browser's own chrome follows the page
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute("content", isLight() ? "#F7F6F2" : "#121316");
+  }
   try {
     var saved = localStorage.getItem(KEY);
-    if (saved) document.documentElement.setAttribute("data-theme", saved);
+    if (saved) root.setAttribute("data-theme", saved);
   } catch (e) { /* private mode */ }
 
   function wireTheme() {
+    paint();
     var b = document.querySelector("[data-theme-toggle]");
     if (!b) return;
+    var name = function () { b.setAttribute("aria-label", isLight() ? "Switch to dark" : "Switch to light"); };
+    name();
     b.addEventListener("click", function () {
-      var dark = document.documentElement.getAttribute("data-theme") === "dark" ||
-        (!document.documentElement.getAttribute("data-theme") &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches);
-      var next = dark ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
+      var next = isLight() ? "dark" : "light";
+      root.setAttribute("data-theme", next);
       try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
-      b.setAttribute("aria-label", next === "dark" ? "Switch to light" : "Switch to dark");
+      name(); paint();
     });
   }
 

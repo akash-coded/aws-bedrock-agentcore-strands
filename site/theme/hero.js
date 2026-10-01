@@ -122,11 +122,6 @@
     colours(); fit(); draw();
     new MutationObserver(function () { colours(); draw(); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    if (window.matchMedia) {
-      var mq = matchMedia("(prefers-color-scheme: dark)");
-      var onScheme = function () { colours(); draw(); };
-      if (mq.addEventListener) mq.addEventListener("change", onScheme); else if (mq.addListener) mq.addListener(onScheme);
-    }
     window.addEventListener("resize", function () { if (fit()) draw(); });
     if (reduce) return;
 

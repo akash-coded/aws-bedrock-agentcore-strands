@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{var t=localStorage.getItem("manual-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <title>Not here · The agentic manual</title><meta name="robots" content="noindex">
 <link rel="icon" href="/aws-bedrock-agentcore-strands/assets/favicon.svg" type="image/svg+xml">
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#F7F6F2;color:#16150F;
-font-family:Inter,"SF Pro Text",-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+<style>/* dark unless the reader chose light, the same as every other page */
+:root{--bg:#121316;--ink:#ECEAE4;--ink2:#C3C0B8;--link:#7FA9CC;color-scheme:dark}
+:root[data-theme="light"]{--bg:#F7F6F2;--ink:#16150F;--ink2:#44423B;--link:#3E6B8A;color-scheme:light}
+@media print{:root{--bg:#fff;--ink:#16150F;--ink2:#44423B;--link:#3E6B8A}}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--ink);
+font-family:Geist,Inter,"SF Pro Text",-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
 main{max-width:52ch;padding:32px}h1{font-size:27px;letter-spacing:-.02em;margin:0 0 10px}
-p{color:#44423B;margin:0 0 12px}a{color:#3E6B8A}ul{padding-left:20px;color:#44423B}li{margin:4px 0}
-@media (prefers-color-scheme:dark){body{background:#121316;color:#ECEAE4}p,ul{color:#C3C0B8}a{color:#7FA9CC}}</style></head>
+p{color:var(--ink2);margin:0 0 12px}a{color:var(--link)}ul{padding-left:20px;color:var(--ink2)}li{margin:4px 0}
+.k{color:var(--link);font-weight:600;font-size:13px;margin:0 0 6px}</style></head>
 <body><main>
-<p style="color:#3E6B8A;font-weight:600;font-size:13px;margin:0 0 6px">404</p>
+<p class="k">404</p>
 <h1>Nothing at this address</h1>
 <p>The manual moved to a page per role, so a few old links no longer land.</p>
 <ul>
-  <li><a href="/aws-bedrock-agentcore-strands/">Start here</a> — pick your role</li>
-  <li><a href="/aws-bedrock-agentcore-strands/simulator/">The SkyWays simulator</a> — what used to be at the root</li>
+  <li><a href="/aws-bedrock-agentcore-strands/">The home page</a>, where you can start from your role</li>
+  <li><a href="/aws-bedrock-agentcore-strands/learn/">The tutorial</a>, every lesson in order</li>
+  <li><a href="/aws-bedrock-agentcore-strands/simulator/">The SkyWays simulator</a>, which used to be at the root</li>
   <li><a href="/aws-bedrock-agentcore-strands/templates/">Templates</a> ·
       <a href="/aws-bedrock-agentcore-strands/prompts/">Prompts</a> ·
       <a href="/aws-bedrock-agentcore-strands/frameworks/">Frameworks</a></li>

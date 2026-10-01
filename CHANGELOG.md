@@ -8,6 +8,38 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · Many names, one spine: section two redrawn, and dark by default
+
+A third council judged a request for a new home section: the method names a reader has heard, resolved
+into one roadmap. All five advisors said to rebuild section two and add no band; the reviews changed how
+it is drawn. The record is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md).
+
+### Changed
+- **Section two is one figure.** The SkyWays PDLC is a thick line in the four phase hues that closes into
+  a loop, with a station at the start of each phase, the hard gate before the third and the four phase questions inside. AI-DLC,
+  BMAD, spec-driven development and AIDD are thin neutral strands beside it: solid where a method has a
+  stage, dashed where it touches the phase. The table it replaces drew AI-DLC and the SkyWays PDLC as the
+  same bar; the lifecycle and a building method now have different marks
+- **The heading answers with the lessons' own answer**: whichever method fits your team, on one spine
+- **The question and its picture share one screen** at 1440 by 900: the paragraph sits beside the heading
+- **On a phone each name sits beside its strand**, the spine comes first, and the four questions are a
+  list under it. Under 600px the methods' one-line glosses are dropped and the gate is a bar, named in the key
+- **Three ways in, as one sentence**: "Start from the job you do." "Or play the ninety days yourself."
+  "Or learn it in order." The tutorial band now shows its eight tracks; the shelf keeps four tiles
+- **Forward deployed engineers have a row** on the home page, and anyone not on the list gets one link to
+  the tutorial's nineteen starting points
+- **Dark is the default.** A page opens dark whatever the system setting; light is chosen with the toggle
+  and remembered. Printing always uses the light theme
+- **One name, said once.** The first lesson and the tutorial's start page now say that the SkyWays PDLC and
+  the agentic PDLC are the same lifecycle; the method page says so in its first line. The home page's title
+  no longer says "every agentic PDLC"
+- The terms lesson answers "What about the agentic STLC?" and points to the QA lead's eight steps
+- The frameworks page sits under Libraries in its breadcrumb, and its kicker names what it holds
+- The footer says the worked case is set at a fictional airline also called SkyWays
+- [`site/tools/accept.mjs`](site/tools/accept.mjs) checks the new figure, including parts hidden by a clip
+
+---
+
 ## 2026-10-01 · The inside pages to the same standard, and motion with a job
 
 A second council judged a list of nineteen proposals for the inner pages and for motion. It kept the ones

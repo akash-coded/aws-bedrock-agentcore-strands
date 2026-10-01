@@ -6,7 +6,7 @@ description: The agentic PDLC is a four-phase lifecycle (Frame, Design & Spec, B
 dek: Four phases, one hard gate and a line that comes back. The whole framework in one sitting, with the reason behind each piece.
 level: Beginner
 keywords: agentic PDLC, P0 to P3 framework, agentic product development lifecycle, AI product development lifecycle, agentic SDLC, AI-DLC, how to run agentic AI projects
-updated: 2026-09-24
+updated: 2026-10-01
 ---
 
 > [!TIP]
@@ -193,6 +193,12 @@ run rather than a demo.
 Each phase has one accountable owner: the product manager for P0, the solution architect for P1, the
 engineering lead for P2 and the sponsor for P3. The lifecycle as a whole, and especially the loops
 that run backwards from P3, belongs to the sponsor.
+
+### Is the SkyWays PDLC the same thing?
+
+Yes. SkyWays PDLC is the name this manual and its simulator give their agentic PDLC: the same four
+phases, the same hard gate and the same loops. SkyWays is also the name of the fictional airline in the
+worked case.
 
 ## Apply it in your role
 

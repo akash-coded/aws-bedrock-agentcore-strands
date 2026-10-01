@@ -5,8 +5,8 @@ wiki: AI-DLC-vs-AIDD-vs-Agentic-SDLC-vs-PDLC
 description: AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development and BMAD: who coined each term, what it names, and the question it answers.
 dek: Eight names in two years, several spelled almost the same. One question sorts them: is AI building the software, or is AI inside it?
 level: Beginner
-keywords: AI-DLC vs AIDD, AIDLC meaning, AIDDLC, agentic SDLC, AI-driven development lifecycle, AI PDLC, spec-driven development vs AI-DLC, BMAD vs AI-DLC, difference between SDLC and PDLC
-updated: 2026-09-24
+keywords: AI-DLC vs AIDD, AIDLC meaning, AIDDLC, agentic SDLC, agentic STLC, AI-driven development lifecycle, AI PDLC, spec-driven development vs AI-DLC, BMAD vs AI-DLC, difference between SDLC and PDLC
+updated: 2026-10-01
 ---
 
 > [!TIP]
@@ -126,6 +126,14 @@ The software development lifecycle runs from requirements to deployment and main
 The product development lifecycle is wider: it begins with whether to build at all and ends with what
 the product earned against what it cost. The agentic PDLC is a PDLC because its first phase asks
 whether a job needs a model and its last reports value beside cost.
+
+### What about the agentic STLC?
+
+The STLC is the software testing lifecycle, so the agentic STLC, which some teams write as A-STLC, is
+testing with agents in it and testing of software that has a model in it. It is a slice of the product
+lifecycle, and in this playbook it is the [QA lead's eight steps](site:qa/): the proof each kind of step
+owes and the golden set in P1, the harness wired in as P1 turns into P2, the shadow run at the end of
+P2, the drift watch in P3.
 
 ### Which should I use: AI-DLC, spec-driven development or the agentic PDLC?
 

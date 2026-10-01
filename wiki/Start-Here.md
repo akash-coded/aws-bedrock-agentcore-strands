@@ -9,7 +9,8 @@
 > **What this is.** A free tutorial in five-to-ten-minute lessons on the **agentic PDLC**: a four-phase
 > lifecycle (P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & Learn) for products in which a
 > model drafts, decides or acts. It works with whatever method you already use, including AWS AI-DLC,
-> the BMAD Method, spec-driven development and Scrum.
+> the BMAD Method, spec-driven development and Scrum. The home page and the method page call it the
+> SkyWays PDLC; the two names mean the same lifecycle.
 
 Each role's part in the four phases is drawn on [the method page](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#by-role).
 

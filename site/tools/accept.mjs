@@ -81,7 +81,7 @@ const evaluate = async (expression) => {
 
 // Things that script or an animation may hide, and must have shown by now.
 const HIDDEN = `(() => {
-  const sel = '.rv,.cover .bar,.sc-wp li,.scene .leg,.scene .stop,.roadmap .rn,.hero2 .hx>*,main .sec,.dgb,' +
+  const sel = '.rv,.weave .wv-trunk i,.weave .wv-m .wv-lane,.weave .wv-loop,.weave .wv-ph li,.weave .wv-back,.weave .wv-gate,.sc-wp li,.scene .leg,.scene .stop,.roadmap .rn,.hero2 .hx>*,main .sec,.dgb,' +
     '.step>summary,.mix a,.lc,.lk,.seats a,.tile,[data-reveal]>*,figure.fig>svg>*,.mmg svg>*';
   const bad = {};
   document.querySelectorAll(sel).forEach((e) => {
@@ -90,8 +90,10 @@ const HIDDEN = `(() => {
     if (+cs.opacity < 0.05) why = 'opacity ' + cs.opacity;
     else if (cs.scale && /^0(\\s|$)/.test(cs.scale)) why = 'scaled to nothing';
     else if (e.matches('.scene .leg') && parseFloat(cs.strokeDashoffset) > 0.01) why = 'not drawn';
+    else if (/inset\\([^)]*100%/.test(cs.clipPath)) why = 'clipped away';
     if (why) {
-      const k = (e.className.baseVal ?? e.className ?? e.tagName).toString().split(' ')[0] + ' (' + why + ')';
+      const cls = (e.className.baseVal ?? e.className ?? '').toString().split(' ')[0];
+      const k = (cls || (e.parentElement?.className || '').toString().split(' ').pop() + ' ' + e.tagName.toLowerCase()) + ' (' + why + ')';
       bad[k] = (bad[k] || 0) + 1;
     }
   });
@@ -152,7 +154,10 @@ await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, 
 });
 await pass("3. motion allowed: after four seconds only pausable or scroll-led motion remains", { width: 1280, height: 800 }, async () => {
   const out = [];
-  const h = await evaluate(HIDDEN.replace(".rv,.cover .bar,", ""));    // bands below the fold wait for the scroll
+  // bands below the fold wait for the scroll, and so does the figure inside section two
+  const below = HIDDEN.replace(/'\.rv,[^']*?,\.sc-wp li,/, "'.sc-wp li,");
+  if (below === HIDDEN) throw new Error("the selector for bands below the fold no longer matches");
+  const h = await evaluate(below);
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
   const pausable = Object.keys(r).some((k) => PAUSABLE.test(k));
