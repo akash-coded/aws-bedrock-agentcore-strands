@@ -1224,7 +1224,7 @@ _Window: <start> to <end> (<n> days, fixed on <date> before the run) · Owner: <
 |-------|--------------------|--------|-----------|-----------|------|
 | <same-day> | <n> | <n> | <n>% | 95% | |
 | <codeshare> | <n> | <n> | <n>% | 95% | |
-| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | n/a |
+| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | none |
 
 **Money actions are excluded from automatic agreement and remain gated regardless of
 what this table says.** Every other threshold here is tunable; that one is not.

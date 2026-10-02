@@ -108,10 +108,10 @@ arriving by default.
 ## Process depth, per change
 | Kind of change | P0 | P1 | P2 | P3 | Method weight |
 |----------------|----|----|----|----|---------------|
-| <one-line fix> | skip | light | yes | skip | living spec + a single agent |
+| <one-line fix> | none | light | yes | none | living spec + a single agent |
 | <this feature> | yes | yes | yes | yes | living spec + the five gates |
 | <audited module> | yes | full | full | full | living spec + the full persona trail |
-| <regulatory rule change> | skip | yes | yes | light | spec diff + validation |
+| <regulatory rule change> | none | yes | yes | light | spec diff + validation |
 
 **Rule:** the living spec is the backbone everywhere. The heavy persona trail is
 layered on only where the work is audited and multi-team. Depth flexes per change.
@@ -170,7 +170,7 @@ Assign each a process depth. Run only the lifecycle stages the change actually n
 OUTPUT SHAPE, one table:
 | Change | P0 | P1 | P2 | P3 | Method weight | The stage I am skipping, and why that is safe |
 
-Allowed cell values: full · yes · light · skip
+Allowed cell values: full · yes · light · none
 
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
@@ -546,7 +546,7 @@ Four questions, in order. **One "no" makes it hard.**
 
 | Decision | Q1 | Q2 | Q3 | Q4 | Verdict | Placeholder | Owner | By |
 |----------|----|----|----|----|---------|-------------|-------|----|
-| <autonomy level on refunds> | no | n/a | n/a | n/a | **HARD** | none | <name> | <phase> |
+| <autonomy level on refunds> | no | none | none | none | **HARD** | none | <name> | <phase> |
 | <model tier per slice> | yes | yes | yes | yes | soft | <mid tier behind the gateway> | <name> | <date> |
 | <framework> | yes | yes | yes | yes | soft | <an interface layer in front of it> | <name> | <date> |
 | <retrieval design> | yes | yes | yes | yes | soft | <a stub returning the fare-rules file> | <name> | <date> |
