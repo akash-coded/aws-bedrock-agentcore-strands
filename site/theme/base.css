@@ -1666,18 +1666,6 @@ main.home{padding:0}
 @media (max-width:1000px){.band.play .wrap{grid-template-columns:1fr}.daycard{max-width:578px}}
 @media (max-width:640px){.daycard{--n:3}.dc-b{padding:18px 18px 20px}}
 
-/* ---- section five: the shelf ---- */
-.shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.tile{position:relative;display:flex;flex-direction:column;min-height:214px;padding:26px 26px 24px;border-radius:20px;color:var(--ink);text-decoration:none;
-  background:var(--paper);border:1px solid var(--rule);transition:border-color 250ms var(--ease),transform 250ms var(--ease)}
-.tile:hover{text-decoration:none;border-color:color-mix(in oklab,var(--ink) 34%,transparent);transform:translateY(-3px)}
-.tile-k{font-family:var(--f-mono);font-size:12.5px;color:var(--soft);margin-bottom:auto;padding-bottom:36px}
-.tile b{font-family:var(--f-display);font-size:23px;font-weight:620;letter-spacing:-.025em;line-height:1.15;margin-bottom:8px}
-.tile-d{font-size:15px;line-height:1.5;color:var(--ink2);max-width:38ch;padding-right:26px}
-.tile-go{position:absolute;right:24px;top:22px;font-size:18px;color:var(--soft);transition:transform 250ms var(--ease),color 250ms var(--ease)}
-.tile:hover .tile-go{transform:translate(3px,-3px);color:var(--ink)}
-@media (max-width:1000px){.shelf{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.shelf{grid-template-columns:1fr}.tile{min-height:0}.tile-k{padding-bottom:22px}}
 
 /* ---- the tutorial band: the tracks in order, then one button ---- */
 .jump.tracks{margin-top:0;row-gap:20px}
@@ -1828,6 +1816,67 @@ main.home{padding:0}
 /* end of home · H6 */
 
 /* home · H7 library */
+/* The library: three tools, each on the material of what it opens and the same in both themes, then six shelves.
+   Flat at rest; a hover moves the border and lifts the card 3px, a transform and a colour and nothing else.
+   The Tool guides index (pages/tools.py) shared the old shelf's tiles; the rules it needs stay here, scoped to .tg. */
+.lib{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.fl,.shf,.tg .tile{position:relative;display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:20px;background:var(--paper);
+  color:var(--ink);transition:border-color 250ms var(--ease),transform 250ms var(--ease)}
+.fl:hover,.shf:hover,.tg .tile:hover{text-decoration:none;border-color:color-mix(in oklab,var(--ink) 34%,transparent);transform:translateY(-3px)}
+.lib-k{font:500 12.5px/1.5 var(--f-mono);color:var(--soft)}
+.fl-b>b,.shf>b{font:620 26px/1.15 var(--f-display);letter-spacing:-.025em;margin:10px 0 8px}
+.lib-d,.tg .tile-d{font-size:15px;line-height:1.5;color:var(--ink2)}
+/* a shelf: its count, then its name a set distance down and its line under it, so a row's names align at any width */
+.shf{min-height:178px;padding:22px 24px;box-shadow:inset 0 1px color-mix(in oklab,var(--ink) 7%,transparent)}
+.shf>b{font-size:21px;margin-top:36px}
+.fl-go i,.shf>i,.tg .tile-go{font-style:normal;transition:transform 250ms var(--ease),color 250ms var(--ease)}
+.shf>i,.tg .tile-go{position:absolute;right:24px;top:22px;font-size:18px;color:var(--soft)}
+.shf>i{line-height:1}
+.fl:hover .fl-go i,.shf:hover>i{transform:translateX(4px);color:var(--ink)}
+/* the Tool guides' manuals, as they were */
+.tg .shelf{display:grid;gap:16px}
+.tg .tile{padding:26px 26px 24px}
+.tg .tile-k{font:12.5px/1.62 var(--f-mono);color:var(--soft);margin-bottom:auto;padding-bottom:36px}
+.tg .tile b{font:620 23px/1.15 var(--f-display);letter-spacing:-.025em;margin-bottom:8px}
+.tg .tile-d{max-width:38ch;padding-right:26px}
+.tg .tile:hover .tile-go{transform:translate(3px,-3px);color:var(--ink)}
+/* a tool: its picture, a hairline (the rule colour in a 1px gap), its words; the action at the foot. A picture's type
+   starts on the same left edge as the words under it. */
+.fl{overflow:hidden;gap:1px;background:var(--rule)}
+.fl-p{display:grid;place-items:center start;height:176px;padding:0 24px;overflow:hidden}
+.fl-b{display:flex;flex-direction:column;flex:1;padding:20px 24px 22px;background:var(--paper)}
+.fl-go{margin-top:auto;padding-top:16px;font-size:15px;font-weight:600}
+/* the workbench: its acceptance bar calculator, set on the workbench's navy panel */
+.fl-wb .fl-p{background:#142131}
+.wbc{display:grid;gap:8px;justify-self:stretch;font-size:13px;line-height:16px;color:#C3C0B8}
+.wbc-h,.trk i{font:500 11.5px/16px var(--f-mono)}
+.wbc-h{color:#93A3B8}
+.wbc-r{display:flex;align-items:center;gap:12px}
+.wbc-r b{margin-left:auto;font:600 13px/16px var(--f-mono);color:#ECEAE4}
+.wbc-m{padding-top:9px;border-top:1px solid #ECEAE41A}
+.wbc-m i{flex:1;height:6px;border-radius:3px;background:linear-gradient(90deg,#4FBDB6 var(--v),#ECEAE41A 0)}
+/* the tutorial: its eight tracks, on the lessons' paper */
+.fl-learn .fl-p{background:var(--sk-paper)}
+.trk{display:grid;gap:2px;font-size:13px;line-height:16px;white-space:nowrap;color:var(--sk-ink)}
+.trk i{margin-right:6px;opacity:.7}
+/* the simulator: the boardroom on Day 90 at three times, whole pixels, standing on the hairline. Wider than its card,
+   it keeps its left wall, so the window (the sky says which day) and the screen stay whole and the crop falls on bare
+   wall; on a phone it is drawn at two times and centred */
+.fl-sim .fl-p{place-content:end start;padding:0;background:#2B2942}
+.fl-sim img{width:432px;height:auto;image-rendering:pixelated}
+/* narrower: where one tool's count wraps, every tool's keeps room for two lines; then each tool spans the row, on a
+   tablet with its picture on the left, and the shelves go two to a row */
+@media (min-width:1001px) and (max-width:1199px){.fl .lib-k{min-height:3em}}
+@media (max-width:1000px){.lib{grid-template-columns:1fr 1fr}.fl{grid-column:1/-1;flex-direction:row}.fl-p{flex:0 0 44%;height:auto}}
+/* a phone: each tool's picture in a 112px strip on top, the room at two times; a shelf is its count and its name */
+@media (max-width:560px){.lib{gap:8px}.fl{flex-direction:column}.fl-p{flex:0 0 112px;padding:0 16px}.fl-b{padding:14px 16px 16px}
+  .fl-b>b{font-size:23px;margin:4px 0}.fl-go{padding-top:10px}.wbc{gap:5px}.wbc-m{padding-top:7px}
+  .fl-sim .fl-p{place-content:end center}.fl-sim img{width:288px}
+  .trk{grid:repeat(4,auto)/auto-flow;gap:4px 28px}.trk span span{display:none}.trk>span::after{content:attr(data-s)}
+  .shf{min-height:0;padding:12px 16px}.shf .lib-k span,.shf .lib-d,.shf>i{display:none}.shf>b{font-size:16px;margin:2px 0 0}
+  .tg .tile-k{padding-bottom:22px}}
+/* print: the cards' words, ink on paper, a card never split across two pages; the pictures are the screen's */
+@media print{.fl-p{display:none}.lib>a{break-inside:avoid}}
 /* end of home · H7 */
 
 /* home · H8 close */

@@ -717,8 +717,146 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   // end of home · H6
 
   // home · H7 library: #library
+  // Nine cards, each one link: the workbench, the tutorial and the simulator, then six shelves (verdict-home 1.7). Each
+  // count is the one the page it opens states; at 1440 a row's names share a baseline; on a phone (390, then 320) no
+  // text is under 11px, every card is 44px or more, nothing scrolls sideways, and at 390 the band is 1,500px or less.
+  // The room is the band's one picture: 4 KB or less, whole pixels, keeping its left wall on a wide card and centred on
+  // a phone, and shown nowhere else on the page. Each tool's ground is the same in both themes, every text 4.5:1 on its
+  // ground in both, the cards flat at rest and moved by a transform and a colour; on paper the words are ink.
   async function bandH7(w, h) {
-    return [];
+    const out = [];
+    const LOOK = `(async () => {
+      await document.fonts.ready;
+      const lib = document.querySelector('#library .lib');
+      if (!lib) return null;
+      const cv = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+      const rgb = (c) => { cv.clearRect(0, 0, 1, 1); cv.fillStyle = '#000'; cv.fillStyle = c; cv.fillRect(0, 0, 1, 1); return [...cv.getImageData(0, 0, 1, 1).data]; };
+      const lum = (p) => p.slice(0, 3).map((x) => (x /= 255) <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4).reduce((s, x, i) => s + x * [0.2126, 0.7152, 0.0722][i], 0);
+      const ground = (e) => { for (; e; e = e.parentElement) { const p = rgb(getComputedStyle(e).backgroundColor); if (p[3] > 250) return p; } return rgb(getComputedStyle(document.body).backgroundColor); };
+      const seen = (e) => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
+      // every piece of text the band shows, with its size and its contrast on what is behind it (text drawn half
+      // transparent is first laid on its ground, as the eye sees it)
+      const texts = [];
+      for (const e of lib.querySelectorAll('*')) {
+        if (!seen(e)) continue;
+        const own = [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()), after = getComputedStyle(e, '::after').content;
+        if (!own && !(after && !/^(none|normal)$/.test(after))) continue;
+        const cs = getComputedStyle(e), bg = ground(e), op = +cs.opacity, c = rgb(cs.color);
+        const fg = c.slice(0, 3).map((v, i) => v * op * c[3] / 255 + bg[i] * (1 - op * c[3] / 255)), a = lum(fg), b = lum(bg);
+        texts.push({ t: (own ? e.textContent : after).trim().replace(/\\s+/g, ' ').slice(0, 30), px: parseFloat(cs.fontSize), bold: +cs.fontWeight >= 600,
+          ratio: Math.round(((Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)) * 100) / 100, ink: Math.round(a * 1000) / 1000, paper: Math.round(b * 1000) / 1000 });
+      }
+      const cards = [...lib.children].map((c) => { const r = c.getBoundingClientRect(), n = c.querySelector(':scope > b, .fl-b > b'), cs = getComputedStyle(c);
+        return { tag: c.tagName, cls: c.className, href: c.getAttribute('href'), count: ((c.querySelector('.lib-k') || {}).textContent || '').replace(/\\s+/g, ' '),
+          name: n ? n.textContent : '', words: c.textContent, top: Math.round(r.top), h: Math.round(r.height), w: Math.round(r.width),
+          nameBottom: n ? Math.round(n.getBoundingClientRect().bottom * 10) / 10 : 0, transform: cs.transform }; });
+      const pic = (k) => { const p = lib.querySelector('.fl-' + k + ' .fl-p'); return p ? rgb(getComputedStyle(p).backgroundColor).join() : ''; };
+      const imgs = [...lib.querySelectorAll('img')].map((i) => { const r = i.getBoundingClientRect(), p = i.parentElement.getBoundingClientRect();
+        return { nw: i.naturalWidth, nh: i.naturalHeight, w: r.width, h: r.height, px: getComputedStyle(i).imageRendering,
+          left: Math.round(p.left - r.left), right: Math.round(r.right - p.right) }; });
+      const all = [...document.querySelectorAll('img')].map((i) => (i.currentSrc || i.src).replace(/[?#].*$/, ''));
+      return { cards, texts, imgs, twice: all.filter((s, i) => all.indexOf(s) !== i), wb: pic('wb'), sim: pic('sim'), learn: pic('learn'),
+        paper: rgb(getComputedStyle(document.documentElement).getPropertyValue('--sk-paper').trim()).join(), rows: lib.querySelectorAll('.trk > span').length,
+        sums: [...lib.querySelectorAll('.wbc-r b')].map((b) => b.textContent), meter: (lib.querySelector('.wbc-m i') || document.body).style.getPropertyValue('--v'),
+        band: Math.round(document.querySelector('#library').getBoundingClientRect().height), over: document.documentElement.scrollWidth - document.documentElement.clientWidth };
+    })()`;
+    const theme = (light) => evaluate(`(document.documentElement.${light ? "setAttribute('data-theme','light')" : "removeAttribute('data-theme')"}, true)`);
+    const low = (m, at) => { for (const t of m.texts) if (t.ratio < (t.px >= 24 || (t.px >= 18.66 && t.bold) ? 3 : 4.5)) out.push(`${at}: "${t.t}" is ${t.ratio}:1 on its ground`); };
+    const m = await evaluate(LOOK);
+    if (!m) return ["the library has no .lib grid"];
+    const kinds = m.cards.map((c) => c.cls).join(" | ");
+    if (kinds !== "fl fl-wb | fl fl-learn | fl fl-sim | shf | shf | shf | shf | shf | shf" || m.cards.some((c) => c.tag !== "A")) {
+      return [`the cards are ${kinds}; want the workbench, the tutorial and the simulator, then six shelves, each card one link`];
+    }
+    const go = ["workbench/", "", "simulator/", "templates/", "prompts/", "models/", "tools/", "frameworks/", "pictures/"];
+    m.cards.forEach((c, i) => { if (go[i] && c.href !== go[i]) out.push(`card ${i + 1} ("${c.name}") goes to ${c.href}, not ${go[i]}`); });
+    if (m.cards.some((c) => c.transform !== "none")) out.push("a card is not flat at rest");
+    if (/Recommended|Most popular|\bNew\b/.test(m.cards.map((c) => c.words).join(" "))) out.push("a card wears a badge");
+    if (m.wb !== "20,33,49,255" || m.sim !== "43,41,66,255") out.push(`the workbench's ground is ${m.wb} and the simulator's ${m.sim}; want #142131 and #2B2942`);
+    if (m.learn !== m.paper) out.push(`the tutorial's ground is ${m.learn}, not the lessons' paper (${m.paper})`);
+    const num = (i, re) => +((m.cards[i].count.match(re) || [])[1]);
+    if (m.rows !== num(1, /(\d+) tracks/)) out.push(`the tutorial's picture lists ${m.rows} tracks and its count says ${num(1, /(\d+) tracks/)}`);
+    const [saves, costs] = m.sums.map((s) => +s.replace(/\D/g, "")), bar = `${Math.round((100 * costs) / (saves + costs))}%`;
+    if (m.sums[2] !== bar || m.meter !== bar) out.push(`the calculator's bar reads ${m.sums[2]} with its meter at ${m.meter}; ${m.sums[0]} and ${m.sums[1]} make ${bar}`);
+    // the room: the band's one picture, the game's own art at one times, shown at whole pixels
+    if (m.imgs.length !== 1) out.push(`the band has ${m.imgs.length} pictures; the room is its only one`);
+    for (const i of m.imgs) {
+      const k = i.w / i.nw;
+      if (i.nw !== 144 || i.nh !== 52) out.push(`the room is ${i.nw} x ${i.nh}, not the game's 144 x 52`);
+      if (k !== Math.round(k) || i.h / i.nh !== k || i.px !== "pixelated") out.push(`the room is shown at ${k.toFixed(2)} times (${i.px}), not whole pixels`);
+      if (w >= 561 ? i.left !== 0 : Math.abs(i.left - i.right) > 1) out.push(`the room is ${i.left}px from its picture's left edge and ${i.right}px from its right; it keeps its left wall on a wide card and is centred on a phone`);
+    }
+    if (m.twice.length) out.push(`a picture appears twice on the page: ${[...new Set(m.twice)].join(", ")}`);
+    low(m, "dark");
+    if (w >= 1001) {
+      // a row's names share one baseline (1px): the tools' row and each row of shelves
+      const rows = {};
+      for (const c of m.cards) (rows[c.top] = rows[c.top] || []).push(c);
+      for (const r of Object.values(rows)) {
+        const b = r.map((c) => c.nameBottom);
+        if (Math.max(...b) - Math.min(...b) > 1) out.push(`the names in the row of ${r.map((c) => c.name).join(", ")} do not share a baseline (${b.join(", ")})`);
+      }
+      // every count, against the page each card opens (both are counted when the site is built)
+      const s = await evaluate(`(async () => {
+        const page = async (u) => new DOMParser().parseFromString(await (await fetch(u)).text(), 'text/html');
+        const meta = async (u) => [...(await page(u)).querySelectorAll('.pmeta span')].map((x) => x.textContent.replace(/\\s+/g, ' ').trim()).join(' · ');
+        const learn = await page('learn/'), methods = [...(await page('frameworks/')).querySelectorAll('table')].find((t) => (t.querySelector('th') || {}).textContent === 'Method');
+        return { learn: [...learn.querySelectorAll('.pmeta span')].map((x) => x.textContent).join(' · '), lessonOne: 'learn/' + learn.querySelector('a.ll').getAttribute('href'),
+          templates: await meta('templates/'), prompts: await meta('prompts/'), pictures: await meta('pictures/'), jobs: await meta('tools/'),
+          models: (([...(await page('models/')).querySelectorAll('.mnum')].pop() || {}).textContent || '').replace(/^.* of /, ''),
+          methods: methods ? methods.querySelectorAll('tbody tr').length : 0,
+          days: JSON.parse((await page('simulator/')).getElementById('nd-data').textContent).days.length,
+          tools: ((await (await fetch('app/SkyWays-Architect.html')).text()).match(/TOOLS\\.push\\(\\{id:/g) || []).length,
+          size: (await (await fetch(document.querySelector('#library img').currentSrc)).arrayBuffer()).byteLength };
+      })()`);
+      const there = (t, re) => +((t.match(re) || [])[1]);
+      if (m.cards[1].href !== s.lessonOne) out.push(`the tutorial's card goes to ${m.cards[1].href}, not lesson one (${s.lessonOne})`);
+      const pairs = [["calculators", num(0, /(\d+) calculators/), s.tools], ["lessons", num(1, /(\d+) lessons/), there(s.learn, /(\d+) lessons/)],
+        ["tracks", num(1, /(\d+) tracks/), there(s.learn, /(\d+) tracks/)], ["hours", num(1, /about (\d+) hours/), there(s.learn, /about (\d+) hours/)],
+        ["decisions", num(2, /(\d+) decisions/), s.days], ["templates", num(3, /(\d+) templates/), there(s.templates, /(\d+) templates/)],
+        ["prompts", num(4, /(\d+) prompts/), there(s.prompts, /(\d+) prompts/)], ["rules of thumb", num(5, /(\d+) rules of thumb/), +s.models],
+        ["jobs", num(6, /(\d+) jobs/), there(s.jobs, /(\d+) jobs/)], ["methods", num(7, /(\d+) methods/), s.methods],
+        ["pictures", num(8, /(\d+) pictures/), there(s.pictures, /(\d+) pictures/)]];
+      for (const [what, here, it] of pairs) if (!(here > 0) || here !== it) out.push(`the library counts ${here} ${what}; the page it opens counts ${it}`);
+      if (!(s.size > 0 && s.size <= 4096)) out.push(`the room's picture is ${s.size} bytes; 4 KB is the most`);
+      // the same grounds in the light theme, and every text 4.5:1 there too
+      await theme(true);
+      const l = await evaluate(LOOK);
+      await theme(false);
+      if (l.wb !== m.wb || l.sim !== m.sim) out.push("a tool's ground changes with the theme");
+      if (l.learn !== l.paper) out.push(`in the light theme the tutorial's ground is ${l.learn}, not the lessons' paper (${l.paper})`);
+      low(l, "light");
+      // a hover moves the border to ink at 34% and lifts the card 3px in 250ms: a transform and a colour, nothing else
+      await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] });
+      const at = await evaluate(`(() => { const c = document.querySelector('#library .shf'); c.scrollIntoView({ block: 'center', behavior: 'instant' });
+        const r = c.getBoundingClientRect(), cs = getComputedStyle(c); return { x: r.left + r.width / 2, y: r.top + r.height / 2, moves: cs.transitionProperty + ' ' + cs.transitionDuration, rest: cs.borderTopColor }; })()`);
+      await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: at.x, y: at.y });
+      await sleep(400);
+      const hover = await evaluate(`(() => { const cs = getComputedStyle(document.querySelector('#library .shf')); return { t: cs.transform, b: cs.borderTopColor }; })()`);
+      await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 2, y: 2 });
+      if (at.moves !== "border-color, transform 0.25s, 0.25s") out.push(`a card moves by ${at.moves}; a transform and a colour in 250ms is all`);
+      if (hover.t !== "matrix(1, 0, 0, 1, 0, -3)" || hover.b === at.rest) out.push(`a hovered card has transform ${hover.t} and border ${hover.b} (at rest ${at.rest})`);
+      // on paper: the pictures are the screen's, and every word is ink on paper
+      await send("Emulation.setEmulatedMedia", { media: "print", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
+      await sleep(300);
+      const p = await evaluate(LOOK);
+      for (const t of p.texts) if (t.ink > 0.2 || t.paper < 0.8) { out.push(`in print, "${t.t}" is not ink on paper`); break; }
+    } else {
+      // a phone: 390, then 320
+      for (const [pw, ph] of [[w, h], [320, 640]]) {
+        if (pw !== w) { await send("Emulation.setDeviceMetricsOverride", { width: pw, height: ph, deviceScaleFactor: 1, mobile: true }); await sleep(400); }
+        const q = pw === w ? m : await evaluate(LOOK);
+        const small = q.texts.filter((t) => t.px < 11);
+        if (small.length) out.push(`at ${pw}px, text under 11px: ${small.map((t) => `"${t.t}" ${t.px}px`).join(", ")}`);
+        const short = q.cards.filter((c) => c.h < 44 || c.w < 44);
+        if (short.length) out.push(`at ${pw}px, cards under 44px: ${short.map((c) => c.name).join(", ")}`);
+        if (q.over > 0) out.push(`at ${pw}px the page scrolls sideways by ${q.over}px`);
+        if (pw === 390 && q.band > 1500) out.push(`at 390px the band is ${q.band}px tall; 1,500 is the most`);
+        if (q.imgs[0] && q.imgs[0].w / q.imgs[0].nw !== 2) out.push(`at ${pw}px the room is shown at ${q.imgs[0].w / q.imgs[0].nw} times, not two`);
+        if (pw !== w) low(q, `${pw}px`);
+      }
+    }
+    return out;
   }
   // end of home · H7
 
