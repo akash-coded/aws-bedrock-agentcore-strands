@@ -494,6 +494,23 @@ def _cells(line: str) -> list[str]:
     return cells
 
 
+# A number, an amount or a percentage as a lesson's table writes one: "$600", "−$144", "50%", "2.5", "1,440",
+# "about 1.4". A column of them is read down its right edge, so it is set right, with figures of one width.
+NUM = re.compile(r"(?:about |~|≈ ?|[<>≤≥] ?)?[−+-]?[$£€]?\d[\d,]*(?:\.\d+)?[%×]?")
+
+
+def _numeric(cells: list[str]) -> bool:
+    """Whether a column's body cells, as plain text, are all numbers, amounts or percentages. They may carry a
+    unit after the number ("$1,440 a day"), provided it is the same unit in every cell; an empty cell is let be."""
+    units = set()
+    for c in filter(None, cells):
+        m = NUM.match(c)
+        if not m or (c[m.end():] and not re.fullmatch(r"(?: [a-z]+){1,2}", c[m.end():])):
+            return False
+        units.add(c[m.end():])
+    return len(units) == 1
+
+
 # what a sketch may be written beside in the margin: the paragraph (or list, or quote) it draws
 TEXT_BLOCK = ("<p>", "<ul>", "<ol>", "<ol ", "<blockquote>")
 
@@ -580,13 +597,19 @@ class Html:
                 while i < len(lines) and lines[i].lstrip().startswith("|"):
                     rows.append(_cells(lines[i]))
                     i += 1
-                th = "".join(f"<th>{inline(c, self.link)}</th>" for c in head)
+                hd = [inline(c, self.link) for c in head]
+                bd = [[inline(c, self.link) for c in r] for r in rows]
+                text = lambda h: html.unescape(re.sub(r"<[^>]+>", "", h))  # noqa: E731
+                # a column of numbers, amounts or percentages is set right, its header with it (base.css)
+                num = [_numeric([text(r[k]).strip() for r in bd if k < len(r)]) for k in range(len(hd))]
+                at = lambda k: ' class="num"' if k < len(num) and num[k] else ""  # noqa: E731
+                th = "".join(f"<th{at(k)}>{h}</th>" for k, h in enumerate(hd))
                 # each cell carries its column's name, so on a phone a table of three or more columns can
                 # stack into one short block per row and still say what each cell is (base.css)
-                names = [_E(html.unescape(re.sub(r"<[^>]+>", "", inline(c, self.link))), quote=True) for c in head]
+                names = [_E(text(h), quote=True) for h in hd]
                 tb = "".join("<tr>" + "".join(
-                    f'<td data-h="{names[k]}">{inline(c, self.link)}</td>' if k < len(names) and names[k]
-                    else f"<td>{inline(c, self.link)}</td>" for k, c in enumerate(r)) + "</tr>" for r in rows)
+                    f'<td{at(k)} data-h="{names[k]}">{c}</td>' if k < len(names) and names[k]
+                    else f"<td{at(k)}>{c}</td>" for k, c in enumerate(r)) + "</tr>" for r in bd)
                 cls = "tw stack" if len(head) >= 3 else "tw"
                 out.append(f'<div class="{cls}" tabindex="0"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>')
                 continue

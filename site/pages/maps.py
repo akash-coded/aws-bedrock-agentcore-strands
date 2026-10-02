@@ -649,7 +649,9 @@ def _funnel_html(spec):
         fol.append(bb.h_cell(st["q"], "", "ask", "o"))
         if out:
             fol.append(_hcell(out, "k", via=lab).replace('class="bbn-c', 'class="bbn-c out', 1))
-        fol.append(bb.h_arrow(st.get("go", "yes"), el="li"))
+        # the way down (bb.h_arrow's line) wears the pill the way out wears (.bbn-via), as in the drawing,
+        # edged in the arrow's own grey
+        fol.append(f'<li class="bbn-x"><em class="bbn-via" style="--c:var(--ink2)">{bb.E(st.get("go", "yes"))}</em></li>')
     fol.append(_hcell(spec["end"], "g"))
     if shared:
         fol.append(_hcell(shared, "k", via="any " + steps[0].get("exit", "no")).replace('class="bbn-c', 'class="bbn-c out', 1))
@@ -695,8 +697,9 @@ def _funnel_draw(spec, v):
             if not on_arrow:
                 m += _via(ox + 12, y, lab, out.get("h", "k"))
         if tight:
+            # too short an arrow to carry its label, so the label sits beside it, in the pill the way out wears
             m += bb.flow([(cx, y + qh + 3), (cx, y + qh + VG - 3)])
-            m += bb.text(cx + 12, y + qh + VG / 2 + 4.7, st.get("go", "yes"), fs=MIN, b=True, c=INK2)
+            m += bb.tag(cx + 9, y + qh + VG / 2, st.get("go", "yes"), a="start")[1]
         else:
             m += bb.flow([(cx, y + qh + 3), (cx, y + qh + VG - 3)], label=st.get("go", "yes"))
         y += qh + VG

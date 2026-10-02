@@ -2077,8 +2077,11 @@ body{background:var(--canvas);color:var(--ink)}
 .topnav .xplay svg{width:14px;height:14px;fill:currentColor;flex:none}
 .topnav .xplay:hover{transform:translateY(-1px);background:color-mix(in oklab,var(--ink) 86%,var(--brand))}
 .topnav .xplay:active{transform:scale(.97)}
-.xtgl{border:1px solid var(--line);background:transparent;color:var(--ink2);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:15px;line-height:1;flex:none;padding:0;transition:border-color 150ms var(--ease),color 150ms var(--ease)}
+.xtgl{border:1px solid var(--line);background:transparent;color:var(--ink2);border-radius:999px;width:36px;height:36px;cursor:pointer;display:inline-grid;place-items:center;flex:none;padding:0;transition:border-color 150ms var(--ease),color 150ms var(--ease)}
 .xtgl:hover{border-color:var(--ink2);color:var(--ink)}
+/* the theme button's mark, as the manual's top bar draws it: a circle with its left half filled, 18px, a 1.5px line */
+.xtgl svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
+.xtgl path{fill:currentColor;stroke:none}
 .topnav :is(.xfind,.xpack,.xquiet,.xplay,.xtgl,.xbrand):focus-visible,.topnav .xmenu>button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 #xburger{display:none;margin-left:6px;height:36px;padding:0 14px;border:1px solid var(--line);background:transparent;color:var(--ink);box-shadow:none;font-size:13.5px;font-weight:560}
 @media (max-width:1240px){.topnav .xpack span{display:none}}
@@ -3054,13 +3057,14 @@ const hueOf=pid=>(HUES[pid]||HUES.overview)[0];
 const SITE_UP=location.protocol==="file:"?null:"../";
 const IC_PLAY='<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9.5-5.500z"/></svg>';
 const IC_FIND='<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.500" cy="8.500" r="5.500" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13l4.500 4.500" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const IC_THEME='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z"/></svg>';
 function renderNav(){const nav=document.getElementById("topnav");const its=g=>g[1].filter(i=>routeOK(i[0]));
  // the tutorial heads the Learn list: it is the same method, as lessons
  const groups=MENU.map(g=>(g[0]==="Learn"&&SITE_UP)?[g[0],[[SITE_UP+"learn/","The tutorial","55 short lessons in eight tracks, in the manual","ext"]].concat(g[1])]:g);
  const row=i=>`<a${i[3]==="ext"?' class="out"':""} href="${i[0]}" style="--dot:${hueOf(i[3])}"><i></i><span>${i[1]}<small>${i[2]}</small></span></a>`;
  const menu=(g,right)=>{const items=its(g);if(!items.length)return"";return `<div class="xmenu" data-pages="${items.map(i=>i[3]).join(",")}"><button type="button" aria-haspopup="true">${g[0]}<span class="chev"></span></button><div class="xdrop"${right?' style="left:auto;right:0"':""}>${items.map(row).join("")}</div></div>`;};
  const home=NP.start?"#/start":"#/overview";
- nav.innerHTML=`<a class="xbrand" href="${home}" aria-label="SkyWays workbench: the start page">${BRAND}<span class="wm">SkyWays</span><small>Workbench</small></a><div class="xnavl">${groups.map((g,k)=>menu(g,k>2)).join("")}</div><div class="xright"><button type="button" class="xfind" data-opensearch title="Search the workbench (press /)" aria-label="Search the workbench">${IC_FIND}</button>${NP.evidence?`<a class="xpack xpackpill" href="#/evidence" title="Your evidence pack"><span>Evidence pack</span><b data-minen>${MINE.length}</b></a>`:""}${SITE_UP?`<a class="xquiet" href="${SITE_UP}">Manual</a><a class="xplay" href="${SITE_UP}simulator/">${IC_PLAY}<span>Simulator</span></a>`:""}<button type="button" class="xtgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">◐</button><button type="button" class="xpill" id="xburger" aria-label="Open the menu">Menu</button></div>`;
+ nav.innerHTML=`<a class="xbrand" href="${home}" aria-label="SkyWays workbench: the start page">${BRAND}<span class="wm">SkyWays</span><small>Workbench</small></a><div class="xnavl">${groups.map((g,k)=>menu(g,k>2)).join("")}</div><div class="xright"><button type="button" class="xfind" data-opensearch title="Search the workbench (press /)" aria-label="Search the workbench">${IC_FIND}</button>${NP.evidence?`<a class="xpack xpackpill" href="#/evidence" title="Your evidence pack"><span>Evidence pack</span><b data-minen>${MINE.length}</b></a>`:""}${SITE_UP?`<a class="xquiet" href="${SITE_UP}">Manual</a><a class="xplay" href="${SITE_UP}simulator/">${IC_PLAY}<span>Simulator</span></a>`:""}<button type="button" class="xtgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">${IC_THEME}</button><button type="button" class="xpill" id="xburger" aria-label="Open the menu">Menu</button></div>`;
  nav.querySelectorAll(".xmenu>button").forEach(b=>b.onclick=e=>{e.stopPropagation();const m=b.parentElement,was=m.classList.contains("open");closeMenus();if(!was)m.classList.add("open");});
  // the phone menu is a sheet on <body>, outside the bar's stacking context, so nothing on the page can cover it
  let sh=document.getElementById("xsheet");if(!sh){sh=document.createElement("div");sh.id="xsheet";sh.className="xsheet";sh.setAttribute("role","dialog");sh.setAttribute("aria-label","Menu");document.body.appendChild(sh);}

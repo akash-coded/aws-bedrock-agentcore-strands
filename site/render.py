@@ -109,6 +109,11 @@ MARK = ('<svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="fal
 MOTION_TOGGLE = ('<label class="mpause"><input type="checkbox" data-motion-toggle autocomplete="off">'
                  '<span class="vh">Pause the animation</span><i aria-hidden="true"></i></label>')
 BURGER = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>')
+# The theme button's mark: a circle with its left half filled, drawn like the burger (one rule in base.css), so
+# it has the burger's size, line and colour in both themes. A character could not be trusted to: "◐" fell back
+# to whatever font had it and drew as a small dot.
+HALF = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/>'
+        '<path d="M12 4a8 8 0 0 0 0 16z"/></svg>')
 ROLE_LESSON = {"product-manager": "agentic-pdlc-for-product-managers", "solution-architect": "agentic-pdlc-for-solution-architects",
                "engineering": "agentic-pdlc-for-engineers", "qa": "agentic-pdlc-for-qa", "devops": "agentic-pdlc-for-devops"}
 
@@ -331,7 +336,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
   <a class="brand" href="{up}" aria-label="SkyWays, the agentic manual: home">{MARK}<span class="wm">SkyWays</span><small>The agentic manual</small></a>
   <nav aria-label="Sections">{nav}</nav>
   {_ctx(up, nav_id, ctx)}
-  <button class="tgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">◐</button>
+  <button class="tgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">{HALF}</button>
 </div></header>
 {crumb_html}
 {body}
