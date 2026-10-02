@@ -774,14 +774,19 @@
     kids.push(hud(state));
     kids.push(dayHead(state, day));
     var ev = eventList(state); if (ev) kids.push(ev);
+    // Day 82's figure draws what arrived, which the line above has already said. It comes after the call,
+    // so that the question and its first option are on the first screen, and it stays on the day once the
+    // call is made. It plays, as every figure does, only if it is whole on the screen when the day opens.
+    var fig = day.form ? refundStrip(day.form) : null;
     if (state.beat === "choose") {
-      if (day.form) kids.push(refundStrip(day.form));
       kids.push(sceneLines(day));
       if (state.pending) plan(state, day, own).forEach(function (k) { kids.push(k); });
       else if (day.options) kids.push(optionButtons(state, day, function (opt) { act({ t: "choose", opt: opt.id }); }));
       else kids.push(taskForm(state, day.task));
+      if (fig) kids.push(fig);
     } else {
       kids.push(outcome(state, day));
+      if (fig) kids.push(fig);
       if (state.beat === "task") kids.push(taskForm(state, state.task));
       else if (state.beat === "gate") kids.push(gatePanel(state));
       else if (state.beat === "done") {

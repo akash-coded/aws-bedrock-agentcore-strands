@@ -339,6 +339,15 @@
   .nd-strip{align-self:end}
   .nd-meters{align-self:start;gap:6px 20px}
 }
+/* A laptop or a tablet on its side, at one column: there is room beside the day and not above it. The
+   room, the thirteen days and the meters move into a rail on the left, so a day that also brings news
+   (Day 20's freeze, Day 82's refund) still has its question and first option on the first screen. */
+@media (min-width:900px) and (max-width:1240px){
+  .nd:has(>#nd.at-play) .nd-top{max-width:952px}
+  .at-play .nd-panel{position:relative;max-width:952px;min-height:300px;padding-left:312px}
+  .at-play .nd-panel>.nd-hud{position:absolute;left:0;top:0;width:288px;grid-template-columns:minmax(0,1fr);row-gap:12px}
+  .at-play .nd-hud .nd-scene{grid-row:auto;align-self:auto}
+}
 /* a short window: the building scrolls with the page, so the room chips are never out of reach */
 @media (max-height:859px){.nd-stage{position:static}}
 /* a phone: the room fills the width, under the days and the meters */

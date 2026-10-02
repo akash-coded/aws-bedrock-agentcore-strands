@@ -334,9 +334,10 @@ try {
     else console.log(`  ok   ${w} wide: the title says what the game is before its name, and "Start at Day 1" is on the first screen`);
   }
 
-  // a. the question and its first option are on the first screen
+  // a. the question and its first option are on the first screen, also on the two days that bring news
+  // above the scene: Day 20 (the vendor's freeze) and Day 82 (the refund that met its limit)
   for (const [w, h] of [[1440, 900], [1024, 768]]) {
-    for (const hash of ["", "#day-45", "#day-9"]) {
+    for (const hash of ["", "#day-45", "#day-9", "#day-20", "#day-82"]) {
       await fromCold(w, h, hash);
       if (!hash) { await evaluate(START); await sleep(400); }
       const at = await evaluate(`(() => { const l = document.querySelector("#nd .nd-opts legend"), o = document.querySelector("#nd .nd-opts .nd-opt"), p = document.querySelector("#nd .nd-scene-cv"), m = document.querySelector("#nd .nd-map-cv");
