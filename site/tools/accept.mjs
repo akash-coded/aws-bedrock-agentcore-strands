@@ -959,8 +959,131 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   // end of home · H7
 
   // home · H8 close: #work-with-us
+  // One panel at radius 20 with one filled button and no form, logo, testimonial or figure; four offers, each
+  // ending in "You leave with", in the same words as the organisation's makesOffer, with no price; four columns
+  // at 1440; at 390 the band within 1,300px, 20px inside the panel, 48px above and below it, each label on its
+  // words' line. Every text on the panel 4.5:1 in both themes. With script the button opens the drawer on the
+  // consultancy's topic and a message from it is tagged so, and the footer's button opens it on the drawer's own
+  // first choice; on paper the button prints where it goes; without script it is a link to the discussions
+  // page, and no address is printed in the page.
   async function bandH8(w, h) {
-    return [];
+    const out = [];
+    const m = await evaluate(`(() => { const b = document.querySelector('#work-with-us'); if (!b) return null;
+      const p = b.querySelector('.cx-in'), btn = b.querySelectorAll('.btn'), lis = [...b.querySelectorAll('.cx-o > li')];
+      const words = (e) => (e ? e.textContent.replace(/\\s+/g, ' ').trim() : '');
+      const offers = lis.map((li) => { const k = li.lastElementChild, lab = k && k.querySelector('span'), t = lab && lab.nextSibling;
+        let inline = false;
+        if (t && t.length > 2) { const r = document.createRange(); r.setStart(t, 1); r.setEnd(t, 2); inline = Math.abs(r.getBoundingClientRect().top - lab.getBoundingClientRect().top) < 6; }
+        return { name: words(li.querySelector('h3')), does: words(li.querySelector('h3 + p')), last: words(k),
+          leave: lab ? words(k).slice(words(lab).length).trim() : '', top: Math.round(li.getBoundingClientRect().top), inline }; });
+      const org = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap((s) => { try { const j = JSON.parse(s.textContent); return j['@graph'] || [j]; } catch { return []; } })
+        .find((x) => x['@type'] === 'Organization' && x.makesOffer);
+      const cs = getComputedStyle(p), bs = getComputedStyle(b), a = btn[0];
+      return { offers, ld: org ? org.makesOffer : null, buttons: btn.length, pri: !!a && a.matches('.btn.pri'),
+        extra: [...b.querySelectorAll('form, input, select, textarea, img, svg, picture, figure, blockquote, iframe, video, canvas')].map((e) => e.tagName.toLowerCase()),
+        radius: cs.borderRadius, pad: cs.paddingLeft, bandPad: bs.paddingTop + ' ' + bs.paddingBottom, height: Math.round(b.getBoundingClientRect().height),
+        btnH: a ? Math.round(a.getBoundingClientRect().height * 10) / 10 : 0, href: a ? a.getAttribute('href') : '', note: words(b.querySelector('.ba small')) }; })()`);
+    if (!m) return ["the home page has no #work-with-us band"];
+    if (m.buttons !== 1 || !m.pri) out.push(`the band has ${m.buttons} buttons${m.pri ? "" : ", and none is the filled one"}; one filled button is the rule`);
+    if (m.extra.length) out.push(`the band carries ${[...new Set(m.extra)].join(", ")}: no form, logo, testimonial or figure`);
+    if (m.offers.length !== 4) out.push(`${m.offers.length} offers, not four`);
+    m.offers.forEach((o, i) => {
+      if (!o.name || !o.does) out.push(`offer ${i + 1} lacks its name or what we do`);
+      if (!/^You leave with \S/.test(o.last)) out.push(`offer ${i + 1} ("${o.name}") does not end with "You leave with" and what that is`);
+    });
+    if (m.note !== "Say what you want to change, and by when.") out.push(`the line beside the button reads "${m.note}"`);
+    // the organisation's offers in the page's own words, with nothing on a price
+    if (!Array.isArray(m.ld) || m.ld.length !== m.offers.length) out.push(`makesOffer holds ${Array.isArray(m.ld) ? m.ld.length : "no"} offers for ${m.offers.length} on the page`);
+    else {
+      m.ld.forEach((x, i) => { const s = x.itemOffered || {}, o = m.offers[i];
+        if (x["@type"] !== "Offer" || s.name !== o.name || s.description !== o.does || (s.serviceOutput || {}).name !== o.leave)
+          out.push(`makesOffer ${i + 1} does not say what the page says ("${s.name}")`); });
+      if (/price/i.test(JSON.stringify(m.ld))) out.push("makesOffer names a price");
+    }
+    if (m.radius !== "20px") out.push(`the panel's radius is ${m.radius}, not 20px`);
+    if (w > 1000) {
+      if (new Set(m.offers.map((o) => o.top)).size !== 1) out.push(`at ${w} the four offers do not stand in one row`);
+      if (![36, 43, 51].some((v) => Math.abs(m.btnH - v) <= 0.5)) out.push(`the button is ${m.btnH}px tall; 36, 43 or 51 at ${w}`);
+    } else {
+      if (m.height > 1300) out.push(`the band is ${m.height}px tall at ${w}; 1,300 is the limit`);
+      if (m.pad !== "20px") out.push(`the panel keeps ${m.pad} inside at ${w}, not 20px`);
+      if (m.bandPad !== "48px 48px") out.push(`the band keeps ${m.bandPad} above and below at ${w}, not 48px`);
+      m.offers.forEach((o, i) => { if (!o.inline) out.push(`at ${w} "You leave with" is not on the same line as offer ${i + 1}'s words`); });
+      if (m.btnH < 44) out.push(`the button is ${m.btnH}px tall at ${w}; 44 at least`);
+    }
+    // every text on the panel, 4.5:1 on the panel's paper, in both themes
+    const CONTRAST = `(() => { const p = document.querySelector('#work-with-us .cx-in'), ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+      const rgb = (s) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = s; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data]; };
+      const lum = (c) => c.slice(0, 3).map((v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((s, v, k) => s + v * [0.2126, 0.7152, 0.0722][k], 0);
+      const g = rgb(getComputedStyle(p).backgroundColor), worst = { r: 99 };
+      p.querySelectorAll('.eyebrow, h2, .sec-h p:not(.eyebrow), h3, .cx-o p, .cx-k span, small').forEach((e) => { const t = rgb(getComputedStyle(e).color);
+        const f = t.slice(0, 3).map((v, k) => (t[3] / 255) * v + (1 - t[3] / 255) * g[k]), L = [lum(f), lum(g)].sort((x, y) => y - x), r = (L[0] + 0.05) / (L[1] + 0.05);
+        if (r < worst.r) { worst.r = Math.round(r * 100) / 100; worst.what = e.className || e.tagName.toLowerCase(); } });
+      return worst; })()`;
+    for (const theme of ["dark", "light"]) {
+      if (theme === "light") await evaluate("document.documentElement.setAttribute('data-theme', 'light'), true");
+      const c = await evaluate(CONTRAST);
+      if (c.r < 4.5) out.push(`in the ${theme} theme ${c.what} is ${c.r}:1 on the panel; 4.5 is the floor`);
+    }
+    await evaluate("document.documentElement.removeAttribute('data-theme'), true");
+    // with script, by real clicks and keys, so focus goes where a reader's would
+    const click = async (sel) => {
+      const p = await evaluate(`(() => { const e = document.querySelector('${sel}'); scrollTo({ top: e.getBoundingClientRect().top + scrollY - innerHeight / 2, behavior: 'instant' });
+        const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+      await sleep(100);
+      for (const type of ["mousePressed", "mouseReleased"]) await send("Input.dispatchMouseEvent", { type, x: p.x, y: p.y, button: "left", clickCount: 1 });
+      await sleep(250);
+    };
+    const escape = async () => {
+      for (const type of ["keyDown", "keyUp"]) await send("Input.dispatchKeyEvent", { type, key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
+      await sleep(150);
+      return evaluate(`[document.querySelector('#sw-contact').classList.contains('on'), !!document.activeElement && document.activeElement.matches('#work-with-us .btn')]`);
+    };
+    const DRAWER = `(() => { const d = document.querySelector('#sw-contact'), t = document.querySelector('#sw-topic');
+      return { on: !!d && d.classList.contains('on') && d.getAttribute('aria-hidden') === 'false', topic: t ? t.value : null,
+        first: t ? ([...t.options].find((o) => o.defaultSelected) || {}).value : null, at: location.pathname + location.search + location.hash }; })()`;
+    await click("#work-with-us .btn");
+    let d = await evaluate(DRAWER);
+    if (!d.on) out.push("with script the close's button does not open the contact drawer");
+    else {
+      if (d.topic !== "consultancy") out.push(`the close's button opens the drawer on the topic "${d.topic}", not the consultancy's`);
+      if (d.at !== "/") out.push(`the close's button also went to ${d.at}`);
+      const back = await escape();
+      if (back[0]) out.push("Escape does not close the drawer");
+      else if (!back[1]) out.push("closed, the drawer does not hand focus back to the close's button");
+      // the footer's button chooses no topic: the drawer is back on its own first choice, not the close's
+      await click(".ft [data-sw-open]");
+      d = await evaluate(DRAWER);
+      if (!d.on) out.push("the footer's button no longer opens the drawer");
+      else if (d.topic !== d.first || d.first === "consultancy") out.push(`the footer's button opens the drawer on "${d.topic}" (its own first choice is "${d.first}")`);
+      await escape();
+      // the close again, and a message sent from it: its subject is tagged for the consultancy
+      await click("#work-with-us .btn");
+      const subject = await evaluate(`(async () => { const f = document.querySelector('#sw-contact form');
+        if (f.elements.topic.value !== 'consultancy') return 'the topic ' + f.elements.topic.value;
+        f.elements.name.value = 'Helen Gate'; f.elements.email.value = 'helen@example.com'; f.elements.message.value = 'A ranked list of our ideas, by June.';
+        f.requestSubmit(); await new Promise((r) => setTimeout(r, 300));
+        const a = [...document.querySelectorAll('#sw-contact .sw-status a')].find((x) => x.href.startsWith('mailto:'));
+        return a ? decodeURIComponent(a.href.split('subject=')[1].split('&')[0]) : 'no mail link'; })()`);
+      if (!subject.startsWith("[SkyWays Consultancy]")) out.push(`a message from the close is headed "${subject}", not tagged [SkyWays Consultancy]`);
+    }
+    // paper: the button prints where it goes
+    await send("Emulation.setEmulatedMedia", { media: "print", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
+    const after = await evaluate(`getComputedStyle(document.querySelector('#work-with-us .btn'), '::after').content`);
+    if (!m.href || !after.includes(m.href)) out.push(`on paper the button does not print where it goes (${after})`);
+    // without script: a plain link to the discussions page, and no address anywhere in the page
+    await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
+    await send("Emulation.setScriptExecutionDisabled", { value: true });
+    await send("Page.navigate", { url: BASE });
+    await sleep(1200);
+    await send("Emulation.setScriptExecutionDisabled", { value: false });
+    const plain = await evaluate(`(() => { const a = document.querySelector('#work-with-us .btn'), r = a ? a.getBoundingClientRect() : null;
+      return { href: a ? a.getAttribute('href') : '', shown: !!r && r.width > 0 && r.height > 0 && getComputedStyle(a).visibility !== 'hidden',
+        mailto: document.documentElement.outerHTML.includes('mailto:') }; })()`);
+    if (!/^https:\/\/github\.com\/[^/]+\/[^/]+\/discussions\/?$/.test(plain.href)) out.push(`without script the button goes to "${plain.href}", not the repository's discussions page`);
+    if (!plain.shown) out.push("without script the button is not shown");
+    if (plain.mailto) out.push("the page carries a mailto: address");
+    return out;
   }
   // end of home · H8
 

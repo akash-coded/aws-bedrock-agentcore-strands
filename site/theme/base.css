@@ -1900,6 +1900,24 @@ main.home{padding:0}
 /* end of home · H7 */
 
 /* home · H8 close */
+/* The close: one panel on the page's ground, the home page's one framed panel that is not a destination card,
+   because it is the page's one offer. The heading and its line, four offers as ruled columns, each ending in what
+   a buyer leaves with, then one filled button. Four columns over 1000px, two down to 601px, then one. At 600px
+   and under the panel frames the band, so the band keeps 48px above and below, and "You leave with" runs into
+   its words. On paper the button reads in ink and prints where it goes. */
+.cx-in{border:1px solid var(--rule);border-radius:20px;background:var(--paper);padding:clamp(28px,4.45vw,64px)}
+.cx .sec-h{margin-bottom:clamp(24px,4vw,48px)}
+.cx-o{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px}
+.cx-o li{border-top:1px solid color-mix(in oklab,var(--ink) 22%,transparent);padding-top:14px}
+.cx-o p{font-size:15px;line-height:1.5;color:var(--ink2);margin:0 0 8px}
+.cx-o .cx-k{color:var(--ink);margin:0}
+.cx-k span{display:block;font:500 12.5px var(--f-mono);color:var(--soft)}
+.cx .ba{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:clamp(28px,4vw,44px)}
+.cx .btn{padding:14px 22px;font-size:15.5px}
+.cx small{font-size:14px;color:var(--soft)}
+@media (max-width:1000px){.cx-o{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.band.cx{padding:48px 0}.cx-in{padding:20px}.cx-o{grid-template-columns:1fr;gap:16px}.cx-k span{display:inline}}
+@media print{.cx .btn{color:var(--ink)}.cx .btn::after{content:" " attr(href);font-weight:400}}
 /* end of home · H8 */
 
 /* ---- a landing page's head: title, one line, then the content ---- */

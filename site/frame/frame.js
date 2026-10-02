@@ -27,8 +27,14 @@
   function address() { return (contact.mailto || []).join("@"); }
   function a(href, text) { return '<a href="' + href + '" target="_blank" rel="noopener">' + text + "</a>"; }
 
+  // an enquiry for SkyWays Consultancy says so first; every other topic keeps its sender's tag
+  function subjectOf(d, tag) {
+    return (d.topic === "consultancy" ? "[SkyWays Consultancy] enquiry" : tag + " " + (d.topic || "message")) +
+      " from " + (d.name || "a visitor");
+  }
+
   function mailtoHref(d) {
-    var subject = "[SkyWays workbench] " + (d.topic || "message") + " from " + (d.name || "a visitor");
+    var subject = subjectOf(d, "[SkyWays workbench]");
     var body = (d.message || "") + "\n\n-- \n" + (d.name || "") + (d.email ? " <" + d.email + ">" : "") +
       "\nsent from " + location.href;
     return "mailto:" + address() + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
@@ -75,7 +81,7 @@
   }
 
   /* ---------- drawer: the contact form ---------- */
-  var scrim, drawer, form, sendBtn, status, opener = null;
+  var scrim, drawer, form, sendBtn, status, opener = null, preset = false;
 
   function field(label, control) {
     return h("div", { "class": "sw-field" }, [h("label", { "for": control.id, text: label }), control]);
@@ -106,8 +112,8 @@
     }
     var body = { name: d.name, email: d.email, topic: d.topic, message: d.message,
       page: location.pathname + location.hash, website: "",
-      subject: "[SkyWays] " + d.topic + " from " + d.name, from_name: d.name || "The SkyWays site",
-      _subject: "[SkyWays workbench] " + d.topic + " from " + d.name };
+      subject: subjectOf(d, "[SkyWays]"), from_name: d.name || "The SkyWays site",
+      _subject: subjectOf(d, "[SkyWays workbench]") };
     if (contact.accessKey) body.access_key = contact.accessKey;
     sendBtn.disabled = true;
     setStatus("", ["Sending…"]);
@@ -133,10 +139,13 @@
     scrim = h("div", { "class": "sw-scrim", onclick: close });
     var name = h("input", { id: "sw-name", name: "name", type: "text", required: "", maxlength: "120", autocomplete: "name", placeholder: "Your name" });
     var email = h("input", { id: "sw-email", name: "email", type: "email", required: "", maxlength: "200", autocomplete: "email", placeholder: "you@example.com" });
-    var topic = h("select", { id: "sw-topic", name: "topic" });
-    [["idea", "An idea or suggestion"], ["question", "A question"], ["collaboration", "Collaboration or a talk"],
-     ["bug", "Something is wrong"], ["other", "Something else"]].forEach(function (o) {
-      topic.appendChild(h("option", { value: o[0], text: o[1] }));
+    // only the home page's close chooses the consultancy; any other way in shows an idea, as before
+    var topic = h("select", { id: "sw-topic", name: "topic", onchange: function () { preset = false; } });
+    [["consultancy", "Work with SkyWays Consultancy"], ["idea", "An idea or suggestion"], ["question", "A question"],
+     ["collaboration", "Collaboration or a talk"], ["bug", "Something is wrong"], ["other", "Something else"]].forEach(function (o) {
+      var opt = h("option", { value: o[0], text: o[1] });
+      if (o[0] === "idea") opt.defaultSelected = true;
+      topic.appendChild(opt);
     });
     var msg = h("textarea", { id: "sw-message", name: "message", required: "", maxlength: "4000", minlength: "10",
       placeholder: "What is on your mind? Context helps: which page, which decision, what you expected." });
@@ -168,7 +177,16 @@
   }
 
   function onKey(e) { if (e.key === "Escape") close(); }
-  function open() {
+  // data-sw-open="topic" chooses that topic, and a plain opener undoes it; a link opener (its href is for a page
+  // without script) stays a link only when the reader asks for a new tab or window
+  function open(e) {
+    var el = e && e.currentTarget, want = el ? el.getAttribute("data-sw-open") : null, t = form.elements.topic;
+    if (el && el.tagName === "A") {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) return;
+      e.preventDefault();
+    }
+    if (want) { t.value = want; preset = true; }
+    else if (preset) { t.value = "idea"; preset = false; }
     opener = document.activeElement;
     scrim.classList.add("on"); drawer.classList.add("on"); drawer.setAttribute("aria-hidden", "false");
     document.addEventListener("keydown", onKey);
