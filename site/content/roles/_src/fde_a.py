@@ -135,7 +135,7 @@ STEPS_A = [
               "that clears it."},
    {"do": "Write the verdict, and what would change it",
     "detail": "Go to scoping, not yet, or no, in one sentence with its evidence. Stopping at discovery "
-              "is not a failure when the evidence says stop [[S26]], and a written no keeps the door "
+              "is not a failure when the evidence says stop [[S26b]], and a written no keeps the door "
               "open for a later yes."},
  ],
  "internal": (

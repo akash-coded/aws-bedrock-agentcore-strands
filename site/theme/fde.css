@@ -1,0 +1,113 @@
+/* The forward-deployed engineer guide (pages/fde.py): its hub and stage pages load this, and no other page
+   does. Held to 2 KB gzipped as shipped (council 10, verdict 2.8), so shared declarations are grouped. The
+   universal reset in base.css already starts every element at no margin and no padding. */
+
+/* The guide's accent is sky. As small text on the light page sky reads about 4.2:1, so the guide takes the
+   deepened mix the figures use: --dg-text keeps 78% of the hue on the light page and all of it on the dark. */
+:root{--accent:color-mix(in oklab,var(--dg-sky) var(--dg-text),var(--ink))}
+.p0{--c:var(--dg-slate)}.p1{--c:var(--dg-indigo)}.p2{--c:var(--dg-teal)}.p3{--c:var(--dg-amber)}
+.fx-g,.fx-s,.fq,.fsay,.fx-cr ol{list-style:none}
+
+/* ---- the framework: stages down the side in ink, the four phases across in their hues, a rose signature
+   at the end of each row. Phase hues sit on the columns only, and the page's accent never inside. Nothing
+   moves but a box under the pointer. ---- */
+.fx{margin:0 0 clamp(52px,6.5vw,88px)}
+.fx-t h2{margin:0 0 6px;font-size:22px}
+.fx-t p{margin:0 0 12px;font-size:15px;line-height:1.5;color:var(--ink2)}
+/* a 150px stage column, then four equal phase columns 8px apart. A row's steps are a list of their own on
+   the same 8px, so they sit exactly under the header's columns */
+.fx-ph,.fx-r{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 8px}
+.fx-ph{grid-template-columns:150px repeat(4,minmax(0,1fr))}
+.fx-ph>span{padding:0 2px 8px;border-bottom:3px solid var(--c);font-size:12.5px;line-height:1.3;color:var(--ink2)}
+.fx-ph em{display:block;margin-top:4px;font-style:normal;color:var(--soft)}
+/* the small print: the corner, a stage's span, a step's number and its artefact. Three readers from three
+   makers found it hard to read in the quiet grey, so it takes the body's second ink; a step's number stays quiet */
+.fx-ph .fx-k,.fx-h small,.fx-s i,.fx-s em{font:500 11.5px/1.3 var(--f-mono);font-style:normal;color:var(--ink2)}
+.fx-ph .fx-k{align-self:end;padding:0 8px 9px 0;border:0}
+/* a phase's chip on its solid hue, and the rose pill of a signature */
+.fx-ph b,.fx-s b,.fx-so b{display:inline-block;margin-right:6px;padding:2px 5px;border-radius:6px;background:var(--c);
+  font:700 11px/1 var(--f-mono);color:var(--dg-on)}
+.fx-so b{padding:4px 8px;border-radius:999px;background:var(--dg-rose)}
+.fx-r{padding:9px 0 7px;border-bottom:1px solid var(--rule)}
+.fx a{color:var(--ink);text-decoration:none}
+.fx-h{display:grid;grid-template-columns:auto 1fr;align-content:start;column-gap:10px;padding:4px 4px 0 0}
+.fx-h b{grid-row:span 2;font:620 44px/.9 var(--f-display);letter-spacing:-.04em}
+.fx-h strong{align-self:end;font:620 17px/1.15 var(--f-display);letter-spacing:-.01em}
+.fx-h span{font-size:13px;line-height:1.3;color:var(--ink2)}
+.fx-h small{grid-column:1/-1;margin-top:6px}
+a.fx-h:hover strong{text-decoration:underline;text-underline-offset:3px}
+.fx-s{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.fx-s a{display:flex;flex-direction:column;gap:3px;height:100%;padding:8px 10px 9px;border:1px solid var(--rule);
+  border-top:3px solid var(--c);border-radius:11px;background:var(--paper);transition:transform 150ms var(--ease),border-color 150ms var(--ease)}
+.fx-s a:hover{transform:translateY(-2px);border-color:color-mix(in oklab,var(--c) 55%,var(--rule));border-top-color:var(--c)}
+.fx-s i{display:flex;align-items:center;line-height:1;color:var(--soft)}
+.fx-s strong{font:600 15.5px/1.2 var(--f-display);letter-spacing:-.01em}
+.fx-s a>span{font-size:13.5px;line-height:1.34;color:var(--ink2)}
+.fx-s em{margin-top:auto;padding-top:2px}
+.fx-so{grid-column:2;justify-self:end;display:flex;align-items:center;gap:8px;margin:0;font-size:13px;line-height:1.2;color:var(--ink2)}
+.fx-f{margin:8px 0 0;font-size:13px;color:var(--soft)}
+/* on a stage page the other two rows keep their names and four step names, at full contrast */
+.fx-m .fx-s a{flex-direction:row;align-items:center;gap:8px;min-height:44px;padding:7px 10px}
+
+/* ---- the hub ---- */
+.rail ol+.railh{margin-top:22px}
+.sec>h3{margin:30px 0 10px}
+.fx-n,.fx-src p{font-size:14px;color:var(--soft)}
+/* tables whose rows each have a head: the hats, the altitudes, the two clients, where you can start from */
+.fdt tbody th{font-weight:650;color:var(--ink)}
+.fdt thead td{background:var(--rule2)}
+.fx-al thead th{white-space:normal;font:620 16px/1.2 var(--f-display);color:var(--ink)}
+.fx-al tbody th,.fx-al small,.fdt td::before,.readsg small,.fsay b{font:500 12px/1.45 var(--f-mono);color:var(--soft)}
+.fx-al small,.readsg small,.fsay b{display:block;margin:2px 0 3px}
+.fx-al tbody th{width:16%}
+/* 02: the hat stand beside the heading and its paragraph on a wide screen, after the paragraph elsewhere */
+.fx-sk{max-width:460px;margin:0 0 26px}
+.fx-sk .sketch{margin:0}
+@media (min-width:1240px){
+  .fx-hs{display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:auto 1fr;column-gap:36px;align-items:start}
+  .fx-hs>*{grid-column:1/-1}
+  .fx-hs>h2,.fx-hs>h2+p{grid-column:1}
+  .fx-hs>.fx-sk{grid-column:2;grid-row:1/span 2;max-width:none}
+}
+/* quotations, each with its company, posting, address and the date it was checked; the source marks, and
+   the list they lead to; 05's two crafts, each move linked to its step */
+.fq{margin-bottom:28px}
+.fq li,.fx-cr li,.fsay li{padding:10px 0;border-top:1px solid var(--rule)}
+.fq li{font-size:16.5px;line-height:1.5;color:var(--ink)}
+.fsrc{display:block;margin-top:4px;font-size:12.5px;font-style:normal;color:var(--soft)}
+.fsrc a{color:var(--ink2)}
+.fsrc-h{font-family:var(--f-mono)}
+.stale{color:color-mix(in oklab,var(--dg-amber) var(--dg-text),var(--ink))}
+a.fn{margin:0 1px;padding:0 2px;border-radius:4px;font:600 11px/1 var(--f-mono);vertical-align:super;color:var(--soft);text-decoration:none}
+a.fn:hover,a.fn:focus-visible{color:var(--ink);background:var(--rule2)}
+.fx-src{margin-top:clamp(40px,5vw,64px);padding-top:24px;border-top:1px solid var(--rule)}
+.fsrcs{display:grid;gap:6px;padding-left:26px;font-size:13px;color:var(--soft)}
+.fsrcs .fsrc{display:inline}
+.fx-cr{display:grid;grid-template-columns:1fr 1fr;gap:12px 36px}
+.fx-cr h3{margin:0 0 10px}
+.fx-cr li{font-size:14.5px;line-height:1.45;color:var(--ink2)}
+.fx-cr li a{font:500 12px var(--f-mono);white-space:nowrap}
+.readsg{margin:0 0 20px}
+
+/* ---- a step on a stage page: "Say it like this", as <ul class="fsay"><li><b>the situation</b><q>the words</q>,
+   capped at the step's reading measure (its paragraphs' 70ch), however long the words run ---- */
+.fsay li{max-width:70ch}
+.fsay q{font-size:16px;line-height:1.55;color:var(--ink)}
+
+/* ---- a phone: the stages stack, each stage's four steps two by two, so across is still the order; each
+   table row becomes one block, its head on top and every cell under its column's name ---- */
+@media (max-width:760px){
+  .fx-ph,.fx-s em,.fdt thead{display:none}
+  .fx-r{grid-template-columns:1fr;padding:14px 0 12px}
+  .fx-h b{font-size:36px}
+  .fx-s{grid-template-columns:1fr 1fr}
+  .fx-cr{grid-template-columns:1fr}
+  .fx-s a{min-height:44px}
+  .fx-s a>span{font-size:13px}
+  .fx-so{grid-column:1;justify-self:start}
+  .fdt,.fdt tbody,.fdt tr,.fdt th,.fdt td{display:block}
+  .fdt td::before{content:attr(data-l);display:block}
+  .sec .tw .fdt{min-width:0}
+  .fdt tr{padding:12px 14px;border-bottom:1px solid var(--rule2)}
+  .fdt tbody th,.fdt td{width:auto;padding:3px 0;border:0}
+}

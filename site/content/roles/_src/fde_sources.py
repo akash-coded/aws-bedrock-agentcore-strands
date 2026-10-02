@@ -2,8 +2,9 @@
 
 Postings change in weeks, so the guide never types a claim about the profession. It names a record here.
 
-- ``SOURCES``: the 29 sources of council 10's FDE paper, section 6, S1 to S28 with S6b. For each: who
-  published it, its title, its address, how it was read and the date it was checked.
+- ``SOURCES``: the 29 sources of council 10's FDE paper, section 6, S1 to S28 with S6b, and S26b, the
+  discovery page the paper's S26 named beside the alpha page. For each: who published it, its title, its
+  address, how it was read and the date it was checked.
 - ``QUOTES``: one record per quotation the paper shows, each with its source and its exact words, copied
   from the paper. A quotation with a long dash is cut shorter, never altered.
 
@@ -121,10 +122,16 @@ SOURCES = {
             "url": "https://www.anthropic.com/engineering/building-effective-agents",
             "read": "WebFetch", "checked": "2026-10-02", "author": "Erik S. and Barry Zhang",
             "published": "2024-12-19"},
-    "S26": {"company": "GOV.UK",
-            "title": "Service Manual: discovery (21 June 2021), alpha (8 May 2019), beta (19 February 2021)",
+    # The paper's S26 named three pages of the Service Manual under one address. The guide cites two of them,
+    # so each has its own record: S26, the alpha page, holds both quotations; S26b, the discovery page, holds
+    # the sentence step 1 leans on (stopping at the end of discovery is not a failure).
+    "S26": {"company": "GOV.UK", "title": "Service Manual: how the alpha phase works (updated 8 May 2019)",
             "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works",
-            "read": "WebFetch, this page and its two sibling pages", "checked": "2026-10-02"},
+            "read": "WebFetch; both quotations checked again on 3 October 2026 against the saved page",
+            "checked": "2026-10-02"},
+    "S26b": {"company": "GOV.UK", "title": "Service Manual: how the discovery phase works (updated 21 June 2021)",
+             "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works",
+             "read": "WebFetch, the sentence on stopping at the end of discovery", "checked": "2026-10-03"},
     "S27": {"company": "The agentic manual", "title": "Tool guides",
             "url": "https://akash-coded.github.io/aws-bedrock-agentcore-strands/tools/",
             "read": "Read from the repository, site/content/tools/tools.json; each fact carries its own source and date",
@@ -283,10 +290,11 @@ def check() -> list[str]:
     """The records themselves. An empty list is a pass."""
     t = _tools()
     bad = []
-    want = {f"S{i}" for i in range(1, 29)} | {"S6b"}
+    want = {f"S{i}" for i in range(1, 29)} | {"S6b", "S26b"}
     if set(SOURCES) != want:
         gone, extra = sorted(want - set(SOURCES)), sorted(set(SOURCES) - want)
-        bad.append(f"fde_sources: the paper has 29 sources, S1 to S28 with S6b (missing {gone}, unknown {extra})")
+        bad.append(f"fde_sources: the guide has 30 sources, the paper's S1 to S28 with S6b, and S26b "
+                   f"(missing {gone}, unknown {extra})")
     for sid, s in SOURCES.items():
         where = f"fde_sources {sid}"
         for k in ("company", "title", "url", "read", "checked"):

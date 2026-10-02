@@ -45,6 +45,9 @@ ROLE_ORDER = [
     ("engineering", "Engineering lead", "ENG", "var(--sage)", "From a written task to code that ships"),
     ("qa", "QA lead", "QA", "var(--plum)", "From 'it works' to proof that it works"),
     ("devops", "DevOps and platform", "OPS", "var(--violet)", "From a laptop to production, repeatably"),
+    # a staged role: a guide of four pages (pages/fde.py), Frame, Deliver and Evolve, rather than one journey page
+    ("forward-deployed-engineer", "Forward-deployed engineer", "FDE", "var(--dg-sky)",
+     "From a customer's pain to a system they run after you leave"),
 ]
 
 _E = html.escape
@@ -83,7 +86,7 @@ LEGACY_HASH_REDIRECT = (
 # light hex cannot follow it, which is how the phase label on every role page came to
 # sit at about 3:1 against a dark background. Emit the token, not the colour.
 ACCENT_TOKEN = {"#3E6B8A": "slate", "#2F6B57": "sage", "#7A6A46": "ochre",
-                "#8C5B6B": "plum", "#6B4E8A": "violet"}
+                "#8C5B6B": "plum", "#6B4E8A": "violet", "#1E7FA8": "dg-sky"}
 
 
 def accent_var(accent: str) -> str:
@@ -115,7 +118,8 @@ BURGER = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d
 HALF = ('<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/>'
         '<path d="M12 4a8 8 0 0 0 0 16z"/></svg>')
 ROLE_LESSON = {"product-manager": "agentic-pdlc-for-product-managers", "solution-architect": "agentic-pdlc-for-solution-architects",
-               "engineering": "agentic-pdlc-for-engineers", "qa": "agentic-pdlc-for-qa", "devops": "agentic-pdlc-for-devops"}
+               "engineering": "agentic-pdlc-for-engineers", "qa": "agentic-pdlc-for-qa", "devops": "agentic-pdlc-for-devops",
+               "forward-deployed-engineer": "ai-dlc-for-forward-deployed-engineers"}
 
 
 
@@ -829,12 +833,8 @@ def home_page(roles: list[dict]) -> str:
                      f'<span class="s-route"><span>{md(frm)}</span><i aria-hidden="true">→</i><span class="vh"> to </span><b>{md(to)}</b></span>'
                      f'<span class="s-meta">{len(r["steps"])} steps · {n_p} prompts</span>'
                      f'<span class="s-go" aria-hidden="true">→</span></a></li>')
-    # Two rows that are not role journeys: the field guide for forward-deployed engineers, and the sponsor's page.
-    seats.append('<li><a href="learn/ai-dlc-for-forward-deployed-engineers/" style="--rc:var(--dg-sky)"><span class="s-code">FDE</span>'
-                 '<span class="s-name">Forward-deployed engineer</span>'
-                 '<span class="s-route"><span>a customer\'s pain</span><i aria-hidden="true">→</i><span class="vh"> to </span>'
-                 '<b>a system they run after you leave</b></span>'
-                 '<span class="s-meta">8 steps · 1 lesson</span><span class="s-go" aria-hidden="true">→</span></a></li>')
+    # One row that is not a role journey: the sponsor's page. (The forward-deployed engineer's row comes from
+    # ROLE_ORDER, linked to its guide.)
     seats.append('<li><a href="protocol/" style="--rc:var(--ink2)"><span class="s-code">EXEC</span>'
                  '<span class="s-name">Sponsor or executive</span>'
                  '<span class="s-route"><span>funding the work</span><i aria-hidden="true">→</i><span class="vh"> to </span>'
@@ -1224,12 +1224,19 @@ def render(out_dir: Path) -> list[str]:
         p.write_text(text, encoding="utf-8")
         written.append(rel)
 
-    put("search.json", search_index(roles))
+    # A staged role, the forward-deployed engineer's guide, writes its own pages (pages/fde.py). Its templates
+    # and prompts live on its stage pages, so the two libraries and the search take the other roles.
+    journeys = [r for r in roles if not r.get("stages")]
+    put("search.json", search_index(journeys))
     put("index.html", home_page(roles))
-    for r in roles:
+    for r in journeys:
         put(f"{r['id']}/index.html", role_page(r))
-    put("templates/index.html", library_page(roles, "templates"))
-    put("prompts/index.html", library_page(roles, "prompts"))
+    from pages import fde
+    for r in roles:
+        if r.get("stages"):
+            fde.render(put, shell, r)
+    put("templates/index.html", library_page(journeys, "templates"))
+    put("prompts/index.html", library_page(journeys, "prompts"))
     put("frameworks/index.html", frameworks_page())
     put("method/index.html", method_page())
     from pages import models, protocol, pictures, play
@@ -1254,9 +1261,12 @@ def urls() -> list[str]:
          BASE_URL + "frameworks/",
          BASE_URL + "method/",
          BASE_URL + "app/SkyWays-Architect.html"]
-    from pages import labs
+    from pages import fde, labs
     from pages import tools
-    return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()] + labs.urls(BASE_URL) + tools.urls(BASE_URL)
+    roles = load_roles()
+    return (u + [f"{BASE_URL}{r['id']}/" for r in roles if not r.get("stages")]
+            + [a for r in roles if r.get("stages") for a in fde.urls(BASE_URL, r)]
+            + labs.urls(BASE_URL) + tools.urls(BASE_URL))
 
 
 def dated_urls() -> list[tuple[str, str | None]]:

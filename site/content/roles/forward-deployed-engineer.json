@@ -1,0 +1,1457 @@
+{
+ "id": "forward-deployed-engineer",
+ "name": "Forward-deployed engineer",
+ "short": "FDE",
+ "accent": "#1E7FA8",
+ "tagline": "From a customer's pain to a system they run after you leave",
+ "arc": [
+  "Qualify",
+  "Scope",
+  "Prove",
+  "Decide",
+  "Mobilise",
+  "Sign",
+  "Build",
+  "Hand over",
+  "Reframe",
+  "Codify",
+  "Reuse",
+  "Review"
+ ],
+ "stages": [
+  {
+   "id": "frame",
+   "name": "Frame",
+   "object": "the engagement",
+   "question": "Should we do this, and what exactly will we prove?",
+   "span": "Days",
+   "people": "The client's people watch.",
+   "signed": "the go decision",
+   "signer": "the client's sponsor",
+   "brief": {
+    "long": "Days to three weeks, before a contract or a charter",
+    "people": "Watch, answer, and label a sample. Their sponsor decides",
+    "think": "One question. The proof is a POC: throwaway code, real cases",
+    "ends": "The go decision, signed by the client's sponsor",
+    "wrong": "The demo becomes the success criterion. Nobody owns the risk. Nobody will run it after you"
+   }
+  },
+  {
+   "id": "deliver",
+   "name": "Deliver",
+   "object": "the system",
+   "question": "Does it work in their world, and can they run it without you?",
+   "span": "Weeks",
+   "people": "The client's people build with you.",
+   "signed": "the handover",
+   "signer": "the person who will run it",
+   "brief": {
+    "long": "Weeks. At SkyWays, days 1 to 97",
+    "people": "Build with you. Their engineers pair, their experts label, their risk owner signs",
+    "think": "One slice (MVP), then every slice (build), then the organisation (deploy)",
+    "ends": "The handover, signed by the person who will run it",
+    "wrong": "A limit that lives only in a prompt. A harness that comments instead of blocking. Leaving with nobody owning it"
+   }
+  },
+  {
+   "id": "evolve",
+   "name": "Evolve",
+   "object": "the relationship",
+   "question": "What did it teach them and us, and what comes next?",
+   "span": "Months",
+   "people": "The client's people run it.",
+   "signed": "the next frame, or a clean close",
+   "signer": "the client's sponsor",
+   "brief": {
+    "long": "Months, for as long as the system runs",
+    "people": "Run it. You meet their sponsor each quarter",
+    "think": "The portfolio: their next frame and your product's next pattern",
+    "ends": "The next frame, or a clean close, signed by the client's sponsor",
+    "wrong": "The fourth bespoke copy. The review nobody holds. The champion who left"
+   }
+  }
+ ],
+ "intro": [
+  "You are an engineer who works inside someone else's organisation and owns the outcome there. That runs from the first question, through a system in production, to what the next customer inherits from this one. Some weeks you are the whole team. Every week, the decisions that carry their risk stay theirs.",
+  "The guide runs in three stages that spell the role: **Frame**, **Deliver** and **Evolve**. Each asks the manual's four questions, P0 to P3, about a different thing: the engagement, the system, the relationship. Each ends in a signature, and the signature opens the next stage.",
+  "Twelve steps. Each ends in an artefact somebody signs or inherits, with the template to write it, the prompts to draft it, and the words to say when the conversation gets hard."
+ ],
+ "owns": [
+  "The **engagement's spec**: the statement of work, its first slice and its success criteria",
+  "Every **lead-time item**, filed on day one and chased by name",
+  "The **build** in their stack, and the harness that proves it in their pipeline",
+  "The **handover**: runbooks, timed switches, and the person on their side who will run it, accepting in writing",
+  "The **pattern log**, and the write-up that takes each repeat home",
+  "The **quarterly value review**, the saving beside the spend"
+ ],
+ "not_yours": [
+  "**Their limits**: the refund cap, the autonomy of each action, who approves above a cap",
+  "**Their pass mark**: what counts as a right answer is their experts' call",
+  "**Go-live and every widening**: you bring the evidence, they decide",
+  "**Whether your pattern becomes product**: the product owner or the FDPM decides"
+ ],
+ "ai_stance": "Use a model to go faster through the work that is yours, and never through a decision that is theirs. At a customer the tools work differently: you are in their repository, under their policy, often on their cloud account. One context file in their repository, read by both Claude Code and Codex, keeps the rules in one place. Their documents are untrusted input to your agent, and their data goes only into the tools their policy approves. Where a step below says *do not delegate*, the model has no standing to decide, and neither, often, do you.",
+ "reads": [
+  [
+   "The lesson: what is an FDE?",
+   "../learn/what-is-a-forward-deployed-engineer/"
+  ],
+  [
+   "The Deliver stage in depth, with AI-DLC and AIDD",
+   "../learn/ai-dlc-for-forward-deployed-engineers/"
+  ],
+  [
+   "Ten FDE interview questions, by stage",
+   "../learn/forward-deployed-engineer-interview-questions/"
+  ]
+ ],
+ "steps": [
+  {
+   "n": 1,
+   "id": "qualify",
+   "phase": "Qualify",
+   "stage": "frame",
+   "level": null,
+   "hats": [
+    "consultant",
+    "product"
+   ],
+   "question": "Is this engagement worth taking?",
+   "title": "Find the pain, the owner and a reason to say no",
+   "when": "The first week of a lead, before anyone promises a proof",
+   "purpose": "Three things sink an engagement before it starts: no pain anyone can measure, nobody who can accept the risk, and nobody to run the system after you leave. Each can be found in days, from their data and their people, before a proof makes the work feel agreed. The brief this step writes is allowed to say no, and it is worth most on the day it does.",
+   "activities": [
+    {
+     "do": "Get the ask in their words, then the last time it hurt",
+     "detail": "The ask is usually a solution: *an AI assistant*. Ask who was waiting, and for how long, the last time it went badly; then what has been tried before, and what another team is trying now. Write the answers down in their words. Scale says its best forward-deployed product managers {{S19-difference}}."
+    },
+    {
+     "do": "Measure it from one export",
+     "detail": "A week of tickets gives the volume, the hard cases' share and the wait. That is enough to qualify and not enough to size, so the brief says which, and no number from it goes into a contract."
+    },
+    {
+     "do": "Ask the three AI-fit questions",
+     "detail": "A genuine judgement call, the volume to carry evaluation, and, action by action, whether a wrong answer can be undone: [the product manager's step 2](../../product-manager/#qualify). A rule in disguise is a cheaper engagement, or none."
+    },
+    {
+     "do": "Map five people, by name",
+     "detail": "The sponsor who pays, the risk owner who signs the risk, the person who will run it after you, the expert whose staff label the cases, and the sceptic who can stop it. Ask the experts what changes by shift or by kind of case: the rules nobody wrote down live there. Meet the sceptic early: their objection is your best success criterion."
+    },
+    {
+     "do": "Check the three disqualifiers",
+     "detail": "No path for their data to a model inside their policy and region. No one who can sign the risk. No one to run it after you. One left open is a no, or a not yet with the condition that clears it."
+    },
+    {
+     "do": "Write the verdict, and what would change it",
+     "detail": "Go to scoping, not yet, or no, in one sentence with its evidence. Stopping at discovery is not a failure when the evidence says stop [[S26b]], and a written no keeps the door open for a later yes."
+    }
+   ],
+   "internal": "Inside your company the sponsor is often your manager's peer. The disqualifiers are the same, and saying no is harder, so write them down before the meeting. Send them to your own manager first, so the no belongs to the team and not to you alone.",
+   "say": [
+    {
+     "to": "When the first meeting opens on the solution",
+     "words": "We will get to the assistant. First, walk me through the last disruption that went badly: who was waiting, and for how long?"
+    },
+    {
+     "to": "When three of the five people have no name",
+     "words": "We can start when three people are named: who signs the risk, who runs it after we leave, and whose experts label the cases."
+    },
+    {
+     "to": "When the answer is no, or not yet",
+     "words": "I would not build this yet. Here is what would change my mind, and who can make it happen."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Chat model",
+     "use": "Give it the request and the account team's notes, and ask for the first meeting's questions, ordered by which answer could end the engagement.",
+     "caution": "Strike every question that assumes the assistant exists. It asks about the solution, because the request was about the solution."
+    },
+    {
+     "tool": "Claude Code or Codex",
+     "use": "Have it count the export: cases a day, the hard cases' share, the wait, with the script shown before the numbers.",
+     "caution": "Only on an export their policy lets you take out. Read the date column and the filter: a count over the wrong column is confidently wrong."
+    },
+    {
+     "tool": "Chat model, against you",
+     "use": "Ask for the strongest case against taking the engagement, from your own notes. It is the cheapest review the verdict will get.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The names, and the verdict. Whether a person can accept the risk, or will run the system, you learn by asking them; a model reading an org chart guesses.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Discovery brief",
+    "short": "Discovery brief",
+    "good": "Two pages at most: the ask in their words, the pain with its source, three AI-fit answers, five people each named or marked unknown with who was asked, the three disqualifiers, and a verdict with what would change it.",
+    "owner": "Forward-deployed engineer, with the account or engagement lead"
+   },
+   "template": {
+    "title": "Discovery brief",
+    "lang": "markdown",
+    "body": "# Discovery brief · <customer> · <the ask, in five words>\n_<date> · Drafted by <FDE> · For <engagement lead> · Verdict: go to scoping / not yet / no_\n\n## 1. The ask, in their words\n> \"<the request, verbatim>\" (<who said it>, <date>)\n\nThe last time it hurt: <the incident, dated, told by someone who was there>\n\n## 2. The pain, measured\n| Who has it | How often | Cost today | Evidence | Window |\n|------------|-----------|------------|----------|--------|\n| <role> | <n a day> | <minutes, or $ per case> | <export, system, owner> | <dates> |\n\nEnough to qualify, not to size. No number here goes into a contract.\n\n## 3. Is it AI at all?\n| Question | Answer | Why |\n|----------|--------|-----|\n| A genuine judgement call? | yes / no | <two competent people could differ about ...> |\n| Volume to carry evaluation and gates? | yes / no | <n a day> |\n| Can a wrong answer be undone? | yes / no / partly | <the actions that cannot> |\n\n## 4. Five people\n| Part | Name, role | Wants | Fears | Can stop it? |\n|------|------------|-------|-------|--------------|\n| Sponsor: pays, decides go | | | | |\n| Risk owner: signs the risk | | | | |\n| The person who will run it | | | | |\n| Expert: their staff label the cases | | | | |\n| Sceptic: can stop it | | | | |\n\nA blank is a finding. Write down who you asked.\n\n## 5. The three disqualifiers\n| Disqualifier | Open or cleared | Evidence | What clears it |\n|--------------|-----------------|----------|----------------|\n| No path for their data to a model, inside their policy and region | | | |\n| No one who can sign the risk | | | |\n| No one to run it after you | | | |\n\n## 6. Verdict\n**Go to scoping / not yet / no**, because <one sentence>.\nConditions: <condition> · <owner> · <date>\nWhat would change the answer: <the evidence, and who holds it>\n"
+   },
+   "prompts": [
+    {
+     "title": "Turn the request into the first meeting's questions",
+     "when": "Before the first meeting, with whatever the account team sent you",
+     "body": "A customer has asked for: \"<the request, verbatim>\".\nWhat we know so far: <paste the account team's notes>\n\nWrite the questions for a first 45-minute meeting with <who will be there>.\n\nRULES:\n- No question may assume the solution. Ask about the work and the pain, never the assistant.\n- Ask for the last time it went badly: who was waiting, for how long, what it cost.\n- Find five people: who pays, who signs the risk, who will run it after us, whose experts\n  can label cases, who could stop it. Ask for names; a title is not an answer.\n- Ask what data exists, who owns it, and where it is allowed to go.\n- Order the questions by which answer could end the engagement. Those come first.\n\nOUTPUT: the questions in order, each with one line on why it is there."
+    },
+    {
+     "title": "Draw the stakeholder map from your notes, and mark what you do not know",
+     "when": "After the first two meetings",
+     "body": "Below are my notes from <n> meetings at <customer>.\n\nFill in this map:\n| Part | Name and role | Wants | Fears | Can stop it? | Where in my notes |\n\nThe five parts: sponsor (pays, decides go) · risk owner (signs the risk) · the person who\nwill run it after us · expert (whose staff label the cases) · sceptic (can stop it).\n\nRULES:\n- Never infer a name from a title. If my notes name nobody, write UNKNOWN.\n- Wants and fears only from what was said or done, with the line it came from.\n- If one person holds two parts, say so: that is a risk, not a saving.\n- After the table, list every UNKNOWN with the question that fills it and who to ask.\n\nNOTES:\n<paste>"
+    },
+    {
+     "title": "Make the case against taking this engagement",
+     "when": "Before you write the verdict",
+     "body": "Here is my draft discovery brief: <paste>.\n\nMake the strongest case that we should say no, or not yet. Use only the brief's own\nevidence, and test it against three disqualifiers:\n1. no path for their data to a model, inside their policy and region;\n2. no one who can sign the risk of the actions the system would take;\n3. no one to run it after we leave.\n\nThen the AI-fit questions: is it a genuine judgement call, is the volume enough to carry\nevaluation and gates, can a wrong answer be undone?\n\nEnd with the one piece of evidence that would settle go or no, and who holds it.\nDo not soften the case to be polite."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · three weeks before day 1",
+    "body": "The ask was *make rebooking smarter*. One week's export held 1,640 disruption tickets: about 234 a day, roughly one in ten codeshare, an average wait near 40 minutes. Enough to qualify, not to size: the project's own measurement in its first days made it 240 a day, 11% and 38 minutes. AI fit: yes, yes and partly, because a proposed rebooking can be withdrawn and a cash refund cannot. Three of the five were named that week: Ines as sponsor, the contact-centre head over the experts, Lena as the person who would run it. The risk owner was not, so the verdict read *go to scoping, once compliance names a person for refunds*. One gap went unseen. Every expert in the brief worked the day shift, and the evening shift's rule about one partner after 18:00 stayed in six people's heads until the shadow run found it ([step 7](../deliver/#build))."
+   },
+   "pitfalls": [
+    "Qualifying on the sponsor's enthusiasm. A sponsor who wants it and a risk owner nobody has met is how a proof ends as a demo and a contract ends in week six.",
+    "Putting the qualifying number in the contract. One week's export says yes to scoping; quoted as the business case, it becomes a promise the real measurement breaks.",
+    "Saying yes to protect the relationship. A no with its reason, and the condition that would change it, keeps the relationship; a proof that was never going to pass ends it."
+   ],
+   "done_when": "A colleague who was not in the meetings can read the brief and say whether to take the work, and what would change the answer.",
+   "pdlc": "P0"
+  },
+  {
+   "n": 2,
+   "id": "scope",
+   "phase": "Scope",
+   "stage": "frame",
+   "level": null,
+   "hats": [
+    "consultant",
+    "product"
+   ],
+   "question": "What will we prove, and who signs?",
+   "title": "Write the statement of work a sceptic would sign",
+   "when": "Frame, after the discovery brief and before the proof starts",
+   "purpose": "A statement of work is the engagement's spec. It says what you will prove and deliver, by when, what the customer must supply, and which decisions stay theirs. Write it so that a sceptic in their procurement team and another in your own could each sign it without asking what a line means. Every vague line becomes an argument in week six, and every dependency you leave out becomes your delay. Anthropic's Technical Deployment Leads structure one with {{S7-scope}}; the template below adds the decisions that stay theirs, and change control.",
+   "activities": [
+    {
+     "do": "Name the first slice, and say why it comes first",
+     "detail": "One kind of case, chosen for proof: high volume, low damage per mistake, and an existing process to compare against. Write the reason beside it, so the slice is not argued again in every meeting."
+    },
+    {
+     "do": "Write success as numbers, each with an owner on their side",
+     "detail": "A measure, the cases it is measured on, the threshold, the person who measures it and the date. *Faster rebooking* is not a criterion. *The desk agrees with the first option on 80% of standard cases, as a lower bound on 500 of their past cases* is."
+    },
+    {
+     "do": "List what is out, and what is not yet",
+     "detail": "Out stays out. Not yet has the condition that brings it in, such as a limit compliance has not signed. Both lists stop the same request arriving every week."
+    },
+    {
+     "do": "Write their dependencies with names and dates",
+     "detail": "Data access, model access in the region their data must stay in, the security review, the hours their experts will spend labelling, the person who signs risk. Their delays are your delays, so the statement says what happens to the plan when one slips."
+    },
+    {
+     "do": "Write down which decisions stay theirs",
+     "detail": "The autonomy of each action, every limit and who approves above it, the pass mark for each kind of case, go-live, and who runs it afterwards. You draft them; they sign them. Writing it now makes it normal later."
+    },
+    {
+     "do": "Put the proof in, with its own way to fail",
+     "detail": "Its one question, its days, and its endings: go, go with conditions, change course, or stop. A proof that cannot end in stop is a demo, and their sceptic will know it."
+    },
+    {
+     "do": "Agree how a new ask gets in",
+     "detail": "Change control in one paragraph: who may ask, who sizes it in days, who signs. Without it, every yes you give in a corridor is a promise the plan cannot keep."
+    }
+   ],
+   "internal": "Inside your own company the statement of work is a charter, and it is no softer. The business unit's head signs it, and the hours their experts give are written down as a commitment. The person who will run the system after you is named before you start. With no invoice to enforce it, the charter is the only thing that makes their side's work real.",
+   "say": [
+    {
+     "to": "A feature that does not fit the first slice",
+     "words": "That is a good second slice. It goes on the not-yet list with the condition that brings it in, so it is not lost and it does not slow the first."
+    },
+    {
+     "to": "A date the scope cannot meet",
+     "words": "We can meet that date with the first slice, or this scope by the end of the month. Which matters more to you?"
+    },
+    {
+     "to": "A decision that is theirs",
+     "words": "I will draft the refund limit with the numbers beside it. Your compliance officer signs it, because it is your risk."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Chat model, as their procurement",
+     "use": "Paste the redacted draft and have it read the statement twice, as their head of procurement and as their security lead, listing every line each would refuse to sign and the wording each would accept.",
+     "caution": "Paste only what their contract and your policy allow. A customer's confidential terms do not go into a tool nobody approved."
+    },
+    {
+     "tool": "Chat model, as your delivery lead",
+     "use": "Give it the phases and the work in each, and ask for every dependency on the customer the plan assumes and does not name, longest lead time first.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The numbers in the success criteria, and the list of decisions that stay theirs. A model writes criteria that sound measurable and are not, and it cannot know which risks this customer may hand to you.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Statement of work (inside your own company, an engagement charter)",
+    "short": "Statement of work",
+    "good": "Two pages. A first slice with its reason, success criteria a stranger could measure, their dependencies with names and dates, the decisions that stay theirs, the proof with its way to fail, and one paragraph of change control. Signed by their sponsor and by yours.",
+    "owner": "Forward-deployed engineer, with the engagement lead where there is one"
+   },
+   "template": {
+    "title": "Statement of work",
+    "lang": "markdown",
+    "body": "# Statement of work · <customer> · <engagement>\n_Version <n> · <date> · Drafted by <FDE> · For signature by <their sponsor> and <your lead>_\n\n## 1. The problem, measured\n<who has the pain> · <how often> · <what it costs today> · <the evidence, with its source>\n\n## 2. The first slice\n**In:** <one kind of case>\n**Why first:** <n> a day · <what one mistake costs> · compared against <their current process>\n\n## 3. Value hypothesis\n| Measure | Today | Target | Measured by | Baseline from |\n|---------|-------|--------|-------------|---------------|\n| <handling time per case> | <n min> | <n min> | <their ops lead> | <export, date> |\n\n## 4. Success criteria\n| # | Criterion | Cases it is measured on | Who measures | By |\n|---|-----------|-------------------------|--------------|----|\n| 1 | <lower bound of agreement with their desk, per slice, at or above the pass mark> | <n of their past cases, labelled by their experts> | <name> | <date> |\n\n## 5. Phases\n| Phase | The one question | Ends with | Date |\n|-------|------------------|-----------|------|\n| Proof, <n> days | <can it ...?> | go · go with conditions · change course · stop | <date> |\n| First slice, in shadow | <does it agree with their staff?> | shadow report | <date> |\n| Cut-over and handover | <does it run without us?> | handover signed by the person who will run it | <date> |\n\n## 6. What we need from you\n| Dependency | Owner on your side | Needed by | How we know it works | If it is late |\n|------------|--------------------|-----------|----------------------|---------------|\n| Read access to <system> | <name> | <date> | <one record read, logged> | the plan moves by the same days |\n| Model access in <the region your data must stay in> | <name> | <date> | <one call from that region, logged> | |\n| Security review | <name> | <date> | <the signed review> | |\n| <n> hours of expert labelling | <name> | <date> | <the first 50 cases labelled> | |\n| A named owner for each consequential action | <name> | <date> | <a signature in section 7> | nothing is built past it |\n\nA dependency is met when its test passes, not when someone says it is done.\n\n## 7. Decisions that stay yours\n| Decision | We draft it | You sign it | Signed by |\n|----------|-------------|-------------|-----------|\n| Autonomy of each action | yes | yes | <name> |\n| Every limit, and who approves above it | yes | yes | <name> |\n| The pass mark for each kind of case | yes | yes | <name> |\n| Go-live, and each widening | no | yes | <name> |\n| Who runs it after handover | no | yes | <name> |\n\nEvery limit you sign is enforced in the tool that acts, with a test, never only in the\ninstructions the model reads.\n\n## 8. Out, and not yet\n- **Out:** <...>\n- **Not yet:** <...>, which comes in when <condition>\n\n## 9. Change control\nA new request is written down, sized in days by <FDE>, and signed by <their sponsor> before\nwork starts. A request that changes a decision in section 7 goes back to whoever signed it.\n\n## 10. Signatures\n| For <customer> | For <us> |\n|----------------|----------|\n| <name, role, date> | <name, role, date> |\n"
+   },
+   "prompts": [
+    {
+     "title": "Red-team the statement as their procurement and their security lead",
+     "when": "Before the draft leaves your hands",
+     "body": "Below is a draft statement of work for an AI deployment at <customer>.\n\nRead it twice: first as their head of procurement, then as their chief information\nsecurity officer.\n\nFor each reading, give a table:\n| Section | The line | Why you would refuse to sign it | The wording you would accept |\n\nThen list, separately:\n- every success criterion a stranger could not measure from the text alone;\n- every dependency on the customer the plan assumes and does not name;\n- every decision the vendor appears to make that the customer should sign.\n\nDo not rewrite the statement. Do not soften a finding to be polite.\n\nDRAFT (names, prices and confidential terms removed):\n<paste>"
+    },
+    {
+     "title": "Turn the outcomes they described into criteria someone can measure",
+     "when": "You have adjectives and need numbers",
+     "body": "The customer described what success looks like, in their words:\n<paste their words>\n\nFor each outcome, write a success criterion with five parts:\n1. the measure: a count, a rate or a time;\n2. the cases it is measured on: which, how many, labelled by whom;\n3. the threshold, and whether it applies to the score or to its lower bound;\n4. the person on the customer's side who measures it;\n5. the date.\n\nIf an outcome cannot be measured inside this engagement, say so, and propose the nearest\nmeasure that can. Mark every number you had to assume as ASSUMED. Never invent a baseline."
+    },
+    {
+     "title": "Find the dependencies the plan hides",
+     "when": "Before the dependency table is final",
+     "body": "Here is our delivery plan for <customer>: <paste the phases and the work in each>.\n\nList everything this plan needs from the customer that it does not name: access, data,\npeople's time, approvals, environments and decisions. For each, give:\n| What we need | Who on their side usually owns it | The latest week we can have it without moving the plan | What we do if it is late |\n\nOrder the list by how long each usually takes to obtain, longest first. Data access, model\naccess in the region their data must stay in, and the security review usually lead."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · two weeks before day 1",
+    "body": "The sponsor, Ines, asked the vendor to *make rebooking smarter*. The statement she signed, before the proof began, was two pages. The first slice was rebooking options for the 89% of disruption cases that are not codeshare. A wrong option there costs a passenger a worse flight, not money, and the desk's own choices give a baseline. Codeshare became its own slice with its own pass mark. Refunds went on the not-yet list, drafted for a person to approve until compliance signed a limit; on day 6 it signed the first decision in section 7, a named approver for every refund over $400. The line that mattered most was in section 6: model access in the region the passengers' data must stay in, by day 5. It was met on paper. Access came in week one in the wrong region, nobody made one call to check it until day 13, and six days went ([step 5](../deliver/#mobilise))."
+   },
+   "pitfalls": [
+    "A success criterion with an adjective in it. *Accurate* and *fast* are signed happily in week one and argued about in week six.",
+    "Leaving the customer's dependencies out to keep the statement short. The plan then rests on things nobody promised, and the delay lands on you.",
+    "Taking a decision that is theirs because it unblocks you today. A limit you chose becomes your risk on the day it is wrong.",
+    "A proof that can only end in go. If it cannot fail, it is a demo, and their sceptic will say so."
+   ],
+   "done_when": "Their procurement lead and your delivery lead can each read it cold and name the first slice, the go date, what they supply by when, and which decisions are theirs.",
+   "pdlc": "P1"
+  },
+  {
+   "n": 3,
+   "id": "prove",
+   "phase": "Prove",
+   "stage": "frame",
+   "level": "POC",
+   "hats": [
+    "engineer",
+    "qa"
+   ],
+   "question": "Does it work on their data?",
+   "title": "Prove it on their cases in days, and write what it does not prove",
+   "when": "Frame, in the days after the statement is signed, and never for weeks",
+   "purpose": "A proof answers one question on their data. It is not a small product, and its code is not the first commit of one. Measure on their real cases with the sample size beside every number, and write down what it does not prove: that list is what their sceptic reads, and it is what stops a good score being taken for a decision to build.",
+   "activities": [
+    {
+     "do": "Write the question in one sentence",
+     "detail": "*Can it rank the desk's own choice first, on their past cases?* One question a number can answer, and beside it, before a case is scored, the result that would mean stop. A question with *and* in it is two proofs, and in days you finish neither."
+    },
+    {
+     "do": "Take a real sample, with the hard slice in it",
+     "detail": "A couple of hundred recent cases from their export, redacted under their policy, the hard slice at its real share or more. Never invented cases: nobody invents the mess they have not read."
+    },
+    {
+     "do": "Have two of their experts label it, blind",
+     "detail": "Each alone, with no answer from the system on screen, because an expert who can see an answer agrees with it. Where the two agree is the ceiling: no score above it means anything."
+    },
+    {
+     "do": "Build the thinnest thing, in a sandbox",
+     "detail": "In GOV.UK's words for a prototype, {{S26-complex}}. A coding agent writes most of it; log the tokens and seconds of every case, because the readout's cost line comes from them. Read the scorer line by line: one that counts an abstention as right is how a proof lies."
+    },
+    {
+     "do": "Put their people at the keyboard",
+     "detail": "Palantir's bootcamp is the public model: {{S14-five-days}}. An afternoon of their staff working their own cases tells you more about adoption than the score does."
+    },
+    {
+     "do": "Measure by slice, with the lower bound",
+     "detail": "Score, cases and lower bound on one row per slice, Wilson under a hundred cases, as [the QA lead measures](../../qa/#measure). A slice of twenty cases proves nothing, and the sheet says so."
+    },
+    {
+     "do": "Read twenty failures, then write what it does not prove",
+     "detail": "Group the failures by cause: missing data, a rule nobody wrote down, a call the experts split on. Then the list: volume, latency, cost, their live systems, any action, the slices it never saw."
+    }
+   ],
+   "internal": "Inside your company the proof is skipped because people trust each other. Run it anyway: it is the only evidence the business unit's head will have before they commit their experts' hours.",
+   "say": [
+    {
+     "to": "When the proof is agreed",
+     "words": "This proof answers one question: can it rank the desk's own choice first, on your past cases. It does not tell you whether it is safe to let it act."
+    },
+    {
+     "to": "When they ask for one more thing in the proof",
+     "words": "That belongs in the build. If I add it here, the proof stops answering anything in days."
+    },
+    {
+     "to": "When a slice is too small to read",
+     "words": "Twenty-two cases cannot tell us whether codeshare works. They tell us it needs its own cases before anyone judges it."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Claude Code or Codex",
+     "use": "Let it write the loader, the redaction and the scoring by slice from your one-sentence question. Throwaway code against a fixed question is what these tools do best.",
+     "caution": "Read the scorer line by line. It counts a partial match or an abstention as right unless told not to, and that one line is the whole proof."
+    },
+    {
+     "tool": "Chat model",
+     "use": "Give it the twenty failures with the experts' labels, and ask for groups by cause, each with its cases' ids.",
+     "caution": "It groups by wording. Re-read each group asking what would fix it: two different fixes means two groups."
+    },
+    {
+     "tool": "Chat model, as their sceptic",
+     "use": "Paste the finished sheet and ask what a sceptic would conclude that the proof does not support. Each answer goes into section 5.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The labels. A model that labels its own test cases measures its agreement with itself, and the number looks exactly like a proof.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Proof-of-concept sheet",
+    "short": "Proof-of-concept sheet",
+    "good": "One page their sceptic can check: the question, the sample and who labelled it, the experts' ceiling, results by slice with lower bounds, twenty failures by cause, what it does not prove, and the date the code is deleted.",
+    "owner": "Forward-deployed engineer, with their experts' lead"
+   },
+   "template": {
+    "title": "Proof-of-concept sheet",
+    "lang": "markdown",
+    "body": "# Proof-of-concept sheet · <customer> · <the question, in five words>\n_<dates> · Built by <FDE> · Sent to <their sceptic> before the readout_\n\n## 1. The question\nCan <the system> <do what> on <their cases>, as well as <their staff>?\nOne question. A question with \"and\" in it is two proofs.\n\n## 2. The sample\n| Source | Window | Cases | Redacted by | Labelled by | Blind? |\n|--------|--------|-------|-------------|-------------|--------|\n| <export> | <dates> | <n> | <who> | <two experts, by role> | yes |\n\nThe mix: <slice> <n> (<share>) · <slice> <n> (<share>)\nThe ceiling: the experts agreed on <n> of <n> (<%>). No score above it means anything.\n\n## 3. Results, by slice\n| Slice | Right | Of | Score | Lower bound |\n|-------|-------|----|-------|-------------|\n| All | | | | |\n| <standard> | | | | |\n| <the hard slice> | | | | <low> to <high>, Wilson |\n\nLower bound = p − 1.96 × √(p(1 − p) ÷ n). Under 100 cases, Wilson.\n\n## 4. Twenty failures, read by hand\n| Group | Cases | One example | Cause | Fixable in the build? |\n|-------|-------|-------------|-------|-----------------------|\n| | | | | |\n\n## 5. What this does not prove\n- Latency and cost at <n> cases a day, in the peak hour\n- Their live systems: it read an export, not <system>\n- Model access in <the region their data must stay in>: the sandbox ran in <where>\n- Security, and their data policy beyond the sandbox\n- Any action: it proposed, it never <acted>\n- Slices not in the sample: <list>\n\n## 6. What happens to it\nCode: deleted from <sandbox> on <date>.\nLabelled cases: handed to <their QA lead> on <date>, under <their policy>.\n"
+   },
+   "prompts": [
+    {
+     "title": "Check my sample against their real mix",
+     "when": "Before anyone labels a case",
+     "body": "Here is a sample drawn for a proof of concept, and the export it came from.\nSAMPLE: <counts by slice, weekday, hour and type>\nEXPORT: <the same counts for the whole export>\n\nReport:\n| Dimension | Export share | Sample share | Gap | Does it matter? |\n\nThen list:\n- every slice under 30 cases, with the width of its 95% interval at a likely score\n  and how many cases it would need to be judged at all;\n- anything the export holds that the sample lacks entirely (a type, an hour, a season);\n- whether the window is recent enough to reflect how the work is done today.\n\nDo not redraw the sample. Tell me what is wrong with it."
+    },
+    {
+     "title": "List what this proof does not prove",
+     "when": "Before the sheet goes to their sceptic",
+     "body": "This proof answered one question: <the question>.\nSetup: <the sample, the sandbox, what the system could see and do, what it never did>.\nResults: <the table, by slice>.\n\nList every conclusion a reader might draw that this proof does NOT support. Cover at\nleast: volume and peak latency, cost at their volume, their live systems, security and\ndata handling, any action the system would take, slices not in the sample, and whether\nthe experts' own agreement caps the score.\n\n| The tempting conclusion | Why the proof cannot support it | What would, and when |\n\nWrite it for a sceptic: plain words, no reassurance."
+    },
+    {
+     "title": "Group twenty failures by cause",
+     "when": "After scoring, before the readout",
+     "body": "Below are 20 cases the system got wrong, each with the case, the experts' label,\nthe system's answer and its reasoning.\n<paste>\n\nGroup them by CAUSE, not by symptom: missing data, a rule nobody wrote down, a call the\nexperts themselves split on, retrieval that found the wrong record, an instruction the\nsystem ignored.\n\n| Cause | Cases (ids) | One example, in a line | Fixable in the build, or inherent? |\n\nRULES: a case goes in one group only. If a group would need two different fixes, it is\ntwo groups. Finish with the cause you would fix first, and why."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · twelve to eight days before day 1",
+    "body": "200 past cases from the Q2 export, redacted, 22 of them codeshare. Two frontline agents labelled them. The first fifty were labelled with the assistant's answer on screen, so they were set aside and fifty fresh cases drawn: an expert who has seen an answer remembers it. Blind, the two agreed on 184 (92%), the ceiling, and the contact-centre head settled the other 16. The assistant's first option matched the label on 151 (75.5%, lower bound 69.5%); on standard cases, 142 of 178 (79.8%, lower bound 73.9%); on codeshare, 9 of 22, somewhere between 23% and 61%. The most useful number was the widest: twenty-two cases could say only that codeshare needed many more of its own before anyone judged it."
+   },
+   "pitfalls": [
+    "A proof built like a product, or kept like one. Hardening eats the days the question had, and later someone copies its logic into the build because it worked: a path nobody designed is in production.",
+    "Invented cases. Nobody invents the mess they have not read, so the hard slice is missing and the score is high for the wrong reason.",
+    "One number for the whole sample. The easy cases carry the average, and the slice that holds the risk stays invisible until it is live."
+   ],
+   "done_when": "Their sceptic can read the sheet cold and agree with its one number, its ceiling and its list of what it does not prove.",
+   "calc": "proof",
+   "pdlc": "P2"
+  },
+  {
+   "n": 4,
+   "id": "decide",
+   "phase": "Decide",
+   "stage": "frame",
+   "level": null,
+   "hats": [
+    "consultant"
+   ],
+   "question": "Go, at what cost, on what conditions?",
+   "title": "Read the proof out with the failures first, and let them decide",
+   "when": "The end of Frame, within a week of the proof",
+   "purpose": "A proof is worth what it changes. The readout turns it into a decision the client makes, on evidence, with the bad news first and the cost beside the saving. Lead with what failed and you keep the right to recommend; bury it and their sceptic finds it after the signature. The meeting ends in go, go with conditions, change course or stop, signed and dated, and never in *keep going*.",
+   "activities": [
+    {
+     "do": "Send the sheet to their sceptic before the meeting",
+     "detail": "Two days before, and walk their sponsor through the failures one to one. Bad news told early costs nothing; told first in the room, it costs the trust the decision needs."
+    },
+    {
+     "do": "Open with what failed, by slice",
+     "detail": "Score, cases and lower bound, the worst slice first. A room that hears the overall number first anchors on it, and reads the failing slice as a footnote."
+    },
+    {
+     "do": "Cost it at their volume, review load included",
+     "detail": "Tokens per case, the share a person checks and the minutes each check takes, at their cases a day, as [the product manager's value line](../../product-manager/#frame) does. The review load is the term most readouts leave out."
+    },
+    {
+     "do": "Name the lead-time items, with dates",
+     "detail": "Data access, model access in the region their data must stay in, the security review, the experts' hours. They set the build's calendar, so their owners hear them now."
+    },
+    {
+     "do": "Recommend one of four, in one sentence",
+     "detail": "Go, go with conditions, change course, or stop. Each condition gets an owner, a date and what happens if it is missed, or it is a hope written down."
+    },
+    {
+     "do": "Get it signed, and hand it on",
+     "detail": "The signed record is Deliver's first page: first slice, pass mark, milestones. At a larger vendor it passes between two people: Anthropic's pre-sales lead works beside {{S8-counterpart}}."
+    },
+    {
+     "do": "Delete the code, and keep the cases",
+     "detail": "The proof's code goes, as GOV.UK expects of a prototype [[S26]]. Its labelled cases go first, under their policy, to whoever will own the golden set, who confirms receipt before the sandbox is wiped: nobody labels the same cases twice."
+    }
+   ],
+   "internal": "Inside your company the readout is where a project quietly becomes permanent. Ask for a decision with a date, never for *keep going*. A business unit that says go is also giving its experts' hours, so write them into the decision.",
+   "say": [
+    {
+     "to": "Opening the readout",
+     "words": "Here is what did not work, first. Then what it costs at your volume, then what I recommend."
+    },
+    {
+     "to": "The recommendation",
+     "words": "My recommendation is go, with two conditions. Each has an owner and a date, and if one is missed, the decision comes back to this room."
+    },
+    {
+     "to": "When the room wants to keep going without deciding",
+     "words": "I can hold the team for this until Friday. By then I need go, go with conditions, change course or stop, so that we can both plan."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Chat model",
+     "use": "Draft the readout from the proof sheet in the fixed order, failures first, so the first draft already says the hard thing first.",
+     "caution": "It softens. Delete every *promising* and *encouraging*, and put the number back where the adjective was."
+    },
+    {
+     "tool": "Claude Code or Codex",
+     "use": "Build the cost line as a small sheet, every assumption in a named cell, so their finance lead can change one and watch the net move.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The recommendation, and the sentence that says what would make it stop. A model recommends go, because everything in front of it is about going.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Readout and decision record",
+    "short": "Readout and decision",
+    "good": "One page read aloud and one page signed: the failures by slice, the cost at their volume, the lead-time items, one recommendation, each condition with an owner and a date, and the decision, dated. Deliver's plan starts from it.",
+    "owner": "Forward-deployed engineer; the decision is the client's sponsor's"
+   },
+   "template": {
+    "title": "Readout and decision",
+    "lang": "markdown",
+    "body": "# Readout and decision · <customer> · <the proof's question>\n_<date> · Presented by <FDE> · Decided by <their sponsor> · Sheet sent to <their sceptic> on <date>_\n\n## 1. What failed, first\n| Slice | Score | Of | Lower bound | Pass mark | Why it failed |\n|-------|-------|----|-------------|-----------|---------------|\n| | | | | | |\n\n## 2. What worked\n| Slice | Score | Of | Lower bound | Pass mark |\n|-------|-------|----|-------------|-----------|\n| | | | | |\n\n## 3. What it does not prove\n<copied from the proof sheet, word for word>\n\n## 4. What it costs at your volume\n| Term | Per case | Per day at <n> cases | Assumption, and its source |\n|------|----------|----------------------|----------------------------|\n| Saving | | | <minutes saved × cost per minute> |\n| Tokens | | | <from the proof's own runs> |\n| Review load | | | <share checked × minutes per check> |\n| **Net** | | | |\n\n## 5. What takes longest to get\n| Item | Owner on your side | Needed by | If it is late |\n|------|--------------------|-----------|---------------|\n| | | | |\n\n## 6. Four options\n| Option | What it means here | The evidence for it |\n|--------|--------------------|---------------------|\n| Go | | |\n| Go with conditions | | |\n| Change course | | |\n| Stop | | |\n\n**Recommendation:** <option>, because <one sentence>.\n\n## 7. Conditions\n| # | Condition | Owner | By | If it is not met |\n|---|-----------|-------|----|------------------|\n| 1 | | | | |\n\n## 8. Decision\n<go / go with conditions / change course / stop> · <name, role> · <date>\n\n## 9. What the build starts with\nFirst slice: <...> · Pass mark: <lower bound at or above <n>% on <n> cases> · First milestone: <...>\nThe proof's code: deleted on <date> · Its labelled cases: with <name> since <date>\n"
+   },
+   "prompts": [
+    {
+     "title": "Draft the readout, failures first",
+     "when": "The day the proof sheet is final",
+     "body": "Draft the readout of a proof of concept for <customer>'s sponsor.\nThe proof sheet: <paste>\n\nORDER, and do not change it:\n1. What failed, by slice, each with its score, its n and its lower bound.\n2. What worked, the same way.\n3. What the proof does not prove, copied from the sheet.\n4. What it costs at their volume, every assumption named.\n5. The items with the longest lead time, each with an owner and a date.\n6. Four options (go, go with conditions, change course, stop), each with its evidence.\n7. One recommendation, and its conditions, each with an owner and a date.\n\nRULES:\n- Never open with the overall score.\n- No adjective without a number, and no number without its n.\n- Mark every figure you assumed rather than read as ASSUMED.\n- One page. If it runs over, cut adjectives, never failures."
+    },
+    {
+     "title": "Cost it at their volume, with every assumption named",
+     "when": "Before the readout, with the proof's own numbers",
+     "body": "Work out what this system is worth at <customer>'s volume.\n\nInputs, each with its source:\n- cases a day: <n> (<source>)\n- minutes saved per case: <n> (<source>)\n- loaded cost per minute: $<n> (<source>)\n- token cost per case: $<n> (from the proof's own runs)\n- share of cases a person checks: <n>% · minutes per check: <n>\n\nShow the gross saving, the token cost, the review load and the net, each per day and per\nyear, with the arithmetic. Then name the ONE input that, moved by a plausible amount,\nturns the net negative, and by how much it would have to move.\n\nMark any input I did not give you as ASSUMED. Never invent a baseline."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · three days before day 1",
+    "body": "The readout opened on what failed: codeshare, 9 of 22 and somewhere between 23% and 61%, and standard cases whose lower bound, 73.9%, sat under the statement's 80%. Then the cost at their volume and the lead-time items, model access in the passengers' region first. The recommendation was go with two conditions: no launch on a score, so if the lower bound on 500 of their cases fell short the shadow would run first; and the experts' hours to label those 500, committed by the contact-centre head. Ines signed both. On day 45 the first held: 82.4%, lower bound 79.1%, and the shadow started instead of the launch. One thing was lost. The proof's 200 labelled cases went with its sandbox, so the project's first evaluation was seeded with twelve cases written by hand on a Friday, none of them codeshare, and its 94% was believed for a fortnight."
+   },
+   "pitfalls": [
+    "Opening on the overall score. The room anchors on it, and the slice that fails becomes a footnote it reads after saying yes.",
+    "Accepting *keep going*. Nobody said yes, so nobody can say stop, and the proof becomes the product by default.",
+    "Conditions without owners. A condition nobody owns is met by luck, and the first person to notice it was missed is in production.",
+    "Deleting the cases with the code. The code should go; the labelled cases are the golden set's first rows, and nobody will label them twice."
+   ],
+   "done_when": "The decision is signed and dated, every condition has an owner and a date, and the build's first plan can be written from the record without asking what anything meant.",
+   "calc": "value",
+   "pdlc": "P3"
+  },
+  {
+   "n": 5,
+   "id": "mobilise",
+   "phase": "Mobilise",
+   "stage": "deliver",
+   "level": "MVP",
+   "hats": [
+    "platform",
+    "product"
+   ],
+   "question": "Is the first slice still right, on real access?",
+   "title": "Start every lead-time item on day one, and measure the before",
+   "when": "Deliver's first day, before any code, and every morning until the list is clear",
+   "purpose": "The calendar is set by things you do not control: model access in the region their data must stay in, data access, the security review, change approvals. Each sits in someone else's queue, so file them all on day one, with names and dates, and count each one done only when its test passes. The same week, take the baseline from their records: every later claim divides by it, and it cannot be taken once the pilot starts. The MVP begins here, with one question: does the slice the proof chose still hold on real access?",
+   "activities": [
+    {
+     "do": "File every lead-time request on day one, each with a name and a date",
+     "detail": "Model access in their region, the security review, data access and the privacy review of the fields you will read, network routes, a change slot for cut-over, the experts' hours. Each gets an owner on their side and a date after which the plan moves. Chase by name, and escalate on the date, not on a feeling."
+    },
+    {
+     "do": "Count access as granted when one call passes, not when someone says yes",
+     "detail": "One real call per item, as the production identity, through their network, in the right region, run every morning until it passes. Identity, region and network cause most first-week surprises, and the walking skeleton of step 7 is built on whatever passes first."
+    },
+    {
+     "do": "Take the baseline this week, from their records",
+     "detail": "Cases a day, minutes to a decision, cost per case and cases reopened, from at least four normal weeks before the engagement, counted by a method their ops lead signs. Once the pilot starts the mix changes and people work differently, and the before is gone. OpenAI asks its Deployment Leads to {{S2-measurement}}: this is the pre."
+    },
+    {
+     "do": "Re-check the proof on real access",
+     "detail": "The proof ran on an export. Production brings a slower interface, a rate cap, a field that turns out to be free text. In the words of OpenAI's head of FDE, what the customer describes in scoping {{S24-ground}}. If real access changes the first slice's economics, re-cut it now, in writing, with the sponsor."
+    },
+    {
+     "do": "Keep one log of risks, assumptions, issues and dependencies with their project manager",
+     "detail": "One list, read in fifteen minutes a week with whoever can unblock. Two logs, yours and theirs, disagree within a week, always about a date. Tell the sponsor bad news the day you know it: trust is lost to surprise, not to bad news."
+    },
+    {
+     "do": "Agree how you will work with their team, on one page",
+     "detail": "Where the code lives and who merges, who pairs with whom, a daily stand-up and a weekly note to the sponsor, how to reach the risk owner, and which data may go into which AI tool, in their policy's words. Pin it in their repository before the first commit."
+    }
+   ],
+   "internal": "Inside your own company access feels like a favour away, so nobody files the requests. File them anyway, with owners and dates: an internal security review can take as long as an external one, and a favour lapses the week its giver is busy. Take the baseline as carefully as for a paying client, because the unit's head will be asked by their own finance team what it saved.",
+   "say": [
+    {
+     "to": "Day one, to their project manager",
+     "words": "Today I need three names and three dates: data access, model access in your region, and the security review."
+    },
+    {
+     "to": "A request is late, to the person who can approve it",
+     "words": "Data access was due on Tuesday. Every day it waits moves the shadow run by a day. Can you approve it by Friday, or tell me who can?"
+    },
+    {
+     "to": "The sponsor wants to skip the baseline",
+     "words": "If we do not measure the before this week, nobody will ever be able to say what this saved. It takes two days, and it cannot be done once the pilot starts."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Claude Code or Codex, in a sandbox on their account",
+     "use": "Write the one-call tests from the access list, one per item, so *granted* means a call that passed rather than an email.",
+     "caution": "Run them as the service identity, from their network, in their region. A test that passes with your own credentials proves only that you have access."
+    },
+    {
+     "tool": "Chat model",
+     "use": "Turn the statement of work's dependencies into requests in plain words, longest lead time first, each with the date after which the plan moves.",
+     "caution": "It does not know their process. Every form, queue and approver it names is a guess to check with their project manager."
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The baseline's method, and who signs it. Every value claim for the life of the system divides by it, so their ops lead agrees how it was counted before anyone sees an after.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Day-one access list and baseline",
+    "short": "Access list and baseline",
+    "good": "One page, read every morning: each lead-time item with an owner, a late-from date and a test that runs, what real access changed about the first slice, and a baseline from records before anything changed, its method signed by their ops lead.",
+    "owner": "Forward-deployed engineer, with their project manager"
+   },
+   "template": {
+    "title": "Day-one access list and baseline",
+    "lang": "markdown",
+    "body": "# Day-one access list and baseline · <customer> · <engagement>\n_Opened <day 1> · Kept by <FDE> with <their project manager> · Read every morning until every row passes_\n\n## 1. Lead-time items, longest first\n| # | Item | Owner at <customer> | Requested | Late from | Status | The test that proves it |\n|---|------|---------------------|-----------|-----------|--------|-------------------------|\n| 1 | Model access in <the region their data must stay in>, by inference profile | <name> | <date> | <date> | <requested> | One call from <their account>, in <region>, logged |\n| 2 | Security review of <the design> | <name> | | | | Written approval, with its conditions |\n| 3 | Privacy review of the fields it reads, writes and logs | <name> | | | | Approval naming each field, its class and how long it is kept |\n| 4 | Read access to <system>, as the service identity | <name> | | | | Read one <record> by id, as that identity |\n| 5 | Network route from <runtime> to <system> | <name> | | | | The same read, from inside <runtime> |\n| 6 | Their repository, a CI runner, an environment to deploy to | <name> | | | | One merge that runs their pipeline green |\n| 7 | <n> hours of their experts' labelling, booked | <name> | | | | Invitations, accepted |\n| 8 | A change slot for cut-over | <name> | | | | The slot, on their change calendar |\n| 9 | The AI tools their policy approves, and the account each runs on | <name> | | | | Their written list |\n\nA row is done when its test passes, not when someone says yes.\nPast its late-from date the plan moves by the same days, and <their sponsor> hears it that day.\n\n## 2. What real access changed\n| Assumption from the proof | What the live system shows | Effect on the first slice | Decided by, date |\n|---------------------------|----------------------------|---------------------------|------------------|\n| <the export matched production> | <...> | <none · re-cut · a new risk> | <name, date> |\n\n## 3. The baseline, from records before the engagement began\n| Measure | Value | Cases | Source | Period | How it was counted |\n|---------|-------|-------|--------|--------|--------------------|\n| <cases a day> | | | <export, system> | <weeks> | |\n| <minutes to a decision> | | | | | |\n| <cost per case> | | | | | |\n| <cases reopened within 7 days> | | | | | |\n\nSigned as the baseline by <their ops lead>, <date>. The same count is repeated after go-live.\n"
+   },
+   "prompts": [
+    {
+     "title": "Turn the dependencies into requests someone can approve",
+     "when": "Day 1, before the kick-off ends",
+     "body": "Here is the dependency table from our statement of work with <customer>, and the\nplan's dates: <paste>.\n\nTurn each dependency into the request its approver will receive:\n| # | The request, in one sentence | Approver (role) | Form or queue | What they will ask first | Late from |\n\nRULES:\n- One approver per row. Two approvals are two rows.\n- Longest usual lead time first: security review, data access and model access in the\n  region their data must stay in usually lead.\n- Late from is the last date that does not move the plan, worked back from <the shadow start>.\n- Draft a two-line message for each: what, by when, and what slips if it is late.\n- Mark every form, queue or approver you are guessing as CHECK. Never invent their process."
+    },
+    {
+     "title": "Write the one-call test that proves each access works",
+     "when": "Each time someone says access is granted",
+     "body": "For each access item below, write a smoke test that makes ONE real call with the\nidentity, network path and region the production system will use, and prints PASS or\nFAIL with the reason.\n\nITEMS: <paste the access list>\nTHEIR STACK: <language, cloud account, region, how identities are issued>\n\nRULES:\n- Use the service identity, never mine. A test that passes as me proves nothing.\n- Name the region and the inference profile in the model call, and fail if either differs.\n- Read one record and check one field I can verify by eye. Write nothing.\n- Secrets come from <their secrets store>, never from the code.\n- Exit non-zero on any FAIL, so it can run in their pipeline every morning.\n\nThen list the items one call cannot prove, and the nearest proof for each."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · days 1 to 13, the region nobody requested",
+    "body": "**In the case:** in the first two days the pain was measured from the Q2 ticket export: 240 cases a day, 38 minutes to a rebooking decision, $9.40 a case, 11% of them codeshare. Model access was granted in `us-east-1` in week one, so everybody assumed the account had it, and nobody requested `eu-west-1`, where the passengers' data must stay, until the first call failed on day 13. Six days went, against a plan that allowed none. **Your move:** the access list names `eu-west-1` on day 1, beside a one-call test from their account that runs every morning. It fails on day 2, when a missing region costs a request, not a week. The baseline goes on the same page, signed by their ops lead, because day 90 divides by it."
+   },
+   "pitfalls": [
+    "Counting a yes in an email as access. The first real call, weeks later, finds the identity, the region or the network, and the plan pays for it in days.",
+    "Building in your own sandbox while the requests wait. The code grows around your account's defaults, and moving it into theirs becomes a project of its own.",
+    "Taking the baseline after the pilot starts. The mix has changed and people work differently when watched, so every value claim rests on a guess."
+   ],
+   "done_when": "Every lead-time item has an owner, a late-from date and a test that runs each morning, and the baseline is signed by their ops lead with its method beside it.",
+   "pdlc": "P0"
+  },
+  {
+   "n": 6,
+   "id": "sign",
+   "phase": "Sign",
+   "stage": "deliver",
+   "level": "MVP",
+   "hats": [
+    "architect",
+    "product"
+   ],
+   "question": "What exactly, under whose authority?",
+   "title": "Get their risk owner to sign every limit before you build past it",
+   "when": "Deliver's first two weeks, before any tool can write anything",
+   "purpose": "Three documents decide everything after this: the spec, a pass mark for each kind of case, and the authority budget, which says what the system may do alone and the limit on each action. You draft all three, because you can see the system. They sign them, because the risk is theirs. A limit you set because their risk team was slow becomes your limit on the day it is wrong. And a signature is half the step: each limit then lives in the tool that would break it, with a test, or it is a sentence a model can be talked past.",
+   "activities": [
+    {
+     "do": "Run the requirements as a mob, with their experts in the room",
+     "detail": "AI-DLC's [Mob Elaboration](../../learn/what-is-ai-dlc/): a model proposes requirements and asks its questions aloud, and their experts answer. Record every answer with its author's name. The names make the decisions theirs, and a credited read-back the next day stops the same question coming back."
+    },
+    {
+     "do": "Write the spec with the five fields a requirements document leaves out",
+     "detail": "What the model decides and what code decides; what it may do alone; how right it must be, per kind of case; what happens when it cannot decide; what is logged. If the spec leaves one open, a coding agent fills it by default."
+    },
+    {
+     "do": "Draft the authority budget, one row per action",
+     "detail": "The action, its level, its cap, the approver above the cap, and where the cap is enforced. Band each by what one wrong call could damage, never by the size of the change. The [architect's step 6](../../solution-architect/#bound) has the method in full."
+    },
+    {
+     "do": "Get each line signed by the person who owns that risk",
+     "detail": "Limits by their risk owner, often compliance or finance; pass marks by their expert lead; the spec by their product owner. A sponsor's signature on a limit they do not own is one that nobody defends in the incident review."
+    },
+    {
+     "do": "Set each pass mark from their costs, so the arithmetic is theirs too",
+     "detail": "If a wrong answer costs four times what a right one saves, it must be right four times in five. Use their figures, the complaint and the investigation included, and the bar stops being your opinion. A person approving each refund lowers what a wrong one costs, and moves that bar further than any model can."
+    },
+    {
+     "do": "Put every cap in the tool that would break it, with a test",
+     "detail": "The refund cap is a typed parameter that raises above it, and the approval is a token the model cannot mint. Two tests, over the cap and without approval, both raise. The sentence in the prompt stays, marked as policy."
+    },
+    {
+     "do": "Build nothing past an unsigned decision",
+     "detail": "That is [the hard gate](../../learn/the-hard-gate/). Every other open question runs beside the build behind a placeholder with an owner and a date. If the programme cannot wait, the unsigned action runs in shadow, deciding and acting on nothing, until it is signed."
+    }
+   ],
+   "internal": "Inside your own company a nod from a colleague in a corridor feels like enough. Get it written, and signed by whoever owns the risk in the business unit, not by your own manager: when the incident comes, the signature is what keeps it a decision rather than a blame. Your platform's default limits are not their limits either, until someone in the unit has signed them.",
+   "say": [
+    {
+     "to": "Asked to pick a sensible number for now",
+     "words": "I can draft the number, but I cannot own it. If I set the refund limit myself, the first incident review will find that nobody on your side decided it. Who signs refunds today?"
+    },
+    {
+     "to": "Their compliance team needs three more weeks",
+     "words": "Everything else can go live on its own evidence. Refunds run in shadow, deciding and paying nothing, until your compliance officer signs the limit. Then it is one line of configuration."
+    },
+    {
+     "to": "The risk owner asks how the limit is kept",
+     "words": "It is in the refund tool itself, not in the model's instructions. Above the limit the tool refuses unless your approver has confirmed, and a test proves that on every change."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "A model in the mob session",
+     "use": "Propose requirements and ask the clarifying questions aloud, so their experts answer in the room and each answer carries a name.",
+     "caution": "It proposes with confidence. Nothing it says is a requirement until one of their people agrees, by name."
+    },
+    {
+     "tool": "Claude Code or Codex, in their repository",
+     "use": "Generate the typed signatures and the two refusal tests for every capped action from the signed budget, each citing its signed line in a comment.",
+     "caution": "Check that it raises rather than clamps, and reads the cap from config rather than a literal. Both look fine in a diff."
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "Every limit, every pass mark, and who signs them. A model will offer a sensible cap. A sensible cap that nobody signed is the one that fails in production, and so is the one you chose yourself.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Signed spec and authority budget",
+    "short": "Signed spec and limits",
+    "good": "Every action with its level, its cap, its approver and the test that enforces it; every pass mark with the costs that set it; each line signed by the person who owns that risk; and no line that is only written.",
+    "owner": "Forward-deployed engineer drafts; their risk owner and expert lead sign"
+   },
+   "template": {
+    "title": "Signed spec and authority budget",
+    "lang": "markdown",
+    "body": "# Signed spec and authority budget · <customer> · <system>\n_Version <n> · <date> · Drafted by <FDE> · Nothing is built past a line that is not signed_\n\n## 1. The five decisions a requirements document leaves out\n| Decision | What we will build | Signed by | Date |\n|----------|--------------------|-----------|------|\n| What the model decides, and what code decides | <the model ranks options; code computes every fare and refund> | <product owner> | |\n| What it may do alone | <section 3> | <risk owner> | |\n| How right it must be | <a pass mark per kind of case, section 2> | <expert lead> | |\n| What happens when it cannot decide | <the case goes to a person, with its reasons> | <ops lead> | |\n| What is logged | <every call, tool use, approver and model version> | <risk owner> | |\n\n## 2. A pass mark per kind of case\n| Kind of case | Share of cases | A right answer saves | A wrong one costs | Pass mark | Signed by |\n|--------------|----------------|----------------------|-------------------|-----------|-----------|\n| <same-day change> | <n%> | <$n> | <$n> | <cost ÷ (cost + saving)> | <expert lead> |\n\nThe pass mark is met by the lower bound, never by the score.\n\n## 3. Authority budget, one row per action\n| Action | Level | Cap | Approver above it | Enforced in | Refusal test | Enforced, or only written? | Signed by, date |\n|--------|-------|-----|-------------------|-------------|--------------|----------------------------|-----------------|\n| <search flights> | alone | none | none | a read-only identity | <no write scope> | | |\n| <rebook, same day> | alone, monitored | <same day, own flights> | none | <rebook(): refuses other days and partners> | <a partner rebook raises> | | |\n| <rebook, partner flight> | alone, with a veto window | <one booking> | <desk lead, within <n> min> | <held in a queue for <n> min> | <a held rebook cannot run early> | | |\n| <issue refund> | named approver, every time | <$400> | <approver role> | <issue_refund(amount): typed, raises over the cap> | <over the cap raises; no approval raises> | | |\n| <change passenger identity> | never | none | none | no tool exists | <absent from the schema> | | |\n\nLevels: drafts only · alone, with a veto window · alone, monitored · named approver every time · never.\nA veto window names how long the action waits and who may cancel it. Monitored names who reviews,\nwithin what time, and the switch they throw. Without those, the level is only a word.\nA line that is only written has not passed. Nothing is built past it.\n\n## 4. Open decisions that run beside the build\n| Decision | Placeholder meanwhile | Owner | Settled by |\n|----------|-----------------------|-------|------------|\n| <model tier per slice> | <mid tier behind the gateway> | <name> | <date> |\n"
+   },
+   "prompts": [
+    {
+     "title": "Find the decisions nobody has signed",
+     "when": "The day before the sign-off meeting",
+     "body": "Below are our spec, the pass marks and the authority budget for <system> at\n<customer>, with the signatures collected so far. <paste>\n\nList every decision they rely on that nobody has signed:\n| Decision | Where it is assumed | The role at <customer> that carries the risk | HARD or soft | Placeholder, if soft |\n\nHARD if any answer is no: can it be reversed cheaply once building starts? can the build\ngo on behind a placeholder? does it have a named owner and a date? does everything\ndownstream survive if the answer changes?\n\nRULES:\n- A default is a decision. \"Hands over when unsure\" sets a threshold someone must own.\n- Any limit on money, identity or a message to a customer is HARD.\n- Name the role that carries the risk, not the most senior person in the room."
+    },
+    {
+     "title": "Turn the signed budget into refusal tests",
+     "when": "The day a line is signed, before the tool can be called",
+     "body": "Here is the signed authority budget: <paste>. Here are the tool signatures in their\nrepository: <paste>.\n\nFor every action at \"named approver\" or \"never\", write:\n1. the typed signature, its cap a bounded parameter read from <config file>;\n2. a test that a call over the cap RAISES;\n3. a test that a call with no approval, or a forged one, RAISES;\n4. for \"never\": a test that no tool in the schema can perform the action.\n\nRULES:\n- Raise. Never clamp to the cap, never log and carry on.\n- Every number comes from config, with a comment citing the signed line and its date.\n- Leave the prompt's sentence where it is, marked as policy.\n\nThen list each row the code cannot express, so I take it back to whoever signed it."
+    },
+    {
+     "title": "Credit every decision in the mob's notes to whoever made it",
+     "when": "The evening after each mob session",
+     "body": "Here are my notes from today's requirements session with <customer>'s experts: <paste>.\n\nProduce two lists:\n1. DECIDED: each decision in one sentence, with the name and role of whoever made it,\n   in their own words where the notes have them.\n2. OPEN: each question not answered, with who should answer it, and by when.\n\nRULES:\n- Credit whoever decided, not whoever proposed. If the notes do not say, write UNKNOWN.\n- Never merge two people's requirements into one line without both names.\n- A proposal the model made that nobody accepted is OPEN.\n\nThen draft the read-back email to everyone who attended, decisions first, each with its name."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · days 6 to 82, a limit signed and never enforced",
+    "body": "**In the case:** on day 6 compliance signed the first line: a named approver for every refund over $400. On day 15 a thirty-page requirements document became a one-page spec, a pass mark per kind of case and the authority budget, and five decisions turned out never to have been made. The team crossed with the budget written and only partly enforced: the cap lived in the prompt, the refund tool accepted any amount, and on day 82 a $2,000 refund went out that was not owed. **Your move:** the budget names where each cap lives, the refund tool's amount parameter, with a test that a $401 refund without an approver is refused. Its last column reads *only written* until that test is green, and nothing past the refund action is built until it reads *enforced*."
+   },
+   "pitfalls": [
+    "Choosing a limit yourself because their risk team is slow. It unblocks you this week, and makes the loss yours on the day the limit is wrong.",
+    "A signature from someone who does not own the risk. The sponsor signs happily, and in the incident review the risk owner says nobody asked.",
+    "A cap that lives in the prompt and the design. It reads as a control in every review and stops nothing.",
+    "Treating every open question as hard. The build waits behind eleven meetings when three decisions needed signatures and the other eight needed only a placeholder, an owner and a date."
+   ],
+   "done_when": "Every action has a signed line with its cap, its approver and the test that enforces it, every pass mark is signed by their expert lead, and no line reads only written.",
+   "pdlc": "P1"
+  },
+  {
+   "n": 7,
+   "id": "build",
+   "phase": "Build",
+   "stage": "deliver",
+   "level": "MVP, then build",
+   "hats": [
+    "engineer",
+    "qa"
+   ],
+   "question": "Does it meet their bar, slice by slice?",
+   "title": "Build in their stack, and prove it on their cases beside their staff",
+   "when": "From the first day of the build until the shadow run reads clean",
+   "purpose": "Build where they will maintain it, with their engineers, and prove it on their cases, not yours. The first slice is the MVP: the thinnest version one group of their users can rely on, held to a signed pass mark. Then every slice in scope meets its own bar, held by a harness in their pipeline that the merge cannot pass, so the proof outlives your stay. Last, it runs beside their staff, deciding and acting on nothing, because the rules that matter most are often written nowhere.",
+   "activities": [
+    {
+     "do": "Put one context file in their repository, AGENTS.md",
+     "detail": "Their stack, the commands that build and test it, what never to touch, and each rule learnt the hard way. Codex reads it, and so does Claude Code when the repository has no CLAUDE.md [[S27]]: one set of rules for your agents and theirs, and it stays when you go."
+    },
+    {
+     "do": "Build a walking skeleton through their real system first",
+     "detail": "Their identity, their data path, one record on a screen, no model. It proves the plumbing on the first day of the build, while a credentials or network problem costs hours."
+    },
+    {
+     "do": "Write the floor, then the model calls, then a checker after the risky ones",
+     "detail": "Fares, eligibility and refunds are code with unit tests. The model ranks and drafts on top, and an independent checker follows only the steps where a wrong answer is costly and easy to miss: the [engineering lead's steps 3 to 5](../../engineering/#floor)."
+    },
+    {
+     "do": "Wrap their systems as tools, each with its own least-privilege identity",
+     "detail": "Reads open, writes gated, one identity per tool, so a model that has been talked past still reaches only what the job needs. A tool that returns an empty result on error reads to the model as *nothing applies*: make every tool fail loudly."
+    },
+    {
+     "do": "Build the golden set from their past cases, labelled by their experts",
+     "detail": "Redacted, from their history, tagged by the slices they care about. First measure how often two of their experts agree: that is the ceiling on any pass mark, and if it sits below the signed bar, go back to step 6 before building. Report every slice with its sample size and lower bound, never one average."
+    },
+    {
+     "do": "Make the harness a check their merge cannot pass",
+     "detail": "In their pipeline, cheapest checks first, failing any slice below its bar however good the average. A comment on a pull request is read in a quiet week and clicked past in a release week, the week it exists for."
+    },
+    {
+     "do": "Run the shadow beside their staff, and read the disagreements with them",
+     "detail": "The system decides a copy of every live case, off the live path, and acts on none; a model version change restarts the window. Each afternoon, go through the disagreements with the people who made the real decisions: a cluster is usually one rule nobody wrote down."
+    },
+    {
+     "do": "Pair with their engineers on every change",
+     "detail": "Their engineer drives as often as you do, and reviews what your coding agent wrote. AWS describes the customer's engineers moving {{S20-operators}}: these are the co-builder weeks, and by the shadow run they ship a change without you."
+    }
+   ],
+   "internal": "Inside your own company you will be tempted to build in your platform's repository, on your pipeline, for now. Build where the business unit will maintain it, under their checks, from the first commit: a move later is a migration nobody budgets for. Hold their bar, not your platform's default, and let their experts label the cases even when your team knows the data better.",
+   "say": [
+    {
+     "to": "Fourteen shadow disagreements, all on one shift",
+     "words": "These fourteen disagreements are one rule. Who on the evening shift can tell us why?"
+    },
+    {
+     "to": "The score clears the bar, and the room wants to launch",
+     "words": "The score is above the bar and its lower bound is not, so it is probably good enough and not yet proven. We run beside your desk from today, and the evidence decides the launch."
+    },
+    {
+     "to": "A senior expert who distrusts it",
+     "words": "You know what a right answer looks like better than anyone here. Will you label the cases we test it against, and show us where it is wrong?"
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Claude Code or Codex, in their repository",
+     "use": "Build each slice from a story file on a branch, with their engineer reviewing, and have it write the tool tests and the harness steps in the same pass as the code.",
+     "caution": "In a repository you did not write, run headless sessions bare and keep every key out of a CI job that runs their code [[S27]]. Two people read any change that moves money."
+    },
+    {
+     "tool": "A different model, as checker and judge",
+     "use": "Check the risky steps, and judge tone and policy on the golden set, pinned to a version that every run records.",
+     "caution": "Calibrate it against their experts' labels on a sample before anyone quotes a judged score."
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The labels, and the reading of the shadow's disagreements. What counts as right is their experts' call, and the rule behind fourteen disagreements is found by asking the people who made the decisions.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Evidence pack, and the harness in their pipeline",
+    "short": "Evidence pack",
+    "good": "One index page: every artefact with its owner on their side and its date, every slice with its lower bound against its signed pass mark, the shadow's disagreements read and turned into rules, and every control marked enforced or only written.",
+    "owner": "Forward-deployed engineer, with their engineering lead"
+   },
+   "template": {
+    "title": "Evidence pack",
+    "lang": "markdown",
+    "body": "# Evidence pack · <customer> · <system>\n_One page, every link current · Kept by <FDE> with <their engineering lead> · Reviewed every <Friday>_\n\n## Built\n| Artefact | Where it lives | Owner at <customer> | Version | Last changed |\n|----------|----------------|---------------------|---------|--------------|\n| AGENTS.md | <repo>/AGENTS.md | <their engineering lead> | | |\n| Walking skeleton, and its test | <path> | | | |\n| Tools, one identity each | <path>, <identity names> | | | |\n| Model version, pinned | <config path> | | | |\n| Signed spec and authority budget | <link> | <their risk owner> | | |\n| First change their engineer shipped alone | <pull request> | <their engineer> | | |\n\n## Proven, per slice\n| Slice | Cases | Labelled by | Experts agree | Score | Lower bound | Pass mark | Verdict |\n|-------|-------|-------------|---------------|-------|-------------|-----------|---------|\n| <same-day change> | <n> | <two of their experts> | <n%> | | | <signed> | <pass · not yet proven · fail> |\n\nPASS only when the lower bound is at or above the pass mark.\n\n## Shadow, beside their staff\n| Window, fixed in advance | Slice | Cases | Agreement | Disagreements read | Rules found, and who explained them | Added to |\n|--------------------------|-------|-------|-----------|--------------------|-------------------------------------|----------|\n| <dates> | | | | <n of n> | <the rule · name, role> | <spec · golden set · tool> |\n\nMoney actions are reported apart and stay gated, whatever this table says.\n\n## Enforced, or only written?\n| Control | Should live in | The check you run | Result |\n|---------|----------------|-------------------|--------|\n| <refund cap> | <issue_refund(), typed parameter> | <the refusal test, in CI> | <enforced · ONLY WRITTEN> |\n| Pass marks block the merge | <a required check on main> | <read the branch protection rule> | |\n| Shadow never writes | <the nightly job> | <the assertion, last green> | |\n"
+   },
+   "prompts": [
+    {
+     "title": "Write the AGENTS.md for their repository",
+     "when": "The first day you have their repository",
+     "body": "Read this repository and draft its AGENTS.md: the one context file that every coding\nagent on this team reads, theirs and mine. Under 60 lines, in this order:\n1. What the system does, in two sentences.\n2. The commands that build, test and run it, each one I have run.\n3. Never touch: each path, with its reason.\n4. Rules learnt here, one line each, naming the review or incident that taught it.\n5. Limits live in tool signatures, never in prompts. Name the config file that holds\n   the caps; do not repeat their numbers here.\n6. What data may go into which tool, in their policy's words: <paste>.\n\nRULES:\n- Only what the repository or my notes show. Mark every guess TO CHECK.\n- No secrets, no customer data, no names of their staff.\n- Their conventions win over mine: linter, test layout, branch rules."
+    },
+    {
+     "title": "Group the day's shadow disagreements",
+     "when": "Each afternoon of the shadow run, before you sit with their staff",
+     "body": "Below are today's shadow cases where the system's decision differed from the one\n<customer>'s staff made: the case, both decisions, the system's reasons, the time and\nthe shift. <paste, redacted>\n\nGroup them by the most likely single cause:\n| Cause, in one sentence | Cases | Time, shift or partner pattern | What to ask the staff who decided |\n\nRULES:\n- Prefer one cause that explains many cases to many that explain one each.\n- Look at time, shift, partner and route before wording: rules that live in people's\n  heads usually depend on when and who.\n- Never mark the staff decision as wrong. The job is to find out what they know.\n- Leave the cases that fit no group on their own."
+    },
+    {
+     "title": "Diff the sandbox and their environment",
+     "when": "It passes in your sandbox and fails in theirs",
+     "body": "The system passes in my sandbox and fails in <customer>'s environment. Before anything\nchanges, list every difference that could explain it.\n\nSANDBOX: <identity, region, model and version, network, data sample, tool versions, limits>\nTHEIRS: <the same, as far as known>\nTHE FAILURE: <the case, the logs, the trace>\n\n| Layer | Sandbox | Theirs | Could it cause this? | The one check that settles it |\n\nRULES:\n- Cover data, identity, region and model access, network, tool timeouts and rate\n  limits, model version and config.\n- Check every tool's error path first: an empty result on error reads to the model\n  as \"nothing applies\".\n- Cheapest check first. No prompt change until every layer above it is ruled out."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · days 30 to 60, fourteen disagreements and one rule",
+    "body": "**In the case:** on day 30 a walking skeleton read a booking and showed it by four in the afternoon. On day 45, 412 of the 500 golden cases were right: 82.4% against a bar of 80%, with a lower bound of 79.1%. The room read it as a pass. The verdict was *probably above the bar, not yet proven*, and the shadow started that afternoon instead of the launch. Its fourteen disagreements with the desk were one rule nobody had written: the evening shift never uses one partner after 18:00, because its transfer desk closes. **Your move:** on day 45 you hold the room to the condition Ines signed before day 1: if the lower bound falls short, the shadow runs first. So the shadow is the plan, not a setback. You read its disagreements with the desk each afternoon, and when fourteen turn out to be one rule you credit whoever on the evening shift explained it. The rule goes into the spec and the partner tool, and the fourteen cases into the golden set, where the harness holds every later change to them."
+   },
+   "pitfalls": [
+    "A golden set you wrote yourself. It holds the cases you can imagine and scores well: at SkyWays twelve invented cases scored 94%, and none of them was codeshare.",
+    "A harness that comments instead of blocking. At SkyWays a red slice was merged past the comment on the Thursday before the pilot.",
+    "Polishing a slice nobody uses. Build means every slice in scope at its bar, not a favourite slice at 99%."
+   ],
+   "done_when": "Every slice in scope has a lower bound at or above its signed pass mark, or a written reason it stays in shadow; the harness blocks their merge; and one of their engineers has shipped a change without you.",
+   "pdlc": "P2"
+  },
+  {
+   "n": 8,
+   "id": "hand-over",
+   "phase": "Hand over",
+   "stage": "deliver",
+   "level": "Deploy",
+   "hats": [
+    "platform"
+   ],
+   "question": "Does it run without you?",
+   "title": "Widen by evidence, then hand it to the person who will run it",
+   "when": "From the week before cut-over to the day your access ends",
+   "purpose": "Deploy is thinking at the size of their organisation: owners, operations and the contract, not the code. Widen one action at a time on evidence, never on a date, with money actions gated throughout. Meanwhile make yourself unnecessary: every switch timed, every runbook rehearsed by the person who will use it, every loop owned on their side. The handover is real when that person has signed, your access has ended, and nothing breaks.",
+   "activities": [
+    {
+     "do": "Widen one action at a time, on evidence, never on a date",
+     "detail": "Shadow, then 5%, then wider, then all, per action, each step naming the evidence that earned it and the risk owner who agreed. Widening raises the share, never the level: a money action keeps its named approver at every share. Each step's length is arithmetic: cases needed ÷ (share × cases a day)."
+    },
+    {
+     "do": "Time every switch with a stopwatch before cut-over",
+     "detail": "Someone on their side, not the author, throws each one while you watch: the kill switch, a flag back to shadow, a prompt rollback, a model rollback. The times go into the runbook with the date. A rollback nobody has timed is a belief."
+    },
+    {
+     "do": "Write runbooks for the five things that will happen",
+     "detail": "A drift alert, a cost spike, a tool outage, a model change, a disputed refund. Each says how to tell, what to switch, whom to call and how to know it is over, and the person who will use it runs it once, end to end."
+    },
+    {
+     "do": "Name an owner on their side for every loop",
+     "detail": "The operator, the on-call rota, the cost owner, the drift owner, and whoever turns incidents into the next brief. Cost, incidents and drift feed back into design, so nobody downstream chases them unless a named person owns each."
+    },
+    {
+     "do": "Have the handover signed by the person who will run it",
+     "detail": "Their operator, the person who will be paged, signs that they can run it; their sponsor signs, separately, that it was delivered as the statement of work says. AWS lists what a customer should hold at the end: {{S20-handover}}. The checklist is that list, with a name beside every line."
+    },
+    {
+     "do": "End your access on the agreed date",
+     "detail": "Write the date into the checklist and keep it. The support period comes from the statement of work, not from goodwill on the day: a fortnight on call to their operator, not to the system, so every question goes through the person who now owns it."
+    }
+   ],
+   "internal": "Inside your own company the risk is the opposite: you never leave, because you are a message away and the unit never learns to run it. Put the end date in the charter and keep it. If the unit cannot staff an operator, that is a finding for its head, not a reason to become their team for good without anyone deciding it.",
+   "say": [
+    {
+     "to": "The sponsor wants to widen on a date",
+     "words": "We widen when the evidence says so. At 5% of 240 cases a day, the 500 cases we need take 42 days. At 20% they take eleven, and one passenger in five meets a system not yet proven. Your risk owner chooses."
+    },
+    {
+     "to": "Handing over, to their operator",
+     "words": "From Friday this is yours to run. For two weeks I am on call to you, not to the system: you call me, and you decide."
+    },
+    {
+     "to": "Asked to stay on after the handover",
+     "words": "I can stay, but then it is not handed over. Who on your side will run it? If nobody can yet, that is the first decision to take, and it is yours."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Claude Code or Codex, over the code and the dashboards",
+     "use": "Draft each runbook from the code, the alerts and the timed rehearsals, so every command in it is one that exists.",
+     "caution": "A drafted runbook reads well and has never been run. It stays a draft until their on-call has followed it in a rehearsal."
+    },
+    {
+     "tool": "Chat model, as their operator on a bad night",
+     "use": "Read the handover pack cold and list the questions their operator would ask at two in the morning with nobody to call.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "Each widening, and the judgement that their operator is ready. You bring the evidence and their risk owner decides. Readiness is seen when they throw the switches, not read in a summary.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Handover pack",
+    "short": "Handover pack",
+    "good": "Signed by the person who will run it, after they have thrown every switch and followed every runbook without you: an owner for every loop, the switches with their times, where each action stands and why, the open risks with owners, and the date your access ends.",
+    "owner": "Forward-deployed engineer, until the person who will run it signs"
+   },
+   "template": {
+    "title": "Handover pack",
+    "lang": "markdown",
+    "body": "# Handover pack · <customer> · <system>\n_From <FDE> · To <the person who will run it> · Signed <date> · Our access ends <date>_\nRepository and its AGENTS.md <link> · How to deploy <link> · The evidence pack <link>\n\n## 1. Owners, by name\n| Loop | Owner | Backup | How often |\n|------|-------|--------|-----------|\n| Runs the system | <operator> | <name> | daily |\n| On call | <rota> | | |\n| Cost per case, alert at <3x> the signed figure | <name> | | weekly |\n| Drift, per slice | <name> | | weekly |\n| The saving beside the spend, on one line | <name> | | each cycle |\n| Incidents become next briefs | <name> | | each incident |\n\n## 2. Switches, timed before cut-over\n| Switch | What it does | Time | Thrown by, in rehearsal | Date |\n|--------|--------------|------|-------------------------|------|\n| Kill switch | every case to the desk, with its context | <40 s> | <name> | |\n| Flag to shadow, per action | decides, acts on nothing | <2 min> | | |\n| Prompt rollback | the previous version, on the next case | <3 min> | | |\n| Model rollback | redeploys the runtime; the harness re-runs | <11 min> | | |\n\n## 3. Runbooks, each run once by its owner\n| Event | How you can tell | First switch | Run by, date |\n|-------|------------------|--------------|--------------|\n| Drift alert | | | |\n| Cost spike | | | |\n| A tool is down | | | |\n| The model version changes | | | |\n| A disputed refund | | | |\n\n## 4. Where each action stands\n| Action | Shadow · 5% · wider · all | The evidence for it | What earns the next step |\n|--------|---------------------------|---------------------|--------------------------|\n\n## 5. Open risks\n| Risk | Owner | Review by |\n|------|-------|-----------|\n\n## 6. Accepted\nI can run this system without <FDE>, and I accept it from <date>.\n<the person who will run it> · <role> · <date>\nDelivered as <statement of work, section> says: <their sponsor> · <date>\n<FDE> is on call to <name> until <date>, for questions, not for the system.\n"
+   },
+   "prompts": [
+    {
+     "title": "Draft the runbook for a drift alert from the code and the dashboards",
+     "when": "Before the rehearsal, one runbook at a time",
+     "body": "Draft the runbook for a drift alert on <system>, for <their operator>, who did not\nbuild it. You have the alert's definition, the dashboard queries, the switches with\ntheir rehearsed times, and the code paths the alert names: <paste>.\n\nSections, in this order, one page at most:\n1. What fired, and what it means, in their words, not ours.\n2. Real shift or noise: the slice, the sample size, the window to compare against.\n3. The first switch to throw, and its rehearsed time.\n4. Who to tell, by role, and what to send them.\n5. How to know it is over, and what goes into the next brief.\n\nRULES:\n- Copy every command from the code or the rehearsal notes. Mark anything inferred TO CHECK.\n- No step may need the person who built it. If one does, list it at the top as a gap."
+    },
+    {
+     "title": "Find what the handover pack does not cover",
+     "when": "A week before the handover is signed",
+     "body": "Here is the handover pack for <system> at <customer>, and everything that has happened\nin the system so far: incidents, alerts, changes and questions from their staff. <paste>\n\nRead the pack as their operator on the first night alone, and list every gap:\n| Situation | Where the pack should cover it | What is missing | Who at <customer> should own it |\n\nThen answer yes or no, with the evidence:\n- Does every loop (running, on call, cost, drift, incidents, the next brief) have a named owner?\n- Has every switch been thrown, and timed, by someone other than its author?\n- Can every runbook be followed without contacting us?\n- Is the date our access ends written down?\n\nDo not soften a gap because it is unlikely. Unlikely is what runbooks are for."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · days 45 to 97, four switches and a signature",
+    "body": "**In the case:** before cut-over the on-call engineer threw all four switches with a stopwatch: kill switch 40 seconds, flag to shadow 2 minutes, prompt rollback 3 minutes, model rollback 11 minutes. At cut-over the flag went to 5% for same-day changes only; partner rebooking stayed in shadow another fortnight. On day 82 a $2,000 refund went out that was not owed, and the room asked only which switch: refunds went back to gated in two minutes while the rest kept running. **Your move:** the incident goes into the handover pack, not around it. The control, the six new golden cases and the next brief each get an owner on their side. On day 97 Lena, their platform lead, signs the checklist as the person who will run it, and your access ends that day."
+   },
+   "pitfalls": [
+    "Widening on a date. The calendar says week six, the evidence says not yet, and the share that widens is the one nobody can defend after the first incident.",
+    "Handing over to the sponsor instead of the operator. The sponsor signs and is never paged; the person who is paged meets the system at its first alert.",
+    "Runbooks nobody has run. They read well and fail at the first step their author knew by heart."
+   ],
+   "done_when": "Their operator has thrown every switch and run every runbook without you, every loop has a named owner on their side, the checklist is signed by the person who will run it, and your access ended on the agreed date.",
+   "figure": "shadow_widen",
+   "pdlc": "P3"
+  },
+  {
+   "n": 9,
+   "id": "reframe",
+   "phase": "Reframe",
+   "stage": "evolve",
+   "level": null,
+   "hats": [
+    "product",
+    "consultant"
+   ],
+   "question": "What should come next, here?",
+   "title": "Turn what the running system taught into the next frame",
+   "when": "Evolve, in the month after handover, then whenever a new ask arrives",
+   "purpose": "A system that works attracts asks. Within weeks of the handover every team that watched the shadow wants one, and the next engagement gets chosen by whoever asks loudest, or most senior. Choose it from evidence instead: what the first month in production taught, read with the person who now runs it, and every new ask put through the questions that qualified the first engagement. The answer is one recommended frame, and a no in writing for the rest. Anthropic asks its FDEs to {{S6-relationships}}. Find them in the evidence, and take only the ones it qualifies.",
+   "activities": [
+    {
+     "do": "Read the first month with their operator, on their screen",
+     "detail": "Your access ended at the handover, as it should: it is their system now, and you are on call to its operator, not to it. A month on, go through the incidents, the near misses, the drift readout, the two numbers and the override log together, then keep that hour every month. Every case the desk corrects by hand is an incident nobody filed."
+    },
+    {
+     "do": "Turn each incident and near miss into a brief that ends in a control",
+     "detail": "Pain, evidence, the enforced control that was missing, the fix and where it now lives, in the shape the [product manager's step 8](../../product-manager/#learn) uses. Never a person. Each control becomes a rule the next frame starts with, written down before it starts."
+    },
+    {
+     "do": "Write down every ask, in the asker's words",
+     "detail": "Asks arrive in corridors and in emails to your sponsor. Record who asked, the pain as they put it, and the last time it hurt. An ask you did not write down gets answered by someone else, and the answer carries your name."
+    },
+    {
+     "do": "Qualify each ask with step 1's questions",
+     "detail": "As [step 1](../frame/#qualify) does: a week of their tickets, enough to qualify and not to size. A genuine judgement call, the volume to carry evaluation, and, action by action, whether a wrong answer can be undone. Then the three disqualifiers: no path for their data to a model inside their policy and region, no one who can sign the risk, no one to run it after you. Most asks fail one, and the brief says which."
+    },
+    {
+     "do": "Rank by value and by reuse, then ask who would run it",
+     "detail": "Value is the volume times what a case costs today, read against what their sponsor is measured on this year. Reuse is how much of the first system carries over: connectors, the golden set's shape, the authority budget, the harness, the runbooks. A frame that lands on the operator still learning the first system breaks both, so name who would run the new one."
+    },
+    {
+     "do": "Put every no in writing, as their sponsor's decision",
+     "detail": "A no said in a corridor comes back next month as a yes somebody else gave. Write each one in the brief with its reason and the condition that would turn it into a yes, and let the asker hear it as their sponsor's ranking, not as your gate. At a vendor a yes is a new contract too, so your account lead sees the brief before their sponsor does."
+    }
+   ],
+   "internal": "Inside your company the asks arrive from every business unit at once, often through your own management chain. Keep one ranked list, owned by the platform's sponsor and open to every asker, so the ranking is theirs and you are not the referee. A no to a peer's team then comes from the list and its reasons, never from you in passing.",
+   "say": [
+    {
+     "to": "A senior leader whose ask did not make the list",
+     "words": "Your ask is on the list, and here is why it is not first: there is no way to read the rostering data yet. When there is, it moves up, and you will hear it from me first."
+    },
+    {
+     "to": "Their operator, on the first month's evidence",
+     "words": "Show me what your team corrects by hand. Every correction is an incident nobody filed, and it is the best evidence we have about what to build next."
+    },
+    {
+     "to": "Their operator, asking you for one small change",
+     "words": "It is your system now, so it goes on your team's backlog. I will pair with your engineer for an hour, and the change is theirs to make and to keep."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Chat model, as their analyst",
+     "use": "In a tool their policy approves, give it the month's incident notes, the drift readout and the override log, redacted, and ask for every pattern in them, each with its count, an example and the hour it happens.",
+     "caution": "It ranks what is frequent, not what is dangerous. One near miss on a payment outweighs a hundred cosmetic overrides, and only you and their operator can say which is which."
+    },
+    {
+     "tool": "Chat model, as the sceptic",
+     "use": "Paste the ranked asks and have it argue for the one you ranked last and against the one you ranked first. If its case for the last one holds, your ranking was about who asked.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The ranking, and every no. A model ranks the text you pasted; it cannot weigh who will run the system, which sponsor will defend it, or what a no costs the relationship.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Next-frame brief",
+    "short": "Next-frame brief",
+    "good": "Two pages. The month's evidence, each incident as a brief that ends in a control, every ask qualified with its numbers, one ranked list, one recommended frame with the rules it starts with, and a written no, with its condition, for each of the rest.",
+    "owner": "Forward-deployed engineer, with their operator; their sponsor decides"
+   },
+   "template": {
+    "title": "Next-frame brief",
+    "lang": "markdown",
+    "body": "# Next-frame brief · <customer> · <system> · <date>\n_Drafted by <FDE> with <their operator> · For <their sponsor> · Covers <dates since handover>_\n\n## 1. What the running system taught\n| Evidence | Source, dates | What it says |\n|----------|---------------|--------------|\n| The two numbers | <report> | <the saving beside the spend> |\n| Drift | <readout> | <the output mix against its thresholds> |\n| Overrides and corrections by hand | <their log> | <count, the commonest kind, when> |\n| Open risks | <their risk log> | <what is still not controlled, and its owner> |\n\n## 2. Incidents and near misses, each ending in a control\n| # | What happened | The enforced control that was missing | Where it lives now | Rule for the next frame |\n|---|---------------|---------------------------------------|--------------------|-------------------------|\n| 1 | <...> | <a control, never a person> | <tool, parameter, test> | <...> |\n\n## 3. The asks, qualified\n| Team | The ask, in their words | Pain, measured | Per day | Judgement call · volume · can be undone | Disqualifier | Reuses |\n|------|-------------------------|----------------|---------|-----------------------------------------|--------------|--------|\n| <team> | <...> | <cost, from which export> | <n> | <yes · yes · partly> | <none, or which> | <what carries over> |\n\n## 4. Ranked\n| Rank | Ask | Value | Reuse | Risk | Who would run it, and what they run already |\n|------|-----|-------|-------|------|----------------------------------------------|\n\n## 5. Recommended next frame\n<the ask> · sponsor <name> · risk owner <name> · operator <name>\n**Rules it starts with:** <each control from section 2>\n\n## 6. Not now, in writing\n| Ask | Why not | What would change it | Told to, on |\n|-----|---------|----------------------|-------------|\n\n**Decision:** <next frame | not yet | none> · <their sponsor> · <date>\n"
+   },
+   "prompts": [
+    {
+     "title": "Read the first month as their operator would",
+     "when": "A month after handover, with the operator's logs",
+     "body": "Below is the first month of <system> in production at <customer>, redacted: the\nincident notes, the drift readout, the two-number report, and the operator's log of\noverrides and corrections made by hand.\n\n1. List every incident and near miss. Count each correction made by hand that nobody\n   filed as an incident too, and flag any stretch where corrections were likely made\n   but nothing was recorded.\n2. For each, write a brief: what happened; the evidence (trace id, date); the ENFORCED\n   control that was missing; the fix and where it would live (tool, parameter, test);\n   the rule it gives the next piece of work.\n3. Then the patterns: the commonest override, and the hour and the team it comes from.\n\nRULES:\n- A finding is a control, never a person. Training and a clearer prompt are not\n  controls. If that is all you can find, write CONTROL NOT FOUND.\n- Order by harm, not by count. One near miss on a payment outranks many cosmetic fixes.\n- Quote the evidence. Do not infer an incident the logs do not show.\n\nEVIDENCE:\n<paste>"
+    },
+    {
+     "title": "Rank the new asks by value and by reuse",
+     "when": "Before you recommend a next frame",
+     "body": "These asks arrived after <system> went live, each with the team, the ask in their\nwords and what I measured: <paste>.\n\nThe first system already has: <connectors, the golden set and harness, the authority\nbudget, runbooks, the shadow and its flags>.\n\nFor each ask:\n1. The three AI-fit answers: is it a genuine judgement call, is there the volume to\n   carry evaluation, and, action by action, can a wrong answer be undone?\n2. The three disqualifiers: no path for their data to a model inside their policy and\n   region, no one who can sign the risk, no one to run it after you.\n3. Value: volume x what a case costs today. Mark every number MEASURED or ASSUMED.\n4. Reuse: what carries over from the first system, and what must be built new.\n5. Who would run it, and whether they already run something we built.\n\nRank them. For each ask you do not recommend, write the no in two sentences: the\nreason, and what would change it.\n\nRecommend one next frame at most. Do not rank by volume alone, and never by who asked."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · the month after handover",
+    "body": "Your access ended on day 97, and for a fortnight you were on call to Lena, not to the system. At the month's end you went through it together, on Lena's screen. It held day 82's brief, whose finding was a control: caps live in the tool's signature. It also held a near miss nobody had filed. The partner behind the shadow's evening rule moved its transfer desk's close to 17:00 for winter; the rule was a constant set at 18:00, and the desk overrode three wrong proposals in a week. That became a brief too: the hours come from the partner's own data, with a test. Four teams that had watched the shadow sent asks. Your first ranking went by volume and put the loyalty team's points questions on top; step 1's questions took them off, because a balance lookup needs no judgement. Crew rostering had no data path, so it went on the not-yet list with its condition. The cargo team's damaged-baggage claims ranked first on value and reuse: about 30 a day, a payout nobody can take back, and a partner lookup on every codeshare bag. Ines signed it as the next frame, which starts again at step 1."
+   },
+   "pitfalls": [
+    "Ranking by who asked. The most senior ask wins the first meeting and fails the third, when nobody can be found to run it.",
+    "Starting the next frame on the team still learning the first system. Both systems get half an operator, and the first one's drift goes unwatched.",
+    "Leaving the incidents' rules in the last engagement's folder. The next frame starts without them, and its first cap goes back into a prompt."
+   ],
+   "done_when": "Their sponsor can read the brief and say what comes next and why, every asker has an answer in writing, and each control the first system taught is a rule the next frame starts with.",
+   "pdlc": "P0"
+  },
+  {
+   "n": 10,
+   "id": "codify",
+   "phase": "Codify",
+   "stage": "evolve",
+   "level": null,
+   "hats": [
+    "product"
+   ],
+   "question": "What comes back to the product?",
+   "title": "Write the pattern up for the people who build the product",
+   "when": "Evolve, logged from day one and written up in the month after handover",
+   "purpose": "Your second customer is your own product team. Solved twice is a pattern; solved three times is a product gap. Sort each repeat into configuration, a reusable service or a product capability, write it up with every customer's evidence, and let the product's owner decide. Skip this, and a product company slowly becomes one that maintains a large bespoke system for every customer, indefinitely [[S23]]. OpenAI asks its FDEs to {{S1-codify}}.",
+   "activities": [
+    {
+     "do": "Keep a pattern log from day one",
+     "detail": "One line each time you build something you have built before: what, where, how many days. Without it the third copy looks like the first. What could hurt another customer this week, such as a cap that lived only in a prompt, goes home the day you find it, not at handover."
+    },
+    {
+     "do": "Sort each repeat, and write down the reason",
+     "detail": "**Configuration**: the product already does it, and a customer needed a setting. **Reusable service**: the same code would serve several customers, owned by your practice. **Product capability**: every customer will need it, so the product should own it. The reason is what the product owner will argue with. Scale AI hires forward-deployed product managers for this judgement: people who {{S19-difference}}."
+    },
+    {
+     "do": "Write the request with every customer's evidence, redacted",
+     "detail": "The days each copy took, the defects each had, what keeping them cost, and what a shared version would have prevented. One customer's evidence reads as a feature request; three customers' reads as a gap. No customer's name, data or terms leaves its own row."
+    },
+    {
+     "do": "Check who owns each copy before you propose a shared one",
+     "detail": "Read each statement of work's clause on who owns what you built. Where the customer owns their copy, the shared version is written fresh from the pattern, never assembled from their code, and the entry says so."
+    },
+    {
+     "do": "Send model gaps to research with the failing cases",
+     "detail": "A gap in the model, not in your code, goes to the people who train it: the slice, the score and its lower bound, ten failing cases labelled by the customer's experts, and what you tried that did not fix it [[S1]]."
+    },
+    {
+     "do": "Hand the decision to its owner, and record it",
+     "detail": "The product owner decides, or the forward-deployed product manager where there is one. In a consultancy the entry goes to the practice's asset library; inside a company, to the platform's backlog. Record the answer with its condition, *not yet* included."
+    }
+   ],
+   "internal": "Inside your company the product team may be the platform team down the corridor, and the pull is to fix the repeat yourself in their code. Write the entry anyway, with every business unit's evidence, and let the platform's owner decide. A shared component nobody agreed to own becomes your team's for good.",
+   "say": [
+    {
+     "to": "The product owner, asking for a capability",
+     "words": "We have built this three times, for three customers. Here is what each copy cost and what broke. I am not asking for a feature for one of them; I am asking whether the product should own it, and I will take not yet with a condition."
+    },
+    {
+     "to": "A customer asking where their lessons go",
+     "words": "What goes home is the pattern, never your data, your code or your terms. The next customer gets a better product, and so do you, at your next upgrade."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Coding agent, across your own repositories",
+     "use": "Point it at the code your company may keep from past engagements and ask for every function that does the same job, with a table of how each copy differs.",
+     "caution": "Only code your contracts let you keep. A customer's repository you no longer have the right to read goes into no tool."
+    },
+    {
+     "tool": "Chat model, as the product owner",
+     "use": "Paste the draft entry and have it refuse the request as a busy product owner would, with the three questions it needs answered before a yes. Answer them in the entry.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The sort, and what counts as evidence. A model files every repeat as a product capability because the write-up says it matters. Whether it is configuration, a service or a gap is a judgement about the product, and its owner will test yours.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Pattern entry",
+    "short": "Pattern entry",
+    "good": "One page: the problem in one sentence, where it occurred, what each copy cost to build and to keep, the sort with its reason, the evidence, the ask, who decides, and the answer with its condition. No customer's name or data outside its own row.",
+    "owner": "Forward-deployed engineer; the product owner or FDPM decides"
+   },
+   "template": {
+    "title": "Pattern entry",
+    "lang": "markdown",
+    "body": "# Pattern entry · <pattern> · <date>\n_Logged by <FDE> · Decides <product owner or FDPM> · Status <proposed | accepted | not yet | refused>_\n\n## 1. The problem, in one sentence\n<what keeps having to be built, and for whom>\n\n## 2. Where it occurred\n| Customer | When | Built how | Days | Defects since | Who owns the copy |\n|----------|------|-----------|------|---------------|-------------------|\n| <A, redacted> | <date> | <bespoke, in their repository> | <n> | <n> | <them, under the statement of work> |\n\n## 3. The sort\n<Configuration | reusable service | product capability>, because <reason>.\n\n## 4. The evidence\n- To build: <days for each copy>\n- To keep: <the last change that broke every copy, and what each fix cost>\n- What a shared version would have prevented: <...>\n\n## 5. The ask\n<what, owned by whom, by when, and the cheapest version that would do>\n\n## 6. Model gaps found on the way\n| Slice | Behaviour | Score, lower bound, n | Failing cases | Sent to, on |\n|-------|-----------|-----------------------|---------------|-------------|\n\n## 7. The decision\n<accepted | not yet, until <condition> | refused, because <reason>> · <who> · <date>\n"
+   },
+   "prompts": [
+    {
+     "title": "Find every problem I solved twice",
+     "when": "At handover, from your pattern log",
+     "body": "Here is my pattern log and, from my last <n> engagements, the function signatures\nand test results I may keep, customer names removed: <paste>.\n\nFind every problem I solved more than once. For each:\n| Problem in one sentence | Engagements | How each copy differs | Days each took | What broke later |\n\nThen sort each into exactly one of:\n  CONFIGURATION       the product does it; a customer needed a setting\n  REUSABLE SERVICE    the same code would serve several customers\n  PRODUCT CAPABILITY  every customer will need it, and the product should own it\nwith the reason in one line.\n\nRULES:\n- Twice is a pattern. Three times is a product gap. Say which each is.\n- Do not merge two problems because their code looks alike. Merge them only if one\n  interface would serve both customers.\n- Mark any copy whose ownership you cannot tell from what I gave you.\n- Do not reproduce any code. Describe behaviour."
+    },
+    {
+     "title": "Write the product request with each customer's evidence",
+     "when": "Before the entry goes to the product owner",
+     "body": "Write a product request for <pattern> from this evidence: <paste the log rows, the\ndays, the defects and the history of what broke>.\n\n1. The problem in one sentence, as the product owner would say it.\n2. One row per customer: when, how it was built, days, defects, the last change that\n   broke it.\n3. The ask: what, who would own it, and the cheapest version that would do.\n4. What a no costs: the next copy's days, and the next break.\n\nRULES:\n- No customer's name, data, prices or terms. Call them customer A, B and C.\n- Every number carries its source. Mark anything you inferred as INFERRED.\n- Do not argue that it matters. Show what it cost."
+    },
+    {
+     "title": "Send a model gap to research with the failing cases",
+     "when": "An evaluation fails for a reason your code cannot fix",
+     "body": "Our evaluation found a gap in the model, not in our code. Write the note to research.\n\n1. The behaviour in one sentence, and the slice it occurs in.\n2. The score and its lower bound, with n.\n3. Ten failing cases, redacted, each with the input, the output, and the right answer\n   as the customer's experts labelled it.\n4. What we tried that did not fix it: prompt changes, examples, a checker.\n5. What we ship meanwhile, so nobody waits on a fix.\n\nDescribe the behaviour and the evidence. Do not guess at the cause inside the model.\n\nFAILING CASES AND SCORES:\n<paste>"
+    }
+   ],
+   "example": {
+    "title": "SkyWays · the third partner lookup",
+    "body": "Codeshare needed seats on four partner airlines, looked up in one call. It was the third such lookup you had written: the first two were for two other airline customers and took nine days and six; this one took five. Your first entry described SkyWays' copy with SkyWays' evidence, and the product owner read it as one customer's feature request. The second carried all three, redacted: the days, the week one partner changed its interface and all three copies broke and were fixed three times, and the winter hours, which only a lookup reading the partner's own data prevents. It asked for a supported connector instead of the fourth copy the cargo frame was about to need. The answer was not yet as product: build it as a shared service the practice owns, and product takes it when two deployments run it unchanged. The model gap went separately, to research: ten failing cases where the assistant stated a partner's usual policy as fact."
+   },
+   "pitfalls": [
+    "Writing the pattern up with one customer's evidence. It reads as that customer's feature request, and it is triaged as one.",
+    "Fixing the repeat yourself, in a shared repository nobody agreed to own. It works until you move on, and then it is a fourth copy with no owner.",
+    "Sending research a complaint instead of cases. A gap in adjectives is feedback; ten labelled failures with a lower bound is a defect someone can act on."
+   ],
+   "done_when": "The product owner has answered, in writing, on every repeat you have solved three times, and every model gap your evaluations found has reached research with its failing cases.",
+   "pdlc": "P1"
+  },
+  {
+   "n": 11,
+   "id": "reuse",
+   "phase": "Reuse",
+   "stage": "evolve",
+   "level": null,
+   "hats": [
+    "engineer"
+   ],
+   "question": "Does the reusable version work next time?",
+   "title": "Prove the reusable version at the next deployment",
+   "when": "Evolve, built between engagements and proved at the next one that needs it",
+   "purpose": "A reusable asset is a claim until someone who is not you has used it on a real deployment, and you have timed it. Build the configurable version with tests and a written interface, use it at the next deployment, and measure the days to first value against the bespoke copy. Then retire the copies, or you will keep four things alive where there were three. OpenAI asks its forward-deployed software engineers to {{S3-abstractions}}. This step adds the measurement.",
+   "activities": [
+    {
+     "do": "Write the shared version, interface and tests first",
+     "detail": "An MCP server, a skill or an evaluation template, configured per customer and never forked. Write its interface and tests from the pattern entry before any code. Start from the cleanest copy only if your contracts let you; where a customer owns theirs, write it fresh from the copies' behaviour."
+    },
+    {
+     "do": "Write the README with its limits at the top",
+     "detail": "For an engineer who has never met you: the limits, the interface, the configuration, and a sandbox to try it in. The limits lead because they are what the next deployment trips on."
+    },
+    {
+     "do": "Let someone else wire it at the next deployment, and time it",
+     "detail": "If you wire it yourself you measure your memory, not the asset. Stay on call and off the keyboard, and count the days from the first commit to the first case it serves. If no deployment comes within a quarter, run it on the copies' recorded inputs, and write down that this proves less."
+    },
+    {
+     "do": "Fix gaps in the asset, never in a copy",
+     "detail": "The next deployment will need something the asset lacks. Add it behind the same interface with a test, and release a version. A fix made only in their copy is the fork this step exists to stop, and Ramp's FDE team says why: {{S18-pollute}}."
+    },
+    {
+     "do": "Retire the bespoke copies on dates their owners agree",
+     "detail": "Each copy moves onto the asset through its own customer's change control, after a side-by-side run on the same inputs. Until the last one moves you maintain both, so the dates go on the sheet."
+    },
+    {
+     "do": "Agree the handoff with its long-term owner, early",
+     "detail": "Who owns it after your practice: the product team or the platform team. Agree what {{S4-handoff}} means before you build: deployments running it unchanged, a README a stranger has followed, an on-call on their side."
+    }
+   ],
+   "internal": "Inside your company the asset usually ends up the platform team's, and the risk is that it never leaves yours. Agree the handoff criteria with the platform's owner before you build it, and put the date in both teams' plans. A business unit that must ask you for every change will build its own copy instead.",
+   "say": [
+    {
+     "to": "The next team, before they start",
+     "words": "Use the connector as it is for a week before you change anything. If it cannot do what you need, tell me: the fix goes into the connector, not into your copy."
+    },
+    {
+     "to": "A customer whose own copy is to be retired",
+     "words": "Your lookup moves onto the shared connector in your next change window. We run both side by side on the same cases for a week first, and from then on you get every fix the other deployments find."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Coding agent, from the pattern entry",
+     "use": "Give it the interface, the tests and each copy's recorded behaviour as cases, and have it write the asset until they pass. Then have it draft the README for an engineer who has never met you.",
+     "caution": "Give it behaviour, not code. Handed three customers' copies, it will rebuild the cleanest one line by line, and that copy may belong to its customer."
+    },
+    {
+     "tool": "Coding agent, at the next deployment",
+     "use": "Run the asset and the bespoke copy it replaces on the same recorded inputs, and list every case where their answers differ, before the copy is retired.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "What the asset does not cover, and the date each copy retires. The first is a promise to the next team and the second a promise to each customer; both are yours to keep.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Asset proof sheet",
+    "short": "Asset proof sheet",
+    "good": "One page per asset and version: its owner and long-term owner, where it runs and who wired it, the days to first value against the bespoke copy, defects found and fixed in the asset, what it does not cover, what the measurement does not prove, and a retirement date for each copy.",
+    "owner": "Forward-deployed engineer, until its long-term owner accepts it"
+   },
+   "template": {
+    "title": "Asset proof sheet",
+    "lang": "markdown",
+    "body": "# Asset proof sheet · <asset> · v<n> · <date>\n_Owner <FDE> · Long-term owner <team> · Handed over when <criteria>_\n\n## 1. What it is\n<MCP server | skill | evaluation template> · interface <link> · configured by <file>\n\n## 2. Where it runs\n| Deployment | Version | Wired by | Days to first value | The bespoke copy took | Defects, each fixed in the asset |\n|------------|---------|----------|---------------------|-----------------------|----------------------------------|\n| <deployment> | <v1> | <who, not you> | <n> | <n> | <n> |\n\n## 3. What it does not cover\n<...>\n\n## 4. What the measurement does not prove\n<who wired it, what they knew already, what the first copy's days included>\n\n## 5. What it costs to keep\n<hours a month for the asset> against <hours a month the copies took>\n\n## 6. The bespoke copies\n| Copy | Customer | Side-by-side run | Moves on | Retired |\n|------|----------|------------------|----------|---------|\n\n## 7. Ready for handoff\n| Criterion | Met? | Evidence |\n|-----------|------|----------|\n| <n> deployments running it unchanged for <period> | | |\n| The README followed by someone who never met the author | | |\n| An on-call on the long-term owner's side | | |\n"
+   },
+   "prompts": [
+    {
+     "title": "Diff three customer copies and propose the shared interface",
+     "when": "Before you write the asset",
+     "body": "Below is the BEHAVIOUR of three implementations of <capability>, from three\ncustomers, as recorded inputs and outputs, with how each is configured: <paste>.\n\nPropose one interface that would serve all three.\n\n1. The operations, with their parameters and return types.\n2. For each difference between the copies: a setting, an extension point, or a real\n   difference that stays outside the asset. Say which, and why.\n3. The tests: one per behaviour the three agree on, and one per difference.\n4. What the interface deliberately does not do.\n\nRULES:\n- Work from the behaviour. Do not reproduce any customer's code.\n- Prefer fewer operations. Each one you add is one the next team must learn.\n- If one copy does something the others would break on, flag it. Do not average it."
+    },
+    {
+     "title": "Write the asset's README for an engineer who has never met you",
+     "when": "Before the next deployment, then tested by someone who has not seen it",
+     "body": "Write the README for <asset>, for an engineer at a new deployment who has never met\nme and cannot ask me anything. From: the interface <paste>, the configuration <paste>,\nthe tests <paste>, the known limits <paste>.\n\nSections, in this order:\n1. What it does not do. Lead with this.\n2. What it does, in three sentences.\n3. Wiring it in an afternoon: each step, the exact commands, the sandbox.\n4. Configuration: every setting, its default, and when to change it.\n5. When it fails: each error, what it means, what to do.\n6. How to ask for a change: the asset changes, never a copy.\n\nRULES:\n- Every command must run. Mark any you could not check as UNCHECKED.\n- No customer's name or data in an example. Use the sandbox's."
+    }
+   ],
+   "example": {
+    "title": "SkyWays · two days against nine",
+    "body": "The connector reached version 1 with tests, a README and a sandbox partner, written fresh from the pattern because each airline owned its own copy. At the cargo deployment the cargo team's engineer wired it, with you on call and off the keyboard: two days, against nine for the first copy. What carried over was the slow part: each partner's authentication, rate limits, error codes and outages. The first day found a gap: a claim needs the carrier that flew a leg already flown, and rebooking only ever looked ahead. You added that read to the connector in half a day, with a test, instead of writing a cargo copy. SkyWays' own lookup moved onto the connector in Lena's next change window, after a week side by side, and the two older copies got dates in their own customers' change control. The sheet said what two days does not prove: the cargo engineer had sat beside the shadow and already knew the partners."
+   },
+   "pitfalls": [
+    "Wiring it yourself at the next deployment and calling the speed a saving. You measured that you remember how; the next team still cannot.",
+    "Patching the new customer's copy because the asset's release is a day away. That copy is now the fifth, and the asset is behind its own users.",
+    "Building the asset and never retiring the copies. You now keep four things alive where there were three, and the saving is spent on the old ones."
+   ],
+   "done_when": "Someone who is not you has wired it at a real deployment, the days are measured against the bespoke copy, every gap it showed is fixed in the asset, and each old copy has a retirement date its customer agreed.",
+   "pdlc": "P2"
+  },
+  {
+   "n": 12,
+   "id": "review",
+   "phase": "Review",
+   "stage": "evolve",
+   "level": null,
+   "hats": [
+    "consultant",
+    "product"
+   ],
+   "question": "Is the relationship healthy, and what did we learn?",
+   "title": "Hold the value review, and keep the relationship honest",
+   "when": "Evolve, every quarter while the system runs, and once more at the close",
+   "purpose": "Relationships end badly in two ways: the sponsor stops believing your numbers, or nobody notices the system has stopped earning its cost. A quarterly review prevents both, if you hold it before anyone asks, put the saving and the spend on one line, and ask what a vendor rarely asks: what would you stop? Bad news you bring early costs little; the same news found by them costs the relationship. OpenAI asks its Deployment Leads to {{S2-measurement}}; Databricks asks its strategists to use their {{S15-advisor}}.",
+   "activities": [
+    {
+     "do": "Put the saving and the spend on one line",
+     "detail": "The two numbers as the [product manager's step 8](../../product-manager/#learn) builds them, against the baseline taken before the pilot, with review hours and re-runs beside them. The sponsor should never hear a number about this system first from anyone but you."
+    },
+    {
+     "do": "Show drift, incidents and the controls they produced",
+     "detail": "The output mix against both its thresholds, every model or prompt change with the harness run that cleared it, and each incident with the control it produced and where that control lives now. A quarter with no incident says so, and lists its near misses."
+    },
+    {
+     "do": "Ask their sponsor what they would stop",
+     "detail": "A report nobody reads, a meeting that outlived its reason, a slice that costs more than it saves. Stopping something is the cheapest value a review can find, and asking is how a sponsor learns you are not only selling."
+    },
+    {
+     "do": "Check who champions it, and who runs it, now",
+     "detail": "Write down who backed it at the start and who does today. Champions move on, and a system loses its defender before it loses its users, so keep three people on their side who have seen the evidence, never one. Do the same for the operator: a successor who has not thrown every switch is a handover not yet done."
+    },
+    {
+     "do": "Propose the next frame only from the next-frame brief",
+     "detail": "Step 9's brief, ranked, or nothing. A proposal without a measured pain is a sales call."
+    },
+    {
+     "do": "Hold your own retrospective, apart from the review",
+     "detail": "With your team, not theirs, while it is fresh: what went wrong, written as a change to your practice's playbook, such as a template line, a check or a default. A retrospective that changes nothing was a meeting."
+    },
+    {
+     "do": "Close cleanly when the work is done",
+     "detail": "Every access of yours removed and confirmed, the evidence archived where their operator will look, open risks handed to a named owner, and a reference asked for. A clean close is a good ending, not a lost account."
+    }
+   ],
+   "internal": "Inside your company the review is where a project quietly becomes permanent, or quietly loses its sponsor. Hold it anyway, with the business unit's head and with finance in the room. Your next budget will be set from these numbers, so they should come from you first.",
+   "say": [
+    {
+     "to": "A quarter where it cost more than it saved",
+     "words": "This quarter it cost more than it saved. Here is why, and what changes before the next one. If that does not turn it round, my recommendation will be to switch it off."
+    },
+    {
+     "to": "The question a vendor rarely asks",
+     "words": "What would you stop? If something we built or report is not worth its cost to you, I would rather hear it here than at renewal."
+    },
+    {
+     "to": "A sponsor who wants the next one sooner",
+     "words": "We can frame it next. I will bring the measured pain, who would run it and what it reuses, and you decide on that, not on how well this one went."
+    }
+   ],
+   "ai": [
+    {
+     "tool": "Chat model, as their finance controller",
+     "use": "Paste the draft and ask for the five questions their finance controller will ask, and the weakest claim, with the evidence that would hold it.",
+     "caution": "Paste only what their policy lets you paste. Their finance figures do not go into a tool nobody approved."
+    },
+    {
+     "tool": "Coding agent, over the ledger and the bill",
+     "use": "Rebuild the quarter's two numbers from the raw ledger and the bill, so every figure in the review has a query and a date range beside it.",
+     "caution": null
+    },
+    {
+     "tool": "Do not delegate",
+     "use": "The stop question, the champion check and whether to propose a next frame. Each is a judgement about people and trust, and the sponsor is reading you, not the slide.",
+     "caution": null
+    }
+   ],
+   "artifact": {
+    "name": "Quarterly value review",
+    "short": "Quarterly value review",
+    "good": "Two pages, sent before anyone asks: the two numbers on one line with their baseline, drift, incidents and their controls, adoption, what the sponsor would stop, the champion and the operator then and now, the next frame or a clean close, and actions with owners.",
+    "owner": "Forward-deployed engineer, with their sponsor and their operator"
+   },
+   "template": {
+    "title": "Quarterly value review",
+    "lang": "markdown",
+    "body": "# Value review · <customer> · <system> · Q<n> <year>\n_Held <date> · With <their sponsor>, <their operator>, <their finance lead> · Drafted by <FDE>_\n\n## 1. The two numbers, on one line\n| | Baseline, <date>, before the pilot | This quarter | Change |\n|---|---|---|---|\n| <person-days per case> | <n> | <n> | <n>% |\n| Token spend | none | $<n> | |\n| Review hours | <n> | <n> | |\n| Re-runs | none | <n> | |\n**Net:** saved <n> person-days, spent $<n> and <n> review hours · **Next quarter:** <trajectory, and why>\n\n## 2. Drift, changes and incidents\n| What | When | Cleared by, or the control it produced | Where it lives |\n|------|------|----------------------------------------|----------------|\n| <drift, against both thresholds> | | | |\n| <a model or prompt change> | | <the harness run> | |\n| <an incident or near miss> | | <the enforced control> | |\n\n## 3. Adoption\n<who uses it, overrides by team or shift, the change since last quarter>\n\n## 4. What would you stop?\n<their answer, in their words> · stopped by <name> on <date>\n\n## 5. People\n| | At the start | Now | If changed: what we will show them |\n|---|---|---|---|\n| Champion | | | |\n| Operator | | | |\n| Sponsor | | | |\n\n## 6. Next\n[ ] The next frame: <the ranked next-frame brief, with its evidence>\n[ ] Keep running as it is\n[ ] A clean close: access removed <date> · archive <where> · open risks to <name> · a reference\n\n## 7. Actions\n| Action | Owner | By |\n|--------|-------|----|\n\n_Signed by <their sponsor> · <date>_\n"
+   },
+   "prompts": [
+    {
+     "title": "Draft the quarter's review, the saving beside the spend",
+     "when": "A week before the review, from the ledger and the bill",
+     "body": "Draft a quarterly value review for <system> at <customer> from: the ledger <paste>,\nthe model bill <paste>, the drift readout <paste>, the incident briefs <paste>, and the\nbaseline taken before the pilot <paste, with its date and method>.\n\nIn this order:\n1. The two numbers on one line: the saving against the baseline and the spend, with\n   review hours and re-runs beside them. The net, and next quarter's trajectory.\n2. Drift against both thresholds: week on week, and against the frozen baseline.\n3. Each model or prompt change, with the harness run that cleared it; each incident,\n   with the control it produced and where that control lives.\n4. Adoption: use and overrides, by team or shift.\n5. Three questions for the sponsor, the first of them: what would you stop?\n\nRULES:\n- Never show the saving without the spend, or the spend without the saving.\n- Every number carries its source and its date range.\n- If the baseline was taken after the pilot began, say so in the first line.\n- Do not recommend a next frame. That comes from the next-frame brief."
+    },
+    {
+     "title": "Find the weakest claim in this review",
+     "when": "The day before you send it",
+     "body": "Below is the value review I will present to <customer>'s sponsor and finance lead.\n\nRead it as their finance controller, who will check every number against their own\nledger. List, most damaging first:\n| The claim | Why it would not survive the check | The evidence that would hold it | Or the honest wording |\n\nThen name:\n- the number they are most likely to have from another source;\n- any saving that counts work their own staff still do;\n- any place the review reads as a sales pitch.\n\nDo not soften a finding. Do not rewrite the review.\n\nREVIEW:\n<paste>"
+    }
+   ],
+   "example": {
+    "title": "SkyWays · day 90's line, kept each quarter",
+    "body": "Day 90's slide was the first value review: 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, with review hours up and the reason they would fall. The programme continued because both numbers came from the team. Day 180's review kept the line: 44 percent fewer person-days, $5,100 of tokens for the quarter, and review time down from 96 hours to 26, under the 30 that day 90 had promised. Then came what Evolve adds. The champion check found the gap: the contact-centre head, who had backed the assistant since the shadow, had moved on, the new head had never seen the evidence, and overrides on the evening shift had doubled. You walked the new head through the fourteen disagreements and the evening rule, and overrides fell back within a fortnight. Asked what she would stop, Ines named the daily disagreement meeting, which had found nothing new in a month. She signed a clean close of the rebooking engagement, and the relationship went on in the cargo frame."
+   },
+   "pitfalls": [
+    "Holding the review only when renewal is near. The sponsor reads it as a sales call, and believes the numbers less for it.",
+    "Missing that the champion has gone. The system runs, the review is on time, and nobody on their side will argue for it when the budget is cut.",
+    "Dragging the engagement on because closing feels like losing the account. They are paying for an FDE the system no longer needs, and they know it."
+   ],
+   "done_when": "Their sponsor has heard the saving and the spend from you before anyone asked, has said what they would stop, and has signed the next frame or a clean close.",
+   "pdlc": "P3"
+  }
+ ],
+ "pdlc_absent": {}
+}
