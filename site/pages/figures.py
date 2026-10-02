@@ -28,12 +28,13 @@ ROSE = "color-mix(in oklab,var(--dg-rose) 82%,var(--ink))"
 
 
 def _svg(wide: tuple[int, str], narrow: tuple[int, str], label: str, caption: str,
-         notes: list[tuple[str, bool]] | None = None) -> str:
+         notes: list[tuple[str, bool]] | None = None, small: bool = False) -> str:
     """The frame. ``wide`` and ``narrow`` are (height, markup); ``notes`` are the sentences under
-    the drawing, each (text, whether it is the warning)."""
+    the drawing, each (text, whether it is the warning). A ``small`` figure, a few bars and no notes,
+    is marked ``sm`` so a lesson can hold it to the text's width rather than the picture column's."""
     (h, inner), (nh, ninner) = wide, narrow
     ns = "".join(f'<p class="fn{" hot" if hot else ""}">{E(t)}</p>' for t, hot in (notes or []))
-    return (f'<figure class="fig"><svg class="w" viewBox="0 0 {W} {h}" role="img" aria-label="{E(label)}">{inner}</svg>'
+    return (f'<figure class="fig{" sm" if small else ""}"><svg class="w" viewBox="0 0 {W} {h}" role="img" aria-label="{E(label)}">{inner}</svg>'
             f'<svg class="n" viewBox="0 0 {NW} {nh}" role="img" aria-label="{E(label)}">{ninner}</svg>'
             f"{ns}<figcaption>{E(caption)}</figcaption></figure>")
 
@@ -319,8 +320,200 @@ def two_numbers() -> str:
                        ("The programme is cancelled on the number you hid, never the one you showed.", True)])
 
 
+def drift_slide() -> str:
+    # The drift lesson's Step 3, as its text gives it: eight weekly readings of the refund share, a weekly
+    # alarm on a five-point move and a level alarm more than six points from the frozen week-one baseline.
+    share = [61, 59, 57, 55, 53, 51, 50, 48]
+    base, gap, weekly = share[0], 6, 5
+    fired = next(i for i, v in enumerate(share) if base - v > gap)     # week 5: the first week over six
+    ind, amb = "var(--dg-indigo)", "var(--dg-amber)"
+
+    def draw(x0, step, unit, top, right, fs, named, low=47):
+        """The level, with its baseline and its alarm. ``named`` maps a week to where its reading is written:
+        True, up and to the right of its point, where the falling line is not; False, down and to its left."""
+        x = lambda i: x0 + i * step                                    # noqa: E731
+        y = lambda v: top + (base - v) * unit                          # noqa: E731
+        left, floor = x0 - 18, y(low)
+        o = [f'<rect x="{left}" y="{y(base - gap)}" width="{right - left}" height="{floor - y(base - gap)}" '
+             f'fill="var(--dg-rose)" fill-opacity=".09"/>',
+             f'<line x1="{left}" y1="{y(base)}" x2="{right}" y2="{y(base)}" stroke="currentColor" opacity=".5" stroke-dasharray="4 4"/>',
+             f'<line x1="{left}" y1="{y(base - gap)}" x2="{right}" y2="{y(base - gap)}" stroke="var(--dg-rose)" stroke-width="1.6"/>']
+        pts = " ".join(f"{x(i):.0f},{y(v):.0f}" for i, v in enumerate(share))
+        o.append(f'<polyline points="{pts}" fill="none" stroke="{ind}" stroke-width="2.2"/>')
+        for i, v in enumerate(share):
+            o.append(f'<circle cx="{x(i):.0f}" cy="{y(v):.0f}" r="3.6" fill="{ind}"/>')
+            if i in named:
+                s = f"{v}%" if i in (0, len(share) - 1) else str(v)
+                o.append(_t(x(i) + 7, y(v) - 7, s, fs, op=.85) if named[i] else _t(x(i) - 8, y(v) + 13, s, fs, a="end", op=.85))
+        o.append(f'<circle cx="{x(fired):.0f}" cy="{y(share[fired]):.0f}" r="9" fill="none" stroke="var(--dg-rose)" stroke-width="1.8"/>')
+        return x, y, left, floor, o
+
+    def weeks(o, x, floor, fs, lead):
+        """A tick for every week under the level; written, only the weeks the lesson names: the baseline, the
+        last quiet week, the week the alarm fires and the last. The first is written out, or a word leads them."""
+        for i in range(len(share)):
+            o.append(f'<line x1="{x(i):.0f}" y1="{floor}" x2="{x(i):.0f}" y2="{floor + 5}" stroke="currentColor" opacity=".45"/>')
+            if i in (0, fired - 1, fired, len(share) - 1):
+                o.append(_t(x(i), floor + 20, str(i + 1) if lead or i else "week 1", fs, a="middle", op=.8))
+        if lead:
+            o.append(_t(x(0) - 12, floor + 20, "week", fs, a="end", op=.8))
+
+    def change(o, x, z, unit, left, right):
+        """Under the level, on its scale: each week's fall as a bar, and the weekly alarm's line."""
+        o.append(f'<line x1="{left}" y1="{z}" x2="{right}" y2="{z}" stroke="currentColor" opacity=".3"/>')
+        for i in range(1, len(share)):
+            d = share[i - 1] - share[i]
+            o.append(f'<rect x="{x(i) - 9:.0f}" y="{z}" width="18" height="{d * unit:.0f}" rx="2" fill="{ind}" fill-opacity=".55"/>')
+        o.append(f'<line x1="{left}" y1="{z + weekly * unit}" x2="{right}" y2="{z + weekly * unit}" stroke="{amb}" '
+                 f'stroke-width="1.6" stroke-dasharray="5 4"/>')
+        return z + weekly * unit
+
+    # wide: every reading beside its point, each line named on itself
+    u = 11
+    x, y, left, floor, out = draw(66, 64, u, 46, 552, F, {i: True for i in range(8) if i != fired})
+    out.append(_t(left, 18, "refund share, week by week", op=.8))
+    out.append(_t(552, y(base) - 8, "frozen baseline: week 1", a="end", op=.8))
+    out.append(_t(552, y(base - gap) - 8, "baseline alarm: more than 6 points below", a="end", w=600, fill=ROSE))
+    out.append(_t(x(fired) - 14, y(share[fired]) + 26, "fires in week 5, at 53%", a="end", w=600, fill=ROSE))
+    weeks(out, x, floor, F, False)
+    z = floor + 54
+    out.append(_t(left, z - 10, "each bar: that week's fall, never more than 2 points", op=.8))
+    h = change(out, x, z, u, left, 552)
+    out.append(_t(552, h - 8, "weekly alarm: a 5-point fall in a week, never reached", a="end", w=600, fill=amb))
+    # narrow: written, only the first reading, the last quiet one and the last, with the alarm's in its call-out;
+    # the lines named in a key under the drawing
+    nu = 9
+    nx, ny, nleft, nfloor, n = draw(58, 27, nu, 40, 254, NF, {0: True, 3: True, 7: False}, low=46)
+    # how far under the baseline the alarm sits, as a bracket on the left where the line has already passed
+    n.append(f'<path d="M{nleft + 2} {ny(base) + 2} h4 V{ny(base - gap) - 2} h-4" fill="none" stroke="var(--dg-rose)" stroke-width="1.4"/>')
+    n.append(_t(nleft + 12, ny(base - gap) - 7, "6 points", NF, w=600, fill=ROSE))
+    n.append(_t(nleft, 16, "refund share, week by week", NF, op=.8))
+    n.append(_t(nx(fired) - 13, ny(share[fired]) + 24, "fires at 53%", NF, a="end", w=600, fill=ROSE))
+    weeks(n, nx, nfloor, NF, True)
+    nz = nfloor + 54
+    n.append(_t(nleft, nz - 10, "each bar: that week's fall", NF, op=.8))
+    nh = change(n, nx, nz, nu, nleft, 254)
+    key = [("frozen baseline: week 1", "currentColor", "4 4"), ("baseline alarm: over 6 points down", "var(--dg-rose)", ""),
+           ("weekly alarm: a 5-point fall", amb, "5 4")]
+    for k, (name, colour, dash) in enumerate(key):
+        ky = nh + 28 + k * 22
+        n.append(f'<line x1="4" y1="{ky - 4}" x2="26" y2="{ky - 4}" stroke="{colour}" stroke-width="1.6"'
+                 + (f' stroke-dasharray="{dash}"' if dash else "") + (' opacity=".5"' if k == 0 else "") + "/>")
+        n.append(_t(33, ky, name, NF, op=.85) if k == 0 else _t(33, ky, name, NF, w=600, fill=ROSE if k == 1 else amb))
+    return _svg((h + 10, "".join(out)), (nh + 28 + 2 * 22 + 8, "".join(n)),
+                "The refund share sliding from 61% to 48% over eight weeks, two points or less a week: the weekly "
+                "alarm never fires, and the alarm on the baseline fires in week 5",
+                "Refunds fell thirteen points in eight weeks, about two a week: the weekly alarm never fired, and "
+                "the baseline alarm went off in week 5.")
+
+
+def postmortem_layers() -> str:
+    # The postmortem lesson's Step 2 table, in its order: five layers claimed, each with its reality. The
+    # refund passes all five; the two that would have stopped it are ringed; the alert comes after the money.
+    layers = [(("input marked", "as data"), ("absent",)), (("the prompt's", "policy"), ("only a request",)),
+              (("a $400 cap",), ("absent from", "the code")), (("a named", "approver"), ("absent from", "the code")),
+              (("an alert on", "the trace"), ("absent; it reports", "afterwards"))]
+    stops = {2, 3}
+    slate = "var(--dg-slate)"
+
+    def panel(x, y, w, h):
+        return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="3" fill="{slate}" fill-opacity=".14" '
+                f'stroke="{slate}" stroke-dasharray="4 3"/>')
+
+    # wide: left to right, the names over the panels and what each really was under them
+    px, py, ph, mx = [134, 220, 304, 386, 500], 84, 112, 443
+    mid = py + ph / 2
+    out = [_t(px[0] - 40, 16, "the five layers the design claimed", op=.8),
+           _t(52, mid - 24, "day 82", a="middle", w=700),
+           f'<rect x="6" y="{mid - 16:.0f}" width="92" height="32" rx="6" fill="var(--dg-rose)" fill-opacity=".14" stroke="var(--dg-rose)"/>',
+           _t(52, mid + 4.5, "$2,000 refund", a="middle", w=600, fill=ROSE),
+           f'<line x1="98" y1="{mid:.0f}" x2="{mx}" y2="{mid:.0f}" stroke="currentColor" stroke-width="2.2"/>',
+           f'<line x1="{mx}" y1="{mid:.0f}" x2="{px[4] - 8}" y2="{mid:.0f}" stroke="currentColor" stroke-width="1.6" '
+           f'stroke-dasharray="3 4" opacity=".7"/>']
+    for i, (x, (name, real)) in enumerate(zip(px, layers)):
+        out.append(panel(x - 6, py, 12, ph))
+        for k, line in enumerate(name):
+            out.append(_t(x, py - 12 - 15 * (len(name) - 1 - k), line, a="middle"))
+        for k, line in enumerate(real):
+            out.append(_t(x, py + ph + 20 + 15 * k, line, a="middle", op=.8))
+        if i in stops:
+            out.append(f'<rect x="{x - 17}" y="{py - 7}" width="34" height="{ph + 14}" rx="9" fill="none" '
+                       f'stroke="var(--dg-rose)" stroke-width="1.8"/>')
+    out.append(f'<circle cx="{mx}" cy="{mid:.0f}" r="6" fill="var(--dg-rose)"/>')
+    out.append(_t(mx, mid - 14, "$2,000", a="middle", w=700, fill=ROSE))
+    out.append(_t(mx, mid + 26, "paid out", a="middle", op=.85))
+    by = py + ph + 46
+    out.append(f'<path d="M{px[2]} {by - 5} v5 H{px[3]} v-5" fill="none" stroke="var(--dg-rose)" stroke-width="1.4"/>')
+    out.append(_t((px[2] + px[3]) / 2, by + 18, "either would have stopped it", a="middle", w=600, fill=ROSE))
+    wide = (by + 28, "".join(out))
+
+    # narrow: top to bottom, each panel across the line with its name and its reality beside it
+    lx, top, pitch = 26, 54, 46
+    n = [f'<circle cx="{lx}" cy="18" r="5" fill="var(--dg-rose)"/>', _t(42, 23, "day 82: a $2,000 refund", NF, w=700, fill=ROSE)]
+    ys = [top + i * pitch for i in range(4)]
+    my = ys[-1] + 66
+    ys.append(my + 48)
+    n.append(f'<line x1="{lx}" y1="22" x2="{lx}" y2="{my}" stroke="currentColor" stroke-width="2.2"/>')
+    n.append(f'<line x1="{lx}" y1="{my}" x2="{lx}" y2="{ys[4] - 6}" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 4" opacity=".7"/>')
+    for i, (y, (name, real)) in enumerate(zip(ys, layers)):
+        n.append(panel(lx - 16, y - 5, 32, 10))
+        n.append(_t(54, y + 1, " ".join(name), NF))
+        n.append(_t(54, y + 18, " ".join(real), NF, op=.8))
+        if i in stops:
+            n.append(f'<rect x="{lx - 22}" y="{y - 11}" width="44" height="22" rx="7" fill="none" stroke="var(--dg-rose)" stroke-width="1.8"/>')
+    n.append(_t(54, ys[3] + 42, "either would have stopped it", NF, w=600, fill=ROSE))
+    n.append(f'<circle cx="{lx}" cy="{my}" r="6" fill="var(--dg-rose)"/>')
+    n.append(_t(54, my + 5, "$2,000 paid out", NF, w=700, fill=ROSE))
+    return _svg(wide, (ys[4] + 26, "".join(n)),
+                "A $2,000 refund on day 82 passing through five claimed defences, none enforced: the $400 cap and "
+                "the named approver, ringed, would each have stopped it, and the alert comes after the money",
+                "On day 82 a $2,000 refund passed five claimed defences; either of two, in the tool's signature, "
+                "would have made it impossible.")
+
+
+def rollback_times() -> str:
+    # Shadow mode's Step 6: the four switches SkyWays timed in its rehearsal, on one axis of seconds, so the
+    # gap between the first and the last is a length, not a sentence. A tick marks each minute.
+    ways = [("kill switch", 40, "40 seconds", "var(--dg-green)"), ("flag to shadow", 120, "2 minutes", "var(--dg-slate)"),
+            ("prompt rollback", 180, "3 minutes", "var(--dg-slate)"), ("model rollback", 660, "11 minutes", "var(--dg-rose)")]
+    end = ways[-1][1]
+
+    def axis(x0, span, y):
+        return (f'<line x1="{x0}" y1="{y}" x2="{x0 + span}" y2="{y}" stroke="currentColor" opacity=".45"/>'
+                + "".join(f'<line x1="{x0 + m * 60 / end * span:.1f}" y1="{y}" x2="{x0 + m * 60 / end * span:.1f}" y2="{y + 6}" '
+                          f'stroke="currentColor" opacity=".45"/>' for m in range(end // 60 + 1)))
+
+    # wide: the names in a column, the bars from one zero
+    x0, span, out = 140, 408, []
+    out.append(axis(x0, span, 138))
+    for i, (name, secs, said, colour) in enumerate(ways):
+        y, w = 12 + i * 32, secs / end * span
+        out.append(_t(x0 - 12, y + 15, name, a="end"))
+        out.append(f'<rect x="{x0}" y="{y}" width="{w:.1f}" height="21" rx="3" fill="{colour}" opacity=".95"/>')
+        if w > 300:
+            out.append(_t(x0 + 10, y + 15, "redeploys the runtime", fill="var(--dg-on)"))
+            out.append(_t(x0 + w - 8, y + 15, said, a="end", w=700, fill="var(--dg-on)"))
+        else:
+            out.append(_t(x0 + w + 8, y + 15, said, w=700, fill=colour))
+    out.append(_t(x0 + span, 160, "a tick each minute", a="end", op=.8))
+    # narrow: the name and its time on one line, the bar under them
+    n = [axis(8, 244, 190)]
+    for i, (name, secs, said, colour) in enumerate(ways):
+        y, w = 6 + i * 46, secs / end * 244
+        n.append(_t(8, y + 13, name, NF))
+        n.append(_t(252, y + 13, said, NF, a="end", w=700, fill=colour))
+        n.append(f'<rect x="8" y="{y + 20}" width="{w:.1f}" height="18" rx="3" fill="{colour}" opacity=".95"/>')
+    n.append(_t(252, 214, "a tick each minute", NF, a="end", op=.8))
+    return _svg((168, "".join(out)), (222, "".join(n)),
+                "Four ways back on one time axis: the kill switch in 40 seconds, flag to shadow in 2 minutes, a prompt "
+                "rollback in 3 and a model rollback in 11, because it redeploys the runtime",
+                "The kill switch takes 40 seconds; a model rollback takes 11 minutes, because it redeploys the runtime.",
+                small=True)
+
+
 FIGURES = {
     "bar_sheet": bar_sheet, "chain": chain, "cache_prefix": cache_prefix, "bolt_days": bolt_days,
     "shadow_widen": shadow_widen, "bill_factors": bill_factors,
     "authority_ladder": authority_ladder, "two_numbers": two_numbers,
+    "drift_slide": drift_slide, "postmortem_layers": postmortem_layers, "rollback_times": rollback_times,
 }

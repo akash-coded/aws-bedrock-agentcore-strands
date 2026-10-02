@@ -6,7 +6,7 @@ description: An AI incident postmortem asks which enforced control would have ma
 dek: Five layers of defence were claimed. None was enforced. The hour that followed produced a typed cap, a confirmation token, a lower autonomy level and six new test cases.
 level: Intermediate
 keywords: AI incident postmortem, blameless postmortem AI, AI incident response, root cause analysis AI agent, LLM incident, AI failure analysis, corrective action AI
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -66,6 +66,8 @@ none enforced, the cap and the approver written only in the prompt. The last col
 matters: with either of the two enforced in the tool's signature, the refund is impossible; injection
 defence and traces change the odds and the visibility, not the outcome. Every "enforced" must have a
 file, a line that raises, and a test beside it.
+
+{{figure:postmortem_layers}}
 
 ### Step 3 · Choose the fix that closes the path
 

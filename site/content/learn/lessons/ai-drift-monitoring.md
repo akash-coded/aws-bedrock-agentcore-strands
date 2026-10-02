@@ -6,7 +6,7 @@ description: AI drift is behaviour changing with no deploy and no error. Why acc
 dek: No code changed, nothing threw, no alert fired, and three months later a customer noticed the assistant offers credits where it used to offer refunds.
 level: Intermediate
 keywords: AI model drift, LLM drift detection, AI monitoring in production, model performance degradation, output distribution monitoring, concept drift, AI observability, silent model failure
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -55,10 +55,16 @@ needs labels and arrives weeks late, while the mix is visible the same day.
 ### Step 3 · Set two thresholds, not one
 
 A weekly threshold catches a jump; a baseline threshold catches a slide. At SkyWays the
-refund-to-credit mix went from **61/39** in week one to **48/52** in week eight, thirteen points, and a
-5% week-on-week alert never fired, because the slide averaged **1.9 points a week**. A second threshold,
-on the level against a frozen baseline, catches exactly that. A slide of two points a week never trips a
-weekly rule and still moves you thirty points in a quarter.
+refund-to-credit mix went from **61/39** in week 1 to **48/52** in week 8, thirteen points: week by week
+the refund share read 61, 59, 57, 55, 53, 51, 50 and 48%. No week moved more than 2 points, so a 5%
+week-on-week alert never fired; the slide averaged **1.9 points a week**.
+
+A second threshold, on the level against a frozen baseline, catches exactly that. Set it to fire when
+the share moves more than 6 points from week 1's 61%, either way: it stays quiet in week 4, at 55%,
+exactly 6 points down, and fires in week 5, at 53%. A slide of two points a week never trips a weekly
+rule and still moves you thirty points in a quarter.
+
+{{figure:drift_slide}}
 
 ### Step 4 · Wire a breach to the release gate
 
@@ -82,7 +88,7 @@ catches the drift that does not change the mix.
 
 Drift is the defect with no error message, so it is found by whoever is looking, and if nobody is,
 by a customer, months later. Watching the mix against two thresholds turns a slow, silent slide into
-an alert in the second week instead of a complaint in the third month.
+an alert in week 5 instead of a complaint in the third month.
 
 ## Try it
 

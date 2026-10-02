@@ -6,7 +6,7 @@ description: How to launch an AI agent safely: run it in shadow beside the peopl
 dek: The golden set proves the agent is right about the cases you chose. A shadow run proves it agrees with today's traffic, including the rule nobody wrote down.
 level: Intermediate
 keywords: shadow mode AI, canary release AI agent, how to launch an AI agent, AI rollout strategy, feature flags for AI, AI deployment best practices, gradual rollout LLM, dark launch
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -67,9 +67,12 @@ was *unproven*; and refunds should never have been inside the automatic figure a
 ### Step 4 · Cut over at 5%, per action, and widen on evidence
 
 Start the lowest-risk action at 5% and leave the rest in shadow. Each widening names the evidence that
-earned it, never a date. The length of each step is arithmetic: **days = cases needed ÷ (share ×
-cases per day)**, so 500 cases at 5% of 240 a day is 42 days. The safe share is the slow one, which is
-why a cut-over widens rather than holding.
+earned it, never a date; at SkyWays the four states were shadow, 5%, 25% and 100%. The length of each
+step is arithmetic: **days = cases needed ÷ (share × cases per day)**. At 240 cases a day, 5% is 12
+cases a day and 25% is 60, so 500 cases at 5% is 42 days. The safe share is the slow one, which is why
+a cut-over widens rather than holding.
+
+{{figure:shadow_widen}}
 
 ### Step 5 · Widen across conditions, not just volume
 
@@ -83,6 +86,8 @@ Before cut-over, have someone other than the author throw every switch and write
 SkyWays measured four: the **kill switch** in 40 seconds, **flag to shadow** in 2 minutes, a **prompt
 rollback** in 3, and a **model rollback** in 11, because it redeploys the runtime. A rollback nobody has
 rehearsed is a belief, not a capability.
+
+{{figure:rollback_times}}
 
 ## Where you'll use it
 

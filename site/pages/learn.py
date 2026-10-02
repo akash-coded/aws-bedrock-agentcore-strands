@@ -253,6 +253,12 @@ def _visuals() -> dict[str, dict]:
                                     "read-only to not delegated, and the band belongs to the tool", "solution-architect/"),
         "figure:two_numbers": (figures.two_numbers, "The two numbers a sponsor reports together: the saving and "
                                "the spend", "protocol/"),
+        "figure:drift_slide": (figures.drift_slide, "One slide, two alarms: the weekly alarm never fires, and the "
+                               "baseline alarm fires in week 5", "learn/ai-drift-monitoring/"),
+        "figure:postmortem_layers": (figures.postmortem_layers, "Five layers claimed, none enforced: the day 82 refund "
+                                     "passes all five, and the alert comes after the money", "learn/ai-incident-postmortem/"),
+        "figure:rollback_times": (figures.rollback_times, "Four ways back, timed: the kill switch in 40 seconds, a model "
+                                  "rollback in 11 minutes", "learn/shadow-mode-and-cutover/"),
         "frameworks:spine": (illos.spine, "The agentic PDLC in one picture: four phases, one hard gate, and "
                              "production feeding the next frame", "frameworks/"),
         "frameworks:pdlc_vs": (illos.pdlc_vs, "Traditional PDLC against the agentic PDLC: six stages decided once, "
