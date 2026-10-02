@@ -92,27 +92,13 @@ def stepper(steps: list[tuple[str, str]], label: str = "") -> str:
 # Every page opens with the same three answers (who it is for, what to use it for, how) and a
 # way to be shown round. The strip is short on purpose: it sits between the title and the content
 # and must never become the content.
-PIP = """<svg class="pip" viewBox="0 0 64 74" aria-hidden="true" focusable="false">
-<path class="pa" d="M32 15V7"/><circle class="pt" cx="32" cy="5.5" r="3.6"/>
-<rect class="ph" x="10" y="15" width="44" height="34" rx="15"/>
-<g class="pe"><circle cx="24" cy="31" r="3.4"/><circle cx="40" cy="31" r="3.4"/></g>
-<path class="pm" d="M25.5 39q6.5 4.6 13 0"/>
-<rect class="pb" x="19" y="52" width="26" height="15" rx="7"/>
-<path class="pc" d="M27 59.5h10"/></svg>"""
-
-
-def pip() -> str:
-    """The guide. A small round robot: a head that themes with the page, an antenna in the accent."""
-    return PIP
-
-
 def orient(audience: str, use: str, steps: list[str], tour: bool = True, extra: str = "", more: str = "") -> str:
     """Who the page is for, what to use it for and how, folded behind one quiet line. A page opens
     on its title and its content; this is for the reader who wants the instructions, not for everyone.
     ``more`` is anything else that explains the page rather than being it; it folds away with the rest."""
     st = "".join(f"<li><span>{s}</span></li>" for s in steps)
-    btn = (f'<button type="button" class="tourbtn" data-tour-start>{PIP}'
-           f"<span>Show me around</span></button>") if tour else ""
+    btn = ('<button type="button" class="tourbtn" data-tour-start>'
+           "<span>Show me around</span></button>") if tour else ""
     return (f'<details class="howto"><summary>Who this page is for, and how to use it</summary>'
             f'<section class="orient" aria-label="How to use this page">'
             f'<div class="oi"><span class="ok">For</span><p>{audience}</p></div>'

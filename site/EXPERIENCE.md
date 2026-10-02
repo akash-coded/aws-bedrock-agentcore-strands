@@ -115,7 +115,7 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
 | Figures | A drawn figure fades in part by part, in drawing order, the first time it is scrolled to. Nothing is hidden beforehand: a figure the observer never reaches is simply there. |
 | Page to page | Where the browser supports it, one page cross-fades into the next with the top bar held still, and a title on both pages (a lesson in its track list, a role in its home-page row) travels to its new place. |
 | Next up | Templates, prompts, mental models, frameworks and the picture pack each end on one sentence, one button and one quiet link. |
-| Walkthrough | Never offered by a popup, and nothing about it is stored. A small face sits bottom left on wide screens and names itself on hover; on a phone it is inside the folded how-to only. |
+| Walkthrough | Never offered by a popup, and nothing about it is stored. Two ways in, on every screen width: "Show me around this page" in the drawer, shown only on a page that has a walkthrough, and "Show me around" in the folded how-to. Nothing floats over the page for it. The card highlights one element at a time and carries a plain label, "The walkthrough", the step count, the step's title and text, and Back and Next; it has no face and no name. Esc, the arrow keys and the close button work. |
 | Reveal | A band rises 18px into place the first time it is scrolled to. Without script, or with reduced motion, it is simply there. |
 
 ## State patterns

@@ -4,7 +4,9 @@
 
      [data-menu]            the drawer: Esc closes it, so does a click on the scrim
      #tour-steps            a walkthrough the page declares as JSON — [{sel, title, body}] —
-                            narrated by Pip, the guide, one highlighted element at a time
+                            one highlighted element at a time, started by a [data-tour-start]
+                            button: "Show me around this page" in the drawer, "Show me around"
+                            in the page's folded how-to
      [data-dd]              the top bar's two short lists: one open at a time
 
    Nothing here reports anything, and nothing is stored. The search index is fetched from this
@@ -14,13 +16,6 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var PIP_FALLBACK = '<svg class="pip" viewBox="0 0 64 74" aria-hidden="true" focusable="false">' +
-    '<path class="pa" d="M32 15V7"/><circle class="pt" cx="32" cy="5.5" r="3.6"/>' +
-    '<rect class="ph" x="10" y="15" width="44" height="34" rx="15"/>' +
-    '<g class="pe"><circle cx="24" cy="31" r="3.4"/><circle cx="40" cy="31" r="3.4"/></g>' +
-    '<path class="pm" d="M25.5 39q6.5 4.6 13 0"/><rect class="pb" x="19" y="52" width="26" height="15" rx="7"/>' +
-    '<path class="pc" d="M27 59.5h10"/></svg>';
-  function pip() { var s = $(".pip"); return s ? s.outerHTML : PIP_FALLBACK; }
   function el(tag, cls, html) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -72,7 +67,7 @@
     ui.card.setAttribute("role", "dialog");
     ui.card.setAttribute("aria-live", "polite");
     ui.card.setAttribute("aria-label", "Walkthrough");
-    ui.card.innerHTML = '<div class="tc-h">' + pip() + '<span class="tc-n"></span>' +
+    ui.card.innerHTML = '<div class="tc-h"><span class="tc-l">The walkthrough</span><span class="tc-n"></span>' +
       '<button type="button" class="tc-x" aria-label="Close the walkthrough">×</button></div>' +
       '<h3 class="tc-t"></h3><p class="tc-b"></p>' +
       '<div class="tc-f"><button type="button" class="tc-prev">Back</button>' +
@@ -159,27 +154,15 @@
     window.removeEventListener("resize", place);
     window.removeEventListener("scroll", place);
     document.documentElement.classList.remove("touring");
-    fab();
     if (opener && opener.focus) opener.focus({ preventScroll: true });
   }
 
-  /* the small standing invitation, bottom left, once a tour exists on the page */
-  function fab() {
-    if ($(".tour-fab") || !(steps || load())) return;
-    var b = el("button", "tour-fab", pip() + "<span>Show me around</span>");
-    b.type = "button";
-    b.setAttribute("aria-label", "Show me around this page");
-    b.addEventListener("click", function () { b.remove(); start(b); });
-    document.body.appendChild(b);
-  }
-
-  /* A page with a walkthrough keeps one small standing button for it, bottom left. Nothing pops
-     up on arrival: a reader who came for the page gets the page. */
+  /* A page with a walkthrough shows its way in, in the drawer, and nothing else: nothing pops up on
+     arrival and nothing floats over the page. A reader who came for the page gets the page. */
   function offer() {
     steps = load();
     if (!steps || !steps.length) return;
     document.documentElement.classList.add("has-tour");   // the drawer shows its own way in to the walkthrough
-    fab();
   }
 
   function wireTour() {

@@ -916,8 +916,8 @@ a.md:hover b{color:var(--c)}
 .shot .dgb>figcaption .bs{display:none}
 
 /* ==========================================================================================
-   WAYFINDING — the home link, the drawer menu, breadcrumbs, the opening strip, Pip the
-   guide and the walkthrough. Every one of these is progressive enhancement: the drawer is a
+   WAYFINDING — the home link, the drawer menu, breadcrumbs, the opening strip and the
+   walkthrough. Every one of these is progressive enhancement: the drawer is a
    <details>, the strip is prose, the tour is absent without script.
    ========================================================================================== */
 /* the drawer */
@@ -985,23 +985,11 @@ a.md:hover b{color:var(--c)}
   .orient .oi:nth-child(2){border-right:0}.orient .oa{grid-column:1/-1;border-top:1px solid var(--rule2)}}
 @media (max-width:600px){.orient{grid-template-columns:1fr}.orient .oi{border-right:0;border-top:1px solid var(--rule2)}.orient .oi:first-child{border-top:0}}
 
-.tourbtn{display:inline-flex;align-items:center;gap:9px;padding:7px 16px 7px 8px;border-radius:999px;
+.tourbtn{display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:999px;
   border:1px solid color-mix(in oklab,var(--accent) 40%,transparent);background:var(--paper);color:var(--ink);
   font:600 13.5px var(--f-body);cursor:pointer;box-shadow:0 2px 10px rgba(20,18,12,.06);white-space:nowrap;
   transition:transform 150ms var(--ease),border-color 150ms var(--ease)}
 .tourbtn:hover{border-color:var(--accent);transform:translateY(-1px)}
-.tourbtn .pip{width:26px;height:30px}
-
-/* Pip, the guide */
-.pip{width:44px;height:50px;display:block;overflow:visible;flex:none}
-.pip .ph{fill:var(--paper);stroke:var(--ink);stroke-width:2.4}
-.pip .pe{fill:var(--ink);transform-origin:32px 31px}
-.pip .pm,.pip .pa,.pip .pc{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
-.pip .pt{fill:var(--accent)}
-.pip .pb{fill:var(--accent-soft);stroke:var(--ink);stroke-width:2.4}
-@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
-@keyframes ping{0%,100%{opacity:1}50%{opacity:.4}}
-@media (prefers-reduced-motion:reduce){.pip .pe,.pip .pt{animation:none}}
 
 /* the walkthrough */
 .tour-spot{position:fixed;z-index:9700;border-radius:14px;pointer-events:none;
@@ -1010,7 +998,7 @@ a.md:hover b{color:var(--c)}
 .tour-card{position:fixed;z-index:9800;width:min(390px,calc(100vw - 32px));background:var(--paper);color:var(--ink);
   border:1px solid var(--rule);border-radius:16px;padding:14px 16px 12px;box-shadow:0 20px 60px rgba(0,0,0,.3);display:grid;gap:8px}
 .tour-card .tc-h{display:flex;align-items:center;gap:10px}
-.tour-card .tc-h .pip{width:34px;height:38px}
+.tour-card .tc-h .tc-l{font-family:var(--f-mono);font-size:11.5px;font-weight:500;color:var(--accent)}
 .tour-card .tc-n{font-size:12.5px;color:var(--soft);font-weight:600;margin-left:auto}
 .tour-card .tc-x{border:0;background:none;font-size:22px;line-height:1;color:var(--soft);cursor:pointer;padding:0 4px}
 .tour-card .tc-x:hover{color:var(--ink)}
@@ -1025,14 +1013,7 @@ a.md:hover b{color:var(--c)}
 .tour-card::after{content:"";position:absolute;width:14px;height:14px;background:var(--paper);border-left:1px solid var(--rule);
   border-top:1px solid var(--rule);transform:rotate(45deg);left:28px;top:-8px}
 .tour-card.above::after{top:auto;bottom:-8px;transform:rotate(225deg)}
-.tour-fab{position:fixed;left:18px;bottom:18px;z-index:8990;display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;
-  border-radius:999px;border:1px solid var(--rule);background:var(--paper);color:var(--ink2);font:600 12.5px var(--f-body);
-  cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.14)}
-.tour-fab .pip{width:24px;height:28px}
-.tour-fab:hover{color:var(--ink);border-color:var(--accent)}
-/* the standing button needs the page's side gutter; without one, the drawer has the same way in */
-@media (max-width:1439px){.tour-fab{display:none}}
-@media print{.tour-fab,.tour-card,.tour-spot,.menu,.crumbs,.tourbtn{display:none!important}}
+@media print{.tour-card,.tour-spot,.menu,.crumbs,.tourbtn{display:none!important}}
 
 /* a lens change must be seen: the reading that just appeared settles in */
 [data-lens].lens-in{animation:lensin .5s var(--ease)}
@@ -1051,7 +1032,6 @@ a.md:hover b{color:var(--c)}
 .btn:active,.tourbtn:active,.cp:active,.lens button:active{transform:scale(.98)}
 .btn.pri{background:var(--ink);color:var(--bone);border-color:var(--ink)}
 .btn.pri:hover{background:var(--accent);border-color:var(--accent);color:var(--dg-on)}
-.btn .pip{width:22px;height:26px}
 
 @media (max-width:640px){.sw-pill{padding:8px 12px 8px 10px;bottom:12px;right:12px}}
 
@@ -1881,10 +1861,6 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 .rowa{padding:4px 0 4px 22px;border:0;border-left:1px solid var(--rule);border-radius:0;background:none}
 .lkeys.two{grid-template-columns:1fr 1fr}
 @media (max-width:900px){.lkeys.two{grid-template-columns:1fr}}
-/* the walkthrough's standing button: a face until you reach for it */
-.tour-fab span{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width 250ms var(--ease),margin 250ms var(--ease);margin-left:-8px}
-.tour-fab{padding:6px}
-.tour-fab:hover span,.tour-fab:focus-visible span{max-width:140px;margin-left:0;margin-right:8px}
 /* the phase label over a group of steps: .rp is also the reading-progress bar, which is fixed */
 .roadmap .rp{position:static;height:auto;z-index:auto;pointer-events:auto;white-space:nowrap;gap:5px;margin-left:2px}
 .roadmap .rg{min-width:138px}
@@ -2019,11 +1995,6 @@ figure.sketch{scroll-margin-top:88px}
    The rule: motion is for a thing that is itself a movement (the hero's flight, the game), or an answer to
    the reader's own hand (hover, press, open). Nothing moves because it scrolled into view, and nothing a
    reader came to read waits for an animation before it can be read. */
-@media (prefers-reduced-motion:no-preference){
-  /* the guide blinks when you reach for it, and at no other time */
-  .tour-fab:hover .pip .pe,.tourbtn:hover .pip .pe{animation:wink 250ms var(--ease) 1}
-}
-@keyframes wink{50%{transform:scaleY(.12)}}
 /* dashes on a connector say which way things flow. They move as the reader scrolls past, and
    are still otherwise; a browser without scroll timelines leaves them still, which reads the same. */
 @supports (animation-timeline:view()){
