@@ -304,7 +304,7 @@ MODELS = [
         one="A measurement from a sample is an estimate with a width, and the width is the argument.",
         predicts="82% on forty cases and 82% on five hundred are different claims. The first has a "
                  "lower bound near 70%, the second near 79%. Against an 80% bar, neither is proven. "
-                 "and no realistic sample will prove it, because the estimate sits too close.",
+                 "And no realistic sample will prove it, because the estimate sits too close.",
         prevents="Shipping on a point estimate, and rejecting a slice that is merely unproven. The "
                  "second matters: “not proven” with a cases-owed number is a plan, where "
                  "“it failed” is an argument.",
@@ -418,7 +418,7 @@ MODELS += [
                  "monitoring was never looking for this.",
         prevents="Believing that “nothing changed” means nothing changed, and treating "
                  "post-launch quality as a testing problem rather than an operational one.",
-        subtle="Watch the <em>output mix</em>, not the accuracy, accuracy needs labels and arrives "
+        subtle="Watch the <em>output mix</em>, not the accuracy: accuracy needs labels and arrives "
                "late. And watch two thresholds: the week-on-week step, and the level against a "
                "frozen baseline, because a slide of two points a week never trips a five percent "
                "rule and still moves you thirty points in a quarter.",
