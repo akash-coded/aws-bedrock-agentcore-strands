@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The method in short.** Most AI interview questions are one of six kinds, and each has a
-> structure. Design questions take **the P0 to P3 answer**. "Is it good enough?" takes **the bar in
-> three lines**. "Why is it wrong?" takes **the grounding triangle**. Cost questions take **the four
-> signatures**. Harm questions take **the missing control**. Behavioural questions take **STAR, plus
-> the number and the change**. Clarify, state assumptions, say numbers, name the trade-off, end on the risk.
+> Most AI interview questions are one of six kinds, each with a structure: design questions take **the
+> P0 to P3 answer**, and "Is it good enough?" takes **the bar in three lines**. "Why is it wrong?"
+> takes **the grounding triangle**, cost questions **the four signatures**, harm questions **the
+> missing control** and behavioural ones **STAR, plus the number and the change**. Clarify, state
+> assumptions, say numbers, name the trade-off, end on the risk.
 
 {{map:how-to-answer-ai-interview-questions}}
 

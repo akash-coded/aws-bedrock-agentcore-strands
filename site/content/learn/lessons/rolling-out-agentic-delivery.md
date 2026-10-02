@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The plan in short.** Roll out agentic delivery one feature at a time over ninety days. Pick a
-> feature for provability rather than value and take a baseline (days 1 to 15). Write the spec, the
-> bars, the authority budget and a context file (15 to 30). Build in daily slices proven in CI (30 to
-> 60). Run it in shadow beside the people doing the work, then cut over at 5% (60 to 90). Report two
-> numbers from the first cycle.
+> Roll out agentic delivery one feature at a time over ninety days. Pick a feature for provability
+> rather than value and take a baseline (days 1 to 15), then write the spec, the bars, the authority
+> budget and a context file (15 to 30). Build in daily slices proven in CI (30 to 60), run it in
+> shadow beside the people doing the work, cut over at 5% (60 to 90) and report two numbers from the
+> first cycle.
 
 {{map:rolling-out-agentic-delivery}}
 

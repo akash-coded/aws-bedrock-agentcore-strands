@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The eight loops in short.** Each loop opens in one phase of the agentic PDLC and closes in a
+> Each of the eight loops opens in one phase of the agentic PDLC and closes in a
 > later one when evidence from the far end **changes an artefact at the near end**. Five close on
 > their own because someone downstream is waiting. Three close only if a named person makes them:
 > cost back into design, incidents back into framing, and governance across the whole line.

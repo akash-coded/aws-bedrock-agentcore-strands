@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in short.** GenAI engineer interviews test whether you can make a model-backed system
+> GenAI engineer interviews test whether you can make a model-backed system
 > measurably right, fast and affordable. You do it by separating retrieval failures from generation
 > failures, evaluating against your own data, splitting latency and cost into the parts you control, and
 > designing for the model being tricked. These ten questions each come with the framework, a strong

@@ -10,7 +10,7 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **P2 in short.** P2 Build & Prove builds the agent in **bolts** (slices of hours or days, one risk
+> P2 Build & Prove builds the agent in **bolts** (slices of hours or days, one risk
 > each) and puts every exact step in tested code. It measures every best-guess step against its bar
 > on a golden set in CI, so that a merge dropping any slice below its bar is blocked. It ends with a
 > **shadow run** in which the agent works beside the live process without acting.

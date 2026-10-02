@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in short.** A score on a test set proves an AI agent meets its bar only when the
+> A score on a test set proves an AI agent meets its bar only when the
 > **lower bound** of the score (the bottom of its 95% confidence interval) clears the bar. So report
 > every slice as a score, a sample size and a lower bound. Give each a verdict: proven, not yet (and
 > how many more cases it owes), or failed.

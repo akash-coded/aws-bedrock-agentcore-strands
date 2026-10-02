@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in short.** An AI agent must be accurate enough that its right answers pay for its
-> wrong ones. So for each slice of work, divide the **damage** of a wrong answer by the **saving** of
-> a right one to get *N*. The break-even bar is **N ÷ (N + 1)**: 50% where a mistake costs what a
-> success saves, 80% where it costs four times as much, 98% where it costs fifty times. The bar is
-> lower if a person holds the action and cuts the damage.
+> An AI agent must be accurate enough that its right answers pay for its wrong ones. So for each slice
+> of work, divide the **damage** of a wrong answer by the **saving** of a right one to get *N*; the
+> break-even bar is **N ÷ (N + 1)**. That is 50% where a mistake costs what a success saves, 80% where
+> it costs four times as much, 98% at fifty times, and lower if a person holds the action and cuts the
+> damage.
 
 {{figure:bar_sheet}}
 

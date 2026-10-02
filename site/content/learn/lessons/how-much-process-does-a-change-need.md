@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rule in short.** Decide how much process a change deserves from four questions about its
-> risk. What is the most dangerous tool or path it touches? Can it be undone cheaply once live?
-> Do more than one team's artefacts change? Does an auditor read the result? Choose
-> **shallow, standard or deep** accordingly. Keep the spec at every depth, and name the evidence
-> that would raise the depth mid-flight.
+> Decide how much process a change deserves from four questions about its risk. They ask which is the
+> most dangerous tool or path it touches, whether it can be undone cheaply once live, whether more
+> than one team's artefacts change, and whether an auditor reads the result. Choose **shallow,
+> standard or deep** accordingly, keep the spec at every depth, and name the evidence that would raise
+> the depth mid-flight.
 
 {{map:how-much-process-does-a-change-need}}
 

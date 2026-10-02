@@ -10,11 +10,11 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The workbench in short.** The SkyWays workbench is a free companion to this tutorial that runs
-> entirely in your browser. It holds thirteen dated episodes of one fictional project. Nine simulations
-> ask for a decision and show what each option does to the steps that follow. Seventeen tools
-> open filled in with SkyWays' numbers, ready for yours. An evidence pack collects every artefact
-> and downloads as one markdown file.
+> The SkyWays workbench is a free companion to this tutorial that runs entirely in your browser and
+> holds thirteen dated episodes of one fictional project. Nine simulations ask for a decision and show
+> what each option does to the steps that follow, and seventeen tools open filled in with SkyWays'
+> numbers, ready for yours. An evidence pack collects every artefact and downloads as one markdown
+> file.
 
 {{map:agentic-delivery-simulator}}
 

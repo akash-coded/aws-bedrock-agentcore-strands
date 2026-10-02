@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The agentic PDLC in short.** It is a product lifecycle for software in which an AI model
-> makes some of the decisions, run in four phases. **P0 Frame** decides whether it is worth building
-> and how much the machine may do. **P1 Design & Spec** writes it down so a machine can build it.
-> **P2 Build & Prove** builds it in slices against a measured bar. **P3 Run & Learn** watches it
-> in production until what you learn becomes the next P0.
+> The agentic PDLC is a product lifecycle for software in which an AI model makes some of the
+> decisions, run in four phases. **P0 Frame** decides whether it is worth building and how much the
+> machine may do, and **P1 Design & Spec** writes it down so a machine can build it. **P2 Build &
+> Prove** builds it in slices against a measured bar, and **P3 Run & Learn** watches it in production
+> until what you learn becomes the next P0.
 
 {{board:pdlc}}
 

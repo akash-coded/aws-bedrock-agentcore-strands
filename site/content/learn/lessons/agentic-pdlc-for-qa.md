@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** In the agentic PDLC the QA lead decides what proof each kind of step owes,
+> In the agentic PDLC the QA lead decides what proof each kind of step owes,
 > curates the golden set by slice, and reports the lower bound rather than the score. The QA lead
 > matches a checker to each kind of work, runs the injection suite as a regression, compares the shadow
 > run with the people doing the job, and watches for drift. The QA lead owns the behaviour and

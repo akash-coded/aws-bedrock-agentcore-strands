@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** In the agentic PDLC the solution architect decides the shape of the system.
-> That means which steps are exact, best-guess or consequential, and how many agents it needs (start with
-> one). It means what each tool may do and where its cap lives, where the checkers sit, and which few decisions
-> earn a record. The architect then turns every bill and incident into a design change.
+> In the agentic PDLC the solution architect decides the shape of the system: which steps are exact,
+> best-guess or consequential, and how many agents it needs (start with one). The architect also
+> decides what each tool may do and where its cap lives, where the checkers sit, and which few
+> decisions earn a record. The architect then turns every bill and incident into a design change.
 
 {{map:agentic-pdlc-for-solution-architects}}
 

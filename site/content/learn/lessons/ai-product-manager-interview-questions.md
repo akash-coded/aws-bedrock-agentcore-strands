@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in short.** AI product manager interviews probe judgement about uncertainty. They ask whether
-> a job needs a model at all, how good is good enough per slice, what the product may do without the
-> user, how you prove it and what it costs. These ten questions cover that ground. Each comes with the
-> framework to structure the answer, what a strong answer contains, the follow-up interviewers use to
-> find the edge of your understanding, and the red flag they listen for.
+> AI product manager interviews probe judgement about uncertainty. They ask whether a job needs a
+> model at all, how good is good enough per slice, what the product may do without the user, how you
+> prove it and what it costs. These ten questions cover that ground, each with the framework to
+> structure the answer, what a strong answer contains, the follow-up that finds the edge of your
+> understanding, and the red flag interviewers listen for.
 
 {{map:ai-product-manager-interview-questions}}
 

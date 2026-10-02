@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The map in short.** Every building method fits onto the agentic PDLC's four phases, and most of
-> their stages land in P1 and P2. Laying them side by side shows the same gap in all of them. None
-> sets an acceptance bar per slice from what a mistake costs, and none enforces authority per action.
-> Almost none says how to watch a model in production and report its value beside its cost.
+> Every building method fits onto the agentic PDLC's four phases, and most of their stages land in P1
+> and P2. Laying them side by side shows the same gap in all of them: none sets an acceptance bar per
+> slice from what a mistake costs, and none enforces authority per action. Almost none says how to
+> watch a model in production and report its value beside its cost.
 
 {{map:one-lifecycle-for-every-method}}
 

@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **P1 in short.** P1 Design & Spec writes down what will be built so precisely that a coding
+> P1 Design & Spec writes down what will be built so precisely that a coding
 > agent, or an engineer who was not in the room, can build it without asking a question. It produces
 > three things: an eight-field spec with acceptance criteria in EARS, an acceptance bar for each slice
 > derived from what a mistake costs, and an authority budget that puts every limit in code. It ends

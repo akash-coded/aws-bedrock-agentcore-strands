@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The method in short.** A postmortem for an AI incident starts from one question: **which
+> A postmortem for an AI incident starts from one question: **which
 > enforced control, if it had been present, would have made this impossible?** It classifies every
 > claimed layer of defence as enforced, a request or absent, and fixes the one that closes the path in
 > code with a test. It lowers the action's autonomy until evidence restores it, and leaves as a brief

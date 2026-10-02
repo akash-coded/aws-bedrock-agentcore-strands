@@ -10,12 +10,11 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The set in short.** Twelve problems, three per phase. Each is a decision the agentic PDLC asks
-> for, with the arithmetic that settles it. The early ones ask whether work is AI work, what it is
-> worth, which decisions halt the build, what the bar is and what chaining costs. The later ones ask
-> whether a score proves a bar, how many cases and days proof takes, and how long review waits. They
-> also ask what the bill will be, when drift fires, and what counts as a control. Every answer is worked, and links to
-> the lesson that teaches it.
+> Each of these twelve problems, three per phase, is a decision the agentic PDLC asks for, with the
+> arithmetic that settles it, a worked answer and a link to the lesson that teaches it. The early ones
+> ask whether work is AI work, what it is worth, which decisions halt the build, what the bar is and
+> what chaining costs. The later ones ask whether a score proves a bar, how many cases and days proof
+> takes, how long review waits, what the bill will be, when drift fires and what counts as a control.
 
 {{map:agentic-pdlc-exercises}}
 

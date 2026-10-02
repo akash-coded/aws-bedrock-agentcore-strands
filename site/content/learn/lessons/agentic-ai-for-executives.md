@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The short version.** An executive leading agentic AI makes four decisions nobody below can make.
-> They are **which work is genuinely AI work**, **what agents may do without a person**, **what counts as
-> evidence**, and **what gets funded past the first cycle**. Four questions asked every cycle keep
-> them true. The questions take about ten minutes and defeat most of the ways these programmes fail.
+> An executive leading agentic AI makes four decisions nobody below can make. They are **which work is
+> genuinely AI work**, **what agents may do without a person**, **what counts as evidence**, and
+> **what gets funded past the first cycle**. Four questions asked every cycle keep them true, take
+> about ten minutes and defeat most of the ways these programmes fail.
 
 {{map:agentic-ai-for-executives}}
 

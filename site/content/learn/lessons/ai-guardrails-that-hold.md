@@ -10,11 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rule in short.** A limit an AI agent reads in its prompt only lowers the probability of
-> crossing it. A limit enforced in the tool it calls closes the path entirely. That means a typed, bounded
-> parameter that raises, a confirmation token the model cannot create, or an identity that cannot reach
-> what the job does not need. So every consequential limit must live in code, with a test that proves
-> it refuses.
+> A limit an AI agent reads in its prompt only lowers the probability of crossing it; a limit enforced
+> in the tool it calls closes the path entirely. That means a typed, bounded parameter that raises, a
+> confirmation token the model cannot create, or an identity that cannot reach what the job does not
+> need. So every consequential limit must live in code, with a test that proves it refuses.
 
 {{model:g_wall}}
 

@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The model in short.** Agentic delivery maturity is a count of six controls, not of tools. The first
-> three are a context file the agent reads, a spec with a bar and an owner on every item, and a harness that
-> gates the merge per slice. The other three are caps in tool signatures, a trace that redacts, and production evidence
-> with drift watched. Each is proven by running a test. Your level is how many you can show, and the
+> Agentic delivery maturity is a count of six controls, not of tools, each proven by running a test,
+> and your level is how many you can show. The first three are a context file the agent reads, a spec
+> with a bar and an owner on every item, and a harness that gates the merge per slice. The other three
+> are caps in tool signatures, a trace that redacts, and production evidence with drift watched; the
 > next control to build is the first one missing.
 
 {{map:ai-delivery-maturity-model}}

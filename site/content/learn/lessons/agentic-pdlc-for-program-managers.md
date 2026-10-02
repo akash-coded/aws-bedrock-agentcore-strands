@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** In agentic delivery the programme or delivery manager owns the system the
+> In agentic delivery the programme or delivery manager owns the system the
 > phases run in rather than any one phase. That system is the evidence board, the daily cadence, the
 > log of open decisions with owners and dates, and the review queue. It is also the lead-time items
 > started on day one, the conditions (not dates) for each gate, and the two-number report the sponsor

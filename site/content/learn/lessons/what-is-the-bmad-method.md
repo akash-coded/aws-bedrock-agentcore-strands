@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The BMAD Method in short.** BMAD (the *Breakthrough Method for Agile AI-Driven
+> BMAD (the *Breakthrough Method for Agile AI-Driven
 > Development*, an open-source method from BMad Code) structures building with AI the way an agile
 > team is structured. It uses specialised agent personas such as an analyst, a product manager, an
 > architect, a scrum master, a developer and QA. Each produces a versioned document the next one

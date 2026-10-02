@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Bolts in short.** A bolt is a thin, shippable slice of work carrying **one unknown**, built and
+> A bolt is a thin, shippable slice of work carrying **one unknown**, built and
 > integrated the same day. So when a coding agent can finish a story in hours, the team plans a day at
 > a time instead of a fortnight. It cuts the work by **dependency** rather than by priority, and
 > starts with a walking skeleton that proves the pieces connect before anything clever is built.

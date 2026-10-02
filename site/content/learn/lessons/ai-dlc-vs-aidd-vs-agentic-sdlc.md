@@ -10,12 +10,12 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The short answer.** **AI-DLC** is AWS's 2025 methodology in which AI proposes and people decide
-> across Inception, Construction and Operations. **AIDDLC** is a separate seven-phase standard with a
-> near-identical name. **AIDD** is the everyday craft of building with AI tools, and **agentic SDLC**
-> is a vendor term for agents across the software lifecycle. **Spec-driven development** and **BMAD**
-> are ways to structure that building. The **agentic PDLC** is a product lifecycle for software that
-> has a model *inside* it, which is the one question the others leave open.
+> **AI-DLC** is AWS's 2025 methodology in which AI proposes and people decide across Inception,
+> Construction and Operations, and **AIDDLC** is a separate seven-phase standard with a near-identical
+> name. **AIDD** is the everyday craft of building with AI tools, **agentic SDLC** is a vendor term
+> for agents across the software lifecycle, and **spec-driven development** and **BMAD** are ways to
+> structure that building. The **agentic PDLC** is a product lifecycle for software that has a model
+> *inside* it, which is the one question the others leave open.
 
 {{map:ai-dlc-vs-aidd-vs-agentic-sdlc}}
 

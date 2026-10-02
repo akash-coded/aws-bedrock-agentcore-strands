@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** The business sponsor of an agentic programme owns four things. They are whether it is
+> The business sponsor of an agentic programme owns four things. They are whether it is
 > funded past its first cycle, the autonomy ceiling for the organisation, what will be accepted as
 > evidence, and the governance loop. The sponsor exercises all four by insisting on three reports:
 > **two numbers** every cycle, a **drift readout** every week, and an **incident brief** after every

@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The playbook in short.** Run an agentic AI project in twelve steps across four phases. In
-> **P0**, measure the pain, decide whether it needs a model, and set autonomy per action. In **P1**,
-> map every step, write an eight-field spec with a bar per slice, and put every limit in code. In
-> **P2**, build in bolts behind a harness and prove it in shadow. In **P3**, widen on evidence, watch
-> for drift and report what it saved beside what it cost.
+> Run an agentic AI project in twelve steps across four phases: in **P0**, measure the pain, decide
+> whether it needs a model, and set autonomy per action. In **P1**, map every step, write an
+> eight-field spec with a bar per slice, and put every limit in code; in **P2**, build in bolts behind
+> a harness and prove it in shadow. In **P3**, widen on evidence, watch for drift and report what it
+> saved beside what it cost.
 
 {{board:delegation}}
 

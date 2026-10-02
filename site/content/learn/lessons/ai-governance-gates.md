@@ -10,11 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The gates in short.** An AI agent passes five gates on its way to wide use. They are **intent**
-> (is it worth doing?), **plan** (the right slice at the right control level?), **behaviour** (does it
-> meet the spec?), **release** (safe to show a few real users?) and **expansion** (have we earned wider
-> use?). Each is owned by one named person deciding on written evidence. A drift alert re-opens the
-> release gate automatically.
+> An AI agent passes five gates on its way to wide use, each owned by one named person deciding on
+> written evidence. They are **intent** (worth doing?), **plan** (the right slice at the right control
+> level?), **behaviour** (does it meet the spec?), **release** (safe to show a few real users?) and
+> **expansion** (have we earned wider use?). A drift alert re-opens the release gate automatically.
 
 {{map:ai-governance-gates}}
 

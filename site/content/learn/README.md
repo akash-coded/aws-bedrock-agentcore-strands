@@ -38,8 +38,9 @@ updated:     YYYY-MM-DD
 ---
 
 > [!TIP]
-> **<Term> in short.** The answer first, in 40 to 70 words. This is the paragraph a search engine
-> or an assistant lifts, so it must stand alone and must not start with "In this lesson".
+> The answer first, in at most three short sentences. No bold lead: the page already labels this box
+> "In short". It is the paragraph a search engine or an assistant lifts, so it must stand alone and
+> must not start with "In this lesson".
 
 <the hero picture: {{map:<slug>}} (its spec in site/pages/mapspecs.py) or a {{board:…}}, {{figure:…}}, {{frameworks:…}}, {{model:…}} directive>
 
@@ -67,7 +68,8 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 ## Rules
 
 - **Must:** no H1 in the body; `## Key takeaways`, `## Apply it in your role` and `## Sources and credits` present; at least one
-  picture; every `lesson:`, `track:`, `wiki:` and `#anchor` link resolves.
+  picture; every `lesson:`, `track:`, `wiki:` and `#anchor` link resolves; the summary at most three sentences, with no
+  bold lead (the box is labelled "In short", and the markdown twin writes that label once).
 - **One idea per paragraph.** Two to four sentences. If a paragraph needs a sub-heading, it is two.
 - **Answer first, everywhere.** The first sentence under a heading answers the heading.
 - **Numbers carry their source.** A SkyWays number is a worked example from a fictional airline and

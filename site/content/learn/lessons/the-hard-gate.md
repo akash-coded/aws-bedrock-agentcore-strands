@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The hard gate in short.** Of the four hand-offs in the agentic PDLC only P1 → P2 halts the
+> Of the four hand-offs in the agentic PDLC only P1 → P2, the hard gate, halts the
 > build. The spec, the acceptance bar per slice and the authority budget are what everything
 > downstream is built and measured against. Every other open decision runs alongside the build
 > behind a placeholder, with a named owner and a date.

@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** A forward deployed engineer (FDE) is a software engineer who embeds with a
+> A forward deployed engineer (FDE) is a software engineer who embeds with a
 > customer to make a complex product work in the customer's own environment. The FDE owns discovery,
 > scoping, build and rollout, and carries the patterns they find back into the product. The role
 > began at Palantir in the early 2010s; frontier AI labs such as OpenAI and Anthropic now hire FDEs to put

@@ -10,13 +10,13 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in short.** AWS generative AI interviews test whether you can assemble Amazon Bedrock,
-> Bedrock AgentCore, Strands Agents and Knowledge Bases into a system that is secure, observable,
-> affordable and resilient. They also test whether you know the details that break in production.
-> Those are inference profiles and the permissions they need, what bills while idle, what cannot be changed after
-> creation, and where AWS's controls stop and your own must begin. Ten questions, each with a framework,
-> a strong answer, the follow-up and the red flag. AWS details were checked against AWS documentation
-> in September 2026.
+> AWS generative AI interviews test whether you can assemble Amazon Bedrock, Bedrock AgentCore,
+> Strands Agents and Knowledge Bases into a system that is secure, observable, affordable and
+> resilient. They also test whether you know what breaks in production: inference profiles and the
+> permissions they need, what bills while idle, what cannot change after creation, and where AWS's
+> controls stop and yours must begin. The ten questions each come with a framework, a strong answer,
+> the follow-up and the red flag, and AWS details were checked against AWS documentation in September
+> 2026.
 
 {{map:aws-generative-ai-interview-questions}}
 

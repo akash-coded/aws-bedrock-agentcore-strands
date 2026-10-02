@@ -10,11 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The field guide in short.** A forward-deployed engineer runs the whole agentic lifecycle inside
-> a customer's organisation. That means measuring the pain in *their* data, running AI-DLC's mob
-> sessions with *their* people, and building with AIDD habits in *their* stack. Every decision that
-> trades their risk against their return is signed by *their* owner. The engineer leaves behind an
-> evidence pack and a named person to run it.
+> A forward-deployed engineer runs the whole agentic lifecycle inside a customer's organisation:
+> measuring the pain in *their* data, running AI-DLC's mob sessions with *their* people, and building
+> with AIDD habits in *their* stack. Every decision that trades their risk against their return is
+> signed by *their* owner. The engineer leaves behind an evidence pack and a named person to run it.
 
 {{map:ai-dlc-for-forward-deployed-engineers}}
 

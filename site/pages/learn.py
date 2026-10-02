@@ -692,6 +692,51 @@ def faq(md: str) -> list[tuple[str, str]]:
     return out
 
 
+# The summary is the lesson's opening "> [!TIP]" block, shown in a box labelled "In short" (ALERT_LABEL), so
+# it never repeats the label with a bold lead of its own ("**The rule in short.**"), and it stops at three
+# sentences. A lead is a bold run that opens the summary and ends as a label does, in . : ! or ?.
+SUMMARY_MAX = 3
+SUMMARY_LEAD = re.compile(r"\*\*(?=\S)([^*]+?)\*\*(?=\s*[.:]|(?<=[.:!?]\*\*))")
+# full stops that never end a sentence: common abbreviations, and a lone capital (an initial, as in J. Smith)
+NOT_AN_END = re.compile(r"\b(?:e\.g|i\.e|vs|cf|approx|incl|Dr|Mr|Mrs|Ms|Prof|St)\.|(?<![\w.])[A-Z]\.(?=\s)")
+
+
+def summary(md: str) -> str:
+    """The lesson's opening ``> [!TIP]`` block as one line of text, or "" if it does not open with one."""
+    first = next((p for p in re.split(r"\n\s*\n", md) if p.strip()), "").strip().splitlines()
+    if not first or not all(ln.lstrip().startswith(">") for ln in first):
+        return ""
+    lines = [re.sub(r"^\s*>\s?", "", ln) for ln in first]
+    return " ".join(" ".join(lines[1:]).split()) if lines[0].strip() == "[!TIP]" else ""
+
+
+def sentences(text: str) -> list[str]:
+    """Split prose into sentences. A . ? or ! ends one only outside brackets and before a space and anything
+    but a lower-case letter. Code, links, decimals (4.5), abbreviations (e.g., i.e., vs.) and initials never do."""
+    s = re.sub(r"`[^`]*`", "code", text)
+    s = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", lambda m: re.sub(r"[.!?]", "", m.group(1)), s)
+    s = re.sub(r"\bhttps?://\S+", "address", s)
+    s = NOT_AN_END.sub(lambda m: m.group(0).replace(".", ""), s)
+    out, start, depth, i = [], 0, 0, 0
+    while i < len(s):
+        c = s[i]
+        if c in "([":
+            depth += 1
+        elif c in ")]":
+            depth = max(depth - 1, 0)
+        elif c in ".!?" and depth == 0:
+            j = i + 1
+            while j < len(s) and s[j] in "\"'’”*_":           # closing quotes and emphasis belong to the sentence
+                j += 1
+            if j == len(s) or (s[j] == " " and not s[j + 1:j + 2].islower()):
+                out.append(s[start:j].strip())
+                start = i = j
+                continue
+        i += 1
+    out.append(s[start:].strip())
+    return [x for x in out if x]
+
+
 def fmt_date(iso: str) -> str:
     d = date.fromisoformat(iso)
     return f"{d.day} {d.strftime('%b')} {d.year}"
@@ -770,6 +815,14 @@ def validate(meta: dict, tracks: list[Track], lessons: dict[str, Lesson]) -> tup
         first = next((p for p in re.split(r"\n\s*\n", les.body) if p.strip()), "")
         if not first.lstrip().startswith(">"):
             warn.append(f"{w}: open with the answer, in a '> [!TIP]' block, before anything else")
+        tip = summary(les.body)
+        lead = SUMMARY_LEAD.match(tip)
+        if lead:
+            err.append(f"{w}: the summary opens with a bold lead, {lead.group(0)}; the box already says "
+                       f"'{ALERT_LABEL['TIP']}', so start with the answer")
+        n = len(sentences(tip[lead.end():] if lead else tip))
+        if n > SUMMARY_MAX:
+            err.append(f"{w}: the summary runs to {n} sentences; say it in {SUMMARY_MAX} or fewer")
         if minutes(les.body) > 14:
             warn.append(f"{w}: {minutes(les.body)} minutes is long for one sitting; consider splitting")
         if not faq(les.body):
@@ -1071,6 +1124,9 @@ def site_markdown(les: Lesson, lessons, tracks) -> str:
         return f"![{_visuals()[k]['alt']}]({SHOTS}{shot_name(k)}.light.webp)"
 
     body = "\n".join(twin(line) for line in body.splitlines())
+    # the page shows the summary in a box labelled "In short"; here a bare [!TIP] would read as GitHub's "Tip", or
+    # as nothing, so the twin says the label once, run in, the way the lessons write a label before a sentence
+    body = re.sub(r"\A> \[!TIP\][ \t]*\n> ?", f"> **{ALERT_LABEL['TIP']}.** ", body, count=1)
     return (f"# {les.title}\n\n{les.dek}\n\n{minutes(les.body)} min read · {les.level} · "
             f"Lesson {les.n} of {len(les.track.lessons)} in {les.track.title} · Updated {les.updated} · "
             f"By {AUTHOR}\n\nCanonical: {les.url}\n\n{body}\n")

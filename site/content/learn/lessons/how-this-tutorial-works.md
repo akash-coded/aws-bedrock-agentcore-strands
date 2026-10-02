@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The short version.** Each lesson is a five-to-ten-minute read that opens with the answer, shows
+> Each lesson is a five-to-ten-minute read that opens with the answer, shows
 > it as a picture, states the problem it solves, walks through it step by step, gives you something
 > to try, and ends with three takeaways and its sources. If you have two minutes, read the first box
 > and the takeaways; they are written to stand on their own.

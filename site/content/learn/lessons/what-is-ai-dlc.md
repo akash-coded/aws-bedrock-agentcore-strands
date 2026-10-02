@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **AI-DLC in short.** The AI-Driven Development Life Cycle, published by AWS in July 2025, is a
+> The AI-Driven Development Life Cycle (AI-DLC), published by AWS in July 2025, is a
 > methodology in which AI creates the plans, asks the clarifying questions and does the
 > implementation while people make the critical decisions. It runs in three phases (**Inception**,
-> **Construction** and **Operations**), in short **bolts** of hours or days instead of sprints. The
+> **Construction** and **Operations**), in **bolts** of hours or days instead of sprints. The
 > whole team validates the AI's proposals together in **mob** sessions.
 
 {{map:what-is-ai-dlc}}

@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The board in short.** An agentic delivery board has columns whose **exit rules are evidence**:
+> An agentic delivery board has columns whose **exit rules are evidence**:
 > framed, specified, bolt ready, building, harness green, reviewed, in shadow, live, and watching. It
 > has **swimlanes by risk band**, so a money change never shares a lane with a label change. It has
 > **work-in-progress limits** set by review capacity, and cards that each carry exactly one unknown.

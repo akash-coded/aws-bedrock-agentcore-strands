@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The evolution in short.** Each lifecycle fixed the bottleneck of its era: plan-driven
+> Each lifecycle fixed the bottleneck of its era: plan-driven
 > development the cost of change, agile the cost of learning late, DevOps the cost of releasing. The
 > agentic PDLC fixes the newest one: software that is right only most of the time. Each kept most
 > of what came before, and so should you.

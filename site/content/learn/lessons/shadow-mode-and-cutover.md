@@ -10,10 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The launch in short.** Launch an AI agent in four states, one action at a time. First **shadow**,
-> where it decides on live traffic and acts on nothing. Then a **5% canary**, then **wider** only as live
-> evidence arrives, then **all of it**. Money actions stay gated at every stage. Agreement is reported per slice
-> over a window fixed in advance, and every rollback switch is timed in a rehearsal before cut-over.
+> Launch an AI agent in four states, one action at a time, starting in **shadow**, where it decides on
+> live traffic and acts on nothing. It then moves to a **5% canary**, then **wider** only as live
+> evidence arrives, then **all of it**, while money actions stay gated at every stage. Agreement is
+> reported per slice over a window fixed in advance, and every rollback switch is timed in a rehearsal
+> before cut-over.
 
 {{model:g_funnel}}
 

@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The evidence pack in short.** It is the minimum set of artefacts owed at each hand-off of the
+> The evidence pack is the minimum set of artefacts owed at each hand-off of the
 > agentic PDLC, kept on one dated index. Owed means the next phase would have to invent it otherwise.
 > The pack is checked not only for whether each artefact exists and is current, but for whether each
 > control it describes is **enforced in code or only written down**.

@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rhythm in short.** Agentic delivery runs on six clocks. Every day a bolt is built, integrated
-> and reviewed by risk band, and on every prompt, model, tool or context change the harness and the
-> injection suite run again. Every week someone reads drift, the attack run and the board's three
-> numbers; every cycle the sponsor gets two numbers; every quarter the maturity check is re-run. Every
-> incident or surprise bill starts its own loop, with a named owner.
+> Agentic delivery runs on six clocks: every day a bolt is built, integrated and reviewed by risk
+> band, and every prompt, model, tool or context change re-runs the harness and the injection suite.
+> Every week someone reads drift, the attack run and the board's three numbers; every cycle the
+> sponsor gets two numbers; every quarter the maturity check is re-run. Every incident or surprise
+> bill starts its own loop, with a named owner.
 
 {{map:agentic-delivery-cadence}}
 

@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in short.** Agentic AI needs no new roles and removes none. Keep a small product
-> team (product manager, architect, engineering lead, QA lead) that owns one product from P0 to P3.
-> Give it a platform team for what every team needs (the gateway, the harness, the landing zone).
-> Move two boundaries: the product manager stops approving code, and QA gains an arithmetic veto. Put
-> the system's seams where the team boundaries already are, and name one sponsor who owns governance.
+> Agentic AI needs no new roles and removes none, but two boundaries move: the product manager stops
+> approving code, and QA gains an arithmetic veto. Keep a small product team (product manager,
+> architect, engineering lead, QA lead) owning one product from P0 to P3, with a platform team for
+> what every team needs (the gateway, the harness, the landing zone). Put the system's seams where the
+> team boundaries already are, and name one sponsor who owns governance.
 
 {{map:team-structure-for-agentic-ai}}
 

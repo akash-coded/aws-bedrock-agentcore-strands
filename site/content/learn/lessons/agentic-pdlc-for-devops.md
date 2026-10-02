@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** In the agentic PDLC DevOps and platform make the system repeatable,
+> In the agentic PDLC DevOps and platform make the system repeatable,
 > observable and reversible. That means a landing zone with cost attributable per feature, one model
 > gateway every call passes through, and environments with the model version pinned. It also means the
 > evaluation harness as a check the merge cannot bypass, one flag per action, traces that redact, and

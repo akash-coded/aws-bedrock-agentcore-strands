@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** In the agentic PDLC the engineering lead writes the context file every
-> coding agent reads and builds each bolt from a story file. The lead puts every number the product
-> acts on in tested code and enforces every limit in a tool's signature. The lead wires the harness that blocks
-> a merge when a slice falls below its bar. The lead ships a slice a day, letting the model type and
-> never letting it hold the boundary.
+> In the agentic PDLC the engineering lead writes the context file every coding agent reads and builds
+> each bolt from a story file. The lead puts every number the product acts on in tested code, enforces
+> every limit in a tool's signature, and wires the harness that blocks a merge when a slice falls
+> below its bar. The lead ships a slice a day, letting the model type and never letting it hold the
+> boundary.
 
 {{map:agentic-pdlc-for-engineers}}
 

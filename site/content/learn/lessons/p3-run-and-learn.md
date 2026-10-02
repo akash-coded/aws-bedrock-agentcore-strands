@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **P3 in short.** P3 Run & Learn widens the agent's share of live traffic only as evidence
+> P3 Run & Learn widens the agent's share of live traffic only as evidence
 > arrives, and rehearses the rollback before it is needed. It watches the output mix for drift, and
 > reports what the feature saved **beside** what it cost on one line. It turns every incident, drift
 > alert and surprising bill into the brief for the next P0.

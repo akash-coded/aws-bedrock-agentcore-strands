@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Drift in short.** Drift is an AI system changing its behaviour with no deploy, no error and no
+> Drift is an AI system changing its behaviour with no deploy, no error and no
 > alert, because the world, its inputs, its data or the model behind it moved. You catch it by watching
 > the **mix of its outputs** against **two thresholds**: the week-on-week change, and the level against
 > a frozen baseline. A breach is wired to re-open the release gate on its own.

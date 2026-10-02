@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The case in short.** SkyWays is this manual's worked example: a fictional airline building a
-> rebooking assistant for disrupted passengers. Four people run it: Priya owns the product, Arjun the
-> architecture, Sam the engineering and Maya the quality. Its ninety days run in thirteen episodes, each
-> opening on a number and closing one of the eight loops. They go from 31 requirements on day 1 to two
-> numbers in front of the steering committee on day 90.
+> SkyWays is this manual's worked example: a fictional airline building a rebooking assistant for
+> disrupted passengers. Four people run it over ninety days: Priya owns the product, Arjun the
+> architecture, Sam the engineering and Maya the quality. Thirteen episodes, each opening on a number
+> and closing one of the eight loops, take it from 31 requirements on day 1 to two numbers in front of
+> the steering committee on day 90.
 
 {{map:skyways-case-study}}
 

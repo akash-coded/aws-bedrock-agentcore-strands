@@ -10,11 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in short.** Forward deployed engineer interviews test three things at once. Can
-> you build production software in an environment you do not control? Can you turn a vague
-> customer ask into a provable scope? Does what you leave behind keep working and feed the
-> product? These ten questions probe each, with the framework, a strong answer, the follow-up that
-> finds your limit, and the red flag.
+> Forward deployed engineer interviews test three things at once. Can you build production software in
+> an environment you do not control, turn a vague customer ask into a provable scope, and leave behind
+> something that keeps working and feeds the product? These ten questions probe each, with the
+> framework, a strong answer, the follow-up that finds your limit, and the red flag.
 
 {{map:forward-deployed-engineer-interview-questions}}
 

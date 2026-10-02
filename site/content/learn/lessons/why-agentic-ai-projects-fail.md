@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Why agentic AI projects fail, in short.** They fail quietly. A model is right most of the time
+> Agentic AI projects fail quietly. A model is right most of the time
 > and wrong without an error, so the checks a team already has (green tests, a working demo, a rising
 > average) keep reporting success. Meanwhile the value goes unmeasured, a limit lives only in a
 > prompt, one slice falls below its bar, the bill multiplies and behaviour drifts.

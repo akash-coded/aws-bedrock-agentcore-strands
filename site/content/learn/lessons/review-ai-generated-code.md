@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rule in short.** Review AI-generated code by the **risk band of the most dangerous thing a
-> change touches**. That is two named readers on money, identity or policy, one reader on a reversible or
-> hard-to-reverse write, and the harness alone on read-only changes. Enforce the band with a path rule
-> nobody sets for their own work. Report three numbers monthly so the policy survives: slots needed,
-> days in the queue, and escapes from the no-reader lane.
+> Review AI-generated code by the **risk band of the most dangerous thing a change touches**. That is
+> two named readers on money, identity or policy, one reader on a reversible or hard-to-reverse write,
+> and the harness alone on read-only changes. Enforce the band with a path rule nobody sets for their
+> own work, and report three numbers monthly so the policy survives: slots needed, days in the queue,
+> and escapes from the no-reader lane.
 
 {{map:review-ai-generated-code}}
 

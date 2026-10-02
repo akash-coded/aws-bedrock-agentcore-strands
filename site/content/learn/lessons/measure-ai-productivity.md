@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The method in short.** Measure AI productivity as a change against a baseline taken before the
+> Measure AI productivity as a change against a baseline taken before the
 > pilot (person-days per story), reported every cycle beside what it cost: token spend per story,
 > review hours added and re-runs. Activity counts rise with AI whether or not delivery does, a surveyed
 > speed-up is a belief rather than a measurement, and one number reported alone gets pushed.

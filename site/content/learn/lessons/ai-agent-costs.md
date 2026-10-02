@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in short.** An AI agent's bill usually grows because four ordinary habits
+> An AI agent's bill usually grows because four ordinary habits
 > **multiply**: more context sent per call, a larger share on the expensive model, a cache that stops
 > hitting, and more attempts per case. So read the per-call log rather than the price list, and confirm
 > the four ratios multiply to the invoice ratio. Then fix them in order of **(factor − 1) ÷ days to fix**.

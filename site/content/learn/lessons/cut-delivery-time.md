@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in short.** AI shortens the time to *build* dramatically, but delivery also
-> includes deciding, reviewing, proving and waiting for evidence. So the programmes that go from
-> months to weeks are the ones that also redesign those. They make decisions per action, route review by
-> risk, cut work so it integrates daily, and start lead-time items on day one. They also accept that
-> live evidence still arrives at the speed of traffic.
+> AI shortens the time to *build* dramatically, but delivery also includes deciding, reviewing,
+> proving and waiting for evidence. So the programmes that go from months to weeks also redesign
+> those: they make decisions per action, route review by risk, cut work so it integrates daily, and
+> start lead-time items on day one. They also accept that live evidence still arrives at the speed of
+> traffic.
 
 {{map:cut-delivery-time}}
 

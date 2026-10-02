@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Spec-driven development in short.** Spec-driven development (SDD) means writing a
-> specification before any code and keeping it as the artefact that AI agents build from. AWS's
-> **Kiro** does it by keeping requirements, design and tasks files. **GitHub Spec Kit** does it by
-> moving work from a constitution through specify, plan and tasks to implementation. Either way the
-> spec, not a chat history, is what people review and what the agent reads.
+> Spec-driven development (SDD) means writing a specification before any code and keeping it as the
+> artefact that AI agents build from. AWS's **Kiro** does it by keeping requirements, design and tasks
+> files, and **GitHub Spec Kit** by moving work from a constitution through specify, plan and tasks to
+> implementation. Either way the spec, not a chat history, is what people review and what the agent
+> reads.
 
 {{map:what-is-spec-driven-development}}
 

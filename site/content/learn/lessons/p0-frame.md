@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **P0 Frame in short.** It is the phase that decides four things before anything is designed.
+> P0 Frame is the phase that decides four things before anything is designed.
 > They are whether a job is worth doing, whether it needs a model at all, what it is worth net of running and
 > checking it, and how much the machine may do on its own. It ends when the pain is a measurement and
 > that verdict, including what was rejected, is written down.

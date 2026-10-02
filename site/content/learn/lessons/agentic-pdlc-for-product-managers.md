@@ -10,7 +10,7 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in short.** In the agentic PDLC the product manager turns requests into measured
+> In the agentic PDLC the product manager turns requests into measured
 > pains, decides which work is genuinely AI work, and sets autonomy one action at a time. They derive
 > the acceptance bar for each slice from what a mistake costs, own the intent and release gates, and
 > report what the feature saved beside what it cost. They stop approving anything they cannot evaluate.
