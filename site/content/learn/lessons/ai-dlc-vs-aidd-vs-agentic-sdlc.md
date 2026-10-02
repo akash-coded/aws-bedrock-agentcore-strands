@@ -39,7 +39,7 @@ makes the choice simple.
 | Term | Coined or used by | What it names | Answers the question |
 | --- | --- | --- | --- |
 | **AI-DLC** | AWS: Raja SP, July 2025 | A methodology: AI plans and proposes, people validate and decide, across **Inception, Construction and Operations**, in bolts of hours or days | How do we build software with AI doing most of the work? |
-| **AIDDLC** | aiddlc.ai, a separate standard | A seven-phase lifecycle: foundation, inception, elaboration, construction, hardening, operations, evolution | The same question, with more phases and gates |
+| **AIDDLC** | aiddlc.ai, a separate standard | A seven-phase lifecycle: Foundation, Discovery & Intelligence, Architecture & Design, Specification, Build, Validation, Deploy & Learn (as its site listed them on 3 October 2026) | The same question, with more phases and gates |
 | **AIDLC** | Various vendors and writers | Usually a spelling of AI-DLC; sometimes "AI development lifecycle" in general | Depends on the author: check which one they mean |
 | **AIDD** | Widely used; no single author | AI-driven development: the everyday craft of building with AI tools (context files, story files, coding agents, review) | How do I work with coding agents day to day? |
 | **Agentic SDLC** | Tooling vendors | The software lifecycle with agents taking part in every phase, from planning to operations | Where in delivery can agents act? |

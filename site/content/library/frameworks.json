@@ -6,7 +6,56 @@
    "what": "The spec, not the code, is what you maintain. Code is generated from it and regenerated on change.",
    "where": "P1 and P2 mainly; lightly in P0 and P3",
    "when": "**Always.** It is the backbone.",
-   "weight": "light"
+   "weight": "light",
+   "title": "Spec-driven development",
+   "lesson": "learn/what-is-spec-driven-development/",
+   "reach": [
+    1,
+    2,
+    2,
+    1
+   ],
+   "ends": [
+    "spec sketch",
+    "spec updates"
+   ],
+   "note": "Kiro (AWS), July 2025; Spec Kit (GitHub), Sept 2025",
+   "note_source": [
+    {
+     "url": "https://kiro.dev/blog/introducing-kiro/",
+     "quotes": [
+      "Introducing Kiro",
+      "Nikhil Swaminathan and Deepak Singh",
+      "July 14, 2025"
+     ]
+    },
+    {
+     "url": "https://aws.amazon.com/about-aws/whats-new/2026/02/kiro-launch-aws-govcloud-us/",
+     "quotes": [
+      "Kiro is an agentic AI with an integrated development environment (IDE) and command-line interface (CLI) that helps you go from prototype to production with spec-driven development.",
+      "Feb 16, 2026"
+     ]
+    },
+    {
+     "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/",
+     "quotes": [
+      "Spec-driven development with AI: Get started with a new open source toolkit",
+      "Den Delimarsky",
+      "September 2, 2025",
+      "Spec Kit, our new open sourced toolkit for spec-driven development"
+     ]
+    },
+    {
+     "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html",
+     "quotes": [
+      "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl",
+      "Birgitta Böckeler",
+      "15 October 2025",
+      "the definition of 'spec-driven development' (SDD) is still in flux"
+     ]
+    }
+   ],
+   "checked": "2026-10-03"
   },
   {
    "name": "BMAD",
@@ -14,7 +63,40 @@
    "what": "A pipeline of AI personas (analyst, PM, architect, dev, QA) each handing a versioned artefact to the next.",
    "where": "P0 to P2 as a persona pipeline; extended here into P3, as learn and adjust",
    "when": "Complex, multi-team, audited work. On a one-line change it is twelve personas between you and the change.",
-   "weight": "heavy"
+   "weight": "heavy",
+   "title": "BMAD Method",
+   "lesson": "learn/what-is-the-bmad-method/",
+   "reach": [
+    2,
+    2,
+    2,
+    "x"
+   ],
+   "note": "by Brian Madison; on GitHub since April 2025",
+   "note_source": [
+    {
+     "url": "https://techleadjournal.dev/episodes/255/",
+     "quotes": [
+      "#255 - Stop Vibe Coding: Spec-Driven Development with The BMad Method - Brian Madison",
+      "20-Apr-2026",
+      "Brian Madison is the creator of the BMad Method"
+     ]
+    },
+    {
+     "url": "https://github.com/bmad-code-org/BMAD-METHOD/commit/da09167a00e7c6f173ce1bd60a6306021bfd3aeb",
+     "quotes": [
+      "Initial commit",
+      "2025-04-13T09:54:25-05:00"
+     ]
+    },
+    {
+     "url": "https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/",
+     "quotes": [
+      "The extension is this manual's own and is not part of BMAD as published."
+     ]
+    }
+   ],
+   "checked": "2026-10-03"
   },
   {
    "name": "AI-DLC",
@@ -22,7 +104,28 @@
    "what": "Adaptive: run only the lifecycle stages a given change actually needs.",
    "where": "A principle across all four phases",
    "when": "When the depth of a change is unknown up front. The architect judges depth per change.",
-   "weight": "varies"
+   "weight": "varies",
+   "title": "AI-DLC",
+   "lesson": "learn/what-is-ai-dlc/",
+   "reach": [
+    2,
+    2,
+    2,
+    2
+   ],
+   "note": "by Raja SP at AWS, 31 July 2025",
+   "note_source": [
+    {
+     "url": "https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/",
+     "quotes": [
+      "AI-Driven Development Life Cycle: Reimagining Software Engineering",
+      "Raja SP",
+      "on 31 JUL 2025",
+      "Raja is a Principal Solutions Architect at AWS"
+     ]
+    }
+   ],
+   "checked": "2026-10-03"
   },
   {
    "name": "AIDD",
@@ -30,9 +133,80 @@
    "what": "The day-to-day craft: context files, story files, editor agents, review by risk, cost habits.",
    "where": "P2 mostly",
    "when": "Every day, by everyone who writes code.",
-   "weight": "light"
+   "weight": "light",
+   "title": "AIDD",
+   "lesson": "learn/what-is-aidd/",
+   "reach": [
+    0,
+    0,
+    2,
+    0
+   ],
+   "note": "AI-driven development: no single author",
+   "note_source": [
+    {
+     "url": "https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-aidd/",
+     "quotes": [
+      "Unlike AWS's AI-DLC, it has no single author or published specification"
+     ]
+    }
+   ],
+   "checked": "2026-10-03"
   }
  ],
+ "names": [
+  {
+   "name": "Agentic SDLC",
+   "full": "The agentic software development lifecycle",
+   "title": "Agentic SDLC",
+   "lesson": "learn/ai-dlc-vs-aidd-vs-agentic-sdlc/",
+   "reach": [
+    0,
+    2,
+    2,
+    2
+   ],
+   "note": "a tool vendors' term; no single author",
+   "note_source": [
+    {
+     "url": "https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/",
+     "quotes": [
+      "Tooling vendors",
+      "The software lifecycle with agents taking part in every phase, from planning to operations",
+      "The software development lifecycle runs from requirements to deployment and maintenance of software."
+     ]
+    },
+    {
+     "url": "https://www.coderabbit.ai/guides/agentic-sdlc",
+     "quotes": [
+      "The agentic software development lifecycle: How AI agents are reshaping every phase",
+      "Brandon Gubitosa",
+      "April 27, 2026",
+      "planning, coding, testing, reviewing, deploying, and operating"
+     ]
+    }
+   ],
+   "checked": "2026-10-03"
+  }
+ ],
+ "pdlc": {
+  "name": "SkyWays PDLC",
+  "full": "The agentic product development lifecycle, as this manual teaches it",
+  "title": "SkyWays PDLC",
+  "lesson": "learn/what-is-the-agentic-pdlc/",
+  "note": "by Akash Das, SkyWays Consultancy, 2026",
+  "note_source": [
+   {
+    "url": "https://github.com/akash-coded/aws-bedrock-agentcore-strands/commit/e5129728ca92ac9ef676d5173545bbef76eec412",
+    "quotes": [
+     "exercises for P1 artefacts - agentic PDLC",
+     "Akash Das",
+     "2026-08-31T19:25:33+05:30"
+    ]
+   }
+  ],
+  "checked": "2026-10-03"
+ },
  "acronyms": [
   [
    "ADR",

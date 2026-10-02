@@ -1566,116 +1566,6 @@ main.home{padding:0}
 /* The globe is a screen thing and stays off paper. */
 @media print{.hero2 .scene{display:none}.hero2 .meta{margin-top:0}}
 
-/* ---- the spine: one line that closes into a loop, a question above it, a symptom below (pages/spine.py) ---- */
-.spine{position:relative;margin:0;--sp-b:color-mix(in oklab,var(--ink) 42%,var(--bone))}
-.spine ol{list-style:none;margin:0;padding:0;max-width:none}
-.spine li{margin:0;max-width:none}
-.sp-core a{display:grid;gap:2px;color:var(--ink);text-decoration:none}
-.sp-core b{font-family:var(--f-display);font-size:20px;font-weight:620;letter-spacing:-.02em;line-height:1.2}
-.sp-core small{font-size:13px;line-height:1.35;color:var(--soft)}
-.sp-core a:hover{text-decoration:none}
-.sp-core a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-/* the funnel: four methods, the one idea the lifecycle keeps from each, four lines into one point */
-.sp-in b{display:block;font-family:var(--f-display);font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.2;color:var(--ink2)}
-.sp-in small{display:block;font-size:12.5px;line-height:1.3;color:var(--soft)}
-.sp-in a{display:block;color:inherit;text-decoration:none}
-.sp-in a:hover{text-decoration:none}
-.sp-in a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.sp-fun{fill:none;overflow:visible}
-.sp-fun path{vector-effect:non-scaling-stroke;stroke:var(--sp-b);stroke-width:1.5}
-.sp-into{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0;max-width:none}
-.sp-note{font-size:14px;line-height:1.5;color:var(--soft);margin:30px 0 0;max-width:62ch}
-/* each phase flies its own aircraft: the same four the hero's flight changes through */
-.sp-craft{width:30px;height:20px;margin-left:8px;overflow:visible;vertical-align:-5px}
-.sp-craft path{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round}
-.sp-craft .k-built{fill:var(--ink)}
-.sp-trunk{position:relative;display:flex;height:16px;isolation:isolate}
-.sp-trunk i{position:relative;z-index:1;flex:1;display:block;background:var(--c)}
-.sp-trunk i:first-of-type{border-radius:8px 0 0 8px}
-.sp-trunk i:nth-of-type(4){border-radius:0 8px 8px 0}
-.sp-trunk i::before{content:"";position:absolute;left:0;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;
-  box-sizing:border-box;background:var(--bone);border:4px solid var(--c)}
-.sp-loop{position:absolute;z-index:0;left:-20px;bottom:50%;width:calc(100% + 46px);height:144px;overflow:visible;fill:none;
-  stroke:var(--sp-b);stroke-width:1.5;stroke-dasharray:5 6;stroke-linecap:round}
-.sp-back,.sp-gate{position:absolute;z-index:2;font-style:normal;font-family:var(--f-mono);font-size:11.5px;font-weight:500;line-height:1;
-  white-space:nowrap;background:var(--bone)}
-.sp-back{left:50%;bottom:calc(50% + 144px);transform:translate(-50%,50%);padding:3px 10px;color:var(--soft);display:inline-flex;align-items:center;gap:7px}
-.sp-back svg{width:12px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.sp-gate{left:50%;top:50%;transform:translate(calc(-100% - 15px),-50%);padding:5px 9px;border-radius:999px;
-  color:color-mix(in oklab,var(--dg-rose) 80%,var(--ink));border:1px solid color-mix(in oklab,var(--dg-rose) 55%,transparent)}
-.sp-ph a{display:grid;gap:4px;color:inherit;text-decoration:none}
-.sp-ph a:hover{text-decoration:none}
-.sp-ph .c-key{font-family:var(--f-mono);font-size:12px;font-weight:600;color:color-mix(in oklab,var(--c) 82%,var(--ink))}
-.sp-ph .c-name{font-family:var(--f-display);font-size:clamp(17px,1.5vw,20px);font-weight:620;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
-.sp-ph .c-ask{font-size:13.5px;line-height:1.42;color:var(--ink2)}
-.sp-ph a:hover .c-name{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.sp-skip{margin:0;max-width:none;font-size:13.5px;line-height:1.45;color:var(--ink2);padding-left:12px;
-  border-left:2px solid color-mix(in oklab,var(--c) 55%,transparent)}
-.sp-skip::before{content:"\201C"}.sp-skip::after{content:"\201D"}
-.sp-cap,.sp-head{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0;max-width:none}
-/* wide: four methods run into one point, the lifecycle's name sits on the line that leaves it, the
-   questions sit inside the loop and the symptoms hang under it (the numbers mirror pages/spine.py) */
-@media (min-width:1161px){
-  .spine{--fun-top:47px;--fun-h:206px;--trunk:150px}
-  .spine .sp-in{position:absolute;left:0;top:var(--fun-top);width:15.4%;display:grid;grid-auto-rows:44px;gap:10px;align-items:center}
-  .sp-in li{display:grid;align-items:center}
-  .sp-fun{position:absolute;left:15.8%;top:var(--fun-top);width:4.6%;height:var(--fun-h)}
-  .sp-into{display:none}
-  .sp-core{display:contents}      /* its parts are placed against the figure, not against the name */
-  .sp-core a{position:absolute;left:20.4%;top:calc(var(--trunk) - 46px);width:12%;display:grid;gap:27px;color:var(--ink);text-decoration:none}
-  .sp-core a b{font-size:17px;white-space:nowrap}
-  .sp-core a small{font-size:12.5px;line-height:1.3}
-  /* the point the four lines meet at, and the line that leaves it for the first phase */
-  .sp-core a::before{content:"";position:absolute;left:0;top:46px;width:13px;height:13px;margin:-6.5px 0 0 -1px;border-radius:50%;
-    box-sizing:border-box;border:3px solid var(--dg-slate);background:var(--bone);z-index:1}
-  .sp-core a::after{content:"";position:absolute;left:10px;right:-4px;top:46px;height:3px;margin-top:-1.5px;background:var(--dg-slate);border-radius:2px 0 0 2px}
-  .sp-core a b,.sp-core a small{padding-left:16px}
-  .sp-trunk{position:absolute;left:34%;right:2.4%;top:142px}
-  .spine .sp-ph{margin:0 2.4% 0 34%;padding-top:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-  .sp-ph li{display:grid;grid-template-rows:106px 54px auto}
-  .sp-ph a{align-self:end;padding:0 14px 0 16px}
-  .sp-skip{grid-row:3;margin:0 16px 0 4px}
-  .sp-cap{position:absolute;left:20.4%;top:200px;width:calc(13.6% - 22px);text-align:right;line-height:1.35}
-  .sp-head{position:absolute;left:0;top:calc(var(--fun-top) - 30px)}
-}
-/* 1160px and under: the four methods, then the line, then each phase with its question and its symptom */
-@media (max-width:1160px){
-  .sp-fun,.sp-cap{display:none}
-  .spine .sp-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-  .sp-in li{display:grid}
-  .sp-in a{padding:10px 13px;border:1px solid var(--rule);border-radius:12px;min-height:44px}
-  .sp-head{margin:0 0 10px}
-  .sp-into{padding:12px 0 0 2px}
-  .sp-into::after{content:" ↓"}
-  .sp-core{display:grid;grid-template-columns:minmax(108px,30%) minmax(0,1fr);gap:0 16px;align-items:center;padding:22px 12px 44px 0}
-  .sp-trunk{height:12px}
-  .sp-trunk i:first-of-type{border-radius:6px 0 0 6px}
-  .sp-trunk i:nth-of-type(4){border-radius:0 6px 6px 0}
-  .sp-trunk i::before{width:14px;height:14px;margin:-7px 0 0 -7px;border-width:3px}
-  .sp-trunk i::after{content:attr(data-k);position:absolute;left:7px;bottom:calc(100% + 11px);font:600 11.5px/1 var(--f-mono);
-    color:color-mix(in oklab,var(--c) 82%,var(--ink))}
-  .sp-loop{left:0;top:50%;bottom:auto;width:calc(100% + 10px);height:28px}
-  .sp-loop rect{rx:13px}
-  .sp-back{bottom:auto;top:calc(50% + 28px);transform:translate(-50%,-50%)}
-  .sp-gate{font-size:11px;padding:3px 7px}
-  .spine .sp-ph{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 24px;padding-top:28px;border-top:1px solid var(--rule)}
-  .sp-ph a{grid-template-columns:auto 1fr;gap:3px 10px;align-items:baseline;min-height:44px}
-  .sp-ph .c-ask{grid-column:1/-1}
-  .sp-ph .c-name{font-size:17px}
-  .sp-skip{margin-top:8px}
-}
-@media (max-width:860px){.spine .sp-in{grid-template-columns:1fr 1fr}.spine .sp-ph{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 28px}}
-@media (max-width:600px){
-  .sp-back .x{display:none}
-  .sp-core b{font-size:16.5px}
-  /* the name on its own line, then the line it names */
-  .sp-core{grid-template-columns:1fr;gap:26px 0;padding-top:20px}
-  .sp-core a{grid-template-columns:auto 1fr;gap:0 10px;align-items:baseline}
-  .spine .sp-ph{grid-template-columns:1fr;gap:20px}
-  /* too narrow for the word: the gate is a rose bar before P2 */
-  .sp-gate{width:4px;height:24px;padding:0;border:0;border-radius:2px;overflow:hidden;text-indent:8px;
-    background:color-mix(in oklab,var(--dg-rose) 85%,var(--ink));transform:translate(calc(-100% - 10px),-50%)}
-}
 
 /* ---- the methods on the spine: four rows of bars, then what the spine adds (pages/spine.py) ---- */
 .cover{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:16px}
@@ -1812,6 +1702,120 @@ main.home{padding:0}
    A parcel writes only between its own two comments, so parcels built side by side never edit neighbouring
    lines. The rules a band replaces are deleted where they stand, above. ---- */
 /* home · H3 map */
+/* The method map (pages/spine.py): the SkyWays PDLC as a frame with its four phases across the top, each method a
+   shape as long as the phases it covers, and under them the row of questions no method reaches. A grid, so every
+   word is text and nothing scales. Radii: the frame 16; a shape, an end and the wash 11. The parts that carry
+   `hidden` in the markup, for a reader without the stylesheet, get their display here. */
+.vm{margin:0;--vm-m:248px;--vm-pg:var(--bone);--vm-line:color-mix(in oklab,var(--ink) 24%,transparent);
+  --vm-halo:color-mix(in oklab,var(--ink) 13%,var(--bone))}
+.vm .hand{font-family:'Patrick Hand','Chalkboard SE','Comic Sans MS',cursive;font-weight:400;color:var(--ink2)}
+/* the legend sits on the frame's top edge; the page colour behind its words hides the line */
+.vm-hd{position:relative;z-index:3;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;margin:0 var(--vm-m) -13px 18px}
+.vm-me,.vm .vm-by,.vm-loop{padding:0 8px;background:var(--vm-pg)}
+.vm-me{margin-left:-8px;font:620 21px/1.2 var(--f-display);letter-spacing:-.02em;color:var(--ink)}
+.vm .vm-by{margin-left:-14px;font-size:18px}
+.vm-loop{display:inline-flex;align-items:center;gap:7px;margin:0 18px 0 auto;font:500 12px var(--f-mono);color:var(--soft)}
+/* rows: heads, a lane label, five shapes, the build note, a lane label, the questions */
+.vm-g{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) var(--vm-m);
+  grid-template-rows:auto auto repeat(5,36px) 40px auto auto;row-gap:10px;padding:30px 0 22px}
+.vm-fr{grid-area:1/1/11/5;margin:-30px 0 -22px;border:1px solid var(--vm-line);border-radius:16px;
+  background:linear-gradient(90deg,#0000 calc(25% - .5px),var(--rule) 0 calc(25% + .5px),#0000 0 calc(75% - .5px),var(--rule) 0 calc(75% + .5px),#0000 0)}
+.vm-meet{grid-area:3/3/9/4;margin:-6px 3px 0;border-radius:11px;background:color-mix(in oklab,var(--dg-teal) 12%,transparent)}
+.vm-so{display:block;position:relative;grid-area:1/3/11/4;margin:-30px 0 -22px -1px;pointer-events:none;
+  border-left:2px dashed color-mix(in oklab,var(--dg-rose) 70%,transparent)}
+.vm-so em{position:absolute;top:-12px;left:0;transform:translateX(-50%);padding:1px 8px;white-space:nowrap;
+  border:1px solid color-mix(in oklab,var(--dg-rose) 45%,transparent);border-radius:999px;background:var(--vm-pg);
+  font:500 11px/1.5 var(--f-mono);color:color-mix(in oklab,var(--dg-rose) 80%,var(--ink))}
+.vm-so .b{top:auto;bottom:-12px}
+/* a column head: the phase's rule, key and name, and the form the hero's flight takes there, in its hue (the drawing
+   carries its size and pen as attributes, pages/spine.py) */
+.vm-p{grid-row:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 9px;padding:0 18px 4px;color:var(--ink)}
+.vm-p::before{content:"";flex:0 0 100%;height:3px;margin:0 0 12px;border-radius:2px;background:var(--c)}
+.vm-p .c-key{font:600 12.5px var(--f-mono);color:color-mix(in oklab,var(--c) var(--dg-text),var(--ink))}
+.vm-p .c-name{font:620 19px/1.2 var(--f-display);letter-spacing:-.02em}
+.vm-p svg{align-self:center;color:var(--c)}
+.vm-l{grid-column:1/5;max-width:none;margin:0;padding:8px 18px 2px;font:500 12.5px/1.4 var(--f-mono);color:var(--soft)}
+.vm-l1{grid-row:2}
+.vm-l2{grid-row:9}
+.vm-l span{position:relative;z-index:1;background:var(--vm-pg);box-shadow:0 0 0 3px var(--vm-pg)}
+/* a shape: one link, placed on its row by --r and across its phases by --a and --b (from the data's reach) */
+.vm-rows,.vm-r{display:contents}
+.vm-pl{grid-area:var(--r)/var(--a)/auto/var(--b);position:relative;display:flex;align-items:center;margin:0 9px;padding:0 13px;
+  border:1.5px solid color-mix(in oklab,var(--ink) 46%,transparent);border-radius:11px;background:color-mix(in oklab,var(--ink) 13%,transparent);
+  font:600 15.5px var(--f-display);letter-spacing:-.01em;color:var(--ink);white-space:nowrap;text-decoration:none}
+.vm-pn,.vm-bar{display:none}
+/* an end: a sketch or an update (half a column, on the side that touches the shape), or a stage this manual adds */
+.vm-lt,.vm-ex{grid-area:var(--r)/var(--c1);display:flex;align-items:center;width:calc(50% - 9px);margin:0 9px;padding:0 11px;
+  border:1px dashed color-mix(in oklab,var(--ink) 40%,transparent);border-radius:11px;font:500 11.5px var(--f-mono);color:var(--soft)}
+.vm-lt.l{justify-self:end;justify-content:flex-end}
+.vm-ex{width:auto}
+/* a note in the margin, after an arrow that points back at its shape (drawn in the note's own colour) */
+.vm-n{grid-area:var(--r)/var(--e);display:flex;align-items:center;gap:6px;padding-left:2px;font-size:17px;line-height:1.05}
+.vm-n svg{flex:none}
+.vm .vm-all{grid-area:8/3;flex-direction:column;gap:1px;align-self:start;padding:0}
+.vm .vm-none{grid-area:10/5;align-self:start;padding-top:2px}
+.vm-q{grid-area:10/1/11/5;display:grid;grid-template-columns:subgrid;max-width:none;margin:0;padding:0;list-style:none}
+.vm-q li{display:grid;align-content:start;gap:8px;max-width:none;margin:0;padding:4px 22px 0 18px}
+.vm-ask{font-size:15.5px;font-weight:500;line-height:1.4;color:var(--ink)}
+.vm-q q{padding-left:11px;border-left:2px solid var(--c);font-size:14px;line-height:1.45;color:var(--ink2)}
+.vm figcaption{max-width:78ch;margin:22px 0 0;font-size:13.5px;line-height:1.55;color:var(--soft)}
+@media (min-width:761px){.vm-k{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}}
+/* 1280px and under: the author's line drops under the name, so the legend never meets the sign-off's pill */
+@media (min-width:761px) and (max-width:1280px){
+  .vm-hd{display:grid;grid-template-columns:auto 1fr;justify-items:start;row-gap:0;margin-bottom:-37px}
+  .vm .vm-by{grid-area:2/1;margin:0 0 0 -8px}
+  .vm-loop{grid-area:1/2;justify-self:end}
+  .vm-g{padding-top:52px}
+  .vm-fr,.vm-so{margin-top:-52px}
+}
+/* 1180px and under: no margin; each note moves into its shape, under the name, without its arrow. A halo of the
+   shape's own colour keeps the sign-off's dashes off the words */
+@media (max-width:1180px){
+  .vm{--vm-m:0px}
+  .vm-n{display:none}
+  .vm .vm-all{display:flex}
+  .vm-g{grid-template-rows:auto auto repeat(5,auto) 44px auto auto}
+  .vm-pl{flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;padding:7px 13px 8px;white-space:normal;line-height:1.15;
+    text-shadow:0 0 3px var(--vm-halo),0 0 6px var(--vm-halo)}
+  .vm-pn{display:block;font-size:16px;letter-spacing:0}
+  .vm-lt,.vm-ex{align-self:stretch}
+}
+/* phones: each method is its name, its note, and a strip across the same four columns, solid where it covers and
+   dashed where it sketches, updates or is added; the wash runs behind the strips; the questions stack */
+@media (max-width:760px){
+  .vm-hd{display:block;margin:0 0 12px}
+  .vm-me,.vm .vm-by,.vm-loop{margin:0;padding:0;background:none}
+  .vm .vm-by{display:block}
+  .vm-g{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:none;row-gap:0;margin:0 -8px;padding:14px 12px 16px;
+    border:1px solid var(--vm-line);border-radius:16px}
+  .vm-fr,.vm-so .b,.vm .vm-none,.vm-p svg{display:none}
+  .vm-meet{grid-area:3/3/5/4;margin:0 1px;border-radius:6px}
+  .vm-so{grid-area:1/3/5/4;margin:-14px 0 0 -1px}
+  .vm-p{padding:0 4px 8px}
+  .vm-p::before{margin-bottom:8px}
+  .vm-p .c-name{font-size:13px}
+  .vm-l{grid-column:1/-1;padding:14px 0 6px}
+  .vm-l2{grid-row:5}
+  .vm-rows{display:grid;grid-area:3/1/4/-1;grid-template-columns:subgrid;margin:0;padding:0;list-style:none}
+  .vm-r{display:grid;grid-column:1/-1;grid-template-columns:subgrid;row-gap:6px;padding:10px 0 12px;border-top:1px solid var(--rule)}
+  .vm-pl{grid-area:1/1/2/-1;margin:0;padding:0;border:0;background:none;font-size:16px;--vm-halo:var(--vm-pg)}
+  .vm-pn{padding-top:2px;font-size:16.5px}
+  .vm-bar{display:block;grid-area:2/var(--a)/3/var(--b);height:9px;margin:0 2px;border-radius:3px;background:var(--ink2)}
+  .vm-lt,.vm-ex{grid-area:2/var(--c1);width:auto;height:9px;margin:0 2px;padding:0;border-radius:3px}
+  .vm-lt{width:50%}
+  .vm-lt span,.vm-ex span{display:none}
+  .vm .vm-all{grid-area:4/2/5/5;padding:4px 0 2px;font-size:16.5px}
+  .vm-q{grid-area:6/1/7/-1;grid-template-columns:1fr;gap:16px;padding-top:4px}
+  .vm-q li{grid-column:1!important;gap:4px;padding:0 0 0 12px;border-left:3px solid var(--c)}
+  .vm-k{display:block;font:600 12px var(--f-mono);color:color-mix(in oklab,var(--c) var(--dg-text),var(--ink))}
+  .vm-q q{padding:0;border:0}
+}
+/* paper: light tokens (the dark ones are screen rules), notes in ink, the map on one page. The strips, the heads'
+   rules and the wash are backgrounds, which a browser leaves off paper unless asked */
+@media print{.vm{--vm-pg:#fff;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .vm .hand{color:var(--ink)}}
+/* A4 lays the map out at about 717px, the phones' layout: the questions two by two keep it to one page */
+@media print and (max-width:760px){.vm-q{grid-template-columns:1fr 1fr;gap:14px 28px}.vm-q li{grid-column:auto!important}}
 /* end of home · H3 */
 
 /* home · H4 chooser */

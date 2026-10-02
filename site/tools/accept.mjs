@@ -580,7 +580,121 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
 {
   // home · H3 map: the methods band, #methods
   async function bandH3(w, h) {
-    return [];
+    // At 1440 x 900 with the eyebrow just under the header, the frame and its lower pill end inside the screen. At both
+    // widths each shape (on a phone, its strip) spans the phases named in the sentence a screen reader hears, and its
+    // ends sit in the phases that sentence names; nothing is under 11px and no handwriting under 16px; at most eight
+    // notes show; every text is 4.5:1 against the layers painted under it (the wash and the shapes are siblings, not
+    // ancestors, so the stack at the words is read), in both themes. At 390 the map is measured again at 320: no
+    // sideways scroll, each head inside its column, the sign-off's pill on one line.
+    const out = [];
+    const MAP = `(async () => {
+      await document.fonts.ready;
+      const band = document.getElementById('methods'), map = band && band.querySelector('figure.vm');
+      if (!map) return null;
+      const shown = (e) => !!e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0;
+      scrollTo({ top: band.querySelector('.eyebrow').getBoundingClientRect().top + scrollY - 84, behavior: 'instant' });
+      await new Promise((r) => setTimeout(r, 150));
+      const fr = map.querySelector('.vm-fr'), low = map.querySelector('.vm-so .b');
+      const o = { frame: Math.round((shown(fr) ? fr : map.querySelector('.vm-g')).getBoundingClientRect().bottom),
+        pill: shown(low) ? Math.round(low.getBoundingClientRect().bottom) : 0, pillH: Math.round(map.querySelector('.vm-so em').getBoundingClientRect().height),
+        over: document.documentElement.scrollWidth - document.documentElement.clientWidth, spans: [], small: [], heads: [], notes: 0, shapes: 0 };
+      const cols = [...map.querySelectorAll('.vm-p')].map((a) => a.getBoundingClientRect());
+      const names = [...map.querySelectorAll('.vm-p .c-name')].map((n) => n.textContent.replace('&', 'and'));
+      const col = (x) => cols.findIndex((c) => x >= c.left && x < c.right);
+      const mid = (e) => { const q = e.getBoundingClientRect(); return col((q.left + q.right) / 2); };
+      for (const li of map.querySelectorAll('.vm-r')) {
+        o.shapes++;
+        const said = li.querySelector('.vm-pl > .vh').textContent, nm = li.querySelector('.vm-nm').textContent;
+        const cov = (said.match(/covers (.+?)(?=[,;.]|$)/) || [, ''])[1];
+        const want = cov === 'all four phases' ? [0, 3] : cov.split(' to ').map((x) => names.indexOf(x));
+        if (want.length === 1) want.push(want[0]);
+        const bar = li.querySelector('.vm-bar'), r = (shown(bar) ? bar : li.querySelector('.vm-pl')).getBoundingClientRect();
+        const got = [col(r.left + 1), col(r.right - 1)];
+        if (got.join() !== want.join()) o.spans.push(nm + ' is drawn across phases ' + got.join(' to ') + ' and read as "covers ' + cov + '"');
+        const ends = [...said.matchAll(/ in (Frame|Design and Spec|Build and Prove|Run and Learn)/g)].map((x) => names.indexOf(x[1]));
+        const add = said.match(/this manual adds (.+?)(?=[,;.]|$)/);
+        if ([...li.querySelectorAll('.vm-lt')].map(mid).join() !== ends.join() || [...li.querySelectorAll('.vm-ex')].map(mid).join() !== (add ? [names.indexOf(add[1])] : []).join())
+          o.spans.push(nm + ': its ends are not in the phases its sentence names');
+      }
+      const texts = [...band.querySelectorAll('*')].filter((e) => !e.closest('.vh') && e.checkVisibility() && [...e.childNodes].some((t) => t.nodeType === 3 && t.nodeValue.trim()));
+      for (const e of texts) {
+        const cs = getComputedStyle(e), fs = parseFloat(cs.fontSize), hand = /Patrick/.test(cs.fontFamily);
+        if (fs < (hand ? 16 : 11)) o.small.push((hand ? 'handwriting at ' : '') + fs + 'px, "' + e.textContent.trim().slice(0, 30) + '"');
+      }
+      o.notes = new Set(texts.filter((e) => /Patrick/.test(getComputedStyle(e).fontFamily)).map((e) => e.textContent.trim())).size;
+      for (const a of map.querySelectorAll('.vm-p')) {
+        const r = a.getBoundingClientRect();
+        for (const k of a.querySelectorAll('.c-key,.c-name')) { const q = k.getBoundingClientRect(); if (q.left < r.left - 0.5 || q.right > r.right + 0.5) o.heads.push(k.textContent); }
+      }
+      return o;
+    })()`;
+    const CONTRAST = (light) => `(async () => {
+      if (${light}) document.documentElement.setAttribute('data-theme', 'light');
+      await document.fonts.ready;
+      const band = document.getElementById('methods');
+      const cv = document.createElement('canvas'); cv.width = cv.height = 1;
+      const cx = cv.getContext('2d', { willReadFrequently: true });
+      const paint = (base, c) => { cx.globalCompositeOperation = 'copy'; cx.fillStyle = base; cx.fillRect(0, 0, 1, 1);
+        cx.globalCompositeOperation = 'source-over'; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1); return cx.getImageData(0, 0, 1, 1).data; };
+      const rgba = (c) => { const k = paint('#000', c), w = paint('#fff', c), a = Math.max(0, Math.min(1, 1 - (w[0] - k[0] + w[1] - k[1] + w[2] - k[2]) / 765));
+        return a > 0.004 ? [k[0] / a, k[1] / a, k[2] / a, a] : [0, 0, 0, 0]; };
+      const over = (t, u) => [0, 1, 2].map((i) => t[i] * t[3] + u[i] * (1 - t[3])).concat(1);
+      const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+      const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+      const done = new Set(), low = [];
+      const top = band.getBoundingClientRect().top + scrollY, end = top + band.offsetHeight;
+      for (let y = top - 64; y < end; y += innerHeight - 140) {
+        scrollTo({ top: y, behavior: 'instant' });
+        await new Promise((r) => setTimeout(r, 80));
+        const tw = document.createTreeWalker(band, NodeFilter.SHOW_TEXT, { acceptNode: (t) => (t.nodeValue.trim() ? 1 : 3) });
+        for (let t = tw.nextNode(); t; t = tw.nextNode()) {
+          if (done.has(t)) continue;
+          const e = t.parentElement, rg = document.createRange(); rg.selectNodeContents(t);
+          const rr = rg.getClientRects()[0];
+          if (e.closest('.vh') || !e.checkVisibility({ opacityProperty: true, visibilityProperty: true }) || !rr || rr.width < 2) { done.add(t); continue; }
+          if (rr.top < 70 || rr.bottom > innerHeight - 4) continue;
+          done.add(t);
+          for (const fx of [0.2, 0.5, 0.8]) {
+            let bg = [255, 255, 255, 1];
+            for (const el of document.elementsFromPoint(rr.left + rr.width * fx, rr.top + rr.height * 0.55).reverse()) {
+              const c = rgba(getComputedStyle(el).backgroundColor);
+              if (c[3] > 0) bg = over(c, bg);
+              if (el === e) break;
+            }
+            const ratio = cr(over(rgba(getComputedStyle(e).color), bg), bg);
+            if (ratio < 4.5) { low.push(ratio.toFixed(2) + ':1, "' + t.nodeValue.trim().slice(0, 28) + '"'); break; }
+          }
+        }
+      }
+      return low;
+    })()`;
+    const say = (m, at) => {
+      if (!m) return out.push(`${at}: no method map (figure.vm) in #methods`);
+      if (m.shapes !== 5) out.push(`${at}: ${m.shapes} shapes on the map, five expected`);
+      if (m.over > 0) out.push(`${at}: the page scrolls sideways by ${m.over}px`);
+      if (m.spans.length) out.push(`${at}: ${m.spans.join("; ")}`);
+      if (m.small.length) out.push(`${at}: text too small: ${m.small.slice(0, 3).join("; ")}`);
+      if (m.notes > 8) out.push(`${at}: ${m.notes} handwritten notes show; eight at most`);
+      if (m.heads.length) out.push(`${at}: a phase's key or name runs out of its column: ${m.heads.join(", ")}`);
+      if (m.pillH > 24) out.push(`${at}: the sign-off's pill wraps (${m.pillH}px tall)`);
+    };
+    try {
+      const m = await evaluate(MAP);
+      say(m, `${w}px`);
+      if (m && w >= 1440 && (m.frame > h || m.pill > h)) out.push(`with the eyebrow under the header the frame ends at ${m.frame}px and its pill at ${m.pill}px, past the ${h}px screen`);
+      for (const light of [false, true]) {
+        const low = await evaluate(CONTRAST(light));
+        if (low.length) out.push(`${light ? "light" : "dark"}: under 4.5:1: ${low.slice(0, 4).join("; ")}`);
+      }
+      if (w === 390) {
+        await send("Emulation.setDeviceMetricsOverride", { width: 320, height: 640, deviceScaleFactor: 1, mobile: true });
+        await sleep(500);
+        say(await evaluate(MAP), "320px");
+      }
+    } catch (e) {
+      out.push("the map's checks could not run: " + e.message.slice(0, 160));
+    }
+    return out;
   }
   // end of home · H3
 
