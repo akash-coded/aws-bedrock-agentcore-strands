@@ -1,13 +1,14 @@
-"""The home page's hero scene: the Earth, a fine spiral around it, and one aircraft that climbs the spiral.
+"""The home page's hero scene: the Earth, a fine spiral around it, and one flight through the four phases.
 
 Two halves. ``theme/hero.js`` draws the moving picture in one canvas on one clock: the Earth turning, the
-spiral, the aircraft and the path it has just flown. This module gives it what is fixed: the land as a
-lattice of dots (:func:`land`), the markup (:func:`scene`), and the same picture with nothing to run it
+spiral, and the flight staged like a launch, the aircraft changing form and hue at each phase and carrying a
+tag that names the phase, until it rests in one named still. This module gives it what is fixed: the land as
+a lattice of dots (:func:`land`), the markup (:func:`scene`), and a paused frame with nothing to run it
 (:func:`still`), for the social card. The geometry constants below are the script's, kept in step by hand;
 ``still`` and the script draw the same spiral from them.
 
 Without script the stylesheet draws a plain shaded disc and the names under it still read; with reduced
-motion the script draws one frame and leaves it.
+motion the script draws its rest frame once: the four forms parked in their phases, each named.
 
 The coastlines are coarse on purpose. At one dot every two degrees a continent is a few hundred dots,
 so a polygon with forty corners is already finer than the picture can show. They are drawn by hand and
@@ -192,14 +193,16 @@ def land_json() -> str:
 
 
 # ------------------------------------------------------------------------------------ the spiral
-# In Earth radii, and the same numbers as theme/hero.js. The front of each turn is the journey, P0 to P3;
-# the back of the turn, behind the Earth, is the way back to Frame; each turn sits PITCH above the last.
+# In Earth radii, and the same numbers as theme/hero.js. The front of each turn is the journey, P0 to P3, an
+# eighth of a turn a phase, with the sign-off a quarter of the way round; the back of the turn, behind the
+# Earth, is the way back to Frame; each turn sits PITCH above the last.
 RHO = 1.3             # the spiral's radius
 ALPHA = 15.0          # degrees its plane tips toward the reader
 ROLL = 14.0           # degrees it rises to the right
 PITCH = 0.17          # one turn climbs this much
 PAST, AHEAD = 2.3, 0.6
-STILL_AT = 0.29       # where the aircraft sits in a still picture: just past the sign-off
+STILL_AT = 0.29       # the social card's moment: just past the sign-off, built. The hero's own still (reduced
+                      # motion, and where the flight comes to rest) is its rest frame, drawn by theme/hero.js
 
 LEGS = [("P0", "Frame", "slate"), ("P1", "Design &amp; Spec", "indigo"),
         ("P2", "Build &amp; Prove", "teal"), ("P3", "Run &amp; Learn", "amber")]
@@ -207,7 +210,8 @@ LEGS = [("P0", "Frame", "slate"), ("P1", "Design &amp; Spec", "indigo"),
 # One aircraft, three shapes. Fourteen corners in the same order (nose, wing root, wingtip fore and aft,
 # wing root aft, tail root, tail tip, tail centre, and back up the other side), so one shape can be
 # eased into the next: a paper dart while the idea is framed, an airliner while it is designed and built,
-# a jet when it is flying for real. Until the sign-off it is an outline; after it, solid.
+# a jet when it is flying for real. Until the sign-off it is an outline; after it, solid. In the hero each
+# form also wears its phase's hue: slate, indigo, teal, amber.
 _DART = [(16, 0), (5, -2.3), (-12.2, -10.8), (-13.8, -9.4), (-7.8, -2.6), (-11, -2.1), (-13.4, -1.5), (-11.8, 0)]
 _LINER = [(15.5, 0), (3.5, -2.7), (-5.5, -14), (-9.5, -14), (-3.5, -2.7), (-10.5, -2.3), (-15.5, -7.2), (-13.5, 0)]
 _JET = [(18, 0), (4, -2.3), (-9.5, -10.5), (-13, -10.5), (-8.5, -3.1), (-11.5, -2.7), (-16.5, -6.2), (-12.5, 0)]
@@ -224,18 +228,19 @@ CRAFT = [("dart", "drawn"), ("liner", "drawn"), ("liner", "built"), ("jet", "bui
 
 
 def scene(pause: str = "") -> str:
-    """The hero's picture. A screen reader gets one sentence for it; section two says the rest in words.
-    ``pause`` is the control that stills it; it sits beside the line of names."""
+    """The hero's picture. A screen reader gets one sentence for it; the bands below say the rest in words.
+    ``pause`` is the control that stills it: with script it sits in the stage's corner and the line of names
+    goes, because the picture names its own phases; without script the names stay under the disc."""
     names = "".join(
         f'<li style="--c:var(--dg-{hue})"><b>{key}</b>{name}</li>' + ('<li class="gate">sign-off</li>' if key == "P1" else "")
         for key, name, hue in LEGS)
     names += '<li class="back">then back to Frame, one level up</li>'
-    says = ("A turning Earth with one aircraft climbing a spiral around it. In front of the Earth it flies through "
-            "the four phases, from P0 Frame to P3 Run and Learn, past one sign-off. Behind the Earth it comes back "
-            "to Frame, one level higher.")
+    says = ("A paper dart flies round the Earth through four phases and becomes, in turn, a drawing, a built "
+            "airliner and a jet. It stops at a sign-off before it is built. Then it comes back to Frame, one level "
+            "higher.")
     return (f'<div class="scene"><div class="sc-stage" role="img" aria-label="{says}">'
             '<canvas class="sc-cv" data-globe width="1168" height="984"></canvas></div>'
-            f'<div class="sc-foot"><ol class="sc-rail" data-globe-rail data-at="" aria-hidden="true">{names}</ol>{pause}</div></div>')
+            f'<div class="sc-foot"><ol class="sc-rail" data-globe-rail aria-hidden="true">{names}</ol>{pause}</div></div>')
 
 
 # ------------------------------------------------------------------------------------ a still
