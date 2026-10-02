@@ -45,3 +45,10 @@ site/contact-relay/.packaged.yaml
 site/contact-relay/.aws-sam/
 site/__pycache__/
 site/content/roles/_src/__pycache__/
+
+# The Desktop app's preview-server list and its worktrees stay on the machine they were made on
+.claude/launch.json
+.claude/worktrees/
+# Skills linked into the repository by a cloud session's setup point outside it; only the repository's own skill is kept
+/.claude/skills/*
+!/.claude/skills/manual-diagrams/
