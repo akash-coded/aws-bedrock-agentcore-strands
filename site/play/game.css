@@ -132,6 +132,10 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-brief .nd-meters dd .vh{position:static;width:auto;height:auto;overflow:visible;clip:auto;margin-left:8px}     /* a reader who starts late reads the number beside the pips */
 .nd-brief section>p{margin:6px 0 0;font-size:15.5px;line-height:1.5;color:var(--ink2)}
 .nd-brief section>p b{color:var(--ink)}
+/* from about Day 20 the briefing is taller than a laptop's window: its one button stays at the window's foot while
+   the recap scrolls under it, and rests at the card's end once the reader gets there */
+.nd-brief>.nd-acts{position:sticky;bottom:0;z-index:1;margin:0 -26px -26px;padding:14px 26px 22px;background:var(--paper);
+  border-top:1px solid var(--rule);border-radius:0 0 20px 20px}
 
 /* what arrived this morning: a debt come due, an event, the incident */
 .nd-events{list-style:none;padding:0;display:grid;gap:8px}
@@ -575,6 +579,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .nd-recap .nd-also td:nth-child(2){display:none}
   .nd-recap .nd-also td:nth-child(3){grid-column:1;grid-row:1;margin:0}
   .nd-docs{grid-template-columns:minmax(0,1fr)}
+  .nd-brief>.nd-acts{margin:0 calc(-1 * var(--gut)) -22px;padding:12px var(--gut) 16px;border-radius:0}
   .nd-role{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"who btn" "says says" "days days" "takes takes";row-gap:8px}
   .nd-role:has(>a){grid-template-areas:"who btn" "says says" "days days" "from from" "takes takes"}
   /* the days beside the line where they fit, under it where they do not; spaced so no two targets touch */
