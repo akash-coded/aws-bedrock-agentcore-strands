@@ -4,7 +4,7 @@
 //   python3 -m http.server 8799 -d site/_site &
 //   node site/tools/accept.mjs http://localhost:8799/
 //
-// Seventeen passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
+// Eighteen passes, most over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
 //    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn), and
@@ -42,6 +42,8 @@
 //                            three scripts under 45 KB, every page's HTML under 25 KB (the pages that were already
 //                            larger on 2 October 2026 each held to its size that day, rounded up, plus one KB), and
 //                            no font file but the four the site has
+//   18. map height           every page under learn/ in the sitemap, at 1440 x 900: the figure that holds a lesson's
+//                            map (data-map, from pages/maps.py) is at most 630px tall, 70% of the screen (council 9)
 //
 // Every pass first checks that the page really loaded: its top bar is there and styled. It exits 1 if
 // any pass fails and prints what failed. It measures; it does not judge taste: for that, look. The hero can
@@ -488,6 +490,37 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
   if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); }
 }
 
+// 18. map height. Council 9 capped a lesson's map at 70% of a 1440 by 900 screen: 630px for the figure, its
+// drawing, frame and caption together. Every page under learn/ that the sitemap lists is opened at that size,
+// and the figure pages/maps.py marks with data-map is measured; a page without a map has nothing to check.
+console.log("\n18. map height: on every lesson at 1440 x 900, the map's figure is at most 630px tall");
+{
+  const out = [], CAP = 0.7 * 900;
+  thrown.length = 0;
+  await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
+  await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
+  const sitemap = await fetch(BASE + "sitemap.xml").then((r) => (r.ok ? r.text() : "")).catch(() => "");
+  const lessons = [...new Set([...sitemap.matchAll(/<loc>[^<]*?\/learn\/([a-z0-9-]+)\/<\/loc>/g)].map((x) => x[1]))];
+  if (!lessons.length) out.push("the sitemap lists no page under learn/");
+  let maps = 0, tallest = { h: 0, at: "" };
+  for (const slug of lessons) {
+    const at = `/learn/${slug}/`;
+    await send("Page.navigate", { url: BASE + at.slice(1) });
+    await sleep(900);
+    const m = await evaluate(`(async () => { await document.fonts.ready; const f = document.querySelector('main figure[data-map]');
+      return { loaded: ${LOADED}, h: f ? Math.round(f.getBoundingClientRect().height * 10) / 10 : null }; })()`);
+    if (!m.loaded) { out.push(`${at} did not load`); continue; }
+    if (m.h === null) continue;
+    maps++;
+    if (m.h > tallest.h) tallest = { h: m.h, at };
+    if (m.h > CAP) out.push(`${at} is ${m.h}px tall`);
+  }
+  if (lessons.length && !maps) out.push("no lesson has a figure marked data-map to measure");
+  if (thrown.length) out.push("script error: " + thrown[0]);
+  if (out.length) { failures += out.length; console.log(`  FAIL  (the cap is ${CAP}px) ` + out.join("; ")); }
+  else console.log(`  ok   ${maps} lessons with a map, the tallest ${tallest.at} at ${tallest.h}px`);
+}
+
 } catch (e) {
   failures++;
   console.log("\nthe gate itself failed: " + e.message);
@@ -498,5 +531,5 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
   await Promise.race([exited, sleep(5000)]);
   try { rmSync(profile, { recursive: true, force: true }); } catch {}
 }
-console.log(failures ? `\n${failures} failure(s)` : "\nall seventeen passes hold");
+console.log(failures ? `\n${failures} failure(s)` : "\nall eighteen passes hold");
 process.exit(failures ? 1 : 0);

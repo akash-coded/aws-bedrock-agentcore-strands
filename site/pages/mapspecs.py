@@ -164,15 +164,15 @@ MAPS["what-is-the-agentic-pdlc"] = dict(
 MAPS["evolution-of-the-pdlc"] = dict(
     kind="bands", title=[("Six lifecycles", "s"), ("one bottleneck at a time",)], flow=True,
     bands=[
-        {"hue": "s", "key": "1970s", "name": "Plan-driven", "cells": [_c("Bottleneck: change cost", "a decision was expensive to revisit", "money"), _c("Answer: decide up front", "the whole design before a line of code", "doc")]},
-        {"hue": "s", "key": "1988 · 90", "name": "Spiral and stage-gate", "cells": [_c("Bottleneck: the wrong thing", "built well, wanted by nobody", "warn"), _c("Answer: evidence gates", "a review before each round of spend", "gate")]},
-        {"hue": "s", "key": "2001", "name": "Agile", "cells": [_c("Bottleneck: late learning", "feedback arrived after the release", "clock"), _c("Answer: short cycles", "working software every few weeks", "loop")]},
-        {"hue": "s", "key": "2009 on", "name": "DevOps", "cells": [_c("Bottleneck: the release", "the hand-off to operations", "server"), _c("Answer: continuous delivery, measured", "deploy often, watch the four keys", "trend")]},
-        {"hue": "t", "key": "2021 on", "name": "AI-assisted", "cells": [_c("Bottleneck: typing code", "the keyboard was the slow part", "code"), _c("Answer: a model writes, a person reviews", "the same lifecycle, faster inside", "brain")]},
-        {"hue": P0, "key": "2024 on", "name": "Agentic", "cells": [_c("Bottleneck: mostly right", "part of the product is right a share of the time", "wave"), _c("Answer: a measured bar, authority per action", "and one hard gate before the build", "target")]},
+        {"hue": "s", "key": "1970s", "name": "Plan-driven", "cells": [_c("Bottleneck: change cost", "", "money"), _c("Answer: decide up front", "", "doc")]},
+        {"hue": "s", "key": "1988 · 90", "name": "Spiral and stage-gate", "cells": [_c("Bottleneck: the wrong thing", "", "warn"), _c("Answer: evidence gates", "", "gate")]},
+        {"hue": "s", "key": "2001", "name": "Agile", "cells": [_c("Bottleneck: late learning", "", "clock"), _c("Answer: short cycles", "", "loop")]},
+        {"hue": "s", "key": "2009 on", "name": "DevOps", "cells": [_c("Bottleneck: the release", "", "server"), _c("Answer: continuous delivery, measured", "", "trend")]},
+        {"hue": "t", "key": "2021 on", "name": "AI-assisted", "cells": [_c("Bottleneck: typing code", "", "code"), _c("Answer: a model writes, a person reviews", "", "brain")]},
+        {"hue": P0, "key": "2024 on", "name": "Agentic", "cells": [_c("Bottleneck: mostly right", "", "wave"), _c("Answer: a measured bar, authority per action", "", "target")]},
     ],
     callout=("Each lifecycle answered the bottleneck of its day and kept everything before it. The agentic one keeps all five and adds the arithmetic.", P0, 44),
-    alt="Six lifecycles from plan-driven to agentic, each row naming its bottleneck and its answer",
+    alt="Six lifecycles from plan-driven to agentic, each naming its bottleneck and its answer",
 )
 
 MAPS["why-agentic-ai-projects-fail"] = dict(
@@ -489,7 +489,7 @@ MAPS["skyways-case-study"] = dict(
         {"hue": P3, "key": "P3 · days 75 to 90", "name": "Run", "cells": [
             _c("Day 75 · A 4.4× bill", "flat traffic, cold cache", "bill"), _c("Day 82 · A refund", "$2,000, not owed", "warn"), _c("Day 90 · Both numbers", "time saved, money spent", "trend")]},
     ],
-    callout=("Failures left in: the score that was not a proof, the queue that was money, the bill that was habits. Each closed a loop.", P1, 40),
+    callout=("Failures left in: the score that was no proof, the queue that was money, the bill that was habits. Each closed a loop.", P1, 40),
     alt="The SkyWays case: thirteen dated episodes across the four phases",
 )
 
