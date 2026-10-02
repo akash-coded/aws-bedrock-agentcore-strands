@@ -10,6 +10,10 @@ canvas, re-set upright, for anything narrower. No label is under 12.5 units on t
 the second, so none is under 11px on screen at any width. base.css swaps the two on the figure's own
 width. The sentences that used to be drawn inside the picture are text under it (``notes``): text
 wraps, a drawing cannot.
+
+A label drawn in a hue sits on that hue's own tint, where the light theme's hue alone reads 3.4 to
+4.5 to 1. ``_label`` deepens it toward the ink by ``--dg-text`` (base.css: 78% of the hue in the light
+theme, all of it in the dark), so every label reads 4.5 to 1 or more and the tints stay as they are.
 """
 from __future__ import annotations
 
@@ -34,13 +38,21 @@ def _svg(wide: tuple[int, str], narrow: tuple[int, str], label: str, caption: st
             f"{ns}<figcaption>{E(caption)}</figcaption></figure>")
 
 
+def _label(fill: str) -> str:
+    """The colour a label is drawn in. A hue keeps ``--dg-text`` of itself and takes the rest from the
+    ink; the ink, the ink that sits on a solid hue and a colour already deepened with ink stay as given."""
+    if fill in ("currentColor", "var(--dg-on)") or "var(--ink)" in fill:
+        return fill
+    return f"color-mix(in oklab,{fill} var(--dg-text),var(--ink))"
+
+
 def _t(x: float, y: float, s: str, fs: float = F, *, a: str = "start", w: int = 0, fill: str = "currentColor",
        op: float = 0, mono: bool = False) -> str:
     return (f'<text x="{x:.0f}" y="{y:.0f}" font-size="{fs}"'
             + (f' text-anchor="{a}"' if a != "start" else "")
             + (f' font-weight="{w}"' if w else "")
             + (' font-family="ui-monospace,SFMono-Regular,Menlo,monospace"' if mono else "")
-            + f' fill="{fill}"' + (f' opacity="{op}"' if op else "") + f">{E(s)}</text>")
+            + f' fill="{_label(fill)}"' + (f' opacity="{op}"' if op else "") + f">{E(s)}</text>")
 
 
 def bar_sheet() -> str:

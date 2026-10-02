@@ -504,12 +504,15 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
   --dg-fill:9%;            /* container tint */
   --dg-soft:16%;           /* nested / lane tint */
   --dg-line:38%;           /* hairline of the concept hue */
+  --dg-text:78%;           /* a label drawn in a hue keeps this much of it, the rest is ink: the light
+                              hues read 3.4 to 4.5 to 1 on their own tint, and 4.6 or more at 78% */
 }
 /* The lifted values for the dark page. */
 @media screen{:root:not([data-theme="light"]){
   --dg-slate:#8FA8BE; --dg-indigo:#8E9BF0; --dg-teal:#4FBDB6; --dg-amber:#D9A94A;
   --dg-green:#6BBE8B; --dg-violet:#AE93E0; --dg-rose:#DE8A8A; --dg-sky:#6FB9D9;
   --dg-on:#14140F; --dg-fill:13%; --dg-soft:20%; --dg-line:44%;
+  --dg-text:100%;          /* the lifted hues already read 4.6 or more on their tints */
 }}
 
 /* ---- the board frame ---------------------------------------------------- */
