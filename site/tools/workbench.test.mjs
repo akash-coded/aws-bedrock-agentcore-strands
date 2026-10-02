@@ -18,6 +18,7 @@
 //   7. the ten pictures simshots.mjs captures still have their selectors and their pixel sizes;
 //   8. the file opened alone from disk, with no network, still has its fonts and its calculators.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
+import { createServer } from "node:net";
 import { spawn } from "node:child_process";
 import { rmSync, readFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -36,7 +37,7 @@ const ONLY = list("ONLY"), SOME_ROUTES = list("ROUTES"), SIZES = list("SIZES"), 
 const want = (name) => !ONLY.length || ONLY.includes(name);
 
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const PORT = 9333 + Math.floor(Math.random() * 400);
+const PORT = await new Promise((ok) => { const s = createServer().listen(0, "127.0.0.1", () => { const p = s.address().port; s.close(() => ok(p)); }); });   // a port no other Chrome holds, so a run never drives another run's browser
 const profile = join(tmpdir(), `workbench-${PORT}`);
 const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`,
   "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "--allow-file-access-from-files", "about:blank"], { stdio: "ignore" });

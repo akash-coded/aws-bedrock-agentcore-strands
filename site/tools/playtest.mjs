@@ -23,6 +23,7 @@
 // alone is still the whole team; a save is never replaced unasked; and on a phone every link on the rows is at least
 // 24px tall, and neither the briefing nor the day it opens scrolls sideways.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
+import { createServer } from "node:net";
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -31,7 +32,7 @@ import { join } from "node:path";
 const URL_ = process.argv[2];
 if (!URL_) { console.error("usage: node playtest.mjs <simulator url>"); process.exit(2); }
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const PORT = 9333 + Math.floor(Math.random() * 400);
+const PORT = await new Promise((ok) => { const s = createServer().listen(0, "127.0.0.1", () => { const p = s.address().port; s.close(() => ok(p)); }); });   // a port no other Chrome holds, so a run never drives another run's browser
 const profile = join(tmpdir(), `playtest-${PORT}`);
 const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`,
   "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "about:blank"], { stdio: "ignore" });

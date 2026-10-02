@@ -2,6 +2,7 @@
 //
 //   python3 site/build.py --shots
 //   node site/tools/ogshots.mjs http://localhost:8765/og/_sheet.html site/assets/og
+import { createServer } from "node:net";
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -9,7 +10,7 @@ import { join } from "node:path";
 const [url, outDir] = process.argv.slice(2);
 if (!url || !outDir) { console.error("usage: node ogshots.mjs <sheet url> <output dir>"); process.exit(2); }
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const PORT = 9333 + Math.floor(Math.random() * 400);
+const PORT = await new Promise((ok) => { const s = createServer().listen(0, "127.0.0.1", () => { const p = s.address().port; s.close(() => ok(p)); }); });   // a port no other Chrome holds, so a run never drives another run's browser
 const profile = join(tmpdir(), `og-${PORT}`);
 const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`,
   "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "about:blank"], { stdio: "ignore" });

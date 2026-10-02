@@ -8,6 +8,7 @@
 // It puts the hero's clock at each moment with window.GlobeAt(seconds) (theme/hero.js), photographs the
 // picture and the line under it, and writes <out>/hero-<theme>-<width>.jpg: twelve frames, left to right,
 // top to bottom. Headless Chrome over the DevTools protocol, the same as accept.mjs: nothing to install.
+import { createServer } from "node:net";
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -18,7 +19,7 @@ if (!BASE || !OUT) { console.error("usage: node herosheet.mjs <site url, ending 
 const LAP = 27, MOMENTS = 12;
 const SIZES = [[1440, 900], [1024, 768], [768, 1024], [390, 844]];
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const PORT = 9333 + Math.floor(Math.random() * 400);
+const PORT = await new Promise((ok) => { const s = createServer().listen(0, "127.0.0.1", () => { const p = s.address().port; s.close(() => ok(p)); }); });   // a port no other Chrome holds, so a run never drives another run's browser
 const profile = join(tmpdir(), `herosheet-${PORT}`);
 const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`,
   "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "about:blank"], { stdio: "ignore" });
