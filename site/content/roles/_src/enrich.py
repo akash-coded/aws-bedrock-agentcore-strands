@@ -36,6 +36,11 @@ ENRICH = {
     # ---- DevOps and platform ----------------------------------------------
     ("devops", "pipeline"): {"calc": "queue"},
     ("devops", "observe"): {"figure": "bill_factors", "calc": "bill"},
+
+    # ---- forward-deployed engineer (verdict 2.8) ---------------------------
+    ("forward-deployed-engineer", "prove"): {"calc": "proof"},
+    ("forward-deployed-engineer", "decide"): {"calc": "value"},
+    ("forward-deployed-engineer", "hand-over"): {"figure": "shadow_widen"},
 }
 
 
@@ -68,6 +73,11 @@ PDLC = {
                "access": "P1", "environments": "P1",
                "pipeline": "P2", "deploy": "P2",
                "observe": "P3", "protect": "P3", "recover": "P3"},
+    # A staged role: each step's stage is read from the step itself, and the phases run P0 to P3 once
+    # inside each stage, Frame, Deliver and Evolve. The build checks that order stage by stage.
+    "forward-deployed-engineer": {"qualify": "P0", "scope": "P1", "prove": "P2", "decide": "P3",
+                                  "mobilise": "P0", "sign": "P1", "build": "P2", "hand-over": "P3",
+                                  "reframe": "P0", "codify": "P1", "reuse": "P2", "review": "P3"},
 }
 
 # A phase a role produces nothing in is not a gap in the manual — it is the
