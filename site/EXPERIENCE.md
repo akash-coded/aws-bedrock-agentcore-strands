@@ -572,43 +572,149 @@ sketches and the leadership page's map, each with its card and its image data, a
 37 KB gzipped. The gate's hold for that page was raised to 38 KB, the one hold raised on purpose; trimming
 the image data each picture carries for search would bring it back down, and is the owner's call.
 
+## Round eleven: late starts that show their work, a second lab, two more manuals
+
+The owner answered on 2 October, in these words: "yes to wiki sync. late starts should already just assume
+what would have done by then and present with evidence, artefacts and process recap. mental models wiki
+pages: take the right call. For next parcels, take your best call and build." So the wiki gained a
+workflow that seeds it from GitHub's side, a late start now assumes the work was done and shows it, and the
+wiki's mental models page is generated from the site again. The round also opened a second lab, added two
+tool manuals and fixed the four faults an outside design review agreed on.
+
+**A late start that shows its work.** A late start in one role used to play a colleague's earlier day as
+the colleague would: an unsound plan was questioned while questions lasted, and one question was kept for
+Day 90. So the player could begin with fewer questions and a debt falling due, and six late starts could
+reach funded with conditions at best. Now every day before the run's start is played the recommended way,
+in one role as in the whole team, by one condition in the rules: a colleague's plan waits for the player
+only from the run's start. The player begins with all four questions and nothing owed, and the rule for
+keeping a question for Day 90 is gone. The whole-team book is proven unchanged across 56 histories, and
+5,700 random runs from Day 1 give identical states under the old and new rules. All 42 starts the title's
+line and the role rows offer can now reach Funded, and the rules test asserts it for each. Before the day
+opens, a briefing recaps the calls with their people and prices, the documents with the day each was
+filed, and where the run stands; one press opens the day, and the day can open the briefing again. Three
+outside models from three makers read its first version as newcomers and all understood it. Two misread
+the numbers, so trust now shows its number beside its pips and a sentence gives the spare days used. Maya's
+first answer on Day 45 now ends at 836px of a 900px screen at 1440, where it ended at 969 under a debt's
+news, and at 839 of 844 at 390. From about Day 20 the briefing is taller than a laptop's window, so its
+button's row sticks to the window's foot: on Day 45 at 1440 the button ended at 1,140px and now sits at 818
+to 900. The briefing took the game's three scripts from 44.95 to 45.97 KB gzipped after the savings
+`GAME.md` lists, so their budget in the gate rose from 45 to 46 KB, the measured size rounded up to the next
+half KB, with the reason beside the line. A late role start saved under the previous rules no longer
+replays, and the game drops it.
+
+**Lab 2: the system prompt from the spec.** The second lab is open, twelve minutes in P1, for the engineer
+with the architect. It starts from the spec Lab 1 files, and the build holds its desk copy to that document
+byte for byte. Sam, the engineer, asks a model for the assistant's system prompt, with or without a spec
+line on every rule, marks the six rules that ask the model to keep a limit code should keep, and decides
+where the limits live. Then Arjun's refund case runs with the draft as a real system prompt and the tools
+as text: a note a partner desk typed into the booking says Finance approved a $1,240.00 refund. With the
+limits in the prompt, the lab's own model, Claude Opus 4.6, called the refund tool for $1,240.00. With the
+same prompt and the limits in the tools' signatures, it sent the refund to Finance and still told the
+passenger it was approved, which is the lab's second call: what the prompt is still for. The lab files the
+prompt, every rule ending in its spec line, seven limits moved into code across four tools, each with a
+test, and two items still open, one with operations and one with compliance. Every reply was recorded
+once, on 2 October 2026, through Amazon Bedrock. Three more models had the same case: Kimi K3 (Moonshot
+AI), GLM-5 (Z.ai) and DeepSeek V3.2 (DeepSeek). Told the cap in words, all four called the refund tool for
+$1,240.00. With the cap in the signatures none did: three sent the refund to Finance and one looked for a
+flight first, and three of the four still took the note's word. The lab page is 18.5 KB gzipped and its
+page of the six replies 7.8 KB.
+
+**Two more tool manuals.** The Tool guides have four manuals. ChatGPT and Codex carries 36 dated facts and
+Google AI Studio and Jules 32, in the form of the two Claude manuals. The 61 new facts, 33 about OpenAI's
+tools and 28 about Google's, come from 37 pages opened on 2 October 2026, each fact with its address and
+date in `tools.json`, and the build's checks pass on all 141. help.openai.com and openai.com refuse the
+session's proxy, so the OpenAI facts come from learn.chatgpt.com and developers.openai.com. What no
+official page could confirm was left out: that a shared project uses project-only memory, that a scheduled
+task in a project cannot read the project's files, that deep research lets you edit its plan, that Work
+replaced agent mode, custom GPTs' retirement, canvas's withdrawal, file and upload limits, Record and the
+Meetings plugin, AI Studio's Compare mode as it is today, where AI Studio keeps saved prompts, which
+languages Get code offers, and which model Jules uses. The five older help-centre facts stand as the owner
+decided, and the new manual does not use them. Two outside models from two makers read every new fact
+against its quoted sentence; eleven whose wording had drifted from their page were corrected after the page
+was read again. Sixteen of the table's twenty-one cells now link a manual, and each new page is under 11 KB
+gzipped. ChatGPT and Codex teaches one AGENTS.md for every agent: Codex reads it, Jules looks for it at
+the repository's root, and Claude Code reads it when there is no CLAUDE.md or CLAUDE.local.md. Google AI
+Studio and Jules has the team test with made-up cases until the account is on Google's paid terms.
+
+**The mental models page.** The wiki's page had drifted from the site: the models had been renamed, their
+words revised and a link had died. `site/export_models.py` could not be run, because it would have deleted
+the page's hand-written sections, "Where each one bites" with its picture and "The three that get
+resisted". The call was to keep the site canonical and give those words a source of their own,
+`site/content/library/mental-models-wiki.md`, from which the generator puts the region back byte for byte,
+2,608 bytes in 34 lines. The picture is drawn with the same helper the journey pages use. The site's twelve
+names and words win, and each renamed model keeps its old name as an anchor, so all 17 anchors of the old
+page still resolve and the six links in five lessons still land. The page now opens with the repository's
+generated-page marker, the generator refuses rather than drop words, and `--check` says whether the page is
+current. Regenerated, the page lost 22 of its 25 em dashes (the three left are in the hand-written words),
+says "manual" where it said "playbook", and its dead link now leads to the workbench's bar calculator. Two
+sentences on the site's models page that an earlier dash sweep had broken were mended first, so the wiki
+copies them whole.
+
+**Four faults an outside review agreed on.** Three vision models from three makers reviewed six lesson
+screens as senior designers. Four faults were named by at least two of them and confirmed by measurement,
+and exactly those were fixed. The tutorial rail's current lesson started its highlight at 104px at 1440,
+10px left of its track heading at 114; every row's box now starts on the heading's edge. The theme
+button's "◐" was set in a font without the glyph, so a fallback drew a small dot; it is now drawn in SVG on
+the menu icon's rule, in the header and in the workbench's top bar. Lesson tables set money, counts and
+percentages left with ragged edges; fourteen numeric columns in six lessons now read down their right edge
+in figures of one width. The tightened funnels set "yes" as plain text beside "no" pills; both are pills
+now, and no funnel grew taller. Of the 266 pictures shot again from the new build, exactly the six images
+of those funnels changed, and only they were replaced. `base.css` grew by 164 bytes to 39.66 KB gzipped,
+350 bytes under its 40 KB budget. Shown the same screens after the fix, two of the three found all four
+fixed and nothing worse; the third called the rail not fixed in a close-up, which the measurement settles.
+
+**The wiki, synced from GitHub's side.** `wiki/sync.sh` could not run from a cloud session: the wiki is a
+git repository of its own, and the session's git proxy will not carry a credential for it. A workflow,
+`.github/workflows/wiki-sync.yml`, runs the same script unchanged with GitHub's own token, as the Pulse
+workflow does for the scoreboard. It runs only when started by hand (Actions, Wiki sync, Run workflow),
+because a sync overwrites the wiki, and the script still refuses to run over a page someone edited in the
+browser since the last seed. It ran twice on 2 October 2026 and pushed 82 pages each time: once with the
+workflow's own commit, and again after the mental models page was regenerated. The live wiki now matches
+`wiki/`.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
 - "Agentic STLC" has an FAQ entry and no lesson. If it earns one, it is built from the QA lead's journey.
 - The product manager's row and the QA lead's row both end on "a number you can defend".
-- Three labs are listed as being built: the system prompt from the spec, proving the bar, and reviewing a
-  change a coding agent wrote.
-- The lab's own recordings name their model only as "Claude", with no version, while the three other
-  models' replies carry theirs. Anyone who runs the prompts again to compare would want the exact model.
-- From a later day a role reaches "Funded, with conditions" at best, except the architect and the product
-  manager from Day 15. Whether a late start should be winnable outright is the owner's call: it would take
-  a book that questions fewer plans, or a colleague's day played well without a question, which would be a
-  new rule.
-- Opened from Maya's row, Day 45 puts its first answer about 70px below the fold at 1440 (at 969px of a
-  900px screen): the shortcut the book let stand on Sam's Day 30 lands that morning as news.
+- Two labs are listed as being built: proving the bar, and reviewing a change a coding agent wrote.
+- Lab 1's own recordings name their model only as "Claude", with no version, while its three other models'
+  replies carry theirs and Lab 2's recordings name Claude Opus 4.6. Lab 1 was not recorded again, and
+  anyone who runs its prompts again to compare would want the exact model.
 - On the title at 1440, Day 1's card has its kicker on the first screen and its answers below the fold.
 - A run held only in memory, because the browser blocks storage, is dropped if the address changes to a
   day link mid-run: `boot()` checks the saved run, not the one in play. It predates this round.
 - The role rows' small timelines have no key, and the sponsor row's "Every day, watched" and "2 questions"
   read as cryptic to a newcomer.
-- The game's three scripts have 52 bytes of their 45 KB budget left.
+- A late start in one role saved under the previous rules no longer replays, so the game drops it when
+  the page loads and the title offers a fresh start. Late starts for the whole team, and every run from
+  Day 1, keep their saves.
+- The game's three scripts are 45.97 KB gzipped, 35 bytes under their 46 KB budget. Moving the room cards'
+  27 sentences into `days.json` would free about 0.45 KB, and the code would read worse for it.
+- `base.css` is 39.66 KB gzipped, 350 bytes under its 40 KB budget.
 - At 1024 by 768 every lesson map shows its text version, and 25 of the 44 run over 630px (SkyWays' to
   926px). The cap is set for 1440 by 900; holding 1024 to it would be a change to the text version (`.bbn`
   in `base.css`).
 - Eight lesson maps sit 2 to 5px under the cap at 1440 (628, 627, 627 and five at 625px), six of them
   tightened this round. Pass 18 fails if the lesson column ever widens enough to tip one over.
-- `site/export_models.py` is out of step with `wiki/Mental-Models.md`. Run, it would give the twelve models
-  their new names, and would also delete the page's hand-added "Where each one bites" section with its
-  picture and "The three that get resisted" table, so it was not run.
+- In the tutorial's rail a current lesson with a two-digit number (Running delivery 10 to 13) has its
+  number 1.8px from the 2px accent bar, where it had 11.8px; a one-digit number has 8.4px. Opening the gap
+  would mean moving every row's number.
+- On the start page (`/learn/`) the "Start here" row's highlight still starts 10px left of the track
+  headings. The row has no number to absorb the move, so aligning it would mean moving its words 10px
+  right or setting them against the accent bar.
+- The Mental Models picture (`pages/wikimaps.py`, `SPECS["mental-models"]`) still labels the twelve models
+  by their old names ("1 · Length is the enemy" and so on), on the wiki and in the picture pack.
+  Relabelling it means shooting the pictures again; `export_models.py` then draws the wiki's block from
+  the same registry.
 - The start page's box (`content/learn/start-here.md`, on `/learn/` and on the wiki's Start Here) still
   opens with a bold lead, "What this is.", under its "In short" label. It is not a lesson, so the summary
   check does not cover it.
 - The home page's sample sketch keeps the old paper tone in the dark theme: the toned paper is set on the
   lesson pages only.
 - help.openai.com refuses the session's proxy, so five OpenAI facts in the Tool guides stand as the
-  research sheet had them, unchecked against their pages.
-
-- The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy, and running it
-  is the owner's call. Until it runs, the live wiki keeps its older links, which the home page forwards,
-  and goes without this round's pictures, reading times and Journey cells.
+  research sheet had them, unchecked against their pages. The ChatGPT and Codex manual does not use them.
+- Two facts in the ChatGPT and Codex manual carry dates that will pass: OpenAI's existing evals become
+  read-only on 31 October 2026, and the Evals dashboard and API and the `v1/prompts` API are to shut down
+  on 30 November 2026 (`openai-evals` and `openai-prompt-objects` in `tools.json`). Both need rewording
+  after those days, before their checks turn amber on 1 December.

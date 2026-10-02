@@ -28,7 +28,7 @@ spacing:
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
 motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "--spring, a linear() curve that passes its mark by 2.8% and comes home", stagger: "40ms in a list, 60 to 110ms between the parts of a figure", reduced: "everything still: the globe drawn once, one aircraft parked at each phase"}
-components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, day-card, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, lab-comparison-table, next-up, pause-control]
+components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, day-card, late-start-briefing, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, lab-comparison-table, next-up, pause-control]
 ---
 
 # How the site looks
@@ -96,6 +96,12 @@ with wide tracking. No label is under 11px.
 - A lesson's opening map takes at most 70% of a 1440 by 900 screen, 630px for its figure. It fits by using
   the width (more cells across, the bands as cards side by side, a side list beside the end), never by
   smaller type. Where even that is too tall, its words are cut.
+- In a lesson's table, a column whose body cells are all numbers, amounts or percentages (one unit they
+  all share, such as "a day", allowed) is set right, its header with it, in figures of one width. Text
+  columns stay left. On a phone, where a table of three or more columns stacks, every cell reads left
+  under its name.
+- In the tutorial's rail a track's rows start on its heading's left edge, so the current lesson's
+  highlight does too. Every row's number and title sit in the same two columns.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
   explains how to use the page is folded behind one line.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
@@ -176,7 +182,7 @@ line with the phases still countable.
 
 | Component | What it is | Where it lives |
 | --- | --- | --- |
-| Header | Mark and name, five places (two of them short lists), the slot, the theme toggle. The drawer holds every page and the search. | `render.shell`, `render._nav` |
+| Header | Mark and name, five places (two of them short lists), the slot, the theme toggle. The toggle is a circle with its left half filled, drawn in SVG at the menu icon's size, line and colour (18px, a 1.5px line). It is never a character: "◐" fell back to a font that drew a dot. The workbench's top bar draws the same. The drawer holds every page and the search. | `render.shell`, `render._nav`, `render.HALF` |
 | Header slot | One filled pill and, on a wide screen, one quiet link. The pill never points at the page it is on: in the manual it offers the simulator, in a lesson the day of the game that lesson is the reading for, in the game the lesson behind the day on screen. The quiet link is the next useful place from here ("Apply it", "Manual"). | `render._ctx`, `.ctx` |
 | Hero scene | A blue dotted Earth turning once a minute, and one flight round it through P0 to P3: a thick ribbon in the phase hues, the sign-off, and a way back behind the globe that climbs, so the next round starts one level up. The aircraft is a paper dart in P0, a plan in P1, an airliner in P2, a jet in P3, and each phase's label carries its aircraft. Decorative: section two says the same in words. | `pages/globe.py`, `theme/hero.js` |
 | Section head | Mono eyebrow, a heading that continues in grey, one optional paragraph. | `.sec-h` |
@@ -184,6 +190,7 @@ line with the phases still countable.
 | Method table | Four methods as bars under the same four phases: solid for a phase covered, dashed for a light touch, hollow for a stage this manual adds (extended BMAD). The last row is words: four decisions no method makes for you. A real table. | `pages/spine.py` `coverage`, `.cover` |
 | Role rows | One row per role: code, name, where you start, where you end up, counts. A list, not cards. | `.seats` |
 | Day card | One real day of the game: its room in pixels at a whole multiple, bled to the card's edges, the kicker, the headline, the context, the question and the answers with their price in days. Its metrics are the one component the simulator's title and its days in play share: the paper surface, a 20px corner, one 26px inset, three sizes (the 12.5px mono kicker, a headline of up to 25px, 15.5px for what is read) and answers 48px tall with a plain mono price. | `.daycard`; in the game `.nd-day`, `.nd-opt` |
+| Late start's briefing | Before the day a late start opens on, one card on the day card's surface, corner and inset. A heading says the earlier days were played the recommended way. Under it the calls, one line a day with who made each and its price in days, and under a day anything else that moved the runway or trust; the documents on file in two columns, each with its day; where the run stands, the meters as the day shows them with trust's number beside its pips. One button opens the day. From about Day 20 the card is taller than a laptop's window, so the button's row sticks to the window's foot, on the card's paper under a hairline, and rests at the card's end. On a phone the calls stack, the documents take one column and the button spans the card. | `play/game.js` `briefScreen`, `.nd-brief` |
 | Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. On the home page one sketch from a lesson sits beside it, as a sample, and links to its lesson. | `.jump.tracks`, `.learn-g` |
 | Lesson sketch | One metaphor on a sheet of paper: a small black worker doing the thing the paragraph just said, two to six handwritten notes, a caption in real type underneath. At most one in a lesson, and about thirty in all, in the lessons whose idea a picture explains. It sits after the paragraph that turns, never touching a table or another picture. With the caption covered, a stranger can state its point, and its labels are the case's own nouns and numbers. Drawn in code. | `pages/sketch.py`, `content/learn/sketches/` |
 | Shelf tile | A count, a name, one line. Four of them: templates, prompts, mental models, pictures. | `.shelf .tile` |

@@ -8,6 +8,148 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · Late starts that show their work, a second lab, two more tool manuals, four faults from an outside review, and the wiki in step
+
+The owner said yes to a wiki sync, asked that a late start assume what would have been done by then and
+show it with evidence, artefacts and a recap of the process, and asked for the best call on the mental
+models page and on the next parcels. Seven commits shipped. Three vision models from three makers reviewed
+six lesson screens as senior designers, and the first four lines under Fixed are the faults at least two of
+them named, each confirmed by measurement. Outside models also read the late start's briefing as
+newcomers, answered Lab 2's refund case beside the lab's own model, and checked the new tool facts against
+their sources. The record, with each parcel's numbers, is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md)
+and, for the game, [`site/GAME.md`](site/GAME.md).
+
+### Added
+- **Lab 2, Write the system prompt from the spec**
+  ([`site/content/labs/write-the-system-prompt.py`](site/content/labs/write-the-system-prompt.py)). The
+  second lab is open: twelve minutes in P1, for the engineer with the architect. It starts from the spec
+  Lab 1 files, byte for byte, and the build refuses the lab if its desk copy drifts from that document. The
+  engineer asks a model for the assistant's system prompt, each rule naming its spec line, marks the rules
+  that ask the model to keep a limit code should keep, and decides where the limits live. Then Arjun's
+  refund case runs against the draft as a real system prompt: a note a partner desk typed into a booking
+  says Finance approved $1,240.00. With the limits left in the prompt, the recorded reply called the refund
+  tool for $1,240.00 on the note's word. With the same prompt and the limits in the tools' signatures, it
+  sent the refund to Finance instead, and still told the passenger it was approved, which is what the prompt
+  is still for. The lab files the prompt with every rule ending in its spec line, seven limits moved into
+  code, each with a test, and two items still open with their owners. Every reply is a real recording, made
+  once on 2 October 2026 through Amazon Bedrock from the exact prompt the lab's parts assemble, with Claude
+  Opus 4.6 as the lab's own model, named on each. The same case went to Kimi K3, GLM-5 and DeepSeek V3.2:
+  with the cap in words, all four called the refund tool for $1,240.00; with the cap in the signatures,
+  none did, and three of the four still took the note's word. The debrief shows that in two tables whose
+  cells quote the replies, and the six replies have their own page. The lab page is 18.5 KB gzipped. Lab 1
+  and the labs' front page are unchanged but for version stamps and the "Next lab" link, and two labs are
+  still listed as being built
+- **Two more tool manuals: ChatGPT and Codex, and Google AI Studio and Jules**
+  ([`site/pages/tools.py`](site/pages/tools.py), [`site/content/tools/tools.json`](site/content/tools/tools.json)).
+  The Tool guides had two manuals, Claude at the desk and Claude in the repo. Two more join them in the
+  same form: what the tools are for a team, when to reach for something else, five moves the airline's
+  team makes with the real prompt or command, where they let you down, the three settings that decide how
+  they behave, the traps, and a table of every fact used. ChatGPT and Codex carries 36 dated facts; Google
+  AI Studio and Jules carries 32. All 61 new facts are in `tools.json` with the address they came from and
+  the date they were checked, 2 October 2026, and each source page was opened and its wording quoted
+  exactly. help.openai.com and openai.com refuse the session's proxy, so the OpenAI facts come from
+  OpenAI's learning and developer sites. A fact that no official page could confirm was left out, and the
+  five older help-centre facts stand as the owner decided; the new manual does not use them. The build's
+  checks pass on all 141 facts: no prices, no usage limits, no model names, no dashes. `/tools/` shows four
+  manuals, and sixteen of the table's twenty-one cells now link one. Search and the sitemap list both
+  pages, and the acceptance gate checks them. Long inline code now wraps at spaces or inside a hyphenated
+  word, so a long command line cannot push a phone page sideways. Each manual's closing link leads to the
+  next, and each new page is under 11 KB gzipped
+- **A briefing before a late start** ([`site/play/game.js`](site/play/game.js),
+  [`site/play/game.css`](site/play/game.css), [`site/play/days.json`](site/play/days.json)). Before a
+  late-started day opens, one card says what was done: "Days 1 to 30 were played for you the recommended
+  way." Under it, each earlier day's call with its person and its price in days, and what else moved the
+  runway or trust that day; the documents on file, each with the day that filed it; and where the run
+  stands, with trust's number and the spare days used. One press opens the day as it always does and saves
+  the run; the day then offers "What was done before Day 45", which reopens the briefing. From about Day 20
+  the briefing is taller than a laptop's window, so the row of its one button sticks to the foot of the
+  window, on the card's paper and under a hairline, while the recap scrolls beneath it, and rests at the
+  card's end once the reader reaches it. On Day 45 at 1440 by 900 the button had ended at 1,140px; it now
+  sits at 818 to 900px, and on a phone it spans the card's full width. Three outside models from three
+  makers read the first version as newcomers and understood it; two misread the numbers, so trust shows its
+  number beside its pips, and a sentence says how many of the project's spare days the earlier days used
+- **A workflow that seeds the wiki from GitHub's side**
+  ([`.github/workflows/wiki-sync.yml`](.github/workflows/wiki-sync.yml)). `wiki/sync.sh` seeds the GitHub
+  wiki from `wiki/*.md`. The wiki is a git repository of its own, and a cloud session's git proxy will not
+  carry a credential for it, so the script could not run from a session. The workflow runs the same
+  script, unchanged, with GitHub's own token, as the Pulse workflow already does for the scoreboard page.
+  It runs only when started by hand (Actions, Wiki sync, Run workflow), because a sync overwrites the wiki,
+  and the script still refuses to run over a page someone edited in the browser since the last seed. It
+  ran twice on 2 October 2026, and each run pushed 82 pages
+
+### Changed
+- **A late start assumes every earlier day was done the recommended way**
+  ([`site/play/sim.js`](site/play/sim.js), [`site/tools/sim.test.mjs`](site/tools/sim.test.mjs),
+  [`site/tools/playtest.mjs`](site/tools/playtest.mjs)). A late start in one role used to play a
+  colleague's earlier day as the colleague would, question an unsound plan while questions lasted and keep
+  one for Day 90, so the player could begin with fewer questions and a debt falling due, and six late role
+  starts could reach "funded with conditions" at best. Now every day before the run's start is played the
+  recommended way, by everyone: one condition in the rules, where a colleague's plan waits for the player
+  only from the run's start. The player begins with all four questions and nothing owed. The
+  question-keeping for Day 90 had nothing left to do and is gone, so the book is word for word the old
+  whole-team book. The whole-team book is proven unchanged across 56 histories, and 5,700 random runs from
+  Day 1 give identical states under the old and new rules. All 42 starts the title's line and the role
+  rows offer can now reach Funded, and the rules test asserts it. Maya's first answer on Day 45 is now on
+  the first screen at 1440 and at 390, with no debt above it. A late role start saved under the previous
+  rules no longer replays, and the game drops it. The playtest opens a briefing by a real click, reloads
+  into it, presses through it, and at 390 and 320 checks that it stacks with nothing sideways
+- **The game's script budget is 46 KB** ([`site/tools/accept.mjs`](site/tools/accept.mjs)). The briefing
+  took the game's three scripts from 44.95 to 45.97 KB gzipped, after the savings `site/GAME.md` lists: the
+  role book's rules for questions left `sim.js`, the briefing reuses the day's meters, and its words are in
+  `days.json`. The gate's budget rises from 45 to 46 KB, the measured size rounded up to the next half KB,
+  with the reason beside the line
+- **A lab can send a system prompt with a message, and each lab has its own test profile**
+  ([`site/pages/labs.py`](site/pages/labs.py), [`site/labs/lab.js`](site/labs/lab.js),
+  [`site/labs/lab.css`](site/labs/lab.css), [`site/tools/lab.test.mjs`](site/tools/lab.test.mjs)). A
+  compose part marked as the message is sent as the user's turn, with the rest as the system prompt, and the
+  page shows and copies the two halves apart, under "System prompt" and "Message". The check holds both
+  halves of a recording to the parts. A lab can name, as `starts`, the desk file that must be the document
+  the lab before it files, byte for byte. `lab.test.mjs` runs one profile per lab, with Lab 1's checks
+  carried over word for word, and fails a lab without one. The authoring guide says how
+  ([`site/content/labs/README.md`](site/content/labs/README.md))
+- **The wiki's Mental Models page is generated again, and keeps what a person wrote**
+  ([`site/export_models.py`](site/export_models.py),
+  [`site/content/library/mental-models-wiki.md`](site/content/library/mental-models-wiki.md),
+  [`wiki/Mental-Models.md`](wiki/Mental-Models.md)). The page had drifted from the site: the models had
+  been renamed, their words revised and a link had died, but `site/export_models.py` could not be run,
+  because it would have deleted the page's hand-written sections and its picture block. The generator now
+  carries them. The hand-written region lives in `site/content/library/mental-models-wiki.md` and comes
+  back byte for byte; the picture is drawn with the same helper the journey pages use. The site's names and
+  words win, and each renamed model keeps its old anchor, so the six links in five lessons and any bookmark
+  still land. The page now carries the repository's generated-page marker, so a later edit on the live wiki
+  is routed to its source instead of being lost at the next export. The generator refuses rather than drop
+  words, and gains a `--check` mode. The regenerated page takes the site's twelve names and refreshed
+  text, drops twenty-two dashes, says "manual" where it said "playbook", and replaces the dead link with the
+  workbench's bar calculator
+
+### Fixed
+- The tutorial rail's current lesson started its highlight 10px left of its track heading, so the column's
+  left line wobbled at the one row a reader looks for. Every row's box now starts on the heading's edge
+  (114px at 1440), with the number and title where their siblings have them
+  ([`site/theme/base.css`](site/theme/base.css))
+- The header's theme button drew "◐" in a font without that glyph, so a fallback drew a small unclear dot.
+  It is now an inline half-filled circle, 18px with a 1.5px line, sharing the menu icon's rule, in the
+  site's header and in the workbench's own top bar ([`site/render.py`](site/render.py),
+  [`site/theme/base.css`](site/theme/base.css), [`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html))
+- A lesson table set its columns of money, counts and percentages on the left, with ragged edges. A
+  column whose every cell is a number, an amount or a percentage is now set right, header included, in
+  figures of one width: fourteen columns in six lessons. Text columns, and the phone layout that stacks a
+  table into one block per row, are unchanged ([`site/pages/learn.py`](site/pages/learn.py),
+  [`site/theme/base.css`](site/theme/base.css))
+- In the three tightened funnel maps "yes" was plain text beside the arrow while "no" sat in a pill. Both
+  are now pills, with no map grown taller, the text version's "yes" wears the same pill, and the six images
+  of those maps are shot again ([`site/pages/maps.py`](site/pages/maps.py),
+  [`site/assets/learn/`](site/assets/learn/)). With these four fixes `base.css` is 39.66 KB gzipped, under
+  its 40 KB budget
+- The reading version of a lab, for a page without script, ignored a mark beat's reply patch, which the
+  engine applied. It now applies it too. None of Lab 1's marked replies carries a patch, so Lab 1's filed
+  document is unchanged ([`site/pages/labs.py`](site/pages/labs.py))
+- On Claude in the repo, one fact is corrected to its page's own wording: Claude Code reads AGENTS.md when
+  a repository has no CLAUDE.md or CLAUDE.local.md ([`site/content/tools/tools.json`](site/content/tools/tools.json))
+- Two sentences on the site's mental models page were broken by an earlier sweep of dashes ("neither is
+  proven. and no realistic sample"). Both are mended, so the wiki copies them whole
+  ([`site/pages/models.py`](site/pages/models.py))
+
 ## 2026-10-02 · Shorter summaries, thirty sketches, maps that fit, a later start for every role, and three more models in the lab
 
 The owner answered the ninth council's open questions, and five parcels built the answers. Outside models

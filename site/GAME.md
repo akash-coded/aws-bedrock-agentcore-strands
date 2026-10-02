@@ -209,8 +209,11 @@ its first answer where it always is. Where the line about the book stood, the da
 done before Day 45", which opens the briefing again, its button now "Back to Day 45". The whole team and a
 role get the same briefing but for who the player is and the questions. At 1440 it stands beside the
 building; from 1240 down it is one column of 640px, as the verdict is; on a phone the calls stack (the day,
-who and the price over the call) and the documents take one column. Its fixed sentences are `brief` in
-`days.json`.
+who and the price over the call) and the documents take one column. From about Day 20 the briefing is
+taller than a laptop's window, so the row of its one button sticks to the window's foot, on the card's
+paper under a hairline, while the recap scrolls beneath it, and rests at the card's end once the reader
+reaches it: on Day 45 at 1440 by 900 the button sits at 818 to 900px, where it had ended at 1,140. On a
+phone the row spans the card's full width. Its fixed sentences are `brief` in `days.json`.
 
 Nothing is saved while the briefing is open, and the link stays in the address, so a reload opens the
 briefing again. "Start Day 45" saves the run and clears the link, so a reload after it resumes past the
@@ -444,7 +447,7 @@ in. On a phone on Day 1 the building is far down the page, so after the walk-in 
 the building is scrolled to. Nothing starts because it came into view; it goes on from where it was.
 
 The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 46 KB gzipped
-(45.97), the site's `base.css` under 40 KB (39.5), the page's HTML under 25 KB (16.9), and no font but
+(45.97), the site's `base.css` under 40 KB (39.66), the page's HTML under 25 KB (16.9), and no font but
 the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
 key and the rows, so the comments in `game.js` and `art.js` were cut to a line of why each, leaving the
 reasons to this file; no rule and no number of the game changed. Round ten's role start took them to 45.3
