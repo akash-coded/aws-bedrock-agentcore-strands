@@ -1970,6 +1970,117 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
 @media print{.sk-paper{border:1px solid #ddd}.sketch{max-width:110mm}}
 figure.sketch{scroll-margin-top:88px}
 
+/* ---- the lesson page: one measure, two right edges, a margin column (council 9) ----
+   Scoped to .lm, the lesson pages' main (learn.py). Text (the title, the lede, the meta line, paragraphs,
+   lists, headings, the "In short" box, the contents) stops at one measure, about seventy-five characters
+   of the 16.5px body. What is a picture or data (a board, a table, code, a drawn figure) runs to the
+   column's right edge. So a lesson has two right edges, and accept.mjs checks it. From 1256px wide the
+   room beside the text becomes a margin column of 280 to 300px: the contents at its top, each sketch level
+   with the paragraph it draws, the "Try it" card where the lesson reaches it. learn.py writes a sketch
+   ahead of its paragraph in one .lm-note, so on a wide screen it can float level with that paragraph; under
+   1256px the note puts them back in reading order and the margin's things return to the flow. */
+.lm{--measure:508px;--side:clamp(280px,100% - var(--measure) - 40px,300px)}
+main.lm>h1,.lm>.lede,.lm>.lmeta,.lm>.otp,.lm>.lalt{max-width:var(--measure)}
+.lm .prose>:is(p,ul,ol,blockquote,h2,h3,h4,details,.callout,figure.lmodel,figure.sketch,.lm-try),
+.lm .lm-note>:is(p,ul,ol,blockquote){max-width:var(--measure)}
+.lm .prose>:is(.bbw,.tw,.codebox,figure.mmd,.fig,.dgb){max-width:none}
+/* a sketch and its paragraph, in reading order, under the margin's width */
+.lm .lm-note{display:flex;flex-direction:column;margin:0 0 30px}
+.lm .lm-note>figure.sketch{order:1;margin:0;max-width:var(--measure)}
+.lm .lm-note>:not(figure){margin-bottom:14px}
+/* captions: real type at 15px, on the figure's own left edge */
+.lm .prose figcaption,.lm .prose .fig .fn{font-size:15px;line-height:1.5;margin-left:0;margin-right:0}
+.lm .prose .sketch figcaption{max-width:none}
+/* a drawn figure: the frame is the figure, the drawing inside it sized so its labels read at 14 to 15px */
+.lm .prose .fig{padding:16px;border:1px solid var(--rule);border-radius:14px;background:var(--bone)}
+.lm .prose .fig svg{border:0;border-radius:0;background:none;padding:0}
+.lm .prose .fig svg.w{max-width:650px}
+.lm .prose .fig svg.n{max-width:300px;margin:0 auto}
+.lm .prose .fig .fn,.lm .prose .fig figcaption{max-width:none;margin-top:10px}
+@media (max-width:360px){.lm .prose .fig{padding:10px}}
+/* a mental model: the glyph at the size its labels read at 14 to 15px, its name beside it */
+.lm .prose figure.lmodel{display:grid;grid-template-columns:310px minmax(0,1fr);gap:10px 24px;align-items:center;
+  padding:14px 20px 14px 14px}
+.lm .prose figure.lmodel>svg{width:310px}
+.lm .prose figure.lmodel figcaption{margin:0;color:var(--ink2)}
+.lm .prose figure.lmodel figcaption span{display:block;margin:0 0 4px;font:500 12.5px var(--f-mono);color:var(--soft)}
+@media (max-width:620px){.lm .prose figure.lmodel{grid-template-columns:minmax(0,1fr);padding:14px}
+  .lm .prose figure.lmodel>svg{width:100%;max-width:310px;margin:0 auto}}
+@media (max-width:360px){.lm .prose figure.lmodel{padding:8px}}
+/* "Try it": one problem and its folded answer, as a card */
+.lm .lm-try{margin:8px 0 28px;padding:16px 18px 6px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
+.lm .lm-try>h2{margin:0 0 8px;font-size:19px;letter-spacing:-.015em}
+.lm .lm-try>p{font-size:15.5px;line-height:1.6}
+.lm .lm-try details{margin:0 0 12px;padding:10px 14px;background:var(--bone);font-size:15px;line-height:1.6}
+/* code: a box on the page, with its edge, in the dark theme too */
+@media screen{:root:not([data-theme="light"]) .lm .codebox pre{background:var(--paper);border:1px solid var(--rule)}}
+/* the sketch's paper in the dark theme: still paper, at a lower light, and its pens deepened to keep 4.5:1 */
+@media screen{:root:not([data-theme="light"]) .lm{--sk-paper:#D0CBBF;--sk-r:#9E1B10;--sk-ot:#833E00;--sk-b:#1D4AA8;
+  --sk-gt:#514D46;--sk-o:#C8640F;--sk-g:#8F8B82}}
+/* boards drawn as text (a column under 745px): every box to its content, nothing indented */
+.lm .bbw .bbn{gap:7px}
+.lm .bbw .bbn .bbn-f{gap:5px}
+.lm .bbn-f .bbn-c.out{margin-left:0}
+.lm .bbn-x{min-height:16px;padding-bottom:2px}
+.lm .bbn-c{padding:7px 11px;gap:2px 9px}
+.lm .bbn-i{width:24px;height:24px}
+/* on a phone a band's cells are rows of one line each, under the band's head, rather than a stack of boxes */
+@media (max-width:480px){
+  .lm .bbw .bbn .bbn-b .bbn-g{gap:0;padding:2px 12px 4px}
+  .lm .bbn-b .bbn-c{border:0;border-radius:0;background:none;padding:7px 0 8px;
+    border-top:1px solid color-mix(in oklab,var(--c) 28%,transparent)}
+  .lm .bbn-b .bbn-c:first-child{border-top:0}
+  .lm .bbn-b .bbn-c b{display:inline}
+  .lm .bbn-b .bbn-c small{display:inline;margin-left:7px}
+  .lm .bbn-b .bbn-i{width:22px;height:22px}
+  .lm .bbn-x{min-height:14px;font-size:12.5px;line-height:14px}
+  .lm .bbn .bbn-t{font-size:16px;line-height:1.5}
+  /* a question in a chain is its words alone; the way out names itself in a tag at its corner */
+  .lm .bbn-f>.bbn-c:not(:has(small))>.bbn-i{display:none}
+  .lm .bbn-f>.bbn-c:not(:has(small)){grid-template-columns:minmax(0,1fr);padding:6px 11px}
+  .lm .bbn-f>.bbn-c.out{position:relative}
+  .lm .bbn-f>.bbn-c.out>.bbn-via{position:absolute;top:7px;right:9px;margin:0}
+}
+/* a chain drawn as text in a column of 560px or more: each way out beside its question, as the drawing has it,
+   and one shared way out beside the whole chain */
+@container (min-width:560px){
+  .lm .bbw .bbn .bbn-f:has(>.bbn-c.out){grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 28px;align-items:center}
+  .lm .bbn-f:has(>.bbn-c.out)>*{grid-column:1;margin-bottom:6px}
+  .lm .bbn-f:has(>.bbn-c.out)>.bbn-c.out{grid-column:2}
+  .lm .bbn-f:not(:has(>.bbn-c.out ~ .bbn-c.out))>.bbn-c.out{grid-row:1 / span 40}
+}
+/* tables on a phone: two columns wrap; three or more stack, one block a row, each cell under its column's name */
+@media (max-width:600px){
+  .lm .prose .tw table{min-width:0}
+  .lm .prose .tw.stack :is(table,tbody,tr,td){display:block;width:auto}
+  .lm .prose .tw.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .lm .prose .tw.stack tr{padding:11px 14px 12px;border-bottom:1px solid var(--rule2)}
+  .lm .prose .tw.stack tr:last-child{border-bottom:0}
+  .lm .prose .tw.stack td{padding:0;border:0}
+  .lm .prose .tw.stack td:first-child{font-weight:650;color:var(--ink)}
+  .lm .prose .tw.stack td[data-h]:not(:first-child)::before{content:attr(data-h);display:block;margin:8px 0 2px;
+    font:500 12px var(--f-mono);color:var(--soft)}
+}
+/* the margin column */
+@media (min-width:1256px){
+  main.lm{display:grid;grid-template-columns:[text-start] var(--measure) [text-end] minmax(40px,1fr) [side-start] minmax(280px,300px) [side-end];
+    grid-template-rows:auto auto 1fr;align-items:start}
+  .lm>*{grid-column:text-start / side-end}
+  main.lm>h1,.lm>.lede,.lm>.lmeta{grid-column:text}
+  .lm>.otp{grid-column:side;grid-row:1 / 4;margin:4px 0 24px;padding:14px 0 0;border:0;border-top:1px solid var(--rule);
+    border-radius:0;background:none}
+  .lm>.otp ol{columns:auto;padding-left:22px;font-size:13.5px}
+  .lm>.otp li{margin-bottom:4px}
+  .lm .prose>:is(.bbw,.tw,.codebox,figure.mmd,.fig,.dgb){clear:right}
+  .lm .lm-note{display:block;margin:0}
+  .lm .lm-note>figure.sketch,.lm .prose>.lm-try{float:right;clear:right;width:var(--side);max-width:none;margin:5px 0 28px}
+  .lm .lm-note>:not(figure){margin-bottom:14px}
+  .lm .prose .sketch figcaption{margin-top:9px}
+  .lm .prose .fig{display:grid;grid-template-columns:minmax(0,650px) minmax(0,1fr);column-gap:28px;align-items:start}
+  .lm .prose .fig>svg{grid-row:1 / span 12}
+  .lm .prose .fig>:is(.fn,figcaption){grid-column:2;margin:0 0 10px}
+}
+
 /* ---- the pause: anything that moves on its own can be stilled ---- */
 .mpause{position:absolute;right:76px;bottom:20px;z-index:3;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;cursor:pointer;
   border:1px solid color-mix(in oklab,var(--ink) 22%,transparent);background:color-mix(in oklab,var(--paper) 80%,transparent);color:var(--ink2);

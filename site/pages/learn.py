@@ -474,6 +474,10 @@ def _cells(line: str) -> list[str]:
     return cells
 
 
+# what a sketch may be written beside in the margin: the paragraph (or list, or quote) it draws
+TEXT_BLOCK = ("<p>", "<ul>", "<ol>", "<ol ", "<blockquote>")
+
+
 def _starts_block(line: str) -> bool:
     return bool(FENCE.match(line) or re.match(r"^#{1,6}\s", line) or LIST.match(line)
                 or line.lstrip().startswith(">") or line.lstrip().startswith("|")
@@ -482,10 +486,15 @@ def _starts_block(line: str) -> bool:
 
 
 class Html:
-    """Markdown subset to HTML for the site. ``visual`` draws a directive; ``link`` resolves hrefs."""
+    """Markdown subset to HTML for the site. ``visual`` draws a directive; ``link`` resolves hrefs.
 
-    def __init__(self, link, visual):
-        self.link, self.visual = link, visual
+    ``margin`` is set for a lesson page, whose wide layout has a margin column (base.css, "the lesson
+    page"): a sketch is written ahead of the paragraph it draws, the two in one ``.lm-note``, so that on a
+    wide screen the sketch floats into the margin level with the paragraph's first line; under that width
+    the note stacks them back in reading order, paragraph first."""
+
+    def __init__(self, link, visual, margin: bool = False):
+        self.link, self.visual, self.margin = link, visual, margin
         self.anchors: dict[str, int] = {}
         self.mermaid = 0
 
@@ -526,7 +535,10 @@ class Html:
                 continue
             d = DIRECTIVE.match(line.strip())
             if d:
-                out.append(self.visual(f"{d.group(1)}:{d.group(2)}"))
+                drawn = self.visual(f"{d.group(1)}:{d.group(2)}")
+                if self.margin and d.group(1) == "sketch" and out and out[-1].startswith(TEXT_BLOCK):
+                    drawn = f'<div class="lm-note">{drawn}{out.pop()}</div>'
+                out.append(drawn)
                 i += 1
                 continue
             h = re.match(r"^(#{1,6})\s+(.*?)\s*#*\s*$", line)
@@ -549,8 +561,14 @@ class Html:
                     rows.append(_cells(lines[i]))
                     i += 1
                 th = "".join(f"<th>{inline(c, self.link)}</th>" for c in head)
-                tb = "".join("<tr>" + "".join(f"<td>{inline(c, self.link)}</td>" for c in r) + "</tr>" for r in rows)
-                out.append(f'<div class="tw" tabindex="0"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>')
+                # each cell carries its column's name, so on a phone a table of three or more columns can
+                # stack into one short block per row and still say what each cell is (base.css)
+                names = [_E(html.unescape(re.sub(r"<[^>]+>", "", inline(c, self.link))), quote=True) for c in head]
+                tb = "".join("<tr>" + "".join(
+                    f'<td data-h="{names[k]}">{inline(c, self.link)}</td>' if k < len(names) and names[k]
+                    else f"<td>{inline(c, self.link)}</td>" for k, c in enumerate(r)) + "</tr>" for r in rows)
+                cls = "tw stack" if len(head) >= 3 else "tw"
+                out.append(f'<div class="{cls}" tabindex="0"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>')
                 continue
             if line.lstrip().startswith(">"):
                 inner = []
@@ -772,7 +790,8 @@ def _rail(tracks: list[Track], here: str) -> str:
 
 
 def _toc(md: str) -> str:
-    """Inline contents, under the lesson header. A right-hand rail would cost the boards 248px."""
+    """The lesson's contents: under its header, and from 1256px wide at the top of the margin column beside
+    the header (base.css), where it costs the boards nothing: they run under it at the full width."""
     items = "".join(f'<li><a href="#{a}">{_E(re.sub(r"[`*]", "", t))}</a></li>'
                     for lvl, t, a in headings(md) if lvl == 2)
     return f'<details class="otp" open><summary>On this page</summary><ol>{items}</ol></details>'
@@ -796,9 +815,52 @@ def _graph(nodes: list[dict]) -> str:
     return json.dumps({"@context": "https://schema.org", "@graph": nodes}, ensure_ascii=False)
 
 
+# A title is written for search, in title case; on the page a heading is a sentence (DESIGN.md), so the H1
+# and the track's list set it in sentence case. These keep their capitals: the phases' names, and the
+# names of methods, products and tools. A word with a capital past its first letter (AI, PDLC, DevOps,
+# SkyWays) or with a digit keeps its own; the first word of each sentence keeps its capital.
+KEEP_CASE = ("P0 Frame", "P1 Design & Spec", "P2 Build & Prove", "P3 Run & Learn", "BMAD Method", "Spec Kit",
+             "Kanban", "Scrum", "Kiro", "Bedrock", "AgentCore", "Amazon", "Claude", "Strands", "LangGraph")
+DAYS = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
+
+
+def sentence_case(title: str) -> str:
+    kept: list[str] = []
+
+    def hold(m: re.Match) -> str:
+        kept.append(m.group(0))
+        return f"\x00{len(kept) - 1}\x00"
+
+    s = re.sub("|".join(re.escape(k) for k in KEEP_CASE), hold, title)
+    out, start = [], True
+    for tok in re.split(r"([A-Za-z][A-Za-z0-9'’]*|\x00\d+\x00)", s):
+        if not tok:
+            continue
+        if tok.startswith("\x00"):                       # a kept name counts as a word
+            start = False
+        elif re.fullmatch(r"[A-Za-z][A-Za-z0-9'’]*", tok):
+            own = tok == "I" or tok in DAYS or any(c.isupper() or c.isdigit() for c in tok[1:])
+            tok, start = (tok if start or own else tok.lower()), False
+        elif re.search(r"[?!.]\s*$", tok):                # a new sentence starts after ? ! or .
+            start = True
+        elif re.search(r"[0-9]", tok):
+            start = False
+        out.append(tok)
+    return re.sub("\x00(\\d+)\x00", lambda m: kept[int(m.group(1))], "".join(out))
+
+
+def _margin(body: str) -> str:
+    """The lesson's own things for the margin column: the "Try it" section becomes a card, and a mental
+    model's glyph carries its name as a caption (it had only an aria-label)."""
+    body = re.sub(r'(<h2 id="try-it">[\s\S]*?)(?=\n<h2 |\Z)',
+                  r'<section class="lm-try" aria-labelledby="try-it">\1</section>', body, count=1)
+    return re.sub(r'<figure class="lmodel" aria-label="([^"]*)">([\s\S]*?)</figure>',
+                  r'<figure class="lmodel">\2<figcaption><span>Mental model</span> \1</figcaption></figure>', body)
+
+
 def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     link = Links("site", lessons, tracks)
-    body = Html(link, visual).render(les.body)
+    body = _margin(Html(link, visual, margin=True).render(les.body))
     t = les.track
     mins = minutes(les.body)
     crumbs = [("Tutorial", f"{BASE_URL}learn/"), (t.title, t.url), (les.short, les.url)]
@@ -838,8 +900,8 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
             f'<script type="application/ld+json">{_graph(nodes)}</script>')
     html_ = f"""<div class="cols lcols">
 {_rail(tracks, les.slug)}
-<main id="main" class="lesson">
-  <h1>{_E(les.title)}</h1>
+<main id="main" class="lesson lm">
+  <h1>{_E(sentence_case(les.title))}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
   <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
   {_toc(les.body)}
@@ -881,7 +943,7 @@ def _days() -> dict[str, int]:
 def _cards(t: Track) -> str:
     return "".join(
         f'<li><a class="lc" href="../{l.slug}/"><span class="lcn">{l.n}</span><span class="lcb">'
-        f'<b>{_E(l.title)}</b><span>{_E(l.description)}</span>'
+        f'<b>{_E(sentence_case(l.title))}</b><span>{_E(l.description)}</span>'
         f'<small>{minutes(l.body)} min · {l.level}</small></span></a></li>' for l in t.lessons)
 
 

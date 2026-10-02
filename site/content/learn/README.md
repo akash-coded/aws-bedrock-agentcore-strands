@@ -26,7 +26,8 @@ Parallel slots are what let a reader skim twelve lessons and know where the answ
 
 ```markdown
 ---
-title:       the H1 and the <title>. The query a practitioner types, made specific. ≤ 60 characters.
+title:       the <title> and the H1. The query a practitioner types, made specific. ≤ 60 characters.
+             Write it in title case for search; the H1 shows it in sentence case (see Rules).
 short:       the sidebar label. ≤ 34 characters.
 wiki:        the wiki page name. Letters, digits, hyphens. Must not collide with a hand-written page.
 description: 120 to 160 characters. Contains the main term and promises the payoff.
@@ -80,6 +81,17 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 - **Length:** 900 to 1,500 words, and up to about 3,000 for an interview bank; the build warns above 14 minutes.
 - **Prompts** in "The ten-minute workflow" ask the model to question you rather than invent your numbers, and
   say what output shape you want. A prompt that would work unchanged for any lesson is not specific enough.
+- **Titles in sentence case on the page.** The renderer sets the H1 and the track's list in sentence case and
+  keeps the `<title>` as written. A word with a capital past its first letter (AI, PDLC, DevOps) or a digit keeps
+  its own; a name that has neither (Kanban, Spec Kit, P1 Design & Spec) goes in `KEEP_CASE` in
+  `site/pages/learn.py`, or it is lowered.
+- **The page sets the measure.** Prose stops near 75 characters a line; boards, tables, code and drawn figures run
+  to the full column, so a lesson has two right edges (`site/tools/accept.mjs` passes 14 and 15 check both).
+  From 1256px wide a margin column at the right holds the contents, each sketch level with the paragraph just
+  before it, and "Try it" as a card. So put a sketch straight after the paragraph it draws, and keep "Try it"
+  to the problem and its folded answer: no table or code block in it.
+- **A table stacks on a phone.** Three or more columns become one block per row, its first cell as the row's
+  name and each other cell under its column's heading. Make the first column the thing the row is about.
 - **Edit here, never on the wiki.** Every wiki copy of a lesson is regenerated; an edit made on the wiki
   opens an issue (the Wiki edits workflow) and `wiki/sync.sh` refuses to overwrite it until it comes home.
 

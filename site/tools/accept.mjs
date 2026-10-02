@@ -4,7 +4,7 @@
 //   python3 -m http.server 8799 -d site/_site &
 //   node site/tools/accept.mjs http://localhost:8799/
 //
-// Thirteen passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
+// Fifteen passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
 //    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn)
@@ -29,6 +29,11 @@
 //                            phase the aircraft is in; the picture ends inside the first screen on a phone and a
 //                            laptop; its drawing stays inside its budget with the processor slowed four times; and
 //                            the page does not shift as it is scrolled
+//   14. the measure          on a lesson at 1440, no prose runs over 75 characters a line: each paragraph's
+//                            characters a line, from its width and the average width of its own text in its font
+//   15. two right edges      on a lesson at 1440, text stops at one right edge and pictures, tables and code at
+//                            one other: every block of the page, and a caption that sits on the page, ends on
+//                            one of two lines, and anything on a third is listed
 //
 // Every pass first checks that the page really loaded: its top bar is there and styled. It exits 1 if
 // any pass fails and prints what failed. It measures; it does not judge taste: for that, look. The hero can
@@ -348,6 +353,58 @@ console.log("\n13. the hero: one clock, the right phase named, inside the first 
   if (out.length) { failures += out.length; console.log("  FAIL /  " + out.join("; ")); } else console.log("  ok   /");
 }
 
+// 14 and 15, on the lesson pages (main.lm): the measure, and two right edges. Other pages have nothing to check.
+const MEASURE = `(async () => {
+  await document.fonts.ready;
+  const main = document.querySelector('main.lm');
+  if (!main) return null;
+  const ctx = document.createElement('canvas').getContext('2d');
+  const els = [...main.querySelectorAll('.lede, .prose p, .prose li, .prose blockquote')]
+    .filter((e) => !e.closest('.bbw, .tw, figure, .codebox, .dgb') && e.offsetParent && e.textContent.trim().length > 60);
+  let worst = { cpl: 0 };
+  for (const e of els) {
+    const cs = getComputedStyle(e);
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+    const text = e.textContent.replace(/\\s+/g, ' ').trim();
+    const w = e.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const cpl = w / (ctx.measureText(text).width / text.length);
+    if (cpl > worst.cpl) worst = { cpl: Math.round(cpl * 10) / 10, w: Math.round(w), fs: cs.fontSize, text: text.slice(0, 48) };
+  }
+  return { n: els.length, worst };
+})()`;
+await pass("14. the measure: on a lesson at 1440, no prose line over 75 characters", { width: 1440, height: 900, reduce: true, wait: 900 }, async () => {
+  const m = await evaluate(MEASURE);
+  if (!m) return [];
+  if (!m.n) return ["no prose found to measure"];
+  return m.worst.cpl > 75 ? [`prose runs ${m.worst.cpl} characters a line (${m.worst.w}px at ${m.worst.fs}): "${m.worst.text}..."`] : [];
+});
+const EDGES = `(() => {
+  const main = document.querySelector('main.lm');
+  if (!main) return null;
+  const vis = (e) => { const cs = getComputedStyle(e), r = e.getBoundingClientRect(); return cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 0 && r.height > 0; };
+  const name = (e) => e.tagName.toLowerCase() + (e.classList[0] ? '.' + e.classList[0] : '');
+  const prose = main.querySelector('.prose');
+  const items = [...main.children].filter((e) => e !== prose);
+  [...(prose ? prose.children : [])].forEach((e) => items.push(...(e.matches('.lm-note') ? e.children : [e])));
+  // a caption under a figure with no frame of its own sits on the page; inside a frame it is the frame's business
+  (prose ? [...prose.querySelectorAll('figure')] : []).forEach((f) => { const cs = getComputedStyle(f);
+    if (!parseFloat(cs.borderTopWidth) && /rgba\\(0, 0, 0, 0\\)|transparent/.test(cs.backgroundColor)) items.push(...f.querySelectorAll(':scope > figcaption')); });
+  const edges = [];
+  for (const e of items.filter(vis)) {
+    const r = Math.round(e.getBoundingClientRect().right);
+    let g = edges.find((x) => Math.abs(x.at - r) <= 1);
+    if (!g) edges.push(g = { at: r, n: 0, what: {} });
+    g.n++; g.what[name(e)] = (g.what[name(e)] || 0) + 1;
+  }
+  return edges.sort((a, b) => b.n - a.n);
+})()`;
+await pass("15. two right edges: on a lesson at 1440, text ends on one line, pictures, tables and code on one other", { width: 1440, height: 900, reduce: true, wait: 900 }, async () => {
+  const edges = await evaluate(EDGES);
+  if (!edges || edges.length <= 2) return [];
+  const say = (g) => `${g.at} (${Object.entries(g.what).map(([k, v]) => v > 1 ? `${k} x${v}` : k).join(", ")})`;
+  return [`${edges.length} right edges, two allowed: ${edges.map(say).join("; ")}`];
+});
+
 } catch (e) {
   failures++;
   console.log("\nthe gate itself failed: " + e.message);
@@ -358,5 +415,5 @@ console.log("\n13. the hero: one clock, the right phase named, inside the first 
   await Promise.race([exited, sleep(5000)]);
   try { rmSync(profile, { recursive: true, force: true }); } catch {}
 }
-console.log(failures ? `\n${failures} failure(s)` : "\nall thirteen passes hold");
+console.log(failures ? `\n${failures} failure(s)` : "\nall fifteen passes hold");
 process.exit(failures ? 1 : 0);
