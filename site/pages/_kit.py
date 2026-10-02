@@ -7,6 +7,7 @@ every panel, and both lenses are visible.
 from __future__ import annotations
 
 import html
+import zlib
 
 E = lambda s: html.escape(str(s), quote=False)  # noqa: E731
 
@@ -66,8 +67,9 @@ def check(items: list[tuple[str, str]], bands: list[str], question: str = "") ->
     """A self-check that totals itself. ``items`` are (control, the test that proves it)."""
     lis = []
     for n, (title, test) in enumerate(items):
-        lis.append(f'<li><input type="checkbox" id="ck{n}-{abs(hash(title)) % 9999}" '
-                   f'data-label="{E(title)}"><label for="ck{n}-{abs(hash(title)) % 9999}">'
+        key = f"ck{n}-{zlib.crc32(title.encode()) % 9999}"   # crc32, not hash(): the same id on every build
+        lis.append(f'<li><input type="checkbox" id="{key}" '
+                   f'data-label="{E(title)}"><label for="{key}">'
                    f'<b>{E(title)}</b><span>{E(test)}</span></label></li>')
     q = f"<p><strong>{E(question)}</strong></p>" if question else ""
     return (f'<div class="chk" data-score data-score-bands="{E("|".join(bands))}">{q}'
