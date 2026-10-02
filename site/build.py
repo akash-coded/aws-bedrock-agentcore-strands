@@ -168,6 +168,38 @@ def inject(html: str) -> str:
     return html.replace("</body>", BODY + "</body>", 1)
 
 
+def lean(css: str) -> str:
+    """A stylesheet without its comments, which stay in the source for the next person to edit it.
+
+    The comments were a quarter of base.css, and every page loads base.css. A comment inside a string is left
+    alone; one between two words becomes a space, as CSS reads it; a line left empty goes."""
+    out, i, n, q = [], 0, len(css), ""
+    while i < n:
+        c = css[i]
+        if q:
+            out.append(c)
+            if c == "\\" and i + 1 < n:
+                out.append(css[i + 1])
+                i += 1
+            elif c == q:
+                q = ""
+        elif c in "'\"":
+            q = c
+            out.append(c)
+        elif css.startswith("/*", i):
+            end = css.find("*/", i + 2)
+            if end < 0:
+                sys.exit("a stylesheet has a comment that never closes; refusing to ship it")
+            i = end + 2
+            if out and i < n and (out[-1].isalnum() or out[-1] in "-_") and (css[i].isalnum() or css[i] in "-_"):
+                out.append(" ")
+            continue
+        else:
+            out.append(c)
+        i += 1
+    return re.sub(r"\n[ \t]*(?=\n)", "", "".join(out)).strip() + "\n"
+
+
 _ASSET = re.compile(r'\b(href|src)="([^"?#:]+\.(?:css|js))"')
 
 
@@ -224,6 +256,8 @@ def build(out: Path, shots: bool = False) -> None:
         if f.suffix in (".js", ".css"):
             shutil.copy2(f, out / "labs" / f.name)
     shutil.copy2(SITE / "404.html", out / "404.html")
+    for f in out.rglob("*.css"):                             # every stylesheet ships without its comments
+        f.write_text(lean(f.read_text(encoding="utf-8")), encoding="utf-8")
     (out / "robots.txt").write_text(ROBOTS, encoding="utf-8")
     (out / "sitemap.xml").write_text(sitemap(date.today().isoformat()), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")

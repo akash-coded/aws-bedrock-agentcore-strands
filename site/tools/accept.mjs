@@ -38,8 +38,9 @@
 //   16. the game's first paint  with script, the simulator's text for a reader without script is hidden from the
 //                            first paint, while the game's own script has still not arrived; when the rules fail to
 //                            load, the text comes back
-//   17. the bytes            read from the built site with node's zlib (level 9): base.css under 40 KB, the game's
-//                            three scripts under 45 KB, every page's HTML under 25 KB (the pages that were already
+//   17. the bytes            read from the built site with node's zlib (level 9): base.css under 32 KB as shipped
+//                            (the build drops its comments), the game's three scripts under 46 KB, every page's
+//                            HTML under 25 KB (the pages that were already
 //                            larger on 2 October 2026 each held to its size that day, rounded up, plus one KB), and
 //                            no font file but the four the site has
 //   18. map height           every page under learn/ in the sitemap, at 1440 x 900: the figure that holds a lesson's
@@ -479,7 +480,10 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
     const files = [];
     (function walk(d) { for (const f of readdirSync(SITE + d)) { const p = d + f; if (statSync(SITE + p).isDirectory()) walk(p + "/"); else files.push(p); } })("");
     const css = kb("theme/base.css"), game = ["play/game.js", "play/sim.js", "play/art.js"].reduce((n, f) => n + kb(f), 0);
-    if (css >= 40) out.push(`base.css is ${css.toFixed(1)} KB gzipped; the budget is 40`);
+    // Lowered from 40 on purpose on 3 October 2026: the build now ships every stylesheet without its comments (build.py, lean()),
+    // which took base.css from 39.7 to about 29.5 KB. The budget follows it down, so the room is kept for work, not for comments.
+    if (css >= 32) out.push(`base.css is ${css.toFixed(1)} KB gzipped as shipped; the budget is 32`);
+    for (const f of files.filter((f) => f.endsWith(".css"))) if (readFileSync(SITE + f, "utf8").includes("/*")) out.push(`${f} ships with its comments`);
     // Raised from 45 on purpose on 2 October 2026: the owner asked for a briefing before a late start (the earlier calls, the documents,
     // where the run stands), which took the three scripts to 45.97 KB after the savings in site/GAME.md; 46 is that, rounded up to the next half KB.
     if (game >= 46) out.push(`the game's scripts are ${game.toFixed(1)} KB gzipped; the budget is 46`);
