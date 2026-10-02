@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **P3 in one sentence.** P3 Run & Learn widens the agent's share of live traffic only as evidence
-> arrives, rehearses the rollback before it is needed, watches the output mix for drift, reports what
-> the feature saved **beside** what it cost on one line, and turns every incident, drift alert and
-> surprising bill into the brief for the next P0.
+> **P3 in short.** P3 Run & Learn widens the agent's share of live traffic only as evidence
+> arrives, and rehearses the rollback before it is needed. It watches the output mix for drift, and
+> reports what the feature saved **beside** what it cost on one line. It turns every incident, drift
+> alert and surprising bill into the brief for the next P0.
 
 {{figure:shadow_widen}}
 
@@ -46,7 +46,7 @@ A P3 cycle ends when **both numbers are reported and the brief for the next P0 e
 
 Four states, taken one at a time: **shadow**, where the agent decides on real traffic and acts on
 nothing; a **5% canary**; **wider**, on evidence; then **all of it**. Each step is a condition, never
-a date: and the arithmetic decides how long it takes. At 240 cases a day, 5% is twelve a day, so
+a date, and the arithmetic decides how long it takes. At 240 cases a day, 5% is twelve a day, so
 five hundred cases takes 42 days. The safe share is the slow one, which is exactly why a cut-over
 widens rather than holding.
 
@@ -65,7 +65,7 @@ cost limit per case that ends in a person's queue rather than in another retry.
 ### Step 3 · Watch for drift
 
 **Drift** is behaviour changing with no deploy, no error and no alert. Your existing monitoring
-answers whether the system is up and fast; it was never looking for this. Watch the **output mix**, the share of each kind of decision, because accuracy needs labels and arrives late, while the mix is
+answers whether the system is up and fast; it was never looking for this. Watch the **output mix** (the share of each kind of decision), because accuracy needs labels and arrives late, while the mix is
 visible the same day.
 
 Watch it against **two thresholds**, not one. The SkyWays refund-to-credit mix slid from 61/39 in
@@ -85,7 +85,7 @@ with the two rows that stop either number being gamed: the review hours added, a
 
 A first cycle that saves time and costs more is survivable, if the sponsor hears it from you. On day
 ninety SkyWays reported 40 to 45 percent fewer person-days and a token bill of $4,200 on one line,
-with the rising review hours beside them and the reason they would fall. The programme continued:
+with the rising review hours beside them and the reason they would fall. The programme continued,
 not because the numbers were flattering, but because both of them came from the team.
 
 ### Step 5 · Turn what you learned into the next P0
@@ -163,7 +163,7 @@ cancelled when finance finds the other number.
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
 | **A forward-deployed engineer** | Stay through the first widening: rehearse the rollback with the customer's on-call, time every switch, and leave a drift chart they can read without you. | Ask a model to write the customer's runbook from your deployment configuration and the rollback rehearsal log. |
-| **A product manager or FDPM** | Report two numbers on one line every cycle, and widen by arithmetic, days of evidence per share, never by date. | Have a model draft the cycle report from the tracker export and the token log, with review hours and re-runs beside the saving. |
+| **A product manager or FDPM** | Report two numbers on one line every cycle, and widen by arithmetic (days of evidence per share), never by date. | Have a model draft the cycle report from the tracker export and the token log, with review hours and re-runs beside the saving. |
 | **A GenAI or agentic AI engineer** | Log the answering model, prompt version and flag state on every response, and chart the output mix weekly against two thresholds. | Ask a coding agent to add the weekly drift job and wire a breach to flip the release flag. |
 
 **Across the enterprise.** Aggregate every product's two numbers and drift chart into one portfolio view.
@@ -182,7 +182,7 @@ to the saving. Do not smooth away a rising re-run count.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Shadow, 5%, widen on evidence; the two drift thresholds; the two-number report | **Original**: this playbook | [QA lead](site:qa/#watch) · [Gates and Governance](wiki:Gates-and-Governance#paired-indicators-and-the-two-number-report) |
+| Shadow, 5%, widen on evidence; the two drift thresholds; the two-number report | **Original**: this manual | [QA lead](site:qa/#watch) · [Gates and Governance](wiki:Gates-and-Governance#paired-indicators-and-the-two-number-report) |
 | Report every measure beside its side effect | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
 | Why a single number gets pushed | **Borrowed** | Goodhart, C. (1975). Goodhart's law |
 | Blameless postmortems | **Borrowed** | Beyer, B. et al. (2016). *Site Reliability Engineering*. O'Reilly |

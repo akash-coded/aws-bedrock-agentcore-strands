@@ -3,6 +3,11 @@
    decoration and state: the room where today happens, and the whole building. Nothing here decides
    anything: the rules are in sim.js, and this file only asks them what is legal and shows the answer.
 
+   Nothing moves because it came into view. A figure animates only as the answer to the player's own
+   press, and only if it is on screen when they press; otherwise it is shown finished. The one thing
+   that loops is the building (monitors, the beacon, the runway lights), and the one pause control
+   under it holds that.
+
    A save is the list of actions taken, kept under one key in localStorage and replayed on load.
    A link such as /simulator/#day-45 opens that day with the earlier days played by the book. */
 (function () {
@@ -39,14 +44,16 @@
 
   var run = null;                 // { opts, state }
   var looking = null, lastRoom = null;   // the room whose card is open, and the chip last pressed
-  var asking = false;             // a colleague's call is being challenged
+  var asking = false;             // Day 90 in one role: the player has asked to build the slide themselves
+  var answering = false;          // the page is being redrawn as the answer to a press: only then may a figure move
   var shown = {};                 // the small simulations that have played in this run: each plays once
   var live = el("p", { "class": "vh", "aria-live": "polite", role: "status" });
 
   /* ------------------------------------------------------------------ the stage: two canvases */
   var sceneCv = el("canvas", { "class": "nd-scene-cv", "aria-hidden": "true" });
   var mapCv = el("canvas", { "class": "nd-map-cv", "aria-hidden": "true" });
-  var MAPW = A.BW + 10, MAPH = A.BH + 16, GROUND = A.BH + 4, clock = 0, raf = 0, last = 0, planeT = -1, paused = false, seen = true;
+  // The building fills its picture from edge to edge: the sky shows above the roof, not down the sides.
+  var MAPW = A.BW, MAPH = A.BH + 16, OX = 0, OY = 4, GROUND = A.BH + 4, clock = 0, raf = 0, last = 0, paused = false, seen = true;
   var enter = 1, shut = 0, flash = 0;      // people walking in, the build floors' shutters, the incident's one hard frame
   window.NDFrames = 0;            // for the acceptance gate: frames drawn by the loop
 
@@ -77,35 +84,45 @@
     for (k in HOME) if (!here[k]) (rooms[HOME[k]] = rooms[HOME[k]] || []).push(k);
     return rooms;
   }
-  function fit(cv, lw, lh, max, fill) {
-    var box = cv.parentNode.clientWidth || lw, scale = Math.max(1, Math.min(max, Math.floor(box / lw)));
-    if (fill && scale < 3) scale = Math.min(max, box / lw);          // on a narrow screen the room fills the width
-    if (cv.width !== lw) { cv.width = lw; cv.height = lh; }
-    // whole pixels wherever the picture fits; on a screen narrower than the picture, it shrinks to fit
-    cv.style.width = Math.min(box, lw * scale) + "px"; cv.style.height = Math.round(Math.min(box, lw * scale) * lh / lw) + "px";
+  // Size a canvas to the width it has. Where that width holds the picture at a whole number of screen
+  // pixels to each art pixel, it gets exactly that, the browser scales it hard, and the frame hugs it:
+  // no bars at the sides. Where it does not (a phone), the picture fills the width: it is drawn at the
+  // next whole number up and the browser scales it down smoothly, so no art pixel is wider than its
+  // neighbour and no letter breaks. Returns what to draw at, and how big one art pixel is on screen.
+  function fit(cv, lw, lh, box, max, fill) {
+    var s = Math.min(max, box / lw), whole = Math.floor(s + 0.001), k = 1, w;
+    if (whole >= 1 && (!fill || s - whole < 0.02)) { w = lw * whole; cv.classList.remove("soft"); }
+    else { w = Math.round(lw * s); k = Math.max(2, Math.ceil(s * (window.devicePixelRatio || 1))); cv.classList.add("soft"); }
+    if (cv.width !== lw * k) { cv.width = lw * k; cv.height = lh * k; }
+    cv.style.width = w + "px"; cv.style.height = Math.round(w * lh / lw) + "px";
+    return { k: k, on: w / lw };
   }
   function draw() {
     var state = run && run.state, st = picture(state), day = state && state.beat !== "end" ? sim.today(data, state) : null;
-    var rooms = whereabouts(state), speaking = day && day.scene && day.scene[0] ? day.scene[0][0] : null, g, px;
-    if (still || paused) { shut = gateShut(state); enter = 1; flash = 0; planeT = -1; }
-    // the room where today happens
-    if (sceneCv.parentNode) {
-      fit(sceneCv, A.W, A.H, 5, true);
-      g = sceneCv.getContext("2d"); g.imageSmoothingEnabled = false;
-      A.room(g, day ? day.room : "lobby", clock, st, true, day ? rooms[day.room] : null, speaking, enter);
+    var rooms = whereabouts(state), speaking = day && day.scene && day.scene[0] ? day.scene[0][0] : null, g, f, box, r;
+    if (still || paused) { shut = gateShut(state); enter = 1; flash = 0; }
+    // The room where today happens, beside the day strip or above the headline. It does not loop: the
+    // people walk in once, as the day opens, and then the picture is still. (At two columns the
+    // building beside the panel is the picture of the room, and this one is not shown.)
+    if (sceneCv.parentNode && sceneCv.parentNode.clientWidth) {
+      f = fit(sceneCv, A.W, A.H, sceneCv.parentNode.clientWidth, 3, true);
+      g = sceneCv.getContext("2d"); g.setTransform(f.k, 0, 0, f.k, 0, 0); g.imageSmoothingEnabled = false;
+      A.room(g, day ? day.room : "lobby", enter < 1 ? clock : 0, st, true, day ? rooms[day.room] : null, speaking, enter);
       if (flash > 0) { g.fillStyle = "rgba(222,138,138," + (0.5 * flash) + ")"; g.fillRect(0, 0, A.W, A.H); }
     }
-    // the whole building, the apron and the sky
+    // the whole building, the apron, and the sky above the roof
     if (mapCv.parentNode) {
-      fit(mapCv, MAPW, MAPH, 4);
-      g = mapCv.getContext("2d"); g.imageSmoothingEnabled = false;
+      box = left ? left.clientWidth : MAPW * 2;
+      f = fit(mapCv, MAPW, MAPH, box, 2, box < MAPW * 2);
+      g = mapCv.getContext("2d"); g.setTransform(f.k, 0, 0, f.k, 0, 0); g.imageSmoothingEnabled = false;
       A.sky(g, MAPW, MAPH, clock, st.sky);
-      if (planeT >= 0) { px = Math.round(-50 + planeT * (MAPW + 100)); g.drawImage(A.PLANE.c, px, Math.round(22 - planeT * 10)); }
       A.ground(g, MAPW, MAPH, GROUND, clock, st.sky);
       var mark = {}, i, d;
       if (state) for (i = 0; i < state.debts.length; i++) { d = state.debts[i]; if (d.state === "sealed") mark[data.days[sim.dayIndex(data, d.due)].room] = A.C.rose; }
-      A.building(g, 5, 4, clock, st, { active: day ? day.room : null, cast: rooms, speaking: speaking, mark: mark, enter: enter,
-        shut: shut > 0 ? { eng: shut, qa: shut } : null });
+      // room names are five art pixels tall: under about eight screen pixels they are left off, and the buttons under the picture name the rooms
+      A.building(g, OX, OY, clock, st, { active: day ? day.room : null, cast: rooms, speaking: speaking, mark: mark, enter: enter,
+        shut: shut > 0 ? { eng: shut, qa: shut } : null, names: f.on >= 1.6 });
+      if (flash > 0 && day) { r = A.roomRect(day.room); g.fillStyle = "rgba(222,138,138," + (0.5 * flash) + ")"; g.fillRect(OX + r.x, OY + r.y, r.w, r.h); }
     }
   }
   function loop(now) {
@@ -113,7 +130,6 @@
     if (still || paused || !seen || document.hidden) return;
     if (now - last > 120) {
       clock += 8; last = now; window.NDFrames++;
-      if (planeT >= 0) { planeT += 0.012; if (planeT > 1) planeT = -1; }
       if (enter < 1) enter = Math.min(1, enter + 0.09);
       if (flash > 0) flash = Math.max(0, flash - 0.34);
       var want = gateShut(run && run.state); if (shut > want) shut = Math.max(want, shut - 0.2); else shut = want;
@@ -122,11 +138,12 @@
     raf = requestAnimationFrame(loop);
   }
   function go() { if (!raf && !still && !paused && seen && !document.hidden) raf = requestAnimationFrame(loop); }
-  function fly() { planeT = still ? -1 : 0; enter = still ? 1 : 0; }     // one plane a day, nose first; and today's people walk in
+  function arrive() { enter = still ? 1 : 0; }     // a day opens: today's people walk into its room, once
   // The floors where the build happens stay shuttered until the sign-off has been dealt with.
   function gateShut(state) { return !state || state.beat === "end" ? 0 : (state.i < 5 || (state.i === 5 && state.beat !== "done") ? 1 : 0); }
   document.addEventListener("visibilitychange", go);
   window.addEventListener("resize", function () { draw(); });
+  // the loop rests while the game is off the screen; nothing starts because it came back
   if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { seen = en[0].isIntersecting; go(); }).observe(root);
 
   /* ------------------------------------------------------------------ looking in on a room */
@@ -169,15 +186,18 @@
   function act(action) {
     var before = run.state, next = sim.reduce(data, before, action);
     if (next === before) return;
-    run.state = next; asking = false;
-    if (action.t === "next") { fly(); looking = null; if (!still && next.events.some(function (e) { return e.kind === "incident"; })) flash = 1; }
+    run.state = next; if (action.t !== "ask") asking = false;
+    if (action.t === "next") { arrive(); looking = null; if (!still && next.events.some(function (e) { return e.kind === "incident"; })) flash = 1; }
     if (still) shut = gateShut(next);
     save(); unlink();
-    render(action.t === "next" || action.t === "undo" ? "day" : "out");
+    answering = true;             // what follows is the answer to a press: a figure on screen may play, a pin may fly
+    render(action.t === "next" ? "day" : action.t === "ask" ? "ask" : "out");
     flyPins(next.debts.slice(before.debts.length).filter(function (d) { return d.state === "sealed"; }).map(function (d) { return d.due; }));
+    answering = false;
     var bits = [];
     if (next.slack !== before.slack) bits.push("Runway " + runwayText(next.slack) + ".");
     if (next.trust !== before.trust) bits.push("Trust " + next.trust + " of " + next.trustMax + ".");
+    if (next.tokens !== before.tokens) bits.push(questions(next.tokens) + " left.");
     live.textContent = bits.join(" ");
     go();
   }
@@ -188,8 +208,9 @@
   }
   function start(opts) {
     run = { opts: opts, state: sim.init(data, opts) }; looking = null; asking = false; shown = {};
-    shut = 1; save(); fly(); render("day"); go();
+    shut = 1; save(); arrive(); render("day"); go();
   }
+  function questions(n) { return n === 1 ? "1 question" : n + " questions"; }
   function runwayText(n) { return n >= 0 ? days(n) + " left" : days(-n) + " late"; }
 
   /* ------------------------------------------------------------------ a link to a day
@@ -206,7 +227,7 @@
     var opts = { mode: "team", seed: 0, from: i };
     run = { opts: opts, state: sim.fold(data, opts, sim.book(data, opts, i)) }; looking = null; asking = false; shown = {};
     shut = gateShut(run.state); if (replace) { save(); unlink(); }
-    fly(); render("day"); go();
+    arrive(); render("day"); go();
   }
   function resume(saved) { run = { opts: saved.opts, state: sim.fold(data, saved.opts, saved.history) }; shown = {}; unlink(); render("day"); go(); }
   function savedDay(saved) { return data.days[Math.min(data.days.length - 1, saved.history.filter(function (a) { return a.t === "next"; }).length)].day; }
@@ -218,8 +239,11 @@
   }
 
   /* ------------------------------------------------------------------ pieces of the panel */
+  // The top of the panel: the room where today happens, the thirteen days, and the meters. The style
+  // sheet decides where the room goes: beside the days on a tablet or a laptop, under them on a phone,
+  // and nowhere at two columns, where the building beside the panel already shows it.
   function hud(state) {
-    var strip = el("ol", { "class": "nd-strip", "aria-label": "The thirteen days" }), i, d, cls, due;
+    var strip = el("ol", { "class": "nd-strip", "aria-label": "The thirteen days" }), i, d, cls, due, meters;
     for (i = 0; i < data.days.length; i++) {
       d = data.days[i]; cls = i < state.i || state.beat === "end" ? "was" : i === state.i ? "now" : "";
       due = state.debts.filter(function (x) { return x.due === d.id && x.state === "sealed"; }).length;
@@ -228,12 +252,18 @@
     }
     var pips = el("span", { "class": "nd-pips", "aria-hidden": "true" });
     for (i = 0; i < state.trustMax; i++) pips.appendChild(el("i", { "class": i < state.trust ? "on" : "" }));
-    return el("div", { "class": "nd-hud" }, [strip,
-      el("dl", { "class": "nd-meters" }, [
-        el("div", { "class": state.slack < 0 ? "bad" : "" }, [el("dt", { text: "Runway" }), el("dd", { text: runwayText(state.slack) })]),
-        el("div", {}, [el("dt", { text: "Sponsor's trust" }), el("dd", {}, [pips, el("span", { "class": "vh", text: state.trust + " of " + state.trustMax })])]),
-        el("div", {}, [el("dt", { text: "On file" }), el("dd", { text: state.shelf.length + " of " + Object.keys(data.artefacts).length })])
-      ])]);
+    meters = el("dl", { "class": "nd-meters" }, [
+      el("div", { "class": state.slack < 0 ? "bad" : "" }, [el("dt", { text: "Runway" }), el("dd", { text: runwayText(state.slack) })]),
+      el("div", {}, [el("dt", { text: "Sponsor's trust" }), el("dd", {}, [pips, el("span", { "class": "vh", text: state.trust + " of " + state.trustMax })])]),
+      el("div", {}, [el("dt", { text: "On file" }), el("dd", { text: state.shelf.length + " of " + Object.keys(data.artefacts).length })]),
+      state.mode !== "team" ? el("div", {}, [el("dt", { text: "Questions" }), el("dd", { text: state.tokens + " left" })]) : null]);
+    return el("div", { "class": "nd-hud" }, [el("div", { "class": "nd-scene" }, [sceneCv]), strip, meters]);
+  }
+  // In one role, and as the sponsor: who the player is, said before anything else on the day.
+  function whoLine(state) {
+    if (state.mode === "role") return el("p", { "class": "nd-you-are" }, [el("b", { text: "You are " + who(data.roles[state.role].who).name + ", the " + lower(data.roles[state.role].name) + ". " }), data.roles[state.role].line]);
+    if (state.mode === "org") return el("p", { "class": "nd-you-are" }, [el("b", { text: "You are Ines, the sponsor. " }), "The team makes each call. You may ask to see the evidence behind " + ["none", "one", "two", "three"][data.rules.questions.org] + " of them."]);
+    return null;
   }
   function eventList(state) {
     var out = el("ul", { "class": "nd-events" }), n = 0;
@@ -257,8 +287,8 @@
     });
     return box;
   }
-  function optionButtons(state, day, handler, skip) {
-    var set = el("fieldset", { "class": "nd-opts" }, [el("legend", { text: day.ask })]);
+  function optionButtons(state, day, handler, skip, legend) {
+    var set = el("fieldset", { "class": "nd-opts" + (legend ? " alt" : "") }, [el("legend", { text: legend || day.ask })]);
     day.options.forEach(function (o, n) {
       if (o.id === skip) return;
       var p = sim.price(data, state, day, o);
@@ -308,37 +338,47 @@
      Each shows one idea the words alone carry badly, plays once in true steps (no number counts up),
      and ends on the whole picture. With reduced motion the whole picture is simply there. They move
      only transform, opacity and clip-path; the timings are in game.css. */
-  function once(name) {           // true the first time this figure is shown on this day of this run
+  function once(name) {           // true the first time this figure is shown on this day, and only as the answer to a press
     var k = run.state.i + ":" + name, first = !shown[k];
     shown[k] = 1;
-    return first && !still;
+    return first && answering && !still;
+  }
+  var BAR = 60, TOP = 84;         // the foot of the site's bar, and where the top of an answer is put under it
+  function inView(n) { var r = n.getBoundingClientRect(); return r.top >= BAR && r.bottom <= window.innerHeight && r.height > 0; }
+  // Put the top of something just under the bar, at once: a figure about to play needs to be where it will be.
+  function jump(n) { window.scrollTo({ top: Math.max(0, window.scrollY + n.getBoundingClientRect().top - TOP), behavior: "instant" }); }
+  // A figure that is not whole on the screen when it would start does not start: it is shown finished.
+  function settleFigures() {
+    panel.querySelectorAll(".nd-sim.nd-go").forEach(function (f) { if (!inView(f)) f.classList.remove("nd-go"); });
   }
   // Day 45. One score becomes three: a column per kind of case, as wide as its share of the cases, each
   // with its own bar and the margin under its score. The smallest sample has the longest whisker.
   function splitFigure(state, t, bars) {
-    var n = 0, right = 0, plot = el("div", { "class": "nd-split-plot" }), names = [];
+    var n = 0, right = 0, plot = el("div", { "class": "nd-split-plot" }), names = el("div", { "class": "nd-split-names" });
     t.slices.forEach(function (s) { n += s.n; right += s.right; });
-    t.slices.forEach(function (s) {
+    t.slices.forEach(function (s, k) {
       var st = sim.sliceStats(s);
-      names.push(lower(s.name) + " (" + s.n + ")");
       plot.appendChild(el("div", { "class": "nd-split-col", style: "flex:" + s.n + " 0 0;--s:" + st.score + ";--l:" + st.lower + ";--b:" + bars[s.id] + ";--a:" + (100 * right / n) }, [
         el("i", { "class": "nd-split-fill" }), el("i", { "class": "nd-split-whisk" }), el("i", { "class": "nd-split-bar" }), el("b", { text: String(st.score) })]));
+      // the name sits under its column; where a column is narrower than its name, the names keep their order and close up
+      names.appendChild(el("span", { style: "flex:" + s.n + " 1 0" }, [el("b", { text: s.short }), el("i", { text: s.n + " cases" })]));
     });
     plot.appendChild(el("span", { "class": "nd-split-one", style: "--a:" + (100 * right / n), text: (Math.round(1000 * right / n) / 10) + " on all " + n }));
     return el("div", { "class": "nd-sim nd-split" + (once("split") ? " nd-go" : "") }, [
-      el("div", { "aria-hidden": "true" }, [plot]),
-      el("p", { "class": "nd-cap" }, ["One score is three scores. Left to right: " + names.join(", ") + ". ",
+      el("div", { "aria-hidden": "true" }, [plot, names]),
+      el("p", { "class": "nd-cap" }, ["One score is three scores. Each column is as wide as its share of the " + n + " cases. ",
         el("i", { "class": "nd-key bar", "aria-hidden": "true" }), "the bar ", el("i", { "class": "nd-key whisk", "aria-hidden": "true" }), "the least the score could be"])]);
   }
   // Day 75. The bill is the estimate stretched four times over: the habits multiply. Ticking a fix
   // takes its factor out, and everything after it shrinks.
   function billFigure(t) {
-    var plot = el("div", { "class": "nd-bill-plot" }), labs = el("div", { "class": "nd-bill-labs" }), total = el("b"), segs = [], whole = 1, fig;
+    var plot = el("div", { "class": "nd-bill-plot" }), labs = el("div", { "class": "nd-bill-labs" }), total = el("b"), segs = [], whole = 1, fig, rest = el("i");
     t.rows.forEach(function (r) { whole *= r.factor; });
     [{ id: "", factor: 1, name: "estimate" }].concat(t.rows).forEach(function (r, k) {
       var seg = el("i", { "class": "nd-bill-seg" + (k ? " f" + k : " est"), style: "--k:" + k }), lab = el("span", { style: "--k:" + k, text: k ? "×" + r.factor : "estimate" });
       plot.appendChild(seg); labs.appendChild(lab); segs.push({ row: r, seg: seg, lab: lab });
     });
+    labs.appendChild(rest);
     fig = el("div", { "class": "nd-sim nd-bill" + (once("bill") ? " nd-go" : ""), "aria-hidden": "true" }, [
       el("p", { "class": "nd-bill-top" }, [el("span", { text: "The bill, as a multiple of the estimate" }), total]), plot, labs]);
     fig.paint = function (off) {             // `off` is the list of fixes ticked
@@ -347,9 +387,11 @@
         var gone = k && off.indexOf(x.row.id) >= 0, from = at, to = k ? (gone ? at : at * x.row.factor) : 1;
         x.seg.style.transform = "translateX(" + (100 * from / whole) + "%) scaleX(" + Math.max(0, (to - from) / whole) + ")";
         x.seg.classList.toggle("gone", !!gone); x.lab.classList.toggle("gone", !!gone);
-        x.lab.style.left = (100 * (from + to) / 2 / whole) + "%";
+        // a label takes its segment's share of the row and never less than its own width, so two labels cannot print on each other
+        x.lab.style.flex = gone ? "0 0 0" : (to - from) + " 1 0";
         at = to;
       });
+      rest.style.flex = Math.max(0, whole - at) + " 1 0";
       total.textContent = (Math.round(at * 100) / 100) + " times";
     };
     fig.paint([]);
@@ -361,10 +403,10 @@
     var paid = form === "paid";
     return el("div", { "class": "nd-sim nd-pw " + (paid ? "nd-pw-paid" : "nd-pw-held") + (once("refund") ? " nd-go" : "") }, [
       el("div", { "class": "nd-pw-row", "aria-hidden": "true" }, [
-        el("span", { "class": "nd-pw-end", text: "The assistant" }),
+        el("span", { "class": "nd-pw-end from", text: "The assistant" }),
         el("span", { "class": "nd-pw-track" }, [el("i", { "class": "nd-pw-run" }, [el("b", { text: "$2,000" })]), el("i", { "class": "nd-pw-stop" }),
           el("em", { text: paid ? "the prompt" : "the tool" })]),
-        el("span", { "class": "nd-pw-end", text: "The passenger" })]),
+        el("span", { "class": "nd-pw-end to", text: "The passenger" })]),
       el("p", { "class": "nd-cap", text: paid ? "The $400 limit was a sentence in the prompt. That is paper, and the refund went through it."
         : "The $400 limit is in the refund tool itself. That is a wall, and the refund stopped at it." })]);
   }
@@ -372,11 +414,12 @@
   // after another. The strip keeps the pin; this only shows where it came from.
   function flyPins(due) {
     var from = panel.querySelector(".nd-sealed i"), seen = {}, n = 0, spring;
-    if (still || !from || !from.animate || !due.length) return;
+    if (still || !from || !from.animate || !due.length || !inView(from)) return;
     try { spring = getComputedStyle(root).getPropertyValue("--spring").trim() || "ease-out"; } catch (e) { spring = "ease-out"; }
     due.forEach(function (id) {
       var to = panel.querySelector('.nd-strip li[data-day="' + id + '"] i'), a, b, pin, fly;
-      if (seen[id] || !to) return;
+      // only to a day the player can see: a pin that flies off the screen is movement leaving the page
+      if (seen[id] || !to || !inView(to.parentNode)) return;
       seen[id] = 1; a = from.getBoundingClientRect(); b = to.getBoundingClientRect();
       pin = el("i", { "class": "nd-pin", "aria-hidden": "true", style: "left:" + (a.left + window.scrollX) + "px;top:" + (a.top + window.scrollY) + "px;width:" + a.width + "px;height:" + a.height + "px" });
       document.body.appendChild(pin); to.classList.add("nd-wait");
@@ -384,7 +427,7 @@
         { duration: 520, delay: n * 380, easing: "cubic-bezier(.22,1,.36,1)", fill: "both" });
       fly.onfinish = function () {
         pin.remove(); to.classList.remove("nd-wait");
-        try { to.animate([{ transform: "scale(2)" }, { transform: "scale(1)" }], { duration: 400, easing: spring }); } catch (e) { /* an old browser: the pin is simply there */ }
+        try { to.animate([{ transform: "scale(1.8)" }, { transform: "scale(1)" }], { duration: 400, easing: spring }); } catch (e) { /* an old browser: the pin is simply there */ }
       };
       n++;
     });
@@ -496,14 +539,7 @@
         return out;
       });
     } else if (id === "slide") {
-      var L = sim.ledger(data, state), text = {
-        saving: L.saving + " percent fewer person-days on stranded passengers: " + money(L.value),
-        bill: "What it cost: a model bill of " + money(L.bill) + " and " + money(L.review) + " of review time",
-        net: "This cycle, net: " + money(L.net) + ". Next cycle: review time under 30 hours",
-        score: "82.4 percent right on 500 real cases",
-        incident: state.incidents ? "One refund paid in error: $2,000" : "No money paid out in error",
-        shelf: state.shelf.length + " documents on file"
-      };
+      var text = slideLines(state);
       t.lines.forEach(function (ln) {
         box.appendChild(el("label", { "class": "nd-check big", "for": "sd-" + ln.id }, [el("input", { type: "checkbox", id: "sd-" + ln.id, value: ln.id }), el("span", { text: text[ln.id] })]));
       });
@@ -514,6 +550,18 @@
       });
     }
     return box;
+  }
+
+  function slideLines(state) {     // the six lines that could go on the Day 90 slide, from the run's own numbers
+    var L = sim.ledger(data, state);
+    return {
+      saving: L.saving + " percent fewer person-days on stranded passengers: " + money(L.value),
+      bill: "What it cost: a model bill of " + money(L.bill) + " and " + money(L.review) + " of review time",
+      net: "This cycle, net: " + money(L.net) + ". Next cycle: review time under 30 hours",
+      score: "82.4 percent right on 500 real cases",
+      incident: state.incidents ? "One refund paid in error: $2,000" : "No money paid out in error",
+      shelf: state.shelf.length + " documents on file"
+    };
   }
 
   function gatePanel(state) {
@@ -535,8 +583,6 @@
   /* ------------------------------------------------------------------ the side column: debts, the date, a room */
   function side(state) {
     var box = el("div", { "class": "nd-side" }), sealed = state.debts.map(function (d, i) { return { d: d, i: i }; }).filter(function (x) { return x.d.state === "sealed"; });
-    if (state.mode === "role") box.appendChild(el("p", { "class": "nd-you-are" }, [el("b", { text: "You are " + who(data.roles[state.role].who).name + ", the " + lower(data.roles[state.role].name) + ". " }), data.roles[state.role].line + " " + state.tokens + (state.tokens === 1 ? " question" : " questions") + " left to ask of a colleague."]));
-    if (state.mode === "org") box.appendChild(el("p", { "class": "nd-you-are" }, [el("b", { text: "You are Ines, the sponsor. " }), state.tokens + (state.tokens === 1 ? " question" : " questions") + " left to ask."]));
     if (sealed.length && state.mode !== "org") {
       var ul = el("ul", { "class": "nd-debts" });
       var back = {};                               // one way back per day, however many things that day left
@@ -553,7 +599,7 @@
         el("button", { type: "button", "class": "btn ghost sm", onclick: function () { act({ t: "move" }); } }, ["Ask Ines, the sponsor, to move the date ", el("em", { text: "+" + days(m.days) + ", once" })]),
         el("span", { text: ok ? "With " + state.shelf.length + " documents on file, she will agree without a question." : "With " + state.shelf.length + " on file, it will cost her trust. She agrees easily at " + m.evidence + "." })]));
     }
-    box.appendChild(el("p", { "class": "nd-leave" }, [el("a", { href: "./", text: "Leave this run" }), " It is saved, and you can carry on later."]));
+    box.appendChild(el("p", { "class": "nd-leave" }, [el("a", { href: "./", text: "Leave this run" }), el("span", { text: " It is saved, and you can carry on later." })]));
     return box;
   }
   function roomBox(state) {
@@ -563,7 +609,7 @@
       chips.appendChild(el("button", { type: "button", "class": "nd-chip" + (looking === id ? " on" : ""), "aria-pressed": looking === id ? "true" : "false", "data-room": id,
         onclick: function () { looking = looking === id ? null : id; lastRoom = id; render("look"); } }, [el("i", { "aria-hidden": "true", style: "background:" + A.paint(id).hue }), c.name]));
     });
-    var out = [el("p", { "class": "nd-k", text: "Look in on a room" }), chips];
+    var out = [chips];
     if (looking) {
       var c = roomCard(looking, state), card = el("div", { "class": "nd-card", tabindex: "-1", style: "--rc:" + A.paint(looking).hue }, [el("b", { text: c.name })]);
       c.lines.forEach(function (l) { card.appendChild(el("p", { text: l })); });
@@ -586,29 +632,45 @@
       so.text ? el("p", { "class": "nd-sofar" }, [el("b", { text: so.label + " " }), so.text]) : null,
       from > 0 && state.i === from ? el("p", { "class": "nd-book", text: (from === 1 ? "Day 1 was" : "Days 1 to " + data.days[from - 1].day + " were") + " played by the book so you can start here." }) : null]);
   }
-  // The site's header carries one pill for this page. While a day is on screen it points at the lesson
-  // behind that day; on the title, the ending and a day with no lesson it goes back to the tutorial.
+  // The site's header carries one pill for this page, beside "The manual". While a day with a lesson
+  // behind it is on screen the pill reads "Read the lesson" and goes there; on the title, the ending
+  // and a day with no lesson it reads "The tutorial" and goes to the tutorial. Both labels sit in the
+  // pill at once, one on the other with only one showing, so the pill is as wide as the wider of the
+  // two on every screen and the bar never moves.
+  function twoLabels(span, labels, on, icon) {
+    if (!span) return;
+    if (!span.querySelector(".nd-two")) {
+      // each label carries its own copy of the icon, so icon and words stay together in the middle of the pill
+      span.textContent = "";
+      span.appendChild(el("span", { "class": "nd-two" }, labels.map(function (t) { return el("span", {}, [icon ? icon.cloneNode(true) : null, t]); })));
+    }
+    Array.prototype.forEach.call(span.querySelector(".nd-two").children, function (c, k) {
+      c.style.visibility = k === on ? "" : "hidden";
+      if (k === on) { c.removeAttribute("aria-hidden"); c.setAttribute("data-on", ""); } else { c.setAttribute("aria-hidden", "true"); c.removeAttribute("data-on"); }
+    });
+  }
   function pill(day) {
     var a = document.querySelector("a.play[data-ctx-lesson]"), l = null, lg, sm;
     if (!a) return;
     ((day && day.deeper) || []).forEach(function (d) { if (!l && d[0] === "lesson") l = d; });
     lg = a.querySelector(".lg"); sm = a.querySelector(".sm");
+    var icon = a.querySelector(":scope > svg");
     a.setAttribute("href", UP + (l ? l[1] : "learn/"));
-    if (lg) lg.textContent = l ? "Read the lesson" : "The tutorial";
-    if (sm) sm.textContent = l ? "Lesson" : "Tutorial";
+    if (lg || sm) { twoLabels(lg, ["The tutorial", "Read the lesson"], l ? 1 : 0, icon); twoLabels(sm, ["Tutorial", "Lesson"], l ? 1 : 0, icon); }
+    else twoLabels(a.querySelector(":scope > span"), ["The tutorial", "Read the lesson"], l ? 1 : 0, icon);
+    if (icon) icon.remove();
     if (l) a.setAttribute("title", l[2]); else a.removeAttribute("title");
   }
-  function pauseControl() {         // one switch, shown on both pictures, kept in step
-    var box = el("input", { type: "checkbox", autocomplete: "off", "data-motion-toggle": true, onchange: function (e) {
-      paused = e.target.checked;
-      root.querySelectorAll("[data-motion-toggle]").forEach(function (b) { b.checked = paused; });
-      draw(); go();
-    } });
+  // One pause control for the game, under the building and clear of the picture. The building is the
+  // only thing that loops, so this holds everything that does.
+  function pauseControl() {
+    var box = el("input", { type: "checkbox", autocomplete: "off", "data-motion-toggle": true, onchange: function (e) { paused = e.target.checked; draw(); go(); } });
     box.checked = paused;
     return el("label", { "class": "mpause nd-pause" }, [box, el("span", { "class": "vh", text: "Pause the animation" }), el("i", { "aria-hidden": "true" })]);
   }
   function stage() {
-    return el("div", { "class": "nd-stage" }, [el("div", { "class": "nd-map" }, [mapCv, still ? null : pauseControl()])]);
+    return el("div", { "class": "nd-stage" }, [el("div", { "class": "nd-map" }, [mapCv]),
+      el("div", { "class": "nd-stagebar" }, [el("p", { "class": "nd-k", text: "Look in on a room" }), still ? null : pauseControl()])]);
   }
 
   function titleScreen() {
@@ -622,7 +684,7 @@
         el("p", { "class": "nd-best", text: "A fresh run replaces the one you have saved." })])];
     }
     kids.push(el("div", { "class": "nd-title" }, [
-      el("p", { "class": "nd-pitch", text: "Thirteen days decide the ninety. Every call has a price in days. Some prices arrive later." }),
+      el("p", { "class": "nd-pitch", text: data.pitch }),
       el("div", { "class": "nd-acts" }, [
         saved && saved.history.length ? el("button", { type: "button", "class": "btn pri", text: "Carry on from Day " + savedDay(saved), onclick: function () { resume(saved); } }) : null,
         el("button", { type: "button", "class": saved && saved.history.length ? "btn ghost" : "btn pri", text: "Start at Day 1", onclick: function () { start({ mode: "team", seed: seed() }); } })]),
@@ -662,31 +724,61 @@
     return [box];
   }
 
+  // A colleague's call, or the team's under the sponsor: what they plan, and what the player may do
+  // about it. The question is offered whether the plan is sound or not, so being offered tells nothing.
+  // Asking costs one question and shows the evidence: what the plan is working from, and what it would
+  // put on file. Then the player lets the plan stand or asks for something else, at no further cost.
+  function evidenceBox(state, own, ev) {
+    var box = el("div", { "class": "nd-evidence", tabindex: "-1" }, [el("p", { "class": "nd-k", text: "The evidence" })]), text, ol;
+    if (ev.slide) {
+      text = slideLines(state); ol = el("ol");
+      ev.slide.forEach(function (id) { ol.appendChild(el("li", { text: text[id] })); });
+      box.appendChild(el("p", { text: "The slide, as " + own.name + " has it:" })); box.appendChild(ol);
+      return box;
+    }
+    if (ev.doc) box.appendChild(el("p", {}, [el("b", { text: "Working from. " }), data.artefacts[ev.doc][ev.has ? "on" : "off"]]));
+    box.appendChild(el("p", {}, [el("b", { text: "After today, on file. " }), ev.files.length ? ev.files.map(function (a) { return data.artefacts[a].name; }).join(" · ") : "Nothing new."]));
+    return box;
+  }
+  function plan(state, day, own) {
+    var org = state.mode === "org", planned = null, ev = state.seen ? sim.evidence(data, state) : null, p, card, out = [];
+    var stand = el("button", { type: "button", "class": "btn pri", text: "Let it stand", onclick: function () { act({ t: "accept" }); } });
+    if (day.options) planned = day.options.filter(function (x) { return x.id === state.pending; })[0];
+    p = planned ? sim.price(data, state, day, planned) : 0;
+    card = el("div", { "class": "nd-plan" }, [
+      el("p", { "class": "nd-k", text: day.ask }),
+      el("p", { "class": "nd-you" }, [el("b", { text: planned ? own.name + " plans: " + planned.label : own.name + " has a slide of three lines ready." }), planned ? el("em", { text: p ? days(p) : "no days" }) : null])]);
+    if (ev) card.appendChild(evidenceBox(state, own, ev));
+    out.push(card);
+    if (!ev) {
+      out.push(el("div", { "class": "nd-acts" }, [stand,
+        state.tokens > 0 ? el("button", { type: "button", "class": "btn ghost", onclick: function () { act({ t: "ask" }); } }, ["Ask to see the evidence ", el("em", { text: state.tokens + " left" })])
+          : el("span", { "class": "nd-note", text: "You have no questions left." })]));
+    } else if (day.options) {
+      out.push(el("div", { "class": "nd-acts" }, [stand]));
+      out.push(optionButtons(state, day, function (opt) { act({ t: "challenge", opt: opt.id }); }, state.pending, org ? "Or send the team back to do this instead" : "Or ask for this instead"));
+    } else if (asking) {                          // Day 90, in one role: the player builds the slide
+      out.push(taskForm(state, day.task));
+      out.push(el("div", { "class": "nd-acts" }, [stand]));
+    } else {
+      out.push(el("div", { "class": "nd-acts" }, [stand,
+        org ? el("button", { type: "button", "class": "btn ghost", text: "Send it back for the cost and the net", onclick: function () { act({ t: "challenge" }); } })
+          : el("button", { type: "button", "class": "btn ghost", text: "Build the slide yourself", onclick: function () { asking = true; render("stay"); } })]));
+    }
+    return out;
+  }
+
   function playScreen(state) {
-    var day = sim.today(data, state), kids = [], own = who(day.owner), right, planned, o;
+    var day = sim.today(data, state), kids = [], own = who(day.owner), o, w = whoLine(state);
+    if (w) kids.push(w);
     kids.push(hud(state));
-    kids.push(el("div", { "class": "nd-scene" }, [sceneCv, still ? null : pauseControl()]));
     kids.push(dayHead(state, day));
     var ev = eventList(state); if (ev) kids.push(ev);
     if (state.beat === "choose") {
       if (day.form) kids.push(refundStrip(day.form));
       kids.push(sceneLines(day));
-      if (state.pending) {                       // a colleague's call, or the team's under the sponsor
-        if (day.options) { planned = day.options.filter(function (x) { return x.id === state.pending; })[0]; right = sim.rightOption(day); }
-        kids.push(el("div", { "class": "nd-plan" }, [
-          el("p", { "class": "nd-k", text: day.ask }),
-          el("p", { "class": "nd-you" }, [el("b", { text: own.name + " plans: " + (planned ? planned.label : "the saving, large and alone, on the slide") }), planned ? el("em", { text: sim.price(data, state, day, planned) ? days(sim.price(data, state, day, planned)) : "no days" }) : null])]));
-        if (asking) {
-          kids.push(el("p", { "class": "nd-k", text: day.options ? "Ask for this instead. It uses one of your questions." : "Build the slide yourself. It uses one of your questions." }));
-          kids.push(day.options ? optionButtons(state, day, function (opt) { act({ t: "challenge", opt: opt.id }); }, state.pending) : taskForm(state, day.task));
-          kids.push(el("div", { "class": "nd-acts" }, [el("button", { type: "button", "class": "btn ghost", text: "Let it stand after all", onclick: function () { act({ t: "accept" }); } })]));
-        }
-        else kids.push(el("div", { "class": "nd-acts" }, [
-          el("button", { type: "button", "class": "btn pri", text: "Let it stand", onclick: function () { act({ t: "accept" }); } }),
-          state.tokens > 0 && !(state.mode === "org" && right && right.id === state.pending) ? el("button", { type: "button", "class": "btn ghost", onclick: function () {
-            if (state.mode === "org") { if (day.options) act({ t: "challenge", opt: right.id }); else act({ t: "challenge" }); } else { asking = true; render("stay"); }
-          } }, ["Ask to see the evidence ", el("em", { text: state.tokens + " left" })]) : null]));
-      } else if (day.options) kids.push(optionButtons(state, day, function (opt) { act({ t: "choose", opt: opt.id }); }));
+      if (state.pending) plan(state, day, own).forEach(function (k) { kids.push(k); });
+      else if (day.options) kids.push(optionButtons(state, day, function (opt) { act({ t: "choose", opt: opt.id }); }));
       else kids.push(taskForm(state, day.task));
     } else {
       kids.push(outcome(state, day));
@@ -714,38 +806,44 @@
     try { if (!b || RANK[v.key] > RANK[b.key]) localStorage.setItem(BEST, JSON.stringify({ key: v.key, mode: state.mode })); } catch (e) { /* no storage */ }
     clearSave();
     kids.push(el("div", { "class": "nd-verdict v-" + v.key }, [el("p", { "class": "nd-k", text: "Day 90 of 90 · The committee decides" }), el("h2", { tabindex: "-1", text: V.name }), el("p", { text: V.line })]));
+    // The saving is the run's own: how long the assistant was live, and what was live. The line under it says why.
+    var why = [L.liveDays ? "live for " + L.liveDays + " of " + L.of + " days" : "never live inside the ninety days"];
+    if (L.off) why.push("off for a week"); if (L.held) why.push("held back for one bar");
+    if (L.unshipped) why.push("same-day cases kept with people"); if (L.redone) why.push("some cases done again by people");
     kids.push(el("dl", { "class": "nd-meters end" }, [
       el("div", { "class": v.late ? "bad" : "" }, [el("dt", { text: "The date" }), el("dd", { text: v.late ? days(v.late) + " late" : "met, " + days(state.slack) + " to spare" })]),
       el("div", {}, [el("dt", { text: "Sponsor's trust" }), el("dd", { text: state.trust + " of " + state.trustMax })]),
-      el("div", {}, [el("dt", { text: "Saved" }), el("dd", { text: L.days + " person-days, " + money(L.value) })]),
+      el("div", {}, [el("dt", { text: v.key === "stopped" ? "Saved, before it was stopped" : "Saved" }), el("dd", { text: L.days + " person-days, " + money(L.value) }), el("dd", { "class": "nd-sub", text: why.join(", ") })]),
       el("div", {}, [el("dt", { text: "Spent" }), el("dd", { text: money(L.cost) }), el("dd", { "class": "nd-sub", text: "model " + money(L.bill) + ", review " + money(L.review) + (L.mishaps ? ", refunds " + money(L.mishaps) : "") })]),
       el("div", { "class": L.net < 0 ? "bad" : "" }, [el("dt", { text: "Net, first cycle" }), el("dd", { text: money(L.net) })])]));
-    // the thirteen calls, and what each one came back as
+    // the thirteen calls, each with what it came back as, under it and only where there is something to say
     var rows = el("tbody");
     data.days.forEach(function (d) {
-      var form = d.variants ? d.variants[state.incidents ? "paid" : "blocked"] : d, pick = state.picks[d.id], opt = null, debt, back = "";
+      var form = d.variants ? d.variants[state.incidents ? "paid" : "blocked"] : d, pick = state.picks[d.id], opt = null, debt, back = "", ok, sl = state.slide || [];
       if (form.options) form.options.forEach(function (o) { if (o.id === pick) opt = o; });
       debt = state.debts.filter(function (x) { return x.id === d.id; });
       debt.forEach(function (x) { back += (back ? " " : "") + (x.state === "fired" ? "Came back on Day " + x.dueDay + ": " + (x.days ? days(x.days) : "") + (x.days && x.trust ? ", " : "") + (x.trust ? "trust " + "−" + x.trust : "") + "." : x.state === "repaired" ? "Repaired before it fired." : ""); });
       if (!back && opt && opt.after) back = opt.after;
-      rows.appendChild(el("tr", { "class": opt && opt.right ? "ok" : opt ? "off" : "" }, [el("th", { scope: "row", text: "Day " + d.day }),
-        el("td", {}, [el("span", { "class": "nd-callhead", text: form.head + " " }), el("b", { text: opt ? opt.label : d.id === "d13" ? "The slide: " + (state.slide || []).length + " lines" : "" })]),
-        el("td", { text: back || (opt && opt.right ? "On file." : "") })]));
+      ok = opt ? !!opt.right : d.task === "slide" && sl.indexOf("saving") >= 0 && sl.indexOf("bill") >= 0 && sl.indexOf("net") >= 0;
+      if (d.task === "slide") back = sl.indexOf("bill") < 0 ? "Finance found the model bill three weeks later." : sl.indexOf("saving") < 0 ? "The committee never heard what it bought." : sl.indexOf("net") < 0 ? "Someone in the room did the subtraction." : "";
+      rows.appendChild(el("tr", { "class": ok ? "ok" : opt || d.task === "slide" ? "off" : "" }, [el("th", { scope: "row", text: "Day " + d.day }),
+        el("td", {}, [el("span", { "class": "nd-callhead", text: form.head }),
+          el("b", { text: opt ? opt.label : d.task === "slide" ? (sl.length ? "A slide of " + sl.length + " lines" : "The slide") : "" }),
+          back ? el("span", { "class": "nd-became", text: back }) : ok ? el("span", { "class": "vh", text: " Done by the method." }) : null])]));
     });
     kids.push(el("div", { "class": "nd-paper" }, [el("h3", { text: "Your thirteen calls" }),
-      el("table", { "class": "nd-tb calls" }, [el("thead", {}, [el("tr", {}, [el("th", { scope: "col", text: "Day" }), el("th", { scope: "col", text: "The call" }), el("th", { scope: "col", text: "What it became" })])]), rows])]));
-    // three questions to take to work, and the words now earned
-    kids.push(el("div", { "class": "nd-paper two" }, [
-      el("div", {}, [el("h3", { text: "Three questions for Monday" }), el("ol", { "class": "nd-monday" }, [
-        el("li", { text: "Is the limit in the tool, or only in the prompt?" }),
-        el("li", { text: "What is the least that score could be, and on how many cases?" }),
-        el("li", { text: "Which of our open decisions really stops the work?" })])]),
-      el("div", {}, [el("h3", { text: "What you put on file" }), (function () {
-        var ul = el("ul", { "class": "nd-terms" });
-        state.shelf.forEach(function (a) { var x = data.artefacts[a]; ul.appendChild(el("li", {}, [el("b", { text: x.term }), el("span", { text: " " + x.plain })])); });
-        if (!state.shelf.length) ul.appendChild(el("li", { text: "Nothing was filed." }));
-        return ul;
-      })()])]));
+      el("table", { "class": "nd-tb calls" }, [el("thead", {}, [el("tr", {}, [el("th", { scope: "col", text: "Day" }), el("th", { scope: "col", text: "The call, and what it came back as" })])]), rows])]));
+    // three questions to take to work
+    kids.push(el("div", { "class": "nd-paper" }, [el("h3", { text: "Three questions for Monday" }), el("ol", { "class": "nd-monday" }, [
+      el("li", { text: "Is the limit in the tool, or only in the prompt?" }),
+      el("li", { text: "What is the least that score could be, and on how many cases?" }),
+      el("li", { text: "Which of our open decisions really stops the work?" })])]));
+    // the words now earned: folded, so the verdict is not a glossary
+    if (state.shelf.length) {
+      var ul = el("ul", { "class": "nd-terms" });
+      state.shelf.forEach(function (a) { var x = data.artefacts[a]; ul.appendChild(el("li", {}, [el("b", { text: x.term }), el("span", { text: " " + x.plain })])); });
+      kids.push(el("details", { "class": "nd-paper nd-shelf" }, [el("summary", {}, [el("span", { text: "What you put on file" }), el("em", { text: state.shelf.length + " of " + Object.keys(data.artefacts).length + " documents, in plain words" })]), ul]));
+    } else kids.push(el("p", { "class": "nd-deeper", text: "Nothing was put on file in this run." }));
     var summary = summaryText(state, v, L), copied = el("span", { "class": "nd-status", role: "status" });
     kids.push(el("div", { "class": "nd-acts" }, [
       el("button", { type: "button", "class": "btn pri", text: "Play again", onclick: function () { start({ mode: state.mode, role: state.role, policies: state.policies, seed: seed() }); } }),
@@ -772,6 +870,16 @@
 
   /* ------------------------------------------------------------------ render */
   var panel = el("div", { "class": "nd-panel" }), left = null;
+  // After a press, bring its answer onto the screen if it is not there: the outcome line and the task
+  // it opened, or the evidence. A figure that is about to play gets the screen first.
+  function reveal(focus) {
+    var out = panel.querySelector(focus === "ask" ? ".nd-plan" : ".nd-out") || panel.querySelector(".nd-dayhead"), task = panel.querySelector(".nd-task, .nd-gate");
+    var fig = panel.querySelector(".nd-sim.nd-go"), low = window.innerHeight - 180, r;
+    if (!out) return;
+    r = out.getBoundingClientRect();
+    if (r.top < BAR || r.top > low || (fig && !inView(fig)) || (task && task.getBoundingClientRect().top > low)) jump(out);
+    if (fig && !inView(fig) && task) jump(task);
+  }
   function render(focus) {
     var state = run && run.state, kids, f;
     if (!left) { left = stage(); root.appendChild(left); root.appendChild(panel); root.appendChild(live); }
@@ -788,20 +896,23 @@
     pill(state && state.beat !== "end" && focus !== "org" ? sim.today(data, state) : null);
     draw();
     if (focus === "look") f = left.querySelector(".nd-card") || left.querySelector('.nd-chip[data-room="' + lastRoom + '"]');
-    else if (focus === "stay") f = panel.querySelector(".nd-opts button, .nd-task input");
+    else if (focus === "stay") f = panel.querySelector(".nd-task input");
+    else if (focus === "ask") f = panel.querySelector(".nd-evidence");
     else if (focus === "out") f = panel.querySelector(".nd-task h3, .nd-gate h3") || panel.querySelector(".nd-out");
     else f = panel.querySelector("h2");
     if (!f) f = panel.querySelector("h2");
     if (focus === "back") f = panel.querySelector("button");
-    // a new day, or a new screen, starts at its top: bring the game into view, then put the focus on its heading
-    if ((focus === "day" || focus === "back" || focus === "org") && root.getBoundingClientRect().top < 0) root.scrollIntoView({ block: "start" });
-    if (f && (run || focus === "org" || focus === "back")) { if (!f.hasAttribute("tabindex") && !/^(BUTTON|INPUT|A)$/.test(f.tagName)) f.setAttribute("tabindex", "-1"); try { f.focus({ preventScroll: focus !== "look" && focus !== "out" }); } catch (e) { f.focus(); } }
+    // a new day, or a new screen, starts at the top of the page, at once: then the focus goes to its heading
+    if ((focus === "day" || focus === "back" || focus === "org") && window.scrollY > 0) window.scrollTo({ top: 0, behavior: "instant" });
+    if (f && (run || focus === "org" || focus === "back")) { if (!f.hasAttribute("tabindex") && !/^(BUTTON|INPUT|A)$/.test(f.tagName)) f.setAttribute("tabindex", "-1"); try { f.focus({ preventScroll: focus !== "look" && focus !== "stay" }); } catch (e) { f.focus(); } }
+    if (focus === "out" || focus === "ask") reveal(focus);
+    settleFigures();
     if (focus === "day" || focus === "back") live.textContent = "";
   }
 
   mapCv.addEventListener("click", function (e) {           // looking in by pointing at the building
     if (!run || run.state.beat === "end") return;
-    var r = mapCv.getBoundingClientRect(), k = MAPW / r.width, id = A.roomAt((e.clientX - r.left) * k - 5, (e.clientY - r.top) * k - 4);
+    var r = mapCv.getBoundingClientRect(), k = MAPW / r.width, id = A.roomAt((e.clientX - r.left) * k - OX, (e.clientY - r.top) * k - OY);
     if (id && id !== "lobby") { looking = looking === id ? null : id; lastRoom = id; render("look"); }
   });
 

@@ -10,9 +10,9 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The evolution in one sentence.** Each lifecycle fixed the bottleneck of its era, plan-driven
-> development the cost of change, agile the cost of learning late, DevOps the cost of releasing, and
-> the agentic PDLC fixes the newest one: software that is right only most of the time. Each kept most
+> **The evolution in short.** Each lifecycle fixed the bottleneck of its era: plan-driven
+> development the cost of change, agile the cost of learning late, DevOps the cost of releasing. The
+> agentic PDLC fixes the newest one: software that is right only most of the time. Each kept most
 > of what came before, and so should you.
 
 {{map:evolution-of-the-pdlc}}
@@ -37,7 +37,7 @@ This lesson gives you the one question that sorts them: **which bottleneck does 
 
 ### Step 1 · Plan-driven development: the cost of change
 
-In 1970 Winston Royce described building large software in sequential phases, requirements,
+In 1970 Winston Royce described building large software in sequential phases: requirements,
 design, coding, testing, operation. Change was expensive, so the logic was to decide everything
 first. Royce himself warned that the purely sequential version was risky and recommended iterating;
 the name "waterfall" came later. What survives: written requirements, and design reviewed before it
@@ -47,7 +47,7 @@ is built.
 
 Barry Boehm's spiral model (1988) ordered work by risk, tackling the biggest unknown first. Robert
 Cooper's stage-gate system (1990) put a gate between product phases, opened only by evidence. What
-survives: **risk-first ordering and evidence at the gates**: both reappear in the agentic PDLC,
+survives: **risk-first ordering and evidence at the gates**. Both reappear in the agentic PDLC,
 where each bolt carries one risk and each hand-off needs an artefact.
 
 ### Step 3 · Agile: learning too late
@@ -62,7 +62,7 @@ into **bolts** of hours or days, but it does not replace the team process.
 From 2009 the bottleneck became the release itself. Continuous delivery (Humble and Farley, 2010)
 made shipping routine, and *Accelerate* (Forsgren, Humble and Kim, 2018) showed which measures (deployment frequency, lead time, change failure rate and time to restore) predict performance. What
 survives: pipelines, feature flags, observability and rollback. The agentic PDLC adds a stage to the
-pipeline, the evaluation harness, and a new member to the environment: the pinned model version.
+pipeline (the evaluation harness) and a new member to the environment: the pinned model version.
 
 ### Step 5 · AI-assisted development: typing the code
 
@@ -139,8 +139,8 @@ not yet solved "right enough".
 ### What is the difference between the SDLC and the PDLC?
 
 The software development lifecycle (SDLC) runs from requirements to deployment and maintenance of
-software. The product development lifecycle (PDLC) is wider: it starts before anything is built,
-should we build this at all?: and runs until the product's value and cost are known. The agentic
+software. The product development lifecycle (PDLC) is wider: it starts before anything is built
+(should we build this at all?) and runs until the product's value and cost are known. The agentic
 PDLC is a PDLC because its first phase asks whether the job needs a model at all, and its last
 reports what the feature saved beside what it cost.
 
@@ -178,7 +178,7 @@ report and the authority budget.
 
 ```text
 Here are our delivery process documents: <paste>. For each practice, say whether it still holds for
-an AI feature, holds with a change, or no longer holds — and name the change. Then list the three
+an AI feature, holds with a change, or no longer holds, and name the change. Then list the three
 things our process cannot answer when part of the product is right only most of the time.
 ```
 
@@ -195,4 +195,4 @@ things our process cannot answer when part of the product is right only most of 
 | 19% slower with AI, believing 20% faster | **Borrowed** | METR (2025). [Measuring the impact of early-2025 AI on experienced open-source developer productivity](https://arxiv.org/abs/2507.09089) |
 | AI as an amplifier | **Borrowed** | DORA (2025). [State of AI-assisted Software Development](https://dora.dev/dora-report-2025/) |
 | Bolts of hours or days | **Adapted** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
-| The bottleneck reading of the history, and the keep-and-add list | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#what-is-genuinely-new-and-what-is-not) |
+| The bottleneck reading of the history, and the keep-and-add list | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC#what-is-genuinely-new-and-what-is-not) |

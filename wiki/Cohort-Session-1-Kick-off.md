@@ -8,7 +8,7 @@ table, and has classified it, possibly as not an agent at all.
 
 **Pre-reading** (send one week ahead; about 30 minutes)
 
-- [What is the agentic PDLC?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/) — the four phases, the one hard gate and the eight loops, in one sitting
+- [What is the agentic PDLC?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/) — the four phases, the one hard gate (the sign-off before anything is built) and the eight loops, in one sitting
 - [How this tutorial works](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-this-tutorial-works/) — so the cohort reads the same way
 - [The evolution of the PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/evolution-of-the-pdlc/) — what each earlier lifecycle fixed, and what this one has to
 - [Why agentic AI projects fail](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/why-agentic-ai-projects-fail/) — the six patterns, which the room will recognise
@@ -24,7 +24,7 @@ to, and an AI-fit verdict on it, written down.
 | Minutes | Block | Do this | Material |
 | --- | --- | --- | --- |
 | 0–10 | Recap | Four questions, one per lesson, each answered by an attendee: *what is the hard gate? what do the eight loops close? which earlier lifecycle got closest? which failure pattern have you seen?* | — |
-| 10–35 | The idea | Put the spine picture on screen and ask the room what it shows before saying anything. Then the same four phases in the playbook's overview, then one episode of the story so the phases have people in them | [Four methods, one spine](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/#methods) · [Overview](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/overview) · [Day 1 episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/story) |
+| 10–35 | The idea | Put the four-phases picture on screen and ask the room what it shows before saying anything. Then the same four phases in the workbench's overview, then one episode of the story so the phases have people in them | [Four methods, one lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/frameworks/#methods) · [Overview](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/overview) · [Day 1 episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/story) |
 | 35–65 | Exercise | Pairs take two candidates from the "bring" list and run each through **A1 · Is this AI at all?** Then the pairs swap candidates. Compare verdicts before checking against the tree | [Exercise A1](Exercises-and-Answers#set-a--framing) · [Decision tree 1](Decision-Trees#1--is-this-ai-at-all) · [AI-fit assessor](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/aifit) |
 | 65–80 | Decision | The room picks **the one candidate** the cohort will carry, and records its AI-fit verdict in the product manager's Frame template. If every candidate came out as a rule or a report, that is the finding: pick the least wrong and say why | [Templates · product manager · Frame](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/#lt-product-manager-frame) |
 | 80–90 | Close | Homework named. One sentence each: *what changed in how you would start an AI project?* | — |
@@ -36,7 +36,7 @@ to, and an AI-fit verdict on it, written down.
   verdict on somebody's idea. The team that learns this in session 1 saves a quarter.
 - **The room will want to talk about models.** Redirect every "which model?" to the phase it belongs
   in (P1, next session). This session is about whether, not which.
-- **Ten-minute version if nobody read:** the spine picture, the hard gate in one sentence ("nothing is
+- **Ten-minute version if nobody read:** the four-phases picture, the hard gate in one sentence ("nothing is
   built until the spec, the bar and the guardrails exist"), and the six failure patterns read aloud
   as a checklist against the candidates in the room.
 - **Two candidates that tie** is fine: carry the one with the clearest damage figure, because session

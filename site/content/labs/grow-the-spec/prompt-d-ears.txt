@@ -1,0 +1,13 @@
+Rewrite these acceptance criteria in EARS.
+
+Format: WHEN <trigger> AND <condition> THE SYSTEM SHALL <observable behaviour> WITHIN <measure>.
+
+Rules:
+- Every SHALL ends in a measure: a time, a count or a threshold. If the original has no number, write WITHIN <MEASURE MISSING> and list it at the end.
+- Turn every "should", "may", "where possible", "as appropriate" and "ideally" into a hard condition or a separate criterion. List each one you removed and what replaced it.
+- Add a BOUNDARY line for every implied prohibition.
+
+Finish with: (a) the count of vague terms removed, (b) the list of missing measures.
+
+CRITERIA:
+The assistant should offer alternative flights quickly, ideally within about 30 seconds, and should rebook same-day changes when the passenger accepts. For partner flights it should, where possible, give the contact centre a chance to stop the change before it goes through. Refunds may be offered if no flight works, though anything over $400 needs sign-off. If it is unsure it should hand over to an agent as appropriate.

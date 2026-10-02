@@ -30,9 +30,9 @@ HEAD = {
         "The effort-and-token ledger the product manager's cost number is built from",
     ],
     "not_yours": [
-        "The **bolt cut** itself, the architect decides the cut; you decide whether each one can be "
+        "The **bolt cut** itself: the architect decides the cut; you decide whether each one can be "
         "built alone, and say so before you start it",
-        "The **acceptance bar** per slice, the PM derives it from damage and saving. You make it run",
+        "The **acceptance bar** per slice: the PM derives it from damage and saving. You make it run",
         "The golden set's contents and the judge's rubric: those belong to the QA lead",
         "The cut-over and the widening: you build the flag and rehearse the rollback; the PM throws it",
     ],
@@ -74,7 +74,7 @@ STEPS_A = [
               "same sentence about never editing an applied migration is advice in the first case and "
               "a standing instruction in the second, so write the never-touch list for the second."},
    {"do": "Write four sections and nothing else",
-    "detail": "Stack, conventions, commands, never-touch. Anything longer stops being read, by the "
+    "detail": "Stack, conventions, commands, never-touch. Anything longer stops being read: by the "
               "model, because the rules are diluted, and by the engineer who is supposed to maintain "
               "it. Under a hundred lines is a working target."},
    {"do": "Point at the context layers, never copy them",
@@ -91,7 +91,7 @@ STEPS_A = [
  ],
  "ai": [
    {"tool": "Claude Code",
-    "use": "Point it at the repository and ask for a first draft from what is actually there, the "
+    "use": "Point it at the repository and ask for a first draft from what is actually there: the "
            "build files, the test runner, the directory layout. It reads the tree faster than you do "
            "and it gets the stack section right.",
     "caution": "Make it run every command it proposes and paste the output into the session. Left "
@@ -137,7 +137,7 @@ If a rule here disagrees with a layer, the layer wins and this file is out of da
 ## Conventions
 - Exact work is a function with a unit test. Never compute money in a prompt.
 - Every tool that writes takes a confirmation token. Reads do not.
-- One model per task, the cache is model-scoped and a switch discards it.
+- One model per task: the cache is model-scoped and a switch discards it.
 - A new dependency is an issue first, never an addition made in passing.
 
 ## Commands: every one of these has been run. Use them; do not improvise.
@@ -150,17 +150,17 @@ If a rule here disagrees with a layer, the layer wins and this file is out of da
 
 ## Never touch
 - `<config/caps.yaml>`: the authority budget. Changing a cap is an R4 change.
-- `<src/tools/refund/**>` (two named reviewers, every time.
-- `<migrations/>`) never edit an applied migration. Add a new one.
+- `<src/tools/refund/**>`: two named reviewers, every time.
+- `<migrations/>`: never edit an applied migration. Add a new one.
 - `<src/trace/redact.py>`: security reviews every change here.
 
 ## Ask before
 - Adding a tool to the agent's tool list
-- Editing anything under `<src/prompts/>`, it re-runs the injection suite
+- Editing anything under `<src/prompts/>`: it re-runs the injection suite
 - Touching a golden-set file. Those belong to QA, not to this repo's authors.
 
 ---
-_Last rule added <date>, <the rule that bit us last week, in one line>_
+_Last rule added <date>: <the rule that bit us last week, in one line>_
 """},
  "prompts": [
    {"title": "Draft the context file from the repository itself",
@@ -201,7 +201,7 @@ RULES:
 - Merge comments that say the same thing differently; keep the clearest wording.
 - Mark as "not a rule" anything that was a one-off judgement about that change. Those
   do not belong in a context file and adding them is how the file becomes unreadable.
-- For each rule, say whether it could be ENFORCED instead, a lint rule, a CI check, a
+- For each rule, say whether it could be ENFORCED instead: a lint rule, a CI check, a
   type. A rule that can be enforced should not be a line in a markdown file.
 
 COMMENTS:
@@ -229,7 +229,7 @@ Do not rewrite the whole file. I want the diff, not a replacement."""},
    "body": "The first `CLAUDE.md` was twenty-two lines written in an hour: stack, four commands that "
            "had been run, and a never-touch list with `migrations/` on it. It grew twice. Once after "
            "an agent re-implemented the fare arithmetic inline rather than calling "
-           "`fare_difference()` and returned $80 where the ledger said $62, the line added was "
+           "`fare_difference()` and returned $80 where the ledger said $62: the line added was "
            "*never compute money in a prompt; call the function*. Once after a session switched model "
            "mid-task and the cache hit ratio collapsed, which added *one model per task*. Two "
            "sentences, and neither failure has recurred. That is the whole evidence the file needs."},
@@ -350,7 +350,7 @@ BOUNDARY  <Never rebook a segment that has already departed.>
 - Expected cost per case $<0.04>. Alert at 3x.
 
 ## Can this bolt be built alone?
-yes  /  **no: and if no, this is raised NOW, not at 2pm**: <what it needs that
+yes  /  **no. If no, this is raised NOW, not at 2pm**: <what it needs that
 does not exist yet, and who owns the re-cut>
 """},
  "prompts": [
@@ -390,7 +390,7 @@ Then, separately, one BOUNDARY line per thing the system must refuse.
 
 RULES:
 - Preserve every precondition as its own AND line. Do not summarise two into one.
-- If a limit is missing, write WITHIN <UNSPECIFIED>, never invent a number.
+- If a limit is missing, write WITHIN <UNSPECIFIED>. Never invent a number.
 - List any word in the original that hides a decision ("appropriate", "quickly",
   "if possible") and say what decision it is hiding and who should make it.
 - At the end, list anything in the prose that is a SOLUTION rather than a requirement.

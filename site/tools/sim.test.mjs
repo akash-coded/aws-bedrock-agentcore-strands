@@ -7,7 +7,10 @@
 // cannot dead-end, that no shortcut is free, and that neither "always the cheapest" nor "always the
 // most careful" gets funded. It also lints the words: a scene is forty words at most, nothing carries
 // a dash, and every day opens cold: a headline that is a sentence, one sentence of context, a recap on
-// every option, and a "So far" line of twenty-five words at most on every path.
+// every option, and a "So far" line of twenty-five words at most on every path, which quotes the one
+// earlier day that today leans on and never joins two. It checks that a document waits for its task,
+// that a question can be asked of a sound plan as well as an unsound one and shows only evidence, and
+// that the verdict's saving follows from the run: a late run never reports the saving of one on time.
 import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -123,6 +126,30 @@ console.log("\n1. the words");
     for (const one of sentences(t)) check(wc(one) <= 20, `${what} has a sentence of ${wc(one)} words`);
   };
   plain(data.short, "the premise"); check(wc(data.short) <= 12 && sentences(data.short).length === 1, "the premise on every day is longer than one short sentence");
+  // The title says what this is before it says its name, and a first-time visitor learns the whole of it
+  // there: a game, a fictional airline's project, an AI assistant for stranded passengers, ninety days,
+  // thirteen decisions, each costing days.
+  plain(data.what, "what the game is"); plain(data.premise, "the title's opening lines"); plain(data.pitch, "the title's pitch");
+  check(/\bgame\b/i.test(data.what) && !new RegExp(data.title, "i").test(data.what), `the line above the name does not say this is a game: "${data.what}"`);
+  for (const need of [/fictional airline/, /AI assistant/, /stranded passengers/, /ninety days/, /thirteen decisions/, /costs days/])
+    check(need.test(data.premise), `the title's opening lines leave out ${need}: "${data.premise}"`);
+  // A headline, a context line and a question are each read alone, as if on a poster. So each headline
+  // names what it is about (the AI assistant, the project, or the people by their role), no line points
+  // at something outside itself, and every question says who is to act.
+  const POINTS = /\b(them|they|these|those|none|he|she|we|us|our)\b/i, ABOUT = /AI assistant|assistant's|\bproject\b|managers|engineers/;
+  for (const d of data.days) {
+    for (const f of d.variants ? Object.values(d.variants) : [d]) {
+      check(ABOUT.test(f.head), `day ${d.day}: the headline does not name what it is about: "${f.head}"`);
+      check(sentences(f.head).length <= 2, `day ${d.day}: the headline is more than two sentences`);
+      for (const [what, t] of [["headline", f.head], ["context", d.context], ["question", f.ask]]) {
+        check(!POINTS.test(t), `day ${d.day}: the ${what} points at someone or something it does not name: "${t}"`);
+        // "it" and "its" are allowed only after the thing they stand for, inside the same sentence
+        for (const one of sentences(t)) check(!/^(It|Its)\b(?! is the first week)/.test(one) && (!/\b(it|its)\b/.test(one) || /\b(assistant|agent|refund|team)\b[^.?!]*\b(it|its)\b|\bits\b[^.?!]*\b(assistant|team)\b/.test(one) || /^It is the first week/.test(one)),
+          `day ${d.day}: the ${what} says "it" before saying what: "${one}"`);
+      }
+      check(/\?$/.test(f.ask) && /\bshould\b/.test(f.ask) && /team|managers|engineers|QA lead|review|slide/.test(f.ask), `day ${d.day}: the question does not say who is to do what: "${f.ask}"`);
+    }
+  }
   for (const d of data.days) {
     const forms = d.variants ? Object.values(d.variants) : [d];
     plain(d.context, `day ${d.day}: the context`);
@@ -143,17 +170,34 @@ console.log("\n1. the words");
   for (const [k, a] of Object.entries(data.artefacts)) { plain(a.on, `${k}: its "on file" sentence`); plain(a.off, `${k}: its "not on file" sentence`); }
   // nothing a player reads says "gate": it is the sign-off (ids and addresses keep the old word)
   check(!texts.some((t) => /\s/.test(t) && /\bgates?\b/i.test(t)), "the copy still says gate");
-  // "So far", at its longest: any option of the day it quotes, with any of the things it can have left
+  // Every day after the first says which earlier day it leans on, and which document decides what
+  // that day left. Where it gives its own sentences for that, they are plain too.
   for (let i = 1; i < data.days.length; i++) {
-    const d = data.days[i], src = d.needs ? sim.source(data, d.needs) : i - 1;
-    check(src >= 0 && src < i, `day ${d.day} leans on a document that no earlier day files`);
-    if (!(src >= 0 && src < i)) continue;
-    const from = data.days[src], forms = from.variants ? Object.values(from.variants) : [from];
-    for (const f of forms) for (const o of f.options || []) {
-      const lefts = ["Today a choice from Day 82 comes back.", "Something from that is pinned to Day 82."];
-      if (d.needs) lefts.push(data.artefacts[d.needs].on, data.artefacts[d.needs].off);
-      else for (const a of [].concat(o.art || [])) lefts.push(data.artefacts[a].on);
-      for (const left of lefts) { const n = wc(`So far: on Day ${from.day}, Priya ${o.recap}. ${left}`); check(n <= 25, `day ${d.day}: "So far" can run to ${n} words after day ${from.day}, option ${o.id}`); }
+    const d = data.days[i], l = d.leans;
+    check(!!l && sim.dayIndex(data, l.day) >= 0 && sim.dayIndex(data, l.day) < i, `day ${d.day} does not say which earlier day it leans on`);
+    check(!!l && !!data.artefacts[l.doc], `day ${d.day} leans on an unknown document`);
+    if (!l || !data.artefacts[l.doc]) continue;
+    const filed = sim.source(data, l.doc);
+    check(filed >= 0 && filed < i, `day ${d.day} leans on a document that no earlier day files`);
+    if (d.needs) check(sim.source(data, d.needs) >= 0 && sim.source(data, d.needs) < i, `day ${d.day} needs a document that no earlier day files`);
+    for (const k of ["on", "off"]) if (l[k] != null) plain(l[k], `day ${d.day}: what the day it leans on left (${k})`);
+    // "So far", at its longest: any option of the day it quotes, with any of the things it can have left
+    const from = data.days[sim.dayIndex(data, l.day)], forms = from.variants ? Object.values(from.variants) : [from];
+    const lefts = ["Today that choice comes back.", "Today something left from that day comes back.", "Something from that is pinned to Day 82.", "That day was done again later, properly.",
+      l.on || data.artefacts[l.doc].on, l.off || data.artefacts[l.doc].off];
+    for (const f of forms) for (const o of f.options || []) for (const left of lefts) {
+      const n = wc(`So far: on Day ${from.day}, Priya ${o.recap}. ${left}`);
+      check(n <= 25, `day ${d.day}: "So far" can run to ${n} words after day ${from.day}, option ${o.id}`);
+    }
+  }
+  // no day is quoted by more than three others, and two days that quote the same one say different things about it
+  {
+    const by = {};
+    for (const d of data.days.slice(1)) (by[d.leans.day] = by[d.leans.day] || []).push(d);
+    for (const [k, list] of Object.entries(by)) {
+      check(list.length <= 3, `${list.length} days all lean on ${k}`);
+      const said = list.map((d) => d.leans.on || data.artefacts[d.leans.doc].on);
+      check(new Set(said).size === said.length, `two days that lean on ${k} say the same thing about it`);
     }
   }
 }
@@ -173,6 +217,10 @@ console.log("  the method, date moved with evidence:  " + show(canon));
     check(wc(data.short) + wc(line) < 40, `day ${d.day}: the premise and "So far" run to forty words`);
     most = Math.max(most, wc(data.short) + wc(d.context) + wc(line));
   });
+  const lines = o.days.map((s) => sim.soFar(data, s).text);
+  check(new Set(lines).size === lines.length, `two days of the method's line open with the same "So far"`);
+  check(/cost/.test(lines[10]), `Day 75's "So far" says nothing about cost on the method's line: "${lines[10]}"`);
+  check(/refund/.test(lines[11]), `Day 82's "So far" says nothing about refunds on the method's line: "${lines[11]}"`);
   console.log(`  the premise, the context and "So far" together: ${most} words at most on the method's line`);
   check(most <= 48, "a day's opening lines run past forty-eight words");
   check(!o.said.some((t) => /\bgates?\b/i.test(t) || /[–—]/.test(t)), "the rules still say gate, or carry a dash");
@@ -190,12 +238,89 @@ console.log("  always the cheapest:                   " + show(cheap));
   const o = opens(cheap);
   o.days.forEach((s) => { const so = sim.soFar(data, s), line = so.label + " " + so.text; check(so.text.length > 0 && wc(line) <= 25, `day ${sim.today(data, s).day}: "So far" is empty or long on the cheapest line: "${line}"`); });
   check(o.days.slice(1).some((s) => /pinned to Day|comes back/.test(sim.soFar(data, s).text)), "on the cheapest line \"So far\" never mentions what is owed");
+  // "So far" quotes one day. It may say where that day's debt is pinned; it never brings in a second day's choice.
+  o.days.slice(1).forEach((s) => {
+    const so = sim.soFar(data, s), others = (so.text.match(/Day \d+/g) || []).filter((x) => x !== "Day " + so.from), d = sim.today(data, s);
+    check(!/choice from Day/.test(so.text) && others.length <= (/pinned to Day/.test(so.text) ? 1 : 0), `day ${d.day}: "So far" joins two days on the cheapest line: "${so.text}"`);
+    check(so.from === data.days[sim.dayIndex(data, data.days[s.i].leans.day)].day, `day ${d.day}: "So far" quotes Day ${so.from}, not the day it leans on`);
+  });
   check(!o.said.some((t) => /\bgates?\b/i.test(t) || /[–—]/.test(t)), "the rules still say gate, or carry a dash");
 }
 check(sim.verdict(data, cheap).key !== "funded" && sim.verdict(data, cheap).key !== "conditional", "always the cheapest option does not lose");
 const dear = line(dearest, {}, { fix: true, move: true });
 console.log("  always the most careful:               " + show(dear));
 check(sim.verdict(data, dear).key !== "funded", "always the most expensive option is funded");
+
+// The verdict's numbers follow from the run. The case's own line is the method's: 31.2 person-days, net
+// minus $1,128. A run that is late was live for fewer days and saved less; a stopped run does not report
+// the funded run's saving.
+{
+  const L = (s) => sim.ledger(data, s);
+  check(L(canon).days === 31.2 && L(canon).value === 9984 && L(canon).net === -1128, `the method's line is not the case's own ledger: ${JSON.stringify(L(canon))}`);
+  check(sim.verdict(data, cheap).key === "stopped" && L(cheap).days < L(canon).days && L(cheap).value < L(canon).value, `a stopped run reports the funded run's saving: ${L(cheap).days} person-days`);
+  check(noMove.slack < 0 && L(noMove).days < L(canon).days, `a late run reports the saving of one on time: ${L(noMove).days} person-days`);
+  check(L(dear).days < L(canon).days, "holding everything back for one bar saved as much as shipping what was ready");
+  const off = line((day) => day.id === "d11" ? "c" : right(day));
+  check(L(off).days < L(canon).days, "a week switched off saved as much as a week live");
+  const pass = line((day) => day.id === "d9" ? "a" : right(day));
+  check(L(pass).days < L(canon).days, "shipping everything on one number saved as much as shipping what was proven");
+  console.log(`  saved, in person-days: the method ${L(canon).days}, date never moved ${L(noMove).days}, always the cheapest ${L(cheap).days}, always the most careful ${L(dear).days}`);
+}
+
+// A document that an option promises and a task produces goes on file when the task is done, not before.
+{
+  for (const [id, docs] of [["d3", ["constraints"]], ["d6", ["spec", "budget", "bar"]], ["d9", ["proof"]], ["d10", ["lanes"]], ["d11", ["rootcause"]]]) {
+    const at = canon.history.findIndex((a, k) => a.t === "task" && sim.today(data, sim.fold(data, {}, canon.history.slice(0, k))).id === id);
+    check(at > 0, `the method's line has no task on ${id}`);
+    if (at <= 0) continue;
+    const before = sim.fold(data, {}, canon.history.slice(0, at)), after = sim.fold(data, {}, canon.history.slice(0, at + 1));
+    check(before.beat === "task" && docs.every((x) => !sim.has(before, x)) && before.filed.length === 0, `${id}: a document is on file before its task is done`);
+    check(docs.every((x) => sim.has(after, x)), `${id}: the task is done and its documents are not on file`);
+  }
+}
+
+// A question. It can be asked of any plan, sound or not, so being able to ask tells nothing. It costs one
+// question whatever it shows, it shows only what is on file and what would go on file, and after it the
+// plan can be changed at no further cost.
+{
+  for (const opts of [{ mode: "org", policies: [] }, { mode: "org", policies: ["signed", "code", "both"] }, { mode: "role", role: "qa" }]) {
+    let s = sim.init(data, opts), guard = 0, sound = 0, unsound = 0;
+    while (s.beat !== "end" && guard++ < 200) {
+      const day = sim.today(data, s);
+      if (s.beat === "choose" && s.pending) {
+        const r = day.options ? sim.rightOption(day).id : null, legal = sim.legal(data, s);
+        if (s.tokens > 0) {
+          check(legal.some((a) => a.t === "ask"), `${opts.mode}, day ${day.day}: a question cannot be asked of this plan`);
+          if (day.options) (s.pending === r ? sound++ : unsound++);
+        } else check(!legal.some((a) => a.t === "ask" || a.t === "challenge"), `${opts.mode}, day ${day.day}: a question is offered with none left`);
+        check(sim.evidence(data, s) !== null, `${opts.mode}, day ${day.day}: a plan has no evidence behind it`);
+      } else check(sim.evidence(data, s) === null, `${opts.mode}, day ${day.day}: evidence with no plan to ask about`);
+      const n = sim.reduce(data, s, s.beat === "choose" ? (s.pending ? { t: "accept" } : day.options ? { t: "choose", opt: right(day) } : { t: "task", id: day.task, input: SLIDES[0] })
+        : s.beat === "task" ? { t: "task", id: s.task, input: taskInput(s.task, true) } : s.beat === "gate" ? { t: "gate", how: sim.gateMissing(s).length ? "hold" : "pass" } : { t: "next" });
+      if (n === s) break; s = n;
+    }
+    if (opts.mode === "org" && opts.policies.length) check(sound > 0, "under three rules no sound plan was ever open to a question");
+    if (opts.mode === "org" && !opts.policies.length) check(sound > 0 && unsound > 0, `with no rules a question was open on ${sound} sound plans and ${unsound} unsound ones`);
+  }
+  // one question, asked of a sound plan and of an unsound one
+  const org = sim.init(data, { mode: "org", policies: [] });                    // Day 1: the architect merges the list, unprompted
+  check(org.pending === sim.rightOption(sim.today(data, org)).id, "Day 1 under no rules is not a sound plan");
+  const asked = sim.reduce(data, org, { t: "ask" });
+  check(asked !== org && asked.tokens === org.tokens - 1 && asked.seen && asked.pending === org.pending, "asking about a sound plan does not cost one question and leave the plan as it was");
+  check(sim.reduce(data, asked, { t: "ask" }) === asked, "the same plan can be asked about twice");
+  const ev = sim.evidence(data, asked);
+  check(ev && Object.keys(ev).sort().join() === "doc,files,has" && ev.files.join() === "register", `the evidence for Day 1 is ${JSON.stringify(ev)}`);
+  const other = sim.reduce(data, asked, { t: "challenge", opt: "a" });
+  check(other !== asked && other.tokens === asked.tokens && other.picks.d1 === "a", "after a question, asking for something else costs a second question");
+  const direct = sim.reduce(data, org, { t: "challenge", opt: "a" });
+  check(direct !== org && direct.tokens === org.tokens - 1, "asking for something else without a question first is free");
+  let none = asked; none = sim.reduce(data, none, { t: "accept" }); none = sim.reduce(data, none, { t: "next" });
+  const spent = sim.reduce(data, none, { t: "ask" });
+  check(spent.tokens === 0 && sim.reduce(data, sim.reduce(data, sim.reduce(data, spent, { t: "accept" }), { t: "next" }), { t: "ask" }).tokens === 0, "a third question can be asked with two");
+  // Day 90: the evidence is the slide as planned
+  const last = sim.fold(data, { mode: "org", policies: [] }, line(right, { mode: "org", policies: [] }).history.slice(0, -2));
+  check(last.i === 12 && last.pending && Array.isArray(sim.evidence(data, last).slide) && sim.evidence(data, last).slide.length === 3, "on Day 90 the evidence is not the slide as planned");
+}
 
 console.log("\n3. no shortcut is free");
 check(!canon.moved || canon.slack - data.rules.moveDate.days < 0, "the method's line fits the runway without moving the date");
@@ -267,12 +392,13 @@ for (const d of data.days) {
 console.log("\n4. every path, whole team");
 for (const seed of process.env.FAST ? [] : process.env.SEEDS ? process.env.SEEDS.split(',').map(Number) : [0, 1, 2]) {
   for (const habit of [{ fix: true, move: true }, { fix: false, move: false }]) {
-    const tally = { funded: 0, conditional: 0, paused: 0, stopped: 0 }; let n = 0, minT = 9, maxT = -9;
+    const tally = { funded: 0, conditional: 0, paused: 0, stopped: 0 }; let n = 0, minT = 9, maxT = -9, lateRich = 0; const canonDays = sim.ledger(data, canon).days;
     const byMiss = {};
     const t0 = Date.now();
     walk(sim.init(data, { seed }), habit, (s) => {
       const key = sim.verdict(data, s).key;
       n++; tally[key]++;
+      if (s.slack < 0 && sim.ledger(data, s).days >= canonDays) lateRich++;
       minT = Math.min(minT, s.trust); maxT = Math.max(maxT, s.trust);
       // how many of the twelve calls were not the method's
       let miss = 0;
@@ -285,6 +411,7 @@ for (const seed of process.env.FAST ? [] : process.env.SEEDS ? process.env.SEEDS
       `(${Object.entries(tally).map(([k, v]) => k + " " + v).join(", ")}) in ${Date.now() - t0}ms`);
     if (seed === 0 && habit.fix) for (const k of Object.keys(tally)) check(tally[k] > 0, `no path ends "${k}"`);
     if (habit.fix) check(tally.funded / n < 0.2, "more than one path in five is funded: too easy");
+    check(lateRich === 0, `${lateRich} late endings report the saving of a run that met the date`);
   }
 }
 

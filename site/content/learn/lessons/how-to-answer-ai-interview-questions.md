@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The method in one sentence.** Most AI interview questions are one of six kinds, and each has a
-> structure: design questions take **the P0 to P3 answer**, "is it good enough?" takes **the bar in three
-> lines**, "why is it wrong?" takes **the grounding triangle**, cost questions take **the four
-> signatures**, harm questions take **the missing control**, and behavioural questions take **STAR, plus
+> **The method in short.** Most AI interview questions are one of six kinds, and each has a
+> structure. Design questions take **the P0 to P3 answer**. "Is it good enough?" takes **the bar in
+> three lines**. "Why is it wrong?" takes **the grounding triangle**. Cost questions take **the four
+> signatures**. Harm questions take **the missing control**. Behavioural questions take **STAR, plus
 > the number and the change**. Clarify, state assumptions, say numbers, name the trade-off, end on the risk.
 
 {{map:how-to-answer-ai-interview-questions}}
@@ -72,7 +72,7 @@ run) → **Run** (widen on evidence, watch drift, report the saving beside the c
 ### Step 3 · "Why is it wrong?" → the grounding triangle
 
 Separate the three claims: was the right passage **retrieved**, was it **cited**, and does the cited
-passage **support** the claim? Each has a different fix, retrieval (chunking, hybrid search, reranking),
+passage **support** the claim? Each has a different fix: retrieval (chunking, hybrid search, reranking),
 citation (a contract test that every factual claim carries one), or verification (an entailment check,
 or abstaining when support is missing).
 
@@ -113,7 +113,7 @@ answer: you fixed the process, not just the instance.
 
 ## Four habits that work with every framework
 
-1. **Clarify two things, then state your assumptions**: out loud, as numbers.
+1. **Clarify two things, then state your assumptions**, out loud, as numbers.
 2. **Say the number**, even an estimate, and where it would come from.
 3. **Name the trade-off you are choosing**, and what would make you choose the other side.
 4. **End on the risk** and how you would know it had happened.
@@ -138,7 +138,7 @@ and what is your first question?**
 <details><summary>Show the answer</summary>
 
 **The bar in three lines, starting with "what are the other 30%?"** Some are correct abstentions, some are
-out of scope, some are failures, the same number with opposite meanings. Then per slice: what does a wrong
+out of scope, some are failures: the same number with opposite meanings. Then per slice: what does a wrong
 resolution cost against a right one, and what is each slice's bar? A 90% blended target can be wrong in both
 directions: too high for a slice where a mistake is costly and a person should stay, too low for one where
 mistakes are cheap. Answer with bars per slice, proven by lower bounds, and a route for the rest.
@@ -173,7 +173,7 @@ orchestration time), cost per task, observability and rollback.
 
 ### What should I do if I don't know the answer in an AI interview?
 
-Say so, then say how you would find out, what you would measure and how long it would take. Interviewers
+Say so, then say how you would find out: what you would measure and how long it would take. Interviewers
 for AI roles value calibrated uncertainty; a confident wrong answer is the failure they screen for.
 
 ## Apply it in your role
@@ -200,8 +200,8 @@ and risk, and say which framework I should have used.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The six frameworks and the four habits | **Original**: this tutorial, from the playbook's methods | [The agentic PDLC](lesson:what-is-the-agentic-pdlc) |
-| The bar, the lower bound and the cases needed | **Original**: this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
+| The six frameworks and the four habits | **Original**: this tutorial, from this manual's methods | [The agentic PDLC](lesson:what-is-the-agentic-pdlc) |
+| The bar, the lower bound and the cases needed | **Original**: this manual | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
 | Retrieved, cited, verified | **Original**: this repository | [The Grounding Triangle](repo:cheatsheets/frameworks/grounding-triangle.md) |
 | Product-design answer structure | **Compare** | Lin, L. C. (2013). *Decode and Conquer*. Impact Interview: the CIRCLES method |
 | Situation, task, action, result | **Borrowed**: standard behavioural interviewing | Often credited to DDI's Targeted Selection method |

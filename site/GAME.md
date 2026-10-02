@@ -57,21 +57,40 @@ stands alone. From the top:
 
 - **Kicker**: `Day 45 of 90 · Build and prove · QA room`. The day, the phase in words, the room.
 - **Headline** (`head`, the `h2` that takes the focus): a sentence with the number and the stake,
-  never a noun. "Day 45. The first test score is 82.4. The promise was 80." Day 82 has one per variant.
-- **Premise and context**: one paragraph. The premise is the same twelve words every day ("SkyWays is
-  a fictional airline building an assistant that rebooks stranded passengers."), set quieter. The
-  context (`context`) is one fixed sentence, true on every path, that says where the project is.
-- **So far**, computed in `sim.soFar`: the earlier call that today leans on, quoted. If the day has
-  `needs`, it quotes the day whose method option files that document; if not, the day before. Every
-  option carries a `recap`: past tense, ten words at most, no pronoun pointing back. Then what that
-  call left: the document is on file (each document has an `on` and an `off` sentence), something is
-  pinned to a later day, or today a choice comes back. "You" in whole-team mode, on the player's own
-  days and on a call the player challenged; otherwise the colleague's name. Never "yesterday": the
-  days jump. Day 1 says there is nothing yet, and how many of the ninety days are spare.
+  never a noun, in a newcomer's words. It names what it is about (the AI assistant, the project, or
+  people by their role) and points at no one it has not named. "Day 45. On its first test the AI
+  assistant got 82.4 percent of 500 real cases right. The team promised 80 percent." Day 82 has one per
+  variant.
+- **Premise and context**: one paragraph. The premise (`short`) is the same twelve words every day
+  ("SkyWays is a fictional airline building an assistant that rebooks stranded passengers."), set
+  quieter. The context (`context`) is one fixed sentence, true on every path, that says where the
+  project is.
+- **So far**, computed in `sim.soFar`: the earlier call that today leans on, quoted. The day itself says
+  which call that is. Every day after the first has a `leans` entry: `day`, the id of the earlier day to
+  quote; `doc`, the document whose state says what that call left; and, where the document's own
+  sentence would say nothing about today, an `on` or `off` sentence of its own. It is not always the day
+  that files what the rules need today (`needs`): one option on Day 20 costs two more days without the
+  signed quality targets from Day 9, and the day quotes Day 12's decision records, because the third
+  decision, the framework, is due today. `tools/sim.test.mjs` checks that every `leans` names an earlier
+  day and a document an earlier day files. Every option carries a `recap`: past tense, ten words at most,
+  no pronoun pointing back. Then what that call left: the document is on file (each document has an `on`
+  and an `off` sentence), something is pinned to a later day, or today a choice comes back. "You" in
+  whole-team mode, on the player's own days and on a call the player challenged; otherwise the
+  colleague's name. Never "yesterday": the days jump. Day 1 says there is nothing yet, and how many of
+  the ninety days are spare.
 
 The premise and "So far" exist only for the cold reader, and together stay under forty words on any
 path (twelve, and twenty-five at most). With the context the three lines come to 48 words at most on
 the method's line. The end screen's table and the no-script list use the same headlines.
+
+The page is written for the same reader before the first day. Its heading says what this is before it
+says its name: `what` ("A game: run a ninety-day AI project."), large, then "Ninety Days, the SkyWays
+simulator", small. Under it, `premise` is the opening lines: a fictional airline, an AI assistant that
+rebooks stranded passengers, ninety days, and thirteen decisions that each cost days. On the title
+screen `pitch` comes first, above the buttons: a game takes ten to fifteen minutes, and every decision
+shows its price in days before it is chosen. `pages/play.py` renders the heading and the opening lines,
+and `game.js` the pitch. `tools/sim.test.mjs` holds all three to the same plain words as a day, checks
+that `what` says it is a game without giving the name, and that `premise` names each of those things.
 
 ## A link to each day
 
@@ -140,13 +159,22 @@ One engine, three controllers.
 - **The whole team** (the default, with no choice before Day 1, and what a link to a day opens): every
   call is the player's.
 - **One role**: the player makes their own role's calls. On every other day they see what a colleague
-  plans to do, and may ask to see the evidence four times in a run. A colleague does the day properly
-  when the document they lean on is on file and it is not one of their habits. Nothing is random. Every
-  role can reach the best ending; none can reach it by leaving colleagues alone.
+  plans to do and its price, and may ask to see the evidence four times in a run. A colleague does the day
+  properly when the document they lean on is on file and it is not one of their habits. Nothing is
+  random. Every role can reach the best ending; none can reach it by leaving colleagues alone.
 - **The organisation**: the player is the sponsor. They pick up to three rules to enforce out of six,
   then watch the days run with the same colleagues, and may ask a question twice. The best three rules
   alone are funded with conditions; with the two questions well spent they are funded; no rules at all
   is stopped.
+
+A question works the same way in both. "Ask to see the evidence" is offered on every plan while
+questions are left, sound or not, so being offered tells the player nothing. Asking (`ask` in `sim.js`)
+costs one question, whatever it shows, and shows the evidence and nothing more: the document the plan
+works from and whether it is on file, and what the plan would put on file. On Day 90 it is the slide as
+planned. It never says what the plan costs later; the player still has to judge. Then the player lets
+the plan stand or asks for another option (on Day 90, builds the slide), at no further cost; the sponsor
+chooses what to send the team back to do. In one role a call asked for becomes the player's own, task
+and all. The sponsor only asks, and the team then does the day the way it was chosen.
 
 ## The picture (`play/art.js`)
 
@@ -220,13 +248,28 @@ move, on the site's own curves and durations.
   badly), every role and every set of rules, without a browser. It asserts that no path dead-ends, that
   no shortcut is free, that the method's line is funded only when the date is moved on evidence, and
   that always-cheapest and always-most-careful both lose. It checks the limits task's debts one by one,
-  and that the book reaches every day with nothing owed. It also lints the words: no dash, no "gate",
-  a headline with a verb or a number, a one-sentence context, a recap of ten words with no pronoun,
-  and a "So far" of twenty-five words at most whatever was chosen.
+  that the book reaches every day with nothing owed, that a document goes on file only when its task is
+  done, and that a stopped or late run never reports the saving of the method's line. A question can be
+  asked of a sound plan as well as an unsound one, costs one, shows only the evidence (on Day 90, the
+  slide as planned) and makes asking for something else free. It also lints the words: no dash, no
+  "gate", no word the player has not been given yet, no sentence over twenty words, nothing that points
+  at someone it has not named; a headline with a verb or a number that names what it is about, a
+  one-sentence context, a question that says who is to act, a recap of ten words with no pronoun, and a
+  heading that says it is a game before its name. Every day after the first leans on an earlier day and
+  on a document an earlier day files, and its "So far" quotes that day, never joins two and runs to
+  twenty-five words at most whatever was chosen.
 - `tools/playtest.mjs` plays each mode by real clicks to the verdict in headless Chrome, at laptop and
   phone widths, and checks focus, saves and the forwarding of old workbench links. It does the sixth
   task by its controls, opens `#day-45` with and without a save, opens all thirteen links, reads the
-  header pill, and checks that every headline it saw is a sentence.
+  header pill, and checks that every headline it saw is a sentence. Its eleventh section keeps what an
+  audit found by looking, as checks run with motion allowed: the title's first screen says what the game
+  is and how to start, at 1440 and 390 wide; a day's question and its first option are on the first
+  screen; the header does not move between days; on Day 75 only the labels of what is left are shown,
+  none on another; on Day 82 nothing sits on anything else down to 320 wide; a figure plays only as the
+  answer to a press, and only on screen; a pin flies only to a day strip that can be seen; a document
+  goes on file when its task is done; Day 15's three documents line up; the sponsor is offered a
+  question on a sound plan and on an unsound one, and in one role the evidence comes before the other
+  options; and a day offers one way to leave the run.
 - `tools/accept.mjs` includes the page, and asks the canvas how many frames it drew.
 
 ## What the council decided
@@ -253,7 +296,6 @@ moves, rooms tinted by phase.
 
 ## Open items
 
-- The workbench still has its mascot, its ranks and a light-only theme. Only its plane was turned round.
 - "Lena" (platform lead) and "Ines" (sponsor) are names the game adds; the case has four named people.
   The case gives Day 75, the bill, to the architect. The game gives it to the platform lead, so that
   role has a day of its own.

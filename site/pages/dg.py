@@ -57,11 +57,12 @@ GATE_GLYPH = ('<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" 
 
 
 def connector(gate: bool = False) -> str:
-    """Soft crossings are a marching dash. The one hard crossing is a wall the flow has to
-    get through, drawn full height so it cannot be read as decoration."""
+    """Soft crossings are a marching dash. The one hard crossing, the sign-off, is a wall the flow
+    has to get through, drawn full height so it cannot be read as decoration. It carries both of
+    its names: the home page and the game say sign-off, the lessons say the hard gate."""
     if gate:
         return ('<div class="dgx gate"><span class="gl">' + GATE_GLYPH
-                + "</span><span class=\"gt\">Hard gate</span></div>")
+                + '</span><span class="gt">Sign-off <span>(the hard gate)</span></span></div>')
     return '<div class="dgx" aria-hidden="true"><i></i><b></b></div>'
 
 
@@ -104,8 +105,8 @@ def flow(columns: list[str], gate_after: int | None = None) -> str:
         if i < len(columns) - 1:
             hard = gate_after is not None and i == gate_after
             out.append(connector(gate=hard))
-            tracks.append("84px" if hard else "44px")
-    return (f'<div class="dgf" data-reveal style="grid-template-columns:{" ".join(tracks)}">'
+            tracks.append("104px" if hard else "44px")
+    return (f'<div class="dgf" style="grid-template-columns:{" ".join(tracks)}">'
             f'{"".join(out)}</div>')
 
 
@@ -116,7 +117,11 @@ def returns(label: str) -> str:
 
 def matrix(cols: list[tuple[str, str, str]], rows: list[dict], legend: str = "") -> str:
     """Two dimensions crossing. Columns carry one hue each, rows carry theirs, cells stay
-    neutral so the chart does not become plaid. One accent device marks accountability."""
+    neutral so the chart does not become plaid. One accent device marks accountability.
+
+    Every cell also carries its phase's name (``.mph``). On a wide screen the column heads say it
+    and the name is hidden; on a phone the grid becomes one card per role and each cell says which
+    phase it is, in that phase's hue."""
     cells = ['<div class="mc"></div>']
     for ci, (hue, name, sub) in enumerate(cols):
         cells.append(f'<div class="mh" data-col="{ci}" style="--c:var(--dg-{hue})"><b>{E(name)}</b>'
@@ -127,7 +132,8 @@ def matrix(cols: list[tuple[str, str, str]], rows: list[dict], legend: str = "")
         for ci, c in enumerate(r["cells"]):
             cls = "md own" if c.get("own") else ("md q" if c.get("quiet") else "md")
             k = '<span class="ok">Accountable</span>' if c.get("own") else ""
-            body = f'{k}<b>{E(c["head"])}</b><span>{E(c["sub"])}</span>'
+            mp = f'<i class="mph" style="--p:var(--dg-{cols[ci][0]})">{E(cols[ci][1])}</i>'
+            body = f'{mp}{k}<b>{E(c["head"])}</b><span>{E(c["sub"])}</span>'
             rc = f' data-row="{ri}" data-col="{ci}"'
             if c.get("href"):
                 cells.append(f'<a class="{cls}"{rc} href="{E(c["href"])}" '
@@ -135,7 +141,7 @@ def matrix(cols: list[tuple[str, str, str]], rows: list[dict], legend: str = "")
             else:
                 cells.append(f'<div class="{cls}"{rc} style="--c:{r["accent"]}">{body}</div>')
     lg = f'<p class="dgmk"><span><i></i>{legend}</span></p>' if legend else ""
-    return (f'<div class="dgmw"><div class="dgm" data-reveal data-matrix '
+    return (f'<div class="dgmw"><div class="dgm" data-matrix '
             f'style="--n:{len(cols)}">{"".join(cells)}</div></div>{lg}')
 
 
@@ -149,13 +155,13 @@ def band(hue: str, key: str, name: str, sub: str, lanes: list[tuple[str, str, li
         ln.append(f'<div class="{cls}" style="--l:var(--dg-{lhue})">'
                   f'<span class="lt">{E(label)}</span><ul>{li}</ul></div>')
     return (f'<section class="dglb" style="--c:var(--dg-{hue})">'
-            f'<div class="lr"><span class="lk">{E(key)}</span><b>{E(name)}</b>'
+            f'<div class="lr"><span class="lkey">{E(key)}</span><b>{E(name)}</b>'
             f'<span class="ls">{E(sub)}</span></div>'
             f'<div class="dgll">{"".join(ln)}</div></section>')
 
 
 def bands(items: list[str]) -> str:
-    return f'<div class="dgl" data-reveal>{"".join(items)}</div>'
+    return f'<div class="dgl">{"".join(items)}</div>'
 
 
 def section_band(label: str) -> str:
@@ -163,11 +169,19 @@ def section_band(label: str) -> str:
 
 
 # --------------------------------------------------------------------------- svg + cards
-def svg(width: int, height: int, inner: str, label: str) -> str:
+def svg(width: int, height: int, inner: str, label: str, narrow: tuple[int, int, str] | None = None) -> str:
     """A board-scale drawing. Used only where the geometry is the argument, a ring, a
-    set of arcs, a spine with returns. Anything text-heavy stays in HTML."""
-    return (f'<div class="dgs"><svg viewBox="0 0 {width} {height}" role="img" '
-            f'aria-label="{E(label)}">{inner}</svg></div>')
+    set of arcs, a line with returns. Anything text-heavy stays in HTML.
+
+    ``narrow`` is the same drawing re-set for a narrow column, as (width, height, markup): base.css
+    shows it instead once the wide one would fall below 11px type."""
+    n = ""
+    if narrow:
+        nw, nh, ni = narrow
+        n = (f'<svg class="n" viewBox="0 0 {nw} {nh}" style="max-width:{nw * 1.3:.0f}px" role="img" '
+             f'aria-label="{E(label)}">{ni}</svg>')
+    return (f'<div class="dgs{" dgs2" if narrow else ""}"><svg class="w" viewBox="0 0 {width} {height}" role="img" '
+            f'aria-label="{E(label)}">{inner}</svg>{n}</div>')
 
 
 def cards(items: list[dict]) -> str:
@@ -179,4 +193,4 @@ def cards(items: list[dict]) -> str:
         out.append(f'<article class="dgcard"{lp} style="--c:var(--dg-{c["hue"]})">'
                    f'<header><span class="ck">{E(c["key"])}</span><b>{E(c["name"])}</b></header>'
                    f'<p>{E(c["body"])}</p><dl>{meta}</dl></article>')
-    return f'<div class="dgcards" data-reveal>{"".join(out)}</div>'
+    return f'<div class="dgcards">{"".join(out)}</div>'

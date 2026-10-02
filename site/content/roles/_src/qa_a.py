@@ -8,8 +8,7 @@ HEAD = {
     "tagline": "From 'it works' to a number you can defend",
     "arc": ["Define", "Curate", "Check", "Harness", "Measure", "Attack", "Shadow", "Watch"],
     "intro": [
-        "You own the two gates nobody else in the room can judge: **behaviour**: does it meet the "
-        "spec?, and **expansion**, have we earned wider use? The craft does not change. Test plans "
+        "You own the two gates nobody else in the room can judge: **behaviour** (does it meet the spec?) and **expansion** (have we earned wider use?). The craft does not change. Test plans "
         "from requirements, regression suites, exploratory testing and a sign-off before release are "
         "all still the job.",
         "What changes is that half of what you test is right *a share of the time*. So a pass becomes "
@@ -40,7 +39,7 @@ HEAD = {
     "ai_stance": (
         "Use a model for the **volume**, never for the verdict. It will turn a redacted ticket export "
         "into three hundred candidate cases, cluster forty shadow disagreements into four themes, and "
-        "write the harness that runs them, all work that used to price this role out of doing its job "
+        "write the harness that runs them: all work that used to price this role out of doing its job "
         "properly. What it must not do is decide what counts as right, or grade its own family of "
         "outputs and hand you the number unlabelled. A judge model is a measuring instrument with an "
         "unknown error until you calibrate it against human labels, so calibrate it and report that "
@@ -61,9 +60,9 @@ STEPS_A = [
  "when": "P1, the day the architect's step map exists and before a single test is written",
  "purpose": (
    "Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** "
-   "work, the fare arithmetic, owes a unit test, green or red, and it fails loudly. **Best-guess** "
-   "work, which alternative suits this passenger, owes a measured share per slice, and it fails "
-   "*fluently*: confident, well-worded and wrong. **Consequential** work, the refund, owes a "
+   "work (the fare arithmetic) owes a unit test, green or red, and it fails loudly. **Best-guess** "
+   "work (which alternative suits this passenger) owes a measured share per slice, and it fails "
+   "*fluently*: confident, well-worded and wrong. **Consequential** work (the refund) owes a "
    "required confirmation, and it fails silently until money moves. Get the tags right and the test "
    "plan writes itself; get them wrong and you will prove the wrong thing thoroughly."),
  "activities": [
@@ -267,7 +266,7 @@ ARCHITECTURE NOTES:
  "purpose": (
    "The golden set is the acceptance bar made executable: real historical cases with the expected "
    "outcome, one per line, tagged by slice, re-scored on every change. **Fifty cases to start, five "
-   "hundred to trust.** The judgement in it is yours and it is the whole value, engineering makes it "
+   "hundred to trust.** The judgement in it is yours and it is the whole value: engineering makes it "
    "runnable, but somebody has to decide what counts as right. The part everyone gets wrong is the "
    "sampling: a set drawn in proportion to traffic is representative of traffic and not of risk, so "
    "you oversample the rare hard slice deliberately."),
@@ -315,7 +314,7 @@ ARCHITECTURE NOTES:
                "slice's n. A bar proven on synthetic cases is proven against your own imagination."},
    {"tool": "Do not delegate",
     "use": "The expected outcome. That single field is the judgement the entire set rests on, and it "
-           "is the one thing a model cannot recover from the data, the data records what happened, "
+           "is the one thing a model cannot recover from the data: the data records what happened, "
            "not what should have.",
     "caution": None},
  ],
@@ -366,7 +365,7 @@ Write and run a script that emits one JSON object per line with EXACTLY this sha
 
 RULES:
 - `expect` is ALWAYS null. Do not infer the expected outcome from what the agent or the
-  desk actually did, that turns the set into a snapshot of current behaviour.
+  desk actually did: that turns the set into a snapshot of current behaviour.
 - Redact every passenger identifier: name, email, passport, card. Keep the PNR masked.
 - Assign the slice from the booking facts, not from the ticket's own category field.
 - Drop any row where you had to guess the slice, and list those separately at the end.
@@ -390,7 +389,7 @@ OUTPUT: one table.
 Then three lines:
 1. Which slice a representative sample would under-serve most, and by how much.
 2. Which slice is cheapest to prove per case curated.
-3. Any slice where the cases needed exceeds the history available, those need a hold to
+3. Any slice where the cases needed exceeds the history available: those need a hold to
    lower the bar, not more curation, and I need to know now.
 
 Show the arithmetic for one row so I can check it.
@@ -449,7 +448,7 @@ SLICE COUNTS AND CASE NOTES:
  "purpose": (
    "Three kinds of work, three kinds of checker. Arithmetic, schema and eligibility get an **exact "
    "check** written in code, because code does published rules perfectly and provably. A drafted "
-   "message gets an **independent judge** against a rubric, run *after* the exact checks, running it "
+   "message gets an **independent judge** against a rubric, run *after* the exact checks: running it "
    "first spends money grading outputs the schema check would have rejected for free. A category gets "
    "a **classifier** scored against the golden labels. And the drafter never grades itself, because a "
    "model that has seen its own reasoning grades the intention rather than the output."),
@@ -482,7 +481,7 @@ SLICE COUNTS AND CASE NOTES:
  ],
  "ai": [
    {"tool": "Claude Code",
-    "use": "Write the exact checks as ordinary tests, schema validation, fare recomputation from the "
+    "use": "Write the exact checks as ordinary tests: schema validation, fare recomputation from the "
            "source rules, tax and eligibility assertions. This is normal test code and it is the "
            "cheapest part of the harness to get right.",
     "caution": "Make it recompute the expected value from the fare rules, not read it from the agent's "
@@ -639,7 +638,7 @@ OUTPUT:
 1. Agreement: matches / n, as a percentage, with its 95% lower bound. Use the Wilson
    interval if n is under 100, and say which interval you used.
 2. A confusion breakdown: judge-fail/human-pass and judge-pass/human-fail, separately.
-   These are different problems, the first wastes engineering time, the second ships.
+   These are different problems: the first wastes engineering time, the second ships.
 3. For every disagreement, which criterion it turned on.
 4. Whichever criterion accounts for the most disagreements: the sentence the rubric is
    missing, written as a rubric line I can paste.

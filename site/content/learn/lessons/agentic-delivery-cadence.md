@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rhythm in one sentence.** Agentic delivery runs on six clocks: every day a bolt is built,
-> integrated and reviewed by risk band; on every prompt, model, tool or context change the harness and
-> the injection suite run again; every week someone reads drift, the attack run and the board's three
-> numbers; every cycle the sponsor gets two numbers; every quarter the maturity check is re-run; and every
+> **The rhythm in short.** Agentic delivery runs on six clocks. Every day a bolt is built, integrated
+> and reviewed by risk band, and on every prompt, model, tool or context change the harness and the
+> injection suite run again. Every week someone reads drift, the attack run and the board's three
+> numbers; every cycle the sponsor gets two numbers; every quarter the maturity check is re-run. Every
 > incident or surprise bill starts its own loop, with a named owner.
 
 {{map:agentic-delivery-cadence}}
@@ -21,7 +21,7 @@ updated: 2026-10-02
 **In this lesson** you'll learn:
 
 - what runs at each of the six cadences, and who owns it;
-- why proof runs on two triggers, every change and every week;
+- why proof runs on two triggers: every change and every week;
 - how to set the whole rhythm up in week one, so nothing depends on memory.
 
 ## Sound familiar?
@@ -36,7 +36,7 @@ Each is a check that exists and has no clock.
 
 **A fixed schedule of checks, each with an owner and a dated artefact, so that loops close without
 anybody having to remember them.** Ordinary software fails loudly: an error, an alert, a user who cannot
-log in. An agentic system mostly fails quietly, behaviour drifts with no deploy, a bill multiplies on
+log in. An agentic system mostly fails quietly: behaviour drifts with no deploy, a bill multiplies on
 flat traffic, an attack suite goes stale while it keeps reporting green. A check that runs only when
 someone notices a problem will run too late for every one of those.
 
@@ -68,8 +68,8 @@ lane with no human reader. **Owners:** QA lead, DevOps, programme manager. [Drif
 ### Step 4 · Every cycle: report both numbers
 
 The saving and the spend on one line, with review hours and re-runs beside them, sent to the sponsor
-before it is asked for. The sponsor asks the four questions, which of these are rules, what may it do
-without a person, what are the two numbers, what level are we, in about ten minutes. **Owners:** product
+before it is asked for. The sponsor asks the four questions (which of these are rules, what may it do
+without a person, what are the two numbers, what level are we) in about ten minutes. **Owners:** product
 manager, sponsor. [Measuring AI productivity](lesson:measure-ai-productivity)
 
 ### Step 5 · Every quarter: re-audit the controls
@@ -84,7 +84,7 @@ and reporting green. **Owners:** sponsor for the check, QA lead for the suite.
 ### Step 6 · On an event: close the loops nobody waits for
 
 An incident gets a missing-control postmortem that ends in an enforced control and the next P0 brief. A
-surprise bill gets one question, which of the four signatures does the per-call log show? A drift
+surprise bill gets one question: which of the four signatures does the per-call log show? A drift
 breach re-opens the release gate by itself. These are the backwards loops; each needs a named owner
 before the event, not after it. [The eight loops](lesson:the-eight-loops)
 
@@ -102,7 +102,7 @@ before the event, not after it. [The eight loops](lesson:the-eight-loops)
 ## Where you'll use it
 
 - **In week one**, as the programme manager's setup checklist: every clock scheduled, every owner named.
-- **As the agenda** of a weekly operations review, the drift chart, the attack run, the three numbers.
+- **As the agenda** of a weekly operations review: the drift chart, the attack run, the three numbers.
 - **After an incident**, to find which clock should have caught it.
 
 ## Why it matters
@@ -144,7 +144,7 @@ fixed baseline.
 
 ### How often should AI agents be tested for prompt injection?
 
-Weekly on a schedule, and on every prompt, tool or context change, every attack string against every
+Weekly on a schedule, and on every prompt, tool or context change: every attack string against every
 gated tool from every entry point. Extend the attack strings at least quarterly, or the suite reports
 green against last quarter's attacks.
 
@@ -173,7 +173,7 @@ an alert in its own right: the silent failure of the process, not only of the pr
 **The ten-minute workflow.** Audit what actually runs on a clock:
 
 ```text
-Here is what we run and when: <list of jobs, meetings and reports>. Map it to the six clocks — every day,
+Here is what we run and when: <list of jobs, meetings and reports>. Map it to the six clocks: every day,
 every change, every week, every cycle, every quarter, on an event. List each check with no clock, each
 clock with no owner, and each check whose last run is older than its clock.
 ```
@@ -182,8 +182,8 @@ clock with no owner, and each check whose last run is older than its clock.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The six clocks as one schedule | **Original**: this tutorial, from the playbook's cadences | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |
-| The weekly and every-change injection suite; a suite that stops growing | **Original**: this playbook | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |
-| Two drift thresholds, with a breach that re-opens the gate | **Original**: this playbook | [Drift](lesson:ai-drift-monitoring) |
+| The six clocks as one schedule | **Original**: this tutorial, from this manual's cadences | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |
+| The weekly and every-change injection suite; a suite that stops growing | **Original**: this manual | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |
+| Two drift thresholds, with a breach that re-opens the gate | **Original**: this manual | [Drift](lesson:ai-drift-monitoring) |
 | The daily standup | **Adapted**: new questions for bolts | Schwaber, K. & Sutherland, J. (2020). *The Scrum Guide* |
 | Blameless postmortems | **Borrowed** | Beyer, B. et al. (2016). *Site Reliability Engineering*. O'Reilly |

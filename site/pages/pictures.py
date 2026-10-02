@@ -18,11 +18,12 @@ LEARN_DIR = SITE / "assets" / "learn"
 SIM_DIR = SITE / "assets" / "pictures"
 
 GROUPS = [
-    ("method", "The method", "The spine, the gates, the loops and the pictures every lesson returns to."),
+    ("method", "The method", "The four phases, the gates, the loops and the pictures every lesson returns to."),
     ("roles", "Roles", "Who does what, what arrives on each desk, and what leaves it."),
     ("decide", "Decisions and how-tos", "Decision trees and step sequences for the calls the method asks you to make."),
     ("lessons", "Lesson maps", "The picture that opens each lesson of the tutorial."),
-    ("simulator", "From the simulator", "The flight plan, the loop, the three efforts and the concept map."),
+    ("sketches", "Hand-drawn sketches", "One idea each, drawn as a small scene: a worker doing the thing its lesson has just said."),
+    ("simulator", "From the workbench", "The flight plan, the loop, the three efforts and the concept map."),
     ("posters", "Posters and cheat sheets", "Drawn to be shared: one page each."),
 ]
 
@@ -36,7 +37,7 @@ TITLES = {
     "figure:authority_ladder": "The authority ladder", "figure:two_numbers": "The two-number report",
     "frameworks:spine": "The agentic PDLC in one picture", "frameworks:pdlc_vs": "Traditional PDLC vs agentic PDLC",
     "frameworks:ladder": "The risk ladder", "frameworks:chain": "Six steps at ninety percent",
-    "frameworks:methods": "Four methods on one spine", "frameworks:merge": "How the four methods merge into one loop",
+    "frameworks:methods": "Four methods on one lifecycle", "frameworks:merge": "How the four methods merge into one loop",
     "home:tower": "The tower: the lifecycle flown as a loop",
     "wikimap:anti-patterns": "Eighteen anti-patterns", "wikimap:depth-of-change": "Depth of change",
     "wikimap:eight-loops-workshop": "The requirements loop", "wikimap:eight-loops-proof": "The trust loop",
@@ -115,6 +116,8 @@ def webp_size(p: Path) -> tuple[int, int] | None:
 
 
 def _group_of(key: str) -> str:
+    if key.startswith("sketch:"):
+        return "sketches"
     if key in POSTER_KEYS or key.startswith("poster:"):
         return "posters"
     if key.startswith("map:"):
@@ -130,6 +133,7 @@ def catalogue() -> list[dict]:
     """Every picture with a file on disk, in gallery order."""
     from pages import learn
     reg = learn._visuals()
+    sketches = learn.sketches()
     _meta, _tracks, lessons = learn.load()
     items = []
     for key, v in reg.items():
@@ -143,13 +147,18 @@ def catalogue() -> list[dict]:
         size = webp_size(light)
         if not size or not size[0] or not size[1]:
             continue
+        cap = ""
         if key.startswith("map:"):
             slug = key.split(":", 1)[1]
             title = lessons[slug].title if slug in lessons else slug.replace("-", " ")
+        elif key.startswith("sketch:"):      # its name is its title; its caption is what it says; it lives in its lesson
+            sp = sketches[key.split(":", 1)[1]]
+            title, cap = sp["name"].replace("-", " ").capitalize(), sp["caption"]
+            v = dict(v, live=f'learn/{sp["lesson"]}/#sk-{sp["name"]}')
         else:
             title = TITLES.get(key, key.split(":", 1)[1].replace("-", " ").replace("_", " ").capitalize())
         used = v["live"] or ""  # a page, or a page and an anchor: "qa/", "method/#pdlc"
-        items.append({"id": name, "key": key, "group": _group_of(key), "title": title, "alt": v["alt"],
+        items.append({"id": name, "key": key, "group": _group_of(key), "title": title, "alt": v["alt"], "cap": cap,
                       "light": f"assets/learn/{name}.light.webp",
                       "dark": f"assets/learn/{name}.dark.webp" if dark.exists() else None,
                       "w": size[0], "h": size[1], "used": used})
@@ -158,7 +167,7 @@ def catalogue() -> list[dict]:
         size = webp_size(f) if f.exists() else None
         if not size or not size[0] or not size[1]:
             continue
-        items.append({"id": name, "key": "sim:" + name, "group": "simulator", "title": title, "alt": alt,
+        items.append({"id": name, "key": "sim:" + name, "group": "simulator", "title": title, "alt": alt, "cap": "",
                       "light": f"assets/pictures/{name}.webp", "dark": None, "w": size[0], "h": size[1], "used": route})
     order = {g: i for i, (g, *_r) in enumerate(GROUPS)}
     items.sort(key=lambda x: (order[x["group"]], x["title"].lower()))
@@ -176,7 +185,7 @@ def _used_href(used: str, base: str) -> str:
 def _card(it: dict, base: str) -> str:
     light = "../" + it["light"]
     dark = ("../" + it["dark"]) if it["dark"] else None
-    imgs = (f'<img class="light" src="{light}" width="{it["w"]}" height="{it["h"]}" alt="{E(it["alt"], quote=True)}" '
+    imgs = (f'<img{" class=" + chr(34) + "light" + chr(34) if dark else ""} src="{light}" width="{it["w"]}" height="{it["h"]}" alt="{E(it["alt"], quote=True)}" '
             f'loading="lazy" decoding="async">')
     if dark:
         imgs += (f'<img class="dark" src="{dark}" width="{it["w"]}" height="{it["h"]}" alt="" aria-hidden="true" '
@@ -185,14 +194,14 @@ def _card(it: dict, base: str) -> str:
     dl = it["light"].rsplit("/", 1)[-1].replace(".light.webp", ".webp")
     return (f'<figure class="pic" data-group="{it["group"]}" id="pic-{it["id"]}">'
             f'<a class="pic-a" href="{light}" target="_blank" rel="noopener" aria-label="{E(it["title"], quote=True)}, full size">{imgs}</a>'
-            f'<figcaption><b>{E(it["title"])}</b><span>{E(it["alt"])}</span>'
+            f'<figcaption><b>{E(it["title"])}</b><span>{E(it["cap"] or it["alt"])}</span>'
             f'<small><a href="{used}">Where it is used</a> · <a href="{light}" download="{dl}">Download</a> · '
             f'{it["w"]}×{it["h"]}</small></figcaption></figure>')
 
 
 def image_entries(base: str) -> list[dict]:
     """For the sitemap: every picture's URL, title and caption."""
-    return [{"loc": base + it["light"], "title": it["title"], "caption": it["alt"]} for it in catalogue()]
+    return [{"loc": base + it["light"], "title": it["title"], "caption": it["cap"] or it["alt"]} for it in catalogue()]
 
 
 def build(shell, urls: dict) -> str:
@@ -215,18 +224,18 @@ def build(shell, urls: dict) -> str:
         "And anyone who found one of these in an image search and wants the page behind it.",
         "Find the picture, open it full size or download it, and put it where it helps. Every picture links to "
         "the page that explains it, and reads in dark mode too.",
-        ["Filter by what you need: the method, a role, a decision, a lesson, the simulator, a poster.",
+        ["Filter by what you need: the method, a role, a decision, a lesson, a sketch, the workbench, a poster.",
          "Open a picture full size; <b>Download</b> saves the file.",
          "Reuse freely under the site's MIT licence; credit <b>Akash Das, SkyWays Consultancy</b> and link the page."])
     tour = k.tour([
-        {"sel": ".picks", "title": "Filter", "body": "Six groups. The counts say how many pictures each holds."},
+        {"sel": ".picks", "title": "Filter", "body": "Seven groups. The counts say how many pictures each holds."},
         {"sel": ".pic", "title": "A picture", "body": "Title, what it shows, the page it comes from, and a download. Click the picture for full size."},
     ])
     import render
     nextup = render.next_up("Every picture comes from a page that explains it.", "../method/",
                             "The method, on one page", ("../learn/", "The tutorial, lesson by lesson"))
     body = f"""<div class="wrap"><main id="main" class="picpage">
-  <div class="rowh"><div><div class="kicker">The picture pack</div><h1>Every picture in the manual and the simulator, ready to share</h1><p class="lede">{len(items)} diagrams, boards, decision trees and posters, each with a title, a caption and the page
+  <div class="rowh"><div><div class="kicker">The picture pack</div><h1>Every picture in the manual, ready to share</h1><p class="lede">{len(items)} diagrams, boards, decision trees, sketches and posters, each with a title, a caption and the page
   that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p>
   <p class="pmeta"><span>{len(items)} pictures</span><span>light and dark</span><span>MIT licence, credit the author</span></p></div></div>
   {orient}
@@ -236,7 +245,11 @@ def build(shell, urls: dict) -> str:
   <a href="{urls["repo"]}">the repository</a> and share its MIT licence: use them, adapt them, teach with them, and keep the
   credit <em>Akash Das, SkyWays Consultancy</em> with a link to the page each one comes from. The ones marked as a
   working method are this manual's own construction; the ones drawn from a published method or vendor documentation say so
-  on their page.</p></div></div>
+  on their page.</p>
+  <p><strong>The sketches.</strong> Their style is adapted from <a href="https://github.com/helloianneo/ian-xiaohei-illustrations">Ian's
+  Xiaohei illustrations</a> (MIT licence): a sheet of paper, a black hand-drawn line, a small black worker who does the thing, and a
+  few handwritten notes. These are drawn in code for this manual and are not copies of Ian's drawings. The handwriting is Patrick Hand
+  (SIL Open Font Licence).</p></div></div>
 {nextup}
 </main></div>"""
     gallery_ld = {"@context": "https://schema.org", "@graph": [
@@ -258,7 +271,7 @@ def build(shell, urls: dict) -> str:
             {"@type": "ListItem", "position": 2, "name": "Libraries", "item": base + "pictures/"},
             {"@type": "ListItem", "position": 3, "name": "The picture pack", "item": base + "pictures/"}]}]}
     return shell(title="The picture pack · every diagram of the agentic PDLC, ready to share",
-                 desc=f"{len(items)} diagrams, boards, decision trees and posters on the agentic PDLC: the spine, the gates, "
+                 desc=f"{len(items)} diagrams, boards, decision trees and posters on the agentic PDLC: the four phases, the gates, "
                       "the eight loops, every role, every lesson. Each with a caption, light and dark, free to reuse.",
                  body=body, depth=1, nav_id="pictures", canonical=base + "pictures/", own_ld=True,
                  head_extra='<script type="application/ld+json">' + json.dumps(gallery_ld, ensure_ascii=False) + "</script>",

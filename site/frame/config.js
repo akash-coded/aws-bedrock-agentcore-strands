@@ -1,4 +1,4 @@
-// SkyWays Architect · site configuration.
+// The SkyWays workbench · site configuration.
 // Read by frame/frame.js. Nothing in this file is secret; it is served to every visitor.
 window.SKYWAYS_SITE = {
   author: "Akash Das",
@@ -13,17 +13,17 @@ window.SKYWAYS_SITE = {
     license: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/LICENSE",
     source: "https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/site/app/SkyWays-Architect.html",
     frameless: "../app/SkyWays-Architect.html",
-    // The manual this tool belongs to, relative to the framed copy at /workbench/. Empty = no way back.
+    // The manual this tool belongs to, relative to the framed copy at /workbench/. The footer links to it.
     manual: "../",
     manualPages: [["Tutorial", "../learn/"], ["Roles", "../product-manager/"], ["Templates", "../templates/"],
                   ["Prompts", "../prompts/"], ["Mental models", "../models/"]]
   },
   // How the contact form delivers messages.
-  //   endpoint  – leave empty and the form opens the visitor's mail app with the message ready to send.
+  //   endpoint : leave empty and the form opens the visitor's mail app with the message ready to send.
   //               Set it to the Function URL printed by site/contact-relay/deploy.sh (e-mail + private log),
   //               or to a Formspree / Web3Forms form URL if you prefer a hosted service.
-  //   accessKey – Web3Forms only; ignored otherwise.
-  //   mailto    – the fallback address, kept in two parts so naive scrapers do not harvest it.
+  //   accessKey: Web3Forms only; ignored otherwise.
+  //   mailto   : the fallback address, kept in two parts so naive scrapers do not harvest it.
   contact: {
     endpoint: "",
     accessKey: "",

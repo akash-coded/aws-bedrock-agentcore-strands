@@ -55,6 +55,7 @@
   var HABIT = { d2: "a", d5: "a", d6: "a", d8: "a", d9: "a", d10: "a", d11: "a", d13: "x" };
   var CRAFT = { d5: 1, d8: 1 };
   function habit(state, id) { return !!HABIT[id] && !(state.mode === "org" && CRAFT[id]); }
+  var TASKART = { bar: "bar" };                    // a document that a task files, not the option itself
   function forced(data, state, what) {            // the organisation lens: a rule the sponsor enforces
     var i, p;
     for (i = 0; i < data.policies.length; i++) {
@@ -84,6 +85,20 @@
     return null;
   }
 
+  // What a question shows about a colleague's plan, and nothing more: the document the plan is working
+  // from and whether it is on file, and what the plan itself would put on file. On Day 90 it is the slide
+  // as planned. It does not say what the plan costs later: the player still has to judge.
+  function evidence(data, state) {
+    var day = today(data, state), opt = null, i, a, doc;
+    if (!state.pending) return null;
+    if (!day.options) return { slide: botTask(data, state, day.task, state.mode === "org" ? forced(data, state, day.id) : !habit(state, day.id)) };
+    for (i = 0; i < day.options.length; i++) if (day.options[i].id === state.pending) opt = day.options[i];
+    if (!opt) return null;
+    a = arts(opt); if (opt.task && TASKART[opt.task]) a = a.concat(TASKART[opt.task]);
+    doc = day.needs || (day.leans && day.leans.doc) || null;
+    return { doc: doc, has: doc ? has(state, doc) : null, files: a };
+  }
+
   /* ------------------------------------------------------------------ the tasks */
   function barOf(slice, held) {
     var dmg = held && slice.damageHeld != null ? slice.damageHeld : slice.damage, n = dmg / slice.saving;
@@ -106,6 +121,8 @@
     if (trust) state.trust = Math.max(0, Math.min(state.trustMax, state.trust - trust));
   }
   function file(state, art) { if (art && state.shelf.indexOf(art) < 0) { state.shelf.push(art); state.filed.push(art); } }
+  // An option that opens a task files nothing until the task is done: its documents wait in `hold`.
+  function release(state) { var i, a = state.hold || []; for (i = 0; i < a.length; i++) file(state, a[i]); state.hold = null; }
   function seal(data, state, day, debt) {
     state.debts.push({ id: day.id, from: day.day, due: debt.due, dueDay: data.days[dayIndex(data, debt.due)].day,
                        days: debt.days, trust: debt.trust || 0, tag: debt.tag, text: debt.text, state: "sealed" });
@@ -183,7 +200,7 @@
   /* ------------------------------------------------------------------ a day opens */
   function openDay(data, state) {
     var day = data.days[state.i], r = data.rules, i, d;
-    state.events = []; state.filed = []; state.beat = "choose"; state.pending = null;
+    state.events = []; state.filed = []; state.beat = "choose"; state.pending = null; state.hold = null; state.seen = false;
     if (r.pressure.onDay[state.seed % r.pressure.onDay.length] === day.id) note(state, "pressure", r.pressure.text, r.pressure.days);
     for (i = 0; i < state.debts.length; i++) {
       d = state.debts[i];
@@ -232,7 +249,8 @@
     state.picks[day.id] = optId;
     note(state, "choice", opt.now, price(data, state, day, opt));
     state.events[state.events.length - 1].label = opt.label;
-    a = arts(opt); for (i = 0; i < a.length; i++) file(state, a[i]);
+    a = arts(opt);
+    if (opt.task) state.hold = a; else for (i = 0; i < a.length; i++) file(state, a[i]);
     if (opt.flags) for (i = 0; i < opt.flags.length; i++) state.flags[opt.flags[i]] = true;
     if (opt.flags && opt.flags.indexOf("capInTool") >= 0) state.capInTool = true;
     if (opt.debt) seal(data, state, day, opt.debt);
@@ -253,7 +271,7 @@
     var state = { v: data.v, mode: opts.mode || "team", role: opts.role || null, policies: (opts.policies || []).slice(0, 3), seed: opts.seed || 0,
                   i: 0, beat: "choose", task: null, pending: null, slack: opts.mode === "role" ? data.rules.slackRole : data.rules.slack,
                   trust: data.rules.trust, trustMax: data.rules.trustMax,
-                  moved: false, shelf: [], filed: [], debts: [], picks: {}, asked: {}, tasks: {}, flags: {}, events: [],
+                  moved: false, shelf: [], filed: [], hold: null, seen: false, debts: [], picks: {}, asked: {}, tasks: {}, flags: {}, events: [],
                   tokens: opts.mode === "org" ? data.rules.questions.org : (opts.mode === "role" ? data.rules.questions.role : 0),
                   capInTool: false, incidents: 0, live: null, review: null, bill: null, slide: null, history: [] };
     openDay(data, state);
@@ -267,8 +285,9 @@
     if (state.beat === "choose") {
       if (state.pending) {
         out.push({ t: "accept" });
-        if (state.tokens > 0 && day.options) for (i = 0; i < day.options.length; i++) if (day.options[i].id !== state.pending) out.push({ t: "challenge", opt: day.options[i].id });
-        if (state.tokens > 0 && !day.options) out.push({ t: "challenge" });
+        if (state.tokens > 0 && !state.seen) out.push({ t: "ask" });
+        if ((state.tokens > 0 || state.seen) && day.options) for (i = 0; i < day.options.length; i++) if (day.options[i].id !== state.pending) out.push({ t: "challenge", opt: day.options[i].id });
+        if ((state.tokens > 0 || state.seen) && !day.options) out.push({ t: "challenge" });
       } else if (day.options) for (i = 0; i < day.options.length; i++) out.push({ t: "choose", opt: day.options[i].id });
       else out.push({ t: "task", id: day.task });
     } else if (state.beat === "task") out.push({ t: "task", id: state.task });
@@ -287,7 +306,7 @@
   function reduce(data, prev, action) {
     var state = clone(prev), day = today(data, state), miss, i, d, r, a, well, opt;
     function finishChoice() {            // a colleague's task is done the way they chose
-      if (state.beat === "task" && state.botWell != null) { doTask(data, state, state.task, botTask(data, state, state.task, state.botWell)); state.beat = day.gate ? "gate" : "done"; }
+      if (state.beat === "task" && state.botWell != null) { release(state); doTask(data, state, state.task, botTask(data, state, state.task, state.botWell)); state.beat = day.gate ? "gate" : "done"; }
       // a colleague starts the build with whatever is on file; only a sponsor's rule makes them hold it
       if (state.beat === "gate") { miss = gateMissing(state); gate(miss.length ? (state.mode === "org" && forced(data, state, "d6") ? "hold" : "open") : "pass"); }
       state.botWell = null;
@@ -312,10 +331,15 @@
       case "choose":
         if (state.beat !== "choose" || state.pending || !choose(data, state, action.opt)) return prev;
         break;
+      case "ask":                    // see the evidence behind a colleague's plan: one question, whatever it shows
+        if (state.beat !== "choose" || !state.pending || state.seen || state.tokens < 1) return prev;
+        state.tokens--; state.seen = true;
+        break;
       case "accept":
       case "challenge":
         if (state.beat !== "choose" || !state.pending) return prev;
-        if (action.t === "challenge") { if (state.tokens < 1 || (day.options && action.opt === state.pending)) return prev; state.tokens--; if (state.mode === "role") state.asked[day.id] = 1; }
+        // Asking for something else costs a question too, unless today's question has been asked already.
+        if (action.t === "challenge") { if ((!state.seen && state.tokens < 1) || (day.options && action.opt === state.pending)) return prev; if (!state.seen) state.tokens--; if (state.mode === "role") state.asked[day.id] = 1; }
         if (!day.options) {           // Day 90: the slide
           well = action.t === "challenge" || (state.mode === "org" ? forced(data, state, day.id) : !habit(state, day.id));
           if (action.t === "challenge" && action.input) { doTask(data, state, day.task, action.input); }
@@ -334,6 +358,7 @@
       case "task":
         if (state.beat === "choose" && !day.options && !state.pending && day.task === action.id) { doTask(data, state, action.id, action.input); state.beat = "done"; break; }
         if (state.beat !== "task" || state.task !== action.id) return prev;
+        release(state);
         doTask(data, state, action.id, action.input);
         state.beat = day.gate ? "gate" : "done";
         break;
@@ -403,9 +428,14 @@
 
   /* ------------------------------------------------------------------ so far
      One line for a reader who has seen no other day: the earlier call that today leans on, quoted, and
-     what it left behind. A day that leans on a document quotes the day that should have filed it. A day
-     that leans on none quotes the day before. */
-  var TASKART = { bar: "bar" };                    // a document that a task files, not the option itself
+     what it left behind. Which call that is, is written on the day itself (`leans` in days.json): the
+     day to quote, the document that decides what it left, and where the document's own sentence would
+     say nothing about today, a sentence that does. It is not always the day that files what the rules
+     need: Day 75 needs the signed targets to be priced, and what its reader needs is that one of them
+     is a limit on cost.
+
+     A debt that falls due today has its own box under the headline, with the day it came from. So this
+     line speaks of a debt only when it came from the day being quoted, and never joins two days. */
   function source(data, art) {                     // the day whose method option files this document
     var i, r, a;
     for (i = 0; i < data.days.length; i++) {
@@ -416,47 +446,62 @@
     }
     return -1;
   }
+  var LEFT = { back: "Today that choice comes back.", trail: "Today something left from that day comes back.", pinned: "Something from that is pinned to Day ", mended: "That day was done again later, properly." };
   function soFar(data, state) {
-    var day = data.days[state.i], src, from, form, opt = null, i, d, who, left = "", fired = null, pinned = null, a, text;
-    if (state.i === 0) return { label: "So far:", text: "nothing yet. You have ninety days, and " + (state.mode === "role" ? data.rules.slackRole : data.rules.slack) + " of them are spare." };
-    src = day.needs ? source(data, day.needs) : -1;
-    if (src < 0 || src >= state.i) src = state.i - 1;
-    from = data.days[src];
+    var day = data.days[state.i], lean = day.leans, from, form, opt = null, i, d, who, left, fired = null, pinned = null, mended = false, doc;
+    if (state.i === 0 || !lean) return { label: "So far:", text: "nothing yet. You have ninety days, and " + (state.mode === "role" ? data.rules.slackRole : data.rules.slack) + " of them are spare." };
+    from = data.days[dayIndex(data, lean.day)];
     form = from.variants ? from.variants[state.incidents ? "paid" : "blocked"] : from;
     for (i = 0; form.options && i < form.options.length; i++) if (form.options[i].id === state.picks[from.id]) opt = form.options[i];
     if (!opt) return { label: "So far:", text: "" };
     who = state.mode === "team" || (state.mode === "role" && (data.cast[from.owner].role === state.role || state.asked[from.id])) ? "you" : data.cast[from.owner].name;
     for (i = 0; i < state.debts.length; i++) {
       d = state.debts[i];
-      if (d.state === "fired" && d.due === day.id && (!fired || d.id === from.id)) fired = d;
-      if (d.state === "sealed" && d.id === from.id && !pinned) pinned = d;
+      if (d.id !== from.id) continue;
+      // the option's own debt before one a task left behind
+      if (d.state === "fired" && d.due === day.id && (!fired || (opt.debt && d.tag === opt.debt.tag))) fired = d;
+      if (d.state === "sealed" && !pinned) pinned = d;
+      if (d.state === "repaired") mended = true;
     }
-    if (fired) left = fired.id === from.id ? "Today that choice comes back." : "Today a choice from Day " + fired.from + " comes back.";
-    else if (pinned) left = "Something from that is pinned to Day " + pinned.dueDay + ".";
-    else if (day.needs) left = data.artefacts[day.needs][has(state, day.needs) ? "on" : "off"];
-    else { a = arts(opt); left = a.length && has(state, a[0]) ? data.artefacts[a[0]].on : ""; }
-    text = "on Day " + from.day + ", " + who + " " + opt.recap + "." + (left ? " " + left : "");
-    return { label: "So far:", text: text, from: from.day, who: who };
+    if (fired) left = opt.debt && fired.tag === opt.debt.tag ? LEFT.back : LEFT.trail;
+    else if (pinned) left = LEFT.pinned + pinned.dueDay + ".";
+    else if (mended) left = LEFT.mended;
+    else { doc = data.artefacts[lean.doc]; left = has(state, lean.doc) ? (lean.on || doc.on) : (lean.off || doc.off); }
+    return { label: "So far:", text: "on Day " + from.day + ", " + who + " " + opt.recap + ". " + left, from: from.day, who: who };
   }
 
   /* ------------------------------------------------------------------ the ending */
   // The case's own first cycle: 31.2 person-days saved at $320, a model bill of $4,200, and 96 hours of
-  // review at $72. Net: minus $1,128. Away from that line the figures move with what the run did.
+  // review at $72. Net: minus $1,128. That line is a run that met the date with the same-day cases live
+  // from Day 45. Away from it the saving follows what the run did:
+  //   - every day the run is late is a day the assistant was not live, out of the 45 between Day 45 and Day 90;
+  //   - a week switched off, or everything held back for one bar, is time not live too;
+  //   - same-day cases that were ready and did not ship are four fifths of the work;
+  //   - a kind of case that went live below its bar, or before it was proven, was done again by people.
+  var LIVE = 45;                                   // days live in the first cycle, on the case's own line
   function ledger(data, state) {
-    var f = 1, t = data.tasks.score, b, i, st, live = state.live, share = 0, bill, review = 6912, mishaps, value;
+    var f = 1, t = data.tasks.score, b, i, st, live = state.live, share = 0, redone = 0, unshipped = false, bill, review = 6912, mishaps, value;
+    var late = Math.max(0, -state.slack), days = Math.max(0, LIVE - late);
     if (state.flags.heldBack) f -= 0.3;
     if (state.flags.frozen) f -= 0.2;
     if (live) {
       b = bars(data, state);
-      for (i = 0; i < t.slices.length; i++) { st = sliceStats(t.slices[i]); if (live[t.slices[i].id] === "ship" && st.score >= b[t.slices[i].id]) share += t.slices[i].n; }
-      if (share < 400) f -= 0.25;                  // the same-day cases, four in five, were ready and did not ship
-    }
-    f = Math.max(0, f);
+      for (i = 0; i < t.slices.length; i++) {
+        st = sliceStats(t.slices[i]);
+        if (live[t.slices[i].id] !== "ship") continue;
+        if (st.score >= b[t.slices[i].id] && st.lower >= b[t.slices[i].id]) share += t.slices[i].n;
+        else if (st.score >= b[t.slices[i].id]) { share += t.slices[i].n; redone += 0.05; }
+        else redone += 0.1;
+      }
+      if (share < 400) { f -= 0.25; unshipped = true; }   // the same-day cases, four in five, were ready and did not ship
+    } else if (state.picks.d9 === "a") redone = 0.2;   // everything shipped on one number: two kinds were under their bar
+    f = Math.max(0, f - redone) * days / LIVE;
     value = Math.round(9984 * f);
     bill = Math.round(4200 * (state.flags.billOpen ? 2.2 : (state.bill && state.bill > 2 ? 1.3 : 1)));
     mishaps = 2000 * (state.incidents || 0) + (state.debts.some(function (d) { return d.id === "d12" && d.state === "fired" && d.tag === "a name, and no control"; }) ? 2000 : 0);
     return { saving: Math.round(43 * f), days: round(31.2 * f, 1), value: value, bill: bill, review: review, mishaps: mishaps,
-             cost: bill + review + mishaps, net: value - bill - review - mishaps };
+             cost: bill + review + mishaps, net: value - bill - review - mishaps,
+             late: late, liveDays: days, of: LIVE, off: !!state.flags.frozen, held: !!state.flags.heldBack, unshipped: unshipped, redone: redone > 0 };
   }
 
   function verdict(data, state) {
@@ -472,7 +517,7 @@
 
   var api = { init: init, reduce: reduce, fold: fold, legal: legal, today: today, price: price, mine: mine, owner: owner,
               rightOption: rightOption, bars: bars, barOf: barOf, sliceStats: sliceStats, gateMissing: gateMissing, canFix: canFix,
-              repairCost: repairCost, soFar: soFar, source: source, book: book, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
+              repairCost: repairCost, soFar: soFar, source: source, evidence: evidence, book: book, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else { root.ND = root.ND || {}; root.ND.sim = api; }
 })(typeof window !== "undefined" ? window : this);

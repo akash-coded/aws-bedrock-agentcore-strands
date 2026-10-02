@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Spec-driven development in one sentence.** Spec-driven development (SDD) means writing a
-> specification before any code and keeping it as the artefact that AI agents build from, as in
-> AWS's **Kiro**, which keeps requirements, design and tasks files, and **GitHub Spec Kit**, which
-> moves work from a constitution through specify, plan and tasks to implementation, so that the spec,
-> not a chat history, is what people review and what the agent reads.
+> **Spec-driven development in short.** Spec-driven development (SDD) means writing a
+> specification before any code and keeping it as the artefact that AI agents build from. AWS's
+> **Kiro** does it by keeping requirements, design and tasks files. **GitHub Spec Kit** does it by
+> moving work from a constitution through specify, plan and tasks to implementation. Either way the
+> spec, not a chat history, is what people review and what the agent reads.
 
 {{map:what-is-spec-driven-development}}
 
@@ -35,7 +35,7 @@ create, and the reason depth matters.
 
 ## What is spec-driven development?
 
-Spec-driven development is writing a spec before writing code with AI, documentation first, and
+Spec-driven development is writing a spec before writing code with AI (documentation first) and
 treating that spec as the authoritative reference for both people and agents. Birgitta Böckeler,
 writing on Martin Fowler's site in October 2025, distinguishes three levels of commitment:
 
@@ -45,7 +45,7 @@ writing on Martin Fowler's site in October 2025, distinguishes three levels of c
 | **Spec-anchored** | Kept after the task, and evolved with the feature | Medium |
 | **Spec-as-source** | The primary artefact; people edit only the spec and the code is generated | High |
 
-This playbook asks for **spec-anchored** on every change: the spec is the one artefact that survives
+This manual asks for **spec-anchored** on every change: the spec is the one artefact that survives
 the code, and a change with no spec change is a change nobody can review.
 
 {{sketch:the-drawing-goes-back-on-the-wall}}
@@ -55,8 +55,8 @@ the code, and a change with no spec change is a change nobody can review.
 ### Step 1 · Kiro: requirements, design, tasks
 
 Kiro, AWS's agentic IDE released in public preview in July 2025, keeps three files per feature.
-`requirements.md` holds user stories with acceptance criteria in **EARS**, *WHEN … THE SYSTEM
-SHALL …*, the requirements syntax developed at Rolls-Royce. `design.md` holds the architecture,
+`requirements.md` holds user stories with acceptance criteria in **EARS** (*WHEN … THE SYSTEM
+SHALL …*), the requirements syntax developed at Rolls-Royce. `design.md` holds the architecture,
 data flow and testing strategy. `tasks.md` is the implementation plan, each task traceable to a
 requirement. You can start from requirements or from design.
 
@@ -77,8 +77,8 @@ from the tool's default. [How much process a change needs](lesson:how-much-proce
 
 A spec tool gives you the places to write things down. It does not know how accurate the agent in
 your product must be, which of its actions need a person, or where a limit must be enforced. Those
-are the five agentic fields of this playbook's [eight-field spec](lesson:p1-design-and-spec#step-2--write-the-eight-field-spec)
- (the model's role, autonomy per action, the bar per slice, the fallback and the records) and they
+are the five agentic fields of this manual's [eight-field spec](lesson:p1-design-and-spec#step-2--write-the-eight-field-spec)
+(the model's role, autonomy per action, the bar per slice, the fallback and the records), and they
 belong in the requirements file whichever tool holds it.
 
 {{sketch:the-tool-prints-the-boxes}}
@@ -171,7 +171,7 @@ are reviewed like code across teams and survive the people who wrote them.
 **The ten-minute workflow.** Review a spec the way a coding agent will misread it:
 
 ```text
-Here is our spec — requirements, design and tasks: <paste>. Find (1) requirements without a
+Here is our spec (requirements, design and tasks): <paste>. Find (1) requirements without a
 measurable acceptance criterion, (2) actions with no stated limit or approver, and (3) tasks that
 implement nothing in the requirements. Output three lists with line references.
 ```
@@ -184,4 +184,4 @@ implement nothing in the requirements. Output three lists with line references.
 | Kiro's requirements, design and tasks, with EARS | **Borrowed** | Kiro. [Specs](https://kiro.dev/docs/specs/) · [Introducing Kiro](https://kiro.dev/blog/introducing-kiro/) |
 | Spec Kit's workflow | **Borrowed** | GitHub (2025). [Spec-driven development with AI](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/). 2 September |
 | EARS | **Borrowed** | Mavin, A. et al. (2009). Easy Approach to Requirements Syntax. *IEEE RE'09* |
-| Spec-anchored on every change; the five agentic fields | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
+| Spec-anchored on every change; the five agentic fields | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |

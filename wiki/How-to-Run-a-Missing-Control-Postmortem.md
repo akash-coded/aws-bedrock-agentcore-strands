@@ -94,7 +94,7 @@ goes on the wall before anyone sits down.
    them. An unwritten question is replaced within a minute by the one everybody arrived with.
 2. **Open with the timeline in timestamps, with no sentence that needs a human subject.** "At 09:22 a
    refund of $2,000 was issued against booking PNR8841" — the passive voice is doing real work here,
-   and it is the only place in this playbook where it is welcome.
+   and it is the only place in this manual where it is welcome.
 3. **Rule the commit history out for the first forty minutes.** It answers a question you are not
    asking. It becomes legitimate evidence in move 2, for one narrow purpose: establishing *when a
    control changed*, not *who changed it*.
@@ -533,7 +533,7 @@ Refunds were at level 2: the agent acts and a person reviews afterwards.
 **A fix is a claim until it has been proven.** Dropping a level after an incident is the system
 working, not a punishment — and it is what makes the later restoration credible.
 
-The two rungs in play, in the playbook's own vocabulary:
+The two rungs in play, in the manual's own vocabulary:
 
 | Rung | Who is in the loop, and when | In this incident |
 | --- | --- | --- |

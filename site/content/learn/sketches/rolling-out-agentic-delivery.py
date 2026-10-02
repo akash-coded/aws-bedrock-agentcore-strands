@@ -62,9 +62,9 @@ def labels(s: Sk):
     marker(s, 1106, 540)
     s.worker(520, 339, look=(1, 0.4), arms=[None, (822, 436)], lean=5)
     marker(s, 826, 540)
-    s.label(250, 190, "dropped in week one,", "ink")
-    s.label(250, 250, "back in week five", "point")
-    s.note(930, 230, "each credited by name", (968, 410), "aside")
+    s.label(270, 190, "dropped in week one,", "ink")
+    s.label(270, 250, "back in week five", "point")
+    s.note(910, 230, "each credited by name", (968, 410), "aside")
 
 
 SKETCHES = [

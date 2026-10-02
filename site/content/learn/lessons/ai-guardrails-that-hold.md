@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rule in one sentence.** A limit an AI agent reads in its prompt only lowers the probability
-> of crossing it, while a limit enforced in the tool it calls, a typed, bounded parameter that raises,
-> a confirmation token the model cannot create, an identity that cannot reach what the job does not
-> need: closes the path entirely, so every consequential limit must live in code, with a test that
-> proves it refuses.
+> **The rule in short.** A limit an AI agent reads in its prompt only lowers the probability of
+> crossing it. A limit enforced in the tool it calls closes the path entirely. That means a typed, bounded
+> parameter that raises, a confirmation token the model cannot create, or an identity that cannot reach
+> what the job does not need. So every consequential limit must live in code, with a test that proves
+> it refuses.
 
 {{model:g_wall}}
 
@@ -89,7 +89,7 @@ control lives only in a prompt.*
 
 ## Where you'll use it
 
-- **In P1**, when the authority budget is set, every cap decided there gets a signature and two tests.
+- **In P1**, when the authority budget is set: every cap decided there gets a signature and two tests.
 - **In P2**, before the first bolt that writes anything.
 - **In every review of a change to a gated tool**, where two named readers check the limit, not the style.
 
@@ -111,7 +111,7 @@ credits. **Is the $50 limit a boundary, and what would make it one?**
 weeks after the money has gone. To make it a boundary: change the signature so an amount over $50
 raises, add a test that proves it raises and a test that a call without a confirmation token raises,
 require a person's approval token above the cap, and add the credit tool to the injection suite. Keep the
-sentence in the prompt too, it helps the agent behave well by default.
+sentence in the prompt too: it helps the agent behave well by default.
 
 </details>
 
@@ -119,7 +119,7 @@ sentence in the prompt too, it helps the agent behave well by default.
 
 1. **A prompt is a request; a tool's signature is a boundary**: keep both, and rely only on the second.
 2. **Six controls**: least authority, bounded tools, a human gate on money, injection defence, traceability, every layer classified.
-3. **Every control has a test** that proves it refuses, run the injection suite as a regression, not once.
+3. **Every control has a test** that proves it refuses. Run the injection suite as a regression, not once.
 
 ## FAQ
 
@@ -173,5 +173,5 @@ the line. Output: rule, prompt file, enforcing code (or NONE), and a test that p
 | Prompt injection (LLM01), excessive agency (LLM06), unbounded consumption (LLM10) | **Borrowed** | OWASP (2025). [Top 10 for LLM Applications 2025](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) |
 | Least privilege | **Borrowed** | Saltzer, J. H. & Schroeder, M. D. (1975). The protection of information in computer systems. *Proceedings of the IEEE* 63(9) |
 | Layered defences that fail when the holes line up | **Borrowed** | Reason, J. (2000). Human error: models and management. *BMJ* 320 |
-| The six controls and "a prompt is a request, a signature is a boundary" | **Original**: this playbook | [How to hold the security boundary](wiki:How-to-Hold-the-Security-Boundary) |
-| The SkyWays incident | **Illustrative**: a fictional airline | [Try the injection simulator](sim:#/toolkit/inject) |
+| The six controls and "a prompt is a request, a signature is a boundary" | **Original**: this manual | [How to hold the security boundary](wiki:How-to-Hold-the-Security-Boundary) |
+| The SkyWays incident | **Illustrative**: a fictional airline | [Try the injection test builder](sim:#/toolkit/inject) |

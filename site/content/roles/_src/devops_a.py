@@ -8,7 +8,7 @@ HEAD = {
     "tagline": "From a laptop to production, repeatably",
     "arc": ["Baseline", "Access", "Environments", "Pipeline", "Deploy", "Observe", "Protect", "Recover"],
     "intro": [
-        "Your job has not changed. Accounts, pipelines, deployments, permissions, recovery, the list "
+        "Your job has not changed. Accounts, pipelines, deployments, permissions, recovery: the list "
         "is the same list, and most of what you already know transfers intact. Three things underneath "
         "it are new, and every step below is one of them working through. The **model version is part "
         "of the environment**, so an environment can change behaviour with no deploy and no diff. The "
@@ -55,7 +55,7 @@ HEAD = {
     ),
     "reads": [
         ["How the whole lifecycle fits together", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC"],
-        ["The gateway control, in the simulator", "../simulator/#/governance/gv-gateway"],
+        ["The gateway control, in the workbench", "../simulator/#/governance/gv-gateway"],
         ["Every lever on the token bill", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill"],
     ],
 }
@@ -67,9 +67,9 @@ STEPS_A = [
  "when": "Week one, alongside discovery, before any resource exists",
  "purpose": (
    "The platform question for an agentic workload is not different in kind from any other. It is "
-   "different in *when*. Some of what this workload needs bills for **existing** rather than for use, "
+   "different in *when*. Some of what this workload needs bills for **existing** rather than for use: "
    "a classic OpenSearch Serverless collection holds a minimum capacity, an AgentCore Runtime instance "
-   "bills from boot until it is stopped, and stored long-term memory bills by the hour, so the ordinary habit of standing something up to try it and tidying up "
+   "bills from boot until it is stopped, and stored long-term memory bills by the hour. So the ordinary habit of standing something up to try it and tidying up "
    "later produces a fixed monthly charge with no feature attached to it. Four things go in before the "
    "first feature branch: an account boundary, a tag scheme that attributes cost per feature, "
    "infrastructure as code, and a budget alarm."),
@@ -123,7 +123,7 @@ STEPS_A = [
     "caution": None},
    {"tool": "Do not delegate",
     "use": "The account boundary, and what is allowed to live in production. Blast radius is a business "
-           "fact, which failures you can survive and who has to explain them, and a model has no way "
+           "fact (which failures you can survive and who has to explain them) and a model has no way "
            "to estimate it.",
     "caution": None},
  ],
@@ -548,7 +548,7 @@ ERROR, VERBATIM, plus the call site and region:
            "diff a CI step.",
     "caution": None},
    {"tool": "Chat LLM",
-    "use": "Ask what could differ between two environments that a manifest diff would *not* catch, a "
+    "use": "Ask what could differ between two environments that a manifest diff would *not* catch: a "
            "quota, a data volume, a warm cache, a partner sandbox that behaves differently under load.",
     "caution": "Its list is a prompt for your own list, not a checklist. It does not know your partners "
                "and it will not mention the one that matters."},

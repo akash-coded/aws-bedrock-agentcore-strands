@@ -50,7 +50,7 @@
    "AIDD",
    "AI-driven development",
    "The craft of building software with coding agents.",
-   ": "
+   "No single owner"
   ],
   [
    "ATAM",
@@ -62,7 +62,7 @@
    "BMAD",
    "Breakthrough Method for Agile AI-Driven Development",
    "A persona pipeline with versioned hand-offs.",
-   ": "
+   "BMad Code"
   ],
   [
    "EARS",
@@ -92,19 +92,19 @@
    "R1 to R5",
    "The risk ladder",
    "Reversible draft, reversible change, hard to reverse, money/identity/policy, irreversible.",
-   "this playbook"
+   "this manual"
   ],
   [
    "RACI",
    "Responsible, accountable, consulted, informed",
    "One accountable **name** per artefact, never a committee.",
-   " ("
+   "No single source"
   ],
   [
    "SDD",
    "Spec-driven development",
    "Maintain the spec; regenerate the code.",
-   ") "
+   "No single owner"
   ],
   [
    "TCO",
@@ -116,20 +116,20 @@
    "p^n",
    "Chained probability",
    "Steps multiply. Four steps at 90% is 66%. Length is the enemy.",
-   ": "
+   "Basic probability"
   ]
  ],
  "frameworks": [
   [
-   "The P0 to P3 spine",
+   "The four phases, P0 to P3",
    "Four phases every method walks: frame, specify, build and prove, run and learn.",
-   "Stage-gate systems (Cooper, 1990). The phase names are the playbook's.",
+   "Stage-gate systems (Cooper, 1990). The phase names are this manual's.",
    "wm"
   ],
   [
    "The requirements chain",
    "Discover, credit, consolidate, constrain, candidates, trees, workshop, ratify, name the sensitivity points.",
-   "ATAM utility trees (SEI, 2000); six-part scenarios. The chain is the playbook's.",
+   "ATAM utility trees (SEI, 2000); six-part scenarios. The chain is this manual's.",
    "wm"
   ],
   [
@@ -141,7 +141,7 @@
   [
    "The exact and best-guess map",
    "Which steps are computed in code and which are drafted by a model, with the proof each owes.",
-   "The playbook's construction.",
+   "This manual's construction.",
    "wm"
   ],
   [
@@ -153,13 +153,13 @@
   [
    "The acceptance bar",
    "bar = damage / (damage + saving), per slice. A hold lowers the damage and so the bar.",
-   "The playbook's construction.",
+   "This manual's construction.",
    "wm"
   ],
   [
    "Hard and soft gates",
    "A decision halts the phase or runs alongside it, settled by four questions.",
-   "Stage gates (Cooper, 1990). The four questions are the playbook's.",
+   "Stage gates (Cooper, 1990). The four questions are this manual's.",
    "wm"
   ],
   [
@@ -183,7 +183,7 @@
   [
    "Review by risk band",
    "Two readers, one, or the harness alone, set by what a change touches.",
-   "Little's law (Little, 1961). The banding is the playbook's.",
+   "Little's law (Little, 1961). The banding is this manual's.",
    "wm"
   ],
   [
@@ -195,7 +195,7 @@
   [
    "Decompose the bill",
    "Four signatures in the per-call log, four factors that multiply, fix order (factor − 1) ÷ days.",
-   "FinOps unit economics. The decomposition is the playbook's.",
+   "FinOps unit economics. The decomposition is this manual's.",
    "wm"
   ],
   [

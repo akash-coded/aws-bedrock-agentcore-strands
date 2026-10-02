@@ -6,7 +6,7 @@ STEPS_C = [
  "title": "Give the agent the smallest identity that can do the job",
  "when": "Before the first write tool exists, and again at every new tool",
  "purpose": (
-   "Least privilege is fifty years old, Saltzer and Schroeder set it out in 1975, and nothing about "
+   "Least privilege is fifty years old (Saltzer and Schroeder set it out in 1975) and nothing about "
    "an agent changes the principle. What changes is that the thing holding the privilege now decides "
    "for itself what to do with it, and it decides partly on text that arrived from outside. So the "
    "platform does two jobs. The first is ordinary and rigorous: separate identities for reading and "
@@ -27,7 +27,7 @@ STEPS_C = [
    {"do": "Put the cap and the approver in the tool contract and the policy",
     "detail": "A refund tool whose signature cannot express an amount above the cap cannot issue one, "
               "whatever it is told. A prompt saying *never refund more than $400* is a request, and a "
-              "request can be argued with, by a passenger, by a partner's error text, or by a model "
+              "request can be argued with: by a passenger, by a partner's error text, or by a model "
               "that has reasoned its way somewhere reasonable. This is the whole of the lesson."},
    {"do": "Control egress explicitly",
     "detail": "Private subnets with no route out except through endpoints you named: VPC endpoints for "
@@ -239,7 +239,7 @@ RULES:
    "service. You may need to roll back a **prompt** or a **model version** rather than code, so each "
    "is a versioned artefact with its own path and its own rehearsal. And the failure that costs most "
    "here is not a crash but a runaway: an agent that loops, or spends, or acts, faster than anybody is "
-   "watching. That has three controls, a loop cap, a per-transaction token and cost cap, and a kill "
+   "watching. That has three controls: a loop cap, a per-transaction token and cost cap, and a kill "
    "switch that degrades to the human desk rather than to an error page."),
  "activities": [
    {"do": "Rehearse every rollback before cut-over, with a stopwatch",
@@ -251,7 +251,7 @@ RULES:
               "the flag points at, and it does not revert a model version pinned in a manifest. Most "
               "teams have only ever tested the first, and discover the other two during the incident."},
    {"do": "Cap the loop, the tokens and the spend per transaction",
-    "detail": "`MAX_LOOPS=5` as this playbook's default, a token ceiling per case, and a cost ceiling "
+    "detail": "`MAX_LOOPS=5` as this manual's default, a token ceiling per case, and a cost ceiling "
               "per case, all enforced in the runtime and all emitting a metric when they trip. A cap "
               "that trips silently is a cap you learn about from the bill, by which time it has been "
               "holding the system together for a month."},

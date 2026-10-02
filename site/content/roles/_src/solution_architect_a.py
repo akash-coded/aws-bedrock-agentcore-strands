@@ -33,7 +33,7 @@ HEAD = {
     "not_yours": [
         "The **intent** and **release** gates. Those are the product manager's, and your name on "
         "them dilutes the two you do hold",
-        "Temperature, top-p, framework version, SDK call shape, you specify behaviours, engineering "
+        "Temperature, top-p, framework version, SDK call shape: you specify behaviours, engineering "
         "picks the knobs, and a knob in a design document is wrong at the next release",
         "The golden set's contents and the judge rubric. QA curates the cases, you place the checker",
         "Which pain is worth solving, and what a mistake costs the business",
@@ -51,7 +51,7 @@ HEAD = {
     ),
     "reads": [
         ["The wiki page for this role", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Solution-Architect"],
-        ["The same case, step by step, in the simulator", "../simulator/#/sa/step-1"],
+        ["The same case, step by step, in the workbench", "../simulator/#/sa/step-1"],
         ["Every decision tree on one page", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees"],
     ],
 }
@@ -169,7 +169,7 @@ their acceptance criteria in the wrong shape.
 ## What happens next
 Constraints sorted by type on <date>. Candidate NFRs as six-part scenarios on
 <date>. The ratification workshop on <date>. Reply if a line is wrong, missing or
-credited to the wrong person, that correction is free now and expensive in week five.
+credited to the wrong person: that correction is free now and expensive in week five.
 """},
  "prompts": [
    {"title": "Consolidate two discovery transcripts, credit intact",
@@ -285,7 +285,7 @@ list has not been consolidated tightly enough."""},
               "exists, and it belongs in the pain register. The test is whether the line names a "
               "design it rules out."},
    {"do": "Turn each regulatory constraint into a number and a place",
-    "detail": "Refunds over $400 need a named approver is a number and a location, a typed "
+    "detail": "Refunds over $400 need a named approver is a number and a location: a typed "
               "parameter and a token the model cannot mint. Left as a sentence it stays a sentence, "
               "and a sentence is what a postmortem finds missing."},
    {"do": "Write every candidate NFR in six parts",
@@ -495,7 +495,7 @@ MY CURRENT LIST:
  "title": "Tag every step exact, best-guess or consequential",
  "when": "P0, the first design artefact, and it takes an hour for one feature",
  "purpose": (
-   "The product manager sorted the feature. This is a judgement, this is arithmetic. That is right "
+   "The product manager sorted the feature: this is a judgement, this is arithmetic. That is right "
    "and it is not enough. You sort at the level of **every step**, and you add the column that "
    "decides both what gets built and how it gets proven. Exact steps are functions proven by a unit "
    "test. Best-guess steps are model calls proven by a measured share on real cases. Consequential "
@@ -520,7 +520,7 @@ MY CURRENT LIST:
    {"do": "Apply the rule that never breaks",
     "detail": "The best-guess machine never does the exact math. The model may call the function and "
               "read the result; it never computes the value it then acts on. A fluent wrong number is "
-              "the failure no prompt-level test catches, $80 when the ledger says $62."},
+              "the failure no prompt-level test catches: $80 when the ledger says $62."},
    {"do": "Grep the prompts for calculate, compute and total",
     "detail": "Each hit is a function waiting to exist. It takes ten minutes and it is the most "
               "reliably productive ten minutes available to this role."},
@@ -675,7 +675,7 @@ judgement and a calculation, or a judgement and a write.
 5. State what may pass between them, and in which direction.
 
 If it genuinely is one thing, say so, tell me which kind it is, and tell me why the
-classification felt hard, that reason is usually itself a finding."""},
+classification felt hard: that reason is usually itself a finding."""},
  ],
  "example": {
    "title": "SkyWays · the row that was worth the hour",

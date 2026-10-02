@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The plan in one sentence.** Roll out agentic delivery one feature at a time over ninety days: pick
-> a feature for provability rather than value and take a baseline (days 1 to 15); write the spec, the bars,
-> the authority budget and a context file (15 to 30); build in daily slices proven in CI (30 to 60); run it in
-> shadow beside the people doing the work, then cut over at 5% (60 to 90); and report two numbers from the
-> first cycle.
+> **The plan in short.** Roll out agentic delivery one feature at a time over ninety days. Pick a
+> feature for provability rather than value and take a baseline (days 1 to 15). Write the spec, the
+> bars, the authority budget and a context file (15 to 30). Build in daily slices proven in CI (30 to
+> 60). Run it in shadow beside the people doing the work, then cut over at 5% (60 to 90). Report two
+> numbers from the first cycle.
 
 {{map:rolling-out-agentic-delivery}}
 
@@ -83,9 +83,9 @@ the first, because the artefacts now exist to copy. [The maturity model](lesson:
 
 | What you will hear | What is underneath | What answers it |
 | --- | --- | --- |
-| "This slows us down" | True for the first feature, untrue by the third | Show the artefacts being reused, the second spec takes an hour |
+| "This slows us down" | True for the first feature, untrue by the third | Show the artefacts being reused: the second spec takes an hour |
 | "The model is good enough already" | Judged on curated examples | Ask for the score on the slice nobody picked, with its sample size |
-| "We already have gates" | Approvals, not gates, clicks without evidence | Ask what would have made the last approver say no |
+| "We already have gates" | Approvals, not gates: clicks without evidence | Ask what would have made the last approver say no |
 | "Engineering says the cap is handled" | Handled in a prompt | Ask to be shown it: prose or code decides the answer |
 | "We cannot take a baseline, we have started" | True, and recoverable on the next feature | Say so in the report, and take one next time |
 | "Our people will resist automation" | Often they resist being measured by it | Put the frontline in discovery first, and credit their requirements by name |
@@ -120,7 +120,7 @@ start with the drafts?** (Hypothetical numbers; assume the agent is right 96% of
 <details><summary>Show the answer</summary>
 
 **Because the refund slice cannot be proven inside a quarter.** Its bar is 19 ÷ 20 = 95%. Proving 95%
-when the agent is right 96% of the time needs about 1.96² × 0.96 × 0.04 ÷ 0.01² ≈ 1,475 cases, at twelve
+when the agent is right 96% of the time needs about 1.96² × 0.96 × 0.04 ÷ 0.01² ≈ 1,475 cases: at twelve
 a day, about four months of evidence before the shadow run can end. The drafts' bar is 2 ÷ 3 ≈ 67%, and at
 80% the Wilson lower bound clears it on about fifty cases. Start with the drafts, keep refunds with a
 person, and let the first feature's artefacts carry the second.
@@ -179,8 +179,8 @@ between people as open questions. Do not merge or drop anything silently.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The ninety days, their traps and signals, and the resistance table | **Original**: this playbook | [For leadership](site:protocol/) |
-| Choose the first feature for provability; the bar as damage ÷ (damage + saving) | **Original**: this playbook | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
+| The ninety days, their traps and signals, and the resistance table | **Original**: this manual | [For leadership](site:protocol/) |
+| Choose the first feature for provability; the bar as damage ÷ (damage + saving) | **Original**: this manual | [How accurate must an AI agent be?](lesson:how-accurate-must-an-ai-agent-be) |
 | The walking skeleton | **Borrowed** | Cockburn, A. (2004). *Crystal Clear*. Addison-Wesley |
 | Shadow deployment and canary release | **Borrowed**: general practice | See [Sources and Confidence](wiki:Sources-and-Confidence) |
 | Early, visible wins sustain a change programme | **Compare** | Kotter, J. P. (1995). Leading change: why transformation efforts fail. *Harvard Business Review* 73(2) |

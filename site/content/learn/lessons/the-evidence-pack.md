@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The evidence pack in one sentence.** It is the minimum set of artefacts owed at each hand-off of
-> the agentic PDLC, owed meaning the next phase would have to invent it otherwise, kept on one
-> dated index, and checked not only for whether each artefact exists and is current but for whether
-> each control it describes is **enforced in code or only written down**.
+> **The evidence pack in short.** It is the minimum set of artefacts owed at each hand-off of the
+> agentic PDLC, kept on one dated index. Owed means the next phase would have to invent it otherwise.
+> The pack is checked not only for whether each artefact exists and is current, but for whether each
+> control it describes is **enforced in code or only written down**.
 
 {{map:the-evidence-pack}}
 
@@ -37,7 +37,7 @@ The evidence pack is the **minimum artefact set** of the [agentic PDLC](lesson:w
 the few documents owed at each hand-off between phases. Together they are what you show an auditor,
 a new team member, or yourself in six months when nobody remembers why the cap is what it is.
 
-An artefact is **owed** when the next phase cannot start properly without it, the test is not whether
+An artefact is **owed** when the next phase cannot start properly without it: the test is not whether
 someone wants it, but whether the next phase would otherwise have to invent it. Everything else is
 optional: keep it if somebody reads it, delete it if not.
 
@@ -114,7 +114,7 @@ nothing. **Is the P1 → P2 gate passable?**
 
 <details><summary>Show the answer</summary>
 
-**No.** The authority budget is owed and present, but the control it describes is written only, it
+**No.** The authority budget is owed and present, but the control it describes is written only: it
 lives in a prompt, which a model can be talked past. The hard gate fails on the enforcement column.
 The fix is a typed, bounded parameter in the refund tool with two tests beside it; or, if the
 programme genuinely cannot wait, a written waiver that names this gap, its blast radius and the date
@@ -124,7 +124,7 @@ it will close.
 
 ## Key takeaways
 
-1. An artefact is **owed** when the next phase would otherwise have to invent it, thirty across four hand-offs.
+1. An artefact is **owed** when the next phase would otherwise have to invent it: thirty across four hand-offs.
 2. **Stale is the dangerous state**: date every artefact, because existence checks pass it.
 3. **"Enforced, or only written?"** is the column that turns the pack from paperwork into a gate.
 
@@ -169,7 +169,7 @@ so an internal auditor can read any team's agent in an hour.
 
 ```text
 Here is our evidence pack index: <paste>, and the repository is attached. For every control the pack
-describes — caps, redaction, gates, bars — find where it is enforced in code and quote the line.
+describes (caps, redaction, gates, bars) find where it is enforced in code and quote the line.
 Mark each: enforced with a test, enforced without a test, described only, or missing.
 ```
 
@@ -177,7 +177,7 @@ Mark each: enforced with a test, enforced without a test, described only, or mis
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The minimum artefact set, the four states and the enforcement column | **Original**: this playbook | [The Evidence Pack](wiki:The-Evidence-Pack) |
+| The minimum artefact set, the four states and the enforcement column | **Original**: this manual | [The Evidence Pack](wiki:The-Evidence-Pack) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
 | Architecture decision records | **Borrowed** | Nygard, M. (2011). Documenting architecture decisions |
 | EARS acceptance syntax | **Borrowed** | Mavin, A. et al. (2009). Easy Approach to Requirements Syntax. *IEEE RE'09* |

@@ -10,9 +10,9 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Why agentic AI projects fail, in one sentence.** They fail quietly: a model is right most of the
-> time and wrong without an error, so the checks a team already has (green tests, a working demo, a
-> rising average) keep reporting success while the value goes unmeasured, a limit lives only in a
+> **Why agentic AI projects fail, in short.** They fail quietly. A model is right most of the time
+> and wrong without an error, so the checks a team already has (green tests, a working demo, a rising
+> average) keep reporting success. Meanwhile the value goes unmeasured, a limit lives only in a
 > prompt, one slice falls below its bar, the bill multiplies and behaviour drifts.
 
 {{map:why-agentic-ai-projects-fail}}
@@ -39,12 +39,12 @@ the right things.
 In June 2025 Gartner predicted that **over 40% of agentic AI projects will be cancelled by the end of
 2027**, citing three causes: escalating costs, unclear business value and inadequate risk controls.
 All three have the same root. A model is right *a share* of the time and fails *fluently* (no
-exception, no red test, a confident wrong answer) so a failure can run for weeks before anyone
+exception, no red test, a confident wrong answer), so a failure can run for weeks before anyone
 notices, and by then it has become a cost, a doubt about value, or an incident.
 
 The seven failure modes below are how those three causes happen in practice. The examples come from
-SkyWays, a fictional airline whose rebooking assistant runs through this playbook, the numbers are
-illustrative, the shapes are real.
+SkyWays, a fictional airline whose rebooking assistant runs through this manual. The numbers are
+illustrative; the shapes are real.
 
 ## The seven failure modes, step by step
 
@@ -52,8 +52,8 @@ illustrative, the shapes are real.
 
 The request was "make rebooking smarter". A vibe cannot be sized, so the value line is a guess and,
 at the first budget review, the project cannot defend itself. **The fix** is P0's pain register: one
-line with a count, a cost and the evidence, at SkyWays, 240 disrupted passengers a day waiting 38
-minutes, at $9.40 a case. [P0 Frame](lesson:p0-frame).
+line with a count, a cost and the evidence. At SkyWays it read: 240 disrupted passengers a day
+waiting 38 minutes, at $9.40 a case. [P0 Frame](lesson:p0-frame).
 
 ### Step 2 · A model doing a rule's job
 
@@ -66,13 +66,13 @@ map, which tags every step exact, best-guess or consequential before anything is
 
 "Never refund more than $400" was in the system prompt, the design document and the autonomy record.
 It was not in the code. On day 82 a $2,000 refund went out that was not owed. A rule the model reads
-lowers a probability; a rule the code enforces closes a path. **The fix** is P1's authority budget,
+lowers a probability; a rule the code enforces closes a path. **The fix** is P1's authority budget:
 every cap a typed parameter that raises, with a test beside it. [P1 Design & Spec](lesson:p1-design-and-spec#step-3--bound-what-the-agent-may-do).
 
 ### Step 4 · The average hides the slice
 
 The overall score rose from 79% to 84%, and the team wanted to ship. The codeshare slice had fallen
-from 81% to 77% against a bar of 80, the easy, high-volume cases had lifted the average over the
+from 81% to 77% against a bar of 80: the easy, high-volume cases had lifted the average over the
 hard ones. **The fix** is a bar for each slice and a readout that has no overall number at all.
 [P2 Build & Prove](lesson:p2-build-and-prove).
 
@@ -85,7 +85,7 @@ report the lower bound, never the score, and to say how many more cases a slice 
 
 ### Step 6 · A bill that multiplies
 
-On day 75 the bill was 4.4 times its estimate, with traffic flat. There was no runaway: four ordinary
+On day 75 the bill was 4.4 times its estimate, with traffic flat. There was no runaway. Four ordinary
 habits multiplied: context resent on every turn (×1.6), the capable model used for easy calls
 (×1.5), a cache that stopped hitting (×1.3) and extra attempts per case (about ×1.4). **The fix** is a per-call log and a
 cost loop that returns to the design, not to finance. [P3 Run & Learn](lesson:p3-run-and-learn).
@@ -187,8 +187,8 @@ each, name the earliest signal we would have seen and the check that would have 
 | Idea | Origin | Source |
 | --- | --- | --- |
 | Over 40% of agentic AI projects cancelled by 2027, and the three causes | **Borrowed** | Gartner (2025). [Press release, 25 June](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) |
-| The seven failure modes and the phase that catches each | **Original**: this playbook | [Anti-Patterns](wiki:Anti-Patterns) |
-| Exact, best-guess and consequential steps | **Original**: this playbook | [Solution architect, step 3](site:solution-architect/) |
-| A rule the code enforces versus a rule the model reads | **Original**: this playbook | [Mental Models](wiki:Mental-Models#a-prompt-is-a-request-a-signature-is-a-boundary) |
+| The seven failure modes and the phase that catches each | **Original**: this manual | [Anti-Patterns](wiki:Anti-Patterns) |
+| Exact, best-guess and consequential steps | **Original**: this manual | [Solution architect, step 3](site:solution-architect/) |
+| A rule the code enforces versus a rule the model reads | **Original**: this manual | [Mental Models](wiki:Mental-Models#a-prompt-is-a-request-a-signature-is-a-boundary) |
 | Lower bound of a proportion | **Borrowed** | Wilson, E. B. (1927). *Journal of the American Statistical Association* 22, worked in [Formulas](wiki:Formulas-and-Calculators#the-lower-bound-of-a-score--established-wilson-1927) |
-| The SkyWays numbers | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays numbers | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

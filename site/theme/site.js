@@ -184,6 +184,21 @@
     });
   }
 
-  function init() { wireTheme(); wireLive(); wireCopy(); wireSteps(); wireExpand(); wireProgress(); wirePicks(); }
+  /* A long rail opens on the page you are on, not at its top. Wide screens: the rail's own scroll is set,
+     once, with no motion. Phones: the folded list scrolls to the current lesson when it is opened. */
+  function wireRail() {
+    var cur = document.querySelector(".rail [aria-current]");
+    if (!cur) return;
+    var rail = cur.closest(".rail");
+    if (rail && rail.scrollHeight > rail.clientHeight + 4) {
+      rail.scrollTop = Math.max(0, cur.getBoundingClientRect().top - rail.getBoundingClientRect().top + rail.scrollTop - rail.clientHeight / 2);
+    }
+    var fold = cur.closest("details.lnav");
+    if (fold) fold.addEventListener("toggle", function () {
+      if (fold.open && rail && rail.scrollHeight <= rail.clientHeight + 4) cur.scrollIntoView({ block: "center" });
+    });
+  }
+
+  function init() { wireTheme(); wireLive(); wireCopy(); wireSteps(); wireExpand(); wireProgress(); wirePicks(); wireRail(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

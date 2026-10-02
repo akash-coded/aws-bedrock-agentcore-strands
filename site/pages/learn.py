@@ -261,10 +261,10 @@ def _visuals() -> dict[str, dict]:
                               "from R1 reviewed at the end to R5 not delegated", "frameworks/"),
         "frameworks:chain": (illos.chain, "Chained steps multiply: each right 90% of the time, six steps are right "
                              "53% of the time", "frameworks/"),
-        "frameworks:methods": (illos.methods, "Four methods on one spine: SDD, BMAD, AI-DLC and AIDD, filled where "
+        "frameworks:methods": (illos.methods, "Four methods on one lifecycle: SDD, BMAD, AI-DLC and AIDD, filled where "
                                "each speaks to a phase and dashed where it is silent", "frameworks/"),
         "frameworks:merge": (illos.merge, "How the four methods merge into the SkyWays PDLC: the parts of SDD, BMAD, "
-                             "AI-DLC and AIDD placed in the phase each serves, flowing into the spine, and the row "
+                             "AI-DLC and AIDD placed in the phase each serves, flowing into the four phases, and the row "
                              "of devices the SkyWays PDLC adds", "frameworks/"),
         "home:tower": (illos.tower, "The lifecycle flown as a loop: four runway segments P0 Frame, P1 Design and "
                        "Spec, P2 Build and Prove and P3 Run and Learn, one hard gate, four planes and the control "
@@ -839,7 +839,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     html_ = f"""<div class="cols lcols">
 {_rail(tracks, les.slug)}
 <main id="main" class="lesson">
-  <h1 style="view-transition-name:l-{les.slug}">{_E(les.title)}</h1>
+  <h1>{_E(les.title)}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
   <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
   {_toc(les.body)}
@@ -881,7 +881,7 @@ def _days() -> dict[str, int]:
 def _cards(t: Track) -> str:
     return "".join(
         f'<li><a class="lc" href="../{l.slug}/"><span class="lcn">{l.n}</span><span class="lcb">'
-        f'<b style="view-transition-name:l-{l.slug}">{_E(l.title)}</b><span>{_E(l.description)}</span>'
+        f'<b>{_E(l.title)}</b><span>{_E(l.description)}</span>'
         f'<small>{minutes(l.body)} min · {l.level}</small></span></a></li>' for l in t.lessons)
 
 
@@ -980,8 +980,11 @@ def site_markdown(les: Lesson, lessons, tracks) -> str:
         if not d:
             return line
         k = f"{d.group(1)}:{d.group(2)}"
-        if d.group(1) == "sketch":          # a sketch is drawn on the page; in plain text it is its caption and its scene
+        if d.group(1) == "sketch":          # a sketch is drawn on the page; here it is its picture and its caption
             sp = sketches()[d.group(2)]
+            shot = f"{shot_name(k)}.light.webp"
+            if (SITE / "assets" / "learn" / shot).exists():
+                return f"![{sp['alt']}]({SHOTS}{shot})\n\n*{sp['caption']}*"
             return f"> *Sketch.* {sp['caption']} ({sp['alt']})"
         return f"![{_visuals()[k]['alt']}]({SHOTS}{shot_name(k)}.light.webp)"
 
@@ -1056,10 +1059,14 @@ def shots_page(out: Path, shell) -> str:
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
     import wiki_pictures
-    wanted = [k for k in reg if not k.startswith("sketch:")]  # every picture but the sketches, so the picture pack has all of them
-    cells = "".join(
-        f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:", "wikimap:", "poster:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
-        f'{reg[k]["draw"]()}</div>' for k in wanted)
+    def cell(k: str) -> str:
+        if k.startswith("sketch:"):         # the sheet of paper alone, once: it is the same sheet in both themes
+            return f'<div class="shot sheet" data-shot="{shot_name(k)}" data-clip=".sk-paper" data-once>{reg[k]["draw"]()}</div>'
+        kind = ("wide" if k.startswith(("board:", "frameworks:", "map:", "wikimap:", "poster:"))
+                else "model" if k.startswith("model:") else "narrow")
+        return f'<div class="shot {kind}" data-shot="{shot_name(k)}">{reg[k]["draw"]()}</div>'
+
+    cells = "".join(cell(k) for k in reg)       # every picture, so the picture pack has all of them
     body = f'<main id="main" class="shots">{cells}</main>'
     html_ = shell(title="shots", desc="Screenshot sheet. Not for readers.", body=body, depth=2, nav_id="",
                   canonical=f"{BASE_URL}learn/", head_extra='<meta name="robots" content="noindex">', own_ld=True)
@@ -1115,21 +1122,21 @@ def llms_txt(tracks: list[Track]) -> str:
               f"(markdown: {WIKI}/Journey-Product-Manager)",
               f"- [Solution architect]({BASE_URL}solution-architect/): from requirements to a system that holds "
               f"(markdown: {WIKI}/Journey-Solution-Architect)",
-              f"- [Engineering lead]({BASE_URL}engineering/): from a story file to a shipped bolt "
+              f"- [Engineering lead]({BASE_URL}engineering/): from a written task to code that ships "
               f"(markdown: {WIKI}/Journey-Engineering-Lead)",
-              f"- [QA lead]({BASE_URL}qa/): from 'it works' to a number you can defend (markdown: {WIKI}/Journey-QA-Lead)",
+              f"- [QA lead]({BASE_URL}qa/): from 'it works' to proof that it works (markdown: {WIKI}/Journey-QA-Lead)",
               f"- [DevOps and platform]({BASE_URL}devops/): from a laptop to production, repeatably "
               f"(markdown: {WIKI}/Journey-DevOps)", "",
               "## Reference", "",
               f"- [The operating protocol]({BASE_URL}protocol/): for whoever funds the work; the four decisions only leadership can make",
               f"- [Twelve mental models]({BASE_URL}models/): what each predicts, the mistake it prevents, and a test for whether it landed",
-              f"- [Frameworks, acronyms and the pictures]({BASE_URL}frameworks/): AI-DLC, AIDD, BMAD and SDD placed on one spine",
+              f"- [Frameworks, acronyms and the pictures]({BASE_URL}frameworks/): AI-DLC, AIDD, BMAD and SDD placed on one lifecycle",
               f"- [Templates]({BASE_URL}templates/) and [prompts]({BASE_URL}prompts/): every artefact skeleton and every prompt, copyable",
               f"- [The wiki]({WIKI}): the method written down, with decision trees, formulas, scenarios and exercises", "",
               "## Optional", "",
               f"- [The method on one page]({BASE_URL}method/): the four phases, the eight loops, each role across the phases, and what a model may draft, as four boards",
               f"- [Home]({BASE_URL}): what the manual is, the four methods on one line, and a way in by role",
-              f"- [The SkyWays playbook]({BASE_URL}simulator/): ninety days of one airline's agentic build, playable",
+              f"- [Ninety Days, the simulator]({BASE_URL}simulator/): ninety days of one airline's agentic build, as a game",
               f"- [Source repository]({REPO}): curriculum, labs and this tutorial's source", ""]
     return "\n".join(lines)
 

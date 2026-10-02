@@ -10,9 +10,9 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **P2 in one sentence.** P2 Build & Prove builds the agent in **bolts** (slices of hours or days,
-> one risk each) puts every exact step in tested code, measures every best-guess step against its bar
-> on a golden set in CI so that a merge dropping any slice below its bar is blocked, and ends with a
+> **P2 in short.** P2 Build & Prove builds the agent in **bolts** (slices of hours or days, one risk
+> each) and puts every exact step in tested code. It measures every best-guess step against its bar
+> on a golden set in CI, so that a merge dropping any slice below its bar is blocked. It ends with a
 > **shadow run** in which the agent works beside the live process without acting.
 
 {{figure:bolt_days}}
@@ -65,7 +65,7 @@ confirmation the model cannot create for itself.
 ### Step 3 · Measure every slice against its bar
 
 The golden set is the acceptance bar made executable: real past cases, each with the expected
-outcome and a slice tag, fifty to start, five hundred to trust. A harness runs it in CI as a
+outcome and a slice tag. Fifty to start, five hundred to trust. A harness runs it in CI as a
 required check, in cost order, so the cheap definitive checks reject before you pay for a judge:
 
 {{map:p2-build-and-prove}}
@@ -81,7 +81,7 @@ bar of 80, but the lower bound was 79.1%, so the slice was not yet proven and ow
 
 Chained steps multiply: four steps at 90% each are right 66% of the time end to end. Keep the chain
 short, then put a checker after each step where a wrong answer is expensive, and make it
-**independent**, a different model or a fresh context with an adversarial brief. At SkyWays a
+**independent**: a different model or a fresh context with an adversarial brief. At SkyWays a
 "review your answer before returning it" step changed no scores and raised the bill by a fifth,
 because the model was grading its own work with its own reasoning still in view.
 
@@ -118,7 +118,7 @@ bar 50%), codeshare **86% → 80%** (n = 500, bar 80%), refunds unchanged. The o
 
 <details><summary>Show the answer</summary>
 
-**No.** Codeshare was proven before, the lower bound of 86% on 500 cases is about 83%, and now it is
+**No.** Codeshare was proven before (the lower bound of 86% on 500 cases is about 83%) and now it is
 not: 80% sits exactly on the bar as a point estimate, but its lower bound on 500 cases is about 76%. The harness should reject the merge regardless of the rise in the overall score,
 which is the easy, high-volume slice lifting the average over the hard one.
 
@@ -154,14 +154,14 @@ traffic you did not think to put in the golden set.
 ### What is a bolt in agile?
 
 A bolt is a work cycle of hours or days that replaces the sprint as the unit of planning when AI does
-much of the building. The term comes from AWS's AI-Driven Development Life Cycle; this playbook adds
+much of the building. The term comes from AWS's AI-Driven Development Life Cycle; this manual adds
 the rule that each bolt carries exactly one unknown.
 
 ## Apply it in your role
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Ship a walking skeleton in the customer's environment on day one, their authentication, their data, no model. Integration is where engagements stall. | Ask a coding agent to scaffold the skeleton against the customer's API specification, with contract tests. |
+| **A forward-deployed engineer** | Ship a walking skeleton in the customer's environment on day one: their authentication, their data, no model. Integration is where engagements stall. | Ask a coding agent to scaffold the skeleton against the customer's API specification, with contract tests. |
 | **A product manager or FDPM** | Read the per-slice report, never only the average. A merge that lifts the average and drops a slice is rejected, and you should be able to say why. | Ask a model to explain each failed harness run in one sentence for the stakeholder update. |
 | **A GenAI or agentic AI engineer** | Make the harness a required check with a bar per slice, and put an independent checker after every risky best-guess step. | Have a coding agent write the harness from the golden-set schema, failing on any touched slice below its bar. |
 
@@ -181,11 +181,11 @@ checker>, and compute score, n and the lower bound: p − 1.96·√(p(1−p)/n),
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Bolts of hours or days | **Adapted**: one unknown per bolt is this playbook's rule | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
+| Bolts of hours or days | **Adapted**: one unknown per bolt is this manual's rule | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
 | The walking skeleton | **Borrowed** | Cockburn, A. (2004). *Crystal Clear*. Addison-Wesley |
 | Risk-first ordering | **Borrowed** | Boehm, B. (1988). A spiral model of software development and enhancement. *Computer* 21(5) |
-| The harness in cost order, per-slice gating and the checker rules | **Original**: this playbook | [QA lead](site:qa/) · [Engineering lead](site:engineering/) |
-| Lower bound of a proportion | **Borrowed** | Wilson, E. B. (1927). *JASA* 22: worked in [Formulas](wiki:Formulas-and-Calculators#the-lower-bound-of-a-score--established-wilson-1927) |
+| The harness in cost order, per-slice gating and the checker rules | **Original**: this manual | [QA lead](site:qa/) · [Engineering lead](site:engineering/) |
+| Lower bound of a proportion | **Borrowed** | Wilson, E. B. (1927). *JASA* 22. Worked in [Formulas](wiki:Formulas-and-Calculators#the-lower-bound-of-a-score--established-wilson-1927) |
 | Stratified samples, one per slice | **Borrowed** | Neyman, J. (1934). *Journal of the Royal Statistical Society* 97(4) |
 | Shadow deployment and canary release | **Borrowed** | General practice; see [Shadow, then five percent](site:qa/#shadow) |
-| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

@@ -77,11 +77,17 @@ try {
     await evaluate(`document.documentElement.setAttribute("data-theme", ${JSON.stringify(theme)}); true`);
     await evaluate(`document.fonts.ready.then(() => true)`);
     await sleep(600);
+    // A cell may name the part of itself to capture (data-clip), and may ask to be captured once, in the
+    // light pass only (data-once): a sketch's sheet of paper is the same in both themes.
     const shots = await evaluate(`[...document.querySelectorAll(".shot")].map(el => {
-      const r = el.getBoundingClientRect();
-      return { name: el.dataset.shot, x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height };
+      const box = el.dataset.clip ? el.querySelector(el.dataset.clip) || el : el;
+      const r = box.getBoundingClientRect();
+      return { name: el.dataset.shot, once: "once" in el.dataset, x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height };
     })`);
+    const only = (process.env.ONLY || "").split(",").filter(Boolean);
     for (const s of shots) {
+      if (s.once && theme !== "light") continue;
+      if (only.length && !only.some((o) => s.name.startsWith(o))) continue;
       const { data } = await send("Page.captureScreenshot", {
         format: "webp", quality: 90, captureBeyondViewport: true,
         clip: { x: s.x, y: s.y, width: s.w, height: s.h, scale: 1 },

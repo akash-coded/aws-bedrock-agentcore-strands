@@ -74,7 +74,7 @@ _Window: <start> to <end> (<n> days, fixed on <date> before the run) · Owner: <
 |-------|--------------------|--------|-----------|-----------|------|
 | <same-day> | <n> | <n> | <n>% | 95% | |
 | <codeshare> | <n> | <n> | <n>% | 95% | |
-| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | — |
+| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | n/a |
 
 **Money actions are excluded from automatic agreement and remain gated regardless of
 what this table says.** Every other threshold here is tunable; that one is not.
@@ -87,7 +87,7 @@ Any slice under <n> compared decisions is **unproven**, not failed. Say which.
 | no write call from the shadow path | <the nightly job> | <date> |
 | shadow decisions land in <the log>, not <the ledger> | <the nightly job> | <date> |
 
-## Disagreements, themes, not cases
+## Disagreements: themes, not cases
 | Theme | Count | Agent right / desk right / ambiguous | What it changes |
 |-------|-------|--------------------------------------|-----------------|
 | <theme> | <n> | <which> | <golden cases / rubric line / spec defect / nothing> |
@@ -142,7 +142,7 @@ Our slices: <list>. Our decisions are logged at: <where>. Cases per day: <n>."""
 
 1. Cluster them into at most 6 themes. Name each in plain words, no jargon.
 2. For each theme, mark it AGENT RIGHT / DESK RIGHT / GENUINELY AMBIGUOUS, with the
-   reason. Do NOT treat the desk as ground truth, say so when the desk was wrong.
+   reason. Do NOT treat the desk as ground truth: say so when the desk was wrong.
 3. Rank the themes by the estimated cost of being wrong, not by how often they occur.
 4. For each theme, say what it changes: a golden case, a rubric line, a spec defect,
    or nothing.
@@ -177,8 +177,7 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
  ],
  "example": {
    "title": "SkyWays · 96% that was not a pass",
-   "body": "The shadow run cleared its threshold, **96%** agreement over fourteen days against a 95% "
-           "default, and the room wanted the expansion gate opened. Inside that 96%, the agent had "
+   "body": "The shadow run cleared its threshold (**96%** agreement over fourteen days against a 95% default) and the room wanted the expansion gate opened. Inside that 96%, the agent had "
            "disagreed with the desk on **four of eleven** refund decisions, which is **64%** agreement "
            "on the slice that moves money. Two things were wrong and only one of them was the number. "
            "Eleven cases cannot conclude anything about refunds in either direction, so the honest "
@@ -190,7 +189,7 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
    "Reading the aggregate. The slice with the money in it is the small one, and small slices disappear "
    "into averages exactly when it matters most.",
    "A three-day window as a formality. It holds no weekend and no disruption day, so it buys false "
-   "confidence at full price, and worse than no shadow run, because a number is quotable.",
+   "confidence at full price. That is worse than no shadow run, because a number is quotable.",
    "Promising a cut-over date before doing the division. At 5% of 240 cases a day you see twelve a "
    "day, so a 500-case slice needs 42 days, and nobody who promised a fortnight had run the numbers.",
  ],
@@ -280,7 +279,7 @@ _Baseline frozen <date> from <source> · Owner: <name>_
 **Two thresholds, because one is not enough.**
 - Step: alert at **5pp** week over week. Catches a jump.
 - Level: alert at **10pp** against the frozen baseline. Catches the slow slide that a
-  week-over-week rule never fires on, under 2pp a week moves 13pp in seven weeks.
+  week-over-week rule never fires on: under 2pp a week moves 13pp in seven weeks.
 
 A drift alert **re-opens the release gate automatically**. Last triggered: <date / never>.
 Baseline re-frozen only by <name>, and never to make an alert go away.
@@ -307,8 +306,8 @@ request, and a model can be talked past a request.
 **3 · The fix**
 | Proposal | Closes the path, or lowers the probability? |
 |----------|--------------------------------------------|
-| <reword the prompt> | lowers the probability, the next attempt is worded differently |
-| <add an alert> | neither, that is detection, not prevention |
+| <reword the prompt> | lowers the probability: the next attempt is worded differently |
+| <add an alert> | neither: that is detection, not prevention |
 | **<cap and confirmation token in the tool signature>** | **closes the path** |
 
 **4 · Autonomy**
@@ -384,7 +383,7 @@ RULES:
 - The expected outcome is a refusal or an escalation with a REASON CODE. Never
   "behaves sensibly" and never a sentence of prose.
 - Tag every case with the slice whose bar it belongs to. If it belongs to no existing
-  slice, say so, the incident may have revealed that the slice list is wrong.
+  slice, say so: the incident may have revealed that the slice list is wrong.
 - Do not invent facts the write-up does not contain. Mark them <unknown>.
 
 INCIDENT AND FIX:

@@ -1,4 +1,4 @@
-/* SkyWays Architect · site frame.
+/* The SkyWays workbench · site frame.
    Layered onto the tool at build time by site/build.py. It adds attribution, the licence notice and
    disclaimer, the invitation to the ideas thread, and a contact form. Everything it creates is appended
    to the end of <body> with an "sw-" prefix; it never reads or changes the tool's own DOM or state. */
@@ -8,7 +8,7 @@
   var links = cfg.links || {};
   var contact = cfg.contact || {};
   var author = cfg.author || "Akash Das";
-  var siteName = cfg.siteName || "SkyWays Architect";
+  var siteName = cfg.siteName || "The SkyWays workbench";
   var year = cfg.year || new Date().getFullYear();
 
   function h(tag, attrs, kids) {
@@ -28,7 +28,7 @@
   function a(href, text) { return '<a href="' + href + '" target="_blank" rel="noopener">' + text + "</a>"; }
 
   function mailtoHref(d) {
-    var subject = "[SkyWays Architect] " + (d.topic || "message") + " from " + (d.name || "a visitor");
+    var subject = "[SkyWays workbench] " + (d.topic || "message") + " from " + (d.name || "a visitor");
     var body = (d.message || "") + "\n\n-- \n" + (d.name || "") + (d.email ? " <" + d.email + ">" : "") +
       "\nsent from " + location.href;
     return "mailto:" + address() + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
@@ -39,7 +39,7 @@
     var f = h("section", { "class": "sw-footer", id: "sw-about", "aria-label": "About this site" });  // a section, not a footer: the tool has its own contentinfo landmark
     f.innerHTML =
       '<div class="sw-wrap">' +
-      "<section><h2>About this tool</h2>" +
+      "<section><h2>About the workbench</h2>" +
       '<p><span class="sw-name">' + siteName + '</span> is a product of <span class="sw-name">SkyWays Consultancy</span>, ' +
       'conceptualised and built by <span class="sw-name">' + author + "</span>: the published agentic methods, in-house " +
       "innovation and R&amp;D, and how forward-deployed teams and product leaders actually run their projects, brought " +
@@ -51,7 +51,7 @@
       "you decide anything. This site is not affiliated with, sponsored by or endorsed by Amazon Web Services or any " +
       "airline, and is provided as is, without warranty of any kind.</div></section>" +
       (links.manual ?
-        "<section><h2>The manual around this tool</h2>" +
+        "<section><h2>The manual around it</h2>" +
         '<p>This workbench is the hands-on part of <a href="' + links.manual + '">The agentic manual</a>: the same ' +
         "method as a tutorial, five role journeys, the templates, the prompts and the pictures.</p><ul>" +
         '<li><a href="' + links.manual + '">&#8592; Back to the manual</a></li>' +
@@ -107,7 +107,7 @@
     var body = { name: d.name, email: d.email, topic: d.topic, message: d.message,
       page: location.pathname + location.hash, website: "",
       subject: "[SkyWays] " + d.topic + " from " + d.name, from_name: d.name || "The SkyWays site",
-      _subject: "[SkyWays Architect] " + d.topic + " from " + d.name };
+      _subject: "[SkyWays workbench] " + d.topic + " from " + d.name };
     if (contact.accessKey) body.access_key = contact.accessKey;
     sendBtn.disabled = true;
     setStatus("", ["Sending…"]);
@@ -121,7 +121,7 @@
       if (x.r.status === 429) throw new Error(x.j.error || "too many messages from this network right now; try again in ten minutes");
       if (!x.r.ok || x.j.ok === false || x.j.success === false) throw new Error(x.j.error || x.j.message || ("HTTP " + x.r.status));
       form.reset();
-      setStatus("ok", ["Sent. Thank you — every message is read, and the ones that need a reply get one."]);
+      setStatus("ok", ["Sent. Thank you. Every message is read, and the ones that need a reply get one."]);
     }).catch(function (err) {
       setStatus("err", ["That did not go through (" + (err && err.message ? err.message : "network error") + "). You can ",
         mailLink(d, "send it from your mail app"), " instead, or post it in the ",
@@ -180,39 +180,6 @@
     if (opener && opener.focus) opener.focus();
   }
 
-  /* ---------- the way back: a strip above the tool and a pill that never scrolls away ---------- */
-  // one arrow points back at the manual, one forward into it; both decorative, the text carries the meaning
-  var BACK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>';
-  var GO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
-  function strip() {
-    var s = h("div", { "class": "sw-strip", role: "navigation", "aria-label": "The agentic manual" });
-    s.appendChild(h("a", { "class": "sw-strip-back", href: links.manual }, [
-      h("span", { "class": "sw-ic", html: BACK }),
-      h("span", { "class": "sw-long", text: "Back to the agentic manual" }),
-      h("span", { "class": "sw-short", text: "The manual" })]));
-    s.appendChild(h("span", { "class": "sw-strip-here", text: "You are in the workbench. Straight to a part of the manual:" }));
-    var pages = h("span", { "class": "sw-strip-links" });
-    (links.manualPages || []).forEach(function (p) {
-      pages.appendChild(h("a", { href: p[1] }, [p[0], h("span", { "class": "sw-ic sw-go", html: GO })]));
-    });
-    s.appendChild(pages);
-    return s;
-  }
-  // A "Manual" chip beside the tool's Home chip, and a first row in its phone menu: the way back sits where
-  // the tool's own navigation is, instead of floating over its content.
-  function navChip() {
-    var right = document.querySelector("#topnav .xright");
-    if (right && !document.querySelector("#topnav .sw-manual")) {
-      var chip = h("a", { "class": "xpill sw-manual", href: links.manual, title: "Back to the agentic manual", "aria-label": "Back to the agentic manual" }, [
-        h("span", { "class": "sw-ic", html: BACK }), h("span", { text: "Manual" })]);
-      var burger = right.querySelector("#xburger");
-      if (burger) burger.before(chip); else right.appendChild(chip);
-    }
-    var sheet = document.querySelector("#xsheet .sh");
-    if (sheet && !document.querySelector("#xsheet .sw-sheet-back")) {
-      sheet.after(h("a", { "class": "sw-sheet-back", href: links.manual }, [h("span", { "class": "sw-ic", html: BACK }), "Back to the agentic manual"]));
-    }
-  }
   function topButton() {
     var b = h("button", { "class": "sw-top", type: "button", title: "Back to top", "aria-label": "Back to top",
       html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6"/><path d="m5 12 7-7 7 7"/></svg>' });
@@ -227,38 +194,13 @@
     window.addEventListener("scroll", function () { if (tick) return; tick = setTimeout(function () { tick = null; update(); }, 80); }, { passive: true });
     document.body.appendChild(b); update();
   }
-  function backPill() {
-    // a landmark of its own, so the pill is reachable by region as well as by tab
-    return h("nav", { "class": "sw-backnav", "aria-label": "Back to the agentic manual" }, [
-      h("a", { "class": "sw-back", href: links.manual, "aria-label": "Back to the agentic manual" }, [
-        h("span", { "class": "sw-ic", html: BACK }),
-        h("span", { "class": "sw-long", text: "Back to the manual" }),
-        h("span", { "class": "sw-short", text: "Manual" })])]);
-  }
-
   function build() {
     if (document.getElementById("sw-about")) return;
     // Manual pages ship their own footer and navigation; there we contribute only the pill and the drawer.
+    // The workbench has its own top bar, with the way back to the manual in it, so the frame adds no strip above it.
     var framed = !document.querySelector("[data-site-footer]");
     if (framed) {
       document.documentElement.classList.add("sw-framed");
-      if (links.manual) {
-        var s = strip();
-        document.body.insertBefore(s, document.body.firstChild);
-        navChip();
-        // The tool positions its "Show menu" button from the top of the viewport, where the strip now is
-        // until it scrolls away. --sw-top is the strip's visible height, and frame.css adds it to that offset.
-        var pending = false;
-        var publish = function () {
-          pending = false;
-          var b = s.getBoundingClientRect().bottom;
-          document.documentElement.style.setProperty("--sw-top", (b > 0 ? Math.round(b) : 0) + "px");
-        };
-        var onScroll = function () { if (!pending) { pending = true; requestAnimationFrame(publish); } };
-        addEventListener("scroll", onScroll, { passive: true });
-        addEventListener("resize", onScroll, { passive: true });
-        publish();
-      }
       document.body.appendChild(footer());
     }
     buildDrawer();

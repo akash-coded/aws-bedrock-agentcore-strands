@@ -10,9 +10,9 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in one sentence.** A forward deployed engineer (FDE) is a software engineer who embeds with
-> a customer to make a complex product work in the customer's own environment (owning discovery,
-> scoping, build and rollout) and who carries the patterns they find back into the product. The role
+> **The role in short.** A forward deployed engineer (FDE) is a software engineer who embeds with a
+> customer to make a complex product work in the customer's own environment. The FDE owns discovery,
+> scoping, build and rollout, and carries the patterns they find back into the product. The role
 > began at Palantir in the early 2010s; frontier AI labs such as OpenAI and Anthropic now hire FDEs to put
 > models into production with their most strategic customers.
 
@@ -62,7 +62,7 @@ access, data access, security review) start on day one, because they set the cal
 ### Step 2 · Scope the smallest thing that can be proven
 
 An FDE says no more than most engineers: to the flagship first feature, to building past an unsigned
-autonomy decision, to meetings that produce no artefact. The first slice is chosen for provability,
+autonomy decision, to meetings that produce no artefact. The first slice is chosen for provability:
 high volume, low damage per mistake, an existing process to compare against.
 
 ### Step 3 · Build in their stack, with their people
@@ -79,8 +79,6 @@ compares the agent with their staff. An FDE's claims are the customer's numbers,
 
 The engagement ends with an evidence pack, runbooks and named owners, and, back at the vendor, with the
 patterns written up: the connector built for the third time, the evaluation that exposed a model gap.
-
-{{sketch:the-third-adaptor-goes-home}}
 
 ## How is an FDE different from a solutions architect?
 

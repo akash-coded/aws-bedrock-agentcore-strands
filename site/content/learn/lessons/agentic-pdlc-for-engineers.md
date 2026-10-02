@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in one sentence.** In the agentic PDLC the engineering lead writes the context file every
-> coding agent reads, builds each bolt from a story file, puts every number the product acts on in
-> tested code, enforces every limit in a tool's signature, wires the harness that blocks a merge when a
-> slice falls below its bar, and ships a slice a day, letting the model type, never letting it hold the
-> boundary.
+> **The role in short.** In the agentic PDLC the engineering lead writes the context file every
+> coding agent reads and builds each bolt from a story file. The lead puts every number the product
+> acts on in tested code and enforces every limit in a tool's signature. The lead wires the harness that blocks
+> a merge when a slice falls below its bar. The lead ships a slice a day, letting the model type and
+> never letting it hold the boundary.
 
 {{map:agentic-pdlc-for-engineers}}
 
@@ -49,11 +49,9 @@ cannot cross, and the check that decides whether what it built may merge.
 You read the brief and start nothing. An engineer who starts building in P0 is building the prototype
 the requirements will later be written around.
 
-{{sketch:order-written-from-the-jacket}}
-
 ### P1 · Design & Spec
 
-**1 · Prepare** the context file every coding tool reads, stack, context layers by path, conventions,
+**1 · Prepare** the context file every coding tool reads: stack, context layers by path, conventions,
 commands that have actually been run, a never-touch list. An hour's work, and the biggest quality lever
 you have. [AIDD's five habits](lesson:what-is-aidd)
 
@@ -77,10 +75,10 @@ from. [Why the bill is 4×](lesson:ai-agent-costs)
 
 | Yours to own | Not yours |
 | --- | --- |
-| The context file, and the story file every bolt is built from | The bolt cut, the architect's; you say whether each bolt can be built alone |
-| The deterministic floor: every acted-on number is a tested function | The acceptance bar, the product manager derives it; you make it run |
-| The boundary: caps and confirmation tokens in signatures | The golden set's contents and the judge rubric. QA's |
-| The harness in CI, and the per-slice rule that blocks a merge | The cut-over and widening, you build the flag; the PM throws it |
+| The context file, and the story file every bolt is built from | The bolt cut: the architect's; you say whether each bolt can be built alone |
+| The deterministic floor: every acted-on number is a tested function | The acceptance bar: the product manager derives it; you make it run |
+| The boundary: caps and confirmation tokens in signatures | The golden set's contents and the judge rubric: QA's |
+| The harness in CI, and the per-slice rule that blocks a merge | The cut-over and widening: you build the flag; the PM throws it |
 | Build order within the cut, integrated the same day, and the ledger | |
 
 ## How to use a model in this role
@@ -171,7 +169,7 @@ what "right" means for a step.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The engineering lead's eight steps, owns and not-yours | **Original**: this playbook | [Engineering lead, end to end](site:engineering/) · [Role: Engineering lead](wiki:Role-Engineering-Lead) |
-| The shift: stop treating a prompt rule as a control | **Original**: this playbook | [For leadership](site:protocol/) |
+| The engineering lead's eight steps, owns and not-yours | **Original**: this manual | [Engineering lead, end to end](site:engineering/) · [Role: Engineering lead](wiki:Role-Engineering-Lead) |
+| The shift: stop treating a prompt rule as a control | **Original**: this manual | [For leadership](site:protocol/) |
 | The walking skeleton | **Borrowed** | Cockburn, A. (2004). *Crystal Clear*. Addison-Wesley |
 | The SkyWays examples | **Illustrative**: a fictional airline | [Journey: Engineering lead](wiki:Journey-Engineering-Lead) |

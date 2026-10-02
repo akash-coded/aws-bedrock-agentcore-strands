@@ -130,7 +130,7 @@ Rules:
 - Set the level from cost-of-mistake and reversibility ONLY. Ignore how capable the model is.
 - Anything involving money, identity or a regulatory commitment defaults to "named approver".
 - Anything irreversible defaults to "not delegated".
-- Where you do not know our costs, write UNKNOWN, do not estimate.
+- Where you do not know our costs, write UNKNOWN. Do not estimate.
 
 Then list the questions I must answer before this table can be signed."""},
    {"title": "Pressure-test an autonomy level",
@@ -142,7 +142,7 @@ Act as a sceptical risk reviewer. Tell me:
 1. What sample size would be needed to support that claim, given the bar for this action?
    (bar = damage / (damage + saving); show the arithmetic)
 2. What the lower bound of the observed success rate actually is at the sample size we have.
-3. What is the DOOR, if we raise it and it goes wrong, how fast can we go back?
+3. What is the DOOR: if we raise it and it goes wrong, how fast can we go back?
 4. The smallest safe step: what is the ONE level up, with what monitoring?
 
 Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>."""},
@@ -204,7 +204,7 @@ Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>
     "use": "Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage "
            "delegation in the role: mechanical, verifiable, and it takes you an hour by hand.",
     "caution": "It will fill the five agentic fields with plausible guesses. Blank them out and decide "
-               "each one yourself, the guesses are the exact thing you are trying to surface."},
+               "each one yourself: the guesses are the exact thing you are trying to surface."},
    {"tool": "Chat LLM",
     "use": "Convert prose acceptance criteria to EARS and report how many 'should's it removed. The "
            "count is a useful measure of how much ambiguity you were shipping.",
@@ -216,7 +216,7 @@ Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>
     "caution": None},
    {"tool": "Do not delegate",
     "use": "The bar and the autonomy fields. Both are business risk decisions with your name on them, "
-           "and both have a formula, use the formula, not the model.",
+           "and both have a formula: use the formula, not the model.",
     "caution": None},
  ],
  "artifact": {
@@ -291,7 +291,7 @@ Split it into one spec per feature. For each, output EXACTLY these eight fields:
 7 Fallback
 8 Records
 
-CRITICAL: for fields 4-8, write "NOT DECIDED, <the question that must be answered>"
+CRITICAL: for fields 4-8, write "NOT DECIDED: <the question that must be answered>"
 wherever the PRD does not actually say. Do NOT infer, do NOT use a sensible default.
 Those gaps are the output I am looking for.
 
@@ -413,12 +413,12 @@ _Cadence: one bolt per day, reviewed and integrated same day_
 
 | Day | Bolt | The ONE unknown it retires | Depends on | Slice it serves | Done when |
 |-----|------|---------------------------|-----------|-----------------|-----------|
-| 1 | Walking skeleton, <read X, show it>, no model | do the pieces connect? | — | all | end to end, in staging |
-| 2 | <exact function> | <...> | — | <slice> | unit tests green |
+| 1 | Walking skeleton, <read X, show it>, no model | do the pieces connect? | none | all | end to end, in staging |
+| 2 | <exact function> | <...> | none | <slice> | unit tests green |
 | 3 | | | | | |
 
 ## Rules for this plan
-- A bolt that cannot be built alone was cut wrong, send it back before starting it.
+- A bolt that cannot be built alone was cut wrong: send it back before starting it.
 - Exact code early: it stands alone and never blocks.
 - The plug (MCP / integration) lands before any gated write that needs it.
 - The proof (harness, golden set) is last, because it needs something to run against.
@@ -447,7 +447,7 @@ Rules:
 - If a bolt would retire two unknowns, split it.
 - If a bolt cannot be built alone, say so and explain what it needs.
 - Put a walking skeleton first: the thinnest end-to-end path with NO model in it.
-- Pure deterministic code (calculations, validations) should come early, it stands alone.
+- Pure deterministic code (calculations, validations) should come early: it stands alone.
 - Anything that writes or changes real data comes after the integration it depends on.
 
 Finally: list any story that resisted splitting, and say what two risks it is hiding.
@@ -461,10 +461,10 @@ history and NO access to me.
 
 Sections, exactly:
 ## Context: LINKS ONLY to the context layers and ADRs. Do not paste their contents.
-## Spec (the EARS criteria for THIS slice only, copied from the spec verbatim.
-## Tools) signatures the bolt may call, with their risk band.
-## Tests (the golden slice it must pass and its bar, plus unit assertions.
-## Done when) one testable line.
+## Spec: the EARS criteria for THIS slice only, copied from the spec verbatim.
+## Tools: signatures the bolt may call, with their risk band.
+## Tests: the golden slice it must pass and its bar, plus unit assertions.
+## Done when: one testable line.
 ## Cost: expected tokens per call and the tier.
 
 BOLT: <name and the one unknown>

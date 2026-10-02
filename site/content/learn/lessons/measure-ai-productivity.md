@@ -10,8 +10,8 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The method in one sentence.** Measure AI productivity as a change against a baseline taken before
-> the pilot, person-days per story, reported every cycle beside what it cost: token spend per story,
+> **The method in short.** Measure AI productivity as a change against a baseline taken before the
+> pilot (person-days per story), reported every cycle beside what it cost: token spend per story,
 > review hours added and re-runs. Activity counts rise with AI whether or not delivery does, a surveyed
 > speed-up is a belief rather than a measurement, and one number reported alone gets pushed.
 
@@ -36,7 +36,7 @@ Each is a measurement problem, and each is cheaper to prevent than to explain.
 **Outcome per unit of work, at the level of the system, against its full cost.** Not how much is
 produced: a model raises the volume of code, pull requests and suggestions whether or not anything
 ships sooner. Faros AI measured 98% more pull requests merged per developer across 10,000 developers,
-while delivery at the level of the organisation stayed flat, more changes were produced, and the same
+while delivery at the level of the organisation stayed flat: more changes were produced, and the same
 number of people read them.
 
 {{sketch:one-apple-at-a-time}}
@@ -57,19 +57,19 @@ already started, say so in the report and take one on the next feature.
 
 ### Step 2 · Count a unit of work, not a unit of activity
 
-A story done, or a case handled, counted where value lands, merged and released, not generated. The
+A story done, or a case handled, counted where value lands: merged and released, not generated. The
 unit has to mean the same thing before and after, which rules out anything the model makes cheaper
 to produce: lines, commits, pull requests.
 
 ### Step 3 · Report the saving beside the spend, every cycle
 
 Two numbers on one line, and two rows beneath them that keep them honest: **review hours added**, which
-is high early and falls, and **re-runs**, the leak signal. At SkyWays, this playbook's fictional
+is high early and falls, and **re-runs**, the leak signal. At SkyWays, this manual's fictional
 airline, the day-ninety report read:
 
 {{figure:two_numbers}}
 
-A 43% saving, $310 of tokens per story, and review time up 0.8 hours: with the reason it would fall.
+A 43% saving, $310 of tokens per story, and review time up 0.8 hours, with the reason it would fall.
 
 ### Step 4 · Keep belief and measurement apart
 
@@ -80,7 +80,7 @@ both feelings. Use belief to decide what to measure; use the tracker and the per
 ### Step 5 · Read the trajectory, not the first cycle
 
 A first cycle that saves time and costs more is normal: review hours are high while people learn to
-trust the harness, and artefacts are being written for the first time. Judge cycle two on the trend,
+trust the harness, and artefacts are being written for the first time. Judge cycle two on the trend:
 review hours falling, re-runs falling with them, the saving holding. A saving whose re-runs are rising
 is eroding.
 
@@ -169,11 +169,11 @@ and the spread. Flag stories that would distort the baseline: abandoned, reopene
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The two-number report, with review hours and re-runs beside it | **Original**: this playbook | [For leadership](site:protocol/) |
-| Take the baseline before the pilot; keep the review and re-run rows | **Original**: this playbook | [Paired indicators](wiki:Gates-and-Governance#paired-indicators-and-the-two-number-report) |
+| The two-number report, with review hours and re-runs beside it | **Original**: this manual | [For leadership](site:protocol/) |
+| Take the baseline before the pilot; keep the review and re-run rows | **Original**: this manual | [Paired indicators](wiki:Gates-and-Governance#paired-indicators-and-the-two-number-report) |
 | Experienced developers 19% slower, believing they were 20% faster | **Borrowed** | METR (2025). *Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity*. arXiv:2507.09089 |
 | 98% more pull requests merged per developer, delivery flat | **Borrowed** | Faros AI (2025), 10,000 developers; see [Sources and Confidence](wiki:Sources-and-Confidence#industry-measurements-quoted) |
 | 80% report a gain; 30% have little or no trust in AI code | **Borrowed** | DORA (2025). *State of AI-assisted Software Development* |
 | Productivity has several dimensions; activity alone misleads | **Borrowed** | Forsgren, N. et al. (2021). The SPACE of developer productivity. *ACM Queue* 19(1) |
 | Every measure reported beside its side effect | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
-| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

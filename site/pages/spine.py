@@ -24,7 +24,7 @@ FUN_H = 4 * ROW + 3 * GAP    # the funnel is as tall as its four rows
 FUN_TOP = TRUNK_Y - FUN_H // 2
 
 # The aircraft a phase flies, the same four the hero's flight changes through (pages/globe.py).
-CRAFT_LABEL = ["a paper plane", "a plan", "an airliner", "a jet"]
+CRAFT_LABEL = ["a paper plane", "a drawing of an airliner", "the airliner, built", "a jet"]
 
 
 def _funnel() -> str:
@@ -41,9 +41,8 @@ def _funnel() -> str:
 def _craft(i: int) -> str:
     from pages import globe
     shape, look = globe.CRAFT[i]
-    flame = f'<path d="{globe.FLAME}" class="sc-flame"/>' if look == "flown" else ""
-    return (f'<svg class="sp-craft" viewBox="-26 -15 46 30" aria-hidden="true" focusable="false">{flame}'
-            f'<path d="{globe.SHAPES[shape]}" class="sc-still k-{look}"/></svg>')
+    return (f'<svg class="sp-craft" viewBox="-20 -15 40 30" aria-hidden="true" focusable="false">'
+            f'<path d="{globe.SHAPES[shape]}" class="k-{look}"/></svg>')
 
 
 def figure(phases: list[tuple], skipped: list[str], core_href: str, methods: list[tuple]) -> str:
@@ -58,7 +57,7 @@ def figure(phases: list[tuple], skipped: list[str], core_href: str, methods: lis
     core = (f'<div class="sp-core"><a href="{core_href}"><b>SkyWays PDLC</b><small>four phases, one loop</small></a>'
             f'<span class="sp-trunk" aria-hidden="true">{segs}'
             '<svg class="sp-loop" focusable="false"><rect width="100%" height="100%" rx="20"/></svg>'
-            '<em class="sp-back"><svg viewBox="0 0 12 10" focusable="false"><path d="M11 5H2M5.5 1.5 2 5l3.5 3.5"/></svg>back to Frame<span>, with what you learned</span></em>'
+            '<em class="sp-back"><svg viewBox="0 0 12 10" focusable="false"><path d="M11 5H2M5.5 1.5 2 5l3.5 3.5"/></svg><span class="t">back to Frame<span class="x">, with what you learned</span></span></em>'
             '<em class="sp-gate">sign-off</em></span>'
             f'<span class="vh"> Four phases in order. Between {phases[1][1]} and {phases[2][1]} there is a sign-off: '
             f'nothing is built until it is signed. After {phases[3][1]} the work goes back to {phases[0][1]}.</span></div>')
@@ -70,8 +69,9 @@ def figure(phases: list[tuple], skipped: list[str], core_href: str, methods: lis
     return ('<figure class="spine" aria-label="How the SkyWays PDLC is made: one idea from each of four methods, '
             'joined into four phases that loop, with the question each phase asks and what a team hears when the question is skipped">'
             f'<p class="vh">The SkyWays PDLC keeps one idea from each of four methods.</p>'
+            f'<p class="sp-head" aria-hidden="true">Four methods you may know</p>'
             f'<ol class="sp-in">{took}</ol>{_funnel()}<p class="sp-into" aria-hidden="true">one idea from each</p>'
-            f'{core}<p class="sp-cap" aria-hidden="true">Skip one, and you hear</p>'
+            f'{core}<p class="sp-cap" aria-hidden="true">When it is skipped</p>'
             f'<ol class="sp-ph">{ph}</ol>'
             '<figcaption class="sp-note">SkyWays PDLC takes one idea from each method and joins them in one loop. '
             'You still pick the method your team works in.</figcaption></figure>')

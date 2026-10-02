@@ -10,10 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in one sentence.** In the agentic PDLC DevOps and platform make the system repeatable,
-> observable and reversible: a landing zone with cost attributable per feature, one model gateway every
-> call passes through, environments with the model version pinned, the evaluation harness as a check the
-> merge cannot bypass, one flag per action, traces that redact, and rollbacks timed before anyone needs them.
+> **The role in short.** In the agentic PDLC DevOps and platform make the system repeatable,
+> observable and reversible. That means a landing zone with cost attributable per feature, one model
+> gateway every call passes through, and environments with the model version pinned. It also means the
+> evaluation harness as a check the merge cannot bypass, one flag per action, traces that redact, and
+> rollbacks timed before anyone needs them.
 
 {{map:agentic-pdlc-for-devops}}
 
@@ -46,7 +47,7 @@ its behaviour is drifting.
 ### P0 · Frame: the platform, first
 
 **1 · Baseline.** The account, isolation and a tag scheme that makes cost attributable per feature, plus
-a budget alarm: before any resource exists, because some services this workload uses bill for
+a budget alarm, before any resource exists, because some services this workload uses bill for
 existing rather than for use.
 
 ### P1 · Design & Spec
@@ -54,7 +55,7 @@ existing rather than for use.
 **2 · Access.** Model access is granted per model and **per region**, on request: a lead-time item for
 day one. SkyWays lost six days because access existed in one region and the data had to stay in
 another. Then put every call behind **one gateway** with a per-call log. **3 · Environments.** Make them
-comparable, with the **model version pinned** in each manifest, for a probabilistic system the model is
+comparable, with the **model version pinned** in each manifest: for a probabilistic system the model is
 part of the environment.
 
 {{sketch:every-call-past-one-desk}}
@@ -78,10 +79,10 @@ every pull request. **8 · Recover**: throw every switch with a stopwatch before
 
 | Yours to own | Not yours |
 | --- | --- |
-| The landing zone and the per-feature cost tags | The acceptance bar, you make the gate unarguable; you do not set it |
-| The model gateway and its per-call log | Prompt content, you version, deploy and roll it back; you do not write it |
-| The pipeline, with the harness as a required check | Which slices exist and what a mistake costs, the business's input to your caps |
-| Three deployable artefacts and three rollback paths | The behaviour, release and expansion gates, you supply the evidence |
+| The landing zone and the per-feature cost tags | The acceptance bar: you make the gate unarguable; you do not set it |
+| The model gateway and its per-call log | Prompt content: you version, deploy and roll it back; you do not write it |
+| The pipeline, with the harness as a required check | Which slices exist and what a mistake costs: the business's input to your caps |
+| Three deployable artefacts and three rollback paths | The behaviour, release and expansion gates: you supply the evidence |
 | The enforced controls: role scope, egress, caps in signatures; the kill switch | |
 
 ## How to use a model in this role
@@ -90,7 +91,7 @@ Use a model where there is **a schema to be right against and a cheap way to che
 infrastructure templates, workflow files, policy shapes and first drafts of scripts, and confidently
 wrong about your account boundaries, your regions, your quotas and what a permission actually reaches.
 Let the model write the change and a machine judge it (a linter, a diff, a plan output, an access
-analyser) then read the diff rather than the prose.
+analyser), then read the diff rather than the prose.
 
 ## Where you'll use it
 
@@ -147,7 +148,7 @@ produced each response.
 
 ### What is the difference between MLOps and LLMOps?
 
-MLOps grew up around training and serving your own models, data pipelines, training runs, model
+MLOps grew up around training and serving your own models: data pipelines, training runs, model
 registries. LLMOps is mostly about operating applications on top of models someone else trains:
 prompts, routing, caching, evaluation, cost and drift.
 
@@ -175,7 +176,7 @@ needs an access request with a lead time, and who it goes to.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| DevOps and platform's eight steps, owns and not-yours | **Original**: this playbook | [DevOps and platform, end to end](site:devops/) · [Role: DevOps](wiki:Role-DevOps) |
+| DevOps and platform's eight steps, owns and not-yours | **Original**: this manual | [DevOps and platform, end to end](site:devops/) · [Role: DevOps](wiki:Role-DevOps) |
 | Model access per model and per region | **Borrowed**: documented, September 2026 | Amazon Bedrock documentation; see [Error Index](wiki:Error-Index) |
 | Least privilege | **Borrowed** | Saltzer, J. H. & Schroeder, M. D. (1975). *Proceedings of the IEEE* 63(9) |
 | A model gateway with routing, budgets and a per-call log | **Borrowed**: documented | LiteLLM, as the named example; see [Sources and Confidence](wiki:Sources-and-Confidence) |

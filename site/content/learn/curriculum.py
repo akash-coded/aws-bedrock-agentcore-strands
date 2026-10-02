@@ -31,7 +31,7 @@ TRACKS = [
         "wiki": "Tutorial-Fundamentals",
         "blurb": "The four phases, the one hard gate, the eight loops and the evidence that crosses each "
                  "hand-off: the model every other track builds on.",
-        "promise": "The spine, phase by phase",
+        "promise": "The lifecycle, phase by phase",
         "lessons": [
             "evolution-of-the-pdlc",
             "why-agentic-ai-projects-fail",
@@ -92,8 +92,8 @@ TRACKS = [
         "title": "By role",
         "short": "By role",
         "wiki": "Tutorial-By-Role",
-        "blurb": "How each discipline works in the agentic PDLC, product, programme, architecture, "
-                 "engineering, forward-deployed, QA, DevOps, the sponsor and the executive: what "
+        "blurb": "How each discipline works in the agentic PDLC (product, programme, architecture, "
+                 "engineering, forward-deployed, QA, DevOps, the sponsor and the executive): what "
                  "changes, what is theirs, and what is not.",
         "promise": "Your job, phase by phase",
         "lessons": [
@@ -129,8 +129,8 @@ TRACKS = [
         "short": "Practice",
         "wiki": "Tutorial-Practice",
         "blurb": "The SkyWays case study in thirteen episodes, the operating rhythm from daily to "
-                 "quarterly, the simulator, and twelve exercises with worked answers.",
-        "promise": "A case, a simulator, twelve problems",
+                 "quarterly, the workbench, and twelve exercises with worked answers.",
+        "promise": "A case, a workbench, twelve problems",
         "lessons": [
             "skyways-case-study",
             "agentic-delivery-cadence",

@@ -3,18 +3,18 @@ title: What Is the BMAD Method? Agile AI Personas, Explained
 short: What is the BMAD Method?
 wiki: What-Is-the-BMAD-Method
 description: The BMAD Method structures AI-driven development like an agile team: agent personas, each handing the next a versioned document. When it pays, and when not.
-dek: A pipeline of personas that leaves a paper trail, excellent for audited, multi-team work, and six documents too many for a one-line fix.
+dek: A pipeline of personas that leaves a paper trail: excellent for audited, multi-team work, and six documents too many for a one-line fix.
 level: Beginner
 keywords: BMAD method, BMAD-METHOD, breakthrough method for agile AI-driven development, BMAD agents, BMAD vs spec-driven development, BMAD vs AI-DLC, AI agent personas for software development
 updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The BMAD Method in one sentence.** BMAD (the *Breakthrough Method for Agile AI-Driven
+> **The BMAD Method in short.** BMAD (the *Breakthrough Method for Agile AI-Driven
 > Development*, an open-source method from BMad Code) structures building with AI the way an agile
-> team is structured: specialised agent personas such as an analyst, a product manager, an architect,
-> a scrum master, a developer and QA, each producing a versioned document the next one builds on, so
-> that decisions stay explicit and the context carries forward.
+> team is structured. It uses specialised agent personas such as an analyst, a product manager, an
+> architect, a scrum master, a developer and QA. Each produces a versioned document the next one
+> builds on, so that decisions stay explicit and the context carries forward.
 
 {{map:what-is-the-bmad-method}}
 
@@ -53,8 +53,8 @@ previous document rather than from a shared conversation, which is what keeps th
 
 ### Step 2 · Shard the plan into small stories
 
-A **scrum master** persona breaks the plan into small, self-contained stories, BMAD calls the pieces
-*shards*, each carrying the context a developer agent needs. It is the same move as this playbook's
+A **scrum master** persona breaks the plan into small, self-contained stories (BMAD calls the pieces
+*shards*), each carrying the context a developer agent needs. It is the same move as this manual's
 story file: context by reference, the spec, the tools, the tests and the done-when in one file.
 
 ### Step 3 · Build and verify story by story
@@ -66,7 +66,7 @@ the work can be re-run.
 ### Step 4 · Let the process size itself
 
 BMAD has changed quickly. Its earlier releases were described as a four-phase pipeline (analysis,
-planning, solutioning and implementation) while its current documentation frames the loop as
+planning, solutioning and implementation), while its current documentation frames the loop as
 **clarify, plan, build and verify, then learn and adjust**, with small changes going straight to the
 build and complex work getting deeper planning. What stays constant is the principle in its own
 words: decisions stay explicit, context carries forward, and the process sizes itself to the work.
@@ -80,7 +80,7 @@ words: decisions stay explicit, context carries forward, and the process sizes i
 | A standard feature for one team | Optional | Spec-driven development and the gates usually suffice |
 | A one-line fix, even to a money cap | **Overhead** | Six documents for one line; the depth comes from the risk band, not the persona count |
 
-The failure this playbook sees most is adopting a method as an identity. "We are a BMAD shop" means
+The failure this manual sees most is adopting a method as an identity. "We are a BMAD shop" means
 the persona trail runs on a typo fix, and within a month the team quietly skips it everywhere,
 including on the audited work it was built for. [How much process a change needs](lesson:how-much-process-does-a-change-need).
 
@@ -88,7 +88,7 @@ including on the audited work it was built for. [How much process a change needs
 
 ## Extended BMAD: one more hand-off, after launch
 
-BMAD's own loop ends on "learn and adjust". This playbook takes that step literally, runs it as a stage
+BMAD's own loop ends on "learn and adjust". This manual takes that step literally, runs it as a stage
 of its own after launch, and calls the result **extended BMAD**: the persona trail carries on through
 Run & Learn, so what production teaches arrives as a versioned document like everything before it.
 
@@ -98,7 +98,7 @@ Run & Learn, so what production teaches arrives as a versioned document like eve
 | Product manager | The two-number report: the saving beside the spend | The sponsor |
 | Analyst | The incident, written up as the next brief | The next P0 |
 
-The extension is this playbook's own and is not part of BMAD as published. It costs three short
+The extension is this manual's own and is not part of BMAD as published. It costs three short
 documents a cycle, and it is what closes the loop: without it the trail stops at the merge, and the
 first anyone hears of drift is a customer.
 
@@ -147,8 +147,8 @@ in the `bmad-code-org/BMAD-METHOD` repository on GitHub, under the MIT licence.
 
 ### What are the BMAD agents?
 
-Personas modelled on agile team roles, typically an analyst, a product manager, an architect, a UX
-designer, a product owner, a scrum master, a developer and QA, each with its own instructions and
+Personas modelled on agile team roles (typically an analyst, a product manager, an architect, a UX
+designer, a product owner, a scrum master, a developer and QA), each with its own instructions and
 each producing a document for the next. The exact set has changed between releases.
 
 ### BMAD vs spec-driven development: which should I use?
@@ -159,7 +159,7 @@ change, and add BMAD's persona trail on complex, multi-team or audited work.
 
 ### What is extended BMAD?
 
-This playbook's name for BMAD carried one phase further. BMAD as published plans and builds, and ends on
+This manual's name for BMAD carried one phase further. BMAD as published plans and builds, and ends on
 "learn and adjust". Extended BMAD makes that a Run & Learn stage with three hand-offs: QA's weekly drift
 report, the product manager's two-number report, and the analyst's write-up of an incident as the next
 brief.
@@ -195,5 +195,5 @@ bar per slice (damage, saving, bar). Flag every tool that has no cap.
 | The BMAD Method, its personas and its documents | **Borrowed** | BMad Code. [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) · [docs.bmad-method.org](https://docs.bmad-method.org/) |
 | Clarify, plan, build and verify, learn and adjust; the process sizes itself | **Borrowed** | [BMad Method documentation](https://docs.bmad-method.org/) |
 | Analysis, planning, solutioning and implementation | **Borrowed** | extinctsion (2025). [BMAD: the agile framework that makes AI actually predictable](https://dev.to/extinctsion/bmad-the-agile-framework-that-makes-ai-actually-predictable-5fe7). DEV |
-| Where BMAD sits on P0 to P3, and when its trail pays | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
-| The story file as BMAD's shard | **Original**: this playbook | [Engineering lead, step 2](site:engineering/) |
+| Where BMAD sits on P0 to P3, and when its trail pays | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
+| The story file as BMAD's shard | **Original**: this manual | [Engineering lead, step 2](site:engineering/) |

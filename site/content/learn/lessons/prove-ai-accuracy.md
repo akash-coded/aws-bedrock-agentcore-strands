@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in one sentence.** A score on a test set proves an AI agent meets its bar only when
-> the **lower bound** of the score, the bottom of its 95% confidence interval, clears the bar, so
-> report every slice as a score, a sample size and a lower bound, with a verdict of proven, not yet
-> (and how many more cases it owes), or failed.
+> **The answer in short.** A score on a test set proves an AI agent meets its bar only when the
+> **lower bound** of the score (the bottom of its 95% confidence interval) clears the bar. So report
+> every slice as a score, a sample size and a lower bound. Give each a verdict: proven, not yet (and
+> how many more cases it owes), or failed.
 
 {{model:g_bound}}
 
@@ -75,7 +75,7 @@ most expensive result you can get.
 
 ### Step 4 · Build the golden set by slice, oversampling the rare ones
 
-The golden set is real past cases, each with an expected outcome a person wrote and a slice tag,
+The golden set is real past cases, each with an expected outcome a person wrote and a slice tag:
 **fifty to start, five hundred to trust**. Draw it per slice rather than as one random sample: a
 sample representative of *traffic* is not representative of *risk*, so the rare, costly slice needs
 deliberate oversampling. SkyWays' first fifty took an afternoon, and twenty-four of them failed, which
@@ -166,8 +166,8 @@ scores alone is reporting noise with a decimal point.
 **The ten-minute workflow.** The calculation, with the working shown:
 
 ```text
-For each slice: n cases, k correct, bar b. Compute the score k/n, the lower bound — p − 1.96·√(p(1−p)/n),
-or the Wilson bound when n < 100 — and a verdict: proven, not yet, or failed. For "not yet", compute
+For each slice: n cases, k correct, bar b. Compute the score k/n, the lower bound (p − 1.96·√(p(1−p)/n),
+or the Wilson bound when n < 100) and a verdict: proven, not yet, or failed. For "not yet", compute
 the cases needed, 1.96²·p(1−p) ÷ (p − b)², and how many more. Show the arithmetic. Data: <table>
 ```
 
@@ -177,6 +177,6 @@ the cases needed, 1.96²·p(1−p) ÷ (p − b)², and how many more. Show the a
 | --- | --- | --- |
 | The Wilson score interval | **Borrowed** | Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. *JASA* 22(158) |
 | Stratified sampling, one sample per slice | **Borrowed** | Neyman, J. (1934). *Journal of the Royal Statistical Society* 97(4) |
-| Lower bounds, cases owed and the three verdicts | **Original**: this playbook | [How to prove the bar](wiki:How-to-Prove-the-Bar) · [Formulas](wiki:Formulas-and-Calculators#cases-needed-to-prove-a-bar--established) |
-| Fifty to start, five hundred to trust | **Original**: this playbook, a working default | [Sources and Confidence](wiki:Sources-and-Confidence) |
+| Lower bounds, cases owed and the three verdicts | **Original**: this manual | [How to prove the bar](wiki:How-to-Prove-the-Bar) · [Formulas](wiki:Formulas-and-Calculators#cases-needed-to-prove-a-bar--established) |
+| Fifty to start, five hundred to trust | **Original**: this manual, a working default | [Sources and Confidence](wiki:Sources-and-Confidence) |
 | The SkyWays figures | **Illustrative**: a fictional airline | [Try the confidence calculator](sim:#/toolkit/confidence) |

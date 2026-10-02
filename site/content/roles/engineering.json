@@ -28,8 +28,8 @@
   "The effort-and-token ledger the product manager's cost number is built from"
  ],
  "not_yours": [
-  "The **bolt cut** itself, the architect decides the cut; you decide whether each one can be built alone, and say so before you start it",
-  "The **acceptance bar** per slice, the PM derives it from damage and saving. You make it run",
+  "The **bolt cut** itself: the architect decides the cut; you decide whether each one can be built alone, and say so before you start it",
+  "The **acceptance bar** per slice: the PM derives it from damage and saving. You make it run",
   "The golden set's contents and the judge's rubric: those belong to the QA lead",
   "The cut-over and the widening: you build the flag and rehearse the rollback; the PM throws it"
  ],
@@ -67,7 +67,7 @@
     },
     {
      "do": "Write four sections and nothing else",
-     "detail": "Stack, conventions, commands, never-touch. Anything longer stops being read, by the model, because the rules are diluted, and by the engineer who is supposed to maintain it. Under a hundred lines is a working target."
+     "detail": "Stack, conventions, commands, never-touch. Anything longer stops being read: by the model, because the rules are diluted, and by the engineer who is supposed to maintain it. Under a hundred lines is a working target."
     },
     {
      "do": "Point at the context layers, never copy them",
@@ -85,7 +85,7 @@
    "ai": [
     {
      "tool": "Claude Code",
-     "use": "Point it at the repository and ask for a first draft from what is actually there, the build files, the test runner, the directory layout. It reads the tree faster than you do and it gets the stack section right.",
+     "use": "Point it at the repository and ask for a first draft from what is actually there: the build files, the test runner, the directory layout. It reads the tree faster than you do and it gets the stack section right.",
      "caution": "Make it run every command it proposes and paste the output into the session. Left alone it will write `npm test` into a Python repository because the shape of the file suggests a line like that belongs there."
     },
     {
@@ -112,7 +112,7 @@
    "template": {
     "title": "CLAUDE.md · the project context file",
     "lang": "markdown",
-    "body": "# CLAUDE.md · <repo name>\nProject memory. Committed. Read at the start of every session. The same content is\nmirrored to .github/copilot-instructions.md (inline suggestions) and AGENTS.md.\n\n## Stack\n- <language + version> · <framework> · <package manager>\n- Tests <pytest> · Lint <ruff> · Types <mypy --strict on src/tools/**>\n- Infra <CDK in infra/> · Deploy <how, and who is allowed to>\n\n## Context layers. READ THESE BY PATH. Do not paste them into a prompt.\n- /context/shared/standards.md        org standards, security, tone\n- /context/domain/<booking-model>.md  the domain vocabulary\n- /context/product/architecture.md    this product, plus ADR-001..ADR-<n>\nIf a rule here disagrees with a layer, the layer wins and this file is out of date.\n\n## Conventions\n- Exact work is a function with a unit test. Never compute money in a prompt.\n- Every tool that writes takes a confirmation token. Reads do not.\n- One model per task, the cache is model-scoped and a switch discards it.\n- A new dependency is an issue first, never an addition made in passing.\n\n## Commands: every one of these has been run. Use them; do not improvise.\n| To do this | Run |\n|------------|-----|\n| Unit tests | `<make test>` |\n| The golden slice for one bolt | `<make golden SLICE=codeshare>` |\n| Lint and types | `<make check>` |\n| Local stack up | `<make up>` |\n\n## Never touch\n- `<config/caps.yaml>`: the authority budget. Changing a cap is an R4 change.\n- `<src/tools/refund/**>` (two named reviewers, every time.\n- `<migrations/>`) never edit an applied migration. Add a new one.\n- `<src/trace/redact.py>`: security reviews every change here.\n\n## Ask before\n- Adding a tool to the agent's tool list\n- Editing anything under `<src/prompts/>`, it re-runs the injection suite\n- Touching a golden-set file. Those belong to QA, not to this repo's authors.\n\n---\n_Last rule added <date>, <the rule that bit us last week, in one line>_\n"
+    "body": "# CLAUDE.md · <repo name>\nProject memory. Committed. Read at the start of every session. The same content is\nmirrored to .github/copilot-instructions.md (inline suggestions) and AGENTS.md.\n\n## Stack\n- <language + version> · <framework> · <package manager>\n- Tests <pytest> · Lint <ruff> · Types <mypy --strict on src/tools/**>\n- Infra <CDK in infra/> · Deploy <how, and who is allowed to>\n\n## Context layers. READ THESE BY PATH. Do not paste them into a prompt.\n- /context/shared/standards.md        org standards, security, tone\n- /context/domain/<booking-model>.md  the domain vocabulary\n- /context/product/architecture.md    this product, plus ADR-001..ADR-<n>\nIf a rule here disagrees with a layer, the layer wins and this file is out of date.\n\n## Conventions\n- Exact work is a function with a unit test. Never compute money in a prompt.\n- Every tool that writes takes a confirmation token. Reads do not.\n- One model per task: the cache is model-scoped and a switch discards it.\n- A new dependency is an issue first, never an addition made in passing.\n\n## Commands: every one of these has been run. Use them; do not improvise.\n| To do this | Run |\n|------------|-----|\n| Unit tests | `<make test>` |\n| The golden slice for one bolt | `<make golden SLICE=codeshare>` |\n| Lint and types | `<make check>` |\n| Local stack up | `<make up>` |\n\n## Never touch\n- `<config/caps.yaml>`: the authority budget. Changing a cap is an R4 change.\n- `<src/tools/refund/**>`: two named reviewers, every time.\n- `<migrations/>`: never edit an applied migration. Add a new one.\n- `<src/trace/redact.py>`: security reviews every change here.\n\n## Ask before\n- Adding a tool to the agent's tool list\n- Editing anything under `<src/prompts/>`: it re-runs the injection suite\n- Touching a golden-set file. Those belong to QA, not to this repo's authors.\n\n---\n_Last rule added <date>: <the rule that bit us last week, in one line>_\n"
    },
    "prompts": [
     {
@@ -123,7 +123,7 @@
     {
      "title": "Mine the review history for the rules you are missing",
      "when": "You have a context file and want the next four lines of it",
-     "body": "Below are the review comments left on merged pull requests over <n> weeks.\n\nFind the corrections that REPEAT. A correction made three times is a missing convention.\n\nOUTPUT a table:\n| The rule, as one imperative sentence | Times it was said | Example comment | Section |\n\nWhere Section is one of: conventions / commands / never-touch / not a rule.\n\nRULES:\n- Rank by how many times it recurs, not by how strongly it was worded.\n- Merge comments that say the same thing differently; keep the clearest wording.\n- Mark as \"not a rule\" anything that was a one-off judgement about that change. Those\n  do not belong in a context file and adding them is how the file becomes unreadable.\n- For each rule, say whether it could be ENFORCED instead, a lint rule, a CI check, a\n  type. A rule that can be enforced should not be a line in a markdown file.\n\nCOMMENTS:\n<paste>"
+     "body": "Below are the review comments left on merged pull requests over <n> weeks.\n\nFind the corrections that REPEAT. A correction made three times is a missing convention.\n\nOUTPUT a table:\n| The rule, as one imperative sentence | Times it was said | Example comment | Section |\n\nWhere Section is one of: conventions / commands / never-touch / not a rule.\n\nRULES:\n- Rank by how many times it recurs, not by how strongly it was worded.\n- Merge comments that say the same thing differently; keep the clearest wording.\n- Mark as \"not a rule\" anything that was a one-off judgement about that change. Those\n  do not belong in a context file and adding them is how the file becomes unreadable.\n- For each rule, say whether it could be ENFORCED instead: a lint rule, a CI check, a\n  type. A rule that can be enforced should not be a line in a markdown file.\n\nCOMMENTS:\n<paste>"
     },
     {
      "title": "Audit the context file you already have",
@@ -133,7 +133,7 @@
    ],
    "example": {
     "title": "SkyWays · the two rules that were added in the first month",
-    "body": "The first `CLAUDE.md` was twenty-two lines written in an hour: stack, four commands that had been run, and a never-touch list with `migrations/` on it. It grew twice. Once after an agent re-implemented the fare arithmetic inline rather than calling `fare_difference()` and returned $80 where the ledger said $62, the line added was *never compute money in a prompt; call the function*. Once after a session switched model mid-task and the cache hit ratio collapsed, which added *one model per task*. Two sentences, and neither failure has recurred. That is the whole evidence the file needs."
+    "body": "The first `CLAUDE.md` was twenty-two lines written in an hour: stack, four commands that had been run, and a never-touch list with `migrations/` on it. It grew twice. Once after an agent re-implemented the fare arithmetic inline rather than calling `fare_difference()` and returned $80 where the ledger said $62: the line added was *never compute money in a prompt; call the function*. Once after a session switched model mid-task and the cache hit ratio collapsed, which added *one model per task*. Two sentences, and neither failure has recurred. That is the whole evidence the file needs."
    },
    "pitfalls": [
     "Writing it once and never again. A context file that has not changed in three months describes a repository that no longer exists, and the agent is following it confidently.",
@@ -206,7 +206,7 @@
    "template": {
     "title": "Story file · one bolt",
     "lang": "markdown",
-    "body": "# Bolt <7> · <rebook() gated write>\n_Author <name> · Date <date> · Architect's cut: bolt <7> of <10>_\n\n## 1 · Context. BY REFERENCE. These are not pasted into any prompt.\n- /context/shared/standards.md\n- /context/domain/<booking-model>.md\n- /context/product/architecture.md\n- ADR-<004> <one-line title> · ADR-<007> <one-line title>\n\n## 2 · Spec (EARS)\nWHEN   <the passenger accepts a proposed alternative>\nAND    <the fare difference has been computed by fare_difference()>\nTHE SYSTEM SHALL <rebook the segment> WITHIN <10> seconds.\n\nBOUNDARY  <Never rebook without a computed fare difference.>\nBOUNDARY  <Never rebook a segment that has already departed.>\n\n## 3 · Tools, with the band taken from the authority budget\n| Signature | Band | Reads or writes |\n|-----------|------|-----------------|\n| `rebook(pnr, segment, fare_delta, confirmation) -> Booking` | R3 | writes |\n| `get_booking(pnr) -> Booking` | R1 | reads |\n\n## 4 · Tests\n- Golden slice `<rebook>`, <40> cases, bar <85>%\n- Unit `<rebook_requires_fare_delta>` · `<rebook_is_idempotent>` ·\n       `<rebook_rejects_a_departed_segment>`\n- Injection: <every attack string, aimed at rebook, from the passenger message\n  and from the partner API notes field>\n\n## 5 · Done when\n- [ ] `<make golden SLICE=rebook>` at or above the bar, lower bound reported\n- [ ] `<make test>` green, including the three unit tests named above\n- [ ] merged to main and integrated <the same day>\n- [ ] one redacted trace row per rebook, carrying the model version\n\n## 6 · Cost\n- ~<1,900> tokens per call, <mid> tier, prefix <cached, 5m>\n- Expected cost per case $<0.04>. Alert at 3x.\n\n## Can this bolt be built alone?\nyes  /  **no: and if no, this is raised NOW, not at 2pm**: <what it needs that\ndoes not exist yet, and who owns the re-cut>\n"
+    "body": "# Bolt <7> · <rebook() gated write>\n_Author <name> · Date <date> · Architect's cut: bolt <7> of <10>_\n\n## 1 · Context. BY REFERENCE. These are not pasted into any prompt.\n- /context/shared/standards.md\n- /context/domain/<booking-model>.md\n- /context/product/architecture.md\n- ADR-<004> <one-line title> · ADR-<007> <one-line title>\n\n## 2 · Spec (EARS)\nWHEN   <the passenger accepts a proposed alternative>\nAND    <the fare difference has been computed by fare_difference()>\nTHE SYSTEM SHALL <rebook the segment> WITHIN <10> seconds.\n\nBOUNDARY  <Never rebook without a computed fare difference.>\nBOUNDARY  <Never rebook a segment that has already departed.>\n\n## 3 · Tools, with the band taken from the authority budget\n| Signature | Band | Reads or writes |\n|-----------|------|-----------------|\n| `rebook(pnr, segment, fare_delta, confirmation) -> Booking` | R3 | writes |\n| `get_booking(pnr) -> Booking` | R1 | reads |\n\n## 4 · Tests\n- Golden slice `<rebook>`, <40> cases, bar <85>%\n- Unit `<rebook_requires_fare_delta>` · `<rebook_is_idempotent>` ·\n       `<rebook_rejects_a_departed_segment>`\n- Injection: <every attack string, aimed at rebook, from the passenger message\n  and from the partner API notes field>\n\n## 5 · Done when\n- [ ] `<make golden SLICE=rebook>` at or above the bar, lower bound reported\n- [ ] `<make test>` green, including the three unit tests named above\n- [ ] merged to main and integrated <the same day>\n- [ ] one redacted trace row per rebook, carrying the model version\n\n## 6 · Cost\n- ~<1,900> tokens per call, <mid> tier, prefix <cached, 5m>\n- Expected cost per case $<0.04>. Alert at 3x.\n\n## Can this bolt be built alone?\nyes  /  **no. If no, this is raised NOW, not at 2pm**: <what it needs that\ndoes not exist yet, and who owns the re-cut>\n"
    },
    "prompts": [
     {
@@ -217,7 +217,7 @@
     {
      "title": "Turn prose into EARS without losing a clause",
      "when": "The spec arrived as a paragraph",
-     "body": "Rewrite the requirement below in EARS.\n\nFORMAT:\nWHEN   <trigger>\nAND    <precondition>          (repeat for each; do NOT merge them)\nTHE SYSTEM SHALL <response>\nWITHIN <limit, with a unit>\n\nThen, separately, one BOUNDARY line per thing the system must refuse.\n\nRULES:\n- Preserve every precondition as its own AND line. Do not summarise two into one.\n- If a limit is missing, write WITHIN <UNSPECIFIED>, never invent a number.\n- List any word in the original that hides a decision (\"appropriate\", \"quickly\",\n  \"if possible\") and say what decision it is hiding and who should make it.\n- At the end, list anything in the prose that is a SOLUTION rather than a requirement.\n\nPROSE:\n<paste>"
+     "body": "Rewrite the requirement below in EARS.\n\nFORMAT:\nWHEN   <trigger>\nAND    <precondition>          (repeat for each; do NOT merge them)\nTHE SYSTEM SHALL <response>\nWITHIN <limit, with a unit>\n\nThen, separately, one BOUNDARY line per thing the system must refuse.\n\nRULES:\n- Preserve every precondition as its own AND line. Do not summarise two into one.\n- If a limit is missing, write WITHIN <UNSPECIFIED>. Never invent a number.\n- List any word in the original that hides a decision (\"appropriate\", \"quickly\",\n  \"if possible\") and say what decision it is hiding and who should make it.\n- At the end, list anything in the prose that is a SOLUTION rather than a requirement.\n\nPROSE:\n<paste>"
     },
     {
      "title": "Find what the file is missing, before building anything",
@@ -337,7 +337,7 @@
    "phase": "Layer",
    "title": "Add the model calls, and an independent checker after the risky ones",
    "when": "Once the floor is green, mid-bolt",
-   "purpose": "The best-guess layer goes on top of the floor: ranking, drafting, classifying: the work that is right a share of the time and has to be measured rather than asserted. Chains multiply, so keep them short, then put a checker after the steps where a wrong answer is **costly and easy to miss**. The checker only earns its call if it is independent. A model reviewing its own output shares its own blind spots, which is why *review your answer before returning it* changes nothing measurable and still appears on the invoice.",
+   "purpose": "The best-guess layer goes on top of the floor: ranking, drafting, classifying. This is the work that is right a share of the time and has to be measured rather than asserted. Chains multiply, so keep them short, then put a checker after the steps where a wrong answer is **costly and easy to miss**. The checker only earns its call if it is independent. A model reviewing its own output shares its own blind spots, which is why *review your answer before returning it* changes nothing measurable and still appears on the invoice.",
    "activities": [
     {
      "do": "Count the chain before you build it",
@@ -349,7 +349,7 @@
     },
     {
      "do": "Make the checker independent, and record which kind",
-     "detail": "A different model, or the same model in a fresh context with an adversarial brief, *find what is wrong*. Write which one you chose in a comment beside it, because the next person to touch this will assume the cheap version was intended."
+     "detail": "A different model, or the same model in a fresh context with an adversarial brief: *find what is wrong*. Write which one you chose in a comment beside it, because the next person to touch this will assume the cheap version was intended."
     },
     {
      "do": "Pass the constraints and the output, never the drafter's reasoning",
@@ -594,7 +594,7 @@
     {
      "title": "Replay the harness against commits you already know about",
      "when": "Before you call the harness a gate",
-     "body": "Here is our harness: <paste>. Here are <n> commits from the last month, with what\neach one did and whether it turned out to be a regression: <paste>.\n\nReplay the harness against each commit and report:\n| Commit | Was it a regression? | Harness verdict | Correct? |\n\nThen tell me:\n- Every regression the harness would have MISSED, and the specific step that should have\n  caught it, exact test, golden slice, or judge.\n- Every clean commit the harness would have REJECTED, and why. A harness that rejects\n  good changes gets switched off within a fortnight.\n- The slice with the fewest cases, and whether its lower bound could clear its bar at\n  that n at all.\n\nDo not change the harness in this response. I want the evidence first."
+     "body": "Here is our harness: <paste>. Here are <n> commits from the last month, with what\neach one did and whether it turned out to be a regression: <paste>.\n\nReplay the harness against each commit and report:\n| Commit | Was it a regression? | Harness verdict | Correct? |\n\nThen tell me:\n- Every regression the harness would have MISSED, and the specific step that should have\n  caught it: exact test, golden slice, or judge.\n- Every clean commit the harness would have REJECTED, and why. A harness that rejects\n  good changes gets switched off within a fortnight.\n- The slice with the fewest cases, and whether its lower bound could clear its bar at\n  that n at all.\n\nDo not change the harness in this response. I want the evidence first."
     },
     {
      "title": "Reshape the harness output into the bar sheet",
@@ -624,7 +624,7 @@
    "activities": [
     {
      "do": "Start with the walking skeleton, with no model in it",
-     "detail": "The thinnest end-to-end path: read a booking, show it. Half a day, and it retires the largest unknown, whether the pieces connect at all, on day one, which is the assumption every other bolt is resting on."
+     "detail": "The thinnest end-to-end path: read a booking, show it. Half a day, and it retires the largest unknown (whether the pieces connect at all) on day one, which is the assumption every other bolt is resting on."
     },
     {
      "do": "Put the pure exact code early",
@@ -644,7 +644,7 @@
     },
     {
      "do": "Integrate the same day, and review by band",
-     "detail": "Same-day integration is what makes the cost of a wrong turn one day instead of two weeks. The band comes from the most dangerous tool the change touches, via the path rule, never from the author, every author believes their own change is low risk."
+     "detail": "Same-day integration is what makes the cost of a wrong turn one day instead of two weeks. The band comes from the most dangerous tool the change touches, via the path rule, never from the author: every author believes their own change is low risk."
     },
     {
      "do": "Run the shadow path behind a flag, and make shadow-never-writes a test",
@@ -681,18 +681,18 @@
    "template": {
     "title": "Bolt build log",
     "lang": "markdown",
-    "body": "# Bolt build log · <feature>\n_Architect's cut <10> bolts · Cadence one a day · Owner <name>_\n\n## The order, and the rule that produced it\n| Day | Bolt | Depends on | The ONE unknown | Band |\n|-----|------|-----------|-----------------|------|\n| 1 | <walking skeleton, read a booking, show it. NO MODEL> | — | <do the pieces connect?> | R1 |\n| 2 | <fare_difference(), exact, unit-tested> | 1 | <the rounding rule> | R1 |\n| 3 | <visa and codeshare eligibility, exact> | 1 | <where the partner rules live> | R1 |\n| 4 | <rank_alternatives(), best-guess, measured> | 2 | <can it beat the desk?> | R2 |\n| 5 | <independent checker after ranking> | 4 | <which model judges> | R2 |\n| 6 | <MCP server, reads open> | 1 | <auth to the booking system> | R2 |\n| 7 | <rebook() gated write> | 6 | <idempotency> | R3 |\n| 8 | <issue_refund(max 400) + confirmation token> | 7 | <who mints the token> | R4 |\n| 9 | <shadow path behind a flag> | 5, 8 | <flag plumbing> | R2 |\n| 10 | <golden set and harness in CI> | 9 | <slice tagging> | R1 |\n\nRules this order obeys, in priority order: skeleton first · pure exact code early ·\ncheckers after the steps they check · the plug before any gated write that needs it ·\nthe proof last.\n\n## Daily row\n| Day | Bolt | Integrated same day? | Harness, its slice | Note |\n|-----|------|---------------------|--------------------|------|\n| <1> | <skeleton> | <yes, 16:00> | <n/a> | <...> |\n| <2> | | | | |\n\n## Cannot be built alone, raised BEFORE starting, never at 2pm\n| Day | Bolt | What is missing | Cause | Who re-cuts |\n|-----|------|-----------------|-------|-------------|\n| <4> | <rebook> | <the MCP server, scheduled day 6> | <plug after consumer> | <architect> |\n\n## The shadow path\n- Flag `<skyways.rebooking.shadow>`: default off, off in production until <date>\n- The agent decides and logs. It never acts.\n- Test `<test_shadow_never_writes>` fails the build if any write tool is reachable\n  while the flag is in shadow mode. This is a test, not an intention.\n- Cut-over <5>% of traffic on <date>, <named slice> only\n- **Rollback IS the flag.** Rehearsed <date> by <name>. Time to revert <90> seconds.\n"
+    "body": "# Bolt build log · <feature>\n_Architect's cut <10> bolts · Cadence one a day · Owner <name>_\n\n## The order, and the rule that produced it\n| Day | Bolt | Depends on | The ONE unknown | Band |\n|-----|------|-----------|-----------------|------|\n| 1 | <walking skeleton, read a booking, show it. NO MODEL> | none | <do the pieces connect?> | R1 |\n| 2 | <fare_difference(), exact, unit-tested> | 1 | <the rounding rule> | R1 |\n| 3 | <visa and codeshare eligibility, exact> | 1 | <where the partner rules live> | R1 |\n| 4 | <rank_alternatives(), best-guess, measured> | 2 | <can it beat the desk?> | R2 |\n| 5 | <independent checker after ranking> | 4 | <which model judges> | R2 |\n| 6 | <MCP server, reads open> | 1 | <auth to the booking system> | R2 |\n| 7 | <rebook() gated write> | 6 | <idempotency> | R3 |\n| 8 | <issue_refund(max 400) + confirmation token> | 7 | <who mints the token> | R4 |\n| 9 | <shadow path behind a flag> | 5, 8 | <flag plumbing> | R2 |\n| 10 | <golden set and harness in CI> | 9 | <slice tagging> | R1 |\n\nRules this order obeys, in priority order: skeleton first · pure exact code early ·\ncheckers after the steps they check · the plug before any gated write that needs it ·\nthe proof last.\n\n## Daily row\n| Day | Bolt | Integrated same day? | Harness, its slice | Note |\n|-----|------|---------------------|--------------------|------|\n| <1> | <skeleton> | <yes, 16:00> | <n/a> | <...> |\n| <2> | | | | |\n\n## Cannot be built alone, raised BEFORE starting, never at 2pm\n| Day | Bolt | What is missing | Cause | Who re-cuts |\n|-----|------|-----------------|-------|-------------|\n| <4> | <rebook> | <the MCP server, scheduled day 6> | <plug after consumer> | <architect> |\n\n## The shadow path\n- Flag `<skyways.rebooking.shadow>`: default off, off in production until <date>\n- The agent decides and logs. It never acts.\n- Test `<test_shadow_never_writes>` fails the build if any write tool is reachable\n  while the flag is in shadow mode. This is a test, not an intention.\n- Cut-over <5>% of traffic on <date>, <named slice> only\n- **Rollback IS the flag.** Rehearsed <date> by <name>. Time to revert <90> seconds.\n"
    },
    "prompts": [
     {
      "title": "Order the bolts by dependency, not by priority",
      "when": "The architect has the cut and you need the day order",
-     "body": "Here are the bolts for <feature>, each with a one-line description and a\ndepends-on column: <paste>.\n\nProduce a day-by-day order in which every bolt's dependencies come strictly before it.\n\nRULES, applied in this priority order:\n1. The walking skeleton first, the thinnest end-to-end path with NO model in it.\n2. Pure exact code early. It is testable alone, so it never blocks anyone.\n3. Checkers after the steps they check.\n4. Any plug (MCP server, connector, adapter) BEFORE the gated write that needs it.\n5. The proof, golden set and harness, last.\n\nThen report, separately and before the plan:\n- any CYCLE, where two bolts wait on each other. A cycle is always a mis-cut and means\n  one of them is really two bolts. Name which one.\n- any plug scheduled after its consumer in the order I gave you\n- any bolt with NO dependencies that I had scheduled late\n- any bolt carrying more than ONE unknown, and how you would split it\n\nIf there is no walking skeleton in my list, add one and say what it would cover."
+     "body": "Here are the bolts for <feature>, each with a one-line description and a\ndepends-on column: <paste>.\n\nProduce a day-by-day order in which every bolt's dependencies come strictly before it.\n\nRULES, applied in this priority order:\n1. The walking skeleton first: the thinnest end-to-end path with NO model in it.\n2. Pure exact code early. It is testable alone, so it never blocks anyone.\n3. Checkers after the steps they check.\n4. Any plug (MCP server, connector, adapter) BEFORE the gated write that needs it.\n5. The proof, golden set and harness, last.\n\nThen report, separately and before the plan:\n- any CYCLE, where two bolts wait on each other. A cycle is always a mis-cut and means\n  one of them is really two bolts. Name which one.\n- any plug scheduled after its consumer in the order I gave you\n- any bolt with NO dependencies that I had scheduled late\n- any bolt carrying more than ONE unknown, and how you would split it\n\nIf there is no walking skeleton in my list, add one and say what it would cover."
     },
     {
      "title": "Build today's bolt from its file alone",
      "when": "The start of the build day",
-     "body": "Build this bolt. The story file is the whole brief: <paste file>.\n\nRULES:\n- Work only inside the paths the file names. If you find a problem in an adjacent file,\n  write it down at the end; do not fix it. A second fix makes the review two unknowns.\n- Read context by the paths in section 1. Do not ask me to paste any of them.\n- The unit tests named in section 4 are written first and must be seen failing.\n- Nothing in section 3 changes: signatures, bands and confirmation parameters are fixed.\n- If you need something that is not in the file, STOP and say what it is. Do not\n  improvise it, and do not build around it.\n\nOUTPUT, in this order:\n1. The failing tests\n2. The implementation\n3. The command output showing them green\n4. A list headed FILE DEFECTS, everything you needed that the story file lacked\n5. A list headed OUT OF SCOPE, problems you found and deliberately did not fix"
+     "body": "Build this bolt. The story file is the whole brief: <paste file>.\n\nRULES:\n- Work only inside the paths the file names. If you find a problem in an adjacent file,\n  write it down at the end; do not fix it. A second fix makes the review two unknowns.\n- Read context by the paths in section 1. Do not ask me to paste any of them.\n- The unit tests named in section 4 are written first and must be seen failing.\n- Nothing in section 3 changes: signatures, bands and confirmation parameters are fixed.\n- If you need something that is not in the file, STOP and say what it is. Do not\n  improvise it, and do not build around it.\n\nOUTPUT, in this order:\n1. The failing tests\n2. The implementation\n3. The command output showing them green\n4. A list headed FILE DEFECTS: everything you needed that the story file lacked\n5. A list headed OUT OF SCOPE: problems you found and deliberately did not fix"
     },
     {
      "title": "The shadow path and the test that it never writes",
@@ -702,7 +702,7 @@
    ],
    "example": {
     "title": "SkyWays · day 30, the first bolt ships by four in the afternoon",
-    "body": "The first bolt was a walking skeleton: read a booking, show it, no model anywhere in it. It shipped by four in the afternoon, and what it bought was not the feature but the answer to the question every other bolt was resting on, whether the pieces connect. The exact code went on days two and three, so review capacity was free when the ranking bolt arrived. The one re-cut came on day four and was raised at nine in the morning rather than at two: `rebook()` needed the MCP server scheduled for day six, a plug ordered after its consumer. Moving the plug cost an hour. Discovering it mid-build would have cost the day."
+    "body": "The first bolt was a walking skeleton: read a booking, show it, no model anywhere in it. It shipped by four in the afternoon, and what it bought was not the feature but the answer to the question every other bolt was resting on: whether the pieces connect. The exact code went on days two and three, so review capacity was free when the ranking bolt arrived. The one re-cut came on day four and was raised at nine in the morning rather than at two: `rebook()` needed the MCP server scheduled for day six, a plug ordered after its consumer. Moving the plug cost an hour. Discovering it mid-build would have cost the day."
    },
    "pitfalls": [
     "Scheduling the plug after the thing that needs it. It is the single most common ordering error and it costs a whole day in the middle of the week, every time.",
@@ -735,15 +735,15 @@
     },
     {
      "do": "Write one redacted row per consequential action",
-     "detail": "Mask, do not omit, `passport ****1234`. Timestamp, masked input, tools called, the decision, the model version, the approver, the cost. Omitting breaks the audit; logging raw makes the trace store a breach target, usually protected less carefully than the ledger it mirrors."
+     "detail": "Mask, do not omit: `passport ****1234`. Timestamp, masked input, tools called, the decision, the model version, the approver, the cost. Omitting breaks the audit; logging raw makes the trace store a breach target, usually protected less carefully than the ledger it mirrors."
     },
     {
      "do": "Run the injection suite weekly, and on every prompt, tool or context change",
-     "detail": "Every attack string against every gated tool from every entry point, including the partner API's free-text fields. Assert on the **tool calls** and the trace row, never on the model's wording, wording changes with the next prompt edit, and then the test is red for the wrong reason and green for the wrong reason the week after."
+     "detail": "Every attack string against every gated tool from every entry point, including the partner API's free-text fields. Assert on the **tool calls** and the trace row, never on the model's wording: wording changes with the next prompt edit, and then the test is red for the wrong reason and green for the wrong reason the week after."
     },
     {
      "do": "Keep the effort-and-token ledger, per bolt",
-     "detail": "Person-hours by activity, tokens by tier, re-runs, defects escaped. Five minutes a day. Tokens by tier rather than in total, because the tier mix is where routing shows up, and the re-run column is the leak signal, model switching and vague asks appear there first."
+     "detail": "Person-hours by activity, tokens by tier, re-runs, defects escaped. Five minutes a day. Tokens by tier rather than in total, because the tier mix is where routing shows up, and the re-run column is the leak signal: model switching and vague asks appear there first."
     },
     {
      "do": "Reconcile the spec by diff after a hotfix, never by rewriting it",
@@ -764,7 +764,7 @@
     {
      "tool": "A chat surface",
      "use": "Give it the four ratios month over month and have it multiply them out against the ratio between the two invoices. If the product matches, you have explained the bill and can stop looking.",
-     "caution": "Do not let it rank the fixes by the biggest ratio change. The order is (factor minus one) divided by days to fix, and those two orders are different, the retry breaker is usually the right fix in the wrong position."
+     "caution": "Do not let it rank the fixes by the biggest ratio change. The order is (factor minus one) divided by days to fix, and those two orders are different: the retry breaker is usually the right fix in the wrong position."
     },
     {
      "tool": "Do not delegate",
@@ -786,12 +786,12 @@
     {
      "title": "Diagnose the bill from the per-call log",
      "when": "The invoice has left its estimate and traffic is flat",
-     "body": "Traffic is flat and the bill is <n>x the estimate. Do not look at the price list.\nHere is the per-call log for this month and the month before: <paste or path>.\n\nCompute these four ratios, this month against last:\n| Signature | Baseline | Now | Factor |\n- tokens per call\n- frontier tier share\n- cache hit ratio (a FALL is a rise in cost; express it as a factor above 1)\n- retries per conversation\n\nMultiply the four factors. Compare the product with the ratio between the two invoices.\n- If they match, say so and stop looking. The bill is explained.\n- If the product is well below the invoice ratio, something structural changed that is\n  not a habit, traffic, a new feature, or a price change. Say which to check.\n\nThen order the fixes by  priority = (factor - 1) / days to fix,  NOT by the biggest\nratio change. Give me the table with the order and the days you assumed.\n\nFinally: name the guards that would have caught this in week one rather than week four."
+     "body": "Traffic is flat and the bill is <n>x the estimate. Do not look at the price list.\nHere is the per-call log for this month and the month before: <paste or path>.\n\nCompute these four ratios, this month against last:\n| Signature | Baseline | Now | Factor |\n- tokens per call\n- frontier tier share\n- cache hit ratio (a FALL is a rise in cost; express it as a factor above 1)\n- retries per conversation\n\nMultiply the four factors. Compare the product with the ratio between the two invoices.\n- If they match, say so and stop looking. The bill is explained.\n- If the product is well below the invoice ratio, something structural changed that is\n  not a habit: traffic, a new feature, or a price change. Say which to check.\n\nThen order the fixes by  priority = (factor - 1) / days to fix,  NOT by the biggest\nratio change. Give me the table with the order and the days you assumed.\n\nFinally: name the guards that would have caught this in week one rather than week four."
     },
     {
      "title": "Build the weekly injection suite",
      "when": "Before launch, and it runs weekly forever after",
-     "body": "Build an injection regression suite for <feature>.\n\nCross-product: EVERY attack string x EVERY gated tool x EVERY entry point.\n\nEntry points must include, at minimum:\n- the passenger's own message\n- a partner API response free-text field (the partner is trusted; the field is not)\n- an uploaded document, including text that is invisible when rendered\n- a free-text field on the booking record\n- a retrieved knowledge-base chunk\n\nRULES, these decide whether the suite is worth anything:\n- Assert on the TOOL CALLS and on the trace row. Never assert on the model's wording.\n  A test that checks the reply contains \"I cannot do that\" is red for the wrong reason\n  after the next prompt edit and green for the wrong reason the week after.\n- Every test asserts BOTH that the action did not happen AND that an attempt was\n  recorded in the trace.\n- The suite runs weekly on a schedule, and on every prompt, tool or context change.\n\nOUTPUT: the test module, the attack-string fixture file, and the CI schedule entry.\n\nOUR GATED TOOLS: <paste signatures>\nOUR ENTRY POINTS: <paste>"
+     "body": "Build an injection regression suite for <feature>.\n\nCross-product: EVERY attack string x EVERY gated tool x EVERY entry point.\n\nEntry points must include, at minimum:\n- the passenger's own message\n- a partner API response free-text field (the partner is trusted; the field is not)\n- an uploaded document, including text that is invisible when rendered\n- a free-text field on the booking record\n- a retrieved knowledge-base chunk\n\nRULES (these decide whether the suite is worth anything):\n- Assert on the TOOL CALLS and on the trace row. Never assert on the model's wording.\n  A test that checks the reply contains \"I cannot do that\" is red for the wrong reason\n  after the next prompt edit and green for the wrong reason the week after.\n- Every test asserts BOTH that the action did not happen AND that an attempt was\n  recorded in the trace.\n- The suite runs weekly on a schedule, and on every prompt, tool or context change.\n\nOUTPUT: the test module, the attack-string fixture file, and the CI schedule entry.\n\nOUR GATED TOOLS: <paste signatures>\nOUR ENTRY POINTS: <paste>"
     },
     {
      "title": "Reconcile the spec by diff after a hotfix",
@@ -801,7 +801,7 @@
    ],
    "example": {
     "title": "SkyWays · day 75, a bill 4.4 times the estimate with flat traffic",
-    "body": "Traffic was flat, so behaviour had changed, and behaviour is only visible per call. Four ratios explained it: tokens per call 1.6, frontier tier share 1.5, cache hit ratio 1.3, retries per conversation 1.41: and they multiply to 4.40. Four separate sensible decisions made by careful people. The order of the fixes was not the order of the ratios: retries had risen most in relative terms and contributed the smallest factor, so the context trim went first at half a day for 1.6x and the breaker went last. Four weeks had passed before anybody noticed, which is the part worth fixing permanently, an alert at three times the ratified cost per case, a watched cache hit ratio, and the caching and routing config in one file reviewed like code."
+    "body": "Traffic was flat, so behaviour had changed, and behaviour is only visible per call. Four ratios explained it: tokens per call 1.6, frontier tier share 1.5, cache hit ratio 1.3, retries per conversation 1.41, and they multiply to 4.40. Four separate sensible decisions made by careful people. The order of the fixes was not the order of the ratios: retries had risen most in relative terms and contributed the smallest factor, so the context trim went first at half a day for 1.6x and the breaker went last. Four weeks had passed before anybody noticed, which is the part worth fixing permanently: an alert at three times the ratified cost per case, a watched cache hit ratio, and the caching and routing config in one file reviewed like code."
    },
    "pitfalls": [
     "A request id inside the cached block. The prefix never matches again, the hit ratio collapses, nothing errors, and the first symptom is an invoice a month later.",

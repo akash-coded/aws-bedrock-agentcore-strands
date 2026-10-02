@@ -3,7 +3,7 @@
 **Thirty-seven scenarios:** thirteen episodes from SkyWays, and twenty-four more from other industries.
 
 The airline case is deliberately one case, followed all the way through. This page is the other half:
-the same playbook applied to healthcare, banking, insurance, retail, logistics, manufacturing,
+the same method applied to healthcare, banking, insurance, retail, logistics, manufacturing,
 telecoms, energy, the public sector and an internal helpdesk — because the test of a method is whether
 it survives a change of domain.
 
@@ -528,7 +528,7 @@ One source of truth, in config, reviewed like code, and a test for the boundary 
 **AI-fit.** Judgement: mild. Volume: very high. Recoverable: yes, trivially.
 
 **The decisive move.** This is the case where the honest bar is genuinely around **50%**, no hold is
-needed, and most of the ceremony in this playbook is **wrong**. Damage per wrong answer is one minute
+needed, and most of the ceremony in this manual is **wrong**. Damage per wrong answer is one minute
 and a human hand-off; saving per right answer is about the same, so `N = 1`.
 
 **The trap.** Applying the airline's apparatus to it. Eleven gates and a shadow run for a printer
@@ -592,7 +592,7 @@ A scenario earns its place if it has all four:
 4. **A named artefact at the end.** What does the room leave with?
 
 Two more things that make a scenario good rather than merely correct. **Name the loop it closes**, so
-it can be filed. And **let the playbook lose sometimes** — scenario 23 exists because a method that
+it can be filed. And **let the method lose sometimes** — scenario 23 exists because a method that
 only ever says "apply more of me" is not being tested.
 
 Post new ones in

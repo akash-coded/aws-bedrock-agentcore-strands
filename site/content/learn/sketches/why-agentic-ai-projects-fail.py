@@ -11,15 +11,15 @@ def leak(s: Sk):
     s.blob(560, 300, 84, 104, "ink", lumps=4, depth=0.05)                      # the rucksack on its back
     s.curve([(488, 262), (556, 284), (632, 256)], "ink")                       # its flap
     s.rect(506, 318, 70, 52, "ink", fill="p", sw="t")                          # its pocket
-    s.worker(700, 339, look=(1, 0.2), arms=[None, (850, 330)], legs="walk")
+    s.worker(700, 339, look=(1, 0.1), arms=[(856, 346), (852, 290)], legs="walk", lean=4)
     s.doc(850, 236, 104, 134, tilt=6, lines=2, mark="tick")
     for x, y in ((512, 430), (498, 482)):                                      # falling
         s.coin(x, y, 15)
     for x in (120, 215, 300, 392, 470):                                        # fallen
         s.oval(x, 530, 17, 8, "ink", fill="p")
     s.ring(505, 398, 30, 20)
-    s.note(960, 130, "every check passes", (908, 228), "aside")
-    s.note(300, 250, "no error|for this", (478, 396), "point")
+    s.note(880, 110, "every check passes", (908, 226), "aside")
+    s.note(290, 250, "no error|for this", (478, 396), "point")
     s.label(250, 478, "the value", "ink")
 
 
@@ -36,9 +36,11 @@ def snowball(s: Sk):
     s.oval(812, 452, 104, 104, "ink", fill="p", w="h")                         # the bill, arrived
     s.curve([(760, 400), (790, 372), (832, 366)], "ink", "t")
     s.worker(1040, 359, look=(-1, -0.1), arms=[(908, 400), (900, 480)], lean=9, squash=0.94)
-    for t, txt in ((100, "×1.6"), (250, "×1.5"), (400, "×1.3"), (610, "about ×1.4")):
+    for t in (130, 280, 430, 580):                                             # four habits, one after another
         px, py = x0 + t * ux, y0 + t * uy
-        s.label(px - 0.5 * 62, py + 0.866 * 62, txt, "path", rot=30)
+        s.stroke([(px - 0.5 * 10, py + 0.866 * 10), (px - 0.5 * 34, py + 0.866 * 34)], "path", "h", amp=0.3)
+    px, py = x0 + 330 * ux, y0 + 330 * uy
+    s.label(px - 0.5 * 96, py + 0.866 * 96, "four habits, multiplied", "path", rot=30)
     s.note(880, 120, "4.4 times|the estimate", (830, 340), "point")
 
 

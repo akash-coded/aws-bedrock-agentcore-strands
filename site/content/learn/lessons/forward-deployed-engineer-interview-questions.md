@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in one sentence.** Forward deployed engineer interviews test three things at once, whether
-> you can build production software in an environment you do not control, whether you can turn a vague
-> customer ask into a provable scope, and whether what you leave behind keeps working and feeds the
-> product: and these ten questions probe each, with the framework, a strong answer, the follow-up that
+> **The bank in short.** Forward deployed engineer interviews test three things at once. Can
+> you build production software in an environment you do not control? Can you turn a vague
+> customer ask into a provable scope? Does what you leave behind keep working and feed the
+> product? These ten questions probe each, with the framework, a strong answer, the follow-up that
 > finds your limit, and the red flag.
 
 {{map:forward-deployed-engineer-interview-questions}}
@@ -42,8 +42,6 @@ artefacts such as MCP servers, sub-agents and agent skills, then codify repeatab
 coding, a system design set in a customer's world, a decomposition or case exercise, and deep
 behavioural questions about customers. [What is an FDE?](lesson:what-is-a-forward-deployed-engineer)
 
-{{sketch:model-ready-door-locked}}
-
 ## Discover and scope
 
 ### Q1 · "Walk me through your first two weeks at a new enterprise customer."
@@ -55,7 +53,7 @@ hand over, with lead-time items first
 
 - **Day one, the lead-time items**: model access in the right regions, data access, network and identity,
   the security review. They set the calendar, not the build.
-- **Measure the pain in their data**: cases, minutes, money: and who owns the risk.
+- **Measure the pain in their data**: cases, minutes, money, and who owns the risk.
 - **Pick a provable first slice**, and write the AI-fit verdict with what was rejected.
 - **A walking skeleton in their environment** in week one: their authentication, their data path, no model.
 - **Agree what done means**: the bar per slice, signed by their risk owner, and the evidence that will prove it.
@@ -63,7 +61,7 @@ hand over, with lead-time items first
   model is usually waiting for a firewall rule by week three.
 
 **The follow-up:** "The security review takes six weeks." → start it on day one, build against redacted or
-synthetic data meanwhile, and design for their constraints, private networking, no data leaving the account.
+synthetic data meanwhile, and design for their constraints: private networking, no data leaving the account.
 
 **Red flag:** "I'd build a quick demo first."
 
@@ -120,7 +118,7 @@ step, lower bounds
 
 <details><summary>What a strong answer covers</summary>
 
-- **Real contracts, redacted, labelled by the customer's lawyers**: never by the model.
+- **Real contracts, redacted, labelled by the customer's lawyers**, never by the model.
 - **Slices**: clause types, jurisdictions, contract families, plus an abstention slice for genuinely ambiguous
   clauses.
 - **A checker per kind of step**: exact checks for extracted fields such as dates and amounts; a rubric and a
@@ -167,13 +165,13 @@ answered, and what changed in the inputs?
 
 - **Map the steps**: read the exception (exact), classify the cause (best-guess), look up records (exact
   tools), propose a resolution (best-guess), execute it (consequential).
-- **Authority per action**: read tools open; writes gated; payments never autonomous at first, a named
-  approver, caps in the tool signatures, idempotency keys so a retry cannot pay twice.
+- **Authority per action**: read tools open; writes gated; payments never autonomous at first, with a named
+  approver, caps in the tool signatures, and idempotency keys so a retry cannot pay twice.
 - **Tools as MCP servers** over the bank's core systems, each with its own least-privilege identity.
 - **An audit trail as a product requirement**: who, what, why and on what evidence, redacted, for every action.
 - **Prove it**: per-slice bars, then a shadow run against the operations team.
-- **The insight:** in a bank, the explanation of a decision is the evidence it was based on, the records
-  and tool calls, not a paragraph the model writes afterwards.
+- **The insight:** in a bank, the explanation of a decision is the evidence it was based on (the records
+  and tool calls), not a paragraph the model writes afterwards.
 
 **The follow-up:** "The regulator requires an explanation of every decision." → store the evidence with
 each decision and generate explanations from the trace.
@@ -250,9 +248,9 @@ incident rate is, and show what evidence would justify the change here.
 <details><summary>What a strong answer covers</summary>
 
 - **The repeat**: the same connector, evaluation or approval flow built at more than one customer.
-- **What you built instead**: a configurable, tested asset, an MCP server, a skill, a harness template.
+- **What you built instead**: a configurable, tested asset (an MCP server, a skill, a harness template).
 - **The number**: time saved at the next deployment, or defects avoided.
-- **The change**: how it reached the product team and changed a roadmap item, the eval-driven feedback
+- **The change**: how it reached the product team and changed a roadmap item. That is the eval-driven feedback
   the role exists to produce.
 - **The insight:** an FDE's lasting effect is the loop back into the product. Delivery alone does not scale.
 
@@ -320,8 +318,8 @@ cannot hand over or feed back turns into a services business.
 **The ten-minute workflow.** A customer case interview, on demand:
 
 ```text
-Act as an interviewer for a forward deployed engineer role at an AI company. Give me a customer scenario
-— the industry, the ask, the constraints (data, security, timeline). Let me ask up to five clarifying
+Act as an interviewer for a forward deployed engineer role at an AI company. Give me a customer scenario:
+the industry, the ask, the constraints (data, security, timeline). Let me ask up to five clarifying
 questions, then have me design the first two weeks and the first deployable slice. Push back as the
 customer would, then score me on scoping, evidence, security and handover.
 ```

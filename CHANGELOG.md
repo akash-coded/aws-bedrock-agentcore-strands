@@ -8,6 +8,144 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · The labs open, the game speaks plainly, and a page never meets an old stylesheet
+
+The labs are new: one job of the airline's project, done by hand. How a lab is written, and its one rule
+(a recording is a recording), are in [`site/content/labs/README.md`](site/content/labs/README.md); the
+record of the round is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md) and, for the game,
+[`site/GAME.md`](site/GAME.md).
+
+### Added
+- **The labs**, at `/labs/`. A lab is a bench: on the left the work, one beat after another; on the right
+  the document the work makes, which shows what a person decided and what a model guessed. The player
+  assembles a prompt from parts, runs it, reads the reply, marks what is wrong in it, makes the calls only a
+  person can make, and leaves with the document to download. One lab is open, **Grow the spec** (P1, twelve
+  minutes): a product manager's one page becomes a spec a coding agent can build from, without letting a
+  model make the five decisions nobody has made. Three more are listed as being built: the system prompt
+  from the spec, proving the bar, and reviewing a change a coding agent wrote. The engine is in
+  [`site/labs/`](site/labs/), the pages and the check in [`site/pages/labs.py`](site/pages/labs.py), and
+  each lab is one script in [`site/content/labs/`](site/content/labs/)
+- **Every reply in a lab is a recording**: a real model's answer to the exact prompt the lab shows, saved
+  when the lab was written, with the model's name and the date on it and a line that says the reader's own
+  will differ. Nothing is fetched and no model is called. The build refuses a recording with no model or
+  date, and one whose prompt is not what the lab's parts join into, byte for byte, so a prompt cannot be
+  edited after its reply was recorded. Every prompt has a copy button, for trying it on the reader's own model
+- **A lab reads as a document without script**: each step, the prompt the book uses, every recording with
+  its model and date, the faults to notice, the call the book makes and why, and the document as the book
+  leaves it
+- [`site/tools/lab.test.mjs`](site/tools/lab.test.mjs) plays a lab by real clicks in headless Chrome, on
+  every path its script has. It checks that the prompt the page assembles is the one recorded, that marking
+  every fault scores full and marking none scores nothing, that a reload comes back to the same beat, that
+  the focus moves to each new beat, that nothing scrolls sideways on a phone, and that without script every
+  recording is on the page
+- [`site/tools/workbench.test.mjs`](site/tools/workbench.test.mjs) drives the workbench in headless Chrome,
+  in eight sections: every route at 1440 and 390 wide in both themes, with no script error, its title in
+  the first screen, no sideways scroll and text at 4.5:1; the dark default and the theme stored under the
+  site's own key; the top bar; a link from the game or a lesson that lands on the part of a page it names;
+  all seventeen calculators, the evidence pack across a reload, a decision walk to its end, and state
+  saved by the earlier version; no old name, mascot, rank or points counter, and nothing that moves on its
+  own; the ten pictures `simshots.mjs` captures; and the file opened alone from disk, with no network
+- [`site/tools/herosheet.mjs`](site/tools/herosheet.mjs) lays the hero out at twelve moments of one lap, at
+  four widths, in both themes, on sheets for a person to look at before a release. The gate measures the
+  hero; this is for the eye
+- [`site/tools/sim.test.mjs`](site/tools/sim.test.mjs) checks more of the words and the rules: every
+  headline names what it is about, and no headline, context line or question points at someone it has not
+  named; the heading says it is a game before it gives the name; every day after the first leans on an
+  earlier day and on a document an earlier day files, and "So far" quotes that day and never joins two; a
+  document waits for its task; a question can be asked of a sound plan as well as an unsound one, and shows
+  only evidence; and a late run never reports the saving of one on time.
+  [`site/tools/playtest.mjs`](site/tools/playtest.mjs) has an eleventh section, what an audit found by
+  looking, each kept as a check and run with motion allowed: the title's first screen says what the game is
+  and how to start; a day's question and its first option are on the first screen; the header does not
+  move between days; on Day 75 only the labels of what is left are shown; on Day 82 nothing sits on
+  anything else down to 320 wide; a figure plays only as the answer to a press, and only on screen; a pin
+  flies only to a day strip that can be seen; a document goes on file when its task is done; Day 15's three
+  documents line up; the sponsor may ask about any plan; and a day offers one way to leave the run
+- The labs are in the drawer under Play, in the search and in the sitemap, and the home page's simulator
+  band has a quiet link to them
+- Four more passes in [`site/tools/accept.mjs`](site/tools/accept.mjs), thirteen in all: the top bar fits
+  at five widths, the floating buttons stay off the words, every local stylesheet and script is asked for
+  by its version ("versions"), and with every stylesheet blocked no mark in a sketch falls back to solid
+  black ("no stylesheet"). The passes that run page by page now include the two lab pages
+
+### Changed
+- **The hero is one canvas on one clock** ([`site/theme/hero.js`](site/theme/hero.js)): a turning Earth, a
+  fine spiral around it, and one aircraft that climbs the spiral. The front of each turn is the journey, P0
+  to P3; the back, behind the Earth, is the way back to Frame. Each turn sits one step above the last, and
+  the whole spiral sinks as the aircraft climbs, so it climbs for ever without leaving the picture. Only the
+  turn being flown is in the phase hues, with its one sign-off; the turns already flown are grey. The flight
+  used to be drawn over the globe in SVG and CSS, as a thick ribbon. The Earth turns once in 75 seconds
+  (it was once a minute), and a lap takes 27: steady in front of the Earth, quick behind it. The aircraft
+  has three shapes where it had four, easing from one to the next: a paper dart in P0, the outline of an
+  airliner in P1, the airliner drawn solid from the sign-off on, a jet in P3, and the dart again by the time
+  it comes round from behind the Earth. The phase names sit in one line under the picture, and the line
+  marks the phase the aircraft is in. The only entrance left is the Earth's: it spins down to its steady
+  turn in the first second or two, once in a sitting, and the path and the aircraft are simply there. The
+  gate's hero pass now checks, at twelve moments of a lap and four widths, that the line under the picture
+  names the phase the aircraft is in
+- **Nothing waits to be scrolled to.** The home page's bands no longer rise into place as the reader
+  reaches them (`.rv` is gone from [`site/theme/base.css`](site/theme/base.css)), so the gate's third pass is
+  now "nothing waits for an animation": 700ms after load nothing on the whole page is hidden
+- **No view transitions.** Pages change without the cross-fade, and the top bar's pill no longer travels
+  from one page to the next
+- **The home page's simulator band shows one real day of the game**: Day 45 as a card, with the QA room
+  drawn in pixels, the day's headline, its context, its question and its three answers with their price in
+  days, each of which opens Day 45 in the game. The words come from `days.json`, and the day is `SIM_DAY` in
+  [`site/render.py`](site/render.py). The card takes the place of the three moments of the game shown in turn,
+  their pause control and the band's three numbers. The band's link to the workbench gave way to the link
+  to the labs; the workbench stays in the drawer and the footer
+- **Stylesheets and scripts carry their version.** The build gives every local stylesheet and script a page
+  asks for a `?v=` taken from a hash of the file's content (`stamp()` in [`site/build.py`](site/build.py)).
+  GitHub Pages lets a browser keep a file for ten minutes, so a reader who arrived just after a release could
+  get the new page with the old stylesheet. A changed file now has a new address. The pristine tool in
+  `app/` is left alone
+- **The game in a newcomer's words.** Every headline and context line in
+  [`site/play/days.json`](site/play/days.json) names what it is about (the AI assistant, six airline
+  managers, the project team) and points at nobody it has not named, and every question says who is to act:
+  "What does Maya report?" is now "What should the QA lead report about the score?".
+  [`site/tools/sim.test.mjs`](site/tools/sim.test.mjs) checks all three
+- **Each day names the call it leans on.** Every day after the first has a `leans` entry, which "So far"
+  follows: the earlier day to quote, the document whose state says what that call left, and, where that
+  document's own sentence would say nothing about today, one that does. It used to be worked out from the
+  document the day needs, or else the day before
+- **The game says what it is before its name.** The page's heading is "A game: run a ninety-day AI
+  project." above "Ninety Days, the SkyWays simulator" (`what`); the opening lines name the fictional
+  airline, the AI assistant, the ninety days and the thirteen decisions (`premise`); and the title screen
+  opens on `pitch`: a game takes ten to fifteen minutes, and every decision shows its price in days before
+  it is chosen. `game.js` reads `pitch`, and `pages/play.py` the other two
+- **A question about a colleague's plan shows the evidence.** In one role, and for the sponsor, every plan
+  now offers "Ask to see the evidence" while questions are left, sound or not, so the offer gives nothing
+  away; the sponsor's used to appear only when the plan was not the method's. Asking (`ask` in
+  [`site/play/sim.js`](site/play/sim.js)) costs one question whatever it shows. It shows the document the
+  plan works from and whether it is on file, and what the plan would put on file; on Day 90, the slide as
+  planned. It never says what the plan costs later. Then the player lets the plan stand or asks for another
+  option at no further cost, and the sponsor chooses what to send the team back to do. Before, a question in
+  one role opened the other options with no evidence and was spent only on a change, and the sponsor's sent
+  the team straight to the method's option
+- **Two rules in `sim.js`.** An option that opens a hands-on task files its documents when the task is
+  done, not when the option is pressed. And the verdict's saving follows the run: every day late is a day
+  the assistant was not live, out of the 45 between Day 45 and Day 90, and a kind of case that went live
+  below its bar, or before it was proven, was done again by people
+- **The workbench is dark by default**, like the manual, and shares its theme setting (`manual-theme`), so a
+  reader who chose light in the manual gets light there too. Its page title is "The SkyWays workbench", and
+  "SkyWays Architect" is gone from its metadata, its frame and its contact subject line
+- **The workbench has its own top bar**: the mark, its menus with the tutorial at the head of the Learn
+  list, the search, the evidence pack, a quiet link to the manual, one filled pill to the game and the theme
+  toggle. So the frame no longer adds a strip above the tool or a Manual pill to its bar, and the footer
+  still links back to the manual. The mascot, the ranks, the points counter and the exploration card are
+  gone
+- **Fewer sketches, and each carries its own paint.** 77 in 48 lessons, down from 98 in 52, cut by the two
+  tests of removal in the folder's [README](site/content/learn/sketches/README.md): take the worker out, and
+  take the sketch out. Every mark now carries its paint as plain attributes, so a sketch still looks right
+  when the stylesheet is missing, late or an older copy
+- **"Manual" for "playbook"** where the lessons name this site: "this playbook" is "this manual" in their
+  text and their sources tables. "Playbook" stays where it means a playbook
+
+### Fixed
+- In the workbench's dark theme the hard gate's label (`.xrt-gl.hard b`, and three more selectors that share
+  its rule) was mixed from a fixed 86% of the gate's red and read at about 3.5:1. It now mixes at the theme's
+  own strength (`--ht`), as the workbench's other coloured labels do, and clears 4.5:1
+
 ## 2026-10-02 · Pictures that explain, a hero that moves, and screens that stand alone
 
 A fifth council (five advisors, five reviewers) set this round; its record is in

@@ -11,10 +11,10 @@ updated: 2026-10-02
 
 > [!TIP]
 > **The short answer.** **AI-DLC** is AWS's 2025 methodology in which AI proposes and people decide
-> across Inception, Construction and Operations; **AIDDLC** is a separate seven-phase standard with a
-> near-identical name; **AIDD** is the everyday craft of building with AI tools; **agentic SDLC** is a
-> vendor term for agents across the software lifecycle; **spec-driven development** and **BMAD** are
-> ways to structure that building; and the **agentic PDLC** is a product lifecycle for software that
+> across Inception, Construction and Operations. **AIDDLC** is a separate seven-phase standard with a
+> near-identical name. **AIDD** is the everyday craft of building with AI tools, and **agentic SDLC**
+> is a vendor term for agents across the software lifecycle. **Spec-driven development** and **BMAD**
+> are ways to structure that building. The **agentic PDLC** is a product lifecycle for software that
 > has a model *inside* it, which is the one question the others leave open.
 
 {{map:ai-dlc-vs-aidd-vs-agentic-sdlc}}
@@ -22,7 +22,7 @@ updated: 2026-10-02
 **In this lesson** you'll learn:
 
 - who coined each term, and what exactly it names;
-- the one question that sorts them, is AI building the software, or is AI inside it?
+- the one question that sorts them: is AI building the software, or is AI inside it?
 - which to reach for when, and how they combine rather than compete.
 
 ## Sound familiar?
@@ -39,13 +39,13 @@ makes the choice simple.
 | Term | Coined or used by | What it names | Answers the question |
 | --- | --- | --- | --- |
 | **AI-DLC** | AWS: Raja SP, July 2025 | A methodology: AI plans and proposes, people validate and decide, across **Inception, Construction and Operations**, in bolts of hours or days | How do we build software with AI doing most of the work? |
-| **AIDDLC** | aiddlc.ai, a separate standard | A seven-phase lifecycle, foundation, inception, elaboration, construction, hardening, operations, evolution | The same question, with more phases and gates |
-| **AIDLC** | Various vendors and writers | Usually a spelling of AI-DLC; sometimes "AI development lifecycle" in general | Depends on the author, check which one they mean |
-| **AIDD** | Widely used; no single author | AI-driven development: the everyday craft of building with AI tools, context files, story files, coding agents, review | How do I work with coding agents day to day? |
+| **AIDDLC** | aiddlc.ai, a separate standard | A seven-phase lifecycle: foundation, inception, elaboration, construction, hardening, operations, evolution | The same question, with more phases and gates |
+| **AIDLC** | Various vendors and writers | Usually a spelling of AI-DLC; sometimes "AI development lifecycle" in general | Depends on the author: check which one they mean |
+| **AIDD** | Widely used; no single author | AI-driven development: the everyday craft of building with AI tools (context files, story files, coding agents, review) | How do I work with coding agents day to day? |
 | **Agentic SDLC** | Tooling vendors | The software lifecycle with agents taking part in every phase, from planning to operations | Where in delivery can agents act? |
 | **Spec-driven development** | Kiro and GitHub Spec Kit, 2025 | Write the spec before the code, and keep it as the artefact agents build from | What should an agent build from? |
 | **BMAD Method** | BMad Code | Specialised AI personas modelled on an agile team, each handing a document to the next | How do we give AI building structure and an audit trail? |
-| **Agentic PDLC** | This playbook | A four-phase lifecycle, P0 to P3, for products that have a **model inside them** | How right must it be, who may authorise each action, and how will we know when it stops being true? |
+| **Agentic PDLC** | This manual | A four-phase lifecycle, P0 to P3, for products that have a **model inside them** | How right must it be, who may authorise each action, and how will we know when it stops being true? |
 
 ## The one question that sorts them
 
@@ -71,7 +71,7 @@ run, the drift watch and the two-number report.
 ### Step 3 · Pick by the question you are stuck on
 
 - Stuck on **how to structure work with coding agents** → spec-driven development, AI-DLC or BMAD.
-- Stuck on **daily habits**: why the agent keeps ignoring conventions → AIDD's context and story files.
+- Stuck on **daily habits** (why the agent keeps ignoring conventions) → AIDD's context and story files.
 - Stuck on **whether it is good enough to launch, and who decides** → the agentic PDLC.
 
 ## Where you'll use it
@@ -104,7 +104,7 @@ are the agentic PDLC's questions, and they sit alongside the building method rat
 
 ## Key takeaways
 
-1. **AI-DLC** is AWS's 2025 method; **AIDDLC** is a different standard; **AIDD** is the everyday craft, check which one people mean.
+1. **AI-DLC** is AWS's 2025 method; **AIDDLC** is a different standard; **AIDD** is the everyday craft. Check which one people mean.
 2. Most terms describe **AI building the software**; the agentic PDLC describes **software with AI inside it**.
 3. Real projects are both, so the methods **combine**: a building method inside P1 and P2, the lifecycle around it.
 
@@ -133,7 +133,7 @@ whether a job needs a model and its last reports value beside cost.
 
 The STLC is the software testing lifecycle, so the agentic STLC, which some teams write as A-STLC, is
 testing with agents in it and testing of software that has a model in it. It is a slice of the product
-lifecycle, and in this playbook it is the [QA lead's eight steps](site:qa/): the proof each kind of step
+lifecycle, and in this manual it is the [QA lead's eight steps](site:qa/): the proof each kind of step
 owes and the golden set in P1, the harness wired in as P1 turns into P2, the shadow run at the end of
 P2, the drift watch in P3.
 
@@ -158,8 +158,8 @@ organisation. Name confusion costs weeks in procurement, planning and vendor eva
 
 ```text
 Our teams use these terms: <list, each with an example sentence>. For each, say which it most likely
-means — AWS AI-DLC, the AIDDLC standard, AIDD, agentic SDLC, spec-driven development or the BMAD
-Method — and where the usage is ambiguous. Draft a one-paragraph definition we could adopt for each.
+means (AWS AI-DLC, the AIDDLC standard, AIDD, agentic SDLC, spec-driven development or the BMAD
+Method) and where the usage is ambiguous. Draft a one-paragraph definition we could adopt for each.
 ```
 
 ## Sources and credits
@@ -168,7 +168,7 @@ Method — and where the usage is ambiguous. Draft a one-paragraph definition we
 | --- | --- | --- |
 | AI-DLC: Inception, Construction, Operations; bolts; AI proposes, people decide | **Borrowed** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
 | AI-DLC described as a development methodology coined at AWS | **Borrowed** | IBM. [What is AI-DLC?](https://www.ibm.com/think/topics/ai-dlc) |
-| AIDDLC's seven phases | **Borrowed** | [AIDDLC. AI-Driven Development Lifecycle Standard](https://www.aiddlc.ai/) |
+| AIDDLC's seven phases | **Borrowed** | [AIDDLC: AI-Driven Development Lifecycle Standard](https://www.aiddlc.ai/) |
 | Spec-driven development and its three levels | **Borrowed** | Böckeler, B. (2025). [Understanding spec-driven development](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html) |
 | The BMAD Method | **Borrowed** | BMad Code. [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) |
 | Agents across every phase of the SDLC | **Borrowed** | CodeRabbit. [A guide to the agentic SDLC](https://www.coderabbit.ai/guides/agentic-sdlc) |

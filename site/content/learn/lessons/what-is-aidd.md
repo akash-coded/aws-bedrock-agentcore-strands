@@ -10,9 +10,9 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **AIDD in one sentence.** AI-driven development is the everyday craft of building software with
-> coding agents: and in this playbook it means five habits: a **context file** every tool reads, a
-> **story file** per unit of work instead of a chat thread, **exact work in tested code** before any
+> **AIDD in short.** AI-driven development is the everyday craft of building software with
+> coding agents. In this manual it means five habits. The first two are a **context file** every tool reads and a
+> **story file** per unit of work instead of a chat thread. The other three are **exact work in tested code** before any
 > prompt, **review set by risk** rather than by diff size, and a **harness** that decides what merges.
 
 {{map:what-is-aidd}}
@@ -35,12 +35,12 @@ them.
 ## What is AI-driven development?
 
 **AI-driven development (AIDD)** is a broad term for building software with AI tools doing a large
-share of the writing, testing and fixing, coding agents such as Claude Code, Cursor, Codex or
+share of the writing, testing and fixing: coding agents such as Claude Code, Cursor, Codex or
 GitHub Copilot working inside the repository. Unlike AWS's AI-DLC, it has no single author or
 published specification; different writers use it for different things, and one even expands it as
 "adaptive intent-driven development".
 
-This playbook uses it for the **day-to-day craft**: the habits that sit underneath any method (AI-DLC, spec-driven development or BMAD) and decide whether a coding agent helps. Mostly they live
+This manual uses it for the **day-to-day craft**: the habits that sit underneath any method (AI-DLC, spec-driven development or BMAD) and decide whether a coding agent helps. Mostly they live
 in P2, [Build & Prove](lesson:p2-build-and-prove).
 
 ## The five habits, step by step
@@ -57,8 +57,8 @@ files never to touch.
 {{sketch:the-rule-by-the-door}}
 
 Grow it by adding the rule that bit you last week. SkyWays' first file was twenty-two lines. It grew
-twice: once after an agent computed a fare in a prompt, *never compute money in a prompt; call the
-function*, and once after a mid-task model switch discarded the cache, *one model per task*.
+twice: once after an agent computed a fare in a prompt (*never compute money in a prompt; call the
+function*) and once after a mid-task model switch discarded the cache (*one model per task*).
 
 ### Step 2 · Build from a story file, not a chat thread
 
@@ -107,7 +107,7 @@ at the end, a change to a money tool gets two named readers every time.
 
 The evidence on AI and developer speed is mixed, and the habits explain why. In a 2025 randomised
 trial, experienced open-source developers took **19% longer** with AI tools while believing they were
-**20% faster**: a result its authors now describe as historical. DORA's 2025 research found that AI
+**20% faster**, a result its authors now describe as historical. DORA's 2025 research found that AI
 **amplifies** what a team already is, strong or weak. A coding agent without context, story files and
 a harness amplifies the rework; with them, it amplifies the output.
 
@@ -120,8 +120,8 @@ new one, and it still forgets."* **Which habit fixes this, and how?**
 
 **The context file.** An instruction typed into a chat reaches one session; a rule in `CLAUDE.md`,
 `AGENTS.md` or the Copilot instructions file reaches every session and every engineer, because the
-tool reads it before it starts. Add one line under conventions, *use the new logging library; the
-old one is removed in version 3*, and, if it keeps happening, a lint rule that fails the build, so
+tool reads it before it starts. Add one line under conventions (*use the new logging library; the
+old one is removed in version 3*) and, if it keeps happening, a lint rule that fails the build, so
 the harness enforces what the file asks for.
 
 </details>
@@ -137,7 +137,7 @@ the harness enforces what the file asks for.
 ### What is the difference between AIDD and vibe coding?
 
 Vibe coding accepts whatever the model produces as long as it seems to work. AI-driven development in
-this playbook's sense adds the structure that makes the output trustworthy: a context file, a story
+this manual's sense adds the structure that makes the output trustworthy: a context file, a story
 file per unit of work, exact work in tested code, independent checking and a harness that gates the
 merge.
 
@@ -163,7 +163,7 @@ AI-DLC, spec-driven development and BMAD all rely on AIDD habits to work.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Set up the five habits in the customer's repository in week one, context file, story files, exact code first, review by risk, the harness. Their team keeps them after you leave. | Have a coding agent draft the context file from the repository and the customer's standards, then review it with their lead. |
+| **A forward-deployed engineer** | Set up the five habits in the customer's repository in week one: context file, story files, exact code first, review by risk, the harness. Their team keeps them after you leave. | Have a coding agent draft the context file from the repository and the customer's standards, then review it with their lead. |
 | **A product manager or FDPM** | Write story files, not chat threads: one per bolt, with the spec lines, tools, tests and done-when. | Ask a model to turn a ticket into a story file and list everything it had to guess. |
 | **A GenAI or agentic AI engineer** | When the coding agent asks something the story file does not answer, that is a template gap. Fix the template the same day. | Run the agent on the story file with the chat closed, and collect its questions as the finding. |
 
@@ -183,9 +183,9 @@ list, and where the specs and decision records live. Mark every line you inferre
 | Idea | Origin | Source |
 | --- | --- | --- |
 | Context files: CLAUDE.md, AGENTS.md, Copilot instructions, Cursor rules | **Borrowed**: documented, September 2026 | Anthropic, OpenAI, GitHub and Cursor documentation; see [Sources and Confidence](wiki:Sources-and-Confidence) |
-| The five habits, the story file and the exact floor | **Original**: this playbook | [Engineering lead](site:engineering/) |
+| The five habits, the story file and the exact floor | **Original**: this manual | [Engineering lead](site:engineering/) |
 | 19% slower with AI, believing 20% faster | **Borrowed** | METR (2025). [Measuring the impact of early-2025 AI on experienced open-source developer productivity](https://arxiv.org/abs/2507.09089) |
 | AI as an amplifier of existing strengths and weaknesses | **Borrowed** | DORA (2025). [State of AI-assisted Software Development](https://dora.dev/dora-report-2025/) |
 | "AI Driven Development" as a term | **Borrowed** | Elliott, E. [The AI Driven Development Glossary](https://medium.com/effortless-programming/the-ai-driven-development-glossary-a487616801b6) |
 | "Adaptive intent-driven development" as another expansion | **Borrowed** | Ayyagari, B. [From Agile to Adaptive Intent-Driven Development (AIDD)](https://medium.com/@binoy_93931/from-agile-to-adaptive-intent-driven-development-aidd-the-ai-first-paradigm-shift-e07e5c7df1ec). Medium |
-| The SkyWays examples | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays examples | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

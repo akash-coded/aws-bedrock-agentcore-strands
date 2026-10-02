@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import sys
 from datetime import date
@@ -40,14 +41,14 @@ BASE_URL = "https://akash-coded.github.io/aws-bedrock-agentcore-strands/"
 REPO_URL = "https://github.com/akash-coded/aws-bedrock-agentcore-strands"
 AUTHOR = "Akash Das"
 TITLE = "The SkyWays workbench · calculators, playbooks and the case in depth"
-DESCRIPTION = ("The workbench behind the SkyWays simulator: ninety days of one airline's agentic build in thirteen "
-               "episodes, eight loops, seventeen calculators and fifty-four role steps. Built by Akash Das.")
+DESCRIPTION = ("The workbench behind the agentic manual and its game: seventeen calculators, a playbook for each role, "
+               "and ninety days of one fictional airline's agentic build in thirteen episodes. Built by Akash Das.")
 
 JSON_LD = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "The SkyWays workbench",
-    "alternateName": "SkyWays Architect",
+    "alternateName": "SkyWays workbench",
     "url": BASE_URL,
     "description": DESCRIPTION,
     "image": BASE_URL + "assets/og.png",
@@ -71,9 +72,9 @@ HEAD = f"""
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="{BASE_URL}workbench/">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#F7F6F2">
+<meta name="theme-color" content="#121316">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="SkyWays Architect">
+<meta property="og:site_name" content="The agentic manual">
 <meta property="og:title" content="{TITLE}">
 <meta property="og:description" content="{DESCRIPTION}">
 <meta property="og:url" content="{BASE_URL}workbench/">
@@ -115,6 +116,7 @@ SOURCES = {
     "app/SkyWays-Architect.html": ["site/app/SkyWays-Architect.html"],
     "workbench/": ["site/app/SkyWays-Architect.html", "site/frame"],
     "simulator/": ["site/play", "site/pages/play.py"],
+    "labs/": ["site/content/labs", "site/pages/labs.py", "site/labs"],
 }
 
 
@@ -161,6 +163,38 @@ def inject(html: str) -> str:
     return html.replace("</body>", BODY + "</body>", 1)
 
 
+_ASSET = re.compile(r'\b(href|src)="([^"?#:]+\.(?:css|js))"')
+
+
+def stamp(out: Path) -> int:
+    """Give every local stylesheet and script a ``?v=`` taken from its content.
+
+    GitHub Pages lets a browser keep a file for ten minutes. Without this, a reader who arrives just after
+    a release gets the new page with the old stylesheet, and the page looks broken. With it, a changed file
+    has a new address, so the page and its files always match. The pristine tool in ``app/`` is left alone."""
+    import hashlib
+    seen: dict[Path, str] = {}
+    n = 0
+    for page in out.rglob("*.html"):
+        if page.parent.name == "app":
+            continue
+
+        def v(m: re.Match) -> str:
+            f = (page.parent / m.group(2)).resolve()
+            if not f.is_file():
+                return m.group(0)
+            if f not in seen:
+                seen[f] = hashlib.sha1(f.read_bytes()).hexdigest()[:10]
+            return f'{m.group(1)}="{m.group(2)}?v={seen[f]}"'
+
+        html = page.read_text(encoding="utf-8")
+        new = _ASSET.sub(v, html)
+        if new != html:
+            page.write_text(new, encoding="utf-8")
+            n += 1
+    return n
+
+
 def build(out: Path, shots: bool = False) -> None:
     if not SRC.exists():
         sys.exit(f"missing {SRC}")
@@ -181,6 +215,9 @@ def build(out: Path, shots: bool = False) -> None:
     # 3 · static assets
     for folder in ("frame", "assets", "theme", "play"):
         shutil.copytree(SITE / folder, out / folder)
+    for f in (SITE / "labs").iterdir():                      # the labs' engine, beside the lab pages render wrote
+        if f.suffix in (".js", ".css"):
+            shutil.copy2(f, out / "labs" / f.name)
     shutil.copy2(SITE / "404.html", out / "404.html")
     (out / "robots.txt").write_text(ROBOTS, encoding="utf-8")
     (out / "sitemap.xml").write_text(sitemap(date.today().isoformat()), encoding="utf-8")
@@ -200,9 +237,12 @@ def build(out: Path, shots: bool = False) -> None:
     if framed.replace(HEAD, "", 1).replace(BODY, "", 1) != original:
         sys.exit("the build changed the tool itself; refusing to continue")
 
+    stamped = stamp(out)
+
     files = sorted(p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file())
     total = sum((out / f).stat().st_size for f in files)
-    print(f"built {out.relative_to(SITE.parent)} — {len(files)} files, {total / 1e6:.1f} MB")
+    where = out.relative_to(SITE.parent) if out.is_relative_to(SITE.parent) else out
+    print(f"built {where} — {len(files)} files, {total / 1e6:.1f} MB")
     learn_pages = [p for p in pages if p.startswith("learn/") or p.startswith("llms")]
     print(f"  manual: {len(pages) - len(learn_pages)} pages")
     for p in pages:
@@ -211,6 +251,8 @@ def build(out: Path, shots: bool = False) -> None:
     print(f"  learn:  {len(learn_pages)} files (lessons, tracks, markdown twins, llms.txt)")
     print(f"  tool:   app/{SRC.name} (pristine) + workbench/index.html (framed)")
     print(f"  game:   simulator/index.html + play/")
+    print(f"  labs:   labs/index.html + {len([p for p in pages if p.startswith('labs/') and p != 'labs/index.html'])} lab pages + labs/lab.js, lab.css")
+    print(f"  files:  stylesheets and scripts carry a content version in {stamped} pages")
 
 
 if __name__ == "__main__":

@@ -34,6 +34,7 @@ Home                      what this is, why a spine, the methods on it, the role
 ├─ Library                templates, prompts, mental models, frameworks, picture pack
 ├─ Leadership /protocol/  for whoever funds the work
 ├─ Simulator  /simulator/ Ninety Days: the worked case as a game
+├─ Labs       /labs/      one job of the project by hand, with a real model's recorded replies
 └─ Workbench  /workbench/ the earlier tool: episodes in depth, calculators, role playbooks
 ```
 
@@ -57,8 +58,10 @@ The home page, top to bottom:
 4. **Start from the job you do.** Seven rows: five roles, the forward-deployed engineer and the sponsor.
    The page's only routing device, with one quiet link to the tutorial's nineteen starting points for
    anyone not on the list.
-5. **Play a ninety-day AI project in fifteen minutes.** The game as its own picture, three numbers, one
-   button, and a quiet link to the workbench.
+5. **Play a ninety-day AI project in fifteen minutes.** One button, a line with the number of decisions
+   and the time a game takes, and a quiet link to the labs. Beside them, one real day of the game as a
+   card: Day 45, its room drawn in pixels, its headline, its context, its question and its three answers
+   with their price in days, each of which opens that day in the game.
 6. **Read the lessons in order.** The eight tracks, numbered, one sketch from a lesson as a sample, and
    one button to lesson one.
 7. **Copy the templates and prompts you need.** Four tiles: templates, prompts, mental models, pictures.
@@ -337,12 +340,49 @@ springs is here in CSS, the Web Animations API and view transitions). A quota of
 (quotas make filler). Moving daylight in the game. A lanyard to tell a person from the agent in sketches
 (two pixels on a phone): the worker is a person, the model is a box with one eye.
 
+## After the fifth council: the labs, and plain words in the game
+
+The labs are new, at `/labs/`: one job of the airline's project done by hand, ten to fifteen minutes each,
+on the same case as the game. One is open, Grow the spec, and three more are listed as being built; each
+starts from the document the one before it filed. The drawer lists them under Play, and the home page's
+simulator band has a quiet link to them.
+
+Every lab keeps the same rules. It is a bench: the work on the left, one beat after another (assemble a
+prompt from parts, run it, read the reply, mark what is wrong in it, make a call), and on the right the
+document the work makes, which shows what a person decided and what a model guessed; on a phone the two sit
+one above the other. Every reply is a recording, never a live model call: a real model's answer to the
+exact prompt on the screen, with the model's name and the date on every reply, and the build refuses one
+whose prompt is not what the parts join into. A gap in the document is written in capitals, NOT DECIDED
+with an owner's name beside it, so a reviewer cannot mistake it for finished. Every call tells the player
+what the book does and why, in two or three sentences, and a wrong call is told what it costs. Without
+script the page reads as a document: each step, the prompt the book uses, every recording, and the
+document as the book leaves it.
+
+The game's words were rewritten for a newcomer. Every headline and context line names what it is
+about (the AI assistant, six airline managers, the project team) and points at no one it has not named,
+and every question says who is to act. Each day after the first says which earlier day and which document
+it leans on, so "So far" quotes the call today depends on, which is often not the day before. The page's
+heading says what the game is before its name. `GAME.md` has the fields.
+
+Other changes went with them. Every local stylesheet and script is asked for by its content's version,
+so a page never meets an old file from a browser's cache. Each sketch carries its own paint, so it
+survives a missing stylesheet, and the sketches were cut from 98 to 77 by their own two tests of removal.
+The hero is one canvas on one clock: a turning Earth, a fine spiral around it, and one aircraft climbing
+it. The home page's bands no longer rise into place, and pages change without the cross-fade the second
+council shipped. The workbench opens dark like the manual, shares its theme setting, and carries the way
+back in its own top bar, so the frame's strip above it is gone. In the game, a question about a
+colleague's plan now shows the evidence behind it, and costs the question whatever it shows.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
 - "Agentic STLC" has an FAQ entry and no lesson. If it earns one, it is built from the QA lead's journey.
 - The product manager's row and the QA lead's row both end on "a number you can defend".
-- The acceptance gate has no print pass. Print was checked by hand for this round.
+- Three labs are listed as being built: the system prompt from the spec, proving the bar, and reviewing a
+  change a coding agent wrote.
+- The labs have one set of recordings, from one model on one date. A second model's replies to the same
+  prompts would let a lab show what its debrief claims: the numbers a model invents differ, and the places
+  it invents them do not.
 
 - The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy; until it runs,
   the live wiki keeps its older links, which the home page forwards.

@@ -1,6 +1,6 @@
 # Cohort Kit
 
-*Eight ninety-minute sessions that turn the tutorial, the playbook and the course into a programme for a team. Pre-reading before, decisions during, one artefact after.*
+*Eight ninety-minute sessions that turn the tutorial, the workbench and the course into a programme for a team. Pre-reading before, decisions during, one artefact after.*
 
 The [tutorial](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/) teaches the method
 to one reader. A cohort learns it differently: the arithmetic lands when two people get different
@@ -12,7 +12,7 @@ the second one is easier to run than the first.
 a study group that wants structure. You do not need to have run an agentic project; you need to have
 read the pre-reading one week ahead of the room.
 
-**What a cohort needs.** A projector for the [playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/),
+**What a cohort needs.** A projector for the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/),
 one laptop per two people, the pre-reading done, and a real candidate project from the team's own
 backlog. The sessions keep returning to it. Without one, the exercises use SkyWays, which works but
 lands less hard.
@@ -42,8 +42,8 @@ parallel with the same people.
 | Minutes | Block | What happens |
 | --- | --- | --- |
 | 0–10 | **Recap and pre-reading check** | One question per lesson, answered by a person not the facilitator. Anyone who has not read is paired, not excluded |
-| 10–35 | **The idea** | The facilitator walks one picture from the tutorial and one page of the playbook. Not a lecture: the picture is on screen and the room says what it shows |
-| 35–65 | **The exercise** | Pairs work a numbered exercise from [Exercises and Answers](Exercises-and-Answers) or a playbook calculator on the team's own project. Answers are compared before they are checked |
+| 10–35 | **The idea** | The facilitator walks one picture from the tutorial and one page of the workbench. Not a lecture: the picture is on screen and the room says what it shows |
+| 35–65 | **The exercise** | Pairs work a numbered exercise from [Exercises and Answers](Exercises-and-Answers) or a workbench calculator on the team's own project. Answers are compared before they are checked |
 | 65–80 | **The decision** | The room takes one decision the session was building to and writes it down in the template that step uses |
 | 80–90 | **Homework and close** | The homework is one artefact, named. The close is one sentence each: what changed in how you would do it |
 

@@ -28,7 +28,7 @@ they find out whether they can, and the decision is the answer written down.
 | Minutes | Block | Do this | Material |
 | --- | --- | --- | --- |
 | 0–10 | Recap | One question per pre-read lesson, answered by an attendee | — |
-| 10–35 | The idea | Walk <picture> and <playbook page>; the room says what the picture shows | <links> |
+| 10–35 | The idea | Walk <picture> and <workbench page>; the room says what the picture shows | <links> |
 | 35–65 | Exercise | Pairs work <exercise id> on the team's project; SkyWays if there is none. Compare answers before checking | <link to the exercise, the calculator> |
 | 65–80 | Decision | The room decides <the decision> and writes it in <the template> | <link to the template> |
 | 80–90 | Close | Homework named; one sentence each on what changed | — |
@@ -57,12 +57,12 @@ never more than about forty minutes, because more than that is not read. Each le
 answer, so a person who reads only the first paragraph of each still arrives able to take part.
 
 **The idea block** uses one picture from the lesson and one page of the
-[playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/). The picture
-carries the idea; the playbook page shows it with numbers that move. Put the picture on screen and ask
+[workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/). The picture
+carries the idea; the workbench page shows it with numbers that move. Put the picture on screen and ask
 the room what it shows before you explain it. It takes longer and it lands.
 
 **The exercise** comes from [Exercises and Answers](Exercises-and-Answers), which has thirty-one with
-worked answers and a finder by role and difficulty, or from a playbook calculator run on the team's
+worked answers and a finder by role and difficulty, or from a workbench calculator run on the team's
 own project. The rule for choosing: the exercise must be one a pair can get *wrong in an instructive
 way*. An exercise everyone gets right is a recap, not an exercise.
 

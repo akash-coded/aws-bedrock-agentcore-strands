@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rule in one sentence.** Review AI-generated code by the **risk band of the most dangerous
-> thing a change touches**: two named readers on money, identity or policy, one reader on a
-> reversible or hard-to-reverse write, and the harness alone on read-only changes, enforce the band
-> with a path rule nobody sets for their own work, and report three numbers monthly so the policy
-> survives: slots needed, days in the queue, and escapes from the no-reader lane.
+> **The rule in short.** Review AI-generated code by the **risk band of the most dangerous thing a
+> change touches**. That is two named readers on money, identity or policy, one reader on a reversible or
+> hard-to-reverse write, and the harness alone on read-only changes. Enforce the band with a path rule
+> nobody sets for their own work. Report three numbers monthly so the policy survives: slots needed,
+> days in the queue, and escapes from the no-reader lane.
 
 {{map:review-ai-generated-code}}
 
@@ -40,8 +40,6 @@ months; the agents will produce more changes long before then. So the only lever
 much reading each change needs, and the size of a diff is the wrong way to decide it. A one-line
 change to a refund cap is the most dangerous change of the week; a large refactor of a read-only
 report may be the safest.
-
-{{sketch:a-glass-on-the-wild-mushrooms}}
 
 ## Change the policy, step by step
 
@@ -79,8 +77,8 @@ the same people reading at the same speed.
 
 ### Step 5 · Open the no-reader lane, and count the escapes
 
-A lane with no reader is exactly as safe as its harness, so **count the escapes**, defects that reach
-production through it, every week. Zero escapes over *n* merges bounds the escape rate at about
+A lane with no reader is exactly as safe as its harness, so **count the escapes** (defects that reach
+production through it) every week. Zero escapes over *n* merges bounds the escape rate at about
 **3 ÷ n** (the rule of three): 3% after 100 merges, 1.5% after 200. Write the lane's charter before
 opening it, including the condition that closes it, and close it on the first escape.
 
@@ -109,8 +107,8 @@ the refund tool. The current policy is two reviewers on everything, and the team
 
 <details><summary>Show the answer</summary>
 
-**Now: 18 slots ÷ 4 = 4.5 days.** Nine changes × two readers. **After routing: 8 slots ÷ 4 = 2 days**
-the three read-only changes need none, the four reversible writes need one each, and the two refund
+**Now: 18 slots ÷ 4 = 4.5 days.** Nine changes × two readers. **After routing: 8 slots ÷ 4 = 2 days.**
+The three read-only changes need none, the four reversible writes need one each, and the two refund
 changes keep two each: 0 + 4 + 4 = 8. The refund changes lose nothing; the queue halves.
 
 </details>
@@ -118,7 +116,7 @@ changes keep two each: 0 + 4 + 4 = 8. The refund changes lose nothing; the queue
 ## Key takeaways
 
 1. **Reading is the scarce resource**: measure the queue in slots, and change the policy, not the headcount.
-2. **Band by what a change touches**, enforced by a path rule, two readers on money, one on writes, none on reads.
+2. **Band by what a change touches**, enforced by a path rule: two readers on money, one on writes, none on reads.
 3. **Count the escapes**, and report slots, queue days and escapes together every month.
 
 ## FAQ
@@ -161,8 +159,8 @@ escaped defects across teams. That data is what lets you widen it safely.
 **The ten-minute workflow.** Review routing, generated from what the tools may do:
 
 ```text
-Here is our authority budget: <tools with risk bands R1–R5> and our repository layout: <tree>. Write a
-CODEOWNERS file that sends R4–R5 paths to two named owners, R2–R3 to one, and leaves R1 to the harness.
+Here is our authority budget: <tools with risk bands R1 to R5> and our repository layout: <tree>. Write a
+CODEOWNERS file that sends R4 and R5 paths to two named owners, R2 and R3 to one, and leaves R1 to the harness.
 List any path you could not place, and any file that serves more than one band.
 ```
 
@@ -170,7 +168,7 @@ List any path you could not place, and any file that serves more than one band.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Risk bands, routing by band, the no-reader lane and the three numbers | **Original**: this playbook | [How to review by risk band](wiki:How-to-Review-by-Risk-Band) |
+| Risk bands, routing by band, the no-reader lane and the three numbers | **Original**: this manual | [How to review by risk band](wiki:How-to-Review-by-Risk-Band) |
 | Queue time = slots needed ÷ slots per day | **Borrowed** | Little, J. D. C. (1961). *Operations Research* 9(3) |
 | The rule of three for zero observed failures | **Borrowed** | Hanley, J. A. & Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? *JAMA* 249(13) |
 | Code owners as a path rule | **Borrowed** | GitHub Docs. [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) |

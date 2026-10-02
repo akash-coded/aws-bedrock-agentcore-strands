@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The eight loops in one sentence.** Each loop opens in one phase of the agentic PDLC and closes in
-> a later one when evidence from the far end **changes an artefact at the near end**; five close on
-> their own because someone downstream is waiting, while three (cost back into design, incidents
-> back into framing, and governance across the whole line) close only if a named person makes them.
+> **The eight loops in short.** Each loop opens in one phase of the agentic PDLC and closes in a
+> later one when evidence from the far end **changes an artefact at the near end**. Five close on
+> their own because someone downstream is waiting. Three close only if a named person makes them:
+> cost back into design, incidents back into framing, and governance across the whole line.
 
 {{board:loops}}
 
@@ -52,14 +52,12 @@ it should change.
 waiting and will chase. **Three have nobody waiting.** Cost closes backwards into design, incident
 closes backwards into framing, and governance spans the whole line and belongs to no delivery role.
 
-{{sketch:nobody-comes-to-collect}}
-
 ## How to run the loops, step by step
 
 ### Step 1 · Agree what "closed" means
 
 A loop is closed when something learned at the far end has changed an artefact at the near end, and
-you can point at the change, not a discussion, not a ticket, not a lesson learned.
+you can point at the change: not a discussion, not a ticket, not a lesson learned.
 
 | Word | Means | The test |
 | --- | --- | --- |
@@ -72,14 +70,14 @@ with better manners.
 
 ### Step 2 · Name one person for each loop
 
-For each of the eight, write a name, a person, not a team. The five forward loops usually already
+For each of the eight, write a name: a person, not a team. The five forward loops usually already
 have one. For the three backward-running loops, the honest first answer is often that nobody owns
 them, and "absent" is the right word for that.
 
 ### Step 3 · Close the cost loop into the design
 
 A bill that left its estimate is a **design** question, not a finance question. At SkyWays, the
-fictional airline this playbook follows, the day-75 bill was 4.4 times its estimate on flat traffic.
+fictional airline this manual follows, the day-75 bill was 4.4 times its estimate on flat traffic.
 Handled as a budget question, it recurs next quarter with a different multiple. Handled as a loop,
 the per-call log traced it to four habits, and the model-tier decision record got a second version:
 classification moved to the cheap tier, judgement stayed on the capable one, and cost per case became
@@ -100,7 +98,7 @@ P0 exists, with an owner.**
 
 Governance is the only loop the delivery roles do not own: a minimum set of artefacts at each
 hand-off, hard gates that halt and soft gates that do not, one accountable name per artefact, and
-**two numbers reported together every cycle**: the saving and the spend. It is the loop most often
+**two numbers reported together every cycle** (the saving and the spend). It is the loop most often
 absent, because nobody downstream is waiting for it.
 
 ## Where you'll use it
@@ -112,7 +110,7 @@ absent, because nobody downstream is waiting for it.
 ## Why it matters
 
 A programme that runs the phases but not the loops ships once and then drifts. The two loops that
-close backwards are what turn a project into a practice, the first time a bill changes a design, or
+close backwards are what turn a project into a practice: the first time a bill changes a design, or
 an incident changes a frame, the team stops paying for the same lesson twice.
 
 ## Try it
@@ -153,14 +151,14 @@ recurring.
 ### Who owns the incident loop?
 
 Every role. The postmortem asks which enforced control was missing, and the answer usually belongs to
-several roles at once, the architect's authority budget, the engineer's tool signature, QA's
+several roles at once: the architect's authority budget, the engineer's tool signature, QA's
 injection suite. The product manager then owns the brief it produces for the next P0.
 
-### How is this different from the Lean Startup build to measure to learn loop?
+### How is this different from the Lean Startup build-measure-learn loop?
 
-Build to measure to learn is one loop about whether a product meets a market need. The eight loops are
+Build-measure-learn is one loop about whether a product meets a market need. The eight loops are
 narrower and more operational: each has one owner, a phase where it opens, a phase where it closes,
-and a test, the diff, for whether it did.
+and a test (the diff) for whether it did.
 
 ## Apply it in your role
 
@@ -176,7 +174,7 @@ platform or governance lead, because no product team is waiting at the far end o
 **The ten-minute workflow.** Find the loops nobody is closing:
 
 ```text
-Here is our last quarter — incidents, bills, drift alerts and decisions: <paste>. For each of the
+Here is our last quarter (incidents, bills, drift alerts and decisions): <paste>. For each of the
 eight loops (requirements, decision, spec, delivery, trust, cost, incident, governance), say whether
 it closed (which artefact changed?), is open with an owner, or is open with nobody. List the ones
 with nobody first.
@@ -186,10 +184,10 @@ with nobody first.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The eight loops, their owners, and closed, open and absent | **Original**: this playbook | [The Eight Loops](wiki:The-Eight-Loops) |
-| The missing-control question | **Original**: this playbook | [How to run a missing-control postmortem](wiki:How-to-Run-a-Missing-Control-Postmortem) |
+| The eight loops, their owners, and closed, open and absent | **Original**: this manual | [The Eight Loops](wiki:The-Eight-Loops) |
+| The missing-control question | **Original**: this manual | [How to run a missing-control postmortem](wiki:How-to-Run-a-Missing-Control-Postmortem) |
 | Blameless postmortems | **Borrowed** | Beyer, B. et al. (2016). *Site Reliability Engineering*. O'Reilly |
 | Layered defences that fail when the holes line up | **Borrowed** | Reason, J. (2000). Human error: models and management. *BMJ* 320 |
 | Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
-| Build to measure to learn, for comparison | **Borrowed** | Ries, E. (2011). *The Lean Startup*. Crown Business |
+| Build-measure-learn, for comparison | **Borrowed** | Ries, E. (2011). *The Lean Startup*. Crown Business |
 | The SkyWays figures | **Illustrative**: a fictional airline | [Walk the loop map](site:method/#loops) |

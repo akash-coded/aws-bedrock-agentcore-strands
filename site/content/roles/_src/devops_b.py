@@ -245,7 +245,7 @@ INPUTS: <golden set size, tokens per case, model prices, PR volume>"""},
    {"do": "Blue/green the runtime and keep both warm through the window",
     "detail": "Two versions serving, traffic shifted by the flag rather than by DNS, the old one warm "
               "until the widening finishes. AgentCore runtime versions behind an alias, or two task "
-              "sets behind a load balancer, the mechanism matters far less than being able to shift "
+              "sets behind a load balancer: the mechanism matters far less than being able to shift "
               "back in seconds without a deploy."},
    {"do": "Version the prompt and the model as first-class artefacts",
     "detail": "A prompt lives in the repository with a hash, ships as a versioned object, and is "
@@ -464,14 +464,14 @@ CONTEXT: <slices, bars, cases per day, current flag states>"""},
               "carrying the same attributes. A regex over a text log breaks the first time somebody "
               "reformats a message, and it breaks silently."},
    {"do": "Chart the output mix weekly and alarm at five percentage points",
-    "detail": "The proportions of the decisions the agent makes, refund versus credit versus rebook. A "
+    "detail": "The proportions of the decisions the agent makes: refund versus credit versus rebook. A "
               "probabilistic system changes behaviour when the world changes, with no deploy and no "
-              "error. Five points week over week is this playbook's default starting threshold, and the "
+              "error. Five points week over week is this manual's default starting threshold, and the "
               "alert re-opens the release gate automatically, which is what turns a chart into a control."},
    {"do": "Alarm on the three failure shapes specific to this workload",
-    "detail": "Cost per case above three times the estimate, sustained for an hour, a retry loop or a "
-              "context that has grown. Loop-cap trips above baseline, the agent is going in circles "
-              "and the cap is quietly doing all the work. Cache hit ratio collapsing, somebody moved a "
+    "detail": "Cost per case above three times the estimate, sustained for an hour: a retry loop or a "
+              "context that has grown. Loop-cap trips above baseline: the agent is going in circles "
+              "and the cap is quietly doing all the work. Cache hit ratio collapsing: somebody moved a "
               "timestamp to the front of the prompt and every call is now full price."},
    {"do": "Give the product manager the readout in the shape of their bar sheet",
     "detail": "Per slice, with the lower bound, not one number. The dashboard that gets read is the one "

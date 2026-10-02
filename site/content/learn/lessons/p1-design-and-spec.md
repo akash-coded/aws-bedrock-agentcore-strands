@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **P1 in one sentence.** P1 Design & Spec writes down what will be built so precisely that a coding
-> agent, or an engineer who was not in the room, can build it without asking a question: an
-> eight-field spec with acceptance criteria in EARS, an acceptance bar for each slice derived from
-> what a mistake costs, and an authority budget that puts every limit in code. It ends when all three
-> are signed.
+> **P1 in short.** P1 Design & Spec writes down what will be built so precisely that a coding
+> agent, or an engineer who was not in the room, can build it without asking a question. It produces
+> three things: an eight-field spec with acceptance criteria in EARS, an acceptance bar for each slice
+> derived from what a mistake costs, and an authority budget that puts every limit in code. It ends
+> when all three are signed.
 
 {{map:p1-design-and-spec}}
 
@@ -60,7 +60,7 @@ the fare difference never went back into a prompt.
 
 ### Step 2 · Write the eight-field spec
 
-The spec is the one place a machine can look, so it must be exact and small, one screen. Three
+The spec is the one place a machine can look, so it must be exact and small: one screen. Three
 fields transfer from any good PRD: **title, value and acceptance criteria**. Five are new: **the
 model's role, autonomy per action, the bar per slice, the fallback, and the records** every
 consequential action writes. At SkyWays all five were undecided when the spec was started, and
@@ -83,7 +83,7 @@ has to do something.
 ### Step 3 · Bound what the agent may do
 
 Set the **authority budget before the token budget**. The first question is not what the agent may
-spend but what it may change, touch or commit, a cheap task with too much authority is far more
+spend but what it may change, touch or commit: a cheap task with too much authority is far more
 dangerous than an expensive one with none. Band every tool, from read-only to irreversible, and put
 every cap in the tool's signature as a typed parameter that raises, with two tests beside it: one
 over the cap, one without confirmation.
@@ -105,19 +105,19 @@ damage a wrong answer does by the saving a right one brings, and call it *N*. Th
 
 The same arithmetic shows why a person in the loop is a lever, not a brake: a hold that cuts a
 refund's damage from $600 to $30 drops its bar from 98% to 71%. Nothing about the model changed.
-QA starts the golden set now, fifty real cases to start, five hundred to trust, each tagged by slice.
+QA starts the golden set now: fifty real cases to start, five hundred to trust, each tagged by slice.
 
 ### Step 5 · Decide how many agents, and record only the decisions that earn it
 
 **Start with one agent and add another only on a named limit**: a context that genuinely overflows,
 or parallel work a tool cannot express. Every agent adds hand-offs: *n* agents have n(n − 1) ÷ 2
 possible pairings, so fifteen agents have 105. At SkyWays fifteen collapsed in an afternoon to one
-agent, one fan-out tool, one function and one checker, zero hand-offs against 105. The pricer was
+agent, one fan-out tool, one function and one checker: zero hand-offs against 105. The pricer was
 exact and became a function; the searcher was parallelism and became a fan-out tool; only the
 reviewer stayed separate, because independence is the whole mechanism of a checker.
 
-Then write an architecture decision record only where a decision is genuinely sensitive, where
-changing it would change a quality target, and have each record name what it rejected.
+Then write an architecture decision record only where a decision is genuinely sensitive (where
+changing it would change a quality target) and have each record name what it rejected.
 
 ## Where you'll use it
 
@@ -130,7 +130,7 @@ changing it would change a quality target, and have each record name what it rej
 ## Why it matters
 
 P1 is where the expensive failures are prevented cheaply. The fare arithmetic that returns $80 instead
-of $62, the refund cap that lives in a prompt, the bar that is 80% because 80% sounds right, each is
+of $62, the refund cap that lives in a prompt, the bar that is 80% because 80% sounds right: each is
 a sentence to change in P1 and an incident to explain in P3.
 
 ## Try it
@@ -141,7 +141,7 @@ A support team's spec says: *"The agent should be accurate and must not offer co
 <details><summary>Show the answer</summary>
 
 **"Accurate" is not a bar, and "must not" is not a boundary.** The bar should be a number per slice,
-derived from what a wrong answer costs against what a right one saves, refunds and simple questions
+derived from what a wrong answer costs against what a right one saves: refunds and simple questions
 will not share one. And a limit written as a sentence is a request to the model; the $50 cap belongs
 in the compensation tool's signature as a typed parameter that raises, with a test that proves it.
 A third fix worth making: write the acceptance criteria in EARS, with the limit as a BOUNDARY line.
@@ -196,7 +196,7 @@ governance board can compare specs across teams, and the only way a coding agent
 **The ten-minute workflow.** Convert prose requirements into acceptance criteria a machine can build from:
 
 ```text
-Convert these requirements into EARS acceptance criteria — ubiquitous ("The system shall…"),
+Convert these requirements into EARS acceptance criteria: ubiquitous ("The system shall…"),
 event-driven ("When…"), state-driven ("While…"), unwanted behaviour ("If… then…") and optional
 feature ("Where…"). Every line must carry a measure. List each requirement you could not convert
 without inventing a number, as a question for me. Requirements: <paste>
@@ -206,11 +206,11 @@ without inventing a number, as a question for me. Requirements: <paste>
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The eight-field spec, the step map and the authority budget | **Original**: this playbook | [Solution architect](site:solution-architect/) · [Product manager, step 4](site:product-manager/) |
-| The break-even bar N ÷ (N + 1) | **Original**: this playbook | [Formulas](wiki:Formulas-and-Calculators#the-acceptance-bar--working-method) |
+| The eight-field spec, the step map and the authority budget | **Original**: this manual | [Solution architect](site:solution-architect/) · [Product manager, step 4](site:product-manager/) |
+| The break-even bar N ÷ (N + 1) | **Original**: this manual | [Formulas](wiki:Formulas-and-Calculators#the-acceptance-bar--working-method) |
 | EARS acceptance syntax | **Borrowed** | Mavin, A., Wilkinson, P., Harwood, A. & Novak, M. (2009). Easy Approach to Requirements Syntax. *IEEE International Requirements Engineering Conference* |
 | Least privilege | **Borrowed** | Saltzer, J. H. & Schroeder, M. D. (1975). The protection of information in computer systems. *Proceedings of the IEEE* 63(9) |
 | Architecture decision records | **Borrowed** | Nygard, M. (2011). Documenting architecture decisions |
 | Sensitivity points | **Borrowed** | Kazman, R., Klein, M. & Clements, P. (2000). *ATAM: Method for Architecture Evaluation*. SEI |
 | Start simple, add agents only when needed | **Borrowed** | Schluntz, E. & Zhang, B. (2024). [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Anthropic |
-| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

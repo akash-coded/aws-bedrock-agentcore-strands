@@ -64,7 +64,7 @@ decision except how the demo felt.
 
 ## The four questions
 
-Ask these every cycle, in this order, and most of the failure modes in this playbook cannot survive
+Ask these every cycle, in this order, and most of the failure modes in this manual cannot survive
 in your programme.
 
 ### 1. "Which of these are rules?"

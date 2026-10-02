@@ -42,8 +42,8 @@ ORG = {"@type": "Organization", "@id": BASE_URL + "#org", "name": "SkyWays Consu
 ROLE_ORDER = [
     ("product-manager", "Product manager", "PM", "var(--slate)", "From a vibe to a number you can defend"),
     ("solution-architect", "Solution architect", "SA", "var(--ochre)", "From requirements to a system that holds"),
-    ("engineering", "Engineering lead", "ENG", "var(--sage)", "From a story file to a shipped bolt"),
-    ("qa", "QA lead", "QA", "var(--plum)", "From 'it works' to a number you can defend"),
+    ("engineering", "Engineering lead", "ENG", "var(--sage)", "From a written task to code that ships"),
+    ("qa", "QA lead", "QA", "var(--plum)", "From 'it works' to proof that it works"),
     ("devops", "DevOps and platform", "OPS", "var(--violet)", "From a laptop to production, repeatably"),
 ]
 
@@ -137,6 +137,7 @@ def _menu(up: str, nav_id: str) -> str:
                        ("pictures/", "The picture pack", "pictures"),
                        ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks")]),
         ("Play", [("simulator/", "Ninety Days · the simulator", "simulator"),
+                  ("labs/", "The labs · do the work with your own hands", "labs"),
                   ("workbench/", "The workbench · calculators, playbooks, the case in depth", "workbench")]),
         ("Elsewhere", [(WIKI, "The wiki", ""), (REPO, "The repository", ""),
                        (REPO + "/discussions/101", "Ideas and contact", "")]),
@@ -153,6 +154,7 @@ def _menu(up: str, nav_id: str) -> str:
         out.append(f'<details open><summary>{_E(title)}</summary><ul>{"".join(li)}</ul></details>')
     return (f'<details class="menu" data-menu><summary aria-label="Every page, and search" title="Every page, and search">{BURGER}'
             f'</summary><div class="mp"><div class="mph"><b>Everything, by category</b>'
+            f'<button type="button" class="mtour" data-tour-start>Show me around this page</button>'
             f'<button type="button" class="mx" data-menu-close aria-label="Close menu">×</button></div>'
             f'<div class="ms"><input type="search" data-search data-index="{up}search.json" placeholder="Search lessons, steps, pages…" '
             f'aria-label="Search the manual" autocomplete="off"><ol class="mr" data-search-results hidden></ol></div>'
@@ -208,26 +210,27 @@ def lesson_days() -> dict[str, int]:
 def _ctx(up: str, nav_id: str, ctx: dict | None) -> str:
     ctx = ctx or {}
 
-    def pill(href: str, long: str, short: str, icon: str, name: str, extra: str = "") -> str:
+    def pill(href: str, long: str, short: str, icon: str, extra: str = "") -> str:
         lab = f'<span class="lg">{long}</span><span class="sm">{short}</span>' if short != long else f"<span>{long}</span>"
-        return f'<a class="play" href="{href}" style="view-transition-name:{name}"{extra}>{icon}{lab}</a>'
+        wide = " wide" if long == "Simulator" else ""   # this one keeps its full word until the screen is very narrow
+        return f'<a class="play{wide}" href="{href}"{extra}>{icon}{lab}</a>'
 
-    def quiet(href: str, label: str) -> str:
-        return f'<a class="quiet" href="{href}" style="view-transition-name:ctx-quiet">{label}</a>'
+    def quiet(href: str, label: str, cls: str = "") -> str:
+        return f'<a class="quiet{" " + cls if cls else ""}" href="{href}">{label}</a>'
 
     if nav_id == "simulator":
         # the game swaps this for the lesson behind the day on screen (play/game.js)
-        a = pill(f"{up}learn/", "The tutorial", "Tutorial", _IC_BOOK, "ctx-read", " data-ctx-lesson")
-        b = quiet(up, "Manual")
+        a = pill(f"{up}learn/", "The tutorial", "Tutorial", _IC_BOOK, " data-ctx-lesson")
+        b = quiet(up, "The manual", "edge")      # in the game the way back to the manual is a button too, not a faint link
     elif nav_id == "learn":
         day = ctx.get("day")
-        a = (pill(f"{up}simulator/#day-{day}", "Play this day", "Play", _IC_PLAY, "ctx-sim") if day
-             else pill(f"{up}simulator/", "Simulator", "Simulator", _IC_PLAY, "ctx-sim"))
+        a = (pill(f"{up}simulator/#day-{day}", "Play this day", "Play", _IC_PLAY) if day
+             else pill(f"{up}simulator/", "Simulator", "Play", _IC_PLAY))
         b = (quiet(ctx["apply"], "Apply it") if ctx.get("apply")
              else "" if ctx.get("quiet") is False                # the tutorial's own front page already has that button
              else quiet(f"{up}learn/#start-where-you-are", "Find your start"))
     else:
-        a = pill(f"{up}simulator/", "Simulator", "Simulator", _IC_PLAY, "ctx-sim")
+        a = pill(f"{up}simulator/", "Simulator", "Play", _IC_PLAY)
         b = quiet(ctx["lesson"][0], ctx["lesson"][1]) if ctx.get("lesson") else ""
     return f'<div class="ctx">{b}{a}</div>'
 
@@ -354,6 +357,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <li><a href="{REPO}/discussions/101">Suggest an improvement</a></li>
     <li><a href="{REPO}/issues/new/choose">Report a problem</a></li>
     <li><a href="{REPO}">The repository</a></li>
+    <li><button class="ftb" type="button" data-sw-open>Write to the author</button></li>
   </ul></section>
   <div class="lg"><span>&copy; 2026 SkyWays Consultancy · {AUTHOR}</span>
     <a href="{REPO}/blob/main/LICENSE">MIT licence</a>
@@ -567,7 +571,7 @@ def role_page(role: dict) -> str:
 <main id="main">
   <header class="phead in-col">
     <p class="kicker">Your role, end to end</p>
-    <h1 style="view-transition-name:role-{role['id']}">{_E(role['name'])}</h1>
+    <h1>{_E(role['name'])}</h1>
     <p class="lede">{md(role['tagline'])}.</p>
     <p class="pmeta"><span>{len(role['steps'])} steps</span><span>{n_a} sub-steps</span><span>{len(role['steps'])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>
   </header>
@@ -783,18 +787,9 @@ COVERAGE = [
 
 
 # The simulator band's three pictures: (the line under the frame, what the picture shows).
-SIM_ROLL = [
-    ("Day 1. Six people have given the team 31 requirements.",
-     "The simulator on Day 1: the airline's head office cut open at dawn, seven rooms on four floors, the boardroom lit, "
-     "and the day's decision beside it with its price in days"),
-    ("Day 45. The first test score is 82.4. The promise was 80.",
-     "The simulator on Day 45, in the afternoon: the QA room lit, the score on its wall, and three ways to report it"),
-    ("Day 90. The sponsor asks what ninety days bought.",
-     "The simulator on Day 90, at dusk: the boardroom lit, and the slide to build from the run's own numbers"),
-]
-HOME_SKETCH = "wring-the-vibe"          # the lesson sketch shown in the tutorial band, as a sample
+SIM_DAY = 45       # the day of the game the home page shows: its news, its question and its answers, from play/days.json
+HOME_SKETCH = "the-needle-never-shakes"          # the lesson sketch shown in the tutorial band, as a sample
 # Where a role starts and where it ends up, in words a newcomer can read. A role page keeps its own tagline.
-HOME_ROUTE = {"engineering": ("a written task", "code that ships"), "qa": ("'it works'", "proof that it works")}
 
 
 def home_page(roles: list[dict]) -> str:
@@ -820,10 +815,9 @@ def home_page(roles: list[dict]) -> str:
             continue
         m = re.match(r"From (.+) to (.+)", tagline)
         frm, to = (m.group(1), m.group(2)) if m else ("", tagline)
-        frm, to = HOME_ROUTE.get(rid, (frm, to))
         n_p = sum(len(s["prompts"]) for s in r["steps"])
         seats.append(f'<li><a href="{rid}/" style="--rc:{colour}"><span class="s-code">{_E(short)}</span>'
-                     f'<span class="s-name" style="view-transition-name:role-{rid}">{_E(name)}</span>'
+                     f'<span class="s-name">{_E(name)}</span>'
                      f'<span class="s-route"><span>{md(frm)}</span><i aria-hidden="true">→</i><span class="vh"> to </span><b>{md(to)}</b></span>'
                      f'<span class="s-meta">{len(r["steps"])} steps · {n_p} prompts</span>'
                      f'<span class="s-go" aria-hidden="true">→</span></a></li>')
@@ -848,16 +842,25 @@ def home_page(roles: list[dict]) -> str:
         sample = (f'<a class="learn-s" href="learn/{les.slug}/">{_sketch.render(sk)[0]}'
                   f'<span class="learn-k">From lesson {les.n} of {_E(les.track.title)}: {_E(les.short)} <i aria-hidden="true">→</i></span></a>')
 
-    # three moments of the game, in turn: the same building at dawn, in the afternoon and at dusk
-    frames = "".join(
-        f'<img class="{mode} f{i}" src="assets/pictures/sim-roll-{i}.{mode}.webp" width="1360" height="850" '
-        f'loading="lazy" decoding="async" alt="{_E(alt, quote=True) if mode == "light" else ""}">'
-        for i, (_cap, alt) in enumerate(SIM_ROLL, 1) for mode in ("light", "dark"))
-    caps = "".join(f'<li class="f{i}">{_E(cap)}</li>' for i, (cap, _alt) in enumerate(SIM_ROLL, 1))
+    # one real day of the game, as the game words it
+    game = json.loads((SITE / "play" / "days.json").read_text(encoding="utf-8"))
+    day = next(d for d in game["days"] if d["day"] == SIM_DAY)
+    who = game["cast"][day["owner"]]
+    ask = day["ask"].replace(who["name"], f'{who["name"]}, the {who["title"]},', 1) if who.get("title") else day["ask"]
+    cost = lambda n: "no days" if not n else "1 day" if n == 1 else f"{n} days"      # noqa: E731
+    answers = "".join(
+        f'<li><a href="simulator/#day-{SIM_DAY}"><span>{_E(o["label"])}</span><b>{cost(o.get("days", 0))}</b></a></li>'
+        for o in day["options"])
+    daycard = (f'<article class="daycard" aria-labelledby="dc-h">'
+               f'<div class="dc-pic"><img src="assets/pictures/sim-day{SIM_DAY}.png" width="144" height="52" loading="lazy" decoding="async" '
+               f'alt="The {_E(game["rooms"][day["room"]])} in the game, drawn in pixels: a score bar on the wall just past its pass mark, and two people in front of it"></div>'
+               f'<div class="dc-b"><p class="dc-k">Day {SIM_DAY} of 90 · {_E(game["rooms"][day["room"]])}</p>'
+               f'<h3 id="dc-h">{_E(day["head"])}</h3><p class="dc-c">{_E(day["context"])}</p>'
+               f'<p class="dc-q">{_E(ask)}</p><ol class="dc-o">{answers}</ol>'
+               f'<p class="dc-n">Each answer costs days. Choose one to open this day in the game.</p></div></article>')
 
     hero = f"""<section class="hero2" id="top" aria-label="Introduction">
-  {globe.scene()}
-  {MOTION_TOGGLE}
+  {globe.scene(MOTION_TOGGLE)}
   <div class="in"><div class="hx">
     <p class="eyebrow">The agentic manual</p>
     <h1>One manual for building software <em>with AI agents.</em></h1>
@@ -874,68 +877,60 @@ def home_page(roles: list[dict]) -> str:
 <main id="main" class="home">
 
 <section class="band" id="why" aria-labelledby="h-why"><div class="wrap">
-  <header class="sec-h split rv"><p class="eyebrow">Sound familiar?</p>
+  <header class="sec-h split"><p class="eyebrow">Sound familiar?</p>
     <h2 id="h-why">Agent projects go wrong in four places.</h2>
-    <p>SkyWays splits the work into four phases. Each phase asks one question. Skip the question, and you
-    hear the line under it.</p></header>
-  <div class="rv">{spine.figure(PHASES, SKIPPED, "learn/what-is-the-agentic-pdlc/", BORROWED)}</div>
-  <p class="links rv"><a class="more" href="method/">See all four phases on one page <i aria-hidden="true">→</i></a>
+    <p>SkyWays splits the work into four phases. Each phase asks one question. Teams that skip a question
+    end up saying the line below it.</p></header>
+  <div>{spine.figure(PHASES, SKIPPED, "learn/what-is-the-agentic-pdlc/", BORROWED)}</div>
+  <p class="links"><a class="more" href="method/">See all four phases on one page <i aria-hidden="true">→</i></a>
     <a class="more" href="learn/why-agentic-ai-projects-fail/">Seven ways these projects fail <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
-  <header class="sec-h split rv"><p class="eyebrow">The methods</p>
+  <header class="sec-h split"><p class="eyebrow">The methods</p>
     <h2 id="h-method">Which agentic method should your team use?</h2>
     <p>Any of these four works. The table shows which phases each one covers, and what it leaves to you.</p></header>
-  <div class="rv">{spine.coverage(PHASES, COVERAGE, HOME_ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
-  <p class="links rv"><a class="more" href="frameworks/">How the four fit together <i aria-hidden="true">→</i></a>
+  <div>{spine.coverage(PHASES, COVERAGE, HOME_ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
+  <p class="links"><a class="more" href="frameworks/">How the four fit together <i aria-hidden="true">→</i></a>
     <a class="more" href="learn/ai-dlc-vs-aidd-vs-agentic-sdlc/">Other names you may have heard, sorted <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band" id="roles" aria-labelledby="h-roles"><div class="wrap">
-  <header class="sec-h split rv"><p class="eyebrow">By role</p>
+  <header class="sec-h split"><p class="eyebrow">By role</p>
     <h2 id="h-roles">Start from the job you do.</h2>
     <p>Find your role and follow its eight steps. Each step comes with a template to fill in and prompts to draft it.</p></header>
-  <ol class="seats rv">{''.join(seats)}</ol>
-  <p class="links rv"><a class="more" href="learn/#start-where-you-are">Not on the list? {n_starts} places to start <i aria-hidden="true">→</i></a></p>
+  <ol class="seats">{''.join(seats)}</ol>
+  <p class="links"><a class="more" href="learn/#start-where-you-are">Not on the list? {n_starts} places to start <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band play" id="simulator" aria-labelledby="h-play"><div class="wrap">
-  <div class="play-t rv"><p class="eyebrow">The simulator</p>
+  <div class="play-t"><p class="eyebrow">The simulator</p>
     <h2 id="h-play">Play a ninety&#8209;day AI project in fifteen minutes.</h2>
     <p>You lead a fictional airline's project to build a rebooking assistant. Every choice costs days, and
     some costs arrive later.</p>
-    <dl class="nums"><div><dt>13</dt><dd>decisions to make</dd></div><div><dt>6</dt><dd>hands-on tasks</dd></div>
-      <div><dt>3</dt><dd>ways to play</dd></div></dl>
     <div class="ba"><a class="btn pri" href="simulator/">Play Ninety Days</a>
-      <a class="more" href="workbench/">Open the workbench <i aria-hidden="true">→</i></a></div>
+      <small>{len(game["days"])} decisions, about fifteen minutes</small></div>
+    <p class="links"><a class="more" href="labs/">Or do one job of the project by hand, in the labs <i aria-hidden="true">→</i></a></p>
   </div>
-  <div class="simwrap rv">
-  <a class="simshot" href="simulator/" aria-label="Play Ninety Days, the SkyWays simulator">
-    <span class="simbar" aria-hidden="true"><i></i><i></i><i></i><b>Ninety Days</b></span>
-    <span class="simroll">{frames}</span>
-  </a>
-  <ol class="simcap" aria-hidden="true">{caps}</ol>
-  {MOTION_TOGGLE}
-  </div>
+  {daycard}
 </div></section>
 
 <section class="band" id="tutorial" aria-labelledby="h-learn"><div class="wrap">
-  <header class="sec-h split rv"><p class="eyebrow">The tutorial</p>
+  <header class="sec-h split"><p class="eyebrow">The tutorial</p>
     <h2 id="h-learn">Read the {n_lessons} lessons in order.</h2>
     <p>{NUM.get(len(_tracks), len(_tracks)).capitalize()} tracks run from the basics to interview questions. The first lesson takes eight minutes.</p></header>
-  <div class="learn-g rv">
+  <div class="learn-g">
     <ol class="jump tracks">{tracks}</ol>
     {sample}
   </div>
-  <div class="ba rv"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">Start with lesson one</a></div>
+  <div class="ba"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">Start with lesson one</a></div>
 </div></section>
 
 <section class="band" id="library" aria-labelledby="h-lib"><div class="wrap">
-  <header class="sec-h split rv"><p class="eyebrow">The library</p>
+  <header class="sec-h split"><p class="eyebrow">The library</p>
     <h2 id="h-lib">Copy the templates and prompts you need.</h2>
     <p>Templates, prompts, rules of thumb and diagrams. All of it is free to reuse under the MIT licence.</p></header>
-  <div class="shelf rv">
+  <div class="shelf">
     <a class="tile" href="templates/"><span class="tile-k">{total_steps} templates</span><b>Templates</b>
       <span class="tile-d">One document to fill in for every step.</span><span class="tile-go" aria-hidden="true">→</span></a>
     <a class="tile" href="prompts/"><span class="tile-k">{total_prompts} prompts</span><b>Prompts</b>
@@ -1046,11 +1041,11 @@ def frameworks_page() -> str:
         "placed on one map, and anyone who wants to know how much to trust a number in this manual.",
         "Settle three questions fast: which method covers what, what an acronym means here, and where a "
         "framework came from. Then carry four pictures in your head.",
-        ["Start with the picture: <b>four methods on one spine</b>. They are not competitors, they cover different phases.",
+        ["Start with the picture: <b>four methods on one lifecycle</b>. They are not competitors, they cover different phases.",
          "Use the <b>pictures</b> as arguments: each one ends in a rule you can apply tomorrow.",
          "Check the <b>lineage</b> column before you quote a figure: documented, established, or this manual's own default."])
     tour = k.tour([
-        {"sel": "#methods", "title": "One spine, four methods", "body": "A filled cell is where a method speaks to a phase; a dashed cell is where you bring your own answer. The bottom row is what this manual adds."},
+        {"sel": "#methods", "title": "One lifecycle, four methods", "body": "A filled cell is where a method speaks to a phase; a dashed cell is where you bring your own answer. The bottom row is what this manual adds."},
         {"sel": "#vs", "title": "What actually changed", "body": "A traditional lifecycle decides everything once. The agentic one adds a bar per slice, an authority budget, one hard gate, and brings production back to the next frame."},
         {"sel": "#ladder", "title": "Gate by risk", "body": "Five bands from a reversible draft to an action nobody delegates. The band belongs to what the change touches, never to its size."},
         {"sel": "#merge", "title": "How they merge", "body": "Each method's parts land in the phase they serve. The bottom row is what the SkyWays PDLC adds and none of them carries."},
@@ -1065,11 +1060,11 @@ def frameworks_page() -> str:
     body = (
         '<div class="wrap"><main id="main" style="padding:34px 0 28px">'
         + rowh('<div class="kicker">The four methods</div><h1>The frameworks, and how they merge into P0 to P3</h1>'
-               '<p class="lede">AI-DLC, AIDD, BMAD and spec-driven development placed on one spine, how their parts '
+               '<p class="lede">AI-DLC, AIDD, BMAD and spec-driven development placed on one lifecycle, how their parts '
                "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "
                "from, so you know how much to trust it.</p>",
                "On this page",
-               '<ol><li><a href="#methods">Four methods, one spine</a></li>'
+               '<ol><li><a href="#methods">Four methods, one lifecycle</a></li>'
                '<li><a href="#merge">How they merge into the SkyWays PDLC</a></li>'
                '<li><a href="#vs">Traditional versus agentic</a></li>'
                '<li><a href="#ladder">Gate by risk, never by size</a></li>'
@@ -1078,19 +1073,20 @@ def frameworks_page() -> str:
                '<li><a href="#lineage">Where each framework came from</a></li></ol>')
         + orient +
         '<div class="sec" id="methods">' + pic(illos.methods)
-        + rowh("<h2>Four methods, one spine: where each one sits</h2>"
+        + rowh("<h2>Four methods, one lifecycle: where each one sits</h2>"
                "<p>They are not competitors. Each speaks to part of the lifecycle, and the decision that matters is "
                "not which method to adopt but how deep to go on this change. A filled cell is where a method says "
                "something about that phase; a dashed cell is where you bring your own answer.</p>",
-               "Try it in the simulator", try_([("../workbench/#/compare", "Compare any two methods side by side")]))
+               "Try it in the workbench", try_([("../workbench/#/compare", "Compare any two methods side by side")]))
         + '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
         f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
 
         '<div class="sec" id="merge">'
         + rowh("<h2>How the four methods merge into the SkyWays PDLC</h2>"
-               "<p>Each method contributes the part it does best, and the spine keeps those parts in one order with "
-               "one owner per phase. What none of them carries, the SkyWays PDLC adds: the hard gate, a bar per "
-               "slice, an authority budget and the report that starts the next pass.</p>",
+               "<p>Each method gives the part it does best. The SkyWays PDLC puts those parts in one order, with one "
+               "owner for each phase. It also adds four things no method carries: the hard gate (the sign-off before "
+               "anything is built), a pass mark for each kind of case, a limit on what the agent may do alone, and "
+               "the report that starts the next round.</p>",
                "What the SkyWays PDLC adds",
                "<ul><li>One hard gate: the signed spec, before anything is built</li>"
                "<li>A bar per slice, derived from money at risk</li>"
@@ -1104,7 +1100,7 @@ def frameworks_page() -> str:
                "share of the time rather than always, three things move: a bar per slice, an authority budget, and "
                "one hard gate before anything is built. Production then feeds the next frame instead of ending the "
                "story.</p>",
-               "Try it in the simulator", try_([("../workbench/#/loopmap", "See which loops close each phase")]))
+               "Try it in the workbench", try_([("../workbench/#/loopmap", "See which loops close each phase")]))
         + pic(illos.pdlc_vs) + "</div>"
 
         '<div class="sec" id="ladder">'
@@ -1112,7 +1108,7 @@ def frameworks_page() -> str:
                "<p>Size measures typing. Four hundred lines of help text cannot move money; three lines in a refund "
                "cap can. The band a change sits in comes from what it touches, and the band decides who reviews it "
                "and whether a person signs before it ships.</p>",
-               "Try it in the simulator",
+               "Try it in the workbench",
                try_([("../workbench/#/toolkit/gateclass", "Classify a change as a hard or soft gate"),
                      ("../workbench/#/toolkit/gates", "Map the control each tool carries")]))
         + pic(illos.ladder) + "</div>"
@@ -1122,7 +1118,7 @@ def frameworks_page() -> str:
                "<p>Every step that is only probably right multiplies. Four chained steps at 90 percent succeed 66 "
                "percent of the time, and they fail fluently, with no error to catch. Two defences, in order: keep "
                "chains short, then put an independent checker after the steps that are costly and easy to miss.</p>",
-               "Try it in the simulator", try_([("../workbench/#/toolkit/confidence", "Check whether a score has proven the bar")]))
+               "Try it in the workbench", try_([("../workbench/#/toolkit/confidence", "Check whether a score has proven the bar")]))
         + pic(illos.chain) + "</div>"
 
         '<div class="sec" id="decoder"><h2>The acronym decoder</h2>'
@@ -1144,7 +1140,7 @@ def frameworks_page() -> str:
                   "../method/", "The SkyWays PDLC on one page", ("../learn/ai-dlc-vs-aidd-vs-agentic-sdlc/", "The methods, compared in a lesson"))
         + "</main></div>")
     return shell(title="The frameworks, and how they merge · The agentic manual",
-                 desc="AI-DLC, AIDD, BMAD and spec-driven development on one spine, how their parts merge into the "
+                 desc="AI-DLC, AIDD, BMAD and spec-driven development on one lifecycle, how their parts merge into the "
                       "SkyWays PDLC, every acronym decoded, and where each framework came from.",
                  body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/",
                  crumbs=[("Libraries", ""), ("The frameworks, and how they merge", "")], tour=tour,
@@ -1180,13 +1176,17 @@ def search_index(roles: list[dict]) -> str:
     rows += [
         {"t": "The operating protocol", "d": "For whoever funds the work: what changes, who does what, the four decisions only leadership can make.", "u": "protocol/", "k": "Leadership"},
         {"t": "The SkyWays PDLC on one page", "d": "Four phases, one hard gate, eight loops, each role across the phases, and what a model may draft.", "u": "method/", "k": "Method"},
-        {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one spine; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
+        {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one lifecycle; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
         {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
         {"t": "Prompt templates", "d": "Every prompt in the manual as a template, copyable, by role.", "u": "prompts/", "k": "Library"},
 {"t": "The picture pack", "d": "Every diagram of the method as an image to share, with a caption, light and dark.", "u": "pictures/", "k": "Library"},
         {"t": "Ninety Days, the simulator", "d": "The SkyWays case as a game: thirteen decisions, each with a price in days, and consequences that arrive later. Play one role, the whole team, or the sponsor.", "u": "simulator/", "k": "Play"},
         {"t": "The workbench", "d": "Thirteen episodes in depth, nine step-through simulations, seventeen calculators and the role playbooks.", "u": "workbench/", "k": "Play"},
+        {"t": "The labs", "d": "Assemble a prompt, read a real model's recorded reply, catch what is wrong, and leave with the document.", "u": "labs/", "k": "Play"},
     ]
+    from pages import labs
+    for lab in labs.load():
+        rows.append({"t": f"Lab {lab['n']} · {lab['title']}", "d": lab["does"], "u": f"labs/{lab['slug']}/", "k": "Lab"})
     for w in sorted((SITE.parent / "wiki").glob("*.md")):
         if w.name.startswith("_") or w.name in ("README.md", "Scoreboard.md"):
             continue
@@ -1228,6 +1228,8 @@ def render(out_dir: Path) -> list[str]:
     put("protocol/index.html", protocol.build(shell, ctx))
     put("models/index.html", models.build(shell, ctx))
     put("pictures/index.html", pictures.build(shell, ctx))
+    from pages import labs
+    labs.render(put, shell, ctx)
     from pages import learn
     written += learn.render(out_dir, shell)
     return written
@@ -1240,7 +1242,8 @@ def urls() -> list[str]:
          BASE_URL + "frameworks/",
          BASE_URL + "method/",
          BASE_URL + "app/SkyWays-Architect.html"]
-    return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()]
+    from pages import labs
+    return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()] + labs.urls(BASE_URL)
 
 
 def dated_urls() -> list[tuple[str, str | None]]:

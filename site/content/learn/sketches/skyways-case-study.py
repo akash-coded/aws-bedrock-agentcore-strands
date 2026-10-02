@@ -2,40 +2,6 @@
 from pages.sketch import Sk
 
 
-def _case(s: Sk, x: float, y: float, w: float = 110, h: float = 80) -> None:
-    """A shut suitcase standing on ``y``, its left side at ``x``."""
-    s.rect(x, y - h, w, h, fill="p")
-    s.curve([(x + w * 0.34, y - h), (x + w * 0.4, y - h - 17), (x + w * 0.6, y - h - 17), (x + w * 0.66, y - h)])
-    s.line(x + w * 0.24, y - h + 5, x + w * 0.24, y - 5, w="t")
-    s.line(x + w * 0.76, y - h + 5, x + w * 0.76, y - 5, w="t")
-
-
-def belt(s: Sk):
-    # a luggage belt out of a wall: two shut suitcases, and one that has burst. The worker does not lift
-    # the burst one off; it ties a tag to it and lets it ride
-    s.ground(540, 50, 1150, tufts=2)
-    s.rect(60, 190, 62, 350, fill="p")                                         # the wall the belt comes out of
-    s.hatch(60, 190, 62, 350, gap=26)
-    s.conveyor(140, 740, 400)
-    for px in (236, 650):
-        s.line(px, 440, px, 540)
-    _case(s, 180, 398, 110, 78)
-    _case(s, 340, 398, 86, 112)
-    s.poly([(506, 320), (492, 226), (628, 214), (642, 308)], fill="p")         # the burst one: its lid thrown back
-    s.blob(574, 306, 62, 24, lumps=4, depth=0.2)                               # what was in it, coming out
-    s.rect(500, 318, 150, 80, fill="p")
-    s.curve([(600, 320), (616, 300), (640, 312), (646, 350), (628, 366), (636, 380)], "ink")   # a sleeve over the side
-    s.burst(580, 268, 30, 4, "point", -150, -30)
-    s.curve([(650, 352), (676, 376), (712, 344)], "ink", "t")                  # the string of the tag
-    s.rect(708, 306, 104, 62, fill="p", tilt=-6)
-    s.scribble(722, 320, 76, 36, 2)
-    s.worker(950, 339, look=(-1, 0.1), arms=[(816, 338), None])
-    s.label(268, 232, "13 episodes", "ink")
-    s.note(430, 110, "failures stay in", (560, 200), "point")
-    s.note(900, 168, "what it left behind", (770, 300), "aside")
-    s.route([(150, 586), (450, 578), (760, 586)], "path")
-
-
 def sizer(s: Sk):
     # a notice on a post says the limit; a metal frame is the limit. The worker shoves an oversized bag at the
     # frame, and one corner goes in and no more
@@ -66,13 +32,6 @@ def sizer(s: Sk):
 
 
 SKETCHES = [
-    {"name": "failures-ride-the-belt",
-     "idea": "the case keeps its failures in, because each one left a control behind that the next feature inherits",
-     "verb": "tag", "prop": "burst suitcase on a luggage belt",
-     "alt": "Suitcases ride a luggage belt out of a wall. One has burst open. A worker does not lift it off; it ties "
-            "a tag to it and lets it ride on with the others.",
-     "caption": "Each of the four failures left something behind that the next feature inherits, so the case keeps them in.",
-     "draw": belt},
     {"name": "a-sign-or-a-sizer",
      "idea": "a limit written in a prompt is a notice; a limit in the tool's signature is a frame the amount must fit",
      "verb": "shove into", "prop": "bag sizer at the gate",

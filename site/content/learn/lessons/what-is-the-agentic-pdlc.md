@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The agentic PDLC in one sentence.** It is a product lifecycle for software in which an AI model
-> makes some of the decisions, run in four phases: **P0 Frame** decides whether it is worth building
-> and how much the machine may do, **P1 Design & Spec** writes it down so a machine can build it,
-> **P2 Build & Prove** builds it in slices against a measured bar, and **P3 Run & Learn** watches it
+> **The agentic PDLC in short.** It is a product lifecycle for software in which an AI model
+> makes some of the decisions, run in four phases. **P0 Frame** decides whether it is worth building
+> and how much the machine may do. **P1 Design & Spec** writes it down so a machine can build it.
+> **P2 Build & Prove** builds it in slices against a measured bar. **P3 Run & Learn** watches it
 > in production until what you learn becomes the next P0.
 
 {{board:pdlc}}
@@ -37,7 +37,7 @@ the agentic PDLC is built to prevent.
 
 A **product development lifecycle (PDLC)** is the path a product takes from an idea to something
 people rely on. The **agentic PDLC** is that path redrawn for products in which a large language
-model does part of the work, drafts the reply, chooses the tool, issues the refund.
+model does part of the work: drafts the reply, chooses the tool, issues the refund.
 
 The redraw is needed because a model breaks an assumption every older lifecycle made: that software
 does the same thing every time. A model is right most of the time, fluent all of the time, and wrong
@@ -62,7 +62,7 @@ mistakes them for one vendor's stage names.
 ### Step 1 · P0 Frame: decide before anything is built
 
 P0 turns a request into a measurement: "customers hate waiting" becomes a count, a cost and a link
-to the evidence a sceptic can open. It then asks whether the job needs a model at all, many do not, and sets how much the machine may do on its own, one action at a time. It ends when the pain has a
+to the evidence a sceptic can open. It then asks whether the job needs a model at all (many do not) and sets how much the machine may do on its own, one action at a time. It ends when the pain has a
 number and the AI-fit verdict, including what was rejected, is written down.
 [P0 Frame in depth](lesson:p0-frame).
 
@@ -86,7 +86,7 @@ traffic without acting and its answers are compared with what people actually di
 
 P3 widens the live share gradually, watches the output mix for drift, and reports **two numbers on
 one line**: what the feature saved and what it cost. An incident, a drift alert or a bill that leaves
-its estimate does not end in a ticket, it ends in a brief for the next P0.
+its estimate does not end in a ticket; it ends in a brief for the next P0.
 [P3 in depth](lesson:p3-run-and-learn).
 
 ## The one hard gate
@@ -98,7 +98,7 @@ Four hand-offs connect the phases, and only one of them is hard.
 A **soft** hand-off may cross with a placeholder, a named owner and a date, which keeps work moving
 while a decision is still being measured. The **hard** one may not: nothing enters P2 until the
 spec, the bar and the guardrails are signed. It is hard because it is the last point at which
-changing your mind costs a document instead of a rewrite, a one-way door, where the others are
+changing your mind costs a document instead of a rewrite: a one-way door, where the others are
 two-way. [Why the gate sits exactly there](lesson:the-hard-gate).
 
 ## How it fits beside AI-DLC, BMAD, spec-driven development and Scrum
@@ -116,7 +116,7 @@ The agentic PDLC is a spine, not a rival method. The methods you have heard of e
 
 So the question worth arguing about is not *which method*, but *how deep this particular change
 needs to go*. A one-line fix to a refund cap is tiny and deep; a large refactor of a read-only report
-is big and shallow. [The named methods on one spine](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine).
+is big and shallow. [The named methods on one lifecycle](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine).
 
 ## Where you'll use it
 
@@ -151,7 +151,7 @@ pain; the architect has a draft spec. **What must be true before the work can en
 <details><summary>Show the answer</summary>
 
 **2.** P1 → P2 is the one hard gate, and it opens on a signed spec, a bar per slice and the
-guardrails. Option 1 is a known anti-pattern, fixing the model's knobs in a spec ties a requirement
+guardrails. Option 1 is a known anti-pattern: fixing the model's knobs in a spec ties a requirement
 to one vendor's settings, which belong to the build. Option 3 is a calendar, not evidence. Option 4
 skips P2 altogether.
 
@@ -226,13 +226,13 @@ has not made, as questions I can put to the sponsor. Do not answer them yourself
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The four phases, their names and their end conditions | **Original**: this playbook | [Sources and Confidence](wiki:Sources-and-Confidence) |
-| One hard gate and three soft hand-offs | **Original**: this playbook | [Gates and Governance](wiki:Gates-and-Governance) |
+| The four phases, their names and their end conditions | **Original**: this manual | [Sources and Confidence](wiki:Sources-and-Confidence) |
+| One hard gate and three soft hand-offs | **Original**: this manual | [Gates and Governance](wiki:Gates-and-Governance) |
 | Phases separated by gates that require evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems: a new tool for managing new products. *Business Horizons* 33(3) |
 | Make hard-to-reverse decisions the gated ones | **Adapted** | Bezos, J. 2015 letter to Amazon shareholders. Type 1 and Type 2 decisions |
 | Bolts: work cycles of hours or days | **Adapted** | Raja SP (2025). [AI-Driven Development Life Cycle: Reimagining Software Engineering](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
 | Specs as the maintained artefact | **Borrowed** | Böckeler, B. (2025). [Understanding spec-driven development: Kiro, spec-kit and Tessl](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html) |
 
 **Go deeper:** [The Agentic PDLC](wiki:The-Agentic-PDLC): the full reference, with a template for
-every phase exit · [The four boards](site:) · [The simulator](sim:#/), the same framework as ninety
+every phase exit · [The four boards](site:) · [The workbench](sim:#/), the same framework as ninety
 playable days.

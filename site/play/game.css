@@ -1,51 +1,68 @@
 /* Ninety Days · the page's own styles. Colours, type and motion come from theme/base.css; this file
-   lays out the stage and the panel, and nothing in it loops. The canvases take their light from the
-   phase of the project, dawn to dusk, in both themes. */
+   lays out the stage and the panel. Nothing in it loops, and nothing in it starts because it came
+   into view: a figure plays when game.js gives it .nd-go, which it does only as the answer to a press.
+   The canvases take their light from the phase of the project, dawn to dusk, in both themes. */
 .nd{padding:clamp(28px,4vw,56px) 0 clamp(56px,7vw,96px)}
-.nd-top{max-width:720px;margin:0 0 clamp(28px,3.5vw,44px)}
-.nd-top h1{font-size:clamp(40px,6vw,78px);line-height:1;letter-spacing:-.045em;font-weight:620;margin:0 0 18px}
-.nd-top .lede{font-size:clamp(17px,1.5vw,19.5px);line-height:1.55;color:var(--ink2);max-width:50ch;margin:0}
-.nd-playing .nd-top{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;max-width:none}
-.nd-playing .nd-top h1{font-size:22px;letter-spacing:-.02em;margin:0}
-.nd-playing .nd-top .lede,.nd-playing .nd-top .eyebrow{display:none}
-.nd-playing .nd-top .nd-quit{display:inline-flex}
-.nd-quit{display:none;margin-left:auto;font-size:13.5px;color:var(--soft)}
+/* The heading says what this is, large, and then its name, small: "Ninety Days" alone tells a
+   first-time visitor nothing. */
+.nd-top{max-width:760px;margin:0 0 clamp(26px,3.2vw,40px)}
+.nd-top h1{display:grid;gap:14px;margin:0 0 18px;font:inherit;letter-spacing:0}
+.nd-what{font-family:var(--f-display);font-size:clamp(34px,4.6vw,58px);line-height:1.03;letter-spacing:-.04em;font-weight:620;color:var(--ink);text-wrap:balance}
+.nd-name{font-family:var(--f-mono);font-size:13px;line-height:1.4;font-weight:500;color:var(--soft)}
+.nd-top .lede{font-size:clamp(17px,1.5vw,19.5px);line-height:1.55;color:var(--ink2);max-width:60ch;margin:0}
+/* while a run is on, that heading is one quiet line and the day is the heading */
+.nd-playing .nd{padding-top:20px}
+.nd-playing .nd-top{margin:0 0 12px;max-width:none}
+.nd-playing .nd-top h1{display:block;margin:0;font-size:13.5px;line-height:20px;color:var(--soft)}
+.nd-playing .nd-what,.nd-playing .nd-name{font:inherit;letter-spacing:0;color:inherit}
+.nd-playing .nd-top .lede{display:none}
+/* the header pill holds both of its labels, one on the other, so it is as wide as the wider on every day */
+.nd-two{display:inline-grid;justify-items:center}
+.nd-two>*{grid-area:1/1;display:inline-flex;align-items:center;gap:8px}
 
-.nd-app{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:start}
+.nd-app{display:grid;grid-template-columns:594px minmax(0,1fr);gap:40px;align-items:start;scroll-margin-top:84px}
 .nd-app canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
-.nd-stage{position:sticky;top:84px;width:614px}
-.nd-map{position:relative;border-radius:14px;overflow:hidden;background:#10141D;box-shadow:0 0 0 1px var(--rule)}
-.nd-map-cv{cursor:pointer;margin:0 auto}
+.nd-app canvas.soft{image-rendering:auto}          /* filling a width that is not a whole number of pixels: see fit() in game.js */
+.nd-stage{position:sticky;top:84px;min-width:0}
+.nd-map{width:fit-content;max-width:100%;margin:0 auto;border-radius:14px;overflow:hidden;background:#10141D;box-shadow:0 0 0 1px var(--rule)}
+.nd-map-cv{cursor:pointer}
 .at-title .nd-map-cv,.at-end .nd-map-cv{cursor:default}
-.nd-pause.mpause{position:absolute;right:10px;bottom:10px;top:auto}
-.nd-panel{min-width:0;max-width:640px}
-.nd-panel>.nd-opts{margin-top:26px}
-.nd-panel>*+*{margin-top:18px}
+/* under the building: what the buttons below are for, and the one pause control, clear of the picture */
+.nd-stagebar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;margin-top:10px}
+.nd-stagebar .nd-k{margin:0}
+.at-title .nd-stagebar .nd-k,.at-end .nd-stagebar .nd-k,.at-org .nd-stagebar .nd-k{visibility:hidden}
+.nd-pause.mpause{position:static;flex:none;margin-left:auto}
+/* the panel is a column with one gap, so no child's own margin can close it */
+.nd-panel{min-width:0;max-width:640px;display:flex;flex-direction:column;gap:18px}
+.nd-panel>*{margin-top:0;margin-bottom:0}
+.nd-panel>.nd-opts{margin-top:8px}
 .nd-k{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0 0 8px;max-width:none}
 
-/* the thirteen days, runway, trust, what is on file */
-.nd-hud{display:grid;gap:14px}
-.nd-strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:3px}
-.nd-strip li{position:relative;margin:0;padding:6px 0 5px;text-align:center;font:500 11.5px/1 var(--f-mono);color:var(--soft);
-  border-top:3px solid color-mix(in oklab,var(--c) 32%,transparent);background:color-mix(in oklab,var(--c) 5%,transparent);border-radius:0 0 4px 4px}
+/* the top of the panel: the room where today happens, the thirteen days, the meters */
+.nd-hud{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.nd-scene{display:none;border-radius:10px;overflow:hidden;background:#171A21;box-shadow:0 0 0 1px var(--rule)}   /* two columns: the building beside the panel is the picture */
+/* the thirteen days are a track, not tabs: a bar per day in its phase's hue, filled once played, thicker today */
+.nd-strip{list-style:none;margin:0;padding:0 0 13px;display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:3px}
+.nd-strip li{position:relative;margin:0;padding:7px 0 0;text-align:center;font:500 11.5px/1 var(--f-mono);color:var(--soft);
+  border-top:3px solid color-mix(in oklab,var(--c) 30%,transparent)}
 .nd-strip li.was{border-top-color:var(--c);color:var(--ink2)}
-.nd-strip li.now{border-top-color:var(--c);background:color-mix(in oklab,var(--c) 22%,transparent);color:var(--ink);font-weight:600}
-.nd-strip li i{position:absolute;left:50%;bottom:-7px;width:7px;height:7px;margin-left:-3.5px;border-radius:2px;background:var(--dg-rose)}
+.nd-strip li.now{border-top:6px solid var(--c);padding-top:4px;color:var(--ink);font-weight:700}
+.nd-strip li i{position:absolute;left:50%;top:calc(100% + 3px);width:10px;height:10px;margin-left:-5px;border-radius:2.5px;background:var(--dg-rose)}
 .nd-meters{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0}
-.nd-meters div{display:grid;gap:3px}
+.nd-meters div{display:grid;gap:3px;align-content:start}
 .nd-meters dt{font-family:var(--f-mono);font-size:11.5px;color:var(--soft)}
 .nd-meters dd{margin:0;font-family:var(--f-display);font-size:17px;font-weight:620;letter-spacing:-.01em;color:var(--ink)}
 .nd-meters .bad dd{color:var(--stop)}
-.nd-meters dd.nd-sub{font-family:var(--f-mono);font-size:11.5px;font-weight:400;letter-spacing:0;color:var(--soft)}
+.nd-meters dd.nd-sub{font-family:var(--f-mono);font-size:11.5px;font-weight:400;letter-spacing:0;color:var(--soft);max-width:30em}
 .nd-pips{display:inline-flex;gap:4px;vertical-align:1px}
 .nd-pips i{width:11px;height:11px;border-radius:3px;border:1.5px solid var(--dg-teal)}
 .nd-pips i.on{background:var(--dg-teal)}
+/* in one role, and as the sponsor: who you are, before anything else */
+.nd-you-are{max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.nd-you-are b{color:var(--ink)}
 
-/* today's room, close up */
-.nd-scene{position:relative;border-radius:12px;overflow:hidden;background:#171A21;box-shadow:0 0 0 1px var(--rule);display:flex;justify-content:center}
-.nd-app{scroll-margin-top:84px}
 /* the head of a day: where and when, the headline, where the project is, and the earlier call it leans on */
-.nd-dayhead h2{font-family:var(--f-display);font-size:clamp(23px,2.3vw,29px);font-weight:620;letter-spacing:-.028em;line-height:1.14;margin:0;outline:0;text-wrap:balance}
+.nd-dayhead h2{font-family:var(--f-display);font-size:clamp(22px,2.05vw,27px);font-weight:620;letter-spacing:-.028em;line-height:1.14;margin:0;outline:0;text-wrap:balance}
 .nd-dayhead p{margin:0;max-width:none}
 .nd-kick{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;color:var(--soft);padding-bottom:9px}
 .nd-kick i{flex:none;width:8px;height:8px;border-radius:2px;background:var(--c)}
@@ -56,13 +73,13 @@
 .nd-sofar b{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--soft)}
 
 /* what arrived this morning: a debt come due, an event, the incident */
-.nd-events{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+.nd-events{list-style:none;padding:0;display:grid;gap:8px}
 .nd-events li{margin:0;max-width:none;padding:11px 14px;border-radius:10px;font-size:15px;line-height:1.5;color:var(--ink2);
   background:color-mix(in oklab,var(--dg-rose) 9%,transparent);box-shadow:inset 3px 0 0 var(--dg-rose)}
 .nd-events li.ev-pressure{background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--soft)}
 .nd-events li.ev-good,.nd-events li.ev-move{background:color-mix(in oklab,var(--dg-teal) 9%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
 .nd-events b{color:var(--ink)}
-.nd-events em,.nd-out em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);white-space:nowrap}
+.nd-events em,.nd-out em,.nd-plan em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);white-space:nowrap}
 
 /* who says what */
 .nd-lines{display:grid;gap:12px}
@@ -72,8 +89,9 @@
 .nd-lines span{font-size:17px;line-height:1.5;color:var(--ink)}
 
 /* the call */
-.nd-opts{border:0;margin:26px 0 0;padding:0;min-width:0;display:grid;gap:8px}
+.nd-opts{border:0;margin:0;padding:0;min-width:0;display:grid;gap:8px}
 .nd-opts legend{padding:0;margin:0 0 12px;font-family:var(--f-display);font-size:19px;font-weight:620;letter-spacing:-.015em;color:var(--ink)}
+.nd-opts.alt legend{font-family:var(--f-mono);font-size:12px;font-weight:400;letter-spacing:0;color:var(--soft);margin-bottom:8px}
 .nd-opt{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:54px;padding:12px 16px;border-radius:12px;
   border:1px solid color-mix(in oklab,var(--ink) 20%,transparent);background:var(--paper);color:var(--ink);font:inherit;font-size:16px;line-height:1.35;
   text-align:left;cursor:pointer;transition:border-color var(--t-fast) var(--ease),background var(--t-fast) var(--ease),scale var(--t-fast) var(--ease)}
@@ -85,7 +103,17 @@
 .nd-acts .btn{padding:12px 18px;border-radius:12px;font-size:15px}
 .nd-acts .btn.sm{padding:8px 13px;font-size:13.5px}
 .nd-acts .btn em,.nd-side .btn em{font-style:normal;font-family:var(--f-mono);font-size:12px;opacity:.75;margin-left:4px}
-.nd-plan{padding:14px 16px;border-radius:12px;border:1px dashed color-mix(in oklab,var(--ink) 28%,transparent)}
+.nd-note{font-family:var(--f-mono);font-size:12.5px;color:var(--soft)}
+/* a colleague's plan, and the evidence behind it once it has been asked for */
+.nd-plan{padding:14px 16px;border-radius:12px;border:1px dashed color-mix(in oklab,var(--ink) 28%,transparent);display:grid;gap:10px}
+.nd-plan p{margin:0;max-width:none}
+.nd-plan .nd-you{font-size:16.5px;line-height:1.45}
+.nd-evidence{padding:12px 14px;border-radius:10px;background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--soft);display:grid;gap:6px;outline:0}
+.nd-evidence p{font-size:15px;line-height:1.5;color:var(--ink2)}
+.nd-evidence p.nd-k{font-size:12px;color:var(--soft)}
+.nd-evidence b{font-weight:600;color:var(--ink)}
+.nd-evidence ol{margin:0;padding:0 0 0 20px;display:grid;gap:4px;font-size:15px;line-height:1.45;color:var(--ink2)}
+.nd-evidence li{margin:0;max-width:none}
 
 /* what the call did */
 .nd-out{display:grid;gap:10px;outline:0}
@@ -99,11 +127,11 @@
 .nd-filed{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .nd-filed li{margin:0;max-width:none;font-size:14.5px;line-height:1.45;color:var(--ink2)}
 .nd-filed b{color:var(--ink);margin-right:6px}
-.nd-deeper{font-size:14px;color:var(--soft);margin:0;max-width:none}
+.nd-deeper{font-size:14px;color:var(--soft);max-width:none}
 .nd-deeper a{color:var(--ink2)}
 
-/* the hands-on tasks and the gate */
-.nd-task,.nd-gate{padding:18px 18px 20px;border-radius:14px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:12px}
+/* the hands-on tasks and the sign-off */
+.nd-task,.nd-gate{padding:18px 18px 20px;border-radius:14px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:12px;scroll-margin-top:84px}
 .nd-task h3,.nd-gate h3,.nd-task h2{font-family:var(--f-display);font-size:19px;font-weight:620;letter-spacing:-.015em;margin:0;outline:0}
 .nd-task h2{font-size:26px;letter-spacing:-.03em}
 .nd-intro{margin:0;max-width:none;font-size:15px;line-height:1.5;color:var(--ink2)}
@@ -139,16 +167,19 @@
 .nd-task .nd-k{margin:4px 0 -4px}
 .nd-count,.nd-status{margin:0;max-width:none;font-family:var(--f-mono);font-size:12.5px;color:var(--soft)}
 .nd-status:not(:empty){color:var(--warn)}
+/* the three documents of the sign-off: every card as tall as the tallest, "signed" on one line across them */
 .nd-lamps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.nd-lamps li{margin:0;max-width:none;padding:12px;border-radius:10px;display:grid;gap:5px;font-size:14px;border:1px solid var(--rule)}
+.nd-lamps li{margin:0;max-width:none;padding:12px;border-radius:10px;display:grid;grid-template-rows:auto 1fr auto;gap:5px;font-size:14px;border:1px solid var(--rule)}
 .nd-lamps li i{width:22px;height:6px;border-radius:3px;background:color-mix(in oklab,var(--ink) 16%,transparent)}
 .nd-lamps li.on i{background:var(--dg-teal)}
-.nd-lamps li span{font-family:var(--f-mono);font-size:12px;color:var(--soft)}
+.nd-lamps li span{align-self:end;font-family:var(--f-mono);font-size:12px;color:var(--soft)}
 .nd-lamps li:not(.on) span{color:var(--stop)}
 
 /* Four small simulations. Each plays once when it carries .nd-go, in steps, and rests on the whole
    picture, which is also what is drawn when nothing may move. Only transform, opacity and clip-path
-   are animated; the durations and curves are the site's own. */
+   are animated; the durations and curves are the site's own. Every animation ends on the element's
+   own resting style and fills backwards only, so nothing it set can outlive it: a label that is
+   later hidden stays hidden. */
 .nd-sim{display:grid;gap:8px}
 .nd-cap{margin:0;max-width:none;font-size:13.5px;line-height:1.5;color:var(--ink2)}
 .nd-key{display:inline-block;vertical-align:middle;margin:0 5px 2px 6px}
@@ -158,22 +189,27 @@
 @keyframes nd-hide{from{opacity:1}to{opacity:0}}
 
 /* Day 45: one bar at 82.4 breaks into three columns, as wide as their share of the cases */
-.nd-split-plot{position:relative;display:flex;height:170px;padding-top:20px;margin-bottom:22px;border-bottom:1px solid color-mix(in oklab,var(--ink) 34%,transparent)}
+.nd-split-plot{position:relative;display:flex;height:170px;padding-top:20px;margin-bottom:24px;border-bottom:1px solid color-mix(in oklab,var(--ink) 34%,transparent)}
 .nd-split-col{position:relative;min-width:0}
 .nd-split-fill{position:absolute;inset:0;transform-origin:50% 100%;transform:scaleY(calc(var(--s)/100));clip-path:inset(0 1.5px);background:color-mix(in oklab,var(--dg-teal) 72%,transparent)}
 .nd-split-bar{position:absolute;left:0;right:0;bottom:calc(var(--b)*1%);height:2px;margin-bottom:-1px;background:var(--dg-rose)}
 .nd-split-whisk{position:absolute;left:50%;width:2px;margin-left:-1px;bottom:calc(var(--l)*1%);height:calc((var(--s) - var(--l))*1%);background:var(--ink)}
 .nd-split-whisk::after{content:"";position:absolute;left:-4px;right:-4px;bottom:0;height:2px;background:var(--ink)}
-.nd-split-col b{position:absolute;left:-6px;right:-6px;top:100%;margin-top:7px;text-align:center;font:500 11.5px/1 var(--f-mono);color:var(--ink)}
+.nd-split-col b{position:absolute;left:-6px;right:-6px;top:100%;margin-top:7px;text-align:center;font:600 11.5px/1 var(--f-mono);color:var(--ink)}
+/* the columns' names, under their scores: each takes its column's share of the row, and never less than its own width */
+.nd-split-names{display:flex;font:500 11px/1.35 var(--f-mono);color:var(--soft)}
+.nd-split-names span{display:grid;min-width:max-content;padding:0 2px;text-align:center;white-space:nowrap}
+.nd-split-names b{font-weight:500;color:var(--ink2)}
+.nd-split-names i{font-style:normal}
 .nd-split-one{position:absolute;left:0;right:0;bottom:calc((100% - 20px)*var(--a)/100 + 4px);text-align:center;font:500 11.5px/1 var(--f-mono);color:var(--ink);opacity:0}
 .nd-split-plot::before{content:"";position:absolute;left:0;right:0;bottom:calc((100% - 20px)*.8);height:2px;margin-bottom:-1px;background:var(--dg-rose);opacity:0;z-index:1}
-.nd-go .nd-split-fill{animation:nd-split 1.4s var(--ease) both}
+.nd-go .nd-split-fill{animation:nd-split 1.4s var(--ease) backwards}
 @keyframes nd-split{
   0%,22%{transform:scaleY(calc(var(--a)/100));clip-path:inset(0)}
   40%{transform:scaleY(calc(var(--a)/100));clip-path:inset(0 1.5px)}
   74%,100%{transform:scaleY(calc(var(--s)/100));clip-path:inset(0 1.5px)}}
-.nd-go .nd-split-bar,.nd-go .nd-split-whisk,.nd-go .nd-split-col b{animation:nd-show var(--t-slow) var(--ease) 1s both}
-.nd-go .nd-split-one,.nd-go .nd-split-plot::before{animation:nd-hide var(--t-base) linear .9s both}
+.nd-go .nd-split-bar,.nd-go .nd-split-whisk,.nd-go .nd-split-col b,.nd-go .nd-split-names{animation:nd-show var(--t-slow) var(--ease) 1s backwards}
+.nd-go .nd-split-one,.nd-go .nd-split-plot::before{animation:nd-hide var(--t-base) linear .9s backwards}
 
 /* Day 75: the estimate, stretched by four habits that multiply; a ticked fix takes its factor out */
 .nd-bill-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:0;max-width:none;font:500 11.5px/1.3 var(--f-mono);color:var(--soft)}
@@ -185,48 +221,57 @@
 .nd-bill-seg.f2{background:color-mix(in oklab,var(--dg-amber) 68%,var(--paper))}
 .nd-bill-seg.f3{background:color-mix(in oklab,var(--dg-amber) 84%,var(--paper))}
 .nd-bill-seg.f4{background:var(--dg-amber)}
-.nd-bill-seg.gone,.nd-bill-labs span.gone{opacity:0}
-.nd-bill-labs{position:relative;height:16px}
-.nd-bill-labs span{position:absolute;top:0;transform:translateX(-50%);font:500 11px/16px var(--f-mono);color:var(--ink2);white-space:nowrap;transition:opacity var(--t-base) var(--ease)}
-.nd-go .nd-bill-seg:not(.est){animation:nd-wipe var(--t-base) var(--ease) calc(var(--k)*260ms) both}
-.nd-go .nd-bill-labs span{animation:nd-show var(--t-base) var(--ease) calc(var(--k)*260ms) both}
+.nd-bill-seg.gone{opacity:0}
+/* One label per segment, in a row under the bar. A label takes its segment's share of the row and never
+   less than its own width, so two can never print on each other; the label of a fix that is ticked
+   takes no room and is not shown. */
+.nd-bill-labs{display:flex;height:16px;overflow:hidden}
+.nd-bill-labs span{min-width:max-content;padding:0 3px;overflow:hidden;text-align:center;font:500 11px/16px var(--f-mono);color:var(--ink2);white-space:nowrap}
+.nd-bill-labs span.gone{min-width:0;padding:0;opacity:0;visibility:hidden}
+.nd-bill-labs i{min-width:0}
+.nd-go .nd-bill-seg:not(.est){animation:nd-wipe var(--t-base) var(--ease) calc(var(--k)*260ms) backwards}
+.nd-go .nd-bill-labs span{animation:nd-show var(--t-base) var(--ease) calc(var(--k)*260ms) backwards}
+.nd-go .nd-bill-labs span.gone{animation:none}
 @keyframes nd-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
 .nd-tb.stack td b{font-weight:500;color:var(--ink);white-space:nowrap}
 
-/* Day 82: the refund meets the limit as paper (a sentence in the prompt) or as a wall (the tool) */
-.nd-pw{padding:12px 14px 12px;border-radius:12px;border:1px solid var(--rule)}
-.nd-pw-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:12px;overflow:hidden}   /* the runner is a wide box moved by its own width */
-.nd-pw-end{font:500 11.5px/42px var(--f-mono);color:var(--soft);white-space:nowrap}
-.nd-pw-track{position:relative;height:60px}
-.nd-pw-track::before{content:"";position:absolute;left:0;right:0;top:20px;border-top:2px dotted color-mix(in oklab,var(--ink) 30%,transparent)}
-.nd-pw-run{position:absolute;left:0;right:0;top:8px;height:26px;transform:translateX(calc(100% - 62px));z-index:1}
-.nd-pw-held .nd-pw-run{right:calc(50% + 10px)}
+/* Day 82: the refund meets the limit as paper (a sentence in the prompt) or as a wall (the tool).
+   The wall is a wall: bricks, as tall as the track. The paper is a sheet with lines of writing and a
+   turned corner. The pill's box ends at the wall, and the track is never narrower than two pills. */
+.nd-pw{padding:10px 14px 11px;border-radius:12px;border:1px solid var(--rule);gap:4px}
+.nd-pw-row{display:grid;grid-template-columns:auto minmax(160px,1fr) auto;align-items:start;gap:12px;overflow:hidden}   /* the runner is a wide box moved by its own width */
+.nd-pw-end{font:500 11.5px/48px var(--f-mono);color:var(--soft);white-space:nowrap}
+.nd-pw-track{position:relative;height:64px}
+.nd-pw-track::before{content:"";position:absolute;left:0;right:0;top:23px;border-top:2px dotted color-mix(in oklab,var(--ink) 30%,transparent)}
+.nd-pw-run{position:absolute;left:0;right:0;top:11px;height:26px;transform:translateX(calc(100% - 62px));z-index:1}
+.nd-pw-held .nd-pw-run{right:calc(50% + 12px)}
 .nd-pw-run b{position:absolute;left:0;top:0;width:62px;height:26px;border-radius:13px;display:grid;place-items:center;font:600 12px/1 var(--f-mono);background:var(--ink);color:var(--bone)}
-.nd-pw-stop{position:absolute;left:50%;top:0;height:42px;border-radius:2px;z-index:2}
-.nd-pw-paid .nd-pw-stop{width:24px;margin-left:-12px;transform:rotate(-5deg);opacity:.9;border:1px solid #8D897F;
-  background:repeating-linear-gradient(to bottom,transparent 0 6px,rgba(22,21,15,.32) 6px 7px),#ECEAE4}
-.nd-pw-held .nd-pw-stop{width:14px;margin-left:-7px;background:repeating-linear-gradient(to bottom,transparent 0 6px,rgba(8,10,16,.4) 6px 7px),var(--dg-slate)}
+.nd-pw-stop{position:absolute;left:50%;z-index:2}
+.nd-pw-paid .nd-pw-stop{top:3px;width:30px;height:40px;margin-left:-15px;transform:rotate(-6deg);border:1px solid #8D897F;border-radius:2px;
+  background:repeating-linear-gradient(to bottom,transparent 0 6px,rgba(22,21,15,.34) 6px 7px) 5px 7px/18px 26px no-repeat,#F4F2EC}
+.nd-pw-paid .nd-pw-stop::after{content:"";position:absolute;right:-1px;top:-1px;border:4px solid;border-color:var(--bone) var(--bone) #BDB8AC #BDB8AC}
+.nd-pw-held .nd-pw-stop{top:0;width:22px;height:48px;margin-left:-11px;border-radius:2px 2px 0 0;box-shadow:0 0 0 1px #2B3442;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12'%3E%3Crect width='22' height='12' fill='%237C93AB'/%3E%3Cpath d='M0 5.5h22M0 11.5h22M10.5 0v6M5.5 6v6M16.5 6v6' stroke='%232B3442'/%3E%3C/svg%3E") 0 0/22px 12px}
 .nd-pw-track em{position:absolute;left:50%;bottom:0;transform:translateX(-50%);font:500 11.5px/1 var(--f-mono);font-style:normal;color:var(--soft);white-space:nowrap}
-.nd-go.nd-pw-paid .nd-pw-run{animation:nd-pass 1.3s var(--ease) both}
-.nd-go.nd-pw-paid .nd-pw-stop{animation:nd-flap 1.3s var(--ease) both}
-.nd-go.nd-pw-held .nd-pw-run{animation:nd-halt 1.1s var(--ease) both}
+.nd-go.nd-pw-paid .nd-pw-run{animation:nd-pass 1.3s var(--ease) backwards}
+.nd-go.nd-pw-paid .nd-pw-stop{animation:nd-flap 1.3s var(--ease) backwards}
+.nd-go.nd-pw-held .nd-pw-run{animation:nd-halt 1.1s var(--ease) backwards}
 @keyframes nd-pass{0%{transform:translateX(0)}40%,48%{transform:translateX(calc(46% - 31px))}100%{transform:translateX(calc(100% - 62px))}}
-@keyframes nd-flap{0%,46%{transform:rotate(-5deg)}64%{transform:rotate(13deg)}100%{transform:rotate(-5deg)}}
+@keyframes nd-flap{0%,46%{transform:rotate(-6deg)}64%{transform:rotate(13deg)}100%{transform:rotate(-6deg)}}
 @keyframes nd-halt{0%{transform:translateX(0)}58%{transform:translateX(calc(100% - 62px))}74%{transform:translateX(calc(100% - 80px))}100%{transform:translateX(calc(100% - 62px))}}
 
 /* a debt is pinned: the pin that travels from the outcome line to its day on the strip */
 .nd-pin{position:absolute;z-index:40;border-radius:3px;background:var(--dg-rose);pointer-events:none}
 .nd-strip li i.nd-wait{opacity:0}
 
-/* debts, the date, and the room you are looking in on */
+/* debts, the date, the way out, and the room you are looking in on */
 .nd-side{display:grid;gap:14px;padding-top:18px;border-top:1px solid var(--rule)}
-.nd-you-are{margin:0;max-width:none;font-size:14.5px;color:var(--ink2)}
 .nd-debts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .nd-debts li{margin:0;max-width:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;font-size:14.5px;color:var(--ink2)}
 .nd-move{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:13.5px;color:var(--soft)}
 .nd-leave{margin:0;max-width:none;font-size:13.5px;color:var(--soft)}
 .nd-leave a{color:var(--ink2)}
-.nd-look{margin-top:16px}
+.nd-look{margin-top:6px}
 .nd-rooms{display:flex;flex-wrap:wrap;gap:6px}
 .nd-chip{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:6px 12px;border-radius:999px;border:1px solid color-mix(in oklab,var(--ink) 18%,transparent);background:none;color:var(--ink2);
   font:inherit;font-size:13.5px;cursor:pointer;transition:border-color 150ms var(--ease),background 150ms var(--ease)}
@@ -248,24 +293,33 @@
 .nd-waygrid p{margin:6px 0 12px;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
 .nd-rolebtns{display:flex;flex-wrap:wrap;gap:6px}
 
-/* the ending: a board paper */
+/* the ending: a board paper. The verdict, five numbers, the thirteen calls each with what it came back
+   as, three questions, and the words now earned, folded. */
 .nd-verdict{padding:22px 22px 24px;border-radius:16px;border:1px solid var(--rule);background:var(--paper);box-shadow:inset 0 4px 0 var(--v,var(--soft))}
 .nd-verdict.v-funded{--v:var(--dg-teal)}.nd-verdict.v-conditional{--v:var(--dg-amber)}.nd-verdict.v-paused{--v:var(--dg-slate)}.nd-verdict.v-stopped{--v:var(--dg-rose)}
 .nd-verdict h2{font-family:var(--f-display);font-size:clamp(28px,3.4vw,42px);font-weight:620;letter-spacing:-.035em;line-height:1.05;margin:0 0 10px;outline:0}
 .nd-verdict p:last-child{margin:0;font-size:17px;line-height:1.5;color:var(--ink2);max-width:36em}
-.nd-meters.end{gap:14px 34px}
+.nd-panel>.nd-meters.end{gap:16px 34px;margin:6px 0}
 .nd-paper h3{font-family:var(--f-display);font-size:18px;font-weight:620;letter-spacing:-.015em;margin:0 0 10px}
-.nd-paper.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.nd-tb.calls th{white-space:nowrap;padding-right:16px}
+.nd-tb.calls{table-layout:auto}
+.nd-tb.calls th{white-space:nowrap;padding-right:18px}
 .nd-tb.calls th:first-child{width:5.5em}
-.nd-tb.calls td b{font-family:inherit;font-weight:500;color:var(--ink)}
+.nd-tb.calls td{padding-right:0}
+.nd-tb.calls td b{display:block;font-family:inherit;font-size:15px;font-weight:500;line-height:1.4;color:var(--ink)}
 .nd-callhead{display:block;font-size:12.5px;line-height:1.4;color:var(--soft);margin-bottom:2px}
+.nd-became{display:block;margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--ink2)}
 .nd-tb.calls tr.off th{box-shadow:inset 3px 0 0 var(--dg-rose);padding-left:10px}
 .nd-tb.calls tr.ok th{box-shadow:inset 3px 0 0 var(--dg-teal);padding-left:10px}
-.nd-tb.calls td:last-child{color:var(--soft)}
 .nd-monday,.nd-terms{margin:0;padding:0 0 0 20px;display:grid;gap:7px;font-size:15px;line-height:1.45;color:var(--ink2)}
-.nd-terms{list-style:none;padding:0}
 .nd-monday li,.nd-terms li{margin:0;max-width:none}
+.nd-shelf{border:1px solid var(--rule);border-radius:12px}
+.nd-shelf summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:13px 16px;cursor:pointer;list-style:none}
+.nd-shelf summary::-webkit-details-marker{display:none}
+.nd-shelf summary span{font-family:var(--f-display);font-size:18px;font-weight:620;letter-spacing:-.015em;color:var(--ink)}
+.nd-shelf summary em{font-style:normal;font-family:var(--f-mono);font-size:12px;color:var(--soft)}
+.nd-shelf summary::after{content:"";margin-left:auto;align-self:center;width:8px;height:8px;border-right:1.6px solid var(--soft);border-bottom:1.6px solid var(--soft);transform:translateY(-2px) rotate(45deg)}
+.nd-shelf[open] summary::after{transform:translateY(2px) rotate(225deg)}
+.nd-terms{list-style:none;padding:2px 16px 16px;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:14.5px}
 .nd-terms b{color:var(--ink)}
 
 /* without script: the thirteen days as a list */
@@ -273,26 +327,34 @@
 .nd-plain h2{font-family:var(--f-display);font-size:22px;letter-spacing:-.02em;margin:34px 0 8px}
 .nd-plain p,.nd-plain li{font-size:16px;line-height:1.6;color:var(--ink2)}
 
-/* one column: the panel first, the building under it */
+/* One column: the panel first, the building under it. The room where today happens is then the only
+   picture on the first screen, so it is shown, small, beside the thirteen days. */
 @media (max-width:1240px){
   .nd-app{grid-template-columns:minmax(0,1fr);justify-items:center}
+  .nd-top,.nd-playing .nd-top{max-width:640px;margin-left:auto;margin-right:auto}
   .nd-stage{position:static;width:100%;order:2;max-width:640px}
   .nd-panel{order:1;width:100%}
+  .nd-hud{grid-template-columns:288px minmax(0,1fr);column-gap:20px;row-gap:6px}
+  .nd-scene{display:block;grid-row:1/3;align-self:center}
+  .nd-strip{align-self:end}
+  .nd-meters{align-self:start;gap:6px 20px}
 }
 /* a short window: the building scrolls with the page, so the room chips are never out of reach */
 @media (max-height:859px){.nd-stage{position:static}}
+/* a phone: the room fills the width, under the days and the meters */
 @media (max-width:640px){
-  .nd-top h1{font-size:40px}
-  .nd-playing .nd-top{display:none}          /* the day is the heading; leaving is at the foot of the panel */
-  .nd-playing .sw-pill{display:none}         /* a floating button on a 320px screen sits on a line of speech; the footer carries the same links */
+  .nd-playing .nd-top{display:none}          /* the day is the heading */
+  .nd-hud{grid-template-columns:minmax(0,1fr);row-gap:12px}
+  .nd-scene{grid-row:auto;order:3}
+  .nd-strip,.nd-meters{align-self:auto}
   .nd-chip{min-height:44px;padding:8px 14px}
   .nd-tb.stack .nd-check{min-height:44px;align-items:center}
-  .nd-strip li{font-size:10.5px;padding:5px 0 4px}
+  .nd-strip li{font-size:10.5px}
   .nd-strip li span{font-size:11px}
   .nd-lines span{font-size:16px}
   .nd-lines p{grid-template-columns:40px 1fr;gap:2px 12px}
   .nd-face{width:40px;height:40px}
-  .nd-waygrid,.nd-paper.two,.nd-lamps{grid-template-columns:1fr}
+  .nd-waygrid,.nd-lamps,.nd-terms{grid-template-columns:1fr}
   .nd-opt{padding:11px 13px;font-size:15.5px}
   .nd-tb{font-size:13px}
   /* the log, a row to a block: the fix, what the log shows, how long it takes */
@@ -301,10 +363,18 @@
   .nd-tb.stack tr{padding:10px 0;border-top:1px solid var(--rule)}
   .nd-tb.stack th,.nd-tb.stack td{border:0;padding:2px 0}
   .nd-tb.stack th:first-child,.nd-tb.stack td:last-child{width:auto}
+  .nd-tb.calls th{padding-right:12px}
+  .nd-tb.calls th:first-child{width:4.6em}
+  .nd-callhead{display:none}                  /* on a phone the list is the calls and what each came back as: the player has just read the headlines */
   .nd-task,.nd-gate{padding:14px 14px 16px}
   .nd-meters{gap:8px 20px}
-  .nd-pw-row{gap:8px}
-  .nd-pw-end{font-size:10.5px;white-space:normal;line-height:1.25;max-width:6.4em;padding-top:8px}
+  .nd-leave a{display:inline-flex;align-items:center;min-height:44px;padding-right:10px}
+  /* the refund: who sends and who receives on one line, the track on the next, full width */
+  .nd-pw-row{grid-template-columns:1fr 1fr;grid-template-areas:"a b" "t t";gap:0 8px}
+  .nd-pw-end{font-size:11px;line-height:1.4}
+  .nd-pw-end.from{grid-area:a}
+  .nd-pw-end.to{grid-area:b;text-align:right}
+  .nd-pw-track{grid-area:t}
 }
-@media (prefers-reduced-motion:reduce){.nd-opt,.nd-bill-seg,.nd-bill-labs span{transition:none}}
+@media (prefers-reduced-motion:reduce){.nd-opt,.nd-bill-seg{transition:none}}
 @media print{.nd-stage,.nd-scene,.nd-acts,.nd-look,.nd-side,.nd-pin{display:none}}

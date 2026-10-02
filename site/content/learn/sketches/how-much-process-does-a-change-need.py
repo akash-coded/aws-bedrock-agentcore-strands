@@ -33,25 +33,6 @@ def mitten(s: Sk, x: float, y: float, k: int = 1):
     s.line(x - k * 34, y - 24, x - k * 34, y + 22, w="t")
 
 
-def gloves(s: Sk):
-    # the oven gloves lie on the floor where they were thrown, and the worker reaches for the one hot dish bare-handed
-    s.ground(540, 50, 1150, tufts=2)
-    mitten(s, 150, 512)
-    mitten(s, 300, 514, -1)
-    s.table(690, 400, w=380, h=140)
-    s.rect(800, 336, 190, 64, fill="p")                         # a casserole, straight from the oven
-    s.curve([(796, 336), (840, 306), (950, 306), (994, 336)], "ink", "h")
-    s.oval(895, 298, 12, 8, fill="p")
-    s.line(772, 352, 800, 352, w="h")
-    s.line(990, 352, 1018, 352, w="h")
-    for dx in (-52, 0, 52):
-        s.curve([(895 + dx, 276), (883 + dx, 256), (905 + dx, 238), (893 + dx, 218)], "point", "t")
-    s.worker(500, 339, look=(1, 0.2), arms=[None, (766, 352)])
-    s.burst(760, 338, 18, 4, a0=-210, a1=-90)
-    s.note(240, 320, "too heavy for|most jobs", (226, 468), "aside")
-    s.note(900, 96, "the one that|needed them", (895, 204), "point")
-
-
 SKETCHES = [
     {"name": "small-falls-through-the-sieve",
      "idea": "sizing process by the size of the change catches the big harmless ones and lets the small dangerous one through",
@@ -61,11 +42,4 @@ SKETCHES = [
      "caption": "Size the process to the size of the change and the big, harmless ones are caught. The one-line "
                 "change to a refund cap falls straight through.",
      "draw": sieve},
-    {"name": "gloves-off-for-the-hot-one",
-     "idea": "a process too heavy for most changes gets abandoned, and the dangerous few lose it first",
-     "verb": "grab bare-handed", "prop": "a hot casserole, oven gloves on the floor",
-     "alt": "A pair of oven gloves lies thrown on the floor. A worker reaches bare-handed for a steaming casserole "
-            "on the table.",
-     "caption": "A process that is too heavy for most changes gets dropped, and the dangerous few are the first to go without it.",
-     "draw": gloves},
 ]

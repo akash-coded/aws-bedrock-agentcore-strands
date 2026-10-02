@@ -14,7 +14,7 @@ STEPS_C = [
  "activities": [
    {"do": "Start with the walking skeleton, with no model in it",
     "detail": "The thinnest end-to-end path: read a booking, show it. Half a day, and it retires the "
-              "largest unknown, whether the pieces connect at all, on day one, which is the "
+              "largest unknown (whether the pieces connect at all) on day one, which is the "
               "assumption every other bolt is resting on."},
    {"do": "Put the pure exact code early",
     "detail": "It is unit-testable in isolation, so it never blocks and never waits, and it frees "
@@ -35,7 +35,7 @@ STEPS_C = [
    {"do": "Integrate the same day, and review by band",
     "detail": "Same-day integration is what makes the cost of a wrong turn one day instead of two "
               "weeks. The band comes from the most dangerous tool the change touches, via the path "
-              "rule, never from the author, every author believes their own change is low risk."},
+              "rule, never from the author: every author believes their own change is low risk."},
    {"do": "Run the shadow path behind a flag, and make shadow-never-writes a test",
     "detail": "A test that fails the build if a write tool is reachable while the flag is in shadow "
               "mode, not an intention in a document. Then cut over at five percent, and rehearse the "
@@ -79,7 +79,7 @@ _Architect's cut <10> bolts · Cadence one a day · Owner <name>_
 ## The order, and the rule that produced it
 | Day | Bolt | Depends on | The ONE unknown | Band |
 |-----|------|-----------|-----------------|------|
-| 1 | <walking skeleton, read a booking, show it. NO MODEL> | — | <do the pieces connect?> | R1 |
+| 1 | <walking skeleton, read a booking, show it. NO MODEL> | none | <do the pieces connect?> | R1 |
 | 2 | <fare_difference(), exact, unit-tested> | 1 | <the rounding rule> | R1 |
 | 3 | <visa and codeshare eligibility, exact> | 1 | <where the partner rules live> | R1 |
 | 4 | <rank_alternatives(), best-guess, measured> | 2 | <can it beat the desk?> | R2 |
@@ -122,7 +122,7 @@ depends-on column: <paste>.
 Produce a day-by-day order in which every bolt's dependencies come strictly before it.
 
 RULES, applied in this priority order:
-1. The walking skeleton first, the thinnest end-to-end path with NO model in it.
+1. The walking skeleton first: the thinnest end-to-end path with NO model in it.
 2. Pure exact code early. It is testable alone, so it never blocks anyone.
 3. Checkers after the steps they check.
 4. Any plug (MCP server, connector, adapter) BEFORE the gated write that needs it.
@@ -153,8 +153,8 @@ OUTPUT, in this order:
 1. The failing tests
 2. The implementation
 3. The command output showing them green
-4. A list headed FILE DEFECTS, everything you needed that the story file lacked
-5. A list headed OUT OF SCOPE, problems you found and deliberately did not fix"""},
+4. A list headed FILE DEFECTS: everything you needed that the story file lacked
+5. A list headed OUT OF SCOPE: problems you found and deliberately did not fix"""},
    {"title": "The shadow path and the test that it never writes",
     "when": "Wiring the flag, before any cut-over",
     "body": r"""Implement the shadow path for <feature> behind a feature flag.
@@ -179,7 +179,7 @@ them is untested on the day it is needed, and it will be the other one."""},
    "title": "SkyWays · day 30, the first bolt ships by four in the afternoon",
    "body": "The first bolt was a walking skeleton: read a booking, show it, no model anywhere in it. "
            "It shipped by four in the afternoon, and what it bought was not the feature but the "
-           "answer to the question every other bolt was resting on, whether the pieces connect. The "
+           "answer to the question every other bolt was resting on: whether the pieces connect. The "
            "exact code went on days two and three, so review capacity was free when the ranking bolt "
            "arrived. The one re-cut came on day four and was raised at nine in the morning rather "
            "than at two: `rebook()` needed the MCP server scheduled for day six, a plug ordered after "
@@ -228,19 +228,19 @@ them is untested on the day it is needed, and it will be the other one."""},
               "biggest model on a simple lookup can be up to 160 times the price of the right one, "
               "and one model per task, because a mid-task switch discards the cache."},
    {"do": "Write one redacted row per consequential action",
-    "detail": "Mask, do not omit, `passport ****1234`. Timestamp, masked input, tools called, the "
+    "detail": "Mask, do not omit: `passport ****1234`. Timestamp, masked input, tools called, the "
               "decision, the model version, the approver, the cost. Omitting breaks the audit; "
               "logging raw makes the trace store a breach target, usually protected less carefully "
               "than the ledger it mirrors."},
    {"do": "Run the injection suite weekly, and on every prompt, tool or context change",
     "detail": "Every attack string against every gated tool from every entry point, including the "
               "partner API's free-text fields. Assert on the **tool calls** and the trace row, never "
-              "on the model's wording, wording changes with the next prompt edit, and then the test "
+              "on the model's wording: wording changes with the next prompt edit, and then the test "
               "is red for the wrong reason and green for the wrong reason the week after."},
    {"do": "Keep the effort-and-token ledger, per bolt",
     "detail": "Person-hours by activity, tokens by tier, re-runs, defects escaped. Five minutes a "
               "day. Tokens by tier rather than in total, because the tier mix is where routing shows "
-              "up, and the re-run column is the leak signal, model switching and vague asks appear "
+              "up, and the re-run column is the leak signal: model switching and vague asks appear "
               "there first."},
    {"do": "Reconcile the spec by diff after a hotfix, never by rewriting it",
     "detail": "A diff keeps the reason the hotfix differed from the spec; a rewrite makes the spec "
@@ -265,7 +265,7 @@ them is untested on the day it is needed, and it will be the other one."""},
            "between the two invoices. If the product matches, you have explained the bill and can "
            "stop looking.",
     "caution": "Do not let it rank the fixes by the biggest ratio change. The order is (factor minus "
-               "one) divided by days to fix, and those two orders are different, the retry breaker "
+               "one) divided by days to fix, and those two orders are different: the retry breaker "
                "is usually the right fix in the wrong position."},
    {"tool": "Do not delegate",
     "use": "What the redaction rules are. Which fields are sensitive is a legal and regulatory "
@@ -357,7 +357,7 @@ Compute these four ratios, this month against last:
 Multiply the four factors. Compare the product with the ratio between the two invoices.
 - If they match, say so and stop looking. The bill is explained.
 - If the product is well below the invoice ratio, something structural changed that is
-  not a habit, traffic, a new feature, or a price change. Say which to check.
+  not a habit: traffic, a new feature, or a price change. Say which to check.
 
 Then order the fixes by  priority = (factor - 1) / days to fix,  NOT by the biggest
 ratio change. Give me the table with the order and the days you assumed.
@@ -376,7 +376,7 @@ Entry points must include, at minimum:
 - a free-text field on the booking record
 - a retrieved knowledge-base chunk
 
-RULES, these decide whether the suite is worth anything:
+RULES (these decide whether the suite is worth anything):
 - Assert on the TOOL CALLS and on the trace row. Never assert on the model's wording.
   A test that checks the reply contains "I cannot do that" is red for the wrong reason
   after the next prompt edit and green for the wrong reason the week after.
@@ -413,11 +413,11 @@ Finish with the amended ADR line, if a decision changed, in one sentence."""},
    "title": "SkyWays · day 75, a bill 4.4 times the estimate with flat traffic",
    "body": "Traffic was flat, so behaviour had changed, and behaviour is only visible per call. Four "
            "ratios explained it: tokens per call 1.6, frontier tier share 1.5, cache hit ratio 1.3, "
-           "retries per conversation 1.41: and they multiply to 4.40. Four separate sensible "
+           "retries per conversation 1.41, and they multiply to 4.40. Four separate sensible "
            "decisions made by careful people. The order of the fixes was not the order of the "
            "ratios: retries had risen most in relative terms and contributed the smallest factor, so "
            "the context trim went first at half a day for 1.6x and the breaker went last. Four weeks "
-           "had passed before anybody noticed, which is the part worth fixing permanently, an alert "
+           "had passed before anybody noticed, which is the part worth fixing permanently: an alert "
            "at three times the ratified cost per case, a watched cache hit ratio, and the caching and "
            "routing config in one file reviewed like code."},
  "pitfalls": [

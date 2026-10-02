@@ -1,6 +1,6 @@
 # Sources and confidence
 
-Every claim in this playbook carries one of three marks. The point of the marks is to let you argue
+Every claim in this manual carries one of three marks. The point of the marks is to let you argue
 with the right things: a documented price is checkable, a working method is a default to tune, and
 confusing the two wastes everybody's time.
 
@@ -8,7 +8,7 @@ confusing the two wastes everybody's time.
 | --- | --- | --- |
 | **documented** | From a vendor's published documentation, read on a date | Check it. Prices and limits change |
 | **established** | A named, published practice with an author and a year | Standard. Read the source if you want depth |
-| **working method** | This playbook's own construction | A **default to tune on your own traffic**, not a standard |
+| **working method** | This manual's own construction | A **default to tune on your own traffic**, not a standard |
 
 > The documented figures were read in **September 2026** and will change. The working-method
 > thresholds are starting points, not findings.
@@ -57,7 +57,7 @@ harder to catch than being wrong plainly.
 
 ### working method — what it means operationally
 
-This playbook's own construction. It has worked somewhere, and it exists so that a team has
+This manual's own construction. It has worked somewhere, and it exists so that a team has
 something to run on Monday instead of a blank field.
 
 **You are entitled to** adopt it as a default and change it the moment your own traffic says
@@ -88,7 +88,7 @@ says no.
 | **working method** | Yes, if it is labelled as a default | Only if you have measured it on your own traffic | **No.** Your measurement may go. The default may not |
 
 **The bottom-right cell is the one that gets crossed**, and it rarely looks like a lie when it
-happens. A working method quoted to a governance forum is this playbook's number wearing your
+happens. A working method quoted to a governance forum is this manual's number wearing your
 evidence's clothes: it has a plausible shape, a decimal point and no traffic behind it. The fix is
 not to stop using working methods — it is to measure one before it has to stand up.
 
@@ -503,5 +503,5 @@ A source and a date beat an opinion.
 
 ---
 
-**Next:** [Playbook Glossary](Playbook-Glossary) · [Formulas and Calculators](Formulas-and-Calculators)
+**Next:** [Glossary](Playbook-Glossary) · [Formulas and Calculators](Formulas-and-Calculators)
 · [The Agentic PDLC](The-Agentic-PDLC) · [Contributing to this Wiki](Contributing-to-this-Wiki)

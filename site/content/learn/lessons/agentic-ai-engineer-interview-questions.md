@@ -10,11 +10,12 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in one sentence.** Agentic AI engineer interviews test whether you can run a loop that chooses
-> its own actions without letting it choose the wrong ones, the loop itself, the lowest rung of autonomy
-> that works, limits enforced in tools rather than prompts, tools a model can use correctly, the security
-> of what it connects to, when more agents help, how to evaluate a trajectory, and how to stop a runaway,
-> and each of these ten questions comes with the framework, a strong answer, the follow-up and the red flag.
+> **The bank in short.** Agentic AI engineer interviews test whether you can run a loop that chooses
+> its own actions without letting it choose the wrong ones. They cover the loop itself, the lowest rung
+> of autonomy that works, limits enforced in tools rather than prompts, and tools a model can use
+> correctly. They also cover the security of what it connects to, when more agents help, how to
+> evaluate a trajectory, and how to stop a runaway. Each of these ten questions comes with the
+> framework, a strong answer, the follow-up and the red flag.
 
 {{map:agentic-ai-engineer-interview-questions}}
 
@@ -38,8 +39,6 @@ The questions below are built around those three.
 (sometimes a broken one to debug), a system design for an agent that takes real actions, and detailed questions on
 failures you have seen. Interviewers listen for three things: caps in code, evaluation of the path as well
 as the answer, and a stop rule for anything that loops.
-
-{{sketch:only-the-chips-it-holds}}
 
 ## The loop and the rung
 
@@ -66,7 +65,7 @@ same tool again, because from its side it never asked.
 
 ### Q2 · "When should you not build an agent?"
 
-**Tests:** restraint · **Framework:** the autonomy ladder, build the lowest rung that passes
+**Tests:** restraint · **Framework:** the autonomy ladder: build the lowest rung that passes
 
 <details><summary>What a strong answer covers</summary>
 
@@ -74,7 +73,7 @@ same tool again, because from its side it never asked.
 - **The rungs**: a script, a single prompted call, a fixed chain, a tool-choosing agent, a planner, a
   self-directed agent. Each rung up adds calls per task, cost and new failure modes.
 - **The routing pattern**: send the known majority down a cheap workflow and reserve the agent for the rest.
-- **The insight:** chained steps multiply, eight steps each right 90% of the time are right together about
+- **The insight:** chained steps multiply: eight steps each right 90% of the time are right together about
   43% of the time, so every step you can make exact code is worth more than a better prompt.
 
 **The follow-up:** "Where does the agent earn its keep, then?" → where the next step genuinely depends on
@@ -207,7 +206,7 @@ end to end and remove steps rather than tuning each one.
 
 ### Q8 · "Some tasks loop forever, and the cost spikes. How do you prevent it and find it?"
 
-**Tests:** operating agents · **Framework:** the cost cliffs, loops, retries, swarms without a stop rule
+**Tests:** operating agents · **Framework:** the cost cliffs: loops, retries, swarms without a stop rule
 
 <details><summary>What a strong answer covers</summary>
 
@@ -289,7 +288,7 @@ file an over-limit claim.
 
 The agent loop, when not to use an agent, how to enforce limits on actions, tool design, the security of
 tool protocols such as MCP, single against multi-agent designs, evaluating trajectories, and preventing
-runaway loops: plus a production failure you debugged.
+runaway loops, plus a production failure you debugged.
 
 ### How do you design tools for AI agents?
 
@@ -314,14 +313,14 @@ different permission boundary) and the measured benefit exceeds the cost of ever
 | **A product manager or FDPM** | Use Q2 and Q9 to challenge designs that add autonomy or agents without evidence. | Have a model compute the end-to-end success of a proposed chain from its step rates. |
 | **A GenAI or agentic AI engineer** | Build Q3 for real, with its three tests, and bring it to the interview. | Ask a coding agent to write the refusal tests before the tool. |
 
-**Across the enterprise.** Make Q3's pattern a platform rule, consequential tools carry caps and approval
-tokens by construction, and interview for it, so every team's agents are safe in the same way.
+**Across the enterprise.** Make Q3's pattern a platform rule (consequential tools carry caps and approval
+tokens by construction) and interview for it, so every team's agents are safe in the same way.
 
 **The ten-minute workflow.** A broken-loop exercise to practise on:
 
 ```text
 Write a minimal tool-calling agent loop in Python against a mock model, with exactly one seeded defect
-from this list — the assistant tool call is not appended, a tool error returns an empty result, there is no
+from this list: the assistant tool call is not appended, a tool error returns an empty result, there is no
 iteration cap, or a tool has no idempotency key. Do not tell me which. Let me run and debug it, and when I
 find it, ask me which test would have caught it.
 ```

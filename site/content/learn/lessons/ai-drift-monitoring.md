@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **Drift in one sentence.** Drift is an AI system changing its behaviour with no deploy, no error and
-> no alert (because the world, its inputs, its data or the model behind it moved) and you catch it by
-> watching the **mix of its outputs** against **two thresholds**, the week-on-week change and the level
-> against a frozen baseline, with a breach wired to re-open the release gate on its own.
+> **Drift in short.** Drift is an AI system changing its behaviour with no deploy, no error and no
+> alert, because the world, its inputs, its data or the model behind it moved. You catch it by watching
+> the **mix of its outputs** against **two thresholds**: the week-on-week change, and the level against
+> a frozen baseline. A breach is wired to re-open the release gate on its own.
 
 {{model:g_drift}}
 
@@ -30,8 +30,6 @@ updated: 2026-10-02
 - The drift alert is set at 5% a week, and it has never fired.
 
 Your existing monitoring answers whether the system is up and fast. It was never looking for this.
-
-{{sketch:what-comes-out-of-the-exhaust}}
 
 ## What is AI drift?
 
@@ -61,8 +59,6 @@ refund-to-credit mix went from **61/39** in week one to **48/52** in week eight,
 5% week-on-week alert never fired, because the slide averaged **1.9 points a week**. A second threshold,
 on the level against a frozen baseline, catches exactly that. A slide of two points a week never trips a
 weekly rule and still moves you thirty points in a quarter.
-
-{{sketch:a-slow-puncture}}
 
 ### Step 4 · Wire a breach to the release gate
 
@@ -118,7 +114,7 @@ serving it. It shows up as a shift in outputs, not as an error.
 
 ### How do you detect LLM drift in production?
 
-Chart the distribution of the agent's decisions, its output mix, weekly, against both a week-on-week
+Chart the distribution of the agent's decisions (its output mix) weekly, against both a week-on-week
 threshold and a threshold on the level versus a frozen baseline; log which model and prompt version
 produced every response; and review a labelled sample per slice on a schedule.
 
@@ -148,7 +144,7 @@ a provider's model update reaches every team on the same day.
 **The ten-minute workflow.** Check a history for the slide a weekly alert misses:
 
 ```text
-Here is the weekly count of the agent's decisions by type since launch: <table>. Using weeks 1–2 as a
+Here is the weekly count of the agent's decisions by type since launch: <table>. Using weeks 1 to 2 as a
 frozen baseline, flag every week in which a type's share moved more than <x> points week on week, or
 more than <y> points from the baseline. Show a table and the first week each threshold fired.
 ```
@@ -157,8 +153,8 @@ more than <y> points from the baseline. Show a table and the first week each thr
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| Watch the output mix against two thresholds; drift re-opens the release gate | **Original**: this playbook | [QA lead, step 8](site:qa/#watch) · [Mental Models](wiki:Mental-Models#drift-is-the-defect-with-no-error-message) |
+| Watch the output mix against two thresholds; drift re-opens the release gate | **Original**: this manual | [QA lead, step 8](site:qa/#watch) · [Mental Models](wiki:Mental-Models#drift-is-the-defect-with-no-error-message) |
 | The 5% drift alert | **Original**: a working default to tune | [Sources and Confidence](wiki:Sources-and-Confidence#the-working-methods-and-how-to-tune-each) |
-| Pin the model; log which model answered | **Original**: this playbook | [Error Index](wiki:Error-Index#quality-dropped-with-no-deploy) |
+| Pin the model; log which model answered | **Original**: this manual | [Error Index](wiki:Error-Index#quality-dropped-with-no-deploy) |
 | Concept drift, as a field of study | **Borrowed** | Gama, J. et al. (2014). A survey on concept drift adaptation. *ACM Computing Surveys* 46(4) |
-| The SkyWays drift | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays drift | **Illustrative**: a fictional airline | [The workbench](sim:#/) |
