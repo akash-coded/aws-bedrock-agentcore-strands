@@ -3,7 +3,7 @@
 
 The four phases, the one hard gate, the eight loops and the evidence that crosses each hand-off: the model every other track builds on.
 
-**9 lessons · about 71 minutes** · The spine, phase by phase
+**9 lessons · about 70 minutes** · The lifecycle, phase by phase
 
 Every lesson opens on the site, where the pictures are live and the text is searchable:
 **[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/fundamentals/)**, or pick a lesson.
@@ -17,7 +17,7 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 | 5 | **[The Hard Gate: The Hand-off You Can't Skip in AI Delivery](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-hard-gate/)** | Only one hand-off in the agentic PDLC halts the build. Which decisions are hard, which run behind a placeholder, and the four questions that tell them apart. | 7 min |
 | 6 | **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)** | P2 Build & Prove builds an AI agent in bolts of hours or days, gates every merge on a per-slice bar and ends with a shadow run beside the people doing the job. | 8 min |
 | 7 | **[P3 Run & Learn: How to Run an AI Agent in Production Safely](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)** | P3 Run & Learn covers cut-over, rollback, drift and cost for AI agents in production, and the two-number report that decides whether the programme survives. | 8 min |
-| 8 | **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)** | Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three (cost, incident, governance) close only if a named person makes them. | 8 min |
+| 8 | **[The 8 Feedback Loops of AI Delivery and the 3 Teams Forget](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-eight-loops/)** | Eight loops turn the agentic PDLC from a line into a ring. Five close themselves; three (cost, incident, governance) close only if a named person makes them. | 7 min |
 | 9 | **[The Evidence Pack: What Must Exist Before Each AI Hand-off](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/the-evidence-pack/)** | The minimum artefacts owed at each hand-off of an agentic AI project, and the one column that separates a real gate from a formality: enforced, or only written? | 7 min |
 
 [← Getting started](Tutorial-Getting-Started) · **[All tracks](Start-Here)** · [Methods decoded →](Tutorial-Methods-Decoded)

@@ -8,7 +8,7 @@ refund cap is $400.
 
 An artefact is owed when the next phase cannot start without it. Everything else is optional.
 
-Live version: [Evidence pack](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/evidence/ev-p0).
+Live version: [Evidence pack](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/evidence/ev-p0).
 
 ---
 

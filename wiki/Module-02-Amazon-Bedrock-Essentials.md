@@ -7,11 +7,11 @@
 
 This is where AWS enters properly. One API — `Converse` — carries you from a hello-world call all the way to tool use and retrieval. Learn it well here and every later module gets easier.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/02-bedrock-essentials/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/02-bedrock-essentials/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** (7 min): what a token actually costs once the habits are counted. Then try **[the bill leak calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/leaks)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** (7 min): what a token actually costs once the habits are counted. Then try **[the bill leak calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/leaks)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

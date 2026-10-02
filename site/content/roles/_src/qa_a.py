@@ -48,7 +48,7 @@ HEAD = {
     ),
     "reads": [
         ["The wiki page for this role", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-QA-Lead"],
-        ["The harness, in the engineering lead's journey", "../simulator/#/eng/step-3"],
+        ["The harness, in the engineering lead's journey", "../workbench/#/eng/step-3"],
         ["Every rung of the ladder, with the arithmetic", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar"],
     ],
 }

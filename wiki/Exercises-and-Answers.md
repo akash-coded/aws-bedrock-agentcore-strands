@@ -595,7 +595,7 @@ sentence in a prompt, there is no control. See
 | Design review practice | C and D | 60 min |
 | Incident-review practice | G, then E | 50 min |
 | Interview preparation | F, then B | 45 min |
-| Full session | All, with the [simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/master) between sets | Half a day |
+| Full session | All, with the [simulations](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/master) between sets | Half a day |
 
 **Three sessions that are worth running as written.**
 

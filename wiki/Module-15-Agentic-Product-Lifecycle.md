@@ -7,11 +7,11 @@
 
 A parallel track for product managers, architects and leads. Same domain, different artefacts: which documents are owed at which gate, how to run a gate review, and how to answer the cost-cut ultimatum without destroying the product.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/15-agentic-product-lifecycle/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/15-agentic-product-lifecycle/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[The Agentic PDLC for Product Managers: What Changes Monday](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)** (6 min): the product manager's eight steps, which this module practises. Then try **[the value line calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/value)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[The Agentic PDLC for Product Managers: What Changes Monday](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-product-managers/)** (6 min): the product manager's eight steps, which this module practises. Then try **[the value line calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/value)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

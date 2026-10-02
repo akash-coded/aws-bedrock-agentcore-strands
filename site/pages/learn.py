@@ -16,7 +16,7 @@ Five link schemes resolve per target, so one source works in both places:
     [text](wiki:Page#anchor)     an existing wiki page
     [text](site:path/#anchor)    a page on the site
     [text](repo:path)            a file in the repository (``path/`` for a directory)
-    [text](sim:#/toolkit/aifit)  the simulator
+    [text](sim:#/toolkit/aifit)  a page of the workbench (a bare ``sim:`` is the simulator)
 
 and one directive embeds a visual on a line of its own:
 
@@ -854,8 +854,8 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
         raise SystemExit(f"lessons/{les.slug}.md: " + "; ".join(sorted(set(link.problems))))
     tour = [
         {"sel": ".lrail", "title": "Every lesson, in order", "body": f"Eight tracks. You are in <b>{_E(t.title)}</b>, lesson {les.n} of {len(t.lessons)}. Read a track top to bottom, or jump to the one your role needs."},
-        {"sel": ".otp", "title": "On this page", "body": "Every lesson has the same shape: the answer in one sentence, a picture, the sound-familiar symptoms, the how-to, where you'll use it, a try-it exercise, takeaways, an FAQ and <b>how to apply it in your role</b>."},
-        {"sel": ".prose .callout", "title": "The answer first", "body": "The green box is the whole lesson in one sentence. If it is enough, move on; the rest is the argument and the practice."},
+        {"sel": ".otp", "title": "On this page", "body": "Every lesson has the same shape: the answer in short, a picture, the sound-familiar symptoms, the how-to, where you'll use it, a try-it exercise, takeaways, an FAQ and <b>how to apply it in your role</b>."},
+        {"sel": ".prose .callout", "title": "The answer first", "body": "The green box is the whole lesson in short. If it is enough, move on; the rest is the argument and the practice."},
         {"sel": "#apply-it-in-your-role", "title": "Apply it in your role", "body": "Near the end: what to do as a forward-deployed engineer, a product manager or an engineer, an AI-augmented shortcut for each, how it runs across an enterprise, and a ten-minute workflow with a prompt to paste."},
         {"sel": ".pn", "title": "Next lesson", "body": "Lessons chain in order. Previous and next are always at the bottom."},
     ]

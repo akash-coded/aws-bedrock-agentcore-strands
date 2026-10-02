@@ -7,7 +7,7 @@
 
 Zero math. This module builds the intuition you need to make model choices you can defend — context windows, tokenisation, mixture-of-experts, temperature — and then connects each concept to the AWS surface where you will actually use it.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/01-llm-and-aws-bridge/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/01-llm-and-aws-bridge/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 

@@ -57,7 +57,7 @@ never more than about forty minutes, because more than that is not read. Each le
 answer, so a person who reads only the first paragraph of each still arrives able to take part.
 
 **The idea block** uses one picture from the lesson and one page of the
-[workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/). The picture
+[workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/). The picture
 carries the idea; the workbench page shows it with numbers that move. Put the picture on screen and ask
 the room what it shows before you explain it. It takes longer and it lands.
 

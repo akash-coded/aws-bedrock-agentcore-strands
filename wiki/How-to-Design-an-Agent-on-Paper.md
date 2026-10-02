@@ -11,7 +11,7 @@ together, and it is owned by the solution architect. It is the same ground as Ma
 [the architect's journey](Journey-Solution-Architect), told as a procedure rather than as a role.
 
 Run it live:
-[The paper agent](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/paper).
+[The paper agent](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/paper).
 
 ### At a glance
 

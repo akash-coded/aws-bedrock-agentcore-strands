@@ -12,12 +12,13 @@ The build refuses a lesson that breaks the rules marked **must**. The rest are w
 
 Every lesson opens with a picture drawn in the site's illustration grammar, not a mermaid fence. The
 lesson embeds it with `{{map:<slug>}}` on a line of its own (the slug is the lesson's), and the picture
-itself is a short spec in [`site/pages/mapspecs.py`](../../pages/mapspecs.py): a title row, then one of
-five shapes: `bands` (rows per phase or theme), `flow` (a chain, with an optional gate, terminal or
-decision), `pairs` (two panels, row-aligned), `funnel` (a ladder of questions) or `fan` (one question,
-its outcomes): with a callout that says what the picture proves. Change the spec, not the lesson, to
-change the picture. The wiki shows a screenshot of it (`python3 site/build.py --shots`, then
-`node site/tools/shoot.mjs`). Mermaid still works anywhere else in a lesson.
+itself is a short spec in [`site/pages/mapspecs.py`](../../pages/mapspecs.py): a title row, one of
+five shapes, and a callout that says what the picture proves. The shapes are `bands` (rows per phase or
+theme), `flow` (a chain, with an optional gate, terminal or decision), `pairs` (two panels,
+row-aligned), `funnel` (a ladder of questions) and `fan` (one question, its outcomes). Change the spec,
+not the lesson, to change the picture. The wiki shows a screenshot of it
+(`python3 site/build.py --shots`, then `node site/tools/shoot.mjs`). Mermaid still works anywhere
+else in a lesson.
 
 ## Anatomy: every lesson, same slots, same order
 
@@ -28,7 +29,7 @@ Parallel slots are what let a reader skim twelve lessons and know where the answ
 title:       the H1 and the <title>. The query a practitioner types, made specific. ≤ 60 characters.
 short:       the sidebar label. ≤ 34 characters.
 wiki:        the wiki page name. Letters, digits, hyphens. Must not collide with a hand-written page.
-description: 120–160 characters. Contains the main term and promises the payoff.
+description: 120 to 160 characters. Contains the main term and promises the payoff.
 dek:         one line under the H1: the promise, in plain words.
 level:       Beginner | Intermediate | Advanced
 keywords:    the main query first, then variants people also type
@@ -36,10 +37,10 @@ updated:     YYYY-MM-DD
 ---
 
 > [!TIP]
-> **<Term> in one sentence.** The answer, 40–70 words, first. This is the paragraph a search engine
+> **<Term> in short.** The answer first, in 40 to 70 words. This is the paragraph a search engine
 > or an assistant lifts, so it must stand alone and must not start with "In this lesson".
 
-<the hero picture: {{map:<slug>}} — its spec in site/pages/mapspecs.py — or a {{board:…}}, {{figure:…}}, {{frameworks:…}}, {{model:…}} directive>
+<the hero picture: {{map:<slug>}} (its spec in site/pages/mapspecs.py) or a {{board:…}}, {{figure:…}}, {{frameworks:…}}, {{model:…}} directive>
 
 **In this lesson** you'll learn:
 - three outcomes, each a verb phrase
@@ -47,19 +48,19 @@ updated:     YYYY-MM-DD
 ## Sound familiar?
 Three symptoms, *stated* not asked. Then one line saying which one this lesson fixes.
 
-## <What is it?>            question-shaped H2s — they match what people ask
+## <What is it?>            question-shaped H2s: they match what people ask
 ## <How it works, step by step>
 ### Step 1 · …              short steps, one idea each, a picture where the step has a shape
-## Where you'll use it       (concept lessons) — or "When to use it" (how-to lessons)
+## Where you'll use it       (concept lessons), or "When to use it" (how-to lessons)
 ## Why it matters
 ## Try it                    one problem; the answer in <details><summary>Show the answer</summary>
-## Key takeaways             must — three, parallel, short
-## FAQ                       3–5 questions people actually ask; 2–4 sentence answers
-## Apply it in your role     must — a three-row table (forward-deployed engineer · product manager or
+## Key takeaways             must: three, parallel, short
+## FAQ                       3 to 5 questions people actually ask; answers of 2 to 4 sentences
+## Apply it in your role     must: a three-row table (forward-deployed engineer · product manager or
                              FDPM · GenAI or agentic AI engineer) × (Do this · The AI-augmented
                              shortcut), then "Across the enterprise" in two or three sentences, then
                              "The ten-minute workflow": one copyable prompt in a text block
-## Sources and credits       must — a table of Idea · Origin · Source
+## Sources and credits       must: a table of Idea · Origin · Source
 ```
 
 ## Rules
@@ -71,11 +72,11 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 - **Numbers carry their source.** A SkyWays number is a worked example from a fictional airline and
   says so the first time it appears. An outside number carries its author and year in the sources
   table. Never a statistic without a source.
-- **Credit precisely.** In the sources table, *Original* means this playbook constructed it;
+- **Credit precisely.** In the sources table, *Original* means this manual constructed it;
   *Adapted* means an outside idea changed here; *Borrowed* means used as published. When unsure,
   check [Sources and Confidence](../../../wiki/Sources-and-Confidence.md) and the primary source.
 - **No fluff.** Delete any sentence that would survive unchanged in a lesson about a different topic.
-- **British spelling** in prose, as the rest of the playbook. Put American variants in `keywords`.
+- **British spelling** in prose, as the rest of the manual. Put American variants in `keywords`.
 - **Length:** 900 to 1,500 words, and up to about 3,000 for an interview bank; the build warns above 14 minutes.
 - **Prompts** in "The ten-minute workflow" ask the model to question you rather than invent your numbers, and
   say what output shape you want. A prompt that would work unchanged for any lesson is not specific enough.
@@ -91,7 +92,7 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 | `[text](wiki:Page-Name#anchor)` | a hand-written wiki page |
 | `[text](site:qa/#measure)` | a page on the site |
 | `[text](repo:docs/START-HERE.md)` · `repo:labs/` | a file or folder in the repo |
-| `[text](sim:#/toolkit/aifit)` | the simulator |
+| `[text](sim:#/toolkit/aifit)` | a page of the workbench |
 | `{{board:pdlc}}` on its own line | a live board on the site, a screenshot on the wiki |
 
 Visuals available: `board:` pdlc, loops, by_role, delegation · `figure:` bar_sheet, chain,
@@ -111,15 +112,15 @@ A hex cannot follow a theme, so use only these, which clear 3:1 on white and on 
 | P1 · indigo | `#4B5CC8` | `#4B5CC81A` | `#4B5CC80D` |
 | P2 · teal | `#0E7F7C` | `#0E7F7C1A` | `#0E7F7C0D` |
 | P3 · amber | `#9C6803` | `#9C68031A` | `#9C68030D` |
-| backwards / risk · rose | `#A93F3F` | `#A93F3F1A` | — |
-| governance · violet | `#7455B3` | `#7455B31A` | — |
-| yours / evidence · green | `#2C7A4B` | `#2C7A4B1A` | — |
-| meta / questions · grey | `#6E6E6E` | `#6E6E6E14` | — |
+| backwards / risk · rose | `#A93F3F` | `#A93F3F1A` | n/a |
+| governance · violet | `#7455B3` | `#7455B31A` | n/a |
+| yours / evidence · green | `#2C7A4B` | `#2C7A4B1A` | n/a |
+| meta / questions · grey | `#6E6E6E` | `#6E6E6E14` | n/a |
 
-Keep each label line short enough not to wrap, mermaid breaks any line wider than about 200px, so
+Keep each label line short enough not to wrap: mermaid breaks any line wider than about 200px, so
 about 22 characters bold and 25 italic; put a `<br/>` where the phrase breaks instead. Never set
 `color:` on a node. Style every `subgraph` band with `style <id> fill:…0D,stroke:…`.
-Never point an edge back at an earlier node inside a banded diagram, end on a terminal node. Count
+Never point an edge back at an earlier node inside a banded diagram. End on a terminal node. Count
 the invisible `~~~` links when numbering `linkStyle`. Keep a diagram's intrinsic width under ~700px:
 stack bands vertically, two nodes across. `site/tools/check_diagrams.py` renders every block in both
 themes and fails on small text, low contrast and bands out of order, and warns on wrapped lines and
@@ -127,8 +128,8 @@ drawings wider than 720px.
 
 ## Screenshots
 
-A screenshot of the simulator goes on its own line as `![alt](site:assets/learn/name.webp)`.
-Capture it with `node site/tools/simshots.mjs <simulator url> site/assets/learn` (at 2x, as WebP,
+A screenshot of the workbench goes on its own line as `![alt](site:assets/learn/name.webp)`.
+Capture it with `node site/tools/simshots.mjs <workbench url> site/assets/pictures` (at 2x, as WebP,
 clipped to one element) and the renderer reads its size from the file, so a narrow one stays narrow
 on the site and on the wiki. Write the alt text as the sentence the screenshot proves. Never capture
-the simulator's photographs; clip to the part of the page that is the playbook's own work.
+the workbench's photographs; clip to the part of the page that is the manual's own work.

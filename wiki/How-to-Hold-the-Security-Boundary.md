@@ -9,7 +9,7 @@ Almost all of agentic security is old security applied carefully. There is **one
 threat**, and this page separates the two so you spend your attention correctly.
 
 **Run it interactively:**
-[the injection test builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/inject)
+[the injection test builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/inject)
 
 ### At a glance
 
@@ -517,7 +517,7 @@ red for the wrong reason next week and green for the wrong reason the week after
 
 Run it weekly, and on every prompt, tool or context change.
 
-Tool: [Injection test builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/inject)
+Tool: [Injection test builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/inject)
 
 ### What you actually do
 

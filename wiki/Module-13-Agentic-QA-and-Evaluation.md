@@ -7,11 +7,11 @@
 
 Non-deterministic systems need a different testing discipline. This module gives you golden sets, contract tests, multi-agent tests, a quality gate with real thresholds, and a CI step that actually blocks a bad deploy.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/13-agentic-qa-and-evaluation/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/13-agentic-qa-and-evaluation/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[The Agentic PDLC for QA: How to Test Probabilistic Software](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)** (6 min): testing software that is right a share of the time. Then try **[the golden-set confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/confidence)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[The Agentic PDLC for QA: How to Test Probabilistic Software](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-qa/)** (6 min): testing software that is right a share of the time. Then try **[the golden-set confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/confidence)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

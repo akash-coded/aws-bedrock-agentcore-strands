@@ -506,12 +506,12 @@ MAPS["agentic-pdlc-exercises"] = dict(
 )
 
 MAPS["agentic-delivery-simulator"] = dict(
-    kind="flow", title=[("The playbook", "n"), ("how to practise with it",)], hue="n", numbered=True,
+    kind="flow", title=[("The workbench", "n"), ("how to practise with it",)], hue="n", numbered=True,
     nodes=[_c("Read an episode", "each one closes a loop", "book"), _c("Run it twice", "loop-closing path first", "loop"),
            _c("Use your numbers", "17 tools, formulas shown", "chart"), _c("Add the artefact", "to the evidence pack", "clipboard")],
     terminal=_c("Download the pack", "one markdown file", h=P0),
     callout=("Thirteen dated episodes, nine simulations, seventeen calculators. Run each episode once as written and once your way.", "n", 40),
-    alt="Five moves for practising with the SkyWays playbook, ending with the downloaded evidence pack",
+    alt="Five moves for practising with the SkyWays workbench, ending with the downloaded evidence pack",
 )
 
 MAPS["how-this-tutorial-works"] = dict(

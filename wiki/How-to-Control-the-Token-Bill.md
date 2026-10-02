@@ -11,8 +11,8 @@ This closes the [cost loop](The-Eight-Loops#cost), which closes into **P1**. A b
 design question, not a finance one.
 
 **Run it interactively:**
-[the bill simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/bill)
-· **[the cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)**
+[the bill simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/bill)
+· **[the cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cache)**
 
 ### At a glance
 
@@ -511,7 +511,7 @@ results returned within a day.
 
 "Batch both to save the most" is the wrong answer to the right question.
 
-Tool: [Cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)
+Tool: [Cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cache)
 
 ### What you actually do
 

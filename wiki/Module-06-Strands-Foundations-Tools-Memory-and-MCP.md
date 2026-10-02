@@ -7,7 +7,7 @@
 
 Strands is AWS's open-source agent framework. This module covers the three things that turn a chat wrapper into an agent: tools it can call, memory it can keep, and MCP servers it can connect to.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/06-strands-foundations/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/06-strands-foundations/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 

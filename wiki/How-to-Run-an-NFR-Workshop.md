@@ -8,8 +8,8 @@ architect. It is the same ground as [Elicit and Constrain](Journey-Solution-Arch
 architect's journey, told as a procedure rather than as a role.
 
 **Run it interactively:**
-[the NFR workshop simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/nfr)
-· **[the utility tree builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/utree)**
+[the NFR workshop simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/nfr)
+· **[the utility tree builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/utree)**
 
 ### At a glance
 

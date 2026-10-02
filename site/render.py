@@ -36,7 +36,7 @@ PERSON = {"@type": "Person", "name": AUTHOR, "url": "https://github.com/akash-co
 ORG = {"@type": "Organization", "@id": BASE_URL + "#org", "name": "SkyWays Consultancy", "url": BASE_URL,
        "founder": PERSON, "sameAs": [REPO, "https://github.com/akash-coded"],
        "description": "The SkyWays PDLC: the best of every agentic way of working, in one operating model. "
-                      "The agentic manual and the SkyWays PDLC Simulator are its products."}
+                      "The agentic manual and the SkyWays workbench are its products."}
 
 # Roles in journey order. One without a JSON file yet is left out of the nav and the home page.
 ROLE_ORDER = [
@@ -96,7 +96,7 @@ def accent_var(accent: str) -> str:
     return f"var(--{token})"
 
 
-# The mark: one loop, flown. The same ring and plane the simulator carries, drawn in tokens so it
+# The mark: one loop, flown. The same ring and plane the workbench carries, drawn in tokens so it
 # follows the theme; the plane keeps one colour on every page, whatever the page's own accent is.
 MARK = ('<svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">'
         '<circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.4" '
@@ -642,7 +642,8 @@ def library_page(roles: list[dict], kind: str) -> str:
                             f'<ul class="usewhen"><li><b>Use it when</b><span>{md(s["when"])}.</span></li>'
                             f'<li><b>You produce</b><span>{md(art["name"])}'
                             + (f', owned by {md(art["owner"])}' if art.get("owner") else "") + '.</span></li>'
-                            + (f'<li><b>Start with</b><span>{md(first_do)}.</span></li>' if first_do else "")
+                            + (f'<li><b>Start with</b><span>{md(first_do)}{"" if first_do.rstrip()[-1:] in ".?!" else "."}</span></li>'
+                               if first_do else "")
                             + f'<li><b>Good looks like</b><span>{md(art["good"])}</span></li>'
                             f'<li><b>Explained in</b><span><a href="../{role["id"]}/#{s["id"]}">step {s["n"]}, '
                             f'{_E(s["phase"])}</a></span></li></ul>'

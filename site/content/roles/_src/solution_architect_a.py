@@ -51,7 +51,7 @@ HEAD = {
     ),
     "reads": [
         ["The wiki page for this role", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Solution-Architect"],
-        ["The same case, step by step, in the workbench", "../simulator/#/sa/step-1"],
+        ["The same case, step by step, in the workbench", "../workbench/#/sa/step-1"],
         ["Every decision tree on one page", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees"],
     ],
 }

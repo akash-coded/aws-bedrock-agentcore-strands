@@ -7,11 +7,11 @@
 
 Multi-agent is not automatically better. This module teaches the patterns as a menu with costs attached: what each buys you, what it costs in tokens and latency, and the failure mode each invites.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/07-strands-multi-agent-patterns/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/07-strands-multi-agent-patterns/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[Agentic PDLC for Solution Architects: Authority and Topology](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)** (6 min): how many agents, and why each hand-off costs. Then try **[the NFR utility tree](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/utree)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[Agentic PDLC for Solution Architects: Authority and Topology](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-for-solution-architects/)** (7 min): how many agents, and why each hand-off costs. Then try **[the NFR utility tree](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/utree)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

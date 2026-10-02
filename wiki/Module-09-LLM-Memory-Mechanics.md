@@ -7,11 +7,11 @@
 
 Models are stateless. Every 'memory' feature is engineering you or your framework did. This short, sharp module makes that machinery explicit so you stop being surprised by it.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/09-llm-memory/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/09-llm-memory/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** (7 min): context is the largest line on the bill. Then try **[the cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** (7 min): context is the largest line on the bill. Then try **[the cache break-even calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cache)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

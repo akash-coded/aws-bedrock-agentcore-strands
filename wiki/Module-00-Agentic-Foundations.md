@@ -7,11 +7,11 @@
 
 The most expensive mistake in agentic AI is building an agent for a job a `for` loop could do. This module gives you the vocabulary and the decision tools to tell the difference, and the artefacts to defend that decision to a stakeholder.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/00-agentic-foundations/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/00-agentic-foundations/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P0 Frame: How to Decide If an AI Agent Is Worth Building](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)** (8 min): the phase this module's decision tools belong to. Then try **[the AI-fit assessor](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/aifit)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[P0 Frame: How to Decide If an AI Agent Is Worth Building](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p0-frame/)** (8 min): the phase this module's decision tools belong to. Then try **[the AI-fit assessor](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/aifit)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

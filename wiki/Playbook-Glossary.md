@@ -56,7 +56,7 @@ expensive because a target gets negotiated down in a Friday release meeting, whe
 only by changing the damage.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 1 ·
-[the bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bar)
+[the bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bar)
 
 > **Said wrongly** — "Let's set the accuracy target at 90% and see how close we get."
 >
@@ -92,7 +92,7 @@ step at run time, which is what makes it useful and what makes it expensive to p
 where a workflow was wanted buys hand-offs, loops and a bill for a decision an `if` could make.
 
 **Where you meet it** — [How to Design an Agent on Paper](How-to-Design-an-Agent-on-Paper), move 1 ·
-[the AI-fit check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/aifit)
+[the AI-fit check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/aifit)
 
 > **Said wrongly** — "We are building an agent that validates the form and posts it to the queue."
 >
@@ -145,7 +145,7 @@ cliff a week later, because the ordering was never changed. The test is not "is 
 "can this be built today without waiting for anything, and what one thing will it tell us?"
 
 **Where you meet it** — [How to Cut Sprints into Bolts](How-to-Cut-Sprints-into-Bolts), move 2 ·
-[the bolt planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bolts)
+[the bolt planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bolts)
 
 > **Said wrongly** — "We have broken the sprint into fourteen bolts, ordered by business value."
 >
@@ -165,7 +165,7 @@ invalidates everything after it and turns the saving into a 1.25× surcharge, an
 is model-scoped, switching model mid-task starts from cold.
 
 **Where you meet it** — [How to Control the Token Bill](How-to-Control-the-Token-Bill), move 4 ·
-[the cache calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)
+[the cache calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cache)
 
 > **Said wrongly** — "Caching is on, so the repeat questions are basically free."
 >
@@ -269,7 +269,7 @@ always flatteringly. The second half is temporal: this is a *monitored* number w
 the programmes that meet their token bill in month three ratified an estimate and measured nothing.
 
 **Where you meet it** — [How to Control the Token Bill](How-to-Control-the-Token-Bill), move 1 ·
-[the leak finder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/leaks)
+[the leak finder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/leaks)
 
 > **Said wrongly** — "It is about two cents a call, so the running cost is negligible."
 >
@@ -457,7 +457,7 @@ model was asked to read — a PDF, a ticket body, a partner's JSON. So the defen
 
 **Where you meet it** — [How to Hold the Security Boundary](How-to-Hold-the-Security-Boundary),
 move 4 ·
-[the injection drill](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/inject)
+[the injection drill](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/inject)
 
 > **Said wrongly** — "Only our own staff use it, so injection is not really our threat model."
 >
@@ -512,7 +512,7 @@ can review the payment path, that lane has a capacity of one however healthy the
 Compute the queue per band.
 
 **Where you meet it** — [How to Review by Risk Band](How-to-Review-by-Risk-Band), move 1 ·
-[the queue calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/queue)
+[the queue calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/queue)
 
 > **Said wrongly** — "Reviews take four days because we are two engineers short."
 >
@@ -530,7 +530,7 @@ of 67.5%, so it does not prove an 80% bar. And "not proven" is not a rejection b
 number** — "we owe 331 more codeshare cases" is a plan where "it failed" is an argument.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 4 ·
-[the confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/confidence)
+[the confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/confidence)
 
 > **Said wrongly** — "We are at 82% against an 80% bar, so that one is cleared."
 >
@@ -608,7 +608,7 @@ so it is actionable today and it has an owner. Nor is it a disagreement: two sta
 on the tree may hold different information, which a fact settles rather than a trade-off.
 
 **Where you meet it** — [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop), move 8 ·
-[the utility tree builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/utree)
+[the utility tree builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/utree)
 
 > **Said wrongly** — "Cost is a risk on this programme, so let's add it to the register."
 >
@@ -626,7 +626,7 @@ the full distribution rather than an easy slice. A disagreement is also not auto
 being wrong — the cases where the desk was wrong are among the window's best output.
 
 **Where you meet it** — [How to Prove the Bar](How-to-Prove-the-Bar), move 5 ·
-[the cut-over planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cutover)
+[the cut-over planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cutover)
 
 > **Said wrongly** — "We will run it in shadow for a while and see how it does."
 >
@@ -680,7 +680,7 @@ that saves time and costs more is a normal result — the programme is cancelled
 not on the one that looked bad. Two rows keep it honest: review hours added, and re-runs.
 
 **Where you meet it** — [Gates and Governance](Gates-and-Governance) ·
-[the two-number report](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report)
+[the two-number report](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/report)
 
 > **Said wrongly** — "Cycle one saved 40% of the handling time — we will get to the cost side later."
 >
@@ -800,7 +800,7 @@ nobody argued about all quarter is either settled or unused — find out which.
 
 The workbench teaches **55 concepts**, grouped by the loop they belong to. Browse them with their
 worked example and the episode each first appears in:
-[the concept map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/concepts).
+[the concept map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/concepts).
 
 | Group | Concepts |
 | --- | --- |

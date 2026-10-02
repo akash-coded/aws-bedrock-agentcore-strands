@@ -38,7 +38,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 | 5 | P1 | [**Decide**, Merge the utility trees, then write only the ADRs that earn one](#5--decide) | Ratified NFR sheet + the ADRs at the sensitivity points |
 | 6 | P1 | [**Bound**, Set the authority budget before the token budget](#6--bound) | Authority budget + gate map |
 | 7 | P1 | [**Detail**, Layer the context, wrap the system, place the checker](#7--detail) | Layered context spec + server schema + checker placement |
-|  —  | P2 | *Answers against the map; does not re-open it* |  —  |
+| none | P2 | *Answers against the map; does not re-open it* | none |
 | 8 | P3 | [**Evolve**, Make the running system cheap, auditable and able to redesign itself](#8--evolve) | Caching and routing config · redacted trace spec · the incident ADR |
 
 ## What is yours, and what is not
@@ -1633,7 +1633,7 @@ MODULE: <path>
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Solution-Architect)
-- [The same case, step by step, in the workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/sa/step-1)
+- [The same case, step by step, in the workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/sa/step-1)
 - [Every decision tree on one page](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)

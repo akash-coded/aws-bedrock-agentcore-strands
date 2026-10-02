@@ -6,7 +6,7 @@ Four phases are a line. Eight loops are what make it a ring. Each loop **opens**
 in another, and has exactly one accountable owner. A programme that runs the phases but not the loops
 ships once and then drifts.
 
-Walk them live on the [Loop Map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/loopmap).
+Walk them live on the [Loop Map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/loopmap).
 
 ---
 
@@ -122,7 +122,7 @@ asked what was missing, and both turned out to be sensitivity points.
 
 **Run it:** [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop) ·
 [Journey: Solution architect](Journey-Solution-Architect) ·
-[simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/nfr)
+[simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/nfr)
 
 *Lineage: utility trees and sensitivity points from ATAM (Kazman, Klein and Clements, SEI, 2000);
 six-part quality attribute scenarios from Bass, Clements and Kazman. The chain is the manual's.*
@@ -196,7 +196,7 @@ SPEC:
 
 **Run it:** [Role: Product manager](Role-Product-Manager) ·
 [Journey: Product manager](Journey-Product-Manager) ·
-[episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/spec1)
+[episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/episode/spec1)
 
 *Lineage: EARS (Mavin, Wilkinson, Harwood and Novak, Rolls-Royce, 2009). The eight fields and the bar
 per slice are the manual's.*
@@ -237,7 +237,7 @@ attached is a decision that cannot be wrong, which is not the same as a decision
 
 **Run it:** [How to Choose Build, Buy or Borrow](How-to-Choose-Build-Buy-or-Borrow) ·
 [Journey: Solution architect](Journey-Solution-Architect) ·
-[episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/adr1)
+[episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/episode/adr1)
 
 *Lineage: architecture decision records (Nygard, 2011); ATAM sensitivity and trade-off points; Conway's
 law (1968) for the weight given to team skills.*

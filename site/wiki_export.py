@@ -170,7 +170,7 @@ def page(role: dict) -> str:
     groups = by_phase(role)
     for ph in ORDER:
         if not groups[ph]:
-            L.append(f"|  —  | {ph} | *{role['pdlc_absent'][ph]}* |  —  |")
+            L.append(f"| none | {ph} | *{role['pdlc_absent'][ph]}* | none |")
             continue
         for s in groups[ph]:
             L.append(f"| {s['n']} | {ph} | [**{s['phase']}**, {unmd(s['title'])}](#{s['n']}--"

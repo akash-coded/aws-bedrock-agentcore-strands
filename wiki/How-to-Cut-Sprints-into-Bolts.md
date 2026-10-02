@@ -165,7 +165,7 @@ The ordering rules, in priority order:
 
 > **One unknown per bolt.** Then a day can fail for exactly one reason, and you know which.
 
-Tool: [Sprint-to-bolt planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bolts)
+Tool: [Sprint-to-bolt planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bolts)
 
 The five rules are not preferences; each one removes a specific failure that costs a day:
 

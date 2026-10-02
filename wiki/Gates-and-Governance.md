@@ -7,7 +7,7 @@ click, not a status column, and not a meeting that happens to end in "fine".
 
 This page holds the five gates, the hard-and-soft split, the R1–R5 risk ladder, and the two-number
 report. Live version:
-[Governance](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/governance/gv-gates).
+[Governance](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/governance/gv-gates).
 
 ---
 
@@ -510,7 +510,7 @@ REPORT:
 ```
 </details>
 
-Build it: [Two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report)
+Build it: [Two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/report)
 · [Formulas and Calculators](Formulas-and-Calculators) · [Role: Sponsor](Role-Sponsor)
 
 ---
@@ -585,7 +585,7 @@ Owner: <name>   Due: <date>   Its test, which we will run on that date: <the tes
 ```
 </details>
 
-Run it: [Maturity self-check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/maturity)
+Run it: [Maturity self-check](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/maturity)
 
 ---
 

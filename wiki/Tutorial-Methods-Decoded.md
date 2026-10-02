@@ -3,7 +3,7 @@
 
 AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.
 
-**7 lessons · about 51 minutes** · AI-DLC, AIDD, BMAD and SDD, placed
+**7 lessons · about 50 minutes** · AI-DLC, AIDD, BMAD and SDD, placed
 
 Every lesson opens on the site, where the pictures are live and the text is searchable:
 **[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/methods/)**, or pick a lesson.
@@ -16,7 +16,7 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 | 4 | **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)** | The BMAD Method structures AI-driven development like an agile team: agent personas, each handing the next a versioned document. When it pays, and when not. | 8 min |
 | 5 | **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)** | Spec-driven development means writing the spec before the code and building from it with AI. How Kiro and GitHub Spec Kit do it, and the honest critiques. | 7 min |
 | 6 | **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)** | Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-gate sit on the agentic PDLC's four phases, and the decisions none of them makes. | 7 min |
-| 7 | **[How Much Process Does a Change Need? Sizing Agentic Work](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)** | Size process by a change's risk, not its size: four questions choose shallow, standard or deep work, and one trigger raises the depth mid-flight. | 7 min |
+| 7 | **[How Much Process Does a Change Need? Sizing Agentic Work](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)** | Size process by a change's risk, not its size: four questions choose shallow, standard or deep work, and one trigger raises the depth mid-flight. | 6 min |
 
 [← Agentic PDLC fundamentals](Tutorial-Fundamentals) · **[All tracks](Start-Here)** · [Running delivery →](Tutorial-Running-Delivery)
 

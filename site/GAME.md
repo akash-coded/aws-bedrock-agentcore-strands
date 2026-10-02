@@ -299,5 +299,4 @@ moves, rooms tinted by phase.
 - "Lena" (platform lead) and "Ines" (sponsor) are names the game adds; the case has four named people.
   The case gives Day 75, the bill, to the architect. The game gives it to the platform lead, so that
   role has a day of its own.
-- The wiki still links to `/simulator/#/…` routes. They are forwarded, so nothing is broken.
 - A link to a day always opens whole-team mode on seed 0, so the vendor's freeze falls on Day 20.

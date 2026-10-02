@@ -3,7 +3,7 @@
 
 The practical core: the twelve steps, bolts and boards, cutting delivery time, reviewing AI-written code, setting and proving the bar, launching safely, cost, guardrails, governance, drift and postmortems.
 
-**13 lessons · about 88 minutes** · Boards, bolts, launches and the bill
+**13 lessons · about 86 minutes** · Boards, bolts, launches and the bill
 
 Every lesson opens on the site, where the pictures are live and the text is searchable:
 **[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/delivery/)**, or pick a lesson.
@@ -14,8 +14,8 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 | 2 | **[Bolts vs Sprints: Planning Work When AI Writes the Code](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/bolts-vs-sprints/)** | When AI builds a story in hours, a two-week sprint leaves it idle. How to plan in bolts: one unknown each, cut by dependency, integrated the same day. | 7 min |
 | 3 | **[How to Set Up a Kanban Board for an Agentic AI Project](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-kanban-board/)** | A project board for AI agent delivery: evidence as the exit rule for every column, risk bands as swimlanes, and WIP limits set by review capacity. | 7 min |
 | 4 | **[Cut Delivery from Months to Weeks: What Shrinks, What Won't](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/cut-delivery-time/)** | AI makes building fast; delivery is more than building. What compresses, what compresses only by design, what never compresses, with the arithmetic for each. | 7 min |
-| 5 | **[How to Review AI-Generated Code: By Risk, Not by Diff Size](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)** | When agents write most of the code, review is the bottleneck. How to band changes by what they touch, route readers by band, and halve a review queue. | 7 min |
-| 6 | **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)** | An AI agent's accuracy bar comes from money, not a round number: divide the damage of a wrong answer by the saving of a right one, per slice. | 7 min |
+| 5 | **[How to Review AI-Generated Code: By Risk, Not by Diff Size](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/review-ai-generated-code/)** | When agents write most of the code, review is the bottleneck. How to band changes by what they touch, route readers by band, and halve a review queue. | 6 min |
+| 6 | **[How Accurate Does an AI Agent Need to Be? The 3-Step Answer](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-accurate-must-an-ai-agent-be/)** | An AI agent's accuracy bar comes from money, not a round number: divide the damage of a wrong answer by the saving of a right one, per slice. | 6 min |
 | 7 | **[Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)** | A score from a test set is an estimate with a width. How to report the lower bound, count the cases a slice still owes, and give a verdict a sceptic accepts. | 7 min |
 | 8 | **[Shadow Mode and Canary Releases for AI Agents, Step by Step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/shadow-mode-and-cutover/)** | How to launch an AI agent safely: run it in shadow beside the people doing the job, cut over at 5% per action, widen on evidence, and rehearse the way back. | 7 min |
 | 9 | **[Why Your AI Agent Costs 4× the Estimate, and How to Fix It](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-agent-costs/)** | An AI agent's bill rarely has one cause: context, model tier, cache and retries multiply. How to find each in the per-call log and fix them in order. | 7 min |

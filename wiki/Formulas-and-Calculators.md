@@ -6,7 +6,7 @@ Every number in the manual, with the formula behind it, a worked example, and �
 reference pages leave out — **when the formula misleads you**.
 
 Seventeen of these have a live calculator:
-[the toolkit](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/aifit).
+[the toolkit](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/aifit).
 The role journeys show each one in the step where you actually need it.
 
 **Confidence marks:** **documented** (a vendor's published documentation, dated) ·
@@ -84,7 +84,7 @@ Value is arithmetic, not adjectives. The two terms people omit are the last two:
 3. **Omitting the review row to make cycle one look better.** Cycle two then reads as a regression
    when it is actually the recovery.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/value)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/value)
 · [PM journey, step 3](Journey-Product-Manager)
 
 <details><summary><b>Template · Value line with sensitivity</b></summary>
@@ -149,7 +149,7 @@ best-guess feature ships safely at 71% instead of waiting for a 98% it will neve
 - **A bar above about 95% is usually a design smell**, not a target. It says the damage is too high
   for an unheld step, and the answer is a hold, not a better prompt.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bar)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bar)
 · [How to Prove the Bar](How-to-Prove-the-Bar)
 
 <details><summary><b>Template · Acceptance bar sheet</b></summary>
@@ -219,7 +219,7 @@ exactly where programmes lose quarters.
 different interests. Before you write an ADR, ask what single fact would settle it — sometimes the
 conflict evaporates.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/utree)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/utree)
 · [How to Run an NFR Workshop](How-to-Run-an-NFR-Workshop)
 
 ### Weighted decision matrix · *established* (Pugh, 1981)
@@ -236,7 +236,7 @@ it, say so in the record — it tells the next reader how firm the decision is.
 not separate the options, so the real decision is being made by something you have not written down —
 usually the exit cost.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bvb)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bvb)
 · [How to Choose Build, Buy or Borrow](How-to-Choose-Build-Buy-or-Borrow)
 
 ### Hand-off count · *established*
@@ -303,7 +303,7 @@ the range where someone is about to ship.
 
 > **Under about a hundred cases, quote Wilson.** Near 0 or 1 it is the only one that behaves.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/confidence)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/confidence)
 · [QA journey, step 5](Journey-QA-Lead)
 
 ---
@@ -398,7 +398,7 @@ percent for six weeks you will see a normal Tuesday many times and a storm day p
 rare-but-costly condition can stay invisible for the whole window. Widen deliberately across
 conditions, not just across volume.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cutover)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cutover)
 
 ---
 
@@ -420,7 +420,7 @@ change this afternoon.**
 payment path, that lane has a capacity of one regardless of the headline, and the average hides it.
 Compute the queue per band, not just overall.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/queue)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/queue)
 · [How to Review by Risk Band](How-to-Review-by-Risk-Band)
 
 ### Exposure in unknown-days · *working method*
@@ -466,7 +466,7 @@ A prefix that *should* be reused earns nothing if anything volatile sits inside 
 the request is placed before the marker, or if the team switches model mid-task. Check the measured
 hit ratio before trusting the model of it.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cache)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cache)
 · [How to Control the Token Bill](How-to-Control-the-Token-Bill)
 
 ### The four bill factors · *working method*
@@ -496,7 +496,7 @@ still costs one pass. The `0.9` is the documented discount on a cache read.
 The invoice was **4.4×** its estimate on flat traffic, and four habits multiplying account for it.
 
 **On the last digit.** You will see this case quoted elsewhere as `1.6 × 1.5 × 1.3 × 1.41 = 4.40` —
-including in the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/bill)
+including in the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/episode/bill)
 and the [scenario library](Scenario-Library). The retry factor is 1.7 ÷ 1.2 = 1.41666…, so 1.41
 truncates it and 1.42 rounds it, and the product lands at 4.40 or 4.42 depending which you carry.
 Neither is wrong and the difference does not change a single decision — but it is worth seeing once,
@@ -531,7 +531,7 @@ not the change.
 The breaker is the right fix in the wrong position: start there and two days pass with the bill still
 at 4.4×, having removed the least multiplier available.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/leaks)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/leaks)
 
 <details><summary><b>Template · Bill root-cause note</b></summary>
 
@@ -586,7 +586,7 @@ leak signal — where model switching and vague asks show up first).
 the room can tell. If that happened, say so in the report rather than being caught; then take a real
 baseline on the next feature, which costs an afternoon.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/report)
 
 ### Maturity level · *working method*
 
@@ -598,7 +598,7 @@ signatures · a redacting trace · production evidence by segment with drift wat
 **When it misleads.** It is deliberately not weighted, so a team can be "level 4" with the two
 hardest controls missing. Read the list, not the number.
 
-[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/maturity)
+[Calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/maturity)
 
 ---
 

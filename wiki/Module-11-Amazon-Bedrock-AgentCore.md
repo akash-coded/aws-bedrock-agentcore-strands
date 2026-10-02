@@ -7,11 +7,11 @@
 
 Everything so far ran in a notebook. AgentCore is how an agent becomes a service with an identity, a memory store, a gateway, traces and a bill. This module deploys agents three ways — Strands, LangGraph, and no framework at all — so you can see the runtime is framework-agnostic.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/11-bedrock-agentcore/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/11-bedrock-agentcore/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P3 Run & Learn: How to Run an AI Agent in Production Safely](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)** (7 min): what running an agent as a service asks of the team. Then try **[the two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[P3 Run & Learn: How to Run an AI Agent in Production Safely](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)** (8 min): what running an agent as a service asks of the team. Then try **[the two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/report)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

@@ -1597,7 +1597,7 @@ ARCHITECTURE: <paste>
 ## Read next
 
 - [How the whole lifecycle fits together](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC)
-- [The gateway control, in the workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/governance/gv-gateway)
+- [The gateway control, in the workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/governance/gv-gateway)
 - [Every lever on the token bill](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead)

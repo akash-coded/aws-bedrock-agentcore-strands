@@ -3,7 +3,7 @@
 
 What a forward deployed engineer does, six frameworks for answering AI interview questions, and deep question banks with strong answers for AI product managers, forward deployed engineers, GenAI engineers, agentic AI engineers and AWS roles.
 
-**7 lessons · about 72 minutes** · Five roles, frameworks, real depth
+**7 lessons · about 71 minutes** · Five roles, frameworks, real depth
 
 Every lesson opens on the site, where the pictures are live and the text is searchable:
 **[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/interviews/)**, or pick a lesson.
@@ -15,7 +15,7 @@ Every lesson opens on the site, where the pictures are live and the text is sear
 | 3 | **[AI Product Manager Interview Questions, with Frameworks](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-product-manager-interview-questions/)** | Ten deep AI product manager interview questions on AI judgement, design, metrics, evaluation, strategy, cost and leadership, each with a framework and answer. | 12 min |
 | 4 | **[Forward Deployed Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/forward-deployed-engineer-interview-questions/)** | Ten forward deployed engineer (FDE) interview questions (discovery, demos, evaluation, debugging, design, handover and pushback) with strong answers. | 11 min |
 | 5 | **[GenAI Engineer Interview Questions: RAG, Evals and Cost](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/genai-engineer-interview-questions/)** | Ten deep GenAI engineer interview questions on RAG failures, evaluation, fine-tuning, latency, cost, prompt injection, structured output and memory. | 11 min |
-| 6 | **[Agentic AI Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/)** | Ten agentic AI engineer interview questions: the agent loop, enforced limits, tool design, MCP security, multi-agent systems, evaluation and runaways. | 11 min |
+| 6 | **[Agentic AI Engineer Interview Questions and Answers](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-ai-engineer-interview-questions/)** | Ten agentic AI engineer interview questions: the agent loop, enforced limits, tool design, MCP security, multi-agent systems, evaluation and runaways. | 10 min |
 | 7 | **[AWS Generative AI Interview Questions: Bedrock, AgentCore](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/aws-generative-ai-interview-questions/)** | Ten AWS generative AI interview questions on Bedrock, AgentCore, Strands, Knowledge Bases, Guardrails, IAM, cost and resilience, with architecture answers. | 12 min |
 
 [← Practice](Tutorial-Practice) · **[All tracks](Start-Here)**

@@ -7,11 +7,11 @@
 
 The best way to understand a framework is to build what it replaces. You will write a working agent loop in plain Python, hit every sharp edge, and only then meet Strands — at which point every abstraction it offers will be obvious rather than magical.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/05-agent-loop-no-framework-to-strands/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/05-agent-loop-no-framework-to-strands/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)** (8 min): building in proven slices, which is what the loop makes possible. Then try **[the sprint-to-bolt planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bolts)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[P2 Build & Prove: How to Build an AI Agent in Proven Slices](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p2-build-and-prove/)** (8 min): building in proven slices, which is what the loop makes possible. Then try **[the sprint-to-bolt planner](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bolts)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

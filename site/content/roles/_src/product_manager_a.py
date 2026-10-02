@@ -43,7 +43,7 @@ HEAD = {
     ),
     "reads": [
         ["The wiki page for this role", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Product-Manager"],
-        ["The same case as thirteen episodes", "../simulator/#/story"],
+        ["The same case as thirteen episodes", "../workbench/#/story"],
         ["Every formula on one page", "https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Formulas-and-Calculators"],
     ],
 }

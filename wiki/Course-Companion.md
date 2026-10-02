@@ -3,7 +3,7 @@
 
 *Sixteen modules, five tracks, one rule: every abstraction is preceded by the thing it abstracts.*
 
-The course lives in the repository, under [`modules/`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/): slides, notebooks, exercises, workbooks and solutions, reviewed and versioned. These pages are the companion: one page per module with its reading order, the [tutorial](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/) lesson that frames it, the [playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/) tool that exercises the same decision, and where its errors and questions are collected. Read the module README first, always; this page tells you what to read around it.
+The course lives in the repository, under [`modules/`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/): slides, notebooks, exercises, workbooks and solutions, reviewed and versioned. These pages are the companion: one page per module with its reading order, the [tutorial](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/) lesson that frames it, the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/) tool that exercises the same decision, and where its errors and questions are collected. Read the module README first, always; this page tells you what to read around it.
 
 **Where to start:** [START-HERE](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/START-HERE.md) in the repository picks a path for you. Not sure? [Module 00](Module-00-Agentic-Foundations) needs no AWS account and no code.
 

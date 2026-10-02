@@ -31,7 +31,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |
-|  —  | P0 | *Asks one question: what will <i>right</i> mean, and who says so?* |  —  |
+| none | P0 | *Asks one question: what will <i>right</i> mean, and who says so?* | none |
 | 1 | P1 | [**Define**, Decide what proof each kind of step owes](#1--define) | Proof map + bar sheet |
 | 2 | P1 | [**Curate**, Build the golden set out of real cases](#2--curate) | Golden set (jsonl), tagged by slice |
 | 3 | P2 | [**Check**, Match the checker to the work](#3--check) | Checker map + judge rubric v0 |
@@ -1549,7 +1549,7 @@ INCIDENT AND FIX:
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-QA-Lead)
-- [The harness, in the engineering lead's journey](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/eng/step-3)
+- [The harness, in the engineering lead's journey](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/eng/step-3)
 - [Every rung of the ladder, with the arithmetic](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [Engineering Lead](Journey-Engineering-Lead) · [DevOps](Journey-DevOps)

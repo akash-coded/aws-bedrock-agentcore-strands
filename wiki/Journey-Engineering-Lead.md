@@ -31,7 +31,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | # | Phase | Step | What it produces |
 | --- | --- | --- | --- |
-|  —  | P0 | *Not on the clock, reads the brief, starts nothing* |  —  |
+| none | P0 | *Not on the clock, reads the brief, starts nothing* | none |
 | 1 | P1 | [**Prepare**, Write the context file every coding tool reads](#1--prepare) | Context file set |
 | 2 | P2 | [**Slice**, Build from a story file, never a chat thread](#2--slice) | Agent-ready story file |
 | 3 | P2 | [**Floor**, Write the deterministic floor before any prompt](#3--floor) | Exact-code inventory, implemented |
@@ -1511,7 +1511,7 @@ Finish with the amended ADR line, if a decision changed, in one sentence.
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Engineering-Lead)
-- [The same case, walked step by step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/eng/step-1)
+- [The same case, walked step by step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/eng/step-1)
 - [Where the bill goes, and how to get it back](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Control-the-Token-Bill)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Solution Architect](Journey-Solution-Architect) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)

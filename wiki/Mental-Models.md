@@ -153,7 +153,7 @@ Where you meet it: [Per-slice readouts](https://akash-coded.github.io/aws-bedroc
 
 **Landed when** — You never quote a score without its sample size, and you hear “94% accurate” as an incomplete sentence.
 
-Where you meet it: [Lower bounds](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar) · [The calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/confidence)
+Where you meet it: [Lower bounds](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/How-to-Prove-the-Bar) · [The calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/confidence)
 
 ---
 

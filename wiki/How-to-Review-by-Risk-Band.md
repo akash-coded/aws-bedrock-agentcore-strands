@@ -8,8 +8,8 @@ reviewer takes three months to hire and the agent will produce more changes long
 **The policy is the bottleneck, not the people.** It treats nine changes as equally dangerous.
 
 Run it live:
-[simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/review) ·
-[queue calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/queue).
+[simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/review) ·
+[queue calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/queue).
 
 ### At a glance
 

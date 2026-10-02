@@ -12,7 +12,7 @@ the second one is easier to run than the first.
 a study group that wants structure. You do not need to have run an agentic project; you need to have
 read the pre-reading one week ahead of the room.
 
-**What a cohort needs.** A projector for the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/),
+**What a cohort needs.** A projector for the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/),
 one laptop per two people, the pre-reading done, and a real candidate project from the team's own
 backlog. The sessions keep returning to it. Without one, the exercises use SkyWays, which works but
 lands less hard.

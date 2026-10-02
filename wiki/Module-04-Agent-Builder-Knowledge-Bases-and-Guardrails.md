@@ -7,11 +7,11 @@
 
 Agent Builder is the fastest path from idea to working agent. This module shows what it gives you for free, where its ceiling is, and how knowledge bases and guardrails attach to a real agent.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/04-agent-builder-and-knowledge-bases/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/04-agent-builder-and-knowledge-bases/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[AI Agent Guardrails That Hold: Why a Prompt Is Not a Control](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-guardrails-that-hold/)** (6 min): which controls hold and which are only prompts. Then try **[the authority and gate mapper](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/gates)** in the playbook: the same decision, with your numbers.
+The lesson that frames this module is **[AI Agent Guardrails That Hold: Why a Prompt Is Not a Control](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-guardrails-that-hold/)** (7 min): which controls hold and which are only prompts. Then try **[the authority and gate mapper](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/gates)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

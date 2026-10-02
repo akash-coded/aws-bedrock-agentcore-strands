@@ -8,8 +8,8 @@ use", and every rung has a number on it.
 This closes the [trust loop](The-Eight-Loops#trust). The QA lead owns it.
 
 **Run it interactively:**
-[the acceptance-bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bar)
-· **[the deadline simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/deadline)**
+[the acceptance-bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bar)
+· **[the deadline simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/deadline)**
 
 ### At a glance
 
@@ -413,7 +413,7 @@ the score, or lower the damage with a hold".
 
 The fourth answer, rounding the lower bound up in the slide, is the one that reaches production.
 
-Tool: [Golden-set confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/confidence)
+Tool: [Golden-set confidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/confidence)
 
 ### What you actually do
 
@@ -649,7 +649,7 @@ Cutting over at fifty percent means half your passengers meet the first-day fail
 Rehearse the rollback **before** the cut-over, not during it. With a flag-driven shadow path, the
 rollback is the flag.
 
-Tool: [Cut-over evidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/cutover)
+Tool: [Cut-over evidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cutover)
 
 ### What you actually do
 

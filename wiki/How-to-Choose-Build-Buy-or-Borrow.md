@@ -8,8 +8,8 @@ with the sponsor on the cost line. It is the same ground as Decide in
 [the architect's journey](Journey-Solution-Architect), told as a procedure rather than as a role.
 
 Run it live:
-[simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/bvb) ·
-[matrix tool](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/bvb).
+[simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/simulations/bvb) ·
+[matrix tool](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bvb).
 
 ### At a glance
 

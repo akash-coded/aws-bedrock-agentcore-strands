@@ -7,11 +7,11 @@
 
 Two protocols solve two different problems. A2A lets agents from different vendors discover and call each other. A2UI gives an agent a way to render real interface, not just text. Both are early, both matter.
 
-**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/12-a2a-and-a2ui-interop/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the playbook alongside.
+**[Open the module on GitHub ↗](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/modules/12-a2a-and-a2ui-interop/)**: the slides, notebooks, exercises and solutions are there. This page is the reading order, with the tutorial and the workbench alongside.
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** (8 min): an interface between agents is a spec, and it has the same gate.
+The lesson that frames this module is **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** (9 min): an interface between agents is a spec, and it has the same gate.
 
 ## What you will be able to do
 
