@@ -454,6 +454,124 @@ Where nothing was measured again, the before stands.
 `base.css` grew with the lessons' measure and margin column, and the game's scripts with this round's title
 and day; both hold under the budgets the gate now enforces.
 
+## After the ninth council: the owner's eight answers
+
+The owner answered the ninth council's open questions on 2 October. The labs stay at `/labs/`. A key for
+Amazon Bedrock was added, and later any call there to any model was allowed; the account reaches models
+from several makers, though not the newest from Anthropic, OpenAI or xAI. Of the content helper's six
+wording questions, the three changes already made stay (the frameworks decoder's five "From" cells, the
+workbench lesson's new title and the workbench line in the wiki's sidebar), and three are new: the
+summary box keeps its "In short" label and loses the bold lead that said it again, a summary runs to
+three sentences at most, and an empty template cell reads "none". The tall lesson maps and a role run
+from a later day each get a parcel. The building at 1440 stays as the ninth council left it, starting on
+the first screen and ending under the fold. The sketches are cut to about thirty by council 7's test,
+with four pebbles and a rock as the home page's sample. The five OpenAI facts in the Tool guides that
+could not be checked stand, with no action.
+
+**Summaries.** All 55 summaries opened with a bold lead under a box already labelled "In short", and 52
+of the leads said "in short" again. The leads are gone. In six lessons a lead carried a term the sentence
+needed, and the term moved into the first sentence, so every summary still stands alone. The 29 that ran
+to four to eight sentences now run to three, each rewritten from its lesson's body with the same facts,
+numbers and bold terms, no sentence over 35 words and the median length unchanged. Two outside models
+from different makers read every rewrite beside the old text; two of the losses they listed were real,
+and both were restored after a check against the bodies. The build refuses a summary over three
+sentences or one that opens with a bold lead, and on the lessons as they were it flags exactly the 29 and
+the 55 leads. The guide no longer asks for 40 to 70 words: 20 summaries were already over 70, and the
+owner's rule is about sentences. Every empty cell in the role templates reads "none": seven cells, and
+the architect's list of allowed values.
+
+**Sketches.** The sketches went from 77 in 48 lessons to 30, one each in 30 lessons. Each drawing was
+read blind, then shown with its caption covered to three vision models from three makers, and each answer
+was judged against the real caption. A sketch stayed when at least two of the three got its point, its
+labels were the lesson's own nouns and numbers, and its lesson needed it: 20 were read by all three and 10
+by two. Of the 47 cut, 14 were missed by all three, and 8 that all three read were cut anyway, 7 because
+their lesson kept a stronger one and 1 because it sat in a question bank. Most misses came from a label
+only the lesson explains: "thirteen points" read as story points, and "$2,000" on a high rock as an
+opportunity. The 48 lesson pages that had sketches weigh 17% less gzipped, and 11 lessons read a minute
+shorter.
+
+**Maps.** Twenty of the 44 lesson maps ran over the ninth council's cap of 70% of a 1440 by 900 screen,
+the evolution of the PDLC's at 928px. In most of them the label column set a band's height, and the cells
+needed less. The engine now tightens only a map that is over, one step at a time, and draws the first
+layout that fits, so the 24 that fitted, the leadership page's map and the wiki's 40 pictures are drawn as
+before. Every step moves things or takes out air, and the smallest label stays 13.9px at 1440. The tallest
+map is now 628px. The evolution of the PDLC and the evidence pack read as sequences, so they became cards
+read left to right. Even as cards, evolution's six eras fit only without the second line in each cell, so
+it lost twelve lines that its own steps already say. At 1024, 390 and 320 every map keeps its text version
+and none is taller. The gate's eighteenth pass measures every lesson's map at 1440 by 900.
+
+**A later start.** A role can start at its own later day: each role row's days are links, and a role
+whose first call comes after Day 1 also offers "Or start at Day 45, your first call". The links are the
+day numbers under the row's small line, at least 24px tall, because the architect's six marks on that
+line sit 4 to 6px apart. The four rows with that link are 93px tall at 1440, where they were 64px, so
+the link has a band of its own. The book that plays the earlier days uses only the moves a player has and
+adds no rule. The game's three scripts are 44.95 KB gzipped, 52 bytes under their budget, after five fixed
+sentences moved word for word into `days.json`; the simulator's own HTML is 16.8 KB gzipped, up from 16.4.
+Three outside models from three makers reviewed the rule change. One ran out of room before it answered.
+Of the faults the other two raised, one held, and it predates this round (see the open items); the rest
+did not, because a day without options is handled and no plan is ever pending in a whole-team run.
+
+**The lab's claim.** Grow the spec's debrief said that the numbers a model invents differ and the places
+it invents them do not, and it now shows that. Two of its prompts went word for word to three models from
+other makers: Kimi K3 (Moonshot AI), GLM-5 (Z.ai) and DeepSeek V3.2. Asked for the full PRD, all four put
+a number on "much faster", "most" and "rare", and the numbers differ; all four left the refund cap to
+Finance, the one gap the page gave an owner. Told where to stop, all four wrote NOT DECIDED at least once
+in each of the five open fields, and one still let the assistant act alone on a refund up to $400, which
+the closing line says. Each table cell quotes the words of its reply it is built from, and the build
+holds it to them. Inline, the six replies would have taken the lab page near 40 KB against its 34 KB
+hold, so they have a page of their own, 13.96 KB gzipped, which the fold reads in when first opened. The
+lab page ends at 33.38 KB, 634 bytes under its hold.
+
+**The role book's questions.** When a role starts late, the book plays the days before it. On a
+colleague's day it plays as a player who knows the method: a sound plan stands, and one that is not is
+questioned and the recommended option asked for, while a question is spare. The first book, never
+shipped, questioned every such plan while questions lasted. A search over every move a player has, from each start the rows
+offer, showed what that left: four late starts opened with no question left, and from none of them could
+the player reach funded with conditions. A player who knows the method keeps a question for the
+sponsor's slide, so the book does: when Day 90 is a colleague's, the last question is kept for it, and
+those four starts now open with one. The product manager's book is unchanged, because Day 90 is theirs.
+The rules test holds the property, not the table: from each of the 28 starts the rows offer, some line
+must still end funded with conditions or better.
+
+| Start | Best reachable, first book | Best reachable, as shipped | Played on by the book, first book | Played on by the book, as shipped |
+| --- | --- | --- | --- | --- |
+| Product manager, Day 15 | Funded | Funded | Funded, with conditions | Funded, with conditions |
+| Product manager, Day 90 | Funded, with conditions | Funded, with conditions | Funded, with conditions | Funded, with conditions |
+| Architect, Days 1 to 12 | Funded, by argument | Funded, by argument | Paused | Funded, with conditions |
+| Architect, Day 20 | Funded | Funded | Paused | Funded, with conditions |
+| Engineering lead, Day 30 | Funded, with conditions | Funded, with conditions | Paused | Funded, with conditions |
+| Engineering lead, Day 60 | Paused | Funded, with conditions | Paused | Funded, with conditions |
+| QA lead, Day 45 | Paused | Funded, with conditions | Stopped | Funded, with conditions |
+| QA lead, Day 82 | Paused | Funded, with conditions | Stopped | Funded, with conditions |
+| Platform lead, Day 75 | Stopped, whatever the player does | Funded, with conditions | Stopped | Funded, with conditions |
+| Whole team, any day | | | Funded | Funded, unchanged |
+
+All starts are on seed 0, as the rows' links are. The architect's starts from Days 1 to 12 take over five
+minutes each to search, so they stand on an argument: the book's line from each passes through the Day 20
+start, from which the search finds a funded ending.
+
+**The newcomer test.** Three outside models from three makers were shown only the simulator's first
+screen, at 1440 and at 390, and asked seven questions as a newcomer. All six answers understood the game,
+and all six missed that the line's stops can be pressed: each read the caption's promise of a start at
+any day and found no way to choose one. One also asked what "by the book" meant, one found the building's
+caption at odds with its drawing (the days "end in the boardroom", which is at the top), and one could
+not tell whether Day 1's card was a preview. Those became the title's four fixes. Shown the new build, all
+three models, at both widths, said to press a day on the line to start later. What they still flagged:
+four of the six answers asked what "the method" was, so after the test "the method's way" became "the
+recommended way"; two found the line's smaller dots unexplained; and at 1440 one saw Day 1's question
+with no answers, because they sit below the fold. Shown the role rows, all three would press "Or start at
+Day 45, your first call" to play the QA lead late. Two said the rows' small timelines have no key, and two
+found the sponsor row's "Every day, watched" and "2 questions" cryptic.
+
+**Around the parcels.** All 266 pictures the wiki and the markdown twins embed were shot again from the
+current build, because they dated from before the map engine's rewrite; 178 changed, and the thirty
+sketches were shot for the first time, so each lesson's markdown twin shows its sketch as a picture. The
+wiki's tutorial and course pages carry the new reading times. The home sample's source line wraps at 1024
+with the longer lesson title, so its arrow is now held to the last word. The picture pack gained the thirty
+sketches and the leadership page's map, each with its card and its image data, and its page grew from 29 to
+37 KB gzipped. The gate's hold for that page was raised to 38 KB, the one hold raised on purpose; trimming
+the image data each picture carries for search would bring it back down, and is the owner's call.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
@@ -461,18 +579,36 @@ and day; both hold under the budgets the gate now enforces.
 - The product manager's row and the QA lead's row both end on "a number you can defend".
 - Three labs are listed as being built: the system prompt from the spec, proving the bar, and reviewing a
   change a coding agent wrote.
-- The labs have one set of recordings, from one model on one date. A second model's replies to the same
-  prompts would let a lab show what its debrief claims: the numbers a model invents differ, and the places
-  it invents them do not.
-- A role run cannot start from a later day: `sim.book` stops at the first day a colleague owns, so a role
-  always starts at Day 1 and the role rows offer no "Or start at Day 45".
-- 20 of the 44 lesson maps run over 70% of a 1440 by 900 screen, the evolution of the PDLC's at 103% and
-  the hard gate's at 89%. Their layout lives in the map engine (`pages/maps.py`) and belongs to a parcel of
-  its own.
+- The lab's own recordings name their model only as "Claude", with no version, while the three other
+  models' replies carry theirs. Anyone who runs the prompts again to compare would want the exact model.
+- From a later day a role reaches "Funded, with conditions" at best, except the architect and the product
+  manager from Day 15. Whether a late start should be winnable outright is the owner's call: it would take
+  a book that questions fewer plans, or a colleague's day played well without a question, which would be a
+  new rule.
+- Opened from Maya's row, Day 45 puts its first answer about 70px below the fold at 1440 (at 969px of a
+  900px screen): the shortcut the book let stand on Sam's Day 30 lands that morning as news.
+- On the title at 1440, Day 1's card has its kicker on the first screen and its answers below the fold.
+- A run held only in memory, because the browser blocks storage, is dropped if the address changes to a
+  day link mid-run: `boot()` checks the saved run, not the one in play. It predates this round.
+- The role rows' small timelines have no key, and the sponsor row's "Every day, watched" and "2 questions"
+  read as cryptic to a newcomer.
+- The game's three scripts have 52 bytes of their 45 KB budget left.
+- At 1024 by 768 every lesson map shows its text version, and 25 of the 44 run over 630px (SkyWays' to
+  926px). The cap is set for 1440 by 900; holding 1024 to it would be a change to the text version (`.bbn`
+  in `base.css`).
+- Eight lesson maps sit 2 to 5px under the cap at 1440 (628, 627, 627 and five at 625px), six of them
+  tightened this round. Pass 18 fails if the lesson column ever widens enough to tip one over.
+- `site/export_models.py` is out of step with `wiki/Mental-Models.md`. Run, it would give the twelve models
+  their new names, and would also delete the page's hand-added "Where each one bites" section with its
+  picture and "The three that get resisted" table, so it was not run.
+- The start page's box (`content/learn/start-here.md`, on `/learn/` and on the wiki's Start Here) still
+  opens with a bold lead, "What this is.", under its "In short" label. It is not a lesson, so the summary
+  check does not cover it.
 - The home page's sample sketch keeps the old paper tone in the dark theme: the toned paper is set on the
   lesson pages only.
 - help.openai.com refuses the session's proxy, so five OpenAI facts in the Tool guides stand as the
   research sheet had them, unchecked against their pages.
 
-- The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy; until it runs,
-  the live wiki keeps its older links, which the home page forwards.
+- The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy, and running it
+  is the owner's call. Until it runs, the live wiki keeps its older links, which the home page forwards,
+  and goes without this round's pictures, reading times and Journey cells.

@@ -8,6 +8,141 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · Shorter summaries, thirty sketches, maps that fit, a later start for every role, and three more models in the lab
+
+The owner answered the ninth council's open questions, and five parcels built the answers. Outside models
+on Amazon Bedrock, from several makers, were the strangers for the sketch test, checked the summary
+rewrites, read the simulator's first screen as newcomers before and after its change, and reviewed the
+rule change; three more answer two of the lab's prompts. The record, with each parcel's numbers, is in
+[`site/EXPERIENCE.md`](site/EXPERIENCE.md) and, for the game, [`site/GAME.md`](site/GAME.md).
+
+### Added
+- **A role can start at its own later day** ([`site/play/sim.js`](site/play/sim.js),
+  [`site/play/game.js`](site/play/game.js)). A role run always began on Day 1. Now each role row's own days,
+  under its small ninety-day line, are links ("Day 45 as Maya"), and a role whose first call comes after
+  Day 1 also offers "Or start at Day 45, your first call". The row's button still plays from Day 1. The
+  address is `#day-45-qa`, read where `#day-45` is read; like a day link it never replaces a saved run
+  unasked, `#day-45` alone is still a whole-team run, and the sponsor still starts at the rules. The book
+  that plays the earlier days learns one role. The player's own days are played the recommended way. On a
+  colleague's day a sound plan stands, and one that is not is questioned and replaced while a question is
+  spare, but the last question is kept for Day 90 when the sponsor's slide is a colleague's call. Without
+  the kept question, four late starts (the QA lead's Days 45 and 82, the engineering lead's Day 60 and the
+  platform lead's Day 75) opened with no question left and could not reach funded with conditions whatever
+  the player did; the platform lead's could end only in stopped. Now every start a row offers can reach at
+  least funded with conditions, and the product manager from Day 15 and the architect can still be funded
+  outright. A day opened late says "Days 1 to 30 were played for you the recommended way." The rules test
+  checks every offered start and proves the whole-team book unchanged, 56 histories against a copy of the
+  old book ([`site/tools/sim.test.mjs`](site/tools/sim.test.mjs)). The playtest starts Maya at Day 45 by a
+  real click, reloads into the same run, and measures every row link at 24px or taller on phones
+  ([`site/tools/playtest.mjs`](site/tools/playtest.mjs)). Three outside models from three makers reviewed
+  the rule change; the one fault that held predates it, and is among the open items in `site/EXPERIENCE.md`
+- **Three more models in Grow the spec's debrief**
+  ([`site/content/labs/grow-the-spec.py`](site/content/labs/grow-the-spec.py),
+  [`site/pages/labs.py`](site/pages/labs.py), [`site/labs/lab.js`](site/labs/lab.js),
+  [`site/labs/lab.css`](site/labs/lab.css)). The debrief told the reader to paste a prompt into any model,
+  because "the numbers it invents will differ; the places it invents them will not". On 2 October 2026 two
+  of the lab's prompts went word for word to three models from other makers on Amazon Bedrock: Kimi K3
+  (Moonshot AI), GLM-5 (Z.ai) and DeepSeek V3.2. A new part, "Three more models, the same two prompts",
+  sets what came back beside the lab's own recording in two tables. Asked for the full PRD, all four put a
+  number where Priya's page said "much faster", "most" and "rare", and the numbers differ: under 5 or under
+  10 minutes; 60%, 70% or more, over 70%; under 1% or under 2%. All four left the refund cap to Finance.
+  Told where to stop, all four wrote NOT DECIDED at least once in each of the five open fields, 11, 8, 5
+  and 6 times, and one still let the assistant act alone on a refund up to $400. Every cell names the
+  words of its reply it is built from, and the build refuses a quote that is not in the reply or a number
+  that is not in the quote. The six replies have a page of their own, `/labs/grow-the-spec/others/`, each
+  stamped with its model, maker, date and the exact prompt it answers. The fold "Read the six replies"
+  reads them in when it is first opened, the one thing a lab page ever fetches, and without script it
+  links to that page. On a phone each row of a table is one block, each answer beside its model's name.
+  The lab test gains a tenth section for the debrief ([`site/tools/lab.test.mjs`](site/tools/lab.test.mjs)),
+  and the authoring guide a section on recording other models
+  ([`site/content/labs/README.md`](site/content/labs/README.md))
+
+### Changed
+- **Every lesson's summary says "In short" once, in three sentences at most**
+  ([`site/content/learn/lessons/`](site/content/learn/lessons/), [`site/pages/learn.py`](site/pages/learn.py)).
+  The box at the top of a lesson is labelled "In short", and every summary opened with a bold lead, 52 of
+  them saying it again ("The hard gate in short."). The leads are gone; where one carried a word the
+  sentence needed, the word moved into the first sentence ("P0 Frame is the phase"). Twenty-nine summaries
+  ran to four to eight sentences. Each is rewritten from its lesson's body to three, with the same facts,
+  numbers and bold terms, no sentence over 35 words and the median length unchanged. Two outside models
+  from different makers read every rewrite beside the old text and listed anything changed, dropped or
+  added. They found two real losses, both confirmed against the lesson bodies and restored: where AWS's
+  controls stop and yours "must" begin, and two numbers "in front of" the steering committee. The
+  markdown twins and `llms-full.txt` carry the label once, as "In short." at the start of the summary. The
+  build now refuses a summary of more than three sentences, or one that opens with a bold lead, and its
+  sentence count is not split by abbreviations, decimals, initials, code, links or addresses. On the
+  lessons as they were, the check flags exactly the twenty-nine and every lead. The authoring guide says
+  the same ([`site/content/learn/README.md`](site/content/learn/README.md))
+- **Thirty sketches, one a lesson at most, chosen by a stranger with the caption covered**
+  ([`site/content/learn/sketches/`](site/content/learn/sketches/), [`site/pages/learn.py`](site/pages/learn.py),
+  [`site/render.py`](site/render.py)). The lessons carried 77 sketches in 48 lessons, up to three in one.
+  Council 7 kept about thirty by one test: with the caption covered, a stranger states the point, and the
+  labels are the case's own nouns and numbers. Each drawing was read blind, then shown alone to three
+  vision models from three makers as the strangers, 231 calls, and each answer was judged against the real
+  caption. A sketch stayed when at least two of the three got its point, its labels were the lesson's own,
+  and its lesson needed it: twenty were read by all three, ten by two. Of the 47 cut, fourteen were missed
+  by all three. Thirty lessons keep one sketch and twenty-five keep none, the question banks among them,
+  and each of those still has another picture. Eighteen sketch files are deleted and twenty-four trimmed
+  to their one survivor; the thirty that stay draw byte for byte as before. The home page's sample is now
+  four pebbles and a rock, from the lesson on how accurate an agent must be (`HOME_SKETCH`). The build
+  refuses a lesson with two sketches, a sketch file with two entries, and a sketch placed outside its own
+  lesson. The 48 lesson pages that had sketches weigh 17% less gzipped
+- **Every lesson map fits in 630px at 1440 by 900, by using the width, never by smaller type**
+  ([`site/pages/maps.py`](site/pages/maps.py), [`site/pages/mapspecs.py`](site/pages/mapspecs.py)). Council 9
+  capped a lesson's opening map at 70% of a 1440 by 900 screen, and twenty of the forty-four ran over it,
+  the evolution of the PDLC at 928px. In most of them the label column set each band's height, five or six
+  cells wrapped into two rows, and the funnels ran down one narrow column with their side list under the
+  whole figure. The map engine now caps a lesson map's drawing at 582 units, 629px at 1440. A map that
+  fits is drawn exactly as before. A map over the cap is tightened one step at a time, and the first
+  layout that fits is drawn: for bands, less air, then more cells across, then the key on its name's
+  line, then a wider label column, then the bands as cards side by side; for a funnel, less air, then the
+  side list beside the end, then wider questions. The type never shrinks. The evolution of the PDLC and
+  the evidence pack become cards read left to right, and the tallest map is now 628px. The evolution map
+  drops the twelve second lines under its bottlenecks and answers, each a restatement of the lesson's own
+  steps, and the SkyWays callout reads "the score that was no proof" to fit one line. Each map's figure
+  carries its slug, and the build warns if a map is still over at its tightest. At 1024, 390 and 320 every
+  map keeps its text version and none is taller; the tallest at 390 went from 1254px to 1080px. The
+  acceptance gate gains pass 18, "map height", eighteen in all
+  ([`site/tools/accept.mjs`](site/tools/accept.mjs)): every lesson at 1440 by 900, failing on a map figure
+  over 630px, and failing too if no map is marked, so it cannot pass with nothing to check
+- **The simulator's title says how to start anywhere** ([`site/play/days.json`](site/play/days.json),
+  [`site/play/game.css`](site/play/game.css)). Three outside models from three makers, shown only the
+  title's first screen as newcomers, understood the game, and all six of their answers, at 1440 and 390
+  wide, missed that the stops on the line can be pressed. Every stop that is a link now has its number
+  underlined before any hover, and the caption reads "Start at Day 1, or press a day on the line to start
+  there. The days before that day are played for you, the recommended way." It said "the days before it
+  are played by the book", which a newcomer could not read. Day 1's card says "Your answer starts the
+  game" in its kicker. The building's caption follows the picture: Day 1 in the boardroom at the top, down
+  the floors to the passengers, and back to the boardroom on Day 90. Shown the new build, all three models
+  found the later start. Five fixed sentences moved word for word from `game.js` into `days.json`, so the
+  game's three scripts stay under their 45 KB budget, at 44.95 KB gzipped
+- **Every empty template cell reads "none"** ([`site/content/roles/_src/`](site/content/roles/_src/)). The
+  content helper had replaced lone dashes in the role templates with "n/a" in some tables and "skip" in
+  others. As the owner decided, an empty cell now reads "none" everywhere: seven cells in the QA shadow-run
+  table, the architect's process-depth table and the gate table's three unanswered questions, and the
+  allowed values the architect's prompt lists ("full · yes · light · none"). Text written before the
+  sweep, such as "n/a, excluded, stays gated", stays as it was. The role JSON and the two Journey wiki
+  pages are generated again from the sources
+- **The wiki's pictures, shot again from today's site** ([`site/assets/learn/`](site/assets/learn/)). Every
+  picture the wiki and the lessons' markdown twins embed had last been shot on 1 October, before the map
+  engine was rewritten on 2 October and before this week's label contrast work, so a wiki page could show
+  a new picture beside an old one. All 266 are shot again from the current build, and 178 change. The
+  leadership page's map of the four decisions gets its pair, and the thirty sketches are shot for the
+  first time, so each lesson's markdown twin shows its sketch as a picture with its caption, where it had
+  fallen back to the caption alone. The social cards are not touched
+- **The wiki's tutorial and course pages carry the new reading times** ([`wiki/`](wiki/)). Eleven lessons
+  lost a minute with the sketches the cull removed, so the tutorial's index on the wiki (Start Here and
+  six track pages) and five course module pages are generated again. Only the minutes change. The GitHub
+  wiki itself updates when `wiki/sync.sh` next runs
+
+### Fixed
+- The home sample's source line put its arrow beside its first line. Under the lesson sketch on the home
+  page, "From lesson 6 of Running delivery: How accurate must an agent be?" wraps at 1024 wide, because
+  the new sample's lesson title is longer, and the line was a flex row, so the arrow stood beside the
+  first line instead of after the last word. It is now a block with the arrow inline, held to the last
+  word by a no-break space, at every width ([`site/theme/base.css`](site/theme/base.css),
+  [`site/render.py`](site/render.py))
+
 ## 2026-10-02 · A simulator a newcomer can read, lessons at seventy-five characters a line, and the Tool guides
 
 The simulator now shows a newcomer, before the first press, what the ninety days are, who works in the

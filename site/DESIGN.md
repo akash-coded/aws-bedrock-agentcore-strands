@@ -28,7 +28,7 @@ spacing:
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
 motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "--spring, a linear() curve that passes its mark by 2.8% and comes home", stagger: "40ms in a list, 60 to 110ms between the parts of a figure", reduced: "everything still: the globe drawn once, one aircraft parked at each phase"}
-components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, day-card, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
+components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, day-card, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, lab-comparison-table, next-up, pause-control]
 ---
 
 # How the site looks
@@ -93,6 +93,9 @@ with wide tracking. No label is under 11px.
   caption starts on its figure's own edge. From 1256px wide the room beside the text is a margin column of
   280 to 300px: the contents beside the title, each sketch level with the paragraph it draws, the "Try it"
   card. Narrower, they return to the flow.
+- A lesson's opening map takes at most 70% of a 1440 by 900 screen, 630px for its figure. It fits by using
+  the width (more cells across, the bands as cards side by side, a side list beside the end), never by
+  smaller type. Where even that is too tall, its words are cut.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
   explains how to use the page is folded behind one line.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
@@ -182,7 +185,7 @@ line with the phases still countable.
 | Role rows | One row per role: code, name, where you start, where you end up, counts. A list, not cards. | `.seats` |
 | Day card | One real day of the game: its room in pixels at a whole multiple, bled to the card's edges, the kicker, the headline, the context, the question and the answers with their price in days. Its metrics are the one component the simulator's title and its days in play share: the paper surface, a 20px corner, one 26px inset, three sizes (the 12.5px mono kicker, a headline of up to 25px, 15.5px for what is read) and answers 48px tall with a plain mono price. | `.daycard`; in the game `.nd-day`, `.nd-opt` |
 | Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. On the home page one sketch from a lesson sits beside it, as a sample, and links to its lesson. | `.jump.tracks`, `.learn-g` |
-| Lesson sketch | One metaphor on a sheet of paper: a small black worker doing the thing the paragraph just said, two to six handwritten notes, a caption in real type underneath. One to three in a lesson, after the paragraph that turns, never touching a table or another picture. Drawn in code. | `pages/sketch.py`, `content/learn/sketches/` |
+| Lesson sketch | One metaphor on a sheet of paper: a small black worker doing the thing the paragraph just said, two to six handwritten notes, a caption in real type underneath. At most one in a lesson, and about thirty in all, in the lessons whose idea a picture explains. It sits after the paragraph that turns, never touching a table or another picture. With the caption covered, a stranger can state its point, and its labels are the case's own nouns and numbers. Drawn in code. | `pages/sketch.py`, `content/learn/sketches/` |
 | Shelf tile | A count, a name, one line. Four of them: templates, prompts, mental models, pictures. | `.shelf .tile` |
 | Page head | Eyebrow, name, one line, a row of counts, optionally one or two buttons. | `.phead`, `.pmeta` |
 | Folded how-to | "Who this page is for, and how to use it", closed by default. | `pages/_kit.orient` |
@@ -190,6 +193,7 @@ line with the phases still countable.
 | Numbered section | A mono "01" over each heading where the order is real, with 52 to 88px between sections. | `main.numbered` |
 | Ruled columns | Paragraphs that used to sit in bordered cards: a hairline above, no box. | `.three`, `.claims`, `.pair`, `.mix`, `.lc` |
 | Step | One surface. Its table, artefact and example are ruled, not boxed; its head links straight to its template and prompts. | `render.step_html` |
+| Lab comparison table | The lab's own model and three more, side by side, under a mono caption that names the prompt. The row heads take 24% of the width and the four models share the rest; from 1001 to 1180px, where the lab's bench is narrowest, the type is 13px. On a phone each row is one block, each cell beside its model's name. Each cell is built from words of its reply, and the build holds it to them. | `pages/labs.py` `_others`, `.lab-t` |
 | Next up | The foot of a reference page: one sentence, one button, and at most one quiet link beside it. | `render.next_up` |
 | Pause control | A checkbox, so it works without script; stills whatever holds it. | `render.MOTION_TOGGLE`, `.mpause` |
 

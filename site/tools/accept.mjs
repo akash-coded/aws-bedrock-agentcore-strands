@@ -462,12 +462,14 @@ console.log("\n16. the game's first paint: the text for a reader without script 
 // 17. the bytes, from the built site. A budget is a ceiling: a page or a file over it fails, and the way
 // back is to make the thing smaller, not the number larger. The pages over 25 KB on the day this pass was
 // written are each held to what they were (rounded up, plus one KB), so they can shrink and never grow.
+// One hold was raised since, on purpose: the picture pack (pictures/index.html, 29 to 38) on 2 October 2026, when it
+// gained the thirty lesson sketches and the leadership page's map, each with its card and its image data.
 console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, the fonts");
 {
   const out = [], SITE = new URL("../_site/", import.meta.url).pathname;
   const kb = (f) => gzipSync(readFileSync(SITE + f), { level: 9 }).length / 1024;
   const HELD = { "workbench/index.html": 825, "app/SkyWays-Architect.html": 824, "prompts/index.html": 57, "templates/index.html": 48, "solution-architect/index.html": 46,
-    "devops/index.html": 44, "qa/index.html": 44, "engineering/index.html": 43, "product-manager/index.html": 35, "labs/grow-the-spec/index.html": 34, "pictures/index.html": 29,
+    "devops/index.html": 44, "qa/index.html": 44, "engineering/index.html": 43, "product-manager/index.html": 35, "labs/grow-the-spec/index.html": 34, "pictures/index.html": 38,
     "learn/evolution-of-the-pdlc/index.html": 29, "learn/what-is-aidd/index.html": 28 };
   const FONTS = ["assets/fonts/geist-mono.woff2", "assets/fonts/geist.woff2", "assets/fonts/instrument-sans.woff2", "assets/fonts/patrick-hand.woff2"];
   if (!existsSync(SITE + "index.html")) out.push(`no built site at ${SITE}`);
