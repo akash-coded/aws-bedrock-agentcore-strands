@@ -8,6 +8,85 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · Four decisions for whoever funds the work, labels that read, and every day's question on the first screen
+
+The page for whoever funds the work is rebuilt around the four decisions only that person can make. The
+record is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md) and, for the game, [`site/GAME.md`](site/GAME.md).
+
+### Added
+- **Two cloud helpers for Bedrock**, with no change to the site: [`bedrock-ask.py`](.claude/cloud/bedrock-ask.py)
+  makes one Converse call to a named model and [`bedrock-image.py`](.claude/cloud/bedrock-image.py) one
+  Stability image in us-west-2. Each has a free check, and every billed call waits for the owner's yes
+  ([`.claude/cloud/README.md`](.claude/cloud/README.md), "Bedrock")
+
+### Changed
+- **The leadership page is four decisions** ([`site/pages/protocol.py`](site/pages/protocol.py)). It opened
+  on a title that promised nothing and three columns of prose, and its one promise, the four decisions only
+  the sponsor can make, sat nine screens down. It is now five sections and a fold. The first screen says
+  what the page is for: four decisions only you can make, twenty minutes, and four questions to take to
+  your next review. Under it is one picture, the P0 to P3 line with a pin where each decision falls, and
+  each pin opens its card. A card carries the question to ask, a healthy answer, a bad answer and one
+  control: the three-question sort for which work is AI work, the five-rung autonomy ladder with
+  reversibility as its hinge, the pass-mark calculator, and the value calculator with the two-number
+  report. Then how you will know (the four questions, the six-control check, seven things to escalate on),
+  ninety days as a stepper with one trap per step, the first thirty days as a checklist that prints on one
+  page, and where to send people. The page is 8,146px tall at 1440 wide, down from 14,930, and passes every
+  pass of the acceptance gate
+- **Nothing on the leadership page is deleted.** Each section it cut is folded at the foot under its old
+  id, so every old link still lands on its words
+- **The leadership page's name follows it** into the drawer, the search and its social card. The drawer and
+  the search said "The operating protocol" and now say "Four decisions only you can make", and the social
+  card carries the new title and line. The picture pack lists only maps that open a lesson, so the page's
+  own map is left out of it
+- **Every link to the tool goes to the workbench.** The five role sources, the course companion's source and
+  24 hand-written wiki pages linked to `/simulator/#/`, which only the game's forwarding kept working; 101
+  links now point at `/workbench/#/`. The role JSON, the five Journey pages, the sixteen Module pages and
+  the tutorial's wiki index are generated again from their sources, and `wiki/Mental-Models.md` was edited
+  by hand
+- **"Manual" and "workbench" where the words still said "playbook" or "simulator".** The lesson-writing
+  guide ([`site/content/learn/README.md`](site/content/learn/README.md)), the schema
+  ([`site/content/SCHEMA.md`](site/content/SCHEMA.md)), the course companion and the page metadata call
+  the site the manual and the tool the workbench, and the workbench lesson's map is titled for the
+  workbench. The guide and the schema lose their dashes. The templates page no longer puts a full stop
+  after an activity that ends in a question mark, and the Journey pages' empty cells say "none"
+- **Figure labels drawn in a hue read at 4.5:1 in the light theme.** Eight pairs of hue-coloured label and
+  tint fell short of it. A new token in [`site/theme/base.css`](site/theme/base.css), `--dg-text`, sets how
+  much of its hue a label keeps, 78% in the light theme and all of it in the dark, and
+  [`site/pages/figures.py`](site/pages/figures.py) mixes the rest from the ink. Every pair now reads at
+  4.9:1 or more, measured over every label of every figure and map at two widths in both themes; the dark
+  theme is unchanged and the tints did not move. Seven figures and the workbench lesson's map are shot
+  again for the wiki in both themes
+- **Three mental-model glyphs' labels read at 4.5:1 in both themes.** The baton's "artefact" and "not on
+  Friday", the average's "overall 84%" and the multiplier's four factors fell short on their own heavier
+  tints, two of them in the dark theme as well. A second token, `--mg-text`, keeps 74% of the hue in the
+  light theme and 82% in the dark for the two labels on 28 to 30% tints, and the other two take
+  `--dg-text` ([`site/pages/models.py`](site/pages/models.py)). Every label now reads at 4.7:1 or more on
+  the models page and in the lesson, on bone and on paper, and the three glyphs are shot again for the wiki
+  in both themes
+- **The workbench's ten pictures are shot again.** The picture pack still carried the ten pictures of the
+  workbench taken on 25 September, before its pages were reworked.
+  [`simshots.mjs`](site/tools/simshots.mjs) shot them again; only the concept map changed size, to 1504 by
+  1360. [`workbench.test.mjs`](site/tools/workbench.test.mjs) measured them after its earlier sections had
+  left progress in the browser, which marks four stops answered and shortens the flight plan's first
+  column. It now clears what the browser kept before it measures, so it sees them as a new reader does
+- **Every day of the game opens with its question on the first screen.** Opened by its link, Day 82 put its
+  first option below the first screen at 1440 by 900 and at 1024 by 768, and Day 20 at 1024 by 768: each
+  carried a block above the question that no other day has, the vendor's freeze and the refund figure.
+  Between 900 and 1240 wide, during play, the room picture, the day strip and the meters now sit in a rail
+  to the left of the day ([`site/play/game.css`](site/play/game.css)). Day 82's figure comes after the call
+  instead of above it, and stays on the day once the call is made ([`site/play/game.js`](site/play/game.js)).
+  Every day now ends its first option at least 51px inside the first screen at 1440 and 74px at 1024. The
+  playtest's first-screen check opens Days 20 and 82 as well as 1, 9 and 45, and the old layout fails it in
+  the three places it should
+- **The Desktop app's launch file leaves the repository.** `.claude/launch.json`, a list of local preview
+  servers with paths on one machine, is untracked, and [`.gitignore`](.gitignore) keeps it, the app's
+  worktrees and any skills a cloud session links into `.claude/skills/` out of commits
+
+### Fixed
+- Two verdicts drawn by [`site/theme/engine.js`](site/theme/engine.js) had a dash in the middle. The proof
+  calculator's now reads "Proven: the lower bound clears the bar.", and a self-check's, with every box
+  ticked, "Nothing missing. Re-check in a quarter: this list goes stale."
+
 ## 2026-10-02 · The labs open, the game speaks plainly, and a page never meets an old stylesheet
 
 The labs are new: one job of the airline's project, done by hand. How a lab is written, and its one rule

@@ -373,6 +373,18 @@ council shipped. The workbench opens dark like the manual, shares its theme sett
 back in its own top bar, so the frame's strip above it is gone. In the game, a question about a
 colleague's plan now shows the evidence behind it, and costs the question whatever it shows.
 
+## After the fifth council: four decisions, and labels that read
+
+The leadership page is rebuilt on the role pages' pattern, under four rules. Its first screen says what it
+is for: four decisions only you can make, twenty minutes, four questions for the next review. It has one
+picture, the P0 to P3 line with a pin where each decision falls, and each decision's card carries one
+control: a sort, a ladder or a calculator. Nothing was deleted: the sections it cut are folded at its foot
+under their old ids, so an old link still lands on its words.
+
+A label drawn in a hue is mixed toward the ink by a token in `base.css`, `--dg-text` in the figures and
+`--mg-text` where a mental-model glyph's label sits on a heavier tint, so it reads at 4.5:1 or more and
+the tints stay as they are.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).

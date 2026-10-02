@@ -196,6 +196,11 @@ Colour comes from light and material, never from bright paint:
 
 - The room where today happens is lit and the others are turned down by half, so their walls keep their
   hue. The same room is shown close up above the dialogue.
+- Above 1240 wide the building stands beside the day and the close-up is not shown. At 1240 and under
+  the building moves below the day, and the close-up sits beside the day strip and the meters. Between
+  900 and 1240 wide, during play, the close-up, the day strip and the meters form a rail to the left of
+  the day (`play/game.css`), so a day that also brings news (Day 20's freeze, Day 82's refund) still has
+  its question and its first option on the first screen.
 - The walls show the state: the notes wall, the whiteboard, the build wall, the score against its bar,
   the bill, the departures board, the day board in the lobby.
 - People are 10 by 22, about four heads tall, with no faces at that size: a jacket in the muted hue of
@@ -226,7 +231,8 @@ move, on the site's own curves and durations.
 - **A debt is pinned.** A rose pin leaves the outcome line and lands on its day on the day strip, which
   keeps it. When the debt fires, that day's text quotes it.
 - **Day 82, paper or wall.** The $2,000 refund meets the $400 limit as a sheet of paper (a sentence in
-  the prompt) and goes through, or as a wall (the tool) and stops.
+  the prompt) and goes through, or as a wall (the tool) and stops. The figure follows the call, below the
+  options, and stays on the day once the call is made.
 
 ## Access
 
@@ -264,12 +270,13 @@ move, on the site's own curves and durations.
   header pill, and checks that every headline it saw is a sentence. Its eleventh section keeps what an
   audit found by looking, as checks run with motion allowed: the title's first screen says what the game
   is and how to start, at 1440 and 390 wide; a day's question and its first option are on the first
-  screen; the header does not move between days; on Day 75 only the labels of what is left are shown,
-  none on another; on Day 82 nothing sits on anything else down to 320 wide; a figure plays only as the
-  answer to a press, and only on screen; a pin flies only to a day strip that can be seen; a document
-  goes on file when its task is done; Day 15's three documents line up; the sponsor is offered a
-  question on a sound plan and on an unsound one, and in one role the evidence comes before the other
-  options; and a day offers one way to leave the run.
+  screen at 1440 by 900 and 1024 by 768, on Days 20 and 82 as well as 1, 9 and 45; the header does not
+  move between days; on Day 75 only the labels of what is left are shown, none on another; on Day 82
+  nothing sits on anything else down to 320 wide; a figure plays only as the answer to a press, and only
+  on screen; a pin flies only to a day strip that can be seen; a document goes on file when its task is
+  done; Day 15's three documents line up; the sponsor is offered a question on a sound plan and on an
+  unsound one, and in one role the evidence comes before the other options; and a day offers one way to
+  leave the run.
 - `tools/accept.mjs` includes the page, and asks the canvas how many frames it drew.
 
 ## What the council decided
