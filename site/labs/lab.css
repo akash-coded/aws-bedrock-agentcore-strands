@@ -169,4 +169,51 @@ button.lab-ln:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
   .lab-beat{padding:18px 16px 20px}
   .lab-debrief{padding:20px 16px 22px}
 }
+
+/* other models, the same prompts (labs.py _others): two tables in the site's table look, a closing line, and a fold
+   that holds the replies. The same markup sits in the debrief, in the reading version and on the replies' own page.
+   The tables never scroll sideways: their columns share the width, and on a phone each row becomes one block. */
+.lab-others .lab-tw{margin:14px 0 0;background:var(--paper)}
+.lab-others .tw table.lab-t{min-width:0;width:100%;table-layout:fixed;font-size:14.5px}
+.lab-t caption{caption-side:top;text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);font:500 12.5px var(--f-mono);color:var(--ink2);text-wrap:balance}
+.lab-t thead th{white-space:normal;vertical-align:bottom}
+.lab-t tbody tr:last-child th{border-bottom:0}                 /* base.css lifts the last rule from a td only */
+.lab-t thead th:first-child{width:24%}
+.lab-t tbody th{font-weight:600;color:var(--ink);line-height:1.4}
+.lab-t tbody th small{display:block;margin-top:3px;font-size:13px;font-weight:400;line-height:1.4;color:var(--soft)}
+.lab-t td{color:var(--ink2);line-height:1.45}
+.lab-t th,.lab-t td{overflow-wrap:break-word}
+.lab-others .lab-close{margin:16px 0 0;color:var(--ink);font-weight:500}
+.lab-others .lab-fold{margin:18px 0 0;border:1px solid var(--rule);border-radius:12px;padding:0;background:none}    /* over .prose details */
+.lab-others .lab-fold>summary{padding:12px 16px;cursor:pointer;font-weight:650;color:var(--ink)}
+.lab-others .lab-fold[open]>summary{margin:0;border-bottom:1px solid var(--rule2)}
+.lab-fold .lab-others-list{padding:12px 16px 2px}
+.lab-others-replies,.lab-others-own{display:grid;gap:12px}
+.lab-fold .lab-others-replies{padding:12px}
+.lab-debrief .lab-stamp{margin:0;font:500 12px var(--f-mono);color:var(--soft);max-width:none}      /* over .lab-debrief p */
+.lab-debrief .lab-ph{margin:0;font:500 12.5px var(--f-mono);color:var(--ink2);max-width:none}
+.lab-otherspage{max-width:860px;padding-top:clamp(24px,3vw,40px)}
+.lab-otherspage>h2{margin:48px 0 14px}
+.lab-otherspage .lab-others>p{font-size:16px;line-height:1.6;color:var(--ink2)}
+/* the two-column bench is at its narrowest from 1001 to 1180px: the tables tighten to keep four model columns */
+@media (min-width:1001px) and (max-width:1180px){
+  .lab-debrief .tw table.lab-t{font-size:13px}
+  .lab-debrief .lab-t th,.lab-debrief .lab-t td{padding:8px 7px}
+  .lab-debrief .lab-t thead th{font-size:11.5px}
+  .lab-debrief .lab-t caption{padding:9px 10px}
+  .lab-debrief .lab-t tbody th small{font-size:12px}
+}
+/* a phone: one block a row, each cell beside its model's name (the lessons stack a table of three or more columns) */
+@media (max-width:600px){
+  .lab-others .tw table.lab-t,.lab-t caption,.lab-t tbody,.lab-t tr,.lab-t th,.lab-t td{display:block;width:auto}
+  .lab-t thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .lab-t tbody tr{padding:11px 14px 12px;border-bottom:1px solid var(--rule2)}
+  .lab-t tbody tr:last-child{border-bottom:0}
+  .lab-t tbody th,.lab-t tbody td{padding:0;border:0}
+  .lab-t tbody th{margin:0 0 5px}
+  .lab-t td{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;padding:2px 0}
+  .lab-t td::before{content:attr(data-h);font:500 12px var(--f-mono);color:var(--soft)}
+  .lab-fold .lab-others-replies{padding:10px 8px}
+}
+@media (max-width:360px){.lab-t td{grid-template-columns:72px minmax(0,1fr);gap:10px}}   /* the longest name wraps, the value keeps its line */
 @media print{.lab-go,.lab-foot,.lab-copy{display:none}.lab-side{position:static;max-height:none}.lab{display:block}}

@@ -3,7 +3,8 @@
    A lab is a bench. On the left, the work, one beat after another: you assemble a prompt from parts, run it,
    read the recorded reply, mark what is wrong in it, make a call. On the right, the document you are making,
    which grows as you go and shows what changed last. The script is the JSON in #lab-data, written by
-   site/pages/labs.py from site/content/labs/<slug>.py; nothing is fetched and no model is called.
+   site/pages/labs.py from site/content/labs/<slug>.py. No model is called, and the one thing ever fetched is the
+   page of other models' recorded replies, when the debrief's fold for them is opened.
 
    A reply is a recording: a real model's answer to that exact prompt, saved when the lab was written, with
    the model's name and the date on it. It appears at once; nothing pretends to be typing.
@@ -260,8 +261,29 @@
       '<p class="lab-tally">' + (flagged ? "You caught <b>" + hit + " of " + flagged + "</b> faults in the replies. " : "") + (calls.length ? "<b>" + right + " of " + calls.length + "</b> calls matched the book." : "") + "</p>" +
       '<h3>The habit to keep</h3>' + rich(d.habit) +
       (d.tool ? '<h3>' + esc(d.tool.title) + "</h3>" + rich(d.tool.body) + (d.tool.checked ? '<p class="lab-checked">Tool facts checked on ' + esc(d.tool.checked) + ".</p>" : "") : "") +
+      (d.others ? "<h3>" + esc(d.others.title) + '</h3><div class="lab-others-at"></div>' : "") +
       '<p class="lab-next">' + (d.links || []).map(function (l, i) { return '<a class="' + (i ? "more" : "btn pri") + '" href="' + esc(l[1]) + '">' + esc(l[0]) + (i ? ' <i aria-hidden="true">→</i>' : "") + "</a>"; }).join("") + "</p>";
+    others(box);
     return box;
+  }
+  // Other models' replies to the same prompts (debrief.others). The part is drawn once, in the reading version, and
+  // copied here. The replies live on a page of their own; the fold reads them in from it the first time it is
+  // opened, and if that fails its link to the page stays.
+  var othersReplies = null;
+  function others(box) {
+    var at = box.querySelector(".lab-others-at"), part = document.querySelector(".lab-plain .lab-others");
+    if (!at) return;
+    if (!part) { at.remove(); return; }
+    var copy = part.cloneNode(true), fold = copy.querySelector("details[data-src]");
+    at.replaceWith(copy);
+    if (!fold) return;
+    fold.addEventListener("toggle", function () {
+      var list = fold.querySelector(".lab-others-list");
+      if (!fold.open || !list) return;
+      othersReplies = othersReplies || fetch(fold.getAttribute("data-src")).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function (html) { var n = new DOMParser().parseFromString(html, "text/html").querySelector(".lab-others-replies"); if (!n) throw new Error("no replies"); return n; });
+      othersReplies.then(function (n) { if (list.parentNode) list.replaceWith(document.importNode(n, true)); }, function () { othersReplies = null; });
+    });
   }
 
   /* ------------------------------------------------------------------ what the player does */

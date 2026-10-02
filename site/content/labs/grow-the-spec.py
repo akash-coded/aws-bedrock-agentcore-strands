@@ -19,6 +19,17 @@ def _rec(name: str, prompt: str, **more) -> dict:
     return dict(model=_MODEL, date=_DATE, text=_f(f"rec-{name}.md"), prompt=_f(f"prompt-{prompt}.txt"), **more)
 
 
+# Three models from other makers answered two of this lab's prompts on the day it was recorded: each prompt file, byte
+# for byte, as the only message, with no system prompt and the model's own settings, through Amazon Bedrock. Their
+# replies are in others/, exactly as written. ``of`` is the lab's own recording whose prompt a reply answers.
+OTHER_MODELS = [("kimi-k3", "Kimi K3", "Moonshot AI"), ("glm-5", "GLM-5", "Z.ai"), ("deepseek-v3-2", "DeepSeek V3.2", "DeepSeek")]
+
+
+def _other(slug: str, model: str, maker: str, of: str) -> dict:
+    return dict(id=f"{slug}-{of}", model=model, maker=maker, date=_DATE, of=of,
+                text=_f(f"others/{slug}-{of}.md"), prompt=_f(f"prompt-{of}.txt"))
+
+
 # ---------------------------------------------------------------------------------------------- the prompts
 A_ASK = ("Below is a one-page PRD-lite for a rebooking assistant at an airline. Do not write the PRD yet. List the "
          "questions this page does not answer and a build could not start without. Most blocking first, eight at most, "
@@ -372,6 +383,76 @@ LAB = {
         "tool": {"title": "Doing this with your own model",
                  "body": ("Every prompt in this lab copies. Paste it into any model with the document under it and compare the reply with "
                           "the recording. The numbers it invents will differ; the places it invents them will not.")},
+        # The claim above, shown. Columns: the lab's own recording, then each model in OTHER_MODELS. Each cell names the
+        # words of its reply it is built from ("quote"; None where the cell says a thing is missing); the build checks them.
+        "others": {
+            "title": "Three more models, the same two prompts",
+            "lead": ("We ran two of this lab's prompts through three more models on 2 October 2026, word for word. "
+                     "Claude's replies are the lab's own recordings."),
+            "tables": [
+                {"of": "a-draft", "caption": "Asked for the full PRD (prompt A)", "corner": "Priya's page said", "rows": [
+                    {"h": "\"much faster\"", "note": "the wait for a decision",
+                     "cells": ["Under 5 minutes", "Under 10 minutes", "Under 10 minutes", "Under 5 minutes"],
+                     "quote": ["Under 5 min **[proposed]**", "| 38 min | < 10 min |", "from 38 minutes to under 10 minutes",
+                               "rebooking proposal in <5 minutes"]},
+                    {"h": "\"Most cases need no agent\"",
+                     "cells": ["60%", "70% or more", "Over 70%", "Over 70%"],
+                     "quote": ["| Not measured | 60% **[proposed]** |", "| ~0% | ≥ 70% |", ">70% automation rate (no agent touch)",
+                               "target: >70% of cases without agent"]},
+                    {"h": "\"Mistakes are rare\"", "note": "the error rate",
+                     "cells": ["Under 1%", "Under 1%", "Under 1%", "Under 2%"],
+                     "quote": ["Under 1% of cases **[proposed]**", "< 1% of automated cases", "rebooking error rate of <1%",
+                               "Maintain error rate below 2%."]},
+                    {"h": "\"no sensible flight\"", "note": "when a refund is offered",
+                     "cells": ["None arriving within 24 hours", "Left to Ops to define", "No same-day flight; a delay over 4 hours",
+                               "None within a 24-hour window"],
+                     "quote": ["no option arrives within 24 hours of the original arrival", "needs an Ops definition",
+                               ["when no same-day flight options exist", "system detects >4 hour delay"],
+                               "When no sensible flight exists within a 24-hour window"]},
+                    {"h": "\"a reasonable limit\"", "note": "the refund cap",
+                     "cells": ["Left to Finance", "Left to Finance", "Left to Finance", "Left to Finance"],
+                     "quote": ["up to the Finance cap", "[amount TBD — Finance]",
+                               "Refunds capped according to Finance policy (pending confirmation)",
+                               "**Finance:** Exact refund cap per case pending approval."]},
+                    {"h": "Marked as proposed",
+                     "cells": ["Each one it filled in", "A note above its targets", "Nothing", "Nothing; marked Final"],
+                     "quote": ["marked each one **[proposed]**", ["Targets are proposals pending Ops sign-off.", "Target (proposed)"],
+                               None, "**Version:** Final"]},
+                ]},
+                {"of": "b-flag", "caption": "Told where to stop (prompt B)", "corner": "In the spec", "rows": [
+                    {"h": "Times it wrote NOT DECIDED", "count": "NOT DECIDED", "cells": ["11", "8", "5", "6"]},
+                    {"h": "Field 4, the model's role", "note": "not on the PRD's list",
+                     "cells": ["NOT DECIDED", "NOT DECIDED", "NOT DECIDED", "NOT DECIDED"],
+                     "quote": [["NOT DECIDED: For each of the five steps", "which does a model decide and which is exact code?"],
+                               ["NOT DECIDED: for each of the five steps", "which does a model decide and which are exact code?"],
+                               "NOT DECIDED: Which specific steps involve a probabilistic model decision versus exact code execution?",
+                               ["NOT DECIDED: Which specific decisions", "are made by a model vs. determined by exact code?"]]},
+                    {"h": "The PRD's three open questions", "note": "the bar, the records, the fare engine",
+                     "cells": ["All three, with their owners"] * 4,
+                     "quote": [["NOT DECIDED: How right must it be before launch", "Who: Priya, with Maya (QA). This is an open question in the PRD.",
+                                "Fare engine down: NOT DECIDED: What happens to a case when the fare engine is down? Who: Arjun (architecture).",
+                                "NOT DECIDED: What must be logged for each action, and for how long? Who: compliance."],
+                               ["NOT DECIDED: how right it must be", "Who should answer: Priya, with Maya (QA).",
+                                "Fare engine down: NOT DECIDED: what happens to the case. Who should answer: Arjun (architecture)",
+                                "NOT DECIDED: what is logged for each action", "Who should answer: compliance (no reply yet)."],
+                               ["NOT DECIDED: How often must the assistant be right before launch", "(Owner: Priya with Maya (QA))",
+                                "NOT DECIDED: What happens to a case when the fare engine is down? (Owner: Arjun (architecture)).",
+                                "NOT DECIDED: What specific data must be logged for each action, and for how long must it be retained? (Owner: Compliance)."],
+                               ["NOT DECIDED: One overall accuracy target", "Owner: Priya with Maya (QA).",
+                                "When fare engine is down: NOT DECIDED: What is the fallback action or state? Owner: Arjun (architecture).",
+                                "NOT DECIDED: What specific data must be logged for each action, and what is the retention period? Owner: Compliance."]]},
+                    {"h": "A refund up to $400", "note": "may the assistant act alone?",
+                     "cells": ["NOT DECIDED", "NOT DECIDED", "NOT DECIDED", "May act alone"],
+                     "quote": ["May the assistant issue a refund up to $400 alone, or only offer it?", "Refund ≤ $400: NOT DECIDED",
+                               "NOT DECIDED: For each rebooking action (SkyWays, codeshare, refund under $400), may the assistant act alone",
+                               "Offer refund up to $400: May act alone."]},
+                ]},
+            ],
+            "close": ("The numbers differ. The places do not. Told where to stop, all four wrote NOT DECIDED at least once in each "
+                      "of the five fields, and one still let the assistant act alone on a refund up to $400."),
+            "fold": "Read the six replies",
+            "replies": [_other(slug, model, maker, of) for of in ("a-draft", "b-flag") for slug, model, maker in OTHER_MODELS],
+        },
         "links": [("Spec-driven development, the method this borrows from", "../../learn/what-is-spec-driven-development/")],
     },
 }

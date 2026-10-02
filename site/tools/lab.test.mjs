@@ -12,8 +12,11 @@
 // scores nothing, with no false "caught"; that the document on the right ends in the state the script
 // says; that a reload in the middle comes back to the same beat; that Run without a choice made does
 // not go on; that the focus moves to each new beat; that no script error is thrown; that every beat, live or
-// past, stacks its parts one under another; that nothing scrolls sideways on a phone; and that without script
-// the page reads as a document with every recording in it.
+// past, stacks its parts one under another; that nothing scrolls sideways on a phone; that without script
+// the page reads as a document with every recording in it; and, where the debrief shows other models' replies to
+// the same prompts, that both its tables carry the lab's own model and three more, fit at 1440 and 1024 and stack
+// one block a row at 390 and 320, that its fold reads in six replies, each stamped with its model, maker and date
+// and each exactly as its file in the repository, and that the reading version without script has the tables.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { spawn } from "node:child_process";
 import { readFileSync, rmSync } from "node:fs";
@@ -214,12 +217,81 @@ try {
   check(plain.shown && plain.bench === "none" && plain.stamps >= 5 && plain.doc && plain.h1, `without script: ${JSON.stringify(plain)}`);
   console.log(`  ${plain.stamps} recordings, the document by the book at the end`);
 
+  // The debrief's part on other models (debrief.others): two tables, the lab's own model and three more, built from
+  // replies the build has checked; and a fold that reads the replies in from their own page. Skipped for a lab
+  // whose debrief has no such part.
+  console.log("\n10. the debrief: three more models, the same prompts");
+  const OTHERS = `(() => { const o = document.querySelector(".lab-debrief .lab-others"); if (!o) return null;
+    return { tables: [...o.querySelectorAll("table")].map((t) => ({ cols: [...t.querySelectorAll("thead th")].slice(1).map((th) => th.textContent.trim()),
+        empty: [...t.querySelectorAll("tbody th, tbody td")].filter((c) => !c.textContent.trim()).length, rows: t.querySelectorAll("tbody tr").length,
+        stacked: getComputedStyle(t.querySelector("tbody tr")).display === "block", over: t.parentElement.scrollWidth - t.parentElement.clientWidth,
+        out: Math.round(t.getBoundingClientRect().right - t.parentElement.getBoundingClientRect().right) })),
+      fold: (() => { const f = o.querySelector("details.lab-fold"); return f && { open: f.open, src: f.getAttribute("data-src") }; })(),
+      page: document.documentElement.scrollWidth - document.documentElement.clientWidth }; })()`;
+  const REPLIES = `(() => [...document.querySelectorAll(".lab-debrief .lab-fold .lab-reply")].map((r) => ({ id: r.id, stamp: r.querySelector(".lab-stamp").textContent,
+    text: [...r.querySelectorAll(".lab-lines > .lab-ln")].map((l) => l.textContent).join("\\n") })))()`;
+  const openFold = async () => {
+    await evaluate(`(() => { const f = document.querySelector(".lab-debrief .lab-fold"); if (f && !f.open) f.querySelector("summary").click(); return true; })()`);
+    for (let i = 0; i < 40; i++) { const n = await evaluate(`document.querySelectorAll(".lab-debrief .lab-fold .lab-reply").length`); if (n) break; await sleep(100); }
+    return evaluate(REPLIES);
+  };
+  await play({ slots: { ask: { what: "ask" }, gaps: { gaps: "flag" } }, calls: { call: "owners", measures: "owners", hand: "struct" }, marks: "all" }, "by the book, 1440", { width: 1440 });
+  const own = await evaluate(`window.Lab.data.replies["a-draft"] && window.Lab.data.replies["a-draft"].model`);
+  const wide = await evaluate(OTHERS);
+  if (!wide) console.log("  this lab's debrief has no part on other models");
+  else {
+    check(wide.tables.length === 2, `the debrief shows ${wide.tables.length} tables, not 2`);
+    for (const t of wide.tables) {
+      check(t.cols.length === 4 && t.cols[0] === own && new Set(t.cols).size === 4 && t.cols.every((c) => c), `a table's model columns are ${JSON.stringify(t.cols)}: the lab's own (${own}) and three more`);
+      check(!t.empty && t.rows >= 3, `a table has ${t.empty} empty cells and ${t.rows} rows`);
+      check(!t.stacked && t.over <= 0 && t.out <= 0, `at 1440 a table does not fit its box: ${JSON.stringify(t)}`);
+    }
+    check(wide.fold && wide.fold.open === false && wide.fold.src, `the fold of replies is not there, or not closed: ${JSON.stringify(wide.fold)}`);
+    const reps = await openFold();
+    check(reps.length === 6, `the fold holds ${reps.length} replies, not 6`);
+    for (const r of reps) {
+      const [, model, maker, date] = r.stamp.split(" · ");
+      check(wide.tables[0].cols.includes(model) && maker && /^\d{1,2} [A-Z][a-z]+ \d{4}$/.test(date || ""), `a reply's stamp does not name a model, its maker and a date: ${r.stamp}`);
+      let file = "";
+      try { file = readFileSync(join(here, "..", "content", "labs", "grow-the-spec", "others", `${r.id}.md`), "utf8"); } catch { /* checked below */ }
+      check(file && r.text === file.replace(/^\n+|\n+$/g, "").split("\n").map((l) => l.replace(/\s+$/, "")).join("\n"), `the reply ${r.id} on the page is not others/${r.id}.md as its model wrote it`);
+    }
+    check(!thrown.length, `script error in the debrief: ${thrown[0]}`);
+    console.log(`  ${wide.tables.length} tables of ${wide.tables.map((t) => t.rows).join(" and ")} rows, columns ${wide.tables[0].cols.join(", ")}; the fold read in ${reps.length} replies, each as written`);
+
+    await open(URL_, { width: 1024 });
+    const mid = await evaluate(OTHERS);
+    check(mid && mid.tables.every((t) => !t.stacked && t.cols.length === 4 && t.over <= 0 && t.out <= 0) && mid.page <= 0, `at 1024 the four model columns do not fit: ${JSON.stringify(mid)}`);
+    for (const w of [390, 320]) {
+      await open(URL_, { width: w });
+      const small = await evaluate(OTHERS);
+      check(small && small.tables.every((t) => t.stacked && t.over <= 0 && t.out <= 0), `at ${w}px a table does not stack one block a row: ${JSON.stringify(small && small.tables)}`);
+      const n = (await openFold()).length;
+      const over = await evaluate(`document.documentElement.scrollWidth - document.documentElement.clientWidth`);
+      check(n === 6 && over <= 0, `at ${w}px with the replies open: ${n} replies, the page scrolls sideways by ${over}px`);
+      await open(new URL(wide.fold.src, URL_).href, { width: w });
+      const page = await evaluate(`({ over: document.documentElement.scrollWidth - document.documentElement.clientWidth, replies: document.querySelectorAll(".lab-others-replies .lab-reply").length })`);
+      check(page.over <= 0 && page.replies === 6, `at ${w}px the replies' own page: ${JSON.stringify(page)}`);
+    }
+    console.log("  at 1024 the four model columns fit; at 390 and 320 each row is one block and nothing scrolls sideways, with the replies open and on their own page");
+
+    await open(URL_, { noscript: true });
+    const read = await evaluate(`(() => { const o = document.querySelector(".lab-plain .lab-others"); return o && { tables: o.querySelectorAll("table").length,
+      cols: [...o.querySelectorAll("table")].map((t) => t.querySelectorAll("thead th").length - 1), link: !!o.querySelector('details.lab-fold a[href="${wide.fold.src}"]') }; })()`);
+    check(read && read.tables === 2 && read.cols.every((c) => c === 4) && read.link, `without script the reading version lacks the tables or the way to the replies: ${JSON.stringify(read)}`);
+    await open(new URL(wide.fold.src, URL_).href, { noscript: true });
+    const alone = await evaluate(`[...document.querySelectorAll(".lab-others-replies .lab-reply .lab-stamp")].map((s) => s.textContent)`);
+    check(alone.length === 6 && alone.every((s) => /\d{1,2} [A-Z][a-z]+ \d{4}/.test(s)), `without script the replies' page shows ${alone.length} dated replies, not 6`);
+    console.log("  without script the reading version has both tables, and the replies' page has all six");
+  }
+
   console.log(failures ? `\n${failures} failed` : "\nthe lab plays");
 } finally {
   ws.close();
   const exited = new Promise((r) => chrome.once("exit", r));
   chrome.kill();
   await exited;
-  rmSync(profile, { recursive: true, force: true });
+  // Chrome's helpers can still be writing its profile as it exits: a failed clean-up is not a failed test
+  try { rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }); } catch { /* left in the temp folder */ }
 }
 process.exit(failures ? 1 : 0);

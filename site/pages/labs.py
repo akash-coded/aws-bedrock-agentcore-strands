@@ -28,6 +28,7 @@ SITE = Path(__file__).resolve().parent.parent
 DIR = SITE / "content" / "labs"
 PHASES = [("P0", "Frame", "slate"), ("P1", "Design &amp; Spec", "indigo"), ("P2", "Build &amp; Prove", "teal"), ("P3", "Run &amp; Learn", "amber")]
 KINDS = {"note", "compose", "run", "mark", "choose", "compare", "file"}
+DATE = r"\d{1,2} [A-Z][a-z]+ \d{4}"                  # the date on a recording: 2 October 2026
 _LABS: list[dict] | None = None
 
 
@@ -88,6 +89,9 @@ def prepare(lab: dict) -> dict:
             if len(hit) != 1:
                 raise SystemExit(f"labs/{lab['slug']}: reply {rid}: the note {start!r} matches {len(hit)} lines; it must match one")
             hit[0].update(why=why)
+    for r in lab.get("debrief", {}).get("others", {}).get("replies", []):      # other models' replies, read like the lab's own
+        if "lines" not in r:
+            r["lines"] = _lines(r.pop("text"))
     return lab
 
 
@@ -173,17 +177,92 @@ def check(labs: list[dict]) -> list[str]:
                     if c.get("reply"):
                         shown.setdefault(c["reply"], set()).add(c["body"])
         for rid, r in lab["replies"].items():
-            if not (r.get("model") and re.fullmatch(r"\d{1,2} [A-Z][a-z]+ \d{4}", r.get("date", ""))):
+            if not (r.get("model") and re.fullmatch(DATE, r.get("date", ""))):
                 err.append(f"{s}: reply {rid}: a recording says which model and on what date (for example '2 October 2026')")
             if "prompt" not in r:
                 err.append(f"{s}: reply {rid}: a recording carries the exact prompt it answers")
             elif rid in shown and r["prompt"] not in shown[rid]:
                 err.append(f"{s}: reply {rid}: the prompt the lab shows is not the prompt that was recorded")
             err += [f"{s}: reply {rid}: no section called {p['id']!r}" for p in r.get("patch", []) if "id" in p and p["id"] not in secs]
-        blob = json.dumps({k: v for k, v in lab.items() if k != "replies"}, ensure_ascii=False)
+        err += _check_others(lab, s, shown)
+        blob = json.dumps(_own_words(lab), ensure_ascii=False)
         if "—" in blob or "–" in blob:
-            err.append(f"{s}: a dash in the lab's own words (recorded replies are left as the model wrote them)")
+            err.append(f"{s}: a dash in the lab's own words (recorded replies, and the words a table quotes from them, are left as the model wrote them)")
     return err
+
+
+def _check_others(lab: dict, s: str, shown: dict[str, set]) -> list[str]:
+    """The debrief's part on other models. Each of their replies is held to the lab's own rule (a model, its maker, a
+    date, and the exact prompt the lab shows for the recording it stands beside), and each table is built from the
+    replies alone: no cell is empty, each cell's ``quote`` is in its reply word for word, every number in a cell is in
+    the words it quotes, and a ``count`` cell is the count."""
+    o = lab.get("debrief", {}).get("others")
+    if not o:
+        return []
+    err = [f"{s}: debrief.others: missing {k}" for k in ("title", "lead", "tables", "close", "fold", "replies") if not o.get(k)]
+    ids = [r.get("id") for r in o.get("replies", [])]
+    if len(ids) != len(set(ids)) or None in ids:
+        err.append(f"{s}: debrief.others: every reply needs its own id")
+    for r in o.get("replies", []):
+        rid = f"others/{r.get('id')}"
+        if not (r.get("model") and r.get("maker") and re.fullmatch(DATE, r.get("date", ""))):
+            err.append(f"{s}: {rid}: a recording says which model, whose it is, and on what date (for example '2 October 2026')")
+        if r.get("of") not in shown:
+            err.append(f"{s}: {rid}: 'of' must name a recording whose prompt the lab shows, not {r.get('of')!r}")
+        elif "prompt" not in r:
+            err.append(f"{s}: {rid}: a recording carries the exact prompt it answers")
+        elif r["prompt"] not in shown[r["of"]]:
+            err.append(f"{s}: {rid}: its prompt is not the one the lab shows for {r['of']!r}")
+    for t in o.get("tables", []):
+        name = f"{s}: debrief.others, the table {t.get('caption')!r}"
+        cols = _columns(lab, t.get("of"))
+        if len(cols) < 2:
+            err.append(f"{name}: 'of' must name one of the lab's recordings that other models answered")
+            continue
+        if not (str(t.get("caption", "")).strip() and str(t.get("corner", "")).strip()):
+            err.append(f"{name}: a table needs a caption and a name for its first column")
+        texts = ["\n".join(ln["t"] for ln in c["lines"]) for c in cols]
+        for row in t.get("rows", []):
+            where, cells = f"{name}, row {row.get('h')!r}", row.get("cells", [])
+            if not str(row.get("h", "")).strip():
+                err.append(f"{name}: a row with no head")
+            if len(cells) != len(cols):
+                err.append(f"{where}: {len(cells)} cells for {len(cols)} columns")
+                continue
+            if any(not str(c).strip() for c in cells):
+                err.append(f"{where}: a cell is empty")
+            if row.get("count"):
+                err += [f"{where}: {c['model']} writes {row['count']!r} {tx.count(row['count'])} times, not {v}"
+                        for v, tx, c in zip(cells, texts, cols) if str(v) != str(tx.count(row["count"]))]
+                continue
+            quotes = row.get("quote") or []
+            if len(quotes) != len(cols):
+                err.append(f"{where}: each cell needs the words of its reply it is built from ({len(quotes)} for {len(cols)} cells)")
+                continue
+            for v, q, tx, c in zip(cells, quotes, texts, cols):
+                qs = [] if q is None else [q] if isinstance(q, str) else list(q)
+                err += [f"{where}: {c['model']}'s reply does not say {x!r}" for x in qs if x not in tx]
+                err += [f"{where}: {c['model']}: {n} is not in the words the cell quotes" for n in re.findall(r"\d+(?:\.\d+)?", str(v))
+                        if not any(re.search(rf"(?<![\d.]){re.escape(n)}(?![\d])", x) for x in qs)]     # 1 is not found in 11
+    return err
+
+
+def _own_words(lab: dict) -> dict:
+    """The lab's own words, for the dash rule: everything but the recorded replies and the words a table quotes."""
+    out = {k: v for k, v in lab.items() if k != "replies"}
+    o = lab.get("debrief", {}).get("others")
+    if o:
+        o = {k: v for k, v in o.items() if k != "replies"}
+        o["tables"] = [dict(t, rows=[{k: v for k, v in r.items() if k != "quote"} for r in t.get("rows", [])]) for t in o.get("tables", [])]
+        out["debrief"] = dict(lab["debrief"], others=o)
+    return out
+
+
+def _columns(lab: dict, of: str | None) -> list[dict]:
+    """A table's columns: the lab's own recording, then each other model's reply to the same prompt, in script order."""
+    if of not in lab["replies"]:
+        return []
+    return [lab["replies"][of]] + [r for r in lab["debrief"].get("others", {}).get("replies", []) if r.get("of") == of]
 
 
 def _phase(lab: dict) -> tuple[str, str, str]:
@@ -267,6 +346,102 @@ def book_document(lab: dict) -> str:
     return "\n\n".join((x["head"] + "\n" if x.get("head") else "") + x["body"] for x in secs.values() if x.get("body")) + "\n"
 
 
+# ---------------------------------------------------------------------------------------------- other models
+# A debrief may show its point holds beyond one model: ``debrief.others`` holds other models' replies to the lab's
+# own prompts and the tables built from them. The part is drawn once, in the reading version; lab.js copies it into
+# the debrief. The replies themselves have a page of their own (``labs/<slug>/others/``), which the fold reads in
+# when it is opened, so the lab's page keeps to its byte budget.
+def _asked(lab: dict, rid: str) -> tuple[dict, dict] | None:
+    """Where the lab shows the prompt a recording answers: its compose beat, and the option picked in its slot."""
+    for b in lab["beats"]:
+        comp = next((x for x in lab["beats"] if x["id"] == b.get("of") and x.get("kind") == "compose"), None)
+        if b.get("kind") not in ("run", "mark") or not comp:
+            continue
+        slot = next((p["id"] for p in comp["parts"] if "options" in p), None)
+        if b.get("doc") == rid:
+            k = (b.get("when") or {}).get(f"{comp['id']}.{slot}")
+            return comp, ({slot: k} if slot and isinstance(k, str) else {})
+        if isinstance(b.get("reply"), dict):
+            k = next((k for k, r in b["reply"].items() if r == rid and k != "*"), None)
+            if k:
+                return comp, _picks_for(k)
+        elif b.get("reply") == rid:
+            return comp, {}
+    return None
+
+
+def _prompt_box(lab: dict, comp: dict, picks: dict) -> str:
+    """A prompt as its compose beat shows it once run: each part, the option picked, the desk files by name."""
+    files, parts, label = _files(lab), [], ""
+    for p in comp["parts"]:
+        if "file" in p:
+            lead = p.get("lead", "").strip()
+            parts.append(f'<pre class="lab-part file">{_E(lead + " " if lead else "")}[ {_E(files[p["file"]]["name"])}, in full ]</pre>')
+        elif "text" in p:
+            parts.append(f'<pre class="lab-part">{_E(p["text"])}</pre>')
+        else:
+            o = next(x for x in p["options"] if x["id"] == picks.get(p["id"], p["options"][0]["id"]))
+            label = o["label"]
+            parts.append(f'<pre class="lab-part pick">{_E(o["text"] or "(nothing added)")}</pre>')
+    return f'<div class="lab-prompt"><p class="lab-ph">{_E(comp["title"])}<span>{_E(label)}</span></p>{"".join(parts)}</div>'
+
+
+def _reply_box(r: dict, to: str, rid: str = "") -> str:
+    """A recorded reply in the lab's own look: the stamp, then the reply line by line, as the model wrote it."""
+    who = " · ".join(_E(x) for x in (r["model"], r.get("maker"), r["date"]) if x)
+    anchor = f' id="{_E(rid)}"' if rid else ""
+    lines = "".join(f'<div class="lab-ln{" h" if ln.get("h") else ""}{" gap" if ln["t"] == "" else ""}">{_E(ln["t"])}</div>' for ln in r["lines"])
+    return (f'<div class="lab-reply"{anchor}><p class="lab-stamp">Recorded reply · {who} · to {_E(to)}</p>'
+            f'<div class="lab-lines">{lines}</div></div>')
+
+
+def _others(lab: dict, page: bool = False) -> str:
+    """The part: the lead, the tables, the closing line and, on the lab's page, the fold for the replies."""
+    o, t_ = lab["debrief"]["others"], (lambda s: _E(str(s), quote=False))     # t_: text between tags needs no quote escaped
+    out = [] if page else [_rich(o["lead"])]
+    for t in o["tables"]:
+        cols = _columns(lab, t["of"])
+        head = f'<th scope="col">{t_(t["corner"])}</th>' + "".join(f'<th scope="col">{t_(c["model"])}</th>' for c in cols)
+        rows = "".join(f'<tr><th scope="row">{t_(row["h"])}' + (f'<small>{t_(row["note"])}</small>' if row.get("note") else "") + "</th>"
+                       + "".join(f'<td data-h="{_E(c["model"])}">{t_(v)}</td>' for c, v in zip(cols, row["cells"])) + "</tr>"
+                       for row in t["rows"])
+        out.append(f'<div class="tw lab-tw"><table class="lab-t"><caption>{t_(t["caption"])}</caption>'
+                   f'<thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>')
+    out.append(f'<p class="lab-close">{_E(o["close"], quote=False)}</p>')
+    if not page:                                     # with script, lab.js reads the replies in from their page when this opens
+        out.append(f'<details class="lab-fold" data-src="others/"><summary>{_E(o["fold"], quote=False)}</summary><div class="lab-others-list">'
+                   f'<p>They are on <a href="others/">a page of their own</a>, each as its model wrote it, under the prompt it answers.</p>'
+                   f'</div></details>')
+    return f'<div class="lab-others">{"".join(out)}</div>'
+
+
+def others_page(lab: dict, shell, ctx: dict) -> str:
+    """The replies behind the debrief's tables: each prompt as the lab shows it, then every other model's reply to it,
+    and the lab's own two recordings for the tables' first column."""
+    o, hue = lab["debrief"]["others"], _phase(lab)[2]
+    groups, own = [], []
+    for t in o["tables"]:
+        comp, picks = _asked(lab, t["of"])
+        groups.append(_prompt_box(lab, comp, picks) + "".join(_reply_box(r, comp["title"], r["id"]) for r in o["replies"] if r["of"] == t["of"]))
+        own.append(_reply_box(lab["replies"][t["of"]], comp["title"], t["of"]))
+    body = f"""<div class="wrap"><main id="main" class="page labpage">
+  <header class="lab-head"><p class="eyebrow" style="--c:var(--dg-{hue})">Lab {lab["n"]} · {_E(lab["title"])} · the replies behind its debrief</p>
+    <h1>{_E(o["title"])}</h1>
+    <p class="lede">{_E(o["lead"])} Each prompt was the whole message. Every reply is here as its model wrote it.</p></header>
+  <section class="lab-otherspage" aria-label="The tables and the replies">{_others(lab, page=True)}
+    <h2>The replies, as the models wrote them</h2>
+    <div class="lab-others-replies">{"".join(groups)}</div>
+    <h2>The lab's own recordings, for the first column</h2>
+    <div class="lab-others-own">{"".join(own)}</div>
+    <p class="lab-next"><a class="btn pri" href="../">Back to the lab</a></p></section>
+</main></div>"""
+    return shell(title=f'{o["title"]} · {lab["title"]}, a hands-on lab · The agentic manual',
+                 desc=f'{o["lead"]} Each prompt as the lab shows it, every reply as its model wrote it, and the tables built from them.',
+                 body=body, depth=3, nav_id="labs", canonical=f'{ctx["base"]}labs/{lab["slug"]}/others/',
+                 head_extra='<link rel="stylesheet" href="../../../labs/lab.css">',
+                 crumbs=[("Labs", "../../"), (lab["title"], "../"), (o["title"], "")], kind="lab", og="home")
+
+
 def _plain(lab: dict) -> str:
     """The lab as a document to read: each step, the prompt the book uses, the recorded reply, what to notice."""
     picks = _book(lab)
@@ -301,6 +476,10 @@ def _plain(lab: dict) -> str:
             out.append(f'<p>The book chooses: <b>{_E(o["label"])}</b>.</p>' + _rich(o.get("after", "")))
     d = lab["debrief"]
     out.append(f'<h2>{_E(d["title"])}</h2>' + _rich(d["trap"]) + "<h2>The habit to keep</h2>" + _rich(d["habit"]))
+    if d.get("tool"):
+        out.append(f'<h2>{_E(d["tool"]["title"])}</h2>' + _rich(d["tool"]["body"]))
+    if d.get("others"):
+        out.append(f'<h2>{_E(d["others"]["title"])}</h2>' + _others(lab))
     out.append(f'<h2>The document, by the book: {_E(lab["artefact"]["name"])}</h2><pre>{_E(book_document(lab))}</pre>')
     return "".join(out)
 
@@ -314,6 +493,8 @@ def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
     links = [("All the labs", "../")] if not nxt else [(f'Next lab: {nxt["title"]}', f'../{nxt["slug"]}/'), ("All the labs", "../")]
     lesson = [(f'The lesson behind this lab', f'../../learn/{lab["lesson"][0]}/')] if lab.get("lesson") else []
     script["debrief"] = dict(lab["debrief"], links=lesson + links + [tuple(x) for x in lab["debrief"].get("links", [])])
+    if lab["debrief"].get("others"):                 # the part is copied from the reading version; the script needs its title
+        script["debrief"]["others"] = {"title": lab["debrief"]["others"]["title"]}
     body = f"""<div class="wrap"><main id="main" class="page labpage">
   <header class="lab-head"><p class="eyebrow" style="--c:var(--dg-{hue})">Lab {lab["n"]} · {key} {name} · {_E(lab["who"])}</p>
     <h1>{_E(lab["title"])}</h1>
@@ -323,7 +504,7 @@ def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
   <div id="lab" class="lab" hidden></div>
   <section class="lab-plain prose" aria-label="This lab, as a document to read">{_plain(lab)}</section>
 </main></div>
-<script type="application/json" id="lab-data">{json.dumps(script, ensure_ascii=False).replace("</", "<\\/")}</script>"""
+<script type="application/json" id="lab-data">{json.dumps(script, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")}</script>"""
     return shell(title=f'{lab["title"]} · a hands-on lab · The agentic manual',
                  desc=f'{lab["does"]} A hands-on lab: {lab["minutes"]} minutes, real recorded model replies, and you leave with {lab["makes"]}.',
                  body=body, depth=2, nav_id="labs", canonical=f'{ctx["base"]}labs/{lab["slug"]}/',
@@ -375,7 +556,10 @@ def render(put, shell, ctx: dict) -> None:
     put("labs/index.html", hub(labs, shell, ctx))
     for lab in labs:
         put(f'labs/{lab["slug"]}/index.html', lab_page(lab, labs, shell, ctx))
+        if lab["debrief"].get("others"):
+            put(f'labs/{lab["slug"]}/others/index.html', others_page(lab, shell, ctx))
 
 
 def urls(base: str) -> list[str]:
-    return [f"{base}labs/"] + [f'{base}labs/{lab["slug"]}/' for lab in load()]
+    return [f"{base}labs/"] + [u for lab in load() for u in [f'{base}labs/{lab["slug"]}/']
+                               + ([f'{base}labs/{lab["slug"]}/others/'] if lab["debrief"].get("others") else [])]

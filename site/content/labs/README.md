@@ -54,3 +54,32 @@ throughout. Every `after` says what the book does and why, in two or three sente
 what it costs, not that it is wrong. The `debrief` has a `title` that is the lesson in one line, the `trap`
 (what the three wrong turns had in common), the `habit` (what to do next time) and, if it helps, a `tool`
 paragraph on doing it with the reader's own model.
+
+## Recording other models
+
+A debrief can show that its point holds beyond one model. In Grow the spec, three models from other makers
+answered two of the lab's prompts on the day it was recorded, and the debrief sets their replies beside the
+lab's own (`debrief.others`).
+
+- **How they were called.** The prompt file, byte for byte, as the only user message: no system prompt, the
+  model's default settings, one call each. Grow the spec's went through Amazon Bedrock on 2 October 2026.
+- **Where they go.** `<slug>/others/<model>-<prompt>.md`, exactly as the model wrote it, never tidied. In the
+  script each is a dict with `id`, `model`, `maker`, `date`, `of` (the lab's own recording whose prompt it
+  answers), `text`, and `prompt` (the prompt file, loaded the way `_rec` loads it).
+- **The part.** `debrief.others` has a `title`, a `lead`, `tables`, a `close`, the `fold` label and the
+  `replies`. A table has `of`, a `caption` and a `corner` (the name of its first column); its columns are the
+  lab's own recording, then each reply with the same `of`, in script order. A row has `h`, an optional `note`,
+  one entry in `cells` for each column and, for each cell, a `quote`: the words of that reply the cell is built
+  from, or `None` where the cell says a thing is missing. A row with `count` holds, in each cell, the number of
+  times that reply writes the string.
+- **What the build refuses.** A reply without a model, a maker or a date like `2 October 2026`; a reply whose
+  prompt is not the one the lab shows for its `of`; an empty cell, or a row without a cell for each column; a
+  quote that is not in its reply word for word; a number in a cell that is not in the words it quotes; a count
+  that is not the count. The replies and the quotes are the models' words, so the dash rule leaves them alone.
+  Everything else in the part is the lab's own words and keeps to it.
+- **Where it shows.** The part is drawn once, in the reading version, and the engine copies it into the
+  debrief. The replies have a page of their own, `/labs/<slug>/others/`, with each prompt as the lab shows it
+  and the lab's own recordings for the first column. The fold reads the replies in from that page when it is
+  opened, and without script it links to it, which keeps the lab's page inside the byte budget the acceptance
+  gate holds it to. `site/tools/lab.test.mjs` checks the tables at 1440, 1024, 390 and 320, and that each reply
+  in the fold is its file as written.
