@@ -33,21 +33,22 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-app{display:grid;grid-template-columns:594px minmax(0,1fr);gap:40px;align-items:start;scroll-margin-top:84px}
 .nd-app.at-title{row-gap:30px}
 .nd-app canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
-.nd-app canvas.soft{image-rendering:auto}          /* filling a width that is not a whole number of pixels: see fit() in game.js */
-.nd-stage{position:sticky;top:84px;min-width:0}
-.nd-map{width:fit-content;max-width:100%;margin:0 auto;border-radius:14px;overflow:hidden;background:#10141D;box-shadow:0 0 0 1px var(--rule)}
-.nd-map-cv{cursor:pointer}
+/* The building, the one object with depth: the day card's corner and long shadow. Its picture is drawn at
+   a whole number of screen pixels to an art pixel and fills the column; on the smallest phone the frame
+   crops its sides. A caption over it says what it is; under it, where today is and the pause control. */
+.nd-stage{min-width:0}
+.at-play .nd-stage{position:sticky;top:84px}         /* beside a day only: on the title the rows under it would pass beneath it */
+.nd-over{margin:0 0 12px;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.nd-map{display:flex;justify-content:center;overflow:hidden;border-radius:20px;background:#10141D;box-shadow:0 30px 70px -44px rgba(8,10,20,.55),0 0 0 1px var(--rule)}
+.nd-map-cv{flex:none;max-width:none;cursor:pointer}
 .at-title .nd-map-cv,.at-end .nd-map-cv{cursor:default}
-/* under the building: what the buttons below are for, and the one pause control, clear of the picture */
 .nd-stagebar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;margin-top:10px}
-.nd-stagebar .nd-k{margin:0}
-.at-title .nd-stagebar .nd-k,.at-end .nd-stagebar .nd-k,.at-org .nd-stagebar .nd-k{visibility:hidden}
+.nd-where{margin:0;font-size:12.5px;color:var(--ink2)}
 .nd-pause.mpause{position:static;flex:none;margin-left:auto}
 /* the panel is a column with one gap, so no child's own margin can close it */
-.nd-panel{min-width:0;max-width:640px;display:flex;flex-direction:column;gap:18px}
+.nd-panel{min-width:0;max-width:640px;display:flex;flex-direction:column;gap:20px}
 .nd-panel>*{margin-top:0;margin-bottom:0}
-.nd-panel>.nd-opts{margin-top:8px}
-.nd-k{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0 0 8px;max-width:none}
+.nd-k{font-family:var(--f-mono);font-size:12.5px;color:var(--soft);margin:0 0 8px;max-width:none}
 
 /* the top of the panel: the room where today happens, the thirteen days, the meters */
 .nd-hud{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
@@ -74,73 +75,91 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-pips{display:inline-flex;gap:4px;vertical-align:1px}
 .nd-pips i{width:11px;height:11px;border-radius:3px;border:1.5px solid var(--dg-teal)}
 .nd-pips i.on{background:var(--dg-teal)}
+/* beside the building, the next milestone and the meters share a row under the strip */
+@media (min-width:1241px){
+  .nd-hud{grid-template-columns:auto minmax(0,1fr);column-gap:24px;row-gap:0}
+  .nd-days{display:contents}
+  .nd-phases,.nd-strip{grid-column:1/-1}
+  .nd-ahead{align-self:end;padding-bottom:2px}
+  .nd-meters{justify-content:flex-end;margin-top:10px}
+  .nd-hud:has(.nd-meters>:nth-child(4)){grid-template-columns:minmax(0,1fr)}          /* four meters (one role, the sponsor) take a row of their own */
+  .nd-hud:has(.nd-meters>:nth-child(4)) .nd-meters{justify-content:flex-start}
+}
 /* in one role, and as the sponsor: who you are, before anything else */
 .nd-you-are{max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
 .nd-you-are b{color:var(--ink)}
 
-/* the head of a day: where and when, the headline, where the project is, and the earlier call it leans on */
-.nd-dayhead h2{font-family:var(--f-display);font-size:clamp(22px,2.05vw,27px);font-weight:620;letter-spacing:-.028em;line-height:1.14;margin:0;outline:0;text-wrap:balance}
-.nd-dayhead p{margin:0;max-width:none}
-.nd-kick{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;color:var(--soft);padding-bottom:9px}
+/* The day, on the home page's day card (theme/base.css .daycard): the paper, a 20px corner, one 26px inset
+   that every line and answer shares, and three sizes: a 12.5px mono kicker, a balanced headline of up to
+   25px, and 15.5px for everything read. Inside a group things stand 8px apart; groups stand 20px apart. */
+.nd-day{display:flex;flex-direction:column;gap:20px;padding:26px;border:1px solid var(--rule);border-radius:20px;background:var(--paper)}
+.nd-day>*{margin:0}
+.nd-day p,.nd-day li{max-width:none}
+.nd-ctx,.nd-sofar,.nd-lines p,.nd-out>p:not(.nd-you),.nd-evidence p,.nd-day .nd-intro{max-width:33.5em!important}
+.nd-events li,.nd-filedbox{padding-right:max(16px,calc(100% - 33.5em - 16px))}
+.nd-dayhead{display:grid;gap:8px}
+.nd-dayhead h2{font-family:var(--f-display);font-size:clamp(21px,2vw,25px);font-weight:600;letter-spacing:-.025em;line-height:1.18;margin:0;outline:0;text-wrap:balance}
+.nd-dayhead p{margin:0}
+.nd-kick{display:flex;align-items:center;gap:9px;font:500 12.5px/1.4 var(--f-mono);color:var(--soft)}
 .nd-kick i{flex:none;width:8px;height:8px;border-radius:2px;background:var(--c)}
-.nd-ctx{padding-top:11px;font-size:15px;line-height:1.5;color:var(--ink2)}
+.nd-ctx,.nd-sofar{font-size:15.5px;line-height:1.55;color:var(--ink2)}
 .nd-ctx span{color:var(--soft)}
-.nd-sofar{margin-top:9px!important;padding:1px 0 1px 12px;font-size:15px;line-height:1.5;color:var(--ink);box-shadow:inset 2px 0 0 var(--c)}
-.nd-book{margin-top:9px!important;font-family:var(--f-mono);font-size:12px;line-height:1.5;color:var(--soft)}
-.nd-sofar b{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--soft)}
+.nd-sofar{padding-left:14px;color:var(--ink);box-shadow:inset 2px 0 0 var(--c)}
+.nd-book{font:500 12.5px/1.5 var(--f-mono);color:var(--soft)}
+.nd-sofar b{font:500 12.5px var(--f-mono);color:var(--soft)}
 
 /* what arrived this morning: a debt come due, an event, the incident */
 .nd-events{list-style:none;padding:0;display:grid;gap:8px}
-.nd-events li{margin:0;max-width:none;padding:11px 14px;border-radius:10px;font-size:15px;line-height:1.5;color:var(--ink2);
+.nd-events li{margin:0;padding:12px 16px;border-radius:11px;font-size:15.5px;line-height:1.5;color:var(--ink2);
   background:color-mix(in oklab,var(--dg-rose) 9%,transparent);box-shadow:inset 3px 0 0 var(--dg-rose)}
 .nd-events li.ev-pressure{background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--soft)}
 .nd-events li.ev-good,.nd-events li.ev-move{background:color-mix(in oklab,var(--dg-teal) 9%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
 .nd-events b{color:var(--ink)}
 .nd-events em,.nd-out em,.nd-plan em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);white-space:nowrap}
 
-/* who says what */
-.nd-lines{display:grid;gap:12px}
-.nd-lines p{margin:0;max-width:none;display:grid;grid-template-columns:48px 1fr;gap:2px 14px;align-items:start}
+/* who says what: a face at twice its 24 pixels, the name, the line */
+.nd-lines{display:grid;gap:8px}
+.nd-lines p{margin:0;display:grid;grid-template-columns:48px 1fr;gap:2px 14px;align-items:start}
 .nd-face{width:48px;height:48px;border-radius:8px;grid-row:1/3}
-.nd-lines b{font-size:12.5px;font-weight:600;color:var(--soft);font-family:var(--f-mono)}
-.nd-lines span{font-size:17px;line-height:1.5;color:var(--ink)}
+.nd-lines b{font:500 12.5px/1.4 var(--f-mono);color:var(--soft)}
+.nd-lines span{font-size:15.5px;line-height:1.5;color:var(--ink)}
 
 /* the call */
+/* the call: the question, then the answers, the card's own (one component, also on the title's Day 1) */
 .nd-opts{border:0;margin:0;padding:0;min-width:0;display:grid;gap:8px}
-.nd-opts legend{padding:0;margin:0 0 12px;font-family:var(--f-display);font-size:19px;font-weight:620;letter-spacing:-.015em;color:var(--ink)}
-.nd-opts.alt legend{font-family:var(--f-mono);font-size:12px;font-weight:400;letter-spacing:0;color:var(--soft);margin-bottom:8px}
-.nd-opt{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:54px;padding:12px 16px;border-radius:12px;
-  border:1px solid color-mix(in oklab,var(--ink) 20%,transparent);background:var(--paper);color:var(--ink);font:inherit;font-size:16px;line-height:1.35;
-  text-align:left;cursor:pointer;transition:border-color var(--t-fast) var(--ease),background var(--t-fast) var(--ease),scale var(--t-fast) var(--ease)}
-.nd-opt:hover{border-color:var(--ink);background:color-mix(in oklab,var(--ink) 5%,var(--paper))}
-.nd-opt:active{scale:.98}
-.nd-opt-l{font-weight:500}
-.nd-opt-p{flex:none;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);padding:4px 9px;border-radius:999px;background:color-mix(in oklab,var(--ink) 7%,transparent)}
+.nd-opts legend{padding:0;margin:0 0 8px;font-size:15.5px;line-height:1.4;font-weight:620;color:var(--ink)}
+.nd-opts.alt legend{font:500 12.5px var(--f-mono);color:var(--soft)}
+.nd-opt{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:48px;padding:10px 14px;border-radius:11px;
+  border:1px solid var(--rule);background:var(--bone);color:var(--ink);font:inherit;font-size:15.5px;line-height:1.35;text-align:left;cursor:pointer;
+  transition:border-color var(--t-fast) var(--ease),background var(--t-fast) var(--ease)}
+.nd-opt:hover{border-color:var(--ink2);background:color-mix(in oklab,var(--ink) 5%,var(--bone))}
+.nd-opt:active{transform:translateY(1px)}
+.nd-opt-p{flex:none;font:500 12.5px var(--f-mono);color:var(--soft);white-space:nowrap}
 .nd-acts{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .nd-acts .btn{padding:12px 18px;border-radius:12px;font-size:15px}
 .nd-acts .btn.sm{padding:8px 13px;font-size:13.5px}
 .nd-acts .btn em,.nd-side .btn em{font-style:normal;font-family:var(--f-mono);font-size:12px;opacity:.75;margin-left:4px}
 .nd-note{font-family:var(--f-mono);font-size:12.5px;color:var(--soft)}
 /* a colleague's plan, and the evidence behind it once it has been asked for */
-.nd-plan{padding:14px 16px;border-radius:12px;border:1px dashed color-mix(in oklab,var(--ink) 28%,transparent);display:grid;gap:10px}
+.nd-plan{padding:14px 16px;border-radius:12px;border:1px dashed color-mix(in oklab,var(--ink) 28%,transparent);display:grid;gap:8px}
 .nd-plan p{margin:0;max-width:none}
-.nd-plan .nd-you{font-size:16.5px;line-height:1.45}
-.nd-evidence{padding:12px 14px;border-radius:10px;background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--soft);display:grid;gap:6px;outline:0}
-.nd-evidence p{font-size:15px;line-height:1.5;color:var(--ink2)}
+.nd-plan .nd-you{font-size:15.5px;line-height:1.45}
+.nd-evidence{padding:12px 16px;border-radius:11px;background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--soft);display:grid;gap:6px;outline:0}
+.nd-evidence p{font-size:15.5px;line-height:1.5;color:var(--ink2)}
 .nd-evidence p.nd-k{font-size:12px;color:var(--soft)}
 .nd-evidence b{font-weight:600;color:var(--ink)}
 .nd-evidence ol{margin:0;padding:0 0 0 20px;display:grid;gap:4px;font-size:15px;line-height:1.45;color:var(--ink2)}
 .nd-evidence li{margin:0;max-width:none}
 
 /* what the call did */
-.nd-out{display:grid;gap:10px;outline:0}
-.nd-out p{margin:0;max-width:none;font-size:16.5px;line-height:1.55;color:var(--ink2)}
+.nd-out{display:grid;gap:8px;outline:0}
+.nd-out p{margin:0;max-width:none;font-size:15.5px;line-height:1.55;color:var(--ink2)}
 .nd-out p.nd-k{font-size:12px;line-height:1.3;color:var(--soft)}
 .nd-you{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
 .nd-you b{font-weight:600;color:var(--ink)}
-.nd-sealed{display:flex;align-items:center;gap:10px;font-size:15px!important;color:var(--ink)!important}
+.nd-sealed{display:flex;align-items:center;gap:10px;color:var(--ink)!important}
 .nd-sealed i{flex:none;width:12px;height:12px;border-radius:3px;background:var(--dg-rose)}
-.nd-filedbox{padding:12px 14px;border-radius:10px;background:color-mix(in oklab,var(--dg-teal) 8%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
+.nd-filedbox{padding:12px 16px;border-radius:11px;background:color-mix(in oklab,var(--dg-teal) 8%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
 .nd-filed{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .nd-filed li{margin:0;max-width:none;font-size:14.5px;line-height:1.45;color:var(--ink2)}
 .nd-filed b{color:var(--ink);margin-right:6px}
@@ -149,6 +168,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 
 /* the hands-on tasks and the sign-off */
 .nd-task,.nd-gate{padding:18px 18px 20px;border-radius:14px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:12px;scroll-margin-top:84px}
+.nd-day .nd-task,.nd-day .nd-gate{padding:20px 0 0;border:0;border-top:1px solid var(--rule);border-radius:0;background:none}     /* on the day's card: a part of it, under a hairline */
 .nd-task h3,.nd-gate h3,.nd-task h2{font-family:var(--f-display);font-size:19px;font-weight:620;letter-spacing:-.015em;margin:0;outline:0}
 .nd-task h2{font-size:26px;letter-spacing:-.03em}
 .nd-intro{margin:0;max-width:none;font-size:15px;line-height:1.5;color:var(--ink2)}
@@ -177,7 +197,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-gauge i::before{content:"";position:absolute;left:var(--l);right:calc(100% - var(--s));top:3px;height:4px;background:var(--bone);opacity:.7}
 .nd-gauge i::after{content:"";position:absolute;left:var(--b);top:-4px;bottom:-4px;width:2px;background:var(--dg-rose)}
 .nd-bends{list-style:none;margin:0;padding:0;display:grid;gap:6px;min-height:22px}
-.nd-bends li{margin:0;max-width:none;padding:8px 12px;border-radius:8px;font-size:14.5px;line-height:1.45;color:var(--ink2);
+.nd-bends li{margin:0;max-width:none;padding:8px 16px;border-radius:8px;font-size:14.5px;line-height:1.45;color:var(--ink2);
   background:color-mix(in oklab,var(--dg-teal) 8%,transparent);box-shadow:inset 3px 0 0 var(--dg-teal)}
 .nd-bends b{color:var(--ink)}
 .nd-bends:empty::before{content:"No target has been rewritten yet.";font-family:var(--f-mono);font-size:12.5px;color:var(--soft)}
@@ -288,17 +308,26 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-move{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:13.5px;color:var(--soft)}
 .nd-leave{margin:0;max-width:none;font-size:13.5px;color:var(--soft)}
 .nd-leave a{color:var(--ink2)}
-.nd-look{margin-top:6px}
-.nd-rooms{display:flex;flex-wrap:wrap;gap:6px}
-.nd-chip{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:6px 12px;border-radius:999px;border:1px solid color-mix(in oklab,var(--ink) 18%,transparent);background:none;color:var(--ink2);
-  font:inherit;font-size:13.5px;cursor:pointer;transition:border-color 150ms var(--ease),background 150ms var(--ease)}
-.nd-chip i{flex:none;width:9px;height:9px;border-radius:2px;box-shadow:0 0 0 1px color-mix(in oklab,var(--ink) 22%,transparent)}   /* the room's own wall hue */
-.nd-chip:hover{border-color:var(--ink)}
+/* The key under the building: a button for each room, in two columns where the column holds them and one
+   on a phone, the room and whose it is over the days that are theirs. Its card opens under them; the three
+   marks the picture uses close it, each beside a scrap of the picture at twice its size. */
+.nd-look{margin-top:16px}
+.nd-rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.nd-chip{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:1px 10px;min-height:52px;padding:7px 14px;border-radius:12px;border:1px solid var(--rule);
+  background:none;color:var(--ink2);font:inherit;font-size:14px;line-height:1.35;text-align:left;cursor:pointer;transition:border-color 150ms var(--ease),background 150ms var(--ease)}
+.nd-chip i{grid-row:1/3;width:10px;height:10px;border-radius:2px;box-shadow:0 0 0 1px color-mix(in oklab,var(--ink) 22%,transparent)}   /* the room's own wall hue */
+.nd-chip b{font-weight:600;color:var(--ink)}
+.nd-chip span+span{font:500 12px/1.4 var(--f-mono);color:var(--soft)}
+.nd-chip:hover{border-color:var(--ink2)}
 .nd-chip.on{background:var(--ink);color:var(--bone);border-color:var(--ink)}
-.nd-card{margin-top:10px;padding:14px 16px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:6px;outline:0;box-shadow:inset 3px 0 0 var(--rc,var(--rule))}
+.nd-chip.on b,.nd-chip.on span+span{color:inherit}
+.nd-card{margin-top:8px;padding:14px 16px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);display:grid;gap:6px;outline:0;box-shadow:inset 3px 0 0 var(--rc,var(--rule))}
 .nd-card b{font-family:var(--f-display);font-size:16px}
 .nd-card p{margin:0;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
 .nd-card .nd-opt{margin-top:6px}
+.nd-marks{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;line-height:1.3;color:var(--ink2)}
+.nd-marks li{display:flex;align-items:center;gap:9px;margin:0;max-width:none}
+.nd-marks canvas{width:40px;height:24px;border-radius:3px}
 
 /* The ninety days, drawn to time, on the title: a stop at (day − 1) / 89 of the width, the phases as
    bands with their names over them, the four milestones larger and ringed in ink, each with its word.
@@ -309,6 +338,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-line-ph span{display:block;min-width:0;padding-right:8px;font:500 12px/1.3 var(--f-mono);color:var(--soft)}
 .nd-line-track{position:relative;padding-bottom:44px}
 .nd-line-bar{display:flex;height:8px;border-radius:4px;overflow:hidden}
+.nd-line-bar,.nd-mini{--pad:4px}
 .nd-line-bar i{display:block;height:100%;background:var(--c);box-shadow:inset -2px 0 0 var(--bone)}
 .nd-line-bar i:last-child{box-shadow:none}
 .nd-line-stops{list-style:none;margin:0;padding:0;position:absolute;left:0;right:0;top:4px;height:0}
@@ -345,20 +375,37 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-d1 .dc-pic canvas{width:calc(144px * var(--n));height:calc(52px * var(--n));max-width:none}
 .nd-d1 .dc-k::before{background:var(--c)}
 .nd-d1 h2{font-family:var(--f-display);font-size:clamp(21px,2vw,25px);line-height:1.18;letter-spacing:-.025em;font-weight:600;margin:0 0 10px;text-wrap:balance}
-.nd-d1 .dc-o button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:48px;padding:10px 14px;border-radius:11px;
-  border:1px solid var(--rule);background:var(--bone);color:var(--ink);font:inherit;font-size:15px;line-height:1.35;text-align:left;cursor:pointer;
-  transition:border-color var(--t-fast) var(--ease),background var(--t-fast) var(--ease)}
-.nd-d1 .dc-o button:hover{border-color:var(--ink2);background:color-mix(in oklab,var(--ink) 5%,var(--bone))}
-.nd-d1 .dc-o button:active{transform:translateY(1px)}
 .nd-best{margin:14px 0 0;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);max-width:none}
-.nd-ways{margin-top:36px;padding-top:22px;border-top:1px solid var(--rule)}
-.nd-waygrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.nd-waygrid b{font-family:var(--f-display);font-size:18px;font-weight:620}
-.nd-waygrid p{margin:6px 0 12px;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
-/* every button on the title is as tall as Start; the five roles are one column of equal buttons */
-.nd-rolebtns{display:grid;gap:6px}
-.nd-waygrid .btn{padding:12px 16px;border-radius:12px;font-size:15px}
-.nd-rolebtns .btn{width:100%;justify-content:flex-start}
+/* The two other ways to play, under the building and Day 1, the width of both: a row for each role and one
+   for the sponsor. A row is one press (its button covers it). At 1440 a row is 64px: who, what you decide
+   and who should pick it, your days lit on the ninety-day line at 180px, what you leave with, the button.
+   Narrower, the same parts stack. Every button on the title is as tall as Start. */
+.nd-ways{grid-column:1/-1;min-width:0;padding-top:26px;border-top:1px solid var(--rule)}
+.nd-ways h3{margin:22px 0 4px;font-family:var(--f-display);font-size:18px;font-weight:620;letter-spacing:-.015em}
+.nd-ways>p:not(.nd-k){margin:0 0 12px;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.nd-rolebtns{display:grid;gap:8px}
+.nd-role{position:relative;display:grid;grid-template-columns:168px minmax(0,1fr) 180px 196px 136px;align-items:center;gap:6px 24px;min-height:64px;padding:8px 10px 8px 20px;
+  border:1px solid var(--rule);border-radius:14px;background:var(--paper);transition:border-color var(--t-fast) var(--ease)}
+.nd-role:hover{border-color:var(--ink2)}
+.nd-role:has(.btn:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+.nd-role-t{display:contents}
+.nd-role p{margin:0;max-width:none}
+.nd-role-who b{display:block;font-family:var(--f-display);font-size:15.5px;font-weight:620;line-height:1.3;color:var(--ink)}
+.nd-role-who span,.nd-role-days>span:last-child,.nd-role-takes span{display:block;font:500 12.5px/1.4 var(--f-mono);color:var(--soft)}
+.nd-role-says span{display:block;font-size:14.5px;line-height:1.4;color:var(--ink)}
+.nd-role-says span+span{font-size:13.5px;color:var(--soft)}
+.nd-role-days{display:grid;gap:7px}
+.nd-role-days>span:last-child{color:var(--ink2)}
+.nd-role-takes{font-size:14px;line-height:1.35;color:var(--ink2)}
+.nd-role .btn{justify-self:end;padding:12px 16px;border-radius:12px;font-size:15px;white-space:nowrap}
+.nd-role .btn:hover,.nd-role .btn:active{transform:none}      /* a transform would make the button, not the row, the box its cover fills */
+.nd-role .btn::after{content:"";position:absolute;inset:0;border-radius:14px}
+/* the ninety days at 180px: the phases, and the thirteen days at their dates as notches in the bar, yours
+   as ink marks across it (the architect's six in the first twenty days stand 4px apart, and stay apart) */
+.nd-mini{position:relative;display:block;flex:none;width:180px;height:14px}
+.nd-mini .nd-line-bar{position:absolute;left:0;right:0;top:5px;height:4px;border-radius:2px}
+.nd-mini>i{position:absolute;top:5px;width:2px;height:4px;margin-left:-1px;background:var(--paper)}
+.nd-mini>i.on{top:0;height:14px;border-radius:1px;background:var(--ink)}
 /* a press that failed: the screen stays as it was, and this says why and what to do */
 .nd-broke{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding:14px 16px;border-radius:12px;
   background:color-mix(in oklab,var(--warn) 10%,var(--paper));box-shadow:inset 3px 0 0 var(--warn)}
@@ -393,8 +440,10 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-terms{list-style:none;padding:2px 16px 16px;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:14.5px}
 .nd-terms b{color:var(--ink)}
 
-/* without script: the thirteen days as a list */
+/* without script: the thirteen days as a list. With script the page's head marks the page before it
+   paints, so the list never flashes up before the game; a game that cannot start takes the mark off. */
 .nd-plain{max-width:760px}
+.nd-js .nd-plain{display:none}
 .nd-plain h2{font-family:var(--f-display);font-size:22px;letter-spacing:-.02em;margin:34px 0 8px}
 .nd-plain p,.nd-plain li{font-size:16px;line-height:1.6;color:var(--ink2)}
 
@@ -403,7 +452,10 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 @media (max-width:1240px){
   .nd-app{grid-template-columns:minmax(0,1fr);justify-items:center}
   .nd-top,.nd-playing .nd-top{max-width:640px;margin-left:auto;margin-right:auto}
-  .nd-stage{position:static;width:100%;order:2;max-width:640px}
+  .nd-stage{position:static;width:100%;order:3;max-width:640px}
+  .nd-ways{order:2;width:100%;max-width:640px}
+  .nd-role{grid-template-columns:180px minmax(0,1fr) auto;grid-template-areas:"who who btn" "says says says" "days takes takes";align-items:start;padding:14px 16px}
+  .nd-role-who{grid-area:who}.nd-role .btn{grid-area:btn}.nd-role-says{grid-area:says}.nd-role-days{grid-area:days;padding-top:3px}.nd-role-takes{grid-area:takes}
   .nd-line{width:100%;max-width:640px}
   /* the line is narrower: the last milestone's word drops a row, so "First bill" and "Sponsor's slide" never touch */
   .nd-line-stops li:last-child em{top:calc(100% + 15px)}
@@ -433,9 +485,10 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .at-play .nd-panel{position:relative;max-width:952px;min-height:300px;padding-left:312px}
   .at-play .nd-panel>.nd-hud{position:absolute;left:0;top:0;width:288px;grid-template-columns:minmax(0,1fr);row-gap:12px}
   .at-play .nd-hud .nd-scene{grid-row:auto;align-self:auto}
+  /* and under the day, the building starts at the rail's edge, with its key beside it */
+  .at-play .nd-stage{max-width:952px;display:grid;grid-template-columns:594px minmax(0,1fr);column-gap:28px;align-items:start}
+  .at-play .nd-look{grid-column:2;grid-row:1/4;margin-top:0}
 }
-/* a short window: the building scrolls with the page, so the room chips are never out of reach */
-@media (max-height:859px){.nd-stage{position:static}}
 /* a phone: the room fills the width, under the days and the meters */
 @media (max-width:640px){
   .nd-playing .nd-top{display:none}          /* the day is the heading */
@@ -447,18 +500,22 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .nd-days{display:contents}
   .nd-phases{grid-column:1/-1;grid-row:1}
   .nd-strip{grid-column:1/-1;grid-row:2}
-  .nd-scene{grid-column:1;grid-row:3;align-self:start;display:flex;justify-content:center;margin-top:6px}
+  .nd-scene{grid-column:1;grid-row:3;align-self:start;display:flex;justify-content:center;align-items:flex-end;height:88px;margin-top:6px}     /* the ceiling cropped too */
   .nd-scene canvas{flex:none}
   .nd-ahead{grid-column:1;grid-row:4;margin-top:4px}
   .nd-meters{grid-column:2;grid-row:3/5;align-self:start;flex-direction:column;flex-wrap:nowrap;margin-top:6px}
-  .nd-meters div{gap:1px}
-  /* and the day under it a little closer, in the direction of the card's sizes: the question at 17px */
-  .nd-panel{gap:10px}
-  .nd-panel>.nd-opts{margin-top:4px}
-  .nd-opts legend{margin-bottom:8px;font-size:17px;line-height:1.3}
-  .nd-kick{padding-bottom:6px}
-  .nd-ctx{padding-top:7px}
-  .nd-sofar{margin-top:7px!important}
+  .nd-meters div{gap:0}
+  .nd-meters dd{font-size:15px}
+  /* and the day's card runs to the screen's edges, its inset the page's own, so its words keep their width */
+  .nd-panel{gap:12px}
+  .nd-day{margin:0 calc(-1 * var(--gut));padding:18px var(--gut) 22px;border-width:1px 0;border-radius:0;gap:8px}
+  /* On a phone the call comes first: the question and its answers stand under the news, and the people in
+     the room and the line about the book follow them, so every day's first answer is on the first screen.
+     The head's parts join the card's column for that, 8px apart; a new group starts 8px further down. */
+  .nd-dayhead{display:contents}
+  .nd-kick span{display:none}
+  .nd-day>.nd-events,.nd-day>.nd-opts,.nd-day>.nd-lines,.nd-day>.nd-plan,.nd-day>.nd-out,.nd-day>.nd-sim,.nd-day>.nd-acts{margin-top:8px}
+  .nd-day>.nd-lines{order:1}.nd-day>.nd-sim{order:2}.nd-day:has(>.nd-lines) .nd-book{order:3;margin-top:8px}
   /* the line on a phone: Day 1 and the four milestones are links, each a 44px target; the other eight are
      marks. The targets at either end reach into the page's margin, so the line keeps its whole width. */
   .nd-line-stops li:not(.key) a{display:none}
@@ -467,15 +524,13 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .nd-line-stops li.key a{min-width:44px;min-height:44px;top:-15px;padding-top:8px}
   .nd-line-foot{flex-direction:column;align-items:stretch;gap:12px}
   .nd-line-cap{min-height:0;font-size:15px}
-  .nd-chip{min-height:44px;padding:8px 14px}
   .nd-tb.stack .nd-check{min-height:44px;align-items:center}
-  .nd-strip li{font-size:10.5px}
-  .nd-strip li span{font-size:11px}
-  .nd-lines span{font-size:15.5px;line-height:1.45}
-  .nd-lines p{grid-template-columns:40px 1fr;gap:2px 12px}
-  .nd-face{width:40px;height:40px}
-  .nd-waygrid,.nd-lamps,.nd-terms{grid-template-columns:1fr}
-  .nd-opt{padding:11px 13px;font-size:15.5px}
+  .nd-strip li{font-size:11px}
+  .nd-lines p{gap:2px 12px}
+  .nd-lamps,.nd-terms{grid-template-columns:1fr}
+  .nd-role{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"who btn" "says says" "days days" "takes takes";row-gap:8px}
+  .nd-role-days{display:flex;align-items:center;gap:14px}
+  .nd-role-takes span{display:inline}
   .nd-tb{font-size:13px}
   /* the log, a row to a block: the fix, what the log shows, how long it takes */
   .nd-tb.stack,.nd-tb.stack tbody,.nd-tb.stack tr,.nd-tb.stack th,.nd-tb.stack td{display:block;width:auto}
@@ -487,7 +542,8 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .nd-tb.calls th:first-child{width:4.6em}
   .nd-callhead{display:none}                  /* on a phone the list is the calls and what each came back as: the player has just read the headlines */
   .nd-task,.nd-gate{padding:14px 14px 16px}
-  .nd-meters{gap:7px 20px}
+  .nd-meters{gap:5px 20px}
+  .nd-meters dt{line-height:1.3}
   .nd-leave a{display:inline-flex;align-items:center;min-height:44px;padding-right:10px}
   /* the refund: who sends and who receives on one line, the track on the next, full width */
   .nd-pw-row{grid-template-columns:1fr 1fr;grid-template-areas:"a b" "t t";gap:0 8px}

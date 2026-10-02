@@ -15,6 +15,12 @@
       "d13": { "flag": "Sponsor's slide", "name": "the sponsor's slide" }
     }
   },
+  "building": {
+    "caption": "SkyWays head office. Each day happens in one room, lit. The days start at the top, work down to the passengers, and end in the boardroom.",
+    "key": "Who works where, and their days",
+    "floors": ["top floor", "second floor", "first floor", "ground floor"],
+    "marks": { "lit": "Today's room", "shut": "Shut until the sign-off", "owed": "Something is due there" }
+  },
   "rules": {
     "slack": 18,
     "slackRole": 20,
@@ -101,28 +107,36 @@
     "pm": {
       "who": "priya",
       "name": "Product manager",
-      "line": "You own what it is worth and what goes to the sponsor."
+      "line": "You own what it is worth and what goes to the sponsor.",
+      "card": { "decide": "You own what it is worth, and what the sponsor is told.", "leave": "a slide with the cost on it", "pick": "Pick this if you have to say what an AI project bought." }
     },
     "sa": {
       "who": "arjun",
       "name": "Solution architect",
-      "line": "You own the requirements, the limits and the decisions that cut both ways."
+      "line": "You own the requirements, the limits and the decisions that cut both ways.",
+      "card": { "decide": "You own the requirements, the limits and the hard choices.", "leave": "limits sorted from wishes", "pick": "Pick this if you turn what people ask for into a design." }
     },
     "eng": {
       "who": "sam",
       "name": "Engineering lead",
-      "line": "You own what ships, in what order, and who reads it first."
+      "line": "You own what ships, in what order, and who reads it first.",
+      "card": { "decide": "You own what ships, in what order, and who reads it first.", "leave": "reviews sized to the risk", "pick": "Pick this if your team ships code that an AI helped to write." }
     },
     "qa": {
       "who": "maya",
       "name": "QA lead",
-      "line": "You own the proof: what the number is, and what it is not."
+      "line": "You own the proof: what the number is, and what it is not.",
+      "card": { "decide": "You own the proof: what the number is, and what it is not.", "leave": "a pass mark per kind of case", "pick": "Pick this if you are asked whether a number is good enough." }
     },
     "ops": {
       "who": "lena",
       "name": "Platform lead",
-      "line": "You own the gateway, the bill and the limits that live in code."
+      "line": "You own the gateway, the bill and the limits that live in code.",
+      "card": { "decide": "You own the gateway, the bill and the limits in the code.", "leave": "a bill you can explain", "pick": "Pick this if you run the platform the model calls go through." }
     }
+  },
+  "org": {
+    "card": { "decide": "You set three rules, then watch the team work.", "leave": "the rules that matter most", "pick": "Pick this if you fund AI projects, or decide what they must prove." }
   },
   "phases": [
     {

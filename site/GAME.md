@@ -1,6 +1,6 @@
 ---
 name: Ninety Days, the SkyWays simulator
-status: second release (round six: days that open cold, a sixth task, colour, a link to each day; council 9: the ninety days as one line, Day 1 on the title, a safeguard on every press)
+status: second release (round six: days that open cold, a sixth task, colour, a link to each day; council 9: the ninety days as one line, Day 1 on the title, a safeguard on every press, the building's key, a row for each role, the day on the card's metrics, a loop that rests and a byte budget)
 updated: 2026-10-02
 form-factor: web, one page, canvas for the picture and plain HTML for every word and control
 lives-at: /simulator/ (the earlier tool is the workbench, at /workbench/)
@@ -97,7 +97,9 @@ says it is a game without giving the name, and that `premise` names each of thos
 From the top, at 1440 by 900: the heading and the opening lines side by side, on the same grid as the
 building and the panel under them (594px, then the rest), so the opening lines keep to 46 to 56
 characters a line. Then the ninety days as one line, the full width of the page. Then the building on
-the left and, on the right, Day 1 as the home page shows a day.
+the left, with its caption over it and its key under it, and on the right Day 1 as the home page shows a
+day. Then, the width of both, the two other ways to play: a row for each role and one for the sponsor.
+At 1240 and under the order is the line, Day 1, the rows, the building; on a phone the same.
 
 **The line of the ninety days** answers what a newcomer asks first: what are the ninety days, where
 do the thirteen fall, what are the milestones, and can I start later. It is drawn to time: an 8px bar
@@ -122,12 +124,50 @@ without the canvas and without sight. On a phone only Day 1 and the four milesto
 wide, a 20px corner and one long shadow, the boardroom at four times its size bled to the edges (three
 times and cropped on a phone), one 26px inset, the kicker "Day 1 of 90 · Boardroom", the headline, the
 context, the question, and the two answers with their price in days. Pressing an answer starts a
-whole-team run and makes that call, as if on the day. Under the card, the two other ways to play: the
-five roles as one column of buttons as tall as Start, and "Set the rules".
+whole-team run and makes that call, as if on the day. Its answers are the game's own answer
+component, the one every day uses.
+
+**The building on the title** shows the day Start would open: Day 1, the boardroom lit and framed, the
+other rooms turned down, the build floors shuttered, and under it "Day 1: the boardroom, top floor".
+Pointing at a stop on the line shows that day instead, as the book would leave it (the shutters lifted
+after the sign-off), at once and without motion.
+
+**The role rows.** "One role" is five rows, then "The organisation" is a sixth, for the sponsor. A row
+is one press: its button ("Play as Maya", the person's name; "Set the rules" for the sponsor, which
+opens the rules screen) covers the whole row. At 1440 a row is 64px and reads across: the role and the
+person with the number of their calls ("QA lead", "Maya · 2 calls"); one line of what you decide and
+under it "Pick this if ..."; the player's days lit as ink marks on a 180px copy of the ninety-day line,
+with the days under it; what you leave with; the button. Narrower, the same parts stack. The words are
+each role's `card` in `days.json` (`decide`, `leave`, `pick`; the sponsor's is `org.card`), under
+seventy words a role; the person, the days and the count come from the days' owners. There is no "Or
+start at Day 45" in a row: `sim.book` plays the days before a later day as a whole-team run, and a role
+run that starts later would need the rules to play the colleagues' days in a role run, which they do
+not, so a role always starts at Day 1.
 
 In play the strip of the thirteen days stays a carriage map of equal cells. Over it, each phase's name
 spans its run; under it one line names the next milestone from today ("Next: the sign-off, Day 15",
-and "Today: the sign-off" on the day); in one role the player's own days wear a ring.
+and "Today: the sign-off" on the day); in one role the player's own days wear a ring. Beside the
+building at 1440 that line and the meters share a row, unless there are four meters (one role, the
+sponsor), which then take a row of their own.
+
+### The day's card
+
+In play the day, from its kicker to its answers and what follows them on the day, is one card on the
+home page's day card's metrics: the paper surface, a 20px corner, one 26px inset that every line and
+answer shares, and three sizes: the 12.5px mono kicker (and the book line, the names, a price), the
+headline at up to 25px in balanced lines, and 15.5px for everything read, the question included, in
+its card weight. Inside a group things stand 8px apart and groups stand 20px apart. Answers are 48px
+tall with a plain mono price at the right, the same component as Day 1's card on the title. A task or
+the sign-off is part of the card, under a hairline, not a box in it. Reading text keeps to 75
+characters a line (33.5em); a tinted box keeps the card's width and its words the same measure, and
+every tinted box is inset 16px. Who the player is and the strip stand over the card; the debts, the
+date and the way out under it. The building is the one object with depth: the card's corner and its
+long shadow.
+
+On a phone the card runs to the screen's edges, its inset the page's own, so its words keep the width
+they had, and the call comes first: under the news stand the question and its answers, and then the people in the room, the day's
+figure and the line about the book. The kicker drops the phase (the strip above names it). So the first
+answer of every day is on a 390 by 844 screen: Day 20, the longest, ends it at 828.
 
 ## A link to each day
 
@@ -231,21 +271,46 @@ Colour comes from light and material, never from bright paint:
 - **State.** The lobby's day board draws its digits and its thirteen dots in each day's phase hue, with
   a white core on today and a rose pixel under a day that has something due.
 
-- The room where today happens is lit and the others are turned down by half, so their walls keep their
-  hue. The same room is shown close up above the dialogue.
-- Above 1240 wide the building stands beside the day and the close-up is not shown. At 1240 and under
+- The room where today happens is lit and framed in white, and the others are turned down by half, so
+  their walls keep their hue. The same room is shown close up at the head of the day.
+- Every canvas is drawn at a whole number of screen pixels to an art pixel and never resampled. The
+  building's picture fills its column: twice its size wherever the column holds 594px, once on a phone,
+  with the sky and the apron running on either side of the building where the column is wider than it,
+  and cropped by its frame on the smallest phone (297 in 280). The close-up is always twice its size.
+- Above 1240 wide the building stands beside the day and the close-up is not shown. In play it stays in
+  view as the page scrolls; where it is taller than the window it scrolls until its foot is in view and
+  stays there, so the key is never out of reach. On the title it scrolls with the page. At 1240 and under
   the building moves below the day, and the close-up sits beside the day strip and the meters. Between
   900 and 1240 wide, during play, the close-up, the day strip and the meters form a rail to the left of
   the day (`play/game.css`), so a day that also brings news (Day 20's freeze, Day 82's refund) still has
-  its question and its first option on the first screen. On a phone the close-up is drawn at twice its
-  size and cropped to its column, with the three meters stacked beside it, so Day 1's question and first
-  option fit a 390 by 844 screen.
+  its question and its first option on the first screen; under the day the building starts on the
+  rail's edge and its key stands beside it, ending on the card's edge. On a phone the close-up is
+  cropped to its column and its ceiling, with the three meters stacked beside it.
+- Room names are drawn on the canvas at twice its size and up. On a phone, at one to one, a name would
+  be five pixels tall, under the site's 11px floor, so there they are in the key only.
 - The walls show the state: the notes wall, the whiteboard, the build wall, the score against its bar,
   the bill, the departures board, the day board in the lobby.
 - People are 10 by 22, about four heads tall, with no faces at that size: a jacket in the muted hue of
   the role, a light shirt, the role's accent on the lanyard. Faces appear only as 24 by 24 portraits
   beside what is said.
 - The only lettering on the canvas is room names and the day board. Every sentence is page text.
+
+### The building's key
+
+Over the building, a caption (`building.caption`): "SkyWays head office. Each day happens in one room,
+lit. The days start at the top, work down to the passengers, and end in the boardroom." Under it, one
+line: where today is ("Today: the boardroom, top floor"; on the title, "Day 1: ..."), beside the pause
+control. Then the key, headed "Who works where, and their days": a button for each room, which is its
+line of the key, in two columns where the column holds them (both ending on the building's edges) and
+one on a phone. Each reads room, person, days: "QA · Maya · Days 45, 82". The days are the days the
+room is lit and the days its person makes the call, wherever that is; the person is whoever on the
+team, or the sponsor, sits there, and the contact centre has nobody ("Contact centre · Day 82"). A
+room's button opens its card, on the title as in play, and the card opens on its person: "Maya, QA
+lead, makes the calls on Days 45 and 82. Day 82 is held in the contact centre." In a run the card goes
+on to what the room shows today, and the platform room's action. Last, the three marks the picture
+uses, each beside a scrap of the building drawn by `art.js` at twice its size: a white frame, today's
+room; a steel shutter, shut until the sign-off; a rose square, something is due there. No tour, no
+popup: the key is page text that is there for whoever reads it.
 - The plane is drawn side on, nose to the right, and only ever flies to the right.
 - Rose means the sign-off and what is owed, and nothing else: the shutters on the build floors, the bar
   the sign-off set, a pin, the flash when the incident lands. It is not used for decoration.
@@ -294,7 +359,27 @@ move, on the site's own curves and durations.
   Start do nothing visible.
 - "Undo today" returns to the start of the day. Nothing sealed has been opened by then, so it gives
   nothing away.
-- Without script the page is the thirteen days as text, each under its own headline and context.
+- A role row is one button, "Play as Maya", described by the row's own words; the key's rooms are
+  buttons that say pressed, and a card that opens takes the focus.
+- Without script the page is the thirteen days as text, each under its own headline and context. With
+  script, one line in the page's head (`pages/play.py`) marks the page `nd-js` before it paints, and the
+  style sheet hides that text, so it never flashes up while the game loads on a slow phone. If the game
+  cannot start (the rules or the pictures never came, or the first screen throws) `game.js` takes the
+  mark off and the text comes back.
+
+## Weight and the loop
+
+The building is the only thing that loops, and the loop rests whenever no canvas it would change is on
+the screen: an observer watches the building's canvas and the close-up of today's room, and the loop
+runs while the building is in view, or while the close-up is in view and its people are still walking
+in. On a phone on Day 1 the building is far down the page, so after the walk-in nothing is drawn until
+the building is scrolled to. Nothing starts because it came into view; it goes on from where it was.
+
+The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 45 KB gzipped
+(44.8), the site's `base.css` under 40 KB (39.5), the page's HTML under 25 KB (16.4), and no font but
+the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
+key and the rows, so the comments in `game.js` and `art.js` were cut to a line of why each, leaving the
+reasons to this file; no rule and no number of the game changed.
 
 ## Tests
 
@@ -336,8 +421,22 @@ move, on the site's own curves and durations.
   pressed; in play the strip names its phases, says the next milestone and rings a role's own days.
   Every mode's first press, and every move after it, must leave no "This page is out of date" on the
   page. And with `sim.soFar` deleted in the page, as an old `sim.js` would lack it, Start must leave the
-  title as it was, save nothing, and say so with a Reload button.
-- `tools/accept.mjs` includes the page, and asks the canvas how many frames it drew.
+  title as it was, save nothing, and say so with a Reload button. The first-screen check of section 11
+  runs every one of its days at 390 by 844 too. Its thirteenth section is the building and the rows: the
+  caption, the key of seven rooms in two columns on the building's edges reading "QA · Maya · Days 45,
+  82", the line under the building, the three marks drawn at twice their size, and a room's card opening
+  on its person; five role rows of 64px at 1440 and the sponsor's, each one press, with the role's own
+  days lit on a 180px line and its words under seventy with no dash; the day's card at 20px, 26px,
+  12.5, 25 and 15.5px with answers of 48px and a plain price, the same component as Day 1's card; the
+  faults council 9 measured, each measured again (the context's measure, a tinted box's inset, the
+  building on the rail's edge at 1024, the building at a whole scale on a phone, faces at twice their
+  size, strip numbers at 11px); and, at 390 on Day 1, no frame drawn while the building is off the
+  screen until it is scrolled to.
+- `tools/accept.mjs` includes the page, and asks the canvas how many frames it drew. Its first pass
+  checks that without script the thirteen days are shown as text. Its sixteenth holds `game.js` back and
+  checks that the page paints with that text hidden, that the game comes up once the script arrives,
+  and that the text comes back when `sim.js` cannot be fetched. Its seventeenth is the byte budget,
+  read from the built site.
 
 ## What the council decided
 
@@ -367,3 +466,5 @@ moves, rooms tinted by phase.
   The case gives Day 75, the bill, to the architect. The game gives it to the platform lead, so that
   role has a day of its own.
 - A link to a day always opens whole-team mode on seed 0, so the vendor's freeze falls on Day 20.
+- A role cannot start at a later day: `sim.book` plays the earlier days for a whole-team run only. A
+  role row could offer "Or start at Day 45" once the rules can play a role run's colleagues by the book.

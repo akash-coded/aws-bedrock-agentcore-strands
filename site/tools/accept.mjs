@@ -4,10 +4,11 @@
 //   python3 -m http.server 8799 -d site/_site &
 //   node site/tools/accept.mjs http://localhost:8799/
 //
-// Fifteen passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
+// Seventeen passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
-//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn)
+//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn), and
+//                            the simulator shows its thirteen days as text
 //    2. reduced motion       nothing hidden, and no animation running at all
 //    3. nothing waits        with motion allowed, 700ms after load nothing on the whole page is hidden: no
 //                            entrance, no part that waits to be scrolled to. After four seconds the only things
@@ -34,6 +35,13 @@
 //   15. two right edges      on a lesson at 1440, text stops at one right edge and pictures, tables and code at
 //                            one other: every block of the page, and a caption that sits on the page, ends on
 //                            one of two lines, and anything on a third is listed
+//   16. the game's first paint  with script, the simulator's text for a reader without script is hidden from the
+//                            first paint, while the game's own script has still not arrived; when the rules fail to
+//                            load, the text comes back
+//   17. the bytes            read from the built site with node's zlib (level 9): base.css under 40 KB, the game's
+//                            three scripts under 45 KB, every page's HTML under 25 KB (the pages that were already
+//                            larger on 2 October 2026 each held to its size that day, rounded up, plus one KB), and
+//                            no font file but the four the site has
 //
 // Every pass first checks that the page really loaded: its top bar is there and styled. It exits 1 if
 // any pass fails and prints what failed. It measures; it does not judge taste: for that, look. The hero can
@@ -47,7 +55,8 @@
 // window.NDFrames (frames drawn).
 
 import { spawn } from "node:child_process";
-import { rmSync } from "node:fs";
+import { rmSync, readFileSync, readdirSync, statSync, existsSync } from "node:fs";
+import { gzipSync } from "node:zlib";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -87,8 +96,10 @@ await new Promise((r) => ws.addEventListener("open", r, { once: true }));
 let seq = 0;
 const waiting = new Map();
 const thrown = [];
+const held = [];                  // requests the gate has paused (pass 16)
 ws.addEventListener("message", (ev) => {
   const m = JSON.parse(ev.data);
+  if (m.method === "Fetch.requestPaused") held.push(m.params);
   if (m.method === "Runtime.exceptionThrown") {
     thrown.push((m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text).slice(0, 160));
   }
@@ -171,9 +182,12 @@ async function pass(label, { width, height, reduce = false, noscript = false, wa
   }
 }
 
+// the simulator's thirteen days as text, for a reader without script: shown, and saying why
+const PLAIN = `(() => { const p = document.querySelector('.nd-plain'); return p ? getComputedStyle(p).display !== 'none' && p.getBoundingClientRect().height > 400 && /The game needs script to run/.test(p.textContent) : null; })()`;
 await pass("1. no script: nothing left hidden", { width: 1280, height: 800, noscript: true, wait: 3200 }, async () => {
-  const h = await evaluate(HIDDEN);
-  return Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  const h = await evaluate(HIDDEN), out = Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  if ((await evaluate(PLAIN)) === false) out.push("without script the thirteen days as text are not shown");
+  return out;
 });
 await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, height: 800, reduce: true }, async () => {
   const out = [];
@@ -405,6 +419,75 @@ await pass("15. two right edges: on a lesson at 1440, text ends on one line, pic
   return [`${edges.length} right edges, two allowed: ${edges.map(say).join("; ")}`];
 });
 
+// 16. the game's first paint: the page's head marks it for script before it paints, so the text for a
+// reader without script never shows while the game's scripts are on their way. The gate holds game.js
+// back, so the page paints with the rules and the pictures but not the game, and looks; then lets it go.
+// Then it fails sim.js, as a browser that could not fetch the rules would, and the text must come back.
+console.log("\n16. the game's first paint: the text for a reader without script is hidden while the game loads");
+{
+  const out = [];
+  await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+  await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
+  const STATE = `({ painted: performance.getEntriesByType('paint').some((e) => e.name === 'first-contentful-paint'), mark: document.documentElement.classList.contains('nd-js'),
+    plain: (() => { const p = document.querySelector('.nd-plain'); return p ? getComputedStyle(p).display !== 'none' && !p.hidden : null; })(), game: !!document.querySelector('#nd:not([hidden]) .nd-line') })`;
+  const hold = async (pattern) => { held.length = 0; await send("Fetch.enable", { patterns: [{ urlPattern: pattern, requestStage: "Request" }] }); };
+  await send("Network.enable"); await send("Network.setCacheDisabled", { cacheDisabled: true });      // every load asks for every file
+  await hold("*play/game.js*");
+  await send("Page.navigate", { url: BASE + "simulator/" });
+  for (let i = 0; i < 40 && !held.length; i++) await sleep(100);
+  await sleep(1200);
+  const early = await evaluate(STATE);
+  if (!held.length) out.push("game.js was never asked for");
+  else if (!early.painted) out.push("with game.js held back, the page never painted");
+  else if (!early.mark || early.plain !== false) out.push(`at first paint, before game.js arrived, the text for a reader without script is ${early.plain ? "shown" : "missing"}`);
+  for (const p of held.splice(0)) await send("Fetch.continueRequest", { requestId: p.requestId });
+  await send("Fetch.disable"); await sleep(1500);
+  const booted = await evaluate(STATE);
+  if (!booted.game || booted.plain !== false) out.push(`once game.js arrived: game ${booted.game}, the text shown ${booted.plain}`);
+  await hold("*play/sim.js*");
+  await send("Page.navigate", { url: BASE + "simulator/" });
+  for (let i = 0; i < 40 && !held.length; i++) await sleep(100);
+  if (!held.length) out.push("sim.js was never asked for");
+  for (const p of held.splice(0)) await send("Fetch.failRequest", { requestId: p.requestId, errorReason: "Failed" });
+  await send("Fetch.disable"); await sleep(1800);
+  await send("Network.setCacheDisabled", { cacheDisabled: false });
+  const failed = await evaluate(STATE);
+  if (failed.plain !== true || failed.mark) out.push(`with sim.js unreachable the game cannot start, and the text for a reader without script is ${failed.plain ? "shown" : "still hidden"}`);
+  if (out.length) { failures += out.length; console.log("  FAIL /simulator/  " + out.join("; ")); }
+  else console.log("  ok   /simulator/  hidden at first paint with game.js held back, the game up once it came, the text back when sim.js could not load");
+}
+
+// 17. the bytes, from the built site. A budget is a ceiling: a page or a file over it fails, and the way
+// back is to make the thing smaller, not the number larger. The pages over 25 KB on the day this pass was
+// written are each held to what they were (rounded up, plus one KB), so they can shrink and never grow.
+console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, the fonts");
+{
+  const out = [], SITE = new URL("../_site/", import.meta.url).pathname;
+  const kb = (f) => gzipSync(readFileSync(SITE + f), { level: 9 }).length / 1024;
+  const HELD = { "workbench/index.html": 825, "app/SkyWays-Architect.html": 824, "prompts/index.html": 57, "templates/index.html": 48, "solution-architect/index.html": 46,
+    "devops/index.html": 44, "qa/index.html": 44, "engineering/index.html": 43, "product-manager/index.html": 35, "labs/grow-the-spec/index.html": 34, "pictures/index.html": 29,
+    "learn/evolution-of-the-pdlc/index.html": 29, "learn/what-is-aidd/index.html": 28 };
+  const FONTS = ["assets/fonts/geist-mono.woff2", "assets/fonts/geist.woff2", "assets/fonts/instrument-sans.woff2", "assets/fonts/patrick-hand.woff2"];
+  if (!existsSync(SITE + "index.html")) out.push(`no built site at ${SITE}`);
+  else {
+    const files = [];
+    (function walk(d) { for (const f of readdirSync(SITE + d)) { const p = d + f; if (statSync(SITE + p).isDirectory()) walk(p + "/"); else files.push(p); } })("");
+    const css = kb("theme/base.css"), game = ["play/game.js", "play/sim.js", "play/art.js"].reduce((n, f) => n + kb(f), 0);
+    if (css >= 40) out.push(`base.css is ${css.toFixed(1)} KB gzipped; the budget is 40`);
+    if (game >= 45) out.push(`the game's scripts are ${game.toFixed(1)} KB gzipped; the budget is 45`);
+    const pages = files.filter((f) => f.endsWith(".html")), over = [];
+    let most = { f: "", n: 0 };
+    for (const f of pages) { const n = kb(f), cap = HELD[f] || 25; if (n >= cap) over.push(`${f} ${n.toFixed(1)} KB (${cap})`); if (!HELD[f] && n > most.n) most = { f, n }; }
+    if (over.length) out.push("pages over their budget: " + over.join(", "));
+    const fonts = files.filter((f) => /\.(woff2?|ttf|otf|eot)$/i.test(f)).sort();
+    if (fonts.join(" ") !== FONTS.join(" ")) out.push(`the font files are ${fonts.join(", ")}`);
+    const remote = pages.filter((f) => /fonts\.(googleapis|gstatic)\.com/.test(readFileSync(SITE + f, "utf8")));
+    if (remote.length) out.push(`a page asks a font host for a font: ${remote.slice(0, 3).join(", ")}`);
+    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts`);
+  }
+  if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); }
+}
+
 } catch (e) {
   failures++;
   console.log("\nthe gate itself failed: " + e.message);
@@ -415,5 +498,5 @@ await pass("15. two right edges: on a lesson at 1440, text ends on one line, pic
   await Promise.race([exited, sleep(5000)]);
   try { rmSync(profile, { recursive: true, force: true }); } catch {}
 }
-console.log(failures ? `\n${failures} failure(s)` : "\nall fifteen passes hold");
+console.log(failures ? `\n${failures} failure(s)` : "\nall seventeen passes hold");
 process.exit(failures ? 1 : 0);

@@ -16,6 +16,8 @@
 // header that moves between days, a figure that plays where nobody is looking. Section 12 is the title's
 // line of the ninety days, Day 1's card, and the safeguard on every press: a press that throws leaves the
 // page as it was and says "This page is out of date. Reload to play.", which must never show on this tree.
+// Section 13 is the building's key, the role rows, the day on the card's metrics, the faults council 9
+// measured by eye, each as a number, and the loop that rests while its canvases are off the screen.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
@@ -354,7 +356,7 @@ try {
   // a. the question and its first option are on the first screen, also on the two days that bring news
   // above the scene: Day 20 (the vendor's freeze) and Day 82 (the refund that met its limit)
   for (const [w, h] of [[1440, 900], [1024, 768], [390, 844]]) {
-    for (const hash of w < 600 ? [""] : ["", "#day-45", "#day-9", "#day-20", "#day-82"]) {
+    for (const hash of ["", "#day-45", "#day-9", "#day-20", "#day-82"]) {
       await fromCold(w, h, hash);
       if (!hash) { await evaluate(START); await sleep(400); }
       const at = await evaluate(`(() => { const l = document.querySelector("#nd .nd-opts legend"), o = document.querySelector("#nd .nd-opts .nd-opt"), p = document.querySelector("#nd .nd-scene-cv"), m = document.querySelector("#nd .nd-map-cv");
@@ -566,6 +568,108 @@ try {
   else if (!logged.some((t) => /soFar/.test(t))) fail(`a press that throws leaves no console line naming the error: ${logged.join(" | ")}`);
   else console.log("  ok   with sim.soFar missing, Start leaves the title as it was, saves nothing, and says \"This page is out of date. Reload to play.\" with a Reload button");
   if (thrown.length) fail("section 12: script error: " + thrown[0]);
+
+  {                               // its own block: section 12 has a card and a line of its own
+    console.log("\n13. the building's key, the role rows, the day's card, and the loop at rest");
+    thrown.length = 0;
+    const box = (s) => `(() => { const n = document.querySelector(${JSON.stringify(s)}); if (!n) return null; const b = n.getBoundingClientRect(); return { l: Math.round(b.left), t: Math.round(b.top), r: Math.round(b.right), b: Math.round(b.bottom), w: Math.round(b.width), h: Math.round(b.height) }; })()`;
+    // a. the title at 1440: a caption over the building, the key under it in two columns that end on the
+    // building's edges, each room's line "QA · Maya · Days 45, 82", where Day 1 is, and the three marks
+    await fromCold(1440, 900, "");
+    const key = await evaluate(`(() => { const r = (n) => n.getBoundingClientRect(), chips = [...document.querySelectorAll("#nd .nd-chip")], map = r(document.querySelector("#nd .nd-map"));
+      const marks = [...document.querySelectorAll("#nd .nd-marks li")];
+      return { over: (document.querySelector("#nd .nd-over") || {}).textContent || "", texts: chips.map((c) => c.textContent), cols: new Set(chips.map((c) => Math.round(r(c).left))).size,
+        left: Math.min(...chips.map((c) => r(c).left)) - map.left, right: Math.max(...chips.map((c) => r(c).right)) - map.right, below: Math.min(...chips.map((c) => r(c).top)) > map.bottom,
+        where: document.querySelector("#nd .nd-where").textContent, marks: marks.map((m) => m.textContent).join("|"), samples: marks.map((m) => { const c = m.querySelector("canvas"); return c ? r(c).width + "x" + r(c).height + ":" + c.width + "x" + c.height : "none"; }).join(" ") }; })()`);
+    const words = JSON.parse(await evaluate(`document.getElementById("nd-data").textContent`));
+    if (key.over !== words.building.caption) fail(`the caption over the building reads "${key.over}"`);
+    else if (key.texts.length !== 7 || !key.texts.includes("QA · Maya · Days 45, 82") || !key.texts.includes("Boardroom · Ines · Days 1, 9, 90") || !key.texts.includes("Contact centre · Day 82") || !key.texts.every((t) => /^[A-Z][a-z A-Z]+( · [A-Z][a-z]+)? · Days? [\d, ]+$/.test(t))) fail(`the key reads: ${key.texts.join(" | ")}`);
+    else if (key.cols !== 2 || Math.abs(key.left) > 1 || Math.abs(key.right) > 1 || !key.below) fail(`at 1440 the key is in ${key.cols} columns, ${key.left}px and ${key.right}px off the building's edges`);
+    else if (key.where !== "Day 1: the boardroom, top floor") fail(`under the building on the title: "${key.where}"`);
+    else if (key.marks !== "Today's room|Shut until the sign-off|Something is due there" || key.samples !== "40x24:20x12 40x24:20x12 40x24:20x12") fail(`the marks: ${key.marks}, drawn ${key.samples}`);
+    else console.log(`  ok   1440 wide: the building's caption, a key of seven rooms in two columns on its edges ("QA · Maya · Days 45, 82"), "${key.where}", and three marks drawn at twice their size`);
+    // b. a room's card opens on its person, on the title as in play
+    await evaluate(CLICK('#nd .nd-chip[data-room="qa"]')); await sleep(120);
+    const qa = await evaluate(`({ card: (document.querySelector("#nd .nd-card p") || {}).textContent || "", focus: !!document.activeElement.closest(".nd-card"), pressed: document.querySelector('#nd .nd-chip[data-room="qa"]').getAttribute("aria-pressed") })`);
+    await evaluate(CLICK('#nd .nd-chip[data-room="board"]')); await sleep(120);
+    const board = await evaluate(`(document.querySelector("#nd .nd-card p") || {}).textContent || ""`);
+    if (qa.card !== "Maya, QA lead, makes the calls on Days 45 and 82. Day 82 is held in the contact centre." || !qa.focus || qa.pressed !== "true") fail(`the QA room's card on the title: ${JSON.stringify(qa)}`);
+    else if (!/^Ines, the sponsor, sits here with the finance controller and the compliance officer\. Days 1, 9 and 90 are held here\.$/.test(board)) fail(`the boardroom's card: "${board}"`);
+    else console.log(`  ok   a room's card opens on its person: "${qa.card}"`);
+    // c. the role rows: five of 64px at 1440, each one press, with the role's days lit on a 180px line, then the sponsor's row
+    const rows = await evaluate(`(() => { const data = JSON.parse(document.getElementById("nd-data").textContent), r = (n) => n.getBoundingClientRect();
+      return [...document.querySelectorAll("#nd .nd-rolebtns .nd-role, #nd .nd-orgrow .nd-role")].map((row, k) => { const b = row.querySelectorAll("button"), m = row.querySelector(".nd-mini");
+        row.scrollIntoView({ block: "center", behavior: "instant" });
+        const t = r(row.querySelector(".nd-role-says")), hit = document.elementFromPoint(t.left + 4, t.top + 4);      // a press on the row's words is a press on its button
+        return { h: Math.round(r(row).height), buttons: b.length, label: b[0] ? b[0].textContent : "", line: m ? Math.round(r(m).width) : 0, lit: row.querySelectorAll(".nd-mini i.on").length,
+          who: row.querySelector(".nd-role-who").textContent, press: !!hit && hit === b[0] }; }); })()`);
+    const want = Object.values(words.roles).map((R) => ({ name: words.cast[R.who].name, calls: words.days.filter((d) => d.owner === R.who).length }));
+    const cards = Object.values(words.roles).map((R) => R.card).concat(words.org.card), cw = cards.map((c) => [c.decide, c.leave, c.pick].join(" ").split(/\s+/).length);
+    if (rows.length !== 6) fail(`the title has ${rows.length} rows to play from, not five roles and the sponsor`);
+    else if (rows.some((x, k) => x.buttons !== 1 || !x.press || x.line !== 180)) fail(`a row is not one press with a 180px line: ${JSON.stringify(rows)}`);
+    else if (rows.slice(0, 5).some((x) => Math.abs(x.h - 64) > 1)) fail(`at 1440 the role rows are ${rows.map((x) => x.h).join(", ")}px tall, not 64`);
+    else if (rows.slice(0, 5).some((x, k) => x.label !== "Play as " + want[k].name || x.lit !== want[k].calls || !x.who.includes(want[k].calls + (want[k].calls > 1 ? " calls" : " call")))) fail(`the role rows: ${rows.map((x) => x.label + ", " + x.lit + " lit, " + x.who).join(" | ")}`);
+    else if (rows[5].label !== "Set the rules") fail(`the sponsor's row offers "${rows[5].label}"`);
+    else if ((await evaluate(`(() => { document.querySelector("#nd .nd-ways").scrollIntoView({ block: "start", behavior: "instant" }); return document.querySelector("#nd .nd-stage").getBoundingClientRect().bottom - document.querySelector("#nd .nd-ways").getBoundingClientRect().top; })()`)) > 0) fail("scrolled to the rows, the building's column lies over them");
+    else if (cw.some((n) => n >= 70) || cards.some((c) => /[–—]/.test(Object.values(c).join(" ")) || !/^Pick this if /.test(c.pick))) fail(`a row's words run to ${Math.max(...cw)} words, or carry a dash`);
+    else console.log(`  ok   1440 wide: five role rows of 64px and the sponsor's, each one press, "${rows[3].label}" with ${rows[3].lit} days lit on a 180px line, ${Math.max(...cw)} words at most`);
+    // d. the day on the card's metrics, and one answer component on the title and in play
+    const titleOpt = await evaluate(`(() => { const b = document.querySelector("#nd .nd-d1 .dc-o button"); return b.className + "|" + getComputedStyle(b.querySelector(".nd-opt-p")).backgroundColor; })()`);
+    await evaluate(START); await sleep(400);
+    const card = await evaluate(`(() => { const c = document.querySelector("#nd .nd-day"), cs = getComputedStyle(c), f = (s, p) => getComputedStyle(document.querySelector(s))[p], o = document.querySelector("#nd .nd-opts .nd-opt");
+      const m = getComputedStyle(document.querySelector("#nd .nd-map"));
+      const p = document.body.appendChild(document.createElement("i")); p.style.background = "var(--paper)"; const paper = getComputedStyle(p).backgroundColor; p.remove();
+      return { radius: cs.borderTopLeftRadius, pad: cs.paddingLeft, bg: cs.backgroundColor === paper,
+        kick: f("#nd .nd-kick", "fontSize") + " " + /mono/i.test(f("#nd .nd-kick", "fontFamily")), head: f("#nd .nd-dayhead h2", "fontSize") + " " + f("#nd .nd-dayhead h2", "textWrap"), body: f("#nd .nd-ctx", "fontSize") + " " + f("#nd .nd-lines span", "fontSize") + " " + f("#nd .nd-opts legend", "fontSize"),
+        opt: Math.round(o.getBoundingClientRect().height) + " " + o.className + "|" + getComputedStyle(o.querySelector(".nd-opt-p")).backgroundColor, map: m.borderTopLeftRadius + " " + (m.boxShadow.match(/rgba?\\(/g) || []).length,
+        where: document.querySelector("#nd .nd-where").textContent }; })()`);
+    if (card.radius !== "20px" || card.pad !== "26px" || !card.bg) fail(`the day's card: ${JSON.stringify(card)}`);
+    else if (card.kick !== "12.5px true" || card.head !== "25px balance" || card.body !== "15.5px 15.5px 15.5px") fail(`the day's sizes: kicker ${card.kick}, headline ${card.head}, body ${card.body}`);
+    else if (card.opt !== "48 " + titleOpt.replace(/\|.*/, "") + "|rgba(0, 0, 0, 0)" || titleOpt !== "nd-opt|rgba(0, 0, 0, 0)") fail(`the answers: ${card.opt} in play, ${titleOpt} on the title`);
+    else if (card.map !== "20px 2") fail(`the building's frame: ${card.map}`);
+    else if (card.where !== "Today: the boardroom, top floor") fail(`under the building on Day 1: "${card.where}"`);
+    else console.log(`  ok   1440 wide: the day on the card's paper (20px corner, 26px inset, 12.5, 25 and 15.5px), answers of 48px with a plain price, the same component as Day 1's card; "${card.where}"`);
+    // e. the faults council 9 measured, each measured again: the context's measure, one inset for a tinted box,
+    // the building at 1024 on the rail's edge, the building at a whole scale on a phone, faces at twice their
+    // size, strip numbers at the 11px floor
+    const MEASURE = `(() => { const c = document.querySelector("#nd .nd-ctx"), cs = getComputedStyle(c), x = document.createElement("canvas").getContext("2d"); x.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily; const t = c.textContent; return Math.round(c.clientWidth / (x.measureText(t).width / t.length)); })()`;
+    const faults = [];
+    for (const [w, h] of [[1440, 900], [1024, 768]]) {
+      await fromCold(w, h, "#day-20");
+      const cpl = await evaluate(MEASURE), inset = await evaluate(`getComputedStyle(document.querySelector("#nd .nd-events li")).paddingLeft`);
+      if (cpl > 75) fail(`${w} wide: the context runs ${cpl} characters a line`);
+      if (inset !== "16px") fail(`${w} wide: a tinted box is inset ${inset}`);
+      faults.push(`${w}: context ${cpl} a line, box inset ${inset}`);
+      if (w === 1024) {
+        const edge = await evaluate(`({ map: ${box("#nd .nd-map")}, rail: ${box("#nd .nd-hud")}, card: ${box("#nd .nd-day")}, key: ${box("#nd .nd-rooms")} })`);
+        if (edge.map.l !== edge.rail.l || Math.abs(edge.key.r - edge.card.r) > 1) fail(`1024 wide: the building starts at ${edge.map.l} against the rail at ${edge.rail.l}, the key ends at ${edge.key.r} against the card at ${edge.card.r}`);
+        faults.push(`1024: building at x ${edge.map.l}, rail at ${edge.rail.l}`);
+      }
+    }
+    for (const w of [390, 320]) {
+      await fromCold(w, w === 390 ? 844 : 640, "#day-1");
+      const ph = await evaluate(`(() => { const c = document.querySelector("#nd .nd-map-cv"), b = c.getBoundingClientRect(), f = document.querySelector("#nd .nd-face"), s = document.querySelector("#nd .nd-strip li");
+        return { scale: b.width / c.width, col: Math.round(document.querySelector("#nd .nd-map").getBoundingClientRect().width), w: Math.round(b.width), face: Math.round(f.getBoundingClientRect().width) / 24,
+          strip: Math.min(parseFloat(getComputedStyle(s).fontSize), parseFloat(getComputedStyle(s.querySelector("span")).fontSize)), scene: document.querySelector("#nd .nd-scene canvas").getBoundingClientRect().width / 144 }; })()`);
+      if (ph.scale !== 1 || (w === 390 && ph.w !== ph.col)) fail(`${w} wide: the building is drawn at ${ph.scale.toFixed(3)} screen pixels to an art pixel, ${ph.w}px in a ${ph.col}px frame`);
+      if (ph.face !== 2 || ph.scene !== 2) fail(`${w} wide: faces at ${ph.face}x and the room at ${ph.scene}x`);
+      if (ph.strip < 11) fail(`${w} wide: the strip's numbers are ${ph.strip}px`);
+      faults.push(`${w}: building at ${ph.scale}x (${ph.w}px in ${ph.col}), room at ${ph.scene}x, faces at ${ph.face}x, strip at ${ph.strip}px`);
+    }
+    console.log(`  ok   measured again: ${faults.join("; ")}`);
+    // f. the loop rests while its canvases are off the screen: at 390 on Day 1 the building is far down the page,
+    // and once the people have walked into the room at the top, nothing is drawn until the building is scrolled to
+    await fromCold(390, 844, ""); await evaluate(START); await sleep(2200);
+    const f0 = await evaluate(`window.NDFrames`); await sleep(1200);
+    const f1 = await evaluate(`window.NDFrames`);
+    await evaluate(`(document.querySelector("#nd .nd-map").scrollIntoView({ block: "center", behavior: "instant" }), 1)`); await sleep(900);
+    const f2 = await evaluate(`window.NDFrames`);
+    if (!(f0 > 0)) fail("at 390 the room's people never walked in");
+    else if (f1 !== f0) fail(`at 390 on Day 1, with the building off the screen, the loop drew ${f1 - f0} frames in 1.2 seconds`);
+    else if (!(f2 > f1)) fail("scrolled to, the building does not move");
+    else console.log(`  ok   390 wide, Day 1: ${f0} frames as the people walk in, then none while the building is off the screen, and ${f2 - f1} once it is scrolled to`);
+    if (thrown.length) fail("section 13: script error: " + thrown[0]);
+  }
 } catch (e) {
   failures++; console.log("\nthe play test itself failed: " + e.message);
 } finally {

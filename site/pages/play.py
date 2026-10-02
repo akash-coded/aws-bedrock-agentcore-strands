@@ -26,6 +26,12 @@ FORWARD = ('<script>(function(){function f(){var h=location.hash;if(h&&h.charAt(
            'f();addEventListener("hashchange",f)})();</script>')
 
 
+# Script is here: mark the page before it paints, so the plain list of the days (for a reader without
+# script) never shows for a moment before the game. This script only adds a class; game.js takes it off
+# again if the game cannot start, and the list comes back.
+NOSCRIPT = '<script>document.documentElement.classList.add("nd-js")</script>'
+
+
 def load() -> dict:
     return json.loads(DATA.read_text(encoding="utf-8"))
 
@@ -87,7 +93,7 @@ def build(shell, ctx: dict) -> str:
         desc="Play an airline's ninety-day build of an AI rebooking assistant: thirteen decisions, each with a "
              "price in days, and consequences that arrive later. As one role, the whole team, or the sponsor.",
         body=body, depth=1, nav_id="simulator", canonical=ctx["base"] + "simulator/",
-        head_extra=(FORWARD + '<link rel="stylesheet" href="../play/game.css">'
+        head_extra=(FORWARD + NOSCRIPT + '<link rel="stylesheet" href="../play/game.css">'
                     '<script src="../play/sim.js" defer></script><script src="../play/art.js" defer></script>'
                     '<script src="../play/game.js" defer></script>'),
         kind="simulator", og="home")
