@@ -135,7 +135,8 @@ def _menu(up: str, nav_id: str) -> str:
         ("Libraries", [("templates/", "Artefact templates", "templates"),
                        ("prompts/", "Prompt templates", "prompts"),
                        ("pictures/", "The picture pack", "pictures"),
-                       ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks")]),
+                       ("frameworks/", "Frameworks, acronyms and the pictures", "frameworks"),
+                       ("tools/", "Tool guides · the AI tools by job, with dated facts", "tools")]),
         ("Play", [("simulator/", "Ninety Days · the simulator", "simulator"),
                   ("labs/", "The labs · do the work with your own hands", "labs"),
                   ("workbench/", "The workbench · calculators, playbooks, the case in depth", "workbench")]),
@@ -167,6 +168,7 @@ LIBRARY = [("templates", "Templates", "The document each step produces"),
            ("prompts", "Prompts", "Paste into your model, then edit"),
            ("models", "Mental models", "Rules of thumb for agent work"),
            ("frameworks", "Frameworks", "The four methods and every acronym"),
+           ("tools", "Tool guides", "Claude, ChatGPT and Codex, Google: by job, with dated facts"),
            ("pictures", "Picture pack", "Every diagram, free to reuse"),
            ("workbench", "Workbench", "Seventeen calculators and the case in depth")]
 
@@ -1186,6 +1188,8 @@ def search_index(roles: list[dict]) -> str:
         {"t": "The labs", "d": "Assemble a prompt, read a real model's recorded reply, catch what is wrong, and leave with the document.", "u": "labs/", "k": "Play"},
     ]
     from pages import labs
+    from pages import tools
+    rows += tools.search_rows()
     for lab in labs.load():
         rows.append({"t": f"Lab {lab['n']} · {lab['title']}", "d": lab["does"], "u": f"labs/{lab['slug']}/", "k": "Lab"})
     for w in sorted((SITE.parent / "wiki").glob("*.md")):
@@ -1231,6 +1235,8 @@ def render(out_dir: Path) -> list[str]:
     put("pictures/index.html", pictures.build(shell, ctx))
     from pages import labs
     labs.render(put, shell, ctx)
+    from pages import tools
+    tools.render(put, shell, ctx)
     from pages import learn
     written += learn.render(out_dir, shell)
     return written
@@ -1244,7 +1250,8 @@ def urls() -> list[str]:
          BASE_URL + "method/",
          BASE_URL + "app/SkyWays-Architect.html"]
     from pages import labs
-    return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()] + labs.urls(BASE_URL)
+    from pages import tools
+    return u + [f"{BASE_URL}{r['id']}/" for r in load_roles()] + labs.urls(BASE_URL) + tools.urls(BASE_URL)
 
 
 def dated_urls() -> list[tuple[str, str | None]]:

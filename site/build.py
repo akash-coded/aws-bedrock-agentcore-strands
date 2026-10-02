@@ -117,6 +117,9 @@ SOURCES = {
     "workbench/": ["site/app/SkyWays-Architect.html", "site/frame"],
     "simulator/": ["site/play", "site/pages/play.py"],
     "labs/": ["site/content/labs", "site/pages/labs.py", "site/labs"],
+    "tools/": ["site/content/tools", "site/pages/tools.py"],
+    "tools/claude-at-the-desk/": ["site/content/tools", "site/pages/tools.py"],
+    "tools/claude-in-the-repo/": ["site/content/tools", "site/pages/tools.py"],
 }
 
 
@@ -252,6 +255,7 @@ def build(out: Path, shots: bool = False) -> None:
     print(f"  tool:   app/{SRC.name} (pristine) + workbench/index.html (framed)")
     print(f"  game:   simulator/index.html + play/")
     print(f"  labs:   labs/index.html + {len([p for p in pages if p.startswith('labs/') and p != 'labs/index.html'])} lab pages + labs/lab.js, lab.css")
+    print(f"  tools:  tools/index.html + {len([p for p in pages if p.startswith('tools/') and p != 'tools/index.html'])} manuals, from content/tools/tools.json")
     print(f"  files:  stylesheets and scripts carry a content version in {stamped} pages")
 
 

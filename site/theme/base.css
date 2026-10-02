@@ -2168,3 +2168,135 @@ body .sw-top{left:auto;right:18px;bottom:70px}
   .lead .todo .box{border-color:#000}
 }
 /* end of the leadership page */
+
+/* the tool guides */
+/* /tools/ and its manuals, built by pages/tools.py from content/tools/tools.json. The index's one picture is
+   the table: jobs down the side, three families across, and on a phone each job becomes a short list. A manual
+   is numbered sections; its moves are a numbered list, words on the left and the prompt on the right. A fact
+   is marked with a small number that leads to its row in the dated table at the foot. Every rule is scoped to
+   .tg or to a class only these pages use. */
+
+/* the page's own "Last checked", and any date past sixty days: amber */
+.tg .stale{color:color-mix(in oklab,var(--dg-amber) var(--dg-text),var(--ink))}
+.tg .pmeta .tg-ck.stale::before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;
+  background:var(--dg-amber);vertical-align:1px}
+
+/* a status in the vendor's own word, and the mark that leads to a fact's source */
+.tg-st{display:inline-block;margin-left:7px;padding:2px 7px 3px;border:1px solid var(--rule);border-radius:999px;
+  font:500 11px/1.2 var(--f-mono);color:var(--ink2);vertical-align:2px;white-space:nowrap}
+.tg a.fn{display:inline;margin:0 1px 0 1px;padding:0 2px;font:600 11px/1 var(--f-mono);vertical-align:super;
+  color:var(--soft);text-decoration:none;border-radius:4px}
+.tg a.fn:hover,.tg a.fn:focus-visible{color:var(--ink);background:var(--rule2)}
+/* a command never breaks across two lines */
+.tg :not(pre)>code{white-space:nowrap}
+
+/* the index: the table is the picture */
+.tg .phead{padding-bottom:clamp(26px,3.5vw,40px)}
+.tg-map{margin:0 0 clamp(56px,7vw,96px)}
+.tg-map .tw{margin:0}
+.tg-map table{table-layout:fixed;font-size:14px}
+.tg-map col.j{width:19%}
+.tg-map thead th{padding:13px 18px;font:500 12.5px var(--f-mono);color:var(--ink2);white-space:normal}
+.tg-map tbody th{padding:18px 18px 20px;font-weight:400}
+.tg-map tbody th b{display:block;font-family:var(--f-display);font-size:17.5px;font-weight:620;letter-spacing:-.018em;line-height:1.25}
+.tg-map tbody th span{display:block;margin-top:5px;font-size:13px;line-height:1.45;color:var(--soft)}
+.tg-map td{padding:18px 18px 20px}
+.tg-map a.tg-t{font-size:15px;font-weight:640;color:var(--ink);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:color-mix(in oklab,var(--ink) 30%,transparent);text-decoration-thickness:1px}
+.tg-map a.tg-t:hover{text-decoration-color:var(--ink)}
+.tg-map td p{margin:7px 0 0;font-size:13.5px;line-height:1.52;color:var(--ink2);max-width:none}
+.tg-map .tg-in{display:inline-block;margin-top:10px;font:500 12.5px var(--f-mono);color:var(--ink2);text-decoration:none}
+.tg-map .tg-in::after{content:" →";color:var(--soft)}
+.tg-map .tg-in:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.tg-map .tg-old{display:block;margin-top:8px;font:500 12px var(--f-mono)}
+.tg-map .tg-more th[colspan]{padding:22px 18px 8px;font:500 12.5px var(--f-mono);color:var(--soft);background:none;
+  border-top:1px solid var(--rule)}
+.tg-map .tg-more tr:hover{background:none}
+.tg-map .tg-more th b{font-size:16px}
+/* where the prices, the limits and the models are: a row of links, one per family */
+.tg-map .tg-src th,.tg-map .tg-src td{padding-top:14px;padding-bottom:16px;border-top:1px solid var(--rule)}
+.tg-map .tg-src th b{font-size:15px}
+.tg-map .tg-src td a{display:inline-block;margin:2px 18px 2px 0;font:500 12.5px var(--f-mono);color:var(--ink2)}
+.tg-map .tg-src tr:hover{background:none}
+.tg-key{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 40px;margin:18px 0 0}
+.tg-key p{margin:0;font-size:13.5px;line-height:1.55;color:var(--soft);max-width:62ch}
+
+/* the index: the manuals, as the shelf's tiles */
+.tg-shelf{margin:0}
+.tg-sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 40px;align-items:end;margin:0 0 26px}
+.tg-sh h2{margin:0;font-size:clamp(25px,3vw,36px);font-weight:620;letter-spacing:-.03em;line-height:1.1;max-width:18ch}
+.tg-sh p{margin:0;font-size:16px;line-height:1.58;color:var(--ink2);max-width:52ch}
+.tg .shelf{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tg .shelf .tile{min-height:190px}
+.tg-soon{margin:18px 0 0;font-size:14px;color:var(--soft)}
+
+/* a manual */
+.tg-man .phead .lede{max-width:52ch}
+.tg-man>.sec>p{max-width:64ch}
+.tg-what{margin:0;font-size:clamp(17px,1.45vw,18.5px);line-height:1.62;color:var(--ink2);max-width:62ch}
+.tg-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px}
+.tg-list li{margin:0;padding:16px 0 18px;border-top:1px solid var(--rule);font-size:15.5px;line-height:1.6;color:var(--ink2);max-width:none}
+
+/* the five moves: a numbered list; the words on the left, the prompt on the right */
+.tg-moves{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--rule)}
+.tg-move{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:16px 34px;align-items:start;margin:0;
+  padding:26px 0 28px;border-top:1px solid var(--rule);max-width:none;scroll-margin-top:84px}
+.tg-mw{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 10px;font:500 12.5px var(--f-mono);color:var(--soft)}
+.tg-mn{color:var(--ink)}
+.tg-ph{color:color-mix(in oklab,var(--c) var(--dg-text),var(--ink))}
+.tg-move h3{margin:0 0 10px;font-size:clamp(19px,1.8vw,22px);font-weight:620;letter-spacing:-.022em;line-height:1.2}
+.tg-move .tg-mt>p:not(.tg-mw){margin:0 0 10px;font-size:15.5px;line-height:1.6;color:var(--ink2)}
+.tg-lab a{display:inline-flex;gap:6px;font-size:14.5px;font-weight:600;color:var(--ink)}
+.tg-lab a i{font-style:normal;transition:transform 250ms var(--ease)}
+.tg-lab a:hover i{transform:translateX(3px)}
+.tg-move .blk{margin:0}
+.tg-move .blk code{white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* the three settings, ruled columns */
+.tg-set .tg-sn{margin:0 0 6px;font:500 12.5px var(--f-mono);color:var(--soft)}
+.tg-set .card h3{margin:0 0 8px}
+.tg-set .card p:not(.tg-sn){font-size:15px;line-height:1.6;color:var(--ink2)}
+
+/* every fact the page used, with its source and the date */
+.tg-facts table{font-size:14px}
+.tg-facts td{padding:12px 16px}
+.tg-facts td.n{width:52px;font:500 12.5px var(--f-mono);color:var(--soft)}
+.tg-facts td.s{width:34%}
+.tg-facts td.s a{display:block;font:500 12.5px/1.45 var(--f-mono);color:var(--ink2);overflow-wrap:anywhere;text-decoration:none}
+.tg-facts td.s a b{font-weight:600;color:var(--ink)}
+.tg-facts td.s a:hover span{text-decoration:underline}
+.tg-facts td.s time{display:block;margin-top:4px;font:500 12px var(--f-mono);color:var(--soft)}
+.tg-facts td.s time.stale{color:color-mix(in oklab,var(--dg-amber) var(--dg-text),var(--ink))}
+.tg-facts tr:target{background:color-mix(in oklab,var(--accent) 10%,transparent)}
+.tg-facts tr{scroll-margin-top:84px}
+
+@media (max-width:1100px){.tg-move{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.tg-list,.tg-key,.tg-sh{grid-template-columns:minmax(0,1fr)}}
+/* on a phone a link that stands alone is a full finger tall */
+@media (max-width:820px){.tg-map a.tg-t,.tg-map .tg-in,.tg-map .tg-src td a,.tg-lab a{display:inline-flex;align-items:center;min-height:44px}
+  .tg-map .tg-in{margin-top:0}.tg-map td p{margin-top:2px}}
+/* a phone: the table becomes one short list per job, with each family named, and the facts table a list too */
+@media (max-width:760px){
+  .tg-map .tw,.tg-facts.tw{border:0;border-radius:0;background:none;overflow:visible}
+  main.tg .tg-map .tw table,main.tg .tg-facts.tw table{min-width:0}
+  .tg-map table,.tg-map tbody,.tg-map tr,.tg-map th,.tg-map td,
+  .tg-facts table,.tg-facts tbody,.tg-facts tr,.tg-facts td{display:block;width:auto}
+  .tg-map thead,.tg-facts thead,.tg-map colgroup{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .tg-map tbody tr{padding:18px 0 4px;border-top:1px solid var(--rule)}
+  .tg-map tbody tr:hover{background:none}
+  .tg-map tbody th{padding:0 0 6px;border:0}
+  .tg-map td{padding:12px 0 14px;border:0;border-top:1px solid var(--rule2)}
+  .tg-map td[data-f]::before{content:attr(data-f);display:block;margin-bottom:5px;font:500 12px var(--f-mono);color:var(--soft)}
+  .tg-map .tg-more th[colspan]{padding:22px 0 4px}
+  .tg-map .tg-more tr.tg-grp{padding:0;border:0}
+  .tg-map .tg-src th,.tg-map .tg-src td{border-top:0}
+  .tg-map .tg-more td{border-top:0;padding-top:4px}
+  .tg-facts tr{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 10px;padding:14px 0;border-top:1px solid var(--rule)}
+  .tg-facts td{padding:0;border:0}
+  .tg-facts td.s{grid-column:2;width:auto}
+  .tg-facts td.n{width:auto}
+  .tg .shelf{grid-template-columns:minmax(0,1fr)}
+  .tg .shelf .tile{min-height:0}
+}
+@media print{.tg-map .tw,.tg-facts.tw{overflow:visible}.tg-move{break-inside:avoid}}
+/* end of the tool guides */
