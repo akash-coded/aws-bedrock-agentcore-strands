@@ -44,7 +44,8 @@ out of commits with these lines in `.gitignore`:
 
 ## Bedrock: any model, and images (every call is billed to the owner's AWS account)
 
-The owner has a long-term Amazon Bedrock API key with the default permissions (`AmazonBedrockLimitedAccess`):
+The owner has a long-term Amazon Bedrock API key with `AmazonBedrockLimitedAccess` and, when the owner adds it,
+`AmazonBedrockFullAccess` (every Bedrock action):
 any model on `bedrock-runtime` and `bedrock-mantle` (InvokeModel, Converse, the OpenAI-compatible and Messages
 APIs), guardrails, web search, batch, evaluation and fine-tuning jobs, provisioned throughput, and the
 Marketplace step that switches a third-party model on at its first call. It does not work with other AWS
@@ -57,13 +58,20 @@ The owner puts the key in the environment, in one of two ways. Claude never type
   send it as `Authorization: Bearer $AWS_BEARER_TOKEN_BEDROCK`; OpenAI-compatible SDKs take it as their API
   key with the base URL `https://bedrock-runtime.<region>.amazonaws.com/openai/v1`. A session that is already
   running sees a new variable only after its machine restarts.
-- **API credential** (sessions never see the key; Pro and Max plans): in the environment's settings, API
-  credentials, Add credential. Type `Bearer`; allowed websites: the Bedrock hosts in use, for example
-  `bedrock-runtime.us-east-1.amazonaws.com`, `bedrock-runtime.us-west-2.amazonaws.com`,
-  `bedrock.us-east-1.amazonaws.com`, `bedrock-mantle.us-east-1.api.aws`; header `Authorization`, prefix
-  `Bearer`. The proxy adds the key to requests that carry no Authorization header of their own, so use the
-  helpers below or plain HTTP; SDKs that sign their own requests will not work this way. Never allow
-  `*.amazonaws.com`: the key would go to every AWS service.
+- **API credential, type Bearer** (sessions never see the key; Pro and Max plans): in the environment's
+  settings, API credentials, Add credential. Allowed websites: one wildcard per Region in use, which covers
+  every Bedrock endpoint there, plus the OpenAI-compatible hosts: `*.us-east-1.amazonaws.com`,
+  `*.us-west-2.amazonaws.com`, `*.ap-south-1.amazonaws.com`, `*.eu-west-1.amazonaws.com`, `*.api.aws`.
+  Custom header `Authorization`, prefix `Bearer`, value the key. Plain HTTP and the helpers below need
+  nothing more; SDKs also need the variable above. Avoid `*.amazonaws.com` for a Bearer key: the key would
+  then go to every AWS host, and unauthenticated downloads from AWS hosts inside a session can fail.
+- **API credential, type AWS SigV4** (every AWS service, not only Bedrock): an IAM user's access key pair,
+  allowed websites `*.amazonaws.com`. The proxy strips the request's signature and signs it again with the
+  stored key, so the AWS CLI and SDKs work with placeholder credentials: the environment's variables set
+  `AWS_ACCESS_KEY_ID=placeholder`, `AWS_SECRET_ACCESS_KEY=placeholder` and `AWS_REGION`, and do not set
+  `AWS_BEARER_TOKEN_BEDROCK`. The Bearer credential for the Bedrock key then keeps only `*.api.aws`, so the
+  two never cover the same host. An HTTP 502 whose reason starts `injection failed` means the proxy could
+  not sign that hostname (for example `ec2.amazonaws.com`, which has no Region in it).
 
 The helpers here work either way:
 
