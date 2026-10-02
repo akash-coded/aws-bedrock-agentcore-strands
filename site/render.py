@@ -130,7 +130,7 @@ def _menu(up: str, nav_id: str) -> str:
                    ("method/", "The method · four phases on one page", "method"),
                    ("learn/interviews/", "Interview banks and careers", "")]),
         ("Your role, end to end", roles),
-        ("For leadership", [("protocol/", "The operating protocol", "protocol"),
+        ("For leadership", [("protocol/", "Four decisions only you can make", "protocol"),
                             ("models/", "Twelve mental models", "models")]),
         ("Libraries", [("templates/", "Artefact templates", "templates"),
                        ("prompts/", "Prompt templates", "prompts"),
@@ -1175,7 +1175,7 @@ def search_index(roles: list[dict]) -> str:
     for m in models.MODELS:
         rows.append({"t": m["name"], "d": _re.sub(r"<[^>]+>", "", m["one"]), "u": f"models/#{m['id']}", "k": "Mental model"})
     rows += [
-        {"t": "The operating protocol", "d": "For whoever funds the work: what changes, who does what, the four decisions only leadership can make.", "u": "protocol/", "k": "Leadership"},
+        {"t": "Four decisions only you can make", "d": "For whoever funds the work: the question to ask about each decision at your next review, a test for each answer, ninety days and your first thirty.", "u": "protocol/", "k": "Leadership"},
         {"t": "The SkyWays PDLC on one page", "d": "Four phases, one hard gate, eight loops, each role across the phases, and what a model may draft.", "u": "method/", "k": "Method"},
         {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one lifecycle; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
         {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},

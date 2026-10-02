@@ -150,7 +150,9 @@ def catalogue() -> list[dict]:
         cap = ""
         if key.startswith("map:"):
             slug = key.split(":", 1)[1]
-            title = lessons[slug].title if slug in lessons else slug.replace("-", " ")
+            if slug not in lessons:
+                continue  # a map drawn for a page, not a lesson (the leadership page's line): no lesson to link to
+            title = lessons[slug].title
         elif key.startswith("sketch:"):      # its name is its title; its caption is what it says; it lives in its lesson
             sp = sketches[key.split(":", 1)[1]]
             title, cap = sp["name"].replace("-", " ").capitalize(), sp["caption"]

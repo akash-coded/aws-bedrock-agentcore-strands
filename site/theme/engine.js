@@ -127,7 +127,7 @@
         normal: pct(lo), wilson: pct(wilson),
         bound: { v: pct(use) + (n < 100 ? " (Wilson)" : ""), tone: proven ? "ok" : "warn" },
         verdict: proven
-          ? { v: "Proven — the lower bound clears the bar.", tone: "ok" }
+          ? { v: "Proven: the lower bound clears the bar.", tone: "ok" }
           : p <= bar
             ? { v: "The score itself is below the bar. More cases will not fix this.", tone: "stop" }
             : { v: "Not proven. Owe " + (needed - n).toLocaleString("en-GB") + " more cases (" +
@@ -246,7 +246,7 @@
           var missing = boxes.filter(function (b) { return !b.checked; })[0];
           next.textContent = missing
             ? (missing.getAttribute("data-label") || "").trim()
-            : "Nothing missing. Re-check in a quarter — this list goes stale.";
+            : "Nothing missing. Re-check in a quarter: this list goes stale.";
         }
         root.setAttribute("data-filled", String(got.length));
       }
