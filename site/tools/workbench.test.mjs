@@ -301,7 +301,10 @@ try {
   };
   if (want("pictures")) {
     console.log("the ten pictures");
-    await viewport(1440, 900); await boot(themeBoot("light") + `;try{localStorage.setItem("skyways.rail","on")}catch(e){}`);
+    // simshots.mjs shoots in a fresh profile, so the pictures show what a new reader sees. The sections before
+    // this one leave progress in the browser (answered stops shorten the flight plan's P0 column), so it is
+    // cleared here before the page is measured.
+    await viewport(1440, 900); await boot(`try{localStorage.clear()}catch(e){};` + themeBoot("light") + `;try{localStorage.setItem("skyways.rail","on")}catch(e){}`);
     await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: "light" }, { name: "prefers-reduced-motion", value: "reduce" }] });
     await fresh(BASE + "#/start", 2500);
     for (const [name, hash, sel] of SHOTS) {
