@@ -120,6 +120,8 @@ SOURCES = {
     "tools/": ["site/content/tools", "site/pages/tools.py"],
     "tools/claude-at-the-desk/": ["site/content/tools", "site/pages/tools.py"],
     "tools/claude-in-the-repo/": ["site/content/tools", "site/pages/tools.py"],
+    "tools/chatgpt-and-codex/": ["site/content/tools", "site/pages/tools.py"],
+    "tools/google-ai-studio-and-jules/": ["site/content/tools", "site/pages/tools.py"],
 }
 
 

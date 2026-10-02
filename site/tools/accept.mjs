@@ -67,7 +67,8 @@ if (!BASE) { console.error("usage: node accept.mjs <site url, ending in />"); pr
 const PAGES = ["", "method/", "product-manager/", "qa/", "protocol/", "models/", "templates/", "prompts/",
   "frameworks/", "pictures/", "learn/", "learn/fundamentals/", "learn/the-hard-gate/", "learn/p0-frame/", "simulator/",
   "labs/", "labs/grow-the-spec/", "labs/grow-the-spec/others/", "labs/write-the-system-prompt/",
-  "labs/write-the-system-prompt/others/", "tools/", "tools/claude-at-the-desk/"];
+  "labs/write-the-system-prompt/others/", "tools/", "tools/claude-at-the-desk/",
+  "tools/chatgpt-and-codex/", "tools/google-ai-studio-and-jules/"];
 // The simulator draws on a canvas from script, which the browser's list of animations cannot see. Its
 // loop counts its own frames in window.NDFrames, so the gate can ask.
 const FRAMES = `(typeof window.NDFrames === "number" ? window.NDFrames : -1)`;

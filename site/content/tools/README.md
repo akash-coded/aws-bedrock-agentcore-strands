@@ -51,6 +51,21 @@ to the fact's row in the dated table at the foot of the page. Each manual lists 
 build refuses a manual whose marks and list disagree, so the table always holds every fact the page used,
 and no sentence of fact appears on a page without its source.
 
+Each manual names its `family`. Its closing paragraph links that family's plans and models pages, or the
+pages in the manual's own `links` when the family's pages are not the ones a reader of that manual needs
+(the Google manual links Jules's plans, AI Studio's plans and the Gemini models page). A cell in the table at
+`/tools/` links to the manual that uses the cell's own fact, or else to the first manual with a fact about
+the same tool, the same `family` and `surface`. So when a manual covers a cell's tool from a newer page,
+give its facts the cell's `surface`, word for word.
+
+## Reading a vendor's page exactly
+
+Open the page itself, and quote from it. Several vendors publish each documentation page as plain Markdown,
+which shows the exact wording without the site around it: OpenAI's docs at `learn.chatgpt.com` and
+`developers.openai.com` add `.md` to the address, Google's at `ai.google.dev` add `.md.txt`, and Jules's
+pages are at `jules.google/docs/<page>.md`. OpenAI's help centre, `help.openai.com`, refuses this
+environment's proxy, so its facts are taken from those two documentation sites or left out.
+
 ## Words
 
 The site's voice (`site/DESIGN.md`): plain sentences of about twenty words, British spelling, no dashes, the

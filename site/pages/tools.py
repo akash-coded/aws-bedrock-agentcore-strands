@@ -5,7 +5,7 @@ Where things are:
 - ``site/content/tools/tools.json``: every fact, each with its source address and the date it was checked.
   ``README.md`` beside it is the authoring guide. Nothing on these pages states a fact about a tool that is
   not a sentence in that file.
-- this module: loads and checks the facts, holds the two manuals' words, and renders the index
+- this module: loads and checks the facts, holds the manuals' words, and renders the index
   (``/tools/``) and one page per manual (``/tools/<slug>/``).
 
 A manual's text marks each fact it uses. ``{{id}}`` puts the fact's own sentence on the page, followed by a
@@ -100,7 +100,7 @@ SECTIONS = [("what", "What it is"), ("not", "When not to use it"), ("moves", "Fi
             ("facts", "The facts, dated")]
 
 DESK = {
-    "slug": "claude-at-the-desk", "n": 1, "name": "Claude at the desk",
+    "slug": "claude-at-the-desk", "n": 1, "name": "Claude at the desk", "family": "claude",
     "kicker": "Tool guide 1 · the Claude apps",
     "h1": "How the airline's team uses Claude at the desk",
     "lede": "Chat, Projects, skills, connectors and scheduled tasks, for the people who write the spec.",
@@ -208,7 +208,7 @@ DESK = {
 }
 
 REPO = {
-    "slug": "claude-in-the-repo", "n": 2, "name": "Claude in the repo",
+    "slug": "claude-in-the-repo", "n": 2, "name": "Claude in the repo", "family": "claude",
     "kicker": "Tool guide 2 · Claude Code",
     "h1": "How the airline's engineers use Claude in the repo",
     "lede": "Claude Code in the terminal, VS Code, the cloud and Chrome, for the people who build.",
@@ -294,11 +294,218 @@ REPO = {
               "cc-prompt-audit", "cc-auto", "cc-deny", "cc-hooks", "cc-skills-context", "cc-chrome-cli",
               "cc-headless", "cc-headless-trap", "cc-routines", "cc-routines-green", "cc-cloud-autofix",
               "cc-worktrees", "cc-remote"],
-    "next": ("Back to the table: the same jobs, in every family of tools.", "../", "All the tool guides"),
+    "next": ("The same team, with OpenAI's tools: the third manual.", "../chatgpt-and-codex/", "ChatGPT and Codex"),
 }
 
-MANUALS = [DESK, REPO]
-NEXT_UP = "ChatGPT with Codex, and Google AI Studio with Jules, are next."
+OPENAI = {
+    "slug": "chatgpt-and-codex", "n": 3, "name": "ChatGPT and Codex", "family": "openai",
+    "kicker": "Tool guide 3 · ChatGPT and Codex",
+    "h1": "How the airline's team uses ChatGPT and Codex",
+    "lede": "ChatGPT's projects and scheduled tasks for the spec, and Codex in the repository, on GitHub and in the cloud.",
+    "card": "ChatGPT's projects and scheduled tasks for the spec, and Codex in the repository, on GitHub and in the "
+            "cloud, as the team uses them.",
+    "what": {"h2": "What ChatGPT and Codex do for a team", "body": (
+        "{{chatgpt-work}} {{openai-codex-cli}} At the fictional airline, Priya, the product manager, keeps the "
+        "rebooking assistant's case in a ChatGPT project. Arjun, the architect, writes the file Codex reads before it "
+        "works, and Maya, the QA lead, teaches its reviewer the one rule that matters most.")},
+    "not": {"h2": "When to reach for something else", "items": [
+        "When you are tuning the rebooking assistant's own system prompt. {{openai-playground-iterate}} "
+        "{{openai-prompts-code}} So the prompt that ships lives in git, beside the tests that judge it.",
+        "When the 500 past cases need a home for their checks. {{openai-evals}} Keep the cases and the checks in the "
+        "repository, where CI runs them.",
+        "When a cloud task would need a browser, or the code lives on GitLab. {{codex-cloud-limits}}",
+    ]},
+    "moves": {"h2": "Five moves the airline's team makes with it",
+              "lead": "Each move names who makes it, in which phase, and the words they use. Copy one and change the nouns.",
+              "items": [
+        {"phase": "P1", "who": "Priya, product manager", "title": "Keep the whole case in one project",
+         "say": "Priya opens a project for the rebooking assistant and adds the PRD-lite, the interview notes and the "
+                "glossary to its sources. {{chatgpt-projects}}",
+         "code": ("Project instructions", "This project is SkyWays' rebooking assistant. Owner: Priya (product).\n"
+                  "Read the PRD in this project's sources before you answer.\n"
+                  "Take every number from the PRD: the 38-minute wait, the 240 cases a day, the $400 refund limit.\n"
+                  "Never supply a number yourself.\n"
+                  "Where the PRD is silent, write NOT DECIDED, the question, and who answers it."),
+         "after": "{{chatgpt-projects-folder}} So each time the spec changes on her laptop, Priya uploads the new "
+                  "version and removes the old one."},
+        {"phase": "P1", "who": "Priya, product manager", "title": "Chase the open questions every morning",
+         "say": "A spec waits on its owners, and chasing them is a daily chore. Priya hands it to a scheduled task in "
+                "ChatGPT Work. {{chatgpt-scheduled-web}}",
+         "code": ("Scheduled task, weekdays at 08:00", "Read the rebooking spec in @Google Drive and the #rebooking "
+                  "channel in @Slack.\nList every spec field still marked NOT DECIDED, its owner, and the days it has "
+                  "been open, oldest first.\nDo not answer any of them. Do not post anywhere. Send the list to me."),
+         "after": "{{chatgpt-scheduled-test}} Priya ran the prompt by hand for a week before she scheduled it."},
+        {"phase": "P1", "who": "Arjun, architect", "title": "Write the file every Codex session reads",
+         "say": "{{codex-agentsmd}} Arjun writes the repository's file before the first session, and reviews changes "
+                "to it like code.",
+         "code": ("AGENTS.md", "# Rebooking service\n\n"
+                  "The spec is docs/spec.md. Read fields 3, 5 and 7 before you change behaviour.\n"
+                  "The $400 refund limit is one constant in refund_tool.py. Never copy it into a prompt.\n"
+                  "Every limit in the spec's field 5 is enforced in code, with a test below, at and above it.\n"
+                  "Never book on a stale fare: when the fare engine is down, the case queues for an agent.\n"
+                  "Run the tests before you call a change done."),
+         "after": "{{cc-agentsmd}} So the airline keeps one file, AGENTS.md, and Codex and Claude Code both read it."},
+        {"phase": "P2", "who": "Maya, QA lead", "title": "Teach the reviewer the one rule that matters",
+         "say": "{{codex-review-rules}} Maya writes down the rule reviewers most often have to explain, then asks for "
+                "a review on the pull request.",
+         "code": ("AGENTS.md, then a comment on the pull request", "## Code Review Rules\n\n### Refund limit\n"
+                  "Flag any change that types 400 as a number, or moves the refund limit into a prompt.\n"
+                  "Safe path: import REFUND_LIMIT from refund_tool.py.\n"
+                  "Flag any refund path without a test at $400 and at $400.01.\n\n"
+                  "@codex review for the refund path and its limit"),
+         "after": "{{codex-review-p0}} {{codex-review-not-tests}} So the test at $400.01 is still the gate."},
+        {"phase": "P2", "who": "an engineer", "title": "Hand the evaluation run to Codex Cloud",
+         "say": "{{codex-cloud-env}} The run on the 500 past cases takes a while, so the engineer sends it to the "
+                "environment Arjun published.",
+         "code": ("Terminal", "git push\n"
+                  "codex cloud exec --env <rebooking-env-id> \\\n  'Run the evaluation on the 500 past cases in "
+                  "eval/cases.csv. Report the share handled right for each kind of case, codeshare as its own group, "
+                  "against the bar in docs/spec.md field 6. Change no code.'"),
+         "after": "{{codex-cloud-cli}} The push comes first. {{codex-cloud-local}}"},
+    ]},
+    "poor": {"h2": "Where ChatGPT and Codex let you down", "items": [
+        "Its instructions have a ceiling. {{codex-agentsmd-cap}} Keep the root file short, and put a service's rules "
+        "in that service's folder.",
+        "The browser stays in ChatGPT. {{chatgpt-browser-where}} So the walk through the agent's screen happens in "
+        "the desktop app, not the terminal.",
+        "A cloud task is a workbench, not a record. {{codex-cloud-commit}}",
+    ]},
+    "settings": {"h2": "Three settings decide how it behaves", "items": [
+        ("The memory file: AGENTS.md", "{{codex-memories}} {{codex-memories-off}}"),
+        ("Permissions: what it may do alone", "{{codex-sandbox}} {{codex-sandbox-default}} {{codex-sandbox-protected}}"),
+        ("Context: what each chat starts from", "{{codex-skills}} {{codex-search-cached}} Install the skills the team "
+                                                "uses, and no more."),
+    ]},
+    "traps": {"h2": "The traps that catch a team", "items": [
+        "A scheduled task does not stop to ask. {{chatgpt-scheduled-unattended}} {{chatgpt-scheduled-fullaccess}}",
+        "{{codex-mention}} Only `@codex review` asks for a review.",
+        "{{codex-review-legacy}}",
+        "{{codex-yolo}}",
+        "{{codex-exec-key}}",
+        "{{codex-untrusted}}",
+        "Prompts kept in OpenAI's dashboard have an end date. {{openai-prompt-objects}}",
+    ]},
+    "facts": ["chatgpt-work", "openai-codex-cli", "openai-playground-iterate", "openai-prompts-code", "openai-evals",
+              "codex-cloud-limits", "chatgpt-projects", "chatgpt-projects-folder", "chatgpt-scheduled-web",
+              "chatgpt-scheduled-test", "codex-agentsmd", "cc-agentsmd", "codex-review-rules", "codex-review-p0",
+              "codex-review-not-tests", "codex-cloud-env", "codex-cloud-cli", "codex-cloud-local", "codex-agentsmd-cap",
+              "chatgpt-browser-where", "codex-cloud-commit", "codex-memories", "codex-memories-off", "codex-sandbox",
+              "codex-sandbox-default", "codex-sandbox-protected", "codex-skills", "codex-search-cached",
+              "chatgpt-scheduled-unattended", "chatgpt-scheduled-fullaccess", "codex-mention", "codex-review-legacy",
+              "codex-yolo", "codex-exec-key", "codex-untrusted", "openai-prompt-objects"],
+    "next": ("The same team, with Google's tools: the fourth manual.", "../google-ai-studio-and-jules/",
+             "Google AI Studio and Jules"),
+    "links": [("ChatGPT's plans and prices", "https://chatgpt.com/pricing"),
+              ("the Work and Codex pricing page", "https://learn.chatgpt.com/docs/pricing"),
+              ("the models page", "https://learn.chatgpt.com/docs/models")],
+}
+
+GOOGLE = {
+    "slug": "google-ai-studio-and-jules", "n": 4, "name": "Google AI Studio and Jules", "family": "google",
+    "kicker": "Tool guide 4 · Google AI Studio and Jules",
+    "h1": "How the airline's team uses Google AI Studio and Jules",
+    "lede": "AI Studio to try a prompt and its settings before any code, and Jules to take a bounded chore off the "
+            "engineers' hands.",
+    "card": "AI Studio to try a prompt before any code, and Jules for the chores the engineers hand off, as the team "
+            "uses them.",
+    "what": {"h2": "What AI Studio and Jules do for a team", "body": (
+        "{{google-ai-studio}} {{google-jules}} At the fictional airline, an engineer tries the rebooking assistant's "
+        "instructions in AI Studio before anyone writes the call, and the team hands Jules the chores the signed spec "
+        "makes plain, such as a missing test.")},
+    "not": {"h2": "When to reach for something else", "items": [
+        "When a prompt would carry a real passenger's details. {{gemini-terms-unpaid}} {{gemini-terms-sensitive}} "
+        "{{gemini-terms-paid}} Until the account is on the paid terms, the team tests with made-up cases.",
+        "When the code is not on GitHub. {{jules-github-only}}",
+        "When the check needs the service running, as the walk through the agent's screen does. "
+        "{{jules-no-dev-server}} That walk belongs to a browser agent, as in [Claude in the repo](../claude-in-the-repo/)"
+        "[[cc-chrome]].",
+        "When the team needs a paid plan on its company accounts. {{jules-plans-gmail}}",
+    ]},
+    "moves": {"h2": "Five moves the airline's team makes with it",
+              "lead": "Each move names who makes it, in which phase, and the words they use. Copy one and change the nouns.",
+              "items": [
+        {"phase": "P1", "who": "an engineer", "title": "Try the assistant's instructions before any code",
+         "say": "The engineer opens the playground, pastes the draft into System Instructions, and plays a passenger "
+                "whose flight is cancelled. {{aistudio-run-settings}}",
+         "code": ("System instructions", "You are SkyWays' rebooking assistant. The passenger's flight is cancelled.\n"
+                  "Offer the next two SkyWays flights that have seats. Never invent a flight or a fare.\n"
+                  "For a refund, call the refund tool and offer only what it returns. Never name an amount yourself.\n"
+                  "For a partner (codeshare) booking, hand the case to an agent.\n"
+                  "When the fare engine is down, say so, and queue the case for an agent."),
+         "after": "{{aistudio-si-editable}} So the engineer starts a new chat for each version, and keeps the version "
+                  "that passed in git."},
+        {"phase": "P1", "who": "Arjun, architect", "title": "Pin the reply to a schema",
+         "say": "The refund tool reads a record, not prose. {{gemini-structured}} Arjun turns structured output on in "
+                "Run settings and gives it the record the tool expects.",
+         "code": ("Structured output schema", '{\n  "type": "object",\n  "properties": {\n'
+                  '    "action": {"type": "string", "enum": ["rebook", "refund", "hand_to_agent", "queue"]},\n'
+                  '    "flight": {"type": ["string", "null"], "description": "A SkyWays flight number from the tool, or null"},\n'
+                  '    "reason": {"type": "string", "description": "One sentence a contact-centre agent can read"}\n'
+                  '  },\n  "required": ["action", "flight", "reason"]\n}'),
+         "after": "{{gemini-structured-validate}} So the refund tool still checks every amount, and the schema fixes "
+                  "only the shape."},
+        {"phase": "P1", "who": "Priya, product manager", "title": "Ask with Search on, and keep the sources",
+         "say": "Before the fallback field is signed, Priya asks what the rules in SkyWays' markets require, with each "
+                "claim tied to its source. {{google-search-grounding}}",
+         "code": ("Prompt, with Grounding with Google Search on",
+                  "SkyWays flies in these markets: <the list in section 2 of the PRD>.\n"
+                  "For each market, what must an airline offer a passenger whose flight it cancels: rebooking, a "
+                  "refund, care?\nUse the regulator's own pages and the law itself, nothing else.\n"
+                  "Cite every claim. Where a rule is unclear, or two sources disagree, say so.\n"
+                  "Do not estimate any amount."),
+         "after": "{{gemini-grounding-stored}} So the prompt names markets, never a passenger."},
+        {"phase": "P2", "who": "an engineer", "title": "Hand Jules the missing tests, and read the plan",
+         "say": "The spec wants the refund tool tested at and around its limit, and two of those tests are missing: a "
+                "bounded chore. {{jules-cli}}",
+         "code": ("Terminal", "jules remote new --repo skyways/rebooking \\\n  --session 'Add tests for refund_tool.py at the "
+                  "limit, one cent below it and one cent above it. Read the limit from REFUND_LIMIT and never type the "
+                  "number. Change nothing outside tests/. If a test fails, stop and say why.'"),
+         "after": "{{jules-plan}} The engineer approves it only when the plan reads the limit from the constant."},
+        {"phase": "P2", "who": "Maya, QA lead", "title": "Start Jules from the bug report",
+         "say": "When a past case fails the new evaluation, Maya files it as an issue. {{jules-label}}",
+         "code": ("GitHub issue, labelled jules", "Title: Codeshare refunds above the limit skip the agent\n\n"
+                  "Past case 318: a partner (codeshare) booking, and the passenger asks for a refund above the limit.\n"
+                  "Expected: the case goes to an agent, as the spec says.\n"
+                  "Actual: the assistant offers the refund itself.\n"
+                  "Change only the codeshare branch in rebooking/route.py.\n"
+                  "Add case 318 to eval/cases.csv. Do not touch refund_tool.py."),
+         "after": "{{jules-author}} So Maya reviews the pull request as she would a stranger's."},
+    ]},
+    "poor": {"h2": "Where AI Studio and Jules let you down", "items": [
+        "A long chat fills up. {{aistudio-chat-grows}}",
+        "An unread plan still runs. {{jules-auto-approve}} So a task is started only when someone can read its plan.",
+        "Its machine is online. {{jules-internet}}",
+    ]},
+    "settings": {"h2": "Three settings decide how it behaves", "items": [
+        ("The memory file: AGENTS.md", "{{jules-agentsmd}} It can be the file the [ChatGPT and Codex](../chatgpt-and-codex/) "
+                                       "manual writes. In AI Studio the system instruction plays that part, so it lives "
+                                       "in git beside its tests."),
+        ("Permissions: what it may touch", "{{jules-repo-access}} {{jules-commit-modes}} {{aistudio-workspace}}"),
+        ("Context: what each task starts from", "{{jules-vm}} {{jules-setup}} Arjun's script installs the requirements "
+                                                "and runs the refund tool's tests."),
+    ]},
+    "traps": {"h2": "The traps that catch a team", "items": [
+        "Two of Jules's own pages disagree on how finished it is: the getting-started page calls it "
+        "experimental[[google-jules]]. {{jules-beta}}",
+        "{{jules-ci-fixer}} So a green check on a Jules pull request may be its second attempt. Read the commits, not "
+        "the tick.",
+        "{{jules-schedule-edit}}",
+        "A low temperature is not the safe setting it looks like. {{gemini-temperature}}",
+    ]},
+    "facts": ["google-ai-studio", "google-jules", "gemini-terms-unpaid", "gemini-terms-sensitive", "gemini-terms-paid",
+              "jules-github-only", "jules-no-dev-server", "cc-chrome", "jules-plans-gmail", "aistudio-run-settings", "aistudio-si-editable",
+              "gemini-structured", "gemini-structured-validate", "google-search-grounding", "gemini-grounding-stored",
+              "jules-cli", "jules-plan", "jules-label", "jules-author", "aistudio-chat-grows", "jules-auto-approve",
+              "jules-internet", "jules-agentsmd", "jules-repo-access", "jules-commit-modes", "aistudio-workspace",
+              "jules-vm", "jules-setup", "jules-beta", "jules-ci-fixer", "jules-schedule-edit", "gemini-temperature"],
+    "next": ("Back to the table: the same jobs, in every family of tools.", "../", "All the tool guides"),
+    "links": [("Jules's plans and limits", "https://jules.google/docs/usage-limits/"),
+              ("AI Studio's plans", "https://ai.google.dev/gemini-api/docs/google-ai-plans"),
+              ("the Gemini models page", "https://ai.google.dev/gemini-api/docs/models")],
+}
+
+MANUALS = [DESK, REPO, OPENAI, GOOGLE]
+NEXT_UP = ""  # a line under the shelf naming the manuals still to come; empty when none are planned
 
 
 def _texts(m: dict) -> list[str]:
@@ -375,6 +582,11 @@ def check(d: dict) -> list[str]:
             err.append(f"{s}: a manual has five moves")
         if len(m["settings"]["items"]) != 3:
             err.append(f"{s}: a manual has three settings")
+        if m.get("family") not in FAMILIES:
+            err.append(f"{s}: a manual names its family, one of {', '.join(FAMILIES)}")
+        for label, href in m.get("links", []):
+            if not href.startswith("https://"):
+                err.append(f"{s}: the link {label!r} is not an address")
         texts = _texts(m)
         used = [a or b for t in texts for a, b in MARK.findall(t)]
         listed = m["facts"]
@@ -422,9 +634,23 @@ def warnings() -> list[str]:
 _TOKEN = re.compile(r"\{\{([a-z0-9-]+)\}\}|\[\[([a-z0-9-]+)\]\]|`([^`]+)`|\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)")
 
 
+_NOWRAP = '<span style="white-space:nowrap">'
+
+
+def _code_span(s: str) -> str:
+    """One inline code span, its text already escaped. The guides keep inline code on one line (base.css), so a
+    span longer than 24 characters, such as a 42-character flag, may wrap at its spaces and inside a hyphenated
+    word instead of pushing a phone's page sideways. An option's leading dashes stay with the word after them,
+    so `-g` never splits as "-" and "g"."""
+    if len(s) <= 24:
+        return f"<code>{s}</code>"
+    s = re.sub(r"(?<!\S)(-{1,2}[^\s-]*-?)", lambda o: f"{_NOWRAP}{o.group(1)}</span>", s)
+    return f'<code style="white-space:normal">{s}</code>'
+
+
 def _code(text: str) -> str:
     """Escape, and set `code` in code."""
-    return re.sub(r"`([^`]+)`", r"<code>\1</code>", _E(text, quote=False))
+    return re.sub(r"`([^`]+)`", lambda c: _code_span(c.group(1)), _E(text, quote=False))
 
 
 class _Marks:
@@ -452,7 +678,7 @@ class _Marks:
             elif mark:
                 out.append(self.mark(mark))
             elif code:
-                out.append(f"<code>{_E(code, quote=False)}</code>")
+                out.append(_code_span(_E(code, quote=False)))
             elif bold:
                 out.append(f"<b>{_E(bold, quote=False)}</b>")
             else:
@@ -484,6 +710,14 @@ def _cap(s: str) -> str:
     return s[:1].upper() + s[1:]
 
 
+_WORD = {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}
+
+
+def _join(parts: list[str]) -> str:
+    """'a', 'a and b', 'a, b and c'."""
+    return parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
+
+
 def _host(url: str) -> tuple[str, str]:
     m = re.match(r"https://([^/]+)(/.*)?", url)
     host, path = m.group(1), (m.group(2) or "/").rstrip("/")
@@ -496,7 +730,13 @@ def index_page(shell, ctx: dict) -> str:
     import render
     d = load()
     fams = {f["id"]: f for f in d["families"]}
-    in_manual = {fid: m for m in MANUALS for fid in m["facts"]}
+    # A cell links to the manual that uses its own fact, or else to the first manual with a fact about the same
+    # tool (family and surface), so a manual written from newer pages still answers the cell's tool.
+    in_manual, by_tool = {}, {}
+    for m in MANUALS:
+        for fid in m["facts"]:
+            in_manual.setdefault(fid, m)
+            by_tool.setdefault((d["by_id"][fid]["family"], d["by_id"][fid]["surface"]), m)
     cells = {(f["job"], f["family"]): f for f in d["facts"] if f.get("cell")}
     rows = []
     for j in d["jobs"]:
@@ -504,7 +744,7 @@ def index_page(shell, ctx: dict) -> str:
         for fam in FAMILIES:
             f = cells[(j["name"], fam)]
             old = (f'<span class="tg-old stale">checked {short_date(f["checked"])}</span>' if is_stale(f) else "")
-            man = in_manual.get(f["id"])
+            man = in_manual.get(f["id"]) or by_tool.get((f["family"], f["surface"]))
             more = (f'<a class="tg-in" href="{man["slug"]}/">In the manual {_E(man["name"])}</a>' if man else "")
             tds.append(f'<td data-f="{_E(fams[fam]["name"])}">'
                        f'{_ext(f["source"], _E(f["surface"]), "tg-t")}{_status(f)}'
@@ -565,11 +805,11 @@ def index_page(shell, ctx: dict) -> str:
 {orient}
 {table}
 <section class="tg-shelf" id="manuals" aria-labelledby="manuals-h">
-  <div class="tg-sh"><h2 id="manuals-h">Two manuals put Claude in the airline team's hands</h2>
+  <div class="tg-sh"><h2 id="manuals-h">{_cap(_WORD.get(len(MANUALS), str(len(MANUALS))))} manuals put the tools in the airline team's hands</h2>
     <p>Each one is five moves with the real prompt or command, the three settings that matter, its traps, and every fact
     it used with its source and date.</p></div>
-  <div class="shelf">{tiles}</div>
-  <p class="tg-soon">{_E(NEXT_UP)}</p>
+  <div class="shelf">{tiles}</div>{f'''
+  <p class="tg-soon">{_E(NEXT_UP)}</p>''' if NEXT_UP else ""}
 </section>
 {render.next_up("Start where the spec gets written, at the desk.", MANUALS[0]["slug"] + "/", "Claude at the desk",
                 ("../labs/grow-the-spec/", "Or grow the spec in the lab"))}
@@ -630,12 +870,13 @@ def manual_page(m: dict, shell, ctx: dict) -> str:
             f'<tr id="f-{f["id"]}"><td class="n">{n}</td><td>{_code(f["fact"])}{_status(f)}</td>'
             f'<td class="s">{_ext(f["source"], f"<b>{_E(host)}</b>" + (f"<span>/{_E(tail)}</span>" if tail else ""))}'
             f'<time class="{"stale" if is_stale(f) else ""}" datetime="{f["checked"]}">checked {short_date(f["checked"])}</time></td></tr>')
-    fam = next(x for x in d["families"] if x["id"] == "claude")
-    prices, models = _ext(fam["pricing"], "Claude's plans and prices"), _ext(fam["models"], "the models overview")
+    fam = next(x for x in d["families"] if x["id"] == m["family"])
+    links = m.get("links") or [(f"{fam['name']}'s plans and prices", fam["pricing"]), ("the models overview", fam["models"])]
+    vendor = _join([_ext(href, _E(label, quote=False)) for label, href in links])
     facts_html = (f'<section class="sec" id="facts"><h2>Where every fact on this page comes from</h2>'
                   f'<p>Each numbered mark above points to a row here: the fact, the vendor\'s page it was checked against, and '
                   f'the date. A date turns amber once it is more than {STALE_DAYS} days old. Prices, usage limits and model '
-                  f'names change too often to print: read them on {prices} and {models}.</p>'
+                  f'names change too often to print: read them on {vendor}.</p>'
                   f'<div class="tw tg-facts" tabindex="0"><table><caption class="vh">Every fact this page uses, with its source and the date it was checked</caption>'
                   f'<thead><tr><th scope="col">No.</th><th scope="col">The fact</th><th scope="col">Source, and when it was checked</th></tr></thead>'
                   f'<tbody>{"".join(frows)}</tbody></table></div></section>')
