@@ -5,6 +5,16 @@
   "premise": "You lead a fictional airline's project to build an AI assistant that rebooks stranded passengers. The project has ninety days. You make thirteen decisions, and each one costs days.",
   "pitch": "A game takes ten to fifteen minutes. Every decision shows its price in days before you choose. Some decisions cost more days later.",
   "short": "SkyWays is a fictional airline building an assistant that rebooks stranded passengers.",
+  "line": {
+    "caption": "Start at Day 1, or at any day: the days before it are played by the book.",
+    "card": "Choose an answer and the game starts with your call.",
+    "milestones": {
+      "d6": { "flag": "Sign-off", "name": "the sign-off" },
+      "d9": { "flag": "First test", "name": "the first test" },
+      "d11": { "flag": "First bill", "name": "the first bill" },
+      "d13": { "flag": "Sponsor's slide", "name": "the sponsor's slide" }
+    }
+  },
   "rules": {
     "slack": 18,
     "slackRole": 20,

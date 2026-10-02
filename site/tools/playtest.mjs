@@ -13,7 +13,9 @@
 // is a sentence. Section 11 is what an audit found by looking, each as a check that would catch it
 // next time, and it runs with motion allowed, because that is where the faults were: a label that
 // stays after its fix is ticked, a pill that sits on a word at 320, a question under the fold, a
-// header that moves between days, a figure that plays where nobody is looking.
+// header that moves between days, a figure that plays where nobody is looking. Section 12 is the title's
+// line of the ninety days, Day 1's card, and the safeguard on every press: a press that throws leaves the
+// page as it was and says "This page is out of date. Reload to play.", which must never show on this tree.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
@@ -38,6 +40,8 @@ let seq = 0; const waiting = new Map(); const thrown = [];
 ws.addEventListener("message", (ev) => {
   const m = JSON.parse(ev.data);
   if (m.method === "Runtime.exceptionThrown") thrown.push((m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text).slice(0, 200));
+  // a press that throws is caught by the page, which says so on the console: that is a script error too
+  if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") { const t = (m.params.args || []).map((a) => a.value || "").join(" "); if (/^Ninety Days stopped/.test(t)) thrown.push(t.slice(0, 200)); }
   if (m.id && waiting.has(m.id)) { waiting.get(m.id)(m.result || {}); waiting.delete(m.id); }
 });
 const send = (method, params = {}) => new Promise((ok) => { const id = ++seq; waiting.set(id, ok); ws.send(JSON.stringify({ id, method, params })); });
@@ -79,6 +83,8 @@ const STEP = (pick, ask) => `(() => {
   return "STUCK";
 })()`;
 const FOCUS = `(() => { const a = document.activeElement; return !!a && !!a.closest("#nd"); })()`;
+// the safeguard's notice: on this tree no press may ever bring it up
+const BROKE = `(() => { const b = document.querySelector("#nd .nd-broke"); return b ? b.textContent : ""; })()`;
 
 let failures = 0;
 const fail = (what) => { failures++; console.log("  FAIL " + what); };
@@ -98,6 +104,8 @@ async function play(label, start, pick, ask = false, phone = false, motion = fal
   const began = await evaluate(start);
   if (!began) return fail(`${label}: could not start`);
   await sleep(150);
+  const broke = await evaluate(BROKE);
+  if (broke) return fail(`${label}: the first press says "${broke}"`);
   let moves = 0, last = "";
   while (moves++ < 160) {
     last = await evaluate(STEP(pick, ask));
@@ -105,6 +113,7 @@ async function play(label, start, pick, ask = false, phone = false, motion = fal
     await sleep(25);
     const h = await evaluate(HEAD); if (h) heads.add(h);
     if (!(await evaluate(FOCUS))) { fail(`${label}: the focus left the game after a ${last}`); break; }
+    const said = await evaluate(BROKE); if (said) { fail(`${label}: after a ${last} the page says "${said}"`); break; }
     if (phone) { const over = await evaluate(`document.documentElement.scrollWidth - document.documentElement.clientWidth`); if (over > 0) { fail(`${label}: scrolls sideways by ${over}px`); break; } }
   }
   const verdict = await evaluate(`(document.querySelector(".nd-verdict h2") || {}).textContent || ""`);
@@ -325,19 +334,27 @@ try {
   for (const [w, h] of [[1440, 900], [390, 844]]) {
     await fromCold(w, h, "");
     const t = await evaluate(`(() => { const h1 = document.querySelector(".nd-top h1"), start = [...document.querySelectorAll("#nd button")].find((x) => x.textContent.trim() === "Start at Day 1");
-      const seen = [...document.querySelectorAll(".nd-top h1, .nd-top .lede, #nd .nd-pitch")].filter((n) => n.getBoundingClientRect().bottom <= innerHeight).map((n) => n.innerText).join(" ");
-      return { h1: h1.innerText.replace(/\\s+/g, " "), seen, start: start ? Math.round(start.getBoundingClientRect().bottom) : 9999, h: innerHeight }; })()`);
+      const seen = [...document.querySelectorAll(".nd-top h1, .nd-top .lede, .nd-top .nd-facts")].filter((n) => n.getBoundingClientRect().bottom <= innerHeight).map((n) => n.innerText).join(" ");
+      // the opening lines' measure: characters on each line but the last
+      const lede = document.querySelector(".nd-top .lede"), t = lede.firstChild, r = document.createRange(), per = {};
+      for (let i = 0; i < t.length; i++) { r.setStart(t, i); r.setEnd(t, i + 1); const k = Math.round(r.getBoundingClientRect().top); per[k] = (per[k] || 0) + 1; }
+      const lines = Object.keys(per).sort((a, b) => a - b).map((k) => per[k]);
+      const tall = [...document.querySelectorAll("#nd .nd-rolebtns button, #nd .nd-waygrid button")].map((b) => Math.round(b.getBoundingClientRect().height));
+      return { h1: h1.innerText.replace(/\\s+/g, " "), seen, start: start ? Math.round(start.getBoundingClientRect().bottom) : 9999, startH: start ? Math.round(start.getBoundingClientRect().height) : 0,
+        lines, tall, rows: new Set([...document.querySelectorAll("#nd .nd-rolebtns button")].map((b) => Math.round(b.getBoundingClientRect().top))).size, h: innerHeight }; })()`);
     const says = [/game/i, /fictional airline/, /AI assistant/, /stranded passengers/, /ninety days/, /thirteen decisions/, /costs days/].filter((r) => !r.test(t.seen));
     if (!/^A game\b/.test(t.h1) || !/Ninety Days/.test(t.h1) || t.h1.indexOf("game") > t.h1.indexOf("Ninety Days")) fail(`${w} wide: the page's heading reads "${t.h1}"`);
     else if (says.length) fail(`${w} wide: the title's first screen does not say ${says.join(", ")}`);
     else if (t.start > t.h) fail(`${w} wide: "Start at Day 1" ends at ${t.start}px of a ${t.h}px screen`);
-    else console.log(`  ok   ${w} wide: the title says what the game is before its name, and "Start at Day 1" is on the first screen`);
+    else if (w > 1000 && (Math.max(...t.lines) > 56 || Math.max(...t.lines) < 46)) fail(`${w} wide: the opening lines run ${t.lines.join(", ")} characters a line (46 to 56)`);
+    else if (t.tall.some((x) => x !== t.startH) || t.rows !== 5) fail(`${w} wide: the title's buttons are ${t.tall.join(", ")}px beside a ${t.startH}px Start, the roles in ${t.rows} rows`);
+    else console.log(`  ok   ${w} wide: the title says what the game is before its name, "Start at Day 1" is on the first screen, the opening lines run ${t.lines.slice(0, -1).join(", ")} characters a line, every button is ${t.startH}px`);
   }
 
   // a. the question and its first option are on the first screen, also on the two days that bring news
   // above the scene: Day 20 (the vendor's freeze) and Day 82 (the refund that met its limit)
-  for (const [w, h] of [[1440, 900], [1024, 768]]) {
-    for (const hash of ["", "#day-45", "#day-9", "#day-20", "#day-82"]) {
+  for (const [w, h] of [[1440, 900], [1024, 768], [390, 844]]) {
+    for (const hash of w < 600 ? [""] : ["", "#day-45", "#day-9", "#day-20", "#day-82"]) {
       await fromCold(w, h, hash);
       if (!hash) { await evaluate(START); await sleep(400); }
       const at = await evaluate(`(() => { const l = document.querySelector("#nd .nd-opts legend"), o = document.querySelector("#nd .nd-opts .nd-opt"), p = document.querySelector("#nd .nd-scene-cv"), m = document.querySelector("#nd .nd-map-cv");
@@ -467,6 +484,88 @@ try {
   const leave = await evaluate(`[...document.querySelectorAll("a")].filter((a) => a.textContent.trim() === "Leave this run" && a.getClientRects().length).length`);
   if (leave !== 1) fail(`a day offers "Leave this run" ${leave} times`); else console.log("  ok   a day offers one way to leave the run");
   if (thrown.length) fail("section 11: script error: " + thrown[0]);
+
+  console.log("\n12. the line of the ninety days, Day 1's card, and a press that fails");
+  thrown.length = 0;
+  const KEY = `localStorage.getItem("skyways.ninety")`;
+  // a. at 1440 the line is a list of thirteen links to the days, drawn to time, with the four milestones marked
+  await fromCold(1440, 900, "");
+  const line = await evaluate(`(() => { const ol = document.querySelector("#nd .nd-line .nd-line-stops"); if (!ol) return null;
+    const a = [...ol.querySelectorAll("a")].filter((x) => x.getClientRects().length), r = ol.getBoundingClientRect(), bar = document.querySelector("#nd .nd-line-bar").getBoundingClientRect();
+    const x = (n) => { const d = n.querySelector("i").getBoundingClientRect(); return (d.left + d.width / 2 - bar.left) / bar.width; };
+    return { hrefs: a.map((x) => x.getAttribute("href")).join(" "), flags: [...ol.querySelectorAll("em")].map((e) => e.textContent).join("|"), names: [...document.querySelectorAll("#nd .nd-line-ph span")].map((s) => s.textContent).join("|"),
+      x45: x(a[8]), x15: x(a[5]), bottom: Math.round(document.querySelector("#nd .nd-line").getBoundingClientRect().bottom), tabs: a.filter((x) => x.tabIndex === 0).length, w: Math.round(bar.width) }; })()`);
+  if (!line) fail("the title has no line of the ninety days");
+  else if (line.hrefs !== [1, 4, 6, 9, 12, 15, 20, 30, 45, 60, 75, 82, 90].map((n) => "#day-" + n).join(" ")) fail(`the line's links are ${line.hrefs}`);
+  else if (line.flags !== "Sign-off|First test|First bill|Sponsor's slide" || line.names !== "Frame|Design and spec|Build and prove|Run and learn") fail(`the line's words: ${line.flags}; ${line.names}`);
+  else if (Math.abs(line.x45 - 44 / 89) > 0.02 || Math.abs(line.x15 - 14 / 89) > 0.02) fail(`the line is not drawn to time: Day 15 at ${line.x15.toFixed(3)}, Day 45 at ${line.x45.toFixed(3)} of its width`);
+  else if (line.bottom > 900 || line.tabs !== 1) fail(`the line ends at ${line.bottom}px of 900, with ${line.tabs} stops on the Tab key`);
+  else console.log(`  ok   1440 wide: thirteen links drawn to time across ${line.w}px, the four milestones named, the whole line on the first screen (it ends at ${line.bottom})`);
+  // b. focusing a stop puts its headline in the caption and Start opens it, by the book, as a fresh saved run
+  // (a headless page has no window focus, so focus events do not fire until it is told it has)
+  await send("Emulation.setFocusEmulationEnabled", { enabled: true });
+  const aimed = await evaluate(`(() => { const a = document.querySelector('#nd .nd-line a[href="#day-45"]'); a.focus(); const start = document.querySelector("#nd .nd-line .nd-start");
+    return { cap: document.querySelector("#nd .nd-line-cap").textContent, start: start.textContent, head: JSON.parse(document.getElementById("nd-data").textContent).days.find((d) => d.day === 45).head }; })()`);
+  await evaluate(`(document.activeElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true })), 1)`);
+  const stepped = await evaluate(`({ on: document.activeElement.getAttribute("href"), start: document.querySelector("#nd .nd-line .nd-start").textContent })`);
+  await evaluate(`(document.activeElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft", bubbles: true })), 1)`);
+  await evaluate(CLICK("#nd .nd-line .nd-start")); await sleep(300);
+  const opened = await evaluate(`({ h: ${HEAD}, book: (document.querySelector("#nd .nd-book") || {}).textContent || "", save: ${KEY}, hash: location.hash, broke: ${BROKE} })`);
+  if (aimed.cap !== "Day 45. " + aimed.head || aimed.start !== "Start at Day 45") fail(`focusing Day 45: the caption reads "${aimed.cap}", the button "${aimed.start}"`);
+  else if (stepped.on !== "#day-60" || stepped.start !== "Start at Day 60") fail(`the arrow key from Day 45 went to ${stepped.on}, and Start reads "${stepped.start}"`);
+  else if (!/^Day 45\. /.test(opened.h) || !/^Days 1 to 30 were played by the book/.test(opened.book) || !opened.save || opened.hash || opened.broke) fail(`"Start at Day 45" opened ${JSON.stringify(opened)}`);
+  else console.log(`  ok   focusing Day 45 puts its headline under the line, the arrow keys move along it, and "Start at Day 45" opens it by the book, saved`);
+  // c. pointing at a stop does the same, and a stop is a link: with a save, following it offers the choice as before
+  await fromCold(1440, 900, "");
+  await evaluate(`(document.querySelector('#nd .nd-line a[href="#day-75"]').dispatchEvent(new PointerEvent("pointerenter")), 1)`);
+  const pointed = await evaluate(`document.querySelector("#nd .nd-line .nd-start").textContent`);
+  await evaluate(CLICK('#nd .nd-line a[href="#day-75"]')); await sleep(400);
+  const linkedDay = await evaluate(`({ h: ${HEAD}, save: ${KEY}, hash: location.hash })`);
+  if (pointed !== "Start at Day 75") fail(`pointing at Day 75, Start reads "${pointed}"`);
+  else if (!/^Day 75\. /.test(linkedDay.h) || linkedDay.save || linkedDay.hash !== "#day-75") fail(`the Day 75 stop, followed: ${JSON.stringify(linkedDay)}`);
+  else console.log("  ok   pointing at Day 75 reads \"Start at Day 75\"; the stop itself is the link #day-75, and opens it unsaved, as a link does");
+  // d. on a phone only Day 1 and the four milestones are links, each a 44px target, and the line is on the first screen
+  await fromCold(390, 844, "");
+  const small = await evaluate(`(() => { const a = [...document.querySelectorAll("#nd .nd-line-stops a")].filter((x) => x.getClientRects().length), r = (n) => n.getBoundingClientRect();
+    return { days: a.map((x) => x.querySelector("b").textContent).join(" "), least: Math.min(...a.map((x) => Math.min(r(x).width, r(x).height))), marks: [...document.querySelectorAll("#nd .nd-line-stops .mk")].filter((x) => x.getClientRects().length).length,
+      clash: a.some((x, i) => i && r(x).left < r(a[i - 1]).right - 0.5), bottom: Math.round(r(document.querySelector("#nd .nd-line")).bottom), over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; })()`);
+  if (small.days !== "1 15 45 75 90" || small.marks !== 8) fail(`390 wide: the links are ${small.days}, with ${small.marks} marks`);
+  else if (small.least < 44 || small.clash) fail(`390 wide: the smallest stop is ${Math.round(small.least)}px${small.clash ? ", and two overlap" : ""}`);
+  else if (small.bottom > 844 || small.over > 0) fail(`390 wide: the line ends at ${small.bottom}px, the page scrolls sideways by ${small.over}px`);
+  else console.log(`  ok   390 wide: Day 1 and the four milestones are links of 44px or more, the other eight are marks, and the line ends at ${small.bottom}`);
+  // e. Day 1's card: pressing an answer starts a whole-team run and makes that call
+  await fromCold(1440, 900, "");
+  const card = await evaluate(`(() => { const c = document.querySelector("#nd .nd-d1"); if (!c) return null; const b = [...c.querySelectorAll(".dc-o button")];
+    return { kick: c.querySelector(".dc-k").textContent, answers: b.map((x) => x.textContent).join(" | "), tall: b.map((x) => Math.round(x.getBoundingClientRect().height)), pic: Math.round(c.querySelector("canvas").getBoundingClientRect().width) }; })()`);
+  await evaluate(`[...document.querySelectorAll("#nd .nd-d1 .dc-o button")][1].click()`); await sleep(300);
+  const made = await evaluate(`({ h: ${HEAD}, you: (document.querySelector("#nd .nd-out .nd-you b") || {}).textContent || "", save: JSON.parse(${KEY} || "{}"), broke: ${BROKE} })`);
+  if (!card) fail("the title has no Day 1 card");
+  else if (card.kick !== "Day 1 of 90 · Boardroom" || card.answers !== "Start the design from the 31 as writtenno days | Merge them into one list that keeps who asked1 day" || card.tall.some((x) => x !== 48) || card.pic !== 576) fail(`the Day 1 card: ${JSON.stringify(card)}`);
+  else if (!/^Day 1\. /.test(made.h) || made.you !== "Merge them into one list that keeps who asked" || (made.save.opts || {}).mode !== "team" || (made.save.history || []).length !== 1 || made.broke) fail(`an answer on the card: ${JSON.stringify(made)}`);
+  else console.log("  ok   Day 1's card: the boardroom at four times, two answers of 48px with their price, and the second starts a whole-team run with that call made");
+  // f. in play: the phases over the strip, the next milestone under it, and a ring on one's own days
+  await fromCold(1280, 800, ""); await evaluate(ROLE(1)); await sleep(300);
+  const strip = await evaluate(`({ names: [...document.querySelectorAll("#nd .nd-phases span")].map((s) => s.textContent).join("|"), ahead: (document.querySelector("#nd .nd-ahead") || {}).textContent || "",
+    mine: [...document.querySelectorAll("#nd .nd-strip li.mine")].map((li) => li.querySelector("span").textContent).join(" "), cells: new Set([...document.querySelectorAll("#nd .nd-strip li")].map((li) => Math.round(li.getBoundingClientRect().width))).size })`);
+  if (strip.names !== "Frame|Design and spec|Build and prove|Run and learn" || strip.ahead !== "Next: the sign-off, Day 15") fail(`the strip in play: ${JSON.stringify(strip)}`);
+  else if (strip.mine !== "1 4 6 9 12 20" || strip.cells !== 1) fail(`as the architect, the ringed days are ${strip.mine}, in cells of ${strip.cells} widths`);
+  else console.log(`  ok   in play the strip keeps equal cells, names its phases, says "${strip.ahead}", and rings the architect's six days`);
+  // g. a press that throws: an old sim.js under this game.js, with one function missing. The title stays, the
+  // panel says so with a Reload button, and nothing is saved. On the real tree the notice never showed above.
+  thrown.length = 0;
+  await fromCold(1440, 900, "");
+  await evaluate(`(delete window.ND.sim.soFar, 1)`);
+  await evaluate(START); await sleep(200);
+  const stale = await evaluate(`({ said: ${BROKE}, reload: !![...document.querySelectorAll("#nd .nd-broke button")].find((b) => b.textContent.trim() === "Reload"), focus: (document.activeElement || {}).textContent || "",
+    title: !!document.querySelector("#nd .nd-line .nd-start") && !!document.querySelector("#nd .nd-d1"), playing: document.documentElement.classList.contains("nd-playing"),
+    heading: Math.round(parseFloat(getComputedStyle(document.querySelector(".nd-top .nd-what")).fontSize)), save: ${KEY} })`);
+  const logged = thrown.slice(); thrown.length = 0;
+  if (stale.said !== "This page is out of date. Reload to play.Reload" || !stale.reload || stale.focus !== "Reload") fail(`a press that throws says "${stale.said}", focus on "${stale.focus}"`);
+  else if (!stale.title || stale.playing || stale.heading < 30) fail(`a press that throws changed the screen: ${JSON.stringify(stale)}`);
+  else if (stale.save) fail(`a press that throws saved a run: ${stale.save}`);
+  else if (!logged.some((t) => /soFar/.test(t))) fail(`a press that throws leaves no console line naming the error: ${logged.join(" | ")}`);
+  else console.log("  ok   with sim.soFar missing, Start leaves the title as it was, saves nothing, and says \"This page is out of date. Reload to play.\" with a Reload button");
+  if (thrown.length) fail("section 12: script error: " + thrown[0]);
 } catch (e) {
   failures++; console.log("\nthe play test itself failed: " + e.message);
 } finally {

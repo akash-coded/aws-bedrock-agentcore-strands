@@ -1,6 +1,6 @@
 ---
 name: Ninety Days, the SkyWays simulator
-status: second release (round six: days that open cold, a sixth task, colour, a link to each day)
+status: second release (round six: days that open cold, a sixth task, colour, a link to each day; council 9: the ninety days as one line, Day 1 on the title, a safeguard on every press)
 updated: 2026-10-02
 form-factor: web, one page, canvas for the picture and plain HTML for every word and control
 lives-at: /simulator/ (the earlier tool is the workbench, at /workbench/)
@@ -86,11 +86,48 @@ the method's line. The end screen's table and the no-script list use the same he
 The page is written for the same reader before the first day. Its heading says what this is before it
 says its name: `what` ("A game: run a ninety-day AI project."), large, then "Ninety Days, the SkyWays
 simulator", small. Under it, `premise` is the opening lines: a fictional airline, an AI assistant that
-rebooks stranded passengers, ninety days, and thirteen decisions that each cost days. On the title
-screen `pitch` comes first, above the buttons: a game takes ten to fifteen minutes, and every decision
-shows its price in days before it is chosen. `pages/play.py` renders the heading and the opening lines,
-and `game.js` the pitch. `tools/sim.test.mjs` holds all three to the same plain words as a day, checks
-that `what` says it is a game without giving the name, and that `premise` names each of those things.
+rebooks stranded passengers, ninety days, and thirteen decisions that each cost days. Under them, once,
+at 16px, `pitch` gives the facts: a game takes ten to fifteen minutes, and every decision shows its price
+in days before it is chosen. `pages/play.py` renders the heading and the opening lines, and `game.js`
+the pitch. `tools/sim.test.mjs` holds all three to the same plain words as a day, checks that `what`
+says it is a game without giving the name, and that `premise` names each of those things.
+
+### The title
+
+From the top, at 1440 by 900: the heading and the opening lines side by side, on the same grid as the
+building and the panel under them (594px, then the rest), so the opening lines keep to 46 to 56
+characters a line. Then the ninety days as one line, the full width of the page. Then the building on
+the left and, on the right, Day 1 as the home page shows a day.
+
+**The line of the ninety days** answers what a newcomer asks first: what are the ninety days, where
+do the thirteen fall, what are the milestones, and can I start later. It is drawn to time: an 8px bar
+in the four phase hues with each phase's name over its run, the seams halfway between the last day of
+one phase and the first of the next (10.5, 25 and 67.5), and each of the thirteen at (day − 1) / 89 of
+the width, numbered under. The four milestones are larger and ringed in ink, each with its word from
+`line.milestones` in `days.json`: Day 15 "Sign-off", in rose, because rose is the sign-off; Day 45
+"First test"; Day 75 "First bill"; Day 90 "Sponsor's slide". The caption under it, `line.caption`, is
+"Start at Day 1, or at any day: the days before it are played by the book." Start sits at its right.
+
+Every stop is a link to its day (`#day-45`; see "A link to each day"). Pointing at a stop, or focusing
+it, puts that day's headline in the caption and makes the button "Start at Day 45"; pressing it opens
+Day 45 by the book on a fresh run, saved, as "Open Day 45 on a fresh run" does. The choice stays until
+another stop is pointed at, so the hand can travel from the stop to the button. The stops are one stop
+for Tab, and the arrow keys move along them, so Tab goes on to Start with the day chosen. With a run
+saved, "Carry on from Day 9" stands beside Start, and following a stop's link offers the same choice as
+any link to a day. The line is page markup, a list of thirteen links whose text is the day, so it reads
+without the canvas and without sight. On a phone only Day 1 and the four milestones are links, each a
+44px target; the other eight are marks.
+
+**Day 1 on the title** is the home page's day card, borrowed whole (`theme/base.css`, `.daycard`): 578
+wide, a 20px corner and one long shadow, the boardroom at four times its size bled to the edges (three
+times and cropped on a phone), one 26px inset, the kicker "Day 1 of 90 · Boardroom", the headline, the
+context, the question, and the two answers with their price in days. Pressing an answer starts a
+whole-team run and makes that call, as if on the day. Under the card, the two other ways to play: the
+five roles as one column of buttons as tall as Start, and "Set the rules".
+
+In play the strip of the thirteen days stays a carriage map of equal cells. Over it, each phase's name
+spans its run; under it one line names the next milestone from today ("Next: the sign-off, Day 15",
+and "Today: the sign-off" on the day); in one role the player's own days wear a ring.
 
 ## A link to each day
 
@@ -99,8 +136,8 @@ that `what` says it is a game without giving the name, and that `premise` names 
 first day that is possible, and the date moved once if the runway has run out. The screen says so in
 one line. Nothing is saved until the player makes a move, and the link is cleared from the address
 then. With a run already saved, the title offers both ("Carry on from Day 9", "Open Day 45 on a fresh
-run") and only the second replaces the save. A day that is not one of the thirteen falls back to the
-title. Hashes that begin with a slash are the old workbench routes, and are forwarded as before.
+run") and only the second replaces the save. The stops on the title's line of the ninety days are these
+links. A day that is not one of the thirteen falls back to the title. Hashes that begin with a slash are the old workbench routes, and are forwarded as before.
 
 The site header's pill on this page follows the day: on a day whose `deeper` list has a lesson it
 reads "Read the lesson" and points there; otherwise it goes back to the tutorial.
@@ -200,7 +237,9 @@ Colour comes from light and material, never from bright paint:
   the building moves below the day, and the close-up sits beside the day strip and the meters. Between
   900 and 1240 wide, during play, the close-up, the day strip and the meters form a rail to the left of
   the day (`play/game.css`), so a day that also brings news (Day 20's freeze, Day 82's refund) still has
-  its question and its first option on the first screen.
+  its question and its first option on the first screen. On a phone the close-up is drawn at twice its
+  size and cropped to its column, with the three meters stacked beside it, so Day 1's question and first
+  option fit a 390 by 844 screen.
 - The walls show the state: the notes wall, the whiteboard, the build wall, the score against its bar,
   the bill, the departures board, the day board in the lobby.
 - People are 10 by 22, about four heads tall, with no faces at that size: a jacket in the muted hue of
@@ -244,6 +283,15 @@ move, on the site's own curves and durations.
   missing in a status line.
 - The figures in the small simulations are hidden from a screen reader; each has a caption or a status
   line in real text that says the same thing.
+- The line of the ninety days is a list of links named "Day 15 Sign-off" and so on. Tab reaches the
+  chosen stop, the arrow keys move along the line, and the caption that follows the stop is a polite
+  status line.
+- Every press runs inside one safeguard. The next screen is built before the panel is emptied, and a
+  run is saved only once its screen exists, so a press that throws leaves the page as it was and saves
+  nothing. The panel then says "This page is out of date. Reload to play." with a Reload button, and
+  the console gives the error. It is for a browser that holds an old `sim.js` under a new `game.js`:
+  the title calls nothing in the rules, Start is the first call, and before this a stale file made
+  Start do nothing visible.
 - "Undo today" returns to the start of the day. Nothing sealed has been opened by then, so it gives
   nothing away.
 - Without script the page is the thirteen days as text, each under its own headline and context.
@@ -261,7 +309,9 @@ move, on the site's own curves and durations.
   "gate", no word the player has not been given yet, no sentence over twenty words, nothing that points
   at someone it has not named; a headline with a verb or a number that names what it is about, a
   one-sentence context, a question that says who is to act, a recap of ten words with no pronoun, and a
-  heading that says it is a game before its name. Every day after the first leans on an earlier day and
+  heading that says it is a game before its name. The line's caption and the note on Day 1's card are
+  held to the same plain words, and its four milestones must be days of the game, in order, the first
+  of them the sign-off's. Every day after the first leans on an earlier day and
   on a document an earlier day files, and its "So far" quotes that day, never joins two and runs to
   twenty-five words at most whatever was chosen.
 - `tools/playtest.mjs` plays each mode by real clicks to the verdict in headless Chrome, at laptop and
@@ -269,14 +319,24 @@ move, on the site's own curves and durations.
   task by its controls, opens `#day-45` with and without a save, opens all thirteen links, reads the
   header pill, and checks that every headline it saw is a sentence. Its eleventh section keeps what an
   audit found by looking, as checks run with motion allowed: the title's first screen says what the game
-  is and how to start, at 1440 and 390 wide; a day's question and its first option are on the first
-  screen at 1440 by 900 and 1024 by 768, on Days 20 and 82 as well as 1, 9 and 45; the header does not
+  is and how to start, at 1440 and 390 wide, with the opening lines at 46 to 56 characters a line and
+  every button on the title as tall as Start; a day's question and its first option are on the first
+  screen at 1440 by 900 and 1024 by 768, on Days 20 and 82 as well as 1, 9 and 45, and at 390 by 844 on
+  Day 1; the header does not
   move between days; on Day 75 only the labels of what is left are shown, none on another; on Day 82
   nothing sits on anything else down to 320 wide; a figure plays only as the answer to a press, and only
   on screen; a pin flies only to a day strip that can be seen; a document goes on file when its task is
   done; Day 15's three documents line up; the sponsor is offered a question on a sound plan and on an
   unsound one, and in one role the evidence comes before the other options; and a day offers one way to
-  leave the run.
+  leave the run. Its twelfth section is the title: the line is thirteen links drawn to time with the
+  four milestones named, on the first screen; focusing Day 45 puts its headline in the caption, the
+  arrow keys move along the line, and "Start at Day 45" opens it by the book, saved; pointing at a stop
+  does the same, and the stop's own link opens its day unsaved; on a phone the five links are 44px
+  targets and the other eight are marks; Day 1's card starts a whole-team run with the call that was
+  pressed; in play the strip names its phases, says the next milestone and rings a role's own days.
+  Every mode's first press, and every move after it, must leave no "This page is out of date" on the
+  page. And with `sim.soFar` deleted in the page, as an old `sim.js` would lack it, Start must leave the
+  title as it was, save nothing, and say so with a Reload button.
 - `tools/accept.mjs` includes the page, and asks the canvas how many frames it drew.
 
 ## What the council decided

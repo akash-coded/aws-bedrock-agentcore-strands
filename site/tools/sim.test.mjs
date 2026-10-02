@@ -133,6 +133,13 @@ console.log("\n1. the words");
   check(/\bgame\b/i.test(data.what) && !new RegExp(data.title, "i").test(data.what), `the line above the name does not say this is a game: "${data.what}"`);
   for (const need of [/fictional airline/, /AI assistant/, /stranded passengers/, /ninety days/, /thirteen decisions/, /costs days/])
     check(need.test(data.premise), `the title's opening lines leave out ${need}: "${data.premise}"`);
+  // The title's line of the ninety days: its caption and the note on Day 1's card are plain words, and
+  // the four milestones it marks are days of the game, in order, the first of them the sign-off.
+  plain(data.line.caption, "the line's caption"); plain(data.line.card, "the note on Day 1's card");
+  const miles = Object.keys(data.line.milestones);
+  check(miles.length === 4 && miles.every((id, k) => sim.dayIndex(data, id) >= 0 && (!k || sim.dayIndex(data, id) > sim.dayIndex(data, miles[k - 1]))), `the milestones are not four days in order: ${miles.join(", ")}`);
+  check(!!data.days[sim.dayIndex(data, miles[0])].gate, "the first milestone is not the sign-off's day");
+  for (const id of miles) { const m = data.line.milestones[id]; plain(m.flag, `the milestone on ${id}`); check(/^the /.test(m.name) && m.name.split(" ").length <= 4, `the milestone on ${id} is named "${m.name}"`); }
   // A headline, a context line and a question are each read alone, as if on a poster. So each headline
   // names what it is about (the AI assistant, the project, or the people by their role), no line points
   // at something outside itself, and every question says who is to act.
