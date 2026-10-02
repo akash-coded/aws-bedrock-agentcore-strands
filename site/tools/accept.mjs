@@ -711,8 +711,106 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   // end of home · H5
 
   // home · H6 day card: the simulator band, #simulator
+  // The room loads with the page; "Example day" sits on its picture at 4.5:1 whatever lies under the pill; over
+  // 1000px the card stands at the earlier frame's tilt, faces the reader on hover and on focus inside it, turns in
+  // 400ms with motion allowed and at once under reduced motion, wears the dark theme's own deeper shadow; at 1000px
+  // and under, and on paper, it is flat with no shadow; and a .daycard outside the band (the game's) never tilts.
   async function bandH6(w, h) {
-    return [];
+    const out = [];
+    const media = (reduce, print = false) => send("Emulation.setEmulatedMedia", { media: print ? "print" : "", features: [
+      { name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: reduce ? "reduce" : "no-preference" }] });
+    // the card's state now: at the tilt, facing the reader, or flat; its shadow, its transition, anything running
+    const at = () => evaluate(`(() => { const c = document.querySelector('#simulator .daycard'), cs = getComputedStyle(c);
+      const near = (s) => { if (cs.transform === 'none') return false; const a = new DOMMatrix(cs.transform).toFloat64Array(), b = new DOMMatrix(s).toFloat64Array();
+        return a.every((v, i) => Math.abs(v - b[i]) < 1e-3); };
+      return { tilt: near('rotateY(-9deg) rotateX(3deg)'), face: near('rotateY(-3deg) rotateX(1deg)'), none: cs.transform === 'none',
+        shadow: cs.boxShadow, dur: cs.transitionDuration, prop: cs.transitionProperty, moving: c.getAnimations().length,
+        persp: getComputedStyle(document.querySelector('#simulator .wrap')).perspective, over: document.documentElement.scrollWidth - innerWidth }; })()`);
+    const mouse = async (onCard, wait = 150) => {
+      const p = onCard ? await evaluate(`(() => { const r = document.querySelector('#simulator .daycard').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`) : { x: 2, y: h - 2 };
+      await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: p.x, y: p.y });
+      await sleep(wait);
+    };
+    // the room is fetched with the page, not when the band nears the screen: the reader is still at the top
+    const pic = await evaluate(`(() => { const i = document.querySelector('#simulator .dc-pic img'), e = document.querySelector('#simulator .dc-pic .dc-ex');
+      const p = document.querySelector('#simulator .dc-pic').getBoundingClientRect(), r = e ? e.getBoundingClientRect() : null;
+      const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+      const rgba = (s) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = s; ctx.fillRect(0, 0, 1, 1); const d = ctx.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2], d[3] / 255]; };
+      const lum = (c) => c.slice(0, 3).map((v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((s, v, k) => s + v * [0.2126, 0.7152, 0.0722][k], 0);
+      let ratio = 0;
+      if (e) { const cs = getComputedStyle(e), t = rgba(cs.color), b = rgba(cs.backgroundColor);
+        // the pill is laid over the picture: judge it over white, the worst ground for light letters
+        const g = b.slice(0, 3).map((v) => b[3] * v + (1 - b[3]) * 255), L = [lum(t), lum(g)].sort((x, y) => y - x);
+        ratio = Math.round((L[0] + 0.05) / (L[1] + 0.05) * 100) / 100; }
+      return { done: i.complete && i.naturalWidth === 144, lazy: i.getAttribute('loading'), below: Math.round(p.top - innerHeight),
+        pill: e ? e.textContent.trim() : null, size: e ? parseFloat(getComputedStyle(e).fontSize) : 0, ratio,
+        inside: !!r && r.left >= p.left && r.top >= p.top && r.right <= p.right && r.bottom <= p.bottom }; })()`);
+    if (!pic.done) out.push(`the room's picture is not loaded while the band is still ${pic.below}px below the screen`);
+    if (pic.lazy) out.push(`the room's picture loads ${pic.lazy}`);
+    if (pic.pill !== "Example day") out.push(`the picture's pill reads ${JSON.stringify(pic.pill)}, not "Example day"`);
+    else {
+      if (!pic.inside) out.push("the \"Example day\" pill is not inside the picture");
+      if (pic.ratio < 4.5) out.push(`"Example day" is ${pic.ratio}:1 on its pill (over white, the worst ground); 4.5 is the floor`);
+      if (pic.size < 11) out.push(`"Example day" is ${pic.size}px; nothing is under 11`);
+    }
+    // the game's own Day 1 card is a .daycard too, outside #simulator: it never tilts
+    if (!(await evaluate(`(() => { const a = document.body.appendChild(document.createElement('article')); a.className = 'daycard';
+      const t = getComputedStyle(a).transform; a.remove(); return t === 'none'; })()`))) out.push("a .daycard outside the simulator band tilts too (the game's Day 1 card is one)");
+    if (w <= 1000) {
+      const m = await at();
+      if (!m.none) out.push("the card is tilted at 1000px and under");
+      if (m.persp !== "none") out.push(`the band's grid keeps a perspective (${m.persp}) at 1000px and under`);
+      return out;
+    }
+    await evaluate(`(() => { const c = document.querySelector('#simulator .daycard'); scrollTo({ top: c.getBoundingClientRect().top + scrollY - 120, behavior: 'instant' }); return true; })()`);
+    await mouse(false);
+    let m = await at();
+    if (!m.tilt) out.push("at rest the card is not at rotateY(-9deg) rotateX(3deg)");
+    if (!m.shadow.includes("rgba(0, 0, 0, 0.92)")) out.push(`in the dark theme the card's shadow is not its own deeper one (${m.shadow.slice(0, 60)})`);
+    // reduced motion, as this pass runs: hover turns it at once, and nothing animates
+    await mouse(true);
+    m = await at();
+    if (!m.face) out.push("hovered, the card does not turn to face the reader (rotateY(-3deg) rotateX(1deg))");
+    if (m.moving) out.push(`under reduced motion the card still animates (${m.moving} running)`);
+    if (parseFloat(m.dur) !== 0) out.push(`under reduced motion the card's transition is ${m.dur}`);
+    await mouse(false);
+    await evaluate("document.querySelector('#simulator .dc-o a').focus({ preventScroll: true }), true");
+    m = await at();
+    if (!m.face) out.push("with focus on an answer inside it, the card does not face the reader");
+    await evaluate("document.activeElement.blur(), true");
+    if (!(await at()).tilt) out.push("with focus gone, the card does not go back to its tilt");
+    // motion allowed: the turn is one transition on transform, in 400ms
+    await media(false);
+    await sleep(100);
+    m = await at();
+    if (m.prop !== "transform" || Math.abs(parseFloat(m.dur) - 0.4) > 1e-6) out.push(`with motion allowed the card turns by "${m.prop} ${m.dur}", not transform in 400ms`);
+    await mouse(true, 0);                          // read at once: on a busy machine a pause could outlast the 400ms turn
+    m = await at();
+    if (!m.moving) out.push("with motion allowed, hovering starts no transition");
+    await sleep(600);
+    if (!(await at()).face) out.push("with motion allowed, the card does not arrive facing the reader");
+    await mouse(false);
+    await media(true);
+    // the light theme's shadow is its own too
+    await evaluate("document.documentElement.setAttribute('data-theme', 'light'), true");
+    m = await at();
+    if (!m.shadow.includes("rgba(4, 6, 14, 0.7)")) out.push(`in the light theme the card's shadow is not the long one (${m.shadow.slice(0, 60)})`);
+    await evaluate("document.documentElement.removeAttribute('data-theme'), true");
+    // paper: flat, no shadow
+    await media(true, true);
+    await sleep(100);
+    m = await at();
+    if (!m.none || m.shadow !== "none") out.push(`in print the card is ${m.none ? "flat" : "tilted"} with ${m.shadow === "none" ? "no shadow" : "a shadow"}`);
+    await media(true);
+    // the edge of the rule, and no sideways scroll where the tilt is narrowest
+    for (const [vw, tilted] of [[1000, false], [1001, true], [1024, true], [1100, true]]) {
+      await send("Emulation.setDeviceMetricsOverride", { width: vw, height: h, deviceScaleFactor: 1, mobile: false });
+      await sleep(150);
+      m = await at();
+      if (tilted ? !m.tilt : !m.none) out.push(`at ${vw}px the card is ${m.none ? "flat" : m.tilt ? "tilted" : "turned part way"}`);
+      if (m.over > 0) out.push(`at ${vw}px the page scrolls sideways by ${m.over}px`);
+    }
+    return out;
   }
   // end of home · H6
 
