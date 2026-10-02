@@ -1490,6 +1490,11 @@ a.more:hover i{transform:translateX(4px)}
 .hero2 .meta{display:flex;flex-wrap:wrap;gap:6px 30px;margin:0;font-size:13.5px;color:var(--soft);max-width:none}
 .hero2 .meta>span{white-space:nowrap}
 .hero2 .meta i{font-style:normal}
+/* "by Akash Das": a quiet link to the close, in the line's own colour and never a third button. On a phone its
+   padding makes it a finger tall without moving a line. */
+.hero2 .meta a{color:inherit;text-decoration-color:color-mix(in oklab,var(--ink) 30%,transparent)}
+.hero2 .meta a:hover{color:var(--ink)}
+@media (max-width:820px){.hero2 .meta a{padding:14px 0}}
 .hero2 .meta i+i::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--faint);
   margin:0 11px;vertical-align:middle}
 .hero2 .meta b{color:var(--ink2);font-weight:620}
@@ -1802,6 +1807,27 @@ main.home{padding:0}
 @media (max-width:900px){.learn-g{grid-template-columns:1fr}}
 .band .jump.tracks+.ba{display:flex;margin-top:44px}
 .band .jump.tracks+.ba .btn{padding:14px 22px;font-size:15.5px;border-radius:13px}
+
+/* ---- the home page's bands, council 10: one block for each band's parcel, H3 to H8, in the order the bands run.
+   A parcel writes only between its own two comments, so parcels built side by side never edit neighbouring
+   lines. The rules a band replaces are deleted where they stand, above. ---- */
+/* home · H3 map */
+/* end of home · H3 */
+
+/* home · H4 chooser */
+/* end of home · H4 */
+
+/* home · H5 people */
+/* end of home · H5 */
+
+/* home · H6 day card */
+/* end of home · H6 */
+
+/* home · H7 library */
+/* end of home · H7 */
+
+/* home · H8 close */
+/* end of home · H8 */
 
 /* ---- a landing page's head: title, one line, then the content ---- */
 main.page{padding:0 0 var(--band)}

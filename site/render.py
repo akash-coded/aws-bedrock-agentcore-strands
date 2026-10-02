@@ -19,6 +19,7 @@ import html
 import json
 import re
 from datetime import date
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -74,7 +75,10 @@ def md(text: str) -> str:
 LEGACY_HASH_REDIRECT = (
     "\n<script>(function(){var h=location.hash;"
     "if(h&&h.charAt(1)===\"/\"){location.replace(\"workbench/\"+h);}"
-    "else if(/^#(pdlc|loops|by-role|delegation)$/.test(h)){location.replace(\"method/\"+h);}})();</script>"
+    "else if(/^#(pdlc|loops|by-role|delegation)$/.test(h)){location.replace(\"method/\"+h);}"
+    # two bands were renamed in council 10: the lifecycle's band (#why) is now the methods band, the method table's
+    # (#method) the chooser's
+    "else if(h===\"#why\"||h===\"#method\"){location.replace(h===\"#why\"?\"#methods\":\"#choose\");}})();</script>"
     # the hero's entrance plays once in a sitting: a reader who comes back to the home page finds the picture there
     "<script>try{if(sessionStorage.getItem(\"hero\"))document.documentElement.classList.add(\"hero-seen\");"
     "else sessionStorage.setItem(\"hero\",\"1\")}catch(e){}</script>"
@@ -257,13 +261,18 @@ def _wiki_blank(html_: str) -> str:
     return _re.sub(r'<a\b[^>]*href="' + _re.escape(WIKI) + r'[^"]*"[^>]*>', fix, html_)
 
 
+# The local scripts a page asks for at its foot, in this order. A page that needs fewer passes its own list.
+SCRIPTS = ("frame/config.js", "frame/frame.js", "theme/site.js", "theme/engine.js", "theme/guide.js")
+
+
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
           nav_id: str = "", canonical: str = "", head_extra: str = "", own_ld: bool = False,
           crumbs: list[tuple[str, str]] | None = None, tour: list[dict] | None = None,
-          kind: str = "", og: str = "", modified: str = "", ctx: dict | None = None) -> str:
+          kind: str = "", og: str = "", modified: str = "", ctx: dict | None = None,
+          scripts: tuple[str, ...] = SCRIPTS) -> str:
     """The frame every page shares. ``crumbs`` are (label, href) after Home, href relative to the
     page; ``tour`` is the page's walkthrough for guide.js; ``kind`` names the page type so the
-    tour is offered once per type, not once per page."""
+    tour is offered once per type, not once per page; ``scripts`` are the local scripts at its foot."""
     up = "../" * depth
     accent_css = f"<style>:root{{--accent:{accent_var(accent)}}}</style>" if accent else ""
     og_img = og_image(og)
@@ -301,6 +310,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
         ld = {"@context": "https://schema.org", "@graph": [{k: v for k, v in ld.items() if k != "@context"}, ld_crumbs]}
     tour_html = (f'<script type="application/json" id="tour-steps">{json.dumps(tour, ensure_ascii=False)}</script>'
                  if tour else "")
+    script_tags = "\n".join(f'<script src="{up}{s}" defer></script>' for s in scripts)
     return _wiki_blank(f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -376,11 +386,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <a href="{WIKI}/Sources-and-Confidence">Sources and confidence</a></div>
 </div></footer>
 {tour_html}
-<script src="{up}frame/config.js" defer></script>
-<script src="{up}frame/frame.js" defer></script>
-<script src="{up}theme/site.js" defer></script>
-<script src="{up}theme/engine.js" defer></script>
-<script src="{up}theme/guide.js" defer></script>
+{script_tags}
 </body>
 </html>
 """)
@@ -772,48 +778,71 @@ SKIPPED = [
     "The overall score went up after a prompt change, and so did the complaints.",
     "Finance found the token bill before the product manager reported the saving.",
 ]
-# What the lifecycle keeps from each method: the one idea, in a few plain words (the funnel on the home page).
-BORROWED = [
-    ("AI-DLC", "learn/what-is-ai-dlc/", "short build cycles"),
-    ("BMAD Method", "learn/what-is-the-bmad-method/", "one document per decision"),
-    ("Spec-driven development", "learn/what-is-spec-driven-development/", "the spec is the source"),
-    ("AIDD", "learn/what-is-aidd/", "the daily coding craft"),
-]
-# What this manual adds in each phase, in words a newcomer can read (the table's last row on the home page;
-# the frameworks page keeps the terms of art, illos.ADDS).
-HOME_ADDS = [
-    "How much the agent may do alone, decided before anything is built",
-    "A pass mark for each kind of case and a limit on each action, agreed at sign-off",
-    "Proof that it meets the pass mark before real users see it",
-    "One report of what it saved and what it cost, which opens the next round",
-]
-# How far each method reaches along the spine: 2 covers the phase, 1 touches it lightly, 0 says nothing,
-# "x" is a stage this manual adds to the method (extended BMAD). The same reading as the frameworks
-# page's plug board, which carries the detail.
-COVERAGE = [
-    ("AI-DLC", "learn/what-is-ai-dlc/", "From AWS, built in bolts of days", (2, 2, 2, 2)),
-    ("BMAD Method", "learn/what-is-the-bmad-method/", "AI personas, working as an agile team", (2, 2, 2, "x")),
-    ("Spec-driven development", "learn/what-is-spec-driven-development/", "The spec is what you maintain", (1, 2, 2, 1)),
-    ("AIDD", "learn/what-is-aidd/", "The daily craft with a coding agent", (0, 0, 2, 0)),
-]
-
-
-# The simulator band's three pictures: (the line under the frame, what the picture shows).
 SIM_DAY = 45       # the day of the game the home page shows: its news, its question and its answers, from play/days.json
-HOME_SKETCH = "four-pebbles-one-rock"            # the lesson sketch shown in the tutorial band, as a sample
-# Where a role starts and where it ends up, in words a newcomer can read. A role page keeps its own tagline.
+
+
+# The home page's words (verdict-home 1.9), held at build time over what a reader meets on the page: its text, and
+# the alt, aria-label, title and placeholder words that stand in for a picture or a control. No dash in prose, none
+# of the words every brochure uses, British spelling. A hit stops the build.
+_DASH = re.compile(r"[\u2012-\u2015\u2e3a\u2e3b\ufe58]|\s-\s|--")
+_REFUSED = re.compile(r"\b(?:comprehensive\w*|robust\w*|holistic\w*|seamless\w*|leverag\w*|unlock\w*|empower\w*|"
+                      r"transform\w*|solutions|cutting[- ]edge|end-to-end|gamif\w*|ensures that|key takeaways|"
+                      r"in conclusion)\b", re.I)
+# American spellings a British reader would trip on: -ize and -yze words, and a short list of others.
+_IZE = re.compile(r"\b\w*?(?:iz(?:e|es|ed|er|ers|ing|ation|ations)|yz(?:e|es|ed|ing))\b", re.I)
+_IZE_OK = {"size", "sizes", "sized", "sizing", "resize", "resized", "downsize", "downsized", "oversize", "oversized",
+           "prize", "prizes", "prized", "seize", "seizes", "seized", "seizing", "capsize", "capsized", "maize"}
+_US = re.compile(r"\b(?:colors?|colored|behaviors?|behavioral|favor(?:s|ed|ite|ites)?|honors?|labor|neighbors?|"
+                 r"center(?:s|ed)?|catalogs?|gray|defense|offense|license|artifacts?|model(?:ed|ing)|label(?:ed|ing)|"
+                 r"travel(?:ed|ing|er)|cancel(?:ed|ing)|fulfill|enrollment|skeptic(?:al|ism)?|airplanes?)\b", re.I)
+
+
+class _Seen(HTMLParser):
+    """The words a reader meets on a page: its text, and the attributes that stand in for a picture or a control."""
+    QUIET = {"head", "script", "style", "template"}
+    SAID = ("alt", "aria-label", "title", "placeholder")
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.depth, self.words = 0, []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.QUIET:
+            self.depth += 1
+        elif not self.depth:
+            self.words += [v for k, v in attrs if k in self.SAID and v]
+
+    def handle_endtag(self, tag):
+        if tag in self.QUIET and self.depth:
+            self.depth -= 1
+
+    def handle_data(self, data):
+        if not self.depth:
+            self.words.append(data)
+
+
+def check_words(page: str, where: str) -> None:
+    """Stop the build when the page's visible words break the house rules, naming each word in its context."""
+    seen = _Seen()
+    seen.feed(page)
+    text = re.sub(r"\s+", " ", " ".join(seen.words)).replace("\u2010", "-").replace("\u2011", "-")
+    near = lambda m: text[max(0, m.start() - 40):m.end() + 40].strip()      # noqa: E731
+    hits = [f"a dash ({m.group(0).strip() or m.group(0)}) in \"{near(m)}\"" for m in _DASH.finditer(text)]
+    hits += [f"\"{m.group(0)}\" in \"{near(m)}\"" for m in _REFUSED.finditer(text)]
+    hits += [f"the American spelling \"{m.group(0)}\" in \"{near(m)}\"" for m in _IZE.finditer(text)
+             if m.group(0).lower() not in _IZE_OK]
+    hits += [f"the American spelling \"{m.group(0)}\" in \"{near(m)}\"" for m in _US.finditer(text)]
+    if hits:
+        raise SystemExit(f"{where}: words the house rules refuse (verdict-home 1.9):\n  " + "\n  ".join(hits))
 
 
 def home_page(roles: list[dict]) -> str:
-    from pages import globe, illos, learn, pictures, spine
+    from pages import chooser, consult, globe, homelib, learn, people, spine
     built = {r["id"]: r for r in roles}
     total_steps = sum(len(r["steps"]) for r in roles)
     total_prompts = sum(len(s["prompts"]) for r in roles for s in r["steps"])
     _meta, _tracks, lessons = learn.load()
     n_lessons = len(lessons)
-    n_pics = len(pictures.catalogue())
-    tracks = "".join(f'<li><a href="learn/{t.id}/"><b>{_E(t.title)}</b>'
-                     f'<span>{len(t.lessons)} lessons</span></a></li>' for t in _tracks)
     # the tutorial's "Start where you are" table: one row per kind of reader
     start = (SITE / "content" / "learn" / "start-here.md").read_text(encoding="utf-8")
     table = start.split("## Start where you are", 1)[1].split("\n## ", 1)[0]
@@ -841,15 +870,6 @@ def home_page(roles: list[dict]) -> str:
                  '<b>the four decisions only you can make</b></span>'
                  '<span class="s-meta">20 minute read</span><span class="s-go" aria-hidden="true">→</span></a></li>')
 
-    # one sketch from a lesson, as a sample of how the lessons explain: the picture, and where it is from
-    from pages import sketch as _sketch
-    sk = learn.sketches().get(HOME_SKETCH)
-    sample = ""
-    if sk:
-        les = lessons[sk["lesson"]]
-        sample = (f'<a class="learn-s" href="learn/{les.slug}/">{_sketch.render(sk)[0]}'
-                  f'<span class="learn-k">From lesson {les.n} of {_E(les.track.title)}: {_E(les.short)}\u00a0<i aria-hidden="true">→</i></span></a>')
-
     # one real day of the game, as the game words it
     game = json.loads((SITE / "play" / "days.json").read_text(encoding="utf-8"))
     day = next(d for d in game["days"] if d["day"] == SIM_DAY)
@@ -860,8 +880,9 @@ def home_page(roles: list[dict]) -> str:
         f'<li><a href="simulator/#day-{SIM_DAY}"><span>{_E(o["label"])}</span><b>{cost(o.get("days", 0))}</b></a></li>'
         for o in day["options"])
     daycard = (f'<article class="daycard" aria-labelledby="dc-h">'
-               f'<div class="dc-pic"><img src="assets/pictures/sim-day{SIM_DAY}.png" width="144" height="52" loading="lazy" decoding="async" '
-               f'alt="The {_E(game["rooms"][day["room"]])} in the game, drawn in pixels: a score bar on the wall just past its pass mark, and two people in front of it"></div>'
+               f'<div class="dc-pic"><img src="assets/pictures/sim-day{SIM_DAY}.png" width="144" height="52" decoding="async" '
+               f'alt="The {_E(game["rooms"][day["room"]])} in the game, drawn in pixels: a score bar on the wall just past its pass mark, and two people in front of it">'
+               f'<span class="dc-ex">Example day</span></div>'
                f'<div class="dc-b"><p class="dc-k">Day {SIM_DAY} of 90 · {_E(game["rooms"][day["room"]])}</p>'
                f'<h3 id="dc-h">{_E(day["head"])}</h3><p class="dc-c">{_E(day["context"])}</p>'
                f'<p class="dc-q">{_E(ask)}</p><ol class="dc-o">{answers}</ol>'
@@ -877,96 +898,67 @@ def home_page(roles: list[dict]) -> str:
     <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a>
       <a class="btn ghost" href="simulator/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Play the simulator</a></div>
     <p class="meta"><span><i><b>{n_lessons}</b> lessons</i><i><b>{total_steps}</b> templates</i><i><b>{total_prompts}</b> prompts</i></span>
-      <span><i>MIT licence</i><i>by {AUTHOR}</i></span></p>
+      <span><i>MIT licence</i><i><a href="#work-with-us">by {AUTHOR}</a></i></span></p>
   </div></div>
 </section>"""
 
     body = f"""{hero}
 <main id="main" class="home">
 
-<section class="band" id="why" aria-labelledby="h-why"><div class="wrap">
-  <header class="sec-h split"><p class="eyebrow">Sound familiar?</p>
-    <h2 id="h-why">Agent projects go wrong in four places.</h2>
-    <p>SkyWays splits the work into four phases. Each phase asks one question. Teams that skip a question
-    end up saying the line below it.</p></header>
-  <div>{spine.figure(PHASES, SKIPPED, "learn/what-is-the-agentic-pdlc/", BORROWED)}</div>
-  <p class="links"><a class="more" href="method/">See all four phases on one page <i aria-hidden="true">→</i></a>
-    <a class="more" href="learn/why-agentic-ai-projects-fail/">Seven ways these projects fail <i aria-hidden="true">→</i></a></p>
-</div></section>
+{spine.methods_band()}
 
-<section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
-  <header class="sec-h split"><p class="eyebrow">The methods</p>
-    <h2 id="h-method">Which agentic method should your team use?</h2>
-    <p>Any of these four works. The table shows which phases each one covers, and what it leaves to you.</p></header>
-  <div>{spine.coverage(PHASES, COVERAGE, HOME_ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
-  <p class="links"><a class="more" href="frameworks/">How the four fit together <i aria-hidden="true">→</i></a>
-    <a class="more" href="learn/ai-dlc-vs-aidd-vs-agentic-sdlc/">Other names you may have heard, sorted <i aria-hidden="true">→</i></a></p>
-</div></section>
+{chooser.band()}
 
 <section class="band" id="roles" aria-labelledby="h-roles"><div class="wrap">
   <header class="sec-h split"><p class="eyebrow">By role</p>
     <h2 id="h-roles">Start from the job you do.</h2>
-    <p>Find your role and follow its eight steps. Each step comes with a template to fill in and prompts to draft it.</p></header>
+    <p>Find your role and follow its steps. Each step comes with a template to fill in and prompts to draft it.</p></header>
   <ol class="seats">{''.join(seats)}</ol>
   <p class="links"><a class="more" href="learn/#start-where-you-are">Not on the list? {n_starts} places to start <i aria-hidden="true">→</i></a></p>
 </div></section>
 
+{people.band()}
+
 <section class="band play" id="simulator" aria-labelledby="h-play"><div class="wrap">
   <div class="play-t"><p class="eyebrow">The simulator</p>
     <h2 id="h-play">Play a ninety&#8209;day AI project in fifteen minutes.</h2>
-    <p>You lead a fictional airline's project to build a rebooking assistant. Every choice costs days, and
-    some costs arrive later.</p>
-    <div class="ba"><a class="btn pri" href="simulator/">Play Ninety Days</a>
+    <p>A game for learning the method. It puts you inside a fictional airline's AI project, as one role or the
+    whole team. Every call costs days, and some costs arrive later.</p>
+    <div class="ba"><a class="btn pri" href="simulator/">Enter the simulation</a>
       <small>{len(game["days"])} decisions, about fifteen minutes</small></div>
     <p class="links"><a class="more" href="labs/">Or do one job of the project by hand, in the labs <i aria-hidden="true">→</i></a></p>
   </div>
   {daycard}
 </div></section>
 
-<section class="band" id="tutorial" aria-labelledby="h-learn"><div class="wrap">
-  <header class="sec-h split"><p class="eyebrow">The tutorial</p>
-    <h2 id="h-learn">Read the {n_lessons} lessons in order.</h2>
-    <p>{NUM.get(len(_tracks), len(_tracks)).capitalize()} tracks run from the basics to interview questions. The first lesson takes eight minutes.</p></header>
-  <div class="learn-g">
-    <ol class="jump tracks">{tracks}</ol>
-    {sample}
-  </div>
-  <div class="ba"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">Start with lesson one</a></div>
-</div></section>
+{homelib.band()}
 
-<section class="band" id="library" aria-labelledby="h-lib"><div class="wrap">
-  <header class="sec-h split"><p class="eyebrow">The library</p>
-    <h2 id="h-lib">Copy the templates and prompts you need.</h2>
-    <p>Templates, prompts, rules of thumb and diagrams. All of it is free to reuse under the MIT licence.</p></header>
-  <div class="shelf">
-    <a class="tile" href="templates/"><span class="tile-k">{total_steps} templates</span><b>Templates</b>
-      <span class="tile-d">One document to fill in for every step.</span><span class="tile-go" aria-hidden="true">→</span></a>
-    <a class="tile" href="prompts/"><span class="tile-k">{total_prompts} prompts</span><b>Prompts</b>
-      <span class="tile-d">Each states the job, the inputs and the shape of the answer.</span><span class="tile-go" aria-hidden="true">→</span></a>
-    <a class="tile" href="models/"><span class="tile-k">12 rules of thumb</span><b>Mental models</b>
-      <span class="tile-d">Each one names the mistake it prevents.</span><span class="tile-go" aria-hidden="true">→</span></a>
-    <a class="tile" href="pictures/"><span class="tile-k">{n_pics} pictures</span><b>The picture pack</b>
-      <span class="tile-d">Every diagram here, light and dark, free to reuse.</span><span class="tile-go" aria-hidden="true">→</span></a>
-  </div>
-</div></section>
+{consult.band()}
 
 </main>"""
     desc = (f"One lifecycle for building software with AI agents, the agentic PDLC, with AI-DLC, BMAD, AIDD and "
             f"spec-driven development placed on it, by role. {n_lessons} lessons, {total_steps} templates, {total_prompts} prompts.")
+    # the consultancy's offers, in the close's own words and with no prices (pages/consult.py)
+    offers = consult.offers_ld()
+    org = {**ORG, "makesOffer": offers} if offers else ORG
     site_ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebSite", "@id": BASE_URL + "#site", "name": "The agentic manual", "url": BASE_URL,
          "description": desc, "inLanguage": "en", "author": PERSON, "publisher": ORG,
          "license": REPO + "/blob/main/LICENSE"},
-        ORG,
+        org,
         {"@type": "WebPage", "@id": BASE_URL, "url": BASE_URL, "name": "The agentic manual", "isPartOf": {"@id": BASE_URL + "#site"},
          "description": desc, "dateModified": date.today().isoformat()}]}
-    return shell(title="The agentic manual · the agentic PDLC, by role, end to end", desc=desc, body=body,
+    page = shell(title="The agentic manual · the agentic PDLC, by role, end to end", desc=desc, body=body,
                  depth=0, nav_id="home", canonical=BASE_URL, own_ld=True,
                  head_extra=(LEGACY_HASH_REDIRECT
                              + f'<script type="application/ld+json">{json.dumps(site_ld, ensure_ascii=False)}</script>'
                              + f'<script type="application/json" id="globe-land">{globe.land_json()}</script>'
                              + '<script src="theme/hero.js" defer></script>'),
-                 kind="home", og="home")
+                 kind="home", og="home",
+                 # nothing on the home page is a lens, a calculator, a self-check, a stepper, a matrix or a board
+                 scripts=tuple(f for f in SCRIPTS if f != "theme/engine.js"))
+    check_words(page, "the home page")
+    return page
 
 
 def method_page() -> str:

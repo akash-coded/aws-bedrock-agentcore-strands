@@ -571,6 +571,69 @@ console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the m
     `the longest line ${worst.cpl} characters (${worst.at}), one left edge, two right ones, the guide on screen and marking the section being read`);
 }
 
+// 19. the home page's bands (council 10): one function for each band's parcel, H3 to H8, in the order the bands run,
+// each called at 1440 x 900 and at 390 x 844 on a fresh load of the home page (dark, reduced motion, at the top). A
+// function returns its failures as sentences; one that needs another state (motion, the light theme, a hover, a
+// scroll) sets it itself. A parcel writes only inside its own function, between its own two comments, and never
+// edits the list that calls them, so parcels built side by side never touch the same lines.
+console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 and 390 x 844");
+{
+  // home · H3 map: the methods band, #methods
+  async function bandH3(w, h) {
+    return [];
+  }
+  // end of home · H3
+
+  // home · H4 chooser: #choose
+  async function bandH4(w, h) {
+    return [];
+  }
+  // end of home · H4
+
+  // home · H5 people: the tutorial band, #tutorial
+  async function bandH5(w, h) {
+    return [];
+  }
+  // end of home · H5
+
+  // home · H6 day card: the simulator band, #simulator
+  async function bandH6(w, h) {
+    return [];
+  }
+  // end of home · H6
+
+  // home · H7 library: #library
+  async function bandH7(w, h) {
+    return [];
+  }
+  // end of home · H7
+
+  // home · H8 close: #work-with-us
+  async function bandH8(w, h) {
+    return [];
+  }
+  // end of home · H8
+
+  const BANDS = [["H3 map", bandH3], ["H4 chooser", bandH4], ["H5 people", bandH5], ["H6 day card", bandH6],
+    ["H7 library", bandH7], ["H8 close", bandH8]];
+  const out = [];
+  thrown.length = 0;
+  for (const [w, h] of [[1440, 900], [390, 844]]) {
+    for (const [name, check] of BANDS) {
+      await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
+      await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" },
+        { name: "prefers-reduced-motion", value: "reduce" }] });
+      await send("Page.navigate", { url: BASE });
+      await sleep(1200);
+      if (!(await evaluate(LOADED))) { out.push(`${name} at ${w} x ${h}: the page did not load`); continue; }
+      for (const p of await check(w, h)) out.push(`${name} at ${w} x ${h}: ${p}`);
+    }
+  }
+  if (thrown.length) out.push("script error: " + thrown[0]);
+  if (out.length) { failures += out.length; console.log("  FAIL /  " + out.join("; ")); }
+  else console.log(`  ok   /  ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
+}
+
 } catch (e) {
   failures++;
   console.log("\nthe gate itself failed: " + e.message);
