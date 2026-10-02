@@ -10,12 +10,13 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in one sentence.** AWS generative AI interviews test whether you can assemble Amazon Bedrock,
+> **The bank in short.** AWS generative AI interviews test whether you can assemble Amazon Bedrock,
 > Bedrock AgentCore, Strands Agents and Knowledge Bases into a system that is secure, observable,
-> affordable and resilient, and whether you know the details that break in production: inference
-> profiles and the permissions they need, what bills while idle, what cannot be changed after creation,
-> and where AWS's controls stop and your own must begin. Ten questions, each with a framework, a strong
-> answer, the follow-up and the red flag; AWS details were checked against AWS documentation in September 2026.
+> affordable and resilient. They also test whether you know the details that break in production.
+> Those are inference profiles and the permissions they need, what bills while idle, what cannot be changed after
+> creation, and where AWS's controls stop and your own must begin. Ten questions, each with a framework,
+> a strong answer, the follow-up and the red flag. AWS details were checked against AWS documentation
+> in September 2026.
 
 {{map:aws-generative-ai-interview-questions}}
 
@@ -40,7 +41,7 @@ The questions below go one level below the service names.
 **Architecture judgement with AWS specifics.** Expect a design question set in a customer's world, deep
 dives into services you claim to have used, and a debugging question with a real error message. Strong
 candidates keep two things separate: what the managed service guarantees, and what the design still has
-to enforce: authority over actions, evaluation, and cost per task.
+to enforce (authority over actions, evaluation, and cost per task).
 
 ## Architecture
 
@@ -51,7 +52,7 @@ Well-Architected pillars
 
 <details><summary>What a strong answer covers</summary>
 
-- **Frame first**: slices of cases, a bar per slice, and autonomy per action, refunds stay with a named
+- **Frame first**: slices of cases, a bar per slice, and autonomy per action. Refunds stay with a named
   approver until evidence says otherwise.
 - **The agent**: a Strands agent calling models on Amazon Bedrock through the Converse API with an inference
   profile; tools that are exact code where the work is exact.
@@ -92,7 +93,7 @@ orchestration framework
 - **Choose by** how much control and determinism you need, and how much portability; they combine: a
   Strands or LangGraph agent can run on AgentCore Runtime.
 - **The insight:** "framework or platform?" is a false choice; the real decision is which parts are portable
- (the loop, the tools, the evaluation) and which are not.
+  (the loop, the tools, the evaluation) and which are not.
 
 **The follow-up:** "How locked in are we?" → itemise it: agent logic, tool design and evaluation move; the
 platform layer does not.
@@ -116,7 +117,7 @@ platform layer does not.
   the source region and the model in each candidate destination region.
 - **Service control policies**: a region allowlist that omits a destination region breaks cross-region
   inference, unless it carries an exception using the `bedrock:InferenceProfileArn` condition key.
-- **Also check**: the right client: `bedrock-runtime` for inference, not `bedrock`.
+- **Also check** the right client: `bedrock-runtime` for inference, not `bedrock`.
 - **The insight:** a missing destination-region permission fails only when a request is routed there, so the
   error looks intermittent.
 
@@ -164,7 +165,7 @@ vault, scoped to that user, with consent.
   result's source location for citations.
 - **Know the vector store's billing**: a classic OpenSearch Serverless collection bills a minimum capacity
   whether or not it is queried, while newer collection types can scale to zero.
-- **Build your own pipeline** when you need control the managed service does not give, custom ranking,
+- **Build your own pipeline** when you need control the managed service does not give: custom ranking,
   unusual sources, or a store you already run.
 - **The insight:** retrieval recall at k is measured, not assumed; top-k and chunk size are usually set by
   habit.
@@ -210,7 +211,7 @@ model answered
 <details><summary>What a strong answer covers</summary>
 
 - **Cross-region inference profiles** spread requests: geographic profiles keep processing within a geography,
-  global profiles route more widely, a data-residency decision as much as a capacity one.
+  global profiles route more widely. It is a data-residency decision as much as a capacity one.
 - **Quotas are per model and region**: know them, request increases ahead of launches, and consider reserved
   capacity where throughput must be guaranteed.
 - **Retries with backoff and jitter**, a circuit breaker, and a queue for work that can wait.
@@ -288,7 +289,7 @@ and resume in a new session.
 - **Cost optimisation**: cost per task, caching, batch where latency allows, routing by difficulty.
 - **Sustainability**: smaller models and fewer tokens for the same outcome.
 - **The insight:** AWS publishes a Well-Architected Generative AI Lens; citing it and then adding what no lens
-  decides for you, the bar per slice and authority per action, is the senior answer.
+  decides for you (the bar per slice and authority per action) is the senior answer.
 
 **The follow-up:** "Which pillar do teams neglect most?" → cost per task, until the first bill.
 

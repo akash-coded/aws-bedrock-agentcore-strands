@@ -14,9 +14,11 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parents[1]
 ROLES_DIR = SITE / "content" / "roles"
 
-# Journey order, and the hue token each role carries on the boards.
-ROLE_HUE = [("product-manager", "indigo"), ("solution-architect", "amber"), ("engineering", "teal"),
-            ("qa", "rose"), ("devops", "violet")]
+# Journey order, and the accent each role carries on its own page and on the boards. A role's
+# colour is the role's: the phase hues (slate, indigo, teal, amber) are kept for P0 to P3, which is
+# what the small phase chip in every cell wears.
+ROLE_HUE = [("product-manager", "slate"), ("solution-architect", "ochre"), ("engineering", "sage"),
+            ("qa", "plum"), ("devops", "violet")]
 
 PARTS = [
     ("1", "The job", "You are …", "Who the model is, for whom, and on what. One sentence; the rest of the "
@@ -70,34 +72,37 @@ def prompt_anatomy() -> str:
 
 
 def prompts_by_role() -> str:
+    """Five roles, eight steps each. Written role by role, so that on a phone each role is its own
+    list; on a wide screen base.css lays the same cells out as a grid, one column a role, one row a
+    step (``--k`` is the column, ``--r`` the row)."""
     roles = _roles()
     n_prompts = sum(len(s["prompts"]) for r in roles for s in r["steps"])
     n_steps = max(len(r["steps"]) for r in roles) if roles else 8
-    head = "".join(
-        f'<div class="pr-h" style="--c:var(--dg-{r["_hue"]})"><b>{E(r["name"])}</b>'
-        f'<span>{sum(len(s["prompts"]) for s in r["steps"])} prompts</span></div>' for r in roles)
-    rows = []
-    for i in range(n_steps):
-        cells = []
-        for r in roles:
+    nums = "".join(f'<span class="pr-n" style="--r:{i + 2}">{i + 1}</span>' for i in range(n_steps))
+    cols = []
+    for k, r in enumerate(roles):
+        cells = [f'<div class="pr-h"><b>{E(r["name"])}</b>'
+                 f'<span>{sum(len(s["prompts"]) for s in r["steps"])} prompts</span></div>']
+        for i in range(n_steps):
             s = r["steps"][i] if i < len(r["steps"]) else None
             if not s:
-                cells.append('<div class="pr-c empty"></div>')
+                cells.append(f'<div class="pr-c empty" style="--r:{i + 2}"></div>')
                 continue
             first = s["prompts"][0]["title"] if s["prompts"] else "no prompt at this step"
             more = len(s["prompts"]) - 1
-            cells.append(f'<div class="pr-c" style="--c:var(--dg-{r["_hue"]})"><span class="pr-s">{E(s["phase"])}'
-                         f'<em>{E(s["pdlc"])}</em></span><b>{E(first)}</b>'
+            cells.append(f'<div class="pr-c" style="--r:{i + 2}"><span class="pr-s"><i class="pr-i">{i + 1}</i>{E(s["phase"])}'
+                         f'<em class="{E(s["pdlc"]).lower()}">{E(s["pdlc"])}</em></span><b>{E(first)}</b>'
                          + (f'<small>+{more} more</small>' if more > 0 else "") + "</div>")
-        rows.append(f'<div class="pr-row"><span class="pr-n">{i + 1}</span>{"".join(cells)}</div>')
+        cols.append(f'<div class="pr-col" style="--c:var(--{r["_hue"]});--k:{k + 2}">{"".join(cells)}</div>')
     return (f'<figure class="poster pr" id="poster-prompts-by-role" aria-label="{n_prompts} prompt templates across '
             f'five roles: for each role, the eight steps in order and the prompt each step ships with">'
             f'<figcaption><span class="bk">Prompt templates</span><span class="bt">{n_prompts} prompt templates, '
             f'five roles, one glance</span><span class="bs">Each role\'s steps in journey order, and the first prompt '
             f'each step ships with. Every one has a copy button on the prompts page.</span></figcaption>'
-            f'<div class="pr-grid"><div class="pr-row pr-head"><span class="pr-n"></span>{head}</div>{"".join(rows)}</div>'
-            f'<p class="pa-tk"><b>How to read it.</b> Down a column is one role\'s ninety days. Across a row is the '
-            f'same moment seen from five chairs, which is why the prompts hand each other their outputs.</p>'
+            f'<div class="pr-grid">{nums}{"".join(cols)}</div>'
+            f'<p class="pa-tk"><b>How to read it.</b> One role\'s list is its ninety days. The same step number in '
+            f'another role is the same moment seen by that role, which is why the prompts hand each other their '
+            f'outputs. The small chip is the phase: P0 to P3.</p>'
             f'</figure>')
 
 

@@ -47,6 +47,21 @@ def _fc(fill: str) -> str:
     return "zfp" if fill == "p" else "zf" + PEN[fill][1:]
 
 
+# The pens as literal colours: the fallback paint written into every sketch (see Sk.svg). base.css holds
+# the same values as --sk-ink, --sk-r, --sk-o, --sk-b, --sk-g, and the darker orange and grey that words use.
+_INK = {"k": "#1B1A1E", "r": "#C5281C", "o": "#E2741A", "b": "#2259C2", "g": "#A9A59B"}
+_INK_TEXT = dict(_INK, o="#A44F00", g="#6B675F")
+_PAINT = [("zB", f'fill="{_INK["k"]}"'), ("zE", 'fill="#fff" stroke="none"'), ("zH", f'fill="{_INK["k"]}" stroke="none"'),
+          ("zfp", 'fill="#fff" stroke="none"')] + [(f"zf{c}", f'fill="{v}" stroke="none"') for c, v in _INK.items()]
+_PEN_STROKE = re.compile(r'class="z z([robg])[^"]*"')
+_PEN_TEXT = re.compile(r'class="zw z([krobg])( z[se])?"')
+
+
+def _text_paint(m: re.Match) -> str:
+    anchor = {" zs": "start", " ze": "end"}.get(m.group(2) or "", "middle")
+    return f'{m.group(0)} fill="{_INK_TEXT[m.group(1)]}" stroke="none" text-anchor="{anchor}"'
+
+
 def _seed(name: str) -> int:
     return zlib.crc32(name.encode("utf-8"))
 
@@ -349,10 +364,8 @@ class Sk:
                 self.curve([(hx, hy), knee, (fx, fy)], "ink", "l")
                 self.stroke([(fx - 3 * s, fy), (fx + 14 * s, fy)], "ink", "l", amp=0.4)
         self._path(self._smooth(body, True), "zB")
-        for _ in range(3):                           # the marker's own texture across the body
-            ty = y + self.r.uniform(-ry * 0.5, ry * 0.5)
-            hw = rx * math.sqrt(max(0.05, 1 - ((ty - y) / ry) ** 2)) * 0.7
-            self.out.append(f'<path d="M{x - hw:.0f} {ty:.0f}Q{x:.0f} {ty + self._j(5):.0f} {x + hw:.0f} {ty + self._j(3):.0f}" class="zT"/>')
+        for _ in range(9):                           # (three lines of marker texture used to cross the body here;
+            self.r.random()                          #  the draws are kept so every later stroke stays where it was)
         lx, ly = look                                # eyes: two white dots, set toward where it is looking
         ln = math.hypot(lx, ly) or 1
         ex, ey = x + lx / ln * rx * 0.3, y - ry * 0.3 + ly / ln * ry * 0.16
@@ -763,8 +776,17 @@ class Sk:
 
     # ------------------------------------------------------------------ out
     def svg(self) -> str:
-        return (f'<svg class="sk" viewBox="0 0 {W} {self.h}" role="img" aria-label="{_E(self.alt, quote=True)}">'
-                f'{"".join(self.out)}</svg>')
+        """The sheet. Every mark carries its own paint as plain attributes, so a sketch looks right even if
+        the stylesheet is missing, late or an older copy; the stylesheet's rules outrank them and add the
+        dark theme's paper."""
+        body = "".join(self.out)
+        for cls, attrs in _PAINT:
+            body = body.replace(f'class="{cls}"', f'class="{cls}" {attrs}')
+        body = _PEN_STROKE.sub(lambda m: f'{m.group(0)} stroke="{_INK[m.group(1)]}"', body)
+        body = _PEN_TEXT.sub(_text_paint, body)
+        return (f'<svg class="sk" viewBox="0 0 {W} {self.h}" role="img" aria-label="{_E(self.alt, quote=True)}" '
+                f'fill="none" stroke="{_INK["k"]}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" '
+                f'font-family="Patrick Hand,Chalkboard SE,Comic Sans MS,cursive" font-size="{LABEL}">{body}</svg>')
 
 
 def render(spec: dict) -> tuple[str, "Sk"]:
@@ -772,7 +794,7 @@ def render(spec: dict) -> tuple[str, "Sk"]:
     ``SKETCHES`` list: ``name``, ``alt``, ``caption``, ``draw``, and optionally ``h``."""
     s = Sk(spec["name"], spec["alt"], spec.get("h", H))
     spec["draw"](s)
-    return (f'<figure class="sketch" data-sketch="{_E(spec["name"], quote=True)}">'
+    return (f'<figure class="sketch" id="sk-{_E(spec["name"], quote=True)}" data-sketch="{_E(spec["name"], quote=True)}">'
             f'<div class="sk-paper">{s.svg()}</div><figcaption>{_E(spec["caption"])}</figcaption></figure>'), s
 
 

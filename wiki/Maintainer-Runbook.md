@@ -203,7 +203,7 @@ No versions — this is teaching material, not a library. Instead:
 
 ---
 
-## The site: the SkyWays playbook
+## The site: SkyWays, the agentic manual
 
 Live at https://akash-coded.github.io/aws-bedrock-agentcore-strands/ · source in [`site/`](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/site)
 

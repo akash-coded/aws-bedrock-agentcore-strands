@@ -9,24 +9,6 @@ def mushroom(s: Sk, x: float, y: float, r: float = 26):
              "point", raw=True)
 
 
-def mushrooms(s: Sk):
-    # the worker reads the small basket of wild mushrooms through a glass; the big sack of potatoes goes straight in
-    s.ground(540, 50, 1150, tufts=2)
-    s.table(520, 430, w=320, h=110)
-    mushroom(s, 628, 392, 30)
-    mushroom(s, 690, 372, 38)
-    mushroom(s, 750, 394, 28)
-    s.poly([(572, 398), (592, 430), (784, 430), (804, 398)], fill="p")            # the basket
-    s.line(584, 414, 792, 414, w="t")
-    s.worker(270, 339, look=(1, 0.3), arms=[None, (500, 404)])
-    s.line(500, 404, 610, 356, w="h")                           # the glass, over the basket
-    s.oval(664, 326, 58, 58, w="h")
-    s.sack(1000, 540, 170, 180)
-    s.arrow(880, 318, 1136, 318, "path", dash=True, w="h")
-    s.note(540, 120, "money: two readers", (668, 256), "point")
-    s.label(1006, 210, "read only:|no reader", "path", size=54)
-
-
 def tagged(s: Sk):
     # a scaffold with one foot on a pile of bricks, and the worker who built it tying a "low risk" tag to it
     s.ground(540, 50, 1150, tufts=2)
@@ -51,13 +33,6 @@ def tagged(s: Sk):
 
 
 SKETCHES = [
-    {"name": "a-glass-on-the-wild-mushrooms",
-     "idea": "the only lever is how much reading each change needs, and what it touches decides that, not its size",
-     "verb": "read through a glass", "prop": "a basket of wild mushrooms beside a sack of potatoes",
-     "alt": "A worker studies a small basket of red mushrooms through a magnifying glass. Beside it a big sack goes "
-            "straight past with nobody reading it.",
-     "caption": "Reading goes where the harm is, not where the diff is big. At SkyWays that cut the queue from four days to 1.6.",
-     "draw": mushrooms},
     {"name": "tagging-your-own-scaffold",
      "idea": "self-assessed risk is not a control: the path a change touches sets its band, not its author",
      "verb": "tie a low-risk tag to", "prop": "a scaffold with one foot on bricks",

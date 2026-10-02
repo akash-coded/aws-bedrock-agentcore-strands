@@ -1,9 +1,9 @@
-# Playbook glossary
+# The manual's glossary
 
-Terms as this playbook uses them, with a confidence mark on each:
+Terms as this manual uses them, with a confidence mark on each:
 **documented** (from a vendor's published documentation, read on a date) ·
 **established** (a named, published practice with an author and a year) ·
-**working method** (this playbook's construction — a default to tune).
+**working method** (this manual's construction — a default to tune).
 
 A glossary earns its place through its **distinctions**, not its definitions. Nobody misuses a word
 they have never heard. The expensive mistakes come from two words a room treats as one — a request
@@ -19,7 +19,7 @@ Where the industry definition is contested, the contested part is said out loud.
 
 The curriculum's wider glossary is
 [docs/concepts/glossary.md](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/docs/concepts/glossary.md);
-this page is the playbook's own vocabulary.
+this page is the manual's own vocabulary.
 
 ---
 
@@ -136,7 +136,7 @@ exact and you ship with a unit test and no measured share.
 ### Bolt · **working method**
 
 **In one line** — a thin, shippable slice reviewed and integrated the same day, carrying exactly one
-unknown. The term comes from AWS's AI-DLC; **one unknown per bolt** is this playbook's rule.
+unknown. The term comes from AWS's AI-DLC; **one unknown per bolt** is this manual's rule.
 
 **The distinction that matters** — a bolt is not a **small story**. A story is cut by priority and
 sized by effort; a bolt is cut by **dependency** and sized by what can be integrated before the day
@@ -430,7 +430,7 @@ stale set is worse than a small one because it is trusted.
 
 **In one line** — a hard gate halts the phase until it is signed; a soft gate lets the phase close
 behind a placeholder with a named owner and a date. Four questions classify any decision, and one
-"no" makes it hard.
+"no" makes it hard. The one hard hand-off, P1 → P2, is the sign-off before anything is built.
 
 **The distinction that matters** — hardness is not **importance**. Every gate feels important to its
 owner, and making them all hard stops the programme within a fortnight, after which the team routes
@@ -720,7 +720,7 @@ The terms that do not sit in a formula, a gate or a control, with their one-line
 | **Exact / best-guess map** | *working method* | Every step of a feature tagged exact, best-guess or consequential, with the proof each kind owes. Drawn before any framework is chosen |
 | **Layered defences** | *established* | Several imperfect layers in a row; harm gets through only if every layer fails at once. Reason, 1990. The discipline is classifying each layer honestly as enforced, a request, or absent |
 | **Model gateway** | *documented* | One layer every model call passes through, giving routing, budgets, fallbacks and a per-call log in one place. LiteLLM is the named example |
-| **P0 · P1 · P2 · P3** | *established* | Frame, Design & Spec, Build & Prove, Run & Learn. The spine |
+| **P0 · P1 · P2 · P3** | *established* | Frame, Design & Spec, Build & Prove, Run & Learn. The four phases of the SkyWays PDLC |
 | **Paired indicators** | *established* | Every measure reported beside the one that shows its side effect, so neither can be pushed alone. Grove, 1983; Goodhart's law, 1975 |
 | **Rule sheet** | *established* | Business rules extracted from legacy code into condition, action, source line and confidence, so the agent reads rules instead of thousands of lines. Everything below 0.9 confidence gets a human check |
 | **SDD (spec-driven development)** | *established* | The spec, not the code, is what you maintain; code is generated from it and regenerated on change. **The backbone. Use it always** |
@@ -798,7 +798,7 @@ nobody argued about all quarter is either settled or unused — find out which.
 
 ## The concept map
 
-The playbook teaches **55 concepts**, grouped by the loop they belong to. Browse them with their
+The workbench teaches **55 concepts**, grouped by the loop they belong to. Browse them with their
 worked example and the episode each first appears in:
 [the concept map](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/concepts).
 

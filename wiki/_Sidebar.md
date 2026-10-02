@@ -21,7 +21,7 @@
 
 ### 📗 Method and reference
 
-**The playbook**<br>
+**The method**<br>
 [The Agentic PDLC](The-Agentic-PDLC)<br>
 [The Eight Loops](The-Eight-Loops)<br>
 [Gates & Governance](Gates-and-Governance)<br>
@@ -55,7 +55,7 @@
 
 **Reference**<br>
 [Mental Models](Mental-Models)<br>
-[Playbook Glossary](Playbook-Glossary)<br>
+[Glossary](Playbook-Glossary)<br>
 [Formulas & Calculators](Formulas-and-Calculators)<br>
 [Decision Trees](Decision-Trees)<br>
 [Scenario Library](Scenario-Library)<br>
@@ -137,7 +137,8 @@
 ### 📦 Elsewhere
 
 [📘 The manual · live](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)<br>
-[🛫 The SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)<br>
+[🛫 Ninety Days, the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/)<br>
+[🧰 The workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/)<br>
 [👔 For leadership](https://akash-coded.github.io/aws-bedrock-agentcore-strands/protocol/)<br>
 [🧠 Mental models](https://akash-coded.github.io/aws-bedrock-agentcore-strands/models/)<br>
 [Templates](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/) · [Prompts](https://akash-coded.github.io/aws-bedrock-agentcore-strands/prompts/)<br>

@@ -2,7 +2,7 @@
 
 <!-- tutorial:lesson -->*To practise these, the lesson **[Twelve exercises](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/)** applies them in the order a project needs them.*<!-- /tutorial:lesson -->
 
-Every number in the playbook, with the formula behind it, a worked example, and — the part most
+Every number in the manual, with the formula behind it, a worked example, and — the part most
 reference pages leave out — **when the formula misleads you**.
 
 Seventeen of these have a live calculator:
@@ -10,7 +10,7 @@ Seventeen of these have a live calculator:
 The role journeys show each one in the step where you actually need it.
 
 **Confidence marks:** **documented** (a vendor's published documentation, dated) ·
-**established** (a named, published practice) · **working method** (this playbook's own construction,
+**established** (a named, published practice) · **working method** (this manual's own construction,
 a default to tune rather than a finding).
 
 ---
@@ -496,7 +496,7 @@ still costs one pass. The `0.9` is the documented discount on a cache read.
 The invoice was **4.4×** its estimate on flat traffic, and four habits multiplying account for it.
 
 **On the last digit.** You will see this case quoted elsewhere as `1.6 × 1.5 × 1.3 × 1.41 = 4.40` —
-including in the [simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/bill)
+including in the [workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/bill)
 and the [scenario library](Scenario-Library). The retry factor is 1.7 ÷ 1.2 = 1.41666…, so 1.41
 truncates it and 1.42 rounds it, and the product lands at 4.40 or 4.42 depending which you carry.
 Neither is wrong and the difference does not change a single decision — but it is worth seeing once,

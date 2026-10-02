@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in one sentence.** In the agentic PDLC the product manager turns requests into measured
-> pains, decides which work is genuinely AI work, sets autonomy one action at a time, derives the
-> acceptance bar for each slice from what a mistake costs, owns the intent and release gates, and
-> reports what the feature saved beside what it cost, and stops approving anything they cannot evaluate.
+> **The role in short.** In the agentic PDLC the product manager turns requests into measured
+> pains, decides which work is genuinely AI work, and sets autonomy one action at a time. They derive
+> the acceptance bar for each slice from what a mistake costs, own the intent and release gates, and
+> report what the feature saved beside what it cost. They stop approving anything they cannot evaluate.
 
 {{map:agentic-pdlc-for-product-managers}}
 
@@ -36,7 +36,7 @@ agentic product succeeds now happens before anything is built.
 
 **You stop approving pull requests, and start deriving the bar from what a mistake costs.** When
 agents write the code, the slowest part of building is deciding exactly what to build and what counts
-as right: and a coding agent cannot ask you what you meant. So the discipline you always had becomes
+as right, and a coding agent cannot ask you what you meant. So the discipline you always had becomes
 mandatory: the pain is a measurement, the spec is exact, and "good enough" is a number per slice.
 
 {{sketch:pin-the-pattern-before-the-cut}}
@@ -55,7 +55,7 @@ per action from what a mistake costs. [P0 Frame](lesson:p0-frame)
 
 **4 · Specify.** Eight fields on one screen; the five agentic ones are the decisions nobody made.
 [The eight-field spec](lesson:p1-design-and-spec#step-2--write-the-eight-field-spec) **5 · Plan.**
-You set the cadence, how often evidence arrives; the architect sets the cut.
+You set the cadence (how often evidence arrives); the architect sets the cut.
 [Bolts vs sprints](lesson:bolts-vs-sprints)
 
 ### P2 · Build & Prove
@@ -72,12 +72,12 @@ cycle, before anyone asks, and every incident turned into the brief for the next
 
 ## What is yours, and what is not
 
-| Yours to own | Not yours, stop signing these |
+| Yours to own | Not yours: stop signing these |
 | --- | --- |
-| The intent and release gates, and the plan gate with the architect | The behaviour and expansion gates. QA's |
+| The intent and release gates, and the plan gate with the architect | The behaviour and expansion gates: QA's |
 | Autonomy per action, and the door it sits behind | Pull requests you cannot evaluate |
-| The acceptance bar per slice, derived rather than guessed | Model choice, temperature, framework, behaviours are yours, knobs are engineering's |
-| The two-number report to whoever funds the work | The golden set's contents, you set the bar, QA curates the cases |
+| The acceptance bar per slice, derived rather than guessed | Model choice, temperature, framework: behaviours are yours, knobs are engineering's |
+| The two-number report to whoever funds the work | The golden set's contents: you set the bar, QA curates the cases |
 
 ## How to use a model in this role
 
@@ -170,6 +170,6 @@ you; mark it UNKNOWN instead.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The product manager's eight steps, owns and not-yours | **Original**: this playbook | [Product manager, end to end](site:product-manager/) · [Role: Product manager](wiki:Role-Product-Manager) |
-| The shift: stop approving pull requests, start deriving the bar | **Original**: this playbook | [For leadership](site:protocol/) |
+| The product manager's eight steps, owns and not-yours | **Original**: this manual | [Product manager, end to end](site:product-manager/) · [Role: Product manager](wiki:Role-Product-Manager) |
+| The shift: stop approving pull requests, start deriving the bar | **Original**: this manual | [For leadership](site:protocol/) |
 | The SkyWays examples | **Illustrative**: a fictional airline | [Journey: Product manager](wiki:Journey-Product-Manager) |

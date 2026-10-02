@@ -1,0 +1,77 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "-d",
+        "site/_site",
+        "8811"
+      ],
+      "port": 8811
+    },
+    {
+      "name": "frozen",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "-d",
+        "/private/tmp/claude-501/-Users-akash-at-work-Repos-aws-bedrock-agentcore-strands/0cb54ff8-14d5-4b3e-a6b5-220ea1e040d0/scratchpad/r7/frozen",
+        "8833"
+      ],
+      "port": 8833
+    },
+    {
+      "name": "proto",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "-d",
+        "/private/tmp/claude-501/-Users-akash-at-work-Repos-aws-bedrock-agentcore-strands/0cb54ff8-14d5-4b3e-a6b5-220ea1e040d0/scratchpad/r7/proto/site",
+        "8844"
+      ],
+      "port": 8844
+    },
+    {
+      "name": "game",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "-d",
+        "/private/tmp/claude-501/-Users-akash-at-work-Repos-aws-bedrock-agentcore-strands/0cb54ff8-14d5-4b3e-a6b5-220ea1e040d0/scratchpad/r7/gamesite",
+        "8855"
+      ],
+      "port": 8855
+    },
+    {
+      "name": "wb",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "-d",
+        "/private/tmp/claude-501/-Users-akash-at-work-Repos-aws-bedrock-agentcore-strands/0cb54ff8-14d5-4b3e-a6b5-220ea1e040d0/scratchpad/r7/wbsite",
+        "8866"
+      ],
+      "port": 8866
+    },
+    {
+      "name": "fig",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "-d",
+        "/private/tmp/claude-501/-Users-akash-at-work-Repos-aws-bedrock-agentcore-strands/0cb54ff8-14d5-4b3e-a6b5-220ea1e040d0/scratchpad/r7/figsite",
+        "8877"
+      ],
+      "port": 8877
+    }
+  ]
+}

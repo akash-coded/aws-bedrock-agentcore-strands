@@ -10,10 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in one sentence.** In agentic delivery the programme or delivery manager owns the system
-> the phases run in rather than any one phase, the evidence board, the daily cadence, the log of open
-> decisions with owners and dates, the review queue, the lead-time items started on day one, the
-> conditions (not dates) for each gate, and the two-number report the sponsor reads.
+> **The role in short.** In agentic delivery the programme or delivery manager owns the system the
+> phases run in rather than any one phase. That system is the evidence board, the daily cadence, the
+> log of open decisions with owners and dates, and the review queue. It is also the lead-time items
+> started on day one, the conditions (not dates) for each gate, and the two-number report the sponsor
+> reads.
 
 {{map:agentic-pdlc-for-program-managers}}
 
@@ -69,7 +70,7 @@ cleared a day. When it passes two days, the policy is the problem. [Review by ri
 ### P3 · Run & Learn
 
 **7 · Schedule gates by condition, not by date.** The shadow window is fixed in advance; each widening
-names its evidence; the rollback is rehearsed with a stopwatch before cut-over. Put the evidence days, cases needed ÷ cases per day at the canary share, in the plan. [Cut delivery time](lesson:cut-delivery-time)
+names its evidence; the rollback is rehearsed with a stopwatch before cut-over. Put the evidence days (cases needed ÷ cases per day at the canary share) in the plan. [Cut delivery time](lesson:cut-delivery-time)
 **8 · Assemble the two numbers, and run the maturity check.** The saving beside the spend, with review
 hours and re-runs, every cycle; and each quarter, the six-control check with the first missing control
 named. [Maturity](lesson:ai-delivery-maturity-model)
@@ -78,11 +79,11 @@ named. [Maturity](lesson:ai-delivery-maturity-model)
 
 | Yours to run | Not yours to make |
 | --- | --- |
-| The board, the cadence and the daily rhythm | The acceptance bar, the product manager derives it |
-| The decision log: owners, dates, placeholders | The decisions themselves, you chase them, their owners make them |
-| The review queue and the lead-time items | The risk band of a change, the path rule decides it |
-| Gate conditions and the rollback rehearsal on the calendar | Whether a slice has earned wider use. QA's call |
-| Assembling the two-number report | Signing it, the sponsor is accountable |
+| The board, the cadence and the daily rhythm | The acceptance bar: the product manager derives it |
+| The decision log: owners, dates, placeholders | The decisions themselves: you chase them, their owners make them |
+| The review queue and the lead-time items | The risk band of a change: the path rule decides it |
+| Gate conditions and the rollback rehearsal on the calendar | Whether a slice has earned wider use: QA's call |
+| Assembling the two-number report | Signing it: the sponsor is accountable |
 
 ## How to use a model in this role
 
@@ -111,8 +112,8 @@ model access requested in one region but the data must stay in another; a canary
 
 <details><summary>Show the answer</summary>
 
-**Four things.** Give the framework decision an owner and a date, and a placeholder, an interface
-layer, so the build can proceed. Request model access in the region the data must stay in, today.
+**Four things.** Give the framework decision an owner and a date, and a placeholder (an interface
+layer) so the build can proceed. Request model access in the region the data must stay in, today.
 Put the canary's length in the plan: 600 ÷ (5% × 300) = **40 days**, and ask whether a wider share is
 acceptable for low-risk actions. And confirm the board's Specified column shows the signed spec, bar
 and authority budget, so the hard gate is visible as passed.
@@ -141,8 +142,8 @@ the spend. Code complete is roughly the halfway point.
 
 ### How do you manage risk in an agentic AI project?
 
-Keep a decision log that classifies each open decision as hard, settled before its phase closes, or
-soft, running behind a placeholder with an owner and a date, and chase the owners. Most schedule risk
+Keep a decision log that classifies each open decision as hard (settled before its phase closes) or
+soft (running behind a placeholder with an owner and a date), and chase the owners. Most schedule risk
 is a decision nobody owns; most product risk is a limit that lives only in a prompt.
 
 ### Do agentic projects still need a delivery manager?
@@ -173,8 +174,8 @@ date it is due, and what is blocked until it is made. List decisions with no own
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The programme manager's eight moves, as a role | **Original**: this tutorial, assembled from the playbook's roles and gates | [Gates and Governance](wiki:Gates-and-Governance) |
-| The daily note from the merge log | **Original**: this playbook | [How to cut sprints into bolts](wiki:How-to-Cut-Sprints-into-Bolts) |
+| The programme manager's eight moves, as a role | **Original**: this tutorial, assembled from this manual's roles and gates | [Gates and Governance](wiki:Gates-and-Governance) |
+| The daily note from the merge log | **Original**: this manual | [How to cut sprints into bolts](wiki:How-to-Cut-Sprints-into-Bolts) |
 | Queue time = slots needed ÷ slots per day | **Borrowed** | Little, J. D. C. (1961). *Operations Research* 9(3) |
 | Visualise work and limit work in progress | **Borrowed** | Anderson, D. J. (2010). *Kanban*. Blue Hole Press |
-| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

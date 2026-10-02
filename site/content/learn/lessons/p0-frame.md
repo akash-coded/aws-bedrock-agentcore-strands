@@ -10,9 +10,9 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **P0 Frame in one sentence.** It is the phase that decides, before anything is designed, whether a
-> job is worth doing, whether it needs a model at all, what it is worth net of running and checking
-> it, and how much the machine may do on its own, and it ends when the pain is a measurement and
+> **P0 Frame in short.** It is the phase that decides four things before anything is designed.
+> They are whether a job is worth doing, whether it needs a model at all, what it is worth net of running and
+> checking it, and how much the machine may do on its own. It ends when the pain is a measurement and
 > that verdict, including what was rejected, is written down.
 
 {{map:p0-frame}}
@@ -40,9 +40,9 @@ P0 is the first phase of the [agentic PDLC](lesson:what-is-the-agentic-pdlc), an
 anyone designs anything. It is numbered zero because it is the phase most teams skip, and the number
 makes skipping it visible.
 
-The **product manager** is accountable for it. The solution architect brings the evidence,
+The **product manager** is accountable for it. The solution architect brings the evidence:
 requirements from the people who will live with the system, and the constraints that rule designs
-out: and DevOps sets up the account, the cost tags and the budget alarm, because some of what an
+out. DevOps sets up the account, the cost tags and the budget alarm, because some of what an
 agentic system needs bills for existing, not for use.
 
 P0 ends when **the pain is a measurement and the AI-fit verdict is recorded**.
@@ -53,7 +53,7 @@ P0 ends when **the pain is a measurement and the AI-fit verdict is recorded**.
 
 Requests arrive as vibes. A vibe cannot be sized, prioritised or handed to a machine, so the first
 job is to turn it into one line with four facts: who has the pain, how often, what it costs today,
-and the evidence. At SkyWays, the fictional airline this playbook follows, "make rebooking smarter"
+and the evidence. At SkyWays, the fictional airline this manual follows, "make rebooking smarter"
 became, after two days:
 
 > Disrupted passengers wait an average of **38 minutes** for a rebooking decision; **240 cases a
@@ -75,12 +75,12 @@ person stays in the loop.
 
 Expect two or three of your top five requests to come back as rules. That is the healthy result. At
 SkyWays the answers were *yes, 240 a day, and partly* (a proposed rebooking can be withdrawn, a cash
-refund cannot) so the verdict was **agentic, with a gate on refunds**.
+refund cannot), so the verdict was **agentic, with a gate on refunds**.
 
 ### Step 3 · Size the value, net of running and checking it
 
-Value is arithmetic, not adjectives. The honest version subtracts what it costs to **run**, the
-tokens, and what it costs to **check**, which is the term most business cases leave out:
+Value is arithmetic, not adjectives. The honest version subtracts what it costs to **run** (the
+tokens) and what it costs to **check**, which is the term most business cases leave out:
 
 | Term | SkyWays, cycle one | Arithmetic |
 | --- | --- | --- |
@@ -110,7 +110,7 @@ about the same thing.
 
 P0 hands P1 a short brief: the pain register, the AI-fit record with the rejected alternatives, the
 value line, the autonomy decision per action, and the architect's typed constraints. This hand-off is
-**soft**, a missing number can cross as a placeholder with an owner and a date, but a missing
+**soft**: a missing number can cross as a placeholder with an owner and a date, but a missing
 *decision* cannot, because P1 will make it by accident. [What crosses each hand-off](lesson:the-evidence-pack).
 
 ## Where you'll use it
@@ -138,7 +138,7 @@ line items". About 3,000 invoices arrive a day. **What does the three-question t
 **It stops at the first question: it is a rule.** Summing line items and comparing the total is
 arithmetic that two competent people would never disagree about, so it is not a judgement call.
 Code does it perfectly, instantly and for almost nothing; a model would do it slower, at a cost, and
-occasionally wrongly: fluently, with no error. The volume is irrelevant once question one says no.
+occasionally wrongly (fluently, with no error). The volume is irrelevant once question one says no.
 A genuinely agentic task nearby might be *explaining* a mismatch to the supplier, which is judgement.
 
 </details>
@@ -161,14 +161,14 @@ a person stays in the loop.
 ### How do you calculate the ROI of an AI agent?
 
 Start from the measured pain: cases times minutes saved times the cost of a minute, minus the running
-cost per case, minus the review load, the share of cases a person checks, times the minutes each
-check takes. Most business cases omit the last term, which is why the second cycle then looks like a
+cost per case, minus the review load (the share of cases a person checks, times the minutes each
+check takes). Most business cases omit the last term, which is why the second cycle then looks like a
 regression.
 
 ### What are AI autonomy levels?
 
 A way of deciding how much an agent may do on its own, set per action rather than for the whole
-system. This playbook uses five bands, from read-only (R1) through reversible and hard-to-reverse
+system. This manual uses five bands, from read-only (R1) through reversible and hard-to-reverse
 actions to money (R4, a named approver) and irreversible changes (R5, never delegated). The band
 belongs to the tool, not to the model.
 
@@ -192,7 +192,7 @@ come back as rules, and the rejected list is published so that teams stop re-pro
 **The ten-minute workflow.** The fastest AI-fit test is to make a model argue against the agent:
 
 ```text
-For each candidate below, argue as hard as you can that it does NOT need a model — that a rule, a
+For each candidate below, argue as hard as you can that it does NOT need a model: that a rule, a
 lookup or a person does it better. Apply three tests: is there a genuine judgement call, is the volume
 high enough, is a wrong answer recoverable? Mark each "rule", "person", "assisted" or "agentic", and
 say which test decided it. Candidates: <list>
@@ -202,8 +202,8 @@ say which test decided it. Candidates: <list>
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The pain register, the three-question AI-fit test and the value line | **Original**: this playbook | [Product manager, steps 1 to 3](site:product-manager/) · [Decision Trees](wiki:Decision-Trees) |
-| Autonomy set per action, in five bands | **Original**: this playbook; compare the levels of automation in Parasuraman, Sheridan and Wickens (2000), *IEEE Transactions on Systems, Man, and Cybernetics* 30(3) | [Formulas](wiki:Formulas-and-Calculators#the-value-line--working-method) |
+| The pain register, the three-question AI-fit test and the value line | **Original**: this manual | [Product manager, steps 1 to 3](site:product-manager/) · [Decision Trees](wiki:Decision-Trees) |
+| Autonomy set per action, in five bands | **Original**: this manual; compare the levels of automation in Parasuraman, Sheridan and Wickens (2000), *IEEE Transactions on Systems, Man, and Cybernetics* 30(3) | [Formulas](wiki:Formulas-and-Calculators#the-value-line--working-method) |
 | Make hard-to-reverse decisions the gated ones | **Adapted** | Bezos, J. 2015 letter to Amazon shareholders. Type 1 and Type 2 decisions |
 | Over 40% of agentic projects cancelled, one cause being unclear value | **Borrowed** | Gartner (2025). [Press release, 25 June](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) |
 | The SkyWays figures | **Illustrative**: a fictional airline | [Try the value calculator](sim:#/toolkit/value) |

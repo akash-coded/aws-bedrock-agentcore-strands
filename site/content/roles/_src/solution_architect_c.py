@@ -18,7 +18,7 @@ STEPS_C = [
               "product for this application; task for this feature. A new product writes only the "
               "last two and onboards in a day instead of a week."},
    {"do": "Name what is genuinely domain-level",
-    "detail": "This is the layer teams forget and it holds most of the real reuse, the booking "
+    "detail": "This is the layer teams forget and it holds most of the real reuse: the booking "
               "model, the fare rules, the things every product in the area needs and each one "
               "currently re-invents in its own prompt."},
    {"do": "Make every override declare its reason and its scope",
@@ -34,7 +34,7 @@ STEPS_C = [
               "confirmation on every write in the contract, not in the description."},
    {"do": "Multiply the chain, do not average it",
     "detail": "Four steps at 90% is 66%, end to end wrong one time in three. Length is the enemy, so "
-              "the first defence is removing a step, every step you remove multiplies back."},
+              "the first defence is removing a step: every step you remove multiplies back."},
    {"do": "Place an independent checker after each costly, easy-to-miss generating step",
     "detail": "Independent means a different model, or the same model in a fresh context with an "
               "adversarial brief. A model reading its own output shares its own blind spots, which "
@@ -52,7 +52,7 @@ STEPS_C = [
            "data, tools split into open reads and gated writes, prompts for the templates a person "
            "picks.",
     "caution": "It offers one broad manage_thing(action) tool because that is tidy. Any path through "
-               "such a tool carries the authority of the worst action it can reach, reject it and "
+               "such a tool carries the authority of the worst action it can reach. Reject it and "
                "make it enumerate."},
    {"tool": "Chat LLM",
     "use": "Write the checker's brief. It is an adversarial instruction (find what is wrong, list "
@@ -102,8 +102,8 @@ _Owner: <name> · <date> · Read by: engineering and QA_
 
 - Transport: <Streamable HTTP in production, stdio for local development>
 - Auth: <as the specification's authorization framework requires>
-- Trace: every tool call logged (input, decision, output, model version
-- **Rejected:** <one broad manage_booking(action) tool) any path through it could cancel>
+- Trace: every tool call logged (input, decision, output, model version)
+- **Rejected:** <one broad manage_booking(action) tool: any path through it could cancel>
 
 M applications times N systems becomes M + N. Build the server once and any compliant
 client plugs into it.
@@ -245,7 +245,7 @@ RULES:
    "which is a design question and not a finance one: caching pays only if the layout lets it hit, "
    "and routing pays only if a breaker stops the runaway. The **trace**, which has to be replayable "
    "by audit without becoming a breach target, which means redact rather than omit. And the "
-   "**incident**, which is where your next design decision comes from, a postmortem that produces "
+   "**incident**, which is where your next design decision comes from: a postmortem that produces "
    "a name has not finished; one that produces an enforced control has."),
  "activities": [
    {"do": "Lay the prompt out for the cache, with the marker on the last stable block",
@@ -280,7 +280,7 @@ RULES:
  ],
  "ai": [
    {"tool": "Claude Code",
-    "use": "Reorder one live prompt for the cache and add the assertion that proves it, cache tokens "
+    "use": "Reorder one live prompt for the cache and add the assertion that proves it: cache tokens "
            "read above zero on the second call. Then have it pull the four ratios from the per-call "
            "log: tokens per call, tier mix, cache hit ratio, retries per conversation.",
     "caution": "Make it check for anything volatile inside the cached block. One timestamp or request "
@@ -333,7 +333,7 @@ _Owner: <name> · <date> · Config reviewed like code: <path>_
 |-----------------------|---------------|
 | The request placed first, for emphasis | <no> |
 | A timestamp, request id or session id inside the cached block | <no> |
-| A model switch mid-task, the cache is model-scoped | <forbidden in the team rules> |
+| A model switch mid-task (the cache is model-scoped) | <forbidden in the team rules> |
 | Fewer than the minimum cacheable tokens | <no> |
 
 ## Routing and the breaker
@@ -373,7 +373,7 @@ have detected it afterwards>
    {"title": "Diagnose a bill that left its estimate",
     "when": "The invoice has moved and traffic has not",
     "body": """My token bill is <n>x its estimate and traffic is flat. Diagnose it from the
-per-call log at <path>, not from the price list, the prices did not change.
+per-call log at <path>, not from the price list: the prices did not change.
 
 Compute four ratios, the baseline period against now:
 - tokens per call
@@ -400,16 +400,16 @@ RULES:
     "when": "After any incident, while the room is still discussing the input",
     "body": """Turn this incident into a design change. Use EXACTLY this structure.
 
-**Timeline** (what happened, minute by minute, from the input to the consequence
-**Reconstruct**) for each control that was supposed to exist, state whether the
+**Timeline**: what happened, minute by minute, from the input to the consequence
+**Reconstruct**: for each control that was supposed to exist, state whether the
   incident is POSSIBLE or IMPOSSIBLE with it enforced. The combination that is possible
   is the state the system was actually in.
-**Finding** (the ENFORCED control that, if present, would have made this IMPOSSIBLE
-**Not the finding**) the input, the person, and any control that would only have
+**Finding**: the ENFORCED control that, if present, would have made this IMPOSSIBLE
+**Not the finding**: the input, the person, and any control that would only have
   DETECTED it
-**Change** (the typed parameter, the confirmation token or the permission, and the
+**Change**: the typed parameter, the confirmation token or the permission, and the
   file it will live in
-**Record**) the record number, and the autonomy level that drops as a result
+**Record**: the record number, and the autonomy level that drops as a result
 **Verify**: the test QA re-runs, and what "stopped twice over" means here
 
 RULES:

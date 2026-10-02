@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in one sentence.** An AI agent must be accurate enough that its right answers pay for
-> its wrong ones, so for each slice of work, divide the **damage** of a wrong answer by the
-> **saving** of a right one to get *N*, and the break-even bar is **N ÷ (N + 1)**: 50% where a mistake
-> costs what a success saves, 80% where it costs four times as much, 98% where it costs fifty times,
-> unless a person holds the action and cuts the damage.
+> **The answer in short.** An AI agent must be accurate enough that its right answers pay for its
+> wrong ones. So for each slice of work, divide the **damage** of a wrong answer by the **saving** of
+> a right one to get *N*. The break-even bar is **N ÷ (N + 1)**: 50% where a mistake costs what a
+> success saves, 80% where it costs four times as much, 98% where it costs fifty times. The bar is
+> lower if a person holds the action and cuts the damage.
 
 {{figure:bar_sheet}}
 
@@ -51,7 +51,7 @@ wrong. Anything above the bar is value; anything below it costs more than it sav
 ### Step 1 · Cut the feature into slices that fail differently
 
 A slice is a group of cases whose mistakes cost about the same. SkyWays, the fictional airline this
-playbook follows, cut its rebooking assistant into same-day moves, codeshare rebookings and refunds,
+manual follows, cut its rebooking assistant into same-day moves, codeshare rebookings and refunds,
 because a wrong same-day suggestion costs a few dollars of an agent's time and a wrong refund costs
 the refund.
 
@@ -64,7 +64,7 @@ the refund.
 | Refund, no hold | $12 | $600 | 50 | **98%** |
 | Refund, **with a human hold** | $12 | $30 | 2.5 | **71%** |
 
-Damage is not always money, a wrongly refused benefit, a misleading medical summary. Put a number on
+Damage is not always money: a wrongly refused benefit, a misleading medical summary. Put a number on
 it anyway; if you genuinely cannot, that is the finding: the step needs a person regardless of any bar.
 
 ### Step 3 · Read the bars for design, not just for testing
@@ -72,10 +72,8 @@ it anyway; if you genuinely cannot, that is the finding: the step needs a person
 The last two rows are the lever. **A hold lowers the damage, so it lowers the bar**: a person checking
 refunds before they go out cuts the damage of a wrong one from $600 to $30, and the bar from 98% to
 71%. Nothing about the model changed. That is why a human in the loop is a commercial instrument, not
-friction: and why a bar above about 95% is usually a design smell: it says the step is too dangerous
+friction, and why a bar above about 95% is usually a design smell: it says the step is too dangerous
 to run unheld, and the answer is a hold, not a better prompt.
-
-{{sketch:something-soft-underneath}}
 
 ## Where you'll use it
 
@@ -91,8 +89,6 @@ why the agent was allowed to launch. A derived bar is a sentence: *it breaks eve
 because a wrong one costs four times what a right one saves.* And one bar per feature ships the hard
 slice below its bar while the easy one is held back for no reason.
 
-{{sketch:lift-the-blanket}}
-
 ## Try it
 
 A support agent drafts replies that a person always reads before sending (saving $2 a case, damage $1
@@ -103,8 +99,8 @@ is issued wrongly). **What bar does each need, and what would you change?**
 
 **Drafts: 33%. Credits: about 94%.** For drafts N = 1 ÷ 2 = 0.5 and the bar is 0.5 ÷ 1.5 ≈ 33%: the
 person reading each draft keeps the damage small. For credits N = 45 ÷ 3 = 15 and the bar is
-15 ÷ 16 ≈ 94%, which is close to the design-smell line. The change: put a hold on credits, a person
-approves any credit above a threshold, and re-derive; if the hold cuts the damage to $6, N = 2 and
+15 ÷ 16 ≈ 94%, which is close to the design-smell line. The change: put a hold on credits (a person
+approves any credit above a threshold) and re-derive; if the hold cuts the damage to $6, N = 2 and
 the bar falls to about 67%.
 
 </details>
@@ -133,7 +129,7 @@ the level that pays. It also cannot be defended to anyone who asks where it came
 
 A person who checks an action before it takes effect lowers the damage of a wrong answer, and so
 lowers the bar. At SkyWays a hold on refunds cut the damage from $600 to $30 and the bar from 98% to
-71%: which is often the difference between shipping and never shipping.
+71%, which is often the difference between shipping and never shipping.
 
 ### Is a derived bar enough to launch?
 
@@ -155,8 +151,8 @@ board then reviews damage and saving assumptions, not arbitrary accuracy targets
 **The ten-minute workflow.** A bar derivation that refuses to invent your numbers:
 
 ```text
-For each slice below, ask me what one wrong answer costs — the damage, including the fix and any
-refund — and what one right answer saves. Do not estimate these yourself. Then compute N = damage ÷
+For each slice below, ask me what one wrong answer costs (the damage, including the fix and any
+refund) and what one right answer saves. Do not estimate these yourself. Then compute N = damage ÷
 saving and the bar N ÷ (N + 1), and the bar again if a person holds the action so that the damage
 falls to the reviewer's time. Slices: <list>
 ```
@@ -165,6 +161,6 @@ falls to the reviewer's time. Slices: <list>
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The break-even bar N ÷ (N + 1), per slice, and the hold as a lever | **Original**: this playbook | [Formulas](wiki:Formulas-and-Calculators#the-acceptance-bar--working-method) · [Mental Models](wiki:Mental-Models#a-hold-is-a-lever-not-a-brake) |
+| The break-even bar N ÷ (N + 1), per slice, and the hold as a lever | **Original**: this manual | [Formulas](wiki:Formulas-and-Calculators#the-acceptance-bar--working-method) · [Mental Models](wiki:Mental-Models#a-hold-is-a-lever-not-a-brake) |
 | Expected-value break-even for a decision under uncertainty | **Borrowed** | Standard decision theory; see Raiffa, H. (1968). *Decision Analysis*. Addison-Wesley |
 | The SkyWays slices and figures | **Illustrative**: a fictional airline | [Try the bar calculator](sim:#/toolkit/bar) |

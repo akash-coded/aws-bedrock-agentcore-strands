@@ -1,6 +1,6 @@
 # Decision trees
 
-Eleven decisions this playbook makes the same way every time, each drawn as a tree. Print the ones you
+Eleven decisions this manual makes the same way every time, each drawn as a tree. Print the ones you
 use; they are meant to be settled in minutes, not debated in meetings.
 
 A tree is thinking that was already done, recorded so the same question stops costing a meeting. The
@@ -726,7 +726,7 @@ Two possibilities, and they are worth telling apart.
 general right answer. That is what a decision record is *for*. Write the ADR, name what you rejected,
 and stop re-litigating it.
 
-**Or it is a decision this playbook makes the same way every time, and your team has not adopted the
+**Or it is a decision this manual makes the same way every time, and your team has not adopted the
 rule yet.** Autonomy arguments, agent-count arguments and review-depth arguments are almost always
 this. Adopt the tree, and the argument becomes a two-minute lookup.
 

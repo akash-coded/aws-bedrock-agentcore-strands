@@ -5,6 +5,9 @@ The game itself is in ``site/play/``: ``days.json`` (every word and number), ``s
 run in, through the site's own shell, and writes the thirteen days as a plain list underneath for a
 reader without script.
 
+The page's heading says what this is before it says its name: "A game: run a ninety-day AI project",
+then "Ninety Days". The name never stands alone, because it means nothing to a first-time visitor.
+
 The workbench used to live at this address. Its routes all begin ``#/``. The game's only hashes are
 ``#day-45`` and its twelve siblings, which open a day with the earlier ones played by the book, so the
 first script in the head forwards any route that begins with a slash to ``/workbench/`` before the
@@ -67,21 +70,20 @@ def build(shell, ctx: dict) -> str:
     data = load()
     body = f"""<div class="wrap"><main id="main" class="nd">
   <header class="nd-top">
-    <p class="eyebrow">The simulator</p>
-    <h1>{_E(data["title"])}</h1>
+    <h1><span class="nd-what">{_E(data["what"])}</span> <span class="nd-name">{_E(data["title"])}, the SkyWays simulator</span></h1>
     <p class="lede">{_E(data["premise"])}</p>
-    <a class="nd-quit" href="./">Leave this run</a>
   </header>
   <div id="nd" class="nd-app" data-up="../" hidden></div>
   <section class="nd-plain" aria-label="The thirteen days, as text">
-    <p>The game needs script to run. Here are its thirteen days as text. The calculators and the case in
-    depth are in <a href="../workbench/">the workbench</a>.</p>
+    <p>The game needs script to run. Without script, here are its thirteen decisions as text: what has
+    happened on each day, the question, and every option with its price in days and what it leads to. The
+    calculators and the case in depth are in <a href="../workbench/">the workbench</a>.</p>
     {_plain(data)}
   </section>
 </main></div>
 <script type="application/json" id="nd-data">{json.dumps(data, ensure_ascii=False).replace("</", "<\\/")}</script>"""
     return shell(
-        title="Ninety Days · the SkyWays simulator · The agentic manual",
+        title="Ninety Days, a game: run a ninety-day AI project · The agentic manual",
         desc="Play an airline's ninety-day build of an AI rebooking assistant: thirteen decisions, each with a "
              "price in days, and consequences that arrive later. As one role, the whole team, or the sponsor.",
         body=body, depth=1, nav_id="simulator", canonical=ctx["base"] + "simulator/",

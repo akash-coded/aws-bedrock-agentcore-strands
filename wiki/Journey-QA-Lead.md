@@ -12,7 +12,7 @@ This page is the walk. For the standing definition of the job, what you own, wha
 
 ---
 
-You own the two gates nobody else in the room can judge: **behaviour**: does it meet the spec?, and **expansion**, have we earned wider use? The craft does not change. Test plans from requirements, regression suites, exploratory testing and a sign-off before release are all still the job.
+You own the two gates nobody else in the room can judge: **behaviour** (does it meet the spec?) and **expansion** (have we earned wider use?). The craft does not change. Test plans from requirements, regression suites, exploratory testing and a sign-off before release are all still the job.
 
 What changes is that half of what you test is right *a share of the time*. So a pass becomes a measured share with a margin on it, per slice, against a bar somebody derived from two money figures. And one suite becomes four, because the four things that now go wrong fail in four different ways: exact work fails loudly, best-guess work fails **fluently**, a missing boundary fails silently until money moves, and drift fails with no deploy and no error at all.
 
@@ -54,7 +54,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 ## How to use a model in this role
 
-> Use a model for the **volume**, never for the verdict. It will turn a redacted ticket export into three hundred candidate cases, cluster forty shadow disagreements into four themes, and write the harness that runs them, all work that used to price this role out of doing its job properly. What it must not do is decide what counts as right, or grade its own family of outputs and hand you the number unlabelled. A judge model is a measuring instrument with an unknown error until you calibrate it against human labels, so calibrate it and report that figure like any other score. Where a step below says *do not delegate*, that is a judgement with your name on a gate.
+> Use a model for the **volume**, never for the verdict. It will turn a redacted ticket export into three hundred candidate cases, cluster forty shadow disagreements into four themes, and write the harness that runs them: all work that used to price this role out of doing its job properly. What it must not do is decide what counts as right, or grade its own family of outputs and hand you the number unlabelled. A judge model is a measuring instrument with an unknown error until you calibrate it against human labels, so calibrate it and report that figure like any other score. Where a step below says *do not delegate*, that is a judgement with your name on a gate.
 
 ---
 
@@ -66,7 +66,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 *P1, the day the architect's step map exists and before a single test is written*
 
-Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** work, the fare arithmetic, owes a unit test, green or red, and it fails loudly. **Best-guess** work, which alternative suits this passenger, owes a measured share per slice, and it fails *fluently*: confident, well-worded and wrong. **Consequential** work, the refund, owes a required confirmation, and it fails silently until money moves. Get the tags right and the test plan writes itself; get them wrong and you will prove the wrong thing thoroughly.
+Three kinds of step live inside one feature and each owes a different kind of evidence. **Exact** work (the fare arithmetic) owes a unit test, green or red, and it fails loudly. **Best-guess** work (which alternative suits this passenger) owes a measured share per slice, and it fails *fluently*: confident, well-worded and wrong. **Consequential** work (the refund) owes a required confirmation, and it fails silently until money moves. Get the tags right and the test plan writes itself; get them wrong and you will prove the wrong thing thoroughly.
 
 **What you actually do**
 
@@ -249,7 +249,7 @@ ARCHITECTURE NOTES:
 
 *P1, alongside the spec, before the first model output is scored*
 
-The golden set is the acceptance bar made executable: real historical cases with the expected outcome, one per line, tagged by slice, re-scored on every change. **Fifty cases to start, five hundred to trust.** The judgement in it is yours and it is the whole value, engineering makes it runnable, but somebody has to decide what counts as right. The part everyone gets wrong is the sampling: a set drawn in proportion to traffic is representative of traffic and not of risk, so you oversample the rare hard slice deliberately.
+The golden set is the acceptance bar made executable: real historical cases with the expected outcome, one per line, tagged by slice, re-scored on every change. **Fifty cases to start, five hundred to trust.** The judgement in it is yours and it is the whole value: engineering makes it runnable, but somebody has to decide what counts as right. The part everyone gets wrong is the sampling: a set drawn in proportion to traffic is representative of traffic and not of risk, so you oversample the rare hard slice deliberately.
 
 **What you actually do**
 
@@ -268,7 +268,7 @@ The golden set is the acceptance bar made executable: real historical cases with
 | **Claude Code** | Point it at a redacted export and have it emit candidate jsonl lines with a slice tag and the input fields filled from the record. Three hundred candidates in a morning is the difference between a fifty-case set and a five-hundred-case one.<br>⚠ It will fill the expected outcome from what the system actually did, which turns your golden set into a snapshot of current behaviour. Have it leave `expect` null and review every one. |
 | **Chat LLM** | Give it the slice list, each bar, and the case counts, and ask how many cases each slice needs to prove its bar at a plausible score. It turns the stratification into arithmetic. |
 | **Chat LLM (cheap tier)** | Generate paraphrase variants of a real case (same facts, different phrasing) to test that the agent is reading the situation rather than the wording.<br>⚠ Mark every generated line `"source":"synthetic"` and never let it count toward a slice's n. A bar proven on synthetic cases is proven against your own imagination. |
-| **Do not delegate** | The expected outcome. That single field is the judgement the entire set rests on, and it is the one thing a model cannot recover from the data, the data records what happened, not what should have. |
+| **Do not delegate** | The expected outcome. That single field is the judgement the entire set rests on, and it is the one thing a model cannot recover from the data: the data records what happened, not what should have. |
 
 **The artefact**
 
@@ -323,7 +323,7 @@ Write and run a script that emits one JSON object per line with EXACTLY this sha
 
 RULES:
 - `expect` is ALWAYS null. Do not infer the expected outcome from what the agent or the
-  desk actually did, that turns the set into a snapshot of current behaviour.
+  desk actually did: that turns the set into a snapshot of current behaviour.
 - Redact every passenger identifier: name, email, passport, card. Keep the PNR masked.
 - Assign the slice from the booking facts, not from the ticket's own category field.
 - Drop any row where you had to guess the slice, and list those separately at the end.
@@ -352,7 +352,7 @@ OUTPUT: one table.
 Then three lines:
 1. Which slice a representative sample would under-serve most, and by how much.
 2. Which slice is cheapest to prove per case curated.
-3. Any slice where the cases needed exceeds the history available, those need a hold to
+3. Any slice where the cases needed exceeds the history available: those need a hold to
    lower the bar, not more curation, and I need to know now.
 
 Show the arithmetic for one row so I can check it.
@@ -414,7 +414,7 @@ SLICE COUNTS AND CASE NOTES:
 
 *P1, as each kind of step produces its first output*
 
-Three kinds of work, three kinds of checker. Arithmetic, schema and eligibility get an **exact check** written in code, because code does published rules perfectly and provably. A drafted message gets an **independent judge** against a rubric, run *after* the exact checks, running it first spends money grading outputs the schema check would have rejected for free. A category gets a **classifier** scored against the golden labels. And the drafter never grades itself, because a model that has seen its own reasoning grades the intention rather than the output.
+Three kinds of work, three kinds of checker. Arithmetic, schema and eligibility get an **exact check** written in code, because code does published rules perfectly and provably. A drafted message gets an **independent judge** against a rubric, run *after* the exact checks: running it first spends money grading outputs the schema check would have rejected for free. A category gets a **classifier** scored against the golden labels. And the drafter never grades itself, because a model that has seen its own reasoning grades the intention rather than the output.
 
 **What you actually do**
 
@@ -430,7 +430,7 @@ Three kinds of work, three kinds of checker. Arithmetic, schema and eligibility 
 
 | Tool | Use it for |
 | --- | --- |
-| **Claude Code** | Write the exact checks as ordinary tests, schema validation, fare recomputation from the source rules, tax and eligibility assertions. This is normal test code and it is the cheapest part of the harness to get right.<br>⚠ Make it recompute the expected value from the fare rules, not read it from the agent's own output. A check that derives the expected answer from the answer always passes. |
+| **Claude Code** | Write the exact checks as ordinary tests: schema validation, fare recomputation from the source rules, tax and eligibility assertions. This is normal test code and it is the cheapest part of the harness to get right.<br>⚠ Make it recompute the expected value from the fare rules, not read it from the agent's own output. A check that derives the expected answer from the answer always passes. |
 | **A judge model (an independent tier)** | Score drafted messages against the rubric, after the exact checks, on what survived them. It is genuinely good at tone, policy adherence and spotting a claim the source does not support.<br>⚠ It is a measuring instrument with an unknown error until you calibrate it. Do not put a judged score in front of a gate before you can say what the judge's agreement with human labels is, and on how many cases. |
 | **Chat LLM** | Turn a disagreement into a rubric diff: give it the case, the judge's verdict, the engineer's objection, and ask for the sentence the rubric is missing. |
 | **Do not delegate** | The human labels you calibrate the judge against. The entire point of that sample is that a person produced it; a model generating the ground truth for its own calibration measures nothing at all and produces a number that looks exactly like a real one. |
@@ -586,7 +586,7 @@ OUTPUT:
 1. Agreement: matches / n, as a percentage, with its 95% lower bound. Use the Wilson
    interval if n is under 100, and say which interval you used.
 2. A confusion breakdown: judge-fail/human-pass and judge-pass/human-fail, separately.
-   These are different problems, the first wastes engineering time, the second ships.
+   These are different problems: the first wastes engineering time, the second ships.
 3. For every disagreement, which criterion it turned on.
 4. Whichever criterion accounts for the most disagreements: the sentence the rubric is
    missing, written as a rubric line I can paste.
@@ -768,7 +768,7 @@ and a verdict of PROVEN / UNPROVEN / FAILED:
 
 RULES:
 - Exit 1 if any slice is not PROVEN. Exit 2 on a malformed report, an untagged case, a
-  slice with no bar, or a slice with n = 0, a configuration failure must not look like
+  slice with no bar, or a slice with n = 0: a configuration failure must not look like
   a content failure.
 - Print the per-slice table first. Do not print an overall number at all.
 - No network calls, no model calls.
@@ -933,7 +933,7 @@ RULES:
 - lower bound = p - 1.96 * sqrt(p*(1-p)/n). Under n = 100 use the Wilson interval instead,
   and mark which rows used which.
 - PROVEN only when the LOWER BOUND is at or above the bar. Never the point estimate.
-- FAILED when the score itself is at or below the bar, no sample size fixes that.
+- FAILED when the score itself is at or below the bar: no sample size fixes that.
 - UNPROVEN otherwise. Cases owed = 1.96^2 * p * (1-p) / (p - bar)^2, minus the cases held.
 - Flag any slice that got WORSE than the previous run, even where it still passes.
 - Do NOT compute an overall number. If I gave you one, ignore it.
@@ -964,7 +964,7 @@ Price all THREE routes to proven, using these formulas, and show the arithmetic:
 3. LOWER THE DAMAGE WITH A HOLD
    bar = N / (N + 1) where N = damage / saving. Recompute the bar for a damage of
    <damage with a named approver>. Then say whether the CURRENT score, at the CURRENT n,
-   clears the new bar, lower bound, not point estimate.
+   clears the new bar (lower bound, not point estimate).
 
 OUTPUT: a three-row table of route, cost, elapsed days, and what it gives up. Then name
 the route you would take and the one assumption that would change your answer.
@@ -1132,7 +1132,7 @@ OUTPUT:
 
 RULES:
 - Do not name a person and do not include the real booking reference.
-- If the write-up does not say which entry point the text came in through, say so, that
+- If the write-up does not say which entry point the text came in through, say so: that
   is a gap in the trace and it is a finding in its own right.
 - Write the cases as data, not as prose.
 
@@ -1149,7 +1149,7 @@ Here is my injection suite. Find the tests that would pass even if the system we
 broken.
 
 For each test, answer:
-1. Could this pass because the agent failed for an UNRELATED reason, a timeout, a tool
+1. Could this pass because the agent failed for an UNRELATED reason: a timeout, a tool
    that was not registered, an empty input, a booking that does not exist?
 2. Does it assert on the model's wording anywhere, directly or through a helper?
 3. Does it assert BOTH that the action did not happen AND that the attempt was recorded?
@@ -1166,7 +1166,7 @@ SUITE:
 
 **Worked example · SkyWays · green since launch, and a $2,000 refund on day eighty-two**
 
-> The suite was written before launch, passed, and was not run again through three prompt edits. On day 82 a refund of **$2,000** went out that was not owed. The postmortem listed five claimed layers and found **none** of them enforced, two of the five existed only in the prompt. Be honest about what the suite would have done: it would not have stopped the money, because injection defence changes the odds and only the cap or the approver could have closed the path. What it would have done is go red in week two, when the third prompt edit removed the sentence the team was relying on, four weeks before any money moved. That is the entire argument for running it weekly rather than once.
+> The suite was written before launch, passed, and was not run again through three prompt edits. On day 82 a refund of **$2,000** went out that was not owed. The postmortem listed five claimed layers and found **none** of them enforced: two of the five existed only in the prompt. Be honest about what the suite would have done: it would not have stopped the money, because injection defence changes the odds and only the cap or the approver could have closed the path. What it would have done is go red in week two, when the third prompt edit removed the sentence the team was relying on, four weeks before any money moved. That is the entire argument for running it weekly rather than once.
 
 **Pitfalls**
 
@@ -1224,7 +1224,7 @@ _Window: <start> to <end> (<n> days, fixed on <date> before the run) · Owner: <
 |-------|--------------------|--------|-----------|-----------|------|
 | <same-day> | <n> | <n> | <n>% | 95% | |
 | <codeshare> | <n> | <n> | <n>% | 95% | |
-| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | — |
+| <refund> | <n> | <n> | <n>% | n/a, excluded, stays gated | n/a |
 
 **Money actions are excluded from automatic agreement and remain gated regardless of
 what this table says.** Every other threshold here is tunable; that one is not.
@@ -1237,7 +1237,7 @@ Any slice under <n> compared decisions is **unproven**, not failed. Say which.
 | no write call from the shadow path | <the nightly job> | <date> |
 | shadow decisions land in <the log>, not <the ledger> | <the nightly job> | <date> |
 
-## Disagreements, themes, not cases
+## Disagreements: themes, not cases
 | Theme | Count | Agent right / desk right / ambiguous | What it changes |
 |-------|-------|--------------------------------------|-----------------|
 | <theme> | <n> | <which> | <golden cases / rubric line / spec defect / nothing> |
@@ -1300,7 +1300,7 @@ Here are <n> cases where the agent and the human desk disagreed.
 
 1. Cluster them into at most 6 themes. Name each in plain words, no jargon.
 2. For each theme, mark it AGENT RIGHT / DESK RIGHT / GENUINELY AMBIGUOUS, with the
-   reason. Do NOT treat the desk as ground truth, say so when the desk was wrong.
+   reason. Do NOT treat the desk as ground truth: say so when the desk was wrong.
 3. Rank the themes by the estimated cost of being wrong, not by how often they occur.
 4. For each theme, say what it changes: a golden case, a rubric line, a spec defect,
    or nothing.
@@ -1343,12 +1343,12 @@ SLICES, SCORES, BARS, TRAFFIC SHARE PER SLICE, CASES PER DAY:
 
 **Worked example · SkyWays · 96% that was not a pass**
 
-> The shadow run cleared its threshold, **96%** agreement over fourteen days against a 95% default, and the room wanted the expansion gate opened. Inside that 96%, the agent had disagreed with the desk on **four of eleven** refund decisions, which is **64%** agreement on the slice that moves money. Two things were wrong and only one of them was the number. Eleven cases cannot conclude anything about refunds in either direction, so the honest word was *unproven* rather than *failed*; and refunds should never have been inside the automatic agreement figure at all, because money actions stay gated regardless. The low-risk slices widened on the evidence they had, refunds stayed gated, and refund cases kept accumulating at the rate the traffic allowed.
+> The shadow run cleared its threshold (**96%** agreement over fourteen days against a 95% default) and the room wanted the expansion gate opened. Inside that 96%, the agent had disagreed with the desk on **four of eleven** refund decisions, which is **64%** agreement on the slice that moves money. Two things were wrong and only one of them was the number. Eleven cases cannot conclude anything about refunds in either direction, so the honest word was *unproven* rather than *failed*; and refunds should never have been inside the automatic agreement figure at all, because money actions stay gated regardless. The low-risk slices widened on the evidence they had, refunds stayed gated, and refund cases kept accumulating at the rate the traffic allowed.
 
 **Pitfalls**
 
 - Reading the aggregate. The slice with the money in it is the small one, and small slices disappear into averages exactly when it matters most.
-- A three-day window as a formality. It holds no weekend and no disruption day, so it buys false confidence at full price, and worse than no shadow run, because a number is quotable.
+- A three-day window as a formality. It holds no weekend and no disruption day, so it buys false confidence at full price. That is worse than no shadow run, because a number is quotable.
 - Promising a cut-over date before doing the division. At 5% of 240 cases a day you see twelve a day, so a 500-case slice needs 42 days, and nobody who promised a fortnight had run the numbers.
 
 **Done when**, Agreement is reported per slice over a window fixed in advance, 'shadow never writes' is a passing test in the nightly job, and every widening step has a day count derived from traffic rather than a date chosen in a meeting.
@@ -1406,7 +1406,7 @@ _Baseline frozen <date> from <source> · Owner: <name>_
 **Two thresholds, because one is not enough.**
 - Step: alert at **5pp** week over week. Catches a jump.
 - Level: alert at **10pp** against the frozen baseline. Catches the slow slide that a
-  week-over-week rule never fires on, under 2pp a week moves 13pp in seven weeks.
+  week-over-week rule never fires on: under 2pp a week moves 13pp in seven weeks.
 
 A drift alert **re-opens the release gate automatically**. Last triggered: <date / never>.
 Baseline re-frozen only by <name>, and never to make an alert go away.
@@ -1433,8 +1433,8 @@ request, and a model can be talked past a request.
 **3 · The fix**
 | Proposal | Closes the path, or lowers the probability? |
 |----------|--------------------------------------------|
-| <reword the prompt> | lowers the probability, the next attempt is worded differently |
-| <add an alert> | neither, that is detection, not prevention |
+| <reword the prompt> | lowers the probability: the next attempt is worded differently |
+| <add an alert> | neither: that is detection, not prevention |
 | **<cap and confirmation token in the tool signature>** | **closes the path** |
 
 **4 · Autonomy**
@@ -1523,7 +1523,7 @@ RULES:
 - The expected outcome is a refusal or an escalation with a REASON CODE. Never
   "behaves sensibly" and never a sentence of prose.
 - Tag every case with the slice whose bar it belongs to. If it belongs to no existing
-  slice, say so, the incident may have revealed that the slice list is wrong.
+  slice, say so: the incident may have revealed that the slice list is wrong.
 - Do not invent facts the write-up does not contain. Mark them <unknown>.
 
 INCIDENT AND FIX:

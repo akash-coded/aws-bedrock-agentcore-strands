@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The rule in one sentence.** Decide how much process a change deserves from four questions about
-> its risk: the most dangerous tool or path it touches, whether it can be undone cheaply once live,
-> whether more than one team's artefacts change, and whether an auditor reads the result, and choose
-> **shallow, standard or deep** accordingly, keeping the spec at every depth and naming the evidence
+> **The rule in short.** Decide how much process a change deserves from four questions about its
+> risk. What is the most dangerous tool or path it touches? Can it be undone cheaply once live?
+> Do more than one team's artefacts change? Does an auditor read the result? Choose
+> **shallow, standard or deep** accordingly. Keep the spec at every depth, and name the evidence
 > that would raise the depth mid-flight.
 
 {{map:how-much-process-does-a-change-need}}
@@ -36,13 +36,13 @@ change's risk.
 ## What decides how much process a change needs?
 
 Not its size. **Depth is a property of the change, not of the team or the method.** A one-line change
-to a refund cap is tiny and deep, money leaves, and it cannot be taken back. A nine-hundred-line
-refactor of a read-only report is large and shallow, nothing it touches can do harm, and a flag
+to a refund cap is tiny and deep: money leaves, and it cannot be taken back. A nine-hundred-line
+refactor of a read-only report is large and shallow: nothing it touches can do harm, and a flag
 turns it off.
 
 {{sketch:small-falls-through-the-sieve}}
 
-This is one of the playbook's [mental models](wiki:Mental-Models#depth-is-a-dial-not-a-constant),
+This is one of this manual's [mental models](wiki:Mental-Models#depth-is-a-dial-not-a-constant),
 and every major method has arrived at it independently. AWS's AI-DLC adaptive workflows choose the
 breadth and depth of each task from its complexity. BMAD's documentation says the process should size
 itself to the work. And the most common critique of spec-driven tools is that they do not, so small
@@ -99,8 +99,6 @@ A process applied at one depth to everything over-serves most changes and under-
 few. Teams then abandon it, and the first changes to lose it are the ones that needed it most.
 Sizing each change is what keeps the process alive where it matters.
 
-{{sketch:gloves-off-for-the-hot-one}}
-
 ## Try it
 
 Choose a depth for each: **(a)** changing the colour of a button; **(b)** raising a refund cap from
@@ -108,9 +106,9 @@ $400 to $500; **(c)** a new cross-border payout flow touching three teams, revie
 
 <details><summary>Show the answer</summary>
 
-**(a) Shallow**: reversible, harmless, one team: a spec line and one agent. **(b) Standard, with a
-named approver**: it is one line, but it touches money, so the size is irrelevant; the new cap goes
-into the tool's signature and its tests. **(c) Deep**: money, several teams and an auditor: the
+**(a) Shallow.** Reversible, harmless, one team: a spec line and one agent. **(b) Standard, with a
+named approver.** It is one line, but it touches money, so the size is irrelevant; the new cap goes
+into the tool's signature and its tests. **(c) Deep.** Money, several teams and an auditor: the
 spec, the gates and a kept persona trail. All three update the spec.
 
 </details>
@@ -133,7 +131,7 @@ one; otherwise shallow is enough.
 ### Isn't a one-line change always low risk?
 
 No. A one-line change to a refund cap, a permission or a policy threshold can be the riskiest change
-of the quarter. Size is a poor proxy for risk, which is why this playbook reviews by risk band rather
+of the quarter. Size is a poor proxy for risk, which is why this manual reviews by risk band rather
 than by diff size.
 
 ### What does "adaptive" mean in AWS's AI-DLC?
@@ -171,8 +169,8 @@ depth. Changes: <list>
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The four questions, the three depths and the depth decision | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
-| Depth is a dial, not a constant | **Original**: this playbook | [Mental Models](wiki:Mental-Models#depth-is-a-dial-not-a-constant) |
+| The four questions, the three depths and the depth decision | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC#how-the-named-methods-sit-on-the-spine) |
+| Depth is a dial, not a constant | **Original**: this manual | [Mental Models](wiki:Mental-Models#depth-is-a-dial-not-a-constant) |
 | Adaptive breadth and depth per task | **Borrowed** | Matos, W. et al. (2025). [Open-sourcing adaptive workflows for AI-DLC](https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/). AWS |
 | The process sizes itself to the work | **Borrowed** | [BMad Method documentation](https://docs.bmad-method.org/) |
 | Spec tools that do not scale to the problem | **Borrowed** | Böckeler, B. (2025). [Understanding spec-driven development](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html) |

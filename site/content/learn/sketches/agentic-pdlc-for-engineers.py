@@ -41,23 +41,6 @@ def _dummy(s: Sk, x: float, y: float, foot: float):
         s.oval(x + 12, y + 120 + i * 38, 6, 6, w="t")
 
 
-def backwards(s: Sk):
-    # a jacket already sewn, on the dummy. The worker holds a tape to it and writes what it reads on the
-    # order form: the measurements are coming from the garment, not from the customer.
-    s.ground(580, 60, 1140, tufts=2)
-    _dummy(s, 770, 220, 580)
-    s.doc(150, 300, 134, 172, lines=5)
-    s.worker(470, 379, look=(-1, 0.2), arms=[(288, 392), (682, 240)])
-    s.stroke([(288, 392), (262, 420)], "ink", "h")                         # the pencil
-    s.line(682, 236, 676, 462, w="h")                                      # the tape, down the jacket's edge
-    for i in range(1, 7):
-        s.stroke([(679 - i * 0.8, 236 + i * 32), (692 - i * 0.8, 236 + i * 32)], "ink", "t", amp=0.3)
-    s.route([(690, 196), (480, 142), (280, 190), (222, 284)], "path")
-    s.label(480, 108, "written around it", "path")
-    s.note(980, 130, "built in P0", (850, 226), "point")
-    s.label(54, 542, "requirements", "ink", anchor="start")
-
-
 SKETCHES = [
     {"name": "tie-off-the-rope",
      "idea": "a rule in a prompt is a request to keep holding; a cap in a signature is the rope tied off",
@@ -66,11 +49,4 @@ SKETCHES = [
             "off. The loose end trails away to a small machine that was asked to hold it and is looking elsewhere.",
      "caption": "A rule in a prompt asks the model to keep holding the rope. A cap in a tool's signature ties it off.",
      "h": 630, "draw": rope},
-    {"name": "order-written-from-the-jacket",
-     "idea": "build in P0 and the requirements get written around the prototype",
-     "verb": "copy measurements from", "prop": "finished jacket on a tailor's dummy",
-     "alt": "A finished, lopsided jacket hangs on a tailor's dummy. A worker holds a tape measure against it with one "
-            "hand and writes on the order form with the other. A dashed arrow runs from the jacket to the form.",
-     "caption": "Start building in P0 and the requirements get written around your prototype, like an order form copied from a jacket already sewn.",
-     "h": 660, "draw": backwards},
 ]

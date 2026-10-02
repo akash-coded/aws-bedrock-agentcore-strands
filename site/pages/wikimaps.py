@@ -19,7 +19,7 @@ ROLES = Path(__file__).resolve().parents[1] / "content" / "roles"
 
 SPECS: dict[str, dict] = {}
 
-# ============================================================================ the spine pages
+# ============================================================================ the lifecycle pages
 SPECS["anti-patterns"] = dict(
     kind="flow", title=[("Eighteen anti-patterns", "k"), ("and where each one lives",)], hue="k", numbered=True, gap=26,
     nodes=[_c("In requirements", "P0 · four: the record says more than the room did", "users"),
@@ -86,7 +86,7 @@ SPECS["mental-models"] = dict(
     bands=[
         {"hue": P0, "key": "P0", "name": "Frame", "cells": [_c("2 · Reversibility is the hinge", "", "undo")], "to_label": "11 · the brief crosses"},
         {"hue": P1, "key": "P1", "name": "Design & Spec", "cells": [_c("1 · Length is the enemy", "", "wave"), _c("3 · A hold is a lever", "", "users"),
-                                                                  _c("9 · Parallelism is a tool property", "", "tool"), _c("10 · Depth is a dial", "", "ladder")], "to_label": "11 · the signed spec crosses the hard gate"},
+                                                                  _c("9 · Parallelism is a tool property", "", "tool"), _c("10 · Depth is a dial", "", "ladder")], "to_label": "11 · the signed spec crosses the sign-off (the hard gate)"},
         {"hue": P2, "key": "P2", "name": "Build & Prove", "cells": [_c("4 · A prompt asks, a signature closes", "", "lock"), _c("5 · The average hides the slice", "", "chart"),
                                                                   _c("6 · A score is not proof", "", "scale"), _c("7 · Evidence at the speed of traffic", "", "clock")], "to_label": "11 · the evidence pack crosses"},
         {"hue": P3, "key": "P3", "name": "Run & Learn", "cells": [_c("8 · Cost is a product of habits", "", "bill"), _c("12 · Drift has no error message", "", "trend")]},
@@ -417,9 +417,9 @@ def journey(role_id: str) -> dict:
             cells = [_q(role["pdlc_absent"].get(key, "nothing owed in this phase"))]
         b = {"hue": phue, "key": key, "name": pname, "cells": cells}
         if len(steps) >= 3 or (steps and len(steps) == max(len(v) for v in by.values())):
-            b["sub"] = "where the hard gate lands for you" if key == "P1" and role_id == "solution-architect" else ""
+            b["sub"] = "where the sign-off (the hard gate) lands for you" if key == "P1" and role_id == "solution-architect" else ""
         bands.append(b)
-    return dict(kind="bands", title=[(name, hue), ("the eight steps, on the spine",)], bands=bands,
+    return dict(kind="bands", title=[(name, hue), ("the eight steps, on the four phases",)], bands=bands,
                 callout=(role["tagline"], hue, 40),
                 alt=f"The {name.lower()}'s eight steps placed on the four phases, with the artefact each one produces")
 

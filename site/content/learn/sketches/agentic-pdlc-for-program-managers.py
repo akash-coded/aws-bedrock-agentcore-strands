@@ -4,19 +4,21 @@ from pages.sketch import Sk
 
 def baton(s: Sk):
     # a relay: one runner has finished its leg, the next is waiting and looking back, and the baton lies
-    # on the track between them. The worker bends to pick it up.
-    s.ground(540, 50, 1150, tufts=2)
+    # on the track between them. The worker bends over it with both hands.
+    s.ground(540, 50, 1150, tufts=1)
+    for x in range(120, 1100, 150):                                        # the lane, marked on the track
+        s.stroke([(x, 566), (x + 70, 566)], "faint", "t", amp=0.6)
     for i in range(3):                                                     # the first runner came in fast
-        s.stroke([(40, 420 + i * 24), (84, 420 + i * 24)], "aside", "t", amp=0.5)
-    s.bot(180, 447, 1.6, look=(1, 0.2))
-    s.bot(1030, 447, 1.6, look=(-1, 0.3))
-    s.worker(500, 339, look=(1, 0.9), arms=[None, (662, 512)], lean=14)
-    s.stroke([(640, 526), (724, 514)], "point", "h", amp=0.4)             # the baton
-    s.burst(690, 500, 26, 4)
-    s.label(200, 300, "the work: hours", "aside")
-    s.note(860, 190, "the wait: weeks", (716, 498), "point")
-    s.label(470, 120, "nobody's, so yours", "ink")
-    s.route([(250, 588), (640, 580), (950, 588)], "path")
+        s.stroke([(52, 430 + i * 22), (90, 430 + i * 22)], "aside", "t", amp=0.5)
+    s.bot(170, 459, 1.4, look=(1, 0.4))
+    s.bot(1040, 459, 1.4, look=(-1, 0.4))
+    s.rect(596, 506, 190, 30, "point", fill="point", tilt=-3)             # the baton, dropped
+    s.oval(596, 526, 9, 15, "point", fill="p")
+    s.burst(692, 492, 22, 5)
+    s.worker(516, 339, look=(0.8, 1), arms=[(634, 512), (698, 508)], lean=24)
+    s.label(50, 312, "the work: hours", "aside", anchor="start")
+    s.note(900, 200, "the wait: weeks", (774, 492), "point")
+    s.label(590, 110, "nobody's, so yours", "ink")
 
 
 def _coat(s: Sk, cx: float, y: float):
@@ -50,7 +52,7 @@ SKETCHES = [
      "idea": "the work is fast; the time is lost in the waits between phases, and a wait nobody owns is the programme manager's",
      "verb": "pick up", "prop": "relay baton lying between two runners",
      "alt": "Two small machines stand on a running track, one that has finished its leg and one waiting and looking "
-            "back. The relay baton lies on the ground between them. A worker bends down to pick it up.",
+            "back. A red relay baton lies on the track between them. A worker bends over it and picks it up with both hands.",
      "caption": "Agents build a story in hours. The weeks go in the waits between phases, which belong to nobody unless they belong to you.",
      "draw": baton},
     {"name": "the-coat-with-no-ticket",

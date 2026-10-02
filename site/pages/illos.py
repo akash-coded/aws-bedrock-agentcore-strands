@@ -4,15 +4,22 @@ Each function returns a figure. Links inside a picture are written as if the pic
 site root (``product-manager/#frame``); the page that embeds it rebases them to its own depth
 with :func:`bb.rebase`.
 
-    spine()     the four phases, the hard gate and the loop back, compact, the home page's hero
+    spine()     the four phases, the sign-off and the loop back, in one compact picture
     pdlc_vs()   traditional PDLC against the agentic one, stacked
     ladder()    R1 to R5: gate by risk, never by size
     chain()     why length is the enemy: six steps at 90% are right 53% of the time
-    methods()   SDD, BMAD, AI-DLC and AIDD on one spine, as a plug board
+    methods()   SDD, BMAD, AI-DLC and AIDD on the four phases, as a plug board
+    merge()     the parts of the four methods, in the phase each one serves
+    tower()     the lifecycle flown as a loop, for the head of the method page
+
+Hue means phase in every one of them: P0 slate, P1 indigo, P2 teal, P3 amber, the sign-off rose.
+A method, a role or a risk band never borrows a phase's hue in a picture that also shows phases.
+Every drawing carries the same content as wrapping HTML for a narrow column (see ``bb.svg``).
 """
 from __future__ import annotations
 
 from . import bb
+from .bb import INK, INK2, MIN, NODE, ON
 
 PHASES = [
     ("g", "P0 · Frame", "flag", "product-manager/#frame"),
@@ -20,107 +27,153 @@ PHASES = [
     ("p", "P2 · Build & Prove", "bolt", "engineering/#floor"),
     ("o", "P3 · Run & Learn", "chart", "qa/#watch"),
 ]
+LH = 17
+
+
+def _chip(cx: float, y: float, s: str, hue: str) -> str:
+    """A small outlined chip, centred on ``cx``."""
+    pw = bb.width(s, MIN)
+    return bb.pill(cx - pw / 2, y, s, hue, fs=MIN, r=8, hh=26, fill=NODE, c=INK, stroke=bb.solid(hue))[2]
 
 
 # --------------------------------------------------------------------------------------- spine
 def spine(caption: bool = True) -> str:
-    """The method in one compact picture, for the hero: 640 wide, so it sits beside the words."""
-    W, H = 640, 396
-    m = bb.title(30, 10, [("The agentic PDLC", "b"), ("in one picture",)], fs=17)
-    xs = [16, 164, 344, 492]
-    nw, nh, ny = 132, 76, 66
+    """The lifecycle in one compact picture: four phases, what you leave each with, the sign-off,
+    and the line that comes back from production."""
+    W, PX, PW, GAP, GW = 880, 24, 832, 32, 30
+    title = [("The agentic PDLC", "n"), ("in one picture",)]
+    m, y = bb.title(PX + 2, 14, title, maxw=PW - 4)
     subs = ["worth doing? AI at all?", "spec, bar, authority", "bolts, harness, shadow", "two numbers, drift"]
     leave = ["an AI-fit verdict", "a signed spec", "a lower bound", "the next P0 brief"]
-    for i, ((hue, name, ic, href), x) in enumerate(zip(PHASES, xs)):
-        m += bb.node(x, ny, nw, nh, title_=name, sub=subs[i], icon=ic, hue=hue, fs=12.5, href=href)
-        m += bb.num(x + 8, ny - 2, i, hue)
-        # "you leave with", one chip per phase, in the phase's hue
-        pw, ph, pm = bb.pill(0, 0, leave[i], hue, fs=10.5, r=8, hh=24, fill=bb.NODE, c=bb.INK, stroke=bb.solid(hue))
-        cx = x + nw / 2 - pw / 2
-        m += bb.pill(cx, ny + nh + 34, leave[i], hue, fs=10.5, r=8, hh=24, fill=bb.NODE, c=bb.INK,
-                     stroke=bb.solid(hue))[2]
+    nw = (PW - 3 * GAP - GW) / 4
+    xs = [PX, PX + nw + GAP, PX + 2 * nw + 2 * GAP + GW, PX + 3 * nw + 3 * GAP + GW]
+    ny = y + 46
+    nh = max(bb.node_h(nw, name, subs[i], ic) for i, (_h, name, ic, _u) in enumerate(PHASES))
     cy = ny + nh / 2
+    fol = []
+    for i, ((hue, name, ic, href), x) in enumerate(zip(PHASES, xs)):
+        m += bb.node(x, ny, nw, nh, title_=name, sub=subs[i], icon=ic, hue=hue, href=href)
+        # what you leave the phase with, one chip each, in the phase's hue
+        m += bb.flow([(x + nw / 2, ny + nh + 3), (x + nw / 2, ny + nh + 27)], sw=1.6, c=INK2)
+        m += _chip(x + nw / 2, ny + nh + 30, leave[i], hue)
+        fol.append(bb.h_cell(name, subs[i], ic, hue, href=href))
+        if i < 3:
+            fol.append(bb.h_gate(f"{bb.SIGN_OFF}: you leave with {leave[i]}", el="li") if i == 1
+                       else bb.h_arrow(f"you leave with {leave[i]}", el="li"))
+    gx = xs[1] + nw + (GAP + GW) / 2
     m += bb.flow([(xs[0] + nw + 2, cy), (xs[1] - 3, cy)])
-    m += bb.flow([(xs[1] + nw + 2, cy), (318, cy)]) + bb.gate(322, ny - 10, nh + 20) + bb.flow([(326, cy), (xs[2] - 3, cy)])
-    m += bb.text(322, ny + nh + 24, "hard gate", a="middle", fs=10.5, b=True, c=bb.dark("k"))
+    m += bb.flow([(xs[1] + nw + 2, cy), (gx - 7, cy)]) + bb.gate(gx, ny - 12, nh + 24) + bb.flow([(gx + 7, cy), (xs[2] - 3, cy)])
+    m += bb.text(gx, ny - 20, bb.SIGN_OFF, a="middle", fs=MIN, b=True, c=bb.dark("k"))
     m += bb.flow([(xs[2] + nw + 2, cy), (xs[3] - 3, cy)])
-    # "leaves with" arrows, phase to chip
-    for x in xs:
-        m += bb.flow([(x + nw / 2, ny + nh + 2), (x + nw / 2, ny + nh + 30)], sw=1.6, c=bb.INK2)
-    # the loop back: production is where the next frame comes from
-    ly = ny + nh + 58
-    m += bb.flow([(xs[3] + nw / 2, ly + 2), (xs[3] + nw / 2, ly + 30), (xs[0] + nw / 2, ly + 30), (xs[0] + nw / 2, ly + 4)],
-                 c=bb.dark("o"), label="the incident is the next brief", ly=-9)
-    m += bb.callout(16, 262, 300, "One hard gate. The spec, the bar and the guardrails are signed before anyone builds.", "k", h=58)
-    m += bb.callout(332, 262, 292, "Production is where the next frame comes from: an incident, a drift, a bill.", "o", h=58)
-    m += bb.text(16, 348, "Every role page walks these four phases from its own chair: what you do, what a model", fs=11, c=bb.INK2, w=500)
-    m += bb.text(16, 363, "drafts, what you check, and the one thing that is never delegated.", fs=11, c=bb.INK2, w=500)
-    m += bb.text(16, 386, "Click a phase to open it.", fs=10.5, c=bb.INK2, w=600)
-    cap = ("<b>The spine.</b> Four phases, one hard gate between P1 and P2, and a line that comes back from "
-           "production to the next frame.") if caption else ""
-    return bb.svg(W, H, m, "The agentic PDLC: P0 Frame, P1 Design and Spec, a hard gate, P2 Build and Prove, "
-                  "P3 Run and Learn, and a loop from production back to the next frame", caption=cap)
+    # the line that comes back: production is where the next frame comes from
+    ly = ny + nh + 56
+    back = "the incident is the next brief"
+    m += bb.flow([(xs[3] + nw / 2, ly + 3), (xs[3] + nw / 2, ly + 28), (xs[0] + nw / 2, ly + 28), (xs[0] + nw / 2, ly + 5)],
+                 c=bb.dark("o"), label=back)
+    fol.append(f'<li class="bbn-e" style="--c:var(--bb-o)"><b>{back}</b><small>back to P0 · Frame</small></li>')
+    c1 = "One sign-off. The spec, the bar and the guardrails are signed before anyone builds."
+    c2 = "Production is where the next frame comes from: an incident, a drift, a bill."
+    cw = (PW - 20) / 2
+    cyy = ly + 52
+    ch = max(bb.callout_h(cw, c1), bb.callout_h(cw, c2))
+    m += bb.callout(PX, cyy, cw, c1, "k", h=ch) + bb.callout(PX + cw + 20, cyy, cw, c2, "o", h=ch)
+    html = (bb.h_title(title) + f'<ol class="bbn-f">{"".join(fol)}</ol>' + bb.h_call(c1, "k") + bb.h_call(c2, "o"))
+    cap = ("<b>One loop.</b> Four phases, one sign-off between P1 and P2 (the lessons call it the hard gate), "
+           "and a line that comes back from production to the next frame.") if caption else ""
+    return bb.svg(W, cyy + ch + 14, m, "The agentic PDLC: P0 Frame, P1 Design and Spec, the sign-off, P2 Build and "
+                  "Prove, P3 Run and Learn, and a loop from production back to the next frame", caption=cap, narrow=html)
 
 
 # ------------------------------------------------------------------------------------- pdlc_vs
 def pdlc_vs() -> str:
-    W, H = 1180, 606
-    m = bb.title(34, 12, [("Traditional PDLC", "g"), ("vs",), ("Agentic PDLC", "b")])
-    # panel A
-    m += bb.panel(20, 70, 1140, 208, "g") + bb.label_col(32, 82, 150, 184, "g", name="Traditional",
-                                                            sub="one decision per stage, then build", icon="clipboard")
-    A = [("Discovery", "search", "interviews, adjectives"), ("PRD", "doc", "thirty pages, approved"),
-         ("Design", "gear", "architecture, once"), ("Build", "code", "two-week sprints"),
-         ("Test", "check", "acceptance, at the end"), ("Release", "flag", "then a metric")]
-    for i, (t, ic, sub) in enumerate(A):
-        x = 205 + i * 156
-        m += bb.node(x, 100, 132, 58, title_=t, sub=sub, icon=ic, hue="g", fs=13)
+    W, PX, PW, LC = 1100, 20, 1060, 150
+    title = [("Traditional PDLC", "s"), ("vs",), ("Agentic PDLC", "n")]
+    m, y = bb.title(PX + 14, 14, title, maxw=PW - 28)
+    IX = PX + 12 + LC + 16            # where a panel's content begins
+    IW = PX + PW - 12 - IX
+    # panel A: six stages, decided once
+    A = [("Discovery", "interviews, adjectives"), ("PRD", "thirty pages, approved"),
+         ("Design", "architecture, once"), ("Build", "two-week sprints"),
+         ("Test", "acceptance, at the end"), ("Release", "then a metric")]
+    a1 = ("Every decision is made once, by a person, before the build starts. Quality is a demo and a "
+          "checklist, and both come at the end.")
+    a2 = ("Breaks when the product contains something that decides: nobody wrote how right it must be, or "
+          "what it may do alone.")
+    ay = y + 18
+    g = 18
+    nw = (IW - 5 * g) / 6
+    nh = max(bb.node_h(nw, t, sub) for t, sub in A)
+    cw1 = IW * 0.56
+    cw2 = IW - cw1 - 16
+    ch = max(bb.callout_h(cw1, a1), bb.callout_h(cw2, a2))
+    ah = 14 + nh + 14 + ch + 14
+    m += bb.panel(PX, ay, PW, ah, "s") + bb.label_col(PX + 12, ay + 12, LC, ah - 24, "s", name="Traditional",
+                                                       sub="one decision per stage, then build")
+    for i, (t, sub) in enumerate(A):
+        x = IX + i * (nw + g)
+        m += bb.node(x, ay + 14, nw, nh, title_=t, sub=sub, hue="s")
         if i < len(A) - 1:
-            m += bb.flow([(x + 134, 129), (x + 154, 129)], sw=1.8)
-    m += bb.callout(205, 178, 560, "Every decision is made once, by a person, before the build starts. "
-                    "Quality is a demo and a checklist, and both come at the end.", "g", h=62)
-    m += bb.callout(785, 178, 362, "Breaks when the product contains something that decides: nobody wrote how "
-                    "right it must be, or what it may do alone.", "o", h=62)
-    # panel B
-    m += bb.panel(20, 296, 1140, 298, "b") + bb.label_col(32, 308, 150, 274, "b", name="Agentic PDLC",
-                                                            sub="four phases, one hard gate, one loop back", icon="loop")
-    B = [("P0 · Frame", "flag", "the pain in cases, minutes and money", "product-manager/#frame", 205),
-         ("P1 · Design & Spec", "spec", "eight fields, a bar per slice", "solution-architect/#map", 412),
-         ("P2 · Build & Prove", "bolt", "bolts, a harness in CI, the shadow run", "engineering/#floor", 666),
-         ("P3 · Run & Learn", "chart", "two numbers, drift, the incident", "qa/#watch", 873)]
-    for i, (t, ic, sub, href, x) in enumerate(B):
-        m += bb.node(x, 336, 176, 74, title_=t, sub=sub, icon=ic, hue="b", fs=13.5, href=href) + bb.num(x + 10, 332, i, "b")
-        if i in (0, 2):
-            m += bb.flow([(x + 178, 373), (B[i + 1][4] - 3, 373)])
-    m += bb.flow([(590, 373), (612, 373)]) + bb.gate(632, 326, 94) + bb.flow([(652, 373), (663, 373)])
-    m += bb.text(632, 436, "hard gate", a="middle", fs=10.5, b=True, c=bb.dark("k"))
-    m += bb.flow([(961, 412), (961, 448), (293, 448), (293, 414)], c=bb.dark("b"), label="the incident is the next brief", ly=-9)
-    chips = [("pain register", "AI-fit verdict"), ("eight-field spec", "authority budget"),
-             ("golden set", "shadow run"), ("two-number report", "drift readout")]
-    for i, pair in enumerate(chips):
-        x = B[i][4]
-        for t in pair:
-            pw, _, pm = bb.pill(x, 462, t, "b", fs=10.5, r=7, hh=24, fill=bb.NODE, c=bb.INK, stroke=bb.border("b"))
-            m += pm
-            x += pw + 6
-    m += bb.callout(205, 504, 470, "The hard gate halts P1 until three things are signed: the spec, the bar "
-                    "and the guardrails.", "k", h=52)
-    m += bb.callout(693, 504, 454, "The other three crossings are soft: they can cross with a placeholder, "
-                    "a named owner and a date.", "o", h=52)
-    return bb.svg(W, H, m, "Traditional PDLC, six stages decided once, against the agentic PDLC: four phases, "
-                  "a hard gate before the build, and the incident feeding the next frame",
+            m += bb.flow([(x + nw + 2, ay + 14 + nh / 2), (x + nw + g - 3, ay + 14 + nh / 2)], sw=1.8)
+    m += bb.callout(IX, ay + 28 + nh, cw1, a1, "s", h=ch) + bb.callout(IX + cw1 + 16, ay + 28 + nh, cw2, a2, "o", h=ch)
+    # panel B: four phases, one sign-off, one loop back
+    B = [("the pain in cases, minutes and money", ("pain register", "AI-fit verdict")),
+         ("eight fields, a bar per slice", ("eight-field spec", "authority budget")),
+         ("bolts, a harness in CI, the shadow run", ("golden set", "shadow run")),
+         ("two numbers, drift, the incident", ("two-number report", "drift readout"))]
+    b1 = "The sign-off halts P1 until three things are signed: the spec, the bar and the guardrails."
+    b2 = "The other three crossings are soft: they can cross with a placeholder, a named owner and a date."
+    by = ay + ah + 18
+    GAP, GW = 30, 30
+    pw_ = (IW - 3 * GAP - GW) / 4
+    xs = [IX, IX + pw_ + GAP, IX + 2 * pw_ + 2 * GAP + GW, IX + 3 * pw_ + 3 * GAP + GW]
+    ph = max(bb.node_h(pw_, name, B[i][0], ic, 15) for i, (_h, name, ic, _u) in enumerate(PHASES))
+    ny = by + 14 + 26                  # room above the row for the sign-off's name
+    cyy = ny + ph / 2
+    chips_y = ny + ph + 46
+    cwb = (IW - 16) / 2
+    chb = max(bb.callout_h(cwb, b1), bb.callout_h(cwb, b2))
+    bh = (chips_y + 2 * 32 + 10 + chb + 14) - by
+    m += bb.panel(PX, by, PW, bh, "n") + bb.label_col(PX + 12, by + 12, LC, bh - 24, "n", name="Agentic PDLC",
+                                                       sub="four phases, one sign-off, one loop back")
+    cells = []
+    for i, ((hue, name, ic, href), x) in enumerate(zip(PHASES, xs)):
+        m += bb.node(x, ny, pw_, ph, title_=name, sub=B[i][0], icon=ic, hue=hue, fs=15, href=href)
+        for k, t in enumerate(B[i][1]):
+            m += bb.pill(x, chips_y + k * 32, t, hue, fs=MIN, r=7, hh=26, fill=NODE, c=INK, stroke=bb.border(hue))[2]
+        cells.append(bb.h_cell(name, f"{B[i][0]} · {B[i][1][0]}, {B[i][1][1]}", ic, hue, href=href))
+        if i == 1:
+            cells.append(bb.h_gate(el="li"))
+    gx = xs[1] + pw_ + (GAP + GW) / 2
+    m += bb.flow([(xs[0] + pw_ + 2, cyy), (xs[1] - 3, cyy)])
+    m += bb.flow([(xs[1] + pw_ + 2, cyy), (gx - 7, cyy)]) + bb.gate(gx, ny - 12, ph + 24) + bb.flow([(gx + 7, cyy), (xs[2] - 3, cyy)])
+    m += bb.text(gx, ny - 20, bb.SIGN_OFF, a="middle", fs=MIN, b=True, c=bb.dark("k"))
+    m += bb.flow([(xs[2] + pw_ + 2, cyy), (xs[3] - 3, cyy)])
+    back = "the incident is the next brief"
+    m += bb.flow([(xs[3] + pw_ / 2, ny + ph + 3), (xs[3] + pw_ / 2, ny + ph + 24), (xs[0] + pw_ / 2, ny + ph + 24),
+                  (xs[0] + pw_ / 2, ny + ph + 5)], c=bb.dark("o"), label=back)
+    cells.append(f'<li class="bbn-e" style="--c:var(--bb-o)"><b>{back}</b><small>back to P0 · Frame</small></li>')
+    m += bb.callout(IX, chips_y + 2 * 32 + 10, cwb, b1, "k", h=chb) + bb.callout(IX + cwb + 16, chips_y + 2 * 32 + 10, cwb, b2, "o", h=chb)
+    html = (bb.h_title(title)
+            + bb.h_block("s", "Traditional", "".join(bb.h_cell(t, sub, hue="s", n=i + 1) for i, (t, sub) in enumerate(A)),
+                         sub="one decision per stage, then build",
+                         foot=f'<div class="bbn-in">{bb.h_call(a1, "s")}{bb.h_call(a2, "o")}</div>')
+            + bb.h_block("n", "Agentic PDLC", "".join(cells), sub="four phases, one sign-off, one loop back", one=True,
+                         foot=f'<div class="bbn-in">{bb.h_call(b1, "k")}{bb.h_call(b2, "o")}</div>'))
+    return bb.svg(W, by + bh + 14, m, "Traditional PDLC, six stages decided once, against the agentic PDLC: four phases, "
+                  "a sign-off before the build, and the incident feeding the next frame", cls="bbw-w", narrow=html,
                   caption="<b>What changes.</b> A traditional lifecycle decides everything once, before the build. "
-                          "The agentic one adds a bar per slice, an authority budget and one hard gate, and "
-                          "brings production back to the next frame.")
+                          "The agentic one adds a bar per slice, an authority budget and one sign-off (the hard gate), "
+                          "and brings production back to the next frame.")
 
 
 # -------------------------------------------------------------------------------------- ladder
 def ladder() -> str:
-    W = 1180
+    W, PX, PW = 1100, 20, 1060
+    # a ramp of risk, none of it a phase: grey, sky, amber, rose, ink
     rows = [
-        ("g", "R1 · Reversible draft", "A draft in a sandbox", "nothing real changes", "pen",
+        ("s", "R1 · Reversible draft", "A draft in a sandbox", "nothing real changes", "pen",
          "Review at the end", "the reader owns the outcome", "eye", "Draft the passenger message", "doc"),
-        ("t", "R2 · Reversible change", "Real work, undoable", "a change with an undo", "undo",
+        ("u", "R2 · Reversible change", "Real work, undoable", "a change with an undo", "undo",
          "One reader before merge", "a second pair of eyes", "users", "Search flights, rank options", "search"),
         ("o", "R3 · Hard to reverse", "Small blast radius", "one customer, one booking", "warn",
          "Approve first", "a person before the action", "check", "Rebook onto a new flight", "handoff"),
@@ -129,138 +182,191 @@ def ladder() -> str:
         ("n", "R5 · Irreversible or safety-critical", "Cannot be undone", "or somebody gets hurt", "stop",
          "Not delegated at all", "a person does it", "person", "Change a passenger's identity", "shield"),
     ]
-    m = bb.title(34, 12, [("Gate by risk", "k"), ("never by size",)])
-    for x, t in ((205, "What it touches"), (555, "The check"), (855, "At SkyWays")):
-        m += bb.text(x + 2, 68, t.upper(), fs=10.5, b=True, c=bb.INK2, ls=".08em")
-    y0, rh = 82, 72
-    for i, (hue, name, a, asub, aic, b, bsub, bic, c, cic) in enumerate(rows):
-        y = y0 + i * rh
-        m += bb.panel(20, y, 1140, 64, hue, r=14)
-        m += f'<rect x="30" y="{y + 7}" width="150" height="50" rx="11" fill="{bb.solid(hue)}"/>'
-        m += bb.lines(40, y + 27, bb.wrap(name, 20)[:2], fs=12.5, b=True, c=bb.ON, lh=14)
-        m += bb.node(205, y + 8, 330, 48, title_=a, sub=asub, icon=aic, hue=hue, fs=12.5, r=10)
-        m += bb.node(555, y + 8, 280, 48, title_=b, sub=bsub, icon=bic, hue=hue, fs=12.5, r=10)
-        m += bb.node(855, y + 8, 290, 48, title_=c, icon=cic, hue=hue, fs=12, r=10)
-    yb = y0 + 5 * rh + 4
-    m += bb.callout(20, yb, 690, "A change inherits the band of whatever it touches: three lines in a refund cap "
-                    "are R4; four hundred lines of help text are R1.", "k", h=56)
-    m += bb.callout(730, yb, 430, "Size measures typing. Risk measures what a mistake costs and whether it "
-                    "can be undone.", "o", h=56)
-    H = yb + 56 + 16
-    return bb.svg(W, H, m, "The risk ladder: five bands from a reversible draft reviewed at the end to an "
-                  "irreversible action that is not delegated at all, each with its check and a SkyWays example",
+    title = [("Gate by risk", "k"), ("never by size",)]
+    heads = ("What it touches", "The check", "At the airline")
+    m, y = bb.title(PX + 14, 14, title, maxw=PW - 28)
+    LX, LW = PX + 10, 178
+    cols = [(LX + LW + 14, 292), (LX + LW + 14 + 292 + 12, 268), (LX + LW + 14 + 292 + 12 + 268 + 12, 0)]
+    cols[2] = (cols[2][0], PX + PW - 10 - cols[2][0])
+    y += 30
+    for (x, _w), t in zip(cols, heads):
+        m += bb.text(x + 2, y, t, fs=MIN, b=True, c=INK2)
+    y += 12
+    html = bb.h_title(title)
+    for hue, name, a, asub, aic, b, bsub, bic, c, cic in rows:
+        nl = bb.fit(name, LW - 24, 14.5, 700)
+        rh = max(bb.node_h(cols[0][1], a, asub, aic), bb.node_h(cols[1][1], b, bsub, bic),
+                 bb.node_h(cols[2][1], c, "", cic), len(nl) * 18 + 16)
+        m += bb.panel(PX, y, PW, rh + 16, hue, r=14)
+        m += f'<rect x="{LX}" y="{y + 8}" width="{LW}" height="{rh}" rx="11" fill="{bb.solid(hue)}"/>'
+        m += bb.lines(LX + 12, y + 8 + (rh - len(nl) * 18) / 2 + 13.5, nl, fs=14.5, b=True, c=ON, lh=18)
+        m += bb.node(cols[0][0], y + 8, cols[0][1], rh, title_=a, sub=asub, icon=aic, hue=hue, r=10)
+        m += bb.node(cols[1][0], y + 8, cols[1][1], rh, title_=b, sub=bsub, icon=bic, hue=hue, r=10)
+        m += bb.node(cols[2][0], y + 8, cols[2][1], rh, title_=c, icon=cic, hue=hue, r=10)
+        html += bb.h_block(hue, name, bb.h_cell(a, asub, aic, hue, via=heads[0]) + bb.h_cell(b, bsub, bic, hue, via=heads[1])
+                           + bb.h_cell(c, "", cic, hue, via=heads[2]))
+        y += rh + 16 + 8
+    c1 = ("A change inherits the band of whatever it touches: three lines in a refund cap are R4; four hundred "
+          "lines of help text are R1.")
+    c2 = "Size measures typing. Risk measures what a mistake costs and whether it can be undone."
+    w1 = PW * 0.6
+    w2 = PW - w1 - 20
+    ch = max(bb.callout_h(w1, c1), bb.callout_h(w2, c2))
+    m += bb.callout(PX, y + 6, w1, c1, "k", h=ch) + bb.callout(PX + w1 + 20, y + 6, w2, c2, "o", h=ch)
+    html += bb.h_call(c1, "k") + bb.h_call(c2, "o")
+    return bb.svg(W, y + 6 + ch + 14, m, "The risk ladder: five bands from a reversible draft reviewed at the end to an "
+                  "irreversible action that is not delegated at all, each with its check and an example from the airline",
+                  cls="bbw-w", narrow=html,
                   caption="<b>Gate by risk.</b> The band belongs to what the change touches, and the check follows "
                           "the band: from a review at the end to a named approver every time.")
 
 
 # --------------------------------------------------------------------------------------- chain
 def chain() -> str:
-    W, H = 1180, 486
-    m = bb.title(34, 12, [("6 steps", "b"), ("at",), ("90% each", "o"), ("=",), ("53% end to end", "k")])
-    nw, nh, ny = 150, 64, 74
-    base = 300
+    W, PX, PW = 1100, 20, 1060
+    title = [("6 steps", "s"), ("at",), ("90% each", "s"), ("=",), ("53% end to end", "k")]
+    m, y = bb.title(PX + 14, 14, title, maxw=PW - 28)
+    g = 22
+    nw = (PW - 5 * g) / 6
+    ny = y + 20
+    nh = bb.node_h(nw, "Step 1", "right 90% of the time", "gear")
+    base = ny + nh + 44 + 126
+    fol = []
     for i in range(6):
-        x = 34 + i * 186
+        x = PX + i * (nw + g)
         p = 0.9 ** (i + 1)
-        m += bb.node(x, ny, nw, nh, title_=f"Step {i + 1}", sub="right 90% of the time", icon="gear", hue="b", fs=13)
+        m += bb.node(x, ny, nw, nh, title_=f"Step {i + 1}", sub="right 90% of the time", icon="gear", hue="s")
         if i < 5:
-            m += bb.flow([(x + nw + 2, ny + nh / 2), (x + 186 - 3, ny + nh / 2)])
+            m += bb.flow([(x + nw + 2, ny + nh / 2), (x + nw + g - 3, ny + nh / 2)])
         bh = p * 120
-        m += (f'<rect x="{x + nw / 2 - 34}" y="{base - bh:.1f}" width="68" height="{bh:.1f}" rx="7" '
+        m += (f'<rect x="{x + nw / 2 - 36:.1f}" y="{base - bh:.1f}" width="72" height="{bh:.1f}" rx="7" '
               f'fill="{bb.tint("k")}" stroke="{bb.solid("k")}" stroke-width="1.8"/>')
-        m += bb.text(x + nw / 2, base - bh - 9, f"{p * 100:.0f}%", a="middle", fs=17, b=True, c=bb.dark("k"))
-        m += bb.text(x + nw / 2, base + 17, "end to end", a="middle", fs=10.5, c=bb.INK2, w=500)
-        m += bb.flow([(x + nw / 2, ny + nh + 2), (x + nw / 2, base - bh - 24)], sw=1.4, c=bb.INK2, head=False)
-    m += f'<line x1="34" y1="{base}" x2="1146" y2="{base}" stroke="{bb.INK2}" stroke-width="1.2" opacity=".6"/>'
-    m += bb.callout(34, 352, 520, "Multiply, never average. Four steps each right 90% of the time are right 66% "
-                    "of the time end to end, and they fail fluently: no error, a confident wrong answer.", "k", h=72)
-    m += bb.listbox(580, 340, 566, "Best defences, in order", [
+        m += bb.text(x + nw / 2, base - bh - 9, f"{p * 100:.0f}%", a="middle", fs=18, b=True, c=bb.dark("k"))
+        m += bb.text(x + nw / 2, base + 20, "end to end", a="middle", fs=MIN, c=INK2, w=500)
+        m += bb.flow([(x + nw / 2, ny + nh + 3), (x + nw / 2, base - bh - 30)], sw=1.4, c=INK2, head=False)
+        fol.append(bb.h_cell(f"Step {i + 1}: right 90% of the time", f"{p * 100:.0f}% right end to end", hue="k" if i == 5 else "s", n=i + 1))
+    m += f'<line x1="{PX}" y1="{base}" x2="{PX + PW}" y2="{base}" stroke="{INK2}" stroke-width="1.2" opacity=".6"/>'
+    c1 = ("Multiply, never average. Four steps each right 90% of the time are right 66% of the time end to end, "
+          "and they fail fluently: no error, a confident wrong answer.")
+    best = ("Best defences, in order", [
         "Keep chains short: fewer probabilistic steps per case",
         "Put an independent checker after the steps that are costly and easy to miss",
-        "Make exact steps exact code: a calculator behind an agent is a provable step made probabilistic"], "b")
-    return bb.svg(W, H, m, "Six chained steps, each right ninety percent of the time, falling to fifty-three "
-                  "percent end to end; multiply, never average",
+        "Make exact steps exact code: a calculator behind an agent is a provable step made probabilistic"], "s")
+    fy = base + 44
+    cw = 440
+    lw = PW - cw - 20
+    h = max(bb.callout_h(cw, c1) + 12, bb.listbox_h(lw, best[1]))
+    m += bb.callout(PX, fy + 12, cw, c1, "k", h=h - 12) + bb.listbox(PX + cw + 20, fy, lw, best[0], best[1], best[2], h=h)
+    html = bb.h_title(title) + f'<ol class="bbn-f">{"".join(fol)}</ol>' + bb.h_call(c1, "k") + bb.h_list(*best)
+    return bb.svg(W, fy + h + 14, m, "Six chained steps, each right ninety percent of the time, falling to fifty-three "
+                  "percent end to end; multiply, never average", cls="bbw-w", narrow=html,
                   caption="<b>Why length is the enemy.</b> Every probabilistic step multiplies. The bars show "
                           "what survives to the end; the list is what to do about it.")
 
 
 # ------------------------------------------------------------------------------------- methods
+# (name, icon, how sure, what it is, what it says in each phase; None where it is silent)
 METHODS = [
-    ("SDD", "b", "doc", "established", "The spec, not the code, is what you maintain; code is regenerated from it.",
+    ("SDD", "doc", "established", "The spec, not the code, is what you maintain; code is regenerated from it.",
      [("pen", "a spec sketch, lightly: the pain and the ceiling"),
       ("spec", "the spec is the artefact: eight fields, stable IDs"),
       ("code", "code generated from the spec, regenerated on change"),
       ("undo", "lightly: the incident edits the spec first")]),
-    ("BMAD Method", "k", "users", "documented", "Named AI personas plan like an agile team; sharded story files carry the context.",
+    ("BMAD Method", "users", "documented", "Named AI personas plan like an agile team; sharded story files carry the context.",
      [("users", "the Analyst writes the project brief"),
       ("doc", "PM and Architect: PRD.md and architecture.md"),
       ("spec", "sharded story files, then the Dev and QA loop"),
       ("loop", "extended here: learn and adjust, into the next brief")]),
-    ("AI-DLC (AWS)", "o", "bolt", "documented", "Three phases and bolts of hours or days replace sprints; a person approves every boundary.",
+    ("AI-DLC (AWS)", "bolt", "documented", "Three phases and bolts of hours or days replace sprints; a person approves every boundary.",
      [("flag", "inception: an intent becomes units of work"),
       ("users", "mob elaboration, NFRs captured"),
       ("bolt", "construction in bolts, mob construction"),
       ("gear", "operations, run adaptively")]),
-    ("AIDD, the daily craft", "g", "code", "established", "How an engineer works with a coding agent day to day, whichever method frames it.",
+    ("AIDD, the daily craft", "code", "established", "How an engineer works with a coding agent day to day, whichever method frames it.",
      [None, None, ("code", "context files, story files, a harness in CI, review by risk"), None]),
-    ("This manual adds", "n", "target", "working method", "The parts none of the methods decide, on the spine where they belong.",
+    ("This manual adds", "target", "working method", "The parts none of the methods decide, in the phase where each belongs.",
      [("target", "the AI-fit verdict, the autonomy ceiling, the value line"),
-      ("gate", "the hard gate: spec, bar, guardrails; the authority budget"),
+      ("gate", "what the sign-off needs: spec, bar, guardrails, and the authority budget"),
       ("ladder", "one unknown per bolt, a lower bound not a score, the shadow run"),
       ("chart", "two numbers, drift, the incident as the next P0")]),
 ]
-CONF_HUE = {"documented": "b", "established": "t", "working method": "o"}
+
+
+def _plug(x: float, y: float, w: float, h: float, icon: str, s: str, hue: str) -> str:
+    """A filled cell of the plug board: an icon and a sentence, in the phase's hue."""
+    ls = bb.fit(s, w - 52, MIN, 600)
+    return (f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="10" fill="{NODE}" '
+            f'stroke="{bb.solid(hue)}" stroke-width="1.8"/>'
+            + bb.icon(icon, x + 24, y + h / 2 - 13, 26, c=bb.solid(hue), ink=INK, fill=bb.tint(hue))
+            + bb.lines(x + 44, y + (h - len(ls) * LH) / 2 + 12.5, ls, fs=MIN, w=600, lh=LH))
+
+
+def _plug_h(w: float, s: str) -> float:
+    return max(46, len(bb.fit(s, w - 52, MIN, 600)) * LH + 18)
 
 
 def methods() -> str:
-    W, H, LX, CW = 1180, 522, 320, 210
-    m = bb.title(34, 12, [("Four methods", "p"), ("on one",), ("spine", "b")])
-
-    def row(r, y):
-        name, hue, ic, conf, about, ph = r
-        out = (f'<rect x="20" y="{y}" width="1140" height="62" rx="12" fill="{bb.tint(hue)}" '
-               f'stroke="{bb.border(hue)}" stroke-width="1.6"/>')
-        pw, _, pm = bb.pill(30, y + 8, name, hue, fs=12, r=8, hh=24)
-        out += pm
-        cw, _, cm = bb.pill(30 + pw + 8, y + 10, conf, CONF_HUE[conf], fs=10, r=7, hh=20, fill=bb.tint(CONF_HUE[conf]),
-                            c=bb.INK, stroke=bb.border(CONF_HUE[conf]))
-        out += cm
-        out += bb.lines(30, y + 44, bb.wrap(about, 50)[:2], fs=10.5, c=bb.INK2, w=500, lh=11.5)
-        for i, p in enumerate(ph):
-            x, w = LX + i * CW + 4, CW - 8
-            if not p:
-                out += (f'<rect x="{x}" y="{y + 8}" width="{w}" height="46" rx="9" fill="none" '
-                        f'stroke="{bb.border(hue)}" stroke-width="1.2" stroke-dasharray="4 4"/>'
-                        + bb.text(x + w / 2, y + 35, "silent", a="middle", fs=10.5, c=bb.INK2, w=500))
-                continue
-            out += (f'<rect x="{x}" y="{y + 8}" width="{w}" height="46" rx="9" fill="{bb.NODE}" '
-                    f'stroke="{bb.solid(hue)}" stroke-width="1.8"/>')
-            out += bb.icon(p[0], x + 22, y + 16, 26, c=bb.solid(hue), ink=bb.INK, fill=bb.tint(hue))
-            L = bb.wrap(p[1], 29)[:3]
-            out += bb.lines(x + 42, y + 31 - (len(L) - 1) * 5.5, L, fs=10, b=True, lh=11.5)
-        return out
-
-    for k, r in enumerate(METHODS[:2]):
-        m += row(r, 64 + k * 70)
-    SY = 204
-    m += (f'<rect x="20" y="{SY}" width="1140" height="48" rx="24" fill="{bb.solid("n")}"/>'
-          + bb.text(40, SY + 29, "Agentic PDLC · the spine", fs=13, b=True, c=bb.ON)
-          + f'<path d="M{LX + 10} {SY + 24}H1140" fill="none" stroke="{bb.ON}" stroke-opacity=".45" '
-            f'stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>')
+    W, PX, PW, LW, G = 1100, 20, 1060, 300, 8
+    title = [("Four methods", "s"), ("on",), ("the four phases", "n")]
+    m, y = bb.title(PX + 14, 14, title, maxw=PW - 28)
+    LX = PX + LW + 10
+    CW = (PX + PW - 8 - LX - 3 * G) / 4
+    cx = [LX + i * (CW + G) for i in range(4)]
+    # the phases, as the head of the board
+    hy = y + 44
+    m += (f'<rect x="{PX}" y="{hy}" width="{PW}" height="46" rx="23" fill="{bb.solid("n")}"/>'
+          + bb.text(PX + 22, hy + 28, "The SkyWays PDLC", fs=14.5, b=True, c=ON))
     for i, (hue, name, _ic, _h) in enumerate(PHASES):
-        pw, _, _ = bb.pill(0, 0, name, hue, fs=12.5, r=14, hh=28)
-        m += bb.pill(LX + i * CW + CW / 2 - pw / 2, SY + 10, name, hue, fs=12.5, r=14, hh=28)[2]
-    m += bb.gate(LX + 2 * CW, SY - 6, 60)
-    for k, r in enumerate(METHODS[2:]):
-        m += row(r, 270 + k * 70)
-    m += bb.text(34, 502, "A filled cell is where the method says something about that phase; a dashed cell is where a team "
-                 "has to bring its own answer. The last row is where this manual's own devices sit.", fs=11, c=bb.INK2, w=500)
-    return bb.svg(W, H, m, "Four methods on one spine: spec-driven development, the BMAD Method, AWS AI-DLC and "
-                  "AIDD, each filled where it speaks to a phase and dashed where it is silent, with the "
-                  "devices this manual adds",
+        pw = bb.width(name, 14)
+        m += bb.pill(cx[i] + CW / 2 - pw / 2, hy + 8, name, hue, fs=14, r=15, hh=30, stroke=bb.solid("n"))[2]
+    gx = cx[2] - G / 2
+    top = hy + 46 + 10
+    yy = top
+    html = bb.h_title(title)
+    for name, _ic, conf, about, ph in METHODS:
+        mine = name.startswith("This manual")
+        hue = "n" if mine else "s"
+        al = bb.fit(about, LW - 24, MIN, 500)
+        pw = bb.width(name, 14)
+        cw_ = bb.width(conf, MIN)
+        inline = pw + 8 + cw_ <= LW - 20
+        left_h = 10 + 28 + (0 if inline else 30) + 8 + len(al) * LH + 8
+        rh = max([left_h] + [_plug_h(CW, p[1]) + 16 for p in ph if p])
+        m += (f'<rect x="{PX}" y="{yy:.1f}" width="{PW}" height="{rh:.1f}" rx="12" fill="{bb.tint(hue)}" '
+              f'stroke="{bb.border(hue)}" stroke-width="1.6"/>')
+        m += bb.pill(PX + 10, yy + 10, name, hue, fs=14, r=8, hh=28)[2]
+        chip_at = (PX + 10 + pw + 8, yy + 11) if inline else (PX + 10, yy + 42)
+        m += bb.pill(chip_at[0], chip_at[1], conf, "s", fs=MIN, r=7, hh=26, fill=NODE, c=INK, stroke=bb.border("s"))[2]
+        m += bb.lines(PX + 12, yy + 10 + 28 + (0 if inline else 30) + 8 + 12.5, al, fs=MIN, c=INK2, w=500, lh=LH)
+        cells, silent = [], []
+        for i, p in enumerate(ph):
+            phue, pname = PHASES[i][0], PHASES[i][1]
+            if not p:
+                m += (f'<rect x="{cx[i]:.1f}" y="{yy + 8:.1f}" width="{CW:.1f}" height="{rh - 16:.1f}" rx="10" fill="none" '
+                      f'stroke="{bb.border(phue)}" stroke-width="1.3" stroke-dasharray="5 4"/>'
+                      + bb.text(cx[i] + CW / 2, yy + rh / 2 + 4.7, "silent", a="middle", fs=MIN, c=INK2, w=500))
+                silent.append(pname.split(" · ")[0])
+                continue
+            m += _plug(cx[i], yy + 8, CW, rh - 16, p[0], p[1], phue)
+            cells.append(bb.h_cell(pname, p[1], p[0], phue))
+        if silent:
+            cells.append(bb.h_cell("Silent in " + ", ".join(silent[:-1]) + (" and " if len(silent) > 1 else "") + silent[-1],
+                                   hue=hue, is_quiet=True))
+        html += bb.h_block(hue, name, "".join(cells), key=conf, sub=about)
+        yy += rh + 8
+    # the sign-off, between P1 and P2, down through every row
+    m += bb.gate(gx, hy - 10, yy - 8 - (hy - 10), at=hy + 23)
+    m += bb.text(gx, hy - 18, bb.SIGN_OFF, a="middle", fs=MIN, b=True, c=bb.dark("k"))
+    note = ("A filled cell is where the method says something about that phase; a dashed cell is where a team has to "
+            "bring its own answer. The last row is where this manual's own devices sit.")
+    pm, ph_ = bb.para(PX + 6, yy + 8, note, PW - 12)
+    m += pm
+    html += bb.h_note(note)
+    return bb.svg(W, yy + 8 + ph_ + 12, m, "Four methods on the four phases: spec-driven development, the BMAD Method, AWS "
+                  "AI-DLC and AIDD, each filled where it speaks to a phase and dashed where it is silent, with the "
+                  "devices this manual adds", cls="bbw-w", narrow=html,
                   caption="<b>Not competitors.</b> Each method speaks to part of the lifecycle. The decision that "
                           "matters is not which method but how deep to go on this change.")
-
 
 
 # --------------------------------------------------------------------------------------- tower
@@ -272,47 +378,53 @@ PLANE = ('<path d="M-14 0 H-30" stroke="var(--ink2)" stroke-width="1.2" stroke-d
          '<path d="M-1 -2.6 L-7 -10 L-3 -10 L3.5 -2.6 Z M-1 2.6 L-7 10 L-3 10 L3.5 2.6 Z M-10 -1.8 L-14 -6 L-12 -6 '
          'L-7.5 -1.8 Z M-10 1.8 L-14 6 L-12 6 L-7.5 1.8 Z" fill="var(--ink)"/>')
 
-# every rule is prefixed: a style element inside an inline SVG applies to the whole document
+# every rule is prefixed: a style element inside an inline SVG applies to the whole document.
+# Each plane starts where it would stand still (6%, 31%, 56%, 81% of the loop), so none begins
+# on the sign-off, which is at half way.
 TOWER_CSS = """
 .twr-lane{stroke-dasharray:12 10;animation:twr-march 1.6s linear infinite}
 @keyframes twr-march{to{stroke-dashoffset:-22}}
 .twr-plane{offset-path:path("%s");offset-rotate:auto;animation:twr-fly 26s linear infinite}
-.twr-plane.a{offset-distance:6%%;animation-delay:0s}
-.twr-plane.b{offset-distance:31%%;animation-delay:-6.5s}
-.twr-plane.c{offset-distance:56%%;animation-delay:-13s}
-.twr-plane.d{offset-distance:81%%;animation-delay:-19.5s}
+.twr-plane.a{offset-distance:6%%;animation-delay:-1.56s}
+.twr-plane.b{offset-distance:31%%;animation-delay:-8.06s}
+.twr-plane.c{offset-distance:56%%;animation-delay:-14.56s}
+.twr-plane.d{offset-distance:81%%;animation-delay:-21.06s}
 @keyframes twr-fly{from{offset-distance:0%%}to{offset-distance:100%%}}
 .twr-radar{transform-box:view-box;transform-origin:320px 229px;animation:twr-spin 9s linear infinite}
 @keyframes twr-spin{to{transform:rotate(360deg)}}
 .twr-beacon{animation:twr-blink 1.8s ease-in-out infinite}
 @keyframes twr-blink{0%%,100%%{opacity:1}50%%{opacity:.25}}
-.twr-cloud{animation:twr-drift 40s linear infinite alternate}
-@keyframes twr-drift{to{transform:translateX(26px)}}
-@media (prefers-reduced-motion:reduce){.twr-lane,.twr-plane,.twr-beacon,.twr-cloud{animation:none}.twr-radar{display:none}}
+@media (prefers-reduced-motion:reduce){.twr-lane,.twr-plane,.twr-beacon{animation:none}.twr-radar{display:none}}
 @supports not (offset-path:path("M0 0h1")){.twr-plane{display:none}}
 """ % LOOP
 
+# what the picture's four keys and its lock stand for, set as text under it so it can be read at
+# any width: (hue, key, name)
+TOWER_KEY = [("slate", "P0", "Frame"), ("indigo", "P1", "Design & Spec"), ("rose", "", "Sign-off (the hard gate)"),
+             ("teal", "P2", "Build & Prove"), ("amber", "P3", "Run & Learn")]
 
-def _twr_label(x: float, y: float, key: str, name: str, hue: str, a: str = "middle") -> str:
+
+def _twr_key(x: float, y: float, key: str, hue: str, a: str = "middle") -> str:
+    """A phase's key on the picture. 24 units, so it is 11px or more even on a 320px phone."""
     c = f"color-mix(in oklab,var(--dg-{hue}) 72%,var(--ink))"
-    return (f'<text x="{x}" y="{y}" text-anchor="{a}" font-family="{bb.FONT}" fill="{c}">'
-            f'<tspan font-size="14" font-weight="800">{key}</tspan>'
-            f'<tspan font-size="11.5" font-weight="600" dx="5">{name}</tspan></text>')
+    return (f'<text x="{x}" y="{y}" text-anchor="{a}" font-family="{bb.FONT}" font-size="24" font-weight="700" '
+            f'fill="{c}">{key}</text>')
 
 
 def tower() -> str:
-    """The hook band's scene: the lifecycle flown as a loop, controlled from a tower.
+    """The method page's scene: the lifecycle flown as a loop, controlled from a tower.
 
     Motion is direction only: the lane's dashes march, the planes follow the loop, the
     radar sweeps. Reduced motion stops all of it and the planes keep their places; a
-    browser without motion paths hides the planes rather than piling them in a corner."""
+    browser without motion paths hides the planes rather than piling them in a corner.
+
+    The drawing carries four keys and nothing smaller; what they stand for is the line of
+    text under it. The sign-off is a bar across the lane with its lock beside it, so an
+    aircraft crosses the bar and never sits on the lock."""
     sky = ('<defs><linearGradient id="twr-sky" x1="0" y1="0" x2="0" y2="1">'
            '<stop offset="0" style="stop-color:color-mix(in oklab,var(--dg-slate) 26%,var(--paper))"/>'
            '<stop offset="1" style="stop-color:var(--paper)"/></linearGradient></defs>'
-           '<rect width="640" height="400" fill="url(#twr-sky)"/>')
-    clouds = ('<g class="twr-cloud" fill="var(--paper)" opacity=".85">'
-              '<ellipse cx="86" cy="62" rx="34" ry="12"/><ellipse cx="108" cy="54" rx="24" ry="14"/>'
-              '<ellipse cx="548" cy="88" rx="30" ry="11"/><ellipse cx="566" cy="80" rx="20" ry="12"/></g>')
+           '<rect x="40" y="92" width="560" height="318" fill="url(#twr-sky)"/>')
     lane = f'<path d="{LOOP}" fill="none" stroke="var(--rule2)" stroke-width="18" stroke-linejoin="round"/>'
 
     def seg(d: str, hue: str) -> str:
@@ -321,18 +433,15 @@ def tower() -> str:
     segs = (seg("M215 167 H425", "slate") + seg("M425 167 A88 88 0 0 1 425 343", "indigo")
             + seg("M425 343 H215", "teal") + seg("M215 343 A88 88 0 0 1 215 167", "amber"))
     centre = f'<path class="twr-lane" d="{LOOP}" fill="none" stroke="var(--paper)" stroke-width="2"/>'
-    # the one hard gate, where P1 hands to P2
-    gate = ('<g transform="translate(425 343)">'
-            '<rect x="-13" y="-16" width="26" height="32" rx="7" fill="var(--dg-teal)"/>'
+    # the one sign-off, where P1 hands to P2: a bar across the lane, and its lock below the lane
+    gate = ('<path d="M425 329 V372" stroke="var(--dg-rose)" stroke-width="4" stroke-linecap="round"/>'
+            '<g transform="translate(425 384)">'
+            '<rect x="-13" y="-15" width="26" height="30" rx="7" fill="var(--dg-rose)"/>'
             '<rect x="-6.5" y="-2" width="13" height="10" rx="2" fill="none" stroke="var(--dg-on)" stroke-width="1.8"/>'
             '<path d="M-3.5 -2V-5.5a3.5 3.5 0 0 1 7 0V-2" fill="none" stroke="var(--dg-on)" stroke-width="1.8" '
-            'stroke-linecap="round"/></g>'
-            + bb.text(446, 371, "hard gate", fs=11, b=True, c="color-mix(in oklab,var(--dg-teal) 78%,var(--ink))"))
-    ret = bb.text(196, 151, "production feeds the next frame", fs=10.5, w=600, c="var(--ink2)", a="end")
-    labels = (_twr_label(320, 151, "P0", "Frame", "slate")
-              + _twr_label(528, 250, "P1", "Design &amp; Spec", "indigo", a="start")
-              + _twr_label(320, 383, "P2", "Build &amp; Prove", "teal")
-              + _twr_label(112, 250, "P3", "Run &amp; Learn", "amber", a="end"))
+            'stroke-linecap="round"/></g>')
+    keys = (_twr_key(320, 146, "P0", "slate") + _twr_key(532, 264, "P1", "indigo", a="start")
+            + _twr_key(320, 384, "P2", "teal") + _twr_key(108, 264, "P3", "amber", a="end"))
     radar = ('<path class="twr-radar" d="M320 229 L320 99 A130 130 0 0 1 385 116 Z" fill="var(--dg-slate)" '
              'opacity=".16"/>')
     tower_ = ('<g><path d="M306 246 H334 L331 322 H309 Z" fill="var(--ink2)"/>'
@@ -341,24 +450,24 @@ def tower() -> str:
               '<rect x="289" y="220" width="62" height="13" rx="3" fill="var(--paper)" opacity=".92"/>'
               '<path d="M304 220v13M320 220v13M336 220v13" stroke="var(--ink)" stroke-width="1.6"/>'
               '<path d="M320 212V194" stroke="var(--ink)" stroke-width="2"/>'
-              '<circle class="twr-beacon" cx="320" cy="192" r="3.5" fill="var(--dg-rose)"/></g>'
-              + bb.text(296, 296, "control:", fs=10, w=700, c="var(--ink2)", a="end")
-              + bb.text(296, 310, "gates, loops, the sponsor", fs=10, w=600, c="var(--ink2)", a="end"))
+              '<circle class="twr-beacon" cx="320" cy="192" r="3.5" fill="var(--dg-rose)"/></g>')
     planes = "".join(f'<g class="twr-plane {k}">{PLANE}</g>' for k in "abcd")
-    inner = sky + clouds + radar + lane + segs + centre + gate + ret + labels + tower_ + planes
-    return ('<svg class="twr" viewBox="0 0 640 400" role="img" aria-label="Four planes fly a loop of four runway '
-            'segments, P0 Frame, P1 Design and Spec, P2 Build and Prove and P3 Run and Learn, past one hard gate, '
-            f'under a control tower with a radar sweep"><style>{TOWER_CSS}</style>{inner}</svg>')
-
-
-_METHOD_HUES = [('SDD', 'b'), ('BMAD', 'k'), ('AI-DLC', 'o'), ('AIDD', 'g')]   # (short name, hue) as METHODS names them
+    inner = sky + radar + lane + segs + centre + gate + keys + tower_ + planes
+    lock = ('<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/>'
+            '<path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>')
+    key = "".join(f'<li style="--c:var(--dg-{hue})">{f"<b>{k}</b>" if k else lock}{bb.E(name)}</li>'
+                  for hue, k, name in TOWER_KEY)
+    return ('<svg class="twr" viewBox="40 92 560 318" role="img" aria-label="Four planes fly a loop of four runway '
+            'segments, P0 Frame, P1 Design and Spec, P2 Build and Prove and P3 Run and Learn, across one sign-off, '
+            f'round a control tower with a radar sweep"><style>{TOWER_CSS}</style>{inner}</svg>'
+            f'<ul class="twr-key">{key}</ul>')
 
 
 # --------------------------------------------------------------------------------------- merge
 # What the SkyWays PDLC adds in each phase and none of the four methods carries. The home page's table
 # ends on the same four lines.
 ADDS = ["The autonomy ceiling, decided before anything is built",
-        "A bar per slice and an authority budget, signed at the hard gate",
+        "A bar per slice and an authority budget, signed before the build",
         "Prove the bar first: a lower bound, never a score, before traffic",
         "The two-number report that starts the next P0"]
 
@@ -366,13 +475,10 @@ ADDS = ["The autonomy ceiling, decided before anything is built",
 def merge() -> str:
     """How the four methods merge into the SkyWays PDLC: each part lands in the phase it serves.
 
-    Four phase columns hold the parts each phase takes, every part in its method's hue with the
-    method named under it; the columns flow into the spine; the row beneath is what the SkyWays
-    PDLC adds and none of the methods carries."""
-    W, H, CW, GAP = 1180, 486, 270, 20
-    hue_of = {}
-    for name, hue in [(n, h) for n, h in _METHOD_HUES]:
-        hue_of[name] = hue
+    Four phase columns, each in its phase's hue, hold the parts that phase takes, with the method
+    named under each part; the sign-off stands between P1 and P2; the row beneath is what the
+    SkyWays PDLC adds and none of the methods carries."""
+    W, PX, CW, GAP = 1100, 20, 250, 20
     PARTS = {
         0: [("The brief and the PRD", "BMAD", "analyst and PM personas"),
             ("Depth judged per change", "AI-DLC", "adaptive: only the stages this change needs"),
@@ -389,47 +495,46 @@ def merge() -> str:
             ("Cache, route, trace", "AIDD", "cost habits that survive launch"),
             ("The spec learns from production", "SDD", "updated, then regenerated")],
     }
-    m = bb.title(34, 12, [("Four methods", "p"), ("merge into",), ("one loop", "n")])
-    # legend: one hue per method, top right
-    lx = W - 20
-    for name, hue in reversed(_METHOD_HUES):
-        pw, _, pm = bb.pill(0, 0, name, hue, fs=11, r=9, hh=24)
-        lx -= pw
-        m += bb.pill(lx, 14, name, hue, fs=11, r=9, hh=24)[2]
-        lx -= 8
-    TY = 56
+    title = [("Four methods", "s"), ("merge into",), ("one loop", "n")]
+    m, y = bb.title(PX + 14, 14, title, maxw=1032)
+    TY = y + 44                         # room above the columns for the sign-off's name
+    NW = CW - 20
+    slots = max(len(v) for v in PARTS.values())
+    sh = [max(bb.node_h(NW, v[k][0], f"{v[k][1]} · {v[k][2]}") for v in PARTS.values() if k < len(v)) for k in range(slots)]
+    ph = 10 + 30 + 8 + sum(sh) + (slots - 1) * 8 + 10     # parallel slots: every column ends on the same row
+    head = "What the SkyWays PDLC adds, and none of the four carries"
+    AY = TY + ph + 42
+    ah = max(bb.callout_h(CW, t) for t in ADDS)
+    html = bb.h_title(title)
     for i, (phue, pname, _ic, _href) in enumerate(PHASES):
-        x = 20 + i * (CW + GAP)
-        parts = PARTS[i]
-        ph = 14 + max(len(v) for v in PARTS.values()) * 52   # parallel slots: every column ends on the same row
+        x = PX + i * (CW + GAP)
         m += bb.panel(x, TY, CW, ph, phue, r=14)
-        for k, (title_, meth, sub) in enumerate(parts):
-            m += bb.node(x + 10, TY + 10 + k * 52, CW - 20, 44, title_=title_, sub=f"{meth} · {sub}",
-                         hue=hue_of[meth], fs=11.5)
-        cx = x + CW / 2
-        m += bb.flow([(cx, TY + ph + 2), (cx, 314)], sw=2)
-    SY = 318
-    m += (f'<rect x="20" y="{SY}" width="{W - 40}" height="48" rx="24" fill="{bb.solid("n")}"/>'
-          + f'<path d="M40 {SY + 24}H{W - 40}" fill="none" stroke="{bb.ON}" stroke-opacity=".45" '
-            f'stroke-width="2" stroke-dasharray="7 5" class="bb-flow"/>')
-    for i, (phue, pname, _ic, _href) in enumerate(PHASES):
-        x = 20 + i * (CW + GAP)
-        pw, _, _ = bb.pill(0, 0, pname, phue, fs=12.5, r=14, hh=28)
-        m += bb.pill(x + CW / 2 - pw / 2, SY + 10, pname, phue, fs=12.5, r=14, hh=28)[2]
-    m += bb.gate(20 + 2 * (CW + GAP) - GAP / 2, SY - 8, 64)
-    m += bb.text(20 + 2 * (CW + GAP) - GAP / 2, SY + 74, "hard gate", a="middle", fs=10.5, b=True, c=bb.dark("k"))
-    AY = 392
-    for i, txt in enumerate(ADDS):
-        x = 20 + i * (CW + GAP)
-        m += bb.callout(x, AY, CW, txt, "n", h=54, fs=11)
-    m += bb.text(20, AY - 8, "What the SkyWays PDLC adds, and none of the four carries", fs=11, b=True, c=bb.dark("n"))
-    m += bb.text(34, 474, "One order, one owner per phase, one hard gate. The parts keep their names; the spine keeps them honest.",
-                 fs=11.5, w=600, c=bb.INK2)
-    return bb.svg(W, H, m, "How the four methods merge into the SkyWays PDLC: the parts of spec-driven development, "
-                  "the BMAD Method, AI-DLC and AIDD placed in the phase each serves, flowing into the four-phase "
-                  "spine with its hard gate, and the row of devices the SkyWays PDLC adds",
-                  caption="<b>Merged, not stacked.</b> Each method keeps the part it does best; the spine gives the "
-                          "parts one order, one owner per phase and one hard gate.")
+        m += bb.pill(x + 10, TY + 10, pname, phue, fs=14, r=8, hh=30)[2]
+        yy = TY + 48
+        cells = []
+        for k, (t, meth, sub) in enumerate(PARTS[i]):
+            m += bb.node(x + 10, yy, NW, sh[k], title_=t, sub=f"{meth} · {sub}", hue=phue)
+            cells.append(bb.h_cell(t, f"{meth} · {sub}", hue=phue))
+            yy += sh[k] + 8
+        m += bb.callout(x, AY, CW, ADDS[i], "n", h=ah)
+        key, _, nm = pname.partition(" · ")
+        html += bb.h_block(phue, nm, "".join(cells), key=key,
+                           foot=f'<div class="bbn-in">{bb.h_call("The SkyWays PDLC adds: " + ADDS[i][0].lower() + ADDS[i][1:], "n")}</div>')
+        if i == 1:
+            html += bb.h_gate()
+    gx = PX + 2 * (CW + GAP) - GAP / 2
+    m += bb.gate(gx, TY - 10, ph + 20)
+    m += bb.text(gx, TY - 18, bb.SIGN_OFF, a="middle", fs=MIN, b=True, c=bb.dark("k"))
+    m += bb.text(PX + 4, TY + ph + 30, head, fs=14, b=True)
+    foot = "One order, one owner per phase, one sign-off. The parts keep their names; the four phases keep them in order."
+    pm, fh = bb.para(PX + 6, AY + ah + 12, foot, 1048, w=600)
+    m += pm
+    html += bb.h_note(foot)
+    return bb.svg(W, AY + ah + 12 + fh + 12, m, "How the four methods merge into the SkyWays PDLC: the parts of spec-driven "
+                  "development, the BMAD Method, AI-DLC and AIDD placed in the phase each serves, with the sign-off "
+                  "between P1 and P2, and the row of devices the SkyWays PDLC adds", cls="bbw-w", narrow=html,
+                  caption="<b>Merged, not stacked.</b> Each method keeps the part it does best; the SkyWays PDLC gives the "
+                          "parts one order, one owner per phase and one sign-off.")
 
 
 PICTURES = {"spine": spine, "pdlc_vs": pdlc_vs, "ladder": ladder, "chain": chain, "methods": methods,

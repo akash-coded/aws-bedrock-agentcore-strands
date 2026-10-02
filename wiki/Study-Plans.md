@@ -35,10 +35,10 @@ No AWS account, no Python.
 | --- | --- | --- |
 | **1** | [The Agentic PDLC](The-Agentic-PDLC) and [The Eight Loops](The-Eight-Loops) | The eight loops marked closed, open or absent for your own programme |
 | **2** | Your role page: [PM](Role-Product-Manager) · [Architect](Role-Solution-Architect) · [Engineering](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [Sponsor](Role-Sponsor) | Your Monday list, five items |
-| **3** | [Gates & Governance](Gates-and-Governance) and [The Evidence Pack](The-Evidence-Pack) | The P1 → P2 hard-gate table filled in honestly for one feature |
+| **3** | [Gates & Governance](Gates-and-Governance) and [The Evidence Pack](The-Evidence-Pack) | The table for the P1 → P2 hard gate (the sign-off before anything is built), filled in honestly for one feature |
 | **4** | [Formulas & Calculators](Formulas-and-Calculators), then Sets A and B of [Exercises](Exercises-and-Answers) | An acceptance bar you derived rather than guessed |
 | **5** | Two [scenarios](Scenario-Library) from outside your industry, plus [Anti-Patterns](Anti-Patterns) | Three anti-patterns you recognise, each with an owner |
-| **Any** | The [live playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/), one simulation | A decision you got wrong once, cheaply |
+| **Any** | One simulation in the workbench, from the [live manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) | A decision you got wrong once, cheaply |
 
 > This is the plan to run **before** a programme starts, and the one to hand a sponsor who asks what
 > they should read.

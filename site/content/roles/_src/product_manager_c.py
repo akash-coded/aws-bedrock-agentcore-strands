@@ -201,7 +201,7 @@ _Shadow window: <start> to <end> (<n> days) · Decided: <date> · By: <name>_
 
 **Money actions are excluded from automatic agreement and remain gated regardless.**
 
-## Disagreements, the themes
+## Disagreements: the themes
 | Theme | Count | Agent right / desk right | Action |
 |-------|-------|--------------------------|--------|
 | | | | |
@@ -245,7 +245,7 @@ Our slices: <list>. Our data: <where the decisions are logged>."""},
 
 1. Cluster them into at most 6 themes. Name each theme in plain words.
 2. For each theme: how many cases, and is the AGENT or the DESK more often right? Say
-   which and why, do not assume the human is the ground truth.
+   which and why. Do not assume the human is the ground truth.
 3. Rank the themes by estimated cost of being wrong, not by frequency.
 4. For the top theme, tell me whether the fix is the spec, the prompt, the tools, or the
    bar, and what specifically I would change.
@@ -265,7 +265,7 @@ days = cases needed / (share x cases per day)
 Then write the schedule as CONDITIONS, never dates: "widen to 25% when the live lower
 bound on <slice> holds at or above <bar> for <n> consecutive days".
 
-Flag any slice where 5% would take more than 30 days, those need a bigger starting
+Flag any slice where 5% would take more than 30 days: those need a bigger starting
 share or a different approach, and I need to know now.
 
 Slices, observed scores, bars, cases/day: <paste>"""},
@@ -355,9 +355,9 @@ Slices, observed scores, bars, cases/day: <paste>"""},
 | | Baseline | Now | Change |
 |---|---------|-----|--------|
 | Person-days per story | <n> | <n> | <n>% |
-| Token spend per story | — | $<n> | |
+| Token spend per story | none | $<n> | |
 | Review hours added per story | <n> | <n> | +<n> |
-| Re-runs per story | — | <n> | |
+| Re-runs per story | none | <n> | |
 
 **Net this cycle:** saved <n> person-days, spent $<n> and <n> review hours.
 **Trajectory:** review load falls to ~<n>h in cycle <n+1> as <what sharpens>; net becomes <n>.
@@ -385,11 +385,11 @@ A drift alert re-opens the release gate automatically. Last triggered: <date / n
 
 ---
 # Next P0 · <title>
-**Pain** (<what happened, as a measurement>
-**Evidence**) <trace id, date, link>
-**Finding**, the enforced control that was missing: <name it>
-**Fix**, <the control, where it will live>
-**Value**, <this class of incident becomes impossible, not less likely>
+**Pain**: <what happened, as a measurement>
+**Evidence**: <trace id, date, link>
+**Finding** (the enforced control that was missing): <name it>
+**Fix**: <the control, where it will live>
+**Value**: <this class of incident becomes impossible, not less likely>
 """},
  "prompts": [
    {"title": "Build the two-number report",
@@ -399,7 +399,7 @@ A drift alert re-opens the release gate automatically. Last triggered: <date / n
 MUST include, in this order:
 1. Person-days per story: baseline vs now, and % change
 2. Token spend per story
-3. Review hours added per story (this keeps number 1 honest, never omit it)
+3. Review hours added per story (this keeps number 1 honest; never omit it)
 4. Re-runs per story (the leak signal)
 5. A net line: "saved X person-days, spent $Y plus Z review hours"
 
@@ -416,15 +416,15 @@ LEDGER:
     "when": "After an incident, while the room is still arguing",
     "body": """Turn this incident into a P0 brief. Use EXACTLY this structure:
 
-**Pain** (what happened, as a measurement (amount, count, who was affected)
-**Evidence**) the trace or log reference
-**Finding** (the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE
-**Fix**) where that control will live (a tool signature, a gate, a permission)
+**Pain**: what happened, as a measurement (amount, count, who was affected)
+**Evidence**: the trace or log reference
+**Finding**: the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE
+**Fix**: where that control will live (a tool signature, a gate, a permission)
 **Value**: what class of incident becomes impossible
 
 Rules:
 - Do not name a person. Do not name the input that triggered it.
-- "A better prompt" is NOT a control, a prompt is a request that a model can be talked
+- "A better prompt" is NOT a control: a prompt is a request that a model can be talked
   past. If your finding is a prompt change, you have not found the control yet.
 - Distinguish detection (an alert) from prevention (a cap). Say which yours is.
 - If several layers failed, list each as ENFORCED / A REQUEST / ABSENT.
@@ -449,7 +449,7 @@ Do not be polite."""},
    "title": "SkyWays · day ninety",
    "body": "The report said 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, "
            "with the review hours and the re-run count beside them. The review row was up, and it was in "
-           "the report, with the reason and the expected fall. The programme continued: not because the "
+           "the report, with the reason and the expected fall. The programme continued, not because the "
            "numbers were flattering, but because both of them came from the team. The counterfactual is "
            "well documented elsewhere: every cycle showing time saved, none showing spend, and a CFO "
            "arriving at a budget review with a number nobody in the programme had seen."},

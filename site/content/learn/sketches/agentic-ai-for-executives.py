@@ -69,7 +69,7 @@ def prize(s: Sk):
     s.stroke([(916, 340), (944, 372)], "point", "h", amp=0.4)     # one of them is bad
     s.stroke([(944, 340), (916, 372)], "point", "h", amp=0.4)
     barrow(s, 1080, 540)
-    s.note(250, 130, "the demo: one, chosen", (262, 250), "aside")
+    s.note(292, 130, "the demo: one, chosen", (262, 250), "aside")
     s.note(900, 150, "the rest, never weighed", (936, 270), "point")
 
 

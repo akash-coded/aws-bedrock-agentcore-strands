@@ -71,7 +71,7 @@ Requests arrive as vibes. *Make rebooking smarter.* You cannot size a vibe, prio
 
 1. **Find who actually holds the pain**: Not the person who raised the request. The frontline agent, the contact-centre lead, the passenger. Ask each of them to describe the last time it happened, not the general case.
 2. **Count it**: Cases per day or per week. If nobody knows, that is the first finding, and ops can usually produce it in an afternoon from a ticket export.
-3. **Cost it**: Minutes per case × loaded cost per minute, plus anything that leaks, a lost passenger, a goodwill credit, an SLA breach. Cost per case is the number you will be asked for and the one nobody has.
+3. **Cost it**: Minutes per case × loaded cost per minute, plus anything that leaks: a lost passenger, a goodwill credit, an SLA breach. Cost per case is the number you will be asked for and the one nobody has.
 4. **Find the evidence**: A ticket export, a call recording, a queue chart. One artefact a sceptic can open. An anecdote is not evidence; an anecdote with a number behind it is.
 5. **Write the one-line statement**: Who · how often · what it costs · the evidence. One line. If it takes a paragraph, you have two pains and should split them.
 6. **Refuse to open a spec until the line exists**: This is the discipline the step really is. Everything after this refers back to it, so a missing line becomes a missing justification at the funding conversation.
@@ -134,7 +134,7 @@ Produce a table with one row per DISTINCT pain:
 Rules:
 - Keep EVERY name. If four people said the same thing, all four names go on that row.
 - Do not merge two pains that have different causes, even if they have the same symptom.
-- If a frequency or cost was not mentioned, write "not stated", never estimate.
+- If a frequency or cost was not mentioned, write "not stated". Never estimate.
 - At the end, list separately: things stated as solutions rather than pains.
 
 TRANSCRIPTS:
@@ -203,9 +203,9 @@ Leadership says agent-first. Half of what you are asked to build is a rule, and 
 
 **What you actually do**
 
-1. **Ask: is there a genuine judgement call?**: Something where two competent humans could reasonably differ. If the criteria are published and unambiguous, it is a rule, and code does rules perfectly and provably.
-2. **Ask: is the volume high enough?**: A probabilistic system carries fixed costs, evaluation, gates, a harness. Below some volume a person is simply cheaper, and saying so is a service to everyone.
-3. **Ask: is a wrong answer recoverable?**: If not, a person stays in the loop. This is not a maturity level you grow out of; it is a property of the action.
+1. **Ask whether there is a genuine judgement call**: Something where two competent humans could reasonably differ. If the criteria are published and unambiguous, it is a rule, and code does rules perfectly and provably.
+2. **Ask whether the volume is high enough**: A probabilistic system carries fixed costs: evaluation, gates, a harness. Below some volume a person is simply cheaper, and saying so is a service to everyone.
+3. **Ask whether a wrong answer is recoverable**: If not, a person stays in the loop. This is not a maturity level you grow out of; it is a property of the action.
 4. **Classify into one of four builds**: Rule (code) · assisted (model drafts, person decides) · agentic with gates · fully agentic. Most real features are the middle two.
 5. **Write the verdict with its comparison line**: Record what you rejected and why. That line is your argument the next time the directive arrives, and it saves you re-running the analysis from memory.
 6. **Take it to the architect before design starts**: The verdict fixes the shape of the product. Changing it later means starting again, which is exactly why it is a hard gate.
@@ -243,12 +243,12 @@ _Decided: <date> · Decided by: <name> · Status: accepted / superseded_
 **<Rule in code | Assisted, person decides | Agentic with gates | Fully agentic>**
 
 ## What we rejected, and why
-- **Rule in code**, <rejected because ... / chosen because ...>
-- **A person**, <cost at this volume>
-- **Fully agentic**, <rejected because step <x> is unrecoverable>
+- **Rule in code**: <rejected because ... / chosen because ...>
+- **A person**: <cost at this volume>
+- **Fully agentic**: <rejected because step <x> is unrecoverable>
 
 ## Consequence
-- The unrecoverable steps are: <list>: these are gated regardless of how good the model gets.
+- The unrecoverable steps are: <list>. These are gated regardless of how good the model gets.
 - Revisit when: <named trigger, e.g. "the regulator's rule changes", not a date>
 ```
 
@@ -259,7 +259,7 @@ _Decided: <date> · Decided by: <name> · Status: accepted / superseded_
 ```text
 For each item below, answer these three questions IN ORDER and stop at the first "no":
 
-1. Is there a genuine judgement call, could two competent people reasonably differ?
+1. Is there a genuine judgement call: could two competent people reasonably differ?
    (If the criteria are published and unambiguous, answer NO: it is a rule.)
 2. Is the volume high enough to justify evaluation, gates and a harness?
 3. Is a wrong answer recoverable?
@@ -299,7 +299,7 @@ MY REASONING:
 
 **Worked example · SkyWays · the verdict that shaped everything**
 
-> Judgement: yes: which alternative suits this passenger depends on their connection, their fare rules, whether they will accept an overnight. Volume: 240 a day. Recoverable: **partly**: a proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was *agentic with gates*, and the gate went on the refund. That single 'partly' is why the product has a named approver on refunds ninety days later, and why the $2,000 incident on day 82 was a failure to implement a decision already made rather than a failure to make it.
+> Judgement: yes. Which alternative suits this passenger depends on their connection, their fare rules, whether they will accept an overnight. Volume: 240 a day. Recoverable: **partly**. A proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was *agentic with gates*, and the gate went on the refund. That single 'partly' is why the product has a named approver on refunds ninety days later, and why the $2,000 incident on day 82 was a failure to implement a decision already made rather than a failure to make it.
 
 **Pitfalls**
 
@@ -426,7 +426,7 @@ Rules:
 - Set the level from cost-of-mistake and reversibility ONLY. Ignore how capable the model is.
 - Anything involving money, identity or a regulatory commitment defaults to "named approver".
 - Anything irreversible defaults to "not delegated".
-- Where you do not know our costs, write UNKNOWN, do not estimate.
+- Where you do not know our costs, write UNKNOWN. Do not estimate.
 
 Then list the questions I must answer before this table can be signed.
 ```
@@ -443,7 +443,7 @@ Act as a sceptical risk reviewer. Tell me:
 1. What sample size would be needed to support that claim, given the bar for this action?
    (bar = damage / (damage + saving); show the arithmetic)
 2. What the lower bound of the observed success rate actually is at the sample size we have.
-3. What is the DOOR, if we raise it and it goes wrong, how fast can we go back?
+3. What is the DOOR: if we raise it and it goes wrong, how fast can we go back?
 4. The smallest safe step: what is the ONE level up, with what monitoring?
 
 Our numbers: <cases in period>, <errors>, <damage per wrong>, <saving per right>.
@@ -489,10 +489,10 @@ A thirty-page PRD is read by nobody and interpreted differently by everyone, and
 
 | Tool | Use it for |
 | --- | --- |
-| **Chat LLM (cheap tier)** | Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage delegation in the role: mechanical, verifiable, and it takes you an hour by hand.<br>⚠ It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself, the guesses are the exact thing you are trying to surface. |
+| **Chat LLM (cheap tier)** | Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage delegation in the role: mechanical, verifiable, and it takes you an hour by hand.<br>⚠ It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself: the guesses are the exact thing you are trying to surface. |
 | **Chat LLM** | Convert prose acceptance criteria to EARS and report how many 'should's it removed. The count is a useful measure of how much ambiguity you were shipping.<br>⚠ Check that every SHALL ends in a measure. It will happily produce a clean EARS sentence with no number in it. |
 | **Chat LLM, adversarially** | The reading test, cheaply: 'you are a coding agent, build this, and list every assumption you had to make'. Its assumption list is your gap list. |
-| **Do not delegate** | The bar and the autonomy fields. Both are business risk decisions with your name on them, and both have a formula, use the formula, not the model. |
+| **Do not delegate** | The bar and the autonomy fields. Both are business risk decisions with your name on them, and both have a formula: use the formula, not the model. |
 
 **The artefact**
 
@@ -573,7 +573,7 @@ Split it into one spec per feature. For each, output EXACTLY these eight fields:
 7 Fallback
 8 Records
 
-CRITICAL: for fields 4-8, write "NOT DECIDED, <the question that must be answered>"
+CRITICAL: for fields 4-8, write "NOT DECIDED: <the question that must be answered>"
 wherever the PRD does not actually say. Do NOT infer, do NOT use a sensible default.
 Those gaps are the output I am looking for.
 
@@ -683,12 +683,12 @@ _Cadence: one bolt per day, reviewed and integrated same day_
 
 | Day | Bolt | The ONE unknown it retires | Depends on | Slice it serves | Done when |
 |-----|------|---------------------------|-----------|-----------------|-----------|
-| 1 | Walking skeleton, <read X, show it>, no model | do the pieces connect? | — | all | end to end, in staging |
-| 2 | <exact function> | <...> | — | <slice> | unit tests green |
+| 1 | Walking skeleton, <read X, show it>, no model | do the pieces connect? | none | all | end to end, in staging |
+| 2 | <exact function> | <...> | none | <slice> | unit tests green |
 | 3 | | | | | |
 
 ## Rules for this plan
-- A bolt that cannot be built alone was cut wrong, send it back before starting it.
+- A bolt that cannot be built alone was cut wrong: send it back before starting it.
 - Exact code early: it stands alone and never blocks.
 - The plug (MCP / integration) lands before any gated write that needs it.
 - The proof (harness, golden set) is last, because it needs something to run against.
@@ -720,7 +720,7 @@ Rules:
 - If a bolt would retire two unknowns, split it.
 - If a bolt cannot be built alone, say so and explain what it needs.
 - Put a walking skeleton first: the thinnest end-to-end path with NO model in it.
-- Pure deterministic code (calculations, validations) should come early, it stands alone.
+- Pure deterministic code (calculations, validations) should come early: it stands alone.
 - Anything that writes or changes real data comes after the integration it depends on.
 
 Finally: list any story that resisted splitting, and say what two risks it is hiding.
@@ -739,10 +739,10 @@ history and NO access to me.
 
 Sections, exactly:
 ## Context: LINKS ONLY to the context layers and ADRs. Do not paste their contents.
-## Spec (the EARS criteria for THIS slice only, copied from the spec verbatim.
-## Tools) signatures the bolt may call, with their risk band.
-## Tests (the golden slice it must pass and its bar, plus unit assertions.
-## Done when) one testable line.
+## Spec: the EARS criteria for THIS slice only, copied from the spec verbatim.
+## Tools: signatures the bolt may call, with their risk band.
+## Tests: the golden slice it must pass and its bar, plus unit assertions.
+## Done when: one testable line.
 ## Cost: expected tokens per call and the tier.
 
 BOLT: <name and the one unknown>
@@ -944,7 +944,7 @@ _Shadow window: <start> to <end> (<n> days) · Decided: <date> · By: <name>_
 
 **Money actions are excluded from automatic agreement and remain gated regardless.**
 
-## Disagreements, the themes
+## Disagreements: the themes
 | Theme | Count | Agent right / desk right | Action |
 |-------|-------|--------------------------|--------|
 | | | | |
@@ -996,7 +996,7 @@ Here are <n> cases where the agent and the human desk disagreed.
 
 1. Cluster them into at most 6 themes. Name each theme in plain words.
 2. For each theme: how many cases, and is the AGENT or the DESK more often right? Say
-   which and why, do not assume the human is the ground truth.
+   which and why. Do not assume the human is the ground truth.
 3. Rank the themes by estimated cost of being wrong, not by frequency.
 4. For the top theme, tell me whether the fix is the spec, the prompt, the tools, or the
    bar, and what specifically I would change.
@@ -1021,7 +1021,7 @@ days = cases needed / (share x cases per day)
 Then write the schedule as CONDITIONS, never dates: "widen to 25% when the live lower
 bound on <slice> holds at or above <bar> for <n> consecutive days".
 
-Flag any slice where 5% would take more than 30 days, those need a bigger starting
+Flag any slice where 5% would take more than 30 days: those need a bigger starting
 share or a different approach, and I need to know now.
 
 Slices, observed scores, bars, cases/day: <paste>
@@ -1087,9 +1087,9 @@ This is the step that decides whether the programme survives. A first cycle can 
 | | Baseline | Now | Change |
 |---|---------|-----|--------|
 | Person-days per story | <n> | <n> | <n>% |
-| Token spend per story | — | $<n> | |
+| Token spend per story | none | $<n> | |
 | Review hours added per story | <n> | <n> | +<n> |
-| Re-runs per story | — | <n> | |
+| Re-runs per story | none | <n> | |
 
 **Net this cycle:** saved <n> person-days, spent $<n> and <n> review hours.
 **Trajectory:** review load falls to ~<n>h in cycle <n+1> as <what sharpens>; net becomes <n>.
@@ -1117,11 +1117,11 @@ A drift alert re-opens the release gate automatically. Last triggered: <date / n
 
 ---
 # Next P0 · <title>
-**Pain** (<what happened, as a measurement>
-**Evidence**) <trace id, date, link>
-**Finding**, the enforced control that was missing: <name it>
-**Fix**, <the control, where it will live>
-**Value**, <this class of incident becomes impossible, not less likely>
+**Pain**: <what happened, as a measurement>
+**Evidence**: <trace id, date, link>
+**Finding** (the enforced control that was missing): <name it>
+**Fix**: <the control, where it will live>
+**Value**: <this class of incident becomes impossible, not less likely>
 ```
 
 </details>
@@ -1134,7 +1134,7 @@ Build a two-number cycle report from this ledger.
 MUST include, in this order:
 1. Person-days per story: baseline vs now, and % change
 2. Token spend per story
-3. Review hours added per story (this keeps number 1 honest, never omit it)
+3. Review hours added per story (this keeps number 1 honest; never omit it)
 4. Re-runs per story (the leak signal)
 5. A net line: "saved X person-days, spent $Y plus Z review hours"
 
@@ -1156,15 +1156,15 @@ LEDGER:
 ```text
 Turn this incident into a P0 brief. Use EXACTLY this structure:
 
-**Pain** (what happened, as a measurement (amount, count, who was affected)
-**Evidence**) the trace or log reference
-**Finding** (the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE
-**Fix**) where that control will live (a tool signature, a gate, a permission)
+**Pain**: what happened, as a measurement (amount, count, who was affected)
+**Evidence**: the trace or log reference
+**Finding**: the ENFORCED CONTROL that, if present, would have made this IMPOSSIBLE
+**Fix**: where that control will live (a tool signature, a gate, a permission)
 **Value**: what class of incident becomes impossible
 
 Rules:
 - Do not name a person. Do not name the input that triggered it.
-- "A better prompt" is NOT a control, a prompt is a request that a model can be talked
+- "A better prompt" is NOT a control: a prompt is a request that a model can be talked
   past. If your finding is a prompt change, you have not found the control yet.
 - Distinguish detection (an alert) from prevention (a cap). Say which yours is.
 - If several layers failed, list each as ENFORCED / A REQUEST / ABSENT.
@@ -1195,7 +1195,7 @@ Do not be polite.
 
 **Worked example · SkyWays · day ninety**
 
-> The report said 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, with the review hours and the re-run count beside them. The review row was up, and it was in the report, with the reason and the expected fall. The programme continued: not because the numbers were flattering, but because both of them came from the team. The counterfactual is well documented elsewhere: every cycle showing time saved, none showing spend, and a CFO arriving at a budget review with a number nobody in the programme had seen.
+> The report said 40 to 45 percent fewer person-days and a token bill of $4,200, on one line, with the review hours and the re-run count beside them. The review row was up, and it was in the report, with the reason and the expected fall. The programme continued, not because the numbers were flattering, but because both of them came from the team. The counterfactual is well documented elsewhere: every cycle showing time saved, none showing spend, and a CFO arriving at a budget review with a number nobody in the programme had seen.
 
 **Pitfalls**
 

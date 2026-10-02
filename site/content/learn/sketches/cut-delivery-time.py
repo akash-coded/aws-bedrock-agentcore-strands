@@ -42,7 +42,7 @@ def timer(s: Sk):
     for x0, y0, k in ((800, 120, 1), (806, 520, 1), (494, 100, -1)):             # it is being shaken
         s.curve([(x0, y0), (x0 + k * 14, y0 + 18), (x0, y0 + 38)], "ink", "t")
     s.note(960, 150, "500 cases", (726, 206), "ink")
-    s.label(1150, 336, "5% of 240 a day", "aside", anchor="end")
+    s.label(806, 336, "a few a day", "aside", anchor="start")
     s.arrow(790, 322, 676, 318, "aside", w="t", head=15)
     s.label(960, 470, "42 days", "point")
     s.squiggle(880, 486, 160)
@@ -88,7 +88,7 @@ SKETCHES = [
      "idea": "live evidence arrives at the speed of traffic: the arithmetic, not the effort",
      "verb": "shake", "prop": "an egg timer as tall as the worker",
      "alt": "A worker grips an egg timer as tall as itself and shakes it. The sand marked 500 cases still runs through "
-            "the narrow neck, marked 5% of 240 a day, a grain at a time.",
+            "the narrow neck, marked a few a day, a grain at a time. Below it is written 42 days.",
      "caption": "500 cases at a 5% canary of 240 cases a day takes 42 days. That is the arithmetic, not the effort.",
      "h": 620, "draw": timer},
 ]

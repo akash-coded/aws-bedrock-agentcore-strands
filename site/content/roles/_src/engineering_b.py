@@ -6,7 +6,7 @@ STEPS_B = [
  "title": "Add the model calls, and an independent checker after the risky ones",
  "when": "Once the floor is green, mid-bolt",
  "purpose": (
-   "The best-guess layer goes on top of the floor: ranking, drafting, classifying: the work that is "
+   "The best-guess layer goes on top of the floor: ranking, drafting, classifying. This is the work that is "
    "right a share of the time and has to be measured rather than asserted. Chains multiply, so keep "
    "them short, then put a checker after the steps where a wrong answer is **costly and easy to "
    "miss**. The checker only earns its call if it is independent. A model reviewing its own output "
@@ -22,7 +22,7 @@ STEPS_B = [
               "computing the fare, which needs a unit test, and not after writing the trace row, "
               "which is exact. Every checker is a call you pay for on every case."},
    {"do": "Make the checker independent, and record which kind",
-    "detail": "A different model, or the same model in a fresh context with an adversarial brief, "
+    "detail": "A different model, or the same model in a fresh context with an adversarial brief: "
               "*find what is wrong*. Write which one you chose in a comment beside it, because the "
               "next person to touch this will assume the cheap version was intended."},
    {"do": "Pass the constraints and the output, never the drafter's reasoning",
@@ -570,7 +570,7 @@ Replay the harness against each commit and report:
 
 Then tell me:
 - Every regression the harness would have MISSED, and the specific step that should have
-  caught it, exact test, golden slice, or judge.
+  caught it: exact test, golden slice, or judge.
 - Every clean commit the harness would have REJECTED, and why. A harness that rejects
   good changes gets switched off within a fortnight.
 - The slice with the fewest cases, and whether its lower bound could clear its bar at

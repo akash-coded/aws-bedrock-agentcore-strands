@@ -66,7 +66,7 @@ STEPS_A = [
     "detail": "Cases per day or per week. If nobody knows, that is the first finding, and ops can "
               "usually produce it in an afternoon from a ticket export."},
    {"do": "Cost it",
-    "detail": "Minutes per case × loaded cost per minute, plus anything that leaks, a lost passenger, "
+    "detail": "Minutes per case × loaded cost per minute, plus anything that leaks: a lost passenger, "
               "a goodwill credit, an SLA breach. Cost per case is the number you will be asked for and "
               "the one nobody has."},
    {"do": "Find the evidence",
@@ -140,7 +140,7 @@ Produce a table with one row per DISTINCT pain:
 Rules:
 - Keep EVERY name. If four people said the same thing, all four names go on that row.
 - Do not merge two pains that have different causes, even if they have the same symptom.
-- If a frequency or cost was not mentioned, write "not stated", never estimate.
+- If a frequency or cost was not mentioned, write "not stated". Never estimate.
 - At the end, list separately: things stated as solutions rather than pains.
 
 TRANSCRIPTS:
@@ -200,13 +200,13 @@ and the category filter."""},
    "order, and the recorded answer is what lets you say no with evidence instead of as an opinion. "
    "Expect two or three of your top five to come back as rules. That is the healthy result."),
  "activities": [
-   {"do": "Ask: is there a genuine judgement call?",
+   {"do": "Ask whether there is a genuine judgement call",
     "detail": "Something where two competent humans could reasonably differ. If the criteria are "
               "published and unambiguous, it is a rule, and code does rules perfectly and provably."},
-   {"do": "Ask: is the volume high enough?",
-    "detail": "A probabilistic system carries fixed costs, evaluation, gates, a harness. Below some "
+   {"do": "Ask whether the volume is high enough",
+    "detail": "A probabilistic system carries fixed costs: evaluation, gates, a harness. Below some "
               "volume a person is simply cheaper, and saying so is a service to everyone."},
-   {"do": "Ask: is a wrong answer recoverable?",
+   {"do": "Ask whether a wrong answer is recoverable",
     "detail": "If not, a person stays in the loop. This is not a maturity level you grow out of; it is a "
               "property of the action."},
    {"do": "Classify into one of four builds",
@@ -255,12 +255,12 @@ _Decided: <date> · Decided by: <name> · Status: accepted / superseded_
 **<Rule in code | Assisted, person decides | Agentic with gates | Fully agentic>**
 
 ## What we rejected, and why
-- **Rule in code**, <rejected because ... / chosen because ...>
-- **A person**, <cost at this volume>
-- **Fully agentic**, <rejected because step <x> is unrecoverable>
+- **Rule in code**: <rejected because ... / chosen because ...>
+- **A person**: <cost at this volume>
+- **Fully agentic**: <rejected because step <x> is unrecoverable>
 
 ## Consequence
-- The unrecoverable steps are: <list>: these are gated regardless of how good the model gets.
+- The unrecoverable steps are: <list>. These are gated regardless of how good the model gets.
 - Revisit when: <named trigger, e.g. "the regulator's rule changes", not a date>
 """},
  "prompts": [
@@ -268,7 +268,7 @@ _Decided: <date> · Decided by: <name> · Status: accepted / superseded_
     "when": "You have ten requests and an agent-first directive",
     "body": """For each item below, answer these three questions IN ORDER and stop at the first "no":
 
-1. Is there a genuine judgement call, could two competent people reasonably differ?
+1. Is there a genuine judgement call: could two competent people reasonably differ?
    (If the criteria are published and unambiguous, answer NO: it is a rule.)
 2. Is the volume high enough to justify evaluation, gates and a harness?
 3. Is a wrong answer recoverable?
@@ -300,9 +300,9 @@ MY REASONING:
  ],
  "example": {
    "title": "SkyWays · the verdict that shaped everything",
-   "body": "Judgement: yes: which alternative suits this passenger depends on their connection, their "
+   "body": "Judgement: yes. Which alternative suits this passenger depends on their connection, their "
            "fare rules, whether they will accept an overnight. Volume: 240 a day. Recoverable: "
-           "**partly**: a proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was "
+           "**partly**. A proposed rebooking can be withdrawn, a cash refund cannot. So the verdict was "
            "*agentic with gates*, and the gate went on the refund. That single 'partly' is why the "
            "product has a named approver on refunds ninety days later, and why the $2,000 incident on "
            "day 82 was a failure to implement a decision already made rather than a failure to make it."},

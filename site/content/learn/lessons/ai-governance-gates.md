@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The gates in one sentence.** An AI agent passes five gates on its way to wide use, **intent**
+> **The gates in short.** An AI agent passes five gates on its way to wide use. They are **intent**
 > (is it worth doing?), **plan** (the right slice at the right control level?), **behaviour** (does it
 > meet the spec?), **release** (safe to show a few real users?) and **expansion** (have we earned wider
-> use?): each owned by one named person deciding on written evidence, with a drift alert that re-opens
-> the release gate automatically.
+> use?). Each is owned by one named person deciding on written evidence. A drift alert re-opens the
+> release gate automatically.
 
 {{map:ai-governance-gates}}
 
@@ -117,7 +117,7 @@ A company's AI approval process is a monthly committee that reviews a slide deck
 denominators; a monthly meeting cannot re-open a release when drift appears on a Tuesday; and a single
 approval cannot distinguish intent from behaviour from expansion, which are different questions with
 different evidence and different owners. The committee can stay as the place the two-number report is
-read: the decisions move to named owners.
+read; the decisions move to named owners.
 
 </details>
 
@@ -137,8 +137,8 @@ release, and whether it has earned wider use, plus a standing rule for what re-o
 
 ### Who should approve an AI agent for production?
 
-Different people for different questions. In this playbook the product manager owns release, is it
-safe to show a few real users?: on the evidence of a shadow run and a rehearsed rollback, while the QA
+Different people for different questions. In this manual the product manager owns release (is it
+safe to show a few real users?) on the evidence of a shadow run and a rehearsed rollback, while the QA
 lead owns behaviour and expansion, which are questions of measured evidence.
 
 ### How do you govern AI without slowing delivery?
@@ -167,8 +167,8 @@ reviews exceptions and drift alerts, not every release.
 **The ten-minute workflow.** A gate review prepared in advance:
 
 ```text
-Here is our evidence pack: <paste the index>. For each gate — intent, plan, behaviour, release,
-expansion — list the evidence it needs, whether we have it (quote the file), who signs, and what would
+Here is our evidence pack: <paste the index>. For each gate (intent, plan, behaviour, release,
+expansion) list the evidence it needs, whether we have it (quote the file), who signs, and what would
 re-open it. Flag any gate whose evidence is a meeting rather than a document.
 ```
 
@@ -176,7 +176,7 @@ re-open it. Flag any gate whose evidence is a meeting rather than a document.
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The five gates, their owners and evidence; the gate decision record | **Original**: this playbook | [Gates and Governance](wiki:Gates-and-Governance) |
+| The five gates, their owners and evidence; the gate decision record | **Original**: this manual | [Gates and Governance](wiki:Gates-and-Governance) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
 | Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
 | Govern, map, measure, manage | **Borrowed** | NIST (2023). [AI Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework) |

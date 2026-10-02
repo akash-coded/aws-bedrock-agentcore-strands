@@ -46,7 +46,7 @@ hand-off, an injection test list, a postmortem template the team has used once, 
 ## Homework
 
 **The two-number report**, drafted for the candidate as if it had run for a month: the time saved and
-the money spent, in the playbook's builder, then in the product manager's
+the money spent, in the workbench's builder, then in the product manager's
 [Learn](https://akash-coded.github.io/aws-bedrock-agentcore-strands/templates/#lt-product-manager-learn)
 template. The numbers are projections; the shape is what the sponsor will read every cycle from now on.
 [Two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/toolkit/report).

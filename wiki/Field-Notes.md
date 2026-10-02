@@ -2,7 +2,7 @@
 
 *What happened when somebody ran this method on a real project. Dated, first person, one page section per note.*
 
-The tutorial and the playbook say what should happen. This page is for what did. A field note is
+The tutorial and the manual say what should happen. This page is for what did. A field note is
 worth more than a review: it says which step was harder than the lesson made it sound, which number
 was wrong for your industry, and what you would do differently. Nothing here needs a pull request,
 and nothing here is edited for tone.
@@ -31,7 +31,7 @@ and link it from here. The best ones get curated into [Community Answers](Commun
 ## <A one-line title: what the project was, in the past tense> · <YYYY-MM>
 
 **Context.** <Industry, team size, your role, and which phase you were in. Two sentences.>
-**Following.** <The lesson, how-to or playbook step you were using, as a link.>
+**Following.** <The lesson, how-to or manual step you were using, as a link.>
 
 **What the method said.** <One paragraph.>
 

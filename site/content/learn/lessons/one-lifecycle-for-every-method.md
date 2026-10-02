@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The map in one sentence.** Every building method fits onto the agentic PDLC's four phases, most
-> of their stages land in P1 and P2, and laying them side by side shows the same gap in all of them:
-> none sets an acceptance bar per slice from what a mistake costs, none enforces authority per action,
-> and almost none says how to watch a model in production and report its value beside its cost.
+> **The map in short.** Every building method fits onto the agentic PDLC's four phases, and most of
+> their stages land in P1 and P2. Laying them side by side shows the same gap in all of them. None
+> sets an acceptance bar per slice from what a mistake costs, and none enforces authority per action.
+> Almost none says how to watch a model in production and report its value beside its cost.
 
 {{map:one-lifecycle-for-every-method}}
 
@@ -40,11 +40,11 @@ as gaps that a lifecycle has to fill, whichever method you choose.
 | --- | --- | --- | --- | --- |
 | **AWS AI-DLC** | Inception: the business intent | Inception: Mob Elaboration, units of work | Construction: Mob Construction, in bolts | Operations: infrastructure and deployment |
 | **AIDDLC** | Foundation | Inception, elaboration | Construction, hardening | Operations, evolution |
-| **Kiro** | — | `requirements.md`, `design.md` | `tasks.md`, task by task | — |
-| **GitHub Spec Kit** | — | Constitution, specify, plan, tasks | Implement | — |
+| **Kiro** | none | `requirements.md`, `design.md` | `tasks.md`, task by task | none |
+| **GitHub Spec Kit** | none | Constitution, specify, plan, tasks | Implement | none |
 | **BMAD Method** | The analyst's brief | The product manager's requirements, the architect's design | Stories, developer, QA | Extended BMAD: learn and adjust, into the next brief |
 | **Scrum** | Backlog refinement | Sprint planning | Sprints (here, bolts) and the review | The retrospective |
-| **Shape Up** | Shaping and the betting table | The shaped pitch | The six-week cycle | — |
+| **Shape Up** | Shaping and the betting table | The shaped pitch | The six-week cycle | none |
 | **Stage-gate** | Discovery and scoping | The business case | Development, testing and validation | Launch |
 
 ## How to combine them, step by step
@@ -77,7 +77,7 @@ and the two numbers to the review you already give the sponsor.
 ### Step 4 · Keep one spec, whatever the method
 
 Every method above produces some form of specification. Keep one, in the repository, as the artefact
-agents build from: whether your tool calls it `requirements.md`, a spec, a PRD or a pitch. The eight
+agents build from, whether your tool calls it `requirements.md`, a spec, a PRD or a pitch. The eight
 fields of the [agentic spec](lesson:p1-design-and-spec#step-2--write-the-eight-field-spec) are what it
 must contain.
 
@@ -99,7 +99,7 @@ still skip every exit; a team that holds the exits can run any of them.
 ## Why it matters
 
 Method arguments are expensive and mostly beside the point. The failures that cancel agentic projects
- (escalating cost, unclear value, weak risk controls) live in the cells that every building method
+(escalating cost, unclear value, weak risk controls) live in the cells that every building method
 leaves empty. Mapping them makes that visible in one table.
 
 {{sketch:recipes-and-the-unwatched-pot}}
@@ -147,7 +147,7 @@ naturally with the value line.
 ### What replaces the sprint when AI writes the code?
 
 The bolt: a slice of hours or days, carrying one unknown, integrated the same day. The term comes from
-AWS's AI-DLC; the rule of one unknown per bolt is this playbook's.
+AWS's AI-DLC; the rule of one unknown per bolt is this manual's.
 
 ## Apply it in your role
 

@@ -2,7 +2,7 @@
 
 <!-- tutorial:lesson -->*Twelve more, three per phase, are in the lesson **[Twelve exercises](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/agentic-pdlc-exercises/)**, each with its working.*<!-- /tutorial:lesson -->
 
-Thirty-one exercises across the playbook, with worked answers. Use them to test yourself, to run a
+Thirty-one exercises across the manual, with worked answers. Use them to test yourself, to run a
 session, or to prepare for an interview where someone asks how you would actually do this.
 
 Every answer is worked, not asserted. Where there is a formula, it is applied.
@@ -212,7 +212,7 @@ and a critic agent. Which survive?
 **One agent and one checker.**
 
 The *calculator* is exact work — a function, and putting it behind an agent makes a provable step
-probabilistic, which is the worst trade in the playbook. The *retriever* is a tool. The *planner* is
+probabilistic, which is the worst trade in the manual. The *retriever* is a tool. The *planner* is
 what the single agent already does. The *writer* is the same agent's output.
 
 The **critic survives**, because independence is the entire point of a checker — a different model,

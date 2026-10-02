@@ -1,11 +1,13 @@
-// Capture the simulator's pictures for the picture pack (site/pages/pictures.py).
+// Capture the workbench's pictures for the picture pack (site/pages/pictures.py).
 //
 //   python3 site/build.py
 //   python3 -m http.server 8799 -d site/_site &
-//   node site/tools/simshots.mjs http://localhost:8799/simulator/ site/assets/pictures
+//   node site/tools/simshots.mjs http://localhost:8799/workbench/ site/assets/pictures
 //
-// Each entry is a route in the tool and a selector; the element is captured at 2x as WebP, clipped to its
+// Each entry is a route in the workbench and a selector; the element is captured at 2x as WebP, clipped to its
 // own box. The list mirrors SIM in site/pages/pictures.py, which reads the files' sizes from their headers.
+// The workbench opens dark, as the manual does; the pictures are taken in the light theme, so the theme is
+// set to light under the manual's own key before anything is captured.
 // Chrome's DevTools protocol over Node's built-in WebSocket, so there is nothing to install.
 
 import { spawn } from "node:child_process";
@@ -53,8 +55,10 @@ mkdirSync(outDir, { recursive: true });
 await send("Page.enable");
 await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 2, mobile: false });
 await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: "light" }, { name: "prefers-reduced-motion", value: "reduce" }] });
-await send("Page.navigate", { url: base + "#/start" }); await sleep(3500);
-await ev(`localStorage.setItem("skyways.tours.off","1"); localStorage.setItem("skyways.heromode","light"); true`);
+await send("Page.navigate", { url: base + "#/start" }); await sleep(2500);
+await ev(`localStorage.setItem("skyways.tours.off","1"); localStorage.setItem("manual-theme","light"); true`);
+await send("Page.reload"); await sleep(3500);
+if (await ev(`document.documentElement.getAttribute("data-theme")`) !== "light") { console.error("the workbench did not open in the light theme"); process.exit(4); }
 
 let done = 0;
 for (const s of SHOTS) {
@@ -72,6 +76,6 @@ for (const s of SHOTS) {
   await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 2, mobile: false });
   done += 1; console.log(`  ${s.name}  ${Math.round(box.w)}×${Math.round(box.h)}`);
 }
-console.log(`${done} of ${SHOTS.length} simulator pictures written to ${outDir}`);
+console.log(`${done} of ${SHOTS.length} workbench pictures written to ${outDir}`);
 ws.close(); chrome.kill(); try { rmSync(profile, { recursive: true, force: true }); } catch { /* ignore */ }
 process.exit(done === SHOTS.length ? 0 : 1);

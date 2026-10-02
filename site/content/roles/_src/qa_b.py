@@ -167,7 +167,7 @@ and a verdict of PROVEN / UNPROVEN / FAILED:
 
 RULES:
 - Exit 1 if any slice is not PROVEN. Exit 2 on a malformed report, an untagged case, a
-  slice with no bar, or a slice with n = 0, a configuration failure must not look like
+  slice with no bar, or a slice with n = 0: a configuration failure must not look like
   a content failure.
 - Print the per-slice table first. Do not print an overall number at all.
 - No network calls, no model calls.
@@ -358,7 +358,7 @@ RULES:
 - lower bound = p - 1.96 * sqrt(p*(1-p)/n). Under n = 100 use the Wilson interval instead,
   and mark which rows used which.
 - PROVEN only when the LOWER BOUND is at or above the bar. Never the point estimate.
-- FAILED when the score itself is at or below the bar, no sample size fixes that.
+- FAILED when the score itself is at or below the bar: no sample size fixes that.
 - UNPROVEN otherwise. Cases owed = 1.96^2 * p * (1-p) / (p - bar)^2, minus the cases held.
 - Flag any slice that got WORSE than the previous run, even where it still passes.
 - Do NOT compute an overall number. If I gave you one, ignore it.
@@ -384,7 +384,7 @@ Price all THREE routes to proven, using these formulas, and show the arithmetic:
 3. LOWER THE DAMAGE WITH A HOLD
    bar = N / (N + 1) where N = damage / saving. Recompute the bar for a damage of
    <damage with a named approver>. Then say whether the CURRENT score, at the CURRENT n,
-   clears the new bar, lower bound, not point estimate.
+   clears the new bar (lower bound, not point estimate).
 
 OUTPUT: a three-row table of route, cost, elapsed days, and what it gives up. Then name
 the route you would take and the one assumption that would change your answer."""},
@@ -580,7 +580,7 @@ OUTPUT:
 
 RULES:
 - Do not name a person and do not include the real booking reference.
-- If the write-up does not say which entry point the text came in through, say so, that
+- If the write-up does not say which entry point the text came in through, say so: that
   is a gap in the trace and it is a finding in its own right.
 - Write the cases as data, not as prose.
 
@@ -592,7 +592,7 @@ INCIDENT:
 broken.
 
 For each test, answer:
-1. Could this pass because the agent failed for an UNRELATED reason, a timeout, a tool
+1. Could this pass because the agent failed for an UNRELATED reason: a timeout, a tool
    that was not registered, an empty input, a booking that does not exist?
 2. Does it assert on the model's wording anywhere, directly or through a helper?
 3. Does it assert BOTH that the action did not happen AND that the attempt was recorded?
@@ -608,7 +608,7 @@ SUITE:
    "title": "SkyWays · green since launch, and a $2,000 refund on day eighty-two",
    "body": "The suite was written before launch, passed, and was not run again through three prompt "
            "edits. On day 82 a refund of **$2,000** went out that was not owed. The postmortem listed "
-           "five claimed layers and found **none** of them enforced, two of the five existed only in "
+           "five claimed layers and found **none** of them enforced: two of the five existed only in "
            "the prompt. Be honest about what the suite would have done: it would not have stopped the "
            "money, because injection defence changes the odds and only the cap or the approver could "
            "have closed the path. What it would have done is go red in week two, when the third prompt "

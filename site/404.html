@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <script>try{var t=localStorage.getItem("manual-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
-<title>Not here · The agentic manual</title><meta name="robots" content="noindex">
+<title>Page not found · The agentic manual</title><meta name="robots" content="noindex">
 <link rel="icon" href="/aws-bedrock-agentcore-strands/assets/favicon.svg" type="image/svg+xml">
-<style>/* dark unless the reader chose light, the same as every other page */
-:root{--bg:#121316;--ink:#ECEAE4;--ink2:#C3C0B8;--link:#7FA9CC;color-scheme:dark}
-:root[data-theme="light"]{--bg:#F7F6F2;--ink:#16150F;--ink2:#44423B;--link:#3E6B8A;color-scheme:light}
-@media print{:root{--bg:#fff;--ink:#16150F;--ink2:#44423B;--link:#3E6B8A}}
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--ink);
-font-family:Geist,Inter,"SF Pro Text",-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
-main{max-width:52ch;padding:32px}h1{font-size:27px;letter-spacing:-.02em;margin:0 0 10px}
-p{color:var(--ink2);margin:0 0 12px}a{color:var(--link)}ul{padding-left:20px;color:var(--ink2)}li{margin:4px 0}
-.k{color:var(--link);font-weight:600;font-size:13px;margin:0 0 6px}</style></head>
-<body><main>
-<p class="k">404</p>
-<h1>Nothing at this address</h1>
-<p>The manual moved to a page per role, so a few old links no longer land.</p>
+<style>/* This page is served at any address, so it carries its own styles and uses whole addresses.
+   Dark unless the reader chose light, the same as every other page. */
+@font-face{font-family:'Geist';font-style:normal;font-weight:400 700;font-display:swap;src:url(/aws-bedrock-agentcore-strands/assets/fonts/geist.woff2) format('woff2')}
+@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/aws-bedrock-agentcore-strands/assets/fonts/instrument-sans.woff2) format('woff2')}
+:root{--bg:#121316;--ink:#ECEAE4;--ink2:#C3C0B8;--soft:#93908A;--rule:#2B2E34;--brand:#8E9BF0;color-scheme:dark}
+:root[data-theme="light"]{--bg:#F7F6F2;--ink:#16150F;--ink2:#44423B;--soft:#696660;--rule:#E4E0D6;--brand:#3F51C4;color-scheme:light}
+@media print{:root{--bg:#fff;--ink:#16150F;--ink2:#44423B;--soft:#696660;--rule:#E4E0D6;--brand:#3F51C4}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;grid-template-rows:auto 1fr;background:var(--bg);color:var(--ink);
+  font-family:Geist,Inter,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16.5px;line-height:1.6}
+header{border-bottom:1px solid var(--rule)}
+header a{display:flex;align-items:center;gap:10px;max-width:1280px;margin:0 auto;padding:0 24px;height:64px;color:var(--ink);text-decoration:none}
+header svg{width:28px;height:28px;flex:none}
+header b{font-family:'Instrument Sans',Geist,sans-serif;font-size:19px;font-weight:650;letter-spacing:-.02em}
+header span{font-size:13px;color:var(--soft);padding-left:11px;border-left:1px solid var(--rule)}
+main{align-self:center;width:100%;max-width:640px;margin:0 auto;padding:48px 24px 96px}
+.k{font:500 12.5px ui-monospace,"SF Mono",Menlo,monospace;color:var(--soft);margin:0 0 14px}
+h1{font-family:'Instrument Sans',Geist,sans-serif;font-size:clamp(32px,5vw,46px);line-height:1.08;letter-spacing:-.035em;font-weight:620;margin:0 0 16px}
+p{color:var(--ink2);margin:0 0 26px;max-width:52ch}
+ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+li{border-bottom:1px solid var(--rule)}
+li a{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:15px 2px;color:var(--ink);text-decoration:none;font-weight:600}
+li a span{font-weight:400;font-size:14.5px;color:var(--soft);text-align:right}
+li a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+li a b{font-weight:600}
+@media (max-width:520px){header span{display:none}li a{display:grid;gap:2px}li a span{text-align:left}}
+</style></head>
+<body>
+<header><a href="/aws-bedrock-agentcore-strands/" aria-label="SkyWays, the agentic manual: home">
+  <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 24" stroke-linecap="round" transform="rotate(-38 16 16)"/><path d="M8 17.5 24.5 9 19 24l-3.4-5.6z" fill="var(--brand)"/><path d="M15.6 18.4 24.5 9" stroke="var(--bg)" stroke-width="1.2"/></svg>
+  <b>SkyWays</b><span>The agentic manual</span></a></header>
+<main>
+<p class="k">Page not found</p>
+<h1>There is no page at this address.</h1>
+<p>The link may be old, or the address may have a typing mistake. These are the places most people are looking for.</p>
 <ul>
-  <li><a href="/aws-bedrock-agentcore-strands/">The home page</a>, where you can start from your role</li>
-  <li><a href="/aws-bedrock-agentcore-strands/learn/">The tutorial</a>, every lesson in order</li>
-  <li><a href="/aws-bedrock-agentcore-strands/simulator/">The SkyWays simulator</a>, which used to be at the root</li>
-  <li><a href="/aws-bedrock-agentcore-strands/templates/">Templates</a> ·
-      <a href="/aws-bedrock-agentcore-strands/prompts/">Prompts</a> ·
-      <a href="/aws-bedrock-agentcore-strands/frameworks/">Frameworks</a></li>
-  <li><a href="https://github.com/akash-coded/aws-bedrock-agentcore-strands">The repository</a></li>
+  <li><a href="/aws-bedrock-agentcore-strands/"><b>Home</b><span>start from the job you do</span></a></li>
+  <li><a href="/aws-bedrock-agentcore-strands/learn/"><b>The tutorial</b><span>every lesson, in order</span></a></li>
+  <li><a href="/aws-bedrock-agentcore-strands/simulator/"><b>Ninety Days, the simulator</b><span>the worked case as a game</span></a></li>
+  <li><a href="/aws-bedrock-agentcore-strands/workbench/"><b>The workbench</b><span>calculators and the case in depth</span></a></li>
+  <li><a href="/aws-bedrock-agentcore-strands/templates/"><b>Templates</b><span>one document for every step</span></a></li>
+  <li><a href="/aws-bedrock-agentcore-strands/prompts/"><b>Prompts</b><span>one for every step, ready to copy</span></a></li>
 </ul>
 </main></body></html>

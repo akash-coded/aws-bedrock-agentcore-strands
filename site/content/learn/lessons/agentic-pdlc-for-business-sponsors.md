@@ -10,10 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The role in one sentence.** The business sponsor of an agentic programme owns whether it is funded
-> past its first cycle, the autonomy ceiling for the organisation, what will be accepted as evidence,
-> and the governance loop, and exercises all four by insisting on three reports: **two numbers** every
-> cycle, a **drift readout** every week, and an **incident brief** after every incident.
+> **The role in short.** The business sponsor of an agentic programme owns four things. They are whether it is
+> funded past its first cycle, the autonomy ceiling for the organisation, what will be accepted as
+> evidence, and the governance loop. The sponsor exercises all four by insisting on three reports:
+> **two numbers** every cycle, a **drift readout** every week, and an **incident brief** after every
+> incident.
 
 {{figure:two_numbers}}
 
@@ -33,15 +34,15 @@ The sponsor's power is not in the reviews; it is in what the reviews are require
 
 ## What changes for a sponsor?
 
-Most of the job is familiar, backing a programme, setting risk appetite, reading a business case,
+Most of the job is familiar: backing a programme, setting risk appetite, reading a business case,
 stopping a programme that is not working. What a model in the middle changes is **what counts as
 evidence** for each of those:
 
 | You have always done this | What changes |
 | --- | --- |
-| Backing a programme, and stopping one | The stop decision rests on evidence you specified in advance, a demo is not evidence |
+| Backing a programme, and stopping one | The stop decision rests on evidence you specified in advance: a demo is not evidence |
 | Setting risk appetite | It becomes an autonomy level **per action**, not one setting for "the AI" |
-| Reading a business case | The running cost moves with behaviour, not volume, a bill can multiply on flat traffic |
+| Reading a business case | The running cost moves with behaviour, not volume: a bill can multiply on flat traffic |
 | Steering and status | Two numbers against a dated baseline, with the review hours visible |
 | Asking whether it works | A lower bound per slice, because a score without an interval has said nothing |
 
@@ -72,7 +73,7 @@ role its point: an independent reading of whether the programme is working.
 ### Step 3 · Fund on trajectory, not on promise
 
 A first cycle that saves time and costs more is normal. Fund past it on the trajectory: the review load
-falling, and the re-run count falling with it. At SkyWays, this playbook's fictional airline, day
+falling, and the re-run count falling with it. At SkyWays, this manual's fictional airline, day
 ninety's report showed **43% fewer person-days per story** and **$310 of tokens per story**, with review
 hours up and the reason they would fall. The programme continued because both numbers came from the team.
 
@@ -81,18 +82,18 @@ hours up and the reason they would fall. The programme continued because both nu
 ### Step 4 · When the bill arrives, ask which signature
 
 A bill several times its estimate on flat traffic is normal in early cycles, and it is a **design**
-question. Ask which of four signatures the per-call log shows, tokens per call up, tier mix moved to the
-expensive model, cache hit ratio down, retries up, and which decision record allowed it. A spending
+question. Ask which of four signatures the per-call log shows (tokens per call up, tier mix moved to the
+expensive model, cache hit ratio down, retries up) and which decision record allowed it. A spending
 freeze stops the work and teaches nothing. [Why the bill is 4×](lesson:ai-agent-costs)
 
 ### Step 5 · When the incident arrives, ask which control
 
-Ask one question, *which enforced control would have made this impossible?*, and do not accept a name,
+Ask one question: *which enforced control would have made this impossible?* Do not accept a name,
 a reminder or a prompt edit as the answer. [AI incident postmortems](lesson:ai-incident-postmortem)
 
 ## Where you'll use it
 
-- **At the start**: name who owns governance, if the answer is "we all do", nobody does.
+- **At the start**: name who owns governance. If the answer is "we all do", nobody does.
 - **Every cycle**: the two numbers, on one line, from the team.
 - **On the two hard days**: the bill and the incident, each with its one question.
 
@@ -112,7 +113,7 @@ budget". **What do you ask for before the next funding decision?**
 **The two numbers, per-slice evidence, and the drift readout.** Ask for the saving and the spend on one
 line against the baseline, with review hours and re-runs beside them; the accuracy per slice, each with
 its sample size and lower bound, against a derived bar; and the weekly output mix since launch. "Within
-budget" is not a cost per case, 91% is not proof, and a demo is not evidence, decide on the three reports,
+budget" is not a cost per case, 91% is not proof, and a demo is not evidence. Decide on the three reports,
 not on the update.
 
 </details>
@@ -121,15 +122,15 @@ not on the update.
 
 1. The sponsor owns **funding past cycle one, the autonomy ceiling, what counts as evidence, and governance**.
 2. **Three reports**: two numbers every cycle, drift weekly, an incident brief on every incident.
-3. On the two hard days, ask **which signature** and **which control**: never for a freeze or a name.
+3. On the two hard days, ask **which signature** and **which control**, never for a freeze or a name.
 
 ## FAQ
 
 ### What does a sponsor do in an AI project?
 
 Decides whether the programme is funded past its first cycle, sets the organisation's ceiling on what
-the agent may do without a person, specifies what will count as evidence, and owns governance, the one
-loop no delivery role is accountable for, by insisting on three regular reports.
+the agent may do without a person, specifies what will count as evidence, and owns governance (the one
+loop no delivery role is accountable for) by insisting on three regular reports.
 
 ### How should a sponsor measure an AI programme's ROI?
 
@@ -171,7 +172,7 @@ make this cycle with options and our recommendation, and one risk. Keep it under
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The sponsor's owns, shapes and must-not-touch; the three reports | **Original**: this playbook | [Role: Sponsor](wiki:Role-Sponsor) |
-| The four questions and the two-number report | **Original**: this playbook | [For leadership](site:protocol/) |
+| The sponsor's owns, shapes and must-not-touch; the three reports | **Original**: this manual | [Role: Sponsor](wiki:Role-Sponsor) |
+| The four questions and the two-number report | **Original**: this manual | [For leadership](site:protocol/) |
 | Measures reported beside their side effects | **Borrowed** | Grove, A. (1983). *High Output Management*. Random House |
-| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

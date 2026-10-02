@@ -10,19 +10,20 @@ updated: 2026-09-24
 ---
 
 > [!TIP]
-> **The set in one sentence.** Twelve problems, three per phase, each a decision the agentic PDLC asks
-> for with the arithmetic that settles it: whether work is AI work, what it is worth, which decisions
-> halt the build, what the bar is, what chaining costs, whether a score proves a bar, how many cases and
-> days proof takes, how long review waits, what the bill will be, when drift fires, and what counts as a
-> control. Every answer is worked, and links to the lesson that teaches it.
+> **The set in short.** Twelve problems, three per phase. Each is a decision the agentic PDLC asks
+> for, with the arithmetic that settles it. The early ones ask whether work is AI work, what it is
+> worth, which decisions halt the build, what the bar is and what chaining costs. The later ones ask
+> whether a score proves a bar, how many cases and days proof takes, and how long review waits. They
+> also ask what the bill will be, when drift fires, and what counts as a control. Every answer is worked, and links to
+> the lesson that teaches it.
 
 {{map:agentic-pdlc-exercises}}
 
 **In this lesson** you'll practise:
 
 - the four decisions of P0 and P1 that fix a project's shape and its bar;
-- the proof arithmetic of P2 (lower bounds, cases needed, days of evidence, review queues;
-- the production arithmetic of P3) the bill, drift and what counts as a control.
+- the proof arithmetic of P2: lower bounds, cases needed, days of evidence, review queues;
+- the production arithmetic of P3: the bill, drift and what counts as a control.
 
 ## Sound familiar?
 
@@ -49,7 +50,7 @@ transfers above $10,000. **Which is AI work?**
 
 <details><summary>Show the answer</summary>
 
-**Only (b).** (a) has no judgement call, two competent people would route the same code the same way,
+**Only (b).** (a) has no judgement call: two competent people would route the same code the same way,
 so it is a rule. (b) has judgement, volume and a recoverable mistake, because a draft is reviewed before
 it goes. (c) may involve judgement, but a wrong transfer is not recoverable, so at most it is assisted:
 the model can prepare the case, and a named person approves every transfer.
@@ -148,7 +149,7 @@ has proven its bar?**
 <details><summary>Show the answer</summary>
 
 **Only A.** A: 0.92 − 1.96 × √(0.92 × 0.08 ÷ 200) = 0.882, above 85%. B has under 100 cases, so use the
-Wilson bound: 78.6%, below 85%: its score is five points above the bar and proves nothing yet. A score
+Wilson bound: 78.6%, below 85%. Its score is five points above the bar and proves nothing yet. A score
 without its sample size has said nothing.
 
 </details>
@@ -257,18 +258,18 @@ compare working. Credit the tutorial when you reuse them.
 
 ### Where can I practise with my own numbers?
 
-The simulator's toolkit has a calculator for most of them (the bar, golden-set confidence, the review
-queue, cut-over evidence and bill leaks) each prefilled and editable.
+The workbench's toolkit has a calculator for most of them (the bar, golden-set confidence, the review
+queue, cut-over evidence and bill leaks), each prefilled and editable.
 
 ### Where can I find more exercises?
 
-The playbook's wiki has thirty-one more in [Exercises and answers](wiki:Exercises-and-Answers), in
+This manual's wiki has thirty-one more in [Exercises and answers](wiki:Exercises-and-Answers), in
 sets from framing to operations, each worked in full. The formulas they use are collected in
 [Formulas and calculators](wiki:Formulas-and-Calculators).
 
 ### Why use 1.96 rather than 1.645?
 
-1.96 is the stricter convention, and the one this tutorial, the wiki and the simulator's calculator all
+1.96 is the stricter convention, and the one this tutorial, the wiki and the workbench's calculator all
 use by default. A one-sided 1.645 asks the same question with a lower demand for evidence. Either is
 defensible if it is fixed before anyone sees a score and written on the bar sheet.
 
@@ -287,7 +288,7 @@ argues about assumptions instead of definitions, which is the argument worth hav
 
 ```text
 Here are twelve exercises with their answers: <paste the lesson>. Write a variant of each with different
-numbers and one twist — a human hold, a smaller sample, a slice that falls while the average rises. Keep
+numbers and one twist: a human hold, a smaller sample, a slice that falls while the average rises. Keep
 the answers separate, with the working shown.
 ```
 
@@ -296,7 +297,7 @@ the answers separate, with the working shown.
 | Idea | Origin | Source |
 | --- | --- | --- |
 | The twelve exercises | **Original**: this tutorial | Numbers hypothetical |
-| The bar, the value line, the four gate questions, fix order | **Original**: this playbook | [Frameworks](site:frameworks/) |
+| The bar, the value line, the four gate questions, fix order | **Original**: this manual | [Frameworks](site:frameworks/) |
 | The Wilson score interval | **Borrowed** | Wilson, E. B. (1927). *JASA* 22(158) |
 | Queue time from slots and throughput | **Borrowed** | Little, J. D. C. (1961). *Operations Research* 9(3) |
 | One-way and two-way doors | **Borrowed** | Bezos, J. (2015). Letter to shareholders |

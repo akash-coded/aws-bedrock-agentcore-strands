@@ -1,27 +1,27 @@
-/* SkyWays Architect · site frame.
+/* The SkyWays workbench · site frame.
    Layered onto the tool at build time by site/build.py. Every selector is prefixed "sw-" so nothing here
    can collide with the tool's own styles, and the palette reuses the tool's custom properties. */
 
-.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font:600 13px/1 inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 250ms var(--ease,ease),padding 250ms var(--ease,ease),border-color 150ms,background 150ms;overflow:hidden;white-space:nowrap}
+.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font-weight:600;font-size:13px;line-height:1;font-family:inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 250ms var(--ease,ease),padding 250ms var(--ease,ease),border-color 150ms,background 150ms;overflow:hidden;white-space:nowrap}
 .sw-pill .sw-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sw-pill .sw-long{display:none;margin-left:8px}
 .sw-pill:hover,.sw-pill:focus-visible{width:auto;padding:0 16px 0 13px;border-color:#16150F;background:#fff}
 .sw-pill:hover .sw-long,.sw-pill:focus-visible .sw-long{display:inline}
 .sw-pill:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
-@media print{.sw-pill,.sw-drawer,.sw-scrim,.sw-strip,.sw-backnav{display:none!important}}
+@media print{.sw-pill,.sw-drawer,.sw-scrim{display:none!important}}
 
 .sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 64px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */
 .sw-footer .sw-wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:32px}
 @media (max-width:1100px){.sw-footer .sw-wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:900px){.sw-footer{padding:36px 22px 68px}.sw-footer .sw-wrap{grid-template-columns:1fr;gap:28px}}
-.sw-footer h2{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft,#77746C);margin:0 0 12px}
+.sw-footer h2{font-family:var(--mono,ui-monospace,Menlo,monospace);font-size:12.5px;font-weight:500;letter-spacing:0;color:var(--soft,#77746C);margin:0 0 12px}
 .sw-footer p{font-size:14px;line-height:1.6;margin:0 0 10px;max-width:62ch}
-html .sw-footer a{color:#3E5A82;text-decoration:none;border-bottom:1px solid rgba(62,90,130,.35);transition:border-color 150ms}  /* fixed colour, 6.4:1 on white; the tool's own link rule would otherwise win */
-html .sw-footer a:hover{border-bottom-color:#3E5A82}
+html .sw-footer a{color:var(--sw-link,#3E5A82);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--sw-link,#3E5A82) 35%,transparent);transition:border-color 150ms}  /* 6.4:1 on white; the workbench sets --sw-link for its dark page; the tool's own link rule would otherwise win */
+html .sw-footer a:hover{border-bottom-color:var(--sw-link,#3E5A82)}
 .sw-footer .sw-name{font-weight:600;color:var(--ink,#1C1B19)}
 .sw-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:14px}
 .sw-footer .sw-btn{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:10px 14px;border-radius:10px;border:1px solid var(--rule,#E6E2D9);background:var(--bone,#F7F6F2);color:var(--ink,#1C1B19);font:500 13.5px/1 inherit;cursor:pointer;transition:border-color 150ms,background 150ms}
-.sw-footer .sw-btn:hover{border-color:var(--slate,#5B6B8C);background:#fff}
+.sw-footer .sw-btn:hover{border-color:var(--ink,#1C1B19);background:var(--paper,#fff)}
 .sw-footer .sw-notice{padding:14px 16px;border:1px solid var(--rule,#E6E2D9);border-radius:12px;background:var(--bone,#F7F6F2);font-size:13px;line-height:1.55;color:var(--ink2,#4A4843)}
 .sw-footer .sw-notice b{color:var(--ink,#1C1B19)}
 .sw-footer .sw-legal{grid-column:1/-1;border-top:1px solid var(--rule,#E6E2D9);padding-top:16px;font-size:12.5px;color:var(--soft,#77746C);display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center}
@@ -56,81 +56,39 @@ html{overflow-x:clip}  /* the closed drawer is translated off the right edge; wi
 .sw-status a{color:var(--slate,#5B6B8C)}
 .sw-alt{font-size:12.5px;color:var(--soft,#77746C);display:flex;flex-wrap:wrap;gap:6px 14px}
 .sw-alt a{color:var(--slate,#5B6B8C);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--slate,#5B6B8C) 35%,transparent)}
-@media (prefers-reduced-motion:reduce){.sw-drawer,.sw-scrim,.sw-pill{transition:none}}
+@media (prefers-reduced-motion:reduce){.sw-drawer,.sw-scrim,.sw-pill,.sw-ic svg{transition:none}}
 
-/* the way back to the manual: a strip above the tool, and a pill that stays put (bottom left; the contact pill is bottom right) */
-.sw-strip{position:relative;z-index:1;display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:8px 18px;background:#16150F;color:#E9E7E0;font:500 13px/1.3 inherit;border-bottom:1px solid rgba(255,255,255,.08)}
-.sw-strip a{color:#fff;text-decoration:none;border:0}
-.sw-strip .sw-strip-back{display:inline-flex;align-items:center;gap:7px;font-weight:650;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);white-space:nowrap}
 .sw-ic{display:inline-flex;line-height:0}.sw-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform 150ms var(--ease,ease)}
-.sw-strip .sw-strip-back:hover .sw-ic svg{transform:translateX(-2px)}
-.sw-strip .sw-strip-links a{display:inline-flex;align-items:center;gap:2px}.sw-strip .sw-go svg{width:12px;height:12px;opacity:.6}.sw-strip .sw-strip-links a:hover .sw-go svg{opacity:1;transform:translateX(1px)}
-.sw-strip .sw-strip-back:hover{background:rgba(255,255,255,.22)}
-.sw-strip .sw-strip-back:focus-visible,.sw-strip .sw-strip-links a:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.sw-strip .sw-strip-here{opacity:.72}
-.sw-strip .sw-strip-links{margin-left:0;display:flex;gap:2px;flex-wrap:wrap}
-.sw-strip .sw-strip-links a{padding:4px 9px;border-radius:7px;opacity:.85}
-.sw-strip .sw-strip-links a:hover{background:rgba(255,255,255,.12);opacity:1}
-@media (max-width:820px){.sw-strip .sw-strip-here{display:none}}
-.sw-strip .sw-short{display:none}
-@media (max-width:560px){.sw-strip{padding:7px 12px;gap:8px;flex-wrap:nowrap}.sw-strip .sw-long{display:none}.sw-strip .sw-short{display:inline}.sw-strip .sw-strip-links a:nth-child(n+3){display:none}}
-@media (max-width:400px){.sw-strip .sw-strip-links a:nth-child(n+2){display:none}}
-.sw-backnav{position:fixed;left:18px;bottom:18px;z-index:9000}
-.sw-back{display:inline-flex;align-items:center;gap:8px;padding:10px 15px 10px 12px;border-radius:999px;background:var(--sw-ink,var(--ink,#1C1B19));color:var(--sw-on,#fff);font:500 13px/1 inherit;letter-spacing:.01em;text-decoration:none;border:0;box-shadow:0 10px 30px rgba(28,27,25,.22);transition:transform 250ms var(--ease,ease),box-shadow 250ms var(--ease,ease)}
-.sw-back:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(28,27,25,.28);color:var(--sw-on,#fff)}
-.sw-back:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
-.sw-back:hover .sw-ic svg{transform:translateX(-2px)}
-.sw-back .sw-short{display:none}
-/* below 1440px the centred column's gutter is narrower than the full pill, so the short label keeps the pill clear of content */
-@media (max-width:1439px){.sw-back .sw-long{display:none}.sw-back .sw-short{display:inline}}
-@media (max-width:640px){.sw-backnav{left:12px;bottom:12px}}
-@media (prefers-reduced-motion:reduce){.sw-back,.sw-ic svg{transition:none}}
 
-/* ---- living beside the tool's own floating things (framed pages only) ----
-   The tool's "Show menu" button is fixed just under its nav, measured from the viewport top; while the strip is in
-   view the nav sits lower by the strip's visible height (--sw-top, published by frame.js). Its side rail is a sticky,
-   scrollable column: extra padding lets the last link scroll clear of the back pill. The contact pill sits above the
-   tool's bottom-right launcher instead of on top of it. */
-html.sw-framed .rail-show{top:calc(var(--topnav,60px) + 12px + var(--sw-top,0px))}
-@media (min-width:901px){html.sw-framed .rail2{padding-bottom:96px}}
+/* ---- on the workbench (framed pages only) ----
+   The workbench has a rail down its left edge and words out to its right edge at every width, so a floating button
+   there would sit on one or the other. Neither is shown: the footer has the same way to write, and the workbench's
+   own top bar stays in reach. */
+html.sw-framed .sw-pill,html.sw-framed .sw-top{display:none!important}
 
 .sw-pill .sw-mail{display:inline-flex}
 /* last, so it wins over the label rules above. Phones: both pills are icon-only circles, one in each corner; the labels stay for screen readers */
 @media (max-width:640px){
-  .sw-pill,.sw-back{width:44px;height:44px;padding:0;justify-content:center;gap:0}
-  .sw-pill small,.sw-pill .sw-long,.sw-pill .sw-dot,.sw-back .sw-long,.sw-back .sw-short{display:none}
+  .sw-pill{width:44px;height:44px;padding:0;justify-content:center;gap:0}
+  .sw-pill small,.sw-pill .sw-long,.sw-pill .sw-dot{display:none}
   .sw-pill .sw-mail{display:inline-flex}
   .sw-pill{right:12px;bottom:12px}
   .sw-ic svg{width:18px;height:18px}
 }
 
 /* the contact drawer's links inside the tool: a fixed colour with enough contrast, whatever the tool's link rule says */
-html .sw-drawer a{color:#3E5A82}
+html .sw-drawer a{color:var(--sw-link,#3E5A82)}
 
-/* the strip: one pill back, then the parts of the manual as quiet links */
-.sw-strip .sw-strip-here{opacity:.8;font-weight:500}
-.sw-strip .sw-strip-links{margin-left:0}
-.sw-strip .sw-strip-links a{padding:4px 8px;opacity:.92;font-weight:600}
-/* the Manual chip in the tool's nav, and the row in its phone menu */
-.sw-sheet-back{display:flex;align-items:center;gap:10px;margin:8px 12px 4px;padding:12px 14px;border-radius:12px;background:#16150F;color:#fff;text-decoration:none;font:600 15px/1.2 inherit}
-.sw-sheet-back .sw-ic svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.sw-backnav{display:none}
-/* the Manual link is a pill at the right end of the nav, where the manual keeps its Simulator link */
-#topnav .sw-manual{display:inline-flex;align-items:center;gap:7px;padding:8px 13px 8px 10px;color:#16150F;text-decoration:none;white-space:nowrap}
-#topnav .sw-manual .sw-ic{display:inline-flex;align-items:center}
-#topnav .sw-manual .sw-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-#topnav .sw-manual span:last-child{font-size:13.5px;font-weight:600}
-#topnav .sw-manual:hover .sw-ic svg{transform:translateX(-2px)}
-@media (max-width:640px){#topnav .sw-manual span:last-child{display:none}#topnav .sw-manual{padding:8px 10px}}
 
 /* the contact button reads as a button: navy, white envelope, label on hover */
-.sw-pill{background:#16150F;color:#fff;border:1.5px solid #16150F;box-shadow:0 6px 18px -8px rgba(22,21,15,.55)}
-.sw-pill:hover,.sw-pill:focus-visible{background:#16150F;color:#fff;border-color:#16150F}
-.sw-pill .sw-ic svg{stroke:#fff}
+.sw-pill,.sw-pill:hover,.sw-pill:focus-visible{background:var(--paper,#fff);color:var(--ink,#16150F);border:1px solid var(--rule,rgba(22,21,15,.25));
+  box-shadow:0 6px 18px -8px rgba(8,10,20,.45)}
+.sw-pill:hover,.sw-pill:focus-visible{border-color:var(--ink,#16150F)}
+.sw-pill .sw-ic svg{stroke:currentColor}
 /* back to top: bottom-left, appears after the first screen */
-.sw-top{position:fixed;left:18px;bottom:18px;z-index:9000;width:42px;height:42px;border-radius:999px;border:1.5px solid rgba(22,21,15,.25);background:rgba(255,255,255,.94);color:#16150F;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px -8px rgba(22,21,15,.45);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 150ms,transform 150ms,background 150ms}
+.sw-top{position:fixed;left:18px;bottom:18px;z-index:9000;width:42px;height:42px;border-radius:999px;border:1px solid var(--rule,rgba(22,21,15,.25));background:var(--paper,#fff);color:var(--ink,#16150F);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px -8px rgba(22,21,15,.45);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 150ms,transform 150ms,background 150ms}
 .sw-top.on{opacity:1;transform:none;pointer-events:auto}
-.sw-top:hover{background:#fff;border-color:#16150F}
+.sw-top:hover{border-color:var(--ink,#16150F)}
 .sw-top:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
 .sw-top svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:640px){.sw-top{left:12px;bottom:12px;width:44px;height:44px}}
@@ -138,3 +96,7 @@ html .sw-drawer a{color:#3E5A82}
 @media print{.sw-top{display:none!important}}
 
 @media (max-width:820px){.sw-send,.sw-btn,.sw-x{min-height:44px}.sw-x{min-width:44px}}
+
+/* The two floating buttons sit in the page's side gutter. Where there is no gutter they would sit on the
+   words, so they are not shown: the footer has the same way to write, and the top bar stays in reach. */
+@media (max-width:1439px){.sw-pill,.sw-top{display:none!important}}

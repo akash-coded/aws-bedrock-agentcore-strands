@@ -29,6 +29,10 @@ BLOCK = re.compile(r"<!-- tutorial:start[^>]*-->[\s\S]*?<!-- tutorial:end -->\n?
 def picture(key: str, les_url: str, reg: dict) -> str:
     name = learn.shot_name(key)
     alt = reg[key]["alt"].replace('"', "&quot;")
+    if key.startswith("sketch:"):           # one sheet, the same in both themes, and its caption
+        cap = learn.sketches()[key.split(":", 1)[1]]["caption"]
+        return (f'<p align="center"><a href="{les_url}"><img alt="{alt}" src="{learn.SHOTS}{name}.light.webp" width="640"></a></p>'
+                f"\n\n<p align=\"center\"><em>{cap}</em></p>")
     return (f'<p align="center"><a href="{les_url}"><picture>'
             f'<source media="(prefers-color-scheme: dark)" srcset="{learn.SHOTS}{name}.dark.webp">'
             f'<img alt="{alt}" src="{learn.SHOTS}{name}.light.webp" width="{"440" if key.startswith("model:") else "100%"}">'

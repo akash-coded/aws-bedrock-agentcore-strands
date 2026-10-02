@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The field guide in one sentence.** A forward-deployed engineer runs the whole agentic lifecycle
-> inside a customer's organisation, measuring the pain in *their* data, running AI-DLC's mob sessions
-> with *their* people, building with AIDD habits in *their* stack, while making sure every decision
-> that trades their risk against their return is signed by *their* owner, and leaving behind an evidence
-> pack and a named person to run it.
+> **The field guide in short.** A forward-deployed engineer runs the whole agentic lifecycle inside
+> a customer's organisation. That means measuring the pain in *their* data, running AI-DLC's mob
+> sessions with *their* people, and building with AIDD habits in *their* stack. Every decision that
+> trades their risk against their return is signed by *their* owner. The engineer leaves behind an
+> evidence pack and a named person to run it.
 
 {{map:ai-dlc-for-forward-deployed-engineers}}
 
@@ -54,21 +54,21 @@ longest lead time you will meet. [P0 Frame](lesson:p0-frame)
 
 ### Step 2 · Name their risk owner before you design anything
 
-Find the person in the customer's organisation who can accept risk on each consequential action, money,
+Find the person in the customer's organisation who can accept risk on each consequential action: money,
 identity, customer communications. If nobody can, you have found the first blocker, and it is not a
 technical one.
 
 ### Step 3 · Run Inception as a mob, with their people
 
 AI-DLC's **Mob Elaboration** is well suited to a customer site: the AI proposes requirements and asks its
-clarifying questions, and the customer's own experts answer in the room. Record who answered what, the
+clarifying questions, and the customer's own experts answer in the room. Record who answered what: the
 customer's decisions should carry the customer's names. [What is AI-DLC?](lesson:what-is-ai-dlc)
 
 ### Step 4 · Get the authority budget signed by them
 
 Autonomy per action, the caps and the approvals are **theirs**: a table of actions, each with a level
 and an approver, signed by the risk owner from step 2. You then enforce every cap in a tool signature
-with tests: but you do not choose the numbers.
+with tests, but you do not choose the numbers.
 [Guardrails that hold](lesson:ai-guardrails-that-hold)
 
 ### Step 5 · Build with AIDD habits in their stack
@@ -85,7 +85,7 @@ wire the harness into *their* CI so the check outlives you. [Prove the bar](less
 
 ### Step 7 · Shadow beside their staff
 
-A shadow run at a customer finds the rules that live in people's heads. At SkyWays, this playbook's
+A shadow run at a customer finds the rules that live in people's heads. At SkyWays, this manual's
 fictional airline, fourteen disagreements were all one rule: the evening shift never uses a certain
 partner after 18:00, because its transfer desk closes. No spec had it. [Shadow and cut-over](lesson:shadow-mode-and-cutover)
 
@@ -136,7 +136,7 @@ risk into yours.
 
 ## Key takeaways
 
-1. An FDE runs **the whole lifecycle in someone else's organisation**: in their data, stack and pipeline.
+1. An FDE runs **the whole lifecycle in someone else's organisation**, in their data, stack and pipeline.
 2. **Their risk owner signs** the autonomy, the limits and the widening; you enforce them in code.
 3. **Hand over evidence and a named operator**, or the deployment has no P3 after you leave.
 
@@ -144,7 +144,7 @@ risk into yours.
 
 ### What does a forward-deployed engineer do?
 
-Embeds with a customer to make a technical deployment succeed in that customer's systems, scoping the
+Embeds with a customer to make a technical deployment succeed in that customer's systems: scoping the
 real problem, integrating with their data and infrastructure, building and adapting the solution, and
 handing it over. With AI agents, that means running the full lifecycle quickly at the customer site.
 
@@ -172,7 +172,7 @@ production.
 | --- | --- | --- |
 | **A forward-deployed engineer** | Run the field loop (discover, scope, prove, hand over) and turn every pattern you repeat into a template the product team can ship. | After each engagement, ask a model to extract the reusable patterns from your notes as product feedback. |
 | **A product manager or FDPM** | Pair with the FDE: they own the how, you own the what and the why at the point of deployment, and you decide what becomes product. | Have a model group FDE field notes from several customers into patterns, with counts. |
-| **A GenAI or agentic AI engineer** | Productise what FDEs keep rebuilding, the MCP server, the connector, the evaluation harness. The third copy is a platform backlog item. | Ask a coding agent to compare three customer repositories and propose the shared library. |
+| **A GenAI or agentic AI engineer** | Productise what FDEs keep rebuilding: the MCP server, the connector, the evaluation harness. The third copy is a platform backlog item. | Ask a coding agent to compare three customer repositories and propose the shared library. |
 
 **Across the enterprise.** An FDE programme scales when every engagement feeds a pattern library and the
 product roadmap. FDEs who only ever deliver bespoke work turn a product company into a services firm.

@@ -42,12 +42,10 @@ century, partly because a telegraphed story could be cut off at any point. A rea
 search is in the same position: they may stop after one paragraph, so that paragraph has to be the
 whole answer.
 
-{{sketch:the-line-went-dead}}
-
 ### Step 2 · A picture, before the detail
 
 Every lesson carries at least one picture, and the rule is strict: a board, a figure or a diagram,
-never decoration. People learn more from words and pictures together than from words alone, the **multimedia principle**, provided the picture carries the idea rather than illustrating it.
+never decoration. People learn more from words and pictures together than from words alone (the **multimedia principle**), provided the picture carries the idea rather than illustrating it.
 On the site the boards are live; on the wiki they are screenshots of the same boards.
 
 ### Step 3 · The problem, stated rather than asked
@@ -59,14 +57,14 @@ attach to.
 ### Step 4 · Step by step, one idea at a time
 
 The core of a lesson is short numbered steps, each carrying one idea. Splitting material into
-learner-paced segments helps people who are new to it, the **segmenting principle**, and cutting
+learner-paced segments helps people who are new to it (the **segmenting principle**), and cutting
 anything that would survive unchanged in a lesson on a different topic helps everyone: the
 **coherence principle**. That second rule is why these lessons are short.
 
 ### Step 5 · Try it: commit before you look
 
 Each lesson ends its teaching with one problem, and the answer is hidden until you open it. Trying to
-recall or apply an idea strengthens memory of it more than reading it again, the **testing effect**, and the benefit holds even when your first attempt is wrong.
+recall or apply an idea strengthens memory of it more than reading it again (the **testing effect**), and the benefit holds even when your first attempt is wrong.
 
 {{sketch:guess-the-fork-first}}
 
@@ -83,7 +81,7 @@ Every lesson ends with a table crediting each idea as one of three:
 | --- | --- | --- |
 | **Borrowed** | Used as published, from a named author | Check it against the source |
 | **Adapted** | An outside idea, changed here | Read the source to see what changed |
-| **Original** | Constructed by this playbook | Treat it as a default to tune on your own evidence |
+| **Original** | Constructed by this manual | Treat it as a default to tune on your own evidence |
 
 The marks let you argue with the right things. A borrowed statistic is checkable in a minute; an
 original method is a starting point, not a standard. The full list of every claim and its standing
@@ -106,11 +104,11 @@ seconds for each picture.
 The lessons are written once and published in two places:
 
 - **On the site**, under `/learn/`, with the live boards. This is the copy search engines index.
-- **On the GitHub wiki**, beside the playbook's full reference pages, with screenshots of the boards.
+- **On the GitHub wiki**, beside the manual's full reference pages, with screenshots of the boards.
 
 There are two because GitHub does not let search engines index a wiki unless the repository has at
 least 500 stars *and* its wiki is closed to public editing. The site copy is canonical, and each
-lesson is also available as plain markdown, add `index.md` to its address, for tools that read
+lesson is also available as plain markdown (add `index.md` to its address) for tools that read
 text.
 
 ## Try it
@@ -142,7 +140,7 @@ take a little over an hour. There is no need to read them in one sitting; each l
 
 ### Is it free?
 
-Yes. The lessons, the playbook and the simulator are free and open source under the MIT licence.
+Yes. The lessons, the manual, the simulator and the workbench are free and open source under the MIT licence.
 Keep the attribution if you reuse them.
 
 ### Do I need an AWS account, or any particular tool?

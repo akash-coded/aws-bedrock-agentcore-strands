@@ -31,7 +31,7 @@ and a decomposed estimate of the running bill with the largest habit named.
 
 ## Facilitator notes
 
-- **The convention is z = 1.96, a 95% two-sided bound,** everywhere in the manual, the playbook and
+- **The convention is z = 1.96, a 95% two-sided bound,** everywhere in the manual, the workbench and
   the wiki. Day 45's 412 of 500 gives 79.1% against a bar of 80, and needs 968 cases to prove it. Use
   those numbers; the room will check them.
 - **The cost of proving grows quadratically as the score approaches the bar.** A score a whisker

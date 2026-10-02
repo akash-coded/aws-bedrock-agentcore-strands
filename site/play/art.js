@@ -2,8 +2,9 @@
    Everything the game shows on its canvas is drawn here, in code. There are no image files.
 
    The picture is SkyWays' head office, cut open: four floors, seven rooms. It is drawn at one logical
-   pixel per unit and scaled up by whole numbers, so every edge stays hard. A room is lit when
-   something is happening in it and dim when not, which is how the picture says where to look.
+   pixel per unit and scaled up by the page, by whole numbers wherever the screen is wide enough. The
+   room where today happens is framed and named in white; the others are turned down a little, so
+   their walls keep their owners' hues.
 
    Colour comes from light and material. Each room's walls take a little of its owner's jacket; the sky
    outside is the phase of the project (dawn, morning, afternoon, golden hour, then dusk on Day 90, or
@@ -273,6 +274,14 @@
     R(g, 0, FLOOR, W, 1, lit ? p.floorL : C.wallD); R(g, 0, FLOOR + 1, W, 3, lit ? p.floor : C.out);
   }
 
+  // What stands in front of the people in a room. The boardroom's table: the room meets around it, so
+  // it is drawn after them and they stand behind it.
+  var FRONT = {
+    board: function (g) {
+      R(g, 34, FLOOR - 10, 76, 3, C.deskL); R(g, 34, FLOOR - 7, 76, 1, C.deskD); R(g, 44, FLOOR - 6, 2, 6, C.desk); R(g, 98, FLOOR - 6, 2, 6, C.desk);
+    }
+  };
+
   var ROOMS = {
     board: function (g, lit, t, st) {                 // the boardroom: a long table, a wall screen, the sky outside
       shell(g, lit, "board");
@@ -283,9 +292,8 @@
         var v = Math.round(14 * (st.value || 0)), c = Math.round(14 * (st.cost || 0));
         R(g, 60, 26 - v, 8, v, C.teal); R(g, 76, 26 - c, 8, c, C.amber); R(g, 56, 26, 34, 1, C.soft);
       }
-      R(g, 34, FLOOR - 10, 76, 3, C.deskL); R(g, 34, FLOOR - 7, 76, 1, C.deskD); R(g, 44, FLOOR - 6, 2, 6, C.desk); R(g, 98, FLOOR - 6, 2, 6, C.desk);
-      chair(g, 24, FLOOR); chair(g, 114, FLOOR);
-      plant(g, 132, FLOOR);
+      chair(g, 25, FLOOR); chair(g, 114, FLOOR);
+      plant(g, 134, FLOOR);
     },
     product: function (g, lit, t, st) {               // product: a wall of notes that fills as requirements land
       shell(g, lit, "product");
@@ -295,7 +303,7 @@
       for (i = 0; i < n; i++) R(g, 11 + (i % 8) * 6, 10 + ((i / 8) | 0) * 6, 4, 4, lit ? hues[i % 4] : C.trim);
       desk(g, 78, FLOOR, 34); monitor(g, 82, FLOOR - 9, lit, C.slate, t); monitor(g, 96, FLOOR - 9, lit, C.amber, t + 20);
       chair(g, 116, FLOOR);
-      plant(g, 68, FLOOR); windowAt(g, 122, 8, 16, 20, 2);
+      plant(g, 70, FLOOR); windowAt(g, 122, 8, 16, 20, 2);
     },
     arch: function (g, lit, t, st) {                  // architecture: a whiteboard that gains boxes and lines
       shell(g, lit, "arch");
@@ -411,9 +419,10 @@
     plant(g, 104, FLOOR);
   }
 
-  // Where people stand in each room, left to right, clear of the furniture.
+  // Where people stand in each room, clear of the chairs and the plants. In the boardroom the first
+  // five stand behind the table and the next two at its ends.
   var SPOTS = {
-    board: [40, 56, 72, 88, 104, 22, 120], product: [64, 50, 36, 118], arch: [76, 62, 48, 98], eng: [94, 108, 122, 80],
+    board: [41, 55, 69, 83, 97, 13, 122], product: [58, 44, 30, 118], arch: [76, 62, 48, 98], eng: [94, 108, 122, 80],
     qa: [72, 58, 44, 110], platform: [84, 70, 56, 134], centre: [40, 54, 26, 66]
   };
   var off = null;
@@ -437,10 +446,14 @@
       sp = P[k].idle[k === speaking && ((t >> 5) & 1) ? 1 : 0];
       blit(g, sp, x, FLOOR - sp.h + 2, x > 72);
     }
+    if (FRONT[id]) FRONT[id](g, lit, t, st);
   }
 
-  // The whole building. `view.active` is the lit room, `view.cast` maps a room to the people in it,
-  // `view.speaking` is who is talking. Rooms that are not today's are drawn and then turned down.
+  // The whole building. `view.active` is today's room, `view.cast` maps a room to the people in it,
+  // `view.speaking` is who is talking. Rooms that are not today's are drawn and then turned down by a
+  // quarter, which leaves the owners' hues on the walls; today's room is framed in white. `view.names`
+  // false leaves the room names off: on a narrow screen they are too small to read, and the page names
+  // every room in its own text.
   function building(g, ox, oy, t, st, view) {
     view = view || {};
     var i, p, r, o = scratch(), og = o.getContext("2d"), on;
@@ -458,18 +471,23 @@
       og.clearRect(0, 0, W, H);
       room(og, p.id, t, st, true, view.cast && view.cast[p.id], on ? view.speaking : null, view.active === p.id ? view.enter : 1);
       g.drawImage(o, ox + r.x, oy + r.y);
-      if (!on) { g.fillStyle = "rgba(9,11,16,.5)"; g.fillRect(ox + r.x, oy + r.y, W, H); }
+      if (!on) { g.fillStyle = "rgba(9,11,16,.26)"; g.fillRect(ox + r.x, oy + r.y, W, H); }
       if (view.shut && view.shut[p.id] > 0) shutter(g, ox + r.x, oy + r.y, view.shut[p.id]);
-      text(g, p.name, ox + r.x + 2, oy + r.y - 7, on ? C.ink : C.trim);
+      if (view.names !== false) text(g, p.name, ox + r.x + 2, oy + r.y - 7, on ? C.ink : C.soft);
       if (view.mark && view.mark[p.id]) R(g, ox + r.x + W - 6, oy + r.y - 7, 4, 4, view.mark[p.id]);
+      if (view.active === p.id) {                    // where to look: a white frame, one pixel, outside the room
+        R(g, ox + r.x - 1, oy + r.y - 1, W + 2, 1, C.ink); R(g, ox + r.x - 1, oy + r.y + H, W + 2, 1, C.ink);
+        R(g, ox + r.x - 1, oy + r.y, 1, H, C.ink); R(g, ox + r.x + W, oy + r.y, 1, H, C.ink);
+      }
     }
   }
-  // A room nobody may work in yet: a roller shutter with a rose edge. `p` is how far down it is, 1 to 0.
+  // A room nobody may work in yet: a steel roller shutter with a rose edge. `p` is how far down it is,
+  // 1 to 0. Steel, not black: a shut floor should read as shut, and not as a hole in the picture.
   function shutter(g, x, y, p) {
     var h = Math.round(H * p), i;
-    R(g, x, y, W, h, "#12151B");
-    for (i = 2; i < h - 2; i += 4) R(g, x, y + i, W, 1, "#1D222B");
-    if (h > 3) { R(g, x, y + h - 2, W, 2, C.rose); R(g, x + (W >> 1) - 3, y + h - 5, 6, 3, C.metal); }
+    R(g, x, y, W, h, "#353C49");
+    for (i = 3; i < h - 2; i += 4) { R(g, x, y + i, W, 1, "#272D38"); R(g, x, y + i + 1, W, 1, "#434C5C"); }
+    if (h > 3) { R(g, x, y + h - 2, W, 2, C.rose); R(g, x + (W >> 1) - 3, y + h - 5, 6, 3, C.metalL); }
   }
 
   function roomAt(x, y) {                           // which room a point of the building falls in
@@ -503,8 +521,9 @@
   }
 
   /* ---------------------------------------------------------------- the sky, and the plane */
-  // Side on, nose to the right, and it only ever flies to the right. T tail fin, F fuselage, D belly,
-  // w cabin windows, C cockpit glass, W wing (swept back, so it trails toward the tail), E engine.
+  // The plane is kept as a sprite and is not flown across the game's sky any more. Side on, nose to the
+  // right. T tail fin, F fuselage, D belly, w cabin windows, C cockpit glass, W wing (swept back, so it
+  // trails toward the tail), E engine.
   var PLANE = sprite([
     ".TT...........................................",
     ".TTT..........................................",
@@ -530,7 +549,8 @@
     for (x = 2; x < w; x += 9) R(g, x, gy + 2, 1, 1, k.lights ? (((x + (t >> 4)) % 27) < 9 ? C.amber : "#5C4A25") : mix(k.apron, "#FFFFFF", 0.25));
   }
 
-  // The sky in flat bands, thin at the top where it shows above the roof and broad behind the building.
+  // The sky in flat bands. The game shows it above the roof only (the building fills the picture from
+  // edge to edge below that), through the windows and through the lobby doors.
   // One still sky per phase: nothing in it moves but the stars' slow blink at night.
   var BANDS = [0, 0.03, 0.06, 0.1, 0.16, 0.3, 0.5, 0.75, 1];
   function cloud(g, x, y, w, col) { R(g, x + 2, y, w - 5, 1, col); R(g, x, y + 1, w, 2, col); R(g, x + 3, y + 3, w - 7, 1, col); }

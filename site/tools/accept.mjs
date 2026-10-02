@@ -4,31 +4,42 @@
 //   python3 -m http.server 8799 -d site/_site &
 //   node site/tools/accept.mjs http://localhost:8799/
 //
-// Nine passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
+// Thirteen passes over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
-//   1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn)
-//   2. reduced motion       nothing hidden, and no animation running at all
-//   3. motion allowed       four seconds after load, the only things still moving follow the scroll, or
-//                           sit on a page that carries a pause control (the hero's flight, the tower)
-//   4. scrolled through     with motion allowed and the whole page scrolled past, nothing is left hidden
-//   5. a phone, 375 x 812   no sideways scroll, and the page's title ends inside the first screen
-//   6. a small phone, 320   no sideways scroll
-//   7. print                nothing a reader needs is left hidden on paper
-//   8. the top bar          its pill never points at the page it is on; the simulator and a lesson each offer the other
-//   9. the hero             one clock (the pause holds the flight, the aircraft's shape and the sign-off together); the
-//                           four-drawings path, for a browser that cannot ease a shape, shows one aircraft at a time;
-//                           the globe's drawing stays inside its budget with the processor slowed four times; and the
-//                           page does not shift as it is scrolled
+//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn)
+//    2. reduced motion       nothing hidden, and no animation running at all
+//    3. nothing waits        with motion allowed, 700ms after load nothing on the whole page is hidden: no
+//                            entrance, no part that waits to be scrolled to. After four seconds the only things
+//                            still moving follow the scroll or sit on a page with a pause control
+//    4. scrolled through     the whole page scrolled past: nothing is hidden, and nothing started moving
+//                            because it was scrolled to
+//    5. a phone, 375 x 812   no sideways scroll, and the page's title ends inside the first screen
+//    6. a small phone, 320   no sideways scroll
+//    7. the bar fits         at 320, 990, 1024, 1100 and 1180 wide the top bar's last control ends inside the screen
+//    8. print                nothing a reader needs is left hidden on paper
+//    9. the top bar          its pill never points at the page it is on; the simulator and a lesson each offer the other
+//   10. floating buttons     back-to-top, mail and the guide never sit on the words: below 1440 wide none is shown;
+//                            at 1440 each sits in the side gutter, clear of the page's column
+//   11. versions             every local stylesheet and script is asked for by an address that carries its version,
+//                            so a new page can never be paired with an old file from a browser's cache
+//   12. no stylesheet        with every stylesheet blocked, no mark in a sketch falls back to a solid black fill
+//   13. the hero             one clock (the pause holds it; a tab left and come back to goes on from where it was);
+//                            at twelve moments round a lap, at four widths, the line under the picture names the
+//                            phase the aircraft is in; the picture ends inside the first screen on a phone and a
+//                            laptop; its drawing stays inside its budget with the processor slowed four times; and
+//                            the page does not shift as it is scrolled
 //
 // Every pass first checks that the page really loaded: its top bar is there and styled. It exits 1 if
-// any pass fails and prints what failed. It measures; it does not judge taste.
+// any pass fails and prints what failed. It measures; it does not judge taste: for that, look. The hero can
+// be put at any second of its clock with window.GlobeAt(seconds), and site/tools/herosheet.mjs lays twelve
+// such moments at four widths on one sheet for a person to look at before a release.
 //
-// What it cannot see: other browsers. Safari has no CSS `d`, so it takes the four-drawings path for the
-// aircraft, which pass 9 forces here; a browser without cross-document view transitions does not morph the
-// top bar's pill, and the page simply changes. Both are the plain path by design, and neither is run here.
-// The globe and the simulator draw on canvases from script, which the browser's list of animations cannot
-// see, so each reports for itself: window.GlobeMs (drawing time) and window.NDFrames (frames drawn).
+// What it cannot see: other browsers. Nothing on the site now depends on a feature only Chrome has (the
+// hero is one canvas; there are no view transitions and no CSS path animation), but Safari and Firefox are
+// not run here. The globe and the simulator draw on canvases from script, which the browser's list of
+// animations cannot see, so each reports for itself: window.GlobeMs (drawing time and frames) and
+// window.NDFrames (frames drawn).
 
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
@@ -43,7 +54,7 @@ const PAGES = ["", "method/", "product-manager/", "qa/", "protocol/", "models/",
 // loop counts its own frames in window.NDFrames, so the gate can ask.
 const FRAMES = `(typeof window.NDFrames === "number" ? window.NDFrames : -1)`;
 // animations allowed to keep running, provided the page that runs them carries a pause control
-const PAUSABLE = /^(sc-(fly|shape|flame|gate|turn\d)|sim-roll|twr-)/;
+const PAUSABLE = /^(twr-|nd-)/;
 const LOADED = `(() => { const h = document.querySelector('.hd'); return !!h && getComputedStyle(h).position === 'sticky' && !!document.querySelector('main h1, .hero2 h1'); })()`;
 const HAS_PAUSE = `!!document.querySelector('[data-motion-toggle]')`;
 const SCROLL_THROUGH = `(async () => { const h = document.documentElement.scrollHeight; for (let y = 0; y < h; y += 500) { scrollTo({ top: y, behavior: 'instant' }); await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 90))); } await new Promise((r) => setTimeout(r, 900)); return true; })()`;
@@ -94,15 +105,16 @@ const evaluate = async (expression) => {
 
 // Things that script or an animation may hide, and must have shown by now.
 const HIDDEN = `(() => {
-  const sel = '.rv,.spine .sp-trunk i,.spine .sp-loop,.spine .sp-ph li,.spine .sp-back,.spine .sp-gate,.spine .sp-in li,.spine .sp-fun path,.spine .sp-core a,.spine .sp-craft,.spine .sp-note,.cover .bar,.sc-wp li,.scene .leg,.scene .stop,.scene .back,.scene .next,.roadmap .rn,.hero2 .hx>*,main .sec,.dgb,' +
-    '.step>summary,.mix a,.lc,.lk,.seats a,.tile,[data-reveal]>*,figure.fig>svg>*,.mmg svg>*,figure.sketch [data-an]';
+  const sel = '.hero2 .hx>*,.sc-rail li,.sec-h>*,.spine li,.spine .sp-core a,.spine .sp-trunk i,.spine .sp-loop,.spine .sp-back,.spine .sp-gate,' +
+    '.spine .sp-fun path,.spine .sp-craft,.spine .sp-note,.cover .bar,.seats a,.daycard,.daycard *,.tile,.roadmap .rn,main .sec,.dgb,' +
+    '.step>summary,.mix a,.lc,.lk,[data-reveal]>*,figure.fig>svg>*,.mmg svg>*,figure.sketch svg>*,.prose>*';
   const bad = {};
   document.querySelectorAll(sel).forEach((e) => {
     const cs = getComputedStyle(e);
     let why = '';
     if (+cs.opacity < 0.05) why = 'opacity ' + cs.opacity;
     else if (cs.scale && /^0(\\s|$)/.test(cs.scale)) why = 'scaled to nothing';
-    else if (e.matches('.scene .leg,.spine .sp-fun path') && parseFloat(cs.strokeDashoffset) > 0.01) why = 'not drawn';
+    else if (e.matches('.spine .sp-fun path') && parseFloat(cs.strokeDashoffset) > 0.01) why = 'not drawn';
     else if (/inset\\([^)]*100%/.test(cs.clipPath)) why = 'clipped away';
     if (why) {
       const cls = (e.className.baseVal ?? e.className ?? '').toString().split(' ')[0];
@@ -167,25 +179,28 @@ await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, 
   if (f > 0) out.push(`the canvas drew ${f} frames`);
   return out;
 });
-await pass("3. motion allowed: after four seconds only pausable or scroll-led motion remains", { width: 1280, height: 800 }, async () => {
+await pass("3. motion allowed: nothing waits for an animation", { width: 1280, height: 800, wait: 700 }, async () => {
   const out = [];
-  // bands below the fold wait for the scroll, and so do the figures inside them
-  const below = HIDDEN.replace(/'\.rv,[^']*?,\.sc-wp li,/, "'.sc-wp li,");
-  if (below === HIDDEN) throw new Error("the selector for bands below the fold no longer matches");
-  const h = await evaluate(below);
+  const h = await evaluate(HIDDEN);                       // 700ms after load, the whole page, unscrolled
+  if (Object.keys(h).length) out.push("hidden 700ms after load: " + list(h));
+  await sleep(3400);
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
   const pausable = Object.keys(r).some((k) => PAUSABLE.test(k));
-  if (Object.keys(h).length) out.push("hidden: " + list(h));
-  if (Object.keys(stray).length) out.push("still running: " + list(stray));
+  if (Object.keys(stray).length) out.push("still running after four seconds: " + list(stray));
   if (pausable && !(await evaluate(HAS_PAUSE))) out.push("something keeps moving and the page has no pause control");
   if ((await evaluate(FRAMES)) > 0 && !(await evaluate(HAS_PAUSE))) out.push("the canvas keeps moving and the page has no pause control");
   return out;
 });
-await pass("4. scrolled through, motion allowed: nothing left hidden", { width: 1280, height: 800, wait: 1800 }, async () => {
+await pass("4. scrolled through, motion allowed: nothing hidden, nothing set off by the scroll", { width: 1280, height: 800, wait: 1800 }, async () => {
+  const out = [];
   await evaluate(SCROLL_THROUGH);
   const h = await evaluate(HIDDEN);
-  return Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  if (Object.keys(h).length) out.push("hidden: " + list(h));
+  const r = await evaluate(RUNNING);
+  const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
+  if (Object.keys(stray).length) out.push("moving after the scroll: " + list(stray));
+  return out;
 });
 await pass("5. a phone, 375 x 812: no sideways scroll, the title inside the first screen", { width: 375, height: 812, reduce: true }, async () => {
   const out = [];
@@ -198,14 +213,26 @@ await pass("6. a small phone, 320 x 640: no sideways scroll", { width: 320, heig
   const m = await evaluate(PHONE);
   return m.over > 0 ? [`scrolls sideways by ${m.over}px`] : [];
 });
-await pass("7. print: nothing left hidden on paper", { width: 1280, height: 800, wait: 1500, print: true }, async () => {
+const BAR = `(() => { const kids = [...document.querySelectorAll('.hd .in > *')].filter((e) => getComputedStyle(e).display !== 'none');
+  const right = Math.max(...kids.map((e) => e.getBoundingClientRect().right)), left = Math.min(...kids.map((e) => e.getBoundingClientRect().left));
+  return { right: Math.round(right), left: Math.round(left), w: innerWidth, over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; })()`;
+for (const w of [320, 990, 1024, 1100, 1180]) {
+  await pass(`7. the top bar fits at ${w}px`, { width: w, height: 800, reduce: true, wait: 900 }, async () => {
+    const m = await evaluate(BAR);
+    const out = [];
+    if (m.right > m.w || m.left < 0) out.push(`the bar runs from ${m.left} to ${m.right} on a ${m.w}px screen`);
+    if (m.over > 0) out.push(`scrolls sideways by ${m.over}px`);
+    return out;
+  });
+}
+await pass("8. print: nothing left hidden on paper", { width: 1280, height: 800, wait: 1500, print: true }, async () => {
   // the hero's picture is a screen thing: paper does not carry it
-  const paper = HIDDEN.replace(".sc-wp li,.scene .leg,.scene .stop,.scene .back,.scene .next,", "");
+  const paper = HIDDEN.replace(".sc-rail li,", "");
   if (paper === HIDDEN) throw new Error("the selector for the hero's picture no longer matches");
   const h = await evaluate(paper);
   return Object.keys(h).length ? ["hidden: " + list(h)] : [];
 });
-await pass("8. the top bar: the pill never points at the page it is on", { width: 1280, height: 800, reduce: true, wait: 1200 }, async () => {
+await pass("9. the top bar: the pill never points at the page it is on", { width: 1280, height: 800, reduce: true, wait: 1200 }, async () => {
   const out = [];
   const m = await evaluate(`(() => { const a = document.querySelector('.hd .ctx .play'); if (!a) return null;
     const u = new URL(a.href); return { same: u.pathname === location.pathname, path: u.pathname, here: location.pathname, text: a.textContent.trim() }; })()`);
@@ -215,40 +242,100 @@ await pass("8. the top bar: the pill never points at the page it is on", { width
   if (/\/learn\//.test(m.here) && !/\/simulator\//.test(m.path)) out.push("inside the tutorial the pill does not offer the simulator");
   return out;
 });
+const FLOATING = `(async () => { scrollTo({ top: 900, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 400));
+  const col = document.querySelector('.cols') || document.querySelector('main .wrap') || document.querySelector('.wrap') || document.querySelector('main');
+  const c = col.getBoundingClientRect(), pad = parseFloat(getComputedStyle(col).paddingLeft) || 0;
+  return [...document.querySelectorAll('.sw-top, .sw-pill, .tour-fab')].filter((e) => getComputedStyle(e).display !== 'none' && +getComputedStyle(e).opacity > 0.05)
+    .map((e) => { const r = e.getBoundingClientRect(); return { cls: e.className.split(' ')[0], inside: r.right > c.left + pad && r.left < c.right - pad }; }); })()`;
+for (const w of [390, 1024, 1280]) {
+  await pass(`10. floating buttons at ${w}px: none shown`, { width: w, height: 800, reduce: true, wait: 900 }, async () => {
+    const f = await evaluate(FLOATING);
+    return f.length ? ["shown: " + f.map((x) => x.cls).join(", ")] : [];
+  });
+}
+await pass("10. floating buttons at 1440px: each in the side gutter", { width: 1440, height: 900, reduce: true, wait: 900 }, async () => {
+  const f = (await evaluate(FLOATING)).filter((x) => x.inside);
+  return f.length ? ["over the page's column: " + f.map((x) => x.cls).join(", ")] : [];
+});
+await pass("11. versions: every local stylesheet and script is asked for by its version", { width: 1280, height: 800, reduce: true, wait: 300 }, async () => {
+  const bare = await evaluate(`[...document.querySelectorAll('link[rel="stylesheet"][href], script[src]')]
+    .map((e) => e.getAttribute('href') || e.getAttribute('src')).filter((u) => !/^https?:/.test(u) && !/[?&]v=[0-9a-f]{6,}/.test(u))`);
+  return bare.length ? ["no version on: " + bare.join(", ")] : [];
+});
 
-// 9. the hero, on the home page only
-console.log("\n9. the hero: one clock, the four-drawings path, the globe's budget, no shift");
+// 12. sketches with no stylesheet at all
+console.log("\n12. no stylesheet: no mark in a sketch falls back to a solid black fill");
+{
+  const out = [];
+  await send("Network.enable");
+  await send("Network.setBlockedURLs", { urls: ["*.css*"] });
+  for (const p of ["", "learn/p0-frame/", "learn/what-is-the-agentic-pdlc/"]) {
+    await send("Page.navigate", { url: BASE + p });
+    await sleep(1500);
+    const m = await evaluate(`(() => { const all = [...document.querySelectorAll('svg.sk *')]; return { n: document.querySelectorAll('svg.sk').length,
+      black: all.filter((e) => !/^(text|tspan)$/i.test(e.tagName) && getComputedStyle(e).fill === 'rgb(0, 0, 0)').length,
+      styled: getComputedStyle(document.body).backgroundColor }; })()`);
+    if (!m.n) out.push(`/${p} has no sketch to check`);
+    if (m.black) out.push(`/${p}: ${m.black} marks would be filled black`);
+  }
+  await send("Network.setBlockedURLs", { urls: [] });
+  if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); } else console.log("  ok   three pages with sketches");
+}
+
+// 13. the hero, on the home page only
+console.log("\n13. the hero: one clock, the right phase named, inside the first screen, the budget, no shift");
 {
   const out = [];
   thrown.length = 0;
+  const media = { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] };
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
-  await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] });
+  await send("Emulation.setEmulatedMedia", media);
   await send("Page.navigate", { url: BASE });
-  await sleep(3200);
-  const LOOPS = `document.getAnimations().filter((a) => /^sc-(fly|shape|flame|gate|turn\\d)$/.test(a.animationName || ''))`;
-  const states = async () => evaluate(`(() => { const o = {}; ${LOOPS}.forEach((a) => { o[a.animationName + ':' + a.playState] = 1; }); return Object.keys(o); })()`);
+  await sleep(2600);
+  const frames = () => evaluate("(window.GlobeMs || { n: -1 }).n");
   const tick = (on) => evaluate(`(() => { const b = document.querySelector('.hero2 [data-motion-toggle]'); b.checked = ${on}; b.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
-  await tick(true); await sleep(300);
-  let s = await states();
-  if (!s.length) out.push("no looping animation found in the hero");
-  if (s.some((k) => !k.endsWith(":paused"))) out.push("paused, and still running: " + s.filter((k) => !k.endsWith(":paused")).join(", "));
-  await tick(false); await sleep(300);
-  s = await states();
-  if (s.some((k) => !k.endsWith(":running"))) out.push("resumed, and still held: " + s.filter((k) => !k.endsWith(":running")).join(", "));
-  // a browser that cannot ease one path into another: four drawings, one at a time
-  const shown = await evaluate(`(async () => { document.documentElement.classList.add('sc-turns'); await new Promise((r) => setTimeout(r, 900));
-    const all = [...document.querySelectorAll('.sc-near .sc-plane .sc-still')]; const on = all.filter((e) => +getComputedStyle(e).opacity > 0.5).length;
-    const morph = getComputedStyle(document.querySelector('.sc-near .sc-plane .sc-morph')).display;
-    document.documentElement.classList.remove('sc-turns'); return { n: all.length, on, morph }; })()`);
-  if (shown.n !== 4 || shown.on !== 1 || shown.morph !== "none") out.push(`the four-drawings path shows ${shown.on} of ${shown.n} aircraft (the easing one: ${shown.morph})`);
-  // the globe's drawing, with the processor slowed four times
+  let a = await frames(); await sleep(500); let b = await frames();
+  if (b - a < 10) out.push(`the picture drew ${b - a} frames in half a second`);
+  await tick(true); await sleep(200); a = await frames(); await sleep(500); b = await frames();
+  if (b !== a) out.push(`paused, and ${b - a} frames were still drawn`);
+  await tick(false); await sleep(200); a = await frames(); await sleep(500); b = await frames();
+  if (b - a < 10) out.push("resumed, and the picture stayed still");
+  // twelve moments round a lap, at four widths: the line under the picture names the phase the aircraft is in
+  const NAMES = { 0: "P0", 1: "P1", 2: "P2", 3: "P3", 4: "back" };
+  for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [390, 844]]) {
+    await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
+    await send("Page.navigate", { url: BASE });
+    await sleep(1500);
+    if (typeof (await evaluate("typeof window.GlobeAt")) !== "string" || (await evaluate("typeof window.GlobeAt")) !== "function") { out.push(`at ${w}px the picture has no clock to set`); continue; }
+    await tick(true);
+    await evaluate(`document.head.insertAdjacentHTML('beforeend', '<style>.sc-rail li{transition:none!important}</style>'); true`);   // the line is read at once, not mid-change
+    const seen = new Set();
+    for (let k = 0; k < 12; k++) {
+      const m = await evaluate(`(() => { const leg = window.GlobeAt(${(k * 27 / 12 + 0.4).toFixed(2)}); const r = document.querySelector('[data-globe-rail]');
+        const lit = [...r.children].filter((li) => getComputedStyle(li).color === getComputedStyle(document.querySelector('.hero2 h1')).color).map((li) => li.textContent.trim());
+        return { leg, at: r.getAttribute('data-at'), lit }; })()`);
+      seen.add(m.leg);
+      const want = m.leg === 4 ? "back" : String(m.leg);
+      if (m.at !== want) out.push(`at ${w}px, moment ${k}: the aircraft is in ${NAMES[m.leg]} and the line says ${m.at}`);
+      else if (m.lit.length !== 1 || !(m.leg === 4 ? /back to Frame/.test(m.lit[0]) : m.lit[0].startsWith(NAMES[m.leg]))) out.push(`at ${w}px, moment ${k}: lit in the line: ${m.lit.join(" | ") || "nothing"}`);
+    }
+    if (seen.size !== 5) out.push(`at ${w}px a lap passed through ${seen.size} of its five parts`);
+    const box = await evaluate(`(() => { const s = document.querySelector('.scene'), r = s.getBoundingClientRect(), c = document.querySelector('.sc-stage').getBoundingClientRect();
+      return { bottom: Math.round(r.bottom), stage: Math.round(c.bottom), left: Math.round(c.left), right: Math.round(c.right), over: document.documentElement.scrollWidth - innerWidth }; })()`);
+    if ((w === 390 || w === 1440) && box.bottom > h) out.push(`at ${w} x ${h} the picture and its line end at ${box.bottom}px, below the first screen`);
+    if (box.over > 0) out.push(`at ${w}px the page scrolls sideways by ${box.over}px`);
+  }
+  // the drawing, with the processor slowed four times
+  await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+  await send("Page.navigate", { url: BASE });
+  await sleep(2000);
   await send("Emulation.setCPUThrottlingRate", { rate: 4 });
   await evaluate("window.GlobeMs = { n: 0, sum: 0, max: 0 }; true");
   await sleep(3000);
   const g = await evaluate("window.GlobeMs");
   await send("Emulation.setCPUThrottlingRate", { rate: 1 });
-  if (!g || g.n < 30) out.push(`the globe drew ${g ? g.n : 0} frames in three seconds`);
-  else if (g.sum / g.n > 6) out.push(`the globe takes ${(g.sum / g.n).toFixed(1)}ms a frame at a quarter speed; 6ms is the budget`);
+  if (!g || g.n < 30) out.push(`the picture drew ${g ? g.n : 0} frames in three seconds`);
+  else if (g.sum / g.n > 6) out.push(`the picture takes ${(g.sum / g.n).toFixed(1)}ms a frame at a quarter speed; 6ms is the budget`);
   // nothing moves the page under the reader
   await send("Page.navigate", { url: BASE });
   await sleep(2600);
@@ -270,5 +357,5 @@ console.log("\n9. the hero: one clock, the four-drawings path, the globe's budge
   await Promise.race([exited, sleep(5000)]);
   try { rmSync(profile, { recursive: true, force: true }); } catch {}
 }
-console.log(failures ? `\n${failures} failure(s)` : "\nall nine passes hold");
+console.log(failures ? `\n${failures} failure(s)` : "\nall thirteen passes hold");
 process.exit(failures ? 1 : 0);

@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The answer in one sentence.** AI shortens the time to *build* dramatically, but delivery also
-> includes deciding, reviewing, proving and waiting for evidence, so the programmes that go from
-> months to weeks are the ones that also redesign those: decisions made per action, review routed by
-> risk, work cut so it integrates daily, lead-time items started on day one, while accepting that
+> **The answer in short.** AI shortens the time to *build* dramatically, but delivery also
+> includes deciding, reviewing, proving and waiting for evidence. So the programmes that go from
+> months to weeks are the ones that also redesign those. They make decisions per action, route review by
+> risk, cut work so it integrates daily, and start lead-time items on day one. They also accept that
 > live evidence still arrives at the speed of traffic.
 
 {{map:cut-delivery-time}}
@@ -42,7 +42,7 @@ previously took weeks". But research on AI in software delivery is consistent on
 2025 report found that AI **amplifies** an organisation's existing strengths and weaknesses, and that
 speed without stability produces problems faster; METR's 2025 trial found experienced developers
 believed they were faster while measuring slower. The throughput of a delivery system is set by its
-slowest step: and once AI writes the code, the slowest step is somewhere else.
+slowest step, and once AI writes the code, the slowest step is somewhere else.
 
 ## Cut the waits, step by step
 
@@ -54,7 +54,7 @@ List every step from request to live (framing, spec, decision, build, review, te
 
 The slowest waits are often decisions. At SkyWays three executives argued for two weeks about how much
 "the assistant" should do; recast as four actions, each with a reversibility, the decision took twenty
-minutes. Nothing about AI shortened that, the structure of the question did. [Autonomy per action](lesson:p0-frame#step-4--set-autonomy-one-action-at-a-time)
+minutes. Nothing about AI shortened that; the structure of the question did. [Autonomy per action](lesson:p0-frame#step-4--set-autonomy-one-action-at-a-time)
 
 ### Step 3 · Route review by risk band
 
@@ -82,7 +82,7 @@ work that needs it is weeks away.
 ### Step 6 · Plan honestly around what does not compress
 
 Live evidence arrives at the speed of traffic: **days = cases needed ÷ (share × cases per day)**. At
-240 cases a day, 500 cases at a 5% canary takes 42 days, the arithmetic, not the effort. You can
+240 cases a day, 500 cases at a 5% canary takes 42 days: the arithmetic, not the effort. You can
 shorten it only by widening the share, which raises exposure, or by needing fewer cases, which only an
 honest bar and lower bound can justify. Put the number in the plan instead of promising around it.
 
@@ -176,5 +176,5 @@ split per feature, and the single wait that saves the most calendar time if it i
 | The slowest step sets the throughput | **Borrowed** | Goldratt, E. M. & Cox, J. (1984). *The Goal*. North River Press |
 | Mapping the waits in a flow | **Borrowed** | Rother, M. & Shook, J. (1999). *Learning to See*. Lean Enterprise Institute |
 | Queue time = slots needed ÷ slots per day | **Borrowed** | Little, J. D. C. (1961). *Operations Research* 9(3) |
-| Days of live evidence, and the three bands of wait | **Original**: this playbook | [Formulas](wiki:Formulas-and-Calculators#days-of-live-evidence--working-method) |
+| Days of live evidence, and the three bands of wait | **Original**: this manual | [Formulas](wiki:Formulas-and-Calculators#days-of-live-evidence--working-method) |
 | The SkyWays figures | **Illustrative**: a fictional airline | [Try the cut-over calculator](sim:#/toolkit/cutover) |

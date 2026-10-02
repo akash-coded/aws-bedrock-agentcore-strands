@@ -46,7 +46,7 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 | Yours to own | Not yours, stop signing these |
 | --- | --- |
 | The **ratified NFRs**, their sensitivity points, and the workshop that produces them | The **intent** and **release** gates. Those are the product manager's, and your name on them dilutes the two you do hold |
-| The **exact / best-guess / consequential map**, and the proof each kind needs | Temperature, top-p, framework version, SDK call shape, you specify behaviours, engineering picks the knobs, and a knob in a design document is wrong at the next release |
+| The **exact / best-guess / consequential map**, and the proof each kind needs | Temperature, top-p, framework version, SDK call shape: you specify behaviours, engineering picks the knobs, and a knob in a design document is wrong at the next release |
 | The shape: how many agents, and the named limit that would justify another one | The golden set's contents and the judge rubric. QA curates the cases, you place the checker |
 | The **authority budget** and the gate map: every cap in a tool signature | Which pain is worth solving, and what a mistake costs the business |
 | The architecture decision records, one per trade-off point and nowhere else |  |
@@ -147,7 +147,7 @@ their acceptance criteria in the wrong shape.
 ## What happens next
 Constraints sorted by type on <date>. Candidate NFRs as six-part scenarios on
 <date>. The ratification workshop on <date>. Reply if a line is wrong, missing or
-credited to the wrong person, that correction is free now and expensive in week five.
+credited to the wrong person: that correction is free now and expensive in week five.
 ```
 
 </details>
@@ -260,7 +260,7 @@ A constraint can make a quality target impossible, so constraints come first, an
 
 1. **Sort every constraint into technical, regulatory or commercial**: The type is not a filing convenience. Regulatory becomes a typed parameter, technical forces an adapter or a server in front of something, commercial bounds the model tier and therefore the latency you can promise.
 2. **Strike the motivations that are pretending to be constraints**: *No headcount this year* does not bound the design; it is the reason the assistant exists, and it belongs in the pain register. The test is whether the line names a design it rules out.
-3. **Turn each regulatory constraint into a number and a place**: Refunds over $400 need a named approver is a number and a location, a typed parameter and a token the model cannot mint. Left as a sentence it stays a sentence, and a sentence is what a postmortem finds missing.
+3. **Turn each regulatory constraint into a number and a place**: Refunds over $400 need a named approver is a number and a location: a typed parameter and a token the model cannot mint. Left as a sentence it stays a sentence, and a sentence is what a postmortem finds missing.
 4. **Write every candidate NFR in six parts**: Source, stimulus, artefact, environment, response, measure. The part everyone omits is environment (under what load, at what hour, in what degraded state) and its absence is precisely what makes a latency target arguable for two hours.
 5. **Add autonomy level and cost per case to the candidate list**: Both are quality attributes and both are measurable. A ratified cost per case is what makes an unexpected bill a monitored number with an alert rather than a surprise arriving four weeks late.
 6. **Ground every measure in something real before the workshop**: Pull the current P95 from the request log. A measure invented in the room is ratified in the room and missed in production, and nobody can say when it became unachievable.
@@ -459,7 +459,7 @@ MY CURRENT LIST:
 
 *P0, the first design artefact, and it takes an hour for one feature*
 
-The product manager sorted the feature. This is a judgement, this is arithmetic. That is right and it is not enough. You sort at the level of **every step**, and you add the column that decides both what gets built and how it gets proven. Exact steps are functions proven by a unit test. Best-guess steps are model calls proven by a measured share on real cases. Consequential steps are a tool plus a gate, proven by a required confirmation. Choosing the kind of evidence each step will need, before anybody builds it, is what the artefact is for.
+The product manager sorted the feature: this is a judgement, this is arithmetic. That is right and it is not enough. You sort at the level of **every step**, and you add the column that decides both what gets built and how it gets proven. Exact steps are functions proven by a unit test. Best-guess steps are model calls proven by a measured share on real cases. Consequential steps are a tool plus a gate, proven by a required confirmation. Choosing the kind of evidence each step will need, before anybody builds it, is what the artefact is for.
 
 **What you actually do**
 
@@ -467,7 +467,7 @@ The product manager sorted the feature. This is a judgement, this is arithmetic.
 2. **Tag each step exact, best-guess or consequential**: Exact means right every single time. Best-guess means right a share of the time. Consequential means it changes something real, and a step is often consequential as well as one of the other two rather than instead of it.
 3. **Fill the proof column before anything else**: A unit test, a measured share on a named slice, or a required confirmation. Engineering builds from the kind column and QA builds their test plan from the proof column, which is what makes an hour's work worth an hour.
 4. **Draw the data flow and mark where numbers cross**: Numbers flow from an exact step into a best-guess one and never the other way. Drawing the arrows is how you find the step that computes a value and then acts on it.
-5. **Apply the rule that never breaks**: The best-guess machine never does the exact math. The model may call the function and read the result; it never computes the value it then acts on. A fluent wrong number is the failure no prompt-level test catches, $80 when the ledger says $62.
+5. **Apply the rule that never breaks**: The best-guess machine never does the exact math. The model may call the function and read the result; it never computes the value it then acts on. A fluent wrong number is the failure no prompt-level test catches: $80 when the ledger says $62.
 6. **Grep the prompts for calculate, compute and total**: Each hit is a function waiting to exist. It takes ten minutes and it is the most reliably productive ten minutes available to this role.
 7. **Hand the map to QA as their test plan**: The proof column is already the shape of their work: which steps need assertions, which need a golden slice with a bar, and which need a confirmation test that fails closed.
 
@@ -618,7 +618,7 @@ judgement and a calculation, or a judgement and a write.
 5. State what may pass between them, and in which direction.
 
 If it genuinely is one thing, say so, tell me which kind it is, and tell me why the
-classification felt hard, that reason is usually itself a finding.
+classification felt hard: that reason is usually itself a finding.
 ```
 
 </details>
@@ -700,7 +700,7 @@ diagram that made the design look reasonable.
 ## What was proposed, and what it actually is
 | Proposed agent | What it really is | Where it goes |
 |----------------|-------------------|---------------|
-| <the pricer> | exact work | a function, map, step <n> |
+| <the pricer> | exact work | a function (map, step <n>) |
 | <the searcher> | parallelism | a fan-out tool, <n> calls in one |
 | <the reviewer> | independence | a checker: different model, or fresh adversarial context |
 | <the planner> | the agent itself | the single agent |
@@ -716,10 +716,10 @@ arriving by default.
 ## Process depth, per change
 | Kind of change | P0 | P1 | P2 | P3 | Method weight |
 |----------------|----|----|----|----|---------------|
-| <one-line fix> | — | light | yes | — | living spec + a single agent |
+| <one-line fix> | skip | light | yes | skip | living spec + a single agent |
 | <this feature> | yes | yes | yes | yes | living spec + the five gates |
 | <audited module> | yes | full | full | full | living spec + the full persona trail |
-| <regulatory rule change> | — | yes | yes | light | spec diff + validation |
+| <regulatory rule change> | skip | yes | yes | light | spec diff + validation |
 
 **Rule:** the living spec is the backbone everywhere. The heavy persona trail is
 layered on only where the work is audited and multi-team. Depth flexes per change.
@@ -739,7 +739,7 @@ OUTPUT SHAPE:
    Allowed values for the middle column: EXACT WORK (a function) · PARALLELISM (a
    fan-out tool) · INDEPENDENCE (a checker) · THE AGENT ITSELF · GENUINELY A SECOND AGENT.
 2. The hand-off count for each design, computed as n(n-1)/2, with n stated.
-3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it, a number,
+3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it: a number,
    not an adjective.
 
 RULES:
@@ -791,7 +791,7 @@ Assign each a process depth. Run only the lifecycle stages the change actually n
 OUTPUT SHAPE, one table:
 | Change | P0 | P1 | P2 | P3 | Method weight | The stage I am skipping, and why that is safe |
 
-Allowed cell values: full · yes · light · —
+Allowed cell values: full · yes · light · skip
 
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
@@ -808,7 +808,7 @@ RULES:
 
 **Worked example · SkyWays · fifteen agents, a hundred and five hand-offs**
 
-> An engineer had built fifteen agents to show what the framework could do. The collapse took an afternoon and one table. The pricer was exact work and became a function. The searcher was parallelism and became a fan-out tool running four partner queries inside a single call. The planner was the agent itself. Only the reviewer survived as something separate, because independence is the entire mechanism of a checker. One agent, one fan-out tool, one function and one checker, **zero hand-offs against a hundred and five**. The line that mattered most went on the record underneath: an orchestrator when a single context exceeds the measured limit on multi-leg international cases, or when more than three partner calls must run in parallel and one tool cannot express it. Without a number in that sentence the swarm returns by default, and it returns with a reasonable explanation attached.
+> An engineer had built fifteen agents to show what the framework could do. The collapse took an afternoon and one table. The pricer was exact work and became a function. The searcher was parallelism and became a fan-out tool running four partner queries inside a single call. The planner was the agent itself. Only the reviewer survived as something separate, because independence is the entire mechanism of a checker. One agent, one fan-out tool, one function and one checker: **zero hand-offs against a hundred and five**. The line that mattered most went on the record underneath: an orchestrator when a single context exceeds the measured limit on multi-leg international cases, or when more than three partner calls must run in parallel and one tool cannot express it. Without a number in that sentence the swarm returns by default, and it returns with a reasonable explanation attached.
 
 **Pitfalls**
 
@@ -826,7 +826,7 @@ RULES:
 
 *Day nine, the ratification workshop, and the dated records that follow it*
 
-Nine candidates, six people, two hours. Without the trees the room argues about words and runs out of time exactly on the contested items; with them, the uncontested NFRs go through in twenty minutes and the remaining hundred go to the conflicts, which are the only reason six people were needed at once. A conflict is not a difference of taste. It is a **priority gap of five or more between two stakeholders**, and each one owes a decision record. Records are written at trade-off points and nowhere else, forty records in a week buries the three that mattered.
+Nine candidates, six people, two hours. Without the trees the room argues about words and runs out of time exactly on the contested items; with them, the uncontested NFRs go through in twenty minutes and the remaining hundred go to the conflicts, which are the only reason six people were needed at once. A conflict is not a difference of taste. It is a **priority gap of five or more between two stakeholders**, and each one owes a decision record. Records are written at trade-off points and nowhere else: forty records in a week buries the three that mattered.
 
 **What you actually do**
 
@@ -885,7 +885,7 @@ which is why you build them instead of debating them.
 ## Ratified
 | # | NFR | Value | Sensitivity point? | Record owed |
 |---|-----|-------|--------------------|-------------|
-| NFR-1 | <latency> | <30s at P95, peak hour> | no | — |
+| NFR-1 | <latency> | <30s at P95, peak hour> | no | none |
 | NFR-2 | <cost per case> | <$0.60, alert at 3x> | **yes** | ADR-<n>, <date> |
 | NFR-3 | <accuracy> | <80% on codeshare> | **yes** | ADR-<n>, <date> |
 | NFR-4 | <authority> | <refunds over $400 need a named approver> | **yes** | ADR-<n>, <date> |
@@ -933,7 +933,7 @@ OUTPUT SHAPE:
    the formula.
 3. CONFLICTS: every NFR whose gap is 5 or more. Each one owes a decision record.
 4. FALSE CONFLICTS: pairs that look opposed and are not, with the reason. The usual
-   example is auditability against latency, logging costs milliseconds and the model
+   example is auditability against latency: logging costs milliseconds and the model
    choice costs seconds.
 5. A proposed agenda: the uncontested NFRs first as one time-boxed block, then the
    conflicts one at a time.
@@ -994,7 +994,7 @@ OUTPUT SHAPE: exactly these sections, in this order:
 RULES:
 - The Rejected section is the part that matters and the part that gets written badly.
   Every rejection cites the matrix score, the three-year cost or the door. A rejection
-  that reads as a preference is a failure, rewrite it, or tell me the number is missing.
+  that reads as a preference is a failure: rewrite it, or tell me the number is missing.
 - Do not flatter the decision. If an option scored within a point of the winner, that
   belongs in Context, not in Rejected.
 - Keep it to one screen. A coding agent reads this in its context pack, which is exactly
@@ -1009,7 +1009,7 @@ MY NOTES:
 
 **Worked example · SkyWays · nine ratified, three records owed**
 
-> The nine candidates went into a two-hour workshop with the trees already merged. Six were uncontested and were ratified in twenty minutes; the remaining hundred minutes went to the three conflicts, which were the only reason six people had been put in one room. **Nine ratified NFRs with three sensitivity points**, each given a date for its record rather than a promise. The conflict that turned up is the one that usually turns up, latency against cost per case, because the faster answer needs the larger model. **ADR-004** was the framework decision and it repays a second read: the weighted totals came out four points apart across three options, and buy and borrow tied at $360,000 over three years once the people were counted, which made the licence the small number all along. The matrix did not break the tie. The **door** did: borrow, behind an interface layer, with a named review at month twelve, two weeks of work now to keep a swap at weeks rather than quarters.
+> The nine candidates went into a two-hour workshop with the trees already merged. Six were uncontested and were ratified in twenty minutes; the remaining hundred minutes went to the three conflicts, which were the only reason six people had been put in one room. **Nine ratified NFRs with three sensitivity points**, each given a date for its record rather than a promise. The conflict that turned up is the one that usually turns up: latency against cost per case, because the faster answer needs the larger model. **ADR-004** was the framework decision and it repays a second read: the weighted totals came out four points apart across three options, and buy and borrow tied at $360,000 over three years once the people were counted, which made the licence the small number all along. The matrix did not break the tie. The **door** did: borrow, behind an interface layer, with a named review at month twelve. Two weeks of work now keeps a swap at weeks rather than quarters.
 
 **Pitfalls**
 
@@ -1043,9 +1043,9 @@ The first question is not how much the agent may spend. It is **what it may chan
 
 | Tool | Use it for |
 | --- | --- |
-| **Chat LLM** | Band a tool list R1 to R5 with a reason per row and the control location named. A good first pass, and it is consistent in a way a room full of people is not.<br>⚠ It bands by the size of the change. A one-line change to a refund cap is R4, re-read every R1 and R2 that touches money, identity or a policy commitment. |
+| **Chat LLM** | Band a tool list R1 to R5 with a reason per row and the control location named. A good first pass, and it is consistent in a way a room full of people is not.<br>⚠ It bands by the size of the change. A one-line change to a refund cap is R4. Re-read every R1 and R2 that touches money, identity or a policy commitment. |
 | **Claude Code** | Grep every prompt and tool description for currency symbols, *never*, *always*, *ask before* and *do not*, then have it write the enforced version and both tests for each hit that would cost money or be irreversible.<br>⚠ A hit list is not a fix. Require the over-cap test and the no-confirmation test in the same pass, or the work stops at the list and the list gets stale. |
-| **Chat LLM** | Run the four hard-or-soft questions over your open decisions and propose a placeholder for each soft one, a stub, an interface layer, a default tier behind a gateway.<br>⚠ It marks almost everything soft, because everything looks reversible on paper. Question one is the one it answers too generously. |
+| **Chat LLM** | Run the four hard-or-soft questions over your open decisions and propose a placeholder for each soft one: a stub, an interface layer, a default tier behind a gateway.<br>⚠ It marks almost everything soft, because everything looks reversible on paper. Question one is the one it answers too generously. |
 | **Do not delegate** | Whether a wrong action can be undone, and how fast. That is a fact about your ledger, your regulator and your customers, and *we would notice* is not an answer to it. |
 
 **The artefact**
@@ -1107,7 +1107,7 @@ Four questions, in order. **One "no" makes it hard.**
 
 | Decision | Q1 | Q2 | Q3 | Q4 | Verdict | Placeholder | Owner | By |
 |----------|----|----|----|----|---------|-------------|-------|----|
-| <autonomy level on refunds> | no | — | — | — | **HARD** | — | <name> | <phase> |
+| <autonomy level on refunds> | no | n/a | n/a | n/a | **HARD** | none | <name> | <phase> |
 | <model tier per slice> | yes | yes | yes | yes | soft | <mid tier behind the gateway> | <name> | <date> |
 | <framework> | yes | yes | yes | yes | soft | <an interface layer in front of it> | <name> | <date> |
 | <retrieval design> | yes | yes | yes | yes | soft | <a stub returning the fare-rules file> | <name> | <date> |
@@ -1120,11 +1120,11 @@ Four questions, in order. **One "no" makes it hard.**
 ```text
 Band every tool below on the R1-R5 ladder.
 
-R1  reversible draft or sandbox, review at the end
-R2  reversible change to real work, review before merge
-R3  hard to reverse, small blast radius (approve first
-R4  money, identity or a policy commitment) a NAMED approver, every time
-R5  irreversible or safety-critical, not delegated at all
+R1  reversible draft or sandbox: review at the end
+R2  reversible change to real work: review before merge
+R3  hard to reverse, small blast radius: approve first
+R4  money, identity or a policy commitment: a NAMED approver, every time
+R5  irreversible or safety-critical: not delegated at all
 
 OUTPUT SHAPE, one table:
 | Tool | Band | What ONE wrong call could damage | Where the control must live | The test that proves it |
@@ -1227,11 +1227,11 @@ Three details decide whether the design works, and none of them is visible in a 
 **What you actually do**
 
 1. **Draw the four context layers, each inherited by the one below**: Shared for org-wide standards, security and tone; domain for the business model; product for this application; task for this feature. A new product writes only the last two and onboards in a day instead of a week.
-2. **Name what is genuinely domain-level**: This is the layer teams forget and it holds most of the real reuse, the booking model, the fare rules, the things every product in the area needs and each one currently re-invents in its own prompt.
+2. **Name what is genuinely domain-level**: This is the layer teams forget and it holds most of the real reuse: the booking model, the fare rules, the things every product in the area needs and each one currently re-invents in its own prompt.
 3. **Make every override declare its reason and its scope**: A silent override is drift with a good explanation attached. Declared, it is a decision somebody can review; undeclared, it is the stale copy nobody can find.
 4. **Send the slice a task needs, never the whole stack**: Forty thousand tokens of standards in every call is both the bill and the quality problem: a bigger context makes answers worse, not better, and it is the habit that hides behind *for context*.
 5. **Wrap each system as one server with three primitives**: Tools are actions the model may invoke, resources are read-only data the application supplies, prompts are templates a person picks. Split reads from writes and require a confirmation on every write in the contract, not in the description.
-6. **Multiply the chain, do not average it**: Four steps at 90% is 66%, end to end wrong one time in three. Length is the enemy, so the first defence is removing a step, every step you remove multiplies back.
+6. **Multiply the chain, do not average it**: Four steps at 90% is 66%, end to end wrong one time in three. Length is the enemy, so the first defence is removing a step: every step you remove multiplies back.
 7. **Place an independent checker after each costly, easy-to-miss generating step**: Independent means a different model, or the same model in a fresh context with an adversarial brief. A model reading its own output shares its own blind spots, which is exactly why *review your answer* does not work.
 
 **Where a model helps, and where it must not**
@@ -1239,7 +1239,7 @@ Three details decide whether the design works, and none of them is visible in a 
 | Tool | Use it for |
 | --- | --- |
 | **Chat LLM** | Paste a product's prompt dump and ask it to sort every line into shared, domain, product or task, with one line of reasoning each. It is fast and it makes the duplication obvious.<br>⚠ It puts almost everything in shared, because shared is where general-sounding sentences go. The domain layer is the one it will not find for you. |
-| **Claude Code** | Have it generate the server schema from an existing API surface: resources for read-only data, tools split into open reads and gated writes, prompts for the templates a person picks.<br>⚠ It offers one broad manage_thing(action) tool because that is tidy. Any path through such a tool carries the authority of the worst action it can reach, reject it and make it enumerate. |
+| **Claude Code** | Have it generate the server schema from an existing API surface: resources for read-only data, tools split into open reads and gated writes, prompts for the templates a person picks.<br>⚠ It offers one broad manage_thing(action) tool because that is tidy. Any path through such a tool carries the authority of the worst action it can reach. Reject it and make it enumerate. |
 | **Chat LLM** | Write the checker's brief. It is an adversarial instruction (find what is wrong, list the violations, do not rewrite) and it is a different artefact from the brief that generated the answer.<br>⚠ Never run the checker in the context that produced the output, and prefer a different model. Self-review returns a confident yes and no finding. |
 | **Do not delegate** | Deciding where the checkers go. Each one costs a call, and putting them everywhere is the same error as putting them nowhere; the judgement is which wrong answers are both expensive and easy to miss. |
 
@@ -1282,8 +1282,8 @@ _Owner: <name> · <date> · Read by: engineering and QA_
 
 - Transport: <Streamable HTTP in production, stdio for local development>
 - Auth: <as the specification's authorization framework requires>
-- Trace: every tool call logged (input, decision, output, model version
-- **Rejected:** <one broad manage_booking(action) tool) any path through it could cancel>
+- Trace: every tool call logged (input, decision, output, model version)
+- **Rejected:** <one broad manage_booking(action) tool: any path through it could cancel>
 
 M applications times N systems becomes M + N. Build the server once and any compliant
 client plugs into it.
@@ -1429,7 +1429,7 @@ RULES:
 
 *P2 into P3, and then for as long as the system runs*
 
-Three things decide whether an architecture survives contact with production. The **bill**, which is a design question and not a finance one: caching pays only if the layout lets it hit, and routing pays only if a breaker stops the runaway. The **trace**, which has to be replayable by audit without becoming a breach target, which means redact rather than omit. And the **incident**, which is where your next design decision comes from, a postmortem that produces a name has not finished; one that produces an enforced control has.
+Three things decide whether an architecture survives contact with production. The **bill**, which is a design question and not a finance one: caching pays only if the layout lets it hit, and routing pays only if a breaker stops the runaway. The **trace**, which has to be replayable by audit without becoming a breach target, which means redact rather than omit. And the **incident**, which is where your next design decision comes from: a postmortem that produces a name has not finished; one that produces an enforced control has.
 
 **What you actually do**
 
@@ -1445,7 +1445,7 @@ Three things decide whether an architecture survives contact with production. Th
 
 | Tool | Use it for |
 | --- | --- |
-| **Claude Code** | Reorder one live prompt for the cache and add the assertion that proves it, cache tokens read above zero on the second call. Then have it pull the four ratios from the per-call log: tokens per call, tier mix, cache hit ratio, retries per conversation.<br>⚠ Make it check for anything volatile inside the cached block. One timestamp or request id misses the prefix on every call, and the config file will still say caching is on. |
+| **Claude Code** | Reorder one live prompt for the cache and add the assertion that proves it: cache tokens read above zero on the second call. Then have it pull the four ratios from the per-call log: tokens per call, tier mix, cache hit ratio, retries per conversation.<br>⚠ Make it check for anything volatile inside the cached block. One timestamp or request id misses the prefix on every call, and the config file will still say caching is on. |
 | **Chat LLM** | Compute the break-even and the saving for your reuse count and window, and tell you which window the traffic pattern actually argues for.<br>⚠ Paste the vendor's current pricing page into the prompt rather than trusting its memory of the multipliers. A stale multiplier turns the arithmetic into a decision you cannot defend in front of finance. |
 | **Claude Code** | Extract a rule sheet from a legacy module (rule id, condition, action, source line, confidence) so the agent reads a few hundred tokens of intent instead of four thousand lines that bury it.<br>⚠ Everything below 0.9 confidence goes to a person first. Those rows are where the code is doing something the comments deny, which is the part worth reading yourself. |
 | **Do not delegate** | The missing-control finding. Naming the control that would have made an incident impossible is the one judgement in the postmortem, and a model will happily propose a better prompt, which is a request rather than a control. |
@@ -1483,7 +1483,7 @@ _Owner: <name> · <date> · Config reviewed like code: <path>_
 |-----------------------|---------------|
 | The request placed first, for emphasis | <no> |
 | A timestamp, request id or session id inside the cached block | <no> |
-| A model switch mid-task, the cache is model-scoped | <forbidden in the team rules> |
+| A model switch mid-task (the cache is model-scoped) | <forbidden in the team rules> |
 | Fewer than the minimum cacheable tokens | <no> |
 
 ## Routing and the breaker
@@ -1526,7 +1526,7 @@ have detected it afterwards>
 
 ```text
 My token bill is <n>x its estimate and traffic is flat. Diagnose it from the
-per-call log at <path>, not from the price list, the prices did not change.
+per-call log at <path>, not from the price list: the prices did not change.
 
 Compute four ratios, the baseline period against now:
 - tokens per call
@@ -1558,16 +1558,16 @@ RULES:
 ```text
 Turn this incident into a design change. Use EXACTLY this structure.
 
-**Timeline** (what happened, minute by minute, from the input to the consequence
-**Reconstruct**) for each control that was supposed to exist, state whether the
+**Timeline**: what happened, minute by minute, from the input to the consequence
+**Reconstruct**: for each control that was supposed to exist, state whether the
   incident is POSSIBLE or IMPOSSIBLE with it enforced. The combination that is possible
   is the state the system was actually in.
-**Finding** (the ENFORCED control that, if present, would have made this IMPOSSIBLE
-**Not the finding**) the input, the person, and any control that would only have
+**Finding**: the ENFORCED control that, if present, would have made this IMPOSSIBLE
+**Not the finding**: the input, the person, and any control that would only have
   DETECTED it
-**Change** (the typed parameter, the confirmation token or the permission, and the
+**Change**: the typed parameter, the confirmation token or the permission, and the
   file it will live in
-**Record**) the record number, and the autonomy level that drops as a result
+**Record**: the record number, and the autonomy level that drops as a result
 **Verify**: the test QA re-runs, and what "stopped twice over" means here
 
 RULES:
@@ -1633,7 +1633,7 @@ MODULE: <path>
 ## Read next
 
 - [The wiki page for this role](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Role-Solution-Architect)
-- [The same case, step by step, in the simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/sa/step-1)
+- [The same case, step by step, in the workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/sa/step-1)
 - [Every decision tree on one page](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Decision-Trees)
 
 **Other roles:** [Product Manager](Journey-Product-Manager) · [Engineering Lead](Journey-Engineering-Lead) · [QA Lead](Journey-QA-Lead) · [DevOps](Journey-DevOps)

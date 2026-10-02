@@ -52,6 +52,6 @@ track turns all of it into answers for AI product, FDE, GenAI, agentic and AWS r
 
 ## How the lessons work
 
-Every lesson has the same slots in the same order: the answer first, a picture, the problem stated plainly, the idea step by step, a problem to try, three takeaways, and its sources, each marked **Borrowed**, **Adapted** or **Original** to this playbook. [Why it is built that way](lesson:how-this-tutorial-works).
+Every lesson has the same slots in the same order: the answer first, a picture, the problem stated plainly, the idea step by step, a problem to try, three takeaways, and its sources, each marked **Borrowed**, **Adapted** or **Original** to this manual. [Why it is built that way](lesson:how-this-tutorial-works).
 
-The lessons are written once and published twice: here, with the live diagrams, and [on the GitHub wiki](wiki:Start-Here), where they sit beside the playbook's full reference pages.
+The lessons are written once and published twice: here, with the live diagrams, and [on the GitHub wiki](wiki:Start-Here), where they sit beside the manual's full reference pages.

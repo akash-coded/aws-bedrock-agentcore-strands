@@ -1,7 +1,9 @@
 {
   "v": 1,
   "title": "Ninety Days",
-  "premise": "SkyWays, a fictional airline, has ninety days to put a rebooking assistant in front of stranded passengers. You make the calls.",
+  "what": "A game: run a ninety‑day AI project.",
+  "premise": "You lead a fictional airline's project to build an AI assistant that rebooks stranded passengers. The project has ninety days. You make thirteen decisions, and each one costs days.",
+  "pitch": "A game takes ten to fifteen minutes. Every decision shows its price in days before you choose. Some decisions cost more days later.",
   "short": "SkyWays is a fictional airline building an assistant that rebooks stranded passengers.",
   "rules": {
     "slack": 18,
@@ -187,8 +189,8 @@
       "name": "Acceptance bar per kind of case",
       "term": "The bar, per slice",
       "plain": "How often the assistant must be right, for each kind of case (a slice), worked out from what a mistake costs.",
-      "on": "A bar for each kind of case is on file.",
-      "off": "No bar for each kind of case is on file."
+      "on": "A pass mark per kind of case is on file.",
+      "off": "No pass mark per kind of case is on file."
     },
     "budget": {
       "name": "Authority budget",
@@ -254,8 +256,8 @@
       "phase": 0,
       "room": "board",
       "owner": "arjun",
-      "head": "Six people have given the team 31 requirements. Design starts this week.",
-      "context": "It is week one, and two meetings with the airline's staff are over.",
+      "head": "Six airline managers have given the project team 31 requirements for the AI assistant. Design starts this week.",
+      "context": "It is the first week, and the project team has met the six managers twice.",
       "with": [
         "arjun",
         "ops",
@@ -273,7 +275,7 @@
           "And compliance has hardly spoken."
         ]
       ],
-      "ask": "What do you do with the 31?",
+      "ask": "What should the team do with the 31 requirements?",
       "options": [
         {
           "id": "a",
@@ -313,13 +315,17 @@
       "phase": 0,
       "room": "arch",
       "owner": "arjun",
-      "head": "Six people must agree to one list. None of them has seen it.",
-      "context": "The requests from both meetings have been written up.",
+      "head": "Six airline managers must approve one list of their 31 requirements. No manager has seen the list yet.",
+      "context": "The project team wrote the list after two meetings with the six managers.",
       "with": [
         "arjun",
         "priya"
       ],
       "needs": "register",
+      "leans": {
+        "day": "d1",
+        "doc": "register"
+      },
       "scene": [
         [
           "arjun",
@@ -330,7 +336,7 @@
           "Each of them will look for their own words first."
         ]
       ],
-      "ask": "What goes out?",
+      "ask": "What should the team send to the six managers?",
       "options": [
         {
           "id": "a",
@@ -349,7 +355,7 @@
         {
           "id": "b",
           "label": "The list, each line credited to who raised it",
-          "recap": "sent the list with names on every line",
+          "recap": "sent six managers the requirements list, with their names",
           "days": 1,
           "right": true,
           "now": "Four people see their words merged into one line, with their names beside it. All six confirm by Friday.",
@@ -370,13 +376,18 @@
       "phase": 0,
       "room": "arch",
       "owner": "arjun",
-      "head": "The law, an old system and a contract set limits on the assistant.",
-      "context": "No target for speed, safety or cost is agreed yet.",
+      "head": "Three things set limits on the AI assistant: a refund law, a slow booking system and a partner airline contract.",
+      "context": "The six managers have not yet agreed any target for speed, safety or cost.",
       "with": [
         "arjun",
         "legal"
       ],
       "needs": "credited",
+      "leans": {
+        "day": "d2",
+        "doc": "credited",
+        "on": "All six have confirmed the list."
+      },
       "scene": [
         [
           "legal",
@@ -387,12 +398,12 @@
           "The booking system is old and slow. And our partners cap how often we can call them."
         ]
       ],
-      "ask": "When do these limits meet the quality targets?",
+      "ask": "When should the team set the three limits against the targets for speed, safety and cost?",
       "options": [
         {
           "id": "a",
           "label": "After the targets are agreed, in one pass",
-          "recap": "left the limits in a folder for later",
+          "recap": "left the three limits on the assistant for later",
           "days": 0,
           "now": "The limits go in a folder for later.",
           "debt": {
@@ -406,7 +417,7 @@
         {
           "id": "b",
           "label": "Now, sorted by kind, before anything is agreed",
-          "recap": "sorted the limits by kind before any target was agreed",
+          "recap": "sorted the limits on the assistant before agreeing any target",
           "days": 1,
           "right": true,
           "now": "The limits come out of the folder before the workshop. Six lines were called a must in the meetings, and some of them are only wishes.",
@@ -428,8 +439,8 @@
       "phase": 0,
       "room": "board",
       "owner": "arjun",
-      "head": "Nine quality targets cannot all come first.",
-      "context": "Six people from across the airline have one afternoon to rank them.",
+      "head": "The AI assistant has nine quality targets, such as speed and cost. The nine targets cannot all come first.",
+      "context": "Six airline managers have one afternoon to put the nine targets in order.",
       "with": [
         "arjun",
         "ops",
@@ -439,6 +450,10 @@
         "priya"
       ],
       "needs": "constraints",
+      "leans": {
+        "day": "d3",
+        "doc": "constraints"
+      },
       "scene": [
         [
           "arjun",
@@ -449,12 +464,12 @@
           "They cannot all come first."
         ]
       ],
-      "ask": "How does the room decide what comes first?",
+      "ask": "How should the six managers decide which target comes first?",
       "options": [
         {
           "id": "a",
           "label": "Dots on a wall: everyone votes, and the count decides",
-          "recap": "let a vote with dots rank the nine targets",
+          "recap": "let a dot vote rank the nine quality targets",
           "days": 1,
           "now": "The room is done by three o'clock. Cost per case gets two dots.",
           "debt": {
@@ -468,7 +483,7 @@
         {
           "id": "b",
           "label": "Each person ranks what matters and what is hard; merge the six",
-          "recap": "had six people rank the nine targets",
+          "recap": "had six managers rank the nine quality targets",
           "days": 2,
           "right": true,
           "now": "Nine targets, signed. Three score high on both importance and difficulty. Those three are where a design decision is owed.",
@@ -494,13 +509,18 @@
       "phase": 1,
       "room": "arch",
       "owner": "arjun",
-      "head": "Three design decisions cut both ways. None is written down.",
-      "context": "Design has started, and each of the three trades one thing for another.",
+      "head": "The AI assistant's design has three hard decisions. Each decision gains one thing and gives up another, and no decision is written down.",
+      "context": "Design has started, and the team has never recorded a design decision in writing.",
       "with": [
         "arjun",
         "sam"
       ],
       "needs": "targets",
+      "leans": {
+        "day": "d4",
+        "doc": "targets",
+        "on": "Three of them need a design decision."
+      },
       "scene": [
         [
           "arjun",
@@ -511,7 +531,7 @@
           "So how many do we write?"
         ]
       ],
-      "ask": "How many decision records?",
+      "ask": "How many of its design decisions should the team record in writing?",
       "options": [
         {
           "id": "a",
@@ -553,14 +573,18 @@
       "room": "product",
       "owner": "priya",
       "gate": true,
-      "head": "This is sign-off day. The build will start from whatever is signed today.",
-      "context": "After today, the engineers' coding agent builds exactly what it is given.",
+      "head": "Today the product manager signs off what the AI assistant must do. The engineers will build exactly what is signed.",
+      "context": "The requirements run to thirty pages, and the engineers' coding agent builds whatever it is given.",
       "with": [
         "priya",
         "sam",
         "arjun"
       ],
       "needs": "records",
+      "leans": {
+        "day": "d5",
+        "doc": "records"
+      },
       "scene": [
         [
           "priya",
@@ -571,7 +595,7 @@
           "My coding agent will read none of it. It builds what it is given, to the letter."
         ]
       ],
-      "ask": "What does the build start from?",
+      "ask": "Which document should the engineers build the AI assistant from?",
       "options": [
         {
           "id": "a",
@@ -587,7 +611,7 @@
         {
           "id": "b",
           "label": "One page: what it may do, how right it must be, who signs",
-          "recap": "cut thirty pages to one signed page",
+          "recap": "cut the thirty-page requirements to one signed page",
           "days": 2,
           "right": true,
           "now": "Five things turned out to be undecided: the model's role, what it may do alone, how right it must be, the fallback, the records. Each is settled with its owner.",
@@ -630,13 +654,18 @@
       "phase": 1,
       "room": "arch",
       "owner": "arjun",
-      "head": "Build the agent framework, buy one, or borrow one? Sam already has a favourite.",
-      "context": "The team must pick the software that will run the assistant for years.",
+      "head": "The AI assistant needs a software framework to run on. The team can build a framework, buy one or borrow a free one.",
+      "context": "The engineering lead already favours one framework, and the choice will last for years.",
       "with": [
         "arjun",
         "sam"
       ],
       "needs": "targets",
+      "leans": {
+        "day": "d5",
+        "doc": "records",
+        "on": "The third one, the framework, is due today."
+      },
       "scene": [
         [
           "sam",
@@ -647,7 +676,7 @@
           "Liking it is not a reason we can defend in a year."
         ]
       ],
-      "ask": "How is it decided?",
+      "ask": "How should the team choose the framework?",
       "options": [
         {
           "id": "a",
@@ -697,20 +726,24 @@
       "phase": 2,
       "room": "eng",
       "owner": "sam",
-      "head": "Building starts today, with seven things still unknown.",
-      "context": "Design is over, a two-week sprint is booked, and something must be built first.",
+      "head": "The engineers start building the AI assistant today. Seven things about the build are still unknown.",
+      "context": "Design is finished, and the first two weeks of building are already booked.",
       "with": [
         "sam",
         "maya"
       ],
       "needs": "spec",
+      "leans": {
+        "day": "d6",
+        "doc": "spec"
+      },
       "scene": [
         [
           "sam",
           "Seven things we do not know yet, and a two-week sprint already on the calendar."
         ]
       ],
-      "ask": "What ships first?",
+      "ask": "What should the engineers build first?",
       "options": [
         {
           "id": "a",
@@ -755,13 +788,17 @@
       "phase": 2,
       "room": "qa",
       "owner": "maya",
-      "head": "The first test score is 82.4. The promise was 80.",
-      "context": "The assistant has answered 500 real cases, and launch is planned for Monday.",
+      "head": "On its first test the AI assistant got 82.4 percent of 500 real cases right. The team promised 80 percent.",
+      "context": "The assistant is due to start answering real passengers on Monday.",
       "with": [
         "maya",
         "priya"
       ],
       "needs": "bar",
+      "leans": {
+        "day": "d6",
+        "doc": "bar"
+      },
       "scene": [
         [
           "maya",
@@ -772,7 +809,7 @@
           "And we promised 80. So we pass?"
         ]
       ],
-      "ask": "What does Maya report?",
+      "ask": "What should the QA lead report about the score?",
       "options": [
         {
           "id": "a",
@@ -830,13 +867,18 @@
       "phase": 2,
       "room": "eng",
       "owner": "sam",
-      "head": "Nine code changes are stuck waiting for review. Two of them touch money.",
-      "context": "The build is moving faster than the two reviewers can read.",
+      "head": "Nine changes to the AI assistant's code are waiting to be reviewed. Two of the nine changes alter how refunds are paid.",
+      "context": "Two senior engineers read every change, and the queue is four days long.",
       "with": [
         "sam",
         "maya"
       ],
       "needs": "skeleton",
+      "leans": {
+        "day": "d8",
+        "doc": "skeleton",
+        "on": "The build has added a piece a day since."
+      },
       "scene": [
         [
           "sam",
@@ -847,7 +889,7 @@
           "Two of the nine touch money."
         ]
       ],
-      "ask": "What changes?",
+      "ask": "How should the team review the nine changes?",
       "options": [
         {
           "id": "a",
@@ -910,14 +952,19 @@
       "phase": 3,
       "room": "platform",
       "owner": "lena",
-      "head": "The model bill is 4.4 times the estimate. Traffic is flat.",
-      "context": "The assistant is live, and the funding decision is fifteen days away.",
+      "head": "The bill for the assistant's AI model is 4.4 times the estimate. Passenger numbers are flat.",
+      "context": "The assistant now answers real passengers, and the funding decision is fifteen days away.",
       "with": [
         "lena",
         "arjun",
         "finance"
       ],
       "needs": "targets",
+      "leans": {
+        "day": "d4",
+        "doc": "targets",
+        "on": "One is a limit on cost per case."
+      },
       "scene": [
         [
           "lena",
@@ -928,7 +975,7 @@
           "Then what changed?"
         ]
       ],
-      "ask": "What do you open first?",
+      "ask": "What should the team look at first to explain the bill?",
       "options": [
         {
           "id": "a",
@@ -995,15 +1042,21 @@
       "phase": 3,
       "room": "centre",
       "owner": "maya",
-      "context": "The passenger was owed $180, and any refund over $400 needs a named approver.",
+      "context": "By law, a refund over $400 needs a named person to approve it.",
       "with": [
         "maya",
         "centre",
         "agent"
       ],
+      "leans": {
+        "day": "d6",
+        "doc": "budget",
+        "on": "A $400 limit on refunds was signed then.",
+        "off": "No limit on refunds was signed then."
+      },
       "variants": {
         "blocked": {
-          "head": "The assistant tried to refund $2,000. The tool refused it.",
+          "head": "The AI assistant tried to refund $2,000 to a passenger who was owed $180. The refund tool refused the payment.",
           "scene": [
             [
               "centre",
@@ -1014,7 +1067,7 @@
               "The tool refused it at $400. The limit is in the code."
             ]
           ],
-          "ask": "What do you do with a near miss?",
+          "ask": "What should the team do about the refund that was refused?",
           "options": [
             {
               "id": "a",
@@ -1042,7 +1095,7 @@
           ]
         },
         "paid": {
-          "head": "The assistant sent a $2,000 refund that was not owed.",
+          "head": "The AI assistant paid $2,000 to a passenger who was owed $180. Nothing stopped the payment.",
           "scene": [
             [
               "centre",
@@ -1053,7 +1106,7 @@
               "The $400 limit was written in the prompt. The refund tool accepts any amount."
             ]
           ],
-          "ask": "What is the review's first question?",
+          "ask": "What should the review of the wrong payment ask first?",
           "options": [
             {
               "id": "a",
@@ -1103,20 +1156,24 @@
       "phase": 3,
       "room": "board",
       "owner": "priya",
-      "head": "The sponsor asks what ninety days bought, and what it cost.",
-      "context": "The committee that funds the project decides today whether it continues.",
+      "head": "The executive who sponsors the project asks what ninety days achieved and what the work cost.",
+      "context": "A committee of airline executives decides today whether to keep funding the assistant.",
       "with": [
         "priya",
         "sponsor",
         "finance"
       ],
+      "leans": {
+        "day": "d11",
+        "doc": "rootcause"
+      },
       "scene": [
         [
           "sponsor",
           "Ninety days. What did we get, and what did it cost?"
         ]
       ],
-      "ask": "Three lines fit on the slide. Which three?",
+      "ask": "The slide for the committee has room for three lines. Which three should go on the slide?",
       "task": "slide",
       "deeper": [
         [
@@ -1230,18 +1287,21 @@
         {
           "id": "same",
           "name": "Same-day change",
+          "short": "Same-day",
           "n": 400,
           "right": 340
         },
         {
           "id": "code",
           "name": "Partner-airline rebooking",
+          "short": "Partner",
           "n": 55,
           "right": 36
         },
         {
           "id": "refund",
           "name": "Refund",
+          "short": "Refund",
           "n": 45,
           "right": 36
         }

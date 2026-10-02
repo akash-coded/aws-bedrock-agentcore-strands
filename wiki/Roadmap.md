@@ -8,7 +8,7 @@ Last revised: **2026-09-24**.
 
 An open manual for delivering software that has a model inside it: the agentic PDLC as a
 [tutorial](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/) and a
-[playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/) on the site, a
+[simulator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/) on the site, a
 [sixteen-module course](Course-Companion) with auto-graded [labs](Labs-Companion) in the repository,
 and this wiki as the reference, the cohort kit and the community layer between them. It is one
 person's work, open-sourced under MIT, and it improves through the people who use it.
@@ -18,7 +18,7 @@ person's work, open-sourced under MIT, and it improves through the people who us
 | When | What |
 | --- | --- |
 | 2026-09 | The wiki reorganised into five sections; the tutorial's lesson mirrors retired in favour of a thin index; the [course companion](Course-Companion), [labs companion](Labs-Companion) and [cohort kit](Cohort-Kit) added |
-| 2026-09 | Every lesson and reference picture redrawn in one visual grammar, light and dark; the playbook replaced with its current release, with a way back to the manual from every page |
+| 2026-09 | Every lesson and reference picture redrawn in one visual grammar, light and dark; the workbench replaced with its current release, with a way back to the manual from every page |
 | 2026-09 | The tutorial: 55 lessons in eight tracks on the site, with search, social cards, structured data and `llms.txt` |
 | 2026-09 | The manual's front door: a page per role, templates, prompts, mental models, the leadership protocol, a guided walkthrough on every page |
 | 2026-09 | Google Search Console verified for the site; the wiki is not indexable by design, so everything meant to be found lives on the site |
@@ -32,7 +32,7 @@ person's work, open-sourced under MIT, and it improves through the people who us
 - **The labs pathway.** Ten of forty-one labs are built. The remaining thirty-one are specified in the
   [pathway](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/labs/PATHWAY.md#the-complete-pathway)
   and open for contribution; [how to author one](https://github.com/akash-coded/aws-bedrock-agentcore-strands/blob/main/labs/CONTRIBUTING-A-LAB.md).
-- **Contact, without a mail app.** The playbook's contact form currently opens the visitor's mail
+- **Contact, without a mail app.** The manual's contact form currently opens the visitor's mail
   client. A hosted relay is next, so a message can be sent from the page.
 - **A custom domain for the site.** The site stays at its GitHub Pages address until a domain is
   chosen; when it moves, every existing link redirects.
@@ -42,7 +42,7 @@ person's work, open-sourced under MIT, and it improves through the people who us
 1. **Run the cohort kit once, for real,** and rewrite the sessions from what happened. The
    [eight sessions](Cohort-Kit) are designed, not yet field-tested; the first [field note](Field-Notes)
    from a facilitator changes them more than another draft would.
-2. **Close the loop from the playbook back to the lessons.** Each calculator in the playbook should
+2. **Close the loop from the workbench back to the lessons.** Each calculator in the workbench should
    name the lesson that derives its formula, the way each lesson now names the calculator.
 3. **The remaining labs,** in pathway order, starting with the tracks that have one lab each.
 4. **A printable edition** of the tutorial, one PDF per track, for the readers who asked for it.

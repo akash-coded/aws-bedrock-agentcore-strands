@@ -10,9 +10,9 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The hard gate in one sentence.** Of the four hand-offs in the agentic PDLC only P1 → P2 halts the
-> build, because the spec, the acceptance bar per slice and the authority budget are what everything
-> downstream is built and measured against, every other open decision runs alongside the build
+> **The hard gate in short.** Of the four hand-offs in the agentic PDLC only P1 → P2 halts the
+> build. The spec, the acceptance bar per slice and the authority budget are what everything
+> downstream is built and measured against. Every other open decision runs alongside the build
 > behind a placeholder, with a named owner and a date.
 
 {{map:the-hard-gate}}
@@ -48,8 +48,6 @@ until three artefacts are signed. The home page and the simulator call it by its
 It sits there because P1 → P2 is the last point at which changing your mind costs a document rather
 than a rewrite. It is a **one-way door**; the others are two-way.
 
-{{sketch:three-tokens-one-way}}
-
 ## How to decide what is hard, step by step
 
 ### Step 1 · Ask the four questions of every open decision
@@ -71,7 +69,7 @@ In a typical build three decisions come back hard, and each for a different reas
 
 ### Step 3 · Put a placeholder behind every soft one
 
-The rest, SkyWays had eight, run beside the build. What makes that safe is a **real placeholder**
+The rest (SkyWays had eight) run beside the build. What makes that safe is a **real placeholder**
 that lets the work proceed while the decision is measured: an interface layer in front of the
 framework, a stub that returns a file instead of a retrieval system, every call on a mid-tier model
 behind a gateway until the shadow run shows which slices need more. Each has an owner and a date on
@@ -79,8 +77,6 @@ which it will be settled.
 
 A placeholder that reads "the model behaves sensibly" is not one. That exact placeholder, on the
 refund action, cost SkyWays $2,000 on day 82.
-
-{{sketch:a-stand-in-the-right-size}}
 
 ### Step 4 · Record the gate decision with its evidence
 
@@ -100,7 +96,7 @@ from a completed one six weeks later.
 ## Where you'll use it
 
 - **At the end of every P1**, however small the change: the three artefacts may be one line each.
-- **In the weekly review**, re-asking the four questions of every soft decision, some turn hard as
+- **In the weekly review**, re-asking the four questions of every soft decision: some turn hard as
   the build learns more.
 - **When somebody proposes treating everything as hard** "to be safe": that is how a build waits three
   weeks for a reversible framework choice.
@@ -121,7 +117,7 @@ retrieval design; the dashboard layout; and whether a human approves cross-partn
 <details><summary>Show the answer</summary>
 
 **Two: the refund approval threshold and the approval rule for cross-partner rebookings.** Both are
-autonomy decisions on consequential actions (money, and a rebooking that is hard to reverse) so
+autonomy decisions on consequential actions (money, and a rebooking that is hard to reverse), so
 everything downstream, from the tool signatures to the tests, depends on them, and they fail the first
 question. The model family can sit behind a gateway, the retrieval design behind a stub, and the
 dashboard can wait for P3; each needs only an owner and a date.
@@ -158,7 +154,7 @@ building on decisions that will move.
 ### Who signs the hard gate?
 
 The solution architect is accountable for P1 and signs its exit; the product manager and architect
-jointly own the plan gate, the bolt cut, the authority budget and the gate map. A waiver for crossing
+jointly own the plan gate: the bolt cut, the authority budget and the gate map. A waiver for crossing
 without the full set is approved by the sponsor.
 
 ## Apply it in your role
@@ -177,17 +173,17 @@ else run in parallel. One hard gate is how governance stops slowing delivery dow
 ```text
 Here are our open decisions: <list>. For each, answer four questions: can it be reversed cheaply once
 building starts? can the build proceed behind a placeholder? is there a named owner and a date? does
-everything downstream survive if the answer changes? One "no" makes it HARD. Output a table —
-decision, the four answers, HARD or SOFT — and the placeholder for each SOFT one.
+everything downstream survive if the answer changes? One "no" makes it HARD. Output a table
+(decision, the four answers, HARD or SOFT) and the placeholder for each SOFT one.
 ```
 
 ## Sources and credits
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| One hard hand-off, three soft ones, and the four classifying questions | **Original**: this playbook | [Gates and Governance](wiki:Gates-and-Governance#hard-gates-and-soft-gates) |
-| The hard-gate waiver | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#the-one-hard-hand-off--p1--p2) |
+| One hard hand-off, three soft ones, and the four classifying questions | **Original**: this manual | [Gates and Governance](wiki:Gates-and-Governance#hard-gates-and-soft-gates) |
+| The hard-gate waiver | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC#the-one-hard-hand-off--p1--p2) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
 | One-way and two-way doors | **Borrowed** | Bezos, J. 2015 letter to Amazon shareholders. Type 1 and Type 2 decisions |
 | Architecture decisions recorded where they are sensitive | **Borrowed** | Nygard, M. (2011). Documenting architecture decisions |
-| The SkyWays figures | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays figures | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

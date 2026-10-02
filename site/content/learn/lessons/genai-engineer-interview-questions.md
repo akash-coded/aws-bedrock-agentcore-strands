@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The bank in one sentence.** GenAI engineer interviews test whether you can make a model-backed system
-> measurably right, fast and affordable, by separating retrieval failures from generation failures,
-> evaluating against your own data, splitting latency and cost into the parts you control, and designing
-> for the model being tricked, and these ten questions each come with the framework, a strong answer, the
-> follow-up that finds the limit of your experience, and the red flag.
+> **The bank in short.** GenAI engineer interviews test whether you can make a model-backed system
+> measurably right, fast and affordable. You do it by separating retrieval failures from generation
+> failures, evaluating against your own data, splitting latency and cost into the parts you control, and
+> designing for the model being tricked. These ten questions each come with the framework, a strong
+> answer, the follow-up that finds the limit of your experience, and the red flag.
 
 {{map:genai-engineer-interview-questions}}
 
@@ -45,7 +45,7 @@ and which failure they found in production and what now prevents it.
 
 ### Q1 · "Your RAG system gives wrong answers. How do you find out whether retrieval or generation is at fault?"
 
-**Tests:** diagnosis before remedy · **Framework:** the grounding triangle, retrieved, cited, verified
+**Tests:** diagnosis before remedy · **Framework:** the grounding triangle: retrieved, cited, verified
 
 <details><summary>What a strong answer covers</summary>
 
@@ -83,7 +83,7 @@ production sample
   and a watch on the mix of outputs for drift.
 - **The insight:** a golden set built from cases the system already passes is a mirror; it can only go down.
 
-**The follow-up:** "How big should the set be?" → sized per slice by how close the score is to its bar,
+**The follow-up:** "How big should the set be?" → sized per slice by how close the score is to its bar:
 the cases needed grow with the square of the gap.
 
 **Red flag:** public benchmarks as the main evidence.
@@ -103,7 +103,7 @@ prompts, consistency and cost in fine-tuning
   behaviour into a smaller, cheaper, faster one, once you have enough good examples and a gap that
   prompting did not close.
 - **Not for facts**: fine-tuned knowledge goes stale silently and cannot be cited.
-- **The insight:** fine-tuning moves cost from inference to data and operations, every base-model update
+- **The insight:** fine-tuning moves cost from inference to data and operations: every base-model update
   means re-training and re-evaluating. Measure the gap it closes before paying that tax.
 
 **The follow-up:** "The fine-tuned model is better on the benchmark and worse in production." → the
@@ -117,17 +117,17 @@ benchmark is not your distribution; evaluate on your own slices.
 
 ### Q4 · "Latency is eight seconds; the product needs two. What do you do?"
 
-**Tests:** performance engineering · **Framework:** the three clocks, model, tool, orchestration
+**Tests:** performance engineering · **Framework:** the three clocks: model, tool, orchestration
 
 <details><summary>What a strong answer covers</summary>
 
 - **Measure the split first.** Model time: cap output tokens, stream, use a faster model on easy routes,
   cache a long stable prefix. Tool time: parallelise independent calls, cache, set timeouts. Orchestration:
-  fewer turns: route known paths to a workflow.
+  fewer turns; route known paths to a workflow.
 - **Ask which clock the requirement is about**: time to first token or total time. Streaming the first
   token in 400 ms can make an eight-second answer feel fast.
 - **The insight:** most latency programmes optimise the model clock because it is visible, while the
-  orchestration clock, turns multiplied by round trips, is the one that dominates agentic systems.
+  orchestration clock (turns multiplied by round trips) is the one that dominates agentic systems.
 
 **The follow-up:** "Streaming is not allowed; the output is JSON." → then fewer turns, smaller outputs,
 parallel tools, and a faster model per slice where its bar still holds.
@@ -164,7 +164,7 @@ provider's minimum cacheable length and cache lifetime.
 
 - **Define slices and bars first**, then test two or three candidates on the golden set.
 - **Route by slice**: the cheapest model that clears each slice's bar, a stronger one for the rest.
-- **Pin versions**, log which model answered every response, and plan the fallback, a fallback to a larger
+- **Pin versions**, log which model answered every response, and plan the fallback: a fallback to a larger
   model is a cost cliff, and a fallback to a smaller one is a silent quality drop.
 - **Re-evaluate on every model update**, as a change like any other.
 - **The insight:** routing by difficulty usually saves more than any single model switch, and logging the
@@ -192,7 +192,7 @@ the blast radius
   egress allowlists.
 - **Filter outputs** for data exfiltration patterns, and log every tool call.
 - **Test continuously**: an attack suite on every prompt, tool or context change, from every entry point.
-- **The insight:** the question is not whether the model can be tricked, it can, but what is the worst it
+- **The insight:** the question is not whether the model can be tricked (it can) but what is the worst it
   can do when it is. Injection is a permissions problem more than a prompt problem.
 
 **The follow-up:** "A partner API adds a free-text field." → a new entry point: extend the attack suite to it
@@ -321,8 +321,8 @@ position, verbosity and self-preference biases.
 **The ten-minute workflow.** A diagnostic drill with a broken system:
 
 ```text
-Describe a realistic production symptom of a retrieval-augmented system — wrong answers, a latency spike, a
-cost jump or an injection — without telling me the cause. Answer my diagnostic questions as the system's
+Describe a realistic production symptom of a retrieval-augmented system (wrong answers, a latency spike, a
+cost jump or an injection) without telling me the cause. Answer my diagnostic questions as the system's
 logs would, one at a time. When I name the cause and the fix, tell me how many questions a strong engineer
 would have needed, and what I should have asked first.
 ```

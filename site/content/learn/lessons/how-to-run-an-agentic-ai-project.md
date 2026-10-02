@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The playbook in one sentence.** Run an agentic AI project in twelve steps across four phases:
-> measure the pain, decide whether it needs a model, and set autonomy per action (**P0**); map every
-> step, write an eight-field spec with a bar per slice, and put every limit in code (**P1**); build in
-> bolts behind a harness and prove it in shadow (**P2**); then widen on evidence, watch for drift and
-> report what it saved beside what it cost (**P3**).
+> **The playbook in short.** Run an agentic AI project in twelve steps across four phases. In
+> **P0**, measure the pain, decide whether it needs a model, and set autonomy per action. In **P1**,
+> map every step, write an eight-field spec with a bar per slice, and put every limit in code. In
+> **P2**, build in bolts behind a harness and prove it in shadow. In **P3**, widen on evidence, watch
+> for drift and report what it saved beside what it cost.
 
 {{board:delegation}}
 
@@ -144,7 +144,7 @@ cycle.
 
 It depends less on building than on evidence. A small change can run all twelve steps in an
 afternoon; a new agent typically takes weeks, and the longest single wait is usually the live
-evidence needed to widen a cut-over, which is set by traffic, not effort. SkyWays, the playbook's
+evidence needed to widen a cut-over, which is set by traffic, not effort. SkyWays, this manual's
 worked example, ran ninety days.
 
 ### Who should lead an agentic AI project?
@@ -182,8 +182,8 @@ authority in code, bolts, harness, shadow, widen, drift, two numbers. List what 
 
 | Idea | Origin | Source |
 | --- | --- | --- |
-| The twelve steps, their order and owners | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC) · [Gates and Governance](wiki:Gates-and-Governance#who-signs-what) |
-| The model drafts, you check, one thing never delegated | **Original**: this playbook | [The Agentic PDLC](wiki:The-Agentic-PDLC#where-the-model-helps-and-where-it-must-not) |
+| The twelve steps, their order and owners | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC) · [Gates and Governance](wiki:Gates-and-Governance#who-signs-what) |
+| The model drafts, you check, one thing never delegated | **Original**: this manual | [The Agentic PDLC](wiki:The-Agentic-PDLC#where-the-model-helps-and-where-it-must-not) |
 | Gates opened by evidence | **Borrowed** | Cooper, R. G. (1990). Stage-gate systems. *Business Horizons* 33(3) |
 | Bolts | **Adapted** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
-| The SkyWays timeline | **Illustrative**: a fictional airline | [The simulator](sim:#/) |
+| The SkyWays timeline | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

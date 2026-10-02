@@ -1,15 +1,15 @@
-"""The homepage boards.
+"""The boards on the method page.
 
-Three illustrations, in the order a newcomer needs them: the lifecycle itself, the same
-lifecycle seen from each chair, and the division of labour between a person and a model
-inside it. Content here is the wiki's canonical spine and the roles' own step data, so
-the pictures cannot drift from the prose.
+Four illustrations, in the order a newcomer needs them: the lifecycle itself, the loops that
+bring production back into it, the same lifecycle seen by each role, and the division of labour
+between a person and a model inside it. Content here is the wiki's canonical lifecycle and the
+roles' own step data, so the pictures cannot drift from the prose.
 """
 from __future__ import annotations
 
-from . import dg
+from . import bb, dg
 
-# --------------------------------------------------------------------------- A · the spine
+# --------------------------------------------------------------------------- A · the four phases
 PHASES = [
     ("slate", "P0 · Frame", "product manager", "frame", "Decide whether to build it at all.",
      [("Pain register", "one line, a count, a cost"),
@@ -62,19 +62,20 @@ def pdlc() -> str:
     inner = dg.flow(cols, gate_after=1) + dg.returns(
         "production is where the next frame comes from: incident, drift, cost")
     return dg.board(
-        "The spine", "P0 to P3: the SkyWays PDLC loop",
+        "The four phases", "P0 to P3: the SkyWays PDLC loop",
         "Four phases that run as a spiral rather than a line. Each pass takes an idea a step "
-        "closer to production, and what production teaches starts the next pass. Click a "
-        "phase to open its lesson.",
+        "closer to production, and what production teaches starts the next pass. The name of "
+        "each phase opens its lesson.",
         inner,
-        aside_title="What the hard gate is",
-        aside='<div class="bkc"><b>The one hand-off nobody may skip.</b> The spec, the bar per slice '
-              "and the authority budget are signed before a line of the agent is written.</div>"
+        aside_title="What the sign-off is",
+        aside='<div class="bkc"><b>The one hand-off nobody may skip.</b> The lessons call it the hard '
+              "gate: the spec, the bar per slice and the authority budget are signed before a line of "
+              "the agent is written.</div>"
               '<div class="bkc"><b>Why it sits between P1 and P2.</b> Paper is cheap to change and '
               "production is not. The other three crossings are soft: they check evidence and let "
               "the line move.</div>"
               '<div class="bkc"><b>Go deeper.</b> <a href="learn/what-is-the-agentic-pdlc/">The four '
-              'phases in one lesson</a> · <a href="learn/p1-design-and-spec/">What the gate checks</a></div>',
+              'phases in one lesson</a> · <a href="learn/p1-design-and-spec/">What the sign-off checks</a></div>',
         bid="pdlc")
 
 
@@ -161,7 +162,7 @@ LANES = [
             "Distinct pains from six transcripts, deduplicated",
             "Counts from a ticket export, with the script it ran",
             "Cost-per-case arithmetic, assumptions in named cells"], False),
-        ("indigo", "You check", [
+        ("sky", "You check", [
             "Every line still carries the name of who said it",
             "The script counted the right date column",
             "A sceptic can move one cell and watch the answer move"], False),
@@ -174,7 +175,7 @@ LANES = [
             "The constraint register, sorted by type",
             "A first pass at the agent map, every step tagged",
             "The eight-field spec from the brief and the notes"], False),
-        ("indigo", "You check", [
+        ("sky", "You check", [
             "The register separates real constraints from habits",
             "A $400 threshold is policy, not folklore",
             "Each bar was derived from two money figures, not chosen"], False),
@@ -187,7 +188,7 @@ LANES = [
             "The deterministic floor from the exact-code inventory",
             "Checker implementations and a first judge rubric",
             "Golden-set candidates pulled from real traffic"], False),
-        ("indigo", "You check", [
+        ("sky", "You check", [
             "The boundary line says what the system must refuse",
             "The judge agrees with human labels on a fresh sample",
             "The harness runs in cost order and blocks the merge"], False),
@@ -200,7 +201,7 @@ LANES = [
             "The trace schema and a starting alarm set",
             "The bill decomposed into its four factors",
             "A draft of the two-number report"], False),
-        ("indigo", "You check", [
+        ("sky", "You check", [
             "The factors multiply back to the bill you were sent",
             "The blast radius of each new permission is named",
             "Drift is measured against the launch set, not last week"], False),
@@ -229,74 +230,137 @@ def delegation() -> str:
 
 
 # --------------------------------------------------------------------------- D · the loops
-# Geometry, stated once so the drawing below is readable. Four phase nodes on a spine;
+# Geometry, stated once so the drawing below is readable. Four phase nodes on a line;
 # forward loops arc over it, loops that close inside a phase dip just under it, and the
-# three that run backwards swing deep below, which is the whole point of the picture.
+# two that run backwards swing deep below, which is the whole point of the picture.
+# Governance runs the whole length above it. Type is 14 units on a 1120 canvas, and the
+# drawing is only shown from 900px of column up, so no label is under 11px on screen;
+# below that the board shows ``_loops_narrow``, the same eight loops set upright.
 _PX = [("slate", "P0", "Frame", 150), ("indigo", "P1", "Design & Spec", 420),
        ("teal", "P2", "Build & Prove", 690), ("amber", "P3", "Run & Learn", 960)]
-_NW, _TOP, _BOT = 190, 150, 212
+_NW, _TOP, _BOT = 190, 158, 224
+_FS = 14
 
 
 def _tag(x: float, y: float, text: str, colour: str, weight: int = 600,
-         anchor: str = "middle") -> str:
-    """A label that has to survive sitting on top of a curve: it carries its own backing."""
-    w = len(text) * 5.7 + 14
+         anchor: str = "middle", fs: float = _FS) -> str:
+    """A label that has to survive sitting on top of a curve: it carries its own backing,
+    cut to the measured width of its words."""
+    w = bb.tw(text, fs, weight) + 14
     x0 = x - w / 2 if anchor == "middle" else (x - 7 if anchor == "start" else x - w + 7)
-    return (f'<rect x="{x0:.0f}" y="{y - 10:.0f}" width="{w:.0f}" height="14" rx="4" '
+    return (f'<rect x="{x0:.0f}" y="{y - fs:.0f}" width="{w:.0f}" height="{fs + 6:.0f}" rx="5" '
             f'fill="var(--bone)"/>'
-            f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="{anchor}" font-size="10.5" '
+            f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="{anchor}" font-size="{fs}" '
             f'font-weight="{weight}" fill="{colour}">{dg.E(text)}</text>')
 
 
-def _loops_svg() -> str:
-    ink, rose, violet = "var(--soft)", "var(--dg-rose)", "var(--dg-violet)"
-    o = ['<defs>']
-    for name, col in (("ai", ink), ("ar", rose), ("av", violet)):
-        o.append(f'<marker id="{name}" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" '
+def _markers(suffix: str = "") -> str:
+    o = ["<defs>"]
+    for name, col in (("ai", "var(--soft)"), ("ar", "var(--dg-rose)"), ("av", "var(--dg-violet)")):
+        o.append(f'<marker id="{name}{suffix}" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" '
                  f'orient="auto"><path d="M0 0.5 L8.5 4.5 L0 8.5 z" fill="{col}"/></marker>')
-    o.append("</defs>")
+    return "".join(o) + "</defs>"
+
+
+def _loops_wide() -> str:
+    ink, rose, violet = "var(--soft)", "var(--dg-rose)", "var(--dg-violet)"
+    o = [_markers()]
 
     # governance spans the whole line and belongs to nobody who builds
     o.append('<g data-loop="governance">'
-             f'<path d="M150 46 V32 H960 V46" fill="none" stroke="{violet}" stroke-width="1.6" '
+             f'<path d="M150 54 V36 H960 V54" fill="none" stroke="{violet}" stroke-width="1.6" '
              f'stroke-dasharray="5 4" marker-end="url(#av)"/>'
-             + _tag(555, 36, "Governance  ·  P0 → P3  ·  the sponsor's", violet, 700) + "</g>")
+             + _tag(555, 41, "Governance · P0 → P3 · owned by the sponsor", violet, 700) + "</g>")
 
     # the phases
     for hue, key, name, cx in _PX:
         c = f"var(--dg-{hue})"
         o.append(f'<rect x="{cx - _NW // 2}" y="{_TOP}" width="{_NW}" height="{_BOT - _TOP}" '
                  f'rx="12" fill="{c}"/>')
-        o.append(f'<text x="{cx}" y="{_TOP + 26}" text-anchor="middle" font-size="14" '
+        o.append(f'<text x="{cx}" y="{_TOP + 28}" text-anchor="middle" font-size="17" '
                  f'font-weight="700" fill="var(--dg-on)">{key}</text>')
-        o.append(f'<text x="{cx}" y="{_TOP + 45}" text-anchor="middle" font-size="12" '
-                 f'fill="var(--dg-on)" opacity=".96">{dg.E(name)}</text>')
+        o.append(f'<text x="{cx}" y="{_TOP + 50}" text-anchor="middle" font-size="{_FS}" '
+                 f'fill="var(--dg-on)">{dg.E(name)}</text>')
 
     # forward: they close on their own, because somebody downstream is waiting
     for (a, b), name in zip([(150, 420), (420, 690), (690, 960)],
                             ["Requirements · P0 → P1", "Spec · P1 → P2", "Trust · P2 → P3"]):
-        o.append(f'<path d="M{a} {_TOP} C{a} 66 {b} 66 {b} {_TOP}" fill="none" stroke="{ink}" '
+        o.append(f'<path d="M{a} {_TOP} C{a} 74 {b} 74 {b} {_TOP}" fill="none" stroke="{ink}" '
                  f'stroke-width="1.6" marker-end="url(#ai)"/>')
-        o.append(_tag((a + b) / 2, 80, name, "var(--ink2)"))
+        o.append(_tag((a + b) / 2, 100, name, "var(--ink2)"))
 
     # closes inside its own phase
     for cx, name in ((420, "Decision · P1 → P1"), (690, "Delivery · P2 → P2")):
-        o.append(f'<path d="M{cx - 34} {_BOT} C{cx - 34} 250 {cx + 34} 250 {cx + 34} {_BOT}" '
+        o.append(f'<path d="M{cx - 34} {_BOT} C{cx - 34} 262 {cx + 34} 262 {cx + 34} {_BOT}" '
                  f'fill="none" stroke="{ink}" stroke-width="1.6" marker-end="url(#ai)"/>')
-        o.append(_tag(cx + 46, 245, name, "var(--ink2)", anchor="start"))
+        o.append(_tag(cx + 48, 258, name, "var(--ink2)", anchor="start"))
 
-    # backwards: the three teams forget, drawn deep and kept moving
+    # backwards: the two a team forgets, drawn deep
     o.append('<g data-loop="cost">'
-             f'<path class="fl" d="M960 {_BOT} C960 312 366 312 366 {_BOT}" fill="none" '
+             f'<path class="fl" d="M960 {_BOT} C960 330 366 330 366 {_BOT}" fill="none" '
              f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>'
-             + _tag(600, 292, "Cost · P3 → P1", rose, 700) + "</g>")
+             + _tag(640, 309, "Cost · P3 → P1", rose, 700) + "</g>")
     o.append('<g data-loop="incident">'
-             f'<path class="fl" d="M960 {_BOT} C960 356 150 356 150 {_BOT}" fill="none" '
+             f'<path class="fl" d="M960 {_BOT} C960 380 150 380 150 {_BOT}" fill="none" '
              f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>'
-             + _tag(555, 336, "Incident · P3 → P0", rose, 700) + "</g>")
-    return dg.svg(1120, 372, "".join(o),
-                  "Four phases on a line. Five loops close forwards or inside a phase; cost, "
-                  "incident and governance run backwards across it.")
+             + _tag(555, 346, "Incident · P3 → P0", rose, 700) + "</g>")
+    return "".join(o)
+
+
+def _loops_narrow() -> tuple[int, int, str]:
+    """The same eight loops for a narrow column: the phases stacked, the forward loops between
+    them, the two that close inside a phase named in it, cost up the left, incident up the right,
+    governance down the whole length."""
+    ink, rose, violet = "var(--soft)", "var(--dg-rose)", "var(--dg-violet)"
+    W, X0, BW, BH, PITCH, Y0, F = 320, 84, 152, 62, 122, 20, 13.5
+    cx, x1 = X0 + BW / 2, X0 + BW
+    tops = [Y0 + i * PITCH for i in range(4)]
+    inside = {1: "Decision loop", 2: "Delivery loop"}
+    o = [_markers("n")]
+    for i, (hue, key, name, _x) in enumerate(_PX):
+        y = tops[i]
+        o.append(f'<rect x="{X0}" y="{y}" width="{BW}" height="{BH}" rx="12" fill="var(--dg-{hue})"/>')
+        ty = y + (25 if i in inside else 37)
+        o.append(f'<text x="{cx}" y="{ty}" text-anchor="middle" font-size="{F}" fill="var(--dg-on)">'
+                 f'<tspan font-size="16" font-weight="700">{key}</tspan> {dg.E(name)}</text>')
+        if i in inside:
+            # a loop that closes inside its own phase: a small turning arrow and its name
+            lw = bb.tw(inside[i], F, 600)
+            lx = cx - (lw + 20) / 2
+            o.append(f'<path d="M{lx + 11:.1f} {y + 40} a5.5 5.5 0 1 0 2.2 6.6" fill="none" stroke="var(--dg-on)" '
+                     f'stroke-width="1.6" stroke-linecap="round"/>'
+                     f'<path d="M{lx + 8.4:.1f} {y + 37.4} l3 2.8 -3.8 1.4" fill="none" stroke="var(--dg-on)" '
+                     f'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
+                     f'<text x="{lx + 20:.1f}" y="{y + 49}" font-size="{F}" font-weight="600" '
+                     f'fill="var(--dg-on)">{inside[i]}</text>')
+    # forward, between one phase and the next
+    for i, name in enumerate(("Requirements", "Spec", "Trust")):
+        ya, yb = tops[i] + BH, tops[i + 1]
+        o.append(f'<path d="M{cx} {ya} V{yb - 1}" fill="none" stroke="{ink}" stroke-width="1.6" marker-end="url(#ain)"/>')
+        o.append(_tag(cx, (ya + yb) / 2 + 2, name, "var(--ink2)", fs=F))
+    # governance: down the whole length, on the outside left
+    o.append('<g data-loop="governance">'
+             f'<path d="M{X0} {tops[0] + 20} H14 V{tops[3] + 14} H{X0 - 1}" fill="none" stroke="{violet}" '
+             f'stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#avn)"/>'
+             + _tag(4 + 7, (tops[0] + BH + tops[1]) / 2 + 2, "Governance", violet, 700, anchor="start", fs=F) + "</g>")
+    # cost: back up the left, from P3 to P1
+    o.append('<g data-loop="cost">'
+             f'<path class="fl" d="M{X0} {tops[3] + 44} C34 {tops[3] + 44} 34 {tops[1] + 40} {X0 - 1} {tops[1] + 40}" '
+             f'fill="none" stroke="{rose}" stroke-width="1.9" marker-end="url(#arn)"/>'
+             + _tag(50, (tops[2] + BH + tops[3]) / 2 + 2, "Cost", rose, 700, fs=F) + "</g>")
+    # incident: back up the right, from P3 to P0
+    o.append('<g data-loop="incident">'
+             f'<path class="fl" d="M{x1} {tops[3] + 31} C{x1 + 76} {tops[3] + 31} {x1 + 76} {tops[0] + 31} {x1 + 1} {tops[0] + 31}" '
+             f'fill="none" stroke="{rose}" stroke-width="1.9" marker-end="url(#arn)"/>'
+             + _tag(x1 + 43, (tops[1] + BH + tops[2]) / 2 + 2, "Incident", rose, 700, fs=F) + "</g>")
+    return W, tops[3] + BH + 14, "".join(o)
+
+
+def _loops_svg() -> str:
+    return dg.svg(1120, 396, _loops_wide(),
+                  "Four phases on a line. Five loops close forwards or inside a phase; cost and "
+                  "incident run backwards across it, and governance spans its whole length.",
+                  narrow=_loops_narrow())
 
 
 BACKWARD = [
@@ -321,19 +385,20 @@ BACKWARD = [
 
 def loops() -> str:
     inner = (_loops_svg()
-             + dg.section_band("The three that run backwards")
+             + dg.section_band("The three nobody is waiting for")
              + dg.cards(BACKWARD))
     return dg.board(
         "The feedback", "Eight loops that run every team's workflow, P0 to P3",
-        "Five loops carry work forward, from requirements to trust. Three bring production "
-        "back to the phase that must answer for it: cost, incident and governance.",
+        "Five loops carry work forward, from requirements to trust, and close on their own because "
+        "someone downstream is waiting. Three close only if a named person makes them: cost back "
+        "into design, incident back into framing, and governance across the whole line.",
         inner,
         aside_title="The eight, as drawn",
         aside='<div class="bkc"><span class="bxk">Forward, five</span><div class="bxg">'
               + "".join(f"<i>{n}</i>" for n in ("Requirements P0 → P1", "Spec P1 → P2", "Trust P2 → P3",
                                                  "Decision P1 → P1", "Delivery P2 → P2"))
-              + '</div></div><div class="bkc" style="--c:var(--dg-rose)"><span class="bxk">Back from '
-                'production, three</span><div class="bxg"><i>Cost P3 → P1</i><i>Incident P3 → P0</i>'
+              + '</div></div><div class="bkc" style="--c:var(--dg-rose)"><span class="bxk">Nobody waiting, '
+                'three</span><div class="bxg"><i>Cost P3 → P1</i><i>Incident P3 → P0</i>'
                 '<i style="--c:var(--dg-violet)">Governance P0 → P3</i></div></div>'
                 '<div class="bkc"><b>Nobody downstream is waiting for the three</b>, so they have to be '
                 "built on purpose. Name the person who owns each; if you cannot, the loop is absent.</div>",

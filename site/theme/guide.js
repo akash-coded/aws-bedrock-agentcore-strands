@@ -178,12 +178,17 @@
   function offer() {
     steps = load();
     if (!steps || !steps.length) return;
+    document.documentElement.classList.add("has-tour");   // the drawer shows its own way in to the walkthrough
     fab();
   }
 
   function wireTour() {
     $$("[data-tour-start]").forEach(function (b) {
-      b.addEventListener("click", function () { start(b); });
+      b.addEventListener("click", function () {
+        var m = b.closest("details.menu");            // started from the drawer: the drawer steps aside first
+        if (m) m.removeAttribute("open");
+        start(b);
+      });
     });
     offer();
   }

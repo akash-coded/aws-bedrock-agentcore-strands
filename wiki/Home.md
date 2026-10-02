@@ -30,7 +30,7 @@ credits its sources.
 
 # The map
 
-Five surfaces, ~800 files and a wiki that is now a playbook in its own right. This page exists because
+Five surfaces, ~800 files and a wiki that is now a manual in its own right. This page exists because
 no single surface can point at the other four.
 
 | Surface | What it is | Best entry point |
@@ -39,10 +39,10 @@ no single surface can point at the other four.
 | 🧭 **[Field guide](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets)** | 77 reference pages — frameworks, runbooks, playbooks, interview guides | [Frameworks index](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/cheatsheets/frameworks) |
 | 🧪 **[L.A.B. Simulator](https://github.com/akash-coded/aws-bedrock-agentcore-strands/tree/main/labs)** | Auto-graded labs · Learn → Apply → Break | `python labs/runner/labctl.py next` |
 | 💬 **[Discussions](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions)** | 66 threads, all tagged by track and level | [Index of every exercise and lab](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/64) |
-| 🛫 **[SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** | The agentic PDLC as a simulator — thirteen episodes, eight loops, nine simulations, seventeen calculators | [Open it](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
+| 🛫 **[SkyWays, the agentic manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/)** | The agentic PDLC as a manual, a game and a workbench: thirteen episodes, eight loops, nine simulations, seventeen calculators | [Open it](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) · [pitch an idea](https://github.com/akash-coded/aws-bedrock-agentcore-strands/discussions/101) |
 | 🧭 **[The role journeys](Journey-Product-Manager)** | Five roles walked end to end, each with templates and copy-paste prompts at every step | [PM](Journey-Product-Manager) · [SA](Journey-Solution-Architect) · [Eng](Journey-Engineering-Lead) · [QA](Journey-QA-Lead) · [Ops](Journey-DevOps) |
 | 👤 **[The roles, defined](Role-Product-Manager)** | What each role is accountable for, may settle alone, and must not touch — plus how the role fails | [PM](Role-Product-Manager) · [SA](Role-Solution-Architect) · [Eng](Role-Engineering-Lead) · [QA](Role-QA-Lead) · [Ops](Role-DevOps) · [Sponsor](Role-Sponsor) |
-| 📘 **[The playbook wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five delivery roles and the sponsor, nine how-tos, 31 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
+| 📘 **[The manual on the wiki](The-Agentic-PDLC)** | The same method in writing: four phases, eight loops, five delivery roles and the sponsor, nine how-tos, 31 exercises | [The Agentic PDLC](The-Agentic-PDLC) |
 
 ### If you would rather look than read
 
@@ -50,7 +50,7 @@ Four drawings carry the whole method, and each one links back into the page that
 
 | The picture | What it answers |
 | --- | --- |
-| [The agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#pdlc) | Four phases, one hard gate, and the line that comes back |
+| [The agentic PDLC](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#pdlc) | Four phases, one hard gate (the sign-off before anything is built), and the line that comes back |
 | [Eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops) | Which loops close themselves, and which three nobody is waiting on |
 | [Your role, across the four phases](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#by-role) | One row per role, one column per phase — including the cells that should be empty |
 | [Where the model helps, and where it must not](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#delegation) | The model drafts, you check, and the one thing per step that is never delegated |
@@ -70,7 +70,7 @@ Four drawings carry the whole method, and each one links back into the page that
 | **Fit this around a job** | **[Study Plans](Study-Plans)** |
 | **Know what it will cost** | **[Cost Log](Cost-Log)** |
 | **Find a specific thing** | **[Where do I find…?](Where-do-I-find-it)** |
-| **Walk one feature through the whole lifecycle, by role** | [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) — in the browser, nothing to install |
+| **Walk one feature through the whole lifecycle, by role** | [SkyWays, the agentic manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) — in the browser, nothing to install |
 | **Walk my own role, step by step, with templates** | [The journeys](Journey-Product-Manager) — pick your role |
 | **Learn the method as a written reference** | [The Agentic PDLC](The-Agentic-PDLC) → [The Eight Loops](The-Eight-Loops) → your [role page](Role-Product-Manager) |
 | **Work out a number** — a bar, a bound, a bill | [Formulas & Calculators](Formulas-and-Calculators) |
@@ -98,14 +98,14 @@ Four drawings carry the whole method, and each one links back into the page that
 ## What is on this wiki, and what is not
 
 The repository is **canonical**: versioned, reviewed, and it ships with the code. The site is where the
-tutorial and the playbook live, indexed and searchable. This wiki is the layer between them, in five
+tutorial and the manual live, indexed and searchable. This wiki is the layer between them, in five
 sections that the sidebar follows:
 
 | Section | What it holds | Why it lives here |
 | --- | --- | --- |
 | **Start** | [Start Here](Start-Here) and one short page per tutorial track, each linking its lessons on the site | A reader who lives on GitHub still gets every lesson in order |
-| **Method and reference** | [The playbook pages](The-Agentic-PDLC), the journeys, the roles, nine how-tos, formulas, trees, scenarios, exercises | The method in writing. It changes as the practice does, and anyone can correct a number |
-| **Course and labs** | [The course companion](Course-Companion): a page per module with its reading order, and the [labs companion](Labs-Companion) | Generated from the repository, with the tutorial lesson and playbook tool beside each module |
+| **Method and reference** | [The method pages](The-Agentic-PDLC), the journeys, the roles, nine how-tos, formulas, trees, scenarios, exercises | The method in writing. It changes as the practice does, and anyone can correct a number |
+| **Course and labs** | [The course companion](Course-Companion): a page per module with its reading order, and the [labs companion](Labs-Companion) | Generated from the repository, with the tutorial lesson and workbench tool beside each module |
 | **Cohort kit** | [Eight ninety-minute sessions](Cohort-Kit) and a template, for anyone running this with a team | Teaching material is edited by the people teaching it |
 | **Community and maintenance** | [Error Index](Error-Index), [Community Answers](Community-Answers), [Field Notes](Field-Notes), [Cost Log](Cost-Log), region notes, the [Roadmap](Roadmap), the runbook | Grows with no PR; wrong for a week is acceptable |
 

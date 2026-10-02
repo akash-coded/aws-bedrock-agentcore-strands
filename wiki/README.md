@@ -18,7 +18,7 @@ The rule is: **would being slightly wrong for a week be acceptable?**
 
 | Page | Why it is wiki-shaped |
 | --- | --- |
-| The **playbook set** — `The-Agentic-PDLC`, `The-Eight-Loops`, `Gates-and-Governance`, `The-Evidence-Pack`, the five `Role-*` pages, the nine `How-to-*` pages, `Playbook-Glossary`, `Formulas-and-Calculators`, `Decision-Trees`, `Scenario-Library`, `Exercises-and-Answers`, `Anti-Patterns`, `Sources-and-Confidence` | The written companion to the [live playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/). Prices, benchmarks and defaults in it are dated and will drift, and a reader who finds one wrong should be able to fix it without a pull request |
+| The **method set** — `The-Agentic-PDLC`, `The-Eight-Loops`, `Gates-and-Governance`, `The-Evidence-Pack`, the five `Role-*` pages, the nine `How-to-*` pages, `Playbook-Glossary`, `Formulas-and-Calculators`, `Decision-Trees`, `Scenario-Library`, `Exercises-and-Answers`, `Anti-Patterns`, `Sources-and-Confidence` | The written companion to the [live manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/). Prices, benchmarks and defaults in it are dated and will drift, and a reader who finds one wrong should be able to fix it without a pull request |
 | `Home` · `Where-do-I-find-it` | Navigation across all five surfaces — repo, labs, field guide, discussions, the site. No single surface can own it |
 | `Error-Index` | Grows every time somebody hits a new error, with no PR. `docs/setup/troubleshooting.md` is the curated subset |
 | `Model-and-Region-Notes` | Availability changes monthly; a versioned file would be wrong within a quarter |
@@ -27,16 +27,16 @@ The rule is: **would being slightly wrong for a week be acceptable?**
 | `Study-Plans` | Calendar-shaped. The repo's learning paths are role-shaped |
 | `Maintainer-Runbook` · `Roadmap` | Operational, not learner-facing; the roadmap is revised when something ships |
 | `Start-Here` · the eight `Tutorial-*` pages | **Generated** by `site/learn_export.py`: the tutorial's index, linking each lesson on the site |
-| `Course-Companion` · `Labs-Companion` · the sixteen `Module-*` pages | **Generated** by `site/course_export.py` from `modules/` and `labs/`: reading order per module, with the lesson and playbook tool beside it |
+| `Course-Companion` · `Labs-Companion` · the sixteen `Module-*` pages | **Generated** by `site/course_export.py` from `modules/` and `labs/`: reading order per module, with the lesson and workbench tool beside it |
 | `Cohort-Kit` · `Cohort-Session-*` | Eight ninety-minute sessions and a template; teaching material is edited by the people teaching it |
 | `Field-Notes` | What happened when somebody ran the method on a real project, dated and first person |
 
 Nothing here duplicates a repo page. Where the two touch, the wiki links out.
 
-**On the playbook pages specifically:** they carry the same numbers as the site, which is built from
+**On the method pages specifically:** they carry the same numbers as the site, which is built from
 `site/app/SkyWays-Architect.html`. When that file is replaced with a new export, re-check the figures on
-the playbook pages against it — the confidence marks on [Sources and Confidence](Sources-and-Confidence.md)
-say which ones are documented (and so liable to change) and which are the playbook's own defaults.
+the method pages against it — the confidence marks on [Sources and Confidence](Sources-and-Confidence.md)
+say which ones are documented (and so liable to change) and which are the manual's own defaults.
 
 ## Seeding or restoring the wiki
 

@@ -10,10 +10,10 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The launch in one sentence.** Launch an AI agent in four states, one action at a time, **shadow**,
-> where it decides on live traffic and acts on nothing; a **5% canary**; **wider** only as live evidence
-> arrives; then **all of it**: with money actions gated at every stage, agreement reported per slice
-> over a window fixed in advance, and every rollback switch timed in a rehearsal before cut-over.
+> **The launch in short.** Launch an AI agent in four states, one action at a time. First **shadow**,
+> where it decides on live traffic and acts on nothing. Then a **5% canary**, then **wider** only as live
+> evidence arrives, then **all of it**. Money actions stay gated at every stage. Agreement is reported per slice
+> over a window fixed in advance, and every rollback switch is timed in a rehearsal before cut-over.
 
 {{model:g_funnel}}
 
@@ -43,13 +43,11 @@ were the same: the agent proposed a partner airline the evening shift never uses
 that partner's transfer desk closes. The rule was in nobody's spec and nobody's golden set; it lived in
 six people's heads. It cost nothing to discover, because the write side was off.
 
-{{sketch:where-the-two-tracks-part}}
-
 ## Launch, step by step
 
 ### Step 1 · Put every action behind its own flag
 
-One flag per action (rebook, refund, message) each with four states: shadow, 5%, wider, all. The
+One flag per action (rebook, refund, message), each with four states: shadow, 5%, wider, all. The
 prompt and the model version are deployable artefacts like code, and every trace records which flag
 state and prompt version produced it.
 
@@ -61,14 +59,14 @@ every disagreement, and add a test that fails the build if a write is reachable 
 ### Step 3 · Keep money out of the headline
 
 Report money actions separately and keep them gated whatever the shadow shows. SkyWays cleared its
-threshold, 96% agreement over fourteen days against a 95% default, and inside it the agent disagreed
+threshold (96% agreement over fourteen days against a 95% default) and inside it the agent disagreed
 with the desk on **four of eleven** refunds. Eleven cases prove nothing either way, so the honest word
 was *unproven*; and refunds should never have been inside the automatic figure at all.
 
 ### Step 4 · Cut over at 5%, per action, and widen on evidence
 
 Start the lowest-risk action at 5% and leave the rest in shadow. Each widening names the evidence that
-earned it: never a date. The length of each step is arithmetic: **days = cases needed ÷ (share ×
+earned it, never a date. The length of each step is arithmetic: **days = cases needed ÷ (share ×
 cases per day)**, so 500 cases at 5% of 240 a day is 42 days. The safe share is the slow one, which is
 why a cut-over widens rather than holding.
 
@@ -110,7 +108,7 @@ issuing refunds (money). Shadow agreement over fourteen days: questions 97% on 2
 
 **Only questions.** They clear the threshold on a large sample and cannot do harm. Rebooking is below
 threshold: read its 24 disagreements, fix what they show and extend its shadow. Refunds stay gated
-regardless, 30 cases prove nothing either way, and money actions are never widened on an automatic
+regardless: 30 cases prove nothing either way, and money actions are never widened on an automatic
 agreement figure. The launch goes ahead; it just goes ahead one action at a time.
 
 </details>
@@ -132,7 +130,7 @@ test on real conditions with no risk, because the write side is off.
 ### How long should an AI shadow run last?
 
 Long enough for the slices that matter to accumulate the cases their verdict needs, and fixed before
-it starts. Fourteen days is this playbook's default; the real answer is the cases needed divided by the
+it starts. Fourteen days is this manual's default; the real answer is the cases needed divided by the
 cases each slice sees per day.
 
 ### What is a canary release for an AI agent?
@@ -171,7 +169,7 @@ each theme, say whether the agent, the staff or the policy was wrong, and what e
 | Idea | Origin | Source |
 | --- | --- | --- |
 | Shadow deployment and canary release | **Borrowed** | General practice; see Beyer, B. et al. (2016). *Site Reliability Engineering*. O'Reilly |
-| Four states per action, money gated, widening on named evidence | **Original**: this playbook | [QA lead](site:qa/#shadow) · [DevOps](site:devops/) |
-| Days of live evidence | **Original**: this playbook | [Formulas](wiki:Formulas-and-Calculators#days-of-live-evidence--working-method) |
+| Four states per action, money gated, widening on named evidence | **Original**: this manual | [QA lead](site:qa/#shadow) · [DevOps](site:devops/) |
+| Days of live evidence | **Original**: this manual | [Formulas](wiki:Formulas-and-Calculators#days-of-live-evidence--working-method) |
 | 95% agreement over 14 days, and the 5% first cut-over | **Original**: working defaults to tune | [Sources and Confidence](wiki:Sources-and-Confidence#the-working-methods-and-how-to-tune-each) |
 | The SkyWays figures | **Illustrative**: a fictional airline | [Try the cut-over calculator](sim:#/toolkit/cutover) |

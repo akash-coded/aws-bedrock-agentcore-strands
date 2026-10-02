@@ -20,9 +20,9 @@ def stones(s: Sk):
         s.rect(x - 48, 432, 96, 40, "point", fill="p", sw="h")
     for x0 in (170, 520, 780, 900):                                            # the water
         s.curve([(x0, 520), (x0 + 24, 512), (x0 + 48, 520), (x0 + 72, 512)], "faint", "t")
-    s.label(340, 570, "3 exact: code", "ink")
-    s.note(690, 190, "2 best guess:|the model", (662, 414), "aside")
-    s.note(990, 190, "2 change|something real", (912, 418), "point")
+    s.label(340, 570, "exact: code", "ink")
+    s.note(690, 190, "best guess:|the model", (662, 414), "aside")
+    s.note(990, 190, "change|something real", (912, 418), "point")
 
 
 def ledge(s: Sk):

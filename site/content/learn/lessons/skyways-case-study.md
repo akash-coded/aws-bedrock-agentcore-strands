@@ -10,11 +10,11 @@ updated: 2026-10-02
 ---
 
 > [!TIP]
-> **The case in one sentence.** SkyWays is this playbook's worked example, a fictional airline building
-> a rebooking assistant for disrupted passengers, with four people: Priya owns the product, Arjun the
+> **The case in short.** SkyWays is this manual's worked example: a fictional airline building a
+> rebooking assistant for disrupted passengers. Four people run it: Priya owns the product, Arjun the
 > architecture, Sam the engineering and Maya the quality. Its ninety days run in thirteen episodes, each
-> opening on a number and closing one of the eight loops, from 31 requirements on day 1 to two numbers
-> in front of the steering committee on day 90.
+> opening on a number and closing one of the eight loops. They go from 31 requirements on day 1 to two
+> numbers in front of the steering committee on day 90.
 
 {{map:skyways-case-study}}
 
@@ -46,9 +46,9 @@ can be withdrawn, a cash refund cannot, so the gate went on the refund.
 | --- | --- | --- | --- |
 | 1 | Two discovery meetings: 31 requirements from six people, four of them the same one | Requirements | Discovery notes, stakeholder map |
 | 4 | The requirements email keeps all 31 lines, each credited to whoever said it | Requirements | Credited email, consolidated requirements with rationale |
-| 6 | Compliance adds one constraint, every refund over $400 needs a named approver | Requirements | 7 constraints by type, 9 candidate NFRs, utility trees |
+| 6 | Compliance adds one constraint: every refund over $400 needs a named approver | Requirements | 7 constraints by type, 9 candidate NFRs, utility trees |
 | 9 | Six stakeholders, two hours: nine NFRs ratified, three of them in tension | Requirements | Ratified NFRs, 3 sensitivity points |
-| 12 | Two decision records and a third scheduled, one per sensitivity point, no more | Decision | ADR-001 to ADR-003 |
+| 12 | Two decision records and a third scheduled: one per sensitivity point, no more | Decision | ADR-001 to ADR-003 |
 | 15 | A 30-page PRD becomes an eight-field spec; the five agentic fields were undecided | Spec | Spec in EARS, a bar per slice |
 | 20 | Three ways to get an agent framework, six weighted criteria, a three-year cost | Decision | Decision matrix, ADR-004 |
 | 30 | A walking skeleton reads a booking and shows it by four in the afternoon | Delivery | Bolt plan, story file, context file |
@@ -58,7 +58,7 @@ can be withdrawn, a cash refund cannot, so the gate went on the refund.
 | 82 | A $2,000 refund goes out that was not owed | Incident | Postmortem, ADR, lower autonomy, next P0 brief |
 | 90 | Two numbers in front of the steering committee | Governance | Two-number report, maturity check |
 
-Read in order, the playbook's artefacts arrive in the order a real team produces them.
+Read in order, this manual's artefacts arrive in the order a real team produces them.
 [The eight loops](lesson:the-eight-loops)
 
 ## The four moments that went wrong
@@ -92,27 +92,25 @@ signature accepted any amount. The postmortem named the missing control, not a p
 ## Where you'll use it
 
 - **Before your own project starts**: run the ninety days as a simulation, one decision per episode.
-- **As a template**: every calculator in the simulator opens with SkyWays' numbers, ready to replace.
+- **As a template**: every calculator in the workbench opens with SkyWays' numbers, ready to replace.
 - **In training**: give each role its episodes, and ask what they would have done on day 45.
 
 ## Why it matters
 
 A case with its failures left in teaches the controls; a success story teaches nothing you can copy.
 Each of the four failures above produced an artefact the next feature inherits (a lower bound, a review
-policy, a caching configuration, a cap in code) which is the practical meaning of a process that learns.
-
-{{sketch:failures-ride-the-belt}}
+policy, a caching configuration, a cap in code), which is the practical meaning of a process that learns.
 
 ## Try it
 
-Three of the thirteen episodes close loops that nobody is waiting on, no downstream person will chase
+Three of the thirteen episodes close loops that nobody is waiting on: no downstream person will chase
 them if they stay open. **Which three, and why do they need a named owner?**
 
 <details><summary>Show the answer</summary>
 
 **Day 75 (cost), day 82 (incident) and day 90 (governance).** The other loops close forward into the
 next phase, where someone needs the artefact and will ask for it. These three run backwards (cost into
-design, incident into the next frame, governance across the whole lifecycle) so nobody downstream is
+design, incident into the next frame, governance across the whole lifecycle), so nobody downstream is
 blocked when they stay open. Unless a named person owns each, the bill, the incident and the review of
 whether it is working all get handled once and never fed back.
 
@@ -122,7 +120,7 @@ whether it is working all get handled once and never fed back.
 
 1. **Thirteen episodes, eight loops**: each opens on a number and leaves an artefact behind.
 2. **Four failures, four controls**: a lower bound, review by risk, a design fix, a cap in code.
-3. **Rehearse it first**: the simulator runs the same ninety days, one decision at a time.
+3. **Rehearse it first**: the workbench runs the same ninety days, one decision at a time.
 
 ## FAQ
 
@@ -144,14 +142,14 @@ the shadow run from day 45 and the first report of both numbers on day 90.
 
 ### Can I run the SkyWays case as a simulation?
 
-Yes. The simulator's "Ninety days of SkyWays" simulation asks for one decision in each of the thirteen
+Yes. The workbench's "Ninety days of SkyWays" simulation asks for one decision in each of the thirteen
 episodes and shows what each option does to the episodes that follow.
 
 ## Apply it in your role
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Use SkyWays as the rehearsal before a real engagement: run the ninety days in the simulator, and write down where your customer will differ. | Ask a model to map each SkyWays episode onto your customer's likely equivalent. |
+| **A forward-deployed engineer** | Use SkyWays as the rehearsal before a real engagement: run the ninety days in the workbench, and write down where your customer will differ. | Ask a model to map each SkyWays episode onto your customer's likely equivalent. |
 | **A product manager or FDPM** | Take one episode a week into the team retrospective: what would we have done on day 45? | Have a model turn an episode into a 20-minute team exercise with a debrief. |
 | **A GenAI or agentic AI engineer** | Reproduce the engineering failures in a sandbox (the four-day queue, the 4.4× bill, the cap in a prompt) and write the test that catches each. | Ask a coding agent for a minimal reproduction of the day-82 refund, with a failing test. |
 
@@ -162,8 +160,8 @@ shorthand for a cap that lived in a prompt, and saves a paragraph in every revie
 
 ```text
 Here are the thirteen SkyWays episodes: <list them from the lesson>. For our project <describe>, write the
-equivalent of each episode — the day it is likely to happen, the number it would carry, the loop it
-closes — and mark the three we are least prepared for.
+equivalent of each episode (the day it is likely to happen, the number it would carry, the loop it
+closes) and mark the three we are least prepared for.
 ```
 
 ## Sources and credits
@@ -171,7 +169,7 @@ closes — and mark the three we are least prepared for.
 | Idea | Origin | Source |
 | --- | --- | --- |
 | SkyWays, its cast and its thirteen episodes | **Illustrative**: a fictional airline | [Ninety days of SkyWays](sim:#/story) |
-| The eight loops the episodes close | **Original**: this playbook | [The Loop Map](sim:#/loopmap) |
+| The eight loops the episodes close | **Original**: this manual | [The Loop Map](sim:#/loopmap) |
 | Utility trees and sensitivity points | **Borrowed** | Kazman, R., Klein, M. & Clements, P. (2000). *ATAM*. SEI, CMU/SEI-2000-TR-004 |
 | Architecture decision records | **Borrowed** | Nygard, M. (2011). *Documenting Architecture Decisions* |
 | The EARS acceptance syntax | **Borrowed** | Mavin, A. et al. (2009). Easy Approach to Requirements Syntax. *IEEE RE'09* |

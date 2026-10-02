@@ -2,8 +2,8 @@
 
 <!-- tutorial:lesson -->*New to this? Start with the lesson **[What is the agentic PDLC?](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-agentic-pdlc/)**, the idea step by step, with a worked problem. This page is the reference.*<!-- /tutorial:lesson -->
 
-Four phases and eight loops. This is the spine every other page on this wiki hangs from, and the
-structure the [SkyWays playbook](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) walks
+Four phases and eight loops. Every other page on this wiki hangs from them, and they are the
+structure [SkyWays, the agentic manual](https://akash-coded.github.io/aws-bedrock-agentcore-strands/) walks
 through with one airline, one feature and ninety days.
 
 > **The one-sentence version.** Frame what is worth doing, specify it so a machine can build it, build
@@ -143,7 +143,7 @@ without. Four hand-offs, four minimum sets.
 | P2 → P3 | Golden set at bar with its lower bound, the shadow-run comparison | soft |
 | P3 → P0 | Two-number report, drift readout, the incident turned into a brief | soft |
 
-Only one of the four is a hard gate. Everything downstream is built and measured against the spec, the
+Only one of the four is a hard gate (the sign-off before anything is built). Everything downstream is built and measured against the spec, the
 bar and the guardrails, so those three are settled before P2 opens. The full list lives on
 [The Evidence Pack](The-Evidence-Pack).
 
@@ -344,7 +344,7 @@ later one, and some close back into an earlier one.
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops">Open the live, interactive version</a></sub>
 <!-- /picture -->
 
-> The same eight on a spine, with the three backwards ones drawn beneath it:
+> The same eight on one line, with the three backwards ones drawn beneath it:
 > [eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops).
 
 Three of them run backwards, and those are the ones teams forget to build:
@@ -382,7 +382,7 @@ you cannot, the loop is absent, and absent is the honest word — not "informal"
 ## Where the model helps, and where it must not
 
 The machine took the drafting. It did not take the judgement — it concentrated it. Every step in this
-playbook names a tool, a use, a caution, and exactly one thing that is never delegated. Read the third
+manual names a tool, a use, a caution, and exactly one thing that is never delegated. Read the third
 column of each table first: forty steps across five roles produce forty of those lines, and they have
 a shape. Every one is a fact about your business, your regulator or your ledger that no amount of
 context makes knowable from outside.
@@ -440,7 +440,7 @@ sent, what cannot be unwound — and said so with their name on it.
 
 ### The test
 
-For any step in this playbook, ask what a model would have to know about your organisation to make
+For any step in this manual, ask what a model would have to know about your organisation to make
 the call, and whether that knowledge exists anywhere it could read. If the answer is no, the step is
 in the third column, and the honest move is to write the line down rather than discover it in a
 postmortem.
@@ -536,7 +536,7 @@ Owner: <name>   Due: <date>
 ## How the named methods sit on the spine
 
 Four methods get mentioned in every agentic conversation. They are not competitors; they occupy
-different parts of the same spine.
+different parts of the same lifecycle.
 
 | Method | What it is | Where it sits | When to use it |
 | --- | --- | --- | --- |
@@ -706,14 +706,14 @@ engineer, or you in six months — will be misled by it rather than helped.
 
 ## Where this comes from
 
-Stage-gate systems come from Cooper (1990); the phase names here are the playbook's own. The eight-loop
+Stage-gate systems come from Cooper (1990); the phase names here are the manual's own. The eight-loop
 ring, the hard and soft split, and the minimum artefact set are **working methods** — constructions of
-this playbook, offered as defaults to tune, not as standards. Full lineage on
+this manual, offered as defaults to tune, not as standards. Full lineage on
 [Sources and Confidence](Sources-and-Confidence).
 
 ---
 
 **Next:** [The Eight Loops](The-Eight-Loops) · [Gates and Governance](Gates-and-Governance) ·
-[The Evidence Pack](The-Evidence-Pack) · [Playbook Glossary](Playbook-Glossary) ·
+[The Evidence Pack](The-Evidence-Pack) · [Glossary](Playbook-Glossary) ·
 [Journey: Product manager](Journey-Product-Manager) ·
 [Journey: Solution architect](Journey-Solution-Architect)

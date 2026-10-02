@@ -92,7 +92,7 @@ diagram that made the design look reasonable.
 ## What was proposed, and what it actually is
 | Proposed agent | What it really is | Where it goes |
 |----------------|-------------------|---------------|
-| <the pricer> | exact work | a function, map, step <n> |
+| <the pricer> | exact work | a function (map, step <n>) |
 | <the searcher> | parallelism | a fan-out tool, <n> calls in one |
 | <the reviewer> | independence | a checker: different model, or fresh adversarial context |
 | <the planner> | the agent itself | the single agent |
@@ -108,10 +108,10 @@ arriving by default.
 ## Process depth, per change
 | Kind of change | P0 | P1 | P2 | P3 | Method weight |
 |----------------|----|----|----|----|---------------|
-| <one-line fix> | — | light | yes | — | living spec + a single agent |
+| <one-line fix> | skip | light | yes | skip | living spec + a single agent |
 | <this feature> | yes | yes | yes | yes | living spec + the five gates |
 | <audited module> | yes | full | full | full | living spec + the full persona trail |
-| <regulatory rule change> | — | yes | yes | light | spec diff + validation |
+| <regulatory rule change> | skip | yes | yes | light | spec diff + validation |
 
 **Rule:** the living spec is the backbone everywhere. The heavy persona trail is
 layered on only where the work is audited and multi-team. Depth flexes per change.
@@ -128,7 +128,7 @@ OUTPUT SHAPE:
    Allowed values for the middle column: EXACT WORK (a function) · PARALLELISM (a
    fan-out tool) · INDEPENDENCE (a checker) · THE AGENT ITSELF · GENUINELY A SECOND AGENT.
 2. The hand-off count for each design, computed as n(n-1)/2, with n stated.
-3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it, a number,
+3. For every GENUINELY A SECOND AGENT row, the named limit that justifies it: a number,
    not an adjective.
 
 RULES:
@@ -170,7 +170,7 @@ Assign each a process depth. Run only the lifecycle stages the change actually n
 OUTPUT SHAPE, one table:
 | Change | P0 | P1 | P2 | P3 | Method weight | The stage I am skipping, and why that is safe |
 
-Allowed cell values: full · yes · light · —
+Allowed cell values: full · yes · light · skip
 
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
@@ -189,7 +189,7 @@ RULES:
            "searcher was parallelism and became a fan-out tool running four partner queries inside a "
            "single call. The planner was the agent itself. Only the reviewer survived as something "
            "separate, because independence is the entire mechanism of a checker. One agent, one "
-           "fan-out tool, one function and one checker, **zero hand-offs against a hundred and "
+           "fan-out tool, one function and one checker: **zero hand-offs against a hundred and "
            "five**. The line that mattered most went on the record underneath: an orchestrator when a "
            "single context exceeds the measured limit on multi-leg international cases, or when more "
            "than three partner calls must run in parallel and one tool cannot express it. Without a "
@@ -217,7 +217,7 @@ RULES:
    "minutes and the remaining hundred go to the conflicts, which are the only reason six people were "
    "needed at once. A conflict is not a difference of taste. It is a **priority gap of five or more "
    "between two stakeholders**, and each one owes a decision record. Records are written at "
-   "trade-off points and nowhere else, forty records in a week buries the three that mattered."),
+   "trade-off points and nowhere else: forty records in a week buries the three that mattered."),
  "activities": [
    {"do": "Score every candidate on value and complexity, per stakeholder",
     "detail": "One to three on each, from each person's own point of view. The scoring is quick; the "
@@ -299,7 +299,7 @@ which is why you build them instead of debating them.
 ## Ratified
 | # | NFR | Value | Sensitivity point? | Record owed |
 |---|-----|-------|--------------------|-------------|
-| NFR-1 | <latency> | <30s at P95, peak hour> | no | — |
+| NFR-1 | <latency> | <30s at P95, peak hour> | no | none |
 | NFR-2 | <cost per case> | <$0.60, alert at 3x> | **yes** | ADR-<n>, <date> |
 | NFR-3 | <accuracy> | <80% on codeshare> | **yes** | ADR-<n>, <date> |
 | NFR-4 | <authority> | <refunds over $400 need a named approver> | **yes** | ADR-<n>, <date> |
@@ -344,7 +344,7 @@ OUTPUT SHAPE:
    the formula.
 3. CONFLICTS: every NFR whose gap is 5 or more. Each one owes a decision record.
 4. FALSE CONFLICTS: pairs that look opposed and are not, with the reason. The usual
-   example is auditability against latency, logging costs milliseconds and the model
+   example is auditability against latency: logging costs milliseconds and the model
    choice costs seconds.
 5. A proposed agenda: the uncontested NFRs first as one time-boxed block, then the
    conflicts one at a time.
@@ -395,7 +395,7 @@ OUTPUT SHAPE: exactly these sections, in this order:
 RULES:
 - The Rejected section is the part that matters and the part that gets written badly.
   Every rejection cites the matrix score, the three-year cost or the door. A rejection
-  that reads as a preference is a failure, rewrite it, or tell me the number is missing.
+  that reads as a preference is a failure: rewrite it, or tell me the number is missing.
 - Do not flatter the decision. If an option scored within a point of the winner, that
   belongs in Context, not in Rejected.
 - Keep it to one screen. A coding agent reads this in its context pack, which is exactly
@@ -411,13 +411,13 @@ MY NOTES:
            "uncontested and were ratified in twenty minutes; the remaining hundred minutes went to "
            "the three conflicts, which were the only reason six people had been put in one room. "
            "**Nine ratified NFRs with three sensitivity points**, each given a date for its record "
-           "rather than a promise. The conflict that turned up is the one that usually turns up, "
+           "rather than a promise. The conflict that turned up is the one that usually turns up: "
            "latency against cost per case, because the faster answer needs the larger model. "
            "**ADR-004** was the framework decision and it repays a second read: the weighted totals "
            "came out four points apart across three options, and buy and borrow tied at $360,000 over "
            "three years once the people were counted, which made the licence the small number all "
            "along. The matrix did not break the tie. The **door** did: borrow, behind an interface "
-           "layer, with a named review at month twelve, two weeks of work now to keep a swap at "
+           "layer, with a named review at month twelve. Two weeks of work now keeps a swap at "
            "weeks rather than quarters."},
  "pitfalls": [
    "A vote with sticky dots on a wall. The loudest group wins, cost per case collects two dots, and "
@@ -472,7 +472,7 @@ MY NOTES:
    {"tool": "Chat LLM",
     "use": "Band a tool list R1 to R5 with a reason per row and the control location named. A good "
            "first pass, and it is consistent in a way a room full of people is not.",
-    "caution": "It bands by the size of the change. A one-line change to a refund cap is R4, re-read "
+    "caution": "It bands by the size of the change. A one-line change to a refund cap is R4. Re-read "
                "every R1 and R2 that touches money, identity or a policy commitment."},
    {"tool": "Claude Code",
     "use": "Grep every prompt and tool description for currency symbols, *never*, *always*, *ask "
@@ -482,7 +482,7 @@ MY NOTES:
                "the same pass, or the work stops at the list and the list gets stale."},
    {"tool": "Chat LLM",
     "use": "Run the four hard-or-soft questions over your open decisions and propose a placeholder "
-           "for each soft one, a stub, an interface layer, a default tier behind a gateway.",
+           "for each soft one: a stub, an interface layer, a default tier behind a gateway.",
     "caution": "It marks almost everything soft, because everything looks reversible on paper. "
                "Question one is the one it answers too generously."},
    {"tool": "Do not delegate",
@@ -546,7 +546,7 @@ Four questions, in order. **One "no" makes it hard.**
 
 | Decision | Q1 | Q2 | Q3 | Q4 | Verdict | Placeholder | Owner | By |
 |----------|----|----|----|----|---------|-------------|-------|----|
-| <autonomy level on refunds> | no | — | — | — | **HARD** | — | <name> | <phase> |
+| <autonomy level on refunds> | no | n/a | n/a | n/a | **HARD** | none | <name> | <phase> |
 | <model tier per slice> | yes | yes | yes | yes | soft | <mid tier behind the gateway> | <name> | <date> |
 | <framework> | yes | yes | yes | yes | soft | <an interface layer in front of it> | <name> | <date> |
 | <retrieval design> | yes | yes | yes | yes | soft | <a stub returning the fare-rules file> | <name> | <date> |
@@ -556,11 +556,11 @@ Four questions, in order. **One "no" makes it hard.**
     "when": "You have the tool surface and no bands yet",
     "body": """Band every tool below on the R1-R5 ladder.
 
-R1  reversible draft or sandbox, review at the end
-R2  reversible change to real work, review before merge
-R3  hard to reverse, small blast radius (approve first
-R4  money, identity or a policy commitment) a NAMED approver, every time
-R5  irreversible or safety-critical, not delegated at all
+R1  reversible draft or sandbox: review at the end
+R2  reversible change to real work: review before merge
+R3  hard to reverse, small blast radius: approve first
+R4  money, identity or a policy commitment: a NAMED approver, every time
+R5  irreversible or safety-critical: not delegated at all
 
 OUTPUT SHAPE, one table:
 | Tool | Band | What ONE wrong call could damage | Where the control must live | The test that proves it |

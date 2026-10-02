@@ -45,8 +45,8 @@ Eight steps, and the four phases they sit in. Where the hard gate falls on your 
 
 | Yours to own | Not yours, stop signing these |
 | --- | --- |
-| The **context file** every coding tool reads, and the story file every bolt is built from | The **bolt cut** itself, the architect decides the cut; you decide whether each one can be built alone, and say so before you start it |
-| The **deterministic floor**: every number that gets acted on is a function with a test | The **acceptance bar** per slice, the PM derives it from damage and saving. You make it run |
+| The **context file** every coding tool reads, and the story file every bolt is built from | The **bolt cut** itself: the architect decides the cut; you decide whether each one can be built alone, and say so before you start it |
+| The **deterministic floor**: every number that gets acted on is a function with a test | The **acceptance bar** per slice: the PM derives it from damage and saving. You make it run |
 | The **boundary**: caps and confirmation tokens in tool signatures, never in prompt text | The golden set's contents and the judge's rubric: those belong to the QA lead |
 | The eval harness in CI, and the per-slice rule that blocks a merge | The cut-over and the widening: you build the flag and rehearse the rollback; the PM throws it |
 | The build order within the architect's dependency sequence, integrated the same day |  |
@@ -72,7 +72,7 @@ Every AI coding tool reads a file from the repository before it does anything, a
 
 1. **Find out which file each of your tools actually reads**: Claude Code reads `CLAUDE.md` as project memory, committed to git, with enterprise policy above it and a user-level file for personal preferences. Copilot reads `.github/copilot-instructions.md` plus scoped `.github/instructions/*.instructions.md`. Codex CLI reads `AGENTS.md`. Cursor reads `.cursor/rules/*.mdc`.
 2. **Weight the two kinds differently**: Copilot's file steers inline suggestions; Claude Code's drives autonomous actions. The same sentence about never editing an applied migration is advice in the first case and a standing instruction in the second, so write the never-touch list for the second.
-3. **Write four sections and nothing else**: Stack, conventions, commands, never-touch. Anything longer stops being read, by the model, because the rules are diluted, and by the engineer who is supposed to maintain it. Under a hundred lines is a working target.
+3. **Write four sections and nothing else**: Stack, conventions, commands, never-touch. Anything longer stops being read: by the model, because the rules are diluted, and by the engineer who is supposed to maintain it. Under a hundred lines is a working target.
 4. **Point at the context layers, never copy them**: `/context/shared/standards.md` by path, not pasted. A copy is a fork: the security rule changes in the shared layer and the agent carries on quoting last quarter's version back at the team that wrote it.
 5. **Make every command one you have actually run**: A command that does not exist is worse than no command. The agent improvises a plausible one, reads the error as an environment problem, works around it, and you review a diff resting on a green that never happened.
 6. **Grow it with the rule that bit you last week**: Every time, one line, dated at the bottom. That is the whole maintenance policy and it is the only one that survives a busy quarter. Review the diff like code, because it is.
@@ -81,7 +81,7 @@ Every AI coding tool reads a file from the repository before it does anything, a
 
 | Tool | Use it for |
 | --- | --- |
-| **Claude Code** | Point it at the repository and ask for a first draft from what is actually there, the build files, the test runner, the directory layout. It reads the tree faster than you do and it gets the stack section right.<br>⚠ Make it run every command it proposes and paste the output into the session. Left alone it will write `npm test` into a Python repository because the shape of the file suggests a line like that belongs there. |
+| **Claude Code** | Point it at the repository and ask for a first draft from what is actually there: the build files, the test runner, the directory layout. It reads the tree faster than you do and it gets the stack section right.<br>⚠ Make it run every command it proposes and paste the output into the session. Left alone it will write `npm test` into a Python repository because the shape of the file suggests a line like that belongs there. |
 | **An editor agent (Copilot, Cursor)** | Have it derive the scoped instruction files per path from the one project file, so the narrow rules about `src/tools/**` sit next to the narrow code they govern.<br>⚠ Scoped files multiply. Keep one owner and one review, or within a month you have six of them quietly contradicting each other and no way to tell which one won. |
 | **A cheap tier** | Feed it last month's pull request review comments and ask which corrections repeat. The repeats are your missing conventions, already evidenced and already argued. |
 | **Do not delegate** | The never-touch list. It is a statement about what your organisation cannot afford to lose, and every line on it is there because of an incident the model has never seen. |
@@ -115,7 +115,7 @@ If a rule here disagrees with a layer, the layer wins and this file is out of da
 ## Conventions
 - Exact work is a function with a unit test. Never compute money in a prompt.
 - Every tool that writes takes a confirmation token. Reads do not.
-- One model per task, the cache is model-scoped and a switch discards it.
+- One model per task: the cache is model-scoped and a switch discards it.
 - A new dependency is an issue first, never an addition made in passing.
 
 ## Commands: every one of these has been run. Use them; do not improvise.
@@ -128,17 +128,17 @@ If a rule here disagrees with a layer, the layer wins and this file is out of da
 
 ## Never touch
 - `<config/caps.yaml>`: the authority budget. Changing a cap is an R4 change.
-- `<src/tools/refund/**>` (two named reviewers, every time.
-- `<migrations/>`) never edit an applied migration. Add a new one.
+- `<src/tools/refund/**>`: two named reviewers, every time.
+- `<migrations/>`: never edit an applied migration. Add a new one.
 - `<src/trace/redact.py>`: security reviews every change here.
 
 ## Ask before
 - Adding a tool to the agent's tool list
-- Editing anything under `<src/prompts/>`, it re-runs the injection suite
+- Editing anything under `<src/prompts/>`: it re-runs the injection suite
 - Touching a golden-set file. Those belong to QA, not to this repo's authors.
 
 ---
-_Last rule added <date>, <the rule that bit us last week, in one line>_
+_Last rule added <date>: <the rule that bit us last week, in one line>_
 ```
 
 </details>
@@ -187,7 +187,7 @@ RULES:
 - Merge comments that say the same thing differently; keep the clearest wording.
 - Mark as "not a rule" anything that was a one-off judgement about that change. Those
   do not belong in a context file and adding them is how the file becomes unreadable.
-- For each rule, say whether it could be ENFORCED instead, a lint rule, a CI check, a
+- For each rule, say whether it could be ENFORCED instead: a lint rule, a CI check, a
   type. A rule that can be enforced should not be a line in a markdown file.
 
 COMMENTS:
@@ -220,7 +220,7 @@ Do not rewrite the whole file. I want the diff, not a replacement.
 
 **Worked example · SkyWays · the two rules that were added in the first month**
 
-> The first `CLAUDE.md` was twenty-two lines written in an hour: stack, four commands that had been run, and a never-touch list with `migrations/` on it. It grew twice. Once after an agent re-implemented the fare arithmetic inline rather than calling `fare_difference()` and returned $80 where the ledger said $62, the line added was *never compute money in a prompt; call the function*. Once after a session switched model mid-task and the cache hit ratio collapsed, which added *one model per task*. Two sentences, and neither failure has recurred. That is the whole evidence the file needs.
+> The first `CLAUDE.md` was twenty-two lines written in an hour: stack, four commands that had been run, and a never-touch list with `migrations/` on it. It grew twice. Once after an agent re-implemented the fare arithmetic inline rather than calling `fare_difference()` and returned $80 where the ledger said $62: the line added was *never compute money in a prompt; call the function*. Once after a session switched model mid-task and the cache hit ratio collapsed, which added *one model per task*. Two sentences, and neither failure has recurred. That is the whole evidence the file needs.
 
 **Pitfalls**
 
@@ -314,7 +314,7 @@ BOUNDARY  <Never rebook a segment that has already departed.>
 - Expected cost per case $<0.04>. Alert at 3x.
 
 ## Can this bolt be built alone?
-yes  /  **no: and if no, this is raised NOW, not at 2pm**: <what it needs that
+yes  /  **no. If no, this is raised NOW, not at 2pm**: <what it needs that
 does not exist yet, and who owns the re-cut>
 ```
 
@@ -362,7 +362,7 @@ Then, separately, one BOUNDARY line per thing the system must refuse.
 
 RULES:
 - Preserve every precondition as its own AND line. Do not summarise two into one.
-- If a limit is missing, write WITHIN <UNSPECIFIED>, never invent a number.
+- If a limit is missing, write WITHIN <UNSPECIFIED>. Never invent a number.
 - List any word in the original that hides a decision ("appropriate", "quickly",
   "if possible") and say what decision it is hiding and who should make it.
 - At the end, list anything in the prose that is a SOLUTION rather than a requirement.
@@ -595,13 +595,13 @@ RULES:
 
 *Once the floor is green, mid-bolt*
 
-The best-guess layer goes on top of the floor: ranking, drafting, classifying: the work that is right a share of the time and has to be measured rather than asserted. Chains multiply, so keep them short, then put a checker after the steps where a wrong answer is **costly and easy to miss**. The checker only earns its call if it is independent. A model reviewing its own output shares its own blind spots, which is why *review your answer before returning it* changes nothing measurable and still appears on the invoice.
+The best-guess layer goes on top of the floor: ranking, drafting, classifying. This is the work that is right a share of the time and has to be measured rather than asserted. Chains multiply, so keep them short, then put a checker after the steps where a wrong answer is **costly and easy to miss**. The checker only earns its call if it is independent. A model reviewing its own output shares its own blind spots, which is why *review your answer before returning it* changes nothing measurable and still appears on the invoice.
 
 **What you actually do**
 
 1. **Count the chain before you build it**: Four steps at 90% each is 0.66 end to end, and it fails fluently. The first fix is always to shorten the chain: two of any six steps are usually exact work that crept into a prompt and belongs in the previous step.
 2. **Place checkers where a mistake is costly AND easy to miss**: After choosing the flights and after drafting the passenger message. Not after computing the fare, which needs a unit test, and not after writing the trace row, which is exact. Every checker is a call you pay for on every case.
-3. **Make the checker independent, and record which kind**: A different model, or the same model in a fresh context with an adversarial brief, *find what is wrong*. Write which one you chose in a comment beside it, because the next person to touch this will assume the cheap version was intended.
+3. **Make the checker independent, and record which kind**: A different model, or the same model in a fresh context with an adversarial brief: *find what is wrong*. Write which one you chose in a comment beside it, because the next person to touch this will assume the cheap version was intended.
 4. **Pass the constraints and the output, never the drafter's reasoning**: The reasoning is the contamination. Send the rules the output must satisfy and the artefact to be judged, and nothing that explains why the drafter believed it was fine, because that explanation was written to be convincing.
 5. **Treat a fail as a re-draft, and cap the rounds at two**: A warning gets logged and ignored. Two rounds, then escalate to a person. An uncapped re-draft loop looks like diligence on a good day and is the same runaway as a missing loop cap on a bad one.
 6. **Log the checker's verdict as its own trace field**: Pass or fail, plus the round number. Without it you cannot tell a chain that never fails from a checker that never fires, and on a dashboard those two look identical.
@@ -1093,7 +1093,7 @@ Replay the harness against each commit and report:
 
 Then tell me:
 - Every regression the harness would have MISSED, and the specific step that should have
-  caught it, exact test, golden slice, or judge.
+  caught it: exact test, golden slice, or judge.
 - Every clean commit the harness would have REJECTED, and why. A harness that rejects
   good changes gets switched off within a fortnight.
 - The slice with the fewest cases, and whether its lower bound could clear its bar at
@@ -1150,12 +1150,12 @@ One bolt a day, in the architect's dependency order, integrated the same day. Th
 
 **What you actually do**
 
-1. **Start with the walking skeleton, with no model in it**: The thinnest end-to-end path: read a booking, show it. Half a day, and it retires the largest unknown, whether the pieces connect at all, on day one, which is the assumption every other bolt is resting on.
+1. **Start with the walking skeleton, with no model in it**: The thinnest end-to-end path: read a booking, show it. Half a day, and it retires the largest unknown (whether the pieces connect at all) on day one, which is the assumption every other bolt is resting on.
 2. **Put the pure exact code early**: It is unit-testable in isolation, so it never blocks and never waits, and it frees review capacity for the days that need it. It is usually sitting at the end of the plan because it looked boring.
 3. **Schedule the plug before its consumer**: The classic failure is the rebook bolt on day four and the MCP server it needs on day six. Checkers go after the steps they check. The proof goes last, because the harness needs something to run against.
 4. **Say a bolt cannot be built alone BEFORE you start it**: Not at two in the afternoon. A bolt that needs the other half of a feature was cut horizontally instead of vertically, and the fix belongs with the architect rather than with whoever discovered it mid-build.
 5. **Keep one unknown per bolt**: Then a day can fail for exactly one reason and you know which one. Two unknowns and the standup produces a discussion instead of an answer, and the discussion takes the next morning too.
-6. **Integrate the same day, and review by band**: Same-day integration is what makes the cost of a wrong turn one day instead of two weeks. The band comes from the most dangerous tool the change touches, via the path rule, never from the author, every author believes their own change is low risk.
+6. **Integrate the same day, and review by band**: Same-day integration is what makes the cost of a wrong turn one day instead of two weeks. The band comes from the most dangerous tool the change touches, via the path rule, never from the author: every author believes their own change is low risk.
 7. **Run the shadow path behind a flag, and make shadow-never-writes a test**: A test that fails the build if a write tool is reachable while the flag is in shadow mode, not an intention in a document. Then cut over at five percent, and rehearse the rollback before the cut-over rather than during it.
 
 **Where a model helps, and where it must not**
@@ -1184,7 +1184,7 @@ _Architect's cut <10> bolts · Cadence one a day · Owner <name>_
 ## The order, and the rule that produced it
 | Day | Bolt | Depends on | The ONE unknown | Band |
 |-----|------|-----------|-----------------|------|
-| 1 | <walking skeleton, read a booking, show it. NO MODEL> | — | <do the pieces connect?> | R1 |
+| 1 | <walking skeleton, read a booking, show it. NO MODEL> | none | <do the pieces connect?> | R1 |
 | 2 | <fare_difference(), exact, unit-tested> | 1 | <the rounding rule> | R1 |
 | 3 | <visa and codeshare eligibility, exact> | 1 | <where the partner rules live> | R1 |
 | 4 | <rank_alternatives(), best-guess, measured> | 2 | <can it beat the desk?> | R2 |
@@ -1230,7 +1230,7 @@ depends-on column: <paste>.
 Produce a day-by-day order in which every bolt's dependencies come strictly before it.
 
 RULES, applied in this priority order:
-1. The walking skeleton first, the thinnest end-to-end path with NO model in it.
+1. The walking skeleton first: the thinnest end-to-end path with NO model in it.
 2. Pure exact code early. It is testable alone, so it never blocks anyone.
 3. Checkers after the steps they check.
 4. Any plug (MCP server, connector, adapter) BEFORE the gated write that needs it.
@@ -1266,8 +1266,8 @@ OUTPUT, in this order:
 1. The failing tests
 2. The implementation
 3. The command output showing them green
-4. A list headed FILE DEFECTS, everything you needed that the story file lacked
-5. A list headed OUT OF SCOPE, problems you found and deliberately did not fix
+4. A list headed FILE DEFECTS: everything you needed that the story file lacked
+5. A list headed OUT OF SCOPE: problems you found and deliberately did not fix
 ```
 
 </details>
@@ -1298,7 +1298,7 @@ them is untested on the day it is needed, and it will be the other one.
 
 **Worked example · SkyWays · day 30, the first bolt ships by four in the afternoon**
 
-> The first bolt was a walking skeleton: read a booking, show it, no model anywhere in it. It shipped by four in the afternoon, and what it bought was not the feature but the answer to the question every other bolt was resting on, whether the pieces connect. The exact code went on days two and three, so review capacity was free when the ranking bolt arrived. The one re-cut came on day four and was raised at nine in the morning rather than at two: `rebook()` needed the MCP server scheduled for day six, a plug ordered after its consumer. Moving the plug cost an hour. Discovering it mid-build would have cost the day.
+> The first bolt was a walking skeleton: read a booking, show it, no model anywhere in it. It shipped by four in the afternoon, and what it bought was not the feature but the answer to the question every other bolt was resting on: whether the pieces connect. The exact code went on days two and three, so review capacity was free when the ranking bolt arrived. The one re-cut came on day four and was raised at nine in the morning rather than at two: `rebook()` needed the MCP server scheduled for day six, a plug ordered after its consumer. Moving the plug cost an hour. Discovering it mid-build would have cost the day.
 
 **Pitfalls**
 
@@ -1325,9 +1325,9 @@ Production is where the cost, the audit and the security posture are actually se
 1. **Order the prompt for the cache, and pick the window from traffic shape**: The cache matches an exact prefix, in the order tools then system then messages, up to the block you mark, so stable content goes first and the request last. Documented and read September 2026: a five-minute write is 1.25x the input price, a one-hour write is 2x, a read is 0.1x, and Fable and Mythos 5.1 read at 0.025x. Minimum around 1,024 cacheable tokens, model-scoped, break-even on the second use. Five minutes when calls are seconds apart; one hour when the gap is twelve minutes, because the cheaper write paid on every call beats the dearer write paid once.
 2. **Assert the cache is working, and mark hits in the trace**: `assert response.usage.cache_read_input_tokens > 0` on the **second** call, never the first. And mark hits in the trace, because cache hits return fast and a latency dashboard that flags very fast responses as suspected failures will get the cache switched off, which raises the bill by about a third within a day.
 3. **Route by complexity, and cap the loop**: `MAX_LOOPS = 5` in every agent loop, with a per-transaction token cap beside it. The biggest model on a simple lookup can be up to 160 times the price of the right one, and one model per task, because a mid-task switch discards the cache.
-4. **Write one redacted row per consequential action**: Mask, do not omit, `passport ****1234`. Timestamp, masked input, tools called, the decision, the model version, the approver, the cost. Omitting breaks the audit; logging raw makes the trace store a breach target, usually protected less carefully than the ledger it mirrors.
-5. **Run the injection suite weekly, and on every prompt, tool or context change**: Every attack string against every gated tool from every entry point, including the partner API's free-text fields. Assert on the **tool calls** and the trace row, never on the model's wording, wording changes with the next prompt edit, and then the test is red for the wrong reason and green for the wrong reason the week after.
-6. **Keep the effort-and-token ledger, per bolt**: Person-hours by activity, tokens by tier, re-runs, defects escaped. Five minutes a day. Tokens by tier rather than in total, because the tier mix is where routing shows up, and the re-run column is the leak signal, model switching and vague asks appear there first.
+4. **Write one redacted row per consequential action**: Mask, do not omit: `passport ****1234`. Timestamp, masked input, tools called, the decision, the model version, the approver, the cost. Omitting breaks the audit; logging raw makes the trace store a breach target, usually protected less carefully than the ledger it mirrors.
+5. **Run the injection suite weekly, and on every prompt, tool or context change**: Every attack string against every gated tool from every entry point, including the partner API's free-text fields. Assert on the **tool calls** and the trace row, never on the model's wording: wording changes with the next prompt edit, and then the test is red for the wrong reason and green for the wrong reason the week after.
+6. **Keep the effort-and-token ledger, per bolt**: Person-hours by activity, tokens by tier, re-runs, defects escaped. Five minutes a day. Tokens by tier rather than in total, because the tier mix is where routing shows up, and the re-run column is the leak signal: model switching and vague asks appear there first.
 7. **Reconcile the spec by diff after a hotfix, never by rewriting it**: A diff keeps the reason the hotfix differed from the spec; a rewrite makes the spec agree with the code and loses the only record that they ever disagreed, which is the record the next postmortem needs.
 
 **Where a model helps, and where it must not**
@@ -1336,7 +1336,7 @@ Production is where the cost, the audit and the security posture are actually se
 | --- | --- |
 | **Claude Code** | Have it instrument the per-call log: tokens per call, tier, cache read tokens, retries. Those four ratios are what turn an invoice into a diagnosis, and without the log you cannot compute a single one of them.<br>⚠ Make it remove the request id from the cached block while it is in there. That one field is the most common silent cache break, and it is always added for a good reason by somebody who was not thinking about prefixes. |
 | **A cheap tier** | Run the weekly injection suite and the nightly redaction test on it. Both are volume jobs with deterministic assertions, and there is nothing a frontier model adds.<br>⚠ The attack strings still need a person to extend them. A suite that has not grown in three months is testing last quarter's attacks and reporting green. |
-| **A chat surface** | Give it the four ratios month over month and have it multiply them out against the ratio between the two invoices. If the product matches, you have explained the bill and can stop looking.<br>⚠ Do not let it rank the fixes by the biggest ratio change. The order is (factor minus one) divided by days to fix, and those two orders are different, the retry breaker is usually the right fix in the wrong position. |
+| **A chat surface** | Give it the four ratios month over month and have it multiply them out against the ratio between the two invoices. If the product matches, you have explained the bill and can stop looking.<br>⚠ Do not let it rank the fixes by the biggest ratio change. The order is (factor minus one) divided by days to fix, and those two orders are different: the retry breaker is usually the right fix in the wrong position. |
 | **Do not delegate** | What the redaction rules are. Which fields are sensitive is a legal and regulatory question about your business, and a model asked to guess will mask the obvious identifiers and leave the booking free-text field alone. |
 
 **The artefact**
@@ -1429,7 +1429,7 @@ Compute these four ratios, this month against last:
 Multiply the four factors. Compare the product with the ratio between the two invoices.
 - If they match, say so and stop looking. The bill is explained.
 - If the product is well below the invoice ratio, something structural changed that is
-  not a habit, traffic, a new feature, or a price change. Say which to check.
+  not a habit: traffic, a new feature, or a price change. Say which to check.
 
 Then order the fixes by  priority = (factor - 1) / days to fix,  NOT by the biggest
 ratio change. Give me the table with the order and the days you assumed.
@@ -1453,7 +1453,7 @@ Entry points must include, at minimum:
 - a free-text field on the booking record
 - a retrieved knowledge-base chunk
 
-RULES, these decide whether the suite is worth anything:
+RULES (these decide whether the suite is worth anything):
 - Assert on the TOOL CALLS and on the trace row. Never assert on the model's wording.
   A test that checks the reply contains "I cannot do that" is red for the wrong reason
   after the next prompt edit and green for the wrong reason the week after.
@@ -1496,7 +1496,7 @@ Finish with the amended ADR line, if a decision changed, in one sentence.
 
 **Worked example · SkyWays · day 75, a bill 4.4 times the estimate with flat traffic**
 
-> Traffic was flat, so behaviour had changed, and behaviour is only visible per call. Four ratios explained it: tokens per call 1.6, frontier tier share 1.5, cache hit ratio 1.3, retries per conversation 1.41: and they multiply to 4.40. Four separate sensible decisions made by careful people. The order of the fixes was not the order of the ratios: retries had risen most in relative terms and contributed the smallest factor, so the context trim went first at half a day for 1.6x and the breaker went last. Four weeks had passed before anybody noticed, which is the part worth fixing permanently, an alert at three times the ratified cost per case, a watched cache hit ratio, and the caching and routing config in one file reviewed like code.
+> Traffic was flat, so behaviour had changed, and behaviour is only visible per call. Four ratios explained it: tokens per call 1.6, frontier tier share 1.5, cache hit ratio 1.3, retries per conversation 1.41, and they multiply to 4.40. Four separate sensible decisions made by careful people. The order of the fixes was not the order of the ratios: retries had risen most in relative terms and contributed the smallest factor, so the context trim went first at half a day for 1.6x and the breaker went last. Four weeks had passed before anybody noticed, which is the part worth fixing permanently: an alert at three times the ratified cost per case, a watched cache hit ratio, and the caching and routing config in one file reviewed like code.
 
 **Pitfalls**
 

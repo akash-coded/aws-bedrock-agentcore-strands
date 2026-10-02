@@ -214,7 +214,7 @@ high one. The products change every quarter; the three levels and the control on
       "drives autonomous actions, which is why it is committed and reviewed rather than personal.</p>")}
 <div class="note"><p><strong>One thing worth funding centrally on day one:</strong> the model gateway. It is
 unglamorous, it takes a fortnight, and without it a surprise invoice is a mystery rather than a diagnosis.</p></div>
-<p class="lalt">Try it: <a href="../workbench/#/effort">which level fits which task</a>, an exercise per department in the simulator.</p>
+<p class="lalt">Try it: <a href="../workbench/#/effort">which level fits which task</a>, an exercise per department in the workbench.</p>
 </div>"""
 
 
@@ -680,8 +680,8 @@ def build(shell, urls: dict) -> str:
 <tr><td>Whether it actually works, with a number</td><td><a href="../qa/">The QA lead's eight steps</a></td></tr>
 <tr><td>Making it repeatable, observable and reversible</td><td><a href="../devops/">DevOps and platform's eight steps</a></td></tr>
 <tr><td>Wanting the artefacts, not the argument</td><td><a href="../templates/">40 templates</a> · <a href="../prompts/">116 prompts</a></td></tr>
-<tr><td>Wanting to see it happen to somebody else first</td><td><a href="../workbench/#/story">The simulator's thirteen episodes</a>: the worked case, playable</td></tr>
-<tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../workbench/#/governance/gv-gates">The gates, in the simulator</a> · <a href="../workbench/#/evidence">what a complete evidence pack holds</a></td></tr>
+<tr><td>Wanting to see it happen to somebody else first</td><td><a href="../workbench/#/story">The workbench's thirteen episodes</a>: the worked case, day by day</td></tr>
+<tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../workbench/#/governance/gv-gates">The gates, in the workbench</a> · <a href="../workbench/#/evidence">what a complete evidence pack holds</a></td></tr>
 <tr><td>Wanting the maturity conversation with a number</td><td><a href="../workbench/#/toolkit/maturity">The maturity self-check</a> · <a href="../workbench/#/toolkit/aifit">is this work for a model at all?</a></td></tr>
 </tbody></table></div></div></main></div>""")
     desc = ("For executives and business owners: why agentic product development changes your economics and risk, "

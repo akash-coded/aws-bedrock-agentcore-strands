@@ -40,7 +40,7 @@ def tools(s: Sk):
     s.route([(880, 552), (960, 572), (1090, 566)], "path")
     s.label(230, 84, "many tools", "ink")
     s.note(690, 150, "count what is enforced", (620, 380), "point")
-    s.note(1000, 270, "the agent,|through the gap", (880, 410), "aside")
+    s.note(980, 270, "agent, through|the gap", (880, 410), "aside")
 
 
 SKETCHES = [

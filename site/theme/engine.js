@@ -301,105 +301,6 @@
     });
   }
 
-  /* ---------------------------------------------------------------- reveal */
-  /* A board's parts arrive in the order they are meant to be read, because on
-     these diagrams the order IS the lesson. This is the only motion on the site
-     that touches content, so it is armed by script and disarmed three ways: no
-     script, reduced motion, or a watchdog if the observer never fires. Content
-     that script hides must be content script is certain to show. */
-  function wireReveal() {
-    var groups = $$("[data-reveal]");
-    if (!groups.length) return;
-    if (!("IntersectionObserver" in window)) return;
-    try {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    } catch (e) { return; }
-    // A document that starts hidden never gets a running clock, so it never gets
-    // the animation either. Nothing is armed and everything is simply present.
-    if (document.hidden) return;
-
-    groups.forEach(function (g) {
-      var kids = [].slice.call(g.children);
-      // a long group steps faster, so a 30-cell matrix does not take three seconds
-      var step = Math.max(22, Math.min(90, 620 / Math.max(1, kids.length)));
-      kids.forEach(function (k, i) {
-        k.style.setProperty("--rvd", Math.round(i * step) + "ms");
-      });
-      g.setAttribute("data-reveal-armed", "");
-    });
-
-    // The gentle path: let the transition play.
-    var show = function (g) { g.setAttribute("data-revealed", ""); };
-
-    // The certain path. A hidden document freezes transition clocks, so simply
-    // dropping the rule that hides a part is not enough — an in-flight transition
-    // goes on pinning it at zero with its clock stopped. Take the declaration away
-    // and finish any animation still holding the old value.
-    var forceShow = function (g) {
-      g.setAttribute("data-revealed", "");
-      g.removeAttribute("data-reveal-armed");
-      [].slice.call(g.children).forEach(function (k) {
-        if (!k.getAnimations) return;
-        k.getAnimations().forEach(function (a) { try { a.finish(); } catch (e) { /* done */ } });
-      });
-    };
-    var forceAll = function () { groups.forEach(forceShow); };
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        show(e.target);
-        io.unobserve(e.target);
-      });
-    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
-    groups.forEach(function (g) { io.observe(g); });
-
-    // Three ways out, because content script hides is content script must show.
-    setTimeout(forceAll, 2600);
-    window.addEventListener("beforeprint", forceAll);
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) forceAll();
-    });
-  }
-
-  /* --------------------------------------------------------------- figures */
-  /* A drawn figure arrives in the order it was drawn, once, the first time it is scrolled to: the
-     parts fade in over about half a second. Nothing is hidden beforehand, so a figure this never
-     reaches is simply there; reduced motion, a hidden tab or no observer and it does not run. */
-  function wireFigures() {
-    var figs = $$("figure.fig > svg, .mmg svg, figure.bbw > svg, figure.sketch svg");
-    if (!figs.length || !("IntersectionObserver" in window) || document.hidden) return;
-    try {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    } catch (e) { return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        if (e.target.classList.contains("sk")) {
-          // a sketch: the scene is there, complete; only its notes arrive, in the order they were written
-          [].slice.call(e.target.querySelectorAll("[data-an]")).forEach(function (k) {
-            k.style.setProperty("--fd", (150 + 80 * (+k.getAttribute("data-an") - 1)) + "ms");
-          });
-          e.target.classList.add("fig-in");
-          return;
-        }
-        var kids = [].slice.call(e.target.children).filter(function (k) {
-          var t = k.tagName.toLowerCase();
-          return t !== "defs" && t !== "style" && t !== "title" && t !== "desc";
-        });
-        var step = Math.min(40, 480 / Math.max(1, kids.length));
-        kids.forEach(function (k, i) { k.style.setProperty("--fd", Math.round(i * step) + "ms"); });
-        e.target.classList.add("fig-in");
-      });
-    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
-    figs.forEach(function (f) {
-      // already on screen when the page opens: leave it be, an entrance there would be a blink
-      if (f.getBoundingClientRect().top < innerHeight * 0.88) return;
-      io.observe(f);
-    });
-  }
-
   /* ---------------------------------------------------------------- matrix */
   /* Reading a cell in a five-by-four grid means holding its row and its column
      in your head. Lighting both is the whole feature. Pointer and keyboard
@@ -453,7 +354,7 @@
 
   function init() {
     wireLenses(); wireCalcs(); wireScores(); wireSteppers();
-    wireReveal(); wireFigures(); wireMatrix(); wireLoops();
+    wireMatrix(); wireLoops();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

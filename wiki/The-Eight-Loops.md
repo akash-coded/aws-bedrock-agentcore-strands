@@ -125,7 +125,7 @@ asked what was missing, and both turned out to be sensitivity points.
 [simulation](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/simulations/nfr)
 
 *Lineage: utility trees and sensitivity points from ATAM (Kazman, Klein and Clements, SEI, 2000);
-six-part quality attribute scenarios from Bass, Clements and Kazman. The chain is the playbook's.*
+six-part quality attribute scenarios from Bass, Clements and Kazman. The chain is the manual's.*
 
 ---
 
@@ -199,7 +199,7 @@ SPEC:
 [episode](https://akash-coded.github.io/aws-bedrock-agentcore-strands/simulator/#/episode/spec1)
 
 *Lineage: EARS (Mavin, Wilkinson, Harwood and Novak, Rolls-Royce, 2009). The eight fields and the bar
-per slice are the playbook's.*
+per slice are the manual's.*
 
 ---
 
@@ -281,7 +281,7 @@ have cost a day on bolt one costs a fortnight with five bolts built on top of it
 [Journey: Engineering lead](Journey-Engineering-Lead)
 
 *Lineage: the walking skeleton (Cockburn, Crystal Clear, 2004); the bolt comes from the AWS
-AI-Driven Development Lifecycle. One risk per bolt is the playbook's.*
+AI-Driven Development Lifecycle. One risk per bolt is the manual's.*
 
 ---
 
@@ -603,7 +603,7 @@ discounted to nothing regardless of how real it was.
 [The Evidence Pack](The-Evidence-Pack)
 
 *Lineage: stage-gate systems (Cooper, 1990); paired indicators (Grove, 1983); Goodhart's law (1975).
-The hard and soft split and the two-number report are the playbook's.*
+The hard and soft split and the two-number report are the manual's.*
 
 ---
 
