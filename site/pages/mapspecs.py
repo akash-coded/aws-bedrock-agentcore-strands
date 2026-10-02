@@ -595,4 +595,22 @@ _bank("aws-generative-ai-interview-questions", [("AWS generative AI", P3), ("ten
     (P2, "8 to 10", "Operate", [("8 · Observe it", "eye"), ("9 · Deploy it", "cloud"), ("10 · Well-Architected", "check")]),
 ], "Bedrock, AgentCore, Guardrails, Knowledge Bases: the questions test whether you know what the service decides for you and what it does not.")
 
+# ============================================================================ the leadership page
+# Not a lesson's map: the first picture on /protocol/. The four phases on one line, the sign-off
+# before P2, and where each of the sponsor's four decisions falls. Decision 2 is made where P0
+# hands over to P1, so it rides on that arrow. pages/protocol.py adds the pins and their links.
+MAPS["protocol-four-decisions"] = dict(
+    kind="flow", title=[("P0 to P3", "n"), ("where your four decisions fall",)], hue="n",
+    nodes=[_c("What is AI work", "P0 · Frame", "flag", P0),
+           _c("Your team writes the spec", "P1 · Design & Spec", "spec", P1),
+           _c("What counts as evidence", "P2 · Build & Prove", "bolt", P2),
+           _c("What you fund past cycle one", "P3 · Run & Learn", "chart", P3)],
+    edge_labels=["What it may do alone"],
+    gate_after=1,
+    caption="Two of the four are settled before anyone writes a spec. Each pin opens its decision below.",
+    alt="The four phases P0 to P3 on one line with the sign-off before P2, and four pins: which work is AI "
+        "work in P0, what the agent may do alone where P0 hands over to P1, what counts as evidence in P2, "
+        "and what you fund past cycle one in P3",
+)
+
 MAPS = {k: v for k, v in MAPS.items() if v is not None}
