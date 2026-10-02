@@ -2,9 +2,6 @@
 script exists beside this file. A lab starts from the document the one before it filed."""
 
 PLANNED = [
-    {"n": 2, "phase": 1, "minutes": 12, "title": "Write the system prompt from the spec",
-     "does": "Draft the assistant's system prompt from the spec, and find every limit that is in the prompt when it should be in a tool's signature.",
-     "who": "The engineer, with the architect", "makes": "a system prompt whose every rule points at a line of the spec, and a list of limits moved into code"},
     {"n": 3, "phase": 2, "minutes": 15, "title": "Prove the bar",
      "does": "Run the assistant on 500 past cases, read the score per kind of case against the bar, and decide what the evidence pack says.",
      "who": "The QA lead, with the product manager", "makes": "an evidence pack that a sponsor can sign or send back"},

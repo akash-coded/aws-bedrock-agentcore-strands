@@ -14,7 +14,8 @@ Where things are:
 
 A recorded reply is a real model's answer to the exact prompt shown, saved when the lab was written. The
 check refuses a reply that does not say which model and on what date: a lab never passes off a written
-example as a recording.
+example as a recording. Where a compose beat sends a system prompt (its parts marked ``user`` are the
+message, the rest the system prompt), the recording carries both, and the check holds both.
 """
 from __future__ import annotations
 
@@ -102,11 +103,11 @@ def _files(lab: dict) -> dict[str, dict]:
     return out
 
 
-def prompt_text(lab: dict, beat: dict, picks: dict | None = None) -> str:
-    """The prompt a compose beat assembles, given the option picked in each slot (the first option where
-    none is given). The same joining as lab.js promptText, so the check below is the engine's own truth."""
+def _joined(lab: dict, beat: dict, picks: dict | None, user: bool) -> str:
     files, picks, out = _files(lab), picks or {}, []
     for p in beat["parts"]:
+        if bool(p.get("user")) != user:
+            continue
         if "file" in p:
             out.append(p.get("lead", "") + files[p["file"]]["body"])
         elif "text" in p:
@@ -115,6 +116,25 @@ def prompt_text(lab: dict, beat: dict, picks: dict | None = None) -> str:
             want = picks.get(p["id"], p["options"][0]["id"])
             out.append(next(o["text"] for o in p["options"] if o["id"] == want))
     return "\n\n".join(t for t in out if t)
+
+
+def prompt_text(lab: dict, beat: dict, picks: dict | None = None) -> str:
+    """The prompt a compose beat assembles, given the option picked in each slot (the first option where
+    none is given). The same joining as lab.js promptText, so the check below is the engine's own truth.
+    Where the beat sends a message with it (parts marked ``user``), this is the system prompt."""
+    return _joined(lab, beat, picks, False)
+
+
+def message_text(lab: dict, beat: dict, picks: dict | None = None) -> str:
+    """The message a compose beat sends with its system prompt: its parts marked ``user``, joined the same way.
+    Empty for a beat whose prompt is the whole message."""
+    return _joined(lab, beat, picks, True)
+
+
+def _sent(lab: dict, beat: dict, picks: dict | None = None) -> tuple[str | None, str]:
+    """What a compose beat sends, as (system prompt, message): (None, the prompt) where the prompt is the whole message."""
+    msg = message_text(lab, beat, picks)
+    return (prompt_text(lab, beat, picks), msg) if msg else (None, prompt_text(lab, beat, picks))
 
 
 def _picks_for(key: str) -> dict:
@@ -156,7 +176,13 @@ def check(labs: list[dict]) -> list[str]:
             err.append(f"{s}: a lab without a reply to mark is a slideshow; add a mark beat")
         if not lab["beats"] or lab["beats"][-1].get("kind") != "file":
             err.append(f"{s}: the last beat files the document")
-        shown: dict[str, set] = {}                      # reply id -> the prompts the lab shows for it
+        if lab.get("starts"):                           # a lab starts from the document the one before it filed
+            prev, desk = next((x for x in labs if x["n"] == lab["n"] - 1), None), _files(lab).get(lab["starts"])
+            if not prev or not desk:
+                err.append(f"{s}: 'starts' names the desk file that the lab before it filed; there is no such lab or file")
+            elif desk["body"] != book_document(prev).rstrip("\n"):
+                err.append(f"{s}: the desk file {lab['starts']!r} is not the document Lab {prev['n']} files; copy it again, and record again")
+        shown: dict[str, set] = {}                      # reply id -> what the lab shows it was sent: (system prompt or None, prompt)
         for b in lab.get("beats", []):
             comp = next((x for x in lab["beats"] if x["id"] == b.get("of")), None) if b.get("of") else None
             if b.get("kind") in ("run", "mark") and comp and comp.get("kind") == "compose":
@@ -165,24 +191,24 @@ def check(labs: list[dict]) -> list[str]:
                     keys = [cond] if isinstance(cond, str) else ["*"]
                     for k in keys:
                         slot = next((p["id"] for p in comp["parts"] if "options" in p), None)
-                        shown.setdefault(b["doc"], set()).add(prompt_text(lab, comp, {slot: k} if slot and k != "*" else {}))
+                        shown.setdefault(b["doc"], set()).add(_sent(lab, comp, {slot: k} if slot and k != "*" else {}))
                 elif isinstance(b.get("reply"), dict):
                     for k, rid in b["reply"].items():
                         if k != "*":
-                            shown.setdefault(rid, set()).add(prompt_text(lab, comp, _picks_for(k)))
+                            shown.setdefault(rid, set()).add(_sent(lab, comp, _picks_for(k)))
                 elif isinstance(b.get("reply"), str):
-                    shown.setdefault(b["reply"], set()).add(prompt_text(lab, comp))
+                    shown.setdefault(b["reply"], set()).add(_sent(lab, comp))
             if b.get("kind") == "compare":
                 for c in b.get("cols", []):
                     if c.get("reply"):
-                        shown.setdefault(c["reply"], set()).add(c["body"])
+                        shown.setdefault(c["reply"], set()).add((None, c["body"]))
         for rid, r in lab["replies"].items():
             if not (r.get("model") and re.fullmatch(DATE, r.get("date", ""))):
                 err.append(f"{s}: reply {rid}: a recording says which model and on what date (for example '2 October 2026')")
             if "prompt" not in r:
                 err.append(f"{s}: reply {rid}: a recording carries the exact prompt it answers")
-            elif rid in shown and r["prompt"] not in shown[rid]:
-                err.append(f"{s}: reply {rid}: the prompt the lab shows is not the prompt that was recorded")
+            elif rid in shown and (r.get("system"), r["prompt"]) not in shown[rid]:
+                err.append(f"{s}: reply {rid}: the prompt the lab shows (or the system prompt sent with it) is not the one that was recorded")
             err += [f"{s}: reply {rid}: no section called {p['id']!r}" for p in r.get("patch", []) if "id" in p and p["id"] not in secs]
         err += _check_others(lab, s, shown)
         blob = json.dumps(_own_words(lab), ensure_ascii=False)
@@ -211,8 +237,8 @@ def _check_others(lab: dict, s: str, shown: dict[str, set]) -> list[str]:
             err.append(f"{s}: {rid}: 'of' must name a recording whose prompt the lab shows, not {r.get('of')!r}")
         elif "prompt" not in r:
             err.append(f"{s}: {rid}: a recording carries the exact prompt it answers")
-        elif r["prompt"] not in shown[r["of"]]:
-            err.append(f"{s}: {rid}: its prompt is not the one the lab shows for {r['of']!r}")
+        elif (r.get("system"), r["prompt"]) not in shown[r["of"]]:
+            err.append(f"{s}: {rid}: its prompt (or the system prompt sent with it) is not the one the lab shows for {r['of']!r}")
     for t in o.get("tables", []):
         name = f"{s}: debrief.others, the table {t.get('caption')!r}"
         cols = _columns(lab, t.get("of"))
@@ -341,8 +367,8 @@ def book_document(lab: dict) -> str:
         apply(b.get("patch"))
         if b["kind"] in ("choose", "compare"):
             apply(next(o for o in (b.get("options") or b.get("cols")) if o["id"] == picks[b["id"]]).get("patch"))
-        if b["kind"] in ("run", "mark") and "reply" in b:
-            apply(lab["replies"][_reply_for(b, picks)].get("patch"))
+        if b["kind"] in ("run", "mark") and ("reply" in b or b.get("doc")):      # as lab.js: a mark beat's reply is its doc
+            apply(lab["replies"][b.get("doc") or _reply_for(b, picks)].get("patch"))
     return "\n\n".join((x["head"] + "\n" if x.get("head") else "") + x["body"] for x in secs.values() if x.get("body")) + "\n"
 
 
@@ -370,10 +396,17 @@ def _asked(lab: dict, rid: str) -> tuple[dict, dict] | None:
     return None
 
 
+TO = ("System prompt", "Message")                    # where a beat sends a message with its prompt, the two halves' labels
+
+
 def _prompt_box(lab: dict, comp: dict, picks: dict) -> str:
     """A prompt as its compose beat shows it once run: each part, the option picked, the desk files by name."""
-    files, parts, label = _files(lab), [], ""
+    files, parts, label, was = _files(lab), [], "", None
+    two = any(p.get("user") for p in comp["parts"])
     for p in comp["parts"]:
+        if two and bool(p.get("user")) != was:
+            was = bool(p.get("user"))
+            parts.append(f'<p class="lab-to">{TO[was]}</p>')
         if "file" in p:
             lead = p.get("lead", "").strip()
             parts.append(f'<pre class="lab-part file">{_E(lead + " " if lead else "")}[ {_E(files[p["file"]]["name"])}, in full ]</pre>')
@@ -419,15 +452,17 @@ def others_page(lab: dict, shell, ctx: dict) -> str:
     """The replies behind the debrief's tables: each prompt as the lab shows it, then every other model's reply to it,
     and the lab's own two recordings for the tables' first column."""
     o, hue = lab["debrief"]["others"], _phase(lab)[2]
-    groups, own = [], []
+    groups, own, two = [], [], False
     for t in o["tables"]:
         comp, picks = _asked(lab, t["of"])
+        two = two or any(p.get("user") for p in comp["parts"])
         groups.append(_prompt_box(lab, comp, picks) + "".join(_reply_box(r, comp["title"], r["id"]) for r in o["replies"] if r["of"] == t["of"]))
         own.append(_reply_box(lab["replies"][t["of"]], comp["title"], t["of"]))
+    sent = "Each system prompt went with its message and nothing else." if two else "Each prompt was the whole message."
     body = f"""<div class="wrap"><main id="main" class="page labpage">
   <header class="lab-head"><p class="eyebrow" style="--c:var(--dg-{hue})">Lab {lab["n"]} · {_E(lab["title"])} · the replies behind its debrief</p>
     <h1>{_E(o["title"])}</h1>
-    <p class="lede">{_E(o["lead"])} Each prompt was the whole message. Every reply is here as its model wrote it.</p></header>
+    <p class="lede">{_E(o["lead"])} {sent} Every reply is here as its model wrote it.</p></header>
   <section class="lab-otherspage" aria-label="The tables and the replies">{_others(lab, page=True)}
     <h2>The replies, as the models wrote them</h2>
     <div class="lab-others-replies">{"".join(groups)}</div>
@@ -457,7 +492,9 @@ def _plain(lab: dict) -> str:
         if b.get("say"):
             out.append(_rich(b["say"]))
         if b["kind"] == "compose":
-            out.append(f'<p><b>The prompt:</b></p><pre>{_E(prompt_text(lab, b, picks.get(b["id"])))}</pre>')
+            system, msg = _sent(lab, b, picks.get(b["id"]))
+            out.append((f'<p><b>The system prompt:</b></p><pre>{_E(system)}</pre><p><b>The message sent with it:</b></p>'
+                        if system is not None else "<p><b>The prompt:</b></p>") + f"<pre>{_E(msg)}</pre>")
         elif b["kind"] in ("run", "mark"):
             r = lab["replies"][b.get("doc") or _reply_for(b, picks)]
             out.append(f'<p><b>Recorded reply</b> ({_E(r["model"])}, {_E(r["date"])}; yours will differ):</p><pre>{_E(_reply_text(r))}</pre>')
@@ -487,7 +524,7 @@ def _plain(lab: dict) -> str:
 def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
     key, name, hue = _phase(lab)
     script = {k: lab[k] for k in ("slug", "title", "artefact", "files", "replies", "beats", "debrief") if k in lab}
-    script["replies"] = {rid: {k: v for k, v in r.items() if k != "prompt"} for rid, r in lab["replies"].items()}
+    script["replies"] = {rid: {k: v for k, v in r.items() if k not in ("prompt", "system")} for rid, r in lab["replies"].items()}
     script["v"] = lab.get("v", 1)
     nxt = next((x for x in labs if x["n"] == lab["n"] + 1), None)
     links = [("All the labs", "../")] if not nxt else [(f'Next lab: {nxt["title"]}', f'../{nxt["slug"]}/'), ("All the labs", "../")]

@@ -3,20 +3,26 @@
 //   python3 site/build.py
 //   python3 -m http.server 8799 -d site/_site &
 //   node site/tools/lab.test.mjs http://localhost:8799/labs/grow-the-spec/
+//   node site/tools/lab.test.mjs http://localhost:8799/labs/write-the-system-prompt/
 //
 // The script is checked without a browser by site/pages/labs.py (every flag matches one line, every
 // recording carries the prompt the parts join into, every call has the book's option). This checks the
 // page that sits on it: that the lab can be played from the first beat to the debrief with nothing but
 // the controls on the page, on each path the script has; that the prompt the page assembles is the
-// prompt that was recorded, byte for byte; that marking every fault scores full and marking nothing
-// scores nothing, with no false "caught"; that the document on the right ends in the state the script
-// says; that a reload in the middle comes back to the same beat; that Run without a choice made does
-// not go on; that the focus moves to each new beat; that no script error is thrown; that every beat, live or
-// past, stacks its parts one under another; that nothing scrolls sideways on a phone; that without script
-// the page reads as a document with every recording in it; and, where the debrief shows other models' replies to
-// the same prompts, that both its tables carry the lab's own model and three more, fit at 1440 and 1024 and stack
-// one block a row at 390 and 320, that its fold reads in six replies, each stamped with its model, maker and date
-// and each exactly as its file in the repository, and that the reading version without script has the tables.
+// prompt that was recorded, byte for byte (and, where a beat sends a system prompt and a message, both);
+// that marking every fault scores full and marking nothing scores nothing, with no false "caught"; that
+// the document on the right ends in the state the script says; that a reload in the middle comes back to
+// the same beat; that Run without a choice made does not go on; that the focus moves to each new beat;
+// that no script error is thrown; that every beat, live or past, stacks its parts one under another; that
+// nothing scrolls sideways on a phone; that without script the page reads as a document with every
+// recording on the book's path in it; and, where the debrief shows other models' replies to the same
+// prompts, that both its tables carry the lab's own model and three more, fit at 1440 and 1024 and stack
+// one block a row at 390 and 320, that its fold reads in six replies, each stamped with its model, maker
+// and date and each exactly as its file in the repository, and that the reading version without script
+// has the tables.
+//
+// Each lab has a profile below (LABS): its recordings, the paths to play, and what each path must leave.
+// A lab without one fails at once, so a new lab cannot pass by being skipped.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { spawn } from "node:child_process";
 import { readFileSync, rmSync } from "node:fs";
@@ -26,7 +32,121 @@ import { fileURLToPath } from "node:url";
 
 const URL_ = process.argv[2];
 if (!URL_) { console.error("usage: node lab.test.mjs <lab url>"); process.exit(2); }
+const SLUG = (new URL(URL_).pathname.match(/\/labs\/([^/]+)\/?$/) || [])[1];
 const here = dirname(fileURLToPath(import.meta.url));
+const LABDIR = join(here, "..", "content", "labs", SLUG || "");
+const recorded = (f) => readFileSync(join(LABDIR, f), "utf8").replace(/\n$/, "");
+
+// ------------------------------------------------------------------ what each lab must do
+// plan: the option to take in each slot and call, and whether to mark every fault ("all"), nothing ("none"), or every
+// line ("everything"). Each expect() gets the end state (STATE below) and the filed document, and returns the checks.
+const LABS = {
+  "grow-the-spec": {
+    sections: 8, firstCompose: "ask", own: "a-draft", stamps: 5, systems: 0, doc: /8 Records/,
+    book: { slots: { ask: { what: "ask" }, gaps: { gaps: "flag" } }, calls: { call: "owners", measures: "owners", hand: "struct" }, marks: "all" },
+    expectBook: (st, pack) => [
+      [st.done === "1" && st.decided === 7 && st.states.rec === "open" && st.version === 3, `by the book ends: ${JSON.stringify(st)}`],
+      [/caught 13 of 13/.test(st.tally.replace(/\s+/g, " ")) && /3 of 3 calls/.test(st.tally), `the tally: ${st.tally}`],
+      [pack && /8 Records\nNOT DECIDED/.test(pack.body) && /Spec|AC-1/.test(pack.body), "the filed document is not in the pack, or is not the book's"]],
+    off: { slots: { ask: { what: "draft" }, gaps: { gaps: "defaults" } }, calls: { call: "keep", measures: "fill", hand: "prose" }, marks: "none" },
+    expectOff: (st) => [
+      [st.done === "1" && st.states.rec === "guessed" && st.states.ac === "draft" && st.version === 2 && st.decided === 6, `off the book ends: ${JSON.stringify(st)}`],
+      [/caught 0 of 25/.test(st.tally.replace(/\s+/g, " ")) && /0 of 3 calls/.test(st.tally), `the tally: ${st.tally}`]],
+    third: { slots: { ask: { what: "ask" }, gaps: { gaps: "none" } }, calls: { call: "self", measures: "drop", hand: "struct" }, marks: "everything" },
+    thirdLabel: "say nothing, decide alone, drop the measures; everything marked",
+    expectThird: (st) => [
+      [st.done === "1" && st.states.role === "decided" && st.states.rec === "guessed" && st.states.ac === "draft", `the third path ends: ${JSON.stringify(st)}`],
+      [/1 of 3 calls/.test(st.tally), `the tally: ${st.tally}`]],
+    reload: { slots: { ask: { what: "ask" } }, calls: {}, marks: "all" },
+    // the prompts the page assembles, each against the file it was recorded from
+    prompts: async () => {
+      const prompts = {};
+      for (const f of ["a-ask", "a-draft", "b-none", "b-defaults", "b-flag", "d-ears"]) prompts[f] = recorded(`prompt-${f}.txt`);
+      await evaluate(STEP({ slots: {}, calls: {}, marks: "all" }));            // past the note
+      for (const [what, file] of [["ask", "a-ask"], ["draft", "a-draft"]]) {
+        await evaluate(`document.querySelector('input[name="ask-what"][value="${what}"]').click(); true`);
+        const got = await evaluate(`window.Lab.prompt("ask")`);
+        check(got === prompts[file], `prompt A with "${what}" is not prompt-${file}.txt (${got.length} vs ${prompts[file].length} chars)`);
+      }
+      await evaluate(`document.querySelector('input[name="ask-what"][value="ask"]').click(); document.querySelector('[data-act="run"]').click(); true`); await sleep(150);
+      await evaluate(STEP({ slots: {}, calls: {}, marks: "all" })); await sleep(100);   // the run
+      await evaluate(STEP({ slots: {}, calls: {}, marks: "all" })); await sleep(100);   // Priya answers
+      for (const [gaps, file] of [["none", "b-none"], ["defaults", "b-defaults"], ["flag", "b-flag"]]) {
+        await evaluate(`document.querySelector('input[name="gaps-gaps"][value="${gaps}"]').click(); true`);
+        const got = await evaluate(`window.Lab.prompt("gaps")`);
+        check(got === prompts[file], `prompt B with "${gaps}" is not prompt-${file}.txt (${got.length} vs ${prompts[file].length} chars)`);
+      }
+      const d = await evaluate(`window.Lab.prompt("ears")`);
+      check(d === prompts["d-ears"], `prompt D is not prompt-d-ears.txt (${d.length} vs ${prompts["d-ears"].length} chars)`);
+      console.log("  prompts A (both), B (all three) and D match their recordings");
+    },
+  },
+  "write-the-system-prompt": {
+    sections: 3, firstCompose: "draft", own: "c-open", stamps: 2, systems: 1, doc: /2 Limits moved into code[\s\S]*3 Not decided yet\nAC-3/,
+    // cite the spec lines; the limits into the signatures; one rule in the prompt for the words
+    book: { slots: { draft: { how: "cite" } }, calls: { where: "code", words: "rule" }, marks: "all" },
+    expectBook: (st, pack) => [
+      [st.done === "1" && st.decided === 2 && st.states.prompt === "decided" && st.states.code === "decided" && st.states.open === "open" && st.version === 2,
+        `by the book ends: ${JSON.stringify(st)}`],
+      [/caught 10 of 10/.test(st.tally.replace(/\s+/g, " ")) && /2 of 2 calls/.test(st.tally), `the tally: ${st.tally}`],
+      [st.trail.join(" ") === "start:ok draft:run limits:check where:code case-bound:run case-bound-mark:check words:rule review:ok file:file END",
+        `the book's path is not the nine beats it should be: ${st.trail.join(" ")}`],
+      [pack && /\*\*Approvals\.\*\*/.test(pack.body) && /^2 Limits moved into code\nEach limit/m.test(pack.body) && /3 Not decided yet\nAC-3/.test(pack.body)
+        && !/Written on Friday/.test(pack.body), "the filed document is not in the pack, or is not the book's"]],
+    // no spec lines, so a second pass; the limits left in the prompt, so the case pays; nothing added to the prompt
+    off: { slots: { draft: { how: "plain" } }, calls: { where: "prompt", words: "nothing" }, marks: "none" },
+    expectOff: (st, pack) => [
+      [st.done === "1" && st.decided === 2 && st.states.code === "decided" && st.version === 2, `off the book ends: ${JSON.stringify(st)}`],
+      [/caught 0 of 20/.test(st.tally.replace(/\s+/g, " ")) && /0 of 2 calls/.test(st.tally), `the tally: ${st.tally}`],
+      [["untraced:check", "again:run", "limits-again:check", "case-open:run", "case-open-mark:check", "after-case:ok", "case-bound:run", "review-late:ok"].every((x) => st.trail.includes(x))
+        && !st.trail.includes("limits:check") && !st.trail.includes("review:ok"), `off the book did not take the long way round: ${st.trail.join(" ")}`],
+      [st.cost && st.cost.code === "open" && /called it for \$1,240\.00/.test(st.cost.body), `after the case called the refund, the document does not show the hole: ${JSON.stringify(st.cost)}`],
+      [pack && /Written on Friday, after Arjun's case called issue_refund for \$1,240\.00/.test(pack.body) && !/\*\*Approvals\.\*\*/.test(pack.body), "the filed document is not the late one"]],
+    // spec lines; a weekly report; the notes hidden; every line marked
+    third: { slots: { draft: { how: "cite" } }, calls: { where: "report", words: "hide" }, marks: "everything" },
+    thirdLabel: "spec lines, a weekly report, the notes hidden; everything marked",
+    expectThird: (st, pack) => [
+      [st.done === "1" && st.states.prompt === "decided" && st.states.code === "decided" && st.trail.includes("case-open-mark:check"), `the third path ends: ${JSON.stringify(st)}`],
+      [/0 of 2 calls/.test(st.tally) && /caught 14 of 14/.test(st.tally.replace(/\s+/g, " ")), `the tally: ${st.tally}`],
+      [pack && /Written on Friday/.test(pack.body) && !/\*\*Approvals\.\*\*/.test(pack.body), "the filed document is not the third path's"]],
+    reload: { slots: { draft: { how: "cite" } }, calls: { where: "code" }, marks: "all" },
+    prompts: async () => {
+      await evaluate(STEP({ slots: {}, calls: {}, marks: "all" }));            // past the note
+      for (const [how, file] of [["plain", "a-plain"], ["cite", "a-cite"]]) {
+        await evaluate(`document.querySelector('input[name="draft-how"][value="${how}"]').click(); true`);
+        const got = await evaluate(`window.Lab.prompt("draft")`), want = recorded(`prompt-${file}.txt`);
+        check(got === want, `prompt A with "${how}" is not prompt-${file}.txt (${got.length} vs ${want.length} chars)`);
+      }
+      check((await evaluate(`window.Lab.message("draft")`)) === "", "prompt A sends a message beside itself; it should be the whole message");
+      const again = await evaluate(`window.Lab.prompt("again")`);
+      check(again === recorded("prompt-a-cite.txt"), `prompt A again is not prompt-a-cite.txt (${again.length} chars)`);
+      // the case: a system prompt and a message, each against its file, for both sets of tools
+      for (const [beat, tools] of [["case-open", "c-open"], ["case-bound", "c-bound"]]) {
+        const sys = await evaluate(`window.Lab.prompt("${beat}")`), msg = await evaluate(`window.Lab.message("${beat}")`);
+        check(sys === recorded(`system-${tools}.txt`), `the system prompt of ${beat} is not system-${tools}.txt (${sys.length} chars)`);
+        check(msg === recorded("prompt-c.txt"), `the message of ${beat} is not prompt-c.txt (${msg.length} chars)`);
+      }
+      console.log("  prompt A (both), A again, and the case's system prompt and message with each set of tools match their recordings");
+    },
+    // the case, live: two labelled halves, two copy buttons
+    extra: async (P) => {
+      console.log("\n4b. the case shows its system prompt and its message apart, and copies each");
+      await evaluate("localStorage.clear(); true"); await open(URL_);
+      for (let i = 0; i < 12 && (await evaluate(`window.Lab.current().id`)) !== "case-bound"; i++) { await evaluate(STEP(P.book)); await sleep(100); }
+      const box = await evaluate(`(() => { const b = document.querySelector('.lab-beat.live'); return b && { id: b.getAttribute("data-beat"),
+        to: [...b.querySelectorAll(".lab-prompt .lab-to")].map((x) => x.textContent), copy: [...b.querySelectorAll('.lab-go [data-act^="copy"]')].map((x) => x.textContent),
+        order: [...b.querySelector(".lab-prompt").children].map((x) => x.className.split(" ")[0] + (x.classList.contains("file") ? ".file" : "")).join(" ") }; })()`);
+      check(box && box.id === "case-bound" && box.to.join("|") === "System prompt|Message" && box.copy.join("|") === "Copy the system prompt|Copy the message"
+        && box.order === "lab-ph lab-to lab-part.file lab-part lab-to lab-part", `the case's prompt box: ${JSON.stringify(box)}`);
+      const first = await evaluate(`(() => { window.Lab.current(); const b = document.querySelector('.lab-beat.past[data-beat="draft"]'); return b ? b.querySelectorAll(".lab-to").length : -1; })()`);
+      check(first === 0, `a one-part prompt shows ${first} system or message labels`);
+      console.log(`  ${box && box.to.join(" and ")}, each with its copy button; a one-part prompt has neither label`);
+    },
+  },
+};
+const P = LABS[SLUG];
+if (!P) { console.error(`lab.test.mjs has no profile for the lab at ${URL_}: add one to LABS`); process.exit(2); }
+
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const PORT = 9333 + Math.floor(Math.random() * 400);
 const profile = join(tmpdir(), `labtest-${PORT}`);
@@ -105,6 +225,9 @@ const STATE = `(() => { const a = window.Lab.artefact(); return { done: document
     return k.some((r, i) => i && r.top < k[i - 1].bottom - 1); }).map((b) => b.getAttribute("data-beat")),
   wide: [...document.querySelectorAll("main *")].filter((e) => e.getBoundingClientRect().right > innerWidth + 1 || e.scrollWidth > e.clientWidth + 1).slice(0, 8)
     .map((e) => e.tagName.toLowerCase() + "." + String(e.className).split(" ")[0] + " r=" + Math.round(e.getBoundingClientRect().right) + " sw=" + e.scrollWidth + "/" + e.clientWidth) }; })()`;
+// the document's code section as it stood just after a recording was marked (for a path whose cost shows on the right)
+const CODE_NOW = `(() => { const s = window.Lab.artefact().sections.find((x) => x.id === "code"); return s ? { code: s.state, body: s.body } : null; })()`;
+const PACK = `JSON.parse(localStorage.getItem("skyways.labs.pack") || "{}")[${JSON.stringify(SLUG)}]`;
 
 async function play(plan, label, { width = 1280 } = {}) {
   await open(URL_, { width });
@@ -112,11 +235,13 @@ async function play(plan, label, { width = 1280 } = {}) {
   await open(URL_, { width });
   thrown.length = 0;
   const trail = [];
+  let cost = null;
   for (let i = 0; i < 40; i++) {
     const r = await evaluate(STEP(plan));
     trail.push(r);
     if (r === "END" || r.startsWith("STUCK")) break;
     await sleep(120);
+    if (r === "case-open-mark:check") cost = await evaluate(CODE_NOW);
     const f = await evaluate(FOCUS);
     check(f !== "none" && f !== "BODY", `${label}: after ${r} the focus is on ${f}`);
   }
@@ -124,14 +249,14 @@ async function play(plan, label, { width = 1280 } = {}) {
   check(last === "END", `${label}: ${last} (${trail.join(" → ")})`);
   check(!thrown.length, `${label}: script error: ${thrown[0]}`);
   const st = await evaluate(STATE);
-  console.log(`  ${label}: ${trail.length - 1} presses, ${st.decided} of 8 decided, version ${st.version}, ${st.tally.trim()}`);
+  st.trail = trail; st.cost = cost;
+  console.log(`  ${label}: ${trail.length - 1} presses, ${st.decided} of ${P.sections} decided, version ${st.version}, ${st.tally.trim()}`);
   return { st, trail };
 }
+const expect = (list) => list.forEach(([ok, what]) => check(ok, what));
 
 try {
   await send("Page.enable"); await send("Runtime.enable");
-  const prompts = {};
-  for (const f of ["a-ask", "a-draft", "b-none", "b-defaults", "b-flag", "d-ears"]) prompts[f] = readFileSync(join(here, "..", "content", "labs", "grow-the-spec", `prompt-${f}.txt`), "utf8").replace(/\n$/, "");
 
   console.log("\n1. the page: script on, the reading version put away, the bench and the document shown");
   await open(URL_);
@@ -142,23 +267,7 @@ try {
 
   console.log("\n2. the prompts the page assembles are the recorded ones");
   await evaluate("localStorage.clear(); true"); await open(URL_);
-  await evaluate(STEP({ slots: {}, calls: {}, marks: "all" }));            // past the note
-  for (const [what, file] of [["ask", "a-ask"], ["draft", "a-draft"]]) {
-    await evaluate(`document.querySelector('input[name="ask-what"][value="${what}"]').click(); true`);
-    const got = await evaluate(`window.Lab.prompt("ask")`);
-    check(got === prompts[file], `prompt A with "${what}" is not prompt-${file}.txt (${got.length} vs ${prompts[file].length} chars)`);
-  }
-  await evaluate(`document.querySelector('input[name="ask-what"][value="ask"]').click(); document.querySelector('[data-act="run"]').click(); true`); await sleep(150);
-  await evaluate(STEP({ slots: {}, calls: {}, marks: "all" })); await sleep(100);   // the run
-  await evaluate(STEP({ slots: {}, calls: {}, marks: "all" })); await sleep(100);   // Priya answers
-  for (const [gaps, file] of [["none", "b-none"], ["defaults", "b-defaults"], ["flag", "b-flag"]]) {
-    await evaluate(`document.querySelector('input[name="gaps-gaps"][value="${gaps}"]').click(); true`);
-    const got = await evaluate(`window.Lab.prompt("gaps")`);
-    check(got === prompts[file], `prompt B with "${gaps}" is not prompt-${file}.txt (${got.length} vs ${prompts[file].length} chars)`);
-  }
-  const d = await evaluate(`window.Lab.prompt("ears")`);
-  check(d === prompts["d-ears"], `prompt D is not prompt-d-ears.txt (${d.length} vs ${prompts["d-ears"].length} chars)`);
-  console.log("  prompts A (both), B (all three) and D match their recordings");
+  await P.prompts();
 
   console.log("\n3. Run with a slot left open does not go on");
   await evaluate("localStorage.clear(); true"); await open(URL_);
@@ -166,32 +275,28 @@ try {
   const before = await evaluate(`window.Lab.current().id`);
   await evaluate(`document.querySelector('[data-act="run"]').click(); true`); await sleep(100);
   const after = await evaluate(`({ id: window.Lab.current().id, need: !!document.querySelector(".lab-slot.need"), focus: document.activeElement && document.activeElement.type })`);
-  check(before === "ask" && after.id === "ask" && after.need && after.focus === "radio", `pressed Run with nothing chosen: ${JSON.stringify(after)}`);
+  check(before === P.firstCompose && after.id === P.firstCompose && after.need && after.focus === "radio", `pressed Run with nothing chosen: ${JSON.stringify(after)}`);
   console.log("  the slot is asked for, and takes the focus");
 
   console.log("\n4. by the book: every fault marked, every call the book's");
-  const book = await play({ slots: { ask: { what: "ask" }, gaps: { gaps: "flag" } }, calls: { call: "owners", measures: "owners", hand: "struct" }, marks: "all" }, "by the book");
-  check(book.st.done === "1" && book.st.decided === 7 && book.st.states.rec === "open" && book.st.version === 3, `by the book ends: ${JSON.stringify(book.st)}`);
-  check(/caught 13 of 13/.test(book.st.tally.replace(/\s+/g, " ")) && /3 of 3 calls/.test(book.st.tally), `the tally: ${book.st.tally}`);
+  const book = await play(P.book, "by the book");
+  expect(P.expectBook(book.st, await evaluate(PACK)));
   check(book.st.scores.every((s) => / 0 marked that were sound/.test(s) === false), `a sound line was counted as marked: ${book.st.scores.join(" | ")}`);
   check(!book.st.rows.length, `a beat lays its parts side by side instead of one under another (a site rule on its class?): ${book.st.rows.join(", ")}`);
-  const pack = await evaluate(`JSON.parse(localStorage.getItem("skyways.labs.pack") || "{}")["grow-the-spec"]`);
-  check(pack && /8 Records\nNOT DECIDED/.test(pack.body) && /Spec|AC-1/.test(pack.body), "the filed document is not in the pack, or is not the book's");
+  if (P.extra) await P.extra(P);
 
   console.log("\n5. off the book: nothing marked, the wrong call each time");
-  const off = await play({ slots: { ask: { what: "draft" }, gaps: { gaps: "defaults" } }, calls: { call: "keep", measures: "fill", hand: "prose" }, marks: "none" }, "off the book");
-  check(off.st.done === "1" && off.st.states.rec === "guessed" && off.st.states.ac === "draft" && off.st.version === 2 && off.st.decided === 6, `off the book ends: ${JSON.stringify(off.st)}`);
-  check(/caught 0 of 25/.test(off.st.tally.replace(/\s+/g, " ")) && /0 of 3 calls/.test(off.st.tally), `the tally: ${off.st.tally}`);
+  const off = await play(P.off, "off the book");
+  expect(P.expectOff(off.st, await evaluate(PACK)));
 
-  console.log("\n6. the third path: say nothing, decide alone, drop the measures; everything marked");
-  const mid = await play({ slots: { ask: { what: "ask" }, gaps: { gaps: "none" } }, calls: { call: "self", measures: "drop", hand: "struct" }, marks: "everything" }, "the third path");
-  check(mid.st.done === "1" && mid.st.states.role === "decided" && mid.st.states.rec === "guessed" && mid.st.states.ac === "draft", `the third path ends: ${JSON.stringify(mid.st)}`);
-  check(/1 of 3 calls/.test(mid.st.tally), `the tally: ${mid.st.tally}`);
+  console.log(`\n6. the third path: ${P.thirdLabel}`);
+  const mid = await play(P.third, "the third path");
+  expect(P.expectThird(mid.st, await evaluate(PACK)));
   check(mid.st.scores.every((s) => /marked that were sound/.test(s)), `marking everything should count the sound lines: ${mid.st.scores.join(" | ")}`);
 
   console.log("\n7. a reload in the middle comes back to the same beat; Start again starts clean");
   await evaluate("localStorage.clear(); true"); await open(URL_);
-  for (let i = 0; i < 4; i++) { await evaluate(STEP({ slots: { ask: { what: "ask" } }, calls: {}, marks: "all" })); await sleep(100); }
+  for (let i = 0; i < 4; i++) { await evaluate(STEP(P.reload)); await sleep(100); }
   const at = await evaluate(`window.Lab.current().id`);
   await open(URL_);
   const back = await evaluate(`({ id: window.Lab.current().id, shown: document.querySelectorAll(".lab-beat").length })`);
@@ -203,7 +308,7 @@ try {
   console.log("\n8. a phone: nothing scrolls sideways, the document sits above the bench");
   for (const w of [320, 375]) {
     await evaluate("localStorage.clear(); true");
-    const r = await play({ slots: { ask: { what: "ask" }, gaps: { gaps: "flag" } }, calls: { call: "owners", measures: "owners", hand: "struct" }, marks: "all" }, `${w}px`, { width: w });
+    const r = await play(P.book, `${w}px`, { width: w });
     check(r.st.over <= 0, `at ${w}px the page scrolls sideways by ${r.st.over}px: ${r.st.wide.join(", ")}`);
     check(!r.st.rows.length, `at ${w}px a beat lays its parts side by side: ${r.st.rows.join(", ")}`);
     const order = await evaluate(`(() => { const s = document.querySelector(".lab-side").getBoundingClientRect(), b = document.querySelector(".lab-bench").getBoundingClientRect(); return s.top <= b.top; })()`);
@@ -213,8 +318,9 @@ try {
   console.log("\n9. without script: the lab reads as a document, with every recording stamped");
   await open(URL_, { noscript: true });
   const plain = await evaluate(`(() => { const p = document.querySelector(".lab-plain"); return { shown: getComputedStyle(p).display !== "none", bench: getComputedStyle(document.getElementById("lab")).display,
-    stamps: (p.textContent.match(/Recorded reply \\(/g) || []).length, doc: /8 Records/.test(p.textContent), h1: !!document.querySelector("main h1") }; })()`);
-  check(plain.shown && plain.bench === "none" && plain.stamps >= 5 && plain.doc && plain.h1, `without script: ${JSON.stringify(plain)}`);
+    stamps: (p.textContent.match(/Recorded reply \\(/g) || []).length, doc: ${P.doc}.test(p.textContent), h1: !!document.querySelector("main h1"),
+    systems: (p.textContent.match(/The system prompt:/g) || []).length, messages: (p.textContent.match(/The message sent with it:/g) || []).length }; })()`);
+  check(plain.shown && plain.bench === "none" && plain.stamps >= P.stamps && plain.doc && plain.h1 && plain.systems === P.systems && plain.messages === P.systems, `without script: ${JSON.stringify(plain)}`);
   console.log(`  ${plain.stamps} recordings, the document by the book at the end`);
 
   // The debrief's part on other models (debrief.others): two tables, the lab's own model and three more, built from
@@ -235,8 +341,8 @@ try {
     for (let i = 0; i < 40; i++) { const n = await evaluate(`document.querySelectorAll(".lab-debrief .lab-fold .lab-reply").length`); if (n) break; await sleep(100); }
     return evaluate(REPLIES);
   };
-  await play({ slots: { ask: { what: "ask" }, gaps: { gaps: "flag" } }, calls: { call: "owners", measures: "owners", hand: "struct" }, marks: "all" }, "by the book, 1440", { width: 1440 });
-  const own = await evaluate(`window.Lab.data.replies["a-draft"] && window.Lab.data.replies["a-draft"].model`);
+  await play(P.book, "by the book, 1440", { width: 1440 });
+  const own = await evaluate(`window.Lab.data.replies[${JSON.stringify(P.own)}] && window.Lab.data.replies[${JSON.stringify(P.own)}].model`);
   const wide = await evaluate(OTHERS);
   if (!wide) console.log("  this lab's debrief has no part on other models");
   else {
@@ -253,7 +359,7 @@ try {
       const [, model, maker, date] = r.stamp.split(" · ");
       check(wide.tables[0].cols.includes(model) && maker && /^\d{1,2} [A-Z][a-z]+ \d{4}$/.test(date || ""), `a reply's stamp does not name a model, its maker and a date: ${r.stamp}`);
       let file = "";
-      try { file = readFileSync(join(here, "..", "content", "labs", "grow-the-spec", "others", `${r.id}.md`), "utf8"); } catch { /* checked below */ }
+      try { file = readFileSync(join(LABDIR, "others", `${r.id}.md`), "utf8"); } catch { /* checked below */ }
       check(file && r.text === file.replace(/^\n+|\n+$/g, "").split("\n").map((l) => l.replace(/\s+$/, "")).join("\n"), `the reply ${r.id} on the page is not others/${r.id}.md as its model wrote it`);
     }
     check(!thrown.length, `script error in the debrief: ${thrown[0]}`);

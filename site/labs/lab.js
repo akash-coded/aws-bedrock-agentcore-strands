@@ -15,7 +15,8 @@
 
    Beat kinds: note (read, go on), compose (assemble a prompt from parts, run it), run (a recorded reply to
    read), mark (a recorded reply to mark the faults in), choose (a call), compare (the same thing in two or
-   three forms, pick one), file (the document joins the pack). */
+   three forms, pick one), file (the document joins the pack). A compose beat whose parts include some marked
+   "user" sends those as the message and the rest as its system prompt, and shows and copies the two apart. */
 (function () {
   "use strict";
   var src = document.getElementById("lab-data"), root = document.getElementById("lab");
@@ -71,15 +72,18 @@
   function beatById(id) { return L.beats.filter(function (x) { return x.id === id; })[0]; }
   function markReply(b) { return L.replies[b.doc || (b.reply ? replyFor(b) : replyFor(beatById(b.of)))]; }   // the recording a mark beat is about
   function optionOf(b, id) { return (b.options || b.cols || []).filter(function (o) { return o.id === id; })[0]; }
-  function promptText(b) {
+  // the prompt a compose beat assembles; where the beat sends a message with it (parts marked "user"), the system prompt
+  function promptText(b, user) {
     var c = state.picks[b.id] || {};
-    return b.parts.map(function (p) {
+    return b.parts.filter(function (p) { return !p.user === !user; }).map(function (p) {
       if (p.file) return (p.lead || "") + fileBody(p.file);
       if (p.text != null) return p.text;
       var o = p.options.filter(function (x) { return x.id === (c[p.id] || p.options[0].id); })[0];
       return o.text;
     }).filter(function (t) { return t; }).join("\n\n");
   }
+  function messageText(b) { return promptText(b, true); }
+  function twoPart(b) { return b.parts.some(function (p) { return p.user; }); }
 
   /* ------------------------------------------------------------------ the document being made */
   function artefact(upto) {                       // replay every patch of every finished beat, in order
@@ -142,9 +146,10 @@
     if (b.kind === "note") {
       if (live) h += '<p class="lab-go"><button type="button" class="btn pri" data-act="ok">' + esc(b.button || "Go on") + "</button></p>";
     } else if (b.kind === "compose") {
-      var c = p || {};
+      var c = p || {}, two = twoPart(b), was = null;
       h += '<div class="lab-prompt"><p class="lab-ph">' + esc(b.title) + (b.attach ? '<span>' + b.attach.map(function (f) { return esc(fileName(f)); }).join(", ") + " attached</span>" : "") + "</p>";
       b.parts.forEach(function (part) {
+        if (two && !!part.user !== was) { was = !!part.user; h += '<p class="lab-to">' + (was ? "Message" : "System prompt") + "</p>"; }   // labs.py TO
         if (part.file) { h += '<pre class="lab-part file">' + esc((part.lead || "").trim()) + (part.lead ? " " : "") + "[ " + esc(fileName(part.file)) + ", in full ]</pre>"; return; }
         if (part.text != null) { h += '<pre class="lab-part">' + esc(part.text) + "</pre>"; return; }
         var cur = c[part.id] || (live ? null : part.options[0].id);
@@ -155,7 +160,9 @@
         h += '<pre class="lab-part pick' + (chosen ? "" : " none") + '" data-part="' + part.id + '">' + (chosen ? esc(chosen.text || "(nothing added)") : "Choose one above.") + "</pre>";
       });
       h += "</div>";
-      if (live) h += '<p class="lab-go"><button type="button" class="btn pri" data-act="run">' + esc(b.button || "Run this prompt") + '</button><button type="button" class="lab-copy" data-act="copy">Copy the prompt</button></p>';
+      if (live) h += '<p class="lab-go"><button type="button" class="btn pri" data-act="run">' + esc(b.button || "Run this prompt") + "</button>" +
+        (two ? '<button type="button" class="lab-copy" data-act="copy">Copy the system prompt</button><button type="button" class="lab-copy" data-act="copy-msg">Copy the message</button>'
+             : '<button type="button" class="lab-copy" data-act="copy">Copy the prompt</button>') + "</p>";
     } else if (b.kind === "run") {
       r = L.replies[replyFor(b)];
       h += '<div class="lab-reply"><p class="lab-stamp">' + stamp(r) + "</p>" + lines(r, null, false) + whole(r) + "</div>";
@@ -318,6 +325,7 @@
     if (t.hasAttribute("data-opt") && (b.kind === "choose" || b.kind === "compare")) { state.picks[b.id] = t.getAttribute("data-opt"); save(); render(true); return; }
     if (act === "ok") { state.picks[b.id] = true; save(); render(true); return; }
     if (act === "copy" && b.kind === "compose") { copy(promptText(b), t); return; }
+    if (act === "copy-msg" && b.kind === "compose") { copy(messageText(b), t); return; }
     if (act === "run" && b.kind === "compose") {
       var c = state.picks[b.id] || (state.picks[b.id] = {});
       var missing = b.parts.filter(function (x) { return x.options && !c[x.id]; });
@@ -351,5 +359,6 @@
   render(false);
   // for the tests: the script, the state and a way to read what a run would show
   window.Lab = { data: L, state: function () { return state; }, beats: beats, current: current, replyFor: replyFor,
-                 artefact: function () { return artefact(beats()); }, prompt: function (id) { return promptText(beatById(id)); } };
+                 artefact: function () { return artefact(beats()); }, prompt: function (id) { return promptText(beatById(id)); },
+                 message: function (id) { return messageText(beatById(id)); } };
 })();

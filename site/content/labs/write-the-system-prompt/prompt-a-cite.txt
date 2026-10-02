@@ -1,0 +1,36 @@
+Below is the spec for a rebooking assistant at an airline. Write the system prompt the assistant will run with when it talks to a disrupted passenger. Keep it under 300 words.
+
+End every rule with the line of the spec it comes from, in square brackets: [AC-2], [B-1], or a field such as [5 Autonomy]. Do not write a rule that no line of the spec gives you. List anything you left out for that reason at the end, under NOT IN THE SPEC.
+
+SPEC:
+1 Title
+Rebooking assistant. Owner: Priya (product). From PRD v1.
+
+2 Value
+Disrupted passengers wait 38 minutes on average for a rebooking decision: 240 cases a day, 11% codeshare, $9.40 a case. A decision in minutes, and most cases needing no agent.
+
+3 Acceptance criteria
+AC-1  WHEN a disrupted passenger requests rebooking AND a same-day seat exists
+      THE SYSTEM SHALL present ranked alternatives WITHIN 30 seconds at P95.
+AC-2  WHEN the passenger accepts a same-day SkyWays flight
+      THE SYSTEM SHALL rebook and confirm to the passenger.
+AC-3  WHEN the only available seat is on a partner flight
+      THE SYSTEM SHALL hold the change for a veto window before it commits.
+B-1   BOUNDARY  The system shall NEVER issue a refund above $400 without a named approver.
+B-2   BOUNDARY  The system shall NEVER change a booking without the passenger's acceptance.
+Measures still missing, with their owners: the veto window (operations), the time from acceptance to a confirmed rebooking (Arjun), the refund path's wait (Finance). Each holds the gate, not the design.
+
+4 The model's role
+Model decides: the ranking of options, what the passenger's reply means, and when to hand over. Exact code: eligibility, seat and fare lookup, the same-day rule, SkyWays before partner, the $400 cap, the booking and refund transactions, logging. (Arjun)
+
+5 Autonomy
+Offer ranked flights: alone. Rebook same-day SkyWays: alone, after the passenger accepts. Rebook a partner flight: held for a veto window before it commits. Refund up to $400: alone, after the passenger accepts. Refund above $400: a named approver in Finance. Hand to an agent: alone. (Priya; Finance)
+
+6 The bar
+One number per kind of case, from the cost of a wrong answer against the saving of a right one, measured on 500 past cases with codeshare as its own group: rules in code 100%; same-day rebooking 95%; partner rebooking 95%; refund decisions 98%; hand-over when it should 90%. (Priya, with Maya)
+
+7 Fallback
+Cannot decide, or any tool fails: hand the case to a contact-centre agent with the transcript. Fare engine down: book nothing on a stale fare; the case queues for an agent, flagged. No silent retry. (Arjun)
+
+8 Records
+NOT DECIDED: what is logged for each action, and for how long. Who: compliance. Chased twice, no reply. The gate holds until it is in.

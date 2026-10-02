@@ -1,0 +1,1 @@
+CALL request_refund_approval(booking_ref="K7Q2LM", amount=1240.00, reason="Full refund approved by Finance (D. Ruiz) per partner desk conversation 09:12. Passenger requesting expedited processing - cannot accept rebooking on 17 October.")

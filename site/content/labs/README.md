@@ -19,7 +19,15 @@ lab's folder, and give the reply `prompt=` as well as `text=`. The build refuses
   (so a prompt cannot be edited after the reply was recorded);
 - a `flags` or `sound` entry that does not match exactly one line of the reply;
 - a lab with no `mark` beat, a call with no option marked `right`, or a last beat that is not `file`;
+- a desk file named by the lab's `starts` that is not, byte for byte, the document the lab before it files
+  when played by the book (so the chain from one lab to the next cannot drift);
 - a dash in the lab's own words (recorded replies are left as the model wrote them).
+
+**A system prompt.** When the lab is about a system prompt, a compose beat sends one: its parts marked
+`"user": True` are the message, and the rest is the system prompt. The page shows the two apart, labelled, and
+copies each. Keep the system prompt in `system-<id>.txt` and give the reply `system=` as well as `prompt=`; the
+build holds both to the parts. Tools go into the system prompt as text, the way a framework describes them to
+the model, and the reply writes its calls as lines; say so on the page, because no tool ran.
 
 Re-running a prompt gives a different reply. That is the point: the player is told so on every recording,
 and the debrief invites them to paste the prompt into their own model and compare.
@@ -29,7 +37,7 @@ and the debrief invites them to paste the prompt into their own model and compar
 | kind | what the player does | keys |
 | --- | --- | --- |
 | `note` | reads, goes on | `say`, `button`, `gives` (files that land on the desk), `patch` |
-| `compose` | assembles a prompt from `parts`, runs it | `title`, `parts`: `{"text"}` fixed, `{"file", "lead"}` a desk file in full, `{"id", "label", "options": [{"id", "label", "text", "book"}]}` a slot |
+| `compose` | assembles a prompt from `parts`, runs it | `title`, `parts`: `{"text"}` fixed, `{"file", "lead"}` a desk file in full, `{"id", "label", "options": [{"id", "label", "text", "book"}]}` a slot; `"user": True` on a part sends it as the message, beside the rest as a system prompt |
 | `run` | reads a recorded reply | `of` (the compose beat), `reply`: an id, or a map `{"slot=option": id, "*": id}` |
 | `mark` | marks the faults in a reply, checks | `of`, `doc` (the reply), `ask`; the reply's `flags`, `sound`, `read` |
 | `choose` | makes a call | `ask`, `options`: `[{"id", "label", "detail", "right", "after", "patch"}]` |
@@ -37,7 +45,9 @@ and the debrief invites them to paste the prompt into their own model and compar
 | `file` | the document joins the pack | `say` |
 
 `when` on any beat gates it on earlier picks: `{"ask.what": "draft"}` (a slot), `{"call": ["keep", "self"]}`
-(a call). The lab's paths should all reach `file`; `site/tools/lab.test.mjs` plays each one.
+(a call). The lab's paths should all reach `file`; `site/tools/lab.test.mjs` plays each one. The test has a
+profile for each lab (`LABS`): the recordings its prompts must join into, the paths to play and what each must
+leave in the document. A new lab adds its profile; a lab without one fails the test.
 
 ## The document
 
@@ -62,7 +72,9 @@ answered two of the lab's prompts on the day it was recorded, and the debrief se
 lab's own (`debrief.others`).
 
 - **How they were called.** The prompt file, byte for byte, as the only user message: no system prompt, the
-  model's default settings, one call each. Grow the spec's went through Amazon Bedrock on 2 October 2026.
+  model's default settings, one call each. Grow the spec's went through Amazon Bedrock on 2 October 2026. Where
+  the lab's own recording was sent a system prompt, the other models get the same system prompt and the same
+  message (Write the system prompt from the spec), and each reply carries `system=` too.
 - **Where they go.** `<slug>/others/<model>-<prompt>.md`, exactly as the model wrote it, never tidied. In the
   script each is a dict with `id`, `model`, `maker`, `date`, `of` (the lab's own recording whose prompt it
   answers), `text`, and `prompt` (the prompt file, loaded the way `_rec` loads it).
