@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Make one image with a Stability AI model on Amazon Bedrock, from a Claude Code cloud session.
 
-The session never holds the key. The cloud environment has an API credential for
+The key comes from AWS_BEARER_TOKEN_BEDROCK when the environment's variables set it. Otherwise the
+session never holds the key: the cloud environment has an API credential for
 bedrock-runtime.us-west-2.amazonaws.com, and Anthropic's proxy adds "Authorization: Bearer <key>"
 to each request after it leaves this machine (see .claude/cloud/README.md, "Images").
 
@@ -17,6 +18,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 import sys
 import urllib.error
 import urllib.parse
@@ -36,7 +38,7 @@ def invoke(endpoint: str, model: str, body: dict) -> tuple[int, dict]:
     """POST the body to InvokeModel. No Authorization header: the environment's proxy adds it."""
     url = f"{endpoint}/model/{urllib.parse.quote(model, safe='')}/invoke"
     req = urllib.request.Request(url, data=json.dumps(body).encode("utf-8"), method="POST",
-                                 headers={"Content-Type": "application/json", "Accept": "application/json"})
+                                 headers=headers())
     try:
         with urllib.request.urlopen(req, timeout=180) as r:
             return r.status, json.loads(r.read() or b"{}")
@@ -46,6 +48,16 @@ def invoke(endpoint: str, model: str, body: dict) -> tuple[int, dict]:
             return e.code, json.loads(raw or b"{}")
         except ValueError:
             return e.code, {"message": raw.decode("utf-8", "replace")[:300]}
+
+
+def headers() -> dict:
+    """With AWS_BEARER_TOKEN_BEDROCK set (the environment's variables), send the key; without it, send none
+    and let the environment's API credential add it on the way out."""
+    h = {"Content-Type": "application/json", "Accept": "application/json"}
+    key = os.environ.get("AWS_BEARER_TOKEN_BEDROCK", "").strip()
+    if key:
+        h["Authorization"] = f"Bearer {key}"
+    return h
 
 
 def message(data: dict) -> str:
@@ -73,7 +85,8 @@ def main() -> int:
             return 0
         if code in (401, 403):
             print(f"Not authorised ({code}): {message(data)}")
-            print("Check the environment's API credential: allowed website bedrock-runtime.us-west-2.amazonaws.com, "
+            print("Set AWS_BEARER_TOKEN_BEDROCK in the environment's variables (a running session sees new variables only after its machine restarts), "
+                  "or check the environment's API credential: allowed website bedrock-runtime.us-west-2.amazonaws.com, "
                   "header Authorization, prefix Bearer, and a key that has not expired. A message about AWS Marketplace "
                   "means the model is not yet activated in the account.")
             return 1

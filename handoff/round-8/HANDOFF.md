@@ -61,10 +61,10 @@ Skills, and where each comes from:
 - **Not here:** the owner's own `explainer-diagrams` and `bedrock-image` (they live only on the owner's Mac;
   the owner may upload them to claude.ai), and the AWS skills (`amazon-bedrock`, `aws-*`): use the AWS MCP
   connector's `retrieve_skill` if the owner has enabled that connector for this session, otherwise the AWS
-  documentation. There are no AWS credentials here, by the owner's rule. For images use
-  `.claude/cloud/bedrock-image.py`, which works once the owner has added a Bedrock key as the environment's
-  API credential (`.claude/cloud/README.md`, "Images"). You never see the key. Each image is a paid call:
-  say what, how many and which model, and wait for the owner's yes.
+  documentation. There are no general AWS credentials here. For Bedrock models and images use
+  `.claude/cloud/bedrock-ask.py` and `bedrock-image.py`; they work once the owner has put the Bedrock key in
+  the environment (`.claude/cloud/README.md`, "Bedrock"). Never print or repeat the key. Each call is paid:
+  say which model, how many and why, and wait for the owner's yes.
 - **BMAD and the LLM council** were never installed as skills. They are methods the local session applied by
   hand: BMAD-style spine documents (`site/DESIGN.md`, `site/EXPERIENCE.md`, `site/GAME.md`) and councils of
   five advisors, anonymised, five reviewers, a chairman (the councils' papers are in `notes/r7/council/` and
