@@ -6,7 +6,7 @@ description: P1 Design & Spec turns a framed problem into an eight-field spec wi
 dek: One screen, eight fields, and the five decisions nobody had made yet. Plus the limits that have to live in code, not in the prompt.
 level: Intermediate
 keywords: how to write a spec for AI agents, AI agent requirements, spec-driven development, EARS requirements, PRD for AI features, AI acceptance criteria, agent authority, P1 design and spec
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -56,6 +56,8 @@ computing the fare difference were exact; ranking alternatives and drafting the 
 best-guess; rebooking and refunding were consequential. The map takes an hour, and it is the reason
 the fare difference never went back into a prompt.
 
+{{sketch:seven-stones-three-kinds}}
+
 ### Step 2 · Write the eight-field spec
 
 The spec is the one place a machine can look, so it must be exact and small, one screen. Three
@@ -90,6 +92,8 @@ The test that the budget is real is a search: grep every prompt for a cap, a cur
 before". Each hit is a rule a model can be talked past. At SkyWays the $400 refund cap was decided on
 day 12 and lived only in a prompt until day 82, when a $2,000 refund went out that was not owed.
 [Why a prompt is not a control](wiki:Mental-Models#a-prompt-is-a-request-a-signature-is-a-boundary).
+
+{{sketch:the-ladder-stays-with-a-person}}
 
 ### Step 4 · Derive the bar for each slice
 

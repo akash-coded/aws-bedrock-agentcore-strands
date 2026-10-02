@@ -713,7 +713,7 @@ The terms that do not sit in a formula, a gate or a control, with their one-line
 | Term | Mark | In one line |
 | --- | --- | --- |
 | **AI-DLC** | *established* | AI-Driven Development Life Cycle (AWS). Adaptive: run only the lifecycle stages a given change actually needs. Here, the architect's judgement of **depth per change** |
-| **AiDD** | *established* | AI-driven development: the day-to-day craft of building with coding agents. Context files, story files, editor agents, review by risk, cost habits |
+| **AIDD** | *established* | AI-driven development: the day-to-day craft of building with coding agents. Context files, story files, editor agents, review by risk, cost habits |
 | **Batch pricing** | *documented* | Work that can wait, such as re-scoring the golden set overnight, runs at about half the on-demand price |
 | **BMAD** | *established* | Breakthrough Method for Agile AI-Driven Development. A pipeline of AI personas — analyst, PM, architect, dev, QA — each handing a versioned artefact to the next. For complex, multi-team, audited work |
 | **Context layers (onion)** | *working method* | Shared → domain → product → task, each versioned. A new product writes only its own layers and inherits the rest. Built on DRY and layered architecture, not a named standard |

@@ -6,7 +6,7 @@ description: Eight loops turn the agentic PDLC from a line into a ring. Five clo
 dek: A phase ends; a loop comes back. The loops with nobody waiting at the far end are the ones that decide whether a project becomes a practice.
 level: Intermediate
 keywords: feedback loops software delivery, AI project feedback loop, continuous improvement AI, AI incident postmortem, AI cost control loop, AI governance, agentic PDLC loops
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -52,6 +52,8 @@ it should change.
 waiting and will chase. **Three have nobody waiting.** Cost closes backwards into design, incident
 closes backwards into framing, and governance spans the whole line and belongs to no delivery role.
 
+{{sketch:nobody-comes-to-collect}}
+
 ## How to run the loops, step by step
 
 ### Step 1 · Agree what "closed" means
@@ -82,6 +84,8 @@ Handled as a budget question, it recurs next quarter with a different multiple. 
 the per-call log traced it to four habits, and the model-tier decision record got a second version:
 classification moved to the cheap tier, judgement stayed on the capable one, and cost per case became
 a monitored number. **It closes when a decision record has a new version with a diff.**
+
+{{sketch:the-bill-readdressed-to-design}}
 
 ### Step 4 · Close the incident loop into framing
 

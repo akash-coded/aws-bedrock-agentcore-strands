@@ -3,10 +3,10 @@ title: Agentic AI Case Study: SkyWays, 90 Days from Pain to Proof
 short: The SkyWays case study
 wiki: Agentic-AI-Case-Study-SkyWays
 description: A worked agentic AI case study: a fictional airline's rebooking assistant in thirteen episodes, from 31 requirements on day 1 to two numbers on day 90.
-dek: A case study with its failures left in. Three of the thirteen episodes go wrong, and they teach more than the ten that go right.
+dek: A case study with its failures left in. Four of the thirteen episodes go wrong, and they teach more than the nine that go right.
 level: Beginner
 keywords: agentic AI case study, AI agent case study, AI project example, AI rebooking assistant, generative AI case study airline, AI project lifecycle example, worked example AI delivery, AI product case study
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -87,6 +87,8 @@ The $400 limit had been a constraint since day 6 and was written into the prompt
 signature accepted any amount. The postmortem named the missing control, not a person, and the incident became the next P0.
 [AI incident postmortems](lesson:ai-incident-postmortem)
 
+{{sketch:a-sign-or-a-sizer}}
+
 ## Where you'll use it
 
 - **Before your own project starts**: run the ninety days as a simulation, one decision per episode.
@@ -98,6 +100,8 @@ signature accepted any amount. The postmortem named the missing control, not a p
 A case with its failures left in teaches the controls; a success story teaches nothing you can copy.
 Each of the four failures above produced an artefact the next feature inherits (a lower bound, a review
 policy, a caching configuration, a cap in code) which is the practical meaning of a process that learns.
+
+{{sketch:failures-ride-the-belt}}
 
 ## Try it
 

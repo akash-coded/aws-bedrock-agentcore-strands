@@ -6,7 +6,7 @@ description: Spec-driven development means writing the spec before the code and 
 dek: The spec becomes the thing you maintain. Two tools, three levels of commitment, and the part no tool decides for you.
 level: Beginner
 keywords: spec-driven development, SDD, what is spec-driven development, Kiro specs, GitHub Spec Kit, requirements.md design.md tasks.md, EARS requirements, spec-first development, spec as source
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -48,6 +48,8 @@ writing on Martin Fowler's site in October 2025, distinguishes three levels of c
 This playbook asks for **spec-anchored** on every change: the spec is the one artefact that survives
 the code, and a change with no spec change is a change nobody can review.
 
+{{sketch:the-drawing-goes-back-on-the-wall}}
+
 ## How the tools do it, step by step
 
 ### Step 1 · Kiro: requirements, design, tasks
@@ -78,6 +80,8 @@ your product must be, which of its actions need a person, or where a limit must 
 are the five agentic fields of this playbook's [eight-field spec](lesson:p1-design-and-spec#step-2--write-the-eight-field-spec)
  (the model's role, autonomy per action, the bar per slice, the fallback and the records) and they
 belong in the requirements file whichever tool holds it.
+
+{{sketch:the-tool-prints-the-boxes}}
 
 ## The honest critiques
 

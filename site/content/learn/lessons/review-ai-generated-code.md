@@ -6,7 +6,7 @@ description: When agents write most of the code, review is the bottleneck. How t
 dek: The policy is the bottleneck, not the people. Two readers on a money tool, one on a reversible write, none on a read-only change, and a count of what escapes.
 level: Intermediate
 keywords: how to review AI generated code, code review AI agents, AI code review best practices, pull request review bottleneck, risk-based code review, CODEOWNERS, review queue
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -41,6 +41,8 @@ much reading each change needs, and the size of a diff is the wrong way to decid
 change to a refund cap is the most dangerous change of the week; a large refactor of a read-only
 report may be the safest.
 
+{{sketch:a-glass-on-the-wild-mushrooms}}
+
 ## Change the policy, step by step
 
 ### Step 1 · Measure the queue
@@ -61,6 +63,8 @@ dangerous thing it touches. No band is ever decided by the size of a diff.
 Generate a rule file in the repository (a `CODEOWNERS` file, for example) from the authority budget,
 so the band of a change is decided by the paths it touches, not by the author. Self-assessed risk is
 not a control.
+
+{{sketch:tagging-your-own-scaffold}}
 
 ### Step 4 · Route the readers by band
 

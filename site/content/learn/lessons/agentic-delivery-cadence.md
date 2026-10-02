@@ -6,7 +6,7 @@ description: The operating rhythm of an agentic AI project: what runs every day,
 dek: Most failures in an agentic system are silent. The checks that catch them have to run on a clock, because nobody will complain in time.
 level: Intermediate
 keywords: AI project cadence, operating rhythm AI team, how often to evaluate LLM, AI agent monitoring schedule, agile ceremonies AI, LLM regression testing, AI governance cadence, AI ops review
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -39,6 +39,8 @@ anybody having to remember them.** Ordinary software fails loudly: an error, an 
 log in. An agentic system mostly fails quietly, behaviour drifts with no deploy, a bill multiplies on
 flat traffic, an attack suite goes stale while it keeps reporting green. A check that runs only when
 someone notices a problem will run too late for every one of those.
+
+{{sketch:the-wind-did}}
 
 ## Set up the six clocks, step by step
 
@@ -77,6 +79,8 @@ Extend the attack strings: a suite that has not grown in three months is testing
 and reporting green. **Owners:** sponsor for the check, QA lead for the suite.
 [The maturity model](lesson:ai-delivery-maturity-model)
 
+{{sketch:pin-up-this-quarters}}
+
 ### Step 6 · On an event: close the loops nobody waits for
 
 An incident gets a missing-control postmortem that ends in an enforced control and the next P0 brief. A
@@ -106,6 +110,8 @@ before the event, not after it. [The eight loops](lesson:the-eight-loops)
 The three loops with nobody waiting (cost, incident, governance) are exactly the ones that fail
 silently. A clock turns each into a routine with an owner; without one, each is handled once, by whoever
 happens to notice, and never fed back into the design.
+
+{{sketch:someone-meets-the-bill}}
 
 ## Try it
 

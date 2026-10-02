@@ -6,7 +6,7 @@ description: Every lesson opens with the answer, shows it as a picture, lets you
 dek: Seven slots, in the same order, in every lesson, and the learning research that put each one there.
 level: Beginner
 keywords: agentic PDLC tutorial, agentic AI course, learn AI project delivery, how to learn AI-DLC, AI product management course
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -42,6 +42,8 @@ century, partly because a telegraphed story could be cut off at any point. A rea
 search is in the same position: they may stop after one paragraph, so that paragraph has to be the
 whole answer.
 
+{{sketch:the-line-went-dead}}
+
 ### Step 2 · A picture, before the detail
 
 Every lesson carries at least one picture, and the rule is strict: a board, a figure or a diagram,
@@ -65,6 +67,8 @@ anything that would survive unchanged in a lesson on a different topic helps eve
 
 Each lesson ends its teaching with one problem, and the answer is hidden until you open it. Trying to
 recall or apply an idea strengthens memory of it more than reading it again, the **testing effect**, and the benefit holds even when your first attempt is wrong.
+
+{{sketch:guess-the-fork-first}}
 
 ### Step 6 · Three takeaways
 

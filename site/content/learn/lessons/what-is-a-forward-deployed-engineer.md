@@ -6,7 +6,7 @@ description: What a forward deployed engineer (FDE) does, where the role came fr
 dek: One engineer, one customer, many capabilities, and a duty to carry what the customer taught them back into the product.
 level: Beginner
 keywords: forward deployed engineer, what is a forward deployed engineer, FDE, FDE meaning, forward deployed engineer vs solutions architect, forward deployed product manager, FDPM, OpenAI forward deployed engineer, Anthropic forward deployed engineer, Palantir forward deployed software engineer
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 
 The FDE exists because all three are the same problem: the distance between a capable product and a
 working deployment.
+
+{{sketch:the-missing-length-of-lead}}
 
 ## What does a forward deployed engineer do?
 
@@ -77,6 +79,8 @@ compares the agent with their staff. An FDE's claims are the customer's numbers,
 
 The engagement ends with an evidence pack, runbooks and named owners, and, back at the vendor, with the
 patterns written up: the connector built for the third time, the evaluation that exposed a model gap.
+
+{{sketch:the-third-adaptor-goes-home}}
 
 ## How is an FDE different from a solutions architect?
 

@@ -6,7 +6,7 @@ description: AI drift is behaviour changing with no deploy and no error. Why acc
 dek: No code changed, nothing threw, no alert fired, and three months later a customer noticed the assistant offers credits where it used to offer refunds.
 level: Intermediate
 keywords: AI model drift, LLM drift detection, AI monitoring in production, model performance degradation, output distribution monitoring, concept drift, AI observability, silent model failure
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -30,6 +30,8 @@ updated: 2026-09-24
 - The drift alert is set at 5% a week, and it has never fired.
 
 Your existing monitoring answers whether the system is up and fast. It was never looking for this.
+
+{{sketch:what-comes-out-of-the-exhaust}}
 
 ## What is AI drift?
 
@@ -59,6 +61,8 @@ refund-to-credit mix went from **61/39** in week one to **48/52** in week eight,
 5% week-on-week alert never fired, because the slide averaged **1.9 points a week**. A second threshold,
 on the level against a frozen baseline, catches exactly that. A slide of two points a week never trips a
 weekly rule and still moves you thirty points in a quarter.
+
+{{sketch:a-slow-puncture}}
 
 ### Step 4 · Wire a breach to the release gate
 

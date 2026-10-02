@@ -79,7 +79,7 @@ SIM = [
      "as a loop of four phases, with the five published methods plugging into the loop", "workbench/#/start"),
     ("sim-spine", "Four phases on one spine", "P0 Frame, P1 Specify, P2 Build and prove, P3 Run and learn, with the "
      "soft and hard gates between them and what each phase leaves you with", "workbench/#/start"),
-    ("sim-methods", "Where each method plugs in", "Spec Kit, Kiro, BMAD, AI-DLC and AiDD on the spine, and what the "
+    ("sim-methods", "Where each method plugs in", "Spec Kit, Kiro, BMAD, AI-DLC and AIDD on the spine, and what the "
      "SkyWays PDLC adds where they are silent", "workbench/#/start"),
     ("sim-roles", "Who does what, when", "Six roles along the four phases, each step named", "workbench/#/start"),
     ("sim-three-efforts", "Three efforts, one method", "Low effort in a chat, mid effort on a platform, high effort in "

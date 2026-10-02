@@ -87,6 +87,8 @@ What makes it work is not the rituals but the exits: each phase ends on evidence
 the [hard gate](lesson:the-hard-gate). A team can run Scrum, Spec Kit and AI-DLC's mob sessions and
 still skip every exit; a team that holds the exits can run any of them.
 
+{{sketch:one-hatch-out-of-the-kitchen}}
+
 ## Where you'll use it
 
 - **When choosing a method**: map the candidates first, and choose on what fits your team, since the
@@ -99,6 +101,8 @@ still skip every exit; a team that holds the exits can run any of them.
 Method arguments are expensive and mostly beside the point. The failures that cancel agentic projects
  (escalating cost, unclear value, weak risk controls) live in the cells that every building method
 leaves empty. Mapping them makes that visible in one table.
+
+{{sketch:recipes-and-the-unwatched-pot}}
 
 ## Try it
 

@@ -6,7 +6,7 @@ description: AI-DLC is AWS's AI-Driven Development Life Cycle: AI proposes and p
 dek: Three phases, two rituals, one new unit of work, and what AI-DLC deliberately leaves for you to decide.
 level: Beginner
 keywords: what is AI-DLC, AWS AI-DLC, AI-driven development life cycle, AIDLC AWS, mob elaboration, mob construction, bolts vs sprints, aidlc-workflows, AI-DLC explained
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -42,6 +42,8 @@ need judgement, accountability or context the AI does not have. It describes its
 machine to human collaboration, where earlier methods such as Scrum were designed around people doing
 all of the work.
 
+{{sketch:the-machine-drafts-a-person-decides}}
+
 ## How AI-DLC works, step by step
 
 ### Step 1 · Inception: turn intent into units of work, together
@@ -69,6 +71,8 @@ phases: each one hands the next a record rather than a conversation.
 A **bolt** is AI-DLC's unit of iteration: a shorter, more intense cycle measured in hours or days
 rather than weeks. When an agent can build a story in an afternoon, a two-week sprint leaves it idle
 for most of the fortnight; the bolt matches the planning cycle to the building speed.
+
+{{sketch:a-clock-where-the-calendar-hung}}
 
 ### Step 5 · Let the workflow size itself
 

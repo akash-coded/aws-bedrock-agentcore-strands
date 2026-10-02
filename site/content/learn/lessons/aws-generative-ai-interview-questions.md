@@ -6,7 +6,7 @@ description: Ten AWS generative AI interview questions on Bedrock, AgentCore, St
 dek: AWS interviews for AI roles reward the architect who knows where the service stops and their own design has to start.
 level: Advanced
 keywords: AWS generative AI interview questions, Amazon Bedrock interview questions, Bedrock AgentCore interview questions, AWS solutions architect generative AI interview, Strands Agents interview, AWS AI engineer interview, Bedrock Knowledge Bases interview, AWS GenAI architecture interview
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 - Cross-region inference "just works", until an organisation's region policy meets it.
 
 The questions below go one level below the service names.
+
+{{sketch:the-back-of-the-name-badge}}
 
 ## What does an AWS generative AI interview test?
 

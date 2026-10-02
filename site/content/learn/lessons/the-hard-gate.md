@@ -6,7 +6,7 @@ description: Only one hand-off in the agentic PDLC halts the build. Which decisi
 dek: Most decisions in an agentic build should not stop anything. Three must, and all three sit at one hand-off. Knowing which is how you keep speed without buying an incident.
 level: Intermediate
 keywords: stage gate AI project, AI governance gate, hard gate soft gate, go no-go decision AI, one-way door two-way door, AI project decision making, agentic PDLC gate
-updated: 2026-10-01
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -36,7 +36,8 @@ same way.
 
 The [agentic PDLC](lesson:what-is-the-agentic-pdlc) has four hand-offs between its phases. Three are
 **soft**: work may cross with a placeholder, an owner and a date. One is **hard**: nothing enters P2
-until three artefacts are signed.
+until three artefacts are signed. The home page and the simulator call it by its plain name, the
+**sign-off**.
 
 | Artefact | Why nothing downstream survives without it | What happens if it is missing |
 | --- | --- | --- |
@@ -46,6 +47,8 @@ until three artefacts are signed.
 
 It sits there because P1 → P2 is the last point at which changing your mind costs a document rather
 than a rewrite. It is a **one-way door**; the others are two-way.
+
+{{sketch:three-tokens-one-way}}
 
 ## How to decide what is hard, step by step
 
@@ -76,6 +79,8 @@ which it will be settled.
 
 A placeholder that reads "the model behaves sensibly" is not one. That exact placeholder, on the
 refund action, cost SkyWays $2,000 on day 82.
+
+{{sketch:a-stand-in-the-right-size}}
 
 ### Step 4 · Record the gate decision with its evidence
 

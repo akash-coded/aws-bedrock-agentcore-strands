@@ -191,16 +191,36 @@ def land_json() -> str:
 # ------------------------------------------------------------------------------------- the orbit
 # The scene is a 1000 x 1000 box with the globe in the middle. The flight is an ellipse around it,
 # tilted, seen from a little above: the near half passes in front of the globe, the far half behind.
+# The far half climbs as it returns, so the loop does not close: it arrives one pitch above where it
+# began, and the next round starts there. That is the spiral.
 CX, CY, R = 500.0, 500.0, 318.0
 RX, RY, TILT = 405.0, 118.0, -14.0
+LIFT = 62.0           # how far one round climbs
+LAP = 32.0            # seconds for one round: 24 in front of the globe, 8 behind it
+NEAR_S, HOLD_S = 24.0, 0.5
 
 LEGS = [("P0", "Frame", "slate"), ("P1", "Design &amp; Spec", "indigo"),
         ("P2", "Build &amp; Prove", "teal"), ("P3", "Run &amp; Learn", "amber")]
 STOPS = [0.13, 0.37, 0.63, 0.87]      # where each waypoint sits along the near half, left to right
 
-PLANE = ('<path d="M-13 0 L-6.5 -2.8 L7.5 -2.8 Q13.5 -2.8 13.5 0 Q13.5 2.8 7.5 2.8 L-6.5 2.8 Z"/>'
-         '<path d="M-1 -2.8 L-7.5 -11 L-3 -11 L4 -2.8 Z M-1 2.8 L-7.5 11 L-3 11 L4 2.8 Z '
-         'M-10.5 -2 L-15 -6.5 L-12.8 -6.5 L-8 -2 Z M-10.5 2 L-15 6.5 L-12.8 6.5 L-8 2 Z"/>')
+# One aircraft, four shapes. Fourteen corners in the same order (nose, wing root, wingtip fore and aft,
+# wing root aft, tail root, tail tip, tail centre, and back up the other side), so one shape can be
+# eased into the next: a paper dart while the idea is framed, an airliner on the drawing board while it
+# is designed, the airliner itself once it is built, a jet when it is flying for real.
+_DART = [(16, 0), (8, -1.4), (-12, -11), (-14.5, -11), (-9.5, -2), (-12, -1.6), (-14.5, -1.6), (-10.5, 0)]
+_LINER = [(15.5, 0), (3.5, -2.7), (-5.5, -14), (-9.5, -14), (-3.5, -2.7), (-10.5, -2.3), (-15.5, -7.2), (-13.5, 0)]
+_JET = [(18, 0), (4, -2.3), (-9.5, -10.5), (-13, -10.5), (-8.5, -3.1), (-11.5, -2.7), (-16.5, -6.2), (-12.5, 0)]
+
+
+def _shape(half: list[tuple[float, float]]) -> str:
+    pts = half + [(x, -y) for x, y in reversed(half[1:-1])]
+    return "M" + " L".join(f"{x:g} {y:g}" for x, y in pts) + " Z"
+
+
+SHAPES = {"dart": _shape(_DART), "liner": _shape(_LINER), "jet": _shape(_JET)}
+# what the aircraft is in each phase: (shape, how it is drawn)
+CRAFT = [("dart", "paper"), ("liner", "plan"), ("liner", "built"), ("jet", "flown")]
+FLAME = "M-12.5 -1.9 L-24 0 L-12.5 1.9 Z"
 
 
 def _pt(t: float) -> tuple[float, float]:
@@ -214,20 +234,118 @@ def _near(f: float) -> tuple[float, float]:
     return _pt(math.pi * (1 - f))
 
 
-def _poly(f0: float, f1: float, near: bool = True, n: int = 40) -> str:
-    pts = []
-    for i in range(n + 1):
-        f = f0 + (f1 - f0) * i / n
-        x, y = _near(f) if near else _pt(-math.pi * f)      # the far half runs right to left
-        pts.append(f"{x:.1f} {y:.1f}")
-    return "M" + " L".join(pts)
+def _far(f: float, lap: float = 0.0) -> tuple[float, float]:
+    """A point on the way back, behind the globe: f=0 is the right end, f=1 the left end, one pitch
+    higher. ``lap=-1`` is the same curve a round earlier: it lands where this round began."""
+    x, y = _pt(-math.pi * f)
+    return x, y - LIFT * (f + lap)
 
 
-def _loop() -> str:
-    """The whole flight as one closed path: along the near half, back along the far half."""
-    near = _poly(0, 1, True, 72)
-    far = " L".join(f"{x:.1f} {y:.1f}" for x, y in (_pt(-math.pi * i / 72) for i in range(1, 73)))
-    return f"{near} L{far} Z"
+def _arc(f0: float, f1: float) -> str:
+    """Part of the near half as a true elliptical arc, so a thing that follows it turns smoothly."""
+    (x0, y0), (x1, y1) = _near(f0), _near(f1)
+    return f"M{x0:.1f} {y0:.1f} A{RX:g} {RY:g} {TILT:g} 0 0 {x1:.1f} {y1:.1f}"
+
+
+def _smooth(pts: list[tuple[float, float]], move: bool = True) -> str:
+    """Catmull-Rom through the points, as cubic beziers."""
+    n = len(pts)
+    d = [f"M{pts[0][0]:.1f} {pts[0][1]:.1f}"] if move else []
+    for i in range(n - 1):
+        p0, p1, p2, p3 = pts[max(0, i - 1)], pts[i], pts[i + 1], pts[min(n - 1, i + 2)]
+        d.append(f"C{p1[0] + (p2[0] - p0[0]) / 6:.1f} {p1[1] + (p2[1] - p0[1]) / 6:.1f} "
+                 f"{p2[0] - (p3[0] - p1[0]) / 6:.1f} {p2[1] - (p3[1] - p1[1]) / 6:.1f} {p2[0]:.1f} {p2[1]:.1f}")
+    return "".join(d)
+
+
+def _far_pts(f0: float, f1: float, lap: float = 0.0, n: int = 16) -> list[tuple[float, float]]:
+    return [_far(f0 + (f1 - f0) * i / n, lap) for i in range(n + 1)]
+
+
+def _len(pts: list[tuple[float, float]]) -> float:
+    return sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(pts, pts[1:]))
+
+
+def _near_len(f0: float, f1: float, n: int = 240) -> float:
+    return _len([_near(f0 + (f1 - f0) * i / n) for i in range(n + 1)])
+
+
+def _flight() -> tuple[str, str]:
+    """The aircraft's whole round as one path, and the keyframes that fly it.
+
+    It starts and ends behind the globe, where the jump from the end of one round to the start of the
+    next cannot be seen: in from behind to the left end, along the near half, and away behind again,
+    climbing. In front of the globe it keeps a steady pace, and it waits half a second at the sign-off."""
+    a = _far_pts(0.5, 1.0, lap=-1)                # arriving: lands exactly on the start of P0
+    c = _far_pts(0.0, 0.5)                        # leaving: climbs toward the next round
+    path = _smooth(a) + " A" + _arc(0, 1).split(" A", 1)[1] + " " + _smooth(c, move=False)
+    la, ln, lc = _len(_far_pts(0.5, 1.0, -1, 120)), _near_len(0, 1), _len(_far_pts(0.0, 0.5, 0, 120))
+    total = la + ln + lc
+    back = (LAP - NEAR_S - HOLD_S) / 2            # seconds behind the globe, each side
+    gate = _near_len(0, 0.5) / ln                 # how far along the near half the sign-off sits
+    keys = [(0.0, 0.0), (back, la),
+            (back + NEAR_S * gate, la + ln * gate), (back + NEAR_S * gate + HOLD_S, la + ln * gate),
+            (back + NEAR_S + HOLD_S, la + ln), (LAP, total)]
+    kf = "".join(f"{t / LAP * 100:.3f}%{{offset-distance:{d / total * 100:.3f}%}}" for t, d in keys)
+    return path, kf
+
+
+def _times() -> list[float]:
+    """When, in seconds into a round, the aircraft crosses into P0, P1, P2 and P3, and leaves P3."""
+    back = (LAP - NEAR_S - HOLD_S) / 2
+    ln = _near_len(0, 1)
+    out = []
+    for i in range(5):
+        t = back + NEAR_S * _near_len(0, i / 4) / ln if i else back
+        out.append(t + (HOLD_S if i >= 2 else 0))
+    return out
+
+
+def _craft_css() -> str:
+    """The aircraft changes on the flight's own clock, so no script is needed and a pause holds both.
+    Each change takes 400ms at the boundary between two phases; behind the globe it goes back to paper."""
+    t = _times()
+    step = 0.4
+    pct = lambda sec: f"{max(0.0, min(100.0, sec / LAP * 100)):.3f}%"      # noqa: E731
+    look = {"paper": "fill:var(--paper);stroke:var(--ink);stroke-dasharray:4 0;fill-opacity:1",
+            "plan": "fill:var(--paper);stroke:var(--dg-indigo);stroke-dasharray:2.2 1.6;fill-opacity:0",
+            "built": "fill:var(--ink);stroke:var(--ink);stroke-dasharray:4 0;fill-opacity:1",
+            "flown": "fill:var(--ink);stroke:var(--ink);stroke-dasharray:4 0;fill-opacity:1"}
+    frames = [f'0%{{d:path("{SHAPES["dart"]}");{look["paper"]}}}']
+    for i in range(1, 4):
+        prev, cur = CRAFT[i - 1], CRAFT[i]
+        at = t[i] - (HOLD_S if i == 2 else 0)          # at the sign-off the change happens during the wait
+        frames.append(f'{pct(at)}{{d:path("{SHAPES[prev[0]]}");{look[prev[1]]}}}')
+        frames.append(f'{pct(at + step)}{{d:path("{SHAPES[cur[0]]}");{look[cur[1]]}}}')
+    frames.append(f'{pct(t[4] + 1.2)}{{d:path("{SHAPES["jet"]}");{look["flown"]}}}')
+    frames.append(f'{pct(t[4] + 2.2)}{{d:path("{SHAPES["dart"]}");{look["paper"]}}}')
+    frames.append(f'100%{{d:path("{SHAPES["dart"]}");{look["paper"]}}}')
+    flame = (f'0%,{pct(t[3])}{{opacity:0;scale:.3 1}}{pct(t[3] + step)},{pct(t[4] + 1.0)}{{opacity:1;scale:1 1}}'
+             f'{pct(t[4] + 1.6)},100%{{opacity:0;scale:.3 1}}')
+    # where the shape itself cannot be eased, four drawings take turns instead
+    turns = []
+    for i in range(4):
+        a = t[i] - (HOLD_S if i == 2 else 0) if i else 0.0
+        b = (t[i + 1] - (HOLD_S if i + 1 == 2 else 0)) if i < 3 else t[4] + 1.2
+        if i == 0:
+            turns.append(f'@keyframes sc-turn0{{0%,{pct(b)}{{opacity:1}}{pct(b + step)},{pct(t[4] + 1.2)}{{opacity:0}}'
+                         f'{pct(t[4] + 2.2)},100%{{opacity:1}}}}')
+        else:
+            turns.append(f'@keyframes sc-turn{i}{{0%,{pct(a)}{{opacity:0}}{pct(a + step)},{pct(b)}{{opacity:1}}'
+                         f'{pct(b + step)},100%{{opacity:0}}}}')
+    gate_t = t[2] - HOLD_S
+    gate = (f'@keyframes sc-gate{{0%,{pct(gate_t - 0.1)}{{rotate:0deg}}{pct(gate_t + 0.4)},{pct(gate_t + 2.4)}{{rotate:78deg}}'
+            f'{pct(gate_t + 3.0)},100%{{rotate:0deg}}}}')
+    return (f'@keyframes sc-shape{{{"".join(frames)}}}@keyframes sc-flame{{{flame}}}{"".join(turns)}{gate}')
+
+
+def _craft(clip: str) -> str:
+    """The aircraft, twice over: one path that changes shape, and four still drawings for a browser
+    that cannot ease a path. CSS shows one or the other."""
+    stills = "".join(
+        f'<path d="{SHAPES[shape]}" class="sc-still k-{look}" style="--k:{i}"/>' for i, (shape, look) in enumerate(CRAFT))
+    return (f'<g clip-path="url(#{clip})"><g class="sc-plane"><g transform="scale(3.3)">'
+            f'<path d="{FLAME}" class="sc-flame"/><path d="{SHAPES["dart"]}" class="sc-morph"/>{stills}</g></g></g>')
 
 
 def scene() -> str:
@@ -240,35 +358,60 @@ def scene() -> str:
                  f"{CX + ax + nx:.0f},{CY + ay + ny:.0f} {CX - ax + nx:.0f},{CY - ay + ny:.0f}")
     far_clip = (f"{CX - ax:.0f},{CY - ay:.0f} {CX + ax:.0f},{CY + ay:.0f} "
                 f"{CX + ax - nx:.0f},{CY + ay - ny:.0f} {CX - ax - nx:.0f},{CY - ay - ny:.0f}")
-    loop = _loop()
+    path, fly = _flight()
     legs = "".join(
-        f'<path d="{_poly(i / 4, (i + 1) / 4)}" stroke="var(--dg-{hue})" class="leg" pathLength="1" style="--i:{i}"/>'
+        f'<path d="{_arc(i / 4, (i + 1) / 4)}" stroke="var(--dg-{hue})" class="leg" pathLength="1" style="--i:{i}"/>'
         for i, (_k, _n, hue) in enumerate(LEGS))
+    (lx, ly), (rx, ry) = _near(0), _near(1)
+    caps = (f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="6" fill="var(--dg-slate)" class="stop" style="--i:0"/>'
+            f'<circle cx="{rx:.1f}" cy="{ry:.1f}" r="6" fill="var(--dg-amber)" class="stop" style="--i:4"/>')
     dots = "".join(
-        f'<circle cx="{_near(f)[0]:.1f}" cy="{_near(f)[1]:.1f}" r="7" fill="var(--bone)" '
-        f'stroke="var(--dg-{hue})" stroke-width="3" class="stop" style="--i:{i}"/>'
+        f'<circle cx="{_near(f)[0]:.1f}" cy="{_near(f)[1]:.1f}" r="9.5" fill="var(--bone)" '
+        f'stroke="var(--dg-{hue})" stroke-width="4" class="stop" style="--i:{i}"/>'
         for i, (f, (_k, _n, hue)) in enumerate(zip(STOPS, LEGS)))
     gx, gy = _near(0.5)
     gate = (f'<g transform="translate({gx:.1f} {gy:.1f}) rotate({TILT})">'
-            f'<rect x="-4.5" y="-17" width="9" height="34" rx="4.5" fill="var(--dg-rose)" class="stop" style="--i:2"/></g>')
+            f'<rect x="-5" y="-21" width="10" height="42" rx="5" fill="var(--dg-rose)" class="stop sc-gate" style="--i:2"/></g>')
+    # the parked aircraft: what a reader who asked for stillness sees, one at each stop
+    parked = ""
+    for i, (f, (shape, look)) in enumerate(zip(STOPS, CRAFT)):
+        (px, py), (qx, qy) = _near(f - 0.045), _near(f - 0.035)
+        ang = math.degrees(math.atan2(qy - py, qx - px))
+        parked += (f'<g class="sc-parked" transform="translate({px:.1f} {py - 26:.1f}) rotate({ang:.1f}) scale(1.5)">'
+                   f'{"<path d=" + chr(34) + FLAME + chr(34) + " class=" + chr(34) + "sc-flame" + chr(34) + "/>" if look == "flown" else ""}'
+                   f'<path d="{SHAPES[shape]}" class="sc-still k-{look}"/></g>')
+    def icon(i: int) -> str:
+        shape, look = CRAFT[i]
+        flame = f'<path d="{FLAME}" class="sc-flame"/>' if look == "flown" else ""
+        return (f'<svg class="sc-ico" viewBox="-26 -15 46 30" aria-hidden="true" focusable="false">{flame}'
+                f'<path d="{SHAPES[shape]}" class="sc-still k-{look}"/></svg>')
+
     labels = "".join(
         f'<li style="--x:{_near(f)[0] / 10:.2f}%;--y:{_near(f)[1] / 10:.2f}%;--c:var(--dg-{hue});--i:{i}">'
-        f'<b>{key}</b>{name}</li>'
+        f'<b>{key}</b>{name}{icon(i)}</li>'
         for i, (f, (key, name, hue)) in enumerate(zip(STOPS, LEGS)))
-    labels += f'<li class="gate" style="--x:{gx / 10:.2f}%;--y:{gy / 10:.2f}%;--i:2">hard gate</li>'
-    style = (f'<style>.sc-plane{{offset-path:path("{loop}");offset-rotate:auto;offset-distance:12%;'
-             f'animation:sc-fly 46s linear infinite}}'
-             f'@keyframes sc-fly{{from{{offset-distance:0%}}to{{offset-distance:100%}}}}'
-             f'@media (prefers-reduced-motion:reduce){{.sc-plane{{animation:none}}}}'
-             f'@supports not (offset-path:path("M0 0h1")){{.sc-plane{{display:none}}}}</style>')
+    labels += f'<li class="gate" style="--x:{gx / 10:.2f}%;--y:{gy / 10:.2f}%;--i:2">sign-off</li>'
+    n2x, n2y = _far(0.9)
+    labels += f'<li class="next" style="--x:{n2x / 10:.2f}%;--y:{n2y / 10:.2f}%;--i:4">the next round</li>'
+    style = (f'<style>.sc-plane{{offset-path:path("{path}");offset-rotate:auto}}'
+             f'@keyframes sc-fly{{{fly}}}{_craft_css()}</style>')
+    # behind the globe: the way back, climbing; the last round arriving; the next round setting off
+    back_out = _smooth(_far_pts(0.0, 1.0, 0, 32))
+    next_lap = _smooth([(x, y - LIFT) for x, y in (_near(i / 60) for i in range(0, 31))])
     far = (f'<svg class="sc-far" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">'
-           f'<defs><clipPath id="sc-far-half"><polygon points="{far_clip}"/></clipPath></defs>'
-           f'<path d="{_poly(0, 1, near=False)}" class="back"/>'
-           f'<g clip-path="url(#sc-far-half)"><g class="sc-plane"><g transform="scale(1.6)">{PLANE}</g></g></g></svg>')
+           f'<defs><clipPath id="sc-far-half"><polygon points="{far_clip}"/></clipPath>'
+           f'<linearGradient id="sc-next" gradientUnits="userSpaceOnUse" x1="{lx:.0f}" y1="0" x2="{_near(0.5)[0]:.0f}" y2="0">'
+           f'<stop offset="0" stop-color="var(--dg-slate)"/><stop offset=".5" stop-color="var(--dg-indigo)" stop-opacity=".7"/>'
+           f'<stop offset="1" stop-color="var(--dg-indigo)" stop-opacity="0"/></linearGradient>'
+           f'<linearGradient id="sc-back" gradientUnits="userSpaceOnUse" x1="{rx:.0f}" y1="0" x2="{lx:.0f}" y2="0">'
+           f'<stop offset="0" stop-color="var(--dg-amber)"/><stop offset="1" stop-color="var(--dg-slate)"/></linearGradient></defs>'
+           f'<path d="{back_out}" class="back" stroke="url(#sc-back)"/>'
+           f'{_craft("sc-far-half")}</svg>')
     near = (f'<svg class="sc-near" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">'
             f'<defs><clipPath id="sc-near-half"><polygon points="{near_clip}"/></clipPath></defs>'
-            f'{legs}{gate}{dots}'
-            f'<g clip-path="url(#sc-near-half)"><g class="sc-plane"><g transform="scale(1.6)">{PLANE}</g></g></g></svg>')
+            f'<path d="{next_lap}" class="next" stroke="url(#sc-next)"/>'
+            f'{caps}{legs}{gate}{dots}{parked}'
+            f'{_craft("sc-near-half")}</svg>')
     return (f'<div class="scene" aria-hidden="true">{style}{far}'
             f'<canvas class="sc-globe" data-globe width="600" height="600"></canvas>{near}'
             f'<ol class="sc-wp">{labels}</ol></div>')
@@ -279,8 +422,8 @@ def scene() -> str:
 # The social card uses it, because a card is a picture and has no script. Colours are literal for
 # the same reason: a card has one look, the night one.
 STILL = {"slate": "#8FA8BE", "indigo": "#8E9BF0", "teal": "#4FBDB6", "amber": "#D9A94A", "rose": "#DE8A8A",
-         "dot": "#6F93B4", "lit": "#DDECFA", "a": "#1D2735", "b": "#0B0D12", "ink": "#ECEAE4", "paper": "#181A1E",
-         "bone": "#121316", "soft": "#93908A"}
+         "dot": "#4F7BAA", "lit": "#EEF6FF", "a": "#24487A", "m": "#0F2038", "b": "#060A12", "air": "#4C8FD8",
+         "ink": "#ECEAE4", "paper": "#181A1E", "bone": "#121316", "soft": "#93908A"}
 
 
 def still(lon0: float = 58.0, tilt: float = 20.0) -> str:
@@ -302,39 +445,46 @@ def still(lon0: float = 58.0, tilt: float = 20.0) -> str:
                 x = math.cos(lat) * math.sin(lon)
                 y = ct * math.sin(lat) - st * cz
                 lit = x * lx + y * ly + z * lz
-                a = (0.22 + 0.78 * max(0.0, lit)) * min(1.0, z * 3.2)
+                a = (0.3 + 0.7 * max(0.0, lit)) * min(1.0, z * 3.2)
                 dots.append(f'<circle cx="{CX + R * x:.1f}" cy="{CY - R * y:.1f}" r="{1.7 * (0.55 + 0.45 * z):.2f}" '
-                            f'fill="{c["lit"] if lit > 0.72 else c["dot"]}" fill-opacity="{a:.2f}"/>')
-    legs = "".join(f'<path d="{_poly(i / 4, (i + 1) / 4)}" fill="none" stroke="{c[hue]}" stroke-width="4" '
-                   f'stroke-linecap="round"/>' for i, (_k, _n, hue) in enumerate(LEGS))
-    stops = "".join(f'<circle cx="{_near(f)[0]:.1f}" cy="{_near(f)[1]:.1f}" r="7.5" fill="{c["bone"]}" '
-                    f'stroke="{c[hue]}" stroke-width="3.2"/>' for f, (_k, _n, hue) in zip(STOPS, LEGS))
+                            f'fill="{c["lit"] if lit > 0.6 else c["dot"]}" fill-opacity="{a:.2f}"/>')
+    legs = "".join(f'<path d="{_arc(i / 4, (i + 1) / 4)}" fill="none" stroke="{c[hue]}" stroke-width="12"/>'
+                   for i, (_k, _n, hue) in enumerate(LEGS))
+    (ex0, ey0), (ex1, ey1) = _near(0), _near(1)
+    caps = (f'<circle cx="{ex0:.1f}" cy="{ey0:.1f}" r="6" fill="{c["slate"]}"/>'
+            f'<circle cx="{ex1:.1f}" cy="{ey1:.1f}" r="6" fill="{c["amber"]}"/>')
+    stops = "".join(f'<circle cx="{_near(f)[0]:.1f}" cy="{_near(f)[1]:.1f}" r="9.5" fill="{c["bone"]}" '
+                    f'stroke="{c[hue]}" stroke-width="4"/>' for f, (_k, _n, hue) in zip(STOPS, LEGS))
     gx, gy = _near(0.5)
     gate = (f'<g transform="translate({gx:.1f} {gy:.1f}) rotate({TILT})">'
-            f'<rect x="-5" y="-18" width="10" height="36" rx="5" fill="{c["rose"]}"/></g>')
+            f'<rect x="-5" y="-21" width="10" height="42" rx="5" fill="{c["rose"]}"/></g>')
     labels = ""
     for f, (key, name, hue) in zip(STOPS, LEGS):
         x, y = _near(f)
         w = 30 + 9.4 * len(name.replace("&amp;", "&")) + 34
-        labels += (f'<g transform="translate({x - w / 2:.1f} {y + 20:.1f})">'
+        labels += (f'<g transform="translate({x - w / 2:.1f} {y + 34:.1f})">'
                    f'<rect width="{w:.0f}" height="36" rx="18" fill="{c["paper"]}" stroke="{c[hue]}" stroke-opacity=".6"/>'
                    f'<text x="15" y="23.5" font-family="Geist Mono,ui-monospace,monospace" font-size="15" font-weight="600" '
                    f'fill="{c[hue]}">{key}</text>'
                    f'<text x="46" y="23.5" font-family="Geist,Inter,sans-serif" font-size="16.5" font-weight="600" '
                    f'fill="{c["ink"]}">{name}</text></g>')
-    px, py = _near(0.25)
-    a2x, a2y = _near(0.26)
+    px, py = _near(0.57)
+    a2x, a2y = _near(0.58)
     ang = math.degrees(math.atan2(a2y - py, a2x - px))
-    plane = (f'<g transform="translate({px:.1f} {py:.1f}) rotate({ang:.1f}) scale(1.9)" fill="{c["ink"]}" '
-             f'stroke="{c["bone"]}" stroke-width=".8">{PLANE}</g>')
+    plane = (f'<g transform="translate({px:.1f} {py:.1f}) rotate({ang:.1f}) scale(3.1)" fill="{c["ink"]}" '
+             f'stroke="{c["bone"]}" stroke-width=".8"><path d="{SHAPES["liner"]}"/></g>')
+    nxt = _smooth([(x, y - LIFT) for x, y in (_near(i / 60) for i in range(0, 31))])
     return (f'<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-            f'<defs><radialGradient id="st-g" cx="31%" cy="29%" r="78%"><stop offset="0" stop-color="{c["a"]}"/>'
-            f'<stop offset="1" stop-color="{c["b"]}"/></radialGradient>'
-            f'<radialGradient id="st-h" cx="50%" cy="50%" r="50%"><stop offset=".62" stop-color="{c["slate"]}" stop-opacity=".0"/>'
-            f'<stop offset=".7" stop-color="{c["slate"]}" stop-opacity=".22"/><stop offset="1" stop-color="{c["slate"]}" stop-opacity="0"/>'
-            f'</radialGradient></defs>'
+            f'<defs><radialGradient id="st-g" cx="31%" cy="29%" r="80%"><stop offset="0" stop-color="{c["a"]}"/>'
+            f'<stop offset=".46" stop-color="{c["m"]}"/><stop offset="1" stop-color="{c["b"]}"/></radialGradient>'
+            f'<radialGradient id="st-h" cx="50%" cy="50%" r="50%"><stop offset=".62" stop-color="{c["air"]}" stop-opacity=".0"/>'
+            f'<stop offset=".7" stop-color="{c["air"]}" stop-opacity=".26"/><stop offset="1" stop-color="{c["air"]}" stop-opacity="0"/>'
+            f'</radialGradient>'
+            f'<linearGradient id="st-n" gradientUnits="userSpaceOnUse" x1="{ex0:.0f}" y1="0" x2="{_near(0.5)[0]:.0f}" y2="0">'
+            f'<stop offset="0" stop-color="{c["slate"]}"/><stop offset="1" stop-color="{c["indigo"]}" stop-opacity="0"/></linearGradient></defs>'
             f'<circle cx="{CX}" cy="{CY}" r="{R * 1.45:.0f}" fill="url(#st-h)"/>'
-            f'<path d="{_poly(0, 1, near=False)}" fill="none" stroke="{c["soft"]}" stroke-width="1.8" stroke-dasharray="3 9" '
-            f'stroke-linecap="round" opacity=".75"/>'
-            f'<circle cx="{CX}" cy="{CY}" r="{R}" fill="url(#st-g)" stroke="{c["slate"]}" stroke-opacity=".35"/>'
-            f'{"".join(dots)}{legs}{gate}{stops}{plane}{labels}</svg>')
+            f'<path d="{_smooth(_far_pts(0.0, 1.0, 0, 32))}" fill="none" stroke="{c["amber"]}" stroke-width="3.4" '
+            f'stroke-linecap="round" opacity=".7"/>'
+            f'<circle cx="{CX}" cy="{CY}" r="{R}" fill="url(#st-g)" stroke="{c["air"]}" stroke-opacity=".5" stroke-width="1.5"/>'
+            f'{"".join(dots)}<path d="{nxt}" fill="none" stroke="url(#st-n)" stroke-width="7" stroke-linecap="round"/>'
+            f'{caps}{legs}{gate}{stops}{plane}{labels}</svg>')

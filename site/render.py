@@ -72,6 +72,9 @@ LEGACY_HASH_REDIRECT = (
     "\n<script>(function(){var h=location.hash;"
     "if(h&&h.charAt(1)===\"/\"){location.replace(\"workbench/\"+h);}"
     "else if(/^#(pdlc|loops|by-role|delegation)$/.test(h)){location.replace(\"method/\"+h);}})();</script>"
+    # the hero's entrance plays once in a sitting: a reader who comes back to the home page finds the picture there
+    "<script>try{if(sessionStorage.getItem(\"hero\"))document.documentElement.classList.add(\"hero-seen\");"
+    "else sessionStorage.setItem(\"hero\",\"1\")}catch(e){}</script>"
 )
 
 
@@ -184,6 +187,51 @@ def _nav(up: str, nav_id: str) -> str:
             + drop("Library", LIBRARY) + link("protocol", "Leadership"))
 
 
+# The slot at the right of the top bar. It never points at the page it is on: it offers the other way of
+# taking the manual (the twin of what is on screen), and beside it one quiet link that is useful from here.
+_IC_PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9.5-5.5z"/></svg>'
+_IC_BOOK = ('<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.2c2-.9 4-.9 6 .3 2-1.200 4-1.200 6-.3v9.600c-2-.9-4-.9-6 .3-2-1.200-4-1.200-6-.3z'
+            'M8 3.500v9.600" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>')
+
+
+def lesson_days() -> dict[str, int]:
+    """Which day of the game each lesson is the reading for: from the game's own 'deeper' links."""
+    data = json.loads((SITE / "play" / "days.json").read_text(encoding="utf-8"))
+    out: dict[str, int] = {}
+    for d in data["days"]:
+        for kind, href, _label in d.get("deeper", []):
+            if kind == "lesson":
+                out.setdefault(href.strip("/").split("/")[-1], d["day"])
+    return out
+
+
+def _ctx(up: str, nav_id: str, ctx: dict | None) -> str:
+    ctx = ctx or {}
+
+    def pill(href: str, long: str, short: str, icon: str, name: str, extra: str = "") -> str:
+        lab = f'<span class="lg">{long}</span><span class="sm">{short}</span>' if short != long else f"<span>{long}</span>"
+        return f'<a class="play" href="{href}" style="view-transition-name:{name}"{extra}>{icon}{lab}</a>'
+
+    def quiet(href: str, label: str) -> str:
+        return f'<a class="quiet" href="{href}" style="view-transition-name:ctx-quiet">{label}</a>'
+
+    if nav_id == "simulator":
+        # the game swaps this for the lesson behind the day on screen (play/game.js)
+        a = pill(f"{up}learn/", "The tutorial", "Tutorial", _IC_BOOK, "ctx-read", " data-ctx-lesson")
+        b = quiet(up, "Manual")
+    elif nav_id == "learn":
+        day = ctx.get("day")
+        a = (pill(f"{up}simulator/#day-{day}", "Play this day", "Play", _IC_PLAY, "ctx-sim") if day
+             else pill(f"{up}simulator/", "Simulator", "Simulator", _IC_PLAY, "ctx-sim"))
+        b = (quiet(ctx["apply"], "Apply it") if ctx.get("apply")
+             else "" if ctx.get("quiet") is False                # the tutorial's own front page already has that button
+             else quiet(f"{up}learn/#start-where-you-are", "Find your start"))
+    else:
+        a = pill(f"{up}simulator/", "Simulator", "Simulator", _IC_PLAY, "ctx-sim")
+        b = quiet(ctx["lesson"][0], ctx["lesson"][1]) if ctx.get("lesson") else ""
+    return f'<div class="ctx">{b}{a}</div>'
+
+
 def _wiki_blank(html_: str) -> str:
     """Every link into the wiki opens in a new tab: the wiki is a different site, and a reader
     who followed a reference should still have the manual where they left it."""
@@ -198,7 +246,7 @@ def _wiki_blank(html_: str) -> str:
 def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = None,
           nav_id: str = "", canonical: str = "", head_extra: str = "", own_ld: bool = False,
           crumbs: list[tuple[str, str]] | None = None, tour: list[dict] | None = None,
-          kind: str = "", og: str = "", modified: str = "") -> str:
+          kind: str = "", og: str = "", modified: str = "", ctx: dict | None = None) -> str:
     """The frame every page shares. ``crumbs`` are (label, href) after Home, href relative to the
     page; ``tour`` is the page's walkthrough for guide.js; ``kind`` names the page type so the
     tour is offered once per type, not once per page."""
@@ -277,7 +325,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
   {_menu(up, nav_id)}
   <a class="brand" href="{up}" aria-label="SkyWays, the agentic manual: home">{MARK}<span class="wm">SkyWays</span><small>The agentic manual</small></a>
   <nav aria-label="Sections">{nav}</nav>
-  <a class="play" href="{up}simulator/">Simulator</a>
+  {_ctx(up, nav_id, ctx)}
   <button class="tgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">◐</button>
 </div></header>
 {crumb_html}
@@ -552,7 +600,8 @@ def role_page(role: dict) -> str:
             f"{len(role['steps'])} templates and {n_p} copy-paste prompts for building with AI.")
     return shell(title=f"{role['name']} · The agentic manual", desc=desc, body=body, depth=1,
                  accent=role["accent"], nav_id=role["id"], canonical=f"{BASE_URL}{role['id']}/",
-                 crumbs=[("Roles", ""), (role["name"], "")], tour=tour, kind="role", og=role["id"])
+                 crumbs=[("Roles", ""), (role["name"], "")], tour=tour, kind="role", og=role["id"],
+                 ctx={"lesson": (f"../learn/{ROLE_LESSON[role['id']]}/", "The lesson")} if role["id"] in ROLE_LESSON else None)
 
 
 def next_up(lead: str, href: str, label: str, also: tuple[str, str] | None = None) -> str:
@@ -707,6 +756,21 @@ SKIPPED = [
     "The overall score went up after a prompt change, and so did the complaints.",
     "Finance found the token bill before the product manager reported the saving.",
 ]
+# What the lifecycle keeps from each method: the one idea, in a few plain words (the funnel on the home page).
+BORROWED = [
+    ("AI-DLC", "learn/what-is-ai-dlc/", "short build cycles"),
+    ("BMAD Method", "learn/what-is-the-bmad-method/", "one document per decision"),
+    ("Spec-driven development", "learn/what-is-spec-driven-development/", "the spec is the source"),
+    ("AIDD", "learn/what-is-aidd/", "the daily coding craft"),
+]
+# What this manual adds in each phase, in words a newcomer can read (the table's last row on the home page;
+# the frameworks page keeps the terms of art, illos.ADDS).
+HOME_ADDS = [
+    "How much the agent may do alone, decided before anything is built",
+    "A pass mark for each kind of case and a limit on each action, agreed at sign-off",
+    "Proof that it meets the pass mark before real users see it",
+    "One report of what it saved and what it cost, which opens the next round",
+]
 # How far each method reaches along the spine: 2 covers the phase, 1 touches it lightly, 0 says nothing,
 # "x" is a stage this manual adds to the method (extended BMAD). The same reading as the frameworks
 # page's plug board, which carries the detail.
@@ -716,6 +780,21 @@ COVERAGE = [
     ("Spec-driven development", "learn/what-is-spec-driven-development/", "The spec is what you maintain", (1, 2, 2, 1)),
     ("AIDD", "learn/what-is-aidd/", "The daily craft with a coding agent", (0, 0, 2, 0)),
 ]
+
+
+# The simulator band's three pictures: (the line under the frame, what the picture shows).
+SIM_ROLL = [
+    ("Day 1. Six people have given the team 31 requirements.",
+     "The simulator on Day 1: the airline's head office cut open at dawn, seven rooms on four floors, the boardroom lit, "
+     "and the day's decision beside it with its price in days"),
+    ("Day 45. The first test score is 82.4. The promise was 80.",
+     "The simulator on Day 45, in the afternoon: the QA room lit, the score on its wall, and three ways to report it"),
+    ("Day 90. The sponsor asks what ninety days bought.",
+     "The simulator on Day 90, at dusk: the boardroom lit, and the slide to build from the run's own numbers"),
+]
+HOME_SKETCH = "wring-the-vibe"          # the lesson sketch shown in the tutorial band, as a sample
+# Where a role starts and where it ends up, in words a newcomer can read. A role page keeps its own tagline.
+HOME_ROUTE = {"engineering": ("a written task", "code that ships"), "qa": ("'it works'", "proof that it works")}
 
 
 def home_page(roles: list[dict]) -> str:
@@ -741,6 +820,7 @@ def home_page(roles: list[dict]) -> str:
             continue
         m = re.match(r"From (.+) to (.+)", tagline)
         frm, to = (m.group(1), m.group(2)) if m else ("", tagline)
+        frm, to = HOME_ROUTE.get(rid, (frm, to))
         n_p = sum(len(s["prompts"]) for s in r["steps"])
         seats.append(f'<li><a href="{rid}/" style="--rc:{colour}"><span class="s-code">{_E(short)}</span>'
                      f'<span class="s-name" style="view-transition-name:role-{rid}">{_E(name)}</span>'
@@ -759,14 +839,30 @@ def home_page(roles: list[dict]) -> str:
                  '<b>the four decisions only you can make</b></span>'
                  '<span class="s-meta">20 minute read</span><span class="s-go" aria-hidden="true">→</span></a></li>')
 
+    # one sketch from a lesson, as a sample of how the lessons explain: the picture, and where it is from
+    from pages import sketch as _sketch
+    sk = learn.sketches().get(HOME_SKETCH)
+    sample = ""
+    if sk:
+        les = lessons[sk["lesson"]]
+        sample = (f'<a class="learn-s" href="learn/{les.slug}/">{_sketch.render(sk)[0]}'
+                  f'<span class="learn-k">From lesson {les.n} of {_E(les.track.title)}: {_E(les.short)} <i aria-hidden="true">→</i></span></a>')
+
+    # three moments of the game, in turn: the same building at dawn, in the afternoon and at dusk
+    frames = "".join(
+        f'<img class="{mode} f{i}" src="assets/pictures/sim-roll-{i}.{mode}.webp" width="1360" height="850" '
+        f'loading="lazy" decoding="async" alt="{_E(alt, quote=True) if mode == "light" else ""}">'
+        for i, (_cap, alt) in enumerate(SIM_ROLL, 1) for mode in ("light", "dark"))
+    caps = "".join(f'<li class="f{i}">{_E(cap)}</li>' for i, (cap, _alt) in enumerate(SIM_ROLL, 1))
+
     hero = f"""<section class="hero2" id="top" aria-label="Introduction">
   {globe.scene()}
   {MOTION_TOGGLE}
   <div class="in"><div class="hx">
     <p class="eyebrow">The agentic manual</p>
     <h1>One manual for building software <em>with AI agents.</em></h1>
-    <p class="lede">It follows one lifecycle through five roles, worked end to end on a fictional airline's
-    ninety-day build. Free and open source.</p>
+    <p class="lede">It teaches one way of working, from the first idea to a live product. Read it by role,
+    lesson by lesson, or play it as a game. Free and open source.</p>
     <div class="ba"><a class="btn pri" href="learn/">Start the tutorial</a>
       <a class="btn ghost" href="simulator/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Play the simulator</a></div>
     <p class="meta"><span><i><b>{n_lessons}</b> lessons</i><i><b>{total_steps}</b> templates</i><i><b>{total_prompts}</b> prompts</i></span>
@@ -779,61 +875,66 @@ def home_page(roles: list[dict]) -> str:
 
 <section class="band" id="why" aria-labelledby="h-why"><div class="wrap">
   <header class="sec-h split rv"><p class="eyebrow">Sound familiar?</p>
-    <h2 id="h-why">Agent projects fail quietly. <span>A phase ended on a date instead of on evidence.</span></h2>
-    <p>The SkyWays PDLC is four phases, each ending on evidence, with one hard gate and a way back. Skip a
-    phase's question, and you hear the line beneath it.</p></header>
-  <div class="rv">{spine.figure(PHASES, SKIPPED, "learn/what-is-the-agentic-pdlc/")}</div>
-  <p class="links rv"><a class="more" href="method/">See the whole spine on one page <i aria-hidden="true">→</i></a>
+    <h2 id="h-why">Agent projects go wrong in four places.</h2>
+    <p>SkyWays splits the work into four phases. Each phase asks one question. Skip the question, and you
+    hear the line under it.</p></header>
+  <div class="rv">{spine.figure(PHASES, SKIPPED, "learn/what-is-the-agentic-pdlc/", BORROWED)}</div>
+  <p class="links rv"><a class="more" href="method/">See all four phases on one page <i aria-hidden="true">→</i></a>
     <a class="more" href="learn/why-agentic-ai-projects-fail/">Seven ways these projects fail <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band" id="method" aria-labelledby="h-method"><div class="wrap">
   <header class="sec-h split rv"><p class="eyebrow">The methods</p>
-    <h2 id="h-method">Which agentic method should you follow? <span>Whichever fits your team. Each has
-    its place on the spine.</span></h2>
-    <p>A method tells you how to build. The spine keeps the part each does best, and adds what none of
-    them decides.</p></header>
-  <div class="rv">{spine.coverage(PHASES, COVERAGE, illos.ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
-  <p class="links rv"><a class="more" href="frameworks/">How the four merge into one <i aria-hidden="true">→</i></a>
-    <a class="more" href="learn/ai-dlc-vs-aidd-vs-agentic-sdlc/">Agentic SDLC, agentic STLC, AIDLC: every name, sorted <i aria-hidden="true">→</i></a></p>
+    <h2 id="h-method">Which agentic method should your team use?</h2>
+    <p>Any of these four works. The table shows which phases each one covers, and what it leaves to you.</p></header>
+  <div class="rv">{spine.coverage(PHASES, COVERAGE, HOME_ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
+  <p class="links rv"><a class="more" href="frameworks/">How the four fit together <i aria-hidden="true">→</i></a>
+    <a class="more" href="learn/ai-dlc-vs-aidd-vs-agentic-sdlc/">Other names you may have heard, sorted <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band" id="roles" aria-labelledby="h-roles"><div class="wrap">
   <header class="sec-h split rv"><p class="eyebrow">By role</p>
-    <h2 id="h-roles">Start from the job you do. <span>Eight steps per role, from the first question to
-    production.</span></h2>
-    <p>Every step names what you owe the next person, and comes with the template and the prompts to draft it.</p></header>
+    <h2 id="h-roles">Start from the job you do.</h2>
+    <p>Find your role and follow its eight steps. Each step comes with a template to fill in and prompts to draft it.</p></header>
   <ol class="seats rv">{''.join(seats)}</ol>
   <p class="links rv"><a class="more" href="learn/#start-where-you-are">Not on the list? {n_starts} places to start <i aria-hidden="true">→</i></a></p>
 </div></section>
 
 <section class="band play" id="simulator" aria-labelledby="h-play"><div class="wrap">
   <div class="play-t rv"><p class="eyebrow">The simulator</p>
-    <h2 id="h-play">Or play the ninety days yourself.</h2>
-    <p>SkyWays is a fictional airline building a rebooking assistant for stranded passengers. Thirteen
-    days decide the ninety. Every call has a price in days, and some prices arrive later.</p>
-    <dl class="nums"><div><dt>13</dt><dd>calls to make</dd></div><div><dt>5</dt><dd>hands-on tasks</dd></div>
+    <h2 id="h-play">Play a ninety&#8209;day AI project in fifteen minutes.</h2>
+    <p>You lead a fictional airline's project to build a rebooking assistant. Every choice costs days, and
+    some costs arrive later.</p>
+    <dl class="nums"><div><dt>13</dt><dd>decisions to make</dd></div><div><dt>6</dt><dd>hands-on tasks</dd></div>
       <div><dt>3</dt><dd>ways to play</dd></div></dl>
     <div class="ba"><a class="btn pri" href="simulator/">Play Ninety Days</a>
       <a class="more" href="workbench/">Open the workbench <i aria-hidden="true">→</i></a></div>
   </div>
-  <a class="simshot rv" href="simulator/" aria-label="Play Ninety Days, the SkyWays simulator">
+  <div class="simwrap rv">
+  <a class="simshot" href="simulator/" aria-label="Play Ninety Days, the SkyWays simulator">
     <span class="simbar" aria-hidden="true"><i></i><i></i><i></i><b>Ninety Days</b></span>
-    <img class="light" src="assets/pictures/sim-home.light.webp" width="1360" height="850" loading="lazy" decoding="async"
-      alt="The simulator on Day 45: the airline's head office cut open, seven rooms on four floors, the QA room lit, and the day's decision beside it with its price in days">
-    <img class="dark" src="assets/pictures/sim-home.dark.webp" width="1360" height="850" loading="lazy" decoding="async" alt=""></a>
+    <span class="simroll">{frames}</span>
+  </a>
+  <ol class="simcap" aria-hidden="true">{caps}</ol>
+  {MOTION_TOGGLE}
+  </div>
 </div></section>
 
 <section class="band" id="tutorial" aria-labelledby="h-learn"><div class="wrap">
-  <header class="sec-h rv"><p class="eyebrow">The tutorial</p>
-    <h2 id="h-learn">Or learn it in order. <span>{n_lessons} lessons in {NUM.get(len(_tracks), len(_tracks))} tracks. The first takes eight minutes.</span></h2></header>
-  <ol class="jump tracks rv">{tracks}</ol>
+  <header class="sec-h split rv"><p class="eyebrow">The tutorial</p>
+    <h2 id="h-learn">Read the {n_lessons} lessons in order.</h2>
+    <p>{NUM.get(len(_tracks), len(_tracks)).capitalize()} tracks run from the basics to interview questions. The first lesson takes eight minutes.</p></header>
+  <div class="learn-g rv">
+    <ol class="jump tracks">{tracks}</ol>
+    {sample}
+  </div>
   <div class="ba rv"><a class="btn pri" href="learn/what-is-the-agentic-pdlc/">Start with lesson one</a></div>
 </div></section>
 
 <section class="band" id="library" aria-labelledby="h-lib"><div class="wrap">
-  <header class="sec-h rv"><p class="eyebrow">The library</p>
-    <h2 id="h-lib">Take what you need. <span>Everything here is free to copy and reuse.</span></h2></header>
+  <header class="sec-h split rv"><p class="eyebrow">The library</p>
+    <h2 id="h-lib">Copy the templates and prompts you need.</h2>
+    <p>Templates, prompts, rules of thumb and diagrams. All of it is free to reuse under the MIT licence.</p></header>
   <div class="shelf rv">
     <a class="tile" href="templates/"><span class="tile-k">{total_steps} templates</span><b>Templates</b>
       <span class="tile-d">One document to fill in for every step.</span><span class="tile-go" aria-hidden="true">→</span></a>
@@ -878,7 +979,7 @@ def method_page() -> str:
   <header class="phead"><div class="pcols"><div><p class="eyebrow">The method</p>
     <h1>The SkyWays PDLC, on one page</h1>
     <p class="lede">The product development lifecycle this whole manual hangs from, called the agentic PDLC
-    in the lessons: four phases (P0 to P3), one hard gate and eight loops. Each board below answers one
+    in the lessons: four phases (P0 to P3), one hard gate (the sign-off before anything is built) and eight loops. Each board below answers one
     question about it.</p></div>
     <figure class="pfig">{illos.tower()}{MOTION_TOGGLE}</figure></div>
     <ol class="jump">{jump}</ol></header>

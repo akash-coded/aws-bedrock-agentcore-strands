@@ -6,7 +6,7 @@ description: Six frameworks for AI interview questions: design, good enough or n
 dek: Most AI interview questions are one of six kinds. Each kind has a structure that turns what you know into an answer an interviewer can score.
 level: Intermediate
 keywords: how to answer AI interview questions, AI interview frameworks, AI product manager interview framework, LLM system design interview, GenAI interview preparation, machine learning interview answers, STAR method AI, AI PM interview
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -38,6 +38,8 @@ Frameworks fix the first; knowing what each question tests fixes the other two.
 limits and evidence) and explain it to someone who will not read the code. Recall of terms is the
 floor, not the test. The strongest signal in almost every loop is the same: does the candidate ask what
 a mistake costs before choosing how good is good enough?
+
+{{sketch:weigh-the-mistake-first}}
 
 ## The six frameworks, step by step
 

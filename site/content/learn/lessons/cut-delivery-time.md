@@ -6,7 +6,7 @@ description: AI makes building fast; delivery is more than building. What compre
 dek: The claims say days instead of months. Some of it is true. The rest is where your programme will actually spend its time.
 level: Intermediate
 keywords: reduce time to market AI, faster software delivery with AI, shorten development cycle, AI productivity delivery time, months to weeks, lead time reduction, value stream AI development
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 
 AI has moved the bottleneck, not removed it. The time has gone to the parts of delivery that nobody
 redesigned.
+
+{{sketch:sawing-two-days-off-the-plank}}
 
 ## Where does the time go?
 
@@ -75,12 +77,16 @@ access had been granted in one region in week one, everyone assumed that covered
 nobody had requested the region the data had to stay in. Request every one in week one, even if the
 work that needs it is weeks away.
 
+{{sketch:everything-ready-oven-cold}}
+
 ### Step 6 · Plan honestly around what does not compress
 
 Live evidence arrives at the speed of traffic: **days = cases needed ÷ (share × cases per day)**. At
 240 cases a day, 500 cases at a 5% canary takes 42 days, the arithmetic, not the effort. You can
 shorten it only by widening the share, which raises exposure, or by needing fewer cases, which only an
 honest bar and lower bound can justify. Put the number in the plan instead of promising around it.
+
+{{sketch:shaking-the-egg-timer}}
 
 ## Where you'll use it
 

@@ -1,6 +1,7 @@
 /* self-hosted variable fonts (OFL), latin subset; one file per family covers every weight the site uses */
 @font-face{font-family:'Geist';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/geist.woff2) format('woff2')}
 @font-face{font-family:'Geist Mono';font-style:normal;font-weight:400 600;font-display:swap;src:url(../assets/fonts/geist-mono.woff2) format('woff2')}
+@font-face{font-family:'Patrick Hand';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/patrick-hand.woff2) format('woff2')}
 @font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/instrument-sans.woff2) format('woff2')}
 /* ==========================================================================
    The agentic manual — design system
@@ -17,6 +18,9 @@
   --ok:#2F6B57; --warn:#9A5F0C; --stop:#8C3B3B;
   --sw-ink:#16150F; --sw-on:#FFFFFF;
   --ease:cubic-bezier(.22,1,.36,1);
+  /* a spring, for small things the reader pressed or that change shape: 2.8% past its mark, then home */
+  --spring:linear(0,.061 4%,.199 8%,.365 12%,.567 17%,.735 22%,.88 28%,.966 34%,1.01 40%,1.027 46%,1.028 52%,1.02 60%,1.009 70%,1.001 82%,1);
+  --t-fast:150ms; --t-base:250ms; --t-slow:400ms; --t-draw:600ms;
   --wrap:1280px; --rail:248px; --toc:208px;
   --f-display:"Instrument Sans",Inter,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-body:Geist,Inter,-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif;
@@ -90,11 +94,20 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
 .ddp a b{font-size:14.5px;font-weight:620}
 .ddp a small{font-size:12.5px;color:var(--soft);line-height:1.4}
 .ddp a[aria-current]{background:var(--accent-soft)}
-.hd .play{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px 0 13px;margin-left:8px;border-radius:999px;
+/* the slot that changes with where the reader is: one filled pill to the twin of this page, one quiet link beside it */
+.ctx{display:flex;align-items:center;gap:2px;margin-left:8px}
+.hd .play{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px 0 12px;border-radius:999px;
   background:var(--ink);color:var(--bone);font-size:13.5px;font-weight:620;white-space:nowrap;
-  transition:transform 150ms var(--ease),background 150ms var(--ease)}
-.hd .play::before{content:"";width:0;height:0;border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}
+  transition:transform 150ms var(--ease),background 150ms var(--ease),scale 250ms var(--spring)}
+.hd .play svg{width:14px;height:14px;fill:currentColor;flex:none}
+.hd .play .sm{display:none}
 .hd .play:hover{text-decoration:none;transform:translateY(-1px);background:color-mix(in oklab,var(--ink) 86%,var(--brand))}
+.hd .play:active{scale:.97}
+.hd .quiet{padding:8px 11px;border-radius:9px;font-size:13.5px;font-weight:560;color:var(--ink2);white-space:nowrap;
+  transition:color 150ms var(--ease),background 150ms var(--ease)}
+.hd .quiet:hover{color:var(--ink);background:var(--rule2);text-decoration:none}
+@media (max-width:900px){.hd .quiet{display:none}}
+@media (max-width:420px){.hd .play .lg{display:none}.hd .play .sm{display:inline}}
 .tgl{border:1px solid var(--rule);background:transparent;color:var(--ink2);border-radius:999px;
   width:36px;height:36px;cursor:pointer;font-size:15px;line-height:1;flex:none;transition:border-color 150ms var(--ease),color 150ms var(--ease)}
 .tgl:hover{border-color:var(--ink2);color:var(--ink)}
@@ -102,7 +115,7 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
    which already lists every page. */
 @media (max-width:980px){.brand small{display:none}}
 @media (max-width:860px){.hd nav{display:none}.hd .in{padding:0 14px;height:58px;gap:8px}}
-@media (max-width:420px){.hd .play{padding:0 12px 0 11px;margin-left:0}.brand .wm{font-size:17px}}
+@media (max-width:420px){.hd .play{padding:0 12px 0 11px}.ctx{margin-left:0}.brand .wm{font-size:17px}}
 
 /* ---------- layout ---------- */
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
@@ -1303,9 +1316,9 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
    Bands breathe: 72 to 128px above and below. Text columns stop near 54 characters.
    ========================================================================================== */
 :root{--brand:var(--dg-indigo);--band:clamp(72px,9.5vw,128px);
-  --g-dot:#56708A;--g-lit:#1F3A55;--g-a:#FFFFFF;--g-b:#D5DEE7;--g-rim:rgba(62,107,138,.55);--sky-a:26%}
+  --g-dot:#5E83A8;--g-lit:#12304E;--g-a:#FFFFFF;--g-m:#E2EDF7;--g-b:#B9CFE4;--g-rim:rgba(46,104,160,.6);--g-air:#5C9BDA;--sky-a:26%}
 @media screen{:root:not([data-theme="light"]){
-  --g-dot:#6F93B4;--g-lit:#DDECFA;--g-a:#1D2735;--g-b:#0B0D12;--g-rim:rgba(170,205,240,.6);--sky-a:30%}}
+  --g-dot:#4F7BAA;--g-lit:#EEF6FF;--g-a:#24487A;--g-m:#0F2038;--g-b:#060A12;--g-rim:rgba(150,200,255,.7);--g-air:#4C8FD8;--sky-a:30%}}
 
 .eyebrow{font-family:var(--f-mono);font-size:12.5px;font-weight:500;letter-spacing:.01em;color:var(--soft);margin:0 0 18px;
   display:flex;align-items:center;gap:10px;max-width:none}
@@ -1353,34 +1366,74 @@ a.more:hover i{transform:translateX(4px)}
   transform:translateY(-49%);pointer-events:none}
 .scene svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .scene .sc-globe{position:absolute;left:18.2%;top:18.2%;width:63.6%;height:63.6%;border-radius:50%;
-  background:radial-gradient(circle at 31% 29%,var(--g-a),var(--g-b) 78%);
-  box-shadow:0 0 0 1px color-mix(in oklab,var(--slate) 26%,transparent),0 0 110px 6px color-mix(in oklab,var(--slate) 30%,transparent)}
-.scene .leg{fill:none;stroke-width:3.5;stroke-linecap:round}
+  background:radial-gradient(circle at 31% 29%,var(--g-a),var(--g-m) 46%,var(--g-b) 84%);
+  box-shadow:inset 0 0 0 1.5px color-mix(in oklab,var(--g-air) 46%,transparent),inset 10px 12px 38px -14px var(--g-rim),
+    0 0 0 1px color-mix(in oklab,var(--g-air) 22%,transparent),0 0 120px 10px color-mix(in oklab,var(--g-air) 30%,transparent)}
+/* the round: a ribbon in the four phase hues in front of the globe, a dashed way back behind it that climbs */
+.scene .leg{fill:none;stroke-width:12;stroke-linecap:butt}
+.scene .back{fill:none;stroke-width:3.4;stroke-linecap:round;opacity:.8}
+.scene .next{fill:none;stroke-width:7;stroke-linecap:round}
+/* one aircraft, four shapes: paper, a plan, the thing built, the thing flown */
+/* the aircraft is drawn around its own origin, and that origin is what rides the path: no fill-box here,
+   or the anchor becomes a corner of whatever shape it currently has */
+.sc-morph,.sc-still{fill:var(--paper);stroke:var(--ink);stroke-width:1.1;stroke-linejoin:round}
+.sc-still.k-plan{fill:none;stroke:var(--dg-indigo);stroke-dasharray:2.2 1.6}
+.sc-still:is(.k-built,.k-flown){fill:var(--ink)}
+.sc-plane .sc-still{display:none}
+.sc-flame{fill:color-mix(in oklab,var(--dg-amber) 45%,#fff)}
+.sc-plane .sc-flame{opacity:0}
+.scene .sc-gate{transform-box:fill-box;transform-origin:50% 50%}
 /* the arrival, once: the Earth settles, the four legs draw in order, each stop and its name follow */
 @media (prefers-reduced-motion:no-preference){
   .scene .sc-globe{animation:sc-rise 400ms var(--ease) both}
   .scene .leg{stroke-dasharray:1;stroke-dashoffset:1;animation:sc-draw 400ms var(--ease) forwards;animation-delay:calc(350ms + var(--i) * 250ms)}
   .scene .stop{opacity:0;animation:sc-in 250ms var(--ease) forwards;animation-delay:calc(600ms + var(--i) * 250ms)}
   .sc-wp li{opacity:0;animation:sc-in 350ms var(--ease) forwards;animation-delay:calc(650ms + var(--i) * 250ms)}
-  .scene .back{opacity:0;animation:sc-back 400ms var(--ease) 1500ms forwards}
-  .scene .sc-plane{opacity:0;animation:sc-fly 46s linear infinite,sc-in 400ms var(--ease) 1500ms forwards}
+  .scene :is(.back,.next){opacity:0;animation:sc-back 400ms var(--ease) 1500ms forwards}
+  .scene .next{animation-name:sc-in}
+  .scene .sc-plane{opacity:0;animation:sc-fly 32s linear infinite,sc-in 400ms var(--ease) 1500ms forwards}
+  .scene .sc-morph{animation:sc-shape 32s var(--spring) infinite}
+  .scene .sc-plane .sc-flame{animation:sc-flame 32s linear infinite}
+  .scene .sc-gate{animation:sc-in 250ms var(--ease) 1100ms forwards,sc-gate 32s var(--ease) infinite}
+  .scene .sc-parked{display:none}
+  /* a browser that cannot ease one path into another shows four drawings in turn, on the same clock */
+  @supports not (d:path("M0 0")){
+    .sc-plane .sc-morph{display:none}
+    .sc-plane .sc-still{display:block;opacity:0;animation:sc-turn0 32s linear infinite}
+    .sc-plane .sc-still:nth-of-type(4){animation-name:sc-turn1}
+    .sc-plane .sc-still:nth-of-type(5){animation-name:sc-turn2}
+    .sc-plane .sc-still:nth-of-type(6){animation-name:sc-turn3}
+  }
+  .sc-turns .sc-plane .sc-morph{display:none}
+  .sc-turns .sc-plane .sc-still{display:block;opacity:0;animation:sc-turn0 32s linear infinite}
+  .sc-turns .sc-plane .sc-still:nth-of-type(4){animation-name:sc-turn1}
+  .sc-turns .sc-plane .sc-still:nth-of-type(5){animation-name:sc-turn2}
+  .sc-turns .sc-plane .sc-still:nth-of-type(6){animation-name:sc-turn3}
+  /* a second visit in the same sitting finds the picture already there */
+  .hero-seen .scene :is(.sc-globe,.leg,.stop,.back,.next),.hero-seen .sc-wp li{animation-delay:0s;animation-duration:1ms}
+  .hero-seen .scene .sc-plane{animation-delay:0s,0s}
+  .hero-seen .scene .sc-gate{animation-delay:0s,0s}
+  .hero-seen .hero2 .hx>*{animation:none}
 }
+@media (prefers-reduced-motion:reduce){.scene .sc-plane{display:none}}
+@supports not (offset-path:path("M0 0h1")){.scene .sc-plane{display:none}.scene .sc-parked{display:inline!important}}
 @keyframes sc-rise{from{opacity:0;scale:.94}}
 @keyframes sc-draw{to{stroke-dashoffset:0}}
 @keyframes sc-in{to{opacity:1}}
 @keyframes sc-back{to{opacity:.75}}
-.scene .back{fill:none;stroke:var(--soft);stroke-width:1.6;stroke-dasharray:3 9;stroke-linecap:round;opacity:.75}
-.scene .sc-plane path:first-child{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
-.scene .sc-plane path:last-child{fill:var(--ink)}
-.scene .sc-plane{transform-box:fill-box}
 .sc-wp{list-style:none;margin:0;padding:0;position:absolute;inset:0}
-.sc-wp li{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,20px);white-space:nowrap;
-  font-size:13px;font-weight:560;color:var(--ink);padding:5px 11px 5px 9px;border-radius:999px;
-  background:color-mix(in oklab,var(--paper) 88%,transparent);border:1px solid color-mix(in oklab,var(--c) 50%,var(--rule));
-  box-shadow:0 8px 22px -12px rgba(8,10,20,.5);display:flex;align-items:center;gap:7px}
-.sc-wp li b{font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:color-mix(in oklab,var(--c) 78%,var(--ink))}
-.sc-wp li.gate{transform:translate(-50%,-46px);font-family:var(--f-mono);font-size:11px;font-weight:500;padding:3px 8px;
+.sc-wp li{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,38px);white-space:nowrap;
+  font-size:15px;font-weight:580;color:var(--ink);padding:6px 13px 6px 11px;border-radius:999px;
+  background:color-mix(in oklab,var(--paper) 90%,transparent);border:1.5px solid color-mix(in oklab,var(--c) 62%,var(--rule));
+  box-shadow:0 8px 22px -12px rgba(8,10,20,.5);display:flex;align-items:center;gap:8px}
+.sc-wp li b{font-family:var(--f-mono);font-size:12.5px;font-weight:600;color:color-mix(in oklab,var(--c) 82%,var(--ink))}
+.sc-wp li:nth-child(4){transform:translate(calc(-100% - 26px),-50%)}
+.scene .sc-ico{position:static;inset:auto;width:30px;height:20px;flex:none;margin:0 -3px 0 2px;overflow:visible}
+.sc-ico .sc-still{display:block;stroke-width:1.6}
+.sc-wp li.gate{transform:translate(-50%,-62px);font-family:var(--f-mono);font-size:12px;font-weight:500;padding:3px 9px;
   color:color-mix(in oklab,var(--dg-rose) 80%,var(--ink));border-color:color-mix(in oklab,var(--dg-rose) 45%,transparent)}
+.sc-wp li.next{transform:translate(-30%,-62px);font-family:var(--f-mono);font-size:12px;font-weight:500;padding:0;border:0;background:none;
+  box-shadow:none;color:var(--soft)}
 @media (max-width:1000px){
   .hero2{display:flex;flex-direction:column;min-height:0}
   .hero2 .in{order:1}
@@ -1391,11 +1444,17 @@ a.more:hover i{transform:translateX(4px)}
   .hero2 .lede{margin-bottom:26px}
   .hero2 .ba{margin-bottom:26px}
   .scene{position:relative;top:auto;right:auto;transform:none;flex:none;align-self:center;width:min(680px,108vw);margin:-9% 0 -15%}
-  .sc-wp li:first-child{transform:translate(-30%,-44px)}
-  .sc-wp li:nth-child(4){transform:translate(-84%,20px)}
-  .sc-wp li{font-size:12px;padding:4px 9px 4px 8px}
+  .sc-wp li:first-child{transform:translate(-30%,38px)}
+  .sc-wp li:nth-child(4){transform:translate(-88%,38px)}
+  .scene .sc-ico{width:24px;height:16px}
+  .sc-wp li{font-size:13px;padding:4px 10px 4px 8px}
 }
-@media (max-width:520px){.sc-wp li:not(.gate){font-size:11.5px;gap:5px}.hero2 .btn{flex:1 1 auto;justify-content:center}}
+@media (max-width:520px){.sc-wp li:not(.gate,.next){font-size:12px;gap:5px;padding:4px 9px 4px 8px}.sc-wp li b{font-size:11.5px}.hero2 .btn{flex:1 1 auto;justify-content:center}
+  .scene .leg{stroke-width:14}.scene .sc-ico{display:none}
+  /* four names in 340px: Frame drops to a lower row, and the note about the next round gives way */
+  .sc-wp li:first-child{transform:translate(-22%,64px)}.sc-wp li:nth-child(2){transform:translate(-42%,30px)}
+  .sc-wp li:nth-child(3){transform:translate(-50%,32px)}.sc-wp li:nth-child(4){transform:translate(-94%,30px)}
+  .sc-wp li.next{display:none}.sc-wp li.gate{transform:translate(-50%,-50px)}}
 
 /* ---- bands ---- */
 main.home{padding:0}
@@ -1413,7 +1472,8 @@ main.home{padding:0}
 .rv-on .rv.in{opacity:1;transform:none}
 /* Paper gets the finished picture, whatever the entrance had reached; the globe is a screen thing and stays off it. */
 @media print{.rv-on .rv{opacity:1;transform:none}
-  .spine :is(.sp-trunk i,.sp-ph li,.sp-loop,.sp-back,.sp-gate),.cover .bar{scale:none!important;clip-path:none!important;opacity:1!important}
+  .spine :is(.sp-trunk i,.sp-ph li,.sp-loop,.sp-back,.sp-gate,.sp-in li,.sp-core a,.sp-craft,.sp-note,.sp-cap),.cover .bar{scale:none!important;clip-path:none!important;opacity:1!important;translate:none!important}
+  .spine .sp-fun path{stroke-dashoffset:0!important}
   .hero2 .scene{display:none}}
 
 /* ---- the spine: one line that closes into a loop, a question above it, a symptom below (pages/spine.py) ---- */
@@ -1425,6 +1485,19 @@ main.home{padding:0}
 .sp-core small{font-size:13px;line-height:1.35;color:var(--soft)}
 .sp-core a:hover{text-decoration:none}
 .sp-core a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+/* the funnel: four methods, the one idea the lifecycle keeps from each, four lines into one point */
+.sp-in b{display:block;font-family:var(--f-display);font-size:14.5px;font-weight:620;letter-spacing:-.01em;line-height:1.2;color:var(--ink)}
+.sp-in small{display:block;font-size:12.5px;line-height:1.3;color:var(--soft)}
+.sp-in a{display:block;color:inherit;text-decoration:none}
+.sp-in a:hover{text-decoration:none}
+.sp-in a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.sp-fun{fill:none;overflow:visible}
+.sp-fun path{vector-effect:non-scaling-stroke;stroke:var(--sp-b);stroke-width:1.5}
+.sp-into{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0;max-width:none}
+.sp-note{font-size:14px;line-height:1.5;color:var(--soft);margin:30px 0 0;max-width:62ch}
+/* each phase flies its own aircraft: the same four the hero's flight changes through */
+.sp-craft{width:30px;height:20px;margin-left:8px;overflow:visible;vertical-align:-5px}
+.sp-craft .sc-still{display:block;stroke-width:1.5}
 .sp-trunk{position:relative;display:flex;height:16px;isolation:isolate}
 .sp-trunk i{position:relative;z-index:1;flex:1;display:block;background:var(--c)}
 .sp-trunk i:first-of-type{border-radius:8px 0 0 8px}
@@ -1449,26 +1522,39 @@ main.home{padding:0}
   border-left:2px solid color-mix(in oklab,var(--c) 55%,transparent)}
 .sp-skip::before{content:"\201C"}.sp-skip::after{content:"\201D"}
 .sp-cap{font-family:var(--f-mono);font-size:12px;color:var(--soft);margin:0;max-width:none}
-/* wide: the name curves into the line, the questions sit inside the loop, the symptoms hang under it */
+/* wide: four methods run into one point, the lifecycle's name sits on the line that leaves it, the
+   questions sit inside the loop and the symptoms hang under it (the numbers mirror pages/spine.py) */
 @media (min-width:1001px){
+  .spine{--fun-top:47px;--fun-h:206px;--trunk:150px}
+  .spine .sp-in{position:absolute;left:0;top:var(--fun-top);width:15.4%;display:grid;grid-auto-rows:44px;gap:10px;align-items:center}
+  .sp-in li{display:grid;align-items:center}
+  .sp-fun{position:absolute;left:15.8%;top:var(--fun-top);width:4.6%;height:var(--fun-h)}
+  .sp-into{display:none}
   .sp-core{display:contents}      /* its parts are placed against the figure, not against the name */
-  .sp-core a{position:absolute;left:0;top:0;width:22%;height:72px;grid-template-columns:auto minmax(14px,1fr);column-gap:14px;align-content:center}
-  .sp-core a b,.sp-core a small{grid-column:1}
-  .sp-core a::after{content:"";grid-column:2;grid-row:1/3;align-self:center;height:3px;border-radius:2px 0 0 2px;background:var(--dg-slate)}
-  .sp-fan{position:absolute;left:22%;top:0;width:10%;height:190px;overflow:visible;fill:none}
-  .sp-fan path{vector-effect:non-scaling-stroke;stroke:var(--dg-slate);stroke-width:3}
-  .sp-trunk{position:absolute;left:32%;right:3%;top:142px}
-  .spine .sp-ph{margin:0 3% 0 32%;padding-top:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sp-core a{position:absolute;left:20.4%;top:calc(var(--trunk) - 46px);width:12%;display:grid;gap:27px;color:var(--ink);text-decoration:none}
+  .sp-core a b{font-size:17px;white-space:nowrap}
+  .sp-core a small{font-size:12.5px;line-height:1.3}
+  /* the point the four lines meet at, and the line that leaves it for the first phase */
+  .sp-core a::before{content:"";position:absolute;left:0;top:46px;width:13px;height:13px;margin:-6.5px 0 0 -1px;border-radius:50%;
+    box-sizing:border-box;border:3px solid var(--dg-slate);background:var(--bone);z-index:1}
+  .sp-core a::after{content:"";position:absolute;left:10px;right:-4px;top:46px;height:3px;margin-top:-1.5px;background:var(--dg-slate);border-radius:2px 0 0 2px}
+  .sp-core a b,.sp-core a small{padding-left:16px}
+  .sp-trunk{position:absolute;left:34%;right:2.4%;top:142px}
+  .spine .sp-ph{margin:0 2.4% 0 34%;padding-top:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
   .sp-ph li{display:grid;grid-template-rows:106px 54px auto}
   .sp-ph a{align-self:end;padding:0 14px 0 16px}
   .sp-skip{grid-row:3;margin:0 16px 0 4px}
-  .sp-cap{position:absolute;left:0;top:181px;width:calc(32% - 22px);text-align:right}
+  .sp-cap{position:absolute;left:20.4%;top:200px;width:calc(13.6% - 22px);text-align:right;line-height:1.35}
 }
 @media (min-width:1001px) and (max-width:1160px){.sp-ph .c-ask,.sp-skip{font-size:13px}}
 /* 1000px and under: the line first, then each phase with its question and its symptom */
 @media (max-width:1000px){
-  .sp-fan,.sp-cap{display:none}
-  .sp-core{display:grid;grid-template-columns:minmax(108px,30%) minmax(0,1fr);gap:0 16px;align-items:center;padding:30px 12px 44px 0}
+  .sp-fun,.sp-cap{display:none}
+  .spine .sp-in{display:flex;flex-wrap:wrap;gap:8px}
+  .sp-in a{padding:9px 12px;border:1px solid var(--rule);border-radius:12px;min-height:44px}
+  .sp-into{padding:12px 0 0 2px}
+  .sp-into::after{content:" ↓"}
+  .sp-core{display:grid;grid-template-columns:minmax(108px,30%) minmax(0,1fr);gap:0 16px;align-items:center;padding:22px 12px 44px 0}
   .sp-trunk{height:12px}
   .sp-trunk i:first-of-type{border-radius:6px 0 0 6px}
   .sp-trunk i:nth-of-type(4){border-radius:0 6px 6px 0}
@@ -1486,6 +1572,7 @@ main.home{padding:0}
   .sp-skip{margin-top:8px}
 }
 @media (max-width:600px){
+  .sp-back span{display:none}
   .sp-core b{font-size:16.5px}
   .sp-core{grid-template-columns:minmax(96px,34%) minmax(0,1fr);gap:0 12px}
   .spine .sp-ph{grid-template-columns:1fr;gap:20px}
@@ -1512,7 +1599,7 @@ main.home{padding:0}
 .cover .gated{border-left:2px dashed color-mix(in oklab,var(--dg-rose) 70%,transparent)}
 .cover thead th.gated{padding-left:14px}
 .cover tbody td.gated{padding-left:3px}
-.cover thead th.gated::before{content:"hard gate";position:absolute;left:-1px;top:-13px;transform:translateX(-50%);padding:2px 8px;border-radius:999px;
+.cover thead th.gated::before{content:"sign-off";position:absolute;left:-1px;top:-13px;transform:translateX(-50%);padding:2px 8px;border-radius:999px;
   font-family:var(--f-mono);font-size:11px;font-weight:500;white-space:nowrap;background:var(--bone);
   color:color-mix(in oklab,var(--dg-rose) 80%,var(--ink));border:1px solid color-mix(in oklab,var(--dg-rose) 45%,transparent)}
 .bar{display:block;height:12px;border-radius:3px;font-style:normal}
@@ -1575,16 +1662,32 @@ main.home{padding:0}
   box-shadow:0 50px 90px -40px rgba(8,12,30,.55),0 0 0 6px color-mix(in oklab,var(--ink) 4%,transparent);
   transform:perspective(1800px) rotateY(-9deg) rotateX(3deg);transform-origin:100% 50%;transition:transform 400ms var(--ease)}
 .simshot:hover{transform:perspective(1800px) rotateY(-3deg) rotateX(1deg)}
-.rv-on .simshot.rv{transform:perspective(1800px) rotateY(-9deg) rotateX(3deg) translateY(18px)}
-.rv-on .simshot.rv.in{transform:perspective(1800px) rotateY(-9deg) rotateX(3deg)}
-.rv-on .simshot.rv.in:hover{transform:perspective(1800px) rotateY(-3deg) rotateX(1deg)}
+.rv-on .simwrap.rv .simshot{transform:perspective(1800px) rotateY(-9deg) rotateX(3deg) translateY(18px)}
+.rv-on .simwrap.rv.in .simshot{transform:perspective(1800px) rotateY(-9deg) rotateX(3deg)}
+.rv-on .simwrap.rv.in .simshot:hover{transform:perspective(1800px) rotateY(-3deg) rotateX(1deg)}
 .simbar{display:flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-bottom:1px solid var(--rule);background:var(--rule2)}
 .simbar i{width:10px;height:10px;border-radius:50%;background:var(--faint)}
 .simbar b{flex:1;text-align:center;font-family:var(--f-mono);font-size:11.5px;font-weight:500;color:var(--soft);margin-right:44px}
+/* three moments of the game take turns in the frame, five seconds each, with the day's headline under it */
+.simwrap{position:relative}
+.simroll{display:grid}
+.simroll img{grid-area:1/1}
+.simcap{list-style:none;margin:16px 2px 0;padding:0;display:grid;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);max-width:none}
+.simcap li{grid-area:1/1;margin:0;max-width:none}
+.simwrap .mpause{right:8px;bottom:-8px}
+@media (prefers-reduced-motion:no-preference){
+  .simroll img,.simcap li{animation:sim-roll 15s var(--ease) infinite}
+  .simroll .f2,.simcap .f2{animation-delay:-10s}
+  .simroll .f3,.simcap .f3{animation-delay:-5s}
+  .simwrap:has(.mpause input:checked) :is(.simroll img,.simcap li){animation-play-state:paused}
+}
+@media (prefers-reduced-motion:reduce){.simroll :is(.f2,.f3),.simcap :is(.f2,.f3){display:none!important}}
+@media print{.simroll :is(.f2,.f3),.simcap :is(.f2,.f3){display:none!important}}
+@keyframes sim-roll{0%,30%{opacity:1}33.33%,96.67%{opacity:0}100%{opacity:1}}
 .simshot img{display:block;width:100%;height:auto}
 .simshot img.dark{display:none}
 @media screen{:root:not([data-theme="light"]) .simshot img.light{display:none}:root:not([data-theme="light"]) .simshot img.dark{display:block}}
-@media (max-width:900px){.band.play .wrap{grid-template-columns:1fr}.simshot,.rv-on .simshot.rv,.rv-on .simshot.rv.in,.simshot:hover,.rv-on .simshot.rv.in:hover{transform:none}}
+@media (max-width:900px){.band.play .wrap{grid-template-columns:1fr}.simshot,.rv-on .simwrap.rv .simshot,.rv-on .simwrap.rv.in .simshot,.simshot:hover,.rv-on .simwrap.rv.in .simshot:hover{transform:none}}
 
 /* ---- section five: the shelf ---- */
 .shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
@@ -1601,6 +1704,20 @@ main.home{padding:0}
 
 /* ---- the tutorial band: the tracks in order, then one button ---- */
 .jump.tracks{margin-top:0;row-gap:20px}
+/* the tutorial band: the eight tracks, and one sketch from a lesson as a sample of how the lessons explain */
+.learn-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,72px);align-items:start}
+.learn-g .jump.tracks{grid-template-columns:1fr 1fr}
+.learn-s{display:block;color:inherit;text-decoration:none}
+.learn-s:hover{text-decoration:none}
+.learn-s .sketch{margin:0;max-width:none}
+.learn-s .sk-paper{transition:translate 250ms var(--ease),box-shadow 250ms var(--ease)}
+.learn-s:hover .sk-paper{translate:0 -3px;box-shadow:0 18px 40px -22px rgba(8,10,20,.6)}
+.learn-k{display:inline-flex;gap:8px;margin:12px 2px 0;font-size:14px;font-weight:600;color:var(--ink)}
+.learn-k i{font-style:normal;transition:transform 250ms var(--ease)}
+.learn-s:hover .learn-k i{transform:translateX(4px)}
+.band .learn-g+.ba{display:flex;margin-top:44px}
+.band .learn-g+.ba .btn{padding:14px 22px;font-size:15.5px;border-radius:13px}
+@media (max-width:900px){.learn-g{grid-template-columns:1fr}}
 .band .jump.tracks+.ba{display:flex;margin-top:44px}
 .band .jump.tracks+.ba .btn{padding:14px 22px;font-size:15.5px;border-radius:13px}
 
@@ -1746,6 +1863,28 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
 .nextup p{font-family:var(--f-display);font-size:clamp(19px,2vw,23px);font-weight:560;letter-spacing:-.02em;color:var(--ink);max-width:36ch;margin:0 0 20px;line-height:1.25}
 .nextup .ba{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px}
 
+/* ---- sketches: one metaphor on a sheet of paper, a worker doing it, a few words in handwriting (pages/sketch.py) ----
+   The sheet is paper in both themes: the drawing is ink, and ink wants paper. Three pens beside the ink:
+   red for the point, orange for the path, blue for the aside. They live on the sheet and mean nothing off it. */
+:root{--sk-paper:#FFFFFF;--sk-ink:#1B1A1E;--sk-r:#C5281C;--sk-o:#E2741A;--sk-ot:#A44F00;--sk-b:#2259C2;--sk-g:#A9A59B;--sk-gt:#6B675F}
+@media screen{:root:not([data-theme="light"]){--sk-paper:#EFECE5}}
+.sketch{margin:10px 0 30px;max-width:760px;break-inside:avoid}
+.prose>figure.sketch{margin-left:0;margin-right:0}
+.sk-paper{border-radius:14px;background:var(--sk-paper);overflow:hidden}
+.sketch figcaption{font-size:14px;line-height:1.5;color:var(--soft);margin:10px 2px 0;max-width:62ch}
+.sk{display:block;width:100%;height:auto;font-family:'Patrick Hand','Chalkboard SE','Comic Sans MS',cursive;font-size:58px}
+.sk .z{fill:none;stroke:var(--sk-ink);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.sk .zt{stroke-width:2.4}.sk .zh{stroke-width:5.2}.sk .zl{stroke-width:5}
+.sk .z.zr{stroke:var(--sk-r)}.sk .z.zo{stroke:var(--sk-o)}.sk .z.zb{stroke:var(--sk-b)}.sk .z.zg{stroke:var(--sk-g)}
+.sk .zd{stroke-dasharray:18 15}
+.sk .zB{fill:var(--sk-ink);stroke:var(--sk-ink);stroke-width:3;stroke-linejoin:round}
+.sk .zT{fill:none;stroke:var(--sk-paper);stroke-width:2.4;opacity:.09;stroke-linecap:round}
+.sk .zE{fill:#fff}.sk .zH{fill:var(--sk-ink)}
+.sk .zfp{fill:var(--sk-paper)}.sk .zfk{fill:var(--sk-ink)}.sk .zfr{fill:var(--sk-r)}.sk .zfo{fill:var(--sk-o)}.sk .zfb{fill:var(--sk-b)}.sk .zfg{fill:var(--sk-g)}
+.sk .zw{text-anchor:middle;fill:var(--sk-ink)}.sk .zw.zs{text-anchor:start}.sk .zw.ze{text-anchor:end}
+.sk .zw.zr{fill:var(--sk-r)}.sk .zw.zo{fill:var(--sk-ot)}.sk .zw.zb{fill:var(--sk-b)}.sk .zw.zg{fill:var(--sk-gt)}
+@media print{.sk-paper{border:1px solid #ddd}.sketch{max-width:110mm}}
+
 /* ---- the pause: anything that moves on its own can be stilled ---- */
 .mpause{position:absolute;right:76px;bottom:20px;z-index:3;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;cursor:pointer;
   border:1px solid color-mix(in oklab,var(--ink) 22%,transparent);background:color-mix(in oklab,var(--paper) 80%,transparent);color:var(--ink2);
@@ -1758,9 +1897,11 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
 .pfig{position:relative}
 .pfig .mpause{right:12px;bottom:12px}
 .hero2:has(>.mpause input:checked) .scene .sc-plane{animation-play-state:paused,running!important}
+.hero2:has(>.mpause input:checked) .scene .sc-gate{animation-play-state:running,paused!important}
+.hero2:has(>.mpause input:checked) .scene :is(.sc-morph,.sc-flame,.sc-still){animation-play-state:paused!important}
 .pfig:has(.mpause input:checked) svg *{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){.mpause{display:none}}
-@media (max-width:1000px){.hero2>.mpause{right:68px;bottom:14px}}
+@media (max-width:1000px){.hero2>.mpause{right:12px;bottom:calc(min(680px,108vw) * .76 - 56px)}}
 @media print{.mpause{display:none}}
 
 /* ---- copied: the one animation every working reader starts ---- */
@@ -1778,29 +1919,49 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
   ::view-transition-old(root){animation:vt-out 150ms var(--ease) both}
   ::view-transition-new(root){animation:vt-in 250ms var(--ease) both}
   ::view-transition-group(*){animation-duration:250ms;animation-timing-function:var(--ease)}
+  /* the slot in the top bar: a pill on both pages travels and resizes; one that is only on the old
+     page leaves with a short blur, and the new one arrives after it */
+  ::view-transition-group(ctx-sim),::view-transition-group(ctx-read),::view-transition-group(ctx-quiet){animation-duration:350ms;animation-timing-function:var(--spring)}
+  ::view-transition-old(ctx-sim):only-child,::view-transition-old(ctx-read):only-child,::view-transition-old(ctx-quiet):only-child{animation:ctx-out 120ms var(--ease) both}
+  ::view-transition-new(ctx-sim):only-child,::view-transition-new(ctx-read):only-child,::view-transition-new(ctx-quiet):only-child{animation:ctx-in 200ms var(--ease) 120ms both}
   /* the hero's words arrive in reading order; the headline only moves, so the first paint has it */
   .hero2 .hx>*{animation:arrive 250ms var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
   .hero2 .hx>h1{animation-name:arrive-h}
   .hero2 .hx>:nth-child(2){--i:1}.hero2 .hx>:nth-child(3){--i:2}.hero2 .hx>:nth-child(4){--i:3}.hero2 .hx>:nth-child(5){--i:4}
   /* a role's steps arrive in the order they are walked */
   .roadmap .rn{animation:arrive 250ms var(--ease) both;animation-delay:calc(80ms + var(--i,0) * 40ms)}
-  /* the spine arrives in order: its four phases, each with its question, then the way back */
-  .rv-on .spine .sp-trunk i{transform-origin:0 50%;scale:0 1;transition:scale 250ms var(--ease) calc(var(--j,0) * 70ms + 150ms)}
-  .rv-on .spine .sp-ph li{opacity:0;transition:opacity 250ms var(--ease) calc(var(--i,0) * 70ms + 150ms)}
-  .rv-on .spine .sp-loop{clip-path:inset(-6px -6px -6px 100%);transition:clip-path 350ms var(--ease) 600ms}
-  .rv-on .spine :is(.sp-back,.sp-gate){opacity:0;transition:opacity 150ms var(--ease) 800ms}
+  /* the lifecycle is assembled in the order it is read: four methods arrive, their lines run into one
+     point, its name appears, the line leaves it phase by phase with each phase's aircraft, then the way back.
+     2.2 seconds, once; the last frame is the whole figure. */
+  .rv-on .spine .sp-in li{opacity:0;translate:-8px 0;transition:opacity 250ms var(--ease) calc(var(--m,0) * 60ms),translate 250ms var(--ease) calc(var(--m,0) * 60ms)}
+  .rv-on .spine .sp-fun path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 400ms var(--ease) calc(300ms + var(--m,0) * 40ms)}
+  .rv-on .spine .sp-core a{opacity:0;scale:.9;transform-origin:0 46px;transition:opacity 250ms var(--ease) 700ms,scale 400ms var(--spring) 700ms}
+  .rv-on .spine .sp-trunk i{transform-origin:0 50%;scale:0 1;transition:scale 250ms var(--ease) calc(var(--j,0) * 110ms + 1000ms)}
+  .rv-on .spine .sp-craft{opacity:0;translate:-14px 0;transition:opacity 250ms var(--ease) calc(var(--j,0) * 110ms + 1150ms),translate 400ms var(--spring) calc(var(--j,0) * 110ms + 1150ms)}
+  .rv-on .spine .sp-ph li{opacity:0;transition:opacity 250ms var(--ease) calc(var(--i,0) * 110ms + 1000ms)}
+  .rv-on .spine .sp-loop{clip-path:inset(-6px -6px -6px 100%);transition:clip-path 600ms var(--ease) 1600ms}
+  .rv-on .spine :is(.sp-back,.sp-gate,.sp-note,.sp-cap){opacity:0;transition:opacity 250ms var(--ease) 1950ms}
+  .rv-on .spine .sp-gate{transition-delay:1450ms}
+  .rv-on .rv.in .spine .sp-in li{opacity:1;translate:0 0}
+  .rv-on .rv.in .spine .sp-fun path{stroke-dashoffset:0}
+  .rv-on .rv.in .spine .sp-core a{opacity:1;scale:1}
   .rv-on .rv.in .spine .sp-trunk i{scale:1 1}
-  .rv-on .rv.in .spine .sp-ph li,.rv-on .rv.in .spine :is(.sp-back,.sp-gate){opacity:1}
+  .rv-on .rv.in .spine .sp-craft{opacity:1;translate:0 0}
+  .rv-on .rv.in .spine .sp-ph li,.rv-on .rv.in .spine :is(.sp-back,.sp-gate,.sp-note,.sp-cap){opacity:1}
   .rv-on .rv.in .spine .sp-loop{clip-path:inset(-6px -6px -6px -6px)}
   /* the methods draw along the spine, phase by phase, top row first */
   .rv-on .cover .bar{transform-origin:0 50%;scale:0 1;transition:scale 400ms var(--ease);transition-delay:calc(var(--r,0) * 40ms + var(--k,0) * 80ms)}
   .rv-on .rv.in .cover .bar{scale:1 1}
   .cover td:nth-child(3){--k:1}.cover td:nth-child(4){--k:2}.cover td:nth-child(5){--k:3}
+  /* a sketch is there, complete; its annotations arrive in reading order the first time it is scrolled to */
+  .sk.fig-in [data-an]{animation:fig-part 350ms var(--ease) both;animation-delay:var(--fd,0ms)}
   /* a figure assembles in the order it was drawn */
   .fig-in>*{animation:fig-part 350ms var(--ease) both;animation-delay:var(--fd,0ms)}
   /* the guide blinks when you reach for it, and at no other time */
   .tour-fab:hover .pip .pe,.tourbtn:hover .pip .pe{animation:wink 250ms var(--ease) 1}
 }
+@keyframes ctx-out{to{opacity:0;filter:blur(4px);scale:.94}}
+@keyframes ctx-in{from{opacity:0;filter:blur(4px);scale:.94}}
 @keyframes vt-out{to{opacity:0}}
 @keyframes vt-in{from{opacity:0}}
 @keyframes arrive{from{opacity:0;transform:translateY(12px)}}

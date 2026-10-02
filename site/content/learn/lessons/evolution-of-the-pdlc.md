@@ -6,7 +6,7 @@ description: How the product lifecycle evolved from waterfall to agile, DevOps a
 dek: Each lifecycle fixed the bottleneck of its day and kept most of what came before. Agentic delivery moves the bottleneck again.
 level: Beginner
 keywords: evolution of PDLC, history of SDLC, waterfall to agile to DevOps, agentic SDLC, AI-native software development lifecycle, SDLC vs PDLC, agentic era software delivery
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -30,6 +30,8 @@ updated: 2026-09-24
 - Every vendor says its lifecycle is new, and each looks like the last one with "AI" in front.
 
 This lesson gives you the one question that sorts them: **which bottleneck does it move?**
+
+{{sketch:the-jam-moves-downstream}}
 
 ## A short history, one bottleneck at a time
 
@@ -108,6 +110,8 @@ Most of the discipline you have still applies. The honest list of what changes:
 Teams that treat agentic delivery as entirely new throw away gates, tests and postmortems that still
 work. Teams that treat it as nothing new skip the three things that genuinely are (**the bar, the
 authority budget and the drift watch**) and those three are where the expensive failures come from.
+
+{{sketch:repack-and-add-three}}
 
 ## Try it
 

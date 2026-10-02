@@ -2,7 +2,7 @@
    Progressive enhancement only: without this the canvas keeps its CSS disc, the orbit still reads,
    and every section is simply there.
 
-     [data-globe]     the land lattice from #globe-land, drawn as a slowly turning Earth
+     [data-globe]     the land lattice from #globe-land, drawn as a turning Earth: one turn a minute
      .rv              a block that rises into place the first time it is scrolled to
 
    Nothing is fetched. The globe stops when it is off screen, when the tab is hidden, and it is
@@ -64,38 +64,47 @@
     var LX = -0.46, LY = 0.56, LZ = 0.69;            // where the light comes from: up and to the left
     // It settles on Europe, Africa and Asia. With motion allowed it arrives there: it starts a
     // quarter turn early and spins down to its cruising speed in the first two seconds.
-    var HOME = 58 * RAD, SWEEP = 54 * RAD;
-    var size = 0, dpr = 1, ink = {}, lon0 = HOME + (reduce ? 0 : SWEEP);
+    var seen = document.documentElement.classList.contains("hero-seen");
+    var HOME = 58 * RAD, SWEEP = seen ? 0 : 54 * RAD;
+    var size = 0, dpr = 1, lon0 = HOME + (reduce ? 0 : SWEEP);
 
+    // The land is drawn in a few brightness bands, each as one path and one fill. A dot near the
+    // limb goes in a fainter band of the same colour, so the edge of the Earth thins out.
+    var BANDS = 6, tone = [], buf = [], count = new Int32Array(BANDS * 2);
+    for (i = 0; i < BANDS * 2; i++) buf.push(new Float32Array(n * 3));
+    function mix(a, b, t) {
+      return "rgb(" + Math.round(a[0] + (b[0] - a[0]) * t) + "," + Math.round(a[1] + (b[1] - a[1]) * t) + "," + Math.round(a[2] + (b[2] - a[2]) * t) + ")";
+    }
+    function rgb(v, fallback) {
+      var m = /^#([0-9a-f]{6})$/i.exec(v || "");
+      var h = m ? m[1] : fallback;
+      return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+    }
     function colours() {
       var cs = getComputedStyle(cv);
-      ["--g-dot", "--g-lit", "--g-a", "--g-b", "--g-rim"].forEach(function (v) {
-        ink[v] = (cs.getPropertyValue(v) || "").trim();
-      });
+      var dim = rgb((cs.getPropertyValue("--g-dot") || "").trim(), "4F7BAA");
+      var lit = rgb((cs.getPropertyValue("--g-lit") || "").trim(), "EEF6FF");
+      for (var b = 0; b < BANDS; b++) tone[b] = mix(dim, lit, Math.pow(b / (BANDS - 1), 1.35));
     }
     function fit() {
       var w = cv.clientWidth;
       if (!w) return false;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      size = Math.round(w * dpr);
+      size = Math.min(1100, Math.round(w * dpr));
       if (cv.width !== size) { cv.width = size; cv.height = size; }
       return true;
     }
 
     function draw() {
       if (!size && !fit()) return;
-      var c = size / 2, R = c - 1.5 * dpr;
+      var t0 = performance.now();
+      var c = size / 2, R = c - 1.5 * (size / cv.clientWidth || 1);
       ctx.clearRect(0, 0, size, size);
-      // the sphere itself: lit from the upper left, falling off to the limb
-      var g = ctx.createRadialGradient(c - R * 0.38, c - R * 0.42, R * 0.06, c, c, R);
-      g.addColorStop(0, ink["--g-a"] || "#1b2333");
-      g.addColorStop(1, ink["--g-b"] || "#0d1017");
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(c, c, R, 0, 6.2832); ctx.fill();
-      // the land
       var sL = Math.sin(lon0), cL = Math.cos(lon0);
-      var dot = Math.max(1.05 * dpr, R / 190);
-      for (var p = 0; p < n; p++) {
+      var dot = Math.max(1.1 * (size / (cv.clientWidth || size)), R / 185);
+      var b, p, q;
+      for (b = 0; b < BANDS * 2; b++) count[b] = 0;
+      for (p = 0; p < n; p++) {
         var sd = sLon[p] * cL - cLon[p] * sL;          // sin(lon - lon0)
         var cd = cLon[p] * cL + sLon[p] * sL;          // cos(lon - lon0)
         var cz = cLat[p] * cd;
@@ -104,19 +113,32 @@
         var x = cLat[p] * sd;
         var y = cT * sLat[p] - sT * cz;
         var lit = x * LX + y * LY + z * LZ;
-        var a = (0.22 + 0.78 * Math.max(0, lit)) * Math.min(1, z * 3.2);
-        var r = dot * (0.55 + 0.45 * z);
-        ctx.globalAlpha = a;
-        ctx.fillStyle = lit > 0.72 ? (ink["--g-lit"] || "#fff") : (ink["--g-dot"] || "#9fb4c8");
-        ctx.beginPath(); ctx.arc(c + R * x, c - R * y, r, 0, 6.2832); ctx.fill();
+        b = lit <= 0 ? 0 : Math.min(BANDS - 1, (lit * BANDS) | 0);
+        if (z < 0.24) b += BANDS;
+        q = buf[b]; var k = count[b] * 3;
+        q[k] = c + R * x; q[k + 1] = c - R * y; q[k + 2] = dot * (0.55 + 0.45 * z);
+        count[b]++;
+      }
+      for (b = 0; b < BANDS * 2; b++) {
+        var m = count[b];
+        if (!m) continue;
+        var band = b % BANDS;
+        ctx.globalAlpha = (0.3 + 0.7 * band / (BANDS - 1)) * (b < BANDS ? 1 : 0.45);
+        ctx.fillStyle = tone[band];
+        ctx.beginPath();
+        q = buf[b];
+        for (p = 0; p < m; p++) {
+          var o = p * 3;
+          ctx.moveTo(q[o] + q[o + 2], q[o + 1]);
+          ctx.arc(q[o], q[o + 1], q[o + 2], 0, 6.2832);
+        }
+        ctx.fill();
       }
       ctx.globalAlpha = 1;
-      // a thin bright limb on the lit side
-      var rim = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-      rim.addColorStop(0, ink["--g-rim"] || "rgba(255,255,255,.5)");
-      rim.addColorStop(0.55, "rgba(0,0,0,0)");
-      ctx.strokeStyle = rim; ctx.lineWidth = 1.5 * dpr;
-      ctx.beginPath(); ctx.arc(c, c, R, 0, 6.2832); ctx.stroke();
+      // for the acceptance gate: how long a frame's drawing takes, and how many were drawn
+      var g = window.GlobeMs || (window.GlobeMs = { n: 0, sum: 0, max: 0 });
+      var ms = performance.now() - t0;
+      g.n++; g.sum += ms; if (ms > g.max) g.max = ms;
     }
 
     colours(); fit(); draw();
@@ -125,31 +147,29 @@
     window.addEventListener("resize", function () { if (fit()) draw(); });
     if (reduce) return;
 
-    // one turn every four minutes, drawn about thirty times a second, only while it can be seen
-    var seen = true, last = 0, raf = 0, elapsed = 0;
-    var CRUISE = (360 / 240) * RAD, TAU = 0.6;        // radians a second; the spin-down's time constant, in seconds
+    // one turn a minute, drawn on every frame the display offers, only while it can be seen
+    var shown = true, last = 0, raf = 0, elapsed = 0;
+    var CRUISE = (360 / 60) * RAD, TAU = 0.6;         // radians a second; the spin-down's time constant, in seconds
     function tick(now) {
       raf = 0;
-      if (!seen || paused || document.hidden) return;
-      if (now - last > 32) {
-        // Where the globe is depends only on how long it has been turning, so a slow or throttled
-        // frame rate arrives at the same place: HOME after the spin-down, then the steady drift.
-        elapsed += (last ? Math.min(now - last, 100) : 32) / 1000;
-        lon0 = HOME + SWEEP * Math.exp(-elapsed / TAU) - CRUISE * elapsed;
-        last = now;
-        draw();
-      }
+      if (!shown || paused || document.hidden) return;
+      // Where the globe is depends only on how long it has been turning, so a slow or throttled
+      // frame rate arrives at the same place: HOME after the spin-down, then the steady turn.
+      elapsed += (last ? Math.min(now - last, 100) : 16) / 1000;
+      lon0 = HOME + SWEEP * Math.exp(-elapsed / TAU) - CRUISE * elapsed;
+      last = now;
+      draw();
       raf = requestAnimationFrame(tick);
     }
     var paused = false;
-    function go() { if (!raf && seen && !paused && !document.hidden) { last = 0; raf = requestAnimationFrame(tick); } }
+    function go() { if (!raf && shown && !paused && !document.hidden) { last = 0; raf = requestAnimationFrame(tick); } }
     var box = document.querySelector(".hero2 [data-motion-toggle]");
     if (box) {
       paused = box.checked;      // a reload can bring the box back ticked
       box.addEventListener("change", function () { paused = box.checked; go(); });
     }
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (en) { seen = en[0].isIntersecting; go(); }).observe(cv);
+      new IntersectionObserver(function (en) { shown = en[0].isIntersecting; go(); }).observe(cv);
     }
     document.addEventListener("visibilitychange", go);
     go();

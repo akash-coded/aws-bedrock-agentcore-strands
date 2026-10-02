@@ -6,7 +6,7 @@ description: An AI maturity model that counts controls, not tools: six controls,
 dek: Tool adoption is the metric that rewards the least mature behaviour available. Count what is enforced instead.
 level: Intermediate
 keywords: AI maturity model, AI maturity assessment, AI delivery maturity, how to measure AI maturity, AI governance maturity, AI readiness assessment, generative AI maturity model, AI capability maturity
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -40,6 +40,8 @@ agentic delivery that shape misleads, because the controls that matter are indep
 in cost: capping a tool in its signature is an afternoon's work, while production evidence by segment
 takes a quarter. A team with many AI tools and no gates is **less** mature, ships less safely and costs
 more than a team with one tool and tight control.
+
+{{sketch:tools-in-hand-and-a-gap-in-the-fence}}
 
 ## Run the check, step by step
 

@@ -6,7 +6,7 @@ description: How software engineers work in the agentic PDLC: a context file, st
 dek: The model does the typing and the sweep. You own the floor it stands on, the boundary it cannot cross, and the check that decides what merges.
 level: Beginner
 keywords: software engineer AI agents, how to work with AI coding agents, AI pair programming workflow, Claude Code workflow, building LLM applications, AI engineering best practices, engineering lead AI
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -33,6 +33,8 @@ updated: 2026-09-24
 Each is a boundary held by a request instead of by code. The engineer's job is to move each one into
 code.
 
+{{sketch:tie-off-the-rope}}
+
 ## What changes for an engineer?
 
 **You stop treating a prompt rule as a control, and start shipping a slice a day.** Coding agents make
@@ -46,6 +48,8 @@ cannot cross, and the check that decides whether what it built may merge.
 
 You read the brief and start nothing. An engineer who starts building in P0 is building the prototype
 the requirements will later be written around.
+
+{{sketch:order-written-from-the-jacket}}
 
 ### P1 · Design & Spec
 

@@ -6,7 +6,7 @@ description: How a forward-deployed engineer runs AI-DLC and AIDD at a customer:
 dek: You carry the whole lifecycle into someone else's organisation, and the decisions that are theirs to make stay theirs, even when it would be faster to make them yourself.
 level: Intermediate
 keywords: forward deployed engineer, FDE AI, forward deployed engineer AI agents, customer engineer AI deployment, AI-DLC for FDE, AIDD for forward deployed engineers, deploying AI agents at customer sites
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -33,6 +33,8 @@ updated: 2026-09-24
 Each is a decision that belonged to the customer being made, or left unowned, by the person who was
 there. A forward-deployed engineer's advantage is speed; the risk is that speed moves decisions to the
 wrong side of the contract.
+
+{{sketch:back-over-the-contract-line}}
 
 ## What is a forward-deployed engineer?
 
@@ -114,6 +116,8 @@ deployment with no owner after the FDE leaves has no P3. [The evidence pack](les
 Forward-deployed engineering exists to get AI from pilot to production inside real organisations. The
 deployments that survive are the ones where the customer owns the decisions and the running system; the
 ones that fail are the ones that depended on the engineer who has since gone home.
+
+{{sketch:holding-up-the-scenery}}
 
 ## Try it
 

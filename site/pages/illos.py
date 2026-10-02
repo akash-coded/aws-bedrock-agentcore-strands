@@ -8,7 +8,7 @@ with :func:`bb.rebase`.
     pdlc_vs()   traditional PDLC against the agentic one, stacked
     ladder()    R1 to R5: gate by risk, never by size
     chain()     why length is the enemy: six steps at 90% are right 53% of the time
-    methods()   SDD, BMAD, AI-DLC and AiDD on one spine, as a plug board
+    methods()   SDD, BMAD, AI-DLC and AIDD on one spine, as a plug board
 """
 from __future__ import annotations
 
@@ -201,7 +201,7 @@ METHODS = [
       ("users", "mob elaboration, NFRs captured"),
       ("bolt", "construction in bolts, mob construction"),
       ("gear", "operations, run adaptively")]),
-    ("AiDD, the daily craft", "g", "code", "established", "How an engineer works with a coding agent day to day, whichever method frames it.",
+    ("AIDD, the daily craft", "g", "code", "established", "How an engineer works with a coding agent day to day, whichever method frames it.",
      [None, None, ("code", "context files, story files, a harness in CI, review by risk"), None]),
     ("This manual adds", "n", "target", "working method", "The parts none of the methods decide, on the spine where they belong.",
      [("target", "the AI-fit verdict, the autonomy ceiling, the value line"),
@@ -256,7 +256,7 @@ def methods() -> str:
     m += bb.text(34, 502, "A filled cell is where the method says something about that phase; a dashed cell is where a team "
                  "has to bring its own answer. The last row is where this manual's own devices sit.", fs=11, c=bb.INK2, w=500)
     return bb.svg(W, H, m, "Four methods on one spine: spec-driven development, the BMAD Method, AWS AI-DLC and "
-                  "AiDD, each filled where it speaks to a phase and dashed where it is silent, with the "
+                  "AIDD, each filled where it speaks to a phase and dashed where it is silent, with the "
                   "devices this manual adds",
                   caption="<b>Not competitors.</b> Each method speaks to part of the lifecycle. The decision that "
                           "matters is not which method but how deep to go on this change.")
@@ -351,7 +351,7 @@ def tower() -> str:
             f'under a control tower with a radar sweep"><style>{TOWER_CSS}</style>{inner}</svg>')
 
 
-_METHOD_HUES = [('SDD', 'b'), ('BMAD', 'k'), ('AI-DLC', 'o'), ('AiDD', 'g')]   # (short name, hue) as METHODS names them
+_METHOD_HUES = [('SDD', 'b'), ('BMAD', 'k'), ('AI-DLC', 'o'), ('AIDD', 'g')]   # (short name, hue) as METHODS names them
 
 
 # --------------------------------------------------------------------------------------- merge
@@ -382,11 +382,11 @@ def merge() -> str:
             ("Only the stages that are needed", "AI-DLC", "the architect judges depth")],
         2: [("Code regenerated from the spec", "SDD", "on every change, not patched"),
             ("Dev and QA personas, story by story", "BMAD", "each hands a versioned artefact on"),
-            ("Context files and editor agents", "AiDD", "the day-to-day craft"),
-            ("Review by risk, cost habits", "AiDD", "who signs, what it costs")],
+            ("Context files and editor agents", "AIDD", "the day-to-day craft"),
+            ("Review by risk, cost habits", "AIDD", "who signs, what it costs")],
         3: [("Operate, then re-enter at depth", "AI-DLC", "the next change picks its own stages"),
             ("Learn and adjust, into the next brief", "BMAD", "extended: the trail runs one hand-off further"),
-            ("Cache, route, trace", "AiDD", "cost habits that survive launch"),
+            ("Cache, route, trace", "AIDD", "cost habits that survive launch"),
             ("The spec learns from production", "SDD", "updated, then regenerated")],
     }
     m = bb.title(34, 12, [("Four methods", "p"), ("merge into",), ("one loop", "n")])
@@ -426,7 +426,7 @@ def merge() -> str:
     m += bb.text(34, 474, "One order, one owner per phase, one hard gate. The parts keep their names; the spine keeps them honest.",
                  fs=11.5, w=600, c=bb.INK2)
     return bb.svg(W, H, m, "How the four methods merge into the SkyWays PDLC: the parts of spec-driven development, "
-                  "the BMAD Method, AI-DLC and AiDD placed in the phase each serves, flowing into the four-phase "
+                  "the BMAD Method, AI-DLC and AIDD placed in the phase each serves, flowing into the four-phase "
                   "spine with its hard gate, and the row of devices the SkyWays PDLC adds",
                   caption="<b>Merged, not stacked.</b> Each method keeps the part it does best; the spine gives the "
                           "parts one order, one owner per phase and one hard gate.")

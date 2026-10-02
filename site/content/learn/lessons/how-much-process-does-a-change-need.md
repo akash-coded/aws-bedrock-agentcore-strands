@@ -6,7 +6,7 @@ description: Size process by a change's risk, not its size: four questions choos
 dek: A one-line change to a refund cap is tiny and deep. A large refactor of a read-only report is big and shallow. Anything that sizes ceremony to the diff gets both backwards.
 level: Intermediate
 keywords: right-sizing process, process overhead AI development, change risk assessment, adaptive workflow AI-DLC, lightweight vs heavyweight process, when to use BMAD, risk-based development process
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -39,6 +39,8 @@ Not its size. **Depth is a property of the change, not of the team or the method
 to a refund cap is tiny and deep, money leaves, and it cannot be taken back. A nine-hundred-line
 refactor of a read-only report is large and shallow, nothing it touches can do harm, and a flag
 turns it off.
+
+{{sketch:small-falls-through-the-sieve}}
 
 This is one of the playbook's [mental models](wiki:Mental-Models#depth-is-a-dial-not-a-constant),
 and every major method has arrived at it independently. AWS's AI-DLC adaptive workflows choose the
@@ -96,6 +98,8 @@ review.
 A process applied at one depth to everything over-serves most changes and under-serves the dangerous
 few. Teams then abandon it, and the first changes to lose it are the ones that needed it most.
 Sizing each change is what keeps the process alive where it matters.
+
+{{sketch:gloves-off-for-the-hot-one}}
 
 ## Try it
 

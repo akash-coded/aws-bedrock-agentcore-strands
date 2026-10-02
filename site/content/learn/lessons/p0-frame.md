@@ -6,7 +6,7 @@ description: P0 Frame is the agentic PDLC's first phase: turn a request into a m
 dek: Four decisions made on paper, before anything is built, each cheaper now than it will ever be again.
 level: Beginner
 keywords: should we use AI, AI use case evaluation, is this an AI problem, AI ROI calculation, AI agent business case, AI autonomy levels, P0 frame, agentic PDLC first phase
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -31,6 +31,8 @@ updated: 2026-09-24
 
 Each of those is a P0 decision that has not been made yet. They get made anyway, later, in code, by
 whoever wires the first tool.
+
+{{sketch:decisions-roll-downhill}}
 
 ## What is P0 Frame?
 
@@ -60,6 +62,8 @@ became, after two days:
 That line survived to the steering committee on day 90, because every later artefact pointed back at
 it. If nobody will name a number, write *unknown*, with an owner and a date, never a guess dressed
 up as a finding.
+
+{{sketch:wring-the-vibe}}
 
 ### Step 2 · Decide whether it is AI at all
 

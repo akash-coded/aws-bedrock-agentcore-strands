@@ -543,7 +543,7 @@ different parts of the same spine.
 | **SDD** — spec-driven development | The spec, not the code, is what you maintain | P1 and P2, lightly in P0 and P3 | **Always.** It is the backbone |
 | **BMAD** — Breakthrough Method for Agile AI-Driven Development | A pipeline of AI personas, each handing a versioned artefact on | P0 to P2 | Complex, multi-team, audited work. Heavy on a one-line change |
 | **AI-DLC** — AI-Driven Development Life Cycle (AWS) | Run only the stages a given change actually needs | A principle across all four phases | When the depth of a change is unknown up front |
-| **AiDD** — AI-driven development | The day-to-day craft: context files, story files, editor agents, review by risk | P2 mostly | Every day, by everyone who writes code |
+| **AIDD** — AI-driven development | The day-to-day craft: context files, story files, editor agents, review by risk | P2 mostly | Every day, by everyone who writes code |
 
 The decision that matters is not which method. It is **how deep to go on this change**, and that is a
 judgement the architect makes per change. See [Solution architect, step 3](Role-Solution-Architect).

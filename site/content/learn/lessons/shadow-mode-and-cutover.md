@@ -6,7 +6,7 @@ description: How to launch an AI agent safely: run it in shadow beside the peopl
 dek: The golden set proves the agent is right about the cases you chose. A shadow run proves it agrees with today's traffic, including the rule nobody wrote down.
 level: Intermediate
 keywords: shadow mode AI, canary release AI agent, how to launch an AI agent, AI rollout strategy, feature flags for AI, AI deployment best practices, gradual rollout LLM, dark launch
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -43,6 +43,8 @@ were the same: the agent proposed a partner airline the evening shift never uses
 that partner's transfer desk closes. The rule was in nobody's spec and nobody's golden set; it lived in
 six people's heads. It cost nothing to discover, because the write side was off.
 
+{{sketch:where-the-two-tracks-part}}
+
 ## Launch, step by step
 
 ### Step 1 · Put every action behind its own flag
@@ -75,6 +77,8 @@ why a cut-over widens rather than holding.
 At 5% for six weeks you will see a normal Tuesday many times and a storm day perhaps once. Widen
 deliberately into the conditions you have not seen (nights, peaks, partner outages) rather than only
 into more of the same traffic.
+
+{{sketch:wheel-it-out-into-the-rain}}
 
 ### Step 6 · Rehearse the way back, with a stopwatch
 

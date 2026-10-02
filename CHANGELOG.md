@@ -8,6 +8,51 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · Pictures that explain, a hero that moves, and screens that stand alone
+
+A fifth council (five advisors, five reviewers) set this round; its record is in
+[`site/EXPERIENCE.md`](site/EXPERIENCE.md) and, for the game, [`site/GAME.md`](site/GAME.md).
+
+### Added
+- **Hand-drawn sketches in the lessons.** 98 of them across 52 lessons: one metaphor on a sheet
+  of paper, a small black worker doing the thing the paragraph just said, a few handwritten notes, a caption in
+  real type. Drawn in code by [`site/pages/sketch.py`](site/pages/sketch.py) from one file per lesson in
+  [`site/content/learn/sketches/`](site/content/learn/sketches/), placed with `{{sketch:name}}`. The build checks
+  that no metaphor is used twice, that handwriting is 13px or more on a phone, and that every sketch has a caption.
+  The style is adapted from Ian's Xiaohei illustrations (MIT), credited in the folder's README
+- **A funnel in the lifecycle figure.** Four methods each give the SkyWays PDLC one idea; four lines run into one
+  point, and the P0 to P3 loop is drawn out of it. The caption says the methods stay: you still pick one
+- **A top-bar slot that knows where the reader is.** It never points at the page it is on. In the manual it offers
+  the simulator; in a lesson, "Play this day" when the game has a day that lesson is the reading for, and "Apply
+  it" beside it; in the game, the lesson behind the day on screen. Between pages the pill's shape travels and its
+  words swap
+- **A sixth task in the game**, on Day 6: which of six "musts" can nobody move inside ninety days
+- **A link to each day of the game**: `/simulator/#day-45` opens Day 45 with the earlier days played by the book,
+  and never overwrites a run in progress
+- Four more passes in [`site/tools/accept.mjs`](site/tools/accept.mjs): a 320px phone, print, the top bar, and
+  the hero (one switch holds every looping animation; the globe's drawing stays inside its budget with the
+  processor slowed four times; the page does not shift as it is scrolled)
+
+### Changed
+- **The hero.** The globe is blue, turns once a minute and is drawn on every frame (it was once in four minutes
+  at thirty frames a second); its dots are filled in a dozen passes instead of thirteen hundred. The flight is a
+  thick ribbon in the phase hues, and its way back climbs behind the globe, so the next round starts one level
+  up: a spiral. The aircraft is a paper dart in P0, a plan in P1, an airliner in P2 and a jet in P3, and each
+  phase's label carries its aircraft. The entrance plays once in a sitting
+- **"Sign-off" for "hard gate"** on the home page and in the game. The lesson keeps its name, and the legend joins
+  the two
+- **The home page's words.** One heading and one short paragraph per band, in plain sentences. No heading starts
+  with "Or"; "spine" is gone from the page; the table's last row says what this manual adds in words a newcomer has
+- **Every day of the game opens cold**: a headline that is a sentence, one line of where the project is, and a
+  "So far" line that quotes the earlier call today depends on
+- **The game has colour**: each room takes its owner's hue, and the sky outside tells the phase, from dawn to dusk
+- The home page's tutorial band shows one sketch from a lesson, as a sample, and its simulator band shows three
+  moments of the game in turn (Day 1 at dawn, Day 45 in the afternoon, Day 90 at dusk), with a pause control
+- "AIDD" is spelled one way everywhere, the workbench included
+
+### Fixed
+- On a 320px screen the floating mail button no longer sits on a line of the game's dialogue
+
 ## 2026-10-02 · The simulator is a game: Ninety Days
 
 The simulator was a reference tool to read. It is now a simulation to play, and the tool is kept behind
@@ -326,7 +371,7 @@ them are written down in [`site/DESIGN.md`](site/DESIGN.md) and [`site/EXPERIENC
 
 ### Added
 - **How the four methods merge into the SkyWays PDLC**, a new picture on the frameworks page and in the pack:
-  the parts of SDD, BMAD, AI-DLC and AiDD placed in the phase each serves, flowing into the spine, with the row
+  the parts of SDD, BMAD, AI-DLC and AIDD placed in the phase each serves, flowing into the spine, with the row
   of devices the SkyWays PDLC adds
 - The tower scene and the merge picture in the picture pack; the four boards re-captured with their new heads
 

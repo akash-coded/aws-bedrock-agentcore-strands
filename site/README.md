@@ -55,6 +55,14 @@ page is a `WebSite`; the author is one `Person` entity throughout.
 
 ## The pictures
 
+A third kind of picture sits beside the two below: the **sketches** in the lessons, drawn by
+[`pages/sketch.py`](pages/sketch.py) from one small file per lesson in
+[`content/learn/sketches/`](content/learn/sketches/). A sketch is one metaphor on a sheet of paper: a small
+black worker doing the thing the paragraph just said, a few handwritten notes, a caption in real type.
+The style is adapted from Ian's Xiaohei illustrations (MIT); the handwriting is Patrick Hand (OFL), the
+site's one extra font, self-hosted in `assets/fonts/`. The rules a sketch keeps, the build's checks and the
+credit are in [`content/learn/sketches/README.md`](content/learn/sketches/README.md).
+
 Two picture systems, one grammar (the `explainer-illustrations` skill): the HTML **boards** in
 `pages/boards.py` for wide, text-heavy comparisons that must wrap and read aloud, and the SVG
 **illustrations** in `pages/illos.py`, drawn with the primitives in `pages/bb.py` — a title row with

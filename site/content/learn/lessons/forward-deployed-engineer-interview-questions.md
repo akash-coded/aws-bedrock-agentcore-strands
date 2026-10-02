@@ -6,7 +6,7 @@ description: Ten forward deployed engineer (FDE) interview questions (discovery,
 dek: FDE loops test whether you can ship a model into someone else's systems, prove it with their evidence, and leave something that keeps working.
 level: Advanced
 keywords: forward deployed engineer interview questions, FDE interview, OpenAI forward deployed engineer interview, Anthropic forward deployed engineer interview, Palantir FDSE interview, forward deployed engineer case study, AI deployment engineer interview, customer engineer AI interview
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -41,6 +41,8 @@ product and model roadmaps; Anthropic's build production applications inside cus
 artefacts such as MCP servers, sub-agents and agent skills, then codify repeatable patterns. Expect
 coding, a system design set in a customer's world, a decomposition or case exercise, and deep
 behavioural questions about customers. [What is an FDE?](lesson:what-is-a-forward-deployed-engineer)
+
+{{sketch:model-ready-door-locked}}
 
 ## Discover and scope
 

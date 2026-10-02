@@ -6,7 +6,7 @@ description: Measure AI productivity against a baseline taken before the pilot, 
 dek: AI inflates every activity metric you already have. The only honest measure is a change against a baseline, reported beside what it cost.
 level: Beginner
 keywords: how to measure AI productivity, AI developer productivity, measuring AI ROI, AI productivity metrics, does AI make developers faster, AI coding productivity, engineering metrics AI, AI productivity paradox
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -39,6 +39,8 @@ ships sooner. Faros AI measured 98% more pull requests merged per developer acro
 while delivery at the level of the organisation stayed flat, more changes were produced, and the same
 number of people read them.
 
+{{sketch:one-apple-at-a-time}}
+
 What people *feel* is weaker evidence still. In METR's 2025 study, experienced open-source developers
 took **19% longer** on tasks where AI was allowed, while estimating afterwards that it had made them
 **20% faster**. A survey tells you what is believed; it cannot tell you what happened.
@@ -50,6 +52,8 @@ took **19% longer** on tasks where AI was allowed, while estimating afterwards t
 Person-days per story, today, on the work the pilot will touch. It takes an afternoon, and **it cannot
 be recovered later**: once the pilot starts, every earlier number is a reconstruction. If you have
 already started, say so in the report and take one on the next feature.
+
+{{sketch:count-the-till-before-opening}}
 
 ### Step 2 · Count a unit of work, not a unit of activity
 

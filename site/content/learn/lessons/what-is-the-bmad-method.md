@@ -49,6 +49,8 @@ Planning runs through personas modelled on agile roles: an **analyst** turns an 
 **product manager** writes the requirements, an **architect** designs the system. Each works from the
 previous document rather than from a shared conversation, which is what keeps the decisions explicit.
 
+{{sketch:wind-the-chat-onto-spools}}
+
 ### Step 2 · Shard the plan into small stories
 
 A **scrum master** persona breaks the plan into small, self-contained stories, BMAD calls the pieces
@@ -82,6 +84,8 @@ The failure this playbook sees most is adopting a method as an identity. "We are
 the persona trail runs on a typo fix, and within a month the team quietly skips it everywhere,
 including on the audited work it was built for. [How much process a change needs](lesson:how-much-process-does-a-change-need).
 
+{{sketch:six-binders-one-small-hatch}}
+
 ## Extended BMAD: one more hand-off, after launch
 
 BMAD's own loop ends on "learn and adjust". This playbook takes that step literally, runs it as a stage
@@ -97,6 +101,8 @@ Run & Learn, so what production teaches arrives as a versioned document like eve
 The extension is this playbook's own and is not part of BMAD as published. It costs three short
 documents a cycle, and it is what closes the loop: without it the trail stops at the merge, and the
 first anyone hears of drift is a customer.
+
+{{sketch:post-it-back-to-the-start}}
 
 ## Where you'll use it
 

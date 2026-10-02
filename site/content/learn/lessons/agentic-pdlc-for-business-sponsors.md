@@ -6,7 +6,7 @@ description: What a business sponsor owns in an agentic AI programme: funding pa
 dek: You are the only person on the programme with no delivery deadline, which is exactly why the governance loop, and the stop decision, are yours.
 level: Beginner
 keywords: AI project sponsor, executive sponsor AI, AI business case, how to fund AI projects, AI ROI reporting, AI steering committee, AI programme governance, business owner AI agent
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -59,6 +59,8 @@ evidence** for each of those:
 The temptation is to reach into delivery when a number disappoints. It never works, and it costs the
 role its point: an independent reading of whether the programme is working.
 
+{{sketch:pulled-up-to-see-the-roots}}
+
 ### Step 2 · Insist on three reports
 
 | Report | Cadence | If it is missing |
@@ -73,6 +75,8 @@ A first cycle that saves time and costs more is normal. Fund past it on the traj
 falling, and the re-run count falling with it. At SkyWays, this playbook's fictional airline, day
 ninety's report showed **43% fewer person-days per story** and **$310 of tokens per story**, with review
 hours up and the reason they would fall. The programme continued because both numbers came from the team.
+
+{{sketch:two-pails-on-one-pole}}
 
 ### Step 4 · When the bill arrives, ask which signature
 

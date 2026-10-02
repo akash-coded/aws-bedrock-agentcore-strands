@@ -6,7 +6,7 @@ description: What DevOps and platform teams own in agentic AI: the landing zone,
 dek: Some of what this workload needs bills for existing, the model version is part of the environment, and the prompt is a deployable artefact.
 level: Intermediate
 keywords: LLMOps, DevOps for AI agents, AI platform engineering, model gateway, deploying LLM applications, AI observability, feature flags AI, AI rollback, MLOps vs LLMOps
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 What changes for an agentic workload is **when** the platform question has to be answered:
 several of the costs and delays arrive before a single line of the feature is written.
 
+{{sketch:a-tap-left-on-over-bare-soil}}
+
 ## What changes for DevOps and platform?
 
 **You stop treating a prompt as configuration, and start treating it as a deployable artefact.** An
@@ -55,6 +57,8 @@ another. Then put every call behind **one gateway** with a per-call log. **3 · 
 comparable, with the **model version pinned** in each manifest, for a probabilistic system the model is
 part of the environment.
 
+{{sketch:every-call-past-one-desk}}
+
 ### P2 · Build & Prove
 
 **4 · Pipeline.** The evaluation harness as a **required status check**, not a comment that can be clicked
@@ -67,6 +71,8 @@ recording which flag state and prompt version produced it. [Shadow and cut-over]
 **7 · Protect**: the smallest identity that can do the job, an egress allowlist, and the injection suite on
 every pull request. **8 · Recover**: throw every switch with a stopwatch before cut-over (SkyWays measured
 40 seconds, 2 minutes, 3 minutes and 11 minutes) and cap loops and cost per case.
+
+{{sketch:four-switches-and-a-stopwatch}}
 
 ## What is yours, and what is not
 

@@ -6,7 +6,7 @@ description: A limit in a prompt can be talked past; a limit in a tool's signatu
 dek: "Never refund more than $400" was in the prompt, the design and the slide deck. It was not in the code, and on day 82 a $2,000 refund went out.
 level: Intermediate
 keywords: AI agent guardrails, LLM security, prompt injection defence, AI agent permissions, excessive agency, OWASP LLM top 10, least privilege AI agents, tool calling security, human in the loop approval
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 
 Nothing in a code review flags a limit that lives in a prompt, because it reads exactly like a limit.
 The only way to find one is to ask to be shown the line of code that refuses.
+
+{{sketch:a-notice-where-the-valve-should-be}}
 
 ## Why is a prompt not a control?
 
@@ -69,6 +71,8 @@ Tag everything that arrives from outside (messages, documents, retrieved pages) 
 instructions, and run an **injection suite** as a regression test: one file of attack strings, every
 entry point crossed with every gated tool, run weekly and on every prompt, tool or context change.
 *The test: every attack string, from every entry point, moves no money.*
+
+{{sketch:a-label-on-the-letter}}
 
 ### Step 5 · Traceability
 

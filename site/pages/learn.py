@@ -261,10 +261,10 @@ def _visuals() -> dict[str, dict]:
                               "from R1 reviewed at the end to R5 not delegated", "frameworks/"),
         "frameworks:chain": (illos.chain, "Chained steps multiply: each right 90% of the time, six steps are right "
                              "53% of the time", "frameworks/"),
-        "frameworks:methods": (illos.methods, "Four methods on one spine: SDD, BMAD, AI-DLC and AiDD, filled where "
+        "frameworks:methods": (illos.methods, "Four methods on one spine: SDD, BMAD, AI-DLC and AIDD, filled where "
                                "each speaks to a phase and dashed where it is silent", "frameworks/"),
         "frameworks:merge": (illos.merge, "How the four methods merge into the SkyWays PDLC: the parts of SDD, BMAD, "
-                             "AI-DLC and AiDD placed in the phase each serves, flowing into the spine, and the row "
+                             "AI-DLC and AIDD placed in the phase each serves, flowing into the spine, and the row "
                              "of devices the SkyWays PDLC adds", "frameworks/"),
         "home:tower": (illos.tower, "The lifecycle flown as a loop: four runway segments P0 Frame, P1 Design and "
                        "Spec, P2 Build and Prove and P3 Run and Learn, one hard gate, four planes and the control "
@@ -277,6 +277,9 @@ def _visuals() -> dict[str, dict]:
     from pages import posters
     for pid, (fn, alt, live) in posters.POSTERS.items():
         v[f"poster:{pid}"] = (fn, alt, live)
+    from pages import sketch as _sketch
+    for name, spec in sketches().items():
+        v[f"sketch:{name}"] = (lambda sp=spec: _sketch.render(sp)[0], spec["alt"], f"learn/{spec['lesson']}/")
     for g, label in (("g_decay", "Length is the enemy"), ("g_doors", "Reversibility is the hinge"),
                      ("g_lever", "A hold is a lever, not a brake"), ("g_wall", "A prompt is a request; a signature is a boundary"),
                      ("g_average", "The average hides the slice that matters"), ("g_bound", "A score is not proof"),
@@ -301,7 +304,71 @@ def shot_name(key: str) -> str:
     return key.replace(":", "-").replace("_", "-")
 
 
-DIRECTIVE = re.compile(r"^\{\{(board|figure|model|frameworks|map):([a-z0-9_-]+)\}\}\s*$")
+DIRECTIVE = re.compile(r"^\{\{(board|figure|model|frameworks|map|sketch):([a-z0-9_-]+)\}\}\s*$")
+SKETCH_DIR = LEARN / "sketches"
+WIP_DEFAULT = "0"             # a broken sketch stops the build; SKETCH_WIP=1 reports it and carries on, while drawing
+_SKETCHES: dict[str, dict] | None = None
+
+
+def sketches() -> dict[str, dict]:
+    """Every hand-drawn sketch, by name. One file per lesson in ``content/learn/sketches/``, each with a
+    ``SKETCHES`` list; the file's name is the lesson's slug."""
+    global _SKETCHES
+    if _SKETCHES is None:
+        _SKETCHES = {}
+        for f in sorted(SKETCH_DIR.glob("*.py")):
+            if f.name.startswith("_"):
+                continue
+            mod = _load_module(f, f"learn_sketch_{f.stem.replace('-', '_')}")
+            for spec in mod.SKETCHES:
+                spec = dict(spec, lesson=f.stem)
+                if spec["name"] in _SKETCHES:
+                    raise SystemExit(f"sketches/{f.name}: the name {spec['name']!r} is used twice")
+                _SKETCHES[spec["name"]] = spec
+    return _SKETCHES
+
+
+def check_sketches(lessons: dict[str, "Lesson"]) -> list[str]:
+    """Each sketch keeps the rules in pages/sketch.py, is one metaphor no other sketch uses, and sits in
+    its own lesson after a paragraph, clear of any other picture or table."""
+    from pages import sketch
+    err: list[str] = []
+    pairs: dict[tuple[str, str], str] = {}
+    props: dict[str, list[str]] = {}
+    for name, spec in sketches().items():
+        html_, sk = sketch.render(spec)
+        err += [f"sketches/{spec['lesson']}.py: {e}" for e in sketch.lint(spec, sk, html_)]
+        pair = (spec.get("verb", ""), spec.get("prop", ""))
+        if pair in pairs:
+            err.append(f"sketches/{spec['lesson']}.py: {name} repeats the metaphor of {pairs[pair]} ({pair[0]} + {pair[1]})")
+        pairs[pair] = name
+        props.setdefault(spec.get("prop", ""), []).append(name)
+        les = lessons.get(spec["lesson"])
+        if les is None:
+            err.append(f"sketches/{spec['lesson']}.py: there is no lesson with that slug")
+            continue
+        lines = les.body.splitlines()
+        at = [i for i, ln in enumerate(lines) if ln.strip() == f"{{{{sketch:{name}}}}}"]
+        if len(at) != 1:
+            err.append(f"lessons/{spec['lesson']}.md: {{{{sketch:{name}}}}} must appear exactly once (found {len(at)})")
+            continue
+
+        def near(i: int, step: int) -> str:
+            i += step
+            while 0 <= i < len(lines) and not lines[i].strip():
+                i += step
+            return lines[i].strip() if 0 <= i < len(lines) else ""
+
+        for other in (near(at[0], -1), near(at[0], 1)):
+            if other.startswith(("{{", "|", "![", "<picture", "```")):
+                err.append(f"lessons/{spec['lesson']}.md: {{{{sketch:{name}}}}} touches another picture, a table or a code block; "
+                           f"put a paragraph between them")
+        if near(at[0], -1).startswith("#"):
+            err.append(f"lessons/{spec['lesson']}.md: {{{{sketch:{name}}}}} sits straight under a heading; it goes after the paragraph it draws")
+    for prop, names in props.items():
+        if len(names) > 3:
+            err.append(f"sketches: the prop {prop!r} is used {len(names)} times ({', '.join(names)}); three at most")
+    return err
 
 
 # ---------------------------------------------------------------------------------------- inline
@@ -669,6 +736,9 @@ def validate(meta: dict, tracks: list[Track], lessons: dict[str, Lesson]) -> tup
             warn.append(f"{w}: {minutes(les.body)} minutes is long for one sitting; consider splitting")
         if not faq(les.body):
             warn.append(f"{w}: no FAQ section")
+    # While sketches are being drawn (SKETCH_WIP=1) a broken one is reported and the build carries on.
+    import os
+    (warn if os.environ.get("SKETCH_WIP", WIP_DEFAULT) == "1" else err).extend(check_sketches(lessons))
     start = LEARN / "start-here.md"
     if start.exists():
         smeta, sbody = _front(start.read_text(encoding="utf-8"), "start-here.md")
@@ -791,10 +861,21 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     ]
     return shell(title=les.title, desc=les.description, body=html_, depth=2, nav_id="learn", modified=les.updated,
                  canonical=les.url, head_extra=head + MERMAID_HEAD, own_ld=True,
-                 crumbs=[("Tutorial", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson", og=f"learn-{les.slug}")
+                 crumbs=[("Tutorial", "../"), (t.title, f"../{t.id}/"), (les.short, "")], tour=tour, kind="lesson", og=f"learn-{les.slug}",
+                 ctx={"day": _days().get(les.slug), "apply": "#apply-it-in-your-role"})
 
 
 MERMAID_HEAD = f'<script type="module" src="../../theme/learn.js" data-mermaid="{MERMAID}"></script>'
+_DAYS: dict[str, int] | None = None
+
+
+def _days() -> dict[str, int]:
+    """Lesson slug to the game day it is the reading for (the header offers 'Play this day')."""
+    global _DAYS
+    if _DAYS is None:
+        import render
+        _DAYS = render.lesson_days()
+    return _DAYS
 
 
 def _cards(t: Track) -> str:
@@ -887,16 +968,24 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
     ]
     return shell(title=smeta["title"], desc=smeta["description"], body=html_, depth=1, nav_id="learn",
                  canonical=f"{BASE_URL}learn/", head_extra=head, own_ld=True,
-                 crumbs=[("Tutorial", "")], tour=tour, kind="learn", og="learn")
+                 crumbs=[("Tutorial", "")], tour=tour, kind="learn", og="learn", ctx={"quiet": False})
 
 
 def site_markdown(les: Lesson, lessons, tracks) -> str:
     """The lesson as plain markdown with absolute links, for readers and tools that prefer it."""
     link = Links("wiki", lessons, tracks)
     body = re.sub(r"\]\(([^)\s]+)\)", lambda m: "](" + _absolute(link(m.group(1))) + ")", les.body)
-    body = "\n".join(f"![{_visuals()[k]['alt']}]({SHOTS}{shot_name(k)}.light.webp)"
-                     if (d := DIRECTIVE.match(line.strip())) and (k := f"{d.group(1)}:{d.group(2)}") else line
-                     for line in body.splitlines())
+    def twin(line: str) -> str:
+        d = DIRECTIVE.match(line.strip())
+        if not d:
+            return line
+        k = f"{d.group(1)}:{d.group(2)}"
+        if d.group(1) == "sketch":          # a sketch is drawn on the page; in plain text it is its caption and its scene
+            sp = sketches()[d.group(2)]
+            return f"> *Sketch.* {sp['caption']} ({sp['alt']})"
+        return f"![{_visuals()[k]['alt']}]({SHOTS}{shot_name(k)}.light.webp)"
+
+    body = "\n".join(twin(line) for line in body.splitlines())
     return (f"# {les.title}\n\n{les.dek}\n\n{minutes(les.body)} min read · {les.level} · "
             f"Lesson {les.n} of {len(les.track.lessons)} in {les.track.title} · Updated {les.updated} · "
             f"By {AUTHOR}\n\nCanonical: {les.url}\n\n{body}\n")
@@ -955,8 +1044,8 @@ def used_visuals() -> list[str]:
     for text in sources:
         for line in text.splitlines():
             d = DIRECTIVE.match(line.strip())
-            if d and (k := f"{d.group(1)}:{d.group(2)}") not in seen:
-                seen.append(k)
+            if d and d.group(1) != "sketch" and (k := f"{d.group(1)}:{d.group(2)}") not in seen:
+                seen.append(k)             # sketches are drawn on the page and are not screenshotted
     return seen
 
 
@@ -967,7 +1056,7 @@ def shots_page(out: Path, shell) -> str:
     a screenshot on the wiki is the size it would be in the lesson."""
     reg = _visuals()
     import wiki_pictures
-    wanted = list(reg)  # every picture, so the picture pack has all of them
+    wanted = [k for k in reg if not k.startswith("sketch:")]  # every picture but the sketches, so the picture pack has all of them
     cells = "".join(
         f'<div class="shot {"wide" if k.startswith(("board:", "frameworks:", "map:", "wikimap:", "poster:")) else "model" if k.startswith("model:") else "narrow"}" data-shot="{shot_name(k)}">'
         f'{reg[k]["draw"]()}</div>' for k in wanted)

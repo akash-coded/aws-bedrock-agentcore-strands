@@ -6,7 +6,7 @@ description: A score from a test set is an estimate with a width. How to report 
 dek: 82% on forty cases and 82% on five hundred are different claims. Against an 80% bar, neither is proof, and here is why.
 level: Intermediate
 keywords: how to evaluate an AI agent, LLM evaluation statistics, confidence interval accuracy, sample size for AI evaluation, golden dataset, AI test set size, Wilson score interval, eval harness
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -71,6 +71,8 @@ the bar at that score takes **968** cases. The cost grows with the square of the
 distance between score and bar and you quadruple the cases. A score a whisker above the bar is the
 most expensive result you can get.
 
+{{sketch:a-hair-above-the-mark}}
+
 ### Step 4 · Build the golden set by slice, oversampling the rare ones
 
 The golden set is real past cases, each with an expected outcome a person wrote and a slice tag,
@@ -78,6 +80,8 @@ The golden set is real past cases, each with an expected outcome a person wrote 
 sample representative of *traffic* is not representative of *risk*, so the rare, costly slice needs
 deliberate oversampling. SkyWays' first fifty took an afternoon, and twenty-four of them failed, which
 is what made the set worth running.
+
+{{sketch:pick-the-rare-ones-by-hand}}
 
 ### Step 5 · Calibrate any automated judge against people
 

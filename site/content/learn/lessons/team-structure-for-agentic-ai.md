@@ -6,7 +6,7 @@ description: No new roles, none disappears, but two boundaries move. How to orga
 dek: Your org chart is already a system design. In agentic AI it decides where the agent boundaries fall, whether you meant it to or not.
 level: Intermediate
 keywords: AI team structure, organising teams for AI, AI operating model, AI centre of excellence, platform team AI, team topologies AI, AI org design, roles in AI projects
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -71,6 +71,8 @@ department is often an org chart, not a design. Decide the seams on purpose. Sta
 product and give each hand-off a named limit; *n* agents have n(n − 1) ÷ 2 possible hand-offs, and so do
 *n* teams.
 
+{{sketch:the-org-chart-set-out-on-the-floor}}
+
 ### Step 5 · If you have a central AI group, make it enable rather than build
 
 A central group earns its place by coaching the method across teams and by providing the platform, not
@@ -81,6 +83,8 @@ on. That is the difference between an enabling or platform team and a bottleneck
 
 Governance spans the whole lifecycle and belongs to no delivery role. Name the sponsor who owns it. If
 the answer is "we all do", nobody does.
+
+{{sketch:one-name-on-the-watering-can}}
 
 ## Where you'll use it
 

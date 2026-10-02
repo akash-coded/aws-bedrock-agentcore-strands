@@ -1,7 +1,7 @@
 ---
 name: SkyWays, the agentic manual
 status: final
-updated: 2026-10-01
+updated: 2026-10-02
 form-factor: web, phone first, static HTML with progressive enhancement
 visual-identity: DESIGN.md
 ---
@@ -37,29 +37,34 @@ Home                      what this is, why a spine, the methods on it, the role
 └─ Workbench  /workbench/ the earlier tool: episodes in depth, calculators, role playbooks
 ```
 
-The top bar carries those five places and the simulator. The drawer (top left) still lists every page
-by category and holds the search; on a phone it is the navigation.
+The top bar carries those five places and one slot that changes with where the reader is. The slot never
+points at the page it is on. In the manual it is one pill, "Simulator". In a lesson the pill is "Play this
+day" when the game has a day that lesson is the reading for, and a quiet link beside it jumps to the
+lesson's own "Apply it in your role". In the game the pill is "Read the lesson" for the day on screen, and
+the quiet link goes back to the manual. On a phone the pill stays and the quiet link is left to the drawer.
+The drawer (top left) still lists every page by category and holds the search; on a phone it is the navigation.
 
 The home page, top to bottom:
 
-1. **Hero.** The headline, one sentence that says what the site is and that it is free, two buttons
-   (start the tutorial, play the simulator), one line of counts and the author.
-2. **Agent projects fail quietly.** The reason to care, then the spine: the SkyWays PDLC as one line that
-   closes into a loop, the question each phase asks above it, and under it the line a team hears when
-   the question was skipped.
-3. **Which agentic method should you follow?** Answered in the heading (whichever fits your team), then
-   drawn as a table: four methods as bars under the same four phases, and a last row for what the spine
-   adds. One link below it sorts the other names a reader may have heard.
+1. **Hero.** The headline, two sentences that say what the site is, the three ways to take it and that
+   it is free, two buttons (start the tutorial, play the simulator), one line of counts and the author.
+2. **Agent projects go wrong in four places.** The reason to care, then the lifecycle: four methods give
+   it one idea each, their lines meet in one point, and out of it comes one line that closes into a loop,
+   the question each phase asks above it, and under it the line a team hears when the question was skipped.
+3. **Which agentic method should your team use?** Any of the four works, says the paragraph; the table
+   shows which phases each covers, and its last row what no method decides for you. One link below it
+   sorts the other names a reader may have heard.
 4. **Start from the job you do.** Seven rows: five roles, the forward-deployed engineer and the sponsor.
    The page's only routing device, with one quiet link to the tutorial's nineteen starting points for
    anyone not on the list.
-5. **Or play the ninety days yourself.** The game on Day 45 as its own picture, three numbers, one button,
-   and a quiet link to the workbench.
-6. **Or learn it in order.** The eight tracks, numbered, and one button to lesson one.
-7. **Take what you need.** Four tiles: templates, prompts, mental models, pictures.
+5. **Play a ninety-day AI project in fifteen minutes.** The game as its own picture, three numbers, one
+   button, and a quiet link to the workbench.
+6. **Read the lessons in order.** The eight tracks, numbered, one sketch from a lesson as a sample, and
+   one button to lesson one.
+7. **Copy the templates and prompts you need.** Four tiles: templates, prompts, mental models, pictures.
 
-Bands four to six are one sentence: start from your job, or play it, or learn it in order. The three
-headings carry the "or", so nothing has to explain that there are three ways in.
+Every band's heading stands alone. The three ways in are named once, in the hero's second sentence, so
+no heading has to begin with "Or" and a reader who lands mid-page is not left asking "or what?".
 
 What left the home page went one click deeper, not away. The phase board, the eight loops, the role by
 phase matrix and the delegation board are on `/method/` with their ids unchanged. Old links to
@@ -73,7 +78,14 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
   in it. Three to nine words. No category labels.
 - One sentence under a page title, fifteen words or fewer where the page allows it.
 - Plain words before house words. "P0 to P3" always appears beside the phase names, and the phase
-  questions ("Is it worth building, and is it AI at all?") carry the meaning for a stranger.
+  questions ("Is it worth building, and is it AI at all?") carry the meaning for a stranger. On a landing
+  page and in the game a house word appears only beside the plain one: "sign-off" for the hard gate, "pass
+  mark" for the bar, "kind of case" for a slice. "Spine" is not used on the home page.
+- One idea to a sentence, twenty words at most, and say the thing rather than a saying about it. A
+  sentence the owner flagged, kept here as the pattern to avoid: "The spine keeps the part each does best
+  and adds what none of them decides."
+- Every screen can be read cold. A heading names what the screen is about to someone who has seen no other
+  screen; a step in a sequence carries one line of what came before. In the game that line is "So far".
 - "Role", not "chair". "A fictional airline" on first mention of the case.
 - No dashes in prose, no contrast staged for weight ("not X but Y"), no closing line that repeats the
   paragraph. The `humanizer` patterns are the checklist.
@@ -85,7 +97,9 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
 | --- | --- |
 | Top bar lists (Roles, Library) | Each is a `<details>`: opens on click or Enter without script. Script closes the other one, and closes on Esc, on a click elsewhere and when the focus tabs out. The parent is marked when a child page is current. |
 | Drawer | Unchanged: `<details>`, Esc and scrim close it, `/` opens it on the search box. |
-| Spine | One piece of markup, two layouts. Over 1000px the name curves into the line, the four questions sit inside the loop and the four symptoms hang under it. At 1000px and under the line comes first and each phase follows with its question and its symptom. The phases link to their lessons. The drawing is hidden from a screen reader; each symptom is prefixed, for a screen reader, with "Skip it, and you hear". |
+| Top bar slot | Chosen by the page when it is built, never by script, except inside the game, which points the pill at the lesson behind the day on screen. Between pages, where the browser can, the pill's shape travels and resizes on the spring and its words swap with a short blur; elsewhere the page simply changes. |
+| Lifecycle figure | One piece of markup, two layouts. Over 1000px the four methods stack on the left, their lines run into one point, the name sits on the line that leaves it, the four questions sit inside the loop and the four symptoms hang under it. At 1000px and under the methods are a row of chips, then the line, then each phase with its question and its symptom. Methods and phases link to their lessons. The drawing is hidden from a screen reader; a sentence says the lifecycle keeps one idea from each of four methods, and each symptom is prefixed with "Skip it, and you hear". |
+| Sketch | A `<figure>`: the drawing is one image with a description of the scene, and the caption under it is real text that makes the point alone. Its notes arrive once, in order, when first scrolled to; without script, in print and under reduced motion it is simply complete. It prints on white, never across a page break. |
 | Method table | Phase headers and method names link to their lessons. Bars are cells with a hidden reading ("covers this phase", "extended in this manual"). Fits a 375px screen without scrolling; there, the spine's row becomes a list under the table. |
 | Role rows | The whole row is the link. Hover tints the row in the role's colour and moves the arrow. Two rows are not role journeys and say so in their counts: the forward-deployed engineer's field guide and the sponsor's page. |
 | Track list | Eight links, numbered in order, each with its lesson count. |
@@ -106,10 +120,14 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
 - **No script, or the home page's own script missing:** the globe is a shaded disc with the flight drawn
   over it; every band is visible, because the script that hides a band for its reveal is the one that
   reveals it; both top-bar lists open and close; the drawer works.
-- **Reduced motion:** the globe is drawn once and does not turn, the plane holds its place between
-  Frame and Design, nothing fades in, pages do not cross-fade, connectors do not move, and the pause
-  control is not shown because there is nothing to pause.
-- **Paused:** the plane and the tower hold their place and the globe stops turning.
+- **Reduced motion:** the globe is drawn once and does not turn, one aircraft is parked at each phase,
+  nothing fades in, pages do not cross-fade, connectors do not move, and the pause control is not shown
+  because there is nothing to pause.
+- **Paused:** the flight, the aircraft's shape, the sign-off's bar and the tower hold together, and the
+  globe stops turning.
+- **A second visit to the home page in one sitting:** the hero is already drawn; its entrance played once.
+- **A browser that cannot ease one path into another (Safari):** the aircraft is four drawings that take
+  turns on the same clock.
 - **A browser without scroll timelines, view transitions or animatable `auto` height:** connectors are
   still, pages change at once, steps snap open. Nothing is missing, only the movement.
 - **Off screen or hidden tab:** the globe stops drawing.
@@ -138,7 +156,9 @@ at least 44px tall; a link inside a sentence, and a checkbox in a self-check, ke
   phases, each with its question and its symptom. The method table has a caption, column and row
   headers, and a text reading in every cell.
 - Nothing moves on its own for more than five seconds without a control to stop it (WCAG 2.2.2): the
-  two things that do, the hero's flight and the tower, each carry one.
+  three things that do, the hero's flight, the tower and the game's picture, each carry one.
+- Handwriting in a sketch is 13px or more on a 320px phone and meets 4.5:1 on its paper. A sketch's meaning
+  never rests on the pen's colour alone: the caption says it.
 - "Copied" is announced through a polite live region; the rail marks the current section with `aria-current`.
 - One `h1` per page; bands are labelled sections; the skip link, focus rings and breadcrumbs are kept.
 - No page scrolls sideways at 375px.
@@ -282,11 +302,44 @@ called extended BMAD and described in the BMAD lesson.
 The first council's rule against explaining the method twice still stands in spirit: two pictures, two
 different questions (why a spine, and where your method sits on it), and neither repeats the other's text.
 
+## The fifth council: more motion, more pictures, and screens that explain themselves
+
+The owner asked for motion graphics and stylised transitions "without overdoing", a coloured, smoother
+globe, an aircraft that changes from P0 to P3, a loop that reads as a spiral, a funnel that shows the
+SkyWays PDLC taking in the other methods, a plainer word than "hard gate", simpler sentences, hand-drawn
+illustrations through the tutorial, a more colourful game whose days explain themselves, and top-bar
+buttons that change with where the reader is. Five advisors and five reviewers.
+
+**Where the council agreed.** Copy first: every animated label comes from the plain-words deck, because
+animated jargon is still jargon. Design each moving thing from its still last frame. "Sign-off" for the
+gate. The funnel borrows ideas, it does not swallow methods: each method's chip names the idea kept, the
+chips stay in the last frame, and the caption says you still choose the method. In the game, rooms take
+their owner's hue and the sky tells the phase; the recap quotes the earlier call today depends on.
+
+**Where it clashed, and how it was settled.** The sceptic refused globe colour, the jet, a second button
+and room colour; four reviewers overruled, because each was asked for in the owner's own words, and the
+built hero showed a blue globe spends no phase hue. One pill or two in the top bar: one filled pill to the
+twin of the page plus one quiet link, which gives the owner two without repeating a word already in the
+bar. Sketches on the page colour or on paper: paper in both themes, four reviewers to one, because on the
+dark page the black worker became a pale egg. The sketch's pens: the skill's red, orange and blue, three
+to two, because on their own sheet they cannot be mistaken for phase hues. Path morph or cross-fade for the
+aircraft: both, on one clock, since Safari takes the cross-fade.
+
+**What every advisor missed, caught in review.** Nobody had looked at a phone: sketch labels were 10px
+there, so handwriting now has a 13px floor that the build checks. A change no single frame shows teaches
+nothing: each phase's label carries its aircraft, and reduced motion parks one at each phase. The first
+sketches had the worker standing beside the picture: it now does the verb, at a third of the sheet. The
+gate tested the build and never the pause: it now checks that one switch holds every looping animation.
+
+**Refused, with the reason.** Night lights on the globe (decoration in P3's hue). Scroll-driven drawing
+(half a figure if the reader stops). An animation library (the vocabulary of layout morphs, presence and
+springs is here in CSS, the Web Animations API and view transitions). A quota of sketches per lesson
+(quotas make filler). Moving daylight in the game. A lanyard to tell a person from the agent in sketches
+(two pixels on a phone): the worker is a person, the model is a box with one eye.
+
 ## Open items
 
-- The workbench's opening screen names a different set of methods (it adds Spec Kit and Kiro) and uses
-  "AiDD" where the lessons and the home page use "AIDD". So do the frameworks page's figures. The workbench
-  is published unchanged, so the spelling is settled there first or not at all.
+- The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
 - "Agentic STLC" has an FAQ entry and no lesson. If it earns one, it is built from the QA lead's journey.
 - The product manager's row and the QA lead's row both end on "a number you can defend".
 - The acceptance gate has no print pass. Print was checked by hand for this round.

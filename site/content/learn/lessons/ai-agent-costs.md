@@ -6,7 +6,7 @@ description: An AI agent's bill rarely has one cause: context, model tier, cache
 dek: No runaway, no single mistake, four sensible decisions by careful people, multiplying on flat traffic. And the dashboard alarm that gets the one fix that works switched off.
 level: Intermediate
 keywords: reduce LLM costs, AI agent cost optimization, LLM token cost, prompt caching cost, model routing, AI cost per case, why is my OpenAI bill so high, Bedrock cost optimization
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -91,6 +91,8 @@ Cache hits return fast. A latency dashboard that flags very fast responses as su
 report hundreds of them, and someone will propose switching the cache off, raising the bill by about a
 third within a day, because the anomaly *was the cache working*. Put the cache tokens read in every
 trace row, and exclude cache hits from the alert.
+
+{{sketch:the-alarm-was-the-cache}}
 
 ### Step 6 · Close the loop in the design
 

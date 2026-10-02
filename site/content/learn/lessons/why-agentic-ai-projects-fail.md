@@ -6,7 +6,7 @@ description: Gartner expects over 40% of agentic AI projects to be cancelled by 
 dek: None of these failures throws an error. That is why the tests stay green, the dashboard stays up, and the project is cancelled anyway.
 level: Beginner
 keywords: why AI agent projects fail, agentic AI failure, AI project failure rate, Gartner agentic AI 40 percent canceled, AI agent risks, LLM failure modes, AI project management
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -31,6 +31,8 @@ updated: 2026-09-24
 
 Every one of those is a failure that raises no error. The fix is not more care; it is checks aimed at
 the right things.
+
+{{sketch:leaking-on-schedule}}
 
 ## Why do agentic AI projects fail?
 
@@ -87,6 +89,8 @@ On day 75 the bill was 4.4 times its estimate, with traffic flat. There was no r
 habits multiplied: context resent on every turn (×1.6), the capable model used for easy calls
 (×1.5), a cache that stopped hitting (×1.3) and extra attempts per case (about ×1.4). **The fix** is a per-call log and a
 cost loop that returns to the design, not to finance. [P3 Run & Learn](lesson:p3-run-and-learn).
+
+{{sketch:four-habits-one-snowball}}
 
 ### Step 7 · Drift with no deploy
 

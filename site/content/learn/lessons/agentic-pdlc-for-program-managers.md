@@ -6,7 +6,7 @@ description: How a program or delivery manager runs agentic AI delivery: the boa
 dek: You do not own a phase. You own the system the phases run in, and the waits between them, which is where agentic programmes lose their weeks.
 level: Beginner
 keywords: AI program manager, technical program manager AI, delivery manager AI projects, how to manage AI agent projects, AI project reporting, agile delivery manager AI, AI project risk management
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 In agentic delivery most of the lost time is waits between the phases, not work inside them, and the
 waits belong to nobody unless they belong to you.
 
+{{sketch:the-baton-on-the-track}}
+
 ## What changes for a programme manager?
 
 **You stop tracking tasks to done, and start tracking evidence to decisions.** When agents build a
@@ -54,6 +56,8 @@ per region, data-export approvals, security review: requested in week one, whate
 date; soft ones name their placeholder. A decision with no owner is the most useful thing you can find.
 [The hard gate](lesson:the-hard-gate) **4 · Agree the cadence.** With the product manager and the
 architect: how often evidence arrives, usually daily, and the integration deadline that goes with it.
+
+{{sketch:the-coat-with-no-ticket}}
 
 ### P2 · Build & Prove
 

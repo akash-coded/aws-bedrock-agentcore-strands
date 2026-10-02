@@ -25,7 +25,7 @@
    "weight": "varies"
   },
   {
-   "name": "AiDD",
+   "name": "AIDD",
    "full": "AI-driven development",
    "what": "The day-to-day craft: context files, story files, editor agents, review by risk, cost habits.",
    "where": "P2 mostly",
@@ -47,7 +47,7 @@
    "AWS"
   ],
   [
-   "AiDD",
+   "AIDD",
    "AI-driven development",
    "The craft of building software with coding agents.",
    ": "

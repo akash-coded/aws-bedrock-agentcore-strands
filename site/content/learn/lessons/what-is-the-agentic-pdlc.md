@@ -6,7 +6,7 @@ description: The agentic PDLC is a four-phase lifecycle (Frame, Design & Spec, B
 dek: Four phases, one hard gate and a line that comes back. The whole framework in one sitting, with the reason behind each piece.
 level: Beginner
 keywords: agentic PDLC, P0 to P3 framework, agentic product development lifecycle, AI product development lifecycle, agentic SDLC, AI-DLC, how to run agentic AI projects
-updated: 2026-10-01
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -44,6 +44,8 @@ does the same thing every time. A model is right most of the time, fluent all of
 without raising an error. So the lifecycle has to answer three questions a waterfall plan or a
 Scrum board never asked: **how right is right enough, who decided that, and how will we know when it
 stops being true?**
+
+{{sketch:the-needle-never-shakes}}
 
 It answers them with four phases. They are numbered P0 to P3 so they sort in order, and so nobody
 mistakes them for one vendor's stage names.

@@ -1,7 +1,7 @@
 ---
 name: SkyWays, the agentic manual
 status: final
-updated: 2026-10-01
+updated: 2026-10-02
 colors:
   bone: {light: "#F7F6F2", dark: "#121316"}        # page
   paper: {light: "#FFFFFF", dark: "#181A1E"}       # raised surface
@@ -20,14 +20,15 @@ typography:
   display: "Instrument Sans, 600 to 620, tracking -0.035em to -0.045em"
   body: "Geist, 400, 16 to 19.5px, line-height 1.55 to 1.62"
   mono: "Geist Mono, 500, 12.5px: eyebrows, counts, codes"
+  hand: "Patrick Hand, on a sketch's sheet of paper and nowhere else"
   scale: {hero: "clamp(42px, 6vw, 78px)", page-h1: "32px to 58px (50px inside a column), by viewport width", band-h2: "clamp(29px, 3.5vw, 46px)", lede: "clamp(17px, 1.5vw, 19.5px)"}
 rounded: {control: 11px, button-large: 13px, tile: 20px, pill: 999px, frame: 16px}
 spacing:
   band: "clamp(72px, 9.5vw, 128px) above and below every home section"
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
-motion: {durations: [150ms, 250ms, 350ms, 400ms], easing: "cubic-bezier(.22,1,.36,1)", stagger: 40ms, reduced: "everything still, globe drawn once"}
-components: [header, hero-scene, section-head, spine, method-table, role-rows, simulator-frame, track-list, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
+motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "--spring, a linear() curve that passes its mark by 2.8% and comes home", stagger: "40ms in a list, 60 to 110ms between the parts of a figure", reduced: "everything still: the globe drawn once, one aircraft parked at each phase"}
+components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, simulator-frame, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
 ---
 
 # How the site looks
@@ -55,9 +56,13 @@ SkyWays is two things, and the page always says which. **SkyWays** alone is the 
 Near black is the page a reader opens. Warm paper is the light theme, chosen with the toggle and
 remembered; paper is always printed light. One ink ramp (ink, ink2, soft). Colour is spent on meaning only:
 
-- The four phase hues mean P0, P1, P2 and P3 wherever they appear: the hero's flight, the spine, the
-  method table's bars, the boards, the role roadmap. A phase never changes hue between pages.
-- Rose means the hard gate.
+- The four phase hues mean P0, P1, P2 and P3 wherever they appear: the hero's flight, the lifecycle
+  figure, the method table's bars, the boards, the role roadmap. A phase never changes hue between pages.
+- Rose means the sign-off (the lessons' hard gate), and what is owed.
+- The globe is blue, sea and land, with a blue limb. It never wears a phase hue: those belong to the
+  ribbon flown round it.
+- A sketch has three pens of its own beside its ink: red for the point, orange for the path, blue for
+  the aside. They live on the sketch's sheet of paper and mean nothing off it.
 - A role's accent tints its own page and its row on the home page.
 - Indigo is the plane in the mark.
 
@@ -67,7 +72,9 @@ for display sizes only; it measures 3.4:1 to 3.8:1, which passes for large text 
 ## Typography
 
 Headings are sentences with a verb or a question in them, set in sentence case at weight 600 to 620.
-A band's heading may run straight into a grey continuation at the same size. Body text stops near 54
+A band with a paragraph has one heading and one paragraph, side by side on a wide screen; a band without
+one may run its heading into a grey continuation at the same size. Handwriting appears only inside a
+sketch, at 13px or more on a phone. Body text stops near 54
 characters. Small labels (eyebrows, counts, role codes) are Geist Mono in sentence case, never capitals
 with wide tracking. No label is under 11px.
 
@@ -90,7 +97,9 @@ with wide tracking. No label is under 11px.
 
 ## Motion
 
-Nothing moves for decoration. A thing may move only if the movement does one of three jobs:
+Nothing moves without a job. A screen may carry one ambient motion, with its own pause control (the hero's
+flight; the three moments of the game taking turns in their frame); everything else plays once and ends
+within about two seconds. A thing may move only if the movement does one of three jobs:
 
 1. **It answers something the reader did.** A button pressed, a list opened, a step unfolded, "Copied".
 2. **It says where the reader is.** The rail marking the current section, one page handing over to the
@@ -100,16 +109,28 @@ Nothing moves for decoration. A thing may move only if the movement does one of 
 
 Two classes of motion, with different rules.
 
-**Transitions** answer the reader and take 150, 250, 350 or 400ms on the one easing curve. Opening takes
-longer than closing: a list opens in 250ms and leaves at once. Items that arrive in order are 40 to 80ms
-apart, and a sequence finishes in a second. The one long entrance is the hero's flight: its four
-legs draw 250ms apart and the picture is complete in two seconds. The spine arrives in the order it is read: its four phases, each with its question, then the way back. The
-method table's bars then draw along it, row by row.
+**Transitions** answer the reader and take 150, 250, 350 or 400ms on the one easing curve; one long line
+may take 600ms to draw. Opening takes longer than closing: a list opens in 250ms and leaves at once. Items
+that arrive in order are 40 to 110ms apart. A spring (`--spring`) is for small things that were pressed or
+that change shape: a button under a finger, the pill in the top bar, the aircraft at a phase boundary. It
+never moves text or a height. The hero's entrance draws its four legs 250ms apart and is complete in two
+seconds; it plays once in a sitting, so a reader who comes back to the home page finds the picture there.
+The lifecycle figure is assembled in the order it is read, in 2.2 seconds: four methods arrive, their lines
+run into one point, its name appears, the line leaves it phase by phase, then the way back. The method
+table's bars then draw along it, row by row.
 
 **Explanatory motion** shows a sequence. It plays once, the first time the thing is scrolled to, and its
 last frame is the complete picture, which is also what a reader with reduced motion gets. Anything that
 keeps moving for more than a few seconds (the hero's flight, the tower on the method page) carries a
-pause control. Dashes on a connector move only while the reader scrolls past them.
+pause control. Dashes on a connector move only while the reader scrolls past them. A sketch is there,
+complete; only its handwritten notes arrive, in the order they were written, the first time it is
+scrolled to.
+
+The hero runs on one clock. One round takes 32 seconds: 24 in front of the globe at a steady pace, half a
+second held at the sign-off, the rest behind it. The globe turns once a minute, drawn on every frame the
+display offers. The aircraft changes at each phase boundary on that same clock, so the pause control holds
+the flight, the shape and the sign-off's bar together. Where a browser cannot ease one path into another,
+four drawings take turns on the same keyframes.
 
 Three rules of choreography. One sequence at a time on a screen: on the home page the words settle,
 then the flight draws. An entrance plays once per visit and never again on scrolling back. Every
@@ -118,17 +139,22 @@ every printer and every reduced-motion reader will see.
 
 Refused, each for a reason: numbers that count up (a true number shown false), cursor glows and spotlights
 (nothing on a phone), text that slides in on a reading page (the home page's bands rise once as they are
-reached, and that is the only place), a second drawing of a route the page already draws.
+reached, and that is the only place), a second drawing of a route the page already draws (the hero's next
+round is the exception: it is what makes the loop a spiral), any animation library, parallax, a figure
+that draws as the page is scrolled (stop halfway and it is half drawn).
 
 ## The simulator's picture
 
 The game at `/simulator/` is the one place the site uses pixel art, and it follows the same rules as
-everything else: hue means phase, rose means the gate and what is owed, words are real type, motion has
-a job and can be paused. Its canvas is drawn at night in both themes. `GAME.md` has the detail.
+everything else: hue means phase, rose means the sign-off and what is owed, words are real type, motion
+has a job and can be paused. Its colour comes from light and material: each room's walls take a little of
+its owner's hue, and the sky outside tells the phase, one still sky a day, from dawn on Day 1 to dusk on
+Day 90 (night, if the run is late). The canvas is the same in both themes. `GAME.md` has the detail.
 
 ## Elevation and depth
 
-Depth is used twice. The hero's globe has a lit side, a limb and a glow in the page's own slate. The
+Depth is used three times. The hero's globe has a lit side, a blue limb and a glow. A sketch sits on a
+sheet of paper, the one light surface on a dark page. The
 simulator's screenshot sits in a browser frame tilted nine degrees with one long shadow, and straightens
 when hovered. Everything else is flat on the page with a 1px hairline.
 
@@ -142,14 +168,16 @@ line with the phases still countable.
 
 | Component | What it is | Where it lives |
 | --- | --- | --- |
-| Header | Mark and name, five places (two of them short lists), the simulator button, the theme toggle. The drawer holds every page and the search. | `render.shell`, `render._nav` |
-| Hero scene | A dotted Earth turning once every four minutes, and one flight around it through P0 to P3 with the hard gate. Decorative: section two says the same in words. | `pages/globe.py`, `theme/hero.js` |
+| Header | Mark and name, five places (two of them short lists), the slot, the theme toggle. The drawer holds every page and the search. | `render.shell`, `render._nav` |
+| Header slot | One filled pill and, on a wide screen, one quiet link. The pill never points at the page it is on: in the manual it offers the simulator, in a lesson the day of the game that lesson is the reading for, in the game the lesson behind the day on screen. The quiet link is the next useful place from here ("Apply it", "Manual"). | `render._ctx`, `.ctx` |
+| Hero scene | A blue dotted Earth turning once a minute, and one flight round it through P0 to P3: a thick ribbon in the phase hues, the sign-off, and a way back behind the globe that climbs, so the next round starts one level up. The aircraft is a paper dart in P0, a plan in P1, an airliner in P2, a jet in P3, and each phase's label carries its aircraft. Decorative: section two says the same in words. | `pages/globe.py`, `theme/hero.js` |
 | Section head | Mono eyebrow, a heading that continues in grey, one optional paragraph. | `.sec-h` |
-| Spine | The SkyWays PDLC as one thick line in the phase hues that closes into a loop: a station at the start of each phase, the gate just before the third. Above the line, the question each phase asks; below it, what a team hears when the question was skipped. | `pages/spine.py` `figure`, `.spine` |
-| Method table | Four methods as bars under the same four phases: solid for a phase covered, dashed for a light touch, hollow for a stage this manual adds (extended BMAD). The last row is the spine's own and is words: what it adds that no method carries. A real table. | `pages/spine.py` `coverage`, `.cover` |
+| Lifecycle figure | On the left, four methods and the one idea the lifecycle keeps from each; four lines run into one point named SkyWays PDLC. Out of it comes one thick line in the phase hues that closes into a loop: a station at the start of each phase, the sign-off just before the third, each phase's aircraft beside its name. Above the line, the question each phase asks; below it, what a team hears when the question was skipped. Its caption says the methods stay: you still pick one. | `pages/spine.py` `figure`, `.spine` |
+| Method table | Four methods as bars under the same four phases: solid for a phase covered, dashed for a light touch, hollow for a stage this manual adds (extended BMAD). The last row is words: four decisions no method makes for you. A real table. | `pages/spine.py` `coverage`, `.cover` |
 | Role rows | One row per role: code, name, where you start, where you end up, counts. A list, not cards. | `.seats` |
-| Simulator frame | The real opening screen of the simulator, light and dark. | `.simshot` |
-| Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. | `.jump.tracks` |
+| Simulator frame | Three real screens of the game taking turns, five seconds each, with the day's headline under the frame: Day 1 at dawn, Day 45 in the afternoon, Day 90 at dusk. Light and dark, with a pause control; one picture under reduced motion and in print. | `.simshot`, `.simroll` |
+| Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. On the home page one sketch from a lesson sits beside it, as a sample, and links to its lesson. | `.jump.tracks`, `.learn-g` |
+| Lesson sketch | One metaphor on a sheet of paper: a small black worker doing the thing the paragraph just said, two to six handwritten notes, a caption in real type underneath. One to three in a lesson, after the paragraph that turns, never touching a table or another picture. Drawn in code. | `pages/sketch.py`, `content/learn/sketches/` |
 | Shelf tile | A count, a name, one line. Four of them: templates, prompts, mental models, pictures. | `.shelf .tile` |
 | Page head | Eyebrow, name, one line, a row of counts, optionally one or two buttons. | `.phead`, `.pmeta` |
 | Folded how-to | "Who this page is for, and how to use it", closed by default. | `pages/_kit.orient` |
@@ -165,8 +193,13 @@ line with the phases still countable.
 Do:
 
 - Cut before you decorate. If a block repeats a link the page already carries, remove the block.
-- Give every band a picture that is the thing itself: the method as a spine, the methods as bars on it, the roles as
-  rows, the simulator as its own screen, the tutorial as its tracks.
+- Give every band a picture that is the thing itself: the lifecycle as a loop four methods feed, the
+  methods as bars on it, the roles as rows, the simulator as its own screen, the tutorial as its tracks and
+  one of its sketches.
+- Design every moving thing from its last frame backwards, and check that frame in print, without script
+  and under reduced motion before the motion is written.
+- Say it in words a newcomer has: "sign-off" beside "hard gate", "pass mark" beside "bar". A house word
+  appears on a landing page only next to the plain one.
 - Give two kinds of thing two kinds of mark. The lifecycle and a building method are not drawn alike: in
   the method table the methods are bars and the spine's row is words.
 - Show the reason before the thing. The spine is introduced by what goes wrong without it.
@@ -177,9 +210,12 @@ Do:
 Do not:
 
 - Put more than two buttons in one view, or more than one routing device on one page.
-- Explain the method twice on the home page. It gets two pictures, and each does one job: the spine says
-  what it is and why, the table says where the methods a reader has heard of sit on it. The boards live
-  on `/method/`.
+- Explain the method twice on the home page. It gets two pictures, and each does one job: the lifecycle
+  figure says what it is made of and why, the table says where the methods a reader has heard of sit on
+  it. The boards live on `/method/`.
 - Use a second accent colour, a gradient as decoration, or capitals with wide tracking.
+- Point a control at the page it is on.
+- Draw a sketch whose worker could be removed without loss, or whose caption only repeats the paragraph
+  above it.
 - Greet a reader with a popup. Nothing appears that was not asked for.
 - Write a heading that is a category ("Overview", "Features", "Resources").

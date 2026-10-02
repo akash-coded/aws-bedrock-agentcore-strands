@@ -1,9 +1,13 @@
 /* Ninety Days · the art.
    Everything the game shows on its canvas is drawn here, in code. There are no image files.
 
-   The picture is SkyWays' head office at night, cut open: four floors, seven rooms. It is drawn at
-   one logical pixel per unit and scaled up by whole numbers, so every edge stays hard. A room is lit
-   when something is happening in it and dim when not, which is how the picture says where to look.
+   The picture is SkyWays' head office, cut open: four floors, seven rooms. It is drawn at one logical
+   pixel per unit and scaled up by whole numbers, so every edge stays hard. A room is lit when
+   something is happening in it and dim when not, which is how the picture says where to look.
+
+   Colour comes from light and material. Each room's walls take a little of its owner's jacket; the sky
+   outside is the phase of the project (dawn, morning, afternoon, golden hour, then dusk on Day 90, or
+   night if the run is late); lamps are warm against it. Rose is kept for the sign-off and what is owed.
 
    People are 12 x 19 sprites made from one body and a few heads of hair, recoloured: a cast of
    twelve from one drawing. Sprites are rows of characters looked up in a small legend, then drawn
@@ -24,6 +28,33 @@
     violet: "#AE93E0", sky: "#6FB9D9", plant: "#4E9A6B", plantD: "#2F6B49", pot: "#8C5B4A", white: "#FFFFFF"
   };
   var PHASE = [C.slate, C.indigo, C.teal, C.amber];
+
+  /* ---------------------------------------------------------------- colour, mixed
+     Two helpers, so that a wall or a far roof can be said as "this much of that hue". */
+  function rgb(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+  function hexOf(c) { var i, o = "#", v; for (i = 0; i < 3; i++) { v = Math.max(0, Math.min(255, Math.round(c[i]))).toString(16); o += v.length < 2 ? "0" + v : v; } return o; }
+  function mix(a, b, k) { var x = rgb(a), y = rgb(b); return hexOf([x[0] + (y[0] - x[0]) * k, x[1] + (y[1] - x[1]) * k, x[2] + (y[2] - x[2]) * k]); }
+  // keep a surface adult: cap its saturation and leave its lightness where it is
+  function tame(h, cap) {
+    var c = rgb(h), mx = Math.max(c[0], c[1], c[2]), mn = Math.min(c[0], c[1], c[2]), l = (mx + mn) / 2, sat = mx === mn ? 0 : (mx - mn) / (l > 127.5 ? 510 - mx - mn : mx + mn), k;
+    if (sat <= cap) return h;
+    k = cap / sat;
+    return hexOf([l + (c[0] - l) * k, l + (c[1] - l) * k, l + (c[2] - l) * k]);
+  }
+
+  /* ---------------------------------------------------------------- the sky
+     One still sky per phase. `top` is overhead and `low` is at the horizon; the rest says how the
+     ground, the far roofs and the runway lights sit under it. Stars only when it is dark. */
+  var SKIES = {
+    dawn:      { top: "#3B4A6B", low: "#E3A587", cloud: "#C98F86", apron: "#262B38", line: "#4A5163", far: "#4A4F6B", lights: true },
+    morning:   { top: "#6FA3CF", low: "#CFE3EE", cloud: "#EEF5FA", apron: "#4B525E", line: "#AEB6C2", far: "#8FAAC6", sun: [0.2, "#FBF1CF"] },
+    afternoon: { top: "#4F8FC4", low: "#A9D0E6", cloud: "#E3EEF6", apron: "#474E5A", line: "#A6AEBB", far: "#7C9DBD", sun: [0.74, "#FFF6DA"] },
+    golden:    { top: "#5B5F8F", low: "#F0B46A", cloud: "#E9A56B", apron: "#3A3945", line: "#6F6A74", far: "#6A5F82", lights: true },
+    dusk:      { top: "#232848", low: "#B9743C", cloud: "#5B5280", apron: "#191C28", line: "#333848", far: "#262A45", lights: true, stars: 14 },
+    night:     { top: C.sky0, low: C.sky2, apron: "#0D1016", line: "#2B3340", far: "#141925", lights: true, stars: 46, moon: true }
+  };
+  var now = SKIES.night;                    // the sky the rooms' windows look out on: set by whoever draws
+  function skyOf(key) { return SKIES[key] || SKIES.night; }
 
   /* ---------------------------------------------------------------- sprites */
   function canvas(w, h) {
@@ -201,15 +232,20 @@
   function lampOn(g, x, y, w, floorY, lit) {        // a ceiling light and the cone under it
     R(g, x - 3, y, 7, 1, C.metalD); R(g, x - 2, y + 1, 5, 1, lit ? C.lamp : C.metalD);
     if (!lit) return;
-    g.save(); g.globalAlpha = 0.055;
+    g.save(); g.globalAlpha = 0.075;
     g.fillStyle = C.lamp;
     g.beginPath(); g.moveTo(x - 2, y + 2); g.lineTo(x + 3, y + 2); g.lineTo(x + w, floorY); g.lineTo(x - w, floorY); g.closePath(); g.fill();
     g.restore();
   }
-  function windowAt(g, x, y, w, h, t) {
-    R(g, x - 1, y - 1, w + 2, h + 2, C.trim); R(g, x, y, w, h, C.sky1); R(g, x, y + (h >> 1), w, h - (h >> 1), C.sky2);
-    R(g, x + 2, y + 2, 1, 1, C.star); R(g, x + w - 4, y + 4, 1, 1, C.star); R(g, x + (w >> 1), y + 1, 1, 1, C.star);
-    R(g, x + (w >> 1), y, 1, h, C.trim);
+  // A window: the day's sky in three bands, the far roofs along its sill, and one mullion per pane.
+  function windowAt(g, x, y, w, h, panes) {
+    var i, third = Math.ceil(h / 3), n = panes || 2;
+    R(g, x - 1, y - 1, w + 2, h + 2, C.trim);
+    R(g, x, y, w, h, mix(now.top, now.low, 0.3)); R(g, x, y + third, w, h - third, mix(now.top, now.low, 0.6)); R(g, x, y + 2 * third, w, h - 2 * third, mix(now.top, now.low, 0.9));
+    if (now.stars) { R(g, x + 2, y + 2, 1, 1, C.star); R(g, x + w - 4, y + 4, 1, 1, C.star); R(g, x + (w >> 1) + 2, y + 1, 1, 1, C.star); }
+    for (i = 0; i < w; i += 5) R(g, x + i, y + h - 2 - ((i * 7) % 3), Math.min(4, w - i), 2 + ((i * 7) % 3), now.far);
+    for (i = 1; i < n; i++) R(g, x + Math.round(i * w / n), y, 1, h, C.trim);
+    R(g, x - 1, y + h, w + 2, 1, C.metalL);                              // the sill catches the light
   }
   function chair(g, x, y) { R(g, x, y - 9, 1, 9, C.metalD); R(g, x, y - 5, 5, 1, C.metal); R(g, x + 4, y - 4, 1, 4, C.metalD); }
 
@@ -218,17 +254,30 @@
      so the picture changes as the ninety days go by. */
   var W = 144, H = 52, FLOOR = H - 4;
 
-  function shell(g, lit) {
-    R(g, 0, 0, W, H, lit ? C.wall : C.dim);
-    if (lit) { R(g, 0, 0, W, 3, C.wallD); R(g, 0, 30, W, 1, C.wallL); R(g, 0, 31, W, FLOOR - 31, C.wallD); }
-    R(g, 0, FLOOR, W, 1, lit ? C.floorL : C.wallD); R(g, 0, FLOOR + 1, W, 3, lit ? C.floor : C.out);
+  // Whose room it is shows on the walls: about a third of the owner's jacket mixed into the wall, kept
+  // under a quarter saturation so it stays a wall. The boardroom is walnut. The contact centre and the
+  // lobby belong to nobody on the team, and stay grey.
+  var OWNER = { product: "priya", arch: "arjun", eng: "sam", qa: "maya", platform: "lena" }, paints = {};
+  function paint(id) {
+    if (paints[id]) return paints[id];
+    var o = OWNER[id], p = { wall: C.wall, wallD: C.wallD, wallL: C.wallL, floor: C.floor, floorL: C.floorL, hue: "#6E7686" };
+    if (id === "board") p = { wall: "#3A2F2A", wallD: "#2B2320", wallL: "#4B3E37", floor: "#57483F", floorL: "#6F5D51", hue: "#8A6A58" };
+    else if (o) p = { wall: tame(mix(C.wall, CAST[o].top, 0.3), 0.24), wallD: tame(mix(C.wallD, CAST[o].topD, 0.3), 0.24), wallL: tame(mix(C.wallL, CAST[o].top, 0.3), 0.24),
+                      floor: tame(mix(C.floor, CAST[o].top, 0.18), 0.2), floorL: tame(mix(C.floorL, CAST[o].top, 0.18), 0.2), hue: CAST[o].top };
+    return (paints[id] = p);
+  }
+  function shell(g, lit, id) {
+    var p = paint(id);
+    R(g, 0, 0, W, H, lit ? p.wall : C.dim);
+    if (lit) { R(g, 0, 0, W, 3, p.wallD); R(g, 0, 30, W, 1, p.wallL); R(g, 0, 31, W, FLOOR - 31, p.wallD); }
+    R(g, 0, FLOOR, W, 1, lit ? p.floorL : C.wallD); R(g, 0, FLOOR + 1, W, 3, lit ? p.floor : C.out);
   }
 
   var ROOMS = {
-    board: function (g, lit, t, st) {                 // the boardroom: a long table, a wall screen, the night outside
-      shell(g, lit);
+    board: function (g, lit, t, st) {                 // the boardroom: a long table, a wall screen, the sky outside
+      shell(g, lit, "board");
       lampOn(g, 72, 3, 44, FLOOR, lit);
-      windowAt(g, 6, 8, 30, 20, t);
+      windowAt(g, 6, 8, 30, 20, 3);
       R(g, 50, 7, 46, 22, C.metalD); R(g, 51, 8, 44, 20, lit ? C.screenL : C.screen);
       if (lit) {                                        // value beside cost, as far as the team has got
         var v = Math.round(14 * (st.value || 0)), c = Math.round(14 * (st.cost || 0));
@@ -239,29 +288,31 @@
       plant(g, 132, FLOOR);
     },
     product: function (g, lit, t, st) {               // product: a wall of notes that fills as requirements land
-      shell(g, lit);
+      shell(g, lit, "product");
       lampOn(g, 40, 3, 34, FLOOR, lit); lampOn(g, 100, 3, 30, FLOOR, lit);
-      R(g, 8, 7, 54, 22, lit ? C.wallL : C.wallD);
-      var n = Math.min(24, st.notes || 0), i, hues = [C.amber, C.slate, C.rose, C.teal];
+      R(g, 8, 7, 54, 22, lit ? paint("product").wallL : C.wallD);
+      var n = Math.min(24, st.notes || 0), i, hues = [C.amber, C.slate, C.sky, C.teal];
       for (i = 0; i < n; i++) R(g, 11 + (i % 8) * 6, 10 + ((i / 8) | 0) * 6, 4, 4, lit ? hues[i % 4] : C.trim);
       desk(g, 78, FLOOR, 34); monitor(g, 82, FLOOR - 9, lit, C.slate, t); monitor(g, 96, FLOOR - 9, lit, C.amber, t + 20);
       chair(g, 116, FLOOR);
-      plant(g, 68, FLOOR); windowAt(g, 122, 8, 16, 20, t);
+      plant(g, 68, FLOOR); windowAt(g, 122, 8, 16, 20, 2);
     },
     arch: function (g, lit, t, st) {                  // architecture: a whiteboard that gains boxes and lines
-      shell(g, lit);
+      shell(g, lit, "arch");
+      windowAt(g, 113, 8, 24, 17, 2);
       lampOn(g, 40, 3, 36, FLOOR, lit); lampOn(g, 118, 3, 24, FLOOR, lit);
-      R(g, 10, 6, 62, 24, C.metalD); R(g, 11, 7, 60, 22, lit ? C.paper : C.trim);
+      R(g, 10, 6, 62, 24, C.metalD); R(g, 11, 7, 60, 22, lit ? "#DDDAD0" : C.trim);
       if (lit) {
         var b = Math.min(5, st.boxes || 0), k, bx = [16, 34, 52, 25, 44], by = [10, 10, 10, 20, 20];
         for (k = 0; k < b; k++) { R(g, bx[k], by[k], 12, 6, PHASE[k % 4]); if (k) R(g, bx[k - 1] + 12, by[k - 1] + 3, bx[k] - bx[k - 1] - 12 > 0 ? bx[k] - bx[k - 1] - 12 : 1, 1, C.metalD); }
       }
       R(g, 84, 10, 22, 2, C.desk); R(g, 84, 18, 22, 2, C.desk); R(g, 84, 26, 22, 2, C.desk);         // shelves
-      var s; for (s = 0; s < 6; s++) { R(g, 86 + s * 3, 5, 2, 5, [C.rose, C.slate, C.amber][s % 3]); R(g, 86 + s * 3, 13, 2, 5, [C.teal, C.paper, C.indigo][s % 3]); }
+      var s; for (s = 0; s < 6; s++) { R(g, 86 + s * 3, 5, 2, 5, [C.violet, C.slate, C.amber][s % 3]); R(g, 86 + s * 3, 13, 2, 5, [C.teal, C.paper, C.indigo][s % 3]); }
       desk(g, 112, FLOOR, 26); monitor(g, 120, FLOOR - 9, lit, C.amber, t);
     },
     eng: function (g, lit, t, st) {                   // engineering: three desks and a build wall
-      shell(g, lit);
+      shell(g, lit, "eng");
+      windowAt(g, 8, 8, 34, 17, 3); windowAt(g, 50, 8, 34, 17, 3);
       lampOn(g, 30, 3, 30, FLOOR, lit); lampOn(g, 86, 3, 30, FLOOR, lit);
       R(g, 94, 6, 42, 22, C.metalD); R(g, 95, 7, 40, 20, lit ? C.screenL : C.screen);
       if (lit) {
@@ -271,7 +322,8 @@
       var x; for (x = 0; x < 3; x++) { desk(g, 6 + x * 29, FLOOR, 25); monitor(g, 8 + x * 29, FLOOR - 9, lit, C.teal, t + x * 9); monitor(g, 19 + x * 29, FLOOR - 9, lit, C.green, t + x * 13 + 5); }
     },
     qa: function (g, lit, t, st) {                    // QA: the score against the bar, with its margin
-      shell(g, lit);
+      shell(g, lit, "qa");
+      windowAt(g, 84, 8, 50, 17, 4);
       lampOn(g, 40, 3, 34, FLOOR, lit); lampOn(g, 108, 3, 30, FLOOR, lit);
       R(g, 8, 6, 64, 24, C.metalD); R(g, 9, 7, 62, 22, lit ? C.screenL : C.screen);
       if (lit) {
@@ -285,7 +337,7 @@
       desk(g, 114, FLOOR, 24); monitor(g, 120, FLOOR - 9, lit, C.violet, t + 7);
     },
     platform: function (g, lit, t, st) {              // platform: racks, and the bill on the wall
-      shell(g, lit);
+      shell(g, lit, "platform");
       lampOn(g, 40, 3, 34, FLOOR, lit); lampOn(g, 112, 3, 28, FLOOR, lit);
       var r, l;
       for (r = 0; r < 4; r++) {
@@ -296,18 +348,19 @@
       if (lit) {
         R(g, 84, 26, 48, 1, C.soft);
         var bill = st.bill || 1, n, hgt;
-        for (n = 0; n < 8; n++) { hgt = Math.min(17, Math.round(3 + (bill - 1) * 4 * (n / 7) * (n / 7) + n * 0.3)); R(g, 85 + n * 6, 26 - hgt, 4, hgt, hgt > 9 ? C.rose : C.amber); }
+        for (n = 0; n < 8; n++) { hgt = Math.min(17, Math.round(3 + (bill - 1) * 4 * (n / 7) * (n / 7) + n * 0.3)); R(g, 85 + n * 6, 26 - hgt, 4, hgt, hgt > 9 ? "#E2824A" : C.amber); }
       }
       desk(g, 100, FLOOR, 30); monitor(g, 106, FLOOR - 9, lit, C.sky, t);
     },
     centre: function (g, lit, t, st) {                // the contact centre: the departures board, and the people it is for
-      shell(g, lit);
+      shell(g, lit, "centre");
+      windowAt(g, 78, 8, 58, 17, 4);
       lampOn(g, 36, 3, 32, FLOOR, lit); lampOn(g, 108, 3, 34, FLOOR, lit);
       R(g, 6, 5, 60, 25, C.metalD); R(g, 7, 6, 58, 23, C.out);
       var row, bad = st.cancelled == null ? 3 : st.cancelled;
       for (row = 0; row < 5; row++) {
         R(g, 9, 8 + row * 4, 12, 2, lit ? C.paper : C.trim); R(g, 23, 8 + row * 4, 20, 2, lit ? C.soft : C.trim);
-        R(g, 46, 8 + row * 4, 16, 2, lit ? (row < bad ? C.rose : C.green) : C.trim);
+        R(g, 46, 8 + row * 4, 16, 2, lit ? (row < bad ? C.amber : C.green) : C.trim);
       }
       var x; for (x = 0; x < 3; x++) { desk(g, 76 + x * 22, FLOOR, 18); monitor(g, 80 + x * 22, FLOOR - 9, lit, C.sky, t + x * 17); }
     }
@@ -315,7 +368,7 @@
 
   /* ---------------------------------------------------------------- the building */
   // Seven rooms on four floors. The contact centre takes the whole ground floor width with the lobby.
-  var WALL = 3, SLAB = 9, ROOF = 24;       // SLAB: the band over each floor, where the room's name is written
+  var WALL = 3, SLAB = 9, ROOF = 38;       // SLAB: the band over each floor, where the room's name is written
   var PLAN = [
     { id: "board",    col: 0, floor: 0, name: "Boardroom" },
     { id: "product",  col: 1, floor: 0, name: "Product" },
@@ -337,15 +390,24 @@
     lampOn(g, 40, 3, 30, FLOOR, lit); lampOn(g, 110, 3, 24, FLOOR, lit);
     // the day board: the only place the canvas spells anything out
     R(g, 10, 8, 62, 21, C.metalD); R(g, 11, 9, 60, 19, C.out);
-    text(g, "DAY", 15, 12, C.soft); text(g, String(st.day || 1), 31, 12, C.amber);
+    // The digits and each of the thirteen days wear their phase's hue: full once played, a white core
+    // on today, turned down while still to come. A rose pixel sits under a day that has something due.
+    var i, n = st.dayIndex || 0, ph = st.phases || [], hue, dx, dy;
+    text(g, "DAY", 15, 12, C.soft); text(g, String(st.day || 1), 31, 12, PHASE[ph[n] || 0]);
     text(g, "OF 90", 15, 20, C.trim);
-    var i, n = st.dayIndex || 0;
-    for (i = 0; i < 13; i++) R(g, 44 + (i % 7) * 4, 12 + ((i / 7) | 0) * 4, 3, 3, i < n ? C.teal : (i === n ? C.amber : C.metalD));
+    for (i = 0; i < 13; i++) {
+      hue = PHASE[ph[i] || 0]; dx = 44 + (i % 7) * 4; dy = 12 + ((i / 7) | 0) * 4;
+      R(g, dx, dy, 3, 3, i <= n ? hue : mix(C.metalD, hue, 0.3));
+      if (i === n) R(g, dx + 1, dy + 1, 1, 1, C.white);
+      if (st.owed && st.owed[i]) R(g, dx + 1, dy + 3, 1, 1, C.rose);
+    }
     // reception
     R(g, 80, FLOOR - 9, 22, 9, C.deskD); R(g, 79, FLOOR - 10, 24, 2, C.deskL);
-    // the doors, and the night through them
-    R(g, 112, 12, 26, FLOOR - 12, C.trim); R(g, 113, 13, 11, FLOOR - 13, C.sky1); R(g, 126, 13, 11, FLOOR - 13, C.sky1);
-    R(g, 113, 30, 11, FLOOR - 30, C.sky2); R(g, 126, 30, 11, FLOOR - 30, C.sky2); R(g, 122, 28, 1, 4, C.metalL); R(g, 127, 28, 1, 4, C.metalL);
+    // the doors, and the day through them
+    R(g, 112, 12, 26, FLOOR - 12, C.trim); R(g, 113, 13, 11, FLOOR - 13, mix(now.top, now.low, 0.35)); R(g, 126, 13, 11, FLOOR - 13, mix(now.top, now.low, 0.35));
+    R(g, 113, 26, 11, FLOOR - 26, mix(now.top, now.low, 0.75)); R(g, 126, 26, 11, FLOOR - 26, mix(now.top, now.low, 0.75));
+    R(g, 113, FLOOR - 6, 11, 6, now.far); R(g, 126, FLOOR - 4, 11, 4, now.far);
+    R(g, 122, 28, 1, 4, C.metalL); R(g, 127, 28, 1, 4, C.metalL);
     plant(g, 104, FLOOR);
   }
 
@@ -362,6 +424,7 @@
   function room(g, id, t, st, lit, who, speaking, enter) {
     var P = cast(), spots = SPOTS[id] || [40, 60, 80, 100], i, k, sp, x, n = 0, p;
     if (enter == null) enter = 1;
+    now = skyOf(st && st.sky);
     var gap = Math.min(0.1, 0.45 / Math.max(1, who ? who.length : 1));     // so the last one in still arrives
     if (id === "lobby") lobby(g, lit, t, st); else ROOMS[id](g, lit, t, st);
     for (i = 0; who && i < who.length; i++) {
@@ -385,8 +448,8 @@
     R(g, ox - 2, oy + BH - 6, BW + 4, 6, C.metalD); R(g, ox - 2, oy + BH - 6, BW + 4, 1, C.metal);
     // the roof: plant, a mast, the beacon
     R(g, ox + 8, oy + ROOF - 9, 26, 6, C.metalD); R(g, ox + 12, oy + ROOF - 12, 6, 3, C.metal);
-    R(g, ox + BW - 40, oy + 4, 1, ROOF - 7, C.metal); R(g, ox + BW - 44, oy + 9, 9, 1, C.metal);
-    R(g, ox + BW - 41, oy + 2, 3, 2, (t >> 5) % 2 ? C.rose : "#7A4848");
+    R(g, ox + BW - 40, oy + ROOF - 20, 1, 17, C.metal); R(g, ox + BW - 44, oy + ROOF - 15, 9, 1, C.metal);
+    R(g, ox + BW - 41, oy + ROOF - 22, 3, 2, (t >> 5) % 2 ? "#E8734A" : "#6E3F30");
     var plan = PLAN.concat([{ id: "lobby", col: 1, floor: 3, name: "Lobby" }]);
     for (i = 0; i < plan.length; i++) {
       p = plan[i];
@@ -395,7 +458,7 @@
       og.clearRect(0, 0, W, H);
       room(og, p.id, t, st, true, view.cast && view.cast[p.id], on ? view.speaking : null, view.active === p.id ? view.enter : 1);
       g.drawImage(o, ox + r.x, oy + r.y);
-      if (!on) { g.fillStyle = "rgba(9,11,16,.66)"; g.fillRect(ox + r.x, oy + r.y, W, H); }
+      if (!on) { g.fillStyle = "rgba(9,11,16,.5)"; g.fillRect(ox + r.x, oy + r.y, W, H); }
       if (view.shut && view.shut[p.id] > 0) shutter(g, ox + r.x, oy + r.y, view.shut[p.id]);
       text(g, p.name, ox + r.x + 2, oy + r.y - 7, on ? C.ink : C.trim);
       if (view.mark && view.mark[p.id]) R(g, ox + r.x + W - 6, oy + r.y - 7, 4, 4, view.mark[p.id]);
@@ -458,26 +521,28 @@
     "............WWW.......EEE....................."],
     { T: C.indigo, F: "#D7DEE8", D: "#9AA6B8", w: C.sky2, C: C.sky, W: "#B4BFCE", E: "#7C879C", H: "#B4BFCE" }, false);
 
-  // What is outside: the apron beside the building, runway lights, a terminal and a tower on the horizon.
-  function ground(g, w, h, gy, t) {
-    R(g, 0, gy, w, h - gy, "#0D1016"); R(g, 0, gy, w, 1, "#232A36");
-    var x;
-    for (x = 6; x < w; x += 14) R(g, x, gy + 5, 5, 1, "#2B3340");                           // the centre line
-    for (x = 2; x < w; x += 9) R(g, x, gy + 2, 1, 1, ((x + (t >> 4)) % 27) < 9 ? C.amber : "#5C4A25");   // edge lights
-  }
-  function horizon(g, x0, x1, gy) {
-    var x, hts = [7, 11, 9, 14, 8, 12, 6, 10, 13, 7];
-    for (x = x0; x < x1; x += 9) { var hh = hts[((x / 9) | 0) % hts.length]; R(g, x, gy - hh, 8, hh, "#141925"); if (hh > 9) R(g, x + 2, gy - hh + 3, 1, 1, "#3C4A63"); if (hh > 11) R(g, x + 5, gy - hh + 6, 1, 1, "#5C4A25"); }
-    // the control tower, far off
-    R(g, x1 - 22, gy - 34, 3, 34, "#1A2130"); R(g, x1 - 26, gy - 40, 11, 6, "#1A2130"); R(g, x1 - 25, gy - 38, 9, 2, "#3C5273"); R(g, x1 - 21, gy - 44, 1, 4, "#1A2130");
+  // What is outside: the apron in front of the building and its runway lights. The far roofs are in the windows.
+  function ground(g, w, h, gy, t, key) {
+    var k = skyOf(key), x;
+    R(g, 0, gy, w, h - gy, k.apron); R(g, 0, gy, w, 1, mix(k.apron, k.low, 0.25));
+    for (x = 6; x < w; x += 14) R(g, x, gy + 5, 5, 1, k.line);                              // the centre line
+    // edge lights: lit and chasing when the sky is low, plain markers in daylight
+    for (x = 2; x < w; x += 9) R(g, x, gy + 2, 1, 1, k.lights ? (((x + (t >> 4)) % 27) < 9 ? C.amber : "#5C4A25") : mix(k.apron, "#FFFFFF", 0.25));
   }
 
-  function sky(g, w, h, t) {
-    R(g, 0, 0, w, h, C.sky0);
-    var i, x, y;
-    for (i = 0; i < 46; i++) { x = (i * 97 + 13) % w; y = (i * 53 + 7) % Math.max(1, (h * 0.7) | 0); R(g, x, y, 1, 1, (i + (t >> 6)) % 9 === 0 ? C.sky2 : (i % 5 ? "#55657E" : C.star)); }
+  // The sky in flat bands, thin at the top where it shows above the roof and broad behind the building.
+  // One still sky per phase: nothing in it moves but the stars' slow blink at night.
+  var BANDS = [0, 0.03, 0.06, 0.1, 0.16, 0.3, 0.5, 0.75, 1];
+  function cloud(g, x, y, w, col) { R(g, x + 2, y, w - 5, 1, col); R(g, x, y + 1, w, 2, col); R(g, x + 3, y + 3, w - 7, 1, col); }
+  function sky(g, w, h, t, key) {
+    var k = skyOf(key), i, x, y;
+    for (i = 0; i < BANDS.length - 1; i++) R(g, 0, Math.round(BANDS[i] * h), w, Math.round(BANDS[i + 1] * h) - Math.round(BANDS[i] * h), mix(k.top, k.low, i / (BANDS.length - 2)));
+    if (k.stars) for (i = 0; i < k.stars; i++) { x = (i * 97 + 13) % w; y = (i * 53 + 7) % Math.max(1, (h * (k.moon ? 0.7 : 0.09)) | 0); R(g, x, y, 1, 1, (i + (t >> 6)) % 9 === 0 ? mix(k.top, C.star, 0.3) : (i % 5 ? mix(k.top, C.star, 0.45) : C.star)); }
+    if (k.sun) { x = Math.round(k.sun[0] * w); R(g, x + 1, 5, 5, 7, k.sun[1]); R(g, x, 6, 7, 5, k.sun[1]); }
+    if (k.moon) { x = Math.round(0.14 * w); R(g, x + 1, 6, 4, 6, C.star); R(g, x, 7, 6, 4, C.star); R(g, x + 3, 6, 3, 4, k.top); R(g, x + 4, 7, 3, 4, k.top); }
+    if (k.cloud) { cloud(g, Math.round(0.42 * w), 9, 26, k.cloud); cloud(g, Math.round(0.6 * w), 20, 18, mix(k.cloud, k.low, 0.4)); cloud(g, Math.round(0.03 * w), 24, 20, mix(k.cloud, k.top, 0.3)); }
   }
 
   root.NDArt = { PH: PH, text: text, sign: sign, C: C, PHASE: PHASE, sprite: sprite, blit: blit, cast: cast, CAST: CAST, ROOMS: ROOMS, PLAN: PLAN,
-                 W: W, H: H, FLOOR: FLOOR, BW: BW, BH: BH, roomRect: roomRect, roomAt: roomAt, room: room, portrait: portrait, building: building, sky: sky, ground: ground, horizon: horizon, PLANE: PLANE, canvas: canvas };
+                 W: W, H: H, FLOOR: FLOOR, BW: BW, BH: BH, paint: paint, mix: mix, SKIES: SKIES, roomRect: roomRect, roomAt: roomAt, room: room, portrait: portrait, building: building, sky: sky, ground: ground, PLANE: PLANE, canvas: canvas };
 })(typeof window !== "undefined" ? window : this);

@@ -6,7 +6,7 @@ description: An AI incident postmortem asks which enforced control would have ma
 dek: Five layers of defence were claimed. None was enforced. The hour that followed produced a typed cap, a confirmation token, a lower autonomy level and six new test cases.
 level: Intermediate
 keywords: AI incident postmortem, blameless postmortem AI, AI incident response, root cause analysis AI agent, LLM incident, AI failure analysis, corrective action AI
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -40,6 +40,8 @@ question *who was careless?* produces a name; the question *which enforced contr
 impossible?* produces a system change. That is the principle of blameless postmortems, and for agentic
 systems it has a sharper edge: most controls that "failed" were never enforced at all. They were
 sentences in a prompt.
+
+{{sketch:notes-where-the-fuses-go}}
 
 ## Run the postmortem, step by step
 
@@ -78,6 +80,8 @@ that reproduces the incident. The test of the fix: the incident is now a test th
 Drop the action one autonomy level, refunds from acting alone to needing an approver, and write the
 evidence that would restore it. At SkyWays refunds stayed one level down until a fourteen-day shadow
 run re-earned the level.
+
+{{sketch:down-one-step}}
 
 ### Step 5 · Feed it forward
 

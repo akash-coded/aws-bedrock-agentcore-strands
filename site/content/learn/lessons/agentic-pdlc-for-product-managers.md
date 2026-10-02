@@ -6,7 +6,7 @@ description: What an AI product manager does in the agentic PDLC: measure the pa
 dek: Your influence moves upstream. The slow part of building is no longer the building. It is deciding precisely what right means, and who may act.
 level: Beginner
 keywords: AI product manager, product management for AI agents, how AI changes product management, AI PM skills, AI product requirements, agentic AI product management, PM role in AI projects
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -38,6 +38,8 @@ agentic product succeeds now happens before anything is built.
 agents write the code, the slowest part of building is deciding exactly what to build and what counts
 as right: and a coding agent cannot ask you what you meant. So the discipline you always had becomes
 mandatory: the pain is a measurement, the spec is exact, and "good enough" is a number per slice.
+
+{{sketch:pin-the-pattern-before-the-cut}}
 
 ## Your eight steps
 

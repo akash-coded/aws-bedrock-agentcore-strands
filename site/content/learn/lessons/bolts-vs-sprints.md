@@ -6,7 +6,7 @@ description: When AI builds a story in hours, a two-week sprint leaves it idle. 
 dek: The unit of planning shrinks to match the speed of building. The hard part is not the cadence. It is the cut.
 level: Intermediate
 keywords: bolts vs sprints, agile with AI agents, sprint planning with AI, AI-DLC bolts, how to plan AI development, story slicing, walking skeleton, daily integration
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -50,6 +50,8 @@ Agree how often something merged, integrated and measured should arrive. For mos
 answer is daily. The integration deadline is part of the agreement: a bolt that is built but not
 integrated has not happened.
 
+{{sketch:a-door-is-not-a-door-until-hung}}
+
 ### Step 2 · Cut by dependency, not by priority
 
 Order the bolts so each can be built on its day without waiting for another. That usually means: a
@@ -64,6 +66,8 @@ A bolt with two unknowns cannot tell you which one failed. A bolt with none shou
 yesterday. Write the unknown down: *does the reservation adapter authenticate?*, *can the ranker hit
 its bar on same-day cases?* The plan's risk then falls as a measurable curve (the sum, over every
 day, of the unknowns still open) and the walking skeleton is why it falls from day one.
+
+{{sketch:two-shakers-one-bowl}}
 
 ### Step 4 · Write a story file per bolt
 
@@ -98,6 +102,8 @@ The value of fast building is fast evidence. A two-week sprint turns an afternoo
 fortnight's wait for feedback; a bolt turns it into a same-day answer. And cutting by dependency,
 with the skeleton first, retires the biggest unknown, whether the pieces connect at all, on day one
 instead of day fourteen.
+
+{{sketch:water-through-the-bare-pipes}}
 
 ## Try it
 

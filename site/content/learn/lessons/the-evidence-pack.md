@@ -6,7 +6,7 @@ description: The minimum artefacts owed at each hand-off of an agentic AI projec
 dek: Thirty documents, owed across four hand-offs, and the check that a document exists is the least important check you can run on it.
 level: Intermediate
 keywords: AI project documentation, AI audit trail, AI governance artefacts, definition of done AI, phase gate deliverables, AI compliance evidence, agentic PDLC evidence pack
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -54,6 +54,8 @@ optional: keep it if somebody reads it, delete it if not.
 
 The dangerous state is the second one. A stale artefact passes every check that asks whether a
 document exists.
+
+{{sketch:set-down-on-an-outline}}
 
 ### Step 2 · Check each hand-off against its test
 

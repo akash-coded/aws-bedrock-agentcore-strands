@@ -6,7 +6,7 @@ description: AI-driven development (AIDD) is the everyday craft of building soft
 dek: Five habits that decide whether a coding agent makes a team faster or just busier, and the evidence that the habits, not the tool, are what matter.
 level: Beginner
 keywords: AI-driven development, AIDD, AI coding agent best practices, CLAUDE.md, AGENTS.md, context engineering, how to use Claude Code, Copilot instructions, vibe coding vs AI-driven development
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -54,6 +54,8 @@ instruction that reaches every session without anyone remembering to type it: th
 documents to read *by path*, the conventions, commands that have actually been run, and a list of
 files never to touch.
 
+{{sketch:the-rule-by-the-door}}
+
 Grow it by adding the rule that bit you last week. SkyWays' first file was twenty-two lines. It grew
 twice: once after an agent computed a fare in a prompt, *never compute money in a prompt; call the
 function*, and once after a mid-task model switch discarded the cache, *one model per task*.
@@ -76,12 +78,16 @@ model doing arithmetic fails fluently. SkyWays' agent returned $80 where the led
 error. The check is mechanical: search the prompts for *calculate*, *compute*, *total* and *sum*, and
 act on nothing a prompt returns for them.
 
+{{sketch:eighty-said-sixty-two-counted}}
+
 ### Step 4 · Put an independent checker after the risky model steps
 
 On top of the floor goes the best-guess layer (ranking, drafting, classifying) and after each step
 where a wrong answer is expensive, a checker that is **independent**: a different model, or a fresh
 context with an adversarial brief. A "review your answer" step inside the same context changes
 nothing, because the model agrees with its own reasoning.
+
+{{sketch:the-mirror-always-agrees}}
 
 ### Step 5 · Let the harness and the risk band decide the merge
 

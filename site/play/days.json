@@ -2,6 +2,7 @@
   "v": 1,
   "title": "Ninety Days",
   "premise": "SkyWays, a fictional airline, has ninety days to put a rebooking assistant in front of stranded passengers. You make the calls.",
+  "short": "SkyWays is a fictional airline building an assistant that rebooks stranded passengers.",
   "rules": {
     "slack": 18,
     "slackRole": 20,
@@ -118,92 +119,132 @@
     },
     {
       "key": "P1",
-      "name": "Design & Spec"
+      "name": "Design and spec"
     },
     {
       "key": "P2",
-      "name": "Build & Prove"
+      "name": "Build and prove"
     },
     {
       "key": "P3",
-      "name": "Run & Learn"
+      "name": "Run and learn"
     }
   ],
+  "rooms": {
+    "board": "Boardroom",
+    "product": "Product room",
+    "arch": "Architecture room",
+    "eng": "Engineering room",
+    "qa": "QA room",
+    "platform": "Platform room",
+    "centre": "Contact centre",
+    "lobby": "Lobby"
+  },
   "artefacts": {
     "register": {
       "name": "Requirements register",
       "term": "Register",
-      "plain": "One list of what was asked for, each line with who asked and why."
+      "plain": "One list of what was asked for, each line with who asked and why.",
+      "on": "The requirements list is on file.",
+      "off": "No requirements list is on file."
     },
     "credited": {
       "name": "Credited list, confirmed",
       "term": "Credited requirements",
-      "plain": "The list sent back with names on it, so merging duplicates costs nobody their credit."
+      "plain": "The list sent back with names on it, so merging duplicates costs nobody their credit.",
+      "on": "The confirmed list is on file.",
+      "off": "No confirmed list is on file."
     },
     "constraints": {
       "name": "Constraints, sorted by kind",
       "term": "Constraints",
-      "plain": "The limits you cannot negotiate: technical, legal and commercial."
+      "plain": "The limits you cannot negotiate: technical, legal and commercial.",
+      "on": "The sorted limits are on file.",
+      "off": "No sorted limits are on file."
     },
     "targets": {
       "name": "Signed quality targets",
       "term": "NFRs",
-      "plain": "Non-functional requirements: how fast, how safe, how cheap. Signed by the people who own them."
+      "plain": "Non-functional requirements: how fast, how safe, how cheap. Signed by the people who own them.",
+      "on": "The signed quality targets are on file.",
+      "off": "No signed quality targets are on file."
     },
     "records": {
       "name": "Decision records",
       "term": "ADRs",
-      "plain": "One page per real trade-off: what was chosen and what was given up."
+      "plain": "One page per real trade-off: what was chosen and what was given up.",
+      "on": "The decision records are on file.",
+      "off": "No decision records are on file."
     },
     "spec": {
       "name": "Eight-field spec",
       "term": "Spec",
-      "plain": "What the assistant may do, how right it must be, and who signs, in a form a coding agent can read."
+      "plain": "What the assistant may do, how right it must be, and who signs, in a form a coding agent can read.",
+      "on": "The signed page is on file.",
+      "off": "No signed page is on file."
     },
     "bar": {
       "name": "Acceptance bar per kind of case",
       "term": "The bar, per slice",
-      "plain": "How often the assistant must be right, for each kind of case (a slice), worked out from what a mistake costs."
+      "plain": "How often the assistant must be right, for each kind of case (a slice), worked out from what a mistake costs.",
+      "on": "A bar for each kind of case is on file.",
+      "off": "No bar for each kind of case is on file."
     },
     "budget": {
       "name": "Authority budget",
       "term": "Authority budget",
-      "plain": "What the assistant may do alone, and the limit on each action, signed."
+      "plain": "What the assistant may do alone, and the limit on each action, signed.",
+      "on": "The limit on each action is on file.",
+      "off": "No limit on each action is on file."
     },
     "matrix": {
       "name": "Framework decision, with a way out",
       "term": "Decision matrix",
-      "plain": "Options scored on agreed criteria, with the three-year cost and what reversing it would take."
+      "plain": "Options scored on agreed criteria, with the three-year cost and what reversing it would take.",
+      "on": "The framework decision is on file.",
+      "off": "No framework decision is on file."
     },
     "skeleton": {
       "name": "Walking skeleton",
       "term": "Walking skeleton",
-      "plain": "The thinnest version that runs end to end, with no model in it, so the plumbing is proven first."
+      "plain": "The thinnest version that runs end to end, with no model in it, so the plumbing is proven first.",
+      "on": "The thin end-to-end version is on file.",
+      "off": "No thin end-to-end version is on file."
     },
     "proof": {
       "name": "Score with its margin, per kind of case",
       "term": "Lower bound",
-      "plain": "A score from a sample is a range. The low end of the range is what has been proven."
+      "plain": "A score from a sample is a range. The low end of the range is what has been proven.",
+      "on": "The score with its margin is on file.",
+      "off": "No score with its margin is on file."
     },
     "lanes": {
       "name": "Review lanes by risk",
       "term": "Risk bands",
-      "plain": "Two readers for changes that move money, one for behaviour, automatic checks alone for the rest."
+      "plain": "Two readers for changes that move money, one for behaviour, automatic checks alone for the rest.",
+      "on": "The review lanes are on file.",
+      "off": "No review lanes are on file."
     },
     "rootcause": {
       "name": "Root cause: four habits",
       "term": "Per-call log",
-      "plain": "One line per model call. It shows behaviour, where the invoice shows only the total."
+      "plain": "One line per model call. It shows behaviour, where the invoice shows only the total.",
+      "on": "The cause of the bill is on file.",
+      "off": "No cause of the bill is on file."
     },
     "control": {
       "name": "Postmortem, and the control",
       "term": "Enforced control",
-      "plain": "A limit the code enforces. A rule the model reads only lowers the odds."
+      "plain": "A limit the code enforces. A rule the model reads only lowers the odds.",
+      "on": "The review of the refund is on file.",
+      "off": "No review of the refund is on file."
     },
     "report": {
       "name": "Two-number report",
       "term": "Two numbers",
-      "plain": "What was saved and what was spent, on one line, every cycle."
+      "plain": "What was saved and what was spent, on one line, every cycle.",
+      "on": "The two-number report is on file.",
+      "off": "No two-number report is on file."
     }
   },
   "days": [
@@ -213,8 +254,8 @@
       "phase": 0,
       "room": "board",
       "owner": "arjun",
-      "track": "consultancy",
-      "title": "Two meetings, thirty-one requirements",
+      "head": "Six people have given the team 31 requirements. Design starts this week.",
+      "context": "It is week one, and two meetings with the airline's staff are over.",
       "with": [
         "arjun",
         "ops",
@@ -237,6 +278,7 @@
         {
           "id": "a",
           "label": "Start the design from the 31 as written",
+          "recap": "started the design from all 31 requests",
           "days": 0,
           "now": "Design starts this afternoon.",
           "debt": {
@@ -250,6 +292,7 @@
         {
           "id": "b",
           "label": "Merge them into one list that keeps who asked",
+          "recap": "merged 31 requests into one list of 12",
           "days": 1,
           "right": true,
           "now": "31 lines become 12 requirements and 9 quality targets, with the limits still unsorted. Each keeps its source. Compliance has no line yet, and now the gap shows.",
@@ -270,8 +313,8 @@
       "phase": 0,
       "room": "arch",
       "owner": "arjun",
-      "track": "consultancy",
-      "title": "The email",
+      "head": "Six people must agree to one list. None of them has seen it.",
+      "context": "The requests from both meetings have been written up.",
       "with": [
         "arjun",
         "priya"
@@ -292,6 +335,7 @@
         {
           "id": "a",
           "label": "The full minutes of both meetings",
+          "recap": "sent out the full minutes of both meetings",
           "days": 1,
           "now": "Eleven pages go out. One of the six replies.",
           "debt": {
@@ -305,6 +349,7 @@
         {
           "id": "b",
           "label": "The list, each line credited to who raised it",
+          "recap": "sent the list with names on every line",
           "days": 1,
           "right": true,
           "now": "Four people see their words merged into one line, with their names beside it. All six confirm by Friday.",
@@ -325,8 +370,8 @@
       "phase": 0,
       "room": "arch",
       "owner": "arjun",
-      "track": "consultancy",
-      "title": "The limits",
+      "head": "The law, an old system and a contract set limits on the assistant.",
+      "context": "No target for speed, safety or cost is agreed yet.",
       "with": [
         "arjun",
         "legal"
@@ -347,6 +392,7 @@
         {
           "id": "a",
           "label": "After the targets are agreed, in one pass",
+          "recap": "left the limits in a folder for later",
           "days": 0,
           "now": "The limits go in a folder for later.",
           "debt": {
@@ -360,10 +406,12 @@
         {
           "id": "b",
           "label": "Now, sorted by kind, before anything is agreed",
+          "recap": "sorted the limits by kind before any target was agreed",
           "days": 1,
           "right": true,
-          "now": "Response time becomes 30 seconds for 95 in 100 requests, which the old system can meet. Refunds gain a named approver.",
-          "art": "constraints"
+          "now": "The limits come out of the folder before the workshop. Six lines were called a must in the meetings, and some of them are only wishes.",
+          "art": "constraints",
+          "task": "limits"
         }
       ],
       "deeper": [
@@ -380,8 +428,8 @@
       "phase": 0,
       "room": "board",
       "owner": "arjun",
-      "track": "consultancy",
-      "title": "The workshop",
+      "head": "Nine quality targets cannot all come first.",
+      "context": "Six people from across the airline have one afternoon to rank them.",
       "with": [
         "arjun",
         "ops",
@@ -406,6 +454,7 @@
         {
           "id": "a",
           "label": "Dots on a wall: everyone votes, and the count decides",
+          "recap": "let a vote with dots rank the nine targets",
           "days": 1,
           "now": "The room is done by three o'clock. Cost per case gets two dots.",
           "debt": {
@@ -419,6 +468,7 @@
         {
           "id": "b",
           "label": "Each person ranks what matters and what is hard; merge the six",
+          "recap": "had six people rank the nine targets",
           "days": 2,
           "right": true,
           "now": "Nine targets, signed. Three score high on both importance and difficulty. Those three are where a design decision is owed.",
@@ -444,8 +494,8 @@
       "phase": 1,
       "room": "arch",
       "owner": "arjun",
-      "track": "tech",
-      "title": "Decision records",
+      "head": "Three design decisions cut both ways. None is written down.",
+      "context": "Design has started, and each of the three trades one thing for another.",
       "with": [
         "arjun",
         "sam"
@@ -466,6 +516,7 @@
         {
           "id": "a",
           "label": "One for every design choice the team has made",
+          "recap": "wrote forty decision records, one per design choice",
           "days": 4,
           "now": "Forty records by Friday.",
           "art": "records",
@@ -480,6 +531,7 @@
         {
           "id": "b",
           "label": "One for each real trade-off; the rest go in a design note",
+          "recap": "wrote a decision record for each real trade-off",
           "days": 1,
           "right": true,
           "now": "Two are written today and the third is dated for week three. Each names what was given up.",
@@ -500,9 +552,9 @@
       "phase": 1,
       "room": "product",
       "owner": "priya",
-      "track": "consultancy",
       "gate": true,
-      "title": "Thirty pages, and the gate",
+      "head": "This is sign-off day. The build will start from whatever is signed today.",
+      "context": "After today, the engineers' coding agent builds exactly what it is given.",
       "with": [
         "priya",
         "sam",
@@ -524,6 +576,7 @@
         {
           "id": "a",
           "label": "The thirty pages, with a summary on top",
+          "recap": "started the build from thirty pages and a summary",
           "days": 0,
           "now": "The build can start on Monday. How much the assistant may do alone is left to whoever writes the code.",
           "flags": [
@@ -534,6 +587,7 @@
         {
           "id": "b",
           "label": "One page: what it may do, how right it must be, who signs",
+          "recap": "cut thirty pages to one signed page",
           "days": 2,
           "right": true,
           "now": "Five things turned out to be undecided: the model's role, what it may do alone, how right it must be, the fallback, the records. Each is settled with its owner.",
@@ -546,6 +600,7 @@
         {
           "id": "c",
           "label": "Stop everything until every open question is closed",
+          "recap": "stopped all work until every open question was closed",
           "days": 5,
           "now": "Eleven meetings. Eight of those questions could have run beside the build, each with an owner and a date.",
           "art": [
@@ -560,12 +615,12 @@
         [
           "lesson",
           "learn/the-hard-gate/",
-          "The one hard gate"
+          "The sign-off, in depth"
         ],
         [
           "workbench",
           "#/toolkit/gateclass",
-          "Hard or soft? Classify a decision"
+          "Does this decision stop the work?"
         ]
       ]
     },
@@ -575,8 +630,8 @@
       "phase": 1,
       "room": "arch",
       "owner": "arjun",
-      "track": "tech",
-      "title": "Build, buy or borrow",
+      "head": "Build the agent framework, buy one, or borrow one? Sam already has a favourite.",
+      "context": "The team must pick the software that will run the assistant for years.",
       "with": [
         "arjun",
         "sam"
@@ -597,6 +652,7 @@
         {
           "id": "a",
           "label": "Go with the most senior engineer's choice",
+          "recap": "took the senior engineer's favourite framework",
           "days": 0,
           "now": "Chosen in ten minutes.",
           "debt": {
@@ -610,6 +666,7 @@
         {
           "id": "b",
           "label": "Score the three on the signed targets and the cost over three years",
+          "recap": "scored three frameworks on the signed targets",
           "days": 2,
           "right": true,
           "extraIfMissing": 2,
@@ -619,6 +676,7 @@
         {
           "id": "c",
           "label": "Pause the build until all three are trialled",
+          "recap": "paused the build to trial all three frameworks",
           "days": 6,
           "now": "Three trials, six working days. The answer matches the scoring.",
           "art": "matrix",
@@ -639,8 +697,8 @@
       "phase": 2,
       "room": "eng",
       "owner": "sam",
-      "track": "tech",
-      "title": "The first build day",
+      "head": "Building starts today, with seven things still unknown.",
+      "context": "Design is over, a two-week sprint is booked, and something must be built first.",
       "with": [
         "sam",
         "maya"
@@ -657,6 +715,7 @@
         {
           "id": "a",
           "label": "The model call, drafting a reply to one real case",
+          "recap": "built the model call first, on one real case",
           "days": 1,
           "now": "A draft reply appears on day two. It is wrong, and it is not clear why.",
           "debt": {
@@ -670,6 +729,7 @@
         {
           "id": "b",
           "label": "The thinnest version that runs end to end, with no model in it",
+          "recap": "built the thinnest end-to-end version first",
           "days": 1,
           "right": true,
           "now": "A booking shows on a screen by four in the afternoon. The plumbing is proven, and each day after retires one unknown.",
@@ -695,8 +755,8 @@
       "phase": 2,
       "room": "qa",
       "owner": "maya",
-      "track": "tech",
-      "title": "The score",
+      "head": "The first test score is 82.4. The promise was 80.",
+      "context": "The assistant has answered 500 real cases, and launch is planned for Monday.",
       "with": [
         "maya",
         "priya"
@@ -717,6 +777,7 @@
         {
           "id": "a",
           "label": "A pass: 82.4 beats the 80 we promised",
+          "recap": "reported 82.4 as a pass, with no margin",
           "days": 0,
           "now": "Everything goes to 5 percent of passengers on Monday.",
           "debt": {
@@ -730,6 +791,7 @@
         {
           "id": "b",
           "label": "82.4, at least 79.1, then each kind of case on its own",
+          "recap": "reported 82.4 with its margin, one kind at a time",
           "days": 2,
           "right": true,
           "extraIfMissing": 2,
@@ -740,6 +802,7 @@
         {
           "id": "c",
           "label": "Hold every kind of case until it clears one bar of 98",
+          "recap": "held every kind of case to one bar of 98",
           "days": 5,
           "now": "Nothing ships. Same-day changes were ready weeks ago and wait with the rest.",
           "flags": [
@@ -767,8 +830,8 @@
       "phase": 2,
       "room": "eng",
       "owner": "sam",
-      "track": "tech",
-      "title": "The queue",
+      "head": "Nine code changes are stuck waiting for review. Two of them touch money.",
+      "context": "The build is moving faster than the two reviewers can read.",
       "with": [
         "sam",
         "maya"
@@ -789,6 +852,7 @@
         {
           "id": "a",
           "label": "Ask the reviewers to go faster until the queue clears",
+          "recap": "asked the reviewers to read faster",
           "days": 0,
           "now": "They do, for a week.",
           "flags": [
@@ -805,6 +869,7 @@
         {
           "id": "b",
           "label": "Route by risk: two readers, one, or the automatic checks alone",
+          "recap": "sent the nine changes to review by risk",
           "days": 1,
           "right": true,
           "now": "The two money changes are read first, by people who are no longer tired.",
@@ -814,6 +879,7 @@
         {
           "id": "c",
           "label": "Keep two senior readers on every change",
+          "recap": "kept two senior readers on every change",
           "days": 0,
           "now": "Nothing changes. Every change still waits for the same two people.",
           "debt": {
@@ -844,8 +910,8 @@
       "phase": 3,
       "room": "platform",
       "owner": "lena",
-      "track": "tech",
-      "title": "The bill",
+      "head": "The model bill is 4.4 times the estimate. Traffic is flat.",
+      "context": "The assistant is live, and the funding decision is fifteen days away.",
       "with": [
         "lena",
         "arjun",
@@ -867,6 +933,7 @@
         {
           "id": "a",
           "label": "A comparison of cheaper models",
+          "recap": "opened a comparison of cheaper models",
           "days": 5,
           "now": "Three weeks of trials. The habits behind the bill carry on at a lower unit price.",
           "flags": [
@@ -883,6 +950,7 @@
         {
           "id": "b",
           "label": "The log of every model call",
+          "recap": "opened the log of every model call",
           "days": 1,
           "right": true,
           "now": "Four things moved, and they multiply: 1.6 × 1.5 × 1.3 × 1.41 is 4.4. That is the whole bill.",
@@ -892,6 +960,7 @@
         {
           "id": "c",
           "label": "Switch the assistant off until it is understood",
+          "recap": "switched the assistant off for a week",
           "days": 0,
           "now": "The assistant is off for a week. The contact centre goes back to the phones.",
           "flags": [
@@ -926,8 +995,7 @@
       "phase": 3,
       "room": "centre",
       "owner": "maya",
-      "track": "tech",
-      "title": "The refund",
+      "context": "The passenger was owed $180, and any refund over $400 needs a named approver.",
       "with": [
         "maya",
         "centre",
@@ -935,6 +1003,7 @@
       ],
       "variants": {
         "blocked": {
+          "head": "The assistant tried to refund $2,000. The tool refused it.",
           "scene": [
             [
               "centre",
@@ -950,6 +1019,7 @@
             {
               "id": "a",
               "label": "Close the case as blocked",
+              "recap": "closed the refused refund unread",
               "days": 0,
               "now": "The case is closed. Nobody asks why the assistant wanted $2,000.",
               "debt": {
@@ -963,6 +1033,7 @@
             {
               "id": "b",
               "label": "Add the case to the test set, and review what it may do alone",
+              "recap": "added the refused refund to the test set",
               "days": 1,
               "right": true,
               "now": "Six cases like it join the test set. The limit held, and now there is a test that says so every week.",
@@ -971,6 +1042,7 @@
           ]
         },
         "paid": {
+          "head": "The assistant sent a $2,000 refund that was not owed.",
           "scene": [
             [
               "centre",
@@ -986,6 +1058,7 @@
             {
               "id": "a",
               "label": "Who wrote that prompt, and who approved it?",
+              "recap": "asked who wrote and approved the prompt",
               "days": 1,
               "now": "A name is found and a training session is booked.",
               "debt": {
@@ -999,6 +1072,7 @@
             {
               "id": "b",
               "label": "What limit in the code would have made this impossible?",
+              "recap": "put the refund limit into the tool itself",
               "days": 2,
               "right": true,
               "now": "A limit and a confirmation step go into the tool itself. The assistant may do one level less alone. Six cases like it join the test set.",
@@ -1029,8 +1103,8 @@
       "phase": 3,
       "room": "board",
       "owner": "priya",
-      "track": "consultancy",
-      "title": "The steering committee",
+      "head": "The sponsor asks what ninety days bought, and what it cost.",
+      "context": "The committee that funds the project decides today whether it continues.",
       "with": [
         "priya",
         "sponsor",
@@ -1059,6 +1133,66 @@
     }
   ],
   "tasks": {
+    "limits": {
+      "title": "Which of these can move?",
+      "intro": "All six were called a must in the meetings. Tick what nobody in this building can change inside ninety days. Everything left unticked goes to the Day 9 workshop to be ranked.",
+      "lines": [
+        {
+          "id": "law",
+          "text": "Refunds over $400 need a named approver.",
+          "limit": "The law",
+          "bends": "Refunds: a named approver signs anything over $400.",
+          "miss": {
+            "due": "d6",
+            "days": 2,
+            "trust": 1,
+            "tag": "a law, sent to the workshop as a wish",
+            "text": "Compliance stopped the sign-off. The rule on refunds over $400 is the law, and the workshop had ranked it like a wish."
+          }
+        },
+        {
+          "id": "fast",
+          "text": "It must answer in five seconds."
+        },
+        {
+          "id": "system",
+          "text": "The booking system is slow and is not being replaced.",
+          "limit": "The system",
+          "bends": "Speed: 30 seconds for 95 in 100 requests, which the old system can meet.",
+          "miss": {
+            "same": "a"
+          }
+        },
+        {
+          "id": "never",
+          "text": "It must never hand a passenger to a person."
+        },
+        {
+          "id": "cap",
+          "text": "Partner airlines cap how often we may call them.",
+          "limit": "A contract",
+          "bends": "Partner flights: partner seats cached inside the cap.",
+          "miss": {
+            "due": "d8",
+            "days": 2,
+            "trust": 0,
+            "tag": "the partners' cap, sent to the workshop as a wish",
+            "text": "A partner airline cut off the first build. It had called their system more often than the contract allows."
+          }
+        },
+        {
+          "id": "cheap",
+          "text": "It must cost less per case than a phone call."
+        }
+      ],
+      "wish": {
+        "due": "d4",
+        "days": 1,
+        "trust": 0,
+        "tag": "a wish, filed as a fixed limit",
+        "text": "A wish had been filed as a limit nobody could move. The workshop spent a day finding out that it could."
+      }
+    },
     "bar": {
       "title": "Set the bar",
       "intro": "How often must it be right? Divide what a wrong answer costs by what a right one saves. If a wrong one costs four times as much, it has to be right four times in five.",

@@ -6,7 +6,7 @@ description: What a solution architect decides in agentic AI: which steps may be
 dek: You stop specifying model settings and start specifying behaviours, and exactly where each limit lives in code.
 level: Intermediate
 keywords: AI solution architect, agentic AI architecture, AI agent architecture design, multi-agent vs single agent, AI agent permissions design, architecture decision records AI, LLM system design
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -58,11 +58,15 @@ every cap in a signature with tests. **7 · Detail**: layered context, one serve
 reads open and writes gated, and an independent checker after each expensive step.
 [P1 Design & Spec](lesson:p1-design-and-spec)
 
+{{sketch:one-on-stage-the-rest-wait}}
+
 ### P2 · Build & Prove: answer, do not re-open
 
 In P2 you answer questions against the map; you do not re-open it. Every bolt was cut against the
 design as signed, so a redesign mid-build moves the ground under work already in flight, if the map is
 wrong, say so and re-cut in the open, rather than changing it quietly.
+
+{{sketch:the-prompter-in-the-box}}
 
 ### P3 · Run & Learn
 

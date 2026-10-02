@@ -5,8 +5,9 @@
 // It plays every combination of choices in whole-team mode (with each hands-on task done well or
 // badly), every role, and every set of three rules in the organisation lens, and checks that the game
 // cannot dead-end, that no shortcut is free, and that neither "always the cheapest" nor "always the
-// most careful" gets funded. It also lints the words: a scene is forty words at most, and nothing
-// carries a dash.
+// most careful" gets funded. It also lints the words: a scene is forty words at most, nothing carries
+// a dash, and every day opens cold: a headline that is a sentence, one sentence of context, a recap on
+// every option, and a "So far" line of twenty-five words at most on every path.
 import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -63,14 +64,14 @@ function walk(state, habit, visit, depth = 0) {
 }
 
 // one fixed line of play: a function from (day, state) to an option id
-function line(pick, opts = {}, habit = { fix: true, move: true }, well = true, slide = SLIDES[0]) {
+function line(pick, opts = {}, habit = { fix: true, move: true }, well = true, slide = SLIDES[0], inputs = {}) {
   let s = sim.init(data, opts), guard = 0;
   while (s.beat !== "end" && guard++ < 200) {
     s = settle(s, habit);
     const day = sim.today(data, s);
     let a;
     if (s.beat === "choose") a = s.pending ? { t: "accept" } : day.options ? { t: "choose", opt: pick(day, s) } : { t: "task", id: day.task, input: slide };
-    else if (s.beat === "task") a = { t: "task", id: s.task, input: s.task === "slide" ? slide : taskInput(s.task, well) };
+    else if (s.beat === "task") a = { t: "task", id: s.task, input: s.task === "slide" ? slide : inputs[s.task] || taskInput(s.task, well) };
     else if (s.beat === "gate") a = { t: "gate", how: sim.gateMissing(s).length ? (habit.gate || "hold") : "pass" };
     else a = { t: "next" };
     const n = sim.reduce(data, s, a);
@@ -82,6 +83,13 @@ function line(pick, opts = {}, habit = { fix: true, move: true }, well = true, s
 const right = (day) => sim.rightOption(day).id;
 const cheapest = (day, s) => day.options.slice().sort((a, b) => sim.price(data, s, day, a) - sim.price(data, s, day, b))[0].id;
 const dearest = (day, s) => day.options.slice().sort((a, b) => sim.price(data, s, day, b) - sim.price(data, s, day, a))[0].id;
+// the state at the opening of each day of a finished run, and everything the rules said on the way
+function opens(end, opts = {}) {
+  let s = sim.init(data, opts); const out = [s], said = [];
+  for (const a of end.history) { s = sim.reduce(data, s, a); for (const e of s.events) said.push(e.text); if (a.t === "next" && s.beat !== "end") out.push(s); }
+  return { days: out, said };
+}
+const wc = (t) => t.trim().split(/\s+/).length;
 const show = (s) => { const v = sim.verdict(data, s), l = sim.ledger(data, s); return `${v.key}, trust ${v.trust}, runway ${s.slack}, ${v.shelf} on file, ${v.fired} debts fired, net $${l.net}`; };
 
 console.log("\n1. the words");
@@ -102,11 +110,73 @@ console.log("\n1. the words");
     }
     if (d.needs) check(!!data.artefacts[d.needs], `day ${d.day} leans on an unknown document`);
   }
+  // Every day opens cold. The headline is a sentence with a verb or a number in it, never a noun. The
+  // context is one sentence. A recap is past tense, ten words at most, and points back at nothing.
+  const sentences = (t) => t.split(/(?<=[.?!])\s+/).filter(Boolean);
+  const JARGON = /\b(NFRs?|ADRs?|PDLC|gates?|slices?|bolts?|lower bound|authority budget|autonomy|specs?|P[0-3])\b/i;
+  const VERB = /\d|\b(is|are|was|were|has|have|must|cannot|set|starts|asks|will|tried|sent|refused|build|buy|borrow)\b/i;
+  const plain = (t, what) => {
+    check(typeof t === "string" && t.length > 0, `${what} is missing`); if (!t) return;
+    check(!dash.test(t), `${what} carries a dash`);
+    check(!JARGON.test(t), `${what} uses a word the player has not been given yet: "${t}"`);
+    check(!/\bnot\b[^.?!]*\bbut\b/i.test(t), `${what} is a "not this but that"`);
+    for (const one of sentences(t)) check(wc(one) <= 20, `${what} has a sentence of ${wc(one)} words`);
+  };
+  plain(data.short, "the premise"); check(wc(data.short) <= 12 && sentences(data.short).length === 1, "the premise on every day is longer than one short sentence");
+  for (const d of data.days) {
+    const forms = d.variants ? Object.values(d.variants) : [d];
+    plain(d.context, `day ${d.day}: the context`);
+    check(sentences(d.context || "").length === 1 && wc(d.context || "") <= 16, `day ${d.day}: the context is more than one short sentence`);
+    check(!("title" in d) && !("track" in d), `day ${d.day} still carries a title or a track`);
+    for (const f of forms) {
+      plain(f.head, `day ${d.day}: the headline`);
+      check(VERB.test(f.head || ""), `day ${d.day}: the headline "${f.head}" is a bare noun`);
+      for (const o of f.options || []) {
+        plain(o.recap, `day ${d.day}, option ${o.id}: the recap`);
+        if (!o.recap) continue;
+        check(wc(o.recap) <= 10, `day ${d.day}, option ${o.id}: the recap runs to ${wc(o.recap)} words`);
+        check(/^[a-z]+ed\b|^(wrote|sent|left|let|took|built|kept|put|held|had|cut)\b/.test(o.recap) && !/[.?!]$/.test(o.recap), `day ${d.day}, option ${o.id}: the recap "${o.recap}" is not a past-tense clause`);
+        check(!/\b(it|this|that|these|those|them|they)\b/i.test(o.recap), `day ${d.day}, option ${o.id}: the recap points back with a pronoun`);
+      }
+    }
+  }
+  for (const [k, a] of Object.entries(data.artefacts)) { plain(a.on, `${k}: its "on file" sentence`); plain(a.off, `${k}: its "not on file" sentence`); }
+  // nothing a player reads says "gate": it is the sign-off (ids and addresses keep the old word)
+  check(!texts.some((t) => /\s/.test(t) && /\bgates?\b/i.test(t)), "the copy still says gate");
+  // "So far", at its longest: any option of the day it quotes, with any of the things it can have left
+  for (let i = 1; i < data.days.length; i++) {
+    const d = data.days[i], src = d.needs ? sim.source(data, d.needs) : i - 1;
+    check(src >= 0 && src < i, `day ${d.day} leans on a document that no earlier day files`);
+    if (!(src >= 0 && src < i)) continue;
+    const from = data.days[src], forms = from.variants ? Object.values(from.variants) : [from];
+    for (const f of forms) for (const o of f.options || []) {
+      const lefts = ["Today a choice from Day 82 comes back.", "Something from that is pinned to Day 82."];
+      if (d.needs) lefts.push(data.artefacts[d.needs].on, data.artefacts[d.needs].off);
+      else for (const a of [].concat(o.art || [])) lefts.push(data.artefacts[a].on);
+      for (const left of lefts) { const n = wc(`So far: on Day ${from.day}, Priya ${o.recap}. ${left}`); check(n <= 25, `day ${d.day}: "So far" can run to ${n} words after day ${from.day}, option ${o.id}`); }
+    }
+  }
 }
 
 console.log("\n2. fixed lines, whole team");
 const canon = line(right);
 console.log("  the method, date moved with evidence:  " + show(canon));
+{
+  // What a stranger reads before the scene on each day of the method's line. The premise and "So far"
+  // are there only for someone who has seen no other day: under forty words, on any path (12 + 25).
+  const o = opens(canon); let most = 0;
+  check(o.days.length === data.days.length, "the method's line does not open thirteen days");
+  o.days.forEach((s, i) => {
+    const so = sim.soFar(data, s), line = so.label + " " + so.text, d = sim.today(data, s);
+    check(so.text.length > 0 && wc(line) <= 25, `day ${d.day}: "So far" is empty or long on the method's line: "${line}"`);
+    check(i === 0 ? /nothing yet/.test(so.text) : new RegExp("^on Day \\d+, you ").test(so.text), `day ${d.day}: "So far" does not quote an earlier call: "${line}"`);
+    check(wc(data.short) + wc(line) < 40, `day ${d.day}: the premise and "So far" run to forty words`);
+    most = Math.max(most, wc(data.short) + wc(d.context) + wc(line));
+  });
+  console.log(`  the premise, the context and "So far" together: ${most} words at most on the method's line`);
+  check(most <= 48, "a day's opening lines run past forty-eight words");
+  check(!o.said.some((t) => /\bgates?\b/i.test(t) || /[–—]/.test(t)), "the rules still say gate, or carry a dash");
+}
 check(sim.verdict(data, canon).key === "funded", "doing every day properly, and moving the date on evidence, is not funded");
 const noMove = line(right, {}, { fix: true, move: false });
 console.log("  the method, date never moved:          " + show(noMove));
@@ -116,6 +186,12 @@ console.log("  the method, the limit never checked:   " + show(unnoticed));
 check(RANK[sim.verdict(data, unnoticed).key] <= RANK[sim.verdict(data, canon).key] && unnoticed.trust < canon.trust, "never checking where the limit lives costs nothing");
 const cheap = line(cheapest, {}, { fix: false, move: true, gate: "open" }, false, SLIDES[1]);
 console.log("  always the cheapest:                   " + show(cheap));
+{
+  const o = opens(cheap);
+  o.days.forEach((s) => { const so = sim.soFar(data, s), line = so.label + " " + so.text; check(so.text.length > 0 && wc(line) <= 25, `day ${sim.today(data, s).day}: "So far" is empty or long on the cheapest line: "${line}"`); });
+  check(o.days.slice(1).some((s) => /pinned to Day|comes back/.test(sim.soFar(data, s).text)), "on the cheapest line \"So far\" never mentions what is owed");
+  check(!o.said.some((t) => /\bgates?\b/i.test(t) || /[–—]/.test(t)), "the rules still say gate, or carry a dash");
+}
 check(sim.verdict(data, cheap).key !== "funded" && sim.verdict(data, cheap).key !== "conditional", "always the cheapest option does not lose");
 const dear = line(dearest, {}, { fix: true, move: true });
 console.log("  always the most careful:               " + show(dear));
@@ -139,6 +215,41 @@ for (const d of data.days) {
 {
   const dev = line((day) => day.id === "d12" ? "a" : right(day), {}, { fix: false, move: true });
   check(dev.trust < unnoticed.trust, "asking who approved the prompt costs nothing");
+}
+
+// The sixth task, on Day 6: what cannot be ranked comes out before anything is ranked.
+{
+  const lim = data.tasks.limits, real = lim.lines.filter((l) => l.miss).map((l) => l.id), wish = lim.lines.filter((l) => !l.miss).map((l) => l.id);
+  const d3 = data.days.find((d) => d.id === "d3"), inHand = (s) => s.slack - (s.moved ? data.rules.moveDate.days : 0);
+  check(sim.rightOption(d3).task === "limits" && d3.options.filter((o) => o.task === "limits").length === 1, "the limits task does not open behind Day 6's method option alone");
+  check(real.length === 3 && wish.length === 3, "the limits task is not three limits and three wishes");
+  // the method's line up to the task, then the task done one way
+  const at = canon.history.findIndex((a) => a.t === "task" && a.id === "limits");
+  check(at > 0, "the method's line never does the limits task");
+  const before = sim.fold(data, {}, canon.history.slice(0, at));
+  const done = (input) => sim.reduce(data, before, { t: "task", id: "limits", input });
+  const owed = (s) => s.debts.filter((d) => d.id === "d3" && d.state === "sealed");
+  check(owed(done(real)).length === 0 && done(real).slack === before.slack && done(real).trust === before.trust, "the limits task, done right, costs something");
+  check(JSON.stringify(sim.botTask(data, null, "limits", true)) === JSON.stringify(real), "a colleague who does the limits task well does not tick the three limits");
+  const want = { law: { due: "d6", days: 2, trust: 1 }, system: { due: "d4", days: d3.options.find((o) => o.id === "a").debt.days, trust: 0 }, cap: { due: "d8", days: 2, trust: 0 } };
+  for (const r of real) {
+    const o = owed(done(real.filter((x) => x !== r)));
+    check(o.length === 1 && o[0].due === want[r].due && o[0].days === want[r].days && o[0].trust === want[r].trust, `the limits task: missing "${r}" does not pin ${JSON.stringify(want[r])}`);
+    const end = line(right, {}, { fix: true, move: true }, true, SLIDES[0], { limits: real.filter((x) => x !== r) });
+    check(end.debts.some((d) => d.id === "d3" && d.state === "fired") && (inHand(end) < inHand(canon) || end.trust < canon.trust), `the limits task: missing "${r}" is free: ${show(end)}`);
+  }
+  for (const input of [real.concat(wish[0]), real.concat(wish)]) {
+    const o = owed(done(input));
+    check(o.length === 1 && o[0].due === "d4" && o[0].days === 1 && !o[0].trust, `the limits task: ${input.length - 3} wishes ticked do not cost Day 9 one day`);
+    const end = line(right, {}, { fix: true, move: true }, true, SLIDES[0], { limits: input });
+    check(inHand(end) === inHand(canon) - 1 && end.trust === canon.trust, `the limits task: ticking a wish does not cost exactly a day: ${show(end)}`);
+  }
+  // everything it left is one trip back
+  const worst = done([wish[0]]), n = owed(worst).length, back = sim.reduce(data, worst, { t: "repair", debt: worst.debts.findIndex((d) => d.id === "d3") });
+  check(n === 4 && owed(back).length === 0 && back.slack === worst.slack - sim.repairCost(data, worst.debts.find((d) => d.id === "d3")), "going back to Day 6 does not repair everything the limits task left");
+  const bad = line(right, {}, { fix: true, move: true }, true, SLIDES[0], { limits: sim.botTask(data, null, "limits", false) });
+  console.log("  the method, the limits task done badly: " + show(bad));
+  check(sim.verdict(data, bad).key !== "funded", "the limits task done badly is still funded");
 }
 
 // three lines that should not be funded
@@ -201,6 +312,13 @@ for (const role of Object.keys(data.roles)) {
   console.log(`  ${role.padEnd(4)} owns ${mineDays} days · colleagues left alone: ${show(alone)}`);
   console.log(`       three challenges, spent early:    ${show(s)}`);
   check(RANK[sim.verdict(data, s).key] >= RANK[sim.verdict(data, alone).key], `role ${role}: spending challenges made things worse`);
+  // a colleague who sorts the limits does the task well exactly when they chose the method's option
+  for (const end of [alone, s]) check(end.picks.d3 !== "b" || !end.debts.some((d) => d.id === "d3"), `role ${role}: Day 6 was done by the method and still left something`);
+  for (const st of opens(alone, { mode: "role", role }).days.slice(1)) {
+    const so = sim.soFar(data, st), line = so.label + " " + so.text, mine = data.days.find((d) => d.day === so.from);
+    check(so.text.length > 0 && wc(line) <= 25, `role ${role}, day ${sim.today(data, st).day}: "So far" is empty or long: "${line}"`);
+    check((so.who === "you") === (data.cast[mine.owner].role === role), `role ${role}, day ${sim.today(data, st).day}: "So far" names the wrong person: "${line}"`);
+  }
 }
 
 console.log("\n6. the organisation lens: every set of up to three rules");
@@ -241,6 +359,26 @@ console.log("\n7. a save is its list of actions");
   const junk = sim.fold(data, {}, [{ t: "nonsense" }, { t: "choose", opt: "zz" }]);
   check(junk.i === 0 && junk.beat === "choose", "junk actions moved the game");
 }
+
+console.log("\n8. a link to a day: the earlier days, played by the book");
+for (const seed of [0, 1, 2]) {
+  let words = 0;
+  for (let i = 0; i < data.days.length; i++) {
+    const h = sim.book(data, { seed }, i), s = sim.fold(data, { seed }, h), d = data.days[i];
+    check(s.i === i && s.beat === "choose" && !s.pending && s.history.length === h.length, `seed ${seed}: the book does not open on Day ${d.day}`);
+    check(data.days.slice(0, i).every((e) => s.picks[e.id] === sim.rightOption(e.variants ? e.variants.blocked : e).id), `seed ${seed}, Day ${d.day}: an earlier day was not played the method's way`);
+    check(!s.debts.length && s.trust >= data.rules.trust, `seed ${seed}, Day ${d.day}: the book leaves something owed, or trust spent`);
+    check(s.slack + (s.moved ? 0 : data.rules.moveDate.days) >= 0, `seed ${seed}, Day ${d.day}: the book opens the day late with the date already moved`);
+    check(i <= sim.dayIndex(data, data.rules.capFix.from) || s.capInTool, `seed ${seed}, Day ${d.day}: the book never typed the limit into the tool`);
+    check(s.shelf.length >= Math.min(i, 4) && Object.keys(s.tasks).length === ["d3", "d6", "d9", "d10", "d11"].filter((id) => sim.dayIndex(data, id) < i).length, `seed ${seed}, Day ${d.day}: the book skipped a task or a document`);
+    const so = sim.soFar(data, s), line = so.label + " " + so.text;
+    check(so.text.length > 0 && wc(data.short) + wc(line) < 40, `seed ${seed}, Day ${d.day}: opened cold, the premise and "So far" run to ${wc(data.short) + wc(line)} words`);
+    words = Math.max(words, wc(data.short) + wc(sim.today(data, s).context) + wc(line));
+  }
+  const end = sim.fold(data, { seed }, sim.book(data, { seed }, data.days.length - 1));
+  console.log(`  seed ${seed}: all thirteen days open by the book; Day 90 opens at trust ${end.trust}, runway ${end.slack}, ${end.shelf.length} on file; at most ${words} words before the scene`);
+}
+check(sim.book(data, {}, 0).length === 0, "the book for Day 1 is not empty");
 
 console.log(failures ? `\n${failures} failure(s)` : "\nthe rules hold");
 process.exit(failures ? 1 : 0);

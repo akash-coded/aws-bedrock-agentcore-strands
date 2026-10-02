@@ -3,7 +3,8 @@
    decoration and state: the room where today happens, and the whole building. Nothing here decides
    anything: the rules are in sim.js, and this file only asks them what is legal and shows the answer.
 
-   A save is the list of actions taken, kept under one key in localStorage and replayed on load. */
+   A save is the list of actions taken, kept under one key in localStorage and replayed on load.
+   A link such as /simulator/#day-45 opens that day with the earlier days played by the book. */
 (function () {
   "use strict";
   var src = document.getElementById("nd-data"), root = document.getElementById("nd");
@@ -39,18 +40,24 @@
   var run = null;                 // { opts, state }
   var looking = null, lastRoom = null;   // the room whose card is open, and the chip last pressed
   var asking = false;             // a colleague's call is being challenged
+  var shown = {};                 // the small simulations that have played in this run: each plays once
   var live = el("p", { "class": "vh", "aria-live": "polite", role: "status" });
 
   /* ------------------------------------------------------------------ the stage: two canvases */
   var sceneCv = el("canvas", { "class": "nd-scene-cv", "aria-hidden": "true" });
   var mapCv = el("canvas", { "class": "nd-map-cv", "aria-hidden": "true" });
-  var MAPW = A.BW + 10, MAPH = A.BH + 22, clock = 0, raf = 0, last = 0, planeT = -1, paused = false, seen = true;
+  var MAPW = A.BW + 10, MAPH = A.BH + 16, GROUND = A.BH + 4, clock = 0, raf = 0, last = 0, planeT = -1, paused = false, seen = true;
   var enter = 1, shut = 0, flash = 0;      // people walking in, the build floors' shutters, the incident's one hard frame
   window.NDFrames = 0;            // for the acceptance gate: frames drawn by the loop
 
   function picture(state) {       // what the walls show: the game's state, as the art module reads it
     var i = state ? state.i : 0, st = {};
     st.day = state ? data.days[Math.min(i, data.days.length - 1)].day : 1; st.dayIndex = i;
+    // the sky is the phase: dawn, morning, afternoon, golden hour; Day 90 is dusk, or night if the run is late
+    st.phases = data.days.map(function (d) { return d.phase; });
+    st.sky = ["dawn", "morning", "afternoon", "golden"][st.phases[i]];
+    if (state && (state.beat === "end" || i === data.days.length - 1)) st.sky = state.slack < 0 ? "night" : "dusk";
+    st.owed = data.days.map(function (d) { return !!state && state.debts.some(function (x) { return x.due === d.id && x.state === "sealed"; }); });
     if (!state) { st.notes = 12; st.boxes = 3; st.bolts = 4; st.cancelled = 3; st.bill = 1; return st; }
     st.notes = sim.has(state, "register") ? 12 : (i > 0 ? 24 : 16);
     st.boxes = sim.has(state, "records") ? 3 : 0; if (sim.has(state, "matrix")) st.boxes = 5;
@@ -92,10 +99,9 @@
     if (mapCv.parentNode) {
       fit(mapCv, MAPW, MAPH, 4);
       g = mapCv.getContext("2d"); g.imageSmoothingEnabled = false;
-      A.sky(g, MAPW, MAPH, clock);
-      A.horizon(g, 0, MAPW, MAPH - 9);
-      if (planeT >= 0) { px = Math.round(-50 + planeT * (MAPW + 100)); g.drawImage(A.PLANE.c, px, Math.round(14 - planeT * 8)); }
-      A.ground(g, MAPW, MAPH, MAPH - 9, clock);
+      A.sky(g, MAPW, MAPH, clock, st.sky);
+      if (planeT >= 0) { px = Math.round(-50 + planeT * (MAPW + 100)); g.drawImage(A.PLANE.c, px, Math.round(22 - planeT * 10)); }
+      A.ground(g, MAPW, MAPH, GROUND, clock, st.sky);
       var mark = {}, i, d;
       if (state) for (i = 0; i < state.debts.length; i++) { d = state.debts[i]; if (d.state === "sealed") mark[data.days[sim.dayIndex(data, d.due)].room] = A.C.rose; }
       A.building(g, 5, 4, clock, st, { active: day ? day.room : null, cast: rooms, speaking: speaking, mark: mark, enter: enter,
@@ -117,7 +123,7 @@
   }
   function go() { if (!raf && !still && !paused && seen && !document.hidden) raf = requestAnimationFrame(loop); }
   function fly() { planeT = still ? -1 : 0; enter = still ? 1 : 0; }     // one plane a day, nose first; and today's people walk in
-  // The floors where the build happens stay shuttered until the gate has been dealt with.
+  // The floors where the build happens stay shuttered until the sign-off has been dealt with.
   function gateShut(state) { return !state || state.beat === "end" ? 0 : (state.i < 5 || (state.i === 5 && state.beat !== "done") ? 1 : 0); }
   document.addEventListener("visibilitychange", go);
   window.addEventListener("resize", function () { draw(); });
@@ -126,7 +132,7 @@
   /* ------------------------------------------------------------------ looking in on a room */
   function roomCard(id, state) {
     var lines = [], act = null, i = state.i, b;
-    var name = { board: "Boardroom", product: "Product", arch: "Architecture", eng: "Engineering", qa: "QA", platform: "Platform", centre: "Contact centre", lobby: "Lobby" }[id];
+    var name = data.rooms[id].replace(/ room$/, "");
     if (id === "board") {
       lines.push(state.trust >= 5 ? "Ines has stopped asking for weekly updates." : state.trust >= 3 ? "Ines asks for an update every Friday." : "Ines has asked finance to sit in on your reviews.");
       lines.push(state.moved ? "The date has been moved once. It will not move again." : "Day 90 is the steering committee. The date can be moved once.");
@@ -137,7 +143,7 @@
       lines.push(sim.has(state, "constraints") ? "Constraints sorted by kind: technical, legal, commercial." : "The constraints are in a folder.");
       lines.push(sim.has(state, "records") ? "Decision records are on the shelf." : "No decision has been written down.");
     } else if (id === "eng") {
-      lines.push(i < 7 ? "Nothing is built. The gate is on Day 15." : sim.has(state, "skeleton") ? "The thin slice runs end to end. One unknown is retired each day." : "The build is under way.");
+      lines.push(i < 7 ? "Nothing is built. The sign-off is on Day 15." : sim.has(state, "skeleton") ? "The thin slice runs end to end. One unknown is retired each day." : "The build is under way.");
       if (state.review) lines.push("Review queue: " + state.review.queue + " days.");
     } else if (id === "qa") {
       b = sim.has(state, "bar") ? sim.bars(data, state) : null;
@@ -166,8 +172,9 @@
     run.state = next; asking = false;
     if (action.t === "next") { fly(); looking = null; if (!still && next.events.some(function (e) { return e.kind === "incident"; })) flash = 1; }
     if (still) shut = gateShut(next);
-    save();
+    save(); unlink();
     render(action.t === "next" || action.t === "undo" ? "day" : "out");
+    flyPins(next.debts.slice(before.debts.length).filter(function (d) { return d.state === "sealed"; }).map(function (d) { return d.due; }));
     var bits = [];
     if (next.slack !== before.slack) bits.push("Runway " + runwayText(next.slack) + ".");
     if (next.trust !== before.trust) bits.push("Trust " + next.trust + " of " + next.trustMax + ".");
@@ -180,10 +187,35 @@
     run.state = sim.fold(data, run.opts, h); asking = false; save(); render("day");
   }
   function start(opts) {
-    run = { opts: opts, state: sim.init(data, opts) }; looking = null; asking = false;
+    run = { opts: opts, state: sim.init(data, opts) }; looking = null; asking = false; shown = {};
     shut = 1; save(); fly(); render("day"); go();
   }
   function runwayText(n) { return n >= 0 ? days(n) + " left" : days(-n) + " late"; }
+
+  /* ------------------------------------------------------------------ a link to a day
+     #day-45 opens Day 45 on a fresh whole-team run, with the earlier days played by the book. It never
+     replaces a run in progress without being asked: with a save, the title offers both. A hash that
+     begins with a slash is an old workbench route, and the page's first script has forwarded it. */
+  function linked() {             // the day a link asks for, as an index, or -1
+    var m = /^#day-(\d+)$/.exec(location.hash || ""), i;
+    for (i = 0; m && i < data.days.length; i++) if (data.days[i].day === +m[1]) return i;
+    return -1;
+  }
+  function unlink() { try { if (/^#day-/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* the address stays */ } }
+  function openAt(i, replace) {
+    var opts = { mode: "team", seed: 0, from: i };
+    run = { opts: opts, state: sim.fold(data, opts, sim.book(data, opts, i)) }; looking = null; asking = false; shown = {};
+    shut = gateShut(run.state); if (replace) { save(); unlink(); }
+    fly(); render("day"); go();
+  }
+  function resume(saved) { run = { opts: saved.opts, state: sim.fold(data, saved.opts, saved.history) }; shown = {}; unlink(); render("day"); go(); }
+  function savedDay(saved) { return data.days[Math.min(data.days.length - 1, saved.history.filter(function (a) { return a.t === "next"; }).length)].day; }
+  function boot() {               // on load, and when the address changes under the page
+    var i = linked(), saved = load();
+    run = null; looking = null; asking = false;
+    if (i >= 0 && !(saved && saved.history.length)) openAt(i, false);
+    else render("title");
+  }
 
   /* ------------------------------------------------------------------ pieces of the panel */
   function hud(state) {
@@ -191,7 +223,7 @@
     for (i = 0; i < data.days.length; i++) {
       d = data.days[i]; cls = i < state.i || state.beat === "end" ? "was" : i === state.i ? "now" : "";
       due = state.debts.filter(function (x) { return x.due === d.id && x.state === "sealed"; }).length;
-      strip.appendChild(el("li", { "class": cls + (due ? " owed" : ""), "aria-current": cls === "now" ? "step" : null, style: "--c:var(--dg-" + ["slate", "indigo", "teal", "amber"][d.phase] + ")" },
+      strip.appendChild(el("li", { "class": cls + (due ? " owed" : ""), "data-day": d.id, "aria-current": cls === "now" ? "step" : null, style: "--c:var(--dg-" + HUE[d.phase] + ")" },
         [el("span", { text: String(d.day) }), due ? el("i", { title: due === 1 ? "Something comes due" : due + " things come due" }, [el("span", { "class": "vh", text: " (something comes due)" })]) : null]));
     }
     var pips = el("span", { "class": "nd-pips", "aria-hidden": "true" });
@@ -246,15 +278,19 @@
     return el("div", { "class": "nd-filedbox" }, [el("p", { "class": "nd-k", text: state.filed.length === 1 ? "On file" : "On file, " + state.filed.length + " documents" }), ul]);
   }
   function outcome(state, day) {
-    var box = el("div", { "class": "nd-out", tabindex: "-1" }), sealed, last = state.debts[state.debts.length - 1];
+    var box = el("div", { "class": "nd-out", tabindex: "-1" }), sealed;
     state.events.forEach(function (e) {
       if (e.kind === "choice") box.appendChild(el("p", { "class": "nd-you" }, [el("b", { text: e.label }), el("em", { text: e.days ? days(e.days) : "no days" })]));
       if (e.kind === "choice" || e.kind === "task" || e.kind === "gate" || e.kind === "fix" || e.kind === "repair" || e.kind === "move")
         box.appendChild(el("p", { "class": "ev-" + e.kind }, [e.text, e.kind !== "choice" && e.days ? el("em", { text: " " + days(e.days) + "." }) : null,
           e.trust > 0 ? el("em", { text: " Trust falls by " + e.trust + "." }) : e.trust < 0 ? el("em", { text: " Trust rises." }) : null]));
     });
-    sealed = last && last.id === day.id && last.state === "sealed";
-    if (sealed) box.appendChild(el("p", { "class": "nd-sealed" }, [el("i", { "aria-hidden": "true" }), "Something is pinned to Day " + last.dueDay + "."]));
+    // what today left sealed, by the day it comes due: a task can pin more than one thing
+    sealed = [];
+    state.debts.forEach(function (x) { if (x.id === day.id && x.state === "sealed" && sealed.indexOf(x.dueDay) < 0) sealed.push(x.dueDay); });
+    sealed.sort(function (a, b) { return a - b; });
+    if (sealed.length) box.appendChild(el("p", { "class": "nd-sealed" }, [el("i", { "aria-hidden": "true" }),
+      "Something is pinned to " + sealed.map(function (n, k) { return (k && k === sealed.length - 1 ? "and " : "") + "Day " + n; }).join(sealed.length > 2 ? ", " : " ") + "."]));
     var f = filedList(state); if (f) box.appendChild(f);
     return box;
   }
@@ -268,7 +304,93 @@
     return p;
   }
 
-  /* ------------------------------------------------------------------ the five tasks */
+  /* ------------------------------------------------------------------ four small simulations
+     Each shows one idea the words alone carry badly, plays once in true steps (no number counts up),
+     and ends on the whole picture. With reduced motion the whole picture is simply there. They move
+     only transform, opacity and clip-path; the timings are in game.css. */
+  function once(name) {           // true the first time this figure is shown on this day of this run
+    var k = run.state.i + ":" + name, first = !shown[k];
+    shown[k] = 1;
+    return first && !still;
+  }
+  // Day 45. One score becomes three: a column per kind of case, as wide as its share of the cases, each
+  // with its own bar and the margin under its score. The smallest sample has the longest whisker.
+  function splitFigure(state, t, bars) {
+    var n = 0, right = 0, plot = el("div", { "class": "nd-split-plot" }), names = [];
+    t.slices.forEach(function (s) { n += s.n; right += s.right; });
+    t.slices.forEach(function (s) {
+      var st = sim.sliceStats(s);
+      names.push(lower(s.name) + " (" + s.n + ")");
+      plot.appendChild(el("div", { "class": "nd-split-col", style: "flex:" + s.n + " 0 0;--s:" + st.score + ";--l:" + st.lower + ";--b:" + bars[s.id] + ";--a:" + (100 * right / n) }, [
+        el("i", { "class": "nd-split-fill" }), el("i", { "class": "nd-split-whisk" }), el("i", { "class": "nd-split-bar" }), el("b", { text: String(st.score) })]));
+    });
+    plot.appendChild(el("span", { "class": "nd-split-one", style: "--a:" + (100 * right / n), text: (Math.round(1000 * right / n) / 10) + " on all " + n }));
+    return el("div", { "class": "nd-sim nd-split" + (once("split") ? " nd-go" : "") }, [
+      el("div", { "aria-hidden": "true" }, [plot]),
+      el("p", { "class": "nd-cap" }, ["One score is three scores. Left to right: " + names.join(", ") + ". ",
+        el("i", { "class": "nd-key bar", "aria-hidden": "true" }), "the bar ", el("i", { "class": "nd-key whisk", "aria-hidden": "true" }), "the least the score could be"])]);
+  }
+  // Day 75. The bill is the estimate stretched four times over: the habits multiply. Ticking a fix
+  // takes its factor out, and everything after it shrinks.
+  function billFigure(t) {
+    var plot = el("div", { "class": "nd-bill-plot" }), labs = el("div", { "class": "nd-bill-labs" }), total = el("b"), segs = [], whole = 1, fig;
+    t.rows.forEach(function (r) { whole *= r.factor; });
+    [{ id: "", factor: 1, name: "estimate" }].concat(t.rows).forEach(function (r, k) {
+      var seg = el("i", { "class": "nd-bill-seg" + (k ? " f" + k : " est"), style: "--k:" + k }), lab = el("span", { style: "--k:" + k, text: k ? "×" + r.factor : "estimate" });
+      plot.appendChild(seg); labs.appendChild(lab); segs.push({ row: r, seg: seg, lab: lab });
+    });
+    fig = el("div", { "class": "nd-sim nd-bill" + (once("bill") ? " nd-go" : ""), "aria-hidden": "true" }, [
+      el("p", { "class": "nd-bill-top" }, [el("span", { text: "The bill, as a multiple of the estimate" }), total]), plot, labs]);
+    fig.paint = function (off) {             // `off` is the list of fixes ticked
+      var at = 0;
+      segs.forEach(function (x, k) {
+        var gone = k && off.indexOf(x.row.id) >= 0, from = at, to = k ? (gone ? at : at * x.row.factor) : 1;
+        x.seg.style.transform = "translateX(" + (100 * from / whole) + "%) scaleX(" + Math.max(0, (to - from) / whole) + ")";
+        x.seg.classList.toggle("gone", !!gone); x.lab.classList.toggle("gone", !!gone);
+        x.lab.style.left = (100 * (from + to) / 2 / whole) + "%";
+        at = to;
+      });
+      total.textContent = (Math.round(at * 100) / 100) + " times";
+    };
+    fig.paint([]);
+    return fig;
+  }
+  // Day 82. The same $2,000 refund meets the $400 limit in one of two places: a sentence in the prompt,
+  // which is paper, or the refund tool itself, which is a wall.
+  function refundStrip(form) {
+    var paid = form === "paid";
+    return el("div", { "class": "nd-sim nd-pw " + (paid ? "nd-pw-paid" : "nd-pw-held") + (once("refund") ? " nd-go" : "") }, [
+      el("div", { "class": "nd-pw-row", "aria-hidden": "true" }, [
+        el("span", { "class": "nd-pw-end", text: "The assistant" }),
+        el("span", { "class": "nd-pw-track" }, [el("i", { "class": "nd-pw-run" }, [el("b", { text: "$2,000" })]), el("i", { "class": "nd-pw-stop" }),
+          el("em", { text: paid ? "the prompt" : "the tool" })]),
+        el("span", { "class": "nd-pw-end", text: "The passenger" })]),
+      el("p", { "class": "nd-cap", text: paid ? "The $400 limit was a sentence in the prompt. That is paper, and the refund went through it."
+        : "The $400 limit is in the refund tool itself. That is a wall, and the refund stopped at it." })]);
+  }
+  // A debt is pinned: a rose pin leaves the outcome line and lands on the day it comes due, one day
+  // after another. The strip keeps the pin; this only shows where it came from.
+  function flyPins(due) {
+    var from = panel.querySelector(".nd-sealed i"), seen = {}, n = 0, spring;
+    if (still || !from || !from.animate || !due.length) return;
+    try { spring = getComputedStyle(root).getPropertyValue("--spring").trim() || "ease-out"; } catch (e) { spring = "ease-out"; }
+    due.forEach(function (id) {
+      var to = panel.querySelector('.nd-strip li[data-day="' + id + '"] i'), a, b, pin, fly;
+      if (seen[id] || !to) return;
+      seen[id] = 1; a = from.getBoundingClientRect(); b = to.getBoundingClientRect();
+      pin = el("i", { "class": "nd-pin", "aria-hidden": "true", style: "left:" + (a.left + window.scrollX) + "px;top:" + (a.top + window.scrollY) + "px;width:" + a.width + "px;height:" + a.height + "px" });
+      document.body.appendChild(pin); to.classList.add("nd-wait");
+      fly = pin.animate([{ transform: "translate(0,0) scale(1)", opacity: 1 }, { transform: "translate(" + (b.left - a.left + (b.width - a.width) / 2) + "px," + (b.top - a.top + (b.height - a.height) / 2) + "px) scale(" + (b.width / a.width) + ")", opacity: 1 }],
+        { duration: 520, delay: n * 380, easing: "cubic-bezier(.22,1,.36,1)", fill: "both" });
+      fly.onfinish = function () {
+        pin.remove(); to.classList.remove("nd-wait");
+        try { to.animate([{ transform: "scale(2)" }, { transform: "scale(1)" }], { duration: 400, easing: spring }); } catch (e) { /* an old browser: the pin is simply there */ }
+      };
+      n++;
+    });
+  }
+
+  /* ------------------------------------------------------------------ the six tasks */
   function taskForm(state, id) {
     var t = data.tasks[id], box = el("form", { "class": "nd-task", onsubmit: function (e) { e.preventDefault(); } }), submit, status = el("p", { "class": "nd-status", role: "status" });
     box.appendChild(el("h3", { text: t.title })); box.appendChild(el("p", { "class": "nd-intro", text: t.intro }));
@@ -277,7 +399,29 @@
       box.appendChild(status); box.appendChild(submit);
       box.addEventListener("submit", function () { var v = get(); if (v == null) return; act(state.beat === "choose" && state.pending ? { t: "challenge", input: v } : { t: "task", id: id, input: v }); });
     }
-    if (id === "bar") {
+    if (id === "limits") {
+      // six lines, six checkboxes: as a real limit is ticked, the target it bends is shown rewritten
+      var bends = el("ul", { "class": "nd-bends", "aria-live": "polite" }), rest = el("p", { "class": "nd-count" });
+      var sort = function () {
+        var n = 0; bends.innerHTML = "";
+        t.lines.forEach(function (ln) {
+          if (!box.querySelector("#lm-" + ln.id).checked) return;
+          n++; if (ln.bends) bends.appendChild(el("li", {}, [el("b", { text: ln.limit + ". " }), ln.bends]));
+        });
+        rest.textContent = (n ? n + " ticked. " : "Nothing ticked yet. ") + (t.lines.length - n) + " of the six " + (t.lines.length - n === 1 ? "goes" : "go") + " to the Day 9 workshop.";
+        status.textContent = "";
+        return n;
+      };
+      t.lines.forEach(function (ln) {
+        box.appendChild(el("label", { "class": "nd-check big", "for": "lm-" + ln.id }, [el("input", { type: "checkbox", id: "lm-" + ln.id, value: ln.id, onchange: sort }), el("span", { text: ln.text })]));
+      });
+      box.appendChild(el("p", { "class": "nd-k", text: "What each limit does to a target" })); box.appendChild(bends); box.appendChild(rest); sort();
+      done("File the limits", function () {
+        var out = []; box.querySelectorAll("input:checked").forEach(function (c) { out.push(c.value); });
+        if (!out.length) { status.textContent = "Nothing is ticked. Tick each line that nobody here can change in ninety days."; return null; }
+        return out;
+      });
+    } else if (id === "bar") {
       var hold = el("input", { type: "checkbox", id: "nd-hold" }), tb = el("tbody");
       var paint = function () {
         tb.innerHTML = "";
@@ -294,6 +438,7 @@
       done("Sign the bars", function () { return { hold: hold.checked }; });
     } else if (id === "score") {
       var bars = sim.bars(data, state);
+      box.appendChild(splitFigure(state, t, bars));
       t.slices.forEach(function (s) {
         var st = sim.sliceStats(s), fs = el("fieldset", { "class": "nd-slice" }, [el("legend", { text: s.name })]);
         fs.appendChild(el("p", { "class": "nd-gauge" }, [
@@ -328,9 +473,10 @@
         return out;
       });
     } else if (id === "leak") {
-      var sum = el("p", { "class": "nd-count", role: "status" });
+      var sum = el("p", { "class": "nd-count", role: "status" }), bill = billFigure(t);
       var calc = function () {
-        var m = 4.4, d = 0; t.rows.forEach(function (r) { if (box.querySelector("#lk-" + r.id).checked) { m /= r.factor; d += r.days; } });
+        var m = 4.4, d = 0, off = []; t.rows.forEach(function (r) { if (box.querySelector("#lk-" + r.id).checked) { m /= r.factor; d += r.days; off.push(r.id); } });
+        bill.paint(off);
         sum.textContent = (d === 0 ? "Nothing chosen yet." : "Chosen: " + (d === 0.5 ? "half a day" : days(d)) + " of work.") + " The bill would be " + (Math.round(m * 100) / 100) + " times the estimate." + (d > t.budget ? " That is more than one day." : "");
         return d;
       };
@@ -338,8 +484,9 @@
       t.rows.forEach(function (r) {
         tbl.appendChild(el("tr", {}, [
           el("th", { scope: "row" }, [el("label", { "class": "nd-check", "for": "lk-" + r.id }, [el("input", { type: "checkbox", id: "lk-" + r.id, onchange: calc }), el("span", { text: r.fix })])]),
-          el("td", { text: r.name + ": " + r.was + ", now " + r.now }), el("td", { text: r.days === 0.5 ? "half a day" : days(r.days) })]));
+          el("td", {}, [r.name + ": " + r.was + ", now " + r.now + " ", el("b", { text: "×" + r.factor })]), el("td", { text: r.days === 0.5 ? "half a day" : days(r.days) })]));
       });
+      box.appendChild(bill);
       box.appendChild(el("table", { "class": "nd-tb stack" }, [el("thead", {}, [el("tr", {}, [el("th", { scope: "col", text: "Fix" }), el("th", { scope: "col", text: "What the log shows" }), el("th", { scope: "col", text: "Takes" })])]), tbl]));
       box.appendChild(sum); calc();
       done("Start the fixes", function () {
@@ -375,13 +522,13 @@
       var on = sim.has(state, a);
       lamps.appendChild(el("li", { "class": on ? "on" : "" }, [el("i", { "aria-hidden": "true" }), el("b", { text: data.artefacts[a].name }), el("span", { text: on ? "signed" : "missing" })]));
     });
-    box.appendChild(el("h3", { text: "The gate" }));
+    box.appendChild(el("h3", { text: "The sign-off" }));
     box.appendChild(el("p", { "class": "nd-intro", text: "This is the one hand-off that stops the work. Nothing is built until three documents are signed. After today, changing your mind costs a rewrite." }));
     box.appendChild(lamps);
-    if (!miss.length) box.appendChild(el("div", { "class": "nd-acts" }, [el("button", { type: "button", "class": "btn pri", text: "Open the gate", onclick: function () { act({ t: "gate", how: "pass" }); } })]));
+    if (!miss.length) box.appendChild(el("div", { "class": "nd-acts" }, [el("button", { type: "button", "class": "btn pri", text: "Sign and start the build", onclick: function () { act({ t: "gate", how: "pass" }); } })]));
     else box.appendChild(el("div", { "class": "nd-acts" }, [
-      el("button", { type: "button", "class": "nd-opt", onclick: function () { act({ t: "gate", how: "hold" }); } }, [el("span", { "class": "nd-opt-l", text: "Hold the gate and write what is missing" }), el("span", { "class": "nd-opt-p", text: days(2 * miss.length) })]),
-      el("button", { type: "button", "class": "nd-opt", onclick: function () { act({ t: "gate", how: "open" }); } }, [el("span", { "class": "nd-opt-l", text: "Open the gate with what is on file" }), el("span", { "class": "nd-opt-p", text: "no days" })])]));
+      el("button", { type: "button", "class": "nd-opt", onclick: function () { act({ t: "gate", how: "hold" }); } }, [el("span", { "class": "nd-opt-l", text: "Hold the build and write what is missing" }), el("span", { "class": "nd-opt-p", text: days(2 * miss.length) })]),
+      el("button", { type: "button", "class": "nd-opt", onclick: function () { act({ t: "gate", how: "open" }); } }, [el("span", { "class": "nd-opt-l", text: "Start the build with what is on file" }), el("span", { "class": "nd-opt-p", text: "no days" })])]));
     return box;
   }
 
@@ -392,10 +539,11 @@
     if (state.mode === "org") box.appendChild(el("p", { "class": "nd-you-are" }, [el("b", { text: "You are Ines, the sponsor. " }), state.tokens + (state.tokens === 1 ? " question" : " questions") + " left to ask."]));
     if (sealed.length && state.mode !== "org") {
       var ul = el("ul", { "class": "nd-debts" });
+      var back = {};                               // one way back per day, however many things that day left
       sealed.forEach(function (x) {
-        var c = sim.repairCost(data, x.d);
+        var c = sim.repairCost(data, x.d), first = !back[x.d.id]; back[x.d.id] = 1;
         ul.appendChild(el("li", {}, [el("span", {}, [el("b", { text: "Day " + x.d.dueDay + ". " }), "From Day " + x.d.from + ": " + x.d.tag + "."]),
-          el("button", { type: "button", "class": "btn ghost sm", onclick: function () { act({ t: "repair", debt: x.i }); } }, ["Go back and do it properly ", el("em", { text: days(c) })])]));
+          first ? el("button", { type: "button", "class": "btn ghost sm", onclick: function () { act({ t: "repair", debt: x.i }); } }, ["Go back to Day " + x.d.from + " and do it properly ", el("em", { text: days(c) })]) : null]));
       });
       box.appendChild(el("div", { "class": "nd-owed" }, [el("p", { "class": "nd-k", text: sealed.length === 1 ? "One thing comes due" : sealed.length + " things come due" }), ul]));
     }
@@ -413,11 +561,11 @@
     ["board", "product", "arch", "eng", "qa", "platform", "centre"].forEach(function (id) {
       var c = roomCard(id, state);
       chips.appendChild(el("button", { type: "button", "class": "nd-chip" + (looking === id ? " on" : ""), "aria-pressed": looking === id ? "true" : "false", "data-room": id,
-        onclick: function () { looking = looking === id ? null : id; lastRoom = id; render("look"); }, text: c.name }));
+        onclick: function () { looking = looking === id ? null : id; lastRoom = id; render("look"); } }, [el("i", { "aria-hidden": "true", style: "background:" + A.paint(id).hue }), c.name]));
     });
     var out = [el("p", { "class": "nd-k", text: "Look in on a room" }), chips];
     if (looking) {
-      var c = roomCard(looking, state), card = el("div", { "class": "nd-card", tabindex: "-1" }, [el("b", { text: c.name })]);
+      var c = roomCard(looking, state), card = el("div", { "class": "nd-card", tabindex: "-1", style: "--rc:" + A.paint(looking).hue }, [el("b", { text: c.name })]);
       c.lines.forEach(function (l) { card.appendChild(el("p", { text: l })); });
       if (c.act) card.appendChild(el("button", { type: "button", "class": "nd-opt", onclick: function () { act({ t: c.act.t }); } }, [el("span", { "class": "nd-opt-l", text: c.act.label }), el("span", { "class": "nd-opt-p", text: days(c.act.days) })]));
       out.push(card);
@@ -426,8 +574,29 @@
   }
 
   /* ------------------------------------------------------------------ screens */
-  function head(text, sub) {
-    return el("div", { "class": "nd-dayhead" }, [el("h2", { tabindex: "-1", text: text }), sub ? el("p", { text: sub }) : null]);
+  // The head of a day, for a reader who has seen no other day: where and when, the headline, one fixed
+  // sentence on where the project is, and the earlier call that today leans on.
+  var HUE = ["slate", "indigo", "teal", "amber"];
+  function dayHead(state, day) {
+    var so = sim.soFar(data, state), from = run.opts.from || 0;
+    return el("div", { "class": "nd-dayhead", style: "--c:var(--dg-" + HUE[day.phase] + ")" }, [
+      el("p", { "class": "nd-kick" }, [el("i", { "aria-hidden": "true" }), "Day " + day.day + " of 90 · " + data.phases[day.phase].name + " · " + data.rooms[day.room]]),
+      el("h2", { tabindex: "-1", text: "Day " + day.day + ". " + day.head }),
+      el("p", { "class": "nd-ctx" }, [el("span", { text: data.short + " " }), day.context]),
+      so.text ? el("p", { "class": "nd-sofar" }, [el("b", { text: so.label + " " }), so.text]) : null,
+      from > 0 && state.i === from ? el("p", { "class": "nd-book", text: (from === 1 ? "Day 1 was" : "Days 1 to " + data.days[from - 1].day + " were") + " played by the book so you can start here." }) : null]);
+  }
+  // The site's header carries one pill for this page. While a day is on screen it points at the lesson
+  // behind that day; on the title, the ending and a day with no lesson it goes back to the tutorial.
+  function pill(day) {
+    var a = document.querySelector("a.play[data-ctx-lesson]"), l = null, lg, sm;
+    if (!a) return;
+    ((day && day.deeper) || []).forEach(function (d) { if (!l && d[0] === "lesson") l = d; });
+    lg = a.querySelector(".lg"); sm = a.querySelector(".sm");
+    a.setAttribute("href", UP + (l ? l[1] : "learn/"));
+    if (lg) lg.textContent = l ? "Read the lesson" : "The tutorial";
+    if (sm) sm.textContent = l ? "Lesson" : "Tutorial";
+    if (l) a.setAttribute("title", l[2]); else a.removeAttribute("title");
   }
   function pauseControl() {         // one switch, shown on both pictures, kept in step
     var box = el("input", { type: "checkbox", autocomplete: "off", "data-motion-toggle": true, onchange: function (e) {
@@ -443,12 +612,19 @@
   }
 
   function titleScreen() {
-    var saved = load(), b = best(), kids = [];
+    var saved = load(), b = best(), kids = [], want = linked();
+    if (want >= 0 && saved && saved.history.length) {        // a link to a day, and a run in progress: the player says which
+      return [el("div", { "class": "nd-title" }, [
+        el("p", { "class": "nd-pitch", text: "This link opens Day " + data.days[want].day + ". You also have a run in progress, on Day " + savedDay(saved) + "." }),
+        el("div", { "class": "nd-acts" }, [
+          el("button", { type: "button", "class": "btn pri", text: "Carry on from Day " + savedDay(saved), onclick: function () { resume(saved); } }),
+          el("button", { type: "button", "class": "btn ghost", text: "Open Day " + data.days[want].day + " on a fresh run", onclick: function () { openAt(want, true); } })]),
+        el("p", { "class": "nd-best", text: "A fresh run replaces the one you have saved." })])];
+    }
     kids.push(el("div", { "class": "nd-title" }, [
       el("p", { "class": "nd-pitch", text: "Thirteen days decide the ninety. Every call has a price in days. Some prices arrive later." }),
       el("div", { "class": "nd-acts" }, [
-        saved && saved.history.length ? el("button", { type: "button", "class": "btn pri", text: "Carry on from Day " + data.days[Math.min(12, saved.history.filter(function (a) { return a.t === "next"; }).length)].day,
-          onclick: function () { run = { opts: saved.opts, state: sim.fold(data, saved.opts, saved.history) }; render("day"); go(); } }) : null,
+        saved && saved.history.length ? el("button", { type: "button", "class": "btn pri", text: "Carry on from Day " + savedDay(saved), onclick: function () { resume(saved); } }) : null,
         el("button", { type: "button", "class": saved && saved.history.length ? "btn ghost" : "btn pri", text: "Start at Day 1", onclick: function () { start({ mode: "team", seed: seed() }); } })]),
       b ? el("p", { "class": "nd-best", text: "Your best ending so far: " + data.verdicts[b.key].name.toLowerCase() + "." }) : null,
       el("div", { "class": "nd-ways" }, [
@@ -487,12 +663,13 @@
   }
 
   function playScreen(state) {
-    var day = sim.today(data, state), ph = data.phases[day.phase], kids = [], own = who(day.owner), right, planned, o;
+    var day = sim.today(data, state), kids = [], own = who(day.owner), right, planned, o;
     kids.push(hud(state));
     kids.push(el("div", { "class": "nd-scene" }, [sceneCv, still ? null : pauseControl()]));
-    kids.push(head("Day " + day.day + ". " + day.title, ph.name + " (" + ph.key + ") · " + own.name + "'s call · " + (day.track === "tech" ? "tech" : "consultancy") + " track"));
+    kids.push(dayHead(state, day));
     var ev = eventList(state); if (ev) kids.push(ev);
     if (state.beat === "choose") {
+      if (day.form) kids.push(refundStrip(day.form));
       kids.push(sceneLines(day));
       if (state.pending) {                       // a colleague's call, or the team's under the sponsor
         if (day.options) { planned = day.options.filter(function (x) { return x.id === state.pending; })[0]; right = sim.rightOption(day); }
@@ -536,7 +713,7 @@
     var v = sim.verdict(data, state), V = data.verdicts[v.key], L = sim.ledger(data, state), kids = [], b = best();
     try { if (!b || RANK[v.key] > RANK[b.key]) localStorage.setItem(BEST, JSON.stringify({ key: v.key, mode: state.mode })); } catch (e) { /* no storage */ }
     clearSave();
-    kids.push(el("div", { "class": "nd-verdict v-" + v.key }, [el("p", { "class": "nd-k", text: "Day 90. The steering committee" }), el("h2", { tabindex: "-1", text: V.name }), el("p", { text: V.line })]));
+    kids.push(el("div", { "class": "nd-verdict v-" + v.key }, [el("p", { "class": "nd-k", text: "Day 90 of 90 · The committee decides" }), el("h2", { tabindex: "-1", text: V.name }), el("p", { text: V.line })]));
     kids.push(el("dl", { "class": "nd-meters end" }, [
       el("div", { "class": v.late ? "bad" : "" }, [el("dt", { text: "The date" }), el("dd", { text: v.late ? days(v.late) + " late" : "met, " + days(state.slack) + " to spare" })]),
       el("div", {}, [el("dt", { text: "Sponsor's trust" }), el("dd", { text: state.trust + " of " + state.trustMax })]),
@@ -552,7 +729,8 @@
       debt.forEach(function (x) { back += (back ? " " : "") + (x.state === "fired" ? "Came back on Day " + x.dueDay + ": " + (x.days ? days(x.days) : "") + (x.days && x.trust ? ", " : "") + (x.trust ? "trust " + "−" + x.trust : "") + "." : x.state === "repaired" ? "Repaired before it fired." : ""); });
       if (!back && opt && opt.after) back = opt.after;
       rows.appendChild(el("tr", { "class": opt && opt.right ? "ok" : opt ? "off" : "" }, [el("th", { scope: "row", text: "Day " + d.day }),
-        el("td", { text: opt ? opt.label : d.id === "d13" ? "The slide: " + (state.slide || []).length + " lines" : "" }), el("td", { text: back || (opt && opt.right ? "On file." : "") })]));
+        el("td", {}, [el("span", { "class": "nd-callhead", text: form.head + " " }), el("b", { text: opt ? opt.label : d.id === "d13" ? "The slide: " + (state.slide || []).length + " lines" : "" })]),
+        el("td", { text: back || (opt && opt.right ? "On file." : "") })]));
     });
     kids.push(el("div", { "class": "nd-paper" }, [el("h3", { text: "Your thirteen calls" }),
       el("table", { "class": "nd-tb calls" }, [el("thead", {}, [el("tr", {}, [el("th", { scope: "col", text: "Day" }), el("th", { scope: "col", text: "The call" }), el("th", { scope: "col", text: "What it became" })])]), rows])]));
@@ -599,12 +777,15 @@
     if (!left) { left = stage(); root.appendChild(left); root.appendChild(panel); root.appendChild(live); }
     root.className = "nd-app " + (!state ? "at-title" : state.beat === "end" ? "at-end" : "at-play") + (focus === "org" ? " at-org" : "");
     document.documentElement.classList.toggle("nd-playing", !!state);
-    kids = focus === "org" ? orgSetup() : !state ? titleScreen() : state.beat === "end" ? endScreen(state) : playScreen(state);
-    panel.innerHTML = "";
-    kids.forEach(function (k) { panel.appendChild(k); });
+    if (focus !== "look" || !panel.firstChild) {      // looking in on a room leaves the panel alone, and a half-filled task with it
+      kids = focus === "org" ? orgSetup() : !state ? titleScreen() : state.beat === "end" ? endScreen(state) : playScreen(state);
+      panel.innerHTML = "";
+      kids.forEach(function (k) { panel.appendChild(k); });
+    }
     // the room cards live under the building
     var old = left.querySelector(".nd-look"); if (old) old.remove();
     if (state && state.beat !== "end" && focus !== "org") left.appendChild(roomBox(state));
+    pill(state && state.beat !== "end" && focus !== "org" ? sim.today(data, state) : null);
     draw();
     if (focus === "look") f = left.querySelector(".nd-card") || left.querySelector('.nd-chip[data-room="' + lastRoom + '"]');
     else if (focus === "stay") f = panel.querySelector(".nd-opts button, .nd-task input");
@@ -627,6 +808,7 @@
   // the plain list was for a page without script: this script is here, so the game takes over
   var plain = document.querySelector(".nd-plain"); if (plain) plain.hidden = true;
   root.hidden = false;
-  render("title");
+  window.addEventListener("hashchange", function () { if (linked() >= 0) boot(); });
+  boot();
   go();
 })();

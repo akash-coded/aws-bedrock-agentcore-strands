@@ -6,7 +6,7 @@ description: The four agentic AI decisions nobody below an executive can make, f
 dek: Delivery decisions belong to delivery. These four do not, because each trades a business risk against a business return, and the trade is yours.
 level: Beginner
 keywords: agentic AI for executives, AI strategy for leaders, CEO guide to AI agents, AI operating model, AI leadership decisions, how to lead AI transformation, board AI questions, CIO AI agents
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -42,6 +42,8 @@ and the first "no" ends it. A team under an agent-first directive will build age
 does better, and will not tell you, because you asked for agents. **Ask for** an AI-fit record per
 candidate, with the rejected alternative. **Healthy answer:** two or three of your top five are rules.
 
+{{sketch:a-scarecrow-would-do}}
+
 ### Decision 2 · What an agent may do without a person
 
 Per action, never per product, following what a mistake costs and whether it can be undone: acts alone,
@@ -54,6 +56,8 @@ opens a prompt file rather than a code file, you have found the gap that produce
 The decision that most often goes by default. Accept a demo and you will be shown demos; accept a single
 accuracy figure and the risky slice will hide inside the average. **Ask for** a score per slice against a
 derived bar, with its lower bound, plus a shadow run against the people doing the work today.
+
+{{sketch:a-rosette-on-the-chosen-pumpkin}}
 
 ### Decision 4 · What you will fund past the first cycle
 

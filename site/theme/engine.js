@@ -367,7 +367,7 @@
      parts fade in over about half a second. Nothing is hidden beforehand, so a figure this never
      reaches is simply there; reduced motion, a hidden tab or no observer and it does not run. */
   function wireFigures() {
-    var figs = $$("figure.fig > svg, .mmg svg, figure.bbw > svg");
+    var figs = $$("figure.fig > svg, .mmg svg, figure.bbw > svg, figure.sketch svg");
     if (!figs.length || !("IntersectionObserver" in window) || document.hidden) return;
     try {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -376,6 +376,14 @@
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
+        if (e.target.classList.contains("sk")) {
+          // a sketch: the scene is there, complete; only its notes arrive, in the order they were written
+          [].slice.call(e.target.querySelectorAll("[data-an]")).forEach(function (k) {
+            k.style.setProperty("--fd", (150 + 80 * (+k.getAttribute("data-an") - 1)) + "ms");
+          });
+          e.target.classList.add("fig-in");
+          return;
+        }
         var kids = [].slice.call(e.target.children).filter(function (k) {
           var t = k.tagName.toLowerCase();
           return t !== "defs" && t !== "style" && t !== "title" && t !== "desc";

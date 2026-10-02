@@ -6,7 +6,7 @@ description: How QA works in the agentic PDLC: the proof each step owes, golden 
 dek: "It works" stops being a yes or a no. Your job becomes the number that says how often it works, and whether that number is proof.
 level: Intermediate
 keywords: testing AI agents, QA for LLM applications, AI quality assurance, how to test probabilistic software, LLM evaluation, AI test automation, golden dataset testing, QA lead AI
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -62,6 +62,8 @@ is 82.4%, and its lower bound of 79.1% does not prove an 80% bar. **6 · Attack*
 entry point against every gated tool, weekly. **7 · Shadow**: agreement per slice over a fixed window,
 money actions reported separately. [Prove the bar](lesson:prove-ai-accuracy)
 
+{{sketch:the-last-sure-thread}}
+
 ### P3 · Run & Learn
 
 **8 · Watch** the output mix against two thresholds, with a breach wired to the release gate; and turn
@@ -84,6 +86,8 @@ hundred candidate cases, cluster forty shadow disagreements into four themes, an
 runs them. It must not decide what counts as right, or grade its own family's outputs and hand you the
 number unlabelled: a judge is a measuring instrument with an unknown error until you calibrate it
 against people.
+
+{{sketch:check-the-judges-tape}}
 
 ## Where you'll use it
 

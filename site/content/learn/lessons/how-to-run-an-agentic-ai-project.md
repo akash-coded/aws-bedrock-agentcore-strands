@@ -6,7 +6,7 @@ description: Twelve steps from a vague request to an AI agent in production that
 dek: The whole lifecycle on one page, in the order you will do it. Each step links to the lesson that goes deeper.
 level: Beginner
 keywords: how to run an AI project, AI agent project plan, agentic AI project management, AI project steps, AI implementation roadmap, how to deliver an AI agent, AI project checklist
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 
 The order is the point. Every step below makes a later one cheaper, and doing them out of order is
 how agentic projects end up rebuilt.
+
+{{sketch:foundations-dug-under-the-house}}
 
 ## The twelve steps
 
@@ -105,6 +107,8 @@ Most agentic projects have the right activities in the wrong order. The prototyp
 pain is measured, so the value is unknown; the build starts before the bar is set, so "good enough"
 is argued at launch; the cap is decided in a document and enforced nowhere. The order in this list is
 what prevents each of those.
+
+{{sketch:plumb-line-after-the-wall}}
 
 ## Try it
 

@@ -6,7 +6,7 @@ description: A project board for AI agent delivery: evidence as the exit rule fo
 dek: A board that moves cards on evidence, not on status. Nine columns, five lanes, and the three numbers a programme manager actually needs.
 level: Intermediate
 keywords: kanban board for AI projects, AI project board, agile board for AI agents, Jira for AI development, GitHub Projects AI, WIP limits, AI program management, how to track AI agent development
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -32,6 +32,8 @@ updated: 2026-09-24
 A board built for software that behaves the same way every time moves cards on status. An agentic
 board has to move them on evidence.
 
+{{sketch:the-skewer-says-not-yet}}
+
 ## What is different about an agentic board?
 
 Three things. **Columns end on evidence**: a card leaves "harness green" only when every slice it
@@ -56,6 +58,8 @@ writes, money, and irreversible changes. A card inherits the band of the most da
 it touches: never of its size. The lane then tells everyone, at a glance, how many readers a change
 needs and whether a named approver must sign.
 
+{{sketch:raw-fish-gets-its-own-board}}
+
 ### Step 3 · Put one unknown on every card
 
 Each card is a bolt, and each bolt carries exactly one unknown, written on the card: *does the adapter
@@ -71,6 +75,8 @@ day from the last four weeks. At SkyWays nine changes needed 18 slots against 4.
 queue. Routing readers by band cut the slots needed to 7 and the queue to 1.6 days, with nobody reading
 faster. Set the limit on the Building column so that what enters matches what review can clear.
 [Review by risk band](lesson:review-ai-generated-code)
+
+{{sketch:tap-turned-down-to-the-drain}}
 
 ### Step 5 · Show blocked decisions, not just blocked work
 

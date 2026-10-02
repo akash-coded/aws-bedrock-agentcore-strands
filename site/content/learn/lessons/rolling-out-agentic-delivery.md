@@ -6,7 +6,7 @@ description: A 90-day plan for rolling out agentic AI delivery: pick for provabi
 dek: The sequence that works is deliberately unglamorous in the middle, and each phase has one trap that reliably catches capable teams.
 level: Intermediate
 keywords: AI rollout plan, how to roll out AI in an organisation, AI adoption roadmap, 90 day AI plan, AI transformation plan, AI pilot to production, AI change management, scaling AI agents
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 > [!TIP]
@@ -48,6 +48,8 @@ existing human process to compare against. Run the three AI-fit questions across
 and publish the ones that came back as rules. **Take the baseline now**: person-days per story, before
 anything changes. **The trap:** starting with the flagship, which has the highest bar, the least
 tolerance for a first attempt and the most spectators. [Is it AI work?](lesson:p0-frame)
+
+{{sketch:past-the-safe-to-the-pennies}}
 
 ### Step 2 · Days 15 to 30: write the artefacts nobody wants to write
 
@@ -91,6 +93,8 @@ the first, because the artefacts now exist to copy. [The maturity model](lesson:
 The move that does most of the change management is unglamorous: **credit every requirement to the
 person who raised it, in writing, before consolidating any of them.** A voice that felt dropped in week
 one comes back in week five as a constraint.
+
+{{sketch:a-name-on-every-seedling}}
 
 ## When to use it
 

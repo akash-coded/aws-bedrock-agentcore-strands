@@ -5,8 +5,10 @@ The game itself is in ``site/play/``: ``days.json`` (every word and number), ``s
 run in, through the site's own shell, and writes the thirteen days as a plain list underneath for a
 reader without script.
 
-The workbench used to live at this address. Its routes all begin ``#/``, and the game never uses a
-hash, so the first script in the head forwards any such route to ``/workbench/`` before the page paints.
+The workbench used to live at this address. Its routes all begin ``#/``. The game's only hashes are
+``#day-45`` and its twelve siblings, which open a day with the earlier ones played by the book, so the
+first script in the head forwards any route that begins with a slash to ``/workbench/`` before the
+page paints.
 """
 from __future__ import annotations
 
@@ -33,11 +35,12 @@ def _plain(data: dict) -> str:
     """The thirteen days as text: the situation, the question, and each option with its price and what
     it did. This is what a reader without script gets, and what a search engine reads."""
     out = []
+    who = lambda k: data["cast"].get(k, {}).get("name", k)
     for d in data["days"]:
         forms = list(d["variants"].values()) if "variants" in d else [d]
-        out.append(f'<h2>Day {d["day"]}. {_E(d["title"])}</h2>')
         for f in forms:
-            who = lambda k: data["cast"].get(k, {}).get("name", k)
+            # a day stands alone: its headline, then one sentence on where the project is
+            out.append(f'<h2>Day {d["day"]}. {_E(f["head"])}</h2><p>{_E(d["context"])}</p>')
             out.append("".join(f"<p><b>{_E(who(k))}:</b> {_E(line)}</p>" for k, line in f["scene"]))
             out.append(f'<p><b>{_E(f["ask"])}</b></p>')
             if d.get("task") == "slide":
@@ -50,6 +53,13 @@ def _plain(data: dict) -> str:
                     f'<li>{_E(o["label"])} ({_days(o["days"])}). {_E(o["now"])}'
                     + (f' Later: {_E(o["debt"]["text"])}' if o.get("debt") else "") + "</li>"
                     for o in f["options"]) + "</ul>")
+                if any(o.get("task") == "limits" for o in f["options"]):
+                    # the sixth task, as text: which of six lines called a must can move
+                    t = data["tasks"]["limits"]
+                    out.append(f'<p><b>{_E(t["title"])}</b> {_E(t["intro"])}</p><ul>' + "".join(
+                        f'<li>{_E(ln["text"])} ' + (f'A limit: {_E(ln["limit"].lower())}. {_E(ln["bends"])}' if ln.get("miss")
+                                                   else "A wish. It goes to the workshop to be ranked.") + "</li>"
+                        for ln in t["lines"]) + "</ul>")
     return "".join(out)
 
 

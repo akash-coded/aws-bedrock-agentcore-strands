@@ -423,7 +423,7 @@ Corrections, better explanations, new exercises and updates for changed AWS beha
   or [where to post what](docs/DISCUSSIONS.md)
 - 🤝 **Want to contribute?** [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - 🏛️ **How should a project like this be run?** The [Agentic PDLC · Lifecycle Reference](https://github.com/users/akash-coded/projects/8)
-  board — the repo's seven artefacts and four gates, cross-mapped to AiDD, BMAD and AWS AI-DLC
+  board — the repo's seven artefacts and four gates, cross-mapped to AIDD, BMAD and AWS AI-DLC
 - 📈 **What's happening right now?** [Repo Pulse](https://github.com/users/akash-coded/projects/10)
 - 🗺️ **What's next?** The [extension roadmap](docs/extension-roadmap.md) and its
   [public board](https://github.com/users/akash-coded/projects/6) — five phases, most items open to contributors
