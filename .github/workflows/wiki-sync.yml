@@ -1,0 +1,27 @@
+name: Wiki sync
+
+# Seeds the GitHub wiki from wiki/*.md with wiki/sync.sh, run from GitHub's side. The wiki is a git
+# repository of its own, which a cloud session's git proxy cannot reach, and GitHub's own token can.
+# Run by hand only (Actions, Wiki sync, Run workflow), because a sync overwrites the wiki; the script
+# itself refuses to run over a page someone edited in the browser since the last seed.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write   # for the wiki, not main
+
+concurrency: { group: wiki-sync, cancel-in-progress: false }
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Seed the wiki from wiki/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          bash wiki/sync.sh
