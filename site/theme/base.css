@@ -1790,8 +1790,8 @@ main.home{padding:0}
 .learn-s .sketch{margin:0;max-width:none}
 .learn-s .sk-paper{transition:translate 250ms var(--ease),box-shadow 250ms var(--ease)}
 .learn-s:hover .sk-paper{translate:0 -3px;box-shadow:0 18px 40px -22px rgba(8,10,20,.6)}
-.learn-k{display:inline-flex;gap:8px;margin:12px 2px 0;font-size:14px;font-weight:600;color:var(--ink)}
-.learn-k i{font-style:normal;transition:transform 250ms var(--ease)}
+.learn-k{display:block;margin:12px 2px 0;font-size:14px;font-weight:600;color:var(--ink)}
+.learn-k i{display:inline-block;margin-left:3px;font-style:normal;transition:transform 250ms var(--ease)}
 .learn-s:hover .learn-k i{transform:translateX(4px)}
 .band .learn-g+.ba{display:flex;margin-top:44px}
 .band .learn-g+.ba .btn{padding:14px 22px;font-size:15.5px;border-radius:13px}

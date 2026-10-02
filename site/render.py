@@ -843,7 +843,7 @@ def home_page(roles: list[dict]) -> str:
     if sk:
         les = lessons[sk["lesson"]]
         sample = (f'<a class="learn-s" href="learn/{les.slug}/">{_sketch.render(sk)[0]}'
-                  f'<span class="learn-k">From lesson {les.n} of {_E(les.track.title)}: {_E(les.short)} <i aria-hidden="true">→</i></span></a>')
+                  f'<span class="learn-k">From lesson {les.n} of {_E(les.track.title)}: {_E(les.short)}\u00a0<i aria-hidden="true">→</i></span></a>')
 
     # one real day of the game, as the game words it
     game = json.loads((SITE / "play" / "days.json").read_text(encoding="utf-8"))
