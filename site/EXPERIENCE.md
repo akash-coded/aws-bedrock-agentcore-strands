@@ -385,6 +385,75 @@ A label drawn in a hue is mixed toward the ink by a token in `base.css`, `--dg-t
 `--mg-text` where a mental-model glyph's label sits on a heavier tint, so it reads at 4.5:1 or more and
 the tints stay as they are.
 
+## The ninth council: a simulator a newcomer can read
+
+The owner had pressed "Start at Day 1" and seen nothing happen. As a newcomer they could not tell what
+their days were, where they could start or where the milestones fell, and asked "where's a 10000 ft
+view"; the building on the simulator page was not explained, "There is no mental map of that." They asked
+for a role picker with meaning, the tutorial finished, every alignment fault fixed, more speed, and a
+simulator as refined as the home page's day card, which they liked. Five advisors (an information
+designer, a game designer, a product and usability advisor, an art director and a sceptic) and the
+chair's verdict.
+
+**Where the council agreed.** One picture for the ninety days, on the title: a line with the four phases,
+the thirteen days and the four milestones (the sign-off before the build, the first test, the first bill,
+the sponsor's slide), every stop a way in. The building explained in page text, not on the canvas: a
+caption, a key of who works where and their days, and the three marks beside scraps of the drawing. The
+roles as rows that say what each decides, which days are theirs and what they leave with, because the roles
+are unequal: the architect makes six of the thirteen calls, the platform lead one. The home page's day card
+as the one component the title and play share, borrowed exactly: its paper, its corner, its one inset, its
+three sizes and its 48px answers. And "fix all alignment issues" read as a list of faults, each measured
+and each held by a check, never as a sweep by eye.
+
+**Where it clashed, and how it was settled.** Equal stops or a line drawn to time: the game designer kept
+equal stops, since the player moves by decisions and a line true to the calendar puts Days 1 to 9 in 31px
+on a phone; the information designer and the art director drew it to time, so that Days 1 to 4 stop looking
+as long as Days 30 to 45. Each where it does its job: to time on the title, where the question is when
+things happen, and equal cells in play, where the strip is the map of where you are and a line to scale has
+no room. Where the Start button sits: the game designer put the line under it, the information designer put
+it under the line, and the sceptic, finding the first screen already full, had the line replace the pitch.
+Start sits at the line's foot beside its caption, so pointing at a stop changes both, and Day 1's card took
+the pitch's place. The building under the fold at 1440: it ended 129px under the fold before the line went
+above it, and it cannot fit under the line at a whole-pixel scale, so it still starts on the first screen
+and ends under the fold. Accepted, because the council's own rule is a whole-pixel scale, never resampled.
+
+**What review caught.** No paper had reproduced the dead button: Start worked in Chrome and in WebKit, and
+the game designer asked which browser the owner had used. The sceptic's paper, read in after the first
+verdict, did. The title calls nothing in the rules script, so Start is the first call into it, and before
+the files were versioned that morning a new page script could meet a rules script ten minutes old, which
+threw a TypeError, left the title, collapsed its heading and saved an empty run. Removing one function from
+the rules reproduces it, so the playtest does that and expects the notice every press now gives. The review
+of the lesson pass found the drawn boards still too tall: the hard gate's map runs to 89% of a 1440 by 900
+screen against the council's cap of 70%, and its layout lives in the map engine, so it was left for a parcel
+of its own.
+
+**Refused, with the reason.** A guided tour or coach marks (Day 1 is the tutorial, and a key that stays on
+the page teaches without stopping play). Tilt or parallax for the "3d-like" card (it reads as deep through
+one long shadow and a room drawn in perspective, and tilt on the game's canvas breaks whole pixels).
+Splitting `base.css` by kind of page (it saves 30 KB once and reopens the fault of a page meeting an old
+stylesheet). A service worker (it turns ten minutes of stale cache into weeks).
+
+**Performance, before and after.** The sceptic measured the site before the round: the bytes of
+everything a page asks for, raw and gzipped, its first paint at 1440, and a phone on slow 4G with the
+processor slowed four times. The after is the gate's seventeenth pass (gzip at level 9) and the playtest.
+Where nothing was measured again, the before stands.
+
+| What | Before the round | After |
+| --- | --- | --- |
+| Home page: raw, gzipped, first paint at 1440, phone | 382 KB, 172 KB, 0.27 to 0.61 s, 0.9 to 1.5 s | Stands |
+| A lesson | 365 KB, 154 KB, 0.14 to 0.21 s, 1.3 to 1.4 s | Stands |
+| The simulator | 537 KB, 206 KB, 0.11 s, 1.0 s (the title at 1.5 to 1.7 s) | Stands; the page's own HTML is 16.4 KB gzipped |
+| The workbench | 1,949 KB, 833 KB, 0.52 to 0.58 s, largest paint at 5.6 s | Stands; the build keeps its bytes as they are |
+| `base.css`, gzipped | 37.6 KB (163 KB raw) | 39.5 KB, under the gate's 40 KB |
+| The game's three scripts, gzipped | 42.9 KB | 44.8 KB, under the gate's 45 KB |
+| The game's loop with the building off the screen, on a phone | Drawing: 34% of the main thread with the processor slowed four times, against 5% paused | 0 frames until the building is scrolled to |
+| The line for a reader without script, on a slow phone | Shown for 0.5 to 0.7 s before the title | Hidden from the first paint |
+| The game's drawing | 7.3 frames a second at 1.3 to 2 ms each (5.4 to 9 ms with the processor slowed four times) | Stands |
+| The title's relayout | 3 to 6 ms | Stands: nothing to chase |
+
+`base.css` grew with the lessons' measure and margin column, and the game's scripts with this round's title
+and day; both hold under the budgets the gate now enforces.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
@@ -395,6 +464,15 @@ the tints stay as they are.
 - The labs have one set of recordings, from one model on one date. A second model's replies to the same
   prompts would let a lab show what its debrief claims: the numbers a model invents differ, and the places
   it invents them do not.
+- A role run cannot start from a later day: `sim.book` stops at the first day a colleague owns, so a role
+  always starts at Day 1 and the role rows offer no "Or start at Day 45".
+- 20 of the 44 lesson maps run over 70% of a 1440 by 900 screen, the evolution of the PDLC's at 103% and
+  the hard gate's at 89%. Their layout lives in the map engine (`pages/maps.py`) and belongs to a parcel of
+  its own.
+- The home page's sample sketch keeps the old paper tone in the dark theme: the toned paper is set on the
+  lesson pages only.
+- help.openai.com refuses the session's proxy, so five OpenAI facts in the Tool guides stand as the
+  research sheet had them, unchecked against their pages.
 
 - The wiki on GitHub is a copy of `wiki/`. After a deploy, `wiki/sync.sh` pushes the copy; until it runs,
   the live wiki keeps its older links, which the home page forwards.

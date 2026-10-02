@@ -28,7 +28,7 @@ spacing:
   measure: "46 to 56 characters for a lede, never the full row"
   wrap: 1280px
 motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "--spring, a linear() curve that passes its mark by 2.8% and comes home", stagger: "40ms in a list, 60 to 110ms between the parts of a figure", reduced: "everything still: the globe drawn once, one aircraft parked at each phase"}
-components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, simulator-frame, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
+components: [header, header-slot, hero-scene, section-head, lifecycle-figure, method-table, role-rows, day-card, track-list, lesson-sketch, shelf-tile, page-head, folded-howto, section-rail, numbered-section, ruled-columns, step, next-up, pause-control]
 ---
 
 # How the site looks
@@ -87,7 +87,12 @@ with wide tracking. No label is under 11px.
   one is a destination.
 - On a reading page, text sits on the page under a hairline. A box is kept for what is a thing in
   itself: code, a table, a diagram, a calculator, a verdict.
-- Reading text is capped near 75 characters a line, whatever the column's width.
+- Reading text is capped near 75 characters a line, whatever the column's width. On a lesson that is one
+  508px measure for the title, the lede, the paragraphs, the lists and the headings; boards, tables, code
+  and drawn figures run to the column's wide edge. So a lesson has two right edges and no third, and a
+  caption starts on its figure's own edge. From 1256px wide the room beside the text is a margin column of
+  280 to 300px: the contents beside the title, each sketch level with the paragraph it draws, the "Try it"
+  card. Narrower, they return to the flow.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
   explains how to use the page is folded behind one line.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
@@ -155,8 +160,8 @@ Day 90 (night, if the run is late). The canvas is the same in both themes. `GAME
 
 Depth is used three times. The hero's globe has a lit side, a blue limb and a glow. A sketch sits on a
 sheet of paper, the one light surface on a dark page. The
-simulator's screenshot sits in a browser frame tilted nine degrees with one long shadow, and straightens
-when hovered. Everything else is flat on the page with a 1px hairline.
+home page's day card casts one long shadow, and in the game the building takes the card's corner and that
+shadow. Everything else is flat on the page with a 1px hairline.
 
 ## Shapes
 
@@ -175,7 +180,7 @@ line with the phases still countable.
 | Lifecycle figure | On the left, four methods and the one idea the lifecycle keeps from each; four lines run into one point named SkyWays PDLC. Out of it comes one thick line in the phase hues that closes into a loop: a station at the start of each phase, the sign-off just before the third, each phase's aircraft beside its name. Above the line, the question each phase asks; below it, what a team hears when the question was skipped. Its caption says the methods stay: you still pick one. | `pages/spine.py` `figure`, `.spine` |
 | Method table | Four methods as bars under the same four phases: solid for a phase covered, dashed for a light touch, hollow for a stage this manual adds (extended BMAD). The last row is words: four decisions no method makes for you. A real table. | `pages/spine.py` `coverage`, `.cover` |
 | Role rows | One row per role: code, name, where you start, where you end up, counts. A list, not cards. | `.seats` |
-| Simulator frame | Three real screens of the game taking turns, five seconds each, with the day's headline under the frame: Day 1 at dawn, Day 45 in the afternoon, Day 90 at dusk. Light and dark, with a pause control; one picture under reduced motion and in print. | `.simshot`, `.simroll` |
+| Day card | One real day of the game: its room in pixels at a whole multiple, bled to the card's edges, the kicker, the headline, the context, the question and the answers with their price in days. Its metrics are the one component the simulator's title and its days in play share: the paper surface, a 20px corner, one 26px inset, three sizes (the 12.5px mono kicker, a headline of up to 25px, 15.5px for what is read) and answers 48px tall with a plain mono price. | `.daycard`; in the game `.nd-day`, `.nd-opt` |
 | Track list | The tutorial's eight tracks in order: a number, a name, a count, under a hairline. On the home page one sketch from a lesson sits beside it, as a sample, and links to its lesson. | `.jump.tracks`, `.learn-g` |
 | Lesson sketch | One metaphor on a sheet of paper: a small black worker doing the thing the paragraph just said, two to six handwritten notes, a caption in real type underneath. One to three in a lesson, after the paragraph that turns, never touching a table or another picture. Drawn in code. | `pages/sketch.py`, `content/learn/sketches/` |
 | Shelf tile | A count, a name, one line. Four of them: templates, prompts, mental models, pictures. | `.shelf .tile` |

@@ -20,7 +20,7 @@
 //    7. the bar fits         at 320, 990, 1024, 1100 and 1180 wide the top bar's last control ends inside the screen
 //    8. print                nothing a reader needs is left hidden on paper
 //    9. the top bar          its pill never points at the page it is on; the simulator and a lesson each offer the other
-//   10. floating buttons     back-to-top, mail and the guide never sit on the words: below 1440 wide none is shown;
+//   10. floating buttons     back-to-top and mail never sit on the words: below 1440 wide none is shown;
 //                            at 1440 each sits in the side gutter, clear of the page's column
 //   11. versions             every local stylesheet and script is asked for by an address that carries its version,
 //                            so a new page can never be paired with an old file from a browser's cache

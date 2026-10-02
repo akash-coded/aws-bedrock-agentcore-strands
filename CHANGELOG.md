@@ -8,6 +8,112 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-02 · A simulator a newcomer can read, lessons at seventy-five characters a line, and the Tool guides
+
+The simulator now shows a newcomer, before the first press, what the ninety days are, who works in the
+building and what each role decides, and a press in it can no longer fail without a word. The lessons read
+at one measure with their sketches in a margin, and the Library has a fifth shelf, the Tool guides. The
+record of the ninth council, with the before and after of its performance work, is in
+[`site/EXPERIENCE.md`](site/EXPERIENCE.md) and, for the game, [`site/GAME.md`](site/GAME.md).
+
+### Added
+- **The Tool guides**, at `/tools/`, a fifth shelf in the Library ([`site/pages/tools.py`](site/pages/tools.py)).
+  One table of seven jobs a team does with AI (think it through, hold project knowledge, test a prompt,
+  build in the repo, hand off a task, act in a browser, run on a schedule) across Claude, ChatGPT and Codex,
+  and Google, each cell a tool with one dated fact and a link to the vendor's page, and a row each for
+  Cursor, Copilot's cloud agent, Kiro and Spec Kit. Two manuals, Claude at the desk (chat, Projects,
+  skills, connectors, scheduled tasks) and Claude in the repo (Claude Code in the terminal, VS Code, the
+  cloud and Chrome): each gives five moves the airline's team makes with the real prompt or command, when
+  not to use it, three settings that matter, its traps, and a table of every fact it used. Every fact lives
+  in [`site/content/tools/tools.json`](site/content/tools/tools.json) with its source and the date it was
+  checked; the build refuses one with no source or date, a model name, a price or a dash, and sixty days
+  after a check it warns and the page shows the date in amber. A second agent opened all 80 sources: 45
+  confirmed, 28 corrected to what the page says, 2 replaced, and 5 unreachable from here (OpenAI's help
+  centre refuses the session's proxy) and kept as the research sheet had them. No price, usage limit or
+  model name is printed. How to write a fact is in [`site/content/tools/README.md`](site/content/tools/README.md)
+- **The ninety days on one line**, on the simulator's title ([`site/play/game.js`](site/play/game.js)). Drawn
+  to time: four phase bands with their names, the thirteen days at their dates, and the four milestones
+  ringed and named (the sign-off on Day 15 in rose, the first test on 45, the first bill on 75, the
+  sponsor's slide on 90), under one caption: "Start at Day 1, or at any day: the days before it are played
+  by the book." Every stop is a link to its day; pointing at one puts its headline in the caption and the
+  button reads "Start at Day N". On a phone Day 1 and the four milestones are the links. In play the strip
+  keeps its thirteen equal cells and gains the phase names and the next milestone ("Next: the sign-off,
+  Day 15"), and in one role the player's own days wear a ring. Beside the building the title shows Day 1 as
+  the home page's day card, and an answer on it starts the run with that call
+- **The building in words** ([`site/play/days.json`](site/play/days.json), [`site/play/art.js`](site/play/art.js)).
+  Over it, one caption: "SkyWays head office. Each day happens in one room, lit. The days start at the top,
+  work down to the passengers, and end in the boardroom." Under it, a key of who works where and their days
+  (Boardroom, Ines, Days 1, 9 and 90; QA, Maya, Days 45 and 82; and the rest), each a press that opens the
+  room on its person, and the three marks beside scraps of the drawing: today's room, shut until the
+  sign-off, something is due there. Rooms that are not today's dim by half, as `GAME.md` says, where they
+  dimmed by 26%. On a phone the building is drawn whole at one screen pixel to a pixel, and the key
+  carries the room names
+- **Role rows** ([`site/play/game.js`](site/play/game.js)). The role picker was five bare buttons under "One
+  role". It is now five rows and a sixth for the sponsor, each one press: the role and the person with the
+  number of their calls, what they decide, "Pick this if ...", their days on a 180px copy of the ninety-day
+  line, and what they leave with. The button plays as that person ("Play as Maya"), or for the sponsor sets
+  the rules. The words are each role's `card` in `days.json`
+- **Four passes in the acceptance gate**, seventeen in all ([`site/tools/accept.mjs`](site/tools/accept.mjs)).
+  The measure: on a lesson at 1440, no prose runs over 75 characters a line. Two right edges: on a lesson at
+  1440, text stops at one right edge and pictures, tables and code at one other. The game's first paint: the
+  simulator's text for a reader without script is hidden from the first paint, and comes back when the
+  rules cannot load. The bytes: base.css under 40 KB gzipped, the game's three scripts under 45 KB, every
+  page's HTML under 25 KB (the pages already larger on 2 October 2026 each held to its size that day,
+  rounded up, plus one KB), and no font file but the four the site has. The playtest
+  ([`site/tools/playtest.mjs`](site/tools/playtest.mjs)) gains two sections: the title's line, Day 1's card
+  and the guarded press; and the building's key, the role rows, the day's card, the measured faults and the
+  loop at rest
+
+### Changed
+- **A lesson reads at seventy-five characters a line, with its sketch in the margin**
+  ([`site/theme/base.css`](site/theme/base.css), [`site/pages/learn.py`](site/pages/learn.py)). The lessons'
+  text ran 78 to 98 characters a line at 1440 wide in a 634px column, with 310px of empty page beside it and
+  five or six right edges down the page. The text column is now 508px and no line runs past 75 characters;
+  every block ends on one of two edges, the text's or the wide one, and a caption starts on its figure's own
+  edge. From 1256px wide a margin column of 280 to 300px holds the contents beside the title, each sketch
+  level with the paragraph it draws, and the "Try it" card; narrower, they return to the flow. Figure labels
+  draw at 14 to 15px over the 16.5px body, captions at 15px, and the artefact model sits at the text width
+  with a caption. On a tablet and a phone the drawn boards shrink to their content, and tables of three or
+  more columns stack one block per row instead of scrolling sideways. In the dark theme code panels take the
+  raised surface and a rule, and sketch paper is toned down with its pens darkened to read at 4.5:1. Lesson
+  titles show in sentence case, kept as written for search
+- **The day in play takes the day card's metrics** ([`site/play/game.css`](site/play/game.css)). From its
+  kicker to its answers the day is one card, as on the home page: the paper surface, a 20px corner, one
+  26px inset, three sizes (the 12.5px mono kicker, the headline at up to 25px, 15.5px for everything read),
+  8px inside a group and 20px between groups, and answers 48px tall with a plain mono price, the same
+  component as Day 1's card on the title. They were 54px with pill prices. The building takes the card's
+  corner and its long shadow, the one object with depth. The other faults the council measured are fixed:
+  the building's edge at 1024, the phone's blurred scale, small faces and 10.5px numbers, the context's
+  measure, the tinted boxes' insets and the room chips' wrap
+- **The walkthrough has no face, no name and no floating button** ([`site/theme/guide.js`](site/theme/guide.js),
+  [`site/pages/_kit.py`](site/pages/_kit.py)). The guide was a small round robot called Pip, on a floating
+  button at the foot of wide screens, on the walkthrough card and on the fold's button, and the seventh
+  council found it decoration. The walkthrough stays, reached from the drawer's "Show me around this page"
+  and from each page's fold; its card carries a plain label, "The walkthrough", and nothing floats over the
+  page for it
+
+### Fixed
+- The game's Start could fail without a word. Before the files were versioned, a browser could pair a new
+  page script with a rules script it had kept for ten minutes, and Start, the first call into the rules,
+  threw: the title stayed, its heading collapsed and an empty run was saved. Every press is now guarded
+  ([`site/play/game.js`](site/play/game.js)): the next screen is built before the page is touched, a run is
+  saved only once its screen exists, and a press that throws leaves the screen as it was and says "This page
+  is out of date. Reload to play." with a Reload button. The playtest removes one rules function and expects
+  that notice, and expects it never on the real tree
+- Every day's first answer is on a phone's first screen. At 390 by 844, Day 1's first answer ended at
+  852px. On a phone the call now comes first: under the news stand the question and its answers, then the
+  people in the room, the day's figure and the line about the book. The playtest's first-screen check adds
+  390 by 844 to 1440 by 900 and 1024 by 768, on Days 1, 9, 20, 45 and 82
+- On a slow phone the simulator showed its line for a reader without script, "The game needs script to
+  run", for 0.5 to 0.7 seconds before the title. A class set in the page's head now hides it from the first
+  paint, and the game takes the class off again if it cannot start, so the days come back as text
+  ([`site/pages/play.py`](site/pages/play.py))
+- The game's drawing loop kept running while its pictures were off the screen. Its observer watched the
+  whole game, not its canvases, so on a phone a building 1,228px down the page kept drawing and took 34% of
+  the main thread with the processor slowed four times. It now watches both canvases and rests while
+  neither is on the screen: at 390 wide on Day 1 the playtest counts no frames until the building is
+  scrolled to
+
 ## 2026-10-02 · Four decisions for whoever funds the work, labels that read, and every day's question on the first screen
 
 The page for whoever funds the work is rebuilt around the four decisions only that person can make. The
