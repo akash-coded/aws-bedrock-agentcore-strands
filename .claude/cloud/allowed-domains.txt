@@ -1,0 +1,6 @@
+googlechromelabs.github.io
+dl.google.com
+cdn.playwright.dev
+playwright.download.prss.microsoft.com
+playwright.azureedge.net
+akash-coded.github.io
