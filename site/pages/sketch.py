@@ -66,6 +66,25 @@ def _seed(name: str) -> int:
     return zlib.crc32(name.encode("utf-8"))
 
 
+def _nums(vals) -> str:
+    """Whole numbers as path data writes them: a space between two, none before a minus sign."""
+    return "".join(str(v) if i == 0 or v < 0 else f" {v}" for i, v in enumerate(vals))
+
+
+def _rel(first: tuple[float, float], segs: list[tuple[str, list[tuple[float, float]]]]) -> str:
+    """Path data in whole units: the first point absolute, then each segment (``l`` or ``c``) written from
+    the point before it, which takes about a third fewer bytes. Each point is rounded where it lies before
+    the step to it is taken, so the steps land on exactly the whole numbers an absolute path would name,
+    and the stroke draws the same pixels."""
+    cx, cy = round(first[0]), round(first[1])
+    out = ["M" + _nums((cx, cy))]
+    for cmd, pts in segs:
+        q = [(round(x), round(y)) for x, y in pts]
+        out.append(cmd + _nums(v for x, y in q for v in (x - cx, y - cy)))
+        cx, cy = q[-1]
+    return "".join(out)
+
+
 class Sk:
     """One sheet. Drawing order is paint order: later things cover earlier ones."""
 
@@ -106,20 +125,21 @@ class Sk:
 
     @staticmethod
     def _smooth(pts: list[tuple[float, float]], closed: bool = False) -> str:
-        """Catmull-Rom through the points, written as cubic beziers in whole units."""
+        """Catmull-Rom through the points, written as cubic beziers in whole units, each from the point
+        before (:func:`_rel`)."""
         n = len(pts)
         if n < 3:
-            return "M" + "L".join(f"{x:.0f} {y:.0f}" for x, y in pts)
+            return _rel(pts[0], [("l", [q]) for q in pts[1:]])
 
         def p(i: int) -> tuple[float, float]:
             return pts[i % n] if closed else pts[max(0, min(n - 1, i))]
 
-        d = [f"M{pts[0][0]:.0f} {pts[0][1]:.0f}"]
+        segs = []
         for i in range(n if closed else n - 1):
             p0, p1, p2, p3 = p(i - 1), p(i), p(i + 1), p(i + 2)
-            d.append(f"C{p1[0] + (p2[0] - p0[0]) / 6:.0f} {p1[1] + (p2[1] - p0[1]) / 6:.0f} "
-                     f"{p2[0] - (p3[0] - p1[0]) / 6:.0f} {p2[1] - (p3[1] - p1[1]) / 6:.0f} {p2[0]:.0f} {p2[1]:.0f}")
-        return "".join(d) + ("Z" if closed else "")
+            segs.append(("c", [(p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6),
+                               (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6), p2]))
+        return _rel(pts[0], segs) + ("z" if closed else "")
 
     def _an(self, note: bool) -> str:
         """An annotation arrives after the scene, in the order it was written."""
