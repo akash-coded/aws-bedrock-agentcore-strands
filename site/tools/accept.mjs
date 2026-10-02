@@ -504,7 +504,12 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
 // 18. map height. Council 9 capped a lesson's map at 70% of a 1440 by 900 screen: 630px for the figure, its
 // drawing, frame and caption together. Every page under learn/ that the sitemap lists is opened at that size,
 // and the figure pages/maps.py marks with data-map is measured; a page without a map has nothing to check.
-console.log("\n18. map height: on every lesson at 1440 x 900, the map's figure is at most 630px tall");
+// The same loop holds council 10's lesson frame on every lesson (a page whose main is .lm): pass 14's measure
+// and pass 15's two right edges, which those passes check on two lessons only; one left edge, the breadcrumb's;
+// and the guide (aside.lguide), which at 0, 25, 50 and 75% of the way down is on screen, ends within 24px of the
+// column's right edge, and marks one section: the last whose heading has passed the upper third of the window,
+// or the first before any has (site.js wireSteps, with the first link's mark standing for the lesson's opening).
+console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the measure, the edges, the guide");
 {
   const out = [], CAP = 0.7 * 900;
   thrown.length = 0;
@@ -513,7 +518,22 @@ console.log("\n18. map height: on every lesson at 1440 x 900, the map's figure i
   const sitemap = await fetch(BASE + "sitemap.xml").then((r) => (r.ok ? r.text() : "")).catch(() => "");
   const lessons = [...new Set([...sitemap.matchAll(/<loc>[^<]*?\/learn\/([a-z0-9-]+)\/<\/loc>/g)].map((x) => x[1]))];
   if (!lessons.length) out.push("the sitemap lists no page under learn/");
-  let maps = 0, tallest = { h: 0, at: "" };
+  const LEFT = `(() => { const main = document.querySelector('main.lm'), c = document.querySelector('.crumbs');
+    const prose = main.querySelector('.prose'), at = [];
+    for (const e of [...main.children].filter((e) => e !== prose).concat([...(prose ? prose.children : [])])) {
+      const r = e.getBoundingClientRect(); if (getComputedStyle(e).display !== 'none' && r.width > 0 && r.height > 0) at.push(Math.round(r.left)); }
+    return { min: Math.min(...at), max: Math.max(...at), crumbs: c ? Math.round(c.getBoundingClientRect().left) : null }; })()`;
+  const GUIDE = (p) => `(async () => { const g = document.querySelector('.lguide'); if (!g) return null;
+    scrollTo({ top: Math.round(${p} * (document.documentElement.scrollHeight - innerHeight)), behavior: 'instant' });
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 50))));
+    const r = g.getBoundingClientRect(), row = g.parentElement, edge = row.getBoundingClientRect().right - parseFloat(getComputedStyle(row).paddingRight);
+    const links = [...g.querySelectorAll('.rl[data-for]')], line = Math.max(140, innerHeight * 0.3);
+    let want = links[0];
+    for (const a of links) { const h = document.getElementById(a.getAttribute('href').slice(1)); if (h && h.getBoundingClientRect().top < line) want = a; }
+    const on = links.filter((a) => a.hasAttribute('aria-current'));
+    return { top: Math.round(r.top), bottom: Math.round(r.bottom), off: Math.round(edge - r.right), on: on.map((a) => a.textContent),
+      ok: on.length === 1 && on[0] === want, want: want ? want.textContent : 'no section' }; })()`;
+  let maps = 0, tallest = { h: 0, at: "" }, framed = 0, worst = { cpl: 0, at: "" };
   for (const slug of lessons) {
     const at = `/learn/${slug}/`;
     await send("Page.navigate", { url: BASE + at.slice(1) });
@@ -521,15 +541,34 @@ console.log("\n18. map height: on every lesson at 1440 x 900, the map's figure i
     const m = await evaluate(`(async () => { await document.fonts.ready; const f = document.querySelector('main figure[data-map]');
       return { loaded: ${LOADED}, h: f ? Math.round(f.getBoundingClientRect().height * 10) / 10 : null }; })()`);
     if (!m.loaded) { out.push(`${at} did not load`); continue; }
+    const cpl = await evaluate(MEASURE);
+    if (cpl) {
+      framed++;
+      if (!cpl.n) out.push(`${at}: no prose found to measure`);
+      else if (cpl.worst.cpl > 75) out.push(`${at}: prose runs ${cpl.worst.cpl} characters a line ("${cpl.worst.text}...")`);
+      if (cpl.n && cpl.worst.cpl > worst.cpl) worst = { cpl: cpl.worst.cpl, at };
+      const edges = await evaluate(EDGES), left = await evaluate(LEFT);
+      if (edges.length > 2) out.push(`${at}: ${edges.length} right edges, two allowed: ${edges.map((g) => `${g.at} (${Object.keys(g.what).join(", ")})`).join("; ")}`);
+      if (left.max - left.min > 1 || Math.abs(left.min - left.crumbs) > 1) out.push(`${at}: blocks start from x ${left.min} to ${left.max}, the breadcrumb at ${left.crumbs}`);
+      for (const p of [0, 0.25, 0.5, 0.75]) {
+        const g = await evaluate(GUIDE(p)), where = `${at} at ${p * 100}%`;
+        if (!g) { out.push(`${at}: no guide`); break; }
+        if (g.top < 0 || g.bottom > 900) out.push(`${where}: the guide runs from y ${g.top} to ${g.bottom}`);
+        if (Math.abs(g.off) > 24) out.push(`${where}: the guide ends ${g.off}px inside the column's right edge`);
+        if (!g.ok) out.push(`${where}: the guide marks ${g.on.length ? g.on.join(" and ") : "nothing"}, not ${g.want}`);
+      }
+    }
     if (m.h === null) continue;
     maps++;
     if (m.h > tallest.h) tallest = { h: m.h, at };
     if (m.h > CAP) out.push(`${at} is ${m.h}px tall`);
   }
   if (lessons.length && !maps) out.push("no lesson has a figure marked data-map to measure");
+  if (lessons.length && !framed) out.push("no lesson has a main.lm to check");
   if (thrown.length) out.push("script error: " + thrown[0]);
   if (out.length) { failures += out.length; console.log(`  FAIL  (the cap is ${CAP}px) ` + out.join("; ")); }
-  else console.log(`  ok   ${maps} lessons with a map, the tallest ${tallest.at} at ${tallest.h}px`);
+  else console.log(`  ok   ${maps} lessons with a map, the tallest ${tallest.at} at ${tallest.h}px; ${framed} lessons in the frame, ` +
+    `the longest line ${worst.cpl} characters (${worst.at}), one left edge, two right ones, the guide on screen and marking the section being read`);
 }
 
 } catch (e) {

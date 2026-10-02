@@ -58,8 +58,15 @@
     var s = $("#tour-steps");
     if (!s) return null;
     try {
-      return JSON.parse(s.textContent).filter(function (st) { return st && st.sel && $(st.sel); });
+      return JSON.parse(s.textContent).filter(function (st) { return st && st.sel && pick(st.sel); });
     } catch (e) { return null; }
+  }
+
+  // A step's selector may match more than one thing, a lesson's guide and the folds that stand in for it
+  // under 1280px: the first one on screen is shown, else the first.
+  function pick(sel) {
+    var all = $$(sel);
+    return all.filter(function (e) { return e.getClientRects().length; })[0] || all[0];
   }
 
   function build() {
@@ -95,7 +102,7 @@
   function show(n) {
     if (n < 0 || n >= steps.length) return;
     at = n;
-    var st = steps[at], t = $(st.sel);
+    var st = steps[at], t = pick(st.sel);
     if (!t) { steps.splice(at, 1); if (!steps.length) return end(); return show(Math.min(at, steps.length - 1)); }
     // an element hidden inside a closed <details> is opened first, so the spotlight has something to show
     var d = t.closest("details");
@@ -123,7 +130,7 @@
 
   function place() {
     if (!ui || !steps) return;
-    var t = $(steps[at].sel);
+    var t = pick(steps[at].sel);
     if (!t) return;
     var r = t.getBoundingClientRect(), pad = 8;
     var top = Math.max(r.top - pad, 4), left = Math.max(r.left - pad, 4);
@@ -261,13 +268,45 @@
     });
   }
 
-  /* The tutorial's lesson list and a lesson's contents box are open in the HTML so they work without
-     script; on a phone both start closed, so the page itself is the first thing on screen. */
+  /* The tutorial's lesson list, and a lesson's two folds under its meta line, are open in the HTML so they
+     work without script. On a phone the list starts closed, and under 1280px, where a lesson has no guide
+     beside it, the two folds do, side by side, so the lesson itself is the first thing on screen. */
   function foldOnPhones() {
-    if (!window.matchMedia || !matchMedia("(max-width: 900px)").matches) return;
-    $$(".lnav, .otp").forEach(function (d) { d.removeAttribute("open"); });
+    if (!window.matchMedia) return;
+    var shut = function (d) { d.removeAttribute("open"); };
+    if (matchMedia("(max-width: 900px)").matches) $$(".lnav").forEach(shut);
+    if (matchMedia("(max-width: 1279px)").matches) $$(".lfolds details").forEach(shut);
   }
 
-  function init() { foldOnPhones(); wireMenu(); wireDrops(); wireTour(); wireSearch(); }
+  /* A lesson's course list opens on the lesson you are on: in the guide its own scroll is set, once, with
+     no motion; under the meta line the page goes to it, as the folded rail did on a phone. */
+  function wireCourse() {
+    $$(".lguide details, .lfolds details").forEach(function (d) {
+      d.addEventListener("toggle", function () {
+        var cur = d.open && $(".ll[aria-current]", d), box = d.closest(".lguide");
+        if (!cur) return;
+        if (!box) cur.scrollIntoView({ block: "center" });
+        else if (box.scrollHeight > box.clientHeight + 4) {
+          box.scrollTop += cur.getBoundingClientRect().top - box.getBoundingClientRect().top - box.clientHeight / 2;
+        }
+      });
+    });
+  }
+
+  /* On a short screen a long guide scrolls inside itself, so it keeps the section being read (marked by
+     site.js) in its view; the page itself never moves. With the course open, the reader is browsing it. */
+  function keepMark() {
+    var g = $(".lguide");
+    if (!g || !window.MutationObserver) return;
+    new MutationObserver(function () {
+      var a = $(".rl[aria-current]", g);
+      if (!a || $("details[open]", g) || g.scrollHeight <= g.clientHeight + 4) return;
+      var r = a.getBoundingClientRect(), b = g.getBoundingClientRect();
+      if (r.top < b.top) g.scrollTop -= b.top - r.top + 8;
+      else if (r.bottom > b.bottom) g.scrollTop += r.bottom - b.bottom + 8;
+    }).observe(g, { subtree: true, attributes: true, attributeFilter: ["aria-current"] });
+  }
+
+  function init() { foldOnPhones(); wireCourse(); keepMark(); wireMenu(); wireDrops(); wireTour(); wireSearch(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

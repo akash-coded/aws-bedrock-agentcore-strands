@@ -511,10 +511,6 @@ def _numeric(cells: list[str]) -> bool:
     return len(units) == 1
 
 
-# what a sketch may be written beside in the margin: the paragraph (or list, or quote) it draws
-TEXT_BLOCK = ("<p>", "<ul>", "<ol>", "<ol ", "<blockquote>")
-
-
 def _starts_block(line: str) -> bool:
     return bool(FENCE.match(line) or re.match(r"^#{1,6}\s", line) or LIST.match(line)
                 or line.lstrip().startswith(">") or line.lstrip().startswith("|")
@@ -524,14 +520,10 @@ def _starts_block(line: str) -> bool:
 
 class Html:
     """Markdown subset to HTML for the site. ``visual`` draws a directive; ``link`` resolves hrefs.
+    Every block is written in the order of the source: a sketch follows the paragraph it draws."""
 
-    ``margin`` is set for a lesson page, whose wide layout has a margin column (base.css, "the lesson
-    page"): a sketch is written ahead of the paragraph it draws, the two in one ``.lm-note``, so that on a
-    wide screen the sketch floats into the margin level with the paragraph's first line; under that width
-    the note stacks them back in reading order, paragraph first."""
-
-    def __init__(self, link, visual, margin: bool = False):
-        self.link, self.visual, self.margin = link, visual, margin
+    def __init__(self, link, visual):
+        self.link, self.visual = link, visual
         self.anchors: dict[str, int] = {}
         self.mermaid = 0
 
@@ -572,10 +564,7 @@ class Html:
                 continue
             d = DIRECTIVE.match(line.strip())
             if d:
-                drawn = self.visual(f"{d.group(1)}:{d.group(2)}")
-                if self.margin and d.group(1) == "sketch" and out and out[-1].startswith(TEXT_BLOCK):
-                    drawn = f'<div class="lm-note">{drawn}{out.pop()}</div>'
-                out.append(drawn)
+                out.append(self.visual(f"{d.group(1)}:{d.group(2)}"))
                 i += 1
                 continue
             h = re.match(r"^(#{1,6})\s+(.*?)\s*#*\s*$", line)
@@ -870,7 +859,9 @@ def validate(meta: dict, tracks: list[Track], lessons: dict[str, Lesson]) -> tup
 
 
 # ---------------------------------------------------------------------------------------- pages
-def _rail(tracks: list[Track], here: str) -> str:
+def _course(tracks: list[Track], here: str) -> str:
+    """Every lesson, track by track: the rail's list on the tutorial's front page and its track pages, and
+    the course fold in a lesson's guide."""
     groups = []
     for t in tracks:
         items = "".join(
@@ -880,17 +871,50 @@ def _rail(tracks: list[Track], here: str) -> str:
         groups.append(f'<section class="lt{on}"><h3><a href="../{t.id}/">{_E(t.title)}</a></h3>'
                       f"<ol>{items}</ol></section>")
     cur = " aria-current=page" if here == "start" else ""
+    return f'<a class="lstart" href="../"{cur}>Start here</a>{"".join(groups)}'
+
+
+def _rail(tracks: list[Track], here: str) -> str:
+    """The course down the left, on the tutorial's front page and its track pages, where the course is
+    the content. A lesson has its guide on the right instead (``_guide``)."""
     return (f'<aside class="rail lrail" aria-label="All lessons"><details class="lnav" open>'
-            f"<summary>All lessons</summary>"
-            f'<a class="lstart" href="../"{cur}>Start here</a>{"".join(groups)}</details></aside>')
+            f"<summary>All lessons</summary>{_course(tracks, here)}</details></aside>")
 
 
-def _toc(md: str) -> str:
-    """The lesson's contents: under its header, and from 1256px wide at the top of the margin column beside
-    the header (base.css), where it costs the boards nothing: they run under it at the full width."""
-    items = "".join(f'<li><a href="#{a}">{_E(re.sub(r"[`*]", "", t))}</a></li>'
-                    for lvl, t, a in headings(md) if lvl == 2)
-    return f'<details class="otp" open><summary>On this page</summary><ol>{items}</ol></details>'
+def _toc(md: str) -> list[tuple[str, str]]:
+    """The lesson's sections, its h2s, as (anchor, words)."""
+    return [(a, _E(re.sub(r"[`*]", "", t))) for lvl, t, a in headings(md) if lvl == 2]
+
+
+def _guide(les: Lesson, tracks: list[Track], toc: list[tuple[str, str]], course: str) -> str:
+    """The one thing beside a lesson, from 1280px wide (base.css, "the lesson page"): where the lesson
+    sits in its track, its sections with the one being read marked, and the course, folded. Navigation
+    only, the same on every screen. The bars are a picture of the track, not links: at thirteen lessons
+    they would be targets too small to hit. site.js wireSteps marks the section link whose heading last
+    passed the upper third of the window; the first section's mark stands for the lesson's opening too
+    (its data-for is the page's main), so one section is marked from the top of the page."""
+    t = les.track
+    bars = "".join('<i class="on"></i>' if l is les else "<i></i>" for l in t.lessons)
+    pv, pt = (f"../{les.prev.slug}/", les.prev.short) if les.prev else ("../", "Start here")
+    nx, nt = (f"../{les.next.slug}/", les.next.short) if les.next else ("../", "Back to the start")
+    secs = "".join(f'<li><a class="rl" href="#{a}" data-for="{"main" if k == 0 else a}">{w}</a></li>'
+                   for k, (a, w) in enumerate(toc))
+    n_all = sum(len(x.lessons) for x in tracks)
+    return (f'<aside class="rail lguide" aria-label="This lesson in the course"><div class="lg-p">'
+            f'<a class="lg-t" href="../{t.id}/">{_E(t.title)}</a><p>Lesson {les.n} of {len(t.lessons)}</p>'
+            f'<p class="lg-b" aria-hidden="true">{bars}</p>'
+            f'<a href="{pv}" aria-label="Previous: {_E(pt)}">← {_E(pt)}</a>'
+            f'<a href="{nx}" aria-label="Next: {_E(nt)}">{_E(nt)} →</a></div>'
+            f'<nav aria-label="On this page"><p class="lg-h">{_E(les.short)}</p><p class="railh">On this page</p>'
+            f'<ol>{secs}</ol></nav><details class="otp"><summary>All {n_all} lessons</summary>{course}</details></aside>')
+
+
+def _folds(toc: list[tuple[str, str]], course: str) -> str:
+    """Under 1280px the guide's two lists are two folds side by side under the meta line, "On this page"
+    and "All lessons". Open in the HTML, so they work without script; guide.js folds them."""
+    items = "".join(f'<li><a href="#{a}">{w}</a></li>' for a, w in toc)
+    return (f'<div class="lfolds"><details class="otp" open><summary>On this page</summary><ol>{items}</ol>'
+            f'</details><details class="otp" open><summary>All lessons</summary>{course}</details></div>')
 
 
 def _ld_org() -> dict:
@@ -945,9 +969,9 @@ def sentence_case(title: str) -> str:
     return re.sub("\x00(\\d+)\x00", lambda m: kept[int(m.group(1))], "".join(out))
 
 
-def _margin(body: str) -> str:
-    """The lesson's own things for the margin column: the "Try it" section becomes a card, and a mental
-    model's glyph carries its name as a caption (it had only an aria-label)."""
+def _lesson_blocks(body: str) -> str:
+    """The lesson's own blocks, in its flow: the "Try it" section becomes a card where the lesson reaches
+    it, and a mental model's glyph carries its name as a caption (it had only an aria-label)."""
     body = re.sub(r'(<h2 id="try-it">[\s\S]*?)(?=\n<h2 |\Z)',
                   r'<section class="lm-try" aria-labelledby="try-it">\1</section>', body, count=1)
     return re.sub(r'<figure class="lmodel" aria-label="([^"]*)">([\s\S]*?)</figure>',
@@ -956,7 +980,8 @@ def _margin(body: str) -> str:
 
 def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     link = Links("site", lessons, tracks)
-    body = _margin(Html(link, visual, margin=True).render(les.body))
+    body = _lesson_blocks(Html(link, visual).render(les.body))
+    toc, course = _toc(les.body), _course(tracks, les.slug)
     t = les.track
     mins = minutes(les.body)
     crumbs = [("Tutorial", f"{BASE_URL}learn/"), (t.title, t.url), (les.short, les.url)]
@@ -994,13 +1019,15 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     head = (f'<meta property="article:modified_time" content="{les.updated}">'
             f'<link rel="alternate" type="text/markdown" href="index.md" title="This lesson as markdown">'
             f'<script type="application/ld+json">{_graph(nodes)}</script>')
-    html_ = f"""<div class="cols lcols">
-{_rail(tracks, les.slug)}
+    # the guide comes first, as the rail did: the course is in it and again in the folds under the meta line,
+    # and the second copy, a few hundred bytes after the first, costs about a hundred bytes gzipped
+    html_ = f"""<div class="cols lgrid">
+{_guide(les, tracks, toc, course)}
 <main id="main" class="lesson lm">
   <h1>{_E(sentence_case(les.title))}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
   <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
-  {_toc(les.body)}
+  {_folds(toc, course)}
   <article class="prose">
 {body}
   </article>
@@ -1010,9 +1037,11 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
 </div>"""
     if link.problems:
         raise SystemExit(f"lessons/{les.slug}.md: " + "; ".join(sorted(set(link.problems))))
+    # a selector list: guide.js shows the first of its matches that is on screen, the guide from 1280px wide,
+    # the folds under the meta line below that
     tour = [
-        {"sel": ".lrail", "title": "Every lesson, in order", "body": f"Eight tracks. You are in <b>{_E(t.title)}</b>, lesson {les.n} of {len(t.lessons)}. Read a track top to bottom, or jump to the one your role needs."},
-        {"sel": ".otp", "title": "On this page", "body": "Every lesson has the same shape: the answer in short, a picture, the sound-familiar symptoms, the how-to, where you'll use it, a try-it exercise, takeaways, an FAQ and <b>how to apply it in your role</b>."},
+        {"sel": ".lguide, .lfolds", "title": "Every lesson, in order", "body": f"Eight tracks. You are in <b>{_E(t.title)}</b>, lesson {les.n} of {len(t.lessons)}. Read a track top to bottom, or jump to the one your role needs."},
+        {"sel": ".lguide nav, .lfolds .otp", "title": "On this page", "body": "Every lesson has the same shape: the answer in short, a picture, the sound-familiar symptoms, the how-to, where you'll use it, a try-it exercise, takeaways, an FAQ and <b>how to apply it in your role</b>."},
         {"sel": ".prose .callout", "title": "The answer first", "body": "The green box is the whole lesson in short. If it is enough, move on; the rest is the argument and the practice."},
         {"sel": "#apply-it-in-your-role", "title": "Apply it in your role", "body": "Near the end: what to do as a forward-deployed engineer, a product manager or an engineer, an AI-augmented shortcut for each, how it runs across an enterprise, and a ten-minute workflow with a prompt to paste."},
         {"sel": ".pn", "title": "Next lesson", "body": "Lessons chain in order. Previous and next are always at the bottom."},

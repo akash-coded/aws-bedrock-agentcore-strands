@@ -795,10 +795,10 @@ a.md:hover b{color:var(--c)}
 .otp>summary::after{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;rotate:45deg;translate:0 -2px;transition:rotate var(--t-fast) var(--ease)}
 .otp[open]>summary::after{rotate:225deg;translate:0 2px}
 .otp[open]>summary{margin-bottom:8px}
-.otp ol{margin:0;padding-left:20px;columns:2 220px;column-gap:28px;font-size:14px;line-height:1.45}
-.otp li{break-inside:avoid;margin:0 0 3px;color:var(--soft)}
-.otp a{color:var(--ink2)}
-.otp a:hover{color:var(--ink)}
+.otp>ol{margin:0;padding-left:20px;columns:2 220px;column-gap:28px;font-size:14px;line-height:1.45}
+.otp>ol>li{break-inside:avoid;margin:0 0 3px;color:var(--soft)}
+.otp>ol a{color:var(--ink2)}
+.otp>ol a:hover{color:var(--ink)}
 .prose .dgb>figcaption .bs{display:none}
 .lnav>summary{display:none}
 .lstart{display:block;padding:7px 10px;margin:0 0 14px;border-radius:9px;font-weight:650;font-size:14px;
@@ -814,10 +814,10 @@ a.md:hover b{color:var(--c)}
 .lt ol{list-style:none;counter-reset:ll;display:grid;gap:1px;margin:0;padding:0 0 0 10px}
 .lt li{counter-increment:ll}
 .ll{display:flex;gap:9px;align-items:baseline;padding:5px 10px 5px 0;border-radius:8px;color:var(--ink2);
-  font-size:14px;line-height:1.35;border-left:2px solid transparent}
+  font-size:14px;line-height:1.35;border-left:2px solid transparent;text-decoration:none}
 .ll::before{content:counter(ll);font-family:var(--f-mono);font-size:11px;color:var(--soft);flex:none;
   width:15px;text-align:right}
-.ll:hover{background:var(--rule2);text-decoration:none;color:var(--ink)}
+.ll:hover{background:var(--rule2);color:var(--ink)}
 .ll[aria-current]{background:var(--accent-soft);border-left-color:var(--accent);color:var(--ink);font-weight:600}
 @media (max-width:900px){
   .lnav>summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;
@@ -1156,7 +1156,7 @@ a.md:hover b{color:var(--c)}
 .prose h2:hover .hl,.prose h3:hover .hl,.prose .hl:focus-visible{opacity:1}
 .rp{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;pointer-events:none}
 .rp i{display:block;height:100%;width:0;background:var(--accent)}
-@media print{.rp,.hl,.codebox .cp{display:none!important}}
+@media print{.rp,.hl,.codebox .cp,.lfolds{display:none!important}}
 
 /* the drawer's search */
 .ms{margin:2px 0 6px}
@@ -1974,24 +1974,30 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
 @media print{.sk-paper{border:1px solid #ddd}.sketch{max-width:110mm}}
 figure.sketch{scroll-margin-top:88px}
 
-/* ---- the lesson page: one measure, two right edges, a margin column (council 9) ----
-   Scoped to .lm, the lesson pages' main (learn.py). Text (the title, the lede, the meta line, paragraphs,
-   lists, headings, the "In short" box, the contents) stops at one measure, about seventy-five characters
-   of the 16.5px body. What is a picture or data (a board, a table, code, a drawn figure) runs to the
-   column's right edge. So a lesson has two right edges, and accept.mjs checks it. From 1256px wide the
-   room beside the text becomes a margin column of 280 to 300px: the contents at its top, each sketch level
-   with the paragraph it draws, the "Try it" card where the lesson reaches it. learn.py writes a sketch
-   ahead of its paragraph in one .lm-note, so on a wide screen it can float level with that paragraph; under
-   1256px the note puts them back in reading order and the margin's things return to the flow. */
-.lm{--measure:508px;--side:clamp(280px,100% - var(--measure) - 40px,300px)}
-main.lm>h1,.lm>.lede,.lm>.lmeta,.lm>.otp,.lm>.lalt{max-width:var(--measure)}
-.lm .prose>:is(p,ul,ol,blockquote,h2,h3,h4,details,.callout,figure.lmodel,figure.sketch,.lm-try),
-.lm .lm-note>:is(p,ul,ol,blockquote){max-width:var(--measure)}
+/* ---- the lesson page: one column from the page's left edge, its guide on the right (council 10) ----
+   Scoped to .lm, the lesson pages' main, and .lgrid, the row it shares with its guide (learn.py). The
+   lesson reads in one column, in the order it is written; nothing floats. Text (the lede, the meta line,
+   paragraphs, lists, headings, the "In short" box, a two-column table, the sketch, "Try it") stops at one
+   measure, about seventy-five characters a line. The title and what is a picture or data (a board, a
+   table of three columns or more, code, a drawn figure) run to the column's right edge, 944px at most.
+   From 1280px wide everything starts on the page's left edge, so a lesson has one left edge and two right
+   ones (accept.mjs checks it), and the guide (.lguide) sits on the right, sticky: navigation only. Under
+   1280px the column is centred, its text centred in it, and the guide's two lists are two folds under the
+   meta line (.lfolds). */
+.lm{--measure:584px;--mx:auto}
+main.lm>:is(h1,.lede,.lmeta,.lfolds,.lalt),.lm .prose>:is(.tw:not(.stack),.fig.sm),
+.lm .prose>:is(p,ul,ol,blockquote,h2,h3,h4,details,.callout,figure.lmodel,figure.sketch,.lm-try){max-width:var(--measure);
+  margin-left:var(--mx);margin-right:var(--mx)}
 .lm .prose>:is(.bbw,.tw,.codebox,figure.mmd,.fig,.dgb){max-width:none}
-/* a sketch and its paragraph, in reading order, under the margin's width */
-.lm .lm-note{display:flex;flex-direction:column;margin:0 0 30px}
-.lm .lm-note>figure.sketch{order:1;margin:0;max-width:var(--measure)}
-.lm .lm-note>:not(figure){margin-bottom:14px}
+.cols.lgrid{grid-template-columns:minmax(0,944px);justify-content:center}
+/* the measure is set for a 19px body: seventy-five characters a line at most (LP2 sets the phone's) */
+@media (min-width:901px){.lm .prose{font-size:19px;line-height:1.58}}
+.lguide{display:none}
+/* the guide's two lists, folded side by side; an open one takes the row */
+.lfolds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.lfolds>.otp{margin:0;padding:0 12px;max-width:none;min-width:0}
+.lfolds>[open]{grid-column:1/-1;padding-bottom:12px}
+:is(.lfolds,.lguide) .otp>summary{padding:12px 0;font-size:13.5px;color:var(--ink2)}
 /* captions: real type at 15px, on the figure's own left edge */
 .lm .prose figcaption,.lm .prose .fig .fn{font-size:15px;line-height:1.5;margin-left:0;margin-right:0}
 .lm .prose .sketch figcaption{max-width:none}
@@ -2011,11 +2017,13 @@ main.lm>h1,.lm>.lede,.lm>.lmeta,.lm>.otp,.lm>.lalt{max-width:var(--measure)}
 @media (max-width:620px){.lm .prose figure.lmodel{grid-template-columns:minmax(0,1fr);padding:14px}
   .lm .prose figure.lmodel>svg{width:100%;max-width:310px;margin:0 auto}}
 @media (max-width:360px){.lm .prose figure.lmodel{padding:8px}}
+/* a glyph inside an answer's fold takes the fold's width, as one in the flow takes the text's */
+.lm .prose details>figure.lmodel{max-width:none}
 /* "Try it": one problem and its folded answer, as a card */
 .lm .lm-try{margin:8px 0 28px;padding:16px 18px 6px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
 .lm .lm-try>h2{margin:0 0 8px;font-size:19px;letter-spacing:-.015em}
-.lm .lm-try>p{font-size:15.5px;line-height:1.6}
-.lm .lm-try details{margin:0 0 12px;padding:10px 14px;background:var(--bone);font-size:15px;line-height:1.6}
+.lm .lm-try>p{font-size:18px;line-height:1.6}
+.lm .lm-try details{margin:0 0 12px;padding:10px 14px;background:var(--bone);font-size:18px;line-height:1.6}
 /* code: a box on the page, with its edge, in the dark theme too */
 @media screen{:root:not([data-theme="light"]) .lm .codebox pre{background:var(--paper);border:1px solid var(--rule)}}
 /* the sketch's paper in the dark theme: still paper, at a lower light, and its pens deepened to keep 4.5:1 */
@@ -2065,24 +2073,34 @@ main.lm>h1,.lm>.lede,.lm>.lmeta,.lm>.otp,.lm>.lalt{max-width:var(--measure)}
   .lm .prose .tw.stack td[data-h]:not(:first-child)::before{content:attr(data-h);display:block;margin:8px 0 2px;
     font:500 12px var(--f-mono);color:var(--soft)}
 }
-/* the margin column */
-@media (min-width:1256px){
-  main.lm{display:grid;grid-template-columns:[text-start] var(--measure) [text-end] minmax(40px,1fr) [side-start] minmax(280px,300px) [side-end];
-    grid-template-rows:auto auto 1fr;align-items:start}
-  .lm>*{grid-column:text-start / side-end}
-  main.lm>h1,.lm>.lede,.lm>.lmeta{grid-column:text}
-  .lm>.otp{grid-column:side;grid-row:1 / 4;margin:4px 0 24px;padding:14px 0 0;border:0;border-top:1px solid var(--rule);
-    border-radius:0;background:none}
-  .lm>.otp ol{columns:auto;padding-left:22px;font-size:13.5px}
-  .lm>.otp li{margin-bottom:4px}
-  .lm .prose>:is(.bbw,.tw,.codebox,figure.mmd,.fig,.dgb){clear:right}
-  .lm .lm-note{display:block;margin:0}
-  .lm .lm-note>figure.sketch,.lm .prose>.lm-try{float:right;clear:right;width:var(--side);max-width:none;margin:5px 0 28px}
-  .lm .lm-note>:not(figure){margin-bottom:14px}
-  .lm .prose .sketch figcaption{margin-top:9px}
+/* From 1280px: the lesson on the page's left edge, the title and pictures to 944px (912 at 1280, where the
+   column gives way first), and the guide, 240px, 48px from it. The guide: the track, the lesson's number, a
+   bar for each lesson of the track (this one in the accent), the one before and after; the lesson's sections,
+   the one being read marked (.rl.on, site.js); the course, folded. Its own rows sit 10px in, so the sticky
+   box never clips their focus rings (the section and course rows take U1's inset ring), and every link in
+   it is at least 24px tall. */
+@media (min-width:1280px){
+  .cols.lgrid{grid-template-columns:minmax(0,944px) 240px;gap:0 48px}
+  .lm{--mx:0}
+  main.lm>h1{--measure:none}
+  .lfolds{display:none}
+  .lguide{display:block;grid-area:1/2}
+  .lg-p{margin:0 0 20px;padding:0 10px 16px;border-bottom:1px solid var(--rule);font-size:13px}
+  .lg-p a{display:block;padding:3px 0;color:var(--soft)}
+  .lg-p .lg-t{font-size:13.5px;font-weight:650;color:var(--ink)}
+  .lg-p p{margin:0;font:500 12.5px var(--f-mono);color:var(--soft)}
+  .lg-p .lg-b{display:flex;gap:4px;margin:10px 0 8px}
+  .lg-b i{flex:1;height:4px;border-radius:2px;background:var(--rule)}
+  .lg-b .on{background:var(--accent)}
+  .lguide nav>p{padding:0 10px}
+  .lg-h{margin:0 0 6px;font-size:15px;font-weight:650;line-height:1.35}
+  .lguide .rl{padding:6px 10px}
+  .lguide .otp{margin:18px 0 0;padding:12px 0 0;border:0;border-top:1px solid var(--rule);border-radius:0;background:none}
+  .lguide .otp>summary{margin-inline:10px;padding:4px 0}
   .lm .prose .fig{display:grid;grid-template-columns:minmax(0,650px) minmax(0,1fr);column-gap:28px;align-items:start}
   .lm .prose .fig>svg{grid-row:1 / span 12}
   .lm .prose .fig>:is(.fn,figcaption){grid-column:2;margin:0 0 10px}
+  .lm .prose .fig.sm{display:block}
 }
 
 /* ---- the pause: anything that moves on its own can be stilled ---- */
