@@ -6,14 +6,15 @@ description: How a forward-deployed engineer runs AI-DLC and AIDD at a customer:
 dek: You carry the whole lifecycle into someone else's organisation, and the decisions that are theirs to make stay theirs, even when it would be faster to make them yourself.
 level: Intermediate
 keywords: forward deployed engineer, FDE AI, forward deployed engineer AI agents, customer engineer AI deployment, AI-DLC for FDE, AIDD for forward deployed engineers, deploying AI agents at customer sites
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
-> A forward-deployed engineer runs the whole agentic lifecycle inside a customer's organisation:
-> measuring the pain in *their* data, running AI-DLC's mob sessions with *their* people, and building
-> with AIDD habits in *their* stack. Every decision that trades their risk against their return is
-> signed by *their* owner. The engineer leaves behind an evidence pack and a named person to run it.
+> In the [Deliver stage](site:forward-deployed-engineer/deliver/) of the job, a forward-deployed engineer
+> runs the whole agentic lifecycle inside a customer's organisation: measuring the pain in *their* data,
+> running AI-DLC's mob sessions with *their* people, and building with AIDD habits in *their* stack.
+> Every decision that trades their risk against their return is signed by *their* owner. The engineer
+> leaves behind an evidence pack and a named person to run it.
 
 {{map:ai-dlc-for-forward-deployed-engineers}}
 
@@ -42,6 +43,10 @@ deployment succeed in that customer's systems and workflows. The role was popula
 now common at AI companies, including OpenAI and Anthropic. Where a product engineer builds one
 capability for many customers, an FDE builds whatever one customer needs, which, with AI agents, means
 running the whole lifecycle, fast, in someone else's organisation.
+
+The job runs in three stages, Frame, Deliver and Evolve, each set out step by step in
+[the forward-deployed engineer guide](site:forward-deployed-engineer/). This lesson is Deliver in
+depth: the weeks from the first day on site to the handover, run with AI-DLC and AIDD.
 
 ## The field guide, step by step
 
@@ -167,7 +172,7 @@ production.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Run the field loop (discover, scope, prove, hand over) and turn every pattern you repeat into a template the product team can ship. | After each engagement, ask a model to extract the reusable patterns from your notes as product feedback. |
+| **A forward-deployed engineer** | Run the three stages (frame, deliver, evolve) and turn every pattern you repeat into a template the product team can ship. | After each engagement, ask a model to extract the reusable patterns from your notes as product feedback. |
 | **A product manager or FDPM** | Pair with the FDE: they own the how, you own the what and the why at the point of deployment, and you decide what becomes product. | Have a model group FDE field notes from several customers into patterns, with counts. |
 | **A GenAI or agentic AI engineer** | Productise what FDEs keep rebuilding: the MCP server, the connector, the evaluation harness. The third copy is a platform backlog item. | Ask a coding agent to compare three customer repositories and propose the shared library. |
 

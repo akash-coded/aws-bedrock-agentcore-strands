@@ -582,10 +582,12 @@ _bank("genai-engineer-interview-questions", [("GenAI engineer", P1), ("ten quest
     ("n", "9 to 10", "State and story", [("9 · Memory", "db"), ("10 · Your system", "person")]),
 ], "Retrieval, evaluation, cost, safety, state: the five things a GenAI engineer is really being asked about.")
 
+# Grouped by the FDE guide's three stages, which are not phases, so they share the theme's hue (council 10).
 _bank("forward-deployed-engineer-interview-questions", [("Forward-deployed engineer", "t"), ("ten questions",)], "t", [
-    (P0, "1 to 3", "Discover and scope", [("1 · The first two weeks", "calendar"), ("2 · A demo in three days", "clock"), ("3 · Build, buy or no", "swap")]),
-    (P2, "4 to 6", "Build and prove", [("4 · An eval in a week", "chart"), ("5 · Works here, not there", "warn"), ("6 · Design for a bank", "shield")]),
-    (P3, "7 to 10", "Hand over and feed back", [("7 · What you leave", "handoff"), ("8 · More autonomy, now", "ladder"), ("9 · The sceptic", "person"), ("10 · A pattern, codified", "book")]),
+    ("t", "1 to 3", "Frame", [("1 · The first two weeks", "calendar"), ("2 · A demo in three days", "clock"), ("3 · Build, buy or no", "swap")]),
+    ("t", "4 to 8", "Deliver", [("4 · An eval in a week", "chart"), ("5 · Works here, not there", "warn"), ("6 · Design for a bank", "shield"),
+                            ("7 · What you leave", "handoff"), ("8 · More autonomy, now", "ladder")]),
+    ("t", "9 to 10", "Evolve", [("9 · The sceptic", "person"), ("10 · A pattern, codified", "book")]),
 ], "The FDE is judged on what they leave behind: evidence a customer can run, and a pattern the product can absorb.")
 
 _bank("aws-generative-ai-interview-questions", [("AWS generative AI", P3), ("ten questions",)], P3, [

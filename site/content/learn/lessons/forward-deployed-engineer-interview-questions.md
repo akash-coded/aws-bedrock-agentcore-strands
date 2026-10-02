@@ -6,7 +6,7 @@ description: Ten forward deployed engineer (FDE) interview questions (discovery,
 dek: FDE loops test whether you can ship a model into someone else's systems, prove it with their evidence, and leave something that keeps working.
 level: Advanced
 keywords: forward deployed engineer interview questions, FDE interview, OpenAI forward deployed engineer interview, Anthropic forward deployed engineer interview, Palantir FDSE interview, forward deployed engineer case study, AI deployment engineer interview, customer engineer AI interview
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -41,7 +41,11 @@ artefacts such as MCP servers, sub-agents and agent skills, then codify repeatab
 coding, a system design set in a customer's world, a decomposition or case exercise, and deep
 behavioural questions about customers. [What is an FDE?](lesson:what-is-a-forward-deployed-engineer)
 
-## Discover and scope
+The ten questions follow the job's three stages, as
+[the forward-deployed engineer guide](site:forward-deployed-engineer/) sets them out: Frame (Q1 to
+Q3), Deliver (Q4 to Q8) and Evolve (Q9 and Q10).
+
+## Frame: discover and scope
 
 ### Q1 · "Walk me through your first two weeks at a new enterprise customer."
 
@@ -108,7 +112,7 @@ a bar per slice, and the first slice only.
 
 </details>
 
-## Build and prove
+## Deliver: build, prove and hand over
 
 ### Q4 · "Design the evaluation for a customer's contract-review agent in one week."
 
@@ -179,8 +183,6 @@ each decision and generate explanations from the trace.
 
 </details>
 
-## Hand over and feed back
-
 ### Q7 · "What do you leave behind when an engagement ends?"
 
 **Tests:** whether you build for the day after you leave · **Framework:** the evidence pack, plus named owners
@@ -221,6 +223,8 @@ incident rate is, and show what evidence would justify the change here.
 **Red flag:** flipping the switch, or refusing without an alternative.
 
 </details>
+
+## Evolve: keep the relationship and feed back
 
 ### Q9 · "A senior engineer at the customer distrusts AI and is blocking adoption. What do you do?"
 

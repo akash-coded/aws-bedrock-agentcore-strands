@@ -22,7 +22,7 @@ Each role's part in the four phases is drawn on [the method page](site:method/#b
 | A programme or delivery manager | [For programme managers](lesson:agentic-pdlc-for-program-managers) | The board, the cadence and the review queue |
 | A solution architect | [For solution architects](lesson:agentic-pdlc-for-solution-architects) | Which steps may guess, and where the caps live |
 | An engineer or engineering lead | [For software engineers](lesson:agentic-pdlc-for-engineers) | Bolts, the harness and the merge gate |
-| A forward-deployed engineer | [AI-DLC and AIDD in the field](lesson:ai-dlc-for-forward-deployed-engineers) | Their pain, their risk owner, their stack |
+| A forward-deployed engineer | [The forward-deployed engineer guide](site:forward-deployed-engineer/) | Frame, Deliver, Evolve: twelve steps, each with its template |
 | In QA | [For QA](lesson:agentic-pdlc-for-qa) | "It works" becomes a number you can defend |
 | In DevOps or platform | [For DevOps and platform](lesson:agentic-pdlc-for-devops) | The gateway, the flags and the rollback |
 | A sponsor | [For business sponsors](lesson:agentic-pdlc-for-business-sponsors) | Two numbers, on one line, every cycle |
@@ -30,7 +30,7 @@ Each role's part in the four phases is drawn on [the method page](site:method/#b
 | Leading the change | [Rolling it out in 90 days](lesson:rolling-out-agentic-delivery) | One feature, five phases, one trap each |
 | Wanting practice | [The SkyWays case study](lesson:skyways-case-study) | Ninety days, thirteen episodes, failures left in |
 | Preparing for an interview | [Six answer frameworks](lesson:how-to-answer-ai-interview-questions) | Then the bank for your role, with strong answers |
-| Curious about forward-deployed work | [What is an FDE?](lesson:what-is-a-forward-deployed-engineer) | The role, where it came from, and the FDPM beside it |
+| Curious about forward-deployed work | [What is an FDE?](lesson:what-is-a-forward-deployed-engineer) | The role, its three stages, and who works beside it |
 | Wondering why these projects go wrong | [Why agentic AI projects fail](lesson:why-agentic-ai-projects-fail) | The failure modes are new, and quiet |
 | About to write a spec | [The eight-field spec](site:product-manager/#specify) | The step comes with its template |
 | About to launch | [Shadow, then five percent](site:product-manager/#launch) | The order a cut-over goes in |
