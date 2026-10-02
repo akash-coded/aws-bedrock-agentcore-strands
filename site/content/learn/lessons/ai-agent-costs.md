@@ -92,8 +92,6 @@ report hundreds of them, and someone will propose switching the cache off, raisi
 third within a day, because the anomaly *was the cache working*. Put the cache tokens read in every
 trace row, and exclude cache hits from the alert.
 
-{{sketch:the-alarm-was-the-cache}}
-
 ### Step 6 · Close the loop in the design
 
 The fix is not finished until the decision that allowed the habit changes: the model-tier decision

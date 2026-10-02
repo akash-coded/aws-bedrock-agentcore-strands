@@ -83,8 +83,6 @@ the per-call log traced it to four habits, and the model-tier decision record go
 classification moved to the cheap tier, judgement stayed on the capable one, and cost per case became
 a monitored number. **It closes when a decision record has a new version with a diff.**
 
-{{sketch:the-bill-readdressed-to-design}}
-
 ### Step 4 · Close the incident loop into framing
 
 One question runs the whole incident loop: **which enforced control, if it had been present, would

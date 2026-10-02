@@ -66,8 +66,6 @@ anything that would survive unchanged in a lesson on a different topic helps eve
 Each lesson ends its teaching with one problem, and the answer is hidden until you open it. Trying to
 recall or apply an idea strengthens memory of it more than reading it again (the **testing effect**), and the benefit holds even when your first attempt is wrong.
 
-{{sketch:guess-the-fork-first}}
-
 ### Step 6 · Three takeaways
 
 Three short, parallel statements: what to keep if you keep nothing else. They are written to be

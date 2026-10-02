@@ -24,20 +24,6 @@ def downhill(s: Sk):
     s.note(1000, 110, "decided here,|by accident", (1004, 330), "point")
 
 
-def wring(s: Sk):
-    # a cloud twisted like a wet towel over a measuring jug: what drips out has numbers on it
-    s.ground(540, 60, 1140, tufts=3)
-    s.worker(360, 339, look=(1, -0.6), arms=[(516, 266), (630, 198)], lean=5)
-    s.cloud(590, 222, 250, 112, "aside")
-    s.stroke([(516, 266), (556, 232), (596, 226), (630, 198)], "aside", "t")      # the twist in it
-    for dx, dy in ((0, 0), (18, 44), (-10, 86)):
-        s.drop(596 + dx, 330 + dy, 1.2)
-    s.jug(600, 540, 170, 190, level=0.5, marks=4)
-    s.note(610, 80, "make it smarter", (600, 164), "aside")
-    s.label(760, 420, "38 minutes", "ink", anchor="start")
-    s.label(760, 496, "$9.40 a case", "ink", anchor="start")
-
-
 SKETCHES = [
     {"name": "decisions-roll-downhill",
      "idea": "a decision nobody makes in P0 still gets made, later, by accident, by whoever wires the first tool",
@@ -46,11 +32,4 @@ SKETCHES = [
             "The worker bends over the box with a screwdriver in the works, back to the slope, as a marble drops in.",
      "caption": "A decision nobody makes in P0 gets made later, in code, by whoever wires the first tool.",
      "h": 620, "draw": downhill},
-    {"name": "wring-the-vibe",
-     "idea": "a vibe cannot be sized; squeeze it until numbers come out",
-     "verb": "wring out", "prop": "cloud over a measuring jug",
-     "alt": "A worker twists a small cloud like a wet towel. Drops fall from it into a measuring jug. Beside the jug "
-            "are two numbers: 38 minutes, $9.40 a case.",
-     "caption": "Two days of work turned \"make rebooking smarter\" into one line with numbers in it.",
-     "draw": wring},
 ]

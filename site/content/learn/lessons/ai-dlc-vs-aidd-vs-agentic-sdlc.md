@@ -66,8 +66,6 @@ not rivals. AI-DLC or spec-driven development can run the building inside P1 and
 PDLC supplies what they leave open: the acceptance bar per slice, the authority budget, the shadow
 run, the drift watch and the two-number report.
 
-{{sketch:the-builder-and-the-one-inside}}
-
 ### Step 3 · Pick by the question you are stuck on
 
 - Stuck on **how to structure work with coding agents** → spec-driven development, AI-DLC or BMAD.

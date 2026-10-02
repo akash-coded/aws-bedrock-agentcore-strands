@@ -117,8 +117,6 @@ Forward-deployed engineering exists to get AI from pilot to production inside re
 deployments that survive are the ones where the customer owns the decisions and the running system; the
 ones that fail are the ones that depended on the engineer who has since gone home.
 
-{{sketch:holding-up-the-scenery}}
-
 ## Try it
 
 A customer's compliance team will take three weeks to approve a refund limit. Your pilot ends in two.

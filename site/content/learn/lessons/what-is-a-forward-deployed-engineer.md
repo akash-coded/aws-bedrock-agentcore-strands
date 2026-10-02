@@ -33,8 +33,6 @@ updated: 2026-10-02
 The FDE exists because all three are the same problem: the distance between a capable product and a
 working deployment.
 
-{{sketch:the-missing-length-of-lead}}
-
 ## What does a forward deployed engineer do?
 
 **Writes production software inside a customer's environment, and owns the whole path to value.**

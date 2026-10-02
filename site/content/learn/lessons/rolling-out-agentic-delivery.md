@@ -94,8 +94,6 @@ The move that does most of the change management is unglamorous: **credit every 
 person who raised it, in writing, before consolidating any of them.** A voice that felt dropped in week
 one comes back in week five as a constraint.
 
-{{sketch:a-name-on-every-seedling}}
-
 ## When to use it
 
 - **For an organisation's first agentic feature**, or its first since a failed pilot.

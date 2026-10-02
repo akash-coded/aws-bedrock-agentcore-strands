@@ -57,8 +57,6 @@ The decision that most often goes by default. Accept a demo and you will be show
 accuracy figure and the risky slice will hide inside the average. **Ask for** a score per slice against a
 derived bar, with its lower bound, plus a shadow run against the people doing the work today.
 
-{{sketch:a-rosette-on-the-chosen-pumpkin}}
-
 ### Decision 4 · What you will fund past the first cycle
 
 A first cycle that saves time and costs more is normal. Funding past it should depend on a trajectory (the review load falling, the re-run count falling with it) not on a promise. **Ask for** two numbers,

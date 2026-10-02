@@ -79,8 +79,6 @@ Extend the attack strings: a suite that has not grown in three months is testing
 and reporting green. **Owners:** sponsor for the check, QA lead for the suite.
 [The maturity model](lesson:ai-delivery-maturity-model)
 
-{{sketch:pin-up-this-quarters}}
-
 ### Step 6 · On an event: close the loops nobody waits for
 
 An incident gets a missing-control postmortem that ends in an enforced control and the next P0 brief. A
@@ -110,8 +108,6 @@ before the event, not after it. [The eight loops](lesson:the-eight-loops)
 The three loops with nobody waiting (cost, incident, governance) are exactly the ones that fail
 silently. A clock turns each into a routine with an owner; without one, each is handled once, by whoever
 happens to notice, and never fed back into the design.
-
-{{sketch:someone-meets-the-bill}}
 
 ## Try it
 

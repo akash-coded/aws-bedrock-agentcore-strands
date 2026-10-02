@@ -58,8 +58,6 @@ another. Then put every call behind **one gateway** with a per-call log. **3 · 
 comparable, with the **model version pinned** in each manifest: for a probabilistic system the model is
 part of the environment.
 
-{{sketch:every-call-past-one-desk}}
-
 ### P2 · Build & Prove
 
 **4 · Pipeline.** The evaluation harness as a **required status check**, not a comment that can be clicked
@@ -72,8 +70,6 @@ recording which flag state and prompt version produced it. [Shadow and cut-over]
 **7 · Protect**: the smallest identity that can do the job, an egress allowlist, and the injection suite on
 every pull request. **8 · Recover**: throw every switch with a stopwatch before cut-over (SkyWays measured
 40 seconds, 2 minutes, 3 minutes and 11 minutes) and cap loops and cost per case.
-
-{{sketch:four-switches-and-a-stopwatch}}
 
 ## What is yours, and what is not
 

@@ -76,8 +76,6 @@ At 5% for six weeks you will see a normal Tuesday many times and a storm day per
 deliberately into the conditions you have not seen (nights, peaks, partner outages) rather than only
 into more of the same traffic.
 
-{{sketch:wheel-it-out-into-the-rain}}
-
 ### Step 6 · Rehearse the way back, with a stopwatch
 
 Before cut-over, have someone other than the author throw every switch and write the times down.

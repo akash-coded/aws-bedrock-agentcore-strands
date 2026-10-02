@@ -42,8 +42,6 @@ where the advantage really lies, the technical round asks whether you can tell a
 model one, and leadership asks whether evidence can overrule enthusiasm, including your own. These are
 not leaked questions; they are the questions the work itself asks.
 
-{{sketch:the-pen-that-wipes-off}}
-
 ## Product sense and AI judgement
 
 ### Q1 · "Leadership wants an AI agent in every product surface this year. How do you respond?"

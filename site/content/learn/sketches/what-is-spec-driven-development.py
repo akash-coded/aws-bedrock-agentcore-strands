@@ -26,24 +26,6 @@ def pinned(s: Sk):
     s.arrow(806, 118, 752, 150, "point", w="t", head=15)
 
 
-def form(s: Sk):
-    # the tool has printed a tall form; the top of it is filled, and five boxes lower down are empty.
-    # The worker writes in one of them
-    s.ground(540, 50, 1150, tufts=2)
-    s.bot(200, 447, 1.6, look=(1, -0.3))
-    s.rect(440, 80, 320, 460, fill="p", tilt=-1)
-    s.scribble(470, 104, 260, 110, 3)
-    for i in range(5):
-        s.rect(470, 240 + i * 56, 260, 40, "point", sw="t")
-    s.scribble(482, 362, 150, 20, 1, pen="ink")                 # the first words going in
-    s.worker(960, 339, look=(-1, 0.2), arms=[(784, 388), None])
-    s.stroke([(784, 388), (694, 374)], "ink", "h")              # the pencil
-    s.route([(290, 430), (360, 404), (428, 412)], "path")
-    s.label(225, 180, "the tool gives|the boxes", "aside")
-    s.label(965, 120, "five are yours", "point")
-    s.arrow(880, 142, 748, 246, "point", w="t", head=15, bend=-16)
-
-
 SKETCHES = [
     {"name": "the-drawing-goes-back-on-the-wall",
      "idea": "spec-first throws the spec away when the code is done; spec-anchored keeps it, and it outlives the code",
@@ -53,12 +35,4 @@ SKETCHES = [
      "caption": "Spec-first throws the spec away when the task is done. Spec-anchored keeps it and changes it with "
                 "the feature, on every change.",
      "draw": pinned},
-    {"name": "the-tool-prints-the-boxes",
-     "idea": "a spec tool gives you places to write; the five agentic fields are blanks only the team can fill",
-     "verb": "fill in", "prop": "printed form with five empty boxes",
-     "alt": "A small machine has printed a tall form. Its top lines are filled in and five boxes below are empty. "
-            "A worker writes in one of the empty boxes with a long pencil.",
-     "caption": "A spec tool gives you the places to write things down. The model's role, autonomy, the bar, the "
-                "fallback and the records are yours to fill.",
-     "draw": form},
 ]

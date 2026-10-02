@@ -63,8 +63,6 @@ That line survived to the steering committee on day 90, because every later arte
 it. If nobody will name a number, write *unknown*, with an owner and a date, never a guess dressed
 up as a finding.
 
-{{sketch:wring-the-vibe}}
-
 ### Step 2 · Decide whether it is AI at all
 
 Three questions settle it, asked in order of cost, as in the diagram above. **Is it a genuine

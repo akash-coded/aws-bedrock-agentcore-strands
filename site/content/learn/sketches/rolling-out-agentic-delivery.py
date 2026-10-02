@@ -33,40 +33,6 @@ def pennies(s: Sk):
     s.note(1040, 250, "start here", (1046, 330), "path")
 
 
-def seedling(s: Sk, x: float, y: float, h: float = 70, pen: str = "ink"):
-    s.curve([(x, y), (x + 4, y - h * 0.5), (x, y - h)], pen)
-    for k in (-1, 1):
-        tip = (x + k * h * 0.78, y - h * 1.24)
-        s.curve([(x, y - h), (x + k * h * 0.3, y - h * 1.36), tip], pen)
-        s.curve([(x, y - h), (x + k * h * 0.44, y - h * 0.98), tip], pen)
-
-
-def marker(s: Sk, x: float, y: float):
-    """A plant label on a stick, with a name on it."""
-    s.line(x, y, x, y - 84)
-    s.rect(x - 30, y - 118, 60, 36, fill="p")
-    s.stroke([(x - 18, y - 100), (x + 16, y - 101)], "aside", "t", amp=1.2)
-
-
-def labels(s: Sk):
-    # a row of seedlings, each with a name on a stick; the worker pushes in the next one. Further back along the
-    # path, something nobody labelled has come up with thorns on
-    s.ground(540, 50, 1150, tufts=1)
-    s.curve([(240, 540), (226, 470), (262, 410), (236, 340), (256, 300)], "point", "h")      # the thorn
-    for tx, ty, k in ((232, 500, -1), (238, 456, 1), (256, 412, -1), (246, 370, 1), (240, 334, -1)):
-        s.stroke([(tx, ty), (tx + k * 40, ty - 22)], "point", amp=0.4)
-    s.stroke([(200, 540), (220, 528), (240, 542), (262, 528), (282, 540)], "ink", "t", amp=0.4)
-    for x in (760, 900, 1040):
-        seedling(s, x, 540, 46)
-    marker(s, 966, 540)
-    marker(s, 1106, 540)
-    s.worker(520, 339, look=(1, 0.4), arms=[None, (822, 436)], lean=5)
-    marker(s, 826, 540)
-    s.label(270, 190, "dropped in week one,", "ink")
-    s.label(270, 250, "back in week five", "point")
-    s.note(910, 230, "each credited by name", (968, 410), "aside")
-
-
 SKETCHES = [
     {"name": "past-the-safe-to-the-pennies",
      "idea": "the first feature is picked because it can be proven, not because it is worth the most",
@@ -75,11 +41,4 @@ SKETCHES = [
             "table with small stacks of coins.",
      "caption": "Pick the first feature for provability, not value. The flagship has the highest bar, the least tolerance for a first attempt and the most spectators.",
      "draw": pennies},
-    {"name": "a-name-on-every-seedling",
-     "idea": "a requirement nobody credited comes back later as a constraint",
-     "verb": "label", "prop": "seedlings with name markers",
-     "alt": "A worker pushes a name marker into the ground beside a seedling, in a row where every seedling has one. "
-            "Further back, a thorny stem has come up through the path.",
-     "caption": "Credit every requirement to the person who raised it, in writing. A voice dropped in week one comes back in week five as a constraint.",
-     "draw": labels},
 ]

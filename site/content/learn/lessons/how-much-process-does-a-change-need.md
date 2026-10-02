@@ -40,8 +40,6 @@ to a refund cap is tiny and deep: money leaves, and it cannot be taken back. A n
 refactor of a read-only report is large and shallow: nothing it touches can do harm, and a flag
 turns it off.
 
-{{sketch:small-falls-through-the-sieve}}
-
 This is one of this manual's [mental models](wiki:Mental-Models#depth-is-a-dial-not-a-constant),
 and every major method has arrived at it independently. AWS's AI-DLC adaptive workflows choose the
 breadth and depth of each task from its complexity. BMAD's documentation says the process should size

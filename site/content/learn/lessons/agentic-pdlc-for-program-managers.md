@@ -58,8 +58,6 @@ date; soft ones name their placeholder. A decision with no owner is the most use
 [The hard gate](lesson:the-hard-gate) **4 · Agree the cadence.** With the product manager and the
 architect: how often evidence arrives, usually daily, and the integration deadline that goes with it.
 
-{{sketch:the-coat-with-no-ticket}}
-
 ### P2 · Build & Prove
 
 **5 · Run the daily rhythm.** Standup asks two things: did yesterday's bolt integrate, and what is today's

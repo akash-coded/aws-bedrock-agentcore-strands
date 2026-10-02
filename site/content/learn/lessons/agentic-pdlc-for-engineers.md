@@ -33,8 +33,6 @@ updated: 2026-10-02
 Each is a boundary held by a request instead of by code. The engineer's job is to move each one into
 code.
 
-{{sketch:tie-off-the-rope}}
-
 ## What changes for an engineer?
 
 **You stop treating a prompt rule as a control, and start shipping a slice a day.** Coding agents make

@@ -86,8 +86,6 @@ runs them. It must not decide what counts as right, or grade its own family's ou
 number unlabelled: a judge is a measuring instrument with an unknown error until you calibrate it
 against people.
 
-{{sketch:check-the-judges-tape}}
-
 ## Where you'll use it
 
 - **At the behaviour gate**, where no score leaves your hands without its sample size and lower bound.

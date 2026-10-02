@@ -2,30 +2,6 @@
 from pages.sketch import Sk
 
 
-def lens(s: Sk):
-    # a thermometer whose reading sits a hair above the mark; the worker has dropped the small lens and is
-    # heaving up one big enough to show the gap
-    s.ground(540, 50, 1150, tufts=2)
-    s.oval(838, 492, 40, 40, w="h")                          # the small lens, dropped
-    s.stroke([(866, 520), (904, 536)], "ink", "h", amp=0.5)
-    s.rect(670, 96, 40, 356, fill="p")                       # the thermometer
-    s.rect(681, 380, 18, 80, "aside", fill="aside")
-    s.oval(690, 488, 42, 42, "aside", fill="aside")
-    for i in range(3):
-        s.line(710, 392 + i * 22, 726, 392 + i * 22, w="t")
-    s.oval(690, 255, 122, 122, fill="p", w="h")              # the big lens, and what it shows
-    s.line(642, 166, 642, 346)
-    s.line(738, 166, 738, 346)
-    s.rect(654, 232, 72, 112, "aside", fill="aside")
-    s.stroke([(618, 290), (770, 290)], "ink", "h", amp=0.6)
-    s.stroke([(782, 236), (782, 286)], "point", "h", amp=0.4)
-    s.stroke([(604, 342), (482, 436)], "ink", "h", amp=0.6)  # its handle
-    s.worker(300, 339, look=(1, -0.5), arms=[(474, 440), (510, 414)], lean=-8, squash=0.95)
-    s.label(840, 244, "score 82.4%", "aside", anchor="start")
-    s.label(840, 316, "bar 80%", "ink", anchor="start")
-    s.note(420, 100, "far more cases", (590, 172), "point")
-
-
 def pick(s: Sk):
     # a jar of plain marbles with a red one or two in it; the worker lifts the red ones out one at a time
     # and puts them in a tray of their own
@@ -47,14 +23,6 @@ def pick(s: Sk):
 
 
 SKETCHES = [
-    {"name": "a-hair-above-the-mark",
-     "idea": "the closer the score sits to the bar, the more cases it takes to tell them apart",
-     "verb": "heave up", "prop": "giant lens at a thermometer",
-     "alt": "A thermometer reads a hair above its mark: a score of 82.4% against a bar of 80%. A worker strains with both "
-            "hands to hold up a lens as big as itself to show the gap, and a much smaller lens lies dropped on the floor.",
-     "caption": "Codeshare scored 82.4% against a bar of 80%. A gap that small takes 968 cases to prove, and half "
-                "the gap takes four times as many.",
-     "draw": lens},
     {"name": "pick-the-rare-ones-by-hand",
      "idea": "a sample that looks like traffic holds almost none of the rare, costly cases, so those are drawn on purpose",
      "verb": "pick out one by one", "prop": "jar of marbles and a tray",

@@ -1,26 +1,6 @@
 """Sketches for the lesson on why agentic projects fail."""
-import math
 
 from pages.sketch import Sk
-
-
-def leak(s: Sk):
-    # a walker with its eyes on a ticked checklist and a sack on its back; the sack has a hole, and what
-    # was in it lies along the road behind
-    s.ground(540, 50, 1150, tufts=2)
-    s.blob(560, 300, 84, 104, "ink", lumps=4, depth=0.05)                      # the rucksack on its back
-    s.curve([(488, 262), (556, 284), (632, 256)], "ink")                       # its flap
-    s.rect(506, 318, 70, 52, "ink", fill="p", sw="t")                          # its pocket
-    s.worker(700, 339, look=(1, 0.1), arms=[(856, 346), (852, 290)], legs="walk", lean=4)
-    s.doc(850, 236, 104, 134, tilt=6, lines=2, mark="tick")
-    for x, y in ((512, 430), (498, 482)):                                      # falling
-        s.coin(x, y, 15)
-    for x in (120, 215, 300, 392, 470):                                        # fallen
-        s.oval(x, 530, 17, 8, "ink", fill="p")
-    s.ring(505, 398, 30, 20)
-    s.note(880, 110, "every check passes", (908, 226), "aside")
-    s.note(290, 250, "no error|for this", (478, 396), "point")
-    s.label(250, 478, "the value", "ink")
 
 
 def snowball(s: Sk):
@@ -45,14 +25,6 @@ def snowball(s: Sk):
 
 
 SKETCHES = [
-    {"name": "leaking-on-schedule",
-     "idea": "these failures raise no error, so the checks a team already has stay green while the value drains away",
-     "verb": "leak", "prop": "rucksack with a split seam",
-     "alt": "A worker walks along with its eyes on a ticked checklist. The rucksack on its back has split, and what was in "
-            "it lies in a line along the road behind.",
-     "caption": "None of these failures throws an error. The checks you already have stay green while the value runs "
-                "out behind you.",
-     "draw": leak},
     {"name": "four-habits-one-snowball",
      "idea": "ordinary habits multiply rather than add, so a bill grows fourfold with nothing running away",
      "verb": "brace against", "prop": "snowball down a hill",

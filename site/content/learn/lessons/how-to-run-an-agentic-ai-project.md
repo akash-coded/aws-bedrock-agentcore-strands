@@ -108,8 +108,6 @@ pain is measured, so the value is unknown; the build starts before the bar is se
 is argued at launch; the cap is decided in a document and enforced nowhere. The order in this list is
 what prevents each of those.
 
-{{sketch:plumb-line-after-the-wall}}
-
 ## Try it
 
 A team has a working prototype of a refund agent, a slide deck, and a launch date six weeks away.

@@ -19,28 +19,6 @@ def outline(s: Sk):
     s.label(150, 206, "it exists", "aside")
 
 
-def lid(s: Sk):
-    # a cash box whose padlock is a drawing taped to the front; the worker tries the lid and it lifts.
-    # The pack's one page stands beside it with the result stamped across it in capitals
-    s.ground(540, 50, 1150, tufts=2)
-    s.line(230, 440, 230, 540, w="h")
-    s.rect(60, 222, 340, 218, fill="p", tilt=-1)              # the pack: one index page
-    s.scribble(88, 244, 284, 84, 3)
-    s.rect(72, 348, 316, 74, "point", sw="h", tilt=-5)        # what the check leaves on it
-    s.label(230, 404, "NOT ENFORCED", "point", size=54, rot=-5)
-    s.table(470, 420, w=380, h=120)
-    s.stroke([(520, 304), (520, 420), (770, 420), (770, 304)], "ink")     # the cash box, open at the top
-    s.poly([(516, 300), (522, 280), (772, 232), (770, 254)], "ink", fill="p")   # its lid, lifting on the hinge
-    for dx in (0, 34):                                        # what is in it
-        s.oval(700 + dx, 300, 15, 7)
-    s.rect(592, 316, 104, 94, fill="p", tilt=4)               # the padlock, on paper
-    s.lock(644, 372, 0.75)
-    s.worker(1000, 339, look=(-1, 0.1), arms=[(776, 240), None])
-    s.note(810, 120, "the check you run", (780, 222), "aside")
-    s.label(660, 500, "$400 cap", "ink")
-    s.label(230, 186, "the pack", "ink")
-
-
 SKETCHES = [
     {"name": "set-down-on-an-outline",
      "idea": "a stale document passes every check for existence, and the next phase builds on what it says",

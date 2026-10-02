@@ -53,8 +53,6 @@ Person-days per story, today, on the work the pilot will touch. It takes an afte
 be recovered later**: once the pilot starts, every earlier number is a reconstruction. If you have
 already started, say so in the report and take one on the next feature.
 
-{{sketch:count-the-till-before-opening}}
-
 ### Step 2 · Count a unit of work, not a unit of activity
 
 A story done, or a case handled, counted where value lands: merged and released, not generated. The

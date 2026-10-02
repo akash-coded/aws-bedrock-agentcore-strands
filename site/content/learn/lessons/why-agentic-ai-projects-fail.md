@@ -32,8 +32,6 @@ updated: 2026-10-02
 Every one of those is a failure that raises no error. The fix is not more care; it is checks aimed at
 the right things.
 
-{{sketch:leaking-on-schedule}}
-
 ## Why do agentic AI projects fail?
 
 In June 2025 Gartner predicted that **over 40% of agentic AI projects will be cancelled by the end of

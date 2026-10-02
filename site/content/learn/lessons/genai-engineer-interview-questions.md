@@ -32,8 +32,6 @@ updated: 2026-10-02
 
 Each question below has an answer that sounds right and is wrong; the strong answer measures first.
 
-{{sketch:one-drop-in-a-full-glass}}
-
 ## What does a GenAI engineer interview test?
 
 **Whether you measure before you fix.** Expect coding (often an LLM call with tools or retrieval), a

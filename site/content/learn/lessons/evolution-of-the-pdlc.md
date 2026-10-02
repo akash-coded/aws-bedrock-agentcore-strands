@@ -111,8 +111,6 @@ Teams that treat agentic delivery as entirely new throw away gates, tests and po
 work. Teams that treat it as nothing new skip the three things that genuinely are (**the bar, the
 authority budget and the drift watch**) and those three are where the expensive failures come from.
 
-{{sketch:repack-and-add-three}}
-
 ## Try it
 
 A team says: *"We do continuous delivery with 90% test coverage and a clean DORA scorecard, so our new

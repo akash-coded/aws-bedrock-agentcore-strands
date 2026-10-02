@@ -77,16 +77,12 @@ access had been granted in one region in week one, everyone assumed that covered
 nobody had requested the region the data had to stay in. Request every one in week one, even if the
 work that needs it is weeks away.
 
-{{sketch:everything-ready-oven-cold}}
-
 ### Step 6 · Plan honestly around what does not compress
 
 Live evidence arrives at the speed of traffic: **days = cases needed ÷ (share × cases per day)**. At
 240 cases a day, 500 cases at a 5% canary takes 42 days: the arithmetic, not the effort. You can
 shorten it only by widening the share, which raises exposure, or by needing fewer cases, which only an
 honest bar and lower bound can justify. Put the number in the plan instead of promising around it.
-
-{{sketch:shaking-the-egg-timer}}
 
 ## Where you'll use it
 

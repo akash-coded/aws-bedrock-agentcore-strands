@@ -39,8 +39,6 @@ limits and evidence) and explain it to someone who will not read the code. Recal
 floor, not the test. The strongest signal in almost every loop is the same: does the candidate ask what
 a mistake costs before choosing how good is good enough?
 
-{{sketch:weigh-the-mistake-first}}
-
 ## The six frameworks, step by step
 
 Each comes with a sixty-second worked answer. The numbers in the answers are illustrative; the arithmetic is not.

@@ -84,8 +84,6 @@ on. That is the difference between an enabling or platform team and a bottleneck
 Governance spans the whole lifecycle and belongs to no delivery role. Name the sponsor who owns it. If
 the answer is "we all do", nobody does.
 
-{{sketch:one-name-on-the-watering-can}}
-
 ## Where you'll use it
 
 - **When an organisation starts its second or third agentic product** and the first one's shortcuts start to hurt.

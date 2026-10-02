@@ -72,8 +72,6 @@ instructions, and run an **injection suite** as a regression test: one file of a
 entry point crossed with every gated tool, run weekly and on every prompt, tool or context change.
 *The test: every attack string, from every entry point, moves no money.*
 
-{{sketch:a-label-on-the-letter}}
-
 ### Step 5 · Traceability
 
 Write one redacted trace row for every consequential action: what was decided, by which model and

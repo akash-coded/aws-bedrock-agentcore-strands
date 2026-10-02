@@ -62,8 +62,6 @@ Generate a rule file in the repository (a `CODEOWNERS` file, for example) from t
 so the band of a change is decided by the paths it touches, not by the author. Self-assessed risk is
 not a control.
 
-{{sketch:tagging-your-own-scaffold}}
-
 ### Step 4 · Route the readers by band
 
 | Band | Readers | What the reader is for |

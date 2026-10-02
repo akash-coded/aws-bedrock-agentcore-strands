@@ -81,8 +81,6 @@ are the five agentic fields of this manual's [eight-field spec](lesson:p1-design
 (the model's role, autonomy per action, the bar per slice, the fallback and the records), and they
 belong in the requirements file whichever tool holds it.
 
-{{sketch:the-tool-prints-the-boxes}}
-
 ## The honest critiques
 
 Böckeler's review is worth reading before you adopt either tool. Her main points:

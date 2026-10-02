@@ -72,8 +72,6 @@ A **bolt** is AI-DLC's unit of iteration: a shorter, more intense cycle measured
 rather than weeks. When an agent can build a story in an afternoon, a two-week sprint leaves it idle
 for most of the fortnight; the bolt matches the planning cycle to the building speed.
 
-{{sketch:a-clock-where-the-calendar-hung}}
-
 ### Step 5 · Let the workflow size itself
 
 In November 2025 AWS open-sourced AI-DLC's **adaptive workflows**, which choose both the breadth of a

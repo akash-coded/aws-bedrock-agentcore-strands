@@ -37,42 +37,6 @@ def rule(s: Sk):
     s.label(940, 250, "an agent, as asked", "aside")
 
 
-def pumpkin(s: Sk, x: float, y: float, r: float = 60, pen: str = "ink"):
-    """A pumpkin centred at ``x, y``."""
-    s.oval(x, y, r, r * 0.78, pen, fill="p")
-    for k in (-1, 1):
-        s.curve([(x + k * r * 0.3, y - r * 0.7), (x + k * r * 0.46, y), (x + k * r * 0.3, y + r * 0.7)], pen, "t")
-    s.stroke([(x, y - r * 0.78), (x + 7, y - r * 0.78 - 18)], pen, "h", amp=0.4)
-
-
-def barrow(s: Sk, x: float, y: float):
-    """A wheelbarrow facing right, its wheel standing at ``x, y``."""
-    s.poly([(x - 230, y - 140), (x + 10, y - 140), (x - 30, y - 62), (x - 190, y - 62)], fill="p")
-    s.stroke([(x - 222, y - 126), (x - 330, y - 150)], "ink", "h")
-    s.stroke([(x - 180, y - 62), (x - 186, y)], "ink")
-    s.stroke([(x - 40, y - 62), (x, y - 28)], "ink")
-    s.oval(x, y - 28, 28, 28, fill="p", w="h")
-
-
-def prize(s: Sk):
-    # a show table with the one pumpkin the grower chose; the worker pins a rosette on it with its back to the barrow
-    s.ground(540, 50, 1150, tufts=2)
-    s.table(120, 410, w=300, h=130)
-    pumpkin(s, 270, 346, 82)
-    s.worker(610, 339, look=(-1, 0.2), arms=[(366, 330), None], lean=-5)
-    s.oval(350, 330, 24, 24, "aside", fill="p")              # the rosette
-    s.oval(350, 330, 9, 9, "aside")
-    s.stroke([(340, 352), (330, 398)], "aside")
-    s.stroke([(360, 352), (368, 398)], "aside")
-    for px, py, r in ((860, 372, 34), (930, 356, 46), (1010, 374, 36), (890, 322, 28), (968, 310, 30)):
-        pumpkin(s, px, py, r)
-    s.stroke([(916, 340), (944, 372)], "point", "h", amp=0.4)     # one of them is bad
-    s.stroke([(944, 340), (916, 372)], "point", "h", amp=0.4)
-    barrow(s, 1080, 540)
-    s.note(292, 130, "the demo: one, chosen", (262, 250), "aside")
-    s.note(900, 150, "the rest, never weighed", (936, 270), "point")
-
-
 SKETCHES = [
     {"name": "a-scarecrow-would-do",
      "idea": "ask for agents and you get agents, even for work a rule does better",
@@ -81,11 +45,4 @@ SKETCHES = [
             "scarecrow, which would do the same job.",
      "caption": "Ask for agents and you get agents, even where a rule does the job better. Expect two or three of your top five to be rules.",
      "draw": rule},
-    {"name": "a-rosette-on-the-chosen-pumpkin",
-     "idea": "accept a demo as evidence and the cases nobody chose are never looked at",
-     "verb": "pin a rosette on", "prop": "show pumpkin beside a full barrow",
-     "alt": "One large pumpkin sits on a show table and a worker pins a rosette to it. Behind the worker stands a "
-            "wheelbarrow heaped with other pumpkins, one of them marked with a red cross.",
-     "caption": "Accept a demo and you will be shown demos. Ask instead for a score for each kind of case, against its pass mark.",
-     "draw": prize},
 ]

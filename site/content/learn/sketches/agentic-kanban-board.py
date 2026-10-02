@@ -2,14 +2,6 @@
 from pages.sketch import Sk
 
 
-def fish(s: Sk, x: float, y: float):
-    """A raw fish held up by its tail at ``x, y``, head down."""
-    s.oval(x, y + 104, 40, 84, "point", fill="p")
-    s.poly([(x, y + 26), (x - 30, y - 8), (x + 30, y - 8)], "point", fill="p")
-    s.oval(x + 12, y + 156, 5, 5, "point")
-    s.curve([(x - 26, y + 124), (x, y + 138), (x + 26, y + 124)], "point", "t")
-
-
 def sink(s: Sk):
     # a sink that drains slowly: the worker turns the tap down to what the drain can clear
     s.ground(540, 50, 1150, tufts=2)

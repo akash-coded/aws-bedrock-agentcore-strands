@@ -791,7 +791,7 @@ COVERAGE = [
 
 # The simulator band's three pictures: (the line under the frame, what the picture shows).
 SIM_DAY = 45       # the day of the game the home page shows: its news, its question and its answers, from play/days.json
-HOME_SKETCH = "the-needle-never-shakes"          # the lesson sketch shown in the tutorial band, as a sample
+HOME_SKETCH = "four-pebbles-one-rock"            # the lesson sketch shown in the tutorial band, as a sample
 # Where a role starts and where it ends up, in words a newcomer can read. A role page keeps its own tagline.
 
 

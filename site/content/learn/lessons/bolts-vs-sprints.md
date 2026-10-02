@@ -49,8 +49,6 @@ Agree how often something merged, integrated and measured should arrive. For mos
 answer is daily. The integration deadline is part of the agreement: a bolt that is built but not
 integrated has not happened.
 
-{{sketch:a-door-is-not-a-door-until-hung}}
-
 ### Step 2 · Cut by dependency, not by priority
 
 Order the bolts so each can be built on its day without waiting for another. That usually means: a
@@ -101,8 +99,6 @@ The value of fast building is fast evidence. A two-week sprint turns an afternoo
 fortnight's wait for feedback; a bolt turns it into a same-day answer. And cutting by dependency,
 with the skeleton first, retires the biggest unknown (whether the pieces connect at all) on day one
 instead of day fourteen.
-
-{{sketch:water-through-the-bare-pipes}}
 
 ## Try it
 

@@ -34,8 +34,6 @@ updated: 2026-10-02
 
 The questions below go one level below the service names.
 
-{{sketch:the-back-of-the-name-badge}}
-
 ## What does an AWS generative AI interview test?
 
 **Architecture judgement with AWS specifics.** Expect a design question set in a customer's world, deep

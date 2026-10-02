@@ -330,7 +330,7 @@ def sketches() -> dict[str, dict]:
 
 def check_sketches(lessons: dict[str, "Lesson"]) -> list[str]:
     """Each sketch keeps the rules in pages/sketch.py, is one metaphor no other sketch uses, and sits in
-    its own lesson after a paragraph, clear of any other picture or table."""
+    its own lesson after a paragraph, clear of any other picture or table. A lesson has one at most."""
     from pages import sketch
     err: list[str] = []
     pairs: dict[tuple[str, str], str] = {}
@@ -368,6 +368,26 @@ def check_sketches(lessons: dict[str, "Lesson"]) -> list[str]:
     for prop, names in props.items():
         if len(names) > 3:
             err.append(f"sketches: the prop {prop!r} is used {len(names)} times ({', '.join(names)}); three at most")
+    # One sketch a lesson at most, and only its own: the owner's cull of October 2026 kept about thirty,
+    # each where a picture says what the paragraph cannot. A name with no sketch is an unknown visual.
+    per_file: dict[str, list[str]] = {}
+    for name, spec in sketches().items():
+        per_file.setdefault(spec["lesson"], []).append(name)
+    for slug, names in per_file.items():
+        if len(names) > 1:
+            err.append(f"sketches/{slug}.py: {len(names)} sketches ({', '.join(names)}); a lesson has one at most")
+    for slug, les in lessons.items():
+        placed = []
+        for ln in les.body.splitlines():
+            d = DIRECTIVE.match(ln.strip())
+            if d and d.group(1) == "sketch":
+                placed.append(d.group(2))
+        if len(placed) > 1:
+            err.append(f"lessons/{slug}.md: {len(placed)} sketches ({', '.join(placed)}); a lesson has one at most")
+        for name in placed:
+            own = sketches().get(name, {}).get("lesson")
+            if own and own != slug:
+                err.append(f"lessons/{slug}.md: {{{{sketch:{name}}}}} is drawn for lessons/{own}.md; a sketch sits in its own lesson")
     return err
 
 

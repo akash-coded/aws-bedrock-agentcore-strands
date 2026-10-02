@@ -71,8 +71,6 @@ the bar at that score takes **968** cases. The cost grows with the square of the
 distance between score and bar and you quadruple the cases. A score a whisker above the bar is the
 most expensive result you can get.
 
-{{sketch:a-hair-above-the-mark}}
-
 ### Step 4 · Build the golden set by slice, oversampling the rare ones
 
 The golden set is real past cases, each with an expected outcome a person wrote and a slice tag:

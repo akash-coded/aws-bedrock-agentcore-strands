@@ -74,8 +74,6 @@ moved 1.9 points a week. A second threshold, on the level against a frozen basel
 weeks where the weekly one never fires at all. Wire a breach to **re-open the release gate**
 automatically.
 
-{{sketch:measure-back-to-the-stake}}
-
 ### Step 4 · Report two numbers on one line
 
 Report what the feature **saved** and what it **cost**, together, every cycle, before anyone asks,

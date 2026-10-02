@@ -79,8 +79,6 @@ Drop the action one autonomy level (refunds from acting alone to needing an appr
 evidence that would restore it. At SkyWays refunds stayed one level down until a fourteen-day shadow
 run re-earned the level.
 
-{{sketch:down-one-step}}
-
 ### Step 5 · Feed it forward
 
 Four artefacts must leave the room: **new golden cases** built from the incident (SkyWays added six),

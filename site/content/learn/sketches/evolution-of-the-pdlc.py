@@ -32,27 +32,6 @@ def jam(s: Sk):
     s.note(960, 420, "now: is it|right enough?", (826, 276), "point")
 
 
-def case(s: Sk):
-    # an open suitcase already full of the old kit; the worker leans over it and presses three new things
-    # in on top with both hands
-    s.ground(540, 50, 1150, tufts=3)
-    s.rect(490, 232, 360, 188, "ink", fill="p", tilt=-2)                       # the lid, standing open
-    for x in (552, 786):
-        s.stroke([(x, 238), (x, 418)], "ink", "t")
-    for x in (676, 760):                                                       # the old kit, showing over the rim
-        s.oval(x, 410, 46, 26, "ink", fill="p", w="t")
-    for i in range(3):                                                         # three new things, going in
-        s.rect(506 + (i % 2) * 10, 372 - i * 46, 110, 42, "point", fill="p", sw="h", tilt=-4 + i * 4)
-    s.rect(480, 420, 380, 120, fill="p")                                       # the case
-    for x in (544, 796):
-        s.stroke([(x, 420), (x, 540)], "ink", "t")                             # its straps
-    s.curve([(632, 476), (638, 456), (702, 456), (708, 476)], "ink", "h")      # its handle
-    s.worker(270, 339, look=(1, 0.2), arms=[(520, 268), (590, 270)], lean=13)
-    s.burst(560, 250, 20, 3, "point", -140, -40)
-    s.note(360, 110, "add three", (540, 232), "point")
-    s.note(1010, 250, "the old kit|stays", (810, 396), "ink")
-
-
 SKETCHES = [
     {"name": "the-jam-moves-downstream",
      "idea": "each lifecycle cleared the bottleneck of its day, and the work piled up at the next narrow place",
@@ -62,12 +41,4 @@ SKETCHES = [
      "caption": "Each lifecycle cleared the jam of its day, and the work piled up at the next narrow place. Which jam "
                 "does a new method move?",
      "draw": jam},
-    {"name": "repack-and-add-three",
-     "idea": "agentic delivery keeps almost all of the old discipline and adds three specific things",
-     "verb": "pack on top", "prop": "open suitcase of old kit",
-     "alt": "An open suitcase is already full. A worker leans over it and presses three small new parcels, drawn in red, "
-            "in on top of what is there with both hands.",
-     "caption": "Keep the gates, tests, flags and postmortems you have. Add three: a pass mark, a limit on what the "
-                "agent may do, a watch for drift.",
-     "draw": case},
 ]

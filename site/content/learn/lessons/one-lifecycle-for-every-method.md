@@ -87,8 +87,6 @@ What makes it work is not the rituals but the exits: each phase ends on evidence
 the [hard gate](lesson:the-hard-gate). A team can run Scrum, Spec Kit and AI-DLC's mob sessions and
 still skip every exit; a team that holds the exits can run any of them.
 
-{{sketch:one-hatch-out-of-the-kitchen}}
-
 ## Where you'll use it
 
 - **When choosing a method**: map the candidates first, and choose on what fits your team, since the
