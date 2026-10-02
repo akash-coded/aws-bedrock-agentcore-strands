@@ -6,7 +6,7 @@ description: How QA works in the agentic PDLC: the proof each step owes, golden 
 dek: "It works" stops being a yes or a no. Your job becomes the number that says how often it works, and whether that number is proof.
 level: Intermediate
 keywords: testing AI agents, QA for LLM applications, AI quality assurance, how to test probabilistic software, LLM evaluation, AI test automation, golden dataset testing, QA lead AI
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -53,6 +53,8 @@ rest of your work depends on.
 work a measured share against a derived bar; **consequential** work a gate and a test that it refuses.
 **2 · Curate** the golden set from real cases (fifty to start, five hundred to trust), each tagged by
 slice. SkyWays' first fifty took an afternoon, and twenty-four failed.
+
+{{model:g_average}}
 
 ### P2 · Build & Prove: the phase you lead
 

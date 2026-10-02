@@ -6,7 +6,7 @@ description: AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development 
 dek: Eight names in two years, several spelled almost the same. One question sorts them: is AI building the software, or is AI inside it?
 level: Beginner
 keywords: AI-DLC vs AIDD, AIDLC meaning, AIDDLC, agentic SDLC, agentic STLC, AI-driven development lifecycle, AI PDLC, spec-driven development vs AI-DLC, BMAD vs AI-DLC, difference between SDLC and PDLC
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -65,6 +65,8 @@ product that calls a model to rank options and issue refunds (AI is inside it). 
 not rivals. AI-DLC or spec-driven development can run the building inside P1 and P2, and the agentic
 PDLC supplies what they leave open: the acceptance bar per slice, the authority budget, the shadow
 run, the drift watch and the two-number report.
+
+{{frameworks:methods}}
 
 ### Step 3 · Pick by the question you are stuck on
 

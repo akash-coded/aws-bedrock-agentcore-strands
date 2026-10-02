@@ -6,7 +6,7 @@ description: What a business sponsor owns in an agentic AI programme: funding pa
 dek: You are the only person on the programme with no delivery deadline, which is exactly why the governance loop, and the stop decision, are yours.
 level: Beginner
 keywords: AI project sponsor, executive sponsor AI, AI business case, how to fund AI projects, AI ROI reporting, AI steering committee, AI programme governance, business owner AI agent
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -81,6 +81,8 @@ A bill several times its estimate on flat traffic is normal in early cycles, and
 question. Ask which of four signatures the per-call log shows (tokens per call up, tier mix moved to the
 expensive model, cache hit ratio down, retries up) and which decision record allowed it. A spending
 freeze stops the work and teaches nothing. [Why the bill is 4×](lesson:ai-agent-costs)
+
+{{figure:bill_factors}}
 
 ### Step 5 · When the incident arrives, ask which control
 

@@ -6,7 +6,7 @@ description: How software engineers work in the agentic PDLC: a context file, st
 dek: The model does the typing and the sweep. You own the floor it stands on, the boundary it cannot cross, and the check that decides what merges.
 level: Beginner
 keywords: software engineer AI agents, how to work with AI coding agents, AI pair programming workflow, Claude Code workflow, building LLM applications, AI engineering best practices, engineering lead AI
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -62,6 +62,8 @@ said $62. **4 · Layer**: the model calls on top, with an independent checker af
 **6 · Harness**: the golden set in CI as a required check, in cost order, per slice.
 **7 · Ship**: one bolt a day in dependency order, the shadow path behind a flag, the rollback rehearsed.
 [P2 Build & Prove](lesson:p2-build-and-prove)
+
+{{figure:bolt_days}}
 
 ### P3 · Run & Learn
 

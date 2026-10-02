@@ -6,7 +6,7 @@ description: An AI agent's accuracy bar comes from money, not a round number: di
 dek: Every bar in the document is 80%, and nobody knows why. Here is where the real number comes from, and why a human hold can lower it.
 level: Intermediate
 keywords: how accurate should an AI agent be, AI accuracy threshold, acceptance criteria for AI, AI agent evaluation threshold, LLM accuracy requirements, human in the loop accuracy, break-even accuracy
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -74,6 +74,8 @@ refunds before they go out cuts the damage of a wrong one from $600 to $30, and 
 71%. Nothing about the model changed. That is why a human in the loop is a commercial instrument, not
 friction, and why a bar above about 95% is usually a design smell: it says the step is too dangerous
 to run unheld, and the answer is a hold, not a better prompt.
+
+{{model:g_lever}}
 
 ## Where you'll use it
 

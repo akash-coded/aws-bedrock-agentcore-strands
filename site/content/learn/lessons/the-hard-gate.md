@@ -6,7 +6,7 @@ description: Only one hand-off in the agentic PDLC halts the build. Which decisi
 dek: Most decisions in an agentic build should not stop anything. Three must, and all three sit at one hand-off. Knowing which is how you keep speed without buying an incident.
 level: Intermediate
 keywords: stage gate AI project, AI governance gate, hard gate soft gate, go no-go decision AI, one-way door two-way door, AI project decision making, agentic PDLC gate
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -47,6 +47,8 @@ until three artefacts are signed. The home page and the simulator call it by its
 
 It sits there because P1 → P2 is the last point at which changing your mind costs a document rather
 than a rewrite. It is a **one-way door**; the others are two-way.
+
+{{model:g_doors}}
 
 ## How to decide what is hard, step by step
 
@@ -90,8 +92,6 @@ Some programmes genuinely cannot wait. Crossing the hard gate without its full s
 with a written waiver: what is missing, why you are crossing now, the blast radius while it stands,
 what you are doing instead, and the date it expires. An undeclared crossing is indistinguishable
 from a completed one six weeks later.
-
-{{model:g_baton}}
 
 ## Where you'll use it
 

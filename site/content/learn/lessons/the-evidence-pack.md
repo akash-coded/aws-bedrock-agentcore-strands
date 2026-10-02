@@ -6,7 +6,7 @@ description: The minimum artefacts owed at each hand-off of an agentic AI projec
 dek: Thirty documents, owed across four hand-offs, and the check that a document exists is the least important check you can run on it.
 level: Intermediate
 keywords: AI project documentation, AI audit trail, AI governance artefacts, definition of done AI, phase gate deliverables, AI compliance evidence, agentic PDLC evidence pack
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -40,6 +40,8 @@ a new team member, or yourself in six months when nobody remembers why the cap i
 An artefact is **owed** when the next phase cannot start properly without it: the test is not whether
 someone wants it, but whether the next phase would otherwise have to invent it. Everything else is
 optional: keep it if somebody reads it, delete it if not.
+
+{{model:g_baton}}
 
 ## Build the pack, step by step
 

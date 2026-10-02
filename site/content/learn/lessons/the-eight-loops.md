@@ -6,7 +6,7 @@ description: Eight loops turn the agentic PDLC from a line into a ring. Five clo
 dek: A phase ends; a loop comes back. The loops with nobody waiting at the far end are the ones that decide whether a project becomes a practice.
 level: Intermediate
 keywords: feedback loops software delivery, AI project feedback loop, continuous improvement AI, AI incident postmortem, AI cost control loop, AI governance, agentic PDLC loops
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -88,9 +88,11 @@ a monitored number. **It closes when a decision record has a new version with a 
 One question runs the whole incident loop: **which enforced control, if it had been present, would
 have made this impossible?** On day 82 SkyWays' agent issued a $2,000 refund that was not owed. The
 postmortem found five layers of defence claimed and none enforced; two lived only in the prompt. What
-left the room was a typed cap, a confirmation token, refunds dropped one autonomy level until a
+left the room was a typed $400 cap, a confirmation token, refunds dropped one autonomy level until a
 fourteen-day shadow run re-earned it, and six new golden cases. **It closes when a brief for the next
 P0 exists, with an owner.**
+
+{{figure:postmortem_layers}}
 
 ### Step 5 · Give governance to the sponsor
 
