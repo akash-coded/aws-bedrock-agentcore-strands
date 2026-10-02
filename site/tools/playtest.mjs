@@ -18,6 +18,9 @@
 // page as it was and says "This page is out of date. Reload to play.", which must never show on this tree.
 // Section 13 is the building's key, the role rows, the day on the card's metrics, the faults council 9
 // measured by eye, each as a number, and the loop that rests while its canvases are off the screen.
+// Section 14 starts a role at a later day from its row, by a real click: Maya on Day 45, in one role, with the
+// line that says how the days before it went; a reload resumes it; #day-45 alone is still the whole team; a
+// save is never replaced unasked; and on a phone every link on the rows is at least 24px tall.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
@@ -261,10 +264,10 @@ try {
   await open("#day-45");
   const cold = await evaluate(`({ h: ${HEAD}, book: (document.querySelector("#nd .nd-book") || {}).textContent || "", sofar: (document.querySelector("#nd .nd-sofar") || {}).textContent || "", save: ${SAVE}, hash: location.hash })`);
   if (!/^Day 45\. /.test(cold.h)) fail(`#day-45 with no save opened "${cold.h}"`);
-  else if (cold.book !== "Days 1 to 30 were played by the book so you can start here.") fail(`#day-45 does not say how it got there: "${cold.book}"`);
+  else if (cold.book !== "Days 1 to 30 were played for you the recommended way.") fail(`#day-45 does not say how it got there: "${cold.book}"`);
   else if (!/^So far: on Day 15, you /.test(cold.sofar)) fail(`#day-45 opens without its "So far": "${cold.sofar}"`);
   else if (cold.save) fail("#day-45 saved a run before any move was made");
-  else console.log(`  ok   #day-45 with no save opens "${cold.h}", and says the earlier days were played by the book`);
+  else console.log(`  ok   #day-45 with no save opens "${cold.h}", and says the earlier days were played for you the recommended way`);
   heads.add(cold.h);
   const pill45 = await evaluate(PILL);
   if (!pill0 || !pill45) fail("the header pill is missing");
@@ -496,8 +499,11 @@ try {
     const a = [...ol.querySelectorAll("a")].filter((x) => x.getClientRects().length), r = ol.getBoundingClientRect(), bar = document.querySelector("#nd .nd-line-bar").getBoundingClientRect();
     const x = (n) => { const d = n.querySelector("i").getBoundingClientRect(); return (d.left + d.width / 2 - bar.left) / bar.width; };
     return { hrefs: a.map((x) => x.getAttribute("href")).join(" "), flags: [...ol.querySelectorAll("em")].map((e) => e.textContent).join("|"), names: [...document.querySelectorAll("#nd .nd-line-ph span")].map((s) => s.textContent).join("|"),
-      x45: x(a[8]), x15: x(a[5]), bottom: Math.round(document.querySelector("#nd .nd-line").getBoundingClientRect().bottom), tabs: a.filter((x) => x.tabIndex === 0).length, w: Math.round(bar.width) }; })()`);
+      x45: x(a[8]), x15: x(a[5]), bottom: Math.round(document.querySelector("#nd .nd-line").getBoundingClientRect().bottom), tabs: a.filter((x) => x.tabIndex === 0).length, w: Math.round(bar.width),
+      // a stop that is a link says so before any hover, and the caption says to press one
+      under: a.filter((x) => getComputedStyle(x.querySelector("b")).textDecorationLine === "underline").length, cap: document.querySelector("#nd .nd-line-cap").textContent }; })()`);
   if (!line) fail("the title has no line of the ninety days");
+  else if (line.under !== 13 || !/^Start at Day 1, or press a day on the line to start there\. The days before that day are played for you/.test(line.cap)) fail(`at 1440 ${line.under} of the thirteen stops have their number underlined, and the caption reads "${line.cap}"`);
   else if (line.hrefs !== [1, 4, 6, 9, 12, 15, 20, 30, 45, 60, 75, 82, 90].map((n) => "#day-" + n).join(" ")) fail(`the line's links are ${line.hrefs}`);
   else if (line.flags !== "Sign-off|First test|First bill|Sponsor's slide" || line.names !== "Frame|Design and spec|Build and prove|Run and learn") fail(`the line's words: ${line.flags}; ${line.names}`);
   else if (Math.abs(line.x45 - 44 / 89) > 0.02 || Math.abs(line.x15 - 14 / 89) > 0.02) fail(`the line is not drawn to time: Day 15 at ${line.x15.toFixed(3)}, Day 45 at ${line.x45.toFixed(3)} of its width`);
@@ -515,7 +521,7 @@ try {
   const opened = await evaluate(`({ h: ${HEAD}, book: (document.querySelector("#nd .nd-book") || {}).textContent || "", save: ${KEY}, hash: location.hash, broke: ${BROKE} })`);
   if (aimed.cap !== "Day 45. " + aimed.head || aimed.start !== "Start at Day 45") fail(`focusing Day 45: the caption reads "${aimed.cap}", the button "${aimed.start}"`);
   else if (stepped.on !== "#day-60" || stepped.start !== "Start at Day 60") fail(`the arrow key from Day 45 went to ${stepped.on}, and Start reads "${stepped.start}"`);
-  else if (!/^Day 45\. /.test(opened.h) || !/^Days 1 to 30 were played by the book/.test(opened.book) || !opened.save || opened.hash || opened.broke) fail(`"Start at Day 45" opened ${JSON.stringify(opened)}`);
+  else if (!/^Day 45\. /.test(opened.h) || !/^Days 1 to 30 were played for you/.test(opened.book) || !opened.save || opened.hash || opened.broke) fail(`"Start at Day 45" opened ${JSON.stringify(opened)}`);
   else console.log(`  ok   focusing Day 45 puts its headline under the line, the arrow keys move along it, and "Start at Day 45" opens it by the book, saved`);
   // c. pointing at a stop does the same, and a stop is a link: with a save, following it offers the choice as before
   await fromCold(1440, 900, "");
@@ -530,8 +536,9 @@ try {
   await fromCold(390, 844, "");
   const small = await evaluate(`(() => { const a = [...document.querySelectorAll("#nd .nd-line-stops a")].filter((x) => x.getClientRects().length), r = (n) => n.getBoundingClientRect();
     return { days: a.map((x) => x.querySelector("b").textContent).join(" "), least: Math.min(...a.map((x) => Math.min(r(x).width, r(x).height))), marks: [...document.querySelectorAll("#nd .nd-line-stops .mk")].filter((x) => x.getClientRects().length).length,
-      clash: a.some((x, i) => i && r(x).left < r(a[i - 1]).right - 0.5), bottom: Math.round(r(document.querySelector("#nd .nd-line")).bottom), over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; })()`);
-  if (small.days !== "1 15 45 75 90" || small.marks !== 8) fail(`390 wide: the links are ${small.days}, with ${small.marks} marks`);
+      clash: a.some((x, i) => i && r(x).left < r(a[i - 1]).right - 0.5), bottom: Math.round(r(document.querySelector("#nd .nd-line")).bottom), over: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      under: a.every((x) => getComputedStyle(x.querySelector("b")).textDecorationLine === "underline") }; })()`);
+  if (small.days !== "1 15 45 75 90" || small.marks !== 8 || !small.under) fail(`390 wide: the links are ${small.days}${small.under ? "" : ", not all underlined"}, with ${small.marks} marks`);
   else if (small.least < 44 || small.clash) fail(`390 wide: the smallest stop is ${Math.round(small.least)}px${small.clash ? ", and two overlap" : ""}`);
   else if (small.bottom > 844 || small.over > 0) fail(`390 wide: the line ends at ${small.bottom}px, the page scrolls sideways by ${small.over}px`);
   else console.log(`  ok   390 wide: Day 1 and the four milestones are links of 44px or more, the other eight are marks, and the line ends at ${small.bottom}`);
@@ -542,7 +549,7 @@ try {
   await evaluate(`[...document.querySelectorAll("#nd .nd-d1 .dc-o button")][1].click()`); await sleep(300);
   const made = await evaluate(`({ h: ${HEAD}, you: (document.querySelector("#nd .nd-out .nd-you b") || {}).textContent || "", save: JSON.parse(${KEY} || "{}"), broke: ${BROKE} })`);
   if (!card) fail("the title has no Day 1 card");
-  else if (card.kick !== "Day 1 of 90 · Boardroom" || card.answers !== "Start the design from the 31 as writtenno days | Merge them into one list that keeps who asked1 day" || card.tall.some((x) => x !== 48) || card.pic !== 576) fail(`the Day 1 card: ${JSON.stringify(card)}`);
+  else if (card.kick !== "Day 1 of 90 · Boardroom · Your answer starts the game" || card.answers !== "Start the design from the 31 as writtenno days | Merge them into one list that keeps who asked1 day" || card.tall.some((x) => x !== 48) || card.pic !== 576) fail(`the Day 1 card: ${JSON.stringify(card)}`);
   else if (!/^Day 1\. /.test(made.h) || made.you !== "Merge them into one list that keeps who asked" || (made.save.opts || {}).mode !== "team" || (made.save.history || []).length !== 1 || made.broke) fail(`an answer on the card: ${JSON.stringify(made)}`);
   else console.log("  ok   Day 1's card: the boardroom at four times, two answers of 48px with their price, and the second starts a whole-team run with that call made");
   // f. in play: the phases over the strip, the next milestone under it, and a ring on one's own days
@@ -596,23 +603,24 @@ try {
     if (qa.card !== "Maya, QA lead, makes the calls on Days 45 and 82. Day 82 is held in the contact centre." || !qa.focus || qa.pressed !== "true") fail(`the QA room's card on the title: ${JSON.stringify(qa)}`);
     else if (!/^Ines, the sponsor, sits here with the finance controller and the compliance officer\. Days 1, 9 and 90 are held here\.$/.test(board)) fail(`the boardroom's card: "${board}"`);
     else console.log(`  ok   a room's card opens on its person: "${qa.card}"`);
-    // c. the role rows: five of 64px at 1440, each one press, with the role's days lit on a 180px line, then the sponsor's row
+    // c. the role rows at 1440: each one press, the role's days lit on a 180px line; 64px, or 93px where a second line
+    // offers the role's first call; then the sponsor's row
     const rows = await evaluate(`(() => { const data = JSON.parse(document.getElementById("nd-data").textContent), r = (n) => n.getBoundingClientRect();
       return [...document.querySelectorAll("#nd .nd-rolebtns .nd-role, #nd .nd-orgrow .nd-role")].map((row, k) => { const b = row.querySelectorAll("button"), m = row.querySelector(".nd-mini");
         row.scrollIntoView({ block: "center", behavior: "instant" });
         const t = r(row.querySelector(".nd-role-says")), hit = document.elementFromPoint(t.left + 4, t.top + 4);      // a press on the row's words is a press on its button
         return { h: Math.round(r(row).height), buttons: b.length, label: b[0] ? b[0].textContent : "", line: m ? Math.round(r(m).width) : 0, lit: row.querySelectorAll(".nd-mini i.on").length,
-          who: row.querySelector(".nd-role-who").textContent, press: !!hit && hit === b[0] }; }); })()`);
+          who: row.querySelector(".nd-role-who").textContent, press: !!hit && hit === b[0], first: !!row.querySelector(":scope > a") }; }); })()`);
     const want = Object.values(words.roles).map((R) => ({ name: words.cast[R.who].name, calls: words.days.filter((d) => d.owner === R.who).length }));
     const cards = Object.values(words.roles).map((R) => R.card).concat(words.org.card), cw = cards.map((c) => [c.decide, c.leave, c.pick].join(" ").split(/\s+/).length);
     if (rows.length !== 6) fail(`the title has ${rows.length} rows to play from, not five roles and the sponsor`);
     else if (rows.some((x, k) => x.buttons !== 1 || !x.press || x.line !== 180)) fail(`a row is not one press with a 180px line: ${JSON.stringify(rows)}`);
-    else if (rows.slice(0, 5).some((x) => Math.abs(x.h - 64) > 1)) fail(`at 1440 the role rows are ${rows.map((x) => x.h).join(", ")}px tall, not 64`);
+    else if (rows.slice(0, 5).some((x) => Math.abs(x.h - (x.first ? 93 : 64)) > 1)) fail(`at 1440 the role rows are ${rows.map((x) => x.h + (x.first ? " (first call)" : "")).join(", ")}px tall, not 64, or 93 with a first call`);
     else if (rows.slice(0, 5).some((x, k) => x.label !== "Play as " + want[k].name || x.lit !== want[k].calls || !x.who.includes(want[k].calls + (want[k].calls > 1 ? " calls" : " call")))) fail(`the role rows: ${rows.map((x) => x.label + ", " + x.lit + " lit, " + x.who).join(" | ")}`);
     else if (rows[5].label !== "Set the rules") fail(`the sponsor's row offers "${rows[5].label}"`);
     else if ((await evaluate(`(() => { document.querySelector("#nd .nd-ways").scrollIntoView({ block: "start", behavior: "instant" }); return document.querySelector("#nd .nd-stage").getBoundingClientRect().bottom - document.querySelector("#nd .nd-ways").getBoundingClientRect().top; })()`)) > 0) fail("scrolled to the rows, the building's column lies over them");
     else if (cw.some((n) => n >= 70) || cards.some((c) => /[–—]/.test(Object.values(c).join(" ")) || !/^Pick this if /.test(c.pick))) fail(`a row's words run to ${Math.max(...cw)} words, or carry a dash`);
-    else console.log(`  ok   1440 wide: five role rows of 64px and the sponsor's, each one press, "${rows[3].label}" with ${rows[3].lit} days lit on a 180px line, ${Math.max(...cw)} words at most`);
+    else console.log(`  ok   1440 wide: five role rows (${rows.slice(0, 5).map((x) => x.h).join(", ")}px) and the sponsor's, each one press, "${rows[3].label}" with ${rows[3].lit} days lit on a 180px line, ${Math.max(...cw)} words at most`);
     // d. the day on the card's metrics, and one answer component on the title and in play
     const titleOpt = await evaluate(`(() => { const b = document.querySelector("#nd .nd-d1 .dc-o button"); return b.className + "|" + getComputedStyle(b.querySelector(".nd-opt-p")).backgroundColor; })()`);
     await evaluate(START); await sleep(400);
@@ -669,6 +677,103 @@ try {
     else if (!(f2 > f1)) fail("scrolled to, the building does not move");
     else console.log(`  ok   390 wide, Day 1: ${f0} frames as the people walk in, then none while the building is off the screen, and ${f2 - f1} once it is scrolled to`);
     if (thrown.length) fail("section 13: script error: " + thrown[0]);
+  }
+
+  {                               // its own block, as section 13
+    console.log("\n14. a role that starts later, from its row");
+    thrown.length = 0;
+    await fromCold(1440, 900, "");
+    const data = JSON.parse(await evaluate(`document.getElementById("nd-data").textContent`));
+    // a real click: the pointer pressed and let go over the middle of the element, so the row's cover would take it if it lay on top
+    const press = async (sel) => {
+      const at = await evaluate(`(() => { const n = document.querySelector(${JSON.stringify(sel)}); if (!n) return null; n.scrollIntoView({ block: "center", behavior: "instant" }); const r = n.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+      if (!at) return false;
+      await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: at.x, y: at.y });
+      for (const type of ["mousePressed", "mouseReleased"]) await send("Input.dispatchMouseEvent", { type, x: at.x, y: at.y, button: "left", clickCount: 1 });
+      return true;
+    };
+    const READ = `({ h: ${HEAD}, you: (document.querySelector("#nd .nd-you-are") || {}).textContent || "", book: (document.querySelector("#nd .nd-book") || {}).textContent || "",
+      q: ([...document.querySelectorAll("#nd .nd-meters div")].find((x) => x.querySelector("dt").textContent === "Questions") || { textContent: "" }).textContent,
+      mine: [...document.querySelectorAll("#nd .nd-strip li.mine > span:first-child")].map((x) => x.textContent).join(" "), hash: location.hash, y: Math.round(scrollY),
+      save: ${SAVE}, broke: ${BROKE}, focus: !!document.activeElement && !!document.activeElement.closest("#nd .nd-dayhead") })`;
+    const BOOK = "Days 1 to 30 were played for you the recommended way.", MAYA = /^You are Maya, the QA lead\. /;
+    const ROLEBOOK = BOOK + " " + data.line.asked + " " + data.line.kept;
+    // a. each role's own days on its row are links that start it there; a role whose first call is after Day 1 has one in words
+    const rows = await evaluate(`[...document.querySelectorAll("#nd .nd-rolebtns .nd-role")].map((row) => ({ days: [...row.querySelectorAll(".nd-role-days a")].map((a) => a.getAttribute("href") + "=" + a.textContent).join(" "),
+      first: row.querySelector(":scope > a") ? row.querySelector(":scope > a").getAttribute("href") + "=" + row.querySelector(":scope > a").textContent : "", under: [...row.querySelectorAll("a")].every((a) => getComputedStyle(a).textDecorationLine === "underline") }))`);
+    const want = Object.entries(data.roles).map(([r, R]) => { const mine = data.days.filter((d) => d.owner === R.who), f = mine[0].day;
+      return { days: mine.map((d) => `#day-${d.day}-${r}=${d.day}`).join(" "), first: f > 1 ? `#day-${f}-${r}=` + data.line.first.replace("{day}", f) : "" }; });
+    const org = await evaluate(`document.querySelectorAll("#nd .nd-orgrow a").length`);
+    if (rows.length !== 5 || rows.some((x, k) => x.days !== want[k].days || x.first !== want[k].first || !x.under)) fail(`the rows' links: ${JSON.stringify(rows)}`);
+    else if (org) fail(`the sponsor's row has ${org} links; the sponsor still starts at the rules`);
+    else console.log(`  ok   each role's own days on its row are underlined links (${rows[3].days.replace(/=\d+/g, "")}), and "${rows[3].first.replace(/^[^=]*=/, "")}" where the first call is after Day 1`);
+    // b. QA at Day 45 from Maya's row, by a real click: Day 45, in one role, with the line that says how the days before it went
+    await press('#nd .nd-rolebtns .nd-role-days a[href="#day-45-qa"]'); await sleep(700);
+    const cold = await evaluate(READ);
+    if (!/^Day 45\. /.test(cold.h) || !MAYA.test(cold.you) || cold.mine !== "45 82" || !/^Questions\d+ left$/.test(cold.q)) fail(`Maya's Day 45, from her row: ${JSON.stringify(cold)}`);
+    else if (cold.book !== ROLEBOOK) fail(`Maya's Day 45 says "${cold.book}"`);
+    else if (cold.hash !== "#day-45-qa" || cold.save || cold.broke || cold.y || !cold.focus) fail(`Maya's Day 45 opened at #${cold.hash}, ${cold.save ? "saved" : "unsaved"}, scrolled ${cold.y}, focus ${cold.focus ? "on the day" : "elsewhere"}${cold.broke ? ", saying " + cold.broke : ""}`);
+    else console.log(`  ok   a click on 45 in Maya's row opens "${cold.h.slice(0, 40)}...", as Maya, her days ringed, ${cold.q.replace("Questions", "")}: "${cold.book}"`);
+    // c. a reload resumes the same run: before a move the address opens it again; after one, the save does
+    await send("Page.reload"); await sleep(1200);
+    const again = await evaluate(READ);
+    await evaluate(STEP(1, false)); await sleep(150);
+    const moved = await evaluate(`({ opts: (JSON.parse(${SAVE} || "{}").opts || {}), hash: location.hash, broke: ${BROKE} })`);
+    await send("Page.reload"); await sleep(1200);
+    const offered = await evaluate(`[...document.querySelectorAll("#nd button")].map((b) => b.textContent.trim())`);
+    await evaluate(PRESS("Carry on from Day 45")); await sleep(300);
+    const back = await evaluate(READ);
+    if (again.h !== cold.h || again.you !== cold.you || again.book !== cold.book || again.q !== cold.q || again.save || again.broke) fail(`reloaded before a move: ${JSON.stringify(again)}`);
+    else if (moved.opts.mode !== "role" || moved.opts.role !== "qa" || moved.opts.from !== 8 || moved.hash || moved.broke) fail(`after a move on Maya's Day 45 the save is ${JSON.stringify(moved)}`);
+    else if (!offered.includes("Carry on from Day 45") || back.h !== cold.h || !MAYA.test(back.you) || back.broke) fail(`reloaded after a move: offered ${offered.join(" | ")}, then ${JSON.stringify(back)}`);
+    else console.log("  ok   a reload opens the same run: by its address before a move, and after one by \"Carry on from Day 45\", still as Maya");
+    // d. #day-45 alone still opens the whole team
+    await evaluate(`(localStorage.clear(), 1)`); await open("#day-45");
+    const team = await evaluate(READ);
+    if (!/^Day 45\. /.test(team.h) || team.you || team.q || team.mine || team.book !== BOOK || team.broke) fail(`#day-45 alone opened ${JSON.stringify(team)}`);
+    else console.log(`  ok   #day-45 alone is still the whole team: no one to be, no questions, "${team.book}"`);
+    // e. with a run saved, the row's link in words offers the choice and leaves the save alone; the fresh run is saved in one role
+    await fromCold(1440, 900, ""); await evaluate(START); await sleep(150);
+    for (let i = 0; i < 7; i++) { await evaluate(STEP(1, false)); await sleep(25); }
+    const mine = await evaluate(SAVE);
+    await blank(); await send("Page.navigate", { url: URL_ }); await sleep(1100);
+    await press('#nd .nd-rolebtns .nd-role > a[href="#day-45-qa"]'); await sleep(500);
+    const choice = await evaluate(`({ say: (document.querySelector("#nd .nd-title .nd-pitch") || {}).textContent || "", buttons: ${BUTTONS}, save: ${SAVE} })`);
+    await evaluate(PRESS("Open Day 45 on a fresh run")); await sleep(300);
+    const fresh45 = await evaluate(READ), opts = JSON.parse(fresh45.save || "{}").opts || {};
+    if (choice.say !== "This link opens Day 45 as Maya. You also have a run in progress, on Day 9." || choice.buttons.join("|") !== "Carry on from Day 9|Open Day 45 on a fresh run" || choice.save !== mine) fail(`a row's link with a run saved: ${JSON.stringify(choice)}`);
+    else if (!/^Day 45\. /.test(fresh45.h) || !MAYA.test(fresh45.you) || opts.mode !== "role" || opts.role !== "qa" || opts.from !== 8 || fresh45.hash || fresh45.broke) fail(`the fresh run from a row's link: ${JSON.stringify(fresh45)}`);
+    else console.log(`  ok   with a run saved, "${data.line.first.replace("{day}", 45)}" says "${choice.say}", keeps the save, and only "Open Day 45 on a fresh run" replaces it`);
+    // f. the row's button still plays from Day 1; an address with a role the game does not have, or a day it does not have, is the title
+    await fromCold(1440, 900, ""); await evaluate(ROLE(3)); await sleep(300);
+    const one = await evaluate(READ);
+    let bad = 0;
+    for (const hash of ["#day-45-org", "#day-45-maya", "#day-45-constructor", "#day-44-qa", "#day-45-qa-1"]) {
+      await evaluate(`(localStorage.clear(), 1)`); await open(hash);
+      if (!(await evaluate(`!![...document.querySelectorAll("#nd button")].find((x) => x.textContent.trim() === "Start at Day 1")`))) { bad++; fail(`${hash} did not fall back to the title`); }
+    }
+    if (!/^Day 1\. /.test(one.h) || !MAYA.test(one.you) || one.book || one.broke) fail(`"Play as Maya" opened ${JSON.stringify(one)}`);
+    else if (!bad) console.log("  ok   \"Play as Maya\" still starts at Day 1, and an address with an unknown role or day falls back to the title");
+    // g. on a phone the links can be pressed: each at least 24px tall, the one under the finger, no two touching, inside the row
+    for (const [w, h] of [[390, 844], [320, 640]]) {
+      await fromCold(w, h, "");
+      const m = await evaluate(`(() => { const out = { least: 99, missed: [], touch: 0, outside: 0 }, r = (n) => n.getBoundingClientRect();
+        for (const row of document.querySelectorAll("#nd .nd-rolebtns .nd-role")) {
+          const links = [...row.querySelectorAll("a")], days = links.filter((a) => a.closest(".nd-role-days"));
+          for (const a of links) {
+            a.scrollIntoView({ block: "center", behavior: "instant" });
+            const b = r(a), hit = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2);
+            out.least = Math.min(out.least, Math.round(b.height));
+            if (!hit || !(hit === a || a.contains(hit))) out.missed.push(a.getAttribute("href"));
+            if (b.right > r(row).right + 0.5 || b.left < r(row).left - 0.5) out.outside++;
+          }
+          for (let i = 1; i < days.length; i++) { const p = r(days[i - 1]), q = r(days[i]); if (Math.abs(p.top - q.top) < 2 && q.left < p.right) out.touch++; }
+        }
+        out.over = document.documentElement.scrollWidth - document.documentElement.clientWidth; return out; })()`);
+      if (m.least < 24 || m.missed.length || m.touch || m.outside || m.over) fail(`${w} wide, the rows' links: the shortest ${m.least}px, ${m.missed.length} not under the finger (${m.missed.join(" ")}), ${m.touch} touching, ${m.outside} outside their row, the page ${m.over}px wider than the screen`);
+      else console.log(`  ok   ${w} wide: every link on the rows is at least ${m.least}px tall, the one a finger lands on, none touching another, all inside their rows, nothing sideways`);
+    }
+    if (thrown.length) fail("section 14: script error: " + thrown[0]);
   }
 } catch (e) {
   failures++; console.log("\nthe play test itself failed: " + e.message);

@@ -6,8 +6,12 @@
   "pitch": "A game takes ten to fifteen minutes. Every decision shows its price in days before you choose. Some decisions cost more days later.",
   "short": "SkyWays is a fictional airline building an assistant that rebooks stranded passengers.",
   "line": {
-    "caption": "Start at Day 1, or at any day: the days before it are played by the book.",
-    "card": "Choose an answer and the game starts with your call.",
+    "caption": "Start at Day 1, or press a day on the line to start there. The days before that day are played for you, the recommended way.",
+    "card": "Your answer starts the game",
+    "book": "played for you the recommended way.",
+    "asked": "Your questions went on plans that were not the recommended way.",
+    "kept": "One is kept for Day 90.",
+    "first": "Or start at Day {day}, your first call",
     "milestones": {
       "d6": { "flag": "Sign-off", "name": "the sign-off" },
       "d9": { "flag": "First test", "name": "the first test" },
@@ -16,7 +20,7 @@
     }
   },
   "building": {
-    "caption": "SkyWays head office. Each day happens in one room, lit. The days start at the top, work down to the passengers, and end in the boardroom.",
+    "caption": "SkyWays head office. Each day happens in one room, lit. Day 1 is in the boardroom at the top. The days work down the floors to the passengers, and come back to the boardroom on Day 90.",
     "key": "Who works where, and their days",
     "floors": ["top floor", "second floor", "first floor", "ground floor"],
     "marks": { "lit": "Today's room", "shut": "Shut until the sign-off", "owed": "Something is due there" }
@@ -136,7 +140,9 @@
     }
   },
   "org": {
-    "card": { "decide": "You set three rules, then watch the team work.", "leave": "the rules that matter most", "pick": "Pick this if you fund AI projects, or decide what they must prove." }
+    "card": { "decide": "You set three rules, then watch the team work.", "leave": "the rules that matter most", "pick": "Pick this if you fund AI projects, or decide what they must prove." },
+    "way": "You are the sponsor. Pick three rules for the programme, then watch the ninety days run.",
+    "intro": "You cannot enforce everything: a rule that stops the work costs days, and people route around the tenth one. Pick three. The team does the rest by habit."
   },
   "phases": [
     {
@@ -597,6 +603,7 @@
       "room": "product",
       "owner": "priya",
       "gate": true,
+      "signoff": "This is the one hand-off that stops the work. Nothing is built until three documents are signed. After today, changing your mind costs a rewrite.",
       "head": "Today the product manager signs off what the AI assistant must do. The engineers will build exactly what is signed.",
       "context": "The requirements run to thirty pages, and the engineers' coding agent builds whatever it is given.",
       "with": [
@@ -1080,6 +1087,7 @@
       },
       "variants": {
         "blocked": {
+          "fig": "The $400 limit is in the refund tool itself. That is a wall, and the refund stopped at it.",
           "head": "The AI assistant tried to refund $2,000 to a passenger who was owed $180. The refund tool refused the payment.",
           "scene": [
             [
@@ -1119,6 +1127,7 @@
           ]
         },
         "paid": {
+          "fig": "The $400 limit was a sentence in the prompt. That is paper, and the refund went through it.",
           "head": "The AI assistant paid $2,000 to a passenger who was owed $180. Nothing stopped the payment.",
           "scene": [
             [
@@ -1537,6 +1546,7 @@
       "days": 0
     }
   ],
+  "monday": ["Is the limit in the tool, or only in the prompt?", "What is the least that score could be, and on how many cases?", "Which of our open decisions really stops the work?"],
   "verdicts": {
     "funded": {
       "name": "Funded for a second cycle",

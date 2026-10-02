@@ -11,6 +11,9 @@
 // earlier day that today leans on and never joins two. It checks that a document waits for its task,
 // that a question can be asked of a sound plan as well as an unsound one and shows only evidence, and
 // that the verdict's saving follows from the run: a late run never reports the saving of one on time.
+// The book that opens a day for a link plays the whole team exactly as it did before a role could start
+// later; in one role it opens every day for every role, and plays a colleague's day as a player who knows
+// the method: a sound plan stands, one that is not is questioned and replaced while questions last.
 import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -135,7 +138,14 @@ console.log("\n1. the words");
     check(need.test(data.premise), `the title's opening lines leave out ${need}: "${data.premise}"`);
   // The title's line of the ninety days: its caption and the note on Day 1's card are plain words, and
   // the four milestones it marks are days of the game, in order, the first of them the sign-off.
-  plain(data.line.caption, "the line's caption"); plain(data.line.card, "the note on Day 1's card");
+  plain(data.line.caption, "the line's caption"); plain(data.line.card, "the note in Day 1's kicker");
+  // the line a day opened late carries, in one role too, and the link to a role's first call
+  plain("Days 1 to 30 were " + data.line.book, "the line a day opened late carries"); plain(data.line.asked, "what that line says in one role"); plain(data.line.kept, "what it says of the question kept for Day 90");
+  check(/\{day\}/.test(data.line.first), `the link to a role's first call does not name its day: "${data.line.first}"`); plain(data.line.first.replace("{day}", "45"), "the link to a role's first call");
+  // the other words the page shows from this file
+  plain(data.building.caption, "the building's caption"); plain(data.org.way, "the sponsor's way to play"); plain(data.org.intro, "the sponsor's rules screen");
+  plain(data.days.find((d) => d.gate).signoff, "the sign-off's intro"); for (const [k, v] of Object.entries(data.days.find((d) => d.variants).variants)) plain(v.fig, `Day 82's figure, ${k}`);
+  data.monday.forEach((q, k) => plain(q, `question ${k + 1} for Monday`));
   const miles = Object.keys(data.line.milestones);
   check(miles.length === 4 && miles.every((id, k) => sim.dayIndex(data, id) >= 0 && (!k || sim.dayIndex(data, id) > sim.dayIndex(data, miles[k - 1]))), `the milestones are not four days in order: ${miles.join(", ")}`);
   check(!!data.days[sim.dayIndex(data, miles[0])].gate, "the first milestone is not the sign-off's day");
@@ -513,6 +523,101 @@ for (const seed of [0, 1, 2]) {
   console.log(`  seed ${seed}: all thirteen days open by the book; Day 90 opens at trust ${end.trust}, runway ${end.slack}, ${end.shelf.length} on file; at most ${words} words before the scene`);
 }
 check(sim.book(data, {}, 0).length === 0, "the book for Day 1 is not empty");
+
+console.log("\n9. a role that starts later: the book plays the days before it in that role");
+{
+  // The whole-team book as it was before a role could start later, kept here word for word. The book now
+  // knows one role, and must play every whole-team day exactly as this did.
+  const before = (opts, upto) => {
+    let s = sim.init(data, opts), day, a, n, guard = 0;
+    while (s.i < upto && s.beat !== "end" && guard++ < 400) {
+      day = sim.today(data, s);
+      if (sim.canFix(data, s)) a = { t: "fixcap" };
+      else if (s.slack < 0 && !s.moved) a = { t: "move" };
+      else if (s.beat === "choose") a = day.options ? { t: "choose", opt: sim.rightOption(day).id } : { t: "task", id: day.task, input: sim.botTask(data, s, day.task, true) };
+      else if (s.beat === "task") a = { t: "task", id: s.task, input: sim.botTask(data, s, s.task, true) };
+      else if (s.beat === "gate") a = { t: "gate", how: sim.gateMissing(s).length ? "hold" : "pass" };
+      else a = { t: "next" };
+      n = sim.reduce(data, s, a); if (n === s) break; s = n;
+    }
+    return s.history;
+  };
+  let same = 0;
+  for (const opts of [{ seed: 0 }, { seed: 1 }, { seed: 2 }, { mode: "team", seed: 0, from: 8 }])
+    for (let i = 0; i <= data.days.length; i++) { const ok = JSON.stringify(sim.book(data, opts, i)) === JSON.stringify(before(opts, i)); check(ok, `the whole-team book changed on Day ${(data.days[i] || { day: "the end" }).day}, ${JSON.stringify(opts)}`); same += ok; }
+  console.log(`  the whole-team book: ${same} histories, seeds 0 to 2 and the page's own, every day and the end, the same as before`);
+  check(sim.fold(data, { mode: "role", role: "qa" }, before({ mode: "role", role: "qa" }, 8)).i === 0, "the old book got past a colleague's day in one role");
+
+  // A colleague's plan is sound when it is the method's option, or on Day 90 when the slide it plans is the method's slide.
+  const methodSlide = JSON.stringify(sim.botTask(data, null, "slide", true)), last = data.days[data.days.length - 1];
+  const sound = (s) => { const day = sim.today(data, s); return day.options ? s.pending === sim.rightOption(day).id : JSON.stringify(sim.evidence(data, s).slide) === methodSlide; };
+  const cell = (s) => `${s.trust} ${String(s.slack).padStart(3)} ${String(s.shelf.length).padStart(2)}`;
+  const roles = Object.keys(data.roles), table = data.days.map((d, i) => `  ${String(d.day).padStart(3)}   ${cell(sim.fold(data, { seed: 0 }, sim.book(data, { seed: 0 }, i)))}  `);
+  const endings = [];
+  // Whether some line from a state still ends at least "funded with conditions": a memoised search over every move the
+  // rules offer (each option, each task done well or badly, three slides, questions, repairs, the date, the limit),
+  // with the book's own line tried first, so a start the book itself carries there costs one walk down that line.
+  const allMoves = (s) => sim.legal(data, s).flatMap((m) => m.t === "task" ? (m.id === "slide" ? SLIDES.map((x) => ({ t: "task", id: "slide", input: x })) : [true, false].map((w) => ({ t: "task", id: m.id, input: taskInput(m.id, w) })))
+    : m.t === "challenge" && !m.opt ? [{ t: "challenge", input: SLIDES[0] }] : [m]);
+  const digest = (s) => JSON.stringify([s.i, s.beat, s.task, s.pending, s.seen, s.tokens, s.slack, s.trust, s.moved, s.capInTool, s.incidents, s.shelf.slice().sort(), s.debts.map((d) => d.id + d.due + d.state + d.tag), s.flags, s.hold]);
+  const reach = (s, line, memo) => {
+    if (s.beat === "end") return RANK[sim.verdict(data, s).key] >= RANK.conditional;
+    const k = digest(s); if (memo.has(k)) return memo.get(k);
+    const moves = (line && line.length ? [line[0]] : []).concat(allMoves(s));
+    let ok = false;
+    for (let j = 0; j < moves.length && !ok; j++) { const n = sim.reduce(data, s, moves[j]); if (n !== s) ok = reach(n, j === 0 && line && line.length ? line.slice(1) : null, memo); }
+    memo.set(k, ok); return ok;
+  };
+  let searched = 0; const t0 = Date.now();
+  for (const role of roles) {
+    const o = { mode: "role", role, seed: 0 }, full = sim.book(data, o, data.days.length), end = sim.fold(data, o, full);
+    // Played on to the end, the book is a player who knows the method: own calls and tasks the method's way; on a
+    // colleague's day a sound plan stands, and one that is not is questioned and the method's way asked for, while a
+    // question is spare. When Day 90, the sponsor's slide, is a colleague's, the last question is kept for it.
+    let s = sim.init(data, o), questioned = [], stood = [];
+    const keeps = !sim.mine(data, s, last);
+    for (const a of full) {
+      const day = sim.today(data, s), mine = !s.pending, r = day.options ? sim.rightOption(day) : null, kept = keeps && day.id !== last.id ? 1 : 0;
+      if (a.t === "choose") check(a.opt === r.id, `${role}: the book did not play its own Day ${day.day} the method's way`);
+      if (a.t === "task") check(JSON.stringify(a.input) === JSON.stringify(sim.botTask(data, s, a.id, true)), `${role}: the book did a task on Day ${day.day} badly`);
+      if (a.t === "ask") { check(!mine && !sound(s) && s.tokens > kept, `${role}: the book questioned a sound plan on Day ${day.day}, or spent the question kept for Day 90`); questioned.push(day.day); }
+      if (a.t === "challenge") check(s.seen && (r ? a.opt === r.id : JSON.stringify(a.input) === methodSlide), `${role}: on Day ${day.day} the book asked for something other than the method's way, or without seeing the evidence`);
+      if (a.t === "accept") { check(sound(s) || (s.tokens <= kept && !s.seen), `${role}: on Day ${day.day} the book let a plan stand that was not the method's way, with a question to spare`); if (!sound(s)) stood.push(day.day); }
+      if (keeps && day.id === last.id && s.beat === "choose" && !s.seen) check(s.tokens > 0, `${role}: the book reached Day 90 with no question kept for it`);
+      const n = sim.reduce(data, s, a); check(n !== s, `${role}: the rules refused the book's ${a.t} on Day ${day.day}`); s = n;
+    }
+    check(end.beat === "end", `${role}: played on by the book, the run never reaches its ending`);
+    // Every start this role's row offers: its own days, opened by the book (seed 0, as the row's links open them), and
+    // Day 1 from its button, on each of the three days the vendor's freeze can fall. None may be past saving.
+    const memo = new Map();
+    data.days.forEach((d, i) => {
+      if (d.owner !== data.roles[role].who) return;
+      const h = sim.book(data, o, i); searched++;
+      check(reach(sim.fold(data, o, h), full.slice(h.length), memo), `${role}: from Day ${d.day}, opened by the book, no line reaches even funded with conditions`);
+    });
+    for (const seed of [0, 1, 2]) { const b = { mode: "role", role, seed }; searched++; check(reach(sim.init(data, b), sim.book(data, b, data.days.length), seed ? new Map() : memo), `${role}: from Day 1, seed ${seed}, no line reaches even funded with conditions`); }
+    // From every one of the thirteen days the role's book opens that day, cold, and the run goes on from there to its ending.
+    data.days.forEach((d, i) => {
+      const h = sim.book(data, o, i), st = sim.fold(data, o, h);
+      check(st.i === i && st.beat === "choose" && st.history.length === h.length, `${role}: the book does not open Day ${d.day}`);
+      check(JSON.stringify(full.slice(0, h.length)) === JSON.stringify(h), `${role}: the book to Day ${d.day} is not the start of the book to the end`);
+      check(!!st.pending === !sim.mine(data, st, d), `${role}: Day ${d.day} opens with the wrong person to call it`);
+      const so = sim.soFar(data, st), from = i ? data.days.find((x) => x.day === so.from) : null;
+      check(so.text.length > 0 && wc(so.label + " " + so.text) <= 25, `${role}, Day ${d.day}: "So far" is empty or long when opened by the book`);
+      if (from) check((so.who === "you") === (data.cast[from.owner].role === role || !!st.asked[from.id]), `${role}, Day ${d.day}: "So far" names the wrong person: "${so.text}"`);
+      table[i] += ` ${cell(st)} ${st.tokens} `;
+    });
+    const v = sim.verdict(data, end);
+    endings.push(`  ${role.padEnd(4)} questions on Days ${questioned.join(", ")}; stood, no question to spare: Days ${stood.join(", ") || "none"}; played on by the book: ${v.key}, trust ${end.trust}, runway ${end.slack}, ${end.shelf.length} on file`);
+  }
+  console.log("  at the opening of each day, by the book: trust, runway, documents on file (in a role, questions left)");
+  console.log("  day   team      " + roles.map((r) => " " + r.padEnd(11)).join(""));
+  table.forEach((t) => console.log(t));
+  const team = sim.fold(data, { seed: 0 }, sim.book(data, { seed: 0 }, data.days.length));
+  console.log(`  team questions none; played on by the book: ${sim.verdict(data, team).key}, trust ${team.trust}, runway ${team.slack}, ${team.shelf.length} on file`);
+  endings.forEach((e) => console.log(e));
+  console.log(`  from each of the ${searched} starts the rows offer, some line still ends funded with conditions or better (searched in ${((Date.now() - t0) / 1000).toFixed(1)}s, with the tables)`);
+}
 
 console.log(failures ? `\n${failures} failure(s)` : "\nthe rules hold");
 process.exit(failures ? 1 : 0);

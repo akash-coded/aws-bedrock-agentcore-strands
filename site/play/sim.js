@@ -39,7 +39,6 @@
     if (opt.extraIfMissing && day.needs && !has(state, day.needs)) d += opt.extraIfMissing;
     return d;
   }
-  function owner(data, day) { return data.cast[day.owner]; }
   // who makes today's call: the player, or a colleague
   function mine(data, state, day) {
     if (state.mode === "team") return true;
@@ -410,14 +409,18 @@
   /* ------------------------------------------------------------------ by the book
      The list of actions that reaches a given day with every earlier day done the method's way: its
      option, its task done well, the limit typed into the tool as soon as that can be done, and the date
-     moved once if the runway has run out. A link to a day opens on this, in whole-team mode. */
+     moved once if the runway has run out. A link to a day opens on this. In one role a colleague's plan
+     stands if sound; if not, it is questioned and the method's way asked for, keeping the last question
+     for Day 90 when that day is a colleague's. */
   function book(data, opts, upto) {
-    var s = init(data, opts), day, a, n, guard = 0;
+    var s = init(data, opts), L = data.days.length - 1, day, a, n, r, k, guard = 0;
     while (s.i < upto && s.beat !== "end" && guard++ < 400) {
-      day = today(data, s);
+      day = today(data, s); r = rightOption(day); k = s.i < L && !mine(data, s, data.days[L]) ? 1 : 0;
       if (canFix(data, s)) a = { t: "fixcap" };
       else if (s.slack < 0 && !s.moved) a = { t: "move" };
-      else if (s.beat === "choose") a = day.options ? { t: "choose", opt: rightOption(day).id } : { t: "task", id: day.task, input: botTask(data, s, day.task, true) };
+      else if (s.pending) a = (r ? s.pending === r.id : !habit(s, day.id)) || !(s.seen || s.tokens > k) ? { t: "accept" } : !s.seen ? { t: "ask" }
+        : r ? { t: "challenge", opt: r.id } : { t: "challenge", input: botTask(data, s, day.task, true) };
+      else if (s.beat === "choose") a = day.options ? { t: "choose", opt: r.id } : { t: "task", id: day.task, input: botTask(data, s, day.task, true) };
       else if (s.beat === "task") a = { t: "task", id: s.task, input: botTask(data, s, s.task, true) };
       else if (s.beat === "gate") a = { t: "gate", how: gateMissing(s).length ? "hold" : "pass" };
       else a = { t: "next" };
@@ -515,7 +518,7 @@
              repaired: state.debts.filter(function (d) { return d.state === "repaired"; }).length };
   }
 
-  var api = { init: init, reduce: reduce, fold: fold, legal: legal, today: today, price: price, mine: mine, owner: owner,
+  var api = { init: init, reduce: reduce, fold: fold, legal: legal, today: today, price: price, mine: mine,
               rightOption: rightOption, bars: bars, barOf: barOf, sliceStats: sliceStats, gateMissing: gateMissing, canFix: canFix,
               repairCost: repairCost, soFar: soFar, source: source, evidence: evidence, book: book, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
   if (typeof module !== "undefined" && module.exports) module.exports = api;

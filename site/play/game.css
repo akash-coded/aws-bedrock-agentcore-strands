@@ -351,7 +351,9 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   transition:scale var(--t-fast) var(--ease),background var(--t-fast) var(--ease)}
 .nd-line-stops .mile a>i::before{width:14px;height:14px;box-shadow:0 0 0 2px var(--ink)}
 .nd-line-stops .gate a>i::before{background:var(--dg-rose)}
+/* a stop that is a link says so before any hover: its number is underlined, as a link in text is (a mark is not) */
 .nd-line-stops b{margin-top:6px;font:500 12px/1 var(--f-mono)}
+.nd-line-stops a b{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .nd-line-stops em{position:absolute;top:100%;left:50%;transform:translateX(-50%);font:500 12px/1.2 var(--f-mono);color:var(--ink2);white-space:nowrap}
 .nd-line-stops .gate em{color:var(--dg-rose)}
 .nd-line-stops li:last-child em{left:auto;right:calc(50% - var(--pad));transform:none}
@@ -361,7 +363,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-line-stops li.on.gate a>i::before{background:var(--dg-rose)}
 .nd-line-stops a:focus-visible{outline:0}
 .nd-line-stops a:focus-visible>i::before{outline:2px solid var(--ink);outline-offset:3px}
-.nd-line-stops a:focus-visible b{text-decoration:underline;text-underline-offset:3px}
+.nd-line-stops a:hover b,.nd-line-stops a:focus-visible b{text-decoration-thickness:2px}
 .nd-line-foot{display:flex;align-items:center;justify-content:space-between;gap:12px 28px}
 .nd-line-cap{margin:0;max-width:none;min-height:3em;display:flex;align-items:center;font-size:16px;line-height:1.5;color:var(--ink2)}
 .nd-line-foot .nd-acts{flex:none}
@@ -384,8 +386,10 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-ways h3{margin:22px 0 4px;font-family:var(--f-display);font-size:18px;font-weight:620;letter-spacing:-.015em}
 .nd-ways>p:not(.nd-k){margin:0 0 12px;max-width:none;font-size:14.5px;line-height:1.5;color:var(--ink2)}
 .nd-rolebtns{display:grid;gap:8px}
-.nd-role{position:relative;display:grid;grid-template-columns:168px minmax(0,1fr) 180px 196px 136px;align-items:center;gap:6px 24px;min-height:64px;padding:8px 10px 8px 20px;
+.nd-role{position:relative;display:grid;grid-template-columns:168px minmax(0,1fr) 180px 196px 136px;grid-template-areas:"who says days takes btn";align-items:center;gap:6px 24px;min-height:64px;padding:8px 10px 8px 20px;
   border:1px solid var(--rule);border-radius:14px;background:var(--paper);transition:border-color var(--t-fast) var(--ease)}
+.nd-role:has(>a){grid-template-areas:"who says days takes btn" "who says from from btn"}
+.nd-role-who{grid-area:who}.nd-role .btn{grid-area:btn}.nd-role-says{grid-area:says}.nd-role-days{grid-area:days}.nd-role-takes{grid-area:takes}.nd-role>a{grid-area:from}
 .nd-role:hover{border-color:var(--ink2)}
 .nd-role:has(.btn:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
 .nd-role-t{display:contents}
@@ -400,6 +404,12 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-role .btn{justify-self:end;padding:12px 16px;border-radius:12px;font-size:15px;white-space:nowrap}
 .nd-role .btn:hover,.nd-role .btn:active{transform:none}      /* a transform would make the button, not the row, the box its cover fills */
 .nd-role .btn::after{content:"";position:absolute;inset:0;border-radius:14px}
+/* A role's own days, and its first call when that comes after Day 1, are links that start the role there.
+   They sit over the button's cover, underlined as links in text are, each at least 24px tall to tap. */
+.nd-role a{position:relative;z-index:1;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.nd-role a:hover,.nd-role a:focus-visible{text-decoration-thickness:2px}
+.nd-role-days a{display:inline-block;line-height:24px;padding:0 6px;margin:0 -6px}     /* a wider target, the text where it was */
+.nd-role>a{justify-self:start;font-size:14px;line-height:24px}
 /* the ninety days at 180px: the phases, and the thirteen days at their dates as notches in the bar, yours
    as ink marks across it (the architect's six in the first twenty days stand 4px apart, and stay apart) */
 .nd-mini{position:relative;display:block;flex:none;width:180px;height:14px}
@@ -455,7 +465,8 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .nd-stage{position:static;width:100%;order:3;max-width:640px}
   .nd-ways{order:2;width:100%;max-width:640px}
   .nd-role{grid-template-columns:180px minmax(0,1fr) auto;grid-template-areas:"who who btn" "says says says" "days takes takes";align-items:start;padding:14px 16px}
-  .nd-role-who{grid-area:who}.nd-role .btn{grid-area:btn}.nd-role-says{grid-area:says}.nd-role-days{grid-area:days;padding-top:3px}.nd-role-takes{grid-area:takes}
+  .nd-role:has(>a){grid-template-areas:"who who btn" "says says says" "days takes takes" "from from from"}
+  .nd-role-days{padding-top:3px}
   .nd-line{width:100%;max-width:640px}
   /* the line is narrower: the last milestone's word drops a row, so "First bill" and "Sponsor's slide" never touch */
   .nd-line-stops li:last-child em{top:calc(100% + 15px)}
@@ -529,7 +540,10 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .nd-lines p{gap:2px 12px}
   .nd-lamps,.nd-terms{grid-template-columns:1fr}
   .nd-role{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"who btn" "says says" "days days" "takes takes";row-gap:8px}
-  .nd-role-days{display:flex;align-items:center;gap:14px}
+  .nd-role:has(>a){grid-template-areas:"who btn" "says says" "days days" "from from" "takes takes"}
+  /* the days beside the line where they fit, under it where they do not; spaced so no two targets touch */
+  .nd-role-days{display:flex;flex-wrap:wrap;align-items:center;gap:2px 14px}
+  .nd-role-days>span:last-child{flex:none;word-spacing:6px}
   .nd-role-takes span{display:inline}
   .nd-tb{font-size:13px}
   /* the log, a row to a block: the fix, what the log shows, how long it takes */

@@ -31,7 +31,7 @@
   function save() { try { if (run) localStorage.setItem(KEY, JSON.stringify({ v: data.v, opts: run.opts, history: run.state.history })); } catch (e) { /* play on in memory */ } }
   function clearSave() { try { localStorage.removeItem(KEY); } catch (e) { /* nothing to clear */ } }
   function best() { try { return JSON.parse(localStorage.getItem(BEST) || "null"); } catch (e) { return null; } }
-  var RANK = { stopped: 0, paused: 1, conditional: 2, funded: 3 };
+  var RANK = { stopped: 0, paused: 1, conditional: 2, funded: 3 }, NUM = ["no", "one", "two", "three", "four", "five"];
 
   /* ------------------------------------------------------------------ a press that fails
      A press that throws leaves the screen and the save as they were, and says so with a way to reload. */
@@ -267,15 +267,16 @@
   function runwayText(n) { return n >= 0 ? days(n) + " left" : days(-n) + " late"; }
 
   /* ------------------------------------------------------------------ a link to a day
-     #day-45 opens Day 45 on a fresh run, the days before it played by the book, never over a save unasked. */
-  function linked() {             // the day a link asks for, as an index, or -1
-    var m = /^#day-(\d+)$/.exec(location.hash || ""), i;
-    for (i = 0; m && i < data.days.length; i++) if (data.days[i].day === +m[1]) return i;
-    return -1;
+     #day-45 opens Day 45 on a fresh run, the days before it played by the book, never over a save unasked;
+     #day-45-qa opens it in that one role. */
+  function linked() {             // { i, role } or null
+    var m = /^#day-(\d+)(?:-([a-z]+))?$/.exec(location.hash || ""), i;
+    for (i = 0; m && i < data.days.length; i++) if (data.days[i].day === +m[1] && (!m[2] || (data.roles[m[2]] || {}).who)) return { i: i, role: m[2] };
+    return null;
   }
   function unlink() { try { if (/^#day-/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* the address stays */ } }
-  function openAt(i, replace) {
-    run = { opts: { mode: "team", seed: 0, from: i }, state: bookAt(i) }; looking = null; asking = false; shown = {};
+  function openAt(i, replace, role) {
+    run = { opts: wayAt(i, role), state: bookAt(i, role) }; looking = null; asking = false; shown = {};
     shut = gateShut(run.state); arrive(); render("day");
     if (replace) { save(); unlink(); }
     go();
@@ -283,9 +284,9 @@
   function resume(saved) { run = { opts: saved.opts, state: sim.fold(data, saved.opts, saved.history) }; shown = {}; render("day"); unlink(); go(); }
   function savedDay(saved) { return data.days[Math.min(data.days.length - 1, saved.history.filter(function (a) { return a.t === "next"; }).length)].day; }
   function boot() {               // on load, and when the address changes under the page
-    var i = linked(), saved = load();
+    var l = linked(), saved = load();
     run = null; looking = null; asking = false;
-    if (i >= 0 && !(saved && saved.history.length)) openAt(i, false);
+    if (l && !(saved && saved.history.length)) openAt(l.i, false, l.role);
     else render("title");
   }
 
@@ -333,7 +334,7 @@
   // in one role, and as the sponsor: who the player is
   function whoLine(state) {
     if (state.mode === "role") return el("p", { "class": "nd-you-are" }, [el("b", { text: "You are " + who(data.roles[state.role].who).name + ", the " + lower(data.roles[state.role].name) + ". " }), data.roles[state.role].line]);
-    if (state.mode === "org") return el("p", { "class": "nd-you-are" }, [el("b", { text: "You are Ines, the sponsor. " }), "The team makes each call. You may ask to see the evidence behind " + ["none", "one", "two", "three"][data.rules.questions.org] + " of them."]);
+    if (state.mode === "org") return el("p", { "class": "nd-you-are" }, [el("b", { text: "You are Ines, the sponsor. " }), "The team makes each call. You may ask to see the evidence behind " + NUM[data.rules.questions.org] + " of them."]);
     return null;
   }
   function eventList(state) {
@@ -467,16 +468,15 @@
     return fig;
   }
   // Day 82: the $400 limit as paper (the prompt) or as a wall (the tool)
-  function refundStrip(form) {
-    var paid = form === "paid";
+  function refundStrip(day) {
+    var paid = day.form === "paid";
     return el("div", { "class": "nd-sim nd-pw " + (paid ? "nd-pw-paid" : "nd-pw-held") + (once("refund") ? " nd-go" : "") }, [
       el("div", { "class": "nd-pw-row", "aria-hidden": "true" }, [
         el("span", { "class": "nd-pw-end from", text: "The assistant" }),
         el("span", { "class": "nd-pw-track" }, [el("i", { "class": "nd-pw-run" }, [el("b", { text: "$2,000" })]), el("i", { "class": "nd-pw-stop" }),
           el("em", { text: paid ? "the prompt" : "the tool" })]),
         el("span", { "class": "nd-pw-end to", text: "The passenger" })]),
-      el("p", { "class": "nd-cap", text: paid ? "The $400 limit was a sentence in the prompt. That is paper, and the refund went through it."
-        : "The $400 limit is in the refund tool itself. That is a wall, and the refund stopped at it." })]);
+      el("p", { "class": "nd-cap", text: day.variants[day.form].fig })]);
   }
   // a pinned debt: a rose pin flies from the outcome line to its day on the strip
   function flyPins(due) {
@@ -638,7 +638,7 @@
       lamps.appendChild(el("li", { "class": on ? "on" : "" }, [el("i", { "aria-hidden": "true" }), el("b", { text: data.artefacts[a].name }), el("span", { text: on ? "signed" : "missing" })]));
     });
     box.appendChild(el("h3", { text: "The sign-off" }));
-    box.appendChild(el("p", { "class": "nd-intro", text: "This is the one hand-off that stops the work. Nothing is built until three documents are signed. After today, changing your mind costs a rewrite." }));
+    box.appendChild(el("p", { "class": "nd-intro", text: data.days[state.i].signoff }));
     box.appendChild(lamps);
     if (!miss.length) box.appendChild(el("div", { "class": "nd-acts" }, [el("button", { type: "button", "class": "btn pri", text: "Sign and start the build", onclick: function () { act({ t: "gate", how: "pass" }); } })]));
     else box.appendChild(el("div", { "class": "nd-acts" }, [
@@ -699,7 +699,8 @@
       el("h2", { tabindex: "-1", text: "Day " + day.day + ". " + day.head }),
       el("p", { "class": "nd-ctx" }, [el("span", { text: data.short + " " }), day.context]),
       so.text ? el("p", { "class": "nd-sofar" }, [el("b", { text: so.label + " " }), so.text]) : null,
-      from > 0 && state.i === from ? el("p", { "class": "nd-book", text: (from === 1 ? "Day 1 was" : "Days 1 to " + data.days[from - 1].day + " were") + " played by the book so you can start here." }) : null]);
+      from > 0 && state.i === from ? el("p", { "class": "nd-book", text: (from === 1 ? "Day 1 was " : "Days 1 to " + data.days[from - 1].day + " were ") + data.line.book +
+        (state.role && bookAt(from, state.role).tokens < data.rules.questions.role ? " " + data.line.asked + (sim.mine(data, state, data.days[data.days.length - 1]) ? "" : " " + data.line.kept) : "") }) : null]);
   }
   // the header's pill: "Read the lesson" on a day with a lesson, else "The tutorial"; both labels sit
   // in it, one showing, so it never changes width
@@ -743,13 +744,13 @@
 
   // the title: the line above it (dayLine), Day 1's card; a link and a save get a choice of the two
   function titleScreen() {
-    var saved = load(), b = best(), want = linked();
-    if (want >= 0 && saved && saved.history.length) {        // a link and a save: the player says which
+    var saved = load(), b = best(), want = linked(), n = want && data.days[want.i].day;
+    if (want && saved && saved.history.length) {        // a link and a save: the player says which
       return [el("div", { "class": "nd-title" }, [
-        el("p", { "class": "nd-pitch", text: "This link opens Day " + data.days[want].day + ". You also have a run in progress, on Day " + savedDay(saved) + "." }),
+        el("p", { "class": "nd-pitch", text: "This link opens Day " + n + (want.role ? " as " + who(data.roles[want.role].who).name : "") + ". You also have a run in progress, on Day " + savedDay(saved) + "." }),
         el("div", { "class": "nd-acts" }, [
           el("button", { type: "button", "class": "btn pri", text: "Carry on from Day " + savedDay(saved), onclick: function () { resume(saved); } }),
-          el("button", { type: "button", "class": "btn ghost", text: "Open Day " + data.days[want].day + " on a fresh run", onclick: function () { openAt(want, true); } })]),
+          el("button", { type: "button", "class": "btn ghost", text: "Open Day " + n + " on a fresh run", onclick: function () { openAt(want.i, true, want.role); } })]),
         el("p", { "class": "nd-best", text: "A fresh run replaces the one you have saved." })])];
     }
     lineWanted = true;
@@ -758,28 +759,30 @@
       b ? el("p", { "class": "nd-best", text: "Your best ending so far: " + data.verdicts[b.key].name.toLowerCase() + "." }) : null])];
   }
   /* The other ways to play: a row per role and one for the sponsor, each one press. The words are each
-     role's `card` in days.json. */
+     role's `card` in days.json. A role's days are links that start it there, and a late first call one more. */
   function ways() {
-    var rows = el("div", { "class": "nd-rolebtns" }), q = ["no", "one", "two", "three", "four", "five"];
+    var rows = el("div", { "class": "nd-rolebtns" });
     Object.keys(data.roles).forEach(function (r) {
-      var R = data.roles[r], p = who(R.who), mine = data.days.filter(function (d) { return d.owner === R.who; });
+      var R = data.roles[r], p = who(R.who), mine = data.days.filter(function (d) { return d.owner === R.who; }), when = [mine.length > 1 ? "Days " : "Day "], f = mine[0].day;
+      var link = function (n, t) { return el("a", { href: "#day-" + n + "-" + r, "aria-label": t ? null : "Day " + n + " as " + p.name, text: t || String(n) }); };
+      mine.forEach(function (d, k) { when.push(k ? ", " : "", link(d.day)); });
       rows.appendChild(wayRow(r, R.name, p.name + " · " + mine.length + (mine.length > 1 ? " calls" : " call"), R.card, mini(mine),
-        (mine.length > 1 ? "Days " : "Day ") + mine.map(function (d) { return d.day; }).join(", "), "Play as " + p.name, function () { start({ mode: "role", role: r, seed: seed() }); }));
+        when, "Play as " + p.name, function () { start({ mode: "role", role: r, seed: seed() }); }, f > 1 ? link(f, data.line.first.replace("{day}", f)) : null));
     });
     return el("section", { "class": "nd-ways", "aria-labelledby": "nd-ways-h" }, [
       el("p", { "class": "nd-k", id: "nd-ways-h", text: "Two other ways to play" }),
-      el("h3", { text: "One role" }), el("p", { text: "Make your own calls. Watch your colleagues make theirs, and choose which " + q[data.rules.questions.role] + " to question." }), rows,
-      el("h3", { text: "The organisation" }), el("p", { text: "You are the sponsor. Pick three rules for the programme, then watch the ninety days run." }),
+      el("h3", { text: "One role" }), el("p", { text: "Make your own calls. Watch your colleagues make theirs, and choose which " + NUM[data.rules.questions.role] + " to question." }), rows,
+      el("h3", { text: "The organisation" }), el("p", { text: data.org.way }),
       el("div", { "class": "nd-orgrow" }, [wayRow("org", "The sponsor", who("sponsor").name + " · " + data.rules.questions.org + " questions", data.org.card, mini([]),
-        "Every day, watched", "Set the rules", function () { render("org"); })])]);
+        ["Every day, watched"], "Set the rules", function () { render("org"); })])]);
   }
-  function wayRow(id, name, sub, card, line, when, label, press) {
+  function wayRow(id, name, sub, card, line, when, label, press, from) {
     var t = el("div", { "class": "nd-role-t", id: "nd-r-" + id }, [
       el("p", { "class": "nd-role-who" }, [el("b", { text: name }), el("span", { text: sub })]),
       el("p", { "class": "nd-role-says" }, [el("span", { text: card.decide }), el("span", { text: card.pick })]),
-      el("p", { "class": "nd-role-days" }, [line, el("span", { text: when })]),
+      el("p", { "class": "nd-role-days" }, [line, el("span", {}, when)]),
       el("p", { "class": "nd-role-takes" }, [el("span", { text: "You leave with " }), card.leave])]);
-    return el("div", { "class": "nd-role" }, [t, el("button", { type: "button", "class": "btn ghost", "aria-describedby": t.id, text: label, onclick: press })]);
+    return el("div", { "class": "nd-role" }, [t, el("button", { type: "button", "class": "btn ghost", "aria-describedby": t.id, text: label, onclick: press }), from]);
   }
   // the ninety-day line at 180px, your days in ink
   function mini(mine) {
@@ -798,11 +801,10 @@
     return el("article", { "class": "daycard nd-d1", "aria-labelledby": "nd-d1-h", style: "--c:var(--dg-" + HUE[d.phase] + ")" }, [
       el("div", { "class": "dc-pic" }, [cv]),
       el("div", { "class": "dc-b" }, [
-        el("p", { "class": "dc-k", text: "Day " + d.day + " of 90 · " + data.rooms[d.room] }),
+        el("p", { "class": "dc-k", text: "Day " + d.day + " of 90 · " + data.rooms[d.room] + " · " + data.line.card }),
         el("h2", { id: "nd-d1-h", text: d.head }),
         el("p", { "class": "dc-c", text: d.context }),
-        el("p", { "class": "dc-q", text: d.ask }), ol,
-        el("p", { "class": "dc-n", text: data.line.card })])]);
+        el("p", { "class": "dc-q", text: d.ask }), ol])]);
   }
 
   /* ------------------------------------------------------------------ the ninety days, drawn to time
@@ -814,9 +816,11 @@
   function at(day) { return (day - 1) / 89; }
   function pos(t) { return "calc(var(--pad) + (100% - 2 * var(--pad)) * " + t + ")"; }
   function span(t) { return "calc((100% - 2 * var(--pad)) * " + t + ")"; }
-  function bookAt(i) {            // a fresh run at this day, by the book
-    if (!booked[i]) { var o = { mode: "team", seed: 0, from: i }; booked[i] = sim.fold(data, o, sim.book(data, o, i)); }
-    return booked[i];
+  function wayAt(i, role) { return { mode: role ? "role" : "team", role: role, seed: 0, from: i }; }
+  function bookAt(i, role) {      // a fresh run at this day, by the book
+    var k = i + (role || ""), o = wayAt(i, role);
+    if (!booked[k]) booked[k] = sim.fold(data, o, sim.book(data, o, i));
+    return booked[k];
   }
   function headOf(i) { return sim.today(data, bookAt(i)).head; }
   // the phases as bands, the seams halfway between phases (10.5, 25, 67.5)
@@ -878,7 +882,7 @@
   function orgSetup() {
     var box = el("form", { "class": "nd-task nd-org", onsubmit: function (e) { e.preventDefault(); } }), status = el("p", { "class": "nd-status", role: "status" });
     box.appendChild(el("h2", { tabindex: "-1", text: "Three rules for the programme" }));
-    box.appendChild(el("p", { "class": "nd-intro", text: "You cannot enforce everything: a rule that stops the work costs days, and people route around the tenth one. Pick three. The team does the rest by habit." }));
+    box.appendChild(el("p", { "class": "nd-intro", text: data.org.intro }));
     data.policies.forEach(function (p) {
       box.appendChild(el("label", { "class": "nd-check big", "for": "po-" + p.id }, [el("input", { type: "checkbox", id: "po-" + p.id, value: p.id }), el("span", { text: p.name })]));
     });
@@ -943,7 +947,7 @@
     kids.push(dayHead(state, day));
     var ev = eventList(state); if (ev) kids.push(ev);
     // Day 82's figure follows the call, so the question and its first option stay on the first screen
-    var fig = day.form ? refundStrip(day.form) : null;
+    var fig = day.form ? refundStrip(day) : null;
     if (state.beat === "choose") {
       kids.push(sceneLines(day));
       if (state.pending) plan(state, day, own).forEach(function (k) { kids.push(k); });
@@ -1004,10 +1008,7 @@
     kids.push(el("div", { "class": "nd-paper" }, [el("h3", { text: "Your thirteen calls" }),
       el("table", { "class": "nd-tb calls" }, [el("thead", {}, [el("tr", {}, [el("th", { scope: "col", text: "Day" }), el("th", { scope: "col", text: "The call, and what it came back as" })])]), rows])]));
     // three questions to take to work
-    kids.push(el("div", { "class": "nd-paper" }, [el("h3", { text: "Three questions for Monday" }), el("ol", { "class": "nd-monday" }, [
-      el("li", { text: "Is the limit in the tool, or only in the prompt?" }),
-      el("li", { text: "What is the least that score could be, and on how many cases?" }),
-      el("li", { text: "Which of our open decisions really stops the work?" })])]));
+    kids.push(el("div", { "class": "nd-paper" }, [el("h3", { text: "Three questions for Monday" }), el("ol", { "class": "nd-monday" }, data.monday.map(function (q) { return el("li", { text: q }); }))]));
     // the words now earned: folded, so the verdict is not a glossary
     if (state.shelf.length) {
       var ul = el("ul", { "class": "nd-terms" });
@@ -1114,7 +1115,7 @@
   // the plain list is for a page without script
   var plain = document.querySelector(".nd-plain"); if (plain) plain.hidden = true;
   root.hidden = false;
-  window.addEventListener("hashchange", guard(function () { if (linked() >= 0) boot(); }));     // a stop on the line, or any link to a day
+  window.addEventListener("hashchange", guard(function () { if (linked()) boot(); }));     // a stop on the line, or any link to a day
   guard(boot)();
   go();
 })();
