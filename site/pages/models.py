@@ -17,6 +17,13 @@ E = k.E
 W, H = 260, 130  # every glyph shares a frame so the page reads as one set
 
 
+def _lab(tok: str, keep: str = "--dg-text") -> str:
+    """A label drawn in a hue, deepened toward the ink so it reads 4.5 to 1 on its own tint (base.css):
+    ``--dg-text`` where only the light theme needs it, ``--mg-text`` on a 28 to 30% tint, where the
+    dark theme needs it too."""
+    return f"color-mix(in oklab,var({tok}) var({keep}),var(--ink))"
+
+
 def _svg(inner: str, label: str) -> str:
     return (f'<svg viewBox="0 0 {W} {H}" class="mg" role="img" aria-label="{E(label)}">'
             f"{inner}</svg>")
@@ -84,7 +91,7 @@ def g_wall() -> str:
 def g_average() -> str:
     return _svg(
         '<rect x="18" y="30" width="150" height="34" rx="4" fill="var(--accent)" opacity=".28"/>'
-        '<text x="93" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">overall 84%</text>'
+        f'<text x="93" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="{_lab("--accent", "--mg-text")}">overall 84%</text>'
         '<rect x="18" y="74" width="118" height="17" rx="3" fill="var(--sage)" opacity=".7"/>'
         '<text x="142" y="87" font-size="12" fill="currentColor" opacity=".75">easy, 89%</text>'
         '<rect x="18" y="96" width="26" height="17" rx="3" fill="var(--stop)"/>'
@@ -130,7 +137,7 @@ def g_multiply() -> str:
         out.append(f'<rect x="{x}" y="34" width="44" height="40" rx="5" fill="var(--warn)" opacity=".2" '
                    f'stroke="var(--warn)"/>')
         out.append(f'<text x="{x+22}" y="59" text-anchor="middle" font-size="13" font-weight="700" '
-                   f'fill="var(--warn)">{v}</text>')
+                   f'fill="{_lab("--warn")}">{v}</text>')
     for x in xs[:-1]:
         out.append(f'<text x="{x+52}" y="59" text-anchor="middle" font-size="12" fill="currentColor" '
                    f'opacity=".78">×</text>')
@@ -175,12 +182,12 @@ def g_baton() -> str:
         '<circle cx="48" cy="58" r="15" fill="var(--accent)" opacity=".85"/>'
         '<circle cx="200" cy="58" r="15" fill="var(--accent)" opacity=".5"/>'
         '<rect x="88" y="48" width="72" height="22" rx="4" fill="var(--ochre)" opacity=".3" stroke="var(--ochre)"/>'
-        '<text x="124" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ochre)">artefact</text>'
+        f'<text x="124" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="{_lab("--ochre", "--mg-text")}">artefact</text>'
         '<path d="M66 58 H86" stroke="currentColor" stroke-width="2" opacity=".5"/>'
         '<path d="M162 58 H182" stroke="currentColor" stroke-width="2" opacity=".5"/>'
         '<text x="124" y="102" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">'
         'the phase ends when this crosses</text>'
-        '<text x="124" y="116" text-anchor="middle" font-size="12" fill="var(--stop)" opacity=".8">not on Friday</text>',
+        f'<text x="124" y="116" text-anchor="middle" font-size="12" fill="{_lab("--stop")}" opacity=".8">not on Friday</text>',
         "Two runners passing an artefact rather than a baton")
 
 

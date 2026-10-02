@@ -506,6 +506,8 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
   --dg-line:38%;           /* hairline of the concept hue */
   --dg-text:78%;           /* a label drawn in a hue keeps this much of it, the rest is ink: the light
                               hues read 3.4 to 4.5 to 1 on their own tint, and 4.6 or more at 78% */
+  --mg-text:74%;           /* the same for a mental-model glyph's label on its heavier 28 to 30% tint
+                              (pages/models.py): ochre and accent read 3.3 and 3.6, and 4.7 or more at 74% */
 }
 /* The lifted values for the dark page. */
 @media screen{:root:not([data-theme="light"]){
@@ -513,6 +515,7 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
   --dg-green:#6BBE8B; --dg-violet:#AE93E0; --dg-rose:#DE8A8A; --dg-sky:#6FB9D9;
   --dg-on:#14140F; --dg-fill:13%; --dg-soft:20%; --dg-line:44%;
   --dg-text:100%;          /* the lifted hues already read 4.6 or more on their tints */
+  --mg-text:82%;           /* lifted ochre and accent read 4.1 on a 30% tint over paper, and 4.7 or more at 82% */
 }}
 
 /* ---- the board frame ---------------------------------------------------- */
