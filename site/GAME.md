@@ -1,6 +1,6 @@
 ---
 name: Ninety Days, the SkyWays simulator
-status: second release (round six: days that open cold, a sixth task, colour, a link to each day; council 9: the ninety days as one line, Day 1 on the title, a safeguard on every press, the building's key, a row for each role, the day on the card's metrics, a loop that rests and a byte budget; round ten: a role can start at any of its own days, the stops on the line look pressable, and the title says what playing by the book means)
+status: second release (round six: days that open cold, a sixth task, colour, a link to each day; council 9: the ninety days as one line, Day 1 on the title, a safeguard on every press, the building's key, a row for each role, the day on the card's metrics, a loop that rests and a byte budget; round ten: a role can start at any of its own days, the stops on the line look pressable, and the title says what playing by the book means; round eleven: a late start assumes every earlier day was done the recommended way, in one role as in the whole team, and opens on a briefing of the calls, the documents and where the run stands)
 updated: 2026-10-02
 form-factor: web, one page, canvas for the picture and plain HTML for every word and control
 lives-at: /simulator/ (the earlier tool is the workbench, at /workbench/)
@@ -114,7 +114,7 @@ recommended way." Start sits at its right.
 Every stop is a link to its day (`#day-45`; see "A link to each day"), and its number is underlined, as a
 link in text is, so it reads as something to press before any pointer reaches it. Pointing at a stop, or focusing
 it, puts that day's headline in the caption and makes the button "Start at Day 45"; pressing it opens
-Day 45 by the book on a fresh run, saved, as "Open Day 45 on a fresh run" does. The choice stays until
+Day 45's briefing on a fresh run, saved, as "Open Day 45 on a fresh run" does (see "A link to each day"). The choice stays until
 another stop is pointed at, so the hand can travel from the stop to the button. The stops are one stop
 for Tab, and the arrow keys move along them, so Tab goes on to Start with the day chosen. With a run
 saved, "Carry on from Day 9" stands beside Start, and following a stop's link offers the same choice as
@@ -166,7 +166,7 @@ sponsor), which then take a row of their own.
 
 In play the day, from its kicker to its answers and what follows them on the day, is one card on the
 home page's day card's metrics: the paper surface, a 20px corner, one 26px inset that every line and
-answer shares, and three sizes: the 12.5px mono kicker (and the book line, the names, a price), the
+answer shares, and three sizes: the 12.5px mono kicker (and the link back to a late start's briefing, the names, a price), the
 headline at up to 25px in balanced lines, and 15.5px for everything read, the question included, in
 its card weight. Inside a group things stand 8px apart and groups stand 20px apart. Answers are 48px
 tall with a plain mono price at the right, the same component as Day 1's card on the title. A task or
@@ -178,37 +178,59 @@ long shadow.
 
 On a phone the card runs to the screen's edges, its inset the page's own, so its words keep the width
 they had, and the call comes first: under the news stand the question and its answers, and then the people in the room, the day's
-figure and the line about the book. The kicker drops the phase (the strip above names it). So the first
+figure and the link back to a late start's briefing. The kicker drops the phase (the strip above names it). So the first
 answer of every day is on a 390 by 844 screen: Day 20, the longest, ends it at 828.
 
 ## A link to each day
 
-`/simulator/#day-45` opens Day 45 on a fresh whole-team run, with the earlier days played by the book
-(`sim.book`): the method's option each day, each task done well, the limit typed into the tool on the
-first day that is possible, and the date moved once if the runway has run out. `/simulator/#day-45-qa`
-opens it in one role, the QA lead's. There the book plays the player's own days the same way, and a
-colleague's day as a player who knows the method: a sound plan stands, and one that is not is questioned
-and the method's option asked for, while a question is spare. When Day 90, the sponsor's slide, is a
-colleague's, the last question is kept for it. The book uses only the moves a player has (ask, ask for
-another option, let it stand) and adds no rule.
+`/simulator/#day-45` opens Day 45 on a fresh whole-team run, and `/simulator/#day-45-qa` opens it in one role,
+the QA lead's. Either way a late start assumes that every earlier day was done the recommended way
+(`sim.book`): each call the recommended option, each task done well, the limit typed into the tool on the
+first day that is possible, and the date moved once if the runway runs out. In one role those days are
+played as the whole team would play them, by the same moves: no colleague's plan waits on a day before the
+run's start (see "The rules"), so the player starts with all four questions and nothing owed, on the role's
+runway, two days longer. A run from Day 1 is as it was, in every mode.
 
-The screen says so in one line: "Days 1 to 30 were played for you the recommended way." (It said "played by
-the book", which a newcomer could not read, and then "the method's way", a phrase the page had not
-explained; at 1440 the line must stay one line so that Day 20's first answer stays on the first screen.) In one role, once the book has spent a question, it goes on: "Your questions went on plans that
-were not the recommended way.", and where Day 90 is a colleague's, "One is kept for Day 90." Nothing is saved
-until the player makes a move, and the link is cleared from the address then. With a run already saved,
-the title offers both ("Carry on from Day 9", "Open Day 45 on a fresh run"; for a role it says "This link
-opens Day 45 as Maya.") and only the second replaces the save. The stops on the title's line of the ninety
-days and the days on a role's row are these links. A day that is not one of the thirteen, or a role the game
-does not have, falls back to the title. Hashes that begin with a slash are the old workbench routes, and are
-forwarded as before.
+Before the day, a short briefing says what that assumption amounts to, from the rules' own record: the run is
+replayed to that day, and each earlier day is read as it stood before "On to". Its heading is the line the
+day used to carry, "Days 1 to 30 were played for you the recommended way." (It said "played by the book",
+which a newcomer could not read, and then "the method's way", a phrase the page had not explained.) Under it
+are three parts. The calls: each earlier day on one line with the day, who made the call, the call (the
+option's own label) and its price in days; under a day, anything else that moved the runway or trust that
+day (the vendor's freeze, the limit typed into the tool, the date moved, the refund the tool refused), so
+the days spent add up to the runway left. On file: the documents on file by then, each with the day that
+filed it. Where the run stands: the meters, as the day shows them (runway, trust, documents on file and, in
+one role, questions left), with trust's number beside its pips; "The project began with 18 spare days. The
+days before used 14 days.", because a player who starts late never saw Day 1 say how many of the ninety are
+spare; the document the day works from, in the words the evidence box uses ("Working from. A pass mark per
+kind of case is on file."); and "Nothing comes due from the days before." One press,
+"Start Day 45", opens the day as it always opens: at the top, its headline focused, its people walking in,
+its first answer where it always is. Where the line about the book stood, the day then offers "What was
+done before Day 45", which opens the briefing again, its button now "Back to Day 45". The whole team and a
+role get the same briefing but for who the player is and the questions. At 1440 it stands beside the
+building; from 1240 down it is one column of 640px, as the verdict is; on a phone the calls stack (the day,
+who and the price over the call) and the documents take one column. Its fixed sentences are `brief` in
+`days.json`.
 
-What a late start can reach, measured by a search over every move a player has (seed 0): from a later
-day of its own, a role can still reach "Funded, with conditions" at best, and never less. That is the
-engineering lead from Day 30 or 60, the QA lead from Day 45 or 82, the platform lead from Day 75 and the
-product manager from Day 90. The architect, whose days run to Day 20, and the product manager from Day 15
-can still be funded outright. Played on by the book from any start, every role ends funded with
-conditions, and the whole team is funded.
+Nothing is saved while the briefing is open, and the link stays in the address, so a reload opens the
+briefing again. "Start Day 45" saves the run and clears the link, so a reload after it resumes past the
+briefing: the title offers "Carry on from Day 45", which opens the day. With a run already saved, the title
+offers both ("Carry on from Day 9", "Open Day 45 on a fresh run"; for a role it says "This link opens Day 45
+as Maya.") and only the second replaces the save, saving the fresh run and opening its briefing. A save the
+rules can no longer replay to its end is dropped, as a damaged one is: a late start in one role saved
+before round eleven, when the book still questioned colleagues' plans before the start, is one. The stops on
+the title's line of the ninety days and the days on a role's row are these links. A day that is not one of
+the thirteen, or a role the game does not have, falls back to the title. Hashes that begin with a slash are
+the old workbench routes, and are forwarded as before.
+
+What a start can reach, measured by a search over every move a player has: from every start the page offers,
+funded. That is the whole team from each of the thirteen stops on the title's line (seed 0, as the links open
+them), each role from each of its own later days on its row (seed 0), and the whole team and each role from
+Day 1, on each of the three days the vendor's freeze can fall. Before this round six late starts in one role
+could reach funded with conditions at best (the engineering lead from Days 30 and 60, the QA lead from 45 and
+82, the platform lead from 75, the product manager from 90), because the book had spent their questions on the
+days before the start and let some shortcuts stand. Now a late start keeps its four questions for the
+colleagues' days still to come, and finds nothing owed.
 
 The site header's pill on this page follows the day: on a day whose `deeper` list has a lesson it
 reads "Read the lesson" and points there; otherwise it goes back to the tutorial.
@@ -249,6 +271,12 @@ moves only on surprise: bad news told early costs nothing.
   stopped. Trust starts at four and rises twice at most: when the tool refuses the refund on Day 82, and
   when the slide carries both numbers and the loss. The slide on Day 90 is built from the run's own
   numbers; leave the cost off it and finance finds it.
+- **A late start.** A run that starts at a later day (`from`, which a link to a day sets) assumes every
+  earlier day was done the recommended way. In the rules that is one condition in `openDay`: a colleague's
+  plan waits for the player only from the run's start. So in one role a day before the start is the
+  player's to play, and the book plays it as the whole team would, with the moves any player has; the role
+  keeps all its questions and starts with nothing owed. From Day 1 the condition never applies, so a run
+  that starts there is played as before.
 
 The runway, the trust scale, the price of every option and the size of every debt, the limits task's
 included, are in `play/days.json`. The verdict's thresholds, the ledger and a few debts that depend on how a task was done
@@ -270,8 +298,8 @@ One engine, three controllers.
   plans to do and its price, and may ask to see the evidence four times in a run. A colleague does the day
   properly when the document they lean on is on file and it is not one of their habits. Nothing is
   random. Every role can reach the best ending; none can reach it by leaving colleagues alone. A role
-  can also start at any of its own days, with the days before it played by the book in that role (see
-  "A link to each day").
+  can also start at any of its own days, with every day before it done the recommended way, as the whole
+  team would have done it, and a briefing of what was done (see "A link to each day").
 - **The organisation**: the player is the sponsor. They pick up to three rules to enforce out of six,
   then watch the days run with the same colleagues, and may ask a question twice. The best three rules
   alone are funded with conditions; with the two questions well spent they are funded; no rules at all
@@ -394,6 +422,10 @@ move, on the site's own curves and durations.
   Start do nothing visible.
 - "Undo today" returns to the start of the day. Nothing sealed has been opened by then, so it gives
   nothing away.
+- A late start's briefing is a heading that takes the focus, three parts each under its own heading, and
+  one button. The calls are a table whose rows are headed by their day; a line under a day (the freeze, the
+  limit) carries that day too, for a screen reader, and the columns have names only a screen reader hears.
+  "What was done before Day 45" on the day is a button that looks like a link, a 24px target on one 19px line.
 - A role row is one button, "Play as Maya", described by the row's own words; its days and its first
   call are links over that press, a day named "Day 45 as Maya" and the first call by its own words. The
   key's rooms are buttons that say pressed, and a card that opens takes the focus.
@@ -411,15 +443,22 @@ runs while the building is in view, or while the close-up is in view and its peo
 in. On a phone on Day 1 the building is far down the page, so after the walk-in nothing is drawn until
 the building is scrolled to. Nothing starts because it came into view; it goes on from where it was.
 
-The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 45 KB gzipped
-(44.95), the site's `base.css` under 40 KB (39.5), the page's HTML under 25 KB (16.8), and no font but
+The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 46 KB gzipped
+(45.97), the site's `base.css` under 40 KB (39.5), the page's HTML under 25 KB (16.9), and no font but
 the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
 key and the rows, so the comments in `game.js` and `art.js` were cut to a line of why each, leaving the
 reasons to this file; no rule and no number of the game changed. Round ten's role start took them to 45.3
 KB, and it fits because the last fixed sentences in `game.js` (the sign-off's opening line, the sponsor's
 two lines, Day 82's figure captions, the three questions for Monday) moved into `days.json` with every other
 word of the game, where the tests lint them; the page's HTML carries them instead. One list of number words
-now serves two places, and `sim.owner`, which nothing called, is gone.
+now serves two places, and `sim.owner`, which nothing called, is gone. Round eleven's briefing took them from
+44.95 KB to 45.97, over the 45 they had. The honest savings came first: the role book's rules for questions left
+`sim.js`, which is now smaller than it was; the briefing shows the run's numbers with the meters the day uses,
+and the evidence line and the trust wording are each one function now, shared by the day and the briefing;
+its sentences are in `days.json`. What is left is the briefing itself, so the budget was raised to 46 KB, the
+measured size rounded up to the next half KB, with the reason beside it in the gate's pass 17. One saving was
+not taken: the room cards' 27 sentences could move into `days.json` for about 0.45 KB, but each is chosen by
+the condition beside it, and the code would read worse without them.
 
 ## Tests
 
@@ -435,31 +474,42 @@ now serves two places, and `sim.owner`, which nothing called, is gone.
   at someone it has not named; a headline with a verb or a number that names what it is about, a
   one-sentence context, a question that says who is to act, a recap of ten words with no pronoun, and a
   heading that says it is a game before its name. The line's caption, the note in Day 1's kicker, the
-  line a day opened late carries (in one role too), the link to a role's first call, the building's
+  briefing's heading, section names, buttons and the link back to it, the link to a role's first call, the building's
   caption and every other sentence the page takes from `days.json` are held to the same plain words, and
   the line's four milestones must be days of the game, in order, the first of them the sign-off's. Every
   day after the first leans on an earlier day and
   on a document an earlier day files, and its "So far" quotes that day, never joins two and runs to
-  twenty-five words at most whatever was chosen. Its ninth section is a role that starts later: the
-  whole-team book plays every day exactly as it did before (seeds 0 to 2, every day and the end, against a
-  copy of the old book kept in the test); in one role the book opens each of the thirteen days for each role,
-  plays the player's own days the method's way, lets a sound plan stand, questions one that is not and
-  asks for the method's way while a question is spare, and reaches a colleague's Day 90 with a question
-  kept for it; and from every start a role's row offers (its own days, opened by the book, and Day 1 from
-  its button on each of the three days the vendor's freeze can fall) some line still ends funded with
-  conditions or better. That last is a memoised search over every move a player has, with the book's own
-  line tried first, so while the book itself gets there it costs about 0.1 seconds. It prints each role's
-  trust, runway, documents and questions at the opening of each day beside the whole team's, and how each
-  ends played on by the book.
+  twenty-five words at most whatever was chosen. Its ninth section is the late start: the whole-team
+  book plays every day exactly as it did before (seeds 0 to 2 and the page's own, every day and the end,
+  against a copy of the old book kept in the test), and a role's late start at any of the thirteen days is
+  played by those very moves; it opens with every earlier call the recommended option, all four questions,
+  nothing owed and no plan questioned or let stand, and with the same calls, tasks, documents, trust and
+  limit as the whole team's, the same days spent on a runway two days longer; a run from Day 1 in one role
+  opens each colleague's day with their plan waiting, as before; and from every start the page offers (the
+  whole team from each stop on the line and from Day 1 on each of the three days the vendor's freeze can
+  fall, each role from its own days on its row and from Day 1 the same way: 42 in all) some line still ends
+  funded, the best ending, which is what was measured. That is a memoised search over every move a player
+  has. It tries first what a player who knows the method would do, drops a line that can no longer end
+  funded (trust rises twice at most; every day still to come costs at least its cheapest option, a freeze
+  ahead its days, a sealed debt the lesser of its days and its repair), and replays the line it finds to
+  its verdict; all 42 take about 8 seconds, the QA lead from Day 1 the longest. It prints the trust,
+  runway, documents and questions at the opening of each day for the whole team and for one role.
 - `tools/playtest.mjs` plays each mode by real clicks to the verdict in headless Chrome, at laptop and
   phone widths, and checks focus, saves and the forwarding of old workbench links. It does the sixth
-  task by its controls, opens `#day-45` with and without a save, opens all thirteen links, reads the
-  header pill, and checks that every headline it saw is a sentence. Its eleventh section keeps what an
+  task by its controls, and checks that every headline it saw is a sentence. Its ninth section is a link
+  to a day: the stop for Day 45 on the title's line, pressed by a real click, opens the briefing, which
+  lists the earlier days with their calls and prices (checked against `days.json`'s recommended options),
+  the freeze and the limit under their days, the documents with the day each was filed, the run's numbers,
+  the spare days the earlier days used, what the day works from and that nothing comes due, with nothing saved and the link kept; one press opens
+  the day at the top with its "So far", saves the run and clears the link; a reload resumes past the
+  briefing; from the day the briefing opens again with "Back to Day 45"; all thirteen links open their day,
+  every one after the first on its briefing; and `#day-45` with a save offers both runs and replaces the
+  save only when asked. It also reads the header pill. Its eleventh section keeps what an
   audit found by looking, as checks run with motion allowed: the title's first screen says what the game
   is and how to start, at 1440 and 390 wide, with the opening lines at 46 to 56 characters a line and
   every button on the title as tall as Start; a day's question and its first option are on the first
-  screen at 1440 by 900 and 1024 by 768, on Days 20 and 82 as well as 1, 9 and 45, and at 390 by 844 on
-  Day 1; the header does not
+  screen at 1440 by 900 and 1024 by 768, on Days 20 and 82 as well as 1, 9 and 45, and on the QA lead's
+  Day 45, opened past their briefings, and at 390 by 844 on Day 1; the header does not
   move between days; on Day 75 only the labels of what is left are shown, none on another; on Day 82
   nothing sits on anything else down to 320 wide; a figure plays only as the answer to a press, and only
   on screen; a pin flies only to a day strip that can be seen; a document goes on file when its task is
@@ -467,8 +517,8 @@ now serves two places, and `sim.owner`, which nothing called, is gone.
   unsound one, and in one role the evidence comes before the other options; and a day offers one way to
   leave the run. Its twelfth section is the title: the line is thirteen links drawn to time with the
   four milestones named, on the first screen; focusing Day 45 puts its headline in the caption, the
-  arrow keys move along the line, and "Start at Day 45" opens it by the book, saved; pointing at a stop
-  does the same, and the stop's own link opens its day unsaved; on a phone the five links are 44px
+  arrow keys move along the line, and "Start at Day 45" opens its briefing by the book, saved, and then
+  the day; pointing at a stop does the same, and the stop's own link opens its briefing unsaved; on a phone the five links are 44px
   targets and the other eight are marks; Day 1's card starts a whole-team run with the call that was
   pressed, and its kicker says "Your answer starts the game"; every stop that is a link has its number
   underlined before any hover (all thirteen at 1440, the five links on a phone), and the caption says to
@@ -488,13 +538,17 @@ now serves two places, and `sim.owner`, which nothing called, is gone.
   size, strip numbers at 11px); and, at 390 on Day 1, no frame drawn while the building is off the
   screen until it is scrolled to. Its fourteenth section starts the QA lead at Day 45 from her row by a
   real click (the pointer pressed and let go over the link, so the row's cover would take it if it lay on
-  top): every role's own days are links on its row and a late first call has one in words; Day 45 opens in
-  one role, her days ringed, with the line that says how the days before it went; a reload opens the same
-  run, by its address before a move and by "Carry on from Day 45" after one; `#day-45` alone is still the
-  whole team; with a run saved the row's link offers the same choice as any link and leaves the save
-  alone; "Play as Maya" still starts at Day 1; an address with a role or day the game does not have falls
-  back to the title; and at 390 and 320 every link on the rows is at least 24px tall, the one a finger
-  lands on, touching no other and inside its row, with nothing scrolling sideways.
+  top): every role's own days are links on its row and a late first call has one in words; her briefing
+  opens as Maya, with her calls, documents, runway, four questions and nothing owed, and a reload opens it
+  again by its address; one press by a real click opens Day 45 in one role, her days ringed, no debt
+  arriving and the first answer on the first screen at 1440 by 900, saved; a reload then resumes past the
+  briefing by "Carry on from Day 45"; `#day-45` alone is still the whole team, briefing and day; with a run
+  saved the row's link offers the same choice as any link and leaves the save alone; "Play as Maya" still
+  starts at Day 1; an address with a role or day the game does not have falls back to the title; at 390 and
+  320 every link on the rows is at least 24px tall, the one a finger lands on, touching no other and inside
+  its row, with nothing scrolling sideways; and at 390 and 320, for the whole team and for Maya, the
+  briefing stacks with its documents in one column, and neither it nor the day it opens scrolls sideways,
+  the link back a 24px target.
 - `tools/accept.mjs` includes the page, and asks the canvas how many frames it drew. Its first pass
   checks that without script the thirteen days are shown as text. Its sixteenth holds `game.js` back and
   checks that the page paints with that text hidden, that the game comes up once the script arrives,
@@ -535,6 +589,17 @@ meant nothing to them, and Day 1's card could have been a preview. So the stops'
 caption says to press a day and that the days before it are played for you the recommended way, the card's
 kicker says the answer starts the game, and the building's caption follows the picture.
 
+Round eleven. The owner asked that a late start assume what would have been done by then, and present it
+with the evidence, the documents and a recap of how it went. Until then the book played a role's earlier
+days as that role would have: a colleague's plan stood unless a question was spare for it, so a late start
+in one role began with fewer questions, sometimes with a debt falling due (the QA lead's Day 45 opened with
+the engineering lead's Day 30 shortcut, which pushed her first answer below the fold at 1440), and six late
+starts could reach funded with conditions at best. Now every day before the start is done the recommended
+way, in one role as in the whole team, by one condition in the rules: no plan waits before the run's start.
+The book's rule for keeping a question for Day 90 had nothing left to do, and is gone. The note that said the
+earlier days were played for you became the heading of a briefing: the calls and their prices, the documents
+and their days, and where the run stands, read before one press opens the day.
+
 ## Open items
 
 - "Lena" (platform lead) and "Ines" (sponsor) are names the game adds; the case has four named people.
@@ -542,11 +607,6 @@ kicker says the answer starts the game, and the building's caption follows the p
   role has a day of its own.
 - A link to a day, for the whole team or for one role, always opens on seed 0, so the vendor's freeze
   falls on Day 20.
-- From a later day a role reaches funded with conditions at best, except the architect and the product
-  manager from Day 15. Whether a late start should be able to be funded outright is the owner's call: it
-  would take a book that questions fewer plans, or a colleague's day played well without a question, which
-  would be a new rule.
-- The architect's starts from Days 1 to 12 are not searched to the end (each takes over five minutes).
-  They can be funded because the book's line through them reaches the Day 20 start, from which the search
-  finds a funded ending; the test checks that they reach funded with conditions, which the book's own line
-  shows.
+- A late start in one role that was saved before round eleven no longer replays under the new rule, so it
+  is dropped when the page loads and the title offers a fresh start. Late starts for the whole team, and
+  every run from Day 1, keep their saves.

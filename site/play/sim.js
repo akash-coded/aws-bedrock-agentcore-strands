@@ -87,6 +87,7 @@
   // What a question shows about a colleague's plan, and nothing more: the document the plan is working
   // from and whether it is on file, and what the plan itself would put on file. On Day 90 it is the slide
   // as planned. It does not say what the plan costs later: the player still has to judge.
+  function basis(day) { return day.needs || (day.leans && day.leans.doc) || null; }      // the document a day works from
   function evidence(data, state) {
     var day = today(data, state), opt = null, i, a, doc;
     if (!state.pending) return null;
@@ -94,7 +95,7 @@
     for (i = 0; i < day.options.length; i++) if (day.options[i].id === state.pending) opt = day.options[i];
     if (!opt) return null;
     a = arts(opt); if (opt.task && TASKART[opt.task]) a = a.concat(TASKART[opt.task]);
-    doc = day.needs || (day.leans && day.leans.doc) || null;
+    doc = basis(day);
     return { doc: doc, has: doc ? has(state, doc) : null, files: a };
   }
 
@@ -212,8 +213,9 @@
         0, state.flags.noBudget ? 3 : 2);
       state.incidents = state.capInTool ? 0 : 1;
     }
-    // the sponsor's lens and a colleague's day: the call is already made, and waits to be accepted
-    if (!mine(data, state, day)) state.pending = day.task && !day.options ? "task" : botPick(data, state, today(data, state));
+    // the sponsor's lens and a colleague's day: the call is already made, and waits to be accepted. A day
+    // before a late start waits for nobody: it was done the recommended way, as the whole team would.
+    if (!mine(data, state, day) && state.i >= state.from) state.pending = day.task && !day.options ? "task" : botPick(data, state, today(data, state));
     if (state.mode === "org" && !state.capInTool && day.id === data.rules.capFix.from && forced(data, state, "cap")) applyFix(data, state);
     if (state.mode === "org" && state.slack < 0 && !state.moved && state.shelf.length >= data.rules.moveDate.evidence) applyMove(data, state);
   }
@@ -268,7 +270,7 @@
   function init(data, opts) {
     opts = opts || {};
     var state = { v: data.v, mode: opts.mode || "team", role: opts.role || null, policies: (opts.policies || []).slice(0, 3), seed: opts.seed || 0,
-                  i: 0, beat: "choose", task: null, pending: null, slack: opts.mode === "role" ? data.rules.slackRole : data.rules.slack,
+                  from: opts.from || 0, i: 0, beat: "choose", task: null, pending: null, slack: opts.mode === "role" ? data.rules.slackRole : data.rules.slack,
                   trust: data.rules.trust, trustMax: data.rules.trustMax,
                   moved: false, shelf: [], filed: [], hold: null, seen: false, debts: [], picks: {}, asked: {}, tasks: {}, flags: {}, events: [],
                   tokens: opts.mode === "org" ? data.rules.questions.org : (opts.mode === "role" ? data.rules.questions.role : 0),
@@ -407,20 +409,17 @@
   }
 
   /* ------------------------------------------------------------------ by the book
-     The list of actions that reaches a given day with every earlier day done the method's way: its
+     The list of actions that reaches a given day with every earlier day done the recommended way: its
      option, its task done well, the limit typed into the tool as soon as that can be done, and the date
-     moved once if the runway has run out. A link to a day opens on this. In one role a colleague's plan
-     stands if sound; if not, it is questioned and the method's way asked for, keeping the last question
-     for Day 90 when that day is a colleague's. */
+     moved once if the runway has run out. A link to a day opens on this, with the run starting at that
+     day (opts.from), so in one role too no plan waits on the days before it (openDay). */
   function book(data, opts, upto) {
-    var s = init(data, opts), L = data.days.length - 1, day, a, n, r, k, guard = 0;
+    var s = init(data, opts), day, a, n, guard = 0;
     while (s.i < upto && s.beat !== "end" && guard++ < 400) {
-      day = today(data, s); r = rightOption(day); k = s.i < L && !mine(data, s, data.days[L]) ? 1 : 0;
+      day = today(data, s);
       if (canFix(data, s)) a = { t: "fixcap" };
       else if (s.slack < 0 && !s.moved) a = { t: "move" };
-      else if (s.pending) a = (r ? s.pending === r.id : !habit(s, day.id)) || !(s.seen || s.tokens > k) ? { t: "accept" } : !s.seen ? { t: "ask" }
-        : r ? { t: "challenge", opt: r.id } : { t: "challenge", input: botTask(data, s, day.task, true) };
-      else if (s.beat === "choose") a = day.options ? { t: "choose", opt: r.id } : { t: "task", id: day.task, input: botTask(data, s, day.task, true) };
+      else if (s.beat === "choose") a = day.options ? { t: "choose", opt: rightOption(day).id } : { t: "task", id: day.task, input: botTask(data, s, day.task, true) };
       else if (s.beat === "task") a = { t: "task", id: s.task, input: botTask(data, s, s.task, true) };
       else if (s.beat === "gate") a = { t: "gate", how: gateMissing(s).length ? "hold" : "pass" };
       else a = { t: "next" };
@@ -520,7 +519,7 @@
 
   var api = { init: init, reduce: reduce, fold: fold, legal: legal, today: today, price: price, mine: mine,
               rightOption: rightOption, bars: bars, barOf: barOf, sliceStats: sliceStats, gateMissing: gateMissing, canFix: canFix,
-              repairCost: repairCost, soFar: soFar, source: source, evidence: evidence, book: book, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
+              repairCost: repairCost, soFar: soFar, source: source, evidence: evidence, basis: basis, book: book, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else { root.ND = root.ND || {}; root.ND.sim = api; }
 })(typeof window !== "undefined" ? window : this);

@@ -18,9 +18,10 @@
 // page as it was and says "This page is out of date. Reload to play.", which must never show on this tree.
 // Section 13 is the building's key, the role rows, the day on the card's metrics, the faults council 9
 // measured by eye, each as a number, and the loop that rests while its canvases are off the screen.
-// Section 14 starts a role at a later day from its row, by a real click: Maya on Day 45, in one role, with the
-// line that says how the days before it went; a reload resumes it; #day-45 alone is still the whole team; a
-// save is never replaced unasked; and on a phone every link on the rows is at least 24px tall.
+// Section 14 starts a role at a later day from its row, by a real click: Maya on Day 45, in one role, opens on the
+// briefing of what was done before it, and one press opens the day; a reload resumes it past the briefing; #day-45
+// alone is still the whole team; a save is never replaced unasked; and on a phone every link on the rows is at least
+// 24px tall, and neither the briefing nor the day it opens scrolls sideways.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { spawn } from "node:child_process";
 import { rmSync } from "node:fs";
@@ -58,6 +59,7 @@ const STEP = (pick, ask) => `(() => {
   const q = (s) => [...document.querySelectorAll(s)];
   const game = document.getElementById("nd");
   if (game.querySelector(".nd-verdict")) return "END";
+  const brief = game.querySelector(".nd-brief .nd-acts button"); if (brief) { brief.click(); return "brief"; }
   const byText = (t) => q("#nd button").find((b) => b.textContent.trim().startsWith(t));
   const at = (list) => list[${pick} < 0 ? list.length - 1 : Math.min(${pick}, list.length - 1)];
   const form = game.querySelector("form.nd-task:not(.nd-org)");
@@ -88,6 +90,38 @@ const STEP = (pick, ask) => `(() => {
   return "STUCK";
 })()`;
 const FOCUS = `(() => { const a = document.activeElement; return !!a && !!a.closest("#nd"); })()`;
+// a day opened late shows its briefing first: one press on its button opens the day
+const THROUGH = `(() => { const b = document.querySelector("#nd .nd-brief .nd-acts button"); if (!b) return false; b.click(); return true; })()`;
+// what the briefing shows: its calls (day, who, the call, its price), what else moved the runway that day, the documents
+// with their days, the run's numbers, what the day works from, its button, and where the page stands
+const BRIEF = `(() => { const c = document.querySelector("#nd .nd-brief"); if (!c) return null; const m = {};
+  c.querySelectorAll(".nd-meters div").forEach((d) => { m[d.querySelector("dt").textContent] = d.querySelector("dd").textContent; });
+  return { head: c.querySelector("h2").textContent, kick: c.querySelector(".nd-kick").textContent,
+    rows: [...c.querySelectorAll(".nd-recap tbody tr:not(.nd-also)")].map((r) => [...r.children].map((x) => x.textContent).join("|")),
+    also: [...c.querySelectorAll(".nd-recap tr.nd-also td:nth-child(3)")].map((x) => x.textContent),
+    docs: [...c.querySelectorAll(".nd-docs li")].map((li) => li.querySelector("b").textContent + "|" + li.querySelector("span").textContent),
+    m, said: [...c.querySelectorAll("section:last-of-type > p")].map((p) => p.textContent), btn: c.querySelector(".nd-acts button").textContent,
+    you: (document.querySelector("#nd .nd-you-are") || {}).textContent || "", focus: document.activeElement === c.querySelector("h2"), day: !!document.querySelector("#nd .nd-dayhead"),
+    hash: location.hash, save: localStorage.getItem("skyways.ninety"), y: Math.round(scrollY), over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; })()`;
+// what the briefing should show before a day, worked out from days.json alone: the recommended call of each earlier
+// day with its price, the documents those calls file, in order, each with its day, and the runway they leave
+function briefWant(data, n, role) {
+  const at = data.days.findIndex((d) => d.day === n), earlier = data.days.slice(0, at), word = (k) => (k === 1 ? "1 day" : k + " days");
+  const rec = earlier.map((d) => (d.variants ? d.variants.blocked : d).options.find((o) => o.right));
+  const arts = (o) => [].concat(o.art || []).concat(o.task === "bar" ? ["bar"] : []);
+  const spent = rec.reduce((k, o) => k + o.days, 0) + (at > data.days.findIndex((d) => d.id === data.rules.pressure.onDay[0]) ? data.rules.pressure.days : 0) + (at > data.days.findIndex((d) => d.id === data.rules.capFix.from) ? data.rules.capFix.days : 0);
+  return { rows: earlier.map((d, k) => [`Day ${d.day}`, data.cast[d.owner].name, rec[k].label, word(rec[k].days)].join("|")),
+    docs: earlier.flatMap((d, k) => arts(rec[k]).map((a) => data.artefacts[a].name + "|Day " + d.day)),
+    runway: (role ? data.rules.slackRole : data.rules.slack) - spent, head: (at === 1 ? "Day 1 was " : `Days 1 to ${earlier[at - 1].day} were `) + data.line.book, btn: data.brief.start.replace("{day}", n) };
+}
+// a real click: the pointer pressed and let go over the middle of the element, so whatever lies on top of it takes the click
+async function press(sel) {
+  const at = await evaluate(`(() => { const n = document.querySelector(${JSON.stringify(sel)}); if (!n) return null; n.scrollIntoView({ block: "center", behavior: "instant" }); const r = n.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+  if (!at) return false;
+  await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: at.x, y: at.y });
+  for (const type of ["mousePressed", "mouseReleased"]) await send("Input.dispatchMouseEvent", { type, x: at.x, y: at.y, button: "left", clickCount: 1 });
+  return true;
+}
 // the safeguard's notice: on this tree no press may ever bring it up
 const BROKE = `(() => { const b = document.querySelector("#nd .nd-broke"); return b ? b.textContent : ""; })()`;
 
@@ -248,7 +282,7 @@ try {
   }
   if (thrown.length) fail("the sixth task: script error: " + thrown[0]);
 
-  console.log("\n9. a link to a day");
+  console.log("\n9. a link to a day, and the briefing before it");
   thrown.length = 0;
   const blank = async () => { await send("Page.navigate", { url: "about:blank" }); await sleep(150); };
   const open = async (hash) => { await blank(); await send("Page.navigate", { url: URL_ + hash }); await sleep(1100); };
@@ -258,40 +292,66 @@ try {
   // the pill holds both of its labels and shows one: read the one that shows
   const PILL = `(() => { const a = document.querySelector("a.play[data-ctx-lesson]"), on = (s) => { const n = a.querySelector(s + " [data-on]"); return n ? n.textContent : ""; };
     return a ? { href: a.getAttribute("href"), lg: on(".lg"), sm: on(".sm"), title: a.getAttribute("title"), manual: [...document.querySelectorAll(".hd .ctx a:not(.play)")].map((x) => x.textContent.trim()).join("|") } : null; })()`;
-  // no save: the day opens, says how it got there, and nothing is saved until a move is made
+  // no save: the stop for Day 45 on the title's line, pressed by a real click, opens Day 45's briefing: each earlier day's
+  // call with its price, the documents with the day each was filed, and the run's numbers. Nothing is saved yet.
   await fresh();
-  const pill0 = await evaluate(PILL);
-  await open("#day-45");
-  const cold = await evaluate(`({ h: ${HEAD}, book: (document.querySelector("#nd .nd-book") || {}).textContent || "", sofar: (document.querySelector("#nd .nd-sofar") || {}).textContent || "", save: ${SAVE}, hash: location.hash })`);
-  if (!/^Day 45\. /.test(cold.h)) fail(`#day-45 with no save opened "${cold.h}"`);
-  else if (cold.book !== "Days 1 to 30 were played for you the recommended way.") fail(`#day-45 does not say how it got there: "${cold.book}"`);
-  else if (!/^So far: on Day 15, you /.test(cold.sofar)) fail(`#day-45 opens without its "So far": "${cold.sofar}"`);
-  else if (cold.save) fail("#day-45 saved a run before any move was made");
-  else console.log(`  ok   #day-45 with no save opens "${cold.h}", and says the earlier days were played for you the recommended way`);
-  heads.add(cold.h);
+  const pill0 = await evaluate(PILL), words = JSON.parse(await evaluate(`document.getElementById("nd-data").textContent`));
+  await press('#nd .nd-line a[href="#day-45"]'); await sleep(700);
+  const b45 = await evaluate(BRIEF), want45 = briefWant(words, 45, false);
+  if (!b45) fail("the stop for Day 45, pressed, does not open a briefing");
+  else if (b45.head !== want45.head || b45.btn !== want45.btn || !b45.focus || b45.day) fail(`Day 45's briefing: "${b45.head}", "${b45.btn}", focus ${b45.focus ? "on its heading" : "elsewhere"}${b45.day ? ", with the day already under it" : ""}`);
+  else if (b45.rows.join("\n") !== want45.rows.join("\n")) fail(`Day 45's briefing lists the calls:\n${b45.rows.join("\n")}\n  not:\n${want45.rows.join("\n")}`);
+  else if (b45.docs.join("\n") !== want45.docs.join("\n")) fail(`Day 45's briefing lists the documents: ${b45.docs.join("; ")}, not ${want45.docs.join("; ")}`);
+  else if (b45.also.join("|") !== [words.rules.pressure.text, "The $400 limit moves out of the prompt and into the refund tool itself."].join("|")) fail(`Day 45's briefing, what else moved the runway: ${b45.also.join(" | ")}`);
+  else if (b45.m.Runway !== want45.runway + " days left" || b45.m["Sponsor's trust"] !== "4 of 6" || b45.m["On file"] !== want45.docs.length + " of 15" || "Questions" in b45.m) fail(`Day 45's briefing, the run's numbers: ${JSON.stringify(b45.m)}`);
+  else if (b45.said.join("|") !== [words.brief.spare.replace("{n}", words.rules.slack).replace("{used}", (words.rules.slack - want45.runway) + " days"), "Working from. " + words.artefacts.bar.on, words.brief.owed].join("|")) fail(`Day 45's briefing, the evidence: ${b45.said.join(" | ")}`);
+  else if (b45.save || b45.hash !== "#day-45" || b45.over) fail(`Day 45's briefing: save ${b45.save ? "made" : "none"}, address "${b45.hash}", ${b45.over}px sideways`);
+  else console.log(`  ok   the stop for Day 45 opens its briefing: ${b45.rows.length} calls with their prices, ${b45.docs.length} documents with their days, runway ${b45.m.Runway}, trust ${b45.m["Sponsor's trust"]}, nothing saved`);
   const pill45 = await evaluate(PILL);
   if (!pill0 || !pill45) fail("the header pill is missing");
   else if (!/learn\/$/.test(pill0.href) || pill0.lg !== "The tutorial" || pill0.sm !== "Tutorial" || pill0.title) fail(`on the title the header pill is ${JSON.stringify(pill0)}`);
   else if (!/learn\/prove-ai-accuracy\/$/.test(pill45.href) || pill45.lg !== "Read the lesson" || pill45.sm !== "Lesson" || !pill45.title) fail(`on Day 45 the header pill is ${JSON.stringify(pill45)}`);
   else console.log(`  ok   the header pill: the tutorial on the title, "${pill45.title}" on Day 45`);
-  await evaluate(STEP(1, false)); await sleep(60);
-  const moved = await evaluate(`({ save: ${SAVE}, hash: location.hash })`);
-  if (!moved.save || moved.hash) fail(`after a move on a linked day: save ${moved.save ? "kept" : "missing"}, hash "${moved.hash}"`); else console.log("  ok   the first move saves the run and clears the link");
-  // every day opens cold from its link, and a day with no lesson sends the pill back to the tutorial
+  // one press opens the day as it always opens: at the top, its headline focused; the run is saved and the link cleared
+  await press("#nd .nd-brief .nd-acts button"); await sleep(400);
+  const cold = await evaluate(`({ h: ${HEAD}, link: (document.querySelector("#nd .nd-dayhead .nd-book") || {}).textContent || "", sofar: (document.querySelector("#nd .nd-sofar") || {}).textContent || "", save: ${SAVE}, hash: location.hash, y: Math.round(scrollY), focus: !!document.activeElement.closest("#nd .nd-dayhead"), brief: !!document.querySelector("#nd .nd-brief") })`);
+  if (!/^Day 45\. /.test(cold.h) || cold.brief || cold.y || !cold.focus) fail(`"Start Day 45" opened ${JSON.stringify(cold)}`);
+  else if (cold.link !== "What was done before Day 45") fail(`Day 45, opened late, offers "${cold.link}" for its briefing`);
+  else if (!/^So far: on Day 15, you /.test(cold.sofar)) fail(`Day 45 opens without its "So far": "${cold.sofar}"`);
+  else if (!cold.save || cold.hash) fail(`after "Start Day 45": save ${cold.save ? "made" : "missing"}, address "${cold.hash}"`);
+  else console.log(`  ok   one press opens "${cold.h.slice(0, 48)}...", saves the run and clears the link; the day offers "${cold.link}"`);
+  heads.add(cold.h);
+  // a reload resumes past the briefing; the briefing is there again from the day, and goes back to the day
+  await send("Page.reload"); await sleep(1100);
+  const carry = await evaluate(`[...document.querySelectorAll("#nd button")].map((b) => b.textContent.trim())`);
+  await evaluate(PRESS("Carry on from Day 45")); await sleep(300);
+  const resumed = await evaluate(`({ h: ${HEAD}, brief: !!document.querySelector("#nd .nd-brief") })`);
+  await press("#nd .nd-dayhead .nd-book"); await sleep(300);
+  const reread = await evaluate(BRIEF);
+  await press("#nd .nd-brief .nd-acts button"); await sleep(300);
+  const backTo = await evaluate(`({ h: ${HEAD}, brief: !!document.querySelector("#nd .nd-brief"), save: ${SAVE} })`);
+  if (!carry.includes("Carry on from Day 45") || !/^Day 45\. /.test(resumed.h) || resumed.brief) fail(`a reload after "Start Day 45": offered ${carry.join(" | ")}, then ${JSON.stringify(resumed)}`);
+  else if (!reread || reread.btn !== "Back to Day 45" || reread.rows.join("\n") !== want45.rows.join("\n") || !reread.focus) fail(`"What was done before Day 45" opens ${JSON.stringify(reread)}`);
+  else if (!/^Day 45\. /.test(backTo.h) || backTo.brief || !backTo.save) fail(`"Back to Day 45" opened ${JSON.stringify(backTo)}`);
+  else console.log("  ok   a reload resumes past the briefing, and from the day the briefing opens again, with \"Back to Day 45\"");
+  // every day opens cold from its link: Day 1 at once, every other day after its briefing; a day with no lesson sends the pill back to the tutorial
   for (const n of [1, 4, 6, 9, 12, 15, 20, 30, 45, 60, 75, 82, 90]) {
     await evaluate(`(localStorage.clear(), 1)`); await open("#day-" + n);
+    const b = await evaluate(BRIEF), k = words.days.findIndex((d) => d.day === n);
+    if (n === 1 ? b : !b || b.btn !== "Start Day " + n || b.rows.length !== k || b.over) fail(`#day-${n}: ${b ? `a briefing of ${b.rows.length} calls, "${b.btn}"` : "no briefing"}`);
+    if (b) { await evaluate(THROUGH); await sleep(120); }
     const h = await evaluate(HEAD); if (h) heads.add(h);
     if (!new RegExp("^Day " + n + "\\. ").test(h)) fail(`#day-${n} opened "${h}"`);
     if (n === 1 || n === 12) { const p = await evaluate(PILL); if (!p || !/learn\/$/.test(p.href) || p.lg !== "The tutorial") fail(`on Day ${n}, which has no lesson, the header pill is ${JSON.stringify(p)}`); }
   }
-  if (!thrown.length) console.log("  ok   all thirteen days open from their links");
+  if (!thrown.length) console.log("  ok   all thirteen days open from their links, every day after the first on its briefing");
   // the "So far" of a day opened cold is about that day: the bill's is about cost, the refund's about the limit
   for (const [n, word] of [[75, "cost"], [82, "refund"], [20, "framework"]]) {
-    await evaluate(`(localStorage.clear(), 1)`); await open("#day-" + n);
+    await evaluate(`(localStorage.clear(), 1)`); await open("#day-" + n); await evaluate(THROUGH); await sleep(120);
     const so = await evaluate(`(document.querySelector("#nd .nd-sofar") || {}).textContent || ""`);
     if (!new RegExp(word).test(so)) fail(`Day ${n}, opened cold, has a "So far" that does not mention ${word}: "${so}"`);
   }
-  // a save: both choices are offered, and only the second replaces it
+  // a save: both choices are offered, and only the second replaces it, opening the briefing on a run already saved
   await fresh();
   await evaluate(START); await sleep(100);
   for (let i = 0; i < 7; i++) { await evaluate(STEP(1, false)); await sleep(25); }
@@ -306,16 +366,21 @@ try {
   if (!/^Day 9\. /.test(carried.h) || carried.save !== mine) fail(`carrying on from a link: "${carried.h}", save ${carried.save === mine ? "kept" : "changed"}`); else console.log("  ok   carrying on comes back to Day 9 with the save untouched");
   await open("#day-45");
   await evaluate(PRESS("Open Day 45 on a fresh run")); await sleep(80);
-  const replaced = await evaluate(`({ h: ${HEAD}, from: (JSON.parse(${SAVE} || "{}").opts || {}).from, hash: location.hash })`);
-  if (!/^Day 45\. /.test(replaced.h) || replaced.from !== 8 || replaced.hash) fail(`a fresh run from a link: "${replaced.h}", saved from ${replaced.from}, hash "${replaced.hash}"`); else console.log("  ok   a fresh run replaces the save only when it is asked for");
+  const replaced = await evaluate(`({ brief: ${BRIEF}, from: (JSON.parse(${SAVE} || "{}").opts || {}).from })`);
+  await evaluate(THROUGH); await sleep(80);
+  const freshDay = await evaluate(HEAD);
+  if (!replaced.brief || replaced.brief.btn !== "Start Day 45" || replaced.from !== 8 || replaced.brief.hash || !/^Day 45\. /.test(freshDay)) fail(`a fresh run from a link: ${JSON.stringify({ btn: replaced.brief && replaced.brief.btn, from: replaced.from, hash: replaced.brief && replaced.brief.hash, day: freshDay })}`);
+  else console.log("  ok   a fresh run replaces the save only when it is asked for, and opens on the briefing");
   // a day that is not one of the thirteen, and a link followed while the page is open
   for (const bad of ["#day-44", "#day-0", "#day-900", "#day-", "#day-45x"]) {
     await evaluate(`(localStorage.clear(), 1)`); await open(bad);
     if (!(await evaluate(`!![...document.querySelectorAll("#nd button")].find((x) => x.textContent.trim() === "Start at Day 1")`))) fail(`${bad} did not fall back to the title`);
   }
   await evaluate(`(location.hash = "#day-75", 1)`); await sleep(300);
-  const hopped = await evaluate(HEAD);
-  if (!/^Day 75\. /.test(hopped)) fail(`changing the address to #day-75 opened "${hopped}"`); else console.log("  ok   unknown days fall back to the title, and a link followed on the page opens its day");
+  const hopped = await evaluate(BRIEF);
+  await evaluate(THROUGH); await sleep(100);
+  const hoppedDay = await evaluate(HEAD);
+  if (!hopped || hopped.btn !== "Start Day 75" || !/^Day 75\. /.test(hoppedDay)) fail(`changing the address to #day-75 opened ${hopped ? `a briefing with "${hopped.btn}"` : "no briefing"}, then "${hoppedDay}"`); else console.log("  ok   unknown days fall back to the title, and a link followed on the page opens its day's briefing, then the day");
   if (thrown.length) fail("a link to a day: script error: " + thrown[0]);
 
   console.log("\n10. every headline is a sentence");
@@ -328,7 +393,9 @@ try {
   console.log("\n11. what an audit found by looking, with motion allowed");
   thrown.length = 0;
   const size = async (w, h) => { await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 }); await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] }); };
-  const fromCold = async (w, h, hash) => { await size(w, h); await blank(); await send("Page.navigate", { url: URL_ }); await sleep(500); await evaluate(`(localStorage.clear(), 1)`); await blank(); await send("Page.navigate", { url: URL_ + hash }); await sleep(1200); };
+  // a fresh page at this size; a day opened late is opened past its briefing, as one press does
+  const fromCold = async (w, h, hash) => { await size(w, h); await blank(); await send("Page.navigate", { url: URL_ }); await sleep(500); await evaluate(`(localStorage.clear(), 1)`); await blank(); await send("Page.navigate", { url: URL_ + hash }); await sleep(1200);
+    if (await evaluate(THROUGH)) await sleep(400); };
   const CLICK = (sel) => `(() => { const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return false; e.click(); return true; })()`;
   const OPTION = (t) => `(() => { const b = [...document.querySelectorAll("#nd .nd-opt")].find((x) => x.textContent.trim().startsWith(${JSON.stringify(t)})); if (!b) return false; b.click(); return true; })()`;
   // the same test of "on screen" the page uses: below the site's bar, above the fold
@@ -359,13 +426,13 @@ try {
   // a. the question and its first option are on the first screen, also on the two days that bring news
   // above the scene: Day 20 (the vendor's freeze) and Day 82 (the refund that met its limit)
   for (const [w, h] of [[1440, 900], [1024, 768], [390, 844]]) {
-    for (const hash of ["", "#day-45", "#day-9", "#day-20", "#day-82"]) {
+    for (const hash of ["", "#day-45", "#day-45-qa", "#day-9", "#day-20", "#day-82"]) {
       await fromCold(w, h, hash);
       if (!hash) { await evaluate(START); await sleep(400); }
       const at = await evaluate(`(() => { const l = document.querySelector("#nd .nd-opts legend"), o = document.querySelector("#nd .nd-opts .nd-opt"), p = document.querySelector("#nd .nd-scene-cv"), m = document.querySelector("#nd .nd-map-cv");
         const vis = (n) => { if (!n) return false; const r = n.getBoundingClientRect(); return r.width > 100 && r.top < innerHeight && r.bottom > 60; };
         return { y: scrollY, q: l ? Math.round(l.getBoundingClientRect().top) : -1, bottom: o ? Math.round(o.getBoundingClientRect().bottom) : 9999, h: innerHeight, picture: vis(p) || vis(m) }; })()`);
-      const name = `${w}x${h}, ${hash ? "Day " + hash.slice(5) + " by its link" : "Day 1"}`;
+      const name = `${w}x${h}, ${hash ? "Day " + hash.slice(5).replace("-qa", " as Maya") + " by its link" : "Day 1"}`;
       if (at.y !== 0 || at.q < 60 || at.bottom > at.h) fail(`${name}: the first option ends at ${at.bottom}px of a ${at.h}px screen (scrolled ${at.y})`);
       else if (!at.picture) fail(`${name}: no picture of the room on the first screen`);
       else console.log(`  ok   ${name}: the question and its first option are on the first screen (it ends at ${at.bottom} of ${at.h}), with a picture of the room`);
@@ -518,20 +585,22 @@ try {
   const stepped = await evaluate(`({ on: document.activeElement.getAttribute("href"), start: document.querySelector("#nd .nd-line .nd-start").textContent })`);
   await evaluate(`(document.activeElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft", bubbles: true })), 1)`);
   await evaluate(CLICK("#nd .nd-line .nd-start")); await sleep(300);
-  const opened = await evaluate(`({ h: ${HEAD}, book: (document.querySelector("#nd .nd-book") || {}).textContent || "", save: ${KEY}, hash: location.hash, broke: ${BROKE} })`);
+  const opened = await evaluate(`({ brief: ${BRIEF}, save: ${KEY}, hash: location.hash, broke: ${BROKE} })`);
+  await evaluate(THROUGH); await sleep(200);
+  const openedDay = await evaluate(HEAD);
   if (aimed.cap !== "Day 45. " + aimed.head || aimed.start !== "Start at Day 45") fail(`focusing Day 45: the caption reads "${aimed.cap}", the button "${aimed.start}"`);
   else if (stepped.on !== "#day-60" || stepped.start !== "Start at Day 60") fail(`the arrow key from Day 45 went to ${stepped.on}, and Start reads "${stepped.start}"`);
-  else if (!/^Day 45\. /.test(opened.h) || !/^Days 1 to 30 were played for you/.test(opened.book) || !opened.save || opened.hash || opened.broke) fail(`"Start at Day 45" opened ${JSON.stringify(opened)}`);
-  else console.log(`  ok   focusing Day 45 puts its headline under the line, the arrow keys move along it, and "Start at Day 45" opens it by the book, saved`);
+  else if (!opened.brief || !/^Days 1 to 30 were played for you/.test(opened.brief.head) || !opened.save || opened.hash || opened.broke || !/^Day 45\. /.test(openedDay)) fail(`"Start at Day 45" opened ${JSON.stringify({ head: opened.brief && opened.brief.head, save: !!opened.save, hash: opened.hash, broke: opened.broke, then: openedDay })}`);
+  else console.log(`  ok   focusing Day 45 puts its headline under the line, the arrow keys move along it, and "Start at Day 45" opens its briefing by the book, saved, then the day`);
   // c. pointing at a stop does the same, and a stop is a link: with a save, following it offers the choice as before
   await fromCold(1440, 900, "");
   await evaluate(`(document.querySelector('#nd .nd-line a[href="#day-75"]').dispatchEvent(new PointerEvent("pointerenter")), 1)`);
   const pointed = await evaluate(`document.querySelector("#nd .nd-line .nd-start").textContent`);
   await evaluate(CLICK('#nd .nd-line a[href="#day-75"]')); await sleep(400);
-  const linkedDay = await evaluate(`({ h: ${HEAD}, save: ${KEY}, hash: location.hash })`);
+  const linkedDay = await evaluate(BRIEF);
   if (pointed !== "Start at Day 75") fail(`pointing at Day 75, Start reads "${pointed}"`);
-  else if (!/^Day 75\. /.test(linkedDay.h) || linkedDay.save || linkedDay.hash !== "#day-75") fail(`the Day 75 stop, followed: ${JSON.stringify(linkedDay)}`);
-  else console.log("  ok   pointing at Day 75 reads \"Start at Day 75\"; the stop itself is the link #day-75, and opens it unsaved, as a link does");
+  else if (!linkedDay || linkedDay.btn !== "Start Day 75" || linkedDay.save || linkedDay.hash !== "#day-75") fail(`the Day 75 stop, followed: ${JSON.stringify(linkedDay && { btn: linkedDay.btn, save: !!linkedDay.save, hash: linkedDay.hash })}`);
+  else console.log("  ok   pointing at Day 75 reads \"Start at Day 75\"; the stop itself is the link #day-75, and opens its briefing unsaved, as a link does");
   // d. on a phone only Day 1 and the four milestones are links, each a 44px target, and the line is on the first screen
   await fromCold(390, 844, "");
   const small = await evaluate(`(() => { const a = [...document.querySelectorAll("#nd .nd-line-stops a")].filter((x) => x.getClientRects().length), r = (n) => n.getBoundingClientRect();
@@ -684,20 +753,12 @@ try {
     thrown.length = 0;
     await fromCold(1440, 900, "");
     const data = JSON.parse(await evaluate(`document.getElementById("nd-data").textContent`));
-    // a real click: the pointer pressed and let go over the middle of the element, so the row's cover would take it if it lay on top
-    const press = async (sel) => {
-      const at = await evaluate(`(() => { const n = document.querySelector(${JSON.stringify(sel)}); if (!n) return null; n.scrollIntoView({ block: "center", behavior: "instant" }); const r = n.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
-      if (!at) return false;
-      await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: at.x, y: at.y });
-      for (const type of ["mousePressed", "mouseReleased"]) await send("Input.dispatchMouseEvent", { type, x: at.x, y: at.y, button: "left", clickCount: 1 });
-      return true;
-    };
-    const READ = `({ h: ${HEAD}, you: (document.querySelector("#nd .nd-you-are") || {}).textContent || "", book: (document.querySelector("#nd .nd-book") || {}).textContent || "",
+    const READ = `({ h: ${HEAD}, you: (document.querySelector("#nd .nd-you-are") || {}).textContent || "", book: (document.querySelector("#nd .nd-dayhead .nd-book") || {}).textContent || "",
       q: ([...document.querySelectorAll("#nd .nd-meters div")].find((x) => x.querySelector("dt").textContent === "Questions") || { textContent: "" }).textContent,
       mine: [...document.querySelectorAll("#nd .nd-strip li.mine > span:first-child")].map((x) => x.textContent).join(" "), hash: location.hash, y: Math.round(scrollY),
+      news: document.querySelectorAll("#nd .nd-events li").length, first: (() => { const o = document.querySelector("#nd .nd-opts .nd-opt"); return o ? Math.round(o.getBoundingClientRect().bottom) : 9999; })(),
       save: ${SAVE}, broke: ${BROKE}, focus: !!document.activeElement && !!document.activeElement.closest("#nd .nd-dayhead") })`;
-    const BOOK = "Days 1 to 30 were played for you the recommended way.", MAYA = /^You are Maya, the QA lead\. /;
-    const ROLEBOOK = BOOK + " " + data.line.asked + " " + data.line.kept;
+    const BOOK = "Days 1 to 30 were played for you the recommended way.", MAYA = /^You are Maya, the QA lead\. /, AGAIN = "What was done before Day 45";
     // a. each role's own days on its row are links that start it there; a role whose first call is after Day 1 has one in words
     const rows = await evaluate(`[...document.querySelectorAll("#nd .nd-rolebtns .nd-role")].map((row) => ({ days: [...row.querySelectorAll(".nd-role-days a")].map((a) => a.getAttribute("href") + "=" + a.textContent).join(" "),
       first: row.querySelector(":scope > a") ? row.querySelector(":scope > a").getAttribute("href") + "=" + row.querySelector(":scope > a").textContent : "", under: [...row.querySelectorAll("a")].every((a) => getComputedStyle(a).textDecorationLine === "underline") }))`);
@@ -707,31 +768,46 @@ try {
     if (rows.length !== 5 || rows.some((x, k) => x.days !== want[k].days || x.first !== want[k].first || !x.under)) fail(`the rows' links: ${JSON.stringify(rows)}`);
     else if (org) fail(`the sponsor's row has ${org} links; the sponsor still starts at the rules`);
     else console.log(`  ok   each role's own days on its row are underlined links (${rows[3].days.replace(/=\d+/g, "")}), and "${rows[3].first.replace(/^[^=]*=/, "")}" where the first call is after Day 1`);
-    // b. QA at Day 45 from Maya's row, by a real click: Day 45, in one role, with the line that says how the days before it went
+    // b. QA at Day 45 from Maya's row, by a real click: the briefing of what was done before Day 45, as Maya, with all four
+    // questions and nothing owed; a reload opens it again by its address; one press, a real click too, opens Day 45 as it
+    // always opens, with no debt arriving, its first answer on the first screen, saved, the link cleared
     await press('#nd .nd-rolebtns .nd-role-days a[href="#day-45-qa"]'); await sleep(700);
-    const cold = await evaluate(READ);
-    if (!/^Day 45\. /.test(cold.h) || !MAYA.test(cold.you) || cold.mine !== "45 82" || !/^Questions\d+ left$/.test(cold.q)) fail(`Maya's Day 45, from her row: ${JSON.stringify(cold)}`);
-    else if (cold.book !== ROLEBOOK) fail(`Maya's Day 45 says "${cold.book}"`);
-    else if (cold.hash !== "#day-45-qa" || cold.save || cold.broke || cold.y || !cold.focus) fail(`Maya's Day 45 opened at #${cold.hash}, ${cold.save ? "saved" : "unsaved"}, scrolled ${cold.y}, focus ${cold.focus ? "on the day" : "elsewhere"}${cold.broke ? ", saying " + cold.broke : ""}`);
-    else console.log(`  ok   a click on 45 in Maya's row opens "${cold.h.slice(0, 40)}...", as Maya, her days ringed, ${cold.q.replace("Questions", "")}: "${cold.book}"`);
-    // c. a reload resumes the same run: before a move the address opens it again; after one, the save does
+    const brief = await evaluate(BRIEF), wantQ = briefWant(data, 45, true);
     await send("Page.reload"); await sleep(1200);
-    const again = await evaluate(READ);
-    await evaluate(STEP(1, false)); await sleep(150);
-    const moved = await evaluate(`({ opts: (JSON.parse(${SAVE} || "{}").opts || {}), hash: location.hash, broke: ${BROKE} })`);
+    const reBrief = await evaluate(BRIEF);
+    if (!brief) fail("a click on 45 in Maya's row does not open a briefing");
+    else if (!MAYA.test(brief.you) || brief.head !== BOOK || brief.btn !== "Start Day 45" || !brief.focus || brief.day) fail(`Maya's briefing: ${JSON.stringify({ you: brief.you, head: brief.head, btn: brief.btn, focus: brief.focus })}`);
+    else if (brief.rows.join("\n") !== wantQ.rows.join("\n") || brief.docs.join("\n") !== wantQ.docs.join("\n")) fail(`Maya's briefing lists ${brief.rows.length} calls and ${brief.docs.length} documents: ${brief.rows.join("; ")}`);
+    else if (brief.m.Runway !== wantQ.runway + " days left" || brief.m.Questions !== data.rules.questions.role + " left" || brief.m["On file"] !== wantQ.docs.length + " of 15" || brief.said[2] !== data.brief.owed ||
+      brief.said[0] !== data.brief.spare.replace("{n}", data.rules.slackRole).replace("{used}", (data.rules.slackRole - wantQ.runway) + " days")) fail(`Maya's briefing, where the run stands: ${JSON.stringify(brief.m)}, ${brief.said.join(" | ")}`);
+    else if (brief.hash !== "#day-45-qa" || brief.save || brief.y || brief.over || thrown.length) fail(`Maya's briefing at ${brief.hash}, ${brief.save ? "saved" : "unsaved"}, scrolled ${brief.y}, ${brief.over}px sideways`);
+    else if (!reBrief || reBrief.rows.join() !== brief.rows.join() || reBrief.you !== brief.you || reBrief.save) fail("reloaded on the briefing, its address does not open it again");
+    else console.log(`  ok   a click on 45 in Maya's row opens her briefing: ${brief.rows.length} calls, ${brief.docs.length} documents, runway ${brief.m.Runway}, questions ${brief.m.Questions}, nothing owed; a reload opens it again`);
+    await press("#nd .nd-brief .nd-acts button"); await sleep(500);
+    const cold = await evaluate(READ);
+    if (!/^Day 45\. /.test(cold.h) || !MAYA.test(cold.you) || cold.mine !== "45 82" || cold.q !== "Questions" + data.rules.questions.role + " left") fail(`Maya's Day 45, from her briefing: ${JSON.stringify(cold)}`);
+    else if (cold.book !== AGAIN || cold.news) fail(`Maya's Day 45 offers "${cold.book}" for its briefing, and ${cold.news} pieces of news arrive`);
+    else if (cold.hash || !cold.save || cold.broke || cold.y || !cold.focus) fail(`Maya's Day 45 opened at "${cold.hash}", ${cold.save ? "saved" : "unsaved"}, scrolled ${cold.y}, focus ${cold.focus ? "on the day" : "elsewhere"}${cold.broke ? ", saying " + cold.broke : ""}`);
+    else if (cold.first > 900) fail(`Maya's Day 45: the first answer ends at ${cold.first}px of a 900px screen`);
+    else console.log(`  ok   one press opens "${cold.h.slice(0, 40)}...", as Maya, her days ringed, ${cold.q.replace("Questions", "")}, no debt arriving, the first answer ending at ${cold.first} of 900`);
+    // c. a reload resumes past the briefing: "Carry on from Day 45" opens the day, still as Maya; a move is saved in one role, from Day 45
     await send("Page.reload"); await sleep(1200);
     const offered = await evaluate(`[...document.querySelectorAll("#nd button")].map((b) => b.textContent.trim())`);
     await evaluate(PRESS("Carry on from Day 45")); await sleep(300);
-    const back = await evaluate(READ);
-    if (again.h !== cold.h || again.you !== cold.you || again.book !== cold.book || again.q !== cold.q || again.save || again.broke) fail(`reloaded before a move: ${JSON.stringify(again)}`);
+    const back = await evaluate(READ), backBrief = await evaluate(`!!document.querySelector("#nd .nd-brief")`);
+    await evaluate(STEP(1, false)); await sleep(150);
+    const moved = await evaluate(`({ opts: (JSON.parse(${SAVE} || "{}").opts || {}), hash: location.hash, broke: ${BROKE} })`);
+    if (!offered.includes("Carry on from Day 45") || back.h !== cold.h || !MAYA.test(back.you) || backBrief || back.broke) fail(`reloaded after "Start Day 45": offered ${offered.join(" | ")}, then ${JSON.stringify(back)}${backBrief ? ", the briefing again" : ""}`);
     else if (moved.opts.mode !== "role" || moved.opts.role !== "qa" || moved.opts.from !== 8 || moved.hash || moved.broke) fail(`after a move on Maya's Day 45 the save is ${JSON.stringify(moved)}`);
-    else if (!offered.includes("Carry on from Day 45") || back.h !== cold.h || !MAYA.test(back.you) || back.broke) fail(`reloaded after a move: offered ${offered.join(" | ")}, then ${JSON.stringify(back)}`);
-    else console.log("  ok   a reload opens the same run: by its address before a move, and after one by \"Carry on from Day 45\", still as Maya");
-    // d. #day-45 alone still opens the whole team
+    else console.log("  ok   a reload resumes past the briefing: \"Carry on from Day 45\" opens the day, still as Maya, and a move is saved in her role from Day 45");
+    // d. #day-45 alone still opens the whole team: a briefing with no one to be and no questions, then the day
     await evaluate(`(localStorage.clear(), 1)`); await open("#day-45");
+    const teamBrief = await evaluate(BRIEF);
+    await evaluate(THROUGH); await sleep(200);
     const team = await evaluate(READ);
-    if (!/^Day 45\. /.test(team.h) || team.you || team.q || team.mine || team.book !== BOOK || team.broke) fail(`#day-45 alone opened ${JSON.stringify(team)}`);
-    else console.log(`  ok   #day-45 alone is still the whole team: no one to be, no questions, "${team.book}"`);
+    if (!teamBrief || teamBrief.you || "Questions" in teamBrief.m || teamBrief.head !== BOOK) fail(`#day-45 alone opened the briefing ${JSON.stringify(teamBrief && { you: teamBrief.you, m: teamBrief.m, head: teamBrief.head })}`);
+    else if (!/^Day 45\. /.test(team.h) || team.you || team.q || team.mine || team.book !== AGAIN || team.broke) fail(`#day-45 alone opened ${JSON.stringify(team)}`);
+    else console.log(`  ok   #day-45 alone is still the whole team: a briefing and a day with no one to be and no questions`);
     // e. with a run saved, the row's link in words offers the choice and leaves the save alone; the fresh run is saved in one role
     await fromCold(1440, 900, ""); await evaluate(START); await sleep(150);
     for (let i = 0; i < 7; i++) { await evaluate(STEP(1, false)); await sleep(25); }
@@ -740,7 +816,10 @@ try {
     await press('#nd .nd-rolebtns .nd-role > a[href="#day-45-qa"]'); await sleep(500);
     const choice = await evaluate(`({ say: (document.querySelector("#nd .nd-title .nd-pitch") || {}).textContent || "", buttons: ${BUTTONS}, save: ${SAVE} })`);
     await evaluate(PRESS("Open Day 45 on a fresh run")); await sleep(300);
+    const freshBrief = await evaluate(BRIEF);
+    await evaluate(THROUGH); await sleep(300);
     const fresh45 = await evaluate(READ), opts = JSON.parse(fresh45.save || "{}").opts || {};
+    if (!freshBrief || !MAYA.test(freshBrief.you) || !freshBrief.save) fail(`"Open Day 45 on a fresh run" from a row's link does not open Maya's briefing on a saved run`);
     if (choice.say !== "This link opens Day 45 as Maya. You also have a run in progress, on Day 9." || choice.buttons.join("|") !== "Carry on from Day 9|Open Day 45 on a fresh run" || choice.save !== mine) fail(`a row's link with a run saved: ${JSON.stringify(choice)}`);
     else if (!/^Day 45\. /.test(fresh45.h) || !MAYA.test(fresh45.you) || opts.mode !== "role" || opts.role !== "qa" || opts.from !== 8 || fresh45.hash || fresh45.broke) fail(`the fresh run from a row's link: ${JSON.stringify(fresh45)}`);
     else console.log(`  ok   with a run saved, "${data.line.first.replace("{day}", 45)}" says "${choice.say}", keeps the save, and only "Open Day 45 on a fresh run" replaces it`);
@@ -772,6 +851,19 @@ try {
         out.over = document.documentElement.scrollWidth - document.documentElement.clientWidth; return out; })()`);
       if (m.least < 24 || m.missed.length || m.touch || m.outside || m.over) fail(`${w} wide, the rows' links: the shortest ${m.least}px, ${m.missed.length} not under the finger (${m.missed.join(" ")}), ${m.touch} touching, ${m.outside} outside their row, the page ${m.over}px wider than the screen`);
       else console.log(`  ok   ${w} wide: every link on the rows is at least ${m.least}px tall, the one a finger lands on, none touching another, all inside their rows, nothing sideways`);
+    }
+    // h. on a phone the briefing stacks (a call's day, who and price over the call itself; one column of documents), and
+    // neither the briefing nor the day it opens scrolls sideways; the link back to the briefing is a 24px target
+    for (const [w, h] of [[390, 844], [320, 640]]) for (const hash of ["#day-45", "#day-45-qa"]) {
+      await size(w, h); await blank(); await send("Page.navigate", { url: URL_ }); await sleep(400); await evaluate(`(localStorage.clear(), 1)`); await open(hash);
+      const ph = await evaluate(`(() => { const b = ${BRIEF}, row = document.querySelector("#nd .nd-recap tbody tr:not(.nd-also)"), r = (n) => n.getBoundingClientRect();
+        const docs = [...document.querySelectorAll("#nd .nd-docs li")].map((li) => Math.round(r(li).left));
+        return { b: !!b, over: b ? b.over : -1, stacked: !!row && r(row.children[2]).top >= r(row.children[0]).bottom - 1, cols: new Set(docs).size }; })()`);
+      await press("#nd .nd-brief .nd-acts button"); await sleep(400);
+      const day = await evaluate(`(() => { const l = document.querySelector("#nd .nd-dayhead .nd-book"); return { h: ${HEAD}, over: document.documentElement.scrollWidth - document.documentElement.clientWidth, link: l ? Math.round(l.getBoundingClientRect().height) : 0 }; })()`);
+      if (!ph.b || ph.over || !ph.stacked || ph.cols !== 1) fail(`${w} wide, ${hash}: the briefing ${ph.b ? `scrolls ${ph.over}px sideways, ${ph.stacked ? "stacks" : "does not stack"}, documents in ${ph.cols} columns` : "is missing"}`);
+      else if (!/^Day 45\. /.test(day.h) || day.over || day.link < 24) fail(`${w} wide, ${hash}: the day after the briefing: ${JSON.stringify(day)}`);
+      else console.log(`  ok   ${w} wide, ${hash}: the briefing stacks, one column of documents, nothing sideways; the day it opens too, its link back ${day.link}px tall`);
     }
     if (thrown.length) fail("section 14: script error: " + thrown[0]);
   }

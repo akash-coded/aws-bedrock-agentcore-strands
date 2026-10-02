@@ -24,10 +24,12 @@
     return n;
   }
   function days(n) { return n === 1 ? "1 day" : n + " days"; }
+  function rise(t) { return t > 0 ? "Trust falls by " + t + "." : t < 0 ? "Trust rises." : ""; }
   function lower(s) { return /^[A-Z]{2}/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1); }      // "QA lead" keeps its capitals
   function money(n) { return (n < 0 ? "−$" : "$") + Math.abs(n).toLocaleString("en-US"); }
   function who(key) { return data.cast[key] || { name: key }; }
-  function load() { try { var s = JSON.parse(localStorage.getItem(KEY) || "null"); return s && s.v === data.v && Array.isArray(s.history) && s.opts && typeof s.opts === "object" ? s : null; } catch (e) { return null; } }
+  // a save the rules no longer replay to its end (a late start saved before its earlier days were assumed done) is dropped
+  function load() { try { var s = JSON.parse(localStorage.getItem(KEY) || "null"); return s && s.v === data.v && Array.isArray(s.history) && s.opts && typeof s.opts === "object" && sim.fold(data, s.opts, s.history).history.length === s.history.length ? s : null; } catch (e) { return null; } }
   function save() { try { if (run) localStorage.setItem(KEY, JSON.stringify({ v: data.v, opts: run.opts, history: run.state.history })); } catch (e) { /* play on in memory */ } }
   function clearSave() { try { localStorage.removeItem(KEY); } catch (e) { /* nothing to clear */ } }
   function best() { try { return JSON.parse(localStorage.getItem(BEST) || "null"); } catch (e) { return null; } }
@@ -40,11 +42,11 @@
   function restore(v) { try { if (v == null) localStorage.removeItem(KEY); else localStorage.setItem(KEY, v); } catch (e) { /* nothing to put back */ } }
   function guard(fn) {
     return function () {
-      var was = { run: run, state: run && run.state, looking: looking, asking: asking, shown: shown, shut: shut, enter: enter, flash: flash, saved: stored(), n: renders };
+      var was = { run: run, state: run && run.state, looking: looking, asking: asking, briefing: briefing, shown: shown, shut: shut, enter: enter, flash: flash, saved: stored(), n: renders };
       try { return fn.apply(this, arguments); }
       catch (err) {
         run = was.run; if (run) run.state = was.state;
-        looking = was.looking; asking = was.asking; shown = was.shown; shut = was.shut; enter = was.enter; flash = was.flash; answering = false;
+        looking = was.looking; asking = was.asking; briefing = was.briefing; shown = was.shown; shut = was.shut; enter = was.enter; flash = was.flash; answering = false;
         restore(was.saved);
         if (renders !== was.n) { try { render("keep"); } catch (e) { /* the screen stays as the failed press left it */ } }
         outOfDate(err);
@@ -68,6 +70,7 @@
   var run = null;                 // { opts, state }
   var looking = null, lastRoom = null;   // the room whose card is open, and the chip last pressed
   var asking = false;             // Day 90 in one role: building the slide
+  var briefing = 0;               // a late start's briefing: 1 before its first day, 2 opened again from that day
   var answering = false;          // redrawn as the answer to a press
   var shown = {};                 // the small simulations played
   var live = el("p", { "class": "vh", "aria-live": "polite", role: "status" });
@@ -260,7 +263,7 @@
     run.state = sim.fold(data, run.opts, h); asking = false; render("day"); save();
   }
   function start(opts) {
-    run = { opts: opts, state: sim.init(data, opts) }; looking = null; asking = false; shown = {};
+    run = { opts: opts, state: sim.init(data, opts) }; looking = null; asking = false; briefing = 0; shown = {};
     shut = 1; arrive(); render("day"); save(); go();
   }
   function questions(n) { return n === 1 ? "1 question" : n + " questions"; }
@@ -275,17 +278,18 @@
     return null;
   }
   function unlink() { try { if (/^#day-/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* the address stays */ } }
-  function openAt(i, replace, role) {
-    run = { opts: wayAt(i, role), state: bookAt(i, role) }; looking = null; asking = false; shown = {};
-    shut = gateShut(run.state); arrive(); render("day");
+  function openAt(i, replace, role) {      // a late start opens on its briefing, and the day (its people walking in) follows
+    run = { opts: wayAt(i, role), state: bookAt(i, role) }; looking = null; asking = false; shown = {}; briefing = i ? 1 : 0;
+    shut = gateShut(run.state); if (i) enter = 1; else arrive();
+    render(i ? "brief" : "day");
     if (replace) { save(); unlink(); }
     go();
   }
-  function resume(saved) { run = { opts: saved.opts, state: sim.fold(data, saved.opts, saved.history) }; shown = {}; render("day"); unlink(); go(); }
+  function resume(saved) { run = { opts: saved.opts, state: sim.fold(data, saved.opts, saved.history) }; shown = {}; briefing = 0; render("day"); unlink(); go(); }
   function savedDay(saved) { return data.days[Math.min(data.days.length - 1, saved.history.filter(function (a) { return a.t === "next"; }).length)].day; }
   function boot() {               // on load, and when the address changes under the page
     var l = linked(), saved = load();
-    run = null; looking = null; asking = false;
+    run = null; looking = null; asking = false; briefing = 0;
     if (l && !(saved && saved.history.length)) openAt(l.i, false, l.role);
     else render("title");
   }
@@ -293,7 +297,7 @@
   /* ------------------------------------------------------------------ pieces of the panel */
   // the top of the panel: the room, the thirteen days, the meters (the style sheet places the room)
   function hud(state) {
-    var strip = el("ol", { "class": "nd-strip", "aria-label": "The thirteen days" }), i, d, cls, due, meters, mine, ahead = aheadLine(state);
+    var strip = el("ol", { "class": "nd-strip", "aria-label": "The thirteen days" }), i, d, cls, due, mine, ahead = aheadLine(state);
     for (i = 0; i < data.days.length; i++) {
       d = data.days[i]; cls = i < state.i || state.beat === "end" ? "was" : i === state.i ? "now" : "";
       due = state.debts.filter(function (x) { return x.due === d.id && x.state === "sealed"; }).length;
@@ -303,14 +307,17 @@
           due ? el("i", { title: due === 1 ? "Something comes due" : due + " things come due" }, [el("span", { "class": "vh", text: " (something comes due)" })]) : null]));
     }
     var track = el("div", { "class": "nd-days" }, [phaseNames("nd-phases"), strip, ahead ? el("p", { "class": "nd-ahead", text: ahead }) : null]);
-    var pips = el("span", { "class": "nd-pips", "aria-hidden": "true" });
+    return el("div", { "class": "nd-hud" }, [el("div", { "class": "nd-scene" }, [sceneCv]), track, meters(state)]);
+  }
+  // where the run stands: in play under the strip, and on a late start's briefing
+  function meters(state) {
+    var pips = el("span", { "class": "nd-pips", "aria-hidden": "true" }), i;
     for (i = 0; i < state.trustMax; i++) pips.appendChild(el("i", { "class": i < state.trust ? "on" : "" }));
-    meters = el("dl", { "class": "nd-meters" }, [
+    return el("dl", { "class": "nd-meters" }, [
       el("div", { "class": state.slack < 0 ? "bad" : "" }, [el("dt", { text: "Runway" }), el("dd", { text: runwayText(state.slack) })]),
       el("div", {}, [el("dt", { text: "Sponsor's trust" }), el("dd", {}, [pips, el("span", { "class": "vh", text: state.trust + " of " + state.trustMax })])]),
       el("div", {}, [el("dt", { text: "On file" }), el("dd", { text: state.shelf.length + " of " + Object.keys(data.artefacts).length })]),
       state.mode !== "team" ? el("div", {}, [el("dt", { text: "Questions" }), el("dd", { text: state.tokens + " left" })]) : null]);
-    return el("div", { "class": "nd-hud" }, [el("div", { "class": "nd-scene" }, [sceneCv]), track, meters]);
   }
   // the phases as runs of day indexes
   function runs() {
@@ -343,7 +350,7 @@
       if (e.kind === "choice" || e.kind === "task" || e.kind === "gate") return;
       if ((e.kind === "fix" || e.kind === "repair" || e.kind === "move") && state.beat !== "choose") return;      // then it is in the outcome
       var head = e.kind === "debt" ? "From Day " + e.from + ": " + e.tag + "." : e.kind === "pressure" ? "Outside your control." : e.kind === "incident" ? "Why it happened." : "";
-      var cost = (e.days ? days(e.days) + " gone. " : "") + (e.trust > 0 ? "Trust falls by " + e.trust + "." : e.trust < 0 ? "Trust rises." : "");
+      var cost = (e.days ? days(e.days) + " gone. " : "") + rise(e.trust);
       out.appendChild(el("li", { "class": "ev-" + e.kind }, [head ? el("b", { text: head + " " }) : null, e.text + " ", cost ? el("em", { text: cost }) : null])); n++;
     });
     return n ? out : null;
@@ -388,7 +395,7 @@
       if (e.kind === "choice") box.appendChild(el("p", { "class": "nd-you" }, [el("b", { text: e.label }), el("em", { text: e.days ? days(e.days) : "no days" })]));
       if (e.kind === "choice" || e.kind === "task" || e.kind === "gate" || e.kind === "fix" || e.kind === "repair" || e.kind === "move")
         box.appendChild(el("p", { "class": "ev-" + e.kind }, [e.text, e.kind !== "choice" && e.days ? el("em", { text: " " + days(e.days) + "." }) : null,
-          e.trust > 0 ? el("em", { text: " Trust falls by " + e.trust + "." }) : e.trust < 0 ? el("em", { text: " Trust rises." }) : null]));
+          e.trust ? el("em", { text: " " + rise(e.trust) }) : null]));
     });
     // what today left sealed, by the day it comes due
     sealed = [];
@@ -699,8 +706,7 @@
       el("h2", { tabindex: "-1", text: "Day " + day.day + ". " + day.head }),
       el("p", { "class": "nd-ctx" }, [el("span", { text: data.short + " " }), day.context]),
       so.text ? el("p", { "class": "nd-sofar" }, [el("b", { text: so.label + " " }), so.text]) : null,
-      from > 0 && state.i === from ? el("p", { "class": "nd-book", text: (from === 1 ? "Day 1 was " : "Days 1 to " + data.days[from - 1].day + " were ") + data.line.book +
-        (state.role && bookAt(from, state.role).tokens < data.rules.questions.role ? " " + data.line.asked + (sim.mine(data, state, data.days[data.days.length - 1]) ? "" : " " + data.line.kept) : "") }) : null]);
+      from > 0 && state.i === from ? el("button", { type: "button", "class": "nd-book", text: data.brief.again.replace("{day}", day.day), onclick: function () { briefing = 2; render("brief"); } }) : null]);
   }
   // the header's pill: "Read the lesson" on a day with a lesson, else "The tutorial"; both labels sit
   // in it, one showing, so it never changes width
@@ -897,6 +903,8 @@
     return [box];
   }
 
+  // the document a plan, or a day, works from, and whether it is on file
+  function working(doc, on) { return el("p", {}, [el("b", { text: "Working from. " }), data.artefacts[doc][on ? "on" : "off"]]); }
   // a colleague's call, or the team's under the sponsor: the question is offered on sound and unsound
   // plans alike, costs one, and shows the evidence and nothing more
   function evidenceBox(state, own, ev) {
@@ -907,7 +915,7 @@
       box.appendChild(el("p", { text: "The slide, as " + own.name + " has it:" })); box.appendChild(ol);
       return box;
     }
-    if (ev.doc) box.appendChild(el("p", {}, [el("b", { text: "Working from. " }), data.artefacts[ev.doc][ev.has ? "on" : "off"]]));
+    if (ev.doc) box.appendChild(working(ev.doc, ev.has));
     box.appendChild(el("p", {}, [el("b", { text: "After today, on file. " }), ev.files.length ? ev.files.map(function (a) { return data.artefacts[a].name; }).join(" · ") : "Nothing new."]));
     return box;
   }
@@ -973,6 +981,36 @@
     var s = run.state, steps = 0, n;
     while (s.beat !== "end" && steps++ < 200) { n = sim.reduce(data, s, s.beat === "choose" ? { t: "accept" } : { t: "next" }); if (n === s) break; s = n; }
     run.state = s; render("day"); save();
+  }
+
+  /* ------------------------------------------------------------------ a late start's briefing
+     Before its first day: each earlier day's call and price, the documents and the day each was filed, from
+     the rules' own record (the run replayed to that day), and where the run stands. One press opens the day. */
+  function briefScreen(state) {
+    var from = run.opts.from, d = data.days[from], B = data.brief, again = briefing === 2, doc = sim.basis(d), w = whoLine(state);
+    var calls = el("tbody"), docs = el("ul", { "class": "nd-docs" }), s = sim.init(data, run.opts), h = state.history, k, used = 0;
+    for (k = 0; k < h.length && s.i < from; k++) {      // each earlier day as it stood before "On to": its events and what it filed
+      if (h[k].t === "next") used += recap(s, calls, docs);
+      s = sim.reduce(data, s, h[k]);
+    }
+    return (w ? [w] : []).concat(el("div", { "class": "nd-day nd-brief", style: "--c:var(--dg-" + HUE[d.phase] + ")" }, [
+      el("header", {}, [el("p", { "class": "nd-kick" }, [el("i", { "aria-hidden": "true" }), "Day " + d.day + " of 90 · " + B.kick]),
+        el("h2", { tabindex: "-1", text: (from === 1 ? "Day 1 was " : "Days 1 to " + data.days[from - 1].day + " were ") + data.line.book })]),
+      el("section", {}, [el("h3", { text: B.calls }), el("table", { "class": "nd-recap" }, [el("thead", { "class": "vh" }, [el("tr", {},
+        ["Day", "Who", "The call", "Price in days"].map(function (t) { return el("th", { scope: "col", text: t }); }))]), calls])]),
+      el("section", {}, [el("h3", { text: B.filed }), docs]),
+      el("section", {}, [el("h3", { text: B.stands }), meters(state), el("p", { text: B.spare.replace("{n}", data.rules[state.mode === "role" ? "slackRole" : "slack"]).replace("{used}", days(used)) }),
+        doc ? working(doc, sim.has(state, doc)) : null, el("p", { text: B.owed })]),
+      el("div", { "class": "nd-acts" }, [el("button", { type: "button", "class": "btn pri", text: B[again ? "back" : "start"].replace("{day}", d.day), onclick: function () {
+        briefing = 0; if (!again) arrive(); render("day"); if (!again) { save(); unlink(); } go(); } })])]));
+  }
+  // one earlier day: its call and price, then what else moved the runway or trust that day, and what it filed
+  function recap(s, calls, docs) {
+    var d = data.days[s.i], n = "Day " + d.day;
+    s.events.forEach(function (e) { if (e.kind === "choice") calls.appendChild(el("tr", {}, [el("th", { scope: "row", text: n }), el("td", { text: who(d.owner).name }), el("td", { text: e.label }), el("td", { text: e.days ? days(e.days) : "no days" })])); });
+    s.events.forEach(function (e) { if (!/^(choice|task|gate)$/.test(e.kind)) calls.appendChild(el("tr", { "class": "nd-also" }, [el("th", { scope: "row" }, [el("span", { "class": "vh", text: n })]), el("td"), el("td", { text: e.text }), el("td", { text: e.days ? days(e.days) : rise(e.trust) })])); });
+    s.filed.forEach(function (a) { docs.appendChild(el("li", {}, [el("b", { text: data.artefacts[a].name }), el("span", { text: n })])); });
+    return s.events.reduce(function (t, e) { return t + e.days; }, 0);      // the days it used
   }
 
   function endScreen(state) {
@@ -1055,7 +1093,7 @@
     if (!left) { left = stage(); root.appendChild(left); root.appendChild(panel); root.appendChild(live); }
     // build everything first: if any of it throws, the page is unchanged
     lineWanted = false;
-    if (focus !== "look" || !panel.firstChild) kids = focus === "org" ? orgSetup() : !state ? titleScreen() : state.beat === "end" ? endScreen(state) : playScreen(state);
+    if (focus !== "look" || !panel.firstChild) kids = focus === "org" ? orgSetup() : !state ? titleScreen() : state.beat === "end" ? endScreen(state) : briefing ? briefScreen(state) : playScreen(state);
     if (kids && lineWanted) { line = dayLine(); more = ways(); }
     if (!(state && state.beat === "end") && focus !== "org") look = roomBox(state);
     if (state && state.beat !== "end") today = sim.today(data, state);
@@ -1063,7 +1101,7 @@
     was = { cls: root.className, playing: document.documentElement.classList.contains("nd-playing"), kids: kids ? Array.prototype.slice.call(panel.childNodes) : null,
             look: left.querySelector(".nd-look"), line: root.querySelector(".nd-line"), more: root.querySelector(".nd-ways") };
     try {
-      root.className = "nd-app " + (!state ? "at-title" : state.beat === "end" ? "at-end" : "at-play") + (focus === "org" ? " at-org" : "");
+      root.className = "nd-app " + (!state ? "at-title" : state.beat === "end" ? "at-end" : briefing ? "at-brief" : "at-play") + (focus === "org" ? " at-org" : "");
       document.documentElement.classList.toggle("nd-playing", !!state);
       if (kids) {
         panel.innerHTML = "";
@@ -1096,11 +1134,11 @@
     if (!f) f = panel.querySelector("h2");
     if (focus === "back") f = root.querySelector(".nd-line .nd-acts button") || panel.querySelector("button");
     // a new day or screen starts at the top, then the focus goes to its heading
-    if ((focus === "day" || focus === "back" || focus === "org") && window.scrollY > 0) window.scrollTo({ top: 0, behavior: "instant" });
+    if ((focus === "day" || focus === "back" || focus === "org" || focus === "brief") && window.scrollY > 0) window.scrollTo({ top: 0, behavior: "instant" });
     if (f && (run || focus === "org" || focus === "back" || focus === "look")) { if (!f.hasAttribute("tabindex") && !/^(BUTTON|INPUT|A)$/.test(f.tagName)) f.setAttribute("tabindex", "-1"); try { f.focus({ preventScroll: focus !== "look" && focus !== "stay" }); } catch (e) { f.focus(); } }
     if (focus === "out" || focus === "ask") reveal(focus);
     settleFigures();
-    if (focus === "day" || focus === "back") live.textContent = "";
+    if (focus === "day" || focus === "back" || focus === "brief") live.textContent = "";
   }
 
   mapCv.addEventListener("click", guard(function (e) {     // looking in by pointing at the building

@@ -9,8 +9,6 @@
     "caption": "Start at Day 1, or press a day on the line to start there. The days before that day are played for you, the recommended way.",
     "card": "Your answer starts the game",
     "book": "played for you the recommended way.",
-    "asked": "Your questions went on plans that were not the recommended way.",
-    "kept": "One is kept for Day 90.",
     "first": "Or start at Day {day}, your first call",
     "milestones": {
       "d6": { "flag": "Sign-off", "name": "the sign-off" },
@@ -18,6 +16,17 @@
       "d11": { "flag": "First bill", "name": "the first bill" },
       "d13": { "flag": "Sponsor's slide", "name": "the sponsor's slide" }
     }
+  },
+  "brief": {
+    "kick": "Before you start",
+    "calls": "The calls, each with its price in days",
+    "filed": "On file, with the day each was filed",
+    "stands": "Where the run stands",
+    "spare": "The project began with {n} spare days. The days before used {used}.",
+    "owed": "Nothing comes due from the days before.",
+    "start": "Start Day {day}",
+    "back": "Back to Day {day}",
+    "again": "What was done before Day {day}"
   },
   "building": {
     "caption": "SkyWays head office. Each day happens in one room, lit. Day 1 is in the boardroom at the top. The days work down the floors to the passengers, and come back to the boardroom on Day 90.",
