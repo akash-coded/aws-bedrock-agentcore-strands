@@ -11,7 +11,7 @@ Two protocols solve two different problems. A2A lets agents from different vendo
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** (9 min): an interface between agents is a spec, and it has the same gate.
+The lesson that frames this module is **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** (8 min): an interface between agents is a spec, and it has the same gate.
 
 ## What you will be able to do
 

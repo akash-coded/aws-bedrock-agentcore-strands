@@ -11,7 +11,7 @@ Everything so far ran in a notebook. AgentCore is how an agent becomes a service
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P3 Run & Learn: How to Run an AI Agent in Production Safely](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)** (8 min): what running an agent as a service asks of the team. Then try **[the two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/report)** in the workbench: the same decision, with your numbers.
+The lesson that frames this module is **[P3 Run & Learn: How to Run an AI Agent in Production Safely](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p3-run-and-learn/)** (7 min): what running an agent as a service asks of the team. Then try **[the two-number report builder](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/report)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

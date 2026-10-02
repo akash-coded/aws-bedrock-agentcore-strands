@@ -11,7 +11,7 @@ The largest module, and the one with the most production value. Naive RAG is eas
 
 ## Read first, on the site
 
-The lesson that frames this module is **[Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)** (7 min): the evaluation gate retrieval has to pass. Then try **[the acceptance bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bar)** in the workbench: the same decision, with your numbers.
+The lesson that frames this module is **[Is 82% Good Enough? How to Prove an AI Agent Meets Its Bar](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/prove-ai-accuracy/)** (6 min): the evaluation gate retrieval has to pass. Then try **[the acceptance bar calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/bar)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

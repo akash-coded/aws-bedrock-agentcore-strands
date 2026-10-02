@@ -11,7 +11,7 @@ Bedrock Agents give you a managed agent loop. You will build one in the console,
 
 ## Read first, on the site
 
-The lesson that frames this module is **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** (9 min): what a spec an agent can build looks like, before the console. Then try **[the autonomy decision record](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/autonomy)** in the workbench: the same decision, with your numbers.
+The lesson that frames this module is **[P1 Design & Spec: Write a Spec an AI Agent Can Build From](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/p1-design-and-spec/)** (8 min): what a spec an agent can build looks like, before the console. Then try **[the autonomy decision record](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/autonomy)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 
