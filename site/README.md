@@ -7,7 +7,8 @@ screen, the method on one page at `/method/`, one journey page per role, the lib
 prompts, the operating protocol for leadership, twelve mental models, the frameworks decoder, a 55-lesson
 tutorial under `/learn/`, the simulator at `/simulator/` (Ninety Days, a game of one airline's ninety-day
 build), the labs at `/labs/` (one job of the same project done by hand, with a real model's recorded
-replies) and the workbench at `/workbench/` (the same case in depth, with its calculators). It is an
+replies), the Tool guides at `/tools/` (seven jobs across the vendors' tools, each fact dated and sourced) and
+the workbench at `/workbench/` (the same case in depth, with its calculators). It is an
 original work and the intellectual property of **Akash Das**, open-sourced under the repository's
 [MIT Licence](../LICENSE) for knowledge and experience sharing.
 

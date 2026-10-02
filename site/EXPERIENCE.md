@@ -106,7 +106,7 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
 | Method table | Phase headers and method names link to their lessons. Bars are cells with a hidden reading ("covers this phase", "extended in this manual"). Fits a 375px screen without scrolling; there, the spine's row becomes a list under the table. |
 | Role rows | The whole row is the link. Hover tints the row in the role's colour and moves the arrow. Two rows are not role journeys and say so in their counts: the forward-deployed engineer's field guide and the sponsor's page. |
 | Track list | Eight links, numbered in order, each with its lesson count. |
-| Simulator frame | The whole frame is one link to the simulator. |
+| Day card | One real day of the game, its question and its answers as links: each answer is a link to that day in the game, and the note under them says each costs days. Plain links, so they work without script. |
 | Folded how-to | Closed on arrival. Holds the audience, the use, the steps and the walkthrough button. |
 | Section rail | On a wide screen the role pages and the leadership page list their sections down the left and mark the one being read (`aria-current`): the last one whose top has passed the upper third of the window. On a narrow screen a role page relies on its step track, and the leadership page folds the list under its title. |
 | Role step | The step's head links to its template and its prompts; a tap opens the step if it is shut and lands on the block. "Expand all" sits beside the steps' heading. On a wide screen in a browser that can, a step opens to its height in 250ms; elsewhere it is simply open. |
