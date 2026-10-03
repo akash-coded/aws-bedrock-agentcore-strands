@@ -508,13 +508,14 @@ questions, and the artefacts are each about an afternoon's work.</p></div>
 def _send(n_templates: int, n_prompts: int) -> str:
     return f"""<div class="sec" id="send">
 <h2>Where to send people</h2>
-<p>Each role has its own eight steps. Send each person to the steps for the work they own.</p>
+<p>Each role has its own steps: eight for each of the first five, twelve in three stages for the forward-deployed engineer. Send each person to the steps for the work they own.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>They own</th><th>Send them to</th></tr></thead><tbody>
 <tr><td>What gets built and whether it shipped safely</td><td><a href="../product-manager/">The product manager's eight steps</a></td></tr>
 <tr><td>The shape of the system and what may be probabilistic</td><td><a href="../solution-architect/">The architect's eight steps</a></td></tr>
 <tr><td>Building it, and the boundary in code</td><td><a href="../engineering/">The engineering lead's eight steps</a></td></tr>
 <tr><td>Whether it actually works, with a number</td><td><a href="../qa/">The QA lead's eight steps</a></td></tr>
 <tr><td>Making it repeatable, observable and reversible</td><td><a href="../devops/">DevOps and platform's eight steps</a></td></tr>
+<tr><td>The outcome inside a customer's organisation, end to end</td><td><a href="../forward-deployed-engineer/">The forward-deployed engineer's twelve steps</a>, in three stages: Frame, Deliver and Evolve</td></tr>
 <tr><td>Wanting the artefacts, not the argument</td><td><a href="../templates/">{n_templates} templates</a> · <a href="../prompts/">{n_prompts} prompts</a></td></tr>
 <tr><td>Wanting to see it happen to somebody else first</td><td><a href="../workbench/#/story">The workbench's thirteen episodes</a>: the worked case, day by day</td></tr>
 <tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../workbench/#/governance/gv-gates">The gates, in the workbench</a> · <a href="../workbench/#/evidence">what a complete evidence pack holds</a></td></tr>
@@ -629,7 +630,7 @@ def _frameworks_exec() -> tuple[str, str, str]:
         ("AIDD", "The daily craft of building with coding agents: context files the agent reads, story files "
          "it builds from, review by risk, and the cost habits that keep the bill flat."),
         ("The BMAD Method", "A pipeline of AI personas, analyst to QA, each handing a versioned artefact to the "
-         "next. Right for complex, audited work; twelve personas too many for a small change."),
+         "next. Right for complex, audited work; six documents too many for a small change."),
         ("Spec-driven development", "The specification is the asset you maintain; code is generated from it "
          "and regenerated on change. It is the backbone every other method plugs into."),
     ]

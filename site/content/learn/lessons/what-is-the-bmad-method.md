@@ -6,7 +6,7 @@ description: The BMAD Method structures AI-driven development like an agile team
 dek: A pipeline of personas that leaves a paper trail: excellent for audited, multi-team work, and six documents too many for a one-line fix.
 level: Beginner
 keywords: BMAD method, BMAD-METHOD, breakthrough method for agile AI-driven development, BMAD agents, BMAD vs spec-driven development, BMAD vs AI-DLC, AI agent personas for software development
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -145,7 +145,9 @@ in the `bmad-code-org/BMAD-METHOD` repository on GitHub, under the MIT licence.
 
 Personas modelled on agile team roles (typically an analyst, a product manager, an architect, a UX
 designer, a product owner, a scrum master, a developer and QA), each with its own instructions and
-each producing a document for the next. The exact set has changed between releases.
+each producing a document for the next. The exact set has changed between releases: its September
+2026 release (v6.12.0) installs five named agents, an analyst, a product manager, an architect, a
+developer and a UX designer, with QA as one of the developer's commands.
 
 ### BMAD vs spec-driven development: which should I use?
 

@@ -5,7 +5,7 @@ HEAD = {
     "name": "QA lead",
     "short": "QA",
     "accent": "#8C5B6B",
-    "tagline": "From 'it works' to a number you can defend",
+    "tagline": "From 'it works' to proof that it works",
     "arc": ["Define", "Curate", "Check", "Harness", "Measure", "Attack", "Shadow", "Watch"],
     "intro": [
         "You own the two gates nobody else in the room can judge: **behaviour** (does it meet the spec?) and **expansion** (have we earned wider use?). The craft does not change. Test plans "

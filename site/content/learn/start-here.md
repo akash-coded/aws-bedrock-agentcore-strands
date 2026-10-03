@@ -5,9 +5,9 @@ dek: Short lessons on running software projects where an AI model does part of t
 ---
 
 > [!TIP]
-> **What this is.** A free tutorial in five-to-ten-minute lessons on the **agentic PDLC**: a four-phase
-> lifecycle (P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & Learn) for products in which a
-> model drafts, decides or acts. It works with whatever method you already use, including AWS AI-DLC,
+> This free tutorial teaches the **agentic PDLC**, a four-phase lifecycle (P0 Frame, P1 Design & Spec,
+> P2 Build & Prove, P3 Run & Learn) for products in which a model drafts, decides or acts, in
+> five-to-ten-minute lessons. It works with whatever method you already use, including AWS AI-DLC,
 > the BMAD Method, spec-driven development and Scrum. The home page and the method page call it the
 > SkyWays PDLC; the two names mean the same lifecycle.
 
@@ -23,7 +23,7 @@ Each role's part in the four phases is drawn on [the method page](site:method/#b
 | A solution architect | [For solution architects](lesson:agentic-pdlc-for-solution-architects) | Which steps may guess, and where the caps live |
 | An engineer or engineering lead | [For software engineers](lesson:agentic-pdlc-for-engineers) | Bolts, the harness and the merge gate |
 | A forward-deployed engineer | [The forward-deployed engineer guide](site:forward-deployed-engineer/) | Frame, Deliver, Evolve: twelve steps, each with its template |
-| In QA | [For QA](lesson:agentic-pdlc-for-qa) | "It works" becomes a number you can defend |
+| In QA | [For QA](lesson:agentic-pdlc-for-qa) | "It works" becomes proof that it works |
 | In DevOps or platform | [For DevOps and platform](lesson:agentic-pdlc-for-devops) | The gateway, the flags and the rollback |
 | A sponsor | [For business sponsors](lesson:agentic-pdlc-for-business-sponsors) | Two numbers, on one line, every cycle |
 | An executive | [For executives](lesson:agentic-ai-for-executives) | Four decisions nobody else can make |
