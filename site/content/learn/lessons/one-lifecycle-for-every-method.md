@@ -6,7 +6,7 @@ description: Where AWS AI-DLC, Kiro, Spec Kit, BMAD, Scrum, Shape Up and stage-g
 dek: Lay every method on the same four phases and two things appear: they mostly agree, and they all leave the same decisions open.
 level: Intermediate
 keywords: AI-DLC vs Scrum, BMAD vs Spec Kit, AI development methodology comparison, agile with AI agents, Shape Up AI, spec-driven development vs agile, which AI development method, method-agnostic AI lifecycle
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -39,7 +39,7 @@ as gaps that a lifecycle has to fill, whichever method you choose.
 | Method | P0 · Frame | P1 · Design & Spec | P2 · Build & Prove | P3 · Run & Learn |
 | --- | --- | --- | --- | --- |
 | **AWS AI-DLC** | Inception: the business intent | Inception: Mob Elaboration, units of work | Construction: Mob Construction, in bolts | Operations: infrastructure and deployment |
-| **AIDDLC** | Foundation | Inception, elaboration | Construction, hardening | Operations, evolution |
+| **AIDDLC** | Foundation, Discovery & Intelligence | Architecture & Design, Specification | Build, Validation | Deploy & Learn |
 | **Kiro** | none | `requirements.md`, `design.md` | `tasks.md`, task by task | none |
 | **GitHub Spec Kit** | none | Constitution, specify, plan, tasks | Implement | none |
 | **BMAD Method** | The analyst's brief | The product manager's requirements, the architect's design | Stories, developer, QA | Extended BMAD: learn and adjust, into the next brief |
@@ -171,7 +171,7 @@ acceptance bar per slice, authority enforced per action, and production evidence
 | Idea | Origin | Source |
 | --- | --- | --- |
 | AI-DLC's phases, rituals and bolts | **Borrowed** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
-| AIDDLC's seven phases | **Borrowed** | [AIDDLC standard](https://www.aiddlc.ai/) |
+| AIDDLC's seven phases | **Borrowed** | [AIDDLC: AI-Driven Development Lifecycle Standard](https://www.aiddlc.ai/) |
 | Kiro's specs and Spec Kit's workflow | **Borrowed** | [Kiro specs](https://kiro.dev/docs/specs/) · GitHub (2025). [Spec Kit](https://github.com/github/spec-kit) |
 | The BMAD Method | **Borrowed** | BMad Code. [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) |
 | Scrum's events | **Borrowed** | Schwaber, K. & Sutherland, J. (2020). [The Scrum Guide](https://scrumguides.org/) |

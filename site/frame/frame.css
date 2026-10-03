@@ -95,7 +95,9 @@ html .sw-drawer a{color:var(--sw-link,#3E5A82)}
 @media (prefers-reduced-motion:reduce){.sw-top{transition:none}}
 @media print{.sw-top{display:none!important}}
 
-@media (max-width:820px){.sw-send,.sw-btn,.sw-x{min-height:44px}.sw-x{min-width:44px}}
+@media (max-width:820px){.sw-send,.sw-btn,.sw-x{min-height:44px}.sw-x{min-width:44px}
+  .sw-footer ul a,.sw-footer .sw-legal a{display:inline-flex;align-items:center;min-height:44px}   /* the footer's links, as the site footer's, */
+  html .sw-footer ul a{border-bottom:0;text-decoration:underline 1px color-mix(in oklab,var(--sw-link,#3E5A82) 35%,transparent);text-underline-offset:4px}}   /* the line kept under the words */
 
 /* The two floating buttons sit in the page's side gutter. Where there is no gutter they would sit on the
    words, so they are not shown: the footer has the same way to write, and the top bar stays in reach. */

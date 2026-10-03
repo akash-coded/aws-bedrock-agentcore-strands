@@ -33,7 +33,7 @@ DAILY_CAP = int(os.environ.get("DAILY_CAP", "300"))
 WINDOW_SECONDS = 600
 MAX_BODY_BYTES = 16_000
 LIMITS = {"name": 120, "email": 200, "topic": 40, "message": 4000, "page": 200}
-TOPICS = ("idea", "question", "collaboration", "bug", "other")
+TOPICS = ("consultancy", "idea", "question", "collaboration", "bug", "other")   # consultancy: the home page's close
 EMAIL_RE = re.compile(r"^[^@\s]{1,64}@[^@\s]+\.[A-Za-z0-9-]{2,}$")
 
 _seen: dict[str, list[float]] = {}          # per-address timestamps, per warm container

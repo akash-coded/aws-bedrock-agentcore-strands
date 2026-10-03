@@ -122,9 +122,15 @@ SOURCES = {
     "tools/claude-in-the-repo/": ["site/content/tools", "site/pages/tools.py"],
     "tools/chatgpt-and-codex/": ["site/content/tools", "site/pages/tools.py"],
     "tools/google-ai-studio-and-jules/": ["site/content/tools", "site/pages/tools.py"],
-    "forward-deployed-engineer/frame/": ["site/content/roles/forward-deployed-engineer.json", "site/pages/fde.py"],
-    "forward-deployed-engineer/deliver/": ["site/content/roles/forward-deployed-engineer.json", "site/pages/fde.py"],
-    "forward-deployed-engineer/evolve/": ["site/content/roles/forward-deployed-engineer.json", "site/pages/fde.py"],
+    # The FDE guide: its hub's words and its dated sources live beside the role's JSON, so a page's date follows them too.
+    "forward-deployed-engineer/": ["site/content/roles/forward-deployed-engineer.json", "site/content/roles/_src/fde_hub.py",
+                                   "site/content/roles/_src/fde_sources.py", "site/pages/fde.py"],
+    "forward-deployed-engineer/frame/": ["site/content/roles/forward-deployed-engineer.json", "site/content/roles/_src/fde_sources.py",
+                                         "site/pages/fde.py"],
+    "forward-deployed-engineer/deliver/": ["site/content/roles/forward-deployed-engineer.json", "site/content/roles/_src/fde_sources.py",
+                                           "site/pages/fde.py"],
+    "forward-deployed-engineer/evolve/": ["site/content/roles/forward-deployed-engineer.json", "site/content/roles/_src/fde_sources.py",
+                                          "site/pages/fde.py"],
 }
 
 

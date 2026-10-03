@@ -507,13 +507,14 @@ questions, and the artefacts are each about an afternoon's work.</p></div>
 def _send(n_templates: int, n_prompts: int) -> str:
     return f"""<div class="sec" id="send">
 <h2>Where to send people</h2>
-<p>Each role has its own eight steps. Send each person to the steps for the work they own.</p>
+<p>Each role has its own steps: eight for a delivery role, twelve for the forward-deployed engineer. Send each person to the steps for the work they own.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>They own</th><th>Send them to</th></tr></thead><tbody>
 <tr><td>What gets built and whether it shipped safely</td><td><a href="../product-manager/">The product manager's eight steps</a></td></tr>
 <tr><td>The shape of the system and what may be probabilistic</td><td><a href="../solution-architect/">The architect's eight steps</a></td></tr>
 <tr><td>Building it, and the boundary in code</td><td><a href="../engineering/">The engineering lead's eight steps</a></td></tr>
 <tr><td>Whether it actually works, with a number</td><td><a href="../qa/">The QA lead's eight steps</a></td></tr>
 <tr><td>Making it repeatable, observable and reversible</td><td><a href="../devops/">DevOps and platform's eight steps</a></td></tr>
+<tr><td>The outcome inside a customer's organisation, end to end</td><td><a href="../forward-deployed-engineer/">The forward-deployed engineer's twelve steps</a>, in three stages: Frame, Deliver and Evolve</td></tr>
 <tr><td>Wanting the artefacts, not the argument</td><td><a href="../templates/">{n_templates} templates</a> · <a href="../prompts/">{n_prompts} prompts</a></td></tr>
 <tr><td>Wanting to see it happen to somebody else first</td><td><a href="../workbench/#/story">The workbench's thirteen episodes</a>: the worked case, day by day</td></tr>
 <tr><td>Chairing a gate, and wanting to know what may halt it</td><td><a href="../workbench/#/governance/gv-gates">The gates, in the workbench</a> · <a href="../workbench/#/evidence">what a complete evidence pack holds</a></td></tr>
@@ -540,7 +541,7 @@ def _why() -> tuple[str, str, str]:
         ("The organisation has to move with it",
          "Five teams each adopting a tool is not a strategy. One operating model, P0 to P3, gives "
          "every team the same phases, the same gates and the same evidence, so a product manager's "
-         "spec, an engineer's slice and QA's proof fit together. It also creates a sixth role, "
+         "spec, an engineer's slice and QA's proof fit together. It also creates a role of its own, "
          "governance, and that one is yours."),
     ]
     body = "".join(f'<div class="card"><h4 class="h4">{E(t)}</h4><p>{E(b)}</p></div>' for t, b in cells)
@@ -588,7 +589,7 @@ needs, and the gain you should expect to see.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Team</th><th>What changes in how they work</th><th>What they use</th>
 <th>The gain</th></tr></thead><tbody>{body}</tbody></table></div>
 <p class="lalt">The effort levels, low, mid and high, are explained in <a href="#llms">LLMs across the board</a>
-below, and each role's eight steps are on <a href="#who">its own page</a>.</p>""")
+below, and each role's steps are on <a href="#who">its own page</a>.</p>""")
 
 
 def _money() -> tuple[str, str, str]:
@@ -628,7 +629,7 @@ def _frameworks_exec() -> tuple[str, str, str]:
         ("AIDD", "The daily craft of building with coding agents: context files the agent reads, story files "
          "it builds from, review by risk, and the cost habits that keep the bill flat."),
         ("The BMAD Method", "A pipeline of AI personas, analyst to QA, each handing a versioned artefact to the "
-         "next. Right for complex, audited work; twelve personas too many for a small change."),
+         "next. Right for complex, audited work; six documents too many for a small change."),
         ("Spec-driven development", "The specification is the asset you maintain; code is generated from it "
          "and regenerated on change. It is the backbone every other method plugs into."),
     ]
@@ -781,13 +782,14 @@ def _operating_model() -> tuple[str, str, str]:
             f'<p style="font-size:14px;margin:0 0 6px"><strong>The shift:</strong> {E(shift)}</p>'
             f'<p style="font-size:14px;margin:0 0 10px"><strong>Owns:</strong> {E(owns)}</p>'
             f'<p style="font-size:13.5px;margin:0"><a href="../{slug}/">Their eight steps →</a></p></div>')
-    return ("Who does what, and the boundary that moves", "Five roles, the shift in each, and the sixth role that is yours",
-            f"""<p class="wide">Five roles. None of them is new, and none of them disappears. What moves is the boundary between
+    return ("Who does what, and the boundary that moves", "Five delivery roles, the shift in each, and the role that is yours",
+            f"""<p class="wide">Five delivery roles. None of them is new, and none of them disappears. What moves is the boundary between
 them, and the two places it moves are worth knowing: <strong>the product manager stops approving
 things they cannot evaluate</strong>, and <strong>QA gains a veto that is arithmetic rather than
 opinion</strong>.</p>
+<p class="wide">The forward-deployed engineer carries all five to a customer's site; that role has <a href="../forward-deployed-engineer/">its own guide</a>.</p>
 <div class="roles" style="grid-template-columns:repeat(auto-fit,minmax(252px,1fr))">{''.join(cards)}</div>
-<div class="note"><p><strong>The sixth role is yours.</strong> Governance spans the whole lifecycle
+<div class="note"><p><strong>Governance is yours.</strong> It spans the whole lifecycle
 and no delivery role owns it. If nobody is asking the four questions below every cycle, nobody is.</p></div>""")
 
 
