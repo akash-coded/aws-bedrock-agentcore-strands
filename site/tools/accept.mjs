@@ -7,8 +7,9 @@
 // Eighteen passes, most over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
-//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn), and
-//                            the simulator shows its thirteen days as text
+//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, clipped away);
+//                            the simulator shows its thirteen days as text; the home page's close is a plain link
+//                            to the repository's discussions page, and the page prints no address
 //    2. reduced motion       nothing hidden, and no animation running at all
 //    3. nothing waits        with motion allowed, 700ms after load nothing on the whole page is hidden: no
 //                            entrance, no part that waits to be scrolled to. After four seconds the only things
@@ -25,11 +26,15 @@
 //   11. versions             every local stylesheet and script is asked for by an address that carries its version,
 //                            so a new page can never be paired with an old file from a browser's cache
 //   12. no stylesheet        with every stylesheet blocked, no mark in a sketch falls back to a solid black fill
-//   13. the hero             one clock (the pause holds it; a tab left and come back to goes on from where it was);
-//                            at twelve moments round a lap, at four widths, the line under the picture names the
-//                            phase the aircraft is in; the picture ends inside the first screen on a phone and a
-//                            laptop; its drawing stays inside its budget with the processor slowed four times; and
-//                            the page does not shift as it is scrolled
+//   13. the hero             on the home page, every moment read from the hero's own times (window.GlobeTimes):
+//                            one clock (the pause holds it; a hidden tab goes on from where it was); at twelve
+//                            moments and five widths the tag names the phase, the sign-off and the way back, sits
+//                            8px inside the stage clear of the aircraft and the pause control, and the aircraft is
+//                            30px long or more; the picture ends inside the first screen; its whole cost slowed
+//                            four times against a frozen reference served in its place (frames, gaps, taps, script);
+//                            61 frames a second at most when 120 are offered; it comes to rest, a later visit sooner; reduced motion draws the rest frame;
+//                            the entrance plays once a sitting; the tag waits for its fonts; the rest's labels
+//                            touch nothing; and the page does not shift as it is scrolled
 //   14. the measure          on a lesson at 1440, no prose runs over 75 characters a line: each paragraph's
 //                            characters a line, from its width and the average width of its own text in its font
 //   15. two right edges      on a lesson at 1440, text stops at one right edge and pictures, tables and code at
@@ -39,29 +44,34 @@
 //                            first paint, while the game's own script has still not arrived; when the rules fail to
 //                            load, the text comes back
 //   17. the bytes            read from the built site with node's zlib (level 9): base.css under 32 KB as shipped
-//                            (the build drops its comments), the game's three scripts under 46 KB, every page's
-//                            HTML under 25 KB (the pages that were already
-//                            larger on 2 October 2026 each held to its size that day, rounded up, plus one KB), and
-//                            no font file but the four the site has
+//                            (the build drops its comments), the game's three scripts under 46 KB, theme/hero.js
+//                            under 10 KB, frame/frame.js (every page loads it) under 6 KB; every page's HTML under
+//                            25 KB (the pages that were already larger on 2 October 2026 each held to its size that
+//                            day, rounded up, plus one KB); the home page's HTML under 21 KB with no <style> block,
+//                            and everything a first visit to it asks for, scrolled to the end, under 176 KB
+//                            (council 10); and no font file but the four the site has
 //   18. map height           every page under learn/ in the sitemap, at 1440 x 900: the figure that holds a lesson's
 //                            map (data-map, from pages/maps.py) is at most 630px tall, 70% of the screen (council 9)
 //
-// Every pass first checks that the page really loaded: its top bar is there and styled. It exits 1 if
+// Every pass first checks that the page really loaded: its top bar is there and styled. Passes 1 to 4 and 8 look
+// for the parts script or an animation may hide (HIDDEN); on the home page each of its parts there must be found,
+// so a class renamed in the markup fails the pass instead of leaving nothing checked. It exits 1 if
 // any pass fails and prints what failed. It measures; it does not judge taste: for that, look. The hero can
 // be put at any second of its clock with window.GlobeAt(seconds), and site/tools/herosheet.mjs lays twelve
-// such moments at four widths on one sheet for a person to look at before a release.
+// moments of its flight, the rest among them, at five widths on sheets for a person to look at before a release.
 //
 // What it cannot see: other browsers. Nothing on the site now depends on a feature only Chrome has (the
 // hero is one canvas; there are no view transitions and no CSS path animation), but Safari and Firefox are
 // not run here. The globe and the simulator draw on canvases from script, which the browser's list of
-// animations cannot see, so each reports for itself: window.GlobeMs (drawing time and frames) and
+// animations cannot see, so each reports for itself: window.GlobeMs (drawing time and frames), with
+// window.GlobeTimes and window.GlobeState (the hero's moments, its words and where it draws them), and
 // window.NDFrames (frames drawn).
 
 import { createServer } from "node:net";
 import { spawn } from "node:child_process";
 import { rmSync, readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { gzipSync } from "node:zlib";
-import { tmpdir } from "node:os";
+import { tmpdir, loadavg } from "node:os";
 import { join } from "node:path";
 
 const BASE = process.argv[2];
@@ -127,18 +137,27 @@ const evaluate = async (expression) => {
   return r.result.value;
 };
 
-// Things that script or an animation may hide, and must have shown by now.
+// Things that script or an animation may hide, and must have shown by now: first the home page's parts, band by
+// band in the order of verdict-home 1.0, then other pages' parts.
+const HOME_PARTS = [".hero2 .hx>*", ".sc-rail li",   // the hero: its words, and the rail a reader without script sees
+  ".sec-h>*",                                          // each band's eyebrow, heading and line
+  ".vm-p", ".vm-pl", ".vm-n", ".vm-q>li",              // the methods: the map's phase heads, shapes, notes and questions
+  ".pk-c",                                             // your team: the chooser's four columns, three of them fieldsets
+  ".seats a",                                          // by role
+  "#tutorial .q", "#tutorial .q svg.sk>*",             // the tutorial: the four people and their drawings
+  ".daycard", ".daycard *", ".dc-ex",                  // the simulator: the day card and its "Example day" pill
+  ".lib .fl", ".lib .fl-p>*", ".lib .shf",             // the library: the three tools, what their pictures show, six shelves
+  ".cx-in", ".cx-o>li"];                               // the close: its panel and its four offers
+const OTHER_PARTS = [".tg .tile", ".roadmap .rn", "main .sec", ".dgb", ".step>summary", ".mix a", ".lc", ".lk", "[data-reveal]>*",
+  "figure.fig>svg>*", ".mmg svg>*", "figure.sketch svg>*", ".prose>*"];
 const HIDDEN = `(() => {
-  const sel = '.hero2 .hx>*,.sc-rail li,.sec-h>*,.spine li,.spine .sp-core a,.spine .sp-trunk i,.spine .sp-loop,.spine .sp-back,.spine .sp-gate,' +
-    '.spine .sp-fun path,.spine .sp-craft,.spine .sp-note,.cover .bar,.seats a,.daycard,.daycard *,.tile,.roadmap .rn,main .sec,.dgb,' +
-    '.step>summary,.mix a,.lc,.lk,[data-reveal]>*,figure.fig>svg>*,.mmg svg>*,figure.sketch svg>*,.prose>*';
+  const sel = ${JSON.stringify([...HOME_PARTS, ...OTHER_PARTS].join(","))};
   const bad = {};
   document.querySelectorAll(sel).forEach((e) => {
     const cs = getComputedStyle(e);
     let why = '';
     if (+cs.opacity < 0.05) why = 'opacity ' + cs.opacity;
     else if (cs.scale && /^0(\\s|$)/.test(cs.scale)) why = 'scaled to nothing';
-    else if (e.matches('.spine .sp-fun path') && parseFloat(cs.strokeDashoffset) > 0.01) why = 'not drawn';
     else if (/inset\\([^)]*100%/.test(cs.clipPath)) why = 'clipped away';
     if (why) {
       const cls = (e.className.baseVal ?? e.className ?? '').toString().split(' ')[0];
@@ -148,6 +167,31 @@ const HIDDEN = `(() => {
   });
   return bad;
 })()`;
+// The guard (council 10): on the home page, its parts above that match nothing there. It is read wherever HIDDEN is
+// read, so a class renamed in the markup and not here fails the pass instead of leaving that part unchecked.
+const HOME = new URL(BASE).href.replace(/[?#].*$/, "");
+const ON_HOME = `(location.origin + location.pathname === ${JSON.stringify(HOME)})`;
+const UNMATCHED = `(${ON_HOME} ? ${JSON.stringify(HOME_PARTS)}.filter((s) => !document.querySelector(s)) : [])`;
+// Everything a first visit to the home page asks for, scrolled to the end (council 10), read from the built site: the
+// files index.html names that a browser fetches (its stylesheets, preloads, icon, scripts and pictures) and the fonts
+// those stylesheets name. Text counts gzipped (level 9); pictures and fonts, already compressed, count as they are.
+// Pass 17 holds the sum to 176 KB; the home pass checks that a first visit really asks for nothing else.
+function firstVisit() {
+  const site = new URL("../_site/", import.meta.url).pathname, html = readFileSync(site + "index.html", "utf8"), files = new Set(["index.html"]);
+  const local = (u, from) => { const x = new URL(u, "http://site/" + from); return x.origin === "http://site" ? decodeURIComponent(x.pathname.slice(1)) : null; };
+  for (const [t, tag] of html.matchAll(/<(link|script|img|source|video|audio)\b[^>]*>/gi)) {
+    if (/^link$/i.test(tag) && !/\srel="[^"]*\b(stylesheet|icon|preload|modulepreload|manifest)\b/i.test(t)) continue;
+    for (const [, u] of t.matchAll(/\s(?:href|src|poster)="([^"]+)"/gi)) { const f = local(u, ""); if (f) files.add(f); }
+  }
+  for (const css of [...files].filter((f) => f.endsWith(".css") && existsSync(site + f))) {
+    for (const [, u] of readFileSync(site + css, "utf8").matchAll(/url\(\s*["']?([^"')]+?\.(?:woff2?|ttf|otf)(?:[?#][^"')]*)?)["']?\s*\)/gi)) {
+      const f = local(u, css); if (f) files.add(f);
+    }
+  }
+  const missing = [...files].filter((f) => !existsSync(site + f));
+  const size = (f) => { const b = readFileSync(site + f); return /\.(png|jpe?g|gif|webp|avif|woff2?)$/i.test(f) ? b.length : gzipSync(b, { level: 9 }).length; };
+  return { files: [...files], missing, bytes: [...files].filter((f) => !missing.includes(f)).reduce((n, f) => n + size(f), 0) };
+}
 const RUNNING = `(() => {
   const o = {};
   document.getAnimations().forEach((a) => {
@@ -169,6 +213,12 @@ try {
 await send("Page.enable");
 await send("Runtime.enable");
 const list = (o) => Object.entries(o).map(([k, v]) => `${k} x${v}`).join(", ");
+// what HIDDEN finds, as a pass's failures; and on the home page, each of its parts that is no longer there (the guard)
+const hidden = async (say = "hidden", expr = HIDDEN) => {
+  const h = await evaluate(expr), gone = await evaluate(UNMATCHED);
+  return [...(Object.keys(h).length ? [`${say}: ${list(h)}`] : []),
+    ...(gone.length ? [`nothing on the home page matches ${gone.join(", ")}, which HIDDEN looks for there`] : [])];
+};
 
 async function pass(label, { width, height, reduce = false, noscript = false, wait = 4200, print = false }, check) {
   await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: width < 600 });
@@ -191,25 +241,34 @@ async function pass(label, { width, height, reduce = false, noscript = false, wa
 
 // the simulator's thirteen days as text, for a reader without script: shown, and saying why
 const PLAIN = `(() => { const p = document.querySelector('.nd-plain'); return p ? getComputedStyle(p).display !== 'none' && p.getBoundingClientRect().height > 400 && /The game needs script to run/.test(p.textContent) : null; })()`;
+// the home page's close for a reader without script (council 10, H8): its one button a plain link to the repository's
+// discussions page, shown, and no address printed anywhere in the page
+const CLOSE = `(() => { if (!${ON_HOME}) return null;
+  const a = document.querySelector('#work-with-us .btn'), r = a ? a.getBoundingClientRect() : null;
+  return { href: a ? a.getAttribute('href') : '', shown: !!r && r.width > 0 && r.height > 0 && getComputedStyle(a).visibility !== 'hidden',
+    mailto: document.documentElement.outerHTML.includes('mailto:') }; })()`;
 await pass("1. no script: nothing left hidden", { width: 1280, height: 800, noscript: true, wait: 3200 }, async () => {
-  const h = await evaluate(HIDDEN), out = Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  const out = await hidden();
   if ((await evaluate(PLAIN)) === false) out.push("without script the thirteen days as text are not shown");
+  const c = await evaluate(CLOSE);
+  if (c) {
+    if (!/^https:\/\/github\.com\/[^/]+\/[^/]+\/discussions\/?$/.test(c.href)) out.push(`without script the close's button goes to "${c.href}", not the repository's discussions page`);
+    if (!c.shown) out.push("without script the close's button is not shown");
+    if (c.mailto) out.push("the home page carries a mailto: address");
+  }
   return out;
 });
 await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, height: 800, reduce: true }, async () => {
-  const out = [];
-  const h = await evaluate(HIDDEN);
+  const out = await hidden();
   const r = await evaluate(RUNNING);
-  if (Object.keys(h).length) out.push("hidden: " + list(h));
   if (Object.keys(r).length) out.push("running: " + list(r));
   const f = await evaluate(FRAMES);
   if (f > 0) out.push(`the canvas drew ${f} frames`);
+  const g = await evaluate("window.GlobeMs ? window.GlobeMs.n : 0"); if (g > 3) out.push(`the globe drew ${g} frames; its still is drawn twice at most, and once more when the fonts arrive`);
   return out;
 });
 await pass("3. motion allowed: nothing waits for an animation", { width: 1280, height: 800, wait: 700 }, async () => {
-  const out = [];
-  const h = await evaluate(HIDDEN);                       // 700ms after load, the whole page, unscrolled
-  if (Object.keys(h).length) out.push("hidden 700ms after load: " + list(h));
+  const out = await hidden("hidden 700ms after load");   // the whole page, unscrolled
   await sleep(3400);
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
@@ -220,10 +279,8 @@ await pass("3. motion allowed: nothing waits for an animation", { width: 1280, h
   return out;
 });
 await pass("4. scrolled through, motion allowed: nothing hidden, nothing set off by the scroll", { width: 1280, height: 800, wait: 1800 }, async () => {
-  const out = [];
   await evaluate(SCROLL_THROUGH);
-  const h = await evaluate(HIDDEN);
-  if (Object.keys(h).length) out.push("hidden: " + list(h));
+  const out = await hidden();
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
   if (Object.keys(stray).length) out.push("moving after the scroll: " + list(stray));
@@ -256,8 +313,7 @@ await pass("8. print: nothing left hidden on paper", { width: 1280, height: 800,
   // the hero's picture is a screen thing: paper does not carry it
   const paper = HIDDEN.replace(".sc-rail li,", "");
   if (paper === HIDDEN) throw new Error("the selector for the hero's picture no longer matches");
-  const h = await evaluate(paper);
-  return Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  return hidden("hidden", paper);
 });
 await pass("9. the top bar: the pill never points at the page it is on", { width: 1280, height: 800, reduce: true, wait: 1200 }, async () => {
   const out = [];
@@ -309,69 +365,406 @@ console.log("\n12. no stylesheet: no mark in a sketch falls back to a solid blac
   if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); } else console.log("  ok   three pages with sketches");
 }
 
-// 13. the hero, on the home page only
-console.log("\n13. the hero: one clock, the right phase named, inside the first screen, the budget, no shift");
+// 13. the hero, on the home page only. Council 10 staged the flight like a launch, gave it words and a rest, and
+// asked the gate to see its words, its fit and its whole cost. Every moment is read from the hero's own times
+// (window.GlobeTimes: the lap, the launch's wait, P1, the sign-off's bar, P3, behind the Earth, the rest, and whether
+// the entrance played), never typed in, so a change to the flight's timing moves the checks with it. What it draws
+// is read from window.GlobeState (the tag's words and box, the aircraft's box and length, the rest's labels and
+// forms; boxes in css px from the canvas's top left); the pause control is measured on the page. Each finding
+// carries the number of its check.
+console.log("\n13. the hero: one clock; its words, fit and size at twelve moments; its whole cost; the rest");
 {
-  const out = [];
+  const out = [], said = [];
+  const fail = (k, s) => { const m = `${k}. ${s}`; if (!out.includes(m)) out.push(m); };
   thrown.length = 0;
-  const media = { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] };
-  await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
-  await send("Emulation.setEmulatedMedia", media);
-  await send("Page.navigate", { url: BASE });
-  await sleep(2600);
-  const frames = () => evaluate("(window.GlobeMs || { n: -1 }).n");
-  const tick = (on) => evaluate(`(() => { const b = document.querySelector('.hero2 [data-motion-toggle]'); b.checked = ${on}; b.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
-  let a = await frames(); await sleep(500); let b = await frames();
-  if (b - a < 10) out.push(`the picture drew ${b - a} frames in half a second`);
-  await tick(true); await sleep(200); a = await frames(); await sleep(500); b = await frames();
-  if (b !== a) out.push(`paused, and ${b - a} frames were still drawn`);
-  await tick(false); await sleep(200); a = await frames(); await sleep(500); b = await frames();
-  if (b - a < 10) out.push("resumed, and the picture stayed still");
-  // twelve moments round a lap, at four widths: the line under the picture names the phase the aircraft is in
-  const NAMES = { 0: "P0", 1: "P1", 2: "P2", 3: "P3", 4: "back" };
-  for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [390, 844]]) {
-    await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
+  const MOTION = { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] };
+  const STILL = { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] };
+  const screen = async (w, h, dpr = 1, media = MOTION) => {
+    await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: dpr, mobile: w < 600 });
+    await send("Emulation.setEmulatedMedia", media);
+  };
+  const cpu = (rate) => send("Emulation.setCPUThrottlingRate", { rate });
+  const frames = () => evaluate("window.GlobeMs ? window.GlobeMs.n : -1");
+  const BOX = "document.querySelector('.hero2 [data-motion-toggle]')";
+  const tick = (on) => evaluate(`(() => { const b = ${BOX}; if (!b) return false; b.checked = ${on}; b.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
+  const isBox = (a) => Array.isArray(a) && a.length === 4 && a.every((v) => typeof v === "number");
+  // two boxes overlap by more than a pixel each way (a pixel is left for rounding)
+  const hits = (a, b) => isBox(a) && isBox(b) && Math.min(a[0] + a[2], b[0] + b[2]) - Math.max(a[0], b[0]) > 1 && Math.min(a[1] + a[3], b[1] + b[3]) - Math.max(a[1], b[1]) > 1;
+  // where the stage can be seen (the canvas, inside the screen's width and any box that clips it), and the pause control
+  const STAGE = `(() => { const c = document.querySelector('[data-globe]'), r = c.getBoundingClientRect();
+    let L = Math.max(r.left, 0), R = Math.min(r.right, document.documentElement.clientWidth), T = r.top, B = r.bottom;
+    for (let e = c.parentElement; e && e !== document.documentElement; e = e.parentElement) { const cs = getComputedStyle(e), q = e.getBoundingClientRect();
+      if (cs.overflowX !== 'visible') { L = Math.max(L, q.left); R = Math.min(R, q.right); }
+      if (cs.overflowY !== 'visible') { T = Math.max(T, q.top); B = Math.min(B, q.bottom); } }
+    const p = ${BOX}, pb = p && (p.closest('.mpause') || p).getBoundingClientRect();
+    return { w: r.width, edge: [L - r.left, T - r.top, R - r.left, B - r.top], pause: pb && pb.width ? [pb.left - r.left, pb.top - r.top, pb.width, pb.height] : null }; })()`;
+  // A visit to the home page. A first visit in the sitting plays the entrance (the head's script finds nothing in
+  // sessionStorage); a later one does not. It returns once the hero has drawn its first frame.
+  let fresh = null;
+  const hooks = [];
+  async function visit(first) {
+    if (first && fresh === null) fresh = (await send("Page.addScriptToEvaluateOnNewDocument", { source: "try { sessionStorage.removeItem('hero') } catch (e) {}" })).identifier;
+    if (!first && fresh !== null) { await send("Page.removeScriptToEvaluateOnNewDocument", { identifier: fresh }); fresh = null; }
+    await evaluate("window.__left = true");
     await send("Page.navigate", { url: BASE });
-    await sleep(1500);
-    if (typeof (await evaluate("typeof window.GlobeAt")) !== "string" || (await evaluate("typeof window.GlobeAt")) !== "function") { out.push(`at ${w}px the picture has no clock to set`); continue; }
-    await tick(true);
-    await evaluate(`document.head.insertAdjacentHTML('beforeend', '<style>.sc-rail li{transition:none!important}</style>'); true`);   // the line is read at once, not mid-change
-    const seen = new Set();
-    for (let k = 0; k < 12; k++) {
-      const m = await evaluate(`(() => { const leg = window.GlobeAt(${(k * 27 / 12 + 0.4).toFixed(2)}); const r = document.querySelector('[data-globe-rail]');
-        const lit = [...r.children].filter((li) => getComputedStyle(li).color === getComputedStyle(document.querySelector('.hero2 h1')).color).map((li) => li.textContent.trim());
-        return { leg, at: r.getAttribute('data-at'), lit }; })()`);
-      seen.add(m.leg);
-      const want = m.leg === 4 ? "back" : String(m.leg);
-      if (m.at !== want) out.push(`at ${w}px, moment ${k}: the aircraft is in ${NAMES[m.leg]} and the line says ${m.at}`);
-      else if (m.lit.length !== 1 || !(m.leg === 4 ? /back to Frame/.test(m.lit[0]) : m.lit[0].startsWith(NAMES[m.leg]))) out.push(`at ${w}px, moment ${k}: lit in the line: ${m.lit.join(" | ") || "nothing"}`);
+    for (let i = 0; i < 160; i++) {
+      await sleep(50);
+      if (await evaluate("!window.__left && !!window.GlobeMs && window.GlobeMs.n > 0").catch(() => false)) return true;
     }
-    if (seen.size !== 5) out.push(`at ${w}px a lap passed through ${seen.size} of its five parts`);
-    const box = await evaluate(`(() => { const s = document.querySelector('.scene'), r = s.getBoundingClientRect(), c = document.querySelector('.sc-stage').getBoundingClientRect();
-      return { bottom: Math.round(r.bottom), stage: Math.round(c.bottom), left: Math.round(c.left), right: Math.round(c.right), over: document.documentElement.scrollWidth - innerWidth }; })()`);
-    if ((w === 390 || w === 1440) && box.bottom > h) out.push(`at ${w} x ${h} the picture and its line end at ${box.bottom}px, below the first screen`);
-    if (box.over > 0) out.push(`at ${w}px the page scrolls sideways by ${box.over}px`);
+    return false;
   }
-  // the drawing, with the processor slowed four times
-  await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
-  await send("Page.navigate", { url: BASE });
-  await sleep(2000);
-  await send("Emulation.setCPUThrottlingRate", { rate: 4 });
-  await evaluate("window.GlobeMs = { n: 0, sum: 0, max: 0 }; true");
-  await sleep(3000);
-  const g = await evaluate("window.GlobeMs");
-  await send("Emulation.setCPUThrottlingRate", { rate: 1 });
-  if (!g || g.n < 30) out.push(`the picture drew ${g ? g.n : 0} frames in three seconds`);
-  else if (g.sum / g.n > 6) out.push(`the picture takes ${(g.sum / g.n).toFixed(1)}ms a frame at a quarter speed; 6ms is the budget`);
-  // nothing moves the page under the reader
-  await send("Page.navigate", { url: BASE });
-  await sleep(2600);
-  const shift = await evaluate(`(async () => { let cls = 0; new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
-    const h = document.documentElement.scrollHeight; for (let y = 0; y < h; y += 500) { scrollTo({ top: y, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 120)); }
-    await new Promise((r) => setTimeout(r, 600)); return cls; })()`);
-  if (shift > 0.05) out.push(`the page shifts by ${shift.toFixed(3)} as it is scrolled; 0.05 is the limit`);
+  const hook = async (source) => { const { identifier } = await send("Page.addScriptToEvaluateOnNewDocument", { source }); hooks.push(identifier); return identifier; };
+  const unhook = async (id) => { await send("Page.removeScriptToEvaluateOnNewDocument", { identifier: id }); hooks.splice(hooks.indexOf(id), 1); };
+  try {
+    // 1. One clock. Running, it draws; paused, it holds (its frames and its clock); unpaused, it draws again. A tab
+    // hidden (the gate brings a second tab to the front) draws nothing, and shown again it goes on from where it was.
+    await screen(1280, 800);
+    if (!(await visit(false))) fail(1, "the hero drew nothing");
+    else {
+      await sleep(900);
+      let a = await frames(); await sleep(500); let b = await frames();
+      if (b - a < 10) fail(1, `running, it drew ${b - a} frames in half a second`);
+      await tick(true); await sleep(200);
+      a = await frames(); const c0 = await evaluate("window.GlobeState ? window.GlobeState.clock : null"); await sleep(500);
+      b = await frames(); const c1 = await evaluate("window.GlobeState ? window.GlobeState.clock : null");
+      if (b !== a) fail(1, `paused, it drew ${b - a} frames in half a second`);
+      if (c1 !== c0) fail(1, `paused, its clock moved from ${c0} to ${c1}`);
+      await tick(false); await sleep(200);
+      a = await frames(); await sleep(500); b = await frames();
+      if (b - a < 10) fail(1, `unpaused, it drew ${b - a} frames in half a second`);
+      const DEV = `http://127.0.0.1:${PORT}/json`;
+      const me = (await (await fetch(`${DEV}/list`)).json()).find((t) => t.id === ws.url.split("/").pop());
+      if (!me) throw new Error("the gate could not find its own tab to bring back");
+      const other = await (await fetch(`${DEV}/new?about:blank`, { method: "PUT" })).json();
+      const before = await evaluate("window.GlobeState ? window.GlobeState.clock : null");
+      await fetch(`${DEV}/activate/${other.id}`); await sleep(300);
+      const hidden = await evaluate("document.hidden"), h0 = await frames(); await sleep(1500); const h1 = await frames();
+      await fetch(`${DEV}/activate/${me.id}`); await sleep(600);
+      const after = await evaluate("window.GlobeState ? window.GlobeState.clock : null"), h2 = await frames();
+      await fetch(`${DEV}/close/${other.id}`);
+      if (!hidden) fail(1, "the gate could not hide the tab");
+      else if (h1 !== h0) fail(1, `in a hidden tab it drew ${h1 - h0} frames in 1.5 seconds`);
+      if (h2 - h1 < 10) fail(1, `shown again, it drew ${h2 - h1} frames in 0.6 seconds`);
+      if (typeof before !== "number" || typeof after !== "number") fail(1, "the hero does not report its clock (window.GlobeState.clock)");
+      else if (after - before > 1.4 || after - before < 0.2) fail(1, `hidden for 1.8 seconds and shown for 0.6, its clock went from ${before} to ${after}: it did not go on from where it was`);
+    }
+
+    // 2 to 5 and 12, at five widths, each a first visit (the camera's close shot is part of round one), paused, its
+    // clock put at each moment with window.GlobeAt. Twelve moments of a round, built from the hero's own times, each
+    // with the words its tag must start with: the sign-off's from 0.3s before the bar to 1.3s after it (each edge tried
+    // from both sides), "Back to Frame" behind the Earth. The last is round two's P0, at the whole view, where the dart
+    // is drawn at the size a reader keeps.
+    const MOMENTS = (T) => [[T.pre + 0.6, "P0"], [T.p1 + 0.5, "P1"], [T.gate - 0.6, "P1"], [T.gate - 0.2, "Sign-off"],
+      [T.gate + 0.5, "Sign-off"], [T.gate + 1.15, "Sign-off"], [T.gate + 1.5, "P2"], [T.p3 - 1, "P2"], [T.p3 + 0.5, "P3"],
+      [T.back - 1, "P3"], [T.back + 1.5, "Back to Frame"], [T.lap + 1, "P0"]];
+    const WHERE = ["in P0", "in P1", "in P2", "in P3", "behind the Earth"];
+    const LABELS = ["P0's name", "P1's name", "P2's name", "P3's name", "the sign-off's label", "the way back's label"], FORMS = ["the dart", "the drawing", "the airliner", "the jet"];
+    let small = null;
+    const ends = [];
+    for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [390, 844], [320, 640]]) {
+      await screen(w, h);
+      if (!(await visit(true))) { fail(2, `at ${w}px the hero drew nothing`); continue; }
+      await sleep(600);
+      await tick(true);
+      // 5. the picture ends inside the first screen on a phone and a laptop, and nothing scrolls sideways
+      const fold = await evaluate(`(() => { const b = (s) => { const e = document.querySelector(s); return e ? e.getBoundingClientRect().bottom : 0; };
+        return { end: Math.round(Math.max(b('.hero2 .scene'), b('.hero2 .sc-stage'))), over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; })()`);
+      if ((w === 1440 || w === 390) && fold.end > h) fail(5, `at ${w} x ${h} the picture ends at ${fold.end}px, below the first screen`);
+      if (w === 1440 || w === 390) ends.push(`${fold.end}px at ${w} x ${h}`);
+      if (fold.over > 0) fail(5, `at ${w}px the page scrolls sideways by ${fold.over}px`);
+      const T = await evaluate("window.GlobeTimes || null");
+      if (!T || (await evaluate("typeof window.GlobeAt")) !== "function") {
+        for (const k of [2, 3, 4, 12]) fail(k, "the hero publishes no times, or no clock to set (window.GlobeTimes, window.GlobeAt)");
+        continue;
+      }
+      let least = null;
+      for (const [t, want] of MOMENTS(T)) {
+        const m = await evaluate(`(() => { const leg = window.GlobeAt(${t.toFixed(3)}), s = window.GlobeState || {};
+          return { leg, tag: s.tag, box: s.box, craft: s.craft, len: s.len, stage: ${STAGE} }; })()`);
+        const at = `at ${w}px, ${t.toFixed(2)}s`, leg = want === "Sign-off" ? (t < T.gate ? 1 : 2) : want === "Back to Frame" ? 4 : +want[1];
+        // 2. the words, and the hero's times they are read against
+        if (m.leg !== leg) fail(2, `${at}: GlobeTimes put the aircraft ${WHERE[leg]}, but it is ${WHERE[m.leg] || m.leg}`);
+        if (typeof m.tag !== "string") fail(2, "the hero reports no tag (window.GlobeState.tag)");
+        else if (!m.tag.startsWith(want)) fail(2, `${at}: the tag says "${m.tag}"; "${want}" is due`);
+        // 3. the tag sits 8px inside the stage, clear of the aircraft and of the pause control
+        if (m.tag && !isBox(m.box)) fail(3, `${at}: the tag has no box (GlobeState.box)`);
+        else if (isBox(m.box)) {
+          const [x, y, bw, bh] = m.box, e = m.stage.edge, room = Math.round(Math.min(x - e[0], y - e[1], e[2] - x - bw, e[3] - y - bh));
+          if (room < 8) fail(3, `${at}: the tag is ${room}px from the stage's edge; 8 is the least`);
+          if (!isBox(m.craft)) fail(3, "the hero reports no box for the aircraft (GlobeState.craft)");
+          else if (hits(m.box, m.craft)) fail(3, `${at}: the tag covers the aircraft`);
+          if (hits(m.box, m.stage.pause)) fail(3, `${at}: the tag runs under the pause control`);
+        }
+        // 4. the aircraft's length, in front of the Earth (behind it, it is drawn smaller and dimmed)
+        if (m.leg >= 0 && m.leg < 4) {
+          if (typeof m.len !== "number") fail(4, "the hero reports no length for the aircraft (window.GlobeState.len)");
+          else if (!least || m.len < least.len) least = { len: m.len, at };
+        }
+      }
+      if (least && least.len < 30) fail(4, `${least.at}: the aircraft is ${least.len}px long; 30 is the least`);
+      if (least && (!small || least.len < small.len)) small = least;
+      // 12. at rest, in both themes, no two of the labels, the forms and the pause control overlap
+      for (const theme of ["dark", "light"]) {
+        const r = await evaluate(`(async () => { document.documentElement.setAttribute('data-theme', '${theme}');
+          await new Promise((ok) => requestAnimationFrame(() => setTimeout(ok, 30)));
+          window.GlobeAt(${(T.rest + 2).toFixed(2)}); const s = window.GlobeState || {};
+          return { rest: s.rest, labels: s.labels, forms: s.forms, stage: ${STAGE} }; })()`);
+        const k = `at ${w}px in the ${theme} theme, at rest`;
+        if (r.rest !== 1) fail(12, `${k} GlobeState.rest is ${r.rest}`);
+        if (!Array.isArray(r.labels) || !Array.isArray(r.forms)) { fail(12, "the hero reports no rest labels or forms (window.GlobeState.labels, .forms)"); continue; }
+        const due = r.stage.w >= 400 ? 6 : 4;
+        if (r.labels.length !== due) fail(12, `${k} it names ${r.labels.length} things; ${due} are due on a stage ${Math.round(r.stage.w)}px wide`);
+        if (r.forms.length !== 4) fail(12, `${k} it parks ${r.forms.length} forms; 4 are due`);
+        const all = [...r.labels.map((b, i) => [LABELS[i] || `label ${i + 1}`, b]), ...r.forms.map((b, i) => [FORMS[i] || `form ${i + 1}`, b])];
+        const e = r.stage.edge;
+        for (const [name, b] of all) {
+          if (!isBox(b)) fail(12, `${k} ${name} has no box`);
+          else if (b[0] < e[0] || b[1] < e[1] || b[0] + b[2] > e[2] || b[1] + b[3] > e[3]) fail(12, `${k} ${name} runs past the stage's edge`);
+        }
+        all.push(["the pause control", r.stage.pause]);
+        for (let i = 0; i < all.length; i++) for (let j = i + 1; j < all.length; j++) if (hits(all[i][1], all[j][1])) fail(12, `${k} ${all[i][0]} and ${all[j][0]} overlap`);
+      }
+      await evaluate("document.documentElement.removeAttribute('data-theme'); true");
+    }
+    if (ends.length) said.push(`the picture ends at ${ends.join(" and ")}`);
+    if (small) said.push(`the aircraft at least ${small.len}px (${small.at.replace(/, .*/, "")})`);
+
+    // 6. The whole cost, against a frozen reference. An absolute floor measures the host, not the hero: on 3 October
+    // 2026 the machine under the gate changed and the same code lost a third of its frames. So every measurement runs
+    // in the same pass, at the same settings, once with the hero and once with today's hero of 2 October 2026 served in
+    // its place (tools/reference/hero-2026-10-02.js, through Fetch, as pass 16 holds back game.js), interleaved
+    // (reference, hero, reference, hero) so that a drift on the host falls on both. At 1280 x 800 and at 390 x 844 at
+    // scale 3, slowed four times, in the first four seconds of a first visit (once the page has loaded and its fonts
+    // are in, as the council measured) and in steady flight (P2 for each): the hero draws at least 90% of the
+    // reference's frames; its worst gap between frames is at most the reference's plus 50ms; a tap on the headline
+    // waits at most 100ms, or the reference's worst plus 30ms; and its script a frame is at most 1.25 times the
+    // reference's (the council's 6ms stood against today's 4.8ms). The council's absolute numbers (72 frames, 100ms,
+    // 6ms) are printed beside each line for information, with the host's load and the reference's script a frame
+    // unthrottled, which shows the host's speed (0.92ms where the council set the bars). Frames come on the display's
+    // ticks (16.7ms), so gaps and taps are read to the whole millisecond. The page's heap is collected before each
+    // window: without it, a run that follows the hero's paid for the hero's garbage (measured 3 October 2026: the
+    // reference drew 89 to 96 frames after a run of itself and 63 to 71 after a run of the hero).
+    const WATCH = `(() => { const R = window.__cost = { t: [], s: [], taps: [], n0: window.GlobeMs.n, sum0: window.GlobeMs.sum, t0: performance.now(), on: true };
+      let last = window.GlobeMs.n, sum = window.GlobeMs.sum;
+      const loop = (ts) => { if (!R.on) return; const g = window.GlobeMs; if (g.n !== last) { R.t.push(ts); R.s.push(g.sum - sum); last = g.n; sum = g.sum; } requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+      R.tap = (e) => R.taps.push(performance.now() - e.timeStamp);
+      document.querySelector('.hero2 h1').addEventListener('pointerdown', R.tap);
+      const h = document.querySelector('.hero2 h1').getBoundingClientRect(); return [h.left + h.width / 2, h.top + h.height / 2]; })()`;
+    const READ = `(() => { const R = window.__cost; R.on = false; document.querySelector('.hero2 h1').removeEventListener('pointerdown', R.tap);
+      const end = R.t0 + 3000, t = [R.t0, ...R.t.filter((x) => x <= end), end]; let gap = 0, at = 0;
+      for (let i = 1; i < t.length; i++) if (t[i] - t[i - 1] > gap) { gap = t[i] - t[i - 1]; at = i; }
+      const n = window.GlobeMs.n - R.n0, own = at < t.length - 1 ? R.s[at - 1] : null;
+      return { frames: t.length - 2, gap: Math.round(gap), own, ms: n > 0 ? (window.GlobeMs.sum - R.sum0) / n : null, taps: R.taps.length, tap: R.taps.length ? Math.round(Math.max(...R.taps)) : null }; })()`;
+    async function cost() {
+      const [x, y] = await evaluate(WATCH), t0 = Date.now();
+      for (let i = 0; i < 12; i++) {
+        await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: 1 });
+        await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 });
+        await sleep(Math.max(0, (i + 1) * 240 - (Date.now() - t0)));
+      }
+      await sleep(Math.max(0, 3150 - (Date.now() - t0)));
+      return evaluate(READ);
+    }
+    const REFERENCE = readFileSync(new URL("reference/hero-2026-10-02.js", import.meta.url)).toString("base64");
+    const REF_STEADY = 12;          // the reference's steady flight: its P2 runs from 11 to about 15.5s of its 27s lap
+    let swap = false;
+    const serve = (ev) => {
+      const m = JSON.parse(ev.data);
+      if (m.method !== "Fetch.requestPaused" || !/\/theme\/hero\.js/.test(m.params.request.url)) return;
+      (swap ? send("Fetch.fulfillRequest", { requestId: m.params.requestId, responseCode: 200, body: REFERENCE,
+        responseHeaders: [{ name: "Content-Type", value: "text/javascript" }] }) : send("Fetch.continueRequest", { requestId: m.params.requestId })).catch(() => {});
+    };
+    ws.addEventListener("message", serve);
+    await send("Network.setCacheDisabled", { cacheDisabled: true });       // every load asks for theme/hero.js
+    await send("Fetch.enable", { patterns: [{ urlPattern: "*theme/hero.js*", requestStage: "Request" }] });
+    async function slowed(w, h, dpr, ref) {
+      swap = ref;
+      await cpu(1); await screen(w, h, dpr);
+      if (!(await visit(true))) return null;
+      await evaluate("document.fonts.ready.then(() => new Promise((ok) => (document.readyState === 'complete' ? ok() : addEventListener('load', ok, { once: true })))).then(() => true)");
+      const load = loadavg()[0];
+      await send("HeapProfiler.collectGarbage");          // each window starts from a collected heap: no run pays for the one before
+      await cpu(4);
+      const first = await cost();
+      const T = ref ? null : await evaluate("window.GlobeTimes || null");
+      await evaluate(`window.GlobeAt(${(T ? T.gate + 3 : REF_STEADY).toFixed(2)}); true`);   // steady flight, in P2
+      await cpu(1); await send("HeapProfiler.collectGarbage"); await cpu(4);
+      const steady = await cost();
+      await cpu(1);
+      first.load = steady.load = Math.max(load, loadavg()[0]);
+      return [first, steady];
+    }
+    // the host's speed: the reference's script a frame unthrottled, in steady flight at 1280 x 800
+    let host = null;
+    swap = true; await cpu(1); await screen(1280, 800);
+    if (await visit(false)) {
+      await sleep(600); await evaluate(`window.GlobeAt(${REF_STEADY}); true`);
+      const NOW = "({ n: window.GlobeMs.n, s: window.GlobeMs.sum })", a = await evaluate(NOW); await sleep(1500); const b = await evaluate(NOW);
+      if (b.n > a.n) host = (b.s - a.s) / (b.n - a.n);
+    }
+    const mean = (a) => { const v = a.filter((x) => typeof x === "number"); return v.length ? v.reduce((p, q) => p + q, 0) / v.length : null; };
+    for (const [w, h, dpr] of [[1280, 800, 1], [390, 844, 3]]) {
+      const where = `at ${w} x ${h}${dpr > 1 ? ` at scale ${dpr}` : ""}, slowed four times`;
+      const runs = { ref: [], hero: [] };
+      for (const k of ["ref", "hero", "ref", "hero"]) { const r = await slowed(w, h, dpr, k === "ref"); if (r) runs[k].push(r); }
+      if (runs.ref.length < 2 || runs.hero.length < 2) { fail(6, `${where}: ${runs.hero.length < 2 ? "the hero" : "the reference"} drew nothing`); continue; }
+      const got = [];
+      ["in the first four seconds", "in steady flight"].forEach((phase, i) => {
+        const H = runs.hero.map((r) => r[i]), R = runs.ref.map((r) => r[i]), at = `${where}, ${phase}`;
+        const hf = H[0].frames + H[1].frames, rf = R[0].frames + R[1].frames, ratio = rf ? hf / rf : 0;
+        const worst = H[0].gap >= H[1].gap ? H[0] : H[1], hg = worst.gap, rg = Math.max(R[0].gap, R[1].gap);
+        const ht = Math.max(H[0].tap ?? 0, H[1].tap ?? 0), rt = Math.max(R[0].tap ?? 0, R[1].tap ?? 0);
+        const hms = mean(H.map((r) => r.ms)), rms = mean(R.map((r) => r.ms));
+        if (ratio < 0.9) fail(6, `${at}: the hero drew ${H[0].frames} and ${H[1].frames} frames to the reference's ${R[0].frames} and ${R[1].frames}, ${ratio.toFixed(2)} of them; 0.9 is the least`);
+        if (hg > rg + 50) fail(6, `${at}: its worst gap between frames is ${hg}ms (its own script ${worst.own === null ? "-" : worst.own.toFixed(1)}ms of it), the reference's ${rg}ms; ${rg + 50} is the most`);
+        if (H.some((r) => r.taps < 12)) fail(6, `${at}: only ${Math.min(H[0].taps, H[1].taps)} of twelve taps on the headline arrived`);
+        else if (ht > Math.max(100, rt + 30)) fail(6, `${at}: a tap on the headline waited ${ht}ms, the reference's worst ${rt}ms; ${Math.max(100, rt + 30)} is the most`);
+        if (hms === null) fail(6, `${at}: no frame was drawn`);
+        else if (rms && hms > 1.25 * rms) fail(6, `${at}: its script takes ${hms.toFixed(1)}ms a frame, the reference's ${rms.toFixed(1)}; ${(1.25 * rms).toFixed(1)} is the most`);
+        got.push(`${i ? "steady" : "first four seconds"}: frames ${H[0].frames}+${H[1].frames} to ${R[0].frames}+${R[1].frames} (${ratio.toFixed(2)}), worst gap ${hg} to ${rg}ms, tap ${ht} to ${rt}ms, ` +
+          `script ${hms === null ? "-" : hms.toFixed(1)} to ${rms === null ? "-" : rms.toFixed(1)}ms`);
+      });
+      const load = Math.max(...[...runs.ref, ...runs.hero].map((r) => r[0].load));
+      said.push(`${w}${dpr > 1 ? "@" + dpr : ""} at 4x, hero to reference: ${got.join("; ")} (the council's absolute bars: 72 frames, 100ms, 6ms; load up to ${load.toFixed(1)})`);
+    }
+    said.push(`the reference's script a frame unthrottled at 1280: ${host === null ? "-" : host.toFixed(2)}ms on this host (0.92 where the council set the bars)`);
+    await send("Fetch.disable");
+    ws.removeEventListener("message", serve);
+    await send("Network.setCacheDisabled", { cacheDisabled: false });
+    held.length = 0;
+
+    // 7. A display that offers 120 frames a second: before the page's scripts run, requestAnimationFrame is replaced by
+    // a timer that calls back every 8.3ms. The hero may draw 61 a second at most.
+    await screen(1280, 800);
+    const fast = await hook(`(() => { const P = 1000 / 120, q = new Map(); let id = 0; window.__offered = 0;
+      window.requestAnimationFrame = (cb) => { const t = performance.now(), h = ++id;
+        q.set(h, setTimeout(() => { q.delete(h); window.__offered++; cb(performance.now()); }, Math.max(0, Math.ceil((t + 0.5) / P) * P - t))); return h; };
+      window.cancelAnimationFrame = (h) => { clearTimeout(q.get(h)); q.delete(h); }; })();`);
+    if (!(await visit(false))) fail(7, "the hero drew nothing");
+    else {
+      await sleep(1000);
+      const NOW = "({ n: window.GlobeMs.n, o: window.__offered, t: performance.now() })";
+      const a = await evaluate(NOW); await sleep(2000); const b = await evaluate(NOW);
+      const s = (b.t - a.t) / 1000, offered = (b.o - a.o) / s, drawn = (b.n - a.n) / s;
+      if (drawn > 61) fail(7, `offered ${Math.round(offered)} frames a second, it drew ${Math.round(drawn)}; 61 is the most`);
+      else if (offered < 80) fail(7, `the gate could offer only ${Math.round(offered)} frames a second, too few to see a cap`);
+      said.push(`offered ${Math.round(offered)} frames a second, it drew ${Math.round(drawn)}`);
+    }
+    await unhook(fast);
+
+    // 8 and 10. The rest, in real time. A first visit in the sitting plays the entrance (GlobeTimes.launch) and rests
+    // by GlobeTimes.rest plus 2s, within a minute of its first frame: the pause control is ticked, no frame is drawn
+    // in the next second and the main thread is all but idle; unticked, it flies again. A second load in the same tab
+    // does not play the entrance, and rests within 30 seconds of its first frame. A hero without times is given the
+    // whole minute, and half of it.
+    await send("Performance.enable");
+    const busy = async () => (await send("Performance.getMetrics")).metrics.find((m) => m.name === "TaskDuration").value;
+    const rests = [];
+    for (const [first, most] of [[true, 60], [false, 30]]) {
+      const k = first ? "a first visit" : "a later visit";
+      await screen(1280, 800);
+      if (!(await visit(first))) { fail(8, `${k}: the hero drew nothing`); rests.push("-"); continue; }
+      const t0 = Date.now(), T = await evaluate("window.GlobeTimes || null");
+      if (!T) fail(10, "the hero publishes no times (window.GlobeTimes)");
+      else if (T.launch !== first) fail(10, `${k} has GlobeTimes.launch ${T.launch}`);
+      const due = T ? T.rest + 2 : most;
+      if (due > most) fail(8, `${k} comes to rest at ${T.rest}s; it must be still within ${most}s of its first frame`);
+      await sleep(Math.max(0, Math.min(due, most + 2) * 1000 - (Date.now() - t0)));
+      // the hero's clock runs on drawn frames, and on a busy machine it can fall behind the wall's: wait for it, within the budget
+      for (let i = 0; i < 40; i++) {
+        const c = await evaluate("window.GlobeState ? [window.GlobeState.clock, window.GlobeState.rest] : null");
+        if (!c || c[1] === 1 || c[0] >= due || Date.now() - t0 > (most + 2) * 1000) break;
+        await sleep(250);
+      }
+      const s = await evaluate("window.GlobeState || null"), on = await evaluate(`(() => { const b = ${BOX}; return b ? b.checked : null; })()`);
+      const n0 = await frames(), b0 = await busy(), c0 = Date.now(); await sleep(1000);
+      const n1 = await frames(), share = (await busy() - b0) / ((Date.now() - c0) / 1000);
+      const when = `${k}, ${due.toFixed(1)}s after its first frame`;
+      if (!s || s.rest !== 1) fail(8, `${when}: GlobeState.rest is ${s ? s.rest : "missing"}`);
+      if (on !== true) fail(8, `${when}: the pause control is not ticked`);
+      if (n1 !== n0) fail(8, `${when}: it drew ${n1 - n0} frames in the next second`);
+      if (share > 0.05) fail(8, `${when}: the main thread is ${Math.round(share * 100)}% busy; 5% is the most at rest`);
+      if (first) {
+        await tick(false); await sleep(200);
+        const a = await frames(); await sleep(500); const b = await frames();
+        if (b - a < 10) fail(8, `unticked at rest, it drew ${b - a} frames in half a second`);
+      }
+      rests.push(T ? `${T.rest}s` : "-");
+    }
+    await send("Performance.disable");
+    said.push(`it rests at ${rests[0]}, and at ${rests[1]} on a later visit`);
+
+    // 9. Reduced motion: the rest frame drawn once (twice at most, and once more when a font arrives after the first
+    // frame), and no pause control.
+    await screen(1280, 800, 1, STILL);
+    const late = await hook("window.__late = 0; document.fonts.addEventListener('loadingdone', () => { if (window.GlobeMs && window.GlobeMs.n > 0) window.__late = 1; });");
+    if (!(await visit(false))) fail(9, "under reduced motion the hero drew nothing");
+    else {
+      await sleep(3000);
+      const r = await evaluate(`({ n: window.GlobeMs.n, late: window.__late, s: window.GlobeState || null,
+        shown: (() => { const p = ${BOX}, e = p && (p.closest('.mpause') || p); return !!e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().width > 0; })() })`);
+      if (r.n > 2 + r.late) fail(9, `under reduced motion it drew ${r.n} frames in three seconds; ${2 + r.late} is the most${r.late ? ", one of them for a font that arrived" : ""}`);
+      if (!r.s || r.s.rest !== 1) fail(9, `under reduced motion GlobeState.rest is ${r.s ? r.s.rest : "missing"}: the still is not the rest frame`);
+      if (r.shown || (r.s && r.s.pause)) fail(9, "under reduced motion a pause control shows");
+    }
+    await unhook(late);
+
+    // 11. The tag waits for its fonts. With the two Geist files held back (and no cache), a first visit flies without
+    // a tag; let go, the fonts arrive and the tag is drawn.
+    await screen(1280, 800);
+    await send("Network.setCacheDisabled", { cacheDisabled: true });
+    held.length = 0;
+    await send("Fetch.enable", { patterns: [{ urlPattern: "*fonts/geist*", requestStage: "Request" }] });
+    const READY = `(document.fonts.check('600 14px Geist') && document.fonts.check("600 12px 'Geist Mono'"))`;
+    const flew = await visit(true);
+    await sleep(1500);
+    const early = await evaluate(`({ ready: ${READY}, s: window.GlobeState || null })`), asked = held.length;
+    for (const p of held.splice(0)) await send("Fetch.continueRequest", { requestId: p.requestId });
+    await send("Fetch.disable");
+    let ready = false;
+    for (let i = 0; i < 30 && !ready; i++) { await sleep(100); ready = await evaluate(READY); }
+    await sleep(600);
+    const later = await evaluate("window.GlobeState || null");
+    await send("Network.setCacheDisabled", { cacheDisabled: false });
+    if (!flew) fail(11, "with its fonts held back the hero drew nothing");
+    else if (!asked) fail(11, "no Geist font was asked for while the gate held them, so the wait could not be seen");
+    else if (early.ready) fail(11, "the fonts were ready although the gate held them back");
+    else if (!early.s) fail(11, "the hero reports no tag (window.GlobeState)");
+    else {
+      if (early.s.tag) fail(11, `the tag ("${early.s.tag}") was drawn before its fonts were ready`);
+      if (!ready) fail(11, "let go, the fonts were still not ready after three seconds");
+      else if (!later || !later.tag) fail(11, "the fonts arrived and no tag was drawn");
+    }
+
+    // 13. Nothing moves the page under the reader while it scrolls.
+    await screen(1280, 800);
+    await visit(false);
+    await sleep(2000);
+    const shift = await evaluate(`(async () => { let cls = 0; new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+      const h = document.documentElement.scrollHeight; for (let y = 0; y < h; y += 500) { scrollTo({ top: y, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 120)); }
+      await new Promise((r) => setTimeout(r, 600)); return cls; })()`);
+    if (shift > 0.05) fail(13, `the page shifts by ${shift.toFixed(3)} as it is scrolled; 0.05 is the most`);
+  } catch (e) {
+    out.push(`the pass could not finish: ${e.message}`);
+  } finally {
+    await cpu(1).catch(() => {});
+    await send("Fetch.disable").catch(() => {});
+    await send("Network.setCacheDisabled", { cacheDisabled: false }).catch(() => {});
+    for (const id of [...hooks, ...(fresh === null ? [] : [fresh])]) await send("Page.removeScriptToEvaluateOnNewDocument", { identifier: id }).catch(() => {});
+  }
   if (thrown.length) out.push("script error: " + thrown[0]);
-  if (out.length) { failures += out.length; console.log("  FAIL /  " + out.join("; ")); } else console.log("  ok   /");
+  if (out.length) {
+    failures += out.length;
+    // by check, at most four findings each
+    const by = new Map();
+    for (const m of out) { const k = /^\d+\./.test(m) ? +m.split(".")[0] : 99; by.set(k, [...(by.get(k) || []), m]); }
+    for (const k of [...by.keys()].sort((a, b) => a - b)) {
+      by.get(k).slice(0, 4).forEach((m) => console.log("  FAIL /  " + m));
+      if (by.get(k).length > 4) console.log(`         and ${by.get(k).length - 4} more like them`);
+    }
+  } else console.log("  ok   /");
+  if (said.length) console.log("       " + said.join("; "));
 }
 
 // 14 and 15, on the lesson pages (main.lm): the measure, and two right edges. Other pages have nothing to check.
@@ -469,7 +862,7 @@ console.log("\n16. the game's first paint: the text for a reader without script 
 // written are each held to what they were (rounded up, plus one KB), so they can shrink and never grow.
 // One hold was raised since, on purpose: the picture pack (pictures/index.html, 29 to 38) on 2 October 2026, when it
 // gained the thirty lesson sketches and the leadership page's map, each with its card and its image data.
-console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, the fonts");
+console.log("\n17. the bytes: base.css, the scripts, every page's HTML, the home page's first visit, the fonts");
 {
   const out = [], SITE = new URL("../_site/", import.meta.url).pathname;
   const kb = (f) => gzipSync(readFileSync(SITE + f), { level: 9 }).length / 1024;
@@ -489,6 +882,7 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
     // Raised from 45 on purpose on 2 October 2026: the owner asked for a briefing before a late start (the earlier calls, the documents,
     // where the run stands), which took the three scripts to 45.97 KB after the savings in site/GAME.md; 46 is that, rounded up to the next half KB.
     if (game >= 46) out.push(`the game's scripts are ${game.toFixed(1)} KB gzipped; the budget is 46`);
+    const hero = kb("theme/hero.js"); if (hero >= 10) out.push(`theme/hero.js is ${hero.toFixed(1)} KB gzipped; the budget is 10 (council 10)`);
     const pages = files.filter((f) => f.endsWith(".html")), over = [];
     let most = { f: "", n: 0 };
     for (const f of pages) { const n = kb(f), cap = HELD[f] || 25; if (n >= cap) over.push(`${f} ${n.toFixed(1)} KB (${cap})`); if (!HELD[f] && n > most.n) most = { f, n }; }
@@ -501,11 +895,22 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
       guide[f] = kb(f);
       if (guide[f] >= cap) out.push(`${f} is ${guide[f].toFixed(2)} KB gzipped; the FDE guide's budget for it is ${cap}`);
     }
+    // The home page (council 10): its HTML under 21 KB, with no <style> block (its rules belong in base.css, which is
+    // cached and ships without comments); everything a first visit asks for, scrolled to the end, under 176 KB
+    // (firstVisit, above). And frame/frame.js, which every page loads: 5.4 KB on 3 October 2026, when it gained the
+    // consultancy's topic, so 6 leaves room for one more feature without inviting drift.
+    const home = kb("index.html"), visit = firstVisit(), frame = kb("frame/frame.js");
+    if (home >= 21) out.push(`the home page's HTML is ${home.toFixed(1)} KB gzipped; the budget is 21 (council 10)`);
+    if (/<style\b/i.test(readFileSync(SITE + "index.html", "utf8").replace(/<script\b[\s\S]*?<\/script>|<!--[\s\S]*?-->/gi, ""))) out.push("the home page carries a <style> block; its rules belong in base.css");
+    if (visit.missing.length) out.push(`the home page names ${visit.missing.join(", ")}, which the build did not make`);
+    if (visit.bytes / 1024 >= 176) out.push(`a first visit to the home page asks for ${(visit.bytes / 1024).toFixed(1)} KB in ${visit.files.length} files; the budget is 176 (council 10)`);
+    if (frame >= 6) out.push(`frame/frame.js is ${frame.toFixed(2)} KB gzipped; the budget is 6`);
     const fonts = files.filter((f) => /\.(woff2?|ttf|otf|eot)$/i.test(f)).sort();
     if (fonts.join(" ") !== FONTS.join(" ")) out.push(`the font files are ${fonts.join(", ")}`);
     const remote = pages.filter((f) => /fonts\.(googleapis|gstatic)\.com/.test(readFileSync(SITE + f, "utf8")));
     if (remote.length) out.push(`a page asks a font host for a font: ${remote.slice(0, 3).join(", ")}`);
-    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts, the FDE guide's stylesheet ${guide["theme/fde.css"].toFixed(1)} KB and its hub ${guide["forward-deployed-engineer/index.html"].toFixed(1)}`);
+    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts, the FDE guide's stylesheet ${guide["theme/fde.css"].toFixed(1)} KB and its hub ${guide["forward-deployed-engineer/index.html"].toFixed(1)}; ` +
+      `the home page ${home.toFixed(1)} KB and a first visit to it ${(visit.bytes / 1024).toFixed(1)} KB in ${visit.files.length} files, hero.js ${hero.toFixed(1)} KB, frame.js ${frame.toFixed(1)} KB`);
   }
   if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); }
 }
@@ -629,9 +1034,73 @@ console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the m
 // each called at 1440 x 900 and at 390 x 844 on a fresh load of the home page (dark, reduced motion, at the top). A
 // function returns its failures as sentences; one that needs another state (motion, the light theme, a hover, a
 // scroll) sets it itself. A parcel writes only inside its own function, between its own two comments, and never
-// edits the list that calls them, so parcels built side by side never touch the same lines.
-console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 and 390 x 844");
+// edits the list that calls them, so parcels built side by side never touch the same lines. Before the bands, the
+// gate's own parcel (H10) checks the page as a whole: its order, its headings, its height and its first visit.
+console.log("\n19. the home page: its order, headings and height, then each band's own checks at 1440 x 900 and 390 x 844");
 {
+  // home · H10 the page: its order, headings and height
+  // Top to bottom as verdict-home 1.0 has it: the hero, then in main the seven bands in order, each with its eyebrow
+  // and heading (the simulator's "ninety-day" carries a non-breaking hyphen, U+2011, read here as a hyphen), each
+  // below the one before, then the footer; one h1, and main's h2s are the seven headings and no others. The page is
+  // 8,700px tall or less at 1440 and 13,200 or less at 390. And a first visit, cache off and scrolled to the end, asks
+  // for no file that pass 17's count of its bytes (firstVisit) leaves out.
+  const ORDER = [["top", "The agentic manual", "One manual for building software with AI agents."],
+    ["methods", "The methods", "How AI-DLC, BMAD and the rest fit together."],
+    ["choose", "Your team", "Which agentic methods should your team use?"],
+    ["roles", "By role", "Start from the job you do."],
+    ["tutorial", "The tutorial", "Learn to run agent projects one question at a time."],
+    ["simulator", "The simulator", "Play a ninety-day AI project in fifteen minutes."],
+    ["library", "The library", "Take the tools, templates and prompts with you."],
+    ["work-with-us", "SkyWays Consultancy", "Work with the consultancy that wrote this manual."]];
+  const TALL = { 1440: 8700, 390: 13200 }, tall = {};
+  async function pageH10(w, h) {
+    const out = [];
+    const m = await evaluate(`(async () => {
+      await document.fonts.ready;
+      const say = (e) => (e ? e.textContent.replace(/\\u2011/g, '-').replace(/\\s+/g, ' ').trim() : ''), main = document.querySelector('main'), hero = document.getElementById('top');
+      const bands = ${JSON.stringify(ORDER.map(([id]) => id))}.map((id) => { const b = document.getElementById(id), r = b ? b.getBoundingClientRect() : null;
+        return { id, there: !!b, eyebrow: say(b && b.querySelector('.eyebrow')), heading: say(b && b.querySelector(id === 'top' ? 'h1' : 'h2')),
+          top: r ? Math.round(r.top + scrollY) : 0, bottom: r ? Math.round(r.bottom + scrollY) : 0 }; });
+      return { bands, kids: main ? [...main.children].filter((e) => e.tagName === 'SECTION').map((e) => e.id || 'a section with no id') : [],
+        h1: document.querySelectorAll('h1').length, h2: main ? [...main.querySelectorAll('h2')].map(say) : [],
+        heroFirst: !!hero && hero.nextElementSibling === main, footer: !!main && main.nextElementSibling?.tagName === 'FOOTER', tall: document.documentElement.scrollHeight };
+    })()`);
+    const ids = ORDER.slice(1).map(([id]) => id);
+    if (m.kids.join() !== ids.join()) out.push(`main's bands run ${m.kids.join(", ") || "nowhere"}; verdict-home 1.0 runs ${ids.join(", ")}`);
+    if (!m.heroFirst) out.push("main does not follow the hero (#top)");
+    if (!m.footer) out.push("the footer does not follow main");
+    m.bands.forEach((b, i) => {
+      const [, eyebrow, heading] = ORDER[i];
+      if (!b.there) return out.push(`there is no #${b.id}`);
+      if (b.eyebrow !== eyebrow) out.push(`#${b.id}'s eyebrow reads "${b.eyebrow}", not "${eyebrow}"`);
+      if (b.heading !== heading) out.push(`#${b.id}'s heading reads "${b.heading}", not "${heading}"`);
+      if (i && b.top < m.bands[i - 1].bottom - 1) out.push(`#${b.id} starts at ${b.top}px, above the end of #${m.bands[i - 1].id} (${m.bands[i - 1].bottom}px)`);
+    });
+    if (m.h1 !== 1) out.push(`the page has ${m.h1} h1s; one`);
+    const others = m.h2.filter((t) => !ORDER.some(([, , heading]) => heading === t));
+    if (m.h2.length !== 7) out.push(`main has ${m.h2.length} h2s${others.length ? ` ("${others.join('", "')}" among them)` : ""}; the seven headings of verdict-home 1.0 and no others`);
+    tall[w] = m.tall;
+    if (TALL[w] && m.tall > TALL[w]) out.push(`the page is ${m.tall.toLocaleString("en-GB")}px tall at ${w}; ${TALL[w].toLocaleString("en-GB")} is the most`);
+    // a first visit with motion allowed, the cache off, scrolled to the end: every file it asks for is one pass 17 counts
+    await send("Network.enable");
+    await send("Network.setCacheDisabled", { cacheDisabled: true });
+    await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] });
+    await send("Page.navigate", { url: BASE });
+    await sleep(1500);
+    const asked = await evaluate(`(async () => { const end = document.documentElement.scrollHeight;
+      for (let y = 0; y < end; y += 400) { scrollTo({ top: y, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 60)); }
+      await new Promise((r) => setTimeout(r, 1200));
+      return performance.getEntriesByType('resource').map((e) => e.name); })()`);
+    await send("Network.setCacheDisabled", { cacheDisabled: false });
+    const counted = new Set(firstVisit().files), site = new URL(BASE);
+    const local = (u) => { const x = new URL(u); return x.origin === site.origin && x.pathname.startsWith(site.pathname) ? decodeURIComponent(x.pathname.slice(site.pathname.length)) || "index.html" : u; };
+    const missed = [...new Set(asked.filter((u) => !/^(data|blob):/.test(u)).map(local))].filter((f) => !counted.has(f));
+    if (!asked.length) out.push("the browser lists no request for a first visit, so the files it asks for could not be read");
+    if (missed.length) out.push(`a first visit asks for ${missed.join(", ")}, which pass 17 does not count`);
+    return out;
+  }
+  // end of home · H10
+
   // home · H3 map: the methods band, #methods
   async function bandH3(w, h) {
     // At 1440 x 900 with the eyebrow just under the header, the frame and its lower pill end inside the screen. At both
@@ -878,11 +1347,9 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
     // or fewer and one link, to a lesson (a page whose main is .lm), never to a role page. Four across from
     // 1181px, two by two from 601 to 1180, one column at 600 and under, the picture on top. At 1440 x 900 with
     // the eyebrow under the header, every question and lesson link is in view. The handwriting is 13px or more
-    // at every width checked and 4.5:1 or more on its paper in both themes. The dark theme's toned paper and
-    // deeper pens are U1's (verdict-learn 4.3.3): on the paper before it, #E7E3DA, the red pen is 4.44:1, so
-    // the dark theme's contrast is held from the day U1's paper is in place.
+    // at every width checked and 4.5:1 or more on its paper in both themes (the dark theme's toned paper and deeper
+    // pens are U1's, verdict-learn 4.3.3).
     const out = [], JOBS = ["product manager", "solution architect", "engineering lead", "QA lead"];
-    const PAPER_BEFORE_U1 = "rgb(231, 227, 218)";
     const cards = await evaluate(`(async () => { await document.fonts.ready;
       return Promise.all([...document.querySelectorAll('#tutorial .qs > li')].map(async (c) => {
         const a = [...c.querySelectorAll('a[href]')], q = c.querySelectorAll('h3');
@@ -929,7 +1396,7 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
       if (!dark.hand.length) out.push(`at ${x}px the drawings have no handwriting to measure`);
       const small = dark.hand.filter((t) => t.px < 13).sort((a, b) => a.px - b.px)[0];
       if (small) out.push(`at ${x}px the handwriting is ${small.px}px ("${small.t}"); 13 is the floor`);
-      const faint = dark.hand.filter((t) => t.cr < 4.5 && t.bg !== PAPER_BEFORE_U1).sort((a, b) => a.cr - b.cr)[0];
+      const faint = dark.hand.filter((t) => t.cr < 4.5).sort((a, b) => a.cr - b.cr)[0];
       if (faint) out.push(`at ${x}px, dark, the handwriting is ${faint.cr}:1 on its paper ("${faint.t}"); 4.5 is the floor`);
     }
     await evaluate(`document.documentElement.setAttribute('data-theme', 'light')`);
@@ -1203,8 +1670,8 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   // at 1440; at 390 the band within 1,300px, 20px inside the panel, 48px above and below it, each label on its
   // words' line. Every text on the panel 4.5:1 in both themes. With script the button opens the drawer on the
   // consultancy's topic and a message from it is tagged so, and the footer's button opens it on the drawer's own
-  // first choice; on paper the button prints where it goes; without script it is a link to the discussions
-  // page, and no address is printed in the page.
+  // first choice; on paper the button prints where it goes. Without script it is a link to the discussions page and
+  // no address is printed in the page: pass 1 reads that, on its load without script.
   async function bandH8(w, h) {
     const out = [];
     const m = await evaluate(`(() => { const b = document.querySelector('#work-with-us'); if (!b) return null;
@@ -1310,28 +1777,18 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
     await send("Emulation.setEmulatedMedia", { media: "print", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
     const after = await evaluate(`getComputedStyle(document.querySelector('#work-with-us .btn'), '::after').content`);
     if (!m.href || !after.includes(m.href)) out.push(`on paper the button does not print where it goes (${after})`);
-    // without script: a plain link to the discussions page, and no address anywhere in the page
     await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
-    await send("Emulation.setScriptExecutionDisabled", { value: true });
-    await send("Page.navigate", { url: BASE });
-    await sleep(1200);
-    await send("Emulation.setScriptExecutionDisabled", { value: false });
-    const plain = await evaluate(`(() => { const a = document.querySelector('#work-with-us .btn'), r = a ? a.getBoundingClientRect() : null;
-      return { href: a ? a.getAttribute('href') : '', shown: !!r && r.width > 0 && r.height > 0 && getComputedStyle(a).visibility !== 'hidden',
-        mailto: document.documentElement.outerHTML.includes('mailto:') }; })()`);
-    if (!/^https:\/\/github\.com\/[^/]+\/[^/]+\/discussions\/?$/.test(plain.href)) out.push(`without script the button goes to "${plain.href}", not the repository's discussions page`);
-    if (!plain.shown) out.push("without script the button is not shown");
-    if (plain.mailto) out.push("the page carries a mailto: address");
     return out;
   }
   // end of home · H8
 
+  const PAGE = ["H10 the page", pageH10];
   const BANDS = [["H3 map", bandH3], ["H4 chooser", bandH4], ["H5 people", bandH5], ["H6 day card", bandH6],
     ["H7 library", bandH7], ["H8 close", bandH8]];
   const out = [];
   thrown.length = 0;
   for (const [w, h] of [[1440, 900], [390, 844]]) {
-    for (const [name, check] of BANDS) {
+    for (const [name, check] of [PAGE, ...BANDS]) {
       await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
       await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" },
         { name: "prefers-reduced-motion", value: "reduce" }] });
@@ -1343,7 +1800,8 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   }
   if (thrown.length) out.push("script error: " + thrown[0]);
   if (out.length) { failures += out.length; console.log("  FAIL /  " + out.join("; ")); }
-  else console.log(`  ok   /  ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
+  else console.log(`  ok   /  the order and headings of verdict-home 1.0; ${tall[1440].toLocaleString("en-GB")}px tall at 1440 (8,700) and ${tall[390].toLocaleString("en-GB")} at 390 (13,200); ` +
+    `a first visit asks for what pass 17 counts; ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
 }
 
 // 19. the forward-deployed engineer guide (council 10): the FDE paper's criteria 3 to 6 on the guide's four pages,

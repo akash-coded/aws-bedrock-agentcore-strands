@@ -1501,35 +1501,34 @@ a.more:hover i{transform:translateX(4px)}
   margin:0 11px;vertical-align:middle}
 .hero2 .meta b{color:var(--ink2);font-weight:620}
 
-/* the picture: one canvas (theme/hero.js draws the Earth, the spiral and the aircraft in it, on one clock)
-   and, under it, the four phases by name. The phase the aircraft is in is the one in full ink. */
+/* the picture: one canvas (theme/hero.js draws the Earth, the spiral and the flight in it, on one clock, and names
+   the phases on the picture) and, under it for a reader without script, the four phases by name */
 /* its right edge is set so the outermost turn of the spiral ends on the page's own right edge */
 .scene{position:absolute;z-index:1;top:50%;right:max(0px,calc((100vw - var(--wrap)) / 2 + var(--gut) - 5.4% * .5));width:clamp(470px,46.5vw,700px);
   transform:translateY(calc(-50% - 8px));display:grid;justify-items:center}
 .sc-stage{position:relative;width:100%;aspect-ratio:1/.845}
-.sc-cv{position:relative;display:block;width:100%;height:100%}
+.sc-cv{position:relative;display:block;width:100%;height:100%;opacity:0;transition:opacity 250ms var(--ease)}
 /* until the script has drawn, and for a reader without it: a plain shaded disc, to the canvas's own measure */
 .sc-stage::before{content:"";position:absolute;left:50%;top:50%;width:68.5%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;
   background:radial-gradient(circle at 31% 29%,var(--g-a),var(--g-m) 46%,var(--g-b) 84%);
   box-shadow:inset 0 0 0 1.5px color-mix(in oklab,var(--g-air) 46%,transparent),0 0 90px 6px color-mix(in oklab,var(--g-air) 26%,transparent)}
+/* the script's first frame fades in over it, so the cut from the disc to the close shot is soft */
 .sc-stage.on::before{display:none}
+.on .sc-cv{opacity:1}
+/* with script the line of names goes (display, never opacity) and the pause sits in the stage's corner */
+.on+.sc-foot{position:absolute;right:5%;bottom:7%;margin:0}
+.on+.sc-foot .sc-rail{display:none}
 .sc-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:-4%;max-width:min(100%,calc(100vw - 2 * var(--gut)))}
 .sc-rail{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:7px 20px;margin:0;padding:0;min-width:0;
-  font-size:13.5px;color:var(--soft)}
-.sc-rail li{display:flex;align-items:center;gap:8px;white-space:nowrap;transition:color var(--t-base) var(--ease)}
-.sc-rail li::before{content:"";width:18px;height:2.5px;border-radius:2px;background:var(--c);opacity:.5;transition:opacity var(--t-base) var(--ease)}
+  font-size:13.5px;color:var(--ink2)}
+.sc-rail li{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.sc-rail li::before{content:"";width:18px;height:2.5px;border-radius:2px;background:var(--c)}
 .sc-rail li b{font:600 12px var(--f-mono);color:var(--c);letter-spacing:.02em}
 .sc-rail li.gate{--c:var(--dg-rose);font:500 12px var(--f-mono);gap:6px}
 .sc-rail li.gate::before{width:2.5px;height:13px;opacity:.8}
 /* the way back has the second row to itself: it is the half of the round that happens behind the Earth */
 .sc-rail li.back{flex-basis:100%;justify-content:center;font-size:13px}
 .sc-rail li.back::before{content:none}
-.sc-rail[data-at=""] li{color:var(--ink2)}
-.sc-rail[data-at=""] li::before{opacity:1}
-.sc-rail[data-at="0"] li:nth-child(1),.sc-rail[data-at="1"] li:nth-child(2),.sc-rail[data-at="2"] li:nth-child(4),.sc-rail[data-at="3"] li:nth-child(5),
-.sc-rail[data-at="back"] li.back{color:var(--ink)}
-.sc-rail[data-at="0"] li:nth-child(1)::before,.sc-rail[data-at="1"] li:nth-child(2)::before,.sc-rail[data-at="2"] li:nth-child(4)::before,
-.sc-rail[data-at="3"] li:nth-child(5)::before{opacity:1}
 .sc-foot .mpause{position:static;flex:none;width:30px;height:30px}
 .sc-foot .mpause i{scale:.8}
 @media (max-width:1000px){
