@@ -206,4 +206,4 @@ with the customer evidence.
 | The forward-deployed engineer role and its origin | **Borrowed** | Wikipedia. [Forward Deployed Engineer](https://en.wikipedia.org/wiki/Forward_Deployed_Engineer) |
 | Mob Elaboration and bolts | **Borrowed** | Raja SP (2025). [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle). AWS |
 | The field guide, and the split between what the FDE does and the customer decides | **Original**: this tutorial | [The Agentic PDLC](wiki:The-Agentic-PDLC) |
-| The SkyWays shadow finding | **Illustrative**: a fictional airline | [DevOps, step 5](site:devops/) |
+| The SkyWays shadow finding | **Illustrative**: a fictional airline | [DevOps, step 5](site:devops/#deploy) |

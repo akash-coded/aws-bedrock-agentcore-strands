@@ -58,7 +58,7 @@ hand over, with lead-time items first
   the security review. They set the calendar, not the build.
 - **Measure the pain in their data**: cases, minutes, money, and who owns the risk.
 - **Pick a provable first slice**, and write the AI-fit verdict with what was rejected.
-- **A walking skeleton in their environment** in week one: their authentication, their data path, no model.
+- **A walking skeleton in their environment** as soon as one access passes: their authentication, their data path, no model.
 - **Agree what done means**: the bar per slice, signed by their risk owner, and the evidence that will prove it.
 - **The insight:** most engagement risk is access and alignment, not the model. An FDE who starts with the
   model is usually waiting for a firewall rule by week three.

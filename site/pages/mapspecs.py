@@ -139,9 +139,10 @@ MAPS["ai-dlc-for-forward-deployed-engineers"] = dict(
         {"hue": P1, "key": "P1", "name": "Design & Spec", "sub": "as a mob", "cells": [
             _c("Mob elaboration", "with their team, recorded", "users"), _c("Authority budget", "signed by their owner", "lock")]},
         {"hue": P2, "key": "P2", "name": "Build & Prove", "sub": "in their stack", "cells": [
-            _c("Skeleton on day one", "against their real system", "bolt"), _c("Their cases, their CI", "a golden set they recognise", "check")]},
+            _c("Skeleton first", "against their real system", "bolt"), _c("Their cases, their CI", "a golden set they recognise", "check"),
+            _c("Shadow their staff", "find the unwritten rules", "eye")]},
         {"hue": P3, "key": "P3", "name": "Run & Learn", "sub": "then leave", "cells": [
-            _c("Shadow their staff", "find the unwritten rules", "eye"), _c("Hand over the evidence", "and a named operator", "handoff")]},
+            _c("Widen on evidence", "never on a date", "trend"), _c("Hand over the evidence", "and a named operator", "handoff")]},
     ],
     callout=("Their pain, their risk owner, their stack, their people. The FDE leaves an evidence pack and a named operator, not a dependency.", "t", 44),
     alt="AI-DLC and AIDD applied by a forward-deployed engineer across the four phases on a customer's site",

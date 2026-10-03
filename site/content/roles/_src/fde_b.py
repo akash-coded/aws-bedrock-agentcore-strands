@@ -47,7 +47,9 @@ STEPS_B = [
    {"do": "Agree how you will work with their team, on one page",
     "detail": "Where the code lives and who merges, who pairs with whom, a daily stand-up and a weekly "
               "note to the sponsor, how to reach the risk owner, and which data may go into which AI tool, "
-              "in their policy's words. Pin it in their repository before the first commit."},
+              "in their policy's words. Pin it in their repository before the first commit, and open your "
+              "pattern log beside it: one line each time you build something you have built before, for "
+              "[step 10](../evolve/#codify)."},
  ],
  "internal": (
    "Inside your own company access feels like a favour away, so nobody files the requests. File them "
@@ -667,7 +669,7 @@ Repository and its AGENTS.md <link> · How to deploy <link> · The evidence pack
 | Runs the system | <operator> | <name> | daily |
 | On call | <rota> | | |
 | Cost per case, alert at <3x> the signed figure | <name> | | weekly |
-| Drift, per slice | <name> | | weekly |
+| Drift, per slice, and the desk's overrides | <name> | | weekly |
 | The saving beside the spend, on one line | <name> | | each cycle |
 | Incidents become next briefs | <name> | | each incident |
 

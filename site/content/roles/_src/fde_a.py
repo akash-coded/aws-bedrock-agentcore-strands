@@ -91,8 +91,10 @@ HEAD = {
         "and their data goes only into the tools their policy approves. Where a step below says *do not "
         "delegate*, the model has no standing to decide, and neither, often, do you."
     ),
+    # the hub's "Read next" names the three lessons with these (pages/fde.py), each with its level
     "reads": [
-        ["The lesson: what is an FDE?", "../learn/what-is-a-forward-deployed-engineer/"],
+        ["What is an FDE? The role, in the words of the companies that hire one",
+         "../learn/what-is-a-forward-deployed-engineer/"],
         ["The Deliver stage in depth, with AI-DLC and AIDD", "../learn/ai-dlc-for-forward-deployed-engineers/"],
         ["Ten FDE interview questions, by stage", "../learn/forward-deployed-engineer-interview-questions/"],
     ],

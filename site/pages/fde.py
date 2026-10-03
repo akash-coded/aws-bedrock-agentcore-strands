@@ -224,7 +224,10 @@ def hub(shell, role: dict) -> str:
     # 08 · read next
     nx = S["next"]
     sim_a, sim_b = nx["sim"]["text"].split(". ", 1)
-    reads = "".join(f'<li><a href="{lesson(s)}">{E(lessons[s].short)}<small>{E(lessons[s].level)}</small></a></li>'
+    # each lesson under the name the role's own reads give it (a tutorial name such as "For forward-deployed
+    # engineers" says nothing on this page), with its level
+    named = {h.rstrip("/").rsplit("/", 1)[-1]: l for l, h in role["reads"]}
+    reads = "".join(f'<li><a href="{lesson(s)}">{E(named.get(s) or lessons[s].short)}<small>{E(lessons[s].level)}</small></a></li>'
                     for s in nx["lessons"])
     nextsec = sec("next", f'<ul class="readsg">{reads}</ul><p>{T(nx["line"])}</p>'
                           f'<p><a href="../{nx["sim"]["page"]}">{E(sim_a)}.</a> {E(sim_b)}</p>')
