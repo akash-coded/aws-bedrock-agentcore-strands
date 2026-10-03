@@ -56,9 +56,9 @@ why they take a fortnight rather than an hour. Expect the argument; it is the mo
 
 | The model | What a good engineer already believes | Why it takes a fortnight |
 | --- | --- | --- |
-| **3 · A hold is a lever** | A human check is friction, and removing it is progress | It asks you to *add* a step in order to ship sooner, which sounds like a contradiction right up until somebody does the arithmetic out loud |
-| **5 · The average hides the slice** | A single quality number is how you report progress | It makes the number you already publish the wrong number, in public, in front of the people you published it to |
-| **10 · Depth is a dial** | A process applied unevenly is a process nobody follows | It asks a senior person to judge per change rather than write a policy, and that judgement cannot be delegated to a template |
+| **3 · Use a human hold to lower the bar, not to slow the line** | A human check is friction, and removing it is progress | It asks you to *add* a step in order to ship sooner, which sounds like a contradiction right up until somebody does the arithmetic out loud |
+| **5 · Read quality per slice, never as one average** | A single quality number is how you report progress | It makes the number you already publish the wrong number, in public, in front of the people you published it to |
+| **10 · Set the depth of process per change, not per programme** | A process applied unevenly is a process nobody follows | It asks a senior person to judge per change rather than write a policy, and that judgement cannot be delegated to a template |
 
 ---
 

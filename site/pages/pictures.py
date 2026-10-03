@@ -35,6 +35,8 @@ TITLES = {
     "figure:cache_prefix": "How a prompt cache matches", "figure:bolt_days": "A bolt plan",
     "figure:shadow_widen": "Shadow first, then widen", "figure:bill_factors": "Four habits, one bill",
     "figure:authority_ladder": "The authority ladder", "figure:two_numbers": "The two-number report",
+    "figure:drift_slide": "One slide, two alarms", "figure:postmortem_layers": "Five layers claimed, none enforced",
+    "figure:rollback_times": "Four ways back, timed",
     "frameworks:spine": "The agentic PDLC in one picture", "frameworks:pdlc_vs": "Traditional PDLC vs agentic PDLC",
     "frameworks:ladder": "The risk ladder", "frameworks:chain": "Six steps at ninety percent",
     "frameworks:methods": "Four methods on one lifecycle", "frameworks:merge": "How the four methods merge into one loop",
@@ -194,7 +196,7 @@ def _card(it: dict, base: str) -> str:
                  f'loading="lazy" decoding="async">')
     used = _used_href(it["used"], base)
     dl = it["light"].rsplit("/", 1)[-1].replace(".light.webp", ".webp")
-    return (f'<figure class="pic" data-group="{it["group"]}" id="pic-{it["id"]}">'
+    return (f'<figure class="pic" id="pic-{it["id"]}">'
             f'<a class="pic-a" href="{light}" target="_blank" rel="noopener" aria-label="{E(it["title"], quote=True)}, full size">{imgs}</a>'
             f'<figcaption><b>{E(it["title"])}</b><span>{E(it["cap"] or it["alt"])}</span>'
             f'<small><a href="{used}">Where it is used</a> · <a href="{light}" download="{dl}">Download</a> · '
