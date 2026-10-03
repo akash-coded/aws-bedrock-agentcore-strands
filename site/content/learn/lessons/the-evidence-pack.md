@@ -61,7 +61,9 @@ document exists.
 
 ### Step 2 · Check each hand-off against its test
 
-Each hand-off has a one-line test, drawn above. The two that matter most:
+Each hand-off has a one-line test, drawn in the map at the top, which also counts what each one owes: seven
+artefacts at P0 → P1, nine at the hard gate, eight at P2 → P3 and six at P3 → P0. The two tests that matter
+most:
 
 - **P0 → P1.** Can the architect start designing without asking the product manager a question?
 - **P1 → P2, the hard gate.** Hand the pack to an engineer who was not in the room. If they can build
@@ -136,7 +138,7 @@ it will close.
 
 The minimum is what each phase owes the next: the measured pain, AI-fit verdict, value line and
 autonomy decisions from framing; the spec, bar sheet, decision records, authority budget and first
-golden cases from design; the proof and cut-over plan from the build; and the two-number report,
+fifty golden cases from design; the proof and cut-over plan from the build; and the two-number report,
 drift readout and incident briefs from operation.
 
 ### What is an AI audit trail?

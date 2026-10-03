@@ -133,8 +133,8 @@ thirty seconds: it tells you what problem you are being asked to solve.
 
 ### How long does the tutorial take?
 
-Each lesson takes five to ten minutes. The start page shows each track's total, and the fundamentals
-take a little over an hour. There is no need to read them in one sitting; each lesson stands alone.
+Each lesson takes five to ten minutes, and the five interview question banks eleven or twelve. The
+start page shows each track's total, and the fundamentals take a little over an hour. There is no need to read them in one sitting; each lesson stands alone.
 
 ### Is it free?
 

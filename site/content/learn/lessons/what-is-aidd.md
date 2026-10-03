@@ -13,8 +13,8 @@ updated: 2026-10-02
 > AI-driven development (AIDD) is the everyday craft of building software with coding agents, and in
 > this manual it means five habits. The first two are a **context file** every tool reads and a
 > **story file** per unit of work instead of a chat thread. The other three are **exact work in tested
-> code** before any prompt, **review set by risk** rather than by diff size, and a **harness** that
-> decides what merges.
+> code** before any prompt, an **independent checker** after each risky model step, and a **harness and
+> risk band** that decide what merges.
 
 {{map:what-is-aidd}}
 
