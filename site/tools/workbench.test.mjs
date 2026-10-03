@@ -16,7 +16,10 @@
 //      finished, and state saved by the earlier version still loads;
 //   6. no old name, mascot, rank or points counter is left on any route, and nothing moves on its own;
 //   7. the ten pictures simshots.mjs captures still have their selectors and their pixel sizes;
-//   8. the file opened alone from disk, with no network, still has its fonts and its calculators.
+//   8. the file opened alone from disk, with no network, still has its fonts and its calculators;
+//   9. the floor the manual keeps (council 10 measured six places under it): the opening picture's labels 11px or
+//      more at every width, its "sign-off" and the control tower's links 4.5:1, every focus ring 3:1 against what is
+//      behind it, and on a phone a top bar whose controls are 44px tall and all on screen, Menu among them.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { createServer } from "node:net";
 import { spawn } from "node:child_process";
@@ -147,6 +150,94 @@ const viewport = (w, h) => send("Emulation.setDeviceMetricsOverride", { width: w
 const hex = (c) => { const m = String(c).match(/\d+/g) || []; return "#" + m.slice(0, 3).map((v) => (+v).toString(16).padStart(2, "0")).join("").toUpperCase(); };
 const QUIET = `try{localStorage.setItem("skyways.tours.off","1")}catch(e){}`;
 const themeBoot = (theme) => QUIET + (theme === "light" ? `;try{localStorage.setItem("manual-theme","light")}catch(e){}` : `;try{localStorage.removeItem("manual-theme")}catch(e){}`);
+
+// ---- for section 9: what is painted under a point, a top-to-bottom gradient included ---------------------------
+// CONTRAST above leaves out text on a gradient and SVG text, which is how the tower's links and the picture's sign-off
+// went unmeasured. Here the backdrop is read where it is drawn: the elements under the point, bottom to top, each
+// background colour, gradient and SVG shape laid over the last. A top-to-bottom gradient is sampled at that height;
+// any other (a radial glow, an angle, layers) is taken at whichever of its colours is worst for the colour in front.
+// A url() image cannot be read: the answer is then null, and a check reports it instead of passing it.
+const FLOOR = `window.__floor = (() => {
+  const cv = document.createElement("canvas"); cv.width = cv.height = 1; const cx = cv.getContext("2d", { willReadFrequently: true });
+  const rgba = (c) => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = "#000"; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2], d[3] / 255]; };
+  const over = (t, u) => [0, 1, 2].map((i) => t[i] * t[3] + u[i] * (1 - t[3])).concat(1);
+  const lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); };
+  const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+  const hex = (c) => "#" + c.slice(0, 3).map((v) => Math.round(v).toString(16).padStart(2, "0")).join("").toUpperCase();
+  const opacity = (e) => { let o = 1; for (let a = e; a; a = a.parentElement) o *= +getComputedStyle(a).opacity; return o; };
+  const hidden = (e) => { for (let a = e; a; a = a.parentElement) { const cs = getComputedStyle(a); if (cs.display === "none" || cs.visibility === "hidden" || +cs.opacity === 0) return true; } const r = e.getBoundingClientRect(); return r.width < 1 || r.height < 1; };
+  const sample = (inner, top, h, y) => {
+    const parts = inner.split(/,(?![^(]*\\))/).map((s) => s.trim());
+    if (!/^rgba?\\(/.test(parts[0])) { if (parts[0] !== "to bottom" && parts[0] !== "180deg") return null; parts.shift(); }
+    const stops = parts.map((s) => { const c = /^(rgba?\\([^)]*\\))\\s*(?:([\\d.]+)(px|%))?$/.exec(s); return c && { c: rgba(c[1]), p: c[2] === undefined ? null : c[3] === "%" ? c[2] / 100 * h : +c[2] }; });
+    if (!stops.length || stops.some((s) => !s)) return null;
+    if (stops[0].p === null) stops[0].p = 0; if (stops[stops.length - 1].p === null) stops[stops.length - 1].p = h;
+    for (let i = 1; i < stops.length; i++) if (stops[i].p === null) { let j = i; while (stops[j].p === null) j++; for (let k = i; k < j; k++) stops[k].p = stops[i - 1].p + (stops[j].p - stops[i - 1].p) * (k - i + 1) / (j - i + 1); }
+    const t = y - top; let a = stops[0]; if (t <= a.p) return a.c.slice();
+    for (const b of stops.slice(1)) { if (t <= b.p) { const f = b.p > a.p ? (t - a.p) / (b.p - a.p) : 1; return a.c.map((v, k) => v + (b.c[k] - v) * f); } a = b; }
+    return a.c.slice(); };
+  const layer = (img, top, h, y, fg, base) => {
+    const m = /^linear-gradient\\((.*)\\)$/.exec(img), s = m && sample(m[1], top, h, y); if (s) return s;
+    if (/url\\(/.test(img)) return null;
+    const stops = (img.match(/(?:rgba?|oklab|oklch|color)\\([^)]*\\)/g) || []).map(rgba); if (!stops.length) return null;
+    return stops.reduce((a, b) => { const ca = over(a, base), cb = over(b, base); return fg && ratio(over(fg, cb), cb) < ratio(over(fg, ca), ca) ? b : a; }); };
+  const under = (x, y, skip, fg) => { let col = [255, 255, 255, 1];
+    for (const e of document.elementsFromPoint(x, y).reverse()) {
+      if (skip && skip.contains(e)) continue;
+      const cs = getComputedStyle(e), o = opacity(e);
+      if (e instanceof SVGElement) { if (/^(rect|path|circle|ellipse|polygon)$/.test(e.tagName) && cs.fill !== "none" && !/url/.test(cs.fill)) { const c = rgba(cs.fill); c[3] *= +cs.fillOpacity * o; col = over(c, col); } continue; }
+      const c = rgba(cs.backgroundColor); if (c[3] > 0) { c[3] *= o; col = over(c, col); }
+      if (cs.backgroundImage !== "none") { const r = e.getBoundingClientRect(), g = layer(cs.backgroundImage, r.top, r.height, y, fg, col); if (!g) return null; g[3] *= o; col = over(g, col); } }
+    return col; };
+  // a text against what is under it, near its top, middle and bottom (a gradient changes down the line): the worst
+  const text = (e) => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e), svg = e instanceof SVGElement;
+    const fg = rgba(svg ? cs.fill : cs.color); fg[3] *= (svg ? +cs.fillOpacity : 1) * opacity(e); let worst = null;
+    for (const y of [r.top + r.height * .25, r.top + r.height / 2, r.bottom - r.height * .25]) { const bg = under(r.left + r.width / 2, y, svg ? e : null, fg); if (!bg) return { ratio: null, fg: hex(fg) };
+      const k = ratio(over(fg, bg), bg); if (!worst || k < worst.ratio) worst = { ratio: +k.toFixed(2), fg: hex(fg), bg: hex(bg) }; }
+    return worst; };
+  return { rgba, over, ratio, hex, opacity, hidden, under, text };
+})(); true`;
+// the visible text of a part of the page, each with its rendered size (SVG text scaled with its drawing) or its contrast
+const textsIn = (sel, how) => `(() => { const F = window.__floor, out = [];
+  for (const box of document.querySelectorAll(${JSON.stringify(sel)})) { const tw = document.createTreeWalker(box, NodeFilter.SHOW_TEXT); let n;
+    while ((n = tw.nextNode())) { const t = n.textContent.trim(), e = n.parentElement; if (!t || F.hidden(e)) continue;
+      if (${JSON.stringify(how)} === "size") { let px = parseFloat(getComputedStyle(e).fontSize); if (e instanceof SVGElement) { const m = e.getScreenCTM(); px *= Math.hypot(m.a, m.b); } out.push({ t: t.slice(0, 30), px: +px.toFixed(2) }); }
+      else { e.scrollIntoView({ block: "center", behavior: "instant" }); out.push({ t: t.slice(0, 30), ...F.text(e) }); } } }
+  return out; })()`;
+// every control a keyboard reaches, focused in turn with transitions held still: its ring against what is behind it,
+// read at the middle of each side, the worst side counting
+const RINGS = `(() => { const F = window.__floor, low = [], blind = []; let n = 0;
+  const hold = document.createElement("style"); hold.textContent = "*,*::before,*::after{transition:none!important;animation:none!important}"; document.head.appendChild(hold);
+  const sel = 'a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])';
+  for (const e of document.querySelectorAll(sel)) {
+    if (F.hidden(e)) continue;
+    e.scrollIntoView({ block: "center", inline: "nearest", behavior: "instant" }); e.focus({ preventScroll: true });
+    if (document.activeElement !== e || !e.matches(":focus-visible")) continue;
+    const r = e.getBoundingClientRect(); if (r.right <= 0 || r.left >= innerWidth || r.bottom <= 0 || r.top >= innerHeight) continue;
+    n += 1; const cs = getComputedStyle(e), w = parseFloat(cs.outlineWidth) || 0, d = (parseFloat(cs.outlineOffset) || 0) + w / 2;
+    const name = (e.id ? "#" + e.id : e.tagName.toLowerCase() + "." + String(e.className.baseVal ?? e.className).trim().split(/\\s+/).slice(0, 2).join(".")) + ' "' + (e.innerText || e.textContent || e.getAttribute("aria-label") || "").trim().replace(/\\s+/g, " ").slice(0, 22) + '"';
+    if (cs.outlineStyle === "none" || w < 2) { low.push(name + ": no ring"); continue; }
+    const ring = F.rgba(cs.outlineColor); ring[3] *= F.opacity(e); let worst = null;
+    for (const [x, y] of [[r.left + r.width / 2, r.top - d], [r.left + r.width / 2, r.bottom + d], [r.left - d, r.top + r.height / 2], [r.right + d, r.top + r.height / 2]]) {
+      if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) continue;
+      const bg = F.under(x, y, e, ring); if (!bg) continue; const k = F.ratio(F.over(ring, bg), bg); if (!worst || k < worst.k) worst = { k, bg }; }
+    if (!worst) blind.push(name); else if (worst.k < 3) low.push(name + " " + F.hex(ring) + " on " + F.hex(worst.bg) + " " + worst.k.toFixed(2));
+  }
+  hold.remove(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  return { n, low, blind }; })()`;
+// the top bar on a phone: each control's edges and height, Menu, and the Simulator pill's word
+const BAR = `(() => { const F = window.__floor, nav = document.getElementById("topnav");
+  const items = [...nav.querySelectorAll("a, button")].filter((e) => !F.hidden(e)).map((e) => { const r = e.getBoundingClientRect();
+    return { t: (e.id === "xburger" ? "Menu" : (e.textContent.trim() || e.getAttribute("aria-label") || "")).replace(/\\s+/g, " ").slice(0, 18), l: +r.left.toFixed(1), r: +r.right.toFixed(1), h: +r.height.toFixed(1) }; });
+  const play = nav.querySelector("a.xplay"), word = play && play.querySelector("span");
+  return { iw: innerWidth, items, word: !!word && word.getBoundingClientRect().width > 1, named: !!play && /Simulator/.test(play.textContent) }; })()`;
+// one Tab press from the top of the page, so Chrome treats focus as a keyboard user's: after an earlier walk ended on
+// the page's last control, a Tab from there would leave the page and no ring would show
+const tab = async () => {
+  await evaluate(`(() => { const t = document.createElement("span"); t.tabIndex = -1; t.dataset.tabStart = ""; document.body.prepend(t); t.focus(); return true; })()`);
+  for (const type of ["keyDown", "keyUp"]) await send("Input.dispatchKeyEvent", { type, key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
+  await evaluate(`(() => { document.querySelectorAll("[data-tab-start]").forEach((t) => t.remove()); return true; })()`);
+};
 
 try {
   await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable"); await send("Network.enable");
@@ -337,6 +428,69 @@ try {
     check(a.out === 0, "from file://: no link points out of the file to a site that is not there", a.out);
     check(a.remote === 0 && failedRequests.length === 0 && !thrown.length, "from file://: nothing is fetched and nothing fails", failedRequests.concat(thrown).join(" | "));
     await send("Network.emulateNetworkConditions", { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
+  }
+
+  // ---- 9. the floor the manual keeps -----------------------------------------------------------------------------
+  // Council 10 measured six places here under it: labels of 4.6px, a sign-off at 2.88:1, the tower's link at 2.86:1,
+  // rings at 1.59:1 and 1.92:1, Menu off a 320px screen, and 36px controls on a phone.
+  if (want("floor")) {
+    const LABELS = ["P0 · Frame", "P1 · Design & Spec", "P2 · Build & Prove", "P3 · Run & Learn", "sign-off", "the next brief"];
+    const WIDE = [320, 340, 360, 375, 390, 414, 480, 540, 600, 768, 900, 1000, 1001, 1024, 1100, 1200, 1280, 1366, 1440, 1600, 1920];
+    const PHONE = [320, 330, 340, 350, 359, 360, 375, 385, 390, 414, 430, 480, 600, 768, 900];
+    await send("Emulation.setFocusEmulationEnabled", { enabled: true });   // the page keeps focus as a reader's would
+    for (const theme of ["dark", "light"]) {
+      if (THEMES.length && !THEMES.includes(theme)) continue;
+      console.log(`the floor, ${theme}`);
+      await viewport(1440, 900); await boot(themeBoot(theme)); thrown = []; await fresh(BASE + "#/start", 2000); await evaluate(FLOOR);
+      // a. the opening picture sets no label under 11px at any width, and whichever form it takes carries the same labels
+      const small = [], missing = [];
+      for (const w of WIDE) {
+        await viewport(w, 900); await sleep(120);
+        const texts = await evaluate(textsIn("#startMain .hero2 .vis", "size"));
+        const min = texts.reduce((a, b) => (b.px < a.px ? b : a), { px: Infinity, t: "nothing" });
+        if (min.px < 11) small.push(`${w}: "${min.t}" ${min.px}px`);
+        const miss = LABELS.filter((l) => !texts.some((x) => x.t.startsWith(l))); if (miss.length) missing.push(`${w}: ${miss.join(", ")}`);
+      }
+      check(!small.length, `${theme}: the opening picture sets no label under 11px, 320 to 1920 wide`, small.join(" | "));
+      check(!missing.length, `${theme}: the opening picture names the four phases, the sign-off and the next brief at every width`, missing.join(" | "));
+      // b. its sign-off, drawn (1440) and set in HTML (390)
+      for (const [w, h] of [[1440, 900], [390, 844]]) {
+        await viewport(w, h); await sleep(150);
+        const so = (await evaluate(textsIn("#startMain .hero2 .vis", "contrast"))).filter((x) => x.t === "sign-off");
+        check(so.length === 1 && so[0].ratio >= 4.5, `${w} ${theme}: the opening picture's "sign-off" reads 4.5:1 on its card`, JSON.stringify(so));
+      }
+      // c. the control tower's words on its dark strip, on the start page's map and on the full one; d. every focus ring
+      for (const [w, h, hashes] of [[1440, 900, ["#/start", "#/quest", "#/toolkit", "#/concepts", "#/effort", "#/governance"]], [390, 844, ["#/start", "#/quest"]], [320, 700, ["#/start"]]]) {
+        await viewport(w, h); await fresh(BASE + hashes[0], 1800);
+        for (const hash of hashes) {
+          if (hash !== hashes[0]) await go(hash, 1300);
+          await evaluate(FLOOR);
+          if (hash === "#/start" || hash === "#/quest") {
+            const words = await evaluate(textsIn(".page.on .xrt-cab", "contrast"));
+            const low = words.filter((x) => x.ratio === null || x.ratio < 4.5);
+            check(words.some((x) => x.t === "The Loop Map") && !low.length, `${hash} ${w} ${theme}: the control tower's words, "The Loop Map" among them, read 4.5:1 on its strip`, JSON.stringify(low.length ? low : words));
+          }
+          await tab(); const rg = await evaluate(RINGS);
+          check(rg.n >= 10 && !rg.low.length, `${hash} ${w} ${theme}: all ${rg.n} focus rings 3:1 against what is behind them`, rg.low.slice(0, 8).join(" | "));
+          check(!rg.blind.length, `${hash} ${w} ${theme}: every focus ring's backdrop can be read`, rg.blind.slice(0, 8).join(" | "));
+        }
+      }
+      // e, f. the top bar on a phone: every control 44px tall and on screen, Menu among them and none over another; the
+      // Simulator pill keeps its word at 390 and wider, is the play mark alone under 360, and is named Simulator throughout
+      const off = [], short = [], word = [];
+      for (const w of PHONE) {
+        await viewport(w, 800); await sleep(120); const b = await evaluate(BAR);
+        const out = b.items.filter((i) => i.l < 0 || i.r > b.iw + 0.5), lap = b.items.filter((i, k) => k && i.l < b.items[k - 1].r - 0.5);
+        if (out.length || lap.length || !b.items.some((i) => i.t === "Menu")) off.push(`${w}: ` + b.items.map((i) => `${i.t} ${i.l}-${i.r}`).join(", "));
+        const lo = b.items.filter((i) => i.h < 43.5); if (lo.length) short.push(`${w}: ` + lo.map((i) => `${i.t} ${i.h}`).join(", "));
+        if (!b.named || (w >= 390 && !b.word) || (w < 360 && b.word)) word.push(`${w}: word shown ${b.word}, named ${b.named}`);
+      }
+      check(!off.length, `${theme}: from 320 to 900 every control in the top bar is on screen, Menu among them, none over another`, off.join(" | "));
+      check(!short.length, `${theme}: on a phone every control in the top bar is 44px tall`, short.join(" | "));
+      check(!word.length, `${theme}: the Simulator pill keeps its word where the bar holds it and its name everywhere`, word.join(" | "));
+      check(!thrown.length, `${theme}: no script error while the floor is measured`, thrown.join(" | "));
+    }
+    await send("Emulation.setFocusEmulationEnabled", { enabled: false });
   }
 } catch (e) {
   check(false, "the test itself ran to the end", e.message);

@@ -2237,6 +2237,34 @@ h2.gh{font-family:var(--display);font-weight:620;letter-spacing:-.03em;font-size
 .xspn-gate.hard i{border-left-color:var(--gate)}
 .xq-land.hard .bar,.xq-key .gate.hard{background:repeating-linear-gradient(90deg,var(--gate) 0 9px,var(--paper) 9px 18px);border-color:var(--gate)}
 .xrg-gate,.xmg-gate,.xrg-gate span,.xrg-gate::before,.xmg-gate::before{background-color:var(--gate)}
+
+/* ---------- the manual's floor (council 10): rings 3:1, text 4.5:1, labels 11px, phone controls 44px ---------- */
+/* one ring, the manual's accent at full strength; pictures on paper take the light one, the tower's dark strip a pale one */
+:root{--ring:#3E6B8A;--gate-ink:#A93F3F}
+@media screen{:root:not([data-theme="light"]){--ring:#7FA9CC;--gate-ink:#DE8A8A}
+:root:not([data-theme="light"]) :is(.ill,.xfig,.xscene,.xrt,.xvs-pic,.xmap,#lm-big,.xzm-w,.pg-pic,.prmap,[id^="illo-"],.xmini,.simmap){--ring:#3E6B8A}}
+.xrt-cab{--ring:#C7D2FE}
+:focus-visible{outline:3px solid var(--ring)!important}
+.xrt-cab a.xl,.xrt-cab a.xl:hover{color:var(--fg-C7D2FE)!important}
+/* the role panel's two buttons stack on a phone 8px apart, so one's ring is not drawn on the other */
+.xrtab-panel{padding-bottom:10px}.xrtab-panel .xbtn{margin-bottom:8px}
+/* under 420px of card the hero's drawing would set labels under 11px, so the card shows the same phases in HTML */
+.hero2 .vis{container-type:inline-size}
+.xhp{display:none;list-style:none;margin:0;padding:0}
+@container (max-width:419px){.hero2 .vis>svg{display:none}.hero2 .vis .xhp{display:grid}}
+.xhp li{margin:0;padding:0}
+.xhp-c{display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 11px;align-items:center;margin:0;padding:10px 12px;border:1.5px solid var(--c);border-radius:11px;background:var(--paper);color:var(--ink);max-width:none}
+.hero2 .vis .xhp svg{grid-row:span 2;width:28px;height:28px}
+.xhp-c b{justify-self:start;padding:2px 8px;border-radius:7px;background:var(--c);color:#fff;font-size:12.5px;line-height:1.35}
+.xhp-c span{font-size:13.5px;font-weight:560;line-height:1.35}
+.xhp i{position:relative;display:flex;align-items:center;min-height:26px;padding:2px 0 2px 52px;font-style:normal;font-size:12.5px;font-weight:620;color:var(--ink2)}
+.xhp i::before{content:"";position:absolute;left:26.5px;top:0;bottom:6px;border-left:2px dashed}
+.xhp i::after{content:"";position:absolute;left:22.5px;bottom:0;border:5px solid transparent;border-top:7px solid;border-bottom:0}
+.xhp i.so{min-height:34px;margin-top:5px;border-top:3px solid;color:var(--gate-ink)}
+.xhp-n{font-size:13px;line-height:1.45;color:var(--ink2);margin:10px 0 0;max-width:none}
+/* the top bar on a phone: 44px controls; under 386px the Simulator pill is its play mark alone, so Menu stays on screen */
+@media (max-width:900px){.topnav .xbrand{min-height:44px}.topnav .xright{margin-left:0;gap:4px}.topnav .xplay{height:44px;margin:0;padding:0 14px 0 12px;gap:6px}.topnav .xtgl{width:44px;height:44px}#xburger{height:44px;margin-left:0;padding:0 12px}}
+@media (max-width:385px){.topnav .xplay{width:44px;padding:0;justify-content:center;gap:0}.topnav .xplay span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}}
 /* ===== site layer: end ===== */
 </style>
 </head>
@@ -5181,13 +5209,15 @@ Object.assign(CH,{
  const _all=rsAll;rsAll=function(){_all();const pg=document.querySelector(".page.on");if(pg)walk(pg);};})();
 
 // ---------- the four phases, drawn for the hero ----------
-function heroPhases(dark){const W=560,H=330,ink=dark?"#ECEAE4":BB.ink,ink2=dark?"#C3C0B8":BB.ink2,card=dark?"#1F2227":"#fff";const ph=[["P0","Frame","Is the problem worth a model at all?",BB.P0,"flag"],["P1","Design & Spec","What must it do, how right, how free?",BB.P1,"spec"],["P2","Build & Prove","One bolt at a time, proven by a harness.",BB.P2,"bolt"],["P3","Run & Learn","Two numbers, drift, and the next brief.",BB.P3,"chart"]];
- let m="";const bw=250,bh=112,pos=[[20,20],[290,20],[290,166],[20,166]];
- ph.forEach((p,i)=>{const [x,y]=pos[i],c=p[3];m+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="16" fill="${card}" stroke="${c.s}" stroke-width="2"/>`+bbPill(x+14,y+14,`${p[0]} · ${p[1]}`,c,{fs:13,r:9,h:28}).m+bbIcon(p[4],x+bw-34,y+28,30,{c:c.s,ink:ink,fill:c.t})+bbLines(x+14,y+66,wrapTx(p[2],30).slice(0,2),{fs:12.5,b:1,c:ink,lh:15});});
- m+=bbFlow([[272,60],[288,60]],{c:ink,sw:2.4})+bbFlow([[415,134],[415,164]],{c:BB.k.s,sw:2.6})+bbGate(415,142,10,{hard:true}).replace(/<line[^>]*\/>/,"")+bbFlow([[288,222],[272,222]],{c:ink,sw:2.4})+bbFlow([[145,164],[145,134]],{c:ink,sw:2.4,label:"the next brief",lx:72,ly:2});
- m+=bbText(452,152,"sign-off",{fs:10.5,b:1,c:BB.k.s});
- m+=bbText(20,H-14,"Four phases, one loop. Every role, method and tool on this site sits somewhere on it.",{fs:11.5,c:ink2,w:600});
- return sv(W,H,m);}
+// labels at 15 units read 11px on a card 420px wide; narrower, the card shows the same phases in HTML (.xhp, CSS)
+function heroPhases(dark){const W=560,H=310,ink=dark?"#ECEAE4":BB.ink,card=dark?"#1F2227":"#fff",rose=dark?"#DE8A8A":BB.k.s;const ph=[["P0","Frame","Is the problem worth a model at all?",BB.P0,"flag"],["P1","Design & Spec","What must it do, how right, how free?",BB.P1,"spec"],["P2","Build & Prove","One bolt at a time, proven by a harness.",BB.P2,"bolt"],["P3","Run & Learn","Two numbers, drift, and the next brief.",BB.P3,"chart"]];
+ let m="",li="";const bw=250,bh=112,pos=[[20,20],[290,20],[290,178],[20,178]],after=["<i></i>",'<i class="so">sign-off</i>',"<i></i>","<i>the next brief, back to P0</i>"];
+ ph.forEach((p,i)=>{const [x,y]=pos[i],c=p[3];m+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="16" fill="${card}" stroke="${c.s}" stroke-width="2"/>`+bbPill(x+14,y+14,`${p[0]} · ${p[1]}`,c,{fs:15,r:9,h:30}).m+bbIcon(p[4],x+bw-32,y+15,30,{c:c.s,ink:ink,fill:c.t})+bbLines(x+14,y+72,wrapTx(p[2],25).slice(0,2),{fs:15,b:1,c:ink,lh:19});
+  li+=`<li style="--c:${c.s}"><p class="xhp-c"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">${bbIcon(p[4],16,1,30,{c:c.s,ink:"currentColor",fill:c.t})}</svg><b>${p[0]} · ${esc(p[1])}</b><span>${esc(p[2])}</span></p>${after[i]}</li>`;});
+ m+=bbFlow([[272,76],[288,76]],{c:ink,sw:2.4})+bbFlow([[415,134],[415,176]],{c:BB.k.s,sw:2.6})+bbGate(415,150,10,{hard:true}).replace(/<line[^>]*\/>/,"")+bbFlow([[288,234],[272,234]],{c:ink,sw:2.4})+bbFlow([[145,176],[145,134]],{c:ink,sw:2.4});
+ m+=`<rect x="159" y="143" width="140" height="24" rx="12" fill="#fff" stroke="${BB.ink}" stroke-width="1"/>`+bbText(229,160,"the next brief",{a:"middle",fs:15,b:1});
+ m+=bbText(437,160,"sign-off",{fs:15,b:1,c:rose});
+ return sv(W,H,m)+`<ol class="xhp" aria-label="The four phases on one loop">${li}</ol><p class="xhp-n">Four phases, one loop. Every role, method and tool on this site sits somewhere on it.</p>`;}
 // ---------- the hero ----------
 // The hero follows the page: dark unless the reader chose light.
 function heroMode(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark";}

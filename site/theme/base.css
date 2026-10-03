@@ -799,7 +799,7 @@ a.md:hover b{color:var(--c)}
    Prose keeps its 70ch measure (p, ul, ol above), so only pictures and tables use the extra. */
 .lcols{grid-template-columns:var(--rail) minmax(0,1fr)}
 @media (max-width:900px){.lcols{grid-template-columns:1fr}}
-.otp{border:1px solid var(--rule);border-radius:12px;background:var(--paper);padding:12px 16px;
+.otp{border:1px solid var(--rule);border-radius:16px;background:var(--paper);padding:12px 16px;
   margin:0 0 30px;max-width:70ch}
 .otp>summary{cursor:pointer;font-size:12.5px;font-weight:650;color:var(--soft);list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .otp>summary::-webkit-details-marker{display:none}
@@ -817,7 +817,7 @@ a.md:hover b{color:var(--c)}
 .lstart:hover{background:var(--rule2);text-decoration:none}
 .lstart[aria-current]{background:var(--accent-soft);border-left-color:var(--accent)}
 .lt{margin:0 0 16px}
-.lt h3{font-size:12.5px;font-weight:650;margin:0 0 5px;padding:0 10px}
+.lt h3{font-size:12.5px;font-weight:650;margin:0 0 5px;padding:0 10px;letter-spacing:0}
 .lt h3 a{color:var(--soft)}
 .lt h3 a:hover{color:var(--ink);text-decoration:none}
 .lt.on h3 a{color:var(--ink)}
@@ -839,9 +839,6 @@ a.md:hover b{color:var(--c)}
   .lnav[open]>summary{margin-bottom:12px}
   .lrail{padding:14px 0}
 }
-.crumb{display:flex;flex-wrap:wrap;gap:6px;font-size:12.5px;color:var(--soft);margin:0 0 14px}
-.crumb a{color:var(--soft)}
-.crumb a:hover{color:var(--ink)}
 .lesson h1{max-width:24ch}
 .lmeta{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13.5px;color:var(--soft);margin:0 0 28px;
   padding:0 0 18px;border-bottom:1px solid var(--rule);max-width:none}
@@ -858,43 +855,39 @@ a.md:hover b{color:var(--c)}
 .prose blockquote{border-left:3px solid var(--rule);padding:2px 0 2px 16px;margin:0 0 16px;color:var(--ink2)}
 .prose blockquote>:last-child{margin-bottom:0}
 .prose .callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:14px 18px 4px;
-  border-radius:0 12px 12px 0;margin:0 0 22px}
+  border-radius:0 16px 16px 0;margin:0 0 22px}
 .prose .callout.tip{border-left-color:var(--dg-teal);background:color-mix(in oklab,var(--dg-teal) 8%,transparent)}
 .prose .callout.warning,.prose .callout.caution{border-left-color:var(--dg-amber);
   background:color-mix(in oklab,var(--dg-amber) 9%,transparent)}
 .prose .callout .ct{font-size:12.5px;font-weight:700;color:var(--ink2);margin:0 0 6px}
-.prose .tw{overflow-x:auto;margin:0 0 20px;border:1px solid var(--rule);border-radius:12px;background:var(--paper)}
-.prose .tw table{font-size:14.5px}
+.prose .tw{overflow-x:auto;margin:0 0 20px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
 /* a shadow at whichever side has more table to come: the cue that the box scrolls */
 .tw{background:linear-gradient(90deg,var(--paper) 30%,transparent) 0 0/36px 100% no-repeat local,
     linear-gradient(270deg,var(--paper) 30%,transparent) 100% 0/36px 100% no-repeat local,
     linear-gradient(90deg,color-mix(in oklab,var(--ink) 16%,transparent),transparent) 0 0/14px 100% no-repeat scroll,
     linear-gradient(270deg,color-mix(in oklab,var(--ink) 16%,transparent),transparent) 100% 0/14px 100% no-repeat scroll,var(--paper)}
 @media (max-width:700px){.tw table{min-width:560px}.tw table:has(th:nth-child(4)){min-width:680px}.tw th,.tw td{padding:9px 12px}}
-.prose pre{background:var(--code-bg);color:var(--code-ink);padding:14px 16px;border-radius:12px;
+.prose pre{background:var(--code-bg);color:var(--code-ink);padding:14px 16px;border-radius:16px;
   overflow-x:auto;font-size:13px;line-height:1.55;margin:0 0 20px}
 .prose pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
-.prose details{border:1px solid var(--rule);border-radius:12px;padding:12px 16px;margin:0 0 18px;
+.prose details{border:1px solid var(--rule);border-radius:16px;padding:12px 16px;margin:0 0 18px;
   background:var(--paper)}
 .prose details[open]>summary{margin-bottom:10px}
 .prose summary{cursor:pointer;font-weight:650;color:var(--ink)}
 .prose details>:last-child{margin-bottom:0}
-.prose figure.mmd{margin:6px 0 26px;padding:20px 18px;border:1px solid var(--rule);border-radius:14px;
+.prose figure.mmd{margin:6px 0 26px;padding:20px 18px;border:1px solid var(--rule);border-radius:16px;
   background:var(--paper);overflow-x:auto}
 .prose pre.mermaid{background:none;color:var(--soft);font-size:12px;padding:0;margin:0;white-space:pre-wrap}
 .prose pre.mermaid.drawn{display:none}
 .prose .mm-out svg{display:block;margin:0 auto;max-width:100%;height:auto}
 /* an italic's last glyph can overhang the box mermaid measured; show it rather than clip it */
 .prose .mm-out foreignObject{overflow:visible}
-.prose img{max-width:100%;height:auto;border-radius:10px}
+.prose img{max-width:100%;height:auto;border-radius:16px}
 /* a screenshot on its own line is a figure: frame it, so its own background does not bleed into the page */
 .prose p:has(>img:only-child)>img{display:block;border:1px solid var(--rule);margin:4px auto 6px}
-/* The glyphs are drawn for a 260px card (see .mmg); in a lesson they keep that proportion. */
-.prose figure.lmodel{margin:6px 0 26px;max-width:440px;background:var(--paper);
-  border:1px solid var(--rule);border-radius:14px;padding:14px}
-@media (max-width:380px){.prose figure.lmodel{padding:10px 8px}}
-.prose .fig{margin:10px 0 28px}
-.prose>section,.prose>.dgb,.prose>figure{margin-left:0;margin-right:0}
+/* a mental model's glyph in a lesson: its frame here, its size and padding in the lesson page's rules */
+.prose figure.lmodel{margin:6px 0 26px;background:var(--paper);border:1px solid var(--rule);border-radius:16px}
+.prose>section,.prose>.dgb,.prose>figure{margin-inline:0}
 
 .pn{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:52px 0 18px;max-width:none}
 .pn a{display:grid;gap:3px;border:1px solid var(--rule);border-radius:var(--r-box);padding:14px 18px;
@@ -1508,35 +1501,34 @@ a.more:hover i{transform:translateX(4px)}
   margin:0 11px;vertical-align:middle}
 .hero2 .meta b{color:var(--ink2);font-weight:620}
 
-/* the picture: one canvas (theme/hero.js draws the Earth, the spiral and the aircraft in it, on one clock)
-   and, under it, the four phases by name. The phase the aircraft is in is the one in full ink. */
+/* the picture: one canvas (theme/hero.js draws the Earth, the spiral and the flight in it, on one clock, and names
+   the phases on the picture) and, under it for a reader without script, the four phases by name */
 /* its right edge is set so the outermost turn of the spiral ends on the page's own right edge */
 .scene{position:absolute;z-index:1;top:50%;right:max(0px,calc((100vw - var(--wrap)) / 2 + var(--gut) - 5.4% * .5));width:clamp(470px,46.5vw,700px);
   transform:translateY(calc(-50% - 8px));display:grid;justify-items:center}
 .sc-stage{position:relative;width:100%;aspect-ratio:1/.845}
-.sc-cv{position:relative;display:block;width:100%;height:100%}
+.sc-cv{position:relative;display:block;width:100%;height:100%;opacity:0;transition:opacity 250ms var(--ease)}
 /* until the script has drawn, and for a reader without it: a plain shaded disc, to the canvas's own measure */
 .sc-stage::before{content:"";position:absolute;left:50%;top:50%;width:68.5%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;
   background:radial-gradient(circle at 31% 29%,var(--g-a),var(--g-m) 46%,var(--g-b) 84%);
   box-shadow:inset 0 0 0 1.5px color-mix(in oklab,var(--g-air) 46%,transparent),0 0 90px 6px color-mix(in oklab,var(--g-air) 26%,transparent)}
+/* the script's first frame fades in over it, so the cut from the disc to the close shot is soft */
 .sc-stage.on::before{display:none}
+.on .sc-cv{opacity:1}
+/* with script the line of names goes (display, never opacity) and the pause sits in the stage's corner */
+.on+.sc-foot{position:absolute;right:5%;bottom:7%;margin:0}
+.on+.sc-foot .sc-rail{display:none}
 .sc-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:-4%;max-width:min(100%,calc(100vw - 2 * var(--gut)))}
 .sc-rail{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:7px 20px;margin:0;padding:0;min-width:0;
-  font-size:13.5px;color:var(--soft)}
-.sc-rail li{display:flex;align-items:center;gap:8px;white-space:nowrap;transition:color var(--t-base) var(--ease)}
-.sc-rail li::before{content:"";width:18px;height:2.5px;border-radius:2px;background:var(--c);opacity:.5;transition:opacity var(--t-base) var(--ease)}
+  font-size:13.5px;color:var(--ink2)}
+.sc-rail li{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.sc-rail li::before{content:"";width:18px;height:2.5px;border-radius:2px;background:var(--c)}
 .sc-rail li b{font:600 12px var(--f-mono);color:var(--c);letter-spacing:.02em}
 .sc-rail li.gate{--c:var(--dg-rose);font:500 12px var(--f-mono);gap:6px}
 .sc-rail li.gate::before{width:2.5px;height:13px;opacity:.8}
 /* the way back has the second row to itself: it is the half of the round that happens behind the Earth */
 .sc-rail li.back{flex-basis:100%;justify-content:center;font-size:13px}
 .sc-rail li.back::before{content:none}
-.sc-rail[data-at=""] li{color:var(--ink2)}
-.sc-rail[data-at=""] li::before{opacity:1}
-.sc-rail[data-at="0"] li:nth-child(1),.sc-rail[data-at="1"] li:nth-child(2),.sc-rail[data-at="2"] li:nth-child(4),.sc-rail[data-at="3"] li:nth-child(5),
-.sc-rail[data-at="back"] li.back{color:var(--ink)}
-.sc-rail[data-at="0"] li:nth-child(1)::before,.sc-rail[data-at="1"] li:nth-child(2)::before,.sc-rail[data-at="2"] li:nth-child(4)::before,
-.sc-rail[data-at="3"] li:nth-child(5)::before{opacity:1}
 .sc-foot .mpause{position:static;flex:none;width:30px;height:30px}
 .sc-foot .mpause i{scale:.8}
 @media (max-width:1000px){
@@ -1628,24 +1620,6 @@ main.home{padding:0}
 @media (max-width:640px){.daycard{--n:3}.dc-b{padding:18px 18px 20px}}
 
 
-/* ---- the tutorial band: the tracks in order, then one button ---- */
-.jump.tracks{margin-top:0;row-gap:20px}
-/* the tutorial band: the eight tracks, and one sketch from a lesson as a sample of how the lessons explain */
-.learn-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,72px);align-items:start}
-.learn-g .jump.tracks{grid-template-columns:1fr 1fr}
-.learn-s{display:block;color:inherit;text-decoration:none}
-.learn-s:hover{text-decoration:none}
-.learn-s .sketch{margin:0;max-width:none}
-.learn-s .sk-paper{transition:translate 250ms var(--ease),box-shadow 250ms var(--ease)}
-.learn-s:hover .sk-paper{translate:0 -3px;box-shadow:0 18px 40px -22px rgba(8,10,20,.6)}
-.learn-k{display:block;margin:12px 2px 0;font-size:14px;font-weight:600;color:var(--ink)}
-.learn-k i{display:inline-block;margin-left:3px;font-style:normal;transition:transform 250ms var(--ease)}
-.learn-s:hover .learn-k i{transform:translateX(4px)}
-.band .learn-g+.ba{display:flex;margin-top:44px}
-.band .learn-g+.ba .btn{padding:14px 22px;font-size:15.5px}
-@media (max-width:900px){.learn-g{grid-template-columns:1fr}}
-.band .jump.tracks+.ba{display:flex;margin-top:44px}
-.band .jump.tracks+.ba .btn{padding:14px 22px;font-size:15.5px}
 
 /* ---- the home page's bands, council 10: one block for each band's parcel, H3 to H8, in the order the bands run.
    A parcel writes only between its own two comments, so parcels built side by side never edit neighbouring
@@ -1797,6 +1771,26 @@ main.home{padding:0}
 /* end of home · H4 */
 
 /* home · H5 people */
+/* the tutorial's four people (pages/people.py), in the lifecycle's order. Each card is one link: its ::after
+   covers the card. On hover the arrow moves and the rule darkens, as the site's links do; nothing lifts. */
+.qs{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.q{position:relative;display:flex;flex-direction:column}
+.q .sk-paper{margin-bottom:18px}
+.q-who{font:500 12.5px var(--f-mono);color:var(--soft);margin-bottom:8px}
+.q h3{font-size:clamp(19px,1.6vw,22px);line-height:1.2;letter-spacing:-.02em;font-weight:600;margin-bottom:10px;text-wrap:balance}
+.q h3+p{font-size:15px;line-height:1.55;color:var(--ink2)}
+.q a{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);font-size:14.5px;font-weight:600;line-height:1.35;color:var(--ink);text-decoration:none}
+.q a::after{content:"";position:absolute;inset:0;border-radius:16px}
+.q small{display:block;font:500 12px var(--f-mono);color:var(--soft);margin-bottom:3px}
+.q i{display:inline-block;font-style:normal;transition:transform 250ms var(--ease)}
+.q a:hover{border-top-color:var(--ink)}
+.q a:hover i{transform:translateX(4px)}
+.q a:focus-visible{outline:0;border-radius:0}
+.q a:focus-visible::after{outline:3px solid var(--accent);outline-offset:6px}
+.qs+.ba{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;margin-top:48px}
+.qs+.ba .btn{padding:14px 22px;font-size:15.5px}
+@media (max-width:1180px){.qs{grid-template-columns:1fr 1fr;gap:40px 26px}}
+@media (max-width:600px){.qs{grid-template-columns:1fr;gap:40px}}
 /* end of home · H5 */
 
 /* home · H6 day card */
@@ -2061,7 +2055,7 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
 @media screen{:root:not([data-theme="light"]){--sk-paper:#D0CBBF;--sk-r:#9E1B10;--sk-ot:#833E00;--sk-b:#1D4AA8;
   --sk-gt:#514D46;--sk-o:#C8640F;--sk-g:#8F8B82}}
 .sketch{margin:10px 0 30px;max-width:760px;break-inside:avoid}
-.prose>figure.sketch{margin-left:0;margin-right:0;max-width:58ch}
+.prose>figure.sketch{margin-inline:0;max-width:58ch}
 .sk-paper{border-radius:var(--r-box);background:var(--sk-paper);overflow:hidden;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 9%,transparent)}
 .sketch figcaption{font-size:14px;line-height:1.5;color:var(--soft);margin:10px 0 0;max-width:62ch}
 .sk{display:block;width:100%;height:auto;font-family:'Patrick Hand','Chalkboard SE','Comic Sans MS',cursive;font-size:58px}
@@ -2091,22 +2085,50 @@ figure.sketch{scroll-margin-top:88px}
 .lm{--measure:584px;--mx:auto}
 main.lm>:is(h1,.lede,.lmeta,.lfolds,.lalt),.lm .prose>:is(.tw:not(.stack),.fig.sm),
 .lm .prose>:is(p,ul,ol,blockquote,h2,h3,h4,details,.callout,figure.lmodel,figure.sketch,.lm-try){max-width:var(--measure);
-  margin-left:var(--mx);margin-right:var(--mx)}
+  margin-inline:var(--mx)}
 .lm .prose>:is(.bbw,.tw,.codebox,figure.mmd,.fig,.dgb){max-width:none}
 .cols.lgrid{grid-template-columns:minmax(0,944px);justify-content:center}
-/* the measure is set for a 19px body: seventy-five characters a line at most (LP2 sets the phone's) */
-@media (min-width:901px){.lm .prose{font-size:19px;line-height:1.58}}
+/* Type and rhythm (council 10, 1.4). The body is 17px on a phone and 19px from 901px wide, where the measure
+   holds it to about seventy-five characters a line. A heading is about 1.6 times its body, and the smaller it
+   is the looser its tracking, so a step head's words never close up. The title is the whole search title: the
+   lesson's name in ink, the rest in the grey continuation display text uses (3:1 or more, so large text only:
+   30px at its smallest), no hyphenated word broken across two lines (learn.py).
+   Six gaps where there were eleven: 8px under a step head, 16 under a section head (and between a step head
+   and a box), 18 between paragraphs, 24 from a section head to its first step head, 32 between text and a box
+   either way (and above a step head), 64 above a section. Margins collapse: each block carries its own gap
+   above and below, and the larger of two wins. accept.mjs (pass 18) measures them on every lesson.
+   From 901px the lede is balanced, so it never ends on a word or two, and "In short" and "Try it" are 18px on
+   the body's leading. */
+.lm .prose{font-size:17px;line-height:1.58}
+main.lm>h1{font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-.032em;margin-bottom:16px}
+.lm>h1 .c{color:color-mix(in oklab,var(--ink) 48%,var(--bone))}
+.lm>h1 .nw{white-space:nowrap}
+main.lm .prose>*{margin-block:32px}
+main.lm .prose>h2{font-size:24px;letter-spacing:-.018em;margin-block:64px 16px}
+main.lm .prose>h3{margin-block:32px 8px}
+.lm :is(.prose>h3,.lm-try>h2){font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.004em;word-spacing:.02em}
+main.lm .prose>:is(h2,h3)+*{margin-top:16px}
+main.lm .prose>:is(p,ul,ol,blockquote){margin-block:0 18px}
+main.lm .prose>h2+h3{margin-top:24px}
+@media (min-width:901px){
+  .lm .prose{font-size:19px}
+  .lm>.lede{font-size:22px;line-height:1.48;text-wrap:balance}
+  main.lm .prose>h2{font-size:30px}
+  .lm :is(.prose>h3,.lm-try>h2){font-size:21px}
+  .lm :is(.callout,.lm-try){font-size:18px}
+}
 .lguide{display:none}
 /* the guide's two lists, folded side by side; an open one takes the row */
-.lfolds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.lfolds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .lfolds>.otp{margin:0;padding:0 12px;max-width:none;min-width:0}
 .lfolds>[open]{grid-column:1/-1;padding-bottom:12px}
 :is(.lfolds,.lguide) .otp>summary{padding:12px 0;font-size:13.5px;color:var(--ink2)}
-/* captions: real type at 15px, on the figure's own left edge */
-.lm .prose figcaption,.lm .prose .fig .fn{font-size:15px;line-height:1.5;margin-left:0;margin-right:0}
+/* captions: real type at 15px, on the figure's own left edge; a table's cells 15px too */
+.lm .prose figcaption,.lm .prose .fig .fn{font-size:15px;line-height:1.5;margin-inline:0}
+.lm .prose .tw table{font-size:15px;line-height:1.58}
 .lm .prose .sketch figcaption{max-width:none}
 /* a drawn figure: the frame is the figure, the drawing inside it sized so its labels read at 14 to 15px */
-.lm .prose .fig{padding:16px;border:1px solid var(--rule);border-radius:14px;background:var(--bone)}
+.lm .prose .fig{padding:16px;border:1px solid var(--rule);border-radius:16px;background:var(--bone)}
 .lm .prose .fig svg{border:0;border-radius:0;background:none;padding:0}
 .lm .prose .fig svg.w{max-width:650px}
 .lm .prose .fig svg.n{max-width:300px;margin:0 auto}
@@ -2123,11 +2145,15 @@ main.lm>:is(h1,.lede,.lmeta,.lfolds,.lalt),.lm .prose>:is(.tw:not(.stack),.fig.s
 @media (max-width:360px){.lm .prose figure.lmodel{padding:8px}}
 /* a glyph inside an answer's fold takes the fold's width, as one in the flow takes the text's */
 .lm .prose details>figure.lmodel{max-width:none}
-/* "Try it": one problem and its folded answer, as a card */
-.lm .lm-try{margin:8px 0 28px;padding:16px 18px 6px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
-.lm .lm-try>h2{margin:0 0 8px;font-size:19px;letter-spacing:-.015em}
-.lm .lm-try>p{font-size:18px;line-height:1.6}
-.lm .lm-try details{margin:0 0 12px;padding:10px 14px;background:var(--bone);font-size:18px;line-height:1.6}
+/* "Try it": one problem and its folded answer, as a card at the text's width, its words at the body's size on
+   a phone and 18px from 901px wide (above). A box on the page takes a 16px corner and a box inside it 11
+   (U3's --r-box and --r-in). A fold's summary takes the fold's padding, so the whole closed fold is the
+   control: 44px tall or more at every width ("Show the answer", "What a strong answer covers"). */
+.lm .lm-try{padding:20px 22px 2px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.lm .lm-try>*{margin:0 0 18px}
+.lm .lm-try>h2{margin:0 0 8px}
+.lm .lm-try details{border-radius:11px;background:var(--bone)}
+.lm .prose summary{margin:-12px -16px;padding:12px 16px}
 /* code: a box on the page, with its edge, in the dark theme too */
 @media screen{:root:not([data-theme="light"]) .lm .codebox pre{background:var(--paper);border:1px solid var(--rule)}}
 /* boards drawn as text (a column under 745px): every box to its content, nothing indented */
@@ -2162,9 +2188,11 @@ main.lm>:is(h1,.lede,.lmeta,.lfolds,.lalt),.lm .prose>:is(.tw:not(.stack),.fig.s
   .lm .bbn-f:has(>.bbn-c.out)>.bbn-c.out{grid-column:2}
   .lm .bbn-f:not(:has(>.bbn-c.out ~ .bbn-c.out))>.bbn-c.out{grid-row:1 / span 40}
 }
-/* tables on a phone: two columns wrap; three or more stack, one block a row, each cell under its column's name */
+/* tables on a phone: two columns wrap, their heads too; three or more stack, one block a row, each cell under
+   its column's name */
 @media (max-width:600px){
   .lm .prose .tw table{min-width:0}
+  .lm .prose .tw th{white-space:normal}
   .lm .prose .tw.stack :is(table,tbody,tr,td){display:block;width:auto}
   .lm .prose .tw.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .lm .prose .tw.stack tr{padding:11px 14px 12px;border-bottom:1px solid var(--rule2)}
@@ -2174,14 +2202,15 @@ main.lm>:is(h1,.lede,.lmeta,.lfolds,.lalt),.lm .prose>:is(.tw:not(.stack),.fig.s
   .lm .prose .tw.stack td[data-h]:not(:first-child)::before{content:attr(data-h);display:block;margin:8px 0 2px;
     font:500 12px var(--f-mono);color:var(--soft)}
 }
-/* From 1280px: the lesson on the page's left edge, the title and pictures to 944px (912 at 1280, where the
-   column gives way first), and the guide, 240px, 48px from it. The guide: the track, the lesson's number, a
-   bar for each lesson of the track (this one in the accent), the one before and after; the lesson's sections,
-   the one being read marked (.rl.on, site.js); the course, folded. Its own rows sit 10px in, so the sticky
-   box never clips their focus rings (the section and course rows take U1's inset ring), and every link in
-   it is at least 24px tall. */
+/* From 1280px: the lesson on the page's left edge, the title and pictures to 944px, and the guide, 240px, 48px
+   from it. Where the row is narrower (1280 to 1320px) the guide gives way first, to 214px, so the column keeps
+   938px and a wide board (900px of drawing inside its frame) stays drawn. The guide: the track, the lesson's
+   number, a bar for each lesson of the track (this one in the accent), the one before and after; the lesson's
+   sections, the one being read marked (.rl.on, site.js); the course, folded. Its own rows sit 10px in, so the
+   sticky box never clips their focus rings (the section and course rows take U1's inset ring), and every link
+   in it is at least 24px tall. */
 @media (min-width:1280px){
-  .cols.lgrid{grid-template-columns:minmax(0,944px) 240px;gap:0 48px}
+  .cols.lgrid{grid-template-columns:minmax(0,944px) minmax(214px,1fr);gap:0 48px}
   .lm{--mx:0}
   main.lm>h1{--measure:none}
   .lfolds{display:none}

@@ -32,6 +32,8 @@ jobs:
           python-version: "3.12"
       - name: Relay tests (offline)
         run: python site/contact-relay/test_handler.py
+      - name: Role builder tests (offline)
+        run: python site/content/roles/_src/test_build_content.py
       - name: Build the site
         run: python site/build.py
       - uses: actions/configure-pages@v5
