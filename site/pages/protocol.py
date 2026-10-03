@@ -150,12 +150,11 @@ def _picture() -> str:
 
 # ------------------------------------------------------------------------------ the head
 def _head(counts: str) -> str:
-    return f"""<header class="phead in-col">
-<p class="kicker">For leadership</p>
-<h1>Four decisions only you can make</h1>
-<p class="lede">Twenty minutes, and you leave with four questions for your next review.</p>
-<p class="pmeta">{counts}</p>
-</header>
+    import render
+    head = render.page_head("For leadership", "Four decisions only you can make",
+                            "Twenty minutes, and you leave with four questions for your next review.",
+                            f'<p class="pmeta">{counts}</p>', in_col=True)
+    return f"""{head}
 {_contents()}
 {k.orient(
     "The <strong>sponsor</strong>, the executive, the head of product or engineering: whoever owns the outcome "
@@ -898,6 +897,7 @@ def build(shell, urls: dict) -> str:
     body = ('<div class="cols two-col">' + _rail() + '<main id="main" class="numbered lead">'
             + _head(counts) + _picture() + _decisions(cards) + _knowing() + _rollout() + _first30()
             + _send(n_templates, n_prompts) + _reference() + "</main></div>")
+    body = re.sub(r'<div class="tw" tabindex="0"><table>.*?</table></div>', lambda m: render.stacked(m.group(0)), body, flags=re.S)
     desc = ("For whoever funds the work: the four decisions only you can make, where each falls on P0 to P3, "
             "the question to ask at your next review, and a test for each answer. Then the six-control "
             "check, ninety days and your first thirty.")

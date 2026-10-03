@@ -263,7 +263,7 @@ def hub(shell, role: dict) -> str:
                  "was checked. A date turns amber after sixty days."},
     ])
     body = (f'<div class="cols two-col">{rail}<main id="main" class="numbered fde">'
-            f'<header class="phead in-col"><p class="kicker">{E(H["eyebrow"])}</p><h1>{E(H["h1"])}</h1>'
+            f'<header class="phead in-col"><p class="eyebrow">{E(H["eyebrow"])}</p><h1>{E(H["h1"])}</h1>'
             f'<p class="lede">{E(H["lede"])}</p><p class="pmeta">{counts}</p></header>'
             f'{contents}{orient}{figure(role)}{what}{hats}{altitude}{clients}{craft}{toolsec}{career}{nextsec}'
             f'{sources}{foot}</main></div>')
@@ -361,7 +361,7 @@ def stage(shell, role: dict, st: dict) -> str:
 
     head_steps = w["steps"].format(n=NUM[len(steps)].capitalize(), signed=st["signed"])
     body = (f'<div class="cols two-col">{rail}<main id="main" class="fx-st">'
-            f'<header class="phead in-col"><p class="kicker">{E(w["eyebrow"].format(k=k + 1, n=len(stages)))}</p>'
+            f'<header class="phead in-col"><p class="eyebrow">{E(w["eyebrow"].format(k=k + 1, n=len(stages)))}</p>'
             f'<h1>{E(name)}</h1><p class="lede">{E(st["question"])}</p><p class="pmeta">{counts}</p></header>'
             f'{figure(role, st["id"])}{brief}'
             f'<div class="rolehead"><h2>{E(head_steps)}</h2>'

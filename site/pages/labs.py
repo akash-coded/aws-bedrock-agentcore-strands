@@ -451,7 +451,7 @@ def _others(lab: dict, page: bool = False) -> str:
 def others_page(lab: dict, shell, ctx: dict) -> str:
     """The replies behind the debrief's tables: each prompt as the lab shows it, then every other model's reply to it,
     and the lab's own two recordings for the tables' first column."""
-    o, hue = lab["debrief"]["others"], _phase(lab)[2]
+    o = lab["debrief"]["others"]
     groups, own, two = [], [], False
     for t in o["tables"]:
         comp, picks = _asked(lab, t["of"])
@@ -459,10 +459,11 @@ def others_page(lab: dict, shell, ctx: dict) -> str:
         groups.append(_prompt_box(lab, comp, picks) + "".join(_reply_box(r, comp["title"], r["id"]) for r in o["replies"] if r["of"] == t["of"]))
         own.append(_reply_box(lab["replies"][t["of"]], comp["title"], t["of"]))
     sent = "Each system prompt went with its message and nothing else." if two else "Each prompt was the whole message."
+    import render
+    head = render.page_head(f'Lab {lab["n"]} · {_E(lab["title"])} · the replies behind its debrief', _E(o["title"]),
+                            f'{_E(o["lead"])} {sent} Every reply is here as its model wrote it.', cls="lab-head")
     body = f"""<div class="wrap"><main id="main" class="page labpage">
-  <header class="lab-head"><p class="eyebrow" style="--c:var(--dg-{hue})">Lab {lab["n"]} · {_E(lab["title"])} · the replies behind its debrief</p>
-    <h1>{_E(o["title"])}</h1>
-    <p class="lede">{_E(o["lead"])} {sent} Every reply is here as its model wrote it.</p></header>
+  {head}
   <section class="lab-otherspage" aria-label="The tables and the replies">{_others(lab, page=True)}
     <h2>The replies, as the models wrote them</h2>
     <div class="lab-others-replies">{"".join(groups)}</div>
@@ -522,7 +523,7 @@ def _plain(lab: dict) -> str:
 
 
 def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
-    key, name, hue = _phase(lab)
+    key, name = _phase(lab)[:2]
     script = {k: lab[k] for k in ("slug", "title", "artefact", "files", "replies", "beats", "debrief") if k in lab}
     script["replies"] = {rid: {k: v for k, v in r.items() if k not in ("prompt", "system")} for rid, r in lab["replies"].items()}
     script["v"] = lab.get("v", 1)
@@ -532,12 +533,14 @@ def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
     script["debrief"] = dict(lab["debrief"], links=lesson + links + [tuple(x) for x in lab["debrief"].get("links", [])])
     if lab["debrief"].get("others"):                 # the part is copied from the reading version; the script needs its title
         script["debrief"]["others"] = {"title": lab["debrief"]["others"]["title"]}
+    import render
+    head = render.page_head(
+        f'Lab {lab["n"]} · {key} {name} · {_E(lab["who"])}', _E(lab["title"]), _E(lab["does"]),
+        f'<ul class="lab-facts"><li><b>{lab["minutes"]} minutes</b></li><li>You leave with <b>{_E(lab["makes"])}</b></li>'
+        f'<li>On the bench: <b>{_E(lab["tool"]["name"])}</b></li><li>Replies are recordings of a real model, dated</li></ul>',
+        cls="lab-head")
     body = f"""<div class="wrap"><main id="main" class="page labpage">
-  <header class="lab-head"><p class="eyebrow" style="--c:var(--dg-{hue})">Lab {lab["n"]} · {key} {name} · {_E(lab["who"])}</p>
-    <h1>{_E(lab["title"])}</h1>
-    <p class="lede">{_E(lab["does"])}</p>
-    <ul class="lab-facts"><li><b>{lab["minutes"]} minutes</b></li><li>You leave with <b>{_E(lab["makes"])}</b></li>
-      <li>On the bench: <b>{_E(lab["tool"]["name"])}</b></li><li>Replies are recordings of a real model, dated</li></ul></header>
+  {head}
   <div id="lab" class="lab" hidden></div>
   <section class="lab-plain prose" aria-label="This lab, as a document to read">{_plain(lab)}</section>
 </main></div>
@@ -561,12 +564,14 @@ def hub(labs: list[dict], shell, ctx: dict) -> str:
             rows.append(f'<li style="--c:var(--dg-{hue})"><a href="{item["slug"]}/">{inner}<span class="l-go">{item["minutes"]} min →</span></a></li>')
         else:
             rows.append(f'<li style="--c:var(--dg-{hue})"><div class="soon">{inner}<span class="l-go">being built</span></div></li>')
+    import render
+    head = render.page_head(
+        "The labs", "Do the work of an AI project with your own hands",
+        "Each lab is ten to fifteen minutes on one real job from the airline case: you assemble the prompt, run it, "
+        "read what a real model said, catch what is wrong, and make the calls only a person can make. You leave each one "
+        "with a document, and the next lab starts from it.")
     body = f"""<div class="wrap"><main id="main" class="page">
-  <header class="phead"><p class="eyebrow">The labs</p>
-    <h1>Do the work of an AI project with your own hands</h1>
-    <p class="lede">Each lab is ten to fifteen minutes on one real job from the airline case: you assemble the prompt, run it,
-    read what a real model said, catch what is wrong, and make the calls only a person can make. You leave each one
-    with a document, and the next lab starts from it.</p></header>
+  {head}
   <ol class="labs-how">
     <li><b>You assemble the prompt</b><span>From parts, the way a practised hand builds one. Every part is a choice, and the choice changes the reply.</span></li>
     <li><b>The reply is a recording</b><span>A real model's answer to that exact prompt, with its name and the date on it. Yours will differ; copy the prompt and try it.</span></li>

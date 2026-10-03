@@ -25,9 +25,7 @@
   .labs-list .l-n{order:-1}.labs-how{grid-template-columns:1fr;gap:18px}}
 
 /* ---- one lab ---- */
-.lab-head{padding:clamp(28px,4vw,52px) 0 clamp(24px,3vw,40px);border-bottom:1px solid var(--rule)}
-.lab-head h1{font-size:clamp(32px,4.2vw,52px);line-height:1.04;letter-spacing:-.04em;font-weight:620;margin:0 0 14px;max-width:18ch}
-.lab-head .lede{font-size:clamp(17px,1.5vw,19px);line-height:1.5;color:var(--ink2);max-width:58ch;margin:0}
+.lab-head{border-bottom:1px solid var(--rule)}             /* the shared head (render.page_head), ruled off the bench */
 .lab-facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin:22px 0 0;padding:0;list-style:none;font-size:13.5px;color:var(--soft)}
 .lab-facts li{margin:0;max-width:none}
 .lab-facts b{color:var(--ink2);font-weight:600}

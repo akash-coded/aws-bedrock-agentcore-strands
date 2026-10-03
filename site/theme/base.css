@@ -175,8 +175,6 @@ h4,.h4{font-size:14.5px;font-weight:650;margin:0 0 6px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 p{margin:0 0 14px;max-width:70ch}
 .lede{font-size:clamp(17px,2vw,19.5px);line-height:1.56;color:var(--ink2);max-width:66ch;margin-bottom:18px}
-.kicker{font-family:var(--f-mono);font-size:12.5px;font-weight:500;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.kicker::before{content:"";width:18px;height:1px;background:currentColor;opacity:.8;flex:none}
 strong,b{font-weight:650;color:var(--ink)}
 code{font-family:var(--f-mono);font-size:.875em;background:var(--rule2);padding:.12em .38em;
   border-radius:5px;border:1px solid var(--rule);color:var(--ink)}
@@ -866,6 +864,20 @@ a.md:hover b{color:var(--c)}
     linear-gradient(90deg,color-mix(in oklab,var(--ink) 16%,transparent),transparent) 0 0/14px 100% no-repeat scroll,
     linear-gradient(270deg,color-mix(in oklab,var(--ink) 16%,transparent),transparent) 100% 0/14px 100% no-repeat scroll,var(--paper)}
 @media (max-width:700px){.tw table{min-width:560px}.tw table:has(th:nth-child(4)){min-width:680px}.tw th,.tw td{padding:9px 12px}}
+/* a table on a phone outside a lesson (the lesson's own rules do the same): marked stack (render.stacked), one block
+   a row, each cell under its column's name; any table's cells closer at 420px and under, so a near miss fits (the
+   leadership's cycle report, four short columns, closer still: it fits a 320px phone as a table) */
+@media (max-width:600px){
+  div.tw.stack>table{min-width:0}
+  .tw.stack :is(table,tbody,tr,td){display:block;width:auto}
+  .tw.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .tw.stack tr{padding:11px 14px 12px;border-bottom:1px solid var(--rule2)}
+  .tw.stack tr:last-child{border-bottom:0}
+  .tw.stack td{padding:0;border:0;text-align:left;white-space:normal}
+  .tw.stack td:first-child{font-weight:650;color:var(--ink)}
+  .tw.stack td[data-h]:not(:first-child)::before{content:attr(data-h);display:block;margin:8px 0 2px;font:500 12px var(--f-mono);color:var(--soft)}
+}
+@media (max-width:420px){.tw th,.tw td{padding:9px 10px}.lead .rpt :is(th,td){padding-inline:6px}}
 .prose pre{background:var(--code-bg);color:var(--code-ink);padding:14px 16px;border-radius:var(--r-box);
   overflow-x:auto;font-size:13px;line-height:1.55;margin:0 0 20px}
 .prose pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
@@ -1362,6 +1374,7 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
 .rowa ol,.rowa ul{margin:0;padding-left:18px;display:grid;gap:5px}
 .rowa .try{margin:0;gap:6px}
 @media (max-width:900px){.rowh{grid-template-columns:1fr;gap:12px}}
+.phead.rowh{margin:0}
 
 
 /* ---- round N2: the hero question, the stats question, the role boundaries, the libraries, the models ---- */
@@ -1455,7 +1468,9 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
 
 .eyebrow{font-family:var(--f-mono);font-size:12.5px;font-weight:500;letter-spacing:.01em;color:var(--soft);margin:0 0 18px;
   display:flex;align-items:center;gap:10px;max-width:none}
-.eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.7}
+.eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.7;flex:none}
+/* a landing page's eyebrow (render.page_head): the page's accent, a role's own colour, 16px above the title */
+.phead .eyebrow{color:var(--accent);margin-bottom:16px}
 .btn.ghost{background:transparent;border-color:color-mix(in oklab,var(--ink) 22%,transparent)}
 .btn.ghost:hover{border-color:var(--ink);background:color-mix(in oklab,var(--ink) 5%,transparent)}
 .btn svg{width:15px;height:15px;fill:currentColor;flex:none}
@@ -1944,7 +1959,7 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 .phead .ba{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 0}
 .pmeta{display:flex;flex-wrap:wrap;gap:4px 22px;margin:22px 0 0;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);max-width:none}
 .pmeta span{white-space:nowrap}
-.pcols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,72px);align-items:center}
+.pcols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,72px);align-items:start}
 .pfig{margin:0;border-radius:20px;overflow:hidden;border:1px solid var(--rule);background:var(--paper)}
 .pfig svg{display:block;width:100%;height:auto}
 /* what the picture's keys stand for, as text under it: it wraps, and leaves the corner to the pause control */
@@ -1956,7 +1971,6 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
   stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:860px){.pcols{grid-template-columns:1fr}.pfig{max-width:520px}}
 /* headings on the long pages take the same face as the front */
-.rowh h1{font-size:clamp(32px,4.2vw,52px);line-height:1.04;letter-spacing:-.038em;font-weight:620;margin-bottom:18px}
 .lesson>h1,.lesson .phead h1{letter-spacing:-.035em;font-weight:620}
 /* the aside beside a page head: a list, not a box */
 .rowa{padding:4px 0 4px 22px;border:0;border-left:1px solid var(--rule);border-radius:0;background:none}
@@ -2380,6 +2394,7 @@ body .sw-top{left:auto;right:18px;bottom:70px}
   .lead .ladder li>span:last-child{grid-column:2}
   .lead .ladder .hinge{padding:10px 14px}
 }
+.lead .tw .rpt{min-width:0}
 .lead .capask{margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--ink);background:var(--rule2);border-radius:0 var(--r-in) var(--r-in) 0;
   font-size:15px;line-height:1.5;color:var(--ink2);max-width:none}
 

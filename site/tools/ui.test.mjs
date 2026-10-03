@@ -39,12 +39,18 @@
 //   A9   one heading scale: on every inner page every h2 is 27px at 620 at 1440, every h3 is 19.5px (a summary's
 //        title) or 18px (a subhead). The home page's bands, the lessons, the game and the lab's bench keep their own
 //   A12  no visible text is set in capitals by text-transform
+//   A2   one page head: on every landing page, at 1440 and 390, the eyebrow's text sits within 2px of where its
+//        variant's sits on the others (the full head, or the head in a column beside a rail); every eyebrow is
+//        written .eyebrow; the head's lede is 56 characters a line or fewer
+//   A3   crumbs that lead somewhere: one crumb is the page, the last; on a phone the crumb shown is a link back
+//   A5   tables that fit a phone: at 390 and 320 no table scrolls sideways (every fold opened), unless marked .wide
 //
-// A7, A8, A9 and A12 measure with every fold open (a step, a how-to, a reference), as a reader can open them.
+// A5, A7, A8, A9 and A12 measure with every fold open (a step, a how-to, a reference), as a reader can open them.
 // UI_CHECKS=<regex> runs only the checks whose ids match.
 //
 // A check is a small function over one run's measurements (CHECKS, near the end); what it reads is gathered
-// in the page by a collector of the same kind (COLLECTORS). A new check adds its collector and its function.
+// in the page by a collector of the same kind (COLLECTORS). A new check adds its collector and its function. A check
+// that compares pages with each other also has an `across` function, given every run it applies to.
 // Faults that live in a part another parcel replaces or owns are listed in KNOWN, with the owner; they are
 // printed, they do not fail, and an entry that no longer matches anything is reported so it can go.
 //
@@ -98,9 +104,8 @@ const STATES = [
 // workbench's pristine tool (not its sw- frame).
 const KNOWN = [
   { check: "A13", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
-  { check: "A14", state: /^home$/, match: /ol\.sc-rail/, owner: "home room, H1", why: "the hero's rail labels over the globe's glow: the rail is hidden and the hero redrawn" },
-  { check: "A6", state: /^(protocol|learn)$/, match: /^tr > td > a .*by .*div\.tw/, owner: "U4", why: "item 6: a table wider than a phone, whose focused link sits past the edge until the table stacks (A5)" },
-  { check: "A13", state: /^lesson-/, match: /section\.lm-try > details > summary/, owner: "LP2", why: "item 23: the lesson's \"Show the answer\" at 44px" },
+  { check: "A2", state: /^learn$/, match: /eyebrow's text top/, owner: "the lesson lane, learn.py's _rail",
+    why: "on a phone the tutorial's front page opens on its course list's fold, above its title, so its eyebrow sits 73px lower" },
   { check: "*", state: /^workbench$/, tool: true, owner: "U5", why: "the workbench's own faults, fixed in its source and exported (workbench.test.mjs)" },
   { check: "A8", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
   { check: "A7", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own parts (play/game.css, GAME.md): its role cards at 14px" },
@@ -140,8 +145,10 @@ function HELPERS(opt) {
   const text = (e, n = 40) => ((e.innerText || e.textContent || "").replace(/\s+/g, " ").trim() || e.getAttribute("aria-label") || "").slice(0, n);
   // the workbench is the pristine tool inside the site's frame, whose parts carry an sw- prefix
   const tool = (e) => { if (!framed) return false; const f = e.closest('[class^="sw-"],[class*=" sw-"],[id^="sw-"]'); return !f || f === DE; };
-  // visible: painted, on screen sideways, and not clipped to nothing by an ancestor
-  const memoV = new Map();
+  // visible: painted, on screen sideways, and not clipped to nothing by an ancestor. The memo holds while the folds
+  // stay as they are: a collector that opens or shuts them calls fresh(), which also lays the page out again, as
+  // the first checkVisibility() after a fold opens can answer for the page as it was
+  const memoV = new Map(), fresh = () => { memoV.clear(); void DE.offsetHeight; };
   const clippedAway = (e) => {
     for (let a = e; a && a !== DE; a = a.parentElement) {
       if (memoV.has(a)) { if (memoV.get(a)) return true; continue; }
@@ -173,7 +180,7 @@ function HELPERS(opt) {
     memoB.set(e, v); return v;
   };
   const opacity = (e) => { let op = 1; for (let a = e; a && a !== DE; a = a.parentElement) op *= +getComputedStyle(a).opacity; return op; };
-  return { DE, W, root, rgba, over, cr, hex, r1, sel, kind, text, tool, isVis, bgOf, opacity };
+  return { DE, W, root, rgba, over, cr, hex, r1, sel, kind, text, tool, isVis, bgOf, opacity, fresh };
 }
 
 // In the order they run: focus last, because focusing scrolls the page, its rails and its tables.
@@ -336,6 +343,7 @@ const COLLECTORS = {
     document.head.appendChild(st);
     const shut = [...root.querySelectorAll("details:not([open])")].filter((d) => d.querySelector(".blk pre,.codebox pre"));
     shut.forEach((d) => (d.open = true));
+    H.fresh();
     const out = { n: 0, over: [] };
     for (const p of root.querySelectorAll(".blk pre,.codebox pre")) {
       if (!isVis(p)) continue;
@@ -344,6 +352,7 @@ const COLLECTORS = {
       if (hidden > 1) out.over.push({ sel: sel(p), hidden, share: Math.round((100 * hidden) / p.scrollWidth), txt: text(p, 30), tool: H.tool(p) });
     }
     shut.forEach((d) => (d.open = false));
+    H.fresh();
     st.remove();
     return out;
   },
@@ -423,6 +432,7 @@ const COLLECTORS = {
     document.head.appendChild(st);
     const shut = [...root.querySelectorAll("details:not([open])")].filter((d) => !d.closest(".hd") && !tool(d));
     shut.forEach((d) => (d.open = true));
+    H.fresh();
     const out = { boxes: [], ctrls: [], heads: [], caps: [], n: { boxes: 0, ctrls: 0, heads: 0, caps: 0 } };
     // a corner as px (a percentage is of the shorter side), and whether a box is drawn at all
     const corners = (cs, r) => ["TopLeft", "TopRight", "BottomRight", "BottomLeft"].map((c) => {
@@ -465,6 +475,51 @@ const COLLECTORS = {
       }
     }
     shut.forEach((d) => (d.open = false));
+    H.fresh();
+    st.remove();
+    return out;
+  },
+
+  // A2: the page head, its eyebrow's text top on the page, any eyebrow written .kicker, its lede in characters
+  pagehead(H) {
+    const ph = document.querySelector("main .phead"), kicker = document.querySelectorAll(".kicker").length;
+    if (!ph) return { none: true, eyebrow: null, kicker };
+    const ey = ph.querySelector(".eyebrow,.kicker"), lede = ph.querySelector(".lede");
+    const top = (e) => { const w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.nodeValue.trim() ? 1 : 3) });
+      const n = w.nextNode(), rg = document.createRange(); rg.selectNodeContents(n); return rg.getClientRects()[0].top + scrollY; };
+    let ch = 0;
+    if (lede) { const cs = getComputedStyle(lede), c = document.createElement("canvas").getContext("2d");
+      c.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`; ch = c.measureText("0").width; }
+    return { variant: ph.classList.contains("in-col") ? "in a column" : "full", eyebrow: ey ? H.r1(top(ey)) : null,
+      kicker, lede: lede && ch ? H.r1(lede.getBoundingClientRect().width / ch) : null };
+  },
+
+  // A3: the breadcrumbs, how many say they are the page, and the ones a reader can see
+  crumbtrail(H) {
+    const nav = document.querySelector("nav.crumbs");
+    if (!nav) return null;
+    const lis = [...nav.querySelectorAll("li")];
+    return { current: nav.querySelectorAll("[aria-current]").length, last: !!lis.length && !!lis[lis.length - 1].querySelector("[aria-current]"),
+      shown: lis.filter((li) => H.isVis(li)).map((li) => ({ link: !!li.querySelector("a[href]"), cur: !!li.querySelector("[aria-current]"), txt: H.text(li, 30) })) };
+  },
+
+  // A5: every table, with every fold opened (not the top bar's lists or the drawer), against its own box
+  tables(H) {
+    const st = document.createElement("style");
+    st.textContent = "*,*::before,*::after{transition:none!important}::details-content{transition:none!important}";
+    document.head.appendChild(st);
+    const shut = [...H.root.querySelectorAll("details:not([open])")].filter((d) => !d.closest(".hd") && !H.tool(d));
+    shut.forEach((d) => (d.open = true));
+    H.fresh();
+    const out = { n: 0, over: [] };
+    for (const t of H.root.querySelectorAll(".tw")) {
+      if (!H.isVis(t) || t.matches(".wide")) continue;
+      out.n++;
+      const over = t.scrollWidth - t.clientWidth;
+      if (over > 1) out.over.push({ sel: H.sel(t), over, w: H.r1(t.clientWidth), cols: t.querySelectorAll("thead th").length, txt: H.text(t.querySelector("th,td") || t, 24), tool: H.tool(t) });
+    }
+    shut.forEach((d) => (d.open = false));
+    H.fresh();
     st.remove();
     return out;
   },
@@ -603,6 +658,31 @@ const CHECKS = [
       .map((h) => ({ ...h, key: `${h.sel} ("${h.txt}"): ${h.fs}px at ${h.fw}` })) }) },
   { id: "A12", what: "no visible text set in capitals by text-transform", needs: { parts: WIDTHS },
     fn: (r) => ({ n: r.parts.n.caps, faults: r.parts.caps.map((c) => ({ ...c, key: `${c.sel} ("${c.txt}"): text-transform uppercase` })) }) },
+  { id: "A2", what: "one page head: each variant's eyebrow at one height (2px), every eyebrow .eyebrow, a lede of 56 characters or fewer",
+    needs: { pagehead: [1440, 390] }, states: /^(role-pm|protocol|templates|prompts|models|frameworks|pictures|tools|tool-desk|labs|lab-grow|learn|method)$/,
+    fn: (r) => r.pagehead.none ? { n: 1, faults: [{ key: "no page head (main .phead)" }] } : { n: 1, faults: [
+      ...(r.pagehead.kicker ? [{ key: `${r.pagehead.kicker} eyebrow written .kicker` }] : []),
+      ...(r.pagehead.eyebrow === null ? [{ key: "the head has no eyebrow" }] : []),
+      ...(r.pagehead.lede > 56.5 ? [{ key: `the lede runs ${r.pagehead.lede} characters a line` }] : [])] },
+    // each variant's eyebrow, at each width, against the middle of its variant's values there
+    across: (rows) => {
+      const by = new Map();
+      for (const r of rows) if (r.rec.pagehead && r.rec.pagehead.eyebrow !== null) {
+        const k = r.rec.pagehead.variant + "|" + r.width; if (!by.has(k)) by.set(k, []); by.get(k).push(r); }
+      const out = [];
+      for (const [k, rs] of by) {
+        const v = rs.map((r) => r.rec.pagehead.eyebrow).sort((a, b) => a - b), mid = v[v.length >> 1];
+        for (const r of rs) if (Math.abs(r.rec.pagehead.eyebrow - mid) > 2)
+          out.push({ state: r.state.name, width: r.width, theme: r.theme, key: `the eyebrow's text top is ${r.rec.pagehead.eyebrow}px; the ${k.split("|")[0]} head's is ${mid}px` });
+      }
+      return out; } },
+  { id: "A3", what: "one crumb is the page, the last; on a phone the crumb shown leads back", needs: { crumbtrail: [1440, 390, 320] },
+    fn: (r, state, width) => !r.crumbtrail ? { n: 0, faults: [] } : { n: 1, faults: [
+      ...(r.crumbtrail.current !== 1 || !r.crumbtrail.last ? [{ key: `${r.crumbtrail.current} crumbs say they are the page${r.crumbtrail.last ? "" : ", and the last does not"}` }] : []),
+      ...(width < 600 ? r.crumbtrail.shown.filter((c) => !c.cur && !c.link).map((c) => ({ key: `on a phone the crumb "${c.txt}" is not a link` })) : []),
+      ...(width < 600 && !r.crumbtrail.shown.some((c) => c.link) ? [{ key: "on a phone no crumb leads back" }] : [])] } },
+  { id: "A5", what: "at 390 and 320 no table scrolls sideways, every fold opened, unless marked .wide", needs: { tables: [390, 320] },
+    fn: (r) => ({ n: r.tables.n, faults: r.tables.over.map((t) => ({ ...t, key: `${t.sel} ("${t.txt}", ${t.cols} columns): ${t.over}px past its ${t.w}px box` })) }) },
 ].filter((c) => !PICK || PICK.test(c.id));
 
 // ------------------------------------------------------------------ the browser: one Chrome, a tab per worker
@@ -758,10 +838,12 @@ try {
   for (const c of CHECKS) {
     const groups = new Map(), held = new Map();
     let n = 0;
+    const applied = [];
     for (const r of results) {
       if (r.rec.error || !Object.entries(c.needs).every(([k, ws]) => !ws.includes(r.width) || r.rec[k])) continue;
       if (!Object.entries(c.needs).some(([, ws]) => ws.includes(r.width)) || (c.states && !c.states.test(r.state.name))) continue;
       const out = c.fn(r.rec, r.state, r.width);
+      applied.push(r);
       n += out.n;
       for (const f of out.faults) {
         const k = known(c.id, { ...f, state: r.state.name });
@@ -770,6 +852,12 @@ try {
         if (!into.has(key)) into.set(key, []);
         into.get(key).push(`${r.width} ${r.theme}`);
       }
+    }
+    for (const f of c.across ? c.across(applied) : []) {
+      const k = known(c.id, f), into = k ? held : groups, key = (k ? `[${k.owner}] ` : "") + `${f.state}: ${f.key}`;
+      if (k) used.add(k);
+      if (!into.has(key)) into.set(key, []);
+      into.get(key).push(`${f.width} ${f.theme}`);
     }
     const bad = groups.size + (broken.length ? 1 : 0);
     if (bad) failed++;
