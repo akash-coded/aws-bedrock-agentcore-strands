@@ -1,81 +1,78 @@
-"""The home page's chooser band: which agentic methods should your team use?
+"""The home page's chooser band: which agentic methods should your team use? (verdict-home 1.3)
 
-:func:`band` builds the band, its heading, its line, its body and its links. The chooser itself, one pair
-every team needs and three yes-or-no questions that each add one method (verdict-home 1.3), is parcel H4's.
-Until it lands the body is the table it replaces, below: each building method as a row of bars under the
-four phases, and a last row for what the lifecycle adds that no method carries. The lifecycle and a method
-are different kinds of thing, so the last row is words, not a fifth bar. Every bar has a text reading.
+:func:`band` answers the heading's question on the same screen, in words: the pair every team needs, then three
+yes-or-no questions, each adding one method when your work matches it. With nothing chosen both answers to every
+question show, so the band is the whole rule for a reader who never touches it, on paper and without script. A
+choice only hides the answer that does not apply, in plain CSS (``:has()``): no script, nothing stored, nothing
+sent, no score.
+
+The fourth question is the SkyWays PDLC's. Its rule is drawn in the four phase hues, so the lifecycle reads as the
+frame round the methods and never as a fifth one. The names and their lessons come from
+``content/library/frameworks.json`` through the map's checked loader (pages/spine.py), so the two bands always
+name the same things; each rule's words rest on the lesson noted beside it.
 """
 from __future__ import annotations
 
 from html import escape as _E
 
-# How far each method reaches along the spine: 2 covers the phase, 1 touches it lightly, 0 says nothing,
-# "x" is a stage this manual adds to the method (extended BMAD). The same reading as the frameworks
-# page's plug board, which carries the detail.
-COVERAGE = [
-    ("AI-DLC", "learn/what-is-ai-dlc/", "From AWS, built in bolts of days", (2, 2, 2, 2)),
-    ("BMAD Method", "learn/what-is-the-bmad-method/", "AI personas, working as an agile team", (2, 2, 2, "x")),
-    ("Spec-driven development", "learn/what-is-spec-driven-development/", "The spec is what you maintain", (1, 2, 2, 1)),
-    ("AIDD", "learn/what-is-aidd/", "The daily craft with a coding agent", (0, 0, 2, 0)),
+# The pair every team needs, by the method's "name" in frameworks.json, with its one line. The data's "when":
+# spec-driven development "Always. It is the backbone", AIDD "Every day, by everyone who writes code". The
+# spec-driven lesson's FAQ: "A markdown file in the repository, read by path from the agent's context file, is
+# spec-driven development". The AIDD lesson: a context file, a story file per unit of work, review set by risk.
+PAIR = [
+    ("SDD", "Keep one spec that people review and agents build from. Kiro, Spec Kit or a markdown file will do."),
+    ("AIDD", "Give every coding agent a context file, a story file per task, and review by risk."),
 ]
-# What this manual adds in each phase, in words a newcomer can read (the table's last row on the home page;
-# the frameworks page keeps the terms of art, illos.ADDS).
-HOME_ADDS = [
-    "How much the agent may do alone, decided before anything is built",
-    "A pass mark for each kind of case and a limit on each action, agreed at sign-off",
-    "Proof that it meets the pass mark before real users see it",
-    "One report of what it saved and what it cost, which opens the next round",
+# Three questions, each adding one method: (the radios' name, the question, the method, its Yes line, its No line).
+ASK = [
+    # what-is-the-bmad-method.md, "When BMAD pays": across several teams and on audited work "Worth it"; for one
+    # team "Optional: Spec-driven development and the gates usually suffice"; "The trail is the evidence an auditor
+    # asks for".
+    ("q-bmad", "Does the work cross teams, or does an auditor read it?", "BMAD",
+     "add its persona trail. Each hand-off is a versioned document, so decisions stay explicit and an auditor can "
+     "read them.",
+     "leave it out. For one team, spec-driven development and the gates usually suffice."),
+    # The data's "when": "When the depth of a change is unknown up front"; what-is-ai-dlc.md: only the stages a change
+    # needs, in bolts of hours or days; how-much-process-does-a-change-need.md: four questions about its risk.
+    ("q-aidlc", "Is it hard to tell how deep a change goes before you start?", "AI-DLC",
+     "add AI-DLC. Run only the stages each change needs, in bolts of hours or days.",
+     'size each change yourself, by its risk, with <a href="learn/how-much-process-does-a-change-need/">four '
+     'questions</a>.'),
+    # The names lesson's FAQ: "Usually two of them ... the agentic PDLC for the product decisions those methods leave
+    # open whenever the shipped software calls a model"; what-is-ai-dlc.md: "If your shipped software only runs
+    # deterministic code that an agent wrote, AI-DLC may be most of what you need. If it calls a model, you need the
+    # rest"; one-lifecycle-for-every-method.md, step 5: hold the phase exits, the hard gate above all.
+    ("q-pdlc", "Does the product you ship call a model to rank, draft, decide or act?", "pdlc",
+     "put the SkyWays PDLC around it. Decide what the agent may do alone, agree a pass mark for each kind of case, "
+     "prove it before real users see it, and report what it saved and what it cost.",
+     "a building method is most of what you need. Still sign the spec before anything is built."),
 ]
 
 
 def band() -> str:
-    """The home page's third band (verdict-home 1.3). The phases are render's."""
-    import render
+    """The home page's third band (verdict-home 1.3)."""
+    from pages import spine
+    d = spine.load()
+    by = {m["name"]: m for m in d["methods"]} | {"pdlc": d["pdlc"]}
+
+    def head(key: str) -> str:
+        return f'<h3><a href="{by[key]["lesson"]}">{_E(by[key]["title"])}</a></h3>'
+
+    cols = ['<div class="pk-c"><p class="pk-q">Every team that builds with coding agents, every day</p>'
+            + "".join(f"{head(k)}<p>{line}</p>" for k, line in PAIR) + "</div>"]
+    for name, q, key, yes, no in ASK:
+        cols.append(f'<fieldset class="pk-c{" me" if key == "pdlc" else ""}"><legend class="pk-q">{q}</legend>'
+                    f'<span class="yn"><label><input type="radio" name="{name}" value="y">Yes</label> '
+                    f'<label><input type="radio" name="{name}" value="n">No</label></span>'
+                    f'{head(key)}<p class="y"><b>Yes:</b> {yes}</p><p class="n"><b>No:</b> {no}</p></fieldset>')
+    body = "\n    ".join(cols)
     return f"""<section class="band" id="choose" aria-labelledby="h-choose"><div class="wrap">
   <header class="sec-h split"><p class="eyebrow">Your team</p>
     <h2 id="h-choose">Which agentic methods should your team use?</h2>
     <p>Every team needs the first pair. Add each of the others when your work matches its question.</p></header>
-  <div>{coverage(render.PHASES, COVERAGE, HOME_ADDS, "learn/what-is-the-agentic-pdlc/")}</div>
+  <div class="pk">
+    {body}
+  </div>
   <p class="links"><a class="more" href="learn/how-much-process-does-a-change-need/">How much process a change needs <i aria-hidden="true">→</i></a>
     <a class="more" href="method/">The four phases on one page <i aria-hidden="true">→</i></a></p>
 </div></section>"""
-
-
-READ = {2: "covers this phase", 1: "touches this phase lightly", 0: "says nothing here",
-        "x": "extended in this manual: learn and adjust, into the next plan"}
-# The table's own last row, in plain words: four decisions no method makes for you.
-
-
-def coverage(phases: list[tuple], methods: list[tuple], adds: list[str], core_href: str) -> str:
-    """Four methods as bars along the four phases, then what the spine adds. A real table, so a screen
-    reader gets rows and columns; the bars are its cells."""
-    head = "".join(
-        f'<th scope="col" style="--c:var(--dg-{hue})"{" class=gated" if key == "P2" else ""}>'
-        f'<a href="{href}"><span class="c-key">{key}</span><span class="c-name">{name}</span></a></th>'
-        for key, name, _q, hue, href in phases)
-    rows = []
-    for name, href, line, reach in methods:
-        cells = "".join(
-            f'<td style="--c:var(--dg-{phases[i][3]})"{" class=gated" if i == 2 else ""}>'
-            f'<i class="bar r{r}"></i><span class="vh">{READ[r]}</span></td>'
-            for i, r in enumerate(reach))
-        rows.append(f'<tr style="--r:{len(rows)}"><th scope="row"><a href="{href}">{_E(name)}</a>'
-                    f'<small>{_E(line)}</small></th>{cells}</tr>')
-    added = "".join(f'<td style="--c:var(--dg-{phases[i][3]})"{" class=gated" if i == 2 else ""}>{_E(a)}</td>'
-                    for i, a in enumerate(adds))
-    rows.append(f'<tr class="adds"><th scope="row"><a href="{core_href}">What this manual adds</a>'
-                f'<small>Four decisions no method makes for you</small></th>{added}</tr>')
-    # the same four lines as a list, for a screen too narrow to hold them in columns
-    listed = "".join(f'<li style="--c:var(--dg-{phases[i][3]})"><b>{phases[i][0]} {phases[i][1]}</b>{_E(a)}</li>'
-                     for i, a in enumerate(adds))
-    narrow = (f'<div class="cover-adds"><p><a href="{core_href}">What this manual adds</a>'
-              f'<small>Four decisions no method makes for you</small></p><ol>{listed}</ol></div>')
-    return ('<div class="cover"><table><caption class="vh">Which phases each agentic method covers, and what the '
-            'SkyWays PDLC adds in each</caption>'
-            f'<thead><tr><th scope="col" class="corner"><span class="vh">Method</span></th>{head}</tr></thead>'
-            f'<tbody>{"".join(rows)}</tbody></table></div>{narrow}'
-            '<p class="cover-key"><span><i class="bar r2"></i>covers the phase</span>'
-            '<span><i class="bar r1"></i>touches it lightly</span>'
-            '<span><i class="bar rx"></i>extended in this manual</span>'
-            '<span><i class="gatekey"></i>sign-off: nothing is built until it is signed. The lessons call it the hard gate.</span></p>')

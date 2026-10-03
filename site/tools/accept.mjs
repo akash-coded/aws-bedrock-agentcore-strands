@@ -700,7 +700,121 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
 
   // home · H4 chooser: #choose
   async function bandH4(w, h) {
-    return [];
+    // At 1440 x 900 with the eyebrow under the header and nothing chosen, the heading, its line and all four columns
+    // with both their lines end inside the screen. Each of the three questions is a fieldset whose legend is the
+    // question, with two radios; with nothing chosen every Yes and No line shows. Yes hides the No line; No hides the
+    // Yes line and turns the method's name to --soft, 4.5:1 or more on the page; a radio reached by the keyboard
+    // rings its label; nothing is written to storage. At 390 each Yes and No is 44px tall or more. Every text is 4.5:1 in both
+    // themes, a greyed name included. On paper there are no toggles and both lines show, whatever was chosen.
+    const out = [];
+    const SEE = `(async () => {
+      await document.fonts.ready;
+      const band = document.getElementById('choose'), pk = band && band.querySelector('.pk');
+      if (!pk) return null;
+      scrollTo({ top: band.querySelector('.eyebrow').getBoundingClientRect().top + scrollY - 84, behavior: 'instant' });
+      await new Promise((r) => setTimeout(r, 150));
+      const sets = [...pk.querySelectorAll('fieldset')], vis = (e) => !!e && e.checkVisibility();
+      const ends = [...pk.children, band.querySelector('h2'), band.querySelector('.sec-h p:not(.eyebrow)')].map((e) => e.getBoundingClientRect().bottom);
+      return { bottom: Math.round(Math.max(...ends)), over: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        cols: pk.children.length, sets: sets.length,
+        legends: sets.filter((f) => f.firstElementChild?.tagName === 'LEGEND' && f.querySelectorAll('input[type=radio]').length === 2).length,
+        both: sets.filter((f) => vis(f.querySelector('.y')) && vis(f.querySelector('.n'))).length,
+        toggles: sets.filter((f) => vis(f.querySelector('.yn'))).length,
+        targets: [...pk.querySelectorAll('.yn label')].map((l) => Math.round(l.getBoundingClientRect().height)),
+        small: [...band.querySelectorAll('*')].filter((e) => vis(e) && [...e.childNodes].some((t) => t.nodeType === 3 && t.nodeValue.trim())
+          && parseFloat(getComputedStyle(e).fontSize) < 11).map((e) => e.textContent.trim().slice(0, 30)) };
+    })()`;
+    // the colour helpers the contrast checks share: a colour painted on black and on white gives its rgb and alpha
+    const HELP = `const cv = document.createElement('canvas'); cv.width = cv.height = 1;
+      const cx = cv.getContext('2d', { willReadFrequently: true });
+      const paint = (base, c) => { cx.globalCompositeOperation = 'copy'; cx.fillStyle = base; cx.fillRect(0, 0, 1, 1);
+        cx.globalCompositeOperation = 'source-over'; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1); return cx.getImageData(0, 0, 1, 1).data; };
+      const rgba = (c) => { const k = paint('#000', c), w = paint('#fff', c), a = Math.max(0, Math.min(1, 1 - (w[0] - k[0] + w[1] - k[1] + w[2] - k[2]) / 765));
+        return a > 0.004 ? [k[0] / a, k[1] / a, k[2] / a, a] : [0, 0, 0, 0]; };
+      const over = (t, u) => [0, 1, 2].map((i) => t[i] * t[3] + u[i] * (1 - t[3])).concat(1);
+      const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+      const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+      const under = (e, x, y) => { let bg = [255, 255, 255, 1];
+        for (const el of document.elementsFromPoint(x, y).reverse()) { const c = rgba(getComputedStyle(el).backgroundColor); if (c[3] > 0) bg = over(c, bg); if (el === e) break; }
+        return bg; };`;
+    const ACT = `(async () => {
+      ${HELP}
+      const stored = () => JSON.stringify([Object.entries(localStorage), Object.entries(sessionStorage), document.cookie]), before = stored();
+      const f = document.querySelector('#choose fieldset'), yes = f.querySelector('[value=y]'), no = f.querySelector('[value=n]');
+      const shown = (s) => f.querySelector(s).checkVisibility(), wait = () => new Promise((r) => setTimeout(r, 60));
+      f.scrollIntoView({ block: 'center' }); await wait();
+      const o = {};
+      no.click(); await wait();
+      o.no = [shown('.y'), shown('.n')];
+      const a = f.querySelector('h3 a'), probe = document.createElement('i');
+      probe.style.color = 'var(--soft)'; f.append(probe);
+      o.soft = getComputedStyle(a).color === getComputedStyle(probe).color; probe.remove();
+      const q = a.getBoundingClientRect();
+      o.softRatio = +cr(over(rgba(getComputedStyle(a).color), under(a, q.left + q.width / 2, q.top + q.height / 2)), under(a, q.left + q.width / 2, q.top + q.height / 2)).toFixed(2);
+      yes.click(); await wait();
+      o.yes = [shown('.y'), shown('.n')];
+      no.click(); await wait();                         // left on No, for the paper and contrast checks
+      o.stored = stored() !== before;
+      return o;
+    })()`;
+    const PAPER = `[...document.querySelectorAll('#choose fieldset')].map((f) => !f.querySelector('.yn').checkVisibility() && f.querySelector('.y').checkVisibility() && f.querySelector('.n').checkVisibility()).every(Boolean)`;
+    const CONTRAST = (light) => `(async () => {
+      if (${light}) document.documentElement.setAttribute('data-theme', 'light');
+      await document.fonts.ready;
+      ${HELP}
+      const band = document.getElementById('choose'), low = [], done = new Set();
+      const top = band.getBoundingClientRect().top + scrollY, end = top + band.offsetHeight;
+      for (let y = top - 64; y < end; y += innerHeight - 140) {
+        scrollTo({ top: y, behavior: 'instant' });
+        await new Promise((r) => setTimeout(r, 80));
+        const tw = document.createTreeWalker(band, NodeFilter.SHOW_TEXT, { acceptNode: (t) => (t.nodeValue.trim() ? 1 : 3) });
+        for (let t = tw.nextNode(); t; t = tw.nextNode()) {
+          if (done.has(t)) continue;
+          const e = t.parentElement, rg = document.createRange(); rg.selectNodeContents(t);
+          const rr = rg.getClientRects()[0];
+          if (e.closest('.vh') || !e.checkVisibility({ opacityProperty: true, visibilityProperty: true }) || !rr || rr.width < 2) { done.add(t); continue; }
+          if (rr.top < 70 || rr.bottom > innerHeight - 4) continue;
+          done.add(t);
+          const bg = under(e, rr.left + rr.width / 2, rr.top + rr.height * 0.55), ratio = cr(over(rgba(getComputedStyle(e).color), bg), bg);
+          if (ratio < 4.5) low.push(ratio.toFixed(2) + ':1, "' + t.nodeValue.trim().slice(0, 28) + '"');
+        }
+      }
+      return low;
+    })()`;
+    try {
+      const m = await evaluate(SEE);
+      if (!m) return ["no chooser (.pk) in #choose"];
+      if (m.cols !== 4 || m.sets !== 3 || m.legends !== 3) out.push(`${m.cols} columns and ${m.legends} of ${m.sets} questions as a fieldset with a legend and two radios; four columns and three such questions expected`);
+      if (m.both !== m.sets) out.push(`with nothing chosen, ${m.sets - m.both} questions do not show both their lines`);
+      if (m.toggles !== m.sets) out.push(`${m.toggles} of ${m.sets} questions show their Yes and No`);
+      if (m.over > 0) out.push(`the page scrolls sideways by ${m.over}px`);
+      if (m.small.length) out.push(`text under 11px: ${m.small.slice(0, 3).join("; ")}`);
+      if (w >= 1440 && m.bottom > h) out.push(`with the eyebrow under the header the chooser ends at ${m.bottom}px, past the ${h}px screen`);
+      if (w < 600 && m.targets.some((t) => t < 44)) out.push(`a Yes or No is ${Math.min(...m.targets)}px tall; 44 on a phone`);
+      // the focus ring, reached as a reader reaches it: a Tab from the link before the first question (a script's
+      // focus() does not count as the keyboard, so it would not show the ring)
+      await evaluate(`(() => { const a = [...document.querySelectorAll('#choose .pk-c:first-child a')].pop(); a.scrollIntoView({ block: 'center' }); a.focus(); return true; })()`);
+      for (const type of ["keyDown", "keyUp"]) await send("Input.dispatchKeyEvent", { type, key: "Tab", code: "Tab", windowsVirtualKeyCode: 9, nativeVirtualKeyCode: 9 });
+      await sleep(100);
+      if (!(await evaluate(`(() => { const e = document.activeElement, l = e && e.type === 'radio' && e.closest('#choose label'); if (!l) return false;
+        const cs = getComputedStyle(l); return cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 2; })()`))) out.push("a radio reached by the keyboard shows no ring round its label");
+      const a = await evaluate(ACT);
+      if (a.no.join() !== "false,true") out.push("No does not leave the No line alone");
+      if (a.yes.join() !== "true,false") out.push("Yes does not leave the Yes line alone");
+      if (!a.soft || a.softRatio < 4.5) out.push(`after No the method's name is ${a.soft ? "" : "not "}--soft, at ${a.softRatio}:1`);
+      if (a.stored) out.push("a choice wrote to storage or a cookie");
+      for (const light of [false, true]) {
+        const low = await evaluate(CONTRAST(light));
+        if (low.length) out.push(`${light ? "light" : "dark"}: under 4.5:1: ${low.slice(0, 4).join("; ")}`);
+      }
+      await send("Emulation.setEmulatedMedia", { media: "print", features: [{ name: "prefers-color-scheme", value: "dark" }] });
+      await sleep(150);
+      if (!(await evaluate(PAPER))) out.push("on paper, after a choice, a toggle shows or a line is hidden");
+      await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
+    } catch (e) {
+      out.push("the chooser's checks could not run: " + e.message.slice(0, 160));
+    }
+    return out;
   }
   // end of home · H4
 
