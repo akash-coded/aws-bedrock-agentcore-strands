@@ -928,6 +928,20 @@ case's pain line word for word, the search index and `llms.txt` say the FDE's ar
 pages, and the loop count is right everywhere: two loops run backwards (cost P3 to P1, incident P3 to P0) and
 three have nobody waiting, governance among them.
 
+**The last pass.** Five final readers, each on one part of the site, fixed what they found rather than
+reporting it. On the FDE guide, step 5 now opens the pattern log that step 10 relies on, the handover pack
+gives the desk's overrides an owner, and the field guide lesson's map draws the shadow run in Build and
+Prove, as step 7 does. The social cards were shot again from the content: the home card counts six roles,
+55 lessons, 52 templates and 146 prompts, the library cards say where their counts live, and the guide, the
+simulator, the workbench, the labs, the tool guides and the picture pack each have a card of their own, 82
+in all, set in the site's own fonts. The drawer's slide-in, declared on the closed menu, had kept Chrome
+drawing a frame on every tick after the hero rested; it now belongs to the open menu, so a resting page
+draws nothing, and a later visit's seventy seconds on a slowed phone cost 22.6 s of main thread against
+24.3 s. The hero's pause control is 44px at every width, the roles band reads the leadership page's
+reading time from the built page (25 minutes), the engineering lead's line is the same plain line
+everywhere, the method page counts five delivery roles, and three lessons' summaries, pictures and FAQ say
+what their steps say.
+
 **Bytes.** Sketch paths are written from the point before: the 31 pages with a sketch went from 547.6 to 511.1
 KB gzipped, 1.18 KB a page, and every sketch draws the same pixels. The home page's HTML grew from 13.0 to 19.1
 KB with its four drawings, the map, the chooser, the library and the close, under the 21 KB it is held to, and
@@ -1044,10 +1058,6 @@ line).
 - The wiki's generated copies follow at the next export: `Journey-Solution-Architect.md` and `Journey-QA-Lead.md`
   (`site/wiki_export.py`; the QA lead's still says 10pp and "absent from the code"), `Mental-Models.md`
   (`site/export_models.py`; "thirty points") and `Start-Here.md` (`site/learn_export.py`); then the Wiki sync.
-- The social cards were not shot again this round. The home page's still draws the earlier hero's aircraft
-  (the council refused redrawing it as the rest frame in Python, which would drift from the canvas) and
-  predates the FDE guide's counts; the QA lead's carries its old line; and the templates and prompts cards say
-  every one "in the manual", where those pages hold the five journey roles' and point to the guide for the rest.
 - The sketch lint's floor (`sketch.LABEL_MIN`, 54 units) is 12.6px in a 320px phone's 280px column; 56 would be
   13.1px. No sketch is under 58 now. Its 6,500-byte budget no longer binds either: with paths written from the
   point before, the largest sketch is 3,605 bytes.
@@ -1063,18 +1073,7 @@ line).
 - `.step{overflow:hidden}` clips text too wide for a step, so no sideways check can see it.
 - On a phone the method map draws a method's ends as bars without their words; only the screen reader's
   sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
-- The hero's pause control is 44px on a phone now, and still 30px at desktop widths, where every other button
-  is 36, 43 or 51px; `ui.test.mjs` lists it as known.
-- The field guide lesson's map (`pages/mapspecs.py`) draws "Shadow their staff" in its P3 band, where the guide
-  runs the shadow in step 7, Deliver's P2, and the lesson's list of moves now says so.
 - `play/game.js` still calls the thirteen choices "calls", where the simulator's page says "decisions".
-- After the hero rests, the top bar keeps Chrome producing a main frame on every tick at 390 by 844 with motion
-  allowed: about 4.5% of the main thread at 4x, 1.8 s of the later visit's 24.5 s on the performance sheet, and
-  most of why its two minute bars are met by only 0.3 and 0.2 s. Hiding `header.hd` stops it, and under reduced
-  motion the page is idle. For whoever owns the top bar: find what asks for frames, then run the minute again.
-- Pass 18's section mark on `/learn/ai-dlc-for-forward-deployed-engineers/` failed once at 0% and 25% in the
-  review's narrowed gate run, as the first page a cold Chrome loaded, and was not re-run there; a direct probe
-  marked the right section.
 - `theme/hero.js` is 10,143 bytes gzipped, 97 under its 10 KB budget.
 - A filled button prints near-white on white in Chrome's print preview (the hero's, the tutorial's and the
   simulator's); only the close's button has a print rule.

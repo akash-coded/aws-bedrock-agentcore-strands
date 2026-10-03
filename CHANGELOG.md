@@ -135,6 +135,17 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   two runs never drive one browser
 
 ### Fixed
+- A resting home page kept Chrome drawing a frame on every tick, because the drawer's slide-in was declared on
+  the closed menu; it now belongs to the open one, and a resting page draws nothing
+  ([`site/theme/base.css`](site/theme/base.css))
+- Every landing page has a social card that says what the page says: 82 cards, shot from the content in the
+  site's own fonts, six of them new (the FDE guide, the simulator, the workbench, the labs, the tool guides and
+  the picture pack) ([`site/pages/ogcards.py`](site/pages/ogcards.py))
+- The FDE guide's step 5 opens the pattern log step 10 relies on, its handover pack gives the desk's overrides
+  an owner, and the field guide lesson's map draws the shadow run where step 7 runs it
+- The hero's pause control is 44px at every width; the roles band reads the leadership page's reading time
+  from the built page; the method page counts five delivery roles; three lessons' summaries, pictures and FAQ
+  agree with their steps
 - The engineering lead had two lines: the home page and the Roles menu said "From a written task to code
   that ships", its own page and social card "From a story file to a shipped bolt". The plain line is now the
   role's own, everywhere ([`site/content/roles/_src/engineering_a.py`](site/content/roles/_src/engineering_a.py))
