@@ -18,7 +18,6 @@
   --ok:#2F6B57; --warn:#945B0B; --stop:#8C3B3B;
   --sw-ink:#16150F; --sw-on:#FFFFFF;
   --ease:cubic-bezier(.22,1,.36,1);
-  /* a spring, for small things the reader pressed or that change shape: 2.8% past its mark, then home */
   --t-fast:150ms; --t-base:250ms; --t-slow:400ms; --t-draw:600ms;
   --wrap:1280px; --rail:248px; --toc:208px; --gut:24px;
   /* three corners: a box on the page, a box inside a box, a tile (the shelf, the library's tools, the day card) */
