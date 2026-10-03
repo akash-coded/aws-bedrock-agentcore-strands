@@ -123,7 +123,8 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
 /* Narrow screens keep the mark, the simulator and the theme; the five places are in the drawer,
    which already lists every page. */
 @media (max-width:1180px){.brand small{display:none}}
-@media (max-width:860px){.hd nav{display:none}.hd .in{padding:0 14px;height:58px;gap:8px}}
+/* on a phone the menu icon (5px inside its button) starts on the 20px column, and the theme circle ends on it */
+@media (max-width:860px){.hd nav{display:none}.hd .in{padding:0 20px 0 15px;height:58px;gap:8px}}
 @media (max-width:420px){.hd .play{padding:0 12px 0 11px}.ctx{margin-left:0}.brand .wm{font-size:17px}}
 
 /* ---------- layout ---------- */
@@ -1076,7 +1077,7 @@ a.md:hover b{color:var(--c)}
 @container (max-width:899px){.bbw.bbw-w:not(.solo)>svg.bb{display:none}.bbw.bbw-w>.bbn{display:grid}}
 @supports not (container-type:inline-size){@media (max-width:900px){.bbw:not(.solo)>svg.bb{display:none}.bbw>.bbn{display:grid}}}
 @media (max-width:480px){.bbw{padding:12px 12px 10px;border-radius:14px}}
-.bbw figcaption{font-size:13.5px;color:var(--soft);margin:10px 2px 0;line-height:1.5;max-width:80ch}
+.bbw figcaption{font-size:13.5px;color:var(--soft);margin:10px 0 0;line-height:1.5;max-width:80ch}
 .bbw figcaption b{color:var(--ink2)}
 .bbn{gap:9px;font-size:14px;line-height:1.4;color:var(--ink)}
 .bbw .bbn p,.bbw .bbn ul,.bbw .bbn ol,.bbw .bbn li{margin:0;max-width:none}
@@ -1209,6 +1210,7 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
 /* the focused pointers under a picture: a labelled row of chips, each with its icon and a go arrow */
 .try{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-4px 0 22px}
 .try .tl{font-size:12.5px;font-weight:600;color:var(--soft);letter-spacing:.01em;margin-right:2px}
+@media (max-width:560px){.try .tl{flex-basis:100%}}
 .try a{display:inline-flex;align-items:center;gap:6px;padding:7px 11px 7px 10px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink);font-size:13.5px;font-weight:600;text-decoration:none;line-height:1;
   transition:border-color 150ms,background 150ms,transform 150ms}
 .try a::before{margin-right:0;width:15px;height:15px;color:var(--slate);vertical-align:0}
@@ -1578,9 +1580,10 @@ main.home{padding:0}
 /* ---- section three: one row per role, where you start and where you end up ---- */
 .seats{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .seats a{display:grid;grid-template-columns:64px minmax(190px,1.2fr) minmax(0,2fr) 170px 26px;gap:8px 28px;align-items:center;
-  padding:24px 12px;border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none;
-  transition:background 250ms var(--ease),padding 250ms var(--ease)}
-.seats a:hover{text-decoration:none;background:color-mix(in oklab,var(--rc) 7%,transparent);padding-left:20px;padding-right:4px}
+  padding:24px 0;border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none;
+  transition:background 250ms var(--ease),box-shadow 250ms var(--ease)}
+/* the words stay on the band's column; the tint reaches 12px past it as side shadows; only the arrow moves */
+.seats a:hover{--t:color-mix(in oklab,var(--rc) 7%,transparent);text-decoration:none;background:var(--t);box-shadow:-12px 0 0 var(--t),12px 0 0 var(--t)}
 .s-code{font-family:var(--f-mono);font-size:12.5px;font-weight:600;letter-spacing:.03em;color:color-mix(in oklab,var(--rc) 85%,var(--ink))}
 .s-name{font-family:var(--f-display);font-size:clamp(18px,1.7vw,22px);font-weight:620;letter-spacing:-.02em;line-height:1.2}
 .s-route{font-size:16px;color:var(--soft);line-height:1.4}
@@ -1589,9 +1592,9 @@ main.home{padding:0}
 .s-meta{font-family:var(--f-mono);font-size:12.5px;color:var(--soft);white-space:nowrap;text-align:right}
 .s-go{font-size:18px;color:var(--soft);transition:transform 250ms var(--ease),color 250ms var(--ease)}
 .seats a:hover .s-go{transform:translateX(4px);color:var(--ink)}
-@media (max-width:900px){.seats a{grid-template-columns:52px minmax(0,1fr) 22px;gap:4px 14px;padding:18px 4px}
+@media (max-width:900px){.seats a{grid-template-columns:52px minmax(0,1fr) 22px;gap:4px 14px;padding:18px 0}
   .s-route{grid-column:2;grid-row:2;font-size:14.5px}.s-meta{display:none}.s-go{grid-column:3;grid-row:1}
-  .seats a:hover{padding-left:4px;padding-right:4px}}
+  .seats a:hover{box-shadow:-4px 0 0 var(--t),4px 0 0 var(--t)}}
 
 /* ---- section four: the simulator, as the thing itself ---- */
 .band.play{background:linear-gradient(180deg,color-mix(in oklab,var(--paper) 70%,transparent),transparent)}
@@ -1943,7 +1946,7 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 @media print{.howto>summary{display:none}}
 
 /* ---- a page head inside a column: the same order, a quieter scale ---- */
-.phead.in-col{padding:10px 0 26px}
+.phead.in-col{padding:0 0 26px}
 .phead.in-col h1{font-size:clamp(32px,4vw,50px);max-width:18ch;margin-bottom:16px}
 .phead .ba{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 0}
 .pmeta{display:flex;flex-wrap:wrap;gap:4px 22px;margin:22px 0 0;font-family:var(--f-mono);font-size:12.5px;color:var(--soft);max-width:none}
@@ -1992,7 +1995,8 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
   .crumbs li:nth-last-child(2){display:flex}
   .crumbs li:nth-last-child(2)::before{content:"‹";color:var(--soft)}
 }
-@media (max-width:360px){.hd .in{padding:0 10px;gap:5px}.hd .play{padding:0 10px 0 9px;font-size:13px}}
+/* at 360 and under the bar holds the simulator's two-label pill too (88px) inside the 20px column */
+@media (max-width:360px){.hd .in{gap:3px}.hd .play{padding:0 9px;font-size:13px}}
 
 /* ==========================================================================================
    THE INSIDE — the reading pages, to the same standard as the front.
@@ -2011,8 +2015,8 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 .mix a:hover{background:color-mix(in oklab,var(--accent) 5%,transparent)}
 .mix a::before{color:var(--soft)}
 .lcards,.lkeys{gap:0}
-a.lc,a.lk{border:0;border-top:1px solid var(--rule);border-radius:0;background:none;padding:20px 6px;transition:background 150ms var(--ease)}
-a.lc:hover,a.lk:hover{background:color-mix(in oklab,var(--accent) 5%,transparent)}
+a.lc,a.lk{border:0;border-top:1px solid var(--rule);border-radius:0;background:none;padding:20px 0;transition:background 150ms var(--ease),box-shadow 150ms var(--ease)}
+a.lc:hover,a.lk:hover{--t:color-mix(in oklab,var(--accent) 5%,transparent);background:var(--t);box-shadow:-6px 0 0 var(--t),6px 0 0 var(--t)}
 .lcards,.lkeys{border-bottom:1px solid var(--rule)}
 .lkeys.two{gap:0 40px}
 .lcb b,.lkb b{font-family:var(--f-display);font-size:18px;letter-spacing:-.015em;font-weight:620}
@@ -2060,7 +2064,7 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
 .sketch{margin:10px 0 30px;max-width:760px;break-inside:avoid}
 .prose>figure.sketch{margin-left:0;margin-right:0;max-width:58ch}
 .sk-paper{border-radius:14px;background:var(--sk-paper);overflow:hidden;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 9%,transparent)}
-.sketch figcaption{font-size:14px;line-height:1.5;color:var(--soft);margin:10px 2px 0;max-width:62ch}
+.sketch figcaption{font-size:14px;line-height:1.5;color:var(--soft);margin:10px 0 0;max-width:62ch}
 .sk{display:block;width:100%;height:auto;font-family:'Patrick Hand','Chalkboard SE','Comic Sans MS',cursive;font-size:58px}
 .sk .z{fill:none;stroke:var(--sk-ink);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
 .sk .zt{stroke-width:2.4}.sk .zh{stroke-width:5.2}.sk .zl{stroke-width:5}
@@ -2373,7 +2377,7 @@ body .sw-top{left:auto;right:18px;bottom:70px}
 
 /* your first thirty days: a checklist that prints on one page */
 .lead .todo{list-style:none;margin:0 0 22px;padding:0;border-top:1px solid var(--rule)}
-.lead .todo li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:16px;align-items:start;padding:15px 2px;border-bottom:1px solid var(--rule)}
+.lead .todo li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:16px;align-items:start;padding:15px 0;border-bottom:1px solid var(--rule)}
 .lead .todo .box{width:18px;height:18px;margin-top:3px;border:1.6px solid var(--ink2);border-radius:4px}
 .lead .todo .ct b{display:block;font-size:16px;line-height:1.4;color:var(--ink)}
 .lead .todo .ct>span{display:block;font-size:15px;line-height:1.5;color:var(--ink2);max-width:70ch;margin-top:2px}
@@ -2481,7 +2485,8 @@ body .sw-top{left:auto;right:18px;bottom:70px}
 .tg-lab a i{font-style:normal;transition:transform 250ms var(--ease)}
 .tg-lab a:hover i{transform:translateX(3px)}
 .tg-move .blk{margin:0}
-.tg-move .blk code{white-space:pre-wrap;overflow-wrap:anywhere}
+/* every code box wraps, so no line of a prompt or a template is hidden off its side (Copy copies the text) */
+.blk code,.codebox pre{white-space:pre-wrap;overflow-wrap:anywhere}
 
 /* the three settings, ruled columns */
 .tg-set .tg-sn{margin:0 0 6px;font:500 12.5px var(--f-mono);color:var(--soft)}

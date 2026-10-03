@@ -21,6 +21,16 @@
 //        included. Anything that fails on its stylesheet's colours, or sits on a gradient or a picture, is
 //        measured again from the screen's own pixels, and the pixels decide. A disabled control is exempt
 //   A15  every focus ring inside a code box is 3:1 or more against what it is drawn on
+//   A1   no code box scrolls sideways at 1024 and 390: a prompt or a template wraps (every fold opened to look)
+//   A4   the home page's role rows start on the column their heading sets (1px), at every width, and no rule
+//        moves a row's words on hover (no padding in a .seats a:hover rule, none in its transition)
+//   A10  on a phone (390 and 320) the top bar sits on the page's column: the menu icon starts and the theme
+//        circle ends within 1px of 20px and of the width less 20px
+//   A11  on a page with a rail, at 1440 and 1024, the rail's heading and the page's eyebrow share a text top (1px)
+//   copy Copy copies a prompt or a template exactly as its source in content/roles/ has it, byte for byte, with
+//        the box wrapped (prompts, templates and a role page, at 390)
+//   404  the 404 page wears the site's eyebrow (Geist Mono, loaded, with its leading rule) and the site's 3px
+//        focus ring, and its list's words start on its column
 //
 // A check is a small function over one run's measurements (CHECKS, near the end); what it reads is gathered
 // in the page by a collector of the same kind (COLLECTORS). A new check adds its collector and its function.
@@ -30,9 +40,10 @@
 // It prints one line per check and a closing line, and exits 1 if a check fails.
 
 import { spawn } from "node:child_process";
-import { rmSync } from "node:fs";
+import { readFileSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const BASE = process.argv[2];
 if (!BASE || !/\/$/.test(BASE)) { console.error("usage: node ui.test.mjs <site url, ending in />"); process.exit(2); }
@@ -48,7 +59,7 @@ const SEARCH = `(async () => { document.querySelector('details.menu').open = tru
 const STATES = [
   { name: "home", path: "" },
   { name: "method", path: "method/" },
-  { name: "role-pm", path: "product-manager/" },
+  { name: "role-pm", path: "product-manager/", role: "product-manager" },
   { name: "protocol", path: "protocol/" },
   { name: "templates", path: "templates/" },
   { name: "prompts", path: "prompts/" },
@@ -303,6 +314,92 @@ const COLLECTORS = {
     return out;
   },
 
+  // A1: every code box, with every fold that holds one opened for the measure and shut again after
+  wrap(H) {
+    const { root, sel, text, isVis } = H;
+    const st = document.createElement("style");
+    st.textContent = "*,*::before,*::after{transition:none!important}::details-content{transition:none!important}";
+    document.head.appendChild(st);
+    const shut = [...root.querySelectorAll("details:not([open])")].filter((d) => d.querySelector(".blk pre,.codebox pre"));
+    shut.forEach((d) => (d.open = true));
+    const out = { n: 0, over: [] };
+    for (const p of root.querySelectorAll(".blk pre,.codebox pre")) {
+      if (!isVis(p)) continue;
+      out.n++;
+      const hidden = p.scrollWidth - p.clientWidth;
+      if (hidden > 1) out.over.push({ sel: sel(p), hidden, share: Math.round((100 * hidden) / p.scrollWidth), txt: text(p, 30), tool: H.tool(p) });
+    }
+    shut.forEach((d) => (d.open = false));
+    st.remove();
+    return out;
+  },
+
+  // A4: the home page's role rows against their heading, and the rules that run on hover
+  seats(H) {
+    const band = document.querySelector("#roles"), row = band && band.querySelector(".seats a");
+    if (!row) return null;
+    const left = (e) => { const w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.nodeValue.trim() ? 1 : 3) });
+      const n = w.nextNode(), rg = document.createRange(); rg.selectNodeContents(n); return rg.getClientRects()[0].left; };
+    const moves = [];
+    const walk = (rules) => { for (const r of rules) { if (r.cssRules) walk(r.cssRules);
+      if (r.selectorText && /\.seats a:hover/.test(r.selectorText) && [...r.style].some((p) => /^padding/.test(p))) moves.push(r.selectorText); } };
+    for (const sh of document.styleSheets) { try { walk(sh.cssRules); } catch {} }
+    return { h2: H.r1(left(band.querySelector("h2"))), code: H.r1(left(row.querySelector(".s-code"))), moves, transition: getComputedStyle(row).transitionProperty };
+  },
+
+  // A10: the top bar's two ends on a phone
+  header(H) {
+    const icon = document.querySelector(".hd .menu>summary svg"), tgl = document.querySelector(".hd .tgl");
+    if (!icon || !tgl || !H.isVis(tgl)) return null;
+    return { icon: H.r1(icon.getBoundingClientRect().left), tgl: H.r1(tgl.getBoundingClientRect().right), w: H.W };
+  },
+
+  // A11: the rail's heading and the page head's eyebrow, text top to text top
+  railtop(H) {
+    const rail = document.querySelector("aside.rail:not(.lrail)"), ey = document.querySelector("main .phead :is(.kicker,.eyebrow)");
+    if (!rail || !ey || !H.isVis(rail) || !H.isVis(ey)) return null;
+    const top = (e) => { const w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.nodeValue.trim() ? 1 : 3) });
+      const n = w.nextNode(), rg = document.createRange(); rg.selectNodeContents(n); return rg.getClientRects()[0].top + scrollY; };
+    return { rail: H.r1(top(rail)), eyebrow: H.r1(top(ey)), railSel: H.sel(rail.querySelector("p,h2,a") || rail) };
+  },
+
+  // copy: every Copy pressed, as a reader would, with its fold open (a closed step's text is not rendered), and
+  // with the clipboard's writer replaced by one that keeps what it is given
+  async copy(H) {
+    const got = {}, cb = navigator.clipboard;
+    if (!cb) return null;
+    const st = document.createElement("style");
+    st.textContent = "*,*::before,*::after{transition:none!important}::details-content{transition:none!important}";
+    document.head.appendChild(st);
+    const shut = [...H.root.querySelectorAll("details:not([open])")].filter((d) => d.querySelector("[data-copy]"));
+    shut.forEach((d) => (d.open = true));
+    const was = cb.writeText;
+    cb.writeText = (t) => { got.last = t; return Promise.resolve(); };
+    const out = [];
+    for (const b of H.root.querySelectorAll("[data-copy]")) {
+      got.last = null; b.click(); await new Promise((r) => setTimeout(r, 0));
+      out.push({ id: b.getAttribute("data-copy"), text: got.last });
+    }
+    cb.writeText = was;
+    shut.forEach((d) => (d.open = false));
+    st.remove();
+    return out;
+  },
+
+  // 404: its eyebrow, its focus ring and its list against its column
+  async notfound(H) {
+    if (document.querySelector(".hd") || !document.querySelector("main .k")) return null;
+    const k = document.querySelector("main .k"), cs = getComputedStyle(k), b = getComputedStyle(k, "::before");
+    const family = cs.fontFamily.split(",")[0].replace(/["']/g, "").trim();
+    const loaded = [...document.fonts].some((f) => f.family.replace(/["']/g, "") === family && f.status === "loaded");
+    const rings = [];
+    for (const a of document.querySelectorAll("a[href]")) { a.focus(); const c = getComputedStyle(a); rings.push(a.matches(":focus-visible") ? c.outlineStyle + " " + c.outlineWidth : "none"); a.blur(); }
+    const left = (e) => { const w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.nodeValue.trim() ? 1 : 3) });
+      const n = w.nextNode(), rg = document.createRange(); rg.selectNodeContents(n); return rg.getClientRects()[0].left; };
+    return { family, loaded, rule: b.content !== "none" && parseFloat(b.width) >= 12, rings: [...new Set(rings)],
+      h1: H.r1(left(document.querySelector("main h1"))), row: H.r1(left(document.querySelector("main li a"))) };
+  },
+
   // A6 and A15: each focusable thing focused in turn (the browser scrolls it into view, as for a Tab press), its
   // ring against every box that clips it, and a ring inside a code box against what it is drawn on
   async focus(H) {
@@ -361,9 +458,25 @@ const COLLECTORS = {
   },
 };
 
+// The source of every template and prompt: content/roles/*.json, by the ids the pages give their boxes
+// (lt- and lp- on the library pages, t- and p- on a role page).
+const SOURCE = (() => {
+  const dir = join(dirname(fileURLToPath(import.meta.url)), "..", "content", "roles"), m = new Map();
+  for (const f of readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+    const role = JSON.parse(readFileSync(join(dir, f), "utf8"));
+    for (const s of role.steps) {
+      m.set(`lt-${role.id}-${s.id}`, s.template.body); m.set(`t-${s.id}@${role.id}`, s.template.body);
+      s.prompts.forEach((p, i) => { m.set(`lp-${role.id}-${s.id}-${i}`, p.body); m.set(`p-${s.id}-${i}@${role.id}`, p.body); });
+    }
+  }
+  return m;
+})();
+const firstDiff = (a, b) => { let i = 0; while (i < a.length && a[i] === b[i]) i++; return i; };
+
 // ------------------------------------------------------------------ the checks: one run's measurements in, faults out
 // Each returns { n: how many things it measured, faults: [{ key, ... }] }. A fault's key names it the same way
-// on every run, so one fault seen at eight widths and themes prints once.
+// on every run, so one fault seen at eight widths and themes prints once. `needs` names the collectors and the
+// widths; `states`, where given, the page states it runs on.
 const CHECKS = [
   { id: "A6", what: "no focus ring cut by more than 1px by a box that clips it", needs: { focus: WIDTHS },
     fn: (r) => ({ n: r.focus.rings, faults: r.focus.cut.map((f) => ({ ...f, key: `${f.sel} ("${f.txt}"): ring cut ${f.cut}px (${f.sides}) by ${f.by}` })) }) },
@@ -378,6 +491,36 @@ const CHECKS = [
       ...r.contrast.placeholders.filter((p) => p.ratio < 4.5).map((p) => ({ ...p, key: `${p.sel} ("${p.txt}"): ${p.ratio}:1, needs 4.5` }))] }) },
   { id: "A15", what: "every focus ring inside a code box 3:1 against what it is drawn on", needs: { focus: WIDTHS },
     fn: (r) => ({ n: r.focus.code.reduce((n, f) => n + f.n, 0), faults: r.focus.code.filter((f) => f.ratio < 3).map((f) => ({ ...f, key: `${f.sel}: ring ${f.outline} on ${f.bg}, ${f.ratio}:1` })) }) },
+  { id: "A1", what: "no code box scrolls sideways at 1024 and 390: prompts and templates wrap", needs: { wrap: [1024, 390] },
+    fn: (r) => ({ n: r.wrap.n, faults: r.wrap.over.map((f) => ({ ...f, key: `${f.sel} ("${f.txt}"): ${f.hidden}px (${f.share}%) off to the side` })) }) },
+  { id: "A4", what: "the role rows start on their heading's column, and no hover rule moves their words", needs: { seats: WIDTHS }, states: /^home$/,
+    fn: (r) => !r.seats ? { n: 0, faults: [{ key: "the role rows were not found" }] } : { n: 1, faults: [
+      ...(Math.abs(r.seats.code - r.seats.h2) > 1 ? [{ key: `the first role code starts at ${r.seats.code}, its heading at ${r.seats.h2}` }] : []),
+      ...r.seats.moves.map((s) => ({ key: `${s} changes padding on hover` })),
+      ...(/padding|all/.test(r.seats.transition) ? [{ key: `a role row's transition carries ${r.seats.transition}` }] : [])] } },
+  { id: "A10", what: "on a phone the top bar's menu icon and theme circle sit on the column (20px in)", needs: { header: [390, 320] },
+    fn: (r) => !r.header ? { n: 0, faults: [] } : { n: 1, faults: [
+      ...(Math.abs(r.header.icon - 20) > 1 ? [{ key: `the menu icon starts at ${r.header.icon}, not 20` }] : []),
+      ...(Math.abs(r.header.tgl - (r.header.w - 20)) > 1 ? [{ key: `the theme circle ends at ${r.header.tgl}, not ${r.header.w - 20}` }] : [])] } },
+  { id: "A11", what: "a rail's heading and the page's eyebrow share a text top at 1440 and 1024", needs: { railtop: [1440, 1024] },
+    states: /^(role-pm|protocol|templates|prompts|tool-desk)$/,
+    fn: (r) => !r.railtop ? { n: 0, faults: [{ key: "no rail heading or no eyebrow found" }] } : { n: 1, faults: Math.abs(r.railtop.rail - r.railtop.eyebrow) > 1
+      ? [{ key: `${r.railtop.railSel} text top ${r.railtop.rail}, the eyebrow's ${r.railtop.eyebrow}` }] : [] } },
+  { id: "copy", what: "Copy copies each prompt and template exactly as its source has it", needs: { copy: [390] }, states: /^(prompts|templates|role-pm)$/,
+    fn: (r, state) => { const faults = [], role = state.role;
+      if (!r.copy || !r.copy.length) faults.push({ key: r.copy ? "no Copy button found" : "no clipboard to watch" });
+      for (const c of r.copy || []) {
+        const want = SOURCE.get(c.id) ?? SOURCE.get(`${c.id}@${role}`);
+        if (want === undefined) faults.push({ key: `${c.id}: no source found for it` });
+        else if (c.text !== want) faults.push({ key: `${c.id}: copied text differs from its source at character ${firstDiff(c.text || "", want)}` });
+      }
+      return { n: (r.copy || []).length, faults }; } },
+  { id: "404", what: "the 404 page: the site's eyebrow, its 3px focus ring, its list on its column", needs: { notfound: WIDTHS }, states: /^404$/,
+    fn: (r) => !r.notfound ? { n: 0, faults: [{ key: "the 404 page's eyebrow was not found" }] } : { n: 1, faults: [
+      ...(r.notfound.family !== "Geist Mono" || !r.notfound.loaded ? [{ key: `the eyebrow is set in ${r.notfound.family}${r.notfound.loaded ? "" : ", not loaded"}` }] : []),
+      ...(!r.notfound.rule ? [{ key: "the eyebrow has no leading rule" }] : []),
+      ...(r.notfound.rings.some((x) => x !== "solid 3px") ? [{ key: `focus rings: ${r.notfound.rings.join(", ")}` }] : []),
+      ...(Math.abs(r.notfound.row - r.notfound.h1) > 1 ? [{ key: `a row's words start at ${r.notfound.row}, the title at ${r.notfound.h1}` }] : [])] } },
 ];
 
 // ------------------------------------------------------------------ the browser: one Chrome, a tab per worker
@@ -447,7 +590,7 @@ const page = (names, root) => `(async () => { await document.fonts.ready; const 
 
 async function run(tab, job) {
   const { state, width, theme } = job, t0 = Date.now();
-  const names = Object.keys(COLLECTORS).filter((n) => CHECKS.some((c) => c.needs[n] && c.needs[n].includes(width)));
+  const names = Object.keys(COLLECTORS).filter((n) => CHECKS.some((c) => c.needs[n] && c.needs[n].includes(width) && (!c.states || c.states.test(state.name))));
   tab.thrown.length = 0;
   await tab.send("Emulation.setDeviceMetricsOverride", { width, height: width < 600 ? 844 : 900, deviceScaleFactor: 1, mobile: width < 600 });
   await tab.send("Emulation.setTouchEmulationEnabled", width < 600 ? { enabled: true, maxTouchPoints: 5 } : { enabled: false });
@@ -535,8 +678,8 @@ try {
     let n = 0;
     for (const r of results) {
       if (r.rec.error || !Object.entries(c.needs).every(([k, ws]) => !ws.includes(r.width) || r.rec[k])) continue;
-      if (!Object.entries(c.needs).some(([, ws]) => ws.includes(r.width))) continue;
-      const out = c.fn(r.rec);
+      if (!Object.entries(c.needs).some(([, ws]) => ws.includes(r.width)) || (c.states && !c.states.test(r.state.name))) continue;
+      const out = c.fn(r.rec, r.state);
       n += out.n;
       for (const f of out.faults) {
         const k = known(c.id, { ...f, state: r.state.name });

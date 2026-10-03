@@ -6,11 +6,13 @@
 <style>/* This page is served at any address, so it carries its own styles and uses whole addresses.
    Dark unless the reader chose light, the same as every other page. */
 @font-face{font-family:'Geist';font-style:normal;font-weight:400 700;font-display:swap;src:url(/aws-bedrock-agentcore-strands/assets/fonts/geist.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400 600;font-display:swap;src:url(/aws-bedrock-agentcore-strands/assets/fonts/geist-mono.woff2) format('woff2')}
 @font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/aws-bedrock-agentcore-strands/assets/fonts/instrument-sans.woff2) format('woff2')}
-:root{--bg:#121316;--ink:#ECEAE4;--ink2:#C3C0B8;--soft:#93908A;--rule:#2B2E34;--brand:#8E9BF0;color-scheme:dark}
-:root[data-theme="light"]{--bg:#F7F6F2;--ink:#16150F;--ink2:#44423B;--soft:#696660;--rule:#E4E0D6;--brand:#3F51C4;color-scheme:light}
-@media print{:root{--bg:#fff;--ink:#16150F;--ink2:#44423B;--soft:#696660;--rule:#E4E0D6;--brand:#3F51C4}}
+:root{--bg:#121316;--ink:#ECEAE4;--ink2:#C3C0B8;--soft:#93908A;--rule:#2B2E34;--brand:#8E9BF0;--accent:#7FA9CC;color-scheme:dark}
+:root[data-theme="light"]{--bg:#F7F6F2;--ink:#16150F;--ink2:#44423B;--soft:#696660;--rule:#E4E0D6;--brand:#3F51C4;--accent:#3E6B8A;color-scheme:light}
+@media print{:root{--bg:#fff;--ink:#16150F;--ink2:#44423B;--soft:#696660;--rule:#E4E0D6;--brand:#3F51C4;--accent:#3E6B8A}}
 *{box-sizing:border-box}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}   /* the site's ring */
 body{margin:0;min-height:100vh;display:grid;grid-template-rows:auto 1fr;background:var(--bg);color:var(--ink);
   font-family:Geist,Inter,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16.5px;line-height:1.6}
 header{border-bottom:1px solid var(--rule)}
@@ -19,12 +21,14 @@ header svg{width:28px;height:28px;flex:none}
 header b{font-family:'Instrument Sans',Geist,sans-serif;font-size:19px;font-weight:650;letter-spacing:-.02em}
 header span{font-size:13px;color:var(--soft);padding-left:11px;border-left:1px solid var(--rule)}
 main{align-self:center;width:100%;max-width:640px;margin:0 auto;padding:48px 24px 96px}
-.k{font:500 12.5px ui-monospace,"SF Mono",Menlo,monospace;color:var(--soft);margin:0 0 14px}
+/* the site's eyebrow: Geist Mono, sentence case, a short rule before it */
+.k{font:500 12.5px "Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.01em;color:var(--soft);margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.k::before{content:"";width:18px;height:1px;background:currentColor;opacity:.7}
 h1{font-family:'Instrument Sans',Geist,sans-serif;font-size:clamp(32px,5vw,46px);line-height:1.08;letter-spacing:-.035em;font-weight:620;margin:0 0 16px}
 p{color:var(--ink2);margin:0 0 26px;max-width:52ch}
 ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 li{border-bottom:1px solid var(--rule)}
-li a{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:15px 2px;color:var(--ink);text-decoration:none;font-weight:600}
+li a{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:15px 0;color:var(--ink);text-decoration:none;font-weight:600}
 li a span{font-weight:400;font-size:14.5px;color:var(--soft);text-align:right}
 li a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 li a b{font-weight:600}
