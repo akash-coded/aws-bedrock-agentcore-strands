@@ -70,7 +70,8 @@ const PAGES = ["", "method/", "product-manager/", "qa/", "protocol/", "models/",
   "frameworks/", "pictures/", "learn/", "learn/fundamentals/", "learn/the-hard-gate/", "learn/p0-frame/", "simulator/",
   "labs/", "labs/grow-the-spec/", "labs/grow-the-spec/others/", "labs/write-the-system-prompt/",
   "labs/write-the-system-prompt/others/", "tools/", "tools/claude-at-the-desk/",
-  "tools/chatgpt-and-codex/", "tools/google-ai-studio-and-jules/"];
+  "tools/chatgpt-and-codex/", "tools/google-ai-studio-and-jules/", "forward-deployed-engineer/",
+  "forward-deployed-engineer/frame/"];
 // The simulator draws on a canvas from script, which the browser's list of animations cannot see. Its
 // loop counts its own frames in window.NDFrames, so the gate can ask.
 const FRAMES = `(typeof window.NDFrames === "number" ? window.NDFrames : -1)`;
@@ -492,11 +493,19 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
     let most = { f: "", n: 0 };
     for (const f of pages) { const n = kb(f), cap = HELD[f] || 25; if (n >= cap) over.push(`${f} ${n.toFixed(1)} KB (${cap})`); if (!HELD[f] && n > most.n) most = { f, n }; }
     if (over.length) out.push("pages over their budget: " + over.join(", "));
+    // The FDE guide (council 10): its own stylesheet, which only its four pages load, under 2 KB, and its hub under
+    // 22 KB, the sketch included. Ceilings below the 25 every page has, so neither is a hold in HELD.
+    const GUIDE_KB = { "theme/fde.css": 2, "forward-deployed-engineer/index.html": 22 }, guide = {};
+    for (const [f, cap] of Object.entries(GUIDE_KB)) {
+      if (!existsSync(SITE + f)) { out.push(`${f} was not built`); continue; }
+      guide[f] = kb(f);
+      if (guide[f] >= cap) out.push(`${f} is ${guide[f].toFixed(2)} KB gzipped; the FDE guide's budget for it is ${cap}`);
+    }
     const fonts = files.filter((f) => /\.(woff2?|ttf|otf|eot)$/i.test(f)).sort();
     if (fonts.join(" ") !== FONTS.join(" ")) out.push(`the font files are ${fonts.join(", ")}`);
     const remote = pages.filter((f) => /fonts\.(googleapis|gstatic)\.com/.test(readFileSync(SITE + f, "utf8")));
     if (remote.length) out.push(`a page asks a font host for a font: ${remote.slice(0, 3).join(", ")}`);
-    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts`);
+    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts, the FDE guide's stylesheet ${guide["theme/fde.css"].toFixed(1)} KB and its hub ${guide["forward-deployed-engineer/index.html"].toFixed(1)}`);
   }
   if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); }
 }
@@ -1290,6 +1299,204 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   if (thrown.length) out.push("script error: " + thrown[0]);
   if (out.length) { failures += out.length; console.log("  FAIL /  " + out.join("; ")); }
   else console.log(`  ok   /  ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
+}
+
+// 19. the forward-deployed engineer guide (council 10): the FDE paper's criteria 3 to 6 on the guide's four pages,
+// the hub and its stages Frame, Deliver and Evolve, at 1440, 1024, 390 and 320 wide, in both themes.
+//   the figure    twelve step links, each to a step on its own stage's page; four phase columns, their rules in
+//                 --dg-slate, --dg-indigo, --dg-teal and --dg-amber (from computed styles), each row's steps under
+//                 them, or two by two on a phone; every step's top edge in its phase's hue; a --dg-rose pill under
+//                 each open row; stage heads in ink, with no hue; the page's accent nowhere inside
+//   fit           no sideways scroll, every step shut or open; no text under 11px; every link in the figure 44px
+//                 tall under 760px; the hub's figure 630px tall or less at 1440 with its first two stages on the
+//                 first screen, 1,200 at 390 and 1,450 at 320; on a stage page the whole figure on the first screen
+//   contrast      every text in the figure, the hub's altitude table, and a step's chips and its two new blocks
+//                 (inside your own company, say it like this), 4.5:1 or more on its backdrop (3:1 when large)
+//   the modes     without script, and with script under reduced motion, the figure, every step's summary and
+//                 every table row are shown, and under reduced motion nothing runs; on paper, the same, and light
+//   the links     every link in the guide's rail and page that stays on the site lands on a page, and on an id there
+console.log("\n19. the FDE guide: its figure, fit, contrast and modes, on the hub and its three stages");
+{
+  const GUIDE = "forward-deployed-engineer/", HUB_AND_STAGES = ["", "frame/", "deliver/", "evolve/"];
+  const SIZES = [[1440, 900], [1024, 768], [390, 844], [320, 640]];
+  // colours as numbers, a backdrop composed up the tree, a contrast ratio, whether a thing can be seen, and the theme
+  const KIT = `const root = document.documentElement, phone = matchMedia('(max-width: 760px)').matches;
+    const cv = document.createElement('canvas'); cv.width = cv.height = 1; const cx = cv.getContext('2d', { willReadFrequently: true });
+    const rgba = (c) => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = '#000'; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1);
+      const d = cx.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2], d[3] / 255]; };
+    const blend = (t, b, a = t[3]) => [0, 1, 2].map((i) => t[i] * a + b[i] * (1 - a)).concat(1);
+    const lum = (c) => c.slice(0, 3).reduce((s, v, i) => { v /= 255; return s + [0.2126, 0.7152, 0.0722][i] * (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4); }, 0);
+    const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+    const backdrop = (e) => { const layers = []; for (let a = e; a; a = a.parentElement) { const c = rgba(getComputedStyle(a).backgroundColor);
+        if (c[3] > 0) { layers.push(c); if (c[3] >= 1) break; } } return layers.reduceRight((b, c) => blend(c, b), [255, 255, 255, 1]); };
+    const same = (a, b) => a[3] > 0.5 && [0, 1, 2].every((i) => Math.abs(a[i] - b[i]) <= 2);
+    const said = (e) => { const w = document.createTreeWalker((e.querySelector && e.querySelector('strong')) || e, NodeFilter.SHOW_TEXT), t = [];
+      while (w.nextNode()) t.push(w.currentNode.textContent); return t.join(' ').replace(/\\s+/g, ' ').trim().slice(0, 32); };
+    const shown = (e) => { const r = e.getBoundingClientRect(); if (r.width < 1 || r.height < 1 || getComputedStyle(e).visibility === 'hidden') return false;
+      for (let a = e; a; a = a.parentElement) { const cs = getComputedStyle(a); if (+cs.opacity < 0.05 || /inset\\([^)]*100%/.test(cs.clipPath)) return false; }
+      return true; };
+    // a theme is set, then every transition it set off has finished (none under reduced motion), so colours are read at rest
+    const theme = async (t) => { if (t === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+      await document.fonts.ready; await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)));
+      await Promise.race([Promise.all(document.getAnimations().map((a) => a.finished.catch(() => {}))), new Promise((r) => setTimeout(r, 1500))]); };`;
+  // what a reader needs, shown: the figure, every step's summary, every table row; under reduced motion, nothing
+  // running; on paper, a light page and light boxes
+  const SHOWN = (t, mode) => `(async () => { ${KIT}
+    await theme('${t}');
+    const out = [], fig = document.querySelector('main .fx'), hub = !document.querySelector('main.fx-st');
+    if (!fig) return { out: ['the page has no framework figure'] };
+    const need = [['step links', '.fx-s a'], ['step names', '.fx-s a strong'], ['stage heads', '.fx-h'], ['signature pills', '.fx-so b'],
+      ['steps\\' questions', '.fx-r:not(.fx-m) .fx-s a > span'], ['figure\\'s foot line', '.fx-f'],
+      [hub ? 'table rows' : 'brief\\'s rows', hub ? '.fdt tbody tr' : '.fx-b tr']];
+    if (!phone) need.push(['phase columns', '.fx-ph > span'], ['steps\\' artefacts', '.fx-r:not(.fx-m) .fx-s em']);
+    if (!hub) need.push(['step summaries', 'details.step > summary']);
+    for (const [what, sel] of need) { const all = [...document.querySelectorAll(sel)], gone = all.filter((e) => !shown(e));
+      if (!all.length) out.push('no ' + what); else if (gone.length) out.push(gone.length + ' of ' + all.length + ' ' + what + ' hidden ("' + said(gone[0]) + '")'); }
+    if ('${mode}' === 'reduced') { const run = document.getAnimations().filter((a) => a.playState === 'running');
+      const what = (a) => (a.animationName ? 'the animation ' + a.animationName : a.transitionProperty ? 'a transition of ' + a.transitionProperty : 'an animation from script');
+      if (run.length) out.push(run.length + ' running under reduced motion (' + what(run[0]) + ')'); }
+    if ('${mode}' === 'print') { const dark = [document.body, ...fig.querySelectorAll('.fx-s a')].filter((e) => lum(backdrop(e)) < 0.8);
+      if (dark.length) out.push('on paper ' + (dark[0] === document.body ? 'the page' : 'the box "' + said(dark[0]) + '"') + ' is not light'); }
+    return { out }; })()`;
+  // the figure's form and colours, the fit, the smallest text, and the contrast of the guide's own parts
+  const LOOK = (t) => `(async () => { ${KIT}
+    scrollTo({ top: 0, behavior: 'instant' }); await theme('${t}');
+    const out = [], W = innerWidth, H = innerHeight, fig = document.querySelector('main .fx'), hub = !document.querySelector('main.fx-st');
+    if (!fig || document.querySelectorAll('main .fx').length !== 1) return { out: ['the page has no framework figure, or more than one'] };
+    const tok = (v) => { const i = document.createElement('i'); i.style.color = 'var(' + v + ')'; fig.appendChild(i); const c = rgba(getComputedStyle(i).color); i.remove(); return c; };
+    const HUE = ['--dg-slate', '--dg-indigo', '--dg-teal', '--dg-amber'].map(tok), ROSE = tok('--dg-rose'), INK = tok('--ink'), ACCENT = [tok('--dg-sky'), tok('--accent')];
+    const paint = (e) => { const cs = getComputedStyle(e);
+      return [cs.color, cs.backgroundColor, cs.borderTopColor, cs.borderRightColor, cs.borderBottomColor, cs.borderLeftColor].map(rgba); };
+    // the figure: three stages, each P0 to P3; twelve links; the hues on the columns only
+    const rows = [...fig.querySelectorAll('.fx-g > li')], heads = rows.map((r) => r.querySelector('.fx-h')), links = [...fig.querySelectorAll('.fx-s a')];
+    const open = rows.filter((r) => !r.classList.contains('fx-m')), phase = (a) => (a.querySelector('i b') || {}).textContent || '';
+    if (rows.length !== 3 || heads.some((h) => !h)) out.push('the figure has ' + rows.length + ' stages with heads, not three');
+    if (links.length !== 12) out.push('the figure has ' + links.length + ' step links, not twelve');
+    if (open.length !== (hub ? 3 : 1)) out.push(open.length + ' of the figure\\'s rows are open; ' + (hub ? 'the hub opens all three' : 'a stage page opens its own'));
+    rows.forEach((r, k) => { const p = [...r.querySelectorAll('.fx-s a')].map(phase).join(' ');
+      if (p !== 'P0 P1 P2 P3') out.push('stage ' + (k + 1) + '\\'s steps run ' + (p || 'nowhere') + ', not P0 to P3'); });
+    links.forEach((a) => { const h = HUE[+phase(a).slice(1)];
+      if (!h || !same(rgba(getComputedStyle(a).borderTopColor), h)) out.push('step "' + said(a) + '" has no top edge in its phase\\'s hue'); });
+    const cols = [...fig.querySelectorAll('.fx-ph > [class^=p]')];
+    if (!phone) {
+      if (cols.length !== 4) out.push('the figure has ' + cols.length + ' phase columns, not four');
+      cols.forEach((c, k) => { const cs = getComputedStyle(c);
+        if (!HUE[k] || parseFloat(cs.borderBottomWidth) < 2 || !same(rgba(cs.borderBottomColor), HUE[k])) out.push('column ' + (k + 1) + '\\'s rule is not drawn in --dg-' + ['slate', 'indigo', 'teal', 'amber'][k]); });
+      rows.forEach((r, k) => [...r.querySelectorAll('.fx-s a')].forEach((a, j) => {
+        if (cols[j] && Math.abs(a.getBoundingClientRect().left - cols[j].getBoundingClientRect().left) > 2) out.push('stage ' + (k + 1) + '\\'s step ' + (j + 1) + ' is not under its column'); }));
+    } else rows.forEach((r, k) => { const b = [...r.querySelectorAll('.fx-s a')].map((a) => a.getBoundingClientRect());
+      const square = Math.abs(b[0].top - b[1].top) < 2 && Math.abs(b[2].top - b[3].top) < 2 && b[2].top > b[0].top && b[1].left > b[0].left && Math.abs(b[2].left - b[0].left) < 2;
+      if (b.length === 4 && !square) out.push('on a phone stage ' + (k + 1) + '\\'s steps are not two by two'); });
+    const pills = [...fig.querySelectorAll('.fx-so b')];
+    if (pills.length !== open.length) out.push(pills.length + ' signature pills under ' + open.length + ' open rows');
+    pills.forEach((b) => { if (!same(rgba(getComputedStyle(b).backgroundColor), ROSE)) out.push('a signature pill is not --dg-rose'); });
+    heads.filter(Boolean).forEach((h) => { const hued = [h, ...h.querySelectorAll('*')].some((e) => paint(e).some((c) => [...HUE, ROSE, ...ACCENT].some((x) => same(c, x))));
+      if (hued || !h.querySelector('strong') || !same(rgba(getComputedStyle(h.querySelector('strong')).color), INK)) out.push('the head of "' + said(h) + '" is not in ink'); });
+    const sky = [...fig.querySelectorAll('*')].find((e) => paint(e).some((c) => ACCENT.some((x) => same(c, x))));
+    if (sky) out.push('the page\\'s accent is drawn inside the figure ("' + said(sky) + '")');
+    // the fit
+    const over = () => root.scrollWidth - root.clientWidth, box = fig.getBoundingClientRect(), figH = Math.round(box.height);
+    if (over() > 0) out.push('the page scrolls sideways by ' + over() + 'px');
+    if (hub && W === 1440) { if (figH > 630) out.push('the figure is ' + figH + 'px tall; 630 is the most');
+      const two = Math.round(rows[1] ? rows[1].getBoundingClientRect().bottom + scrollY : 1e4); if (two > H) out.push('the first two stages end at ' + two + 'px, below the first screen'); }
+    if (hub && W === 390 && figH > 1200) out.push('the figure is ' + figH + 'px tall; 1200 is the most');
+    if (hub && W === 320 && figH > 1450) out.push('the figure is ' + figH + 'px tall; 1450 is the most');
+    if (!hub && W === 1440 && box.bottom + scrollY > H) out.push('the figure ends at ' + Math.round(box.bottom + scrollY) + 'px, below the first screen');
+    if (phone) { const short = [...fig.querySelectorAll('a')].filter((a) => a.getBoundingClientRect().height < 44);
+      if (short.length) out.push(short.length + ' links in the figure under 44px tall ("' + said(short[0]) + '", ' + Math.round(short[0].getBoundingClientRect().height) + 'px)'); }
+    // every step open, then the sideways scroll again, the smallest text on the page, and the contrast; the steps
+    // are put back as they were served before the next theme is measured
+    const served = [...document.querySelectorAll('details.step')].map((d) => d.open);
+    root.classList.add('all-open'); document.querySelectorAll('details.step').forEach((d) => { d.open = true; });
+    await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)));
+    if (over() > 0) out.push('with every step open the page scrolls sideways by ' + over() + 'px');
+    // each text: an element's own words, or the words its ::before draws (a stacked table's column names)
+    const texts = (els) => { const t = []; for (const e of els) { if (!e.getClientRects().length || e.closest('.vh, svg')) continue;
+        const cs = getComputedStyle(e); if (cs.visibility === 'hidden') continue;
+        if ([...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) t.push([e, cs, said(e)]);
+        const b = getComputedStyle(e, '::before'); if (b.content && !/^(none|normal|""|'')$/.test(b.content)) t.push([e, b, b.content.slice(1, 33).replace(/"$/, '')]); }
+      return t; };
+    let small = { px: 99 };
+    for (const [, cs, words] of texts(document.body.querySelectorAll('*'))) { const px = parseFloat(cs.fontSize); if (px < small.px) small = { px, words }; }
+    if (small.px < 11) out.push('text at ' + small.px + 'px ("' + small.words + '"); 11 is the least');
+    const parts = hub ? [['the altitude table', '.fx-al']] : [['chips', '.fhat'], ['inside your own company', 'section:has(> .fint)'], ['say it like this', 'section:has(> .fsay)']];
+    const scope = [fig];
+    for (const [what, sel] of parts) { const got = [...document.querySelectorAll('main ' + sel)]; if (!got.length) out.push('no ' + what + ' to measure'); scope.push(...got); }
+    const steps = document.querySelectorAll('main details.step').length;
+    if (!hub && ['.fhat', '.fint', '.fsay'].some((s) => document.querySelectorAll('main ' + s).length !== steps)) out.push('a step without its chips or its two new blocks');
+    let low = 99; const faint = [];
+    for (const [e, cs, words] of texts(scope.flatMap((s) => [s, ...s.querySelectorAll('*')]))) {
+      let fade = 1; for (let a = e; a; a = a.parentElement) fade *= +getComputedStyle(a).opacity;
+      const bg = backdrop(e), r = ratio(blend(blend(rgba(cs.color), bg), bg, fade), bg), px = parseFloat(cs.fontSize);
+      low = Math.min(low, r);
+      if (r < (px >= 24 || (px >= 18.66 && +cs.fontWeight >= 700) ? 3 : 4.5)) faint.push({ r, words, px });
+    }
+    if (faint.length) { const f = faint.sort((a, b) => a.r - b.r)[0]; out.push(faint.length + ' texts under 4.5:1, the faintest ' + f.r.toFixed(2) + ':1 on "' + f.words + '" (' + f.px + 'px)'); }
+    document.querySelectorAll('details.step').forEach((d, i) => { d.open = served[i]; }); root.classList.remove('all-open');
+    await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)));
+    return { out, figH, low: +low.toFixed(2), small: small.px };
+  })()`;
+  // every link in the guide's rail and page that stays on the site: a page that exists, and its id; the figure's
+  // twelve each to a step on its own stage's page
+  const LANDS = `(async () => {
+    const out = [], here = location.origin + location.pathname, docs = new Map([[here, Promise.resolve(document)]]);
+    const page = (u) => { if (!docs.has(u)) docs.set(u, fetch(u).then((r) => (r.ok ? r.text() : null))
+      .then((t) => t && new DOMParser().parseFromString(t, 'text/html')).catch(() => null)); return docs.get(u); };
+    for (const row of document.querySelectorAll('main .fx .fx-g > li')) {
+      const head = row.querySelector('.fx-h'), at = head && head.href ? new URL(head.href).pathname : location.pathname;
+      for (const a of row.querySelectorAll('.fx-s a')) { const u = new URL(a.href), d = await page(u.origin + u.pathname), id = decodeURIComponent(u.hash.slice(1));
+        const t = d && id ? d.getElementById(id) : null;
+        if (u.pathname !== at || !t || !t.matches('details.step'))
+          out.push('the figure\\'s "' + (a.querySelector('strong') || a).textContent + '" goes to ' + a.getAttribute('href') + ', not to a step on its stage\\'s page'); } }
+    const links = [...document.querySelectorAll('.cols a[href]')].filter((a) => new URL(a.href).origin === location.origin);
+    for (const a of links) { const u = new URL(a.href), d = await page(u.origin + u.pathname), id = decodeURIComponent(u.hash.slice(1));
+      if (!d) out.push(a.getAttribute('href') + ' leads to no page'); else if (id && !d.getElementById(id)) out.push(a.getAttribute('href') + ' leads to no id on its page'); }
+    return { out: [...new Set(out)], n: links.length };
+  })()`;
+  const seen = new Map(), stat = { fig: {}, low: 99, small: 99, links: 0 };
+  const note = (p, where, problems) => { for (const m of problems) { const k = `/${GUIDE}${p}  ${m}`; if (!seen.has(k)) seen.set(k, []); if (where) seen.get(k).push(where); } };
+  const ask = (expression) => evaluate(expression).catch((e) => ({ out: ["the check itself failed: " + e.message.slice(0, 160)] }));
+  const media = (o) => send("Emulation.setEmulatedMedia", { media: o.print ? "print" : "", features: [{ name: "prefers-color-scheme", value: "dark" },
+    { name: "prefers-reduced-motion", value: o.reduce ? "reduce" : "no-preference" }] });
+  const load = async (p, noscript, wait) => {
+    await send("Emulation.setScriptExecutionDisabled", { value: noscript });
+    await send("Page.navigate", { url: BASE + GUIDE + p });
+    await sleep(wait);
+    await send("Emulation.setScriptExecutionDisabled", { value: false });   // the check itself needs script
+    return evaluate(LOADED);
+  };
+  thrown.length = 0;
+  for (const p of HUB_AND_STAGES) {
+    for (const [w, h] of SIZES) {
+      await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
+      await media({});
+      if (!(await load(p, true, 1000))) { note(p, `${w}`, ["did not load without script"]); continue; }
+      for (const t of ["dark", "light"]) note(p, `${w} ${t}, no script`, (await ask(SHOWN(t, ""))).out);
+      await media({ reduce: true });
+      if (!(await load(p, false, 900))) { note(p, `${w}`, ["did not load"]); continue; }
+      for (const t of ["dark", "light"]) {
+        note(p, `${w} ${t}`, (await ask(SHOWN(t, "reduced"))).out);
+        const m = await ask(LOOK(t));
+        note(p, `${w} ${t}`, m.out);
+        if (m.figH && (!p || w === 1440)) stat.fig[`${p || "the hub "}${w}`] = m.figH;
+        if (m.low) stat.low = Math.min(stat.low, m.low);
+        if (m.small) stat.small = Math.min(stat.small, m.small);
+      }
+      if (w === 1440) { const l = await ask(LANDS); note(p, "", l.out); stat.links += l.n || 0; }
+    }
+    // on paper, from either theme: the same things shown, and the page light
+    await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+    await media({ print: true, reduce: true });
+    if (!(await load(p, false, 900))) note(p, "print", ["did not load"]);
+    else for (const t of ["dark", "light"]) note(p, `print, ${t}`, (await ask(SHOWN(t, "print"))).out);
+  }
+  await media({});
+  const out = [...seen].map(([k, where]) => (where.length ? `${k} (at ${where.join(", ")})` : k));
+  if (thrown.length) out.push("script error: " + thrown[0]);
+  if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); }
+  else console.log(`  ok   4 pages at 4 widths in both themes; the hub's figure ${stat.fig["the hub 1440"]}px tall at 1440 (630), ` +
+    `${stat.fig["the hub 390"]} at 390 (1200), ${stat.fig["the hub 320"]} at 320 (1450); the smallest text ${stat.small}px; the lowest contrast ` +
+    `${stat.low}:1; ${stat.links} links land`);
 }
 
 } catch (e) {
