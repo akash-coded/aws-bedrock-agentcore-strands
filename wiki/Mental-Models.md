@@ -246,7 +246,7 @@ Where you meet it: [What crosses each hand-off](https://github.com/akash-coded/a
 
 **The mistake it prevents.** Believing that “nothing changed” means nothing changed, and treating post-launch quality as a testing problem rather than an operational one.
 
-**The part that is easy to miss.** Watch the *output mix*, not the accuracy: accuracy needs labels and arrives late. And watch two thresholds: the week-on-week step, and the level against a frozen baseline, because a slide of two points a week never trips a five percent rule and still moves you thirty points in a quarter.
+**The part that is easy to miss.** Watch the *output mix*, not the accuracy: accuracy needs labels and arrives late. And watch two thresholds: the week-on-week step, and the level against a frozen baseline, because a slide of two points a week never trips a five percent rule and still moves you twenty-six points in a quarter.
 
 **Landed when:** You treat an output distribution as a business metric, and you know what automatically re-opens your release gate.
 

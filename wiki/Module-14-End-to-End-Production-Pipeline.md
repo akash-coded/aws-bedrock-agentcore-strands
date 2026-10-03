@@ -11,7 +11,7 @@ Everything converges here. You take TravelMind from source to a gated release â€
 
 ## Read first, on the site
 
-The lesson that frames this module is **[Shadow Mode and Canary Releases for AI Agents, Step by Step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/shadow-mode-and-cutover/)** (6 min): shadow, canary and cut-over, with the evidence each needs. Then try **[the cut-over evidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cutover)** in the workbench: the same decision, with your numbers.
+The lesson that frames this module is **[Shadow Mode and Canary Releases for AI Agents, Step by Step](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/shadow-mode-and-cutover/)** (7 min): shadow, canary and cut-over, with the evidence each needs. Then try **[the cut-over evidence calculator](https://akash-coded.github.io/aws-bedrock-agentcore-strands/workbench/#/toolkit/cutover)** in the workbench: the same decision, with your numbers.
 
 ## What you will be able to do
 

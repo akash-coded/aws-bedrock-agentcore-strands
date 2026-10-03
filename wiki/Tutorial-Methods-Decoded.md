@@ -3,14 +3,14 @@
 
 AWS AI-DLC, AIDD, the BMAD Method and spec-driven development: what each one is, who coined it, where it sits on the four phases, and what it leaves for you to decide.
 
-**7 lessons · about 48 minutes** · AI-DLC, AIDD, BMAD and SDD, placed
+**7 lessons · about 49 minutes** · AI-DLC, AIDD, BMAD and SDD, placed
 
 Every lesson opens on the site, where the pictures are live and the text is searchable:
 **[start this track ↗](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/methods/)**, or pick a lesson.
 
 | # | Lesson | What it covers | Time |
 | --- | --- | --- | --- |
-| 1 | **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)** | AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development and BMAD: who coined each term, what it names, and the question it answers. | 7 min |
+| 1 | **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)** | AI-DLC, AIDLC, AIDDLC, AIDD, agentic SDLC, spec-driven development and BMAD: who coined each term, what it names, and the question it answers. | 8 min |
 | 2 | **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/)** | AI-DLC is AWS's AI-Driven Development Life Cycle: AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days. | 7 min |
 | 3 | **[What Is AI-Driven Development (AIDD)? The Daily Craft](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-aidd/)** | AI-driven development (AIDD) is the everyday craft of building software with coding agents: context files, story files, exact code first, and review by risk. | 7 min |
 | 4 | **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)** | The BMAD Method structures AI-driven development like an agile team: agent personas, each handing the next a versioned document. When it pays, and when not. | 7 min |

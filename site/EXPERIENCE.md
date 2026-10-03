@@ -1055,9 +1055,6 @@ line).
   `frameworks.json`'s `what` ("analyst, PM, architect, dev, QA") describe an earlier release; the current one
   installs five agents, with no scrum master and no QA agent. Its FAQ says so. Bringing the lesson up to date
   is a rewrite, and the owner's call.
-- The wiki's generated copies follow at the next export: `Journey-Solution-Architect.md` and `Journey-QA-Lead.md`
-  (`site/wiki_export.py`; the QA lead's still says 10pp and "absent from the code"), `Mental-Models.md`
-  (`site/export_models.py`; "thirty points") and `Start-Here.md` (`site/learn_export.py`); then the Wiki sync.
 - The sketch lint's floor (`sketch.LABEL_MIN`, 54 units) is 12.6px in a 320px phone's 280px column; 56 would be
   13.1px. No sketch is under 58 now. Its 6,500-byte budget no longer binds either: with paths written from the
   point before, the largest sketch is 3,605 bytes.

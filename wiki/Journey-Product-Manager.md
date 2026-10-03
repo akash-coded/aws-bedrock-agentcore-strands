@@ -489,7 +489,7 @@ A thirty-page PRD is read by nobody and interpreted differently by everyone, and
 
 | Tool | Use it for |
 | --- | --- |
-| **Chat LLM (cheap tier)** | Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage delegation in the role: mechanical, verifiable, and it takes you an hour by hand.<br>⚠ It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself: the guesses are the exact thing you are trying to surface. |
+| **Chat LLM (cheap tier)** | Shard a long PRD into per-feature eight-field specs. This is the delegation that pays back most in the role: mechanical, verifiable, and it takes you an hour by hand.<br>⚠ It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself: the guesses are the exact thing you are trying to surface. |
 | **Chat LLM** | Convert prose acceptance criteria to EARS and report how many 'should's it removed. The count is a useful measure of how much ambiguity you were shipping.<br>⚠ Check that every SHALL ends in a measure. It will happily produce a clean EARS sentence with no number in it. |
 | **Chat LLM, adversarially** | The reading test, cheaply: 'you are a coding agent, build this, and list every assumption you had to make'. Its assumption list is your gap list. |
 | **Do not delegate** | The bar and the autonomy fields. Both are business risk decisions with your name on them, and both have a formula: use the formula, not the model. |
