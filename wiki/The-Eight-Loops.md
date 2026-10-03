@@ -607,19 +607,19 @@ The hard and soft split and the two-number report are the manual's.*
 
 ---
 
-## The three that close backwards
+## The three with nobody waiting
 
 Five loops close forwards, and they close on their own because somebody downstream is waiting and
-will chase. The three that run backwards have nobody waiting.
+will chase. The other three have nobody waiting: two run backwards, and governance spans the whole line.
 
-| Loop | Runs backwards into | Who chases it if nobody owns it | What happens instead |
+| Loop | Closes into | Who chases it if nobody owns it | What happens instead |
 | --- | --- | --- | --- |
 | **Cost** | P1, the design | Nobody. Finance chases the budget, not the design | A budget increase, and the same multiple next quarter |
 | **Incident** | P0, the framing | Nobody. The ticket tracker absorbs the actions | Actions close, the class of incident returns |
 | **Governance** | Spans P0 to P3 | Nobody. The steering committee asks, once, late | The programme is judged on the number it did not bring |
 
-This is structural, not a motivation problem: forward loops have a puller, backwards loops need a
-pusher, and a pusher exists only if you name one. Name three people, in writing. That single act is
+This is structural, not a motivation problem: forward loops have a puller, the three with nobody waiting
+need a pusher, and a pusher exists only if you name one. Name three people, in writing. That single act is
 most of the practice.
 
 <details><summary><b>Template · Loop health self-assessment</b></summary>
@@ -699,7 +699,7 @@ WHAT I CAN SHOW YOU:
 | **Claude Code** | Cost attribution over a per-call log — it writes and runs the aggregation, so you get the four factors and the method. Read the script; a ratio over the wrong column is confidently wrong |
 | **Chat LLM** | The reading test on a spec, run by a model playing an engineer who was not in the room. It will not fill your gaps with convention if you tell it not to |
 | **Chat LLM, adversarially** | Drafting the layer table from an incident narrative, with the rule that anything living in a prompt is unenforced. It finds the two rows the room is reluctant to write |
-| **Do not delegate** | Naming the person who owns each backwards loop. The model can tell you the loop is absent; only an organisation can decide whose name goes on it, and that decision *is* the loop |
+| **Do not delegate** | Naming the person who owns each loop nobody waits for. The model can tell you the loop is absent; only an organisation can decide whose name goes on it, and that decision *is* the loop |
 
 ---
 

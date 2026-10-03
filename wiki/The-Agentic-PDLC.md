@@ -339,15 +339,16 @@ Phases are a line. Loops are what make the line a ring: each one opens in one ph
 later one, and some close back into an earlier one.
 
 <!-- picture:board:loops -->
-<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops that run every team's workflow: five carry work forward, three run backwards and need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
+<p align="center"><a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.dark.webp"><img alt="Eight loops that run every team's workflow: five carry work forward, and three need a named owner" src="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/board-loops.light.webp" width="100%"></picture></a></p>
 
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops">Open the live, interactive version</a></sub>
 <!-- /picture -->
 
-> The same eight on one line, with the three backwards ones drawn beneath it:
+> The same eight on one line, with the two backwards ones drawn beneath it:
 > [eight loops make the line a ring](https://akash-coded.github.io/aws-bedrock-agentcore-strands/method/#loops).
 
-Three of them run backwards, and those are the ones teams forget to build:
+Three of them have nobody waiting at the far end, and those are the ones teams forget to build. Two run
+backwards and one spans the whole line:
 
 - **Cost** closes from P3 back into P1. A bill that left its estimate is a design question, not a
   finance question.
@@ -360,7 +361,8 @@ Each loop, with its owner, its artefacts and where the idea comes from, is on
 ### How it actually goes wrong
 
 The five forward loops close on their own, because somebody downstream is waiting and will chase. The
-three that run backwards have nobody waiting, so they close only if a named person makes them close.
+other three (two run backwards, and governance spans the whole line) have nobody waiting, so they close only
+if a named person makes them close.
 What happens instead is that the cost loop becomes a finance escalation — a spend review, a budget
 increase, a conversation about tooling — and never reaches the design that caused it. SkyWays' day 75
 bill was 4.4 times its estimate with traffic flat, which is a behaviour change, which is a design
@@ -374,7 +376,7 @@ change. Handled as a budget question it recurs next quarter with a different mul
 | **Incident** | A postmortem produced a brief with a pain, a cost and an owner | A postmortem produced a list of actions in a ticket tracker |
 | **Governance** | One person reports two numbers on one line, every cycle, unprompted | Numbers are produced when the steering committee asks |
 
-A practical test: for each of the three backwards loops, name the person. Not the team, the person. If
+A practical test: for each of the three loops nobody waits for, name the person. Not the team, the person. If
 you cannot, the loop is absent, and absent is the honest word — not "informal".
 
 ---
