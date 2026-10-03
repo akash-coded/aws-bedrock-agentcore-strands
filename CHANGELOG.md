@@ -8,6 +8,155 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-03 · A home page that maps the methods and closes on the consultancy, lessons in one column, and the forward-deployed engineer's guide
+
+The owner asked for a home page that shows what changes from phase to phase, the methods a reader has heard of
+in one picture, four people with their own questions, a library led by the tools, a call to SkyWays
+Consultancy at the foot, lesson pages that look finished, and a full guide for the forward-deployed engineer
+built on Frame, Deliver and Evolve. Council 10 sat in two rooms, one for the home page and one for the lessons,
+the FDE guide and an audit of the site's parts, and the owner took both verdicts' defaults. Outside models from
+several makers, on Amazon Bedrock, read the built bands, the framework picture, the new figures and the hat
+stand cold, with the councils' own questions. The record, with each parcel's numbers, is in
+[`site/EXPERIENCE.md`](site/EXPERIENCE.md), and the visual contract in [`site/DESIGN.md`](site/DESIGN.md).
+
+### Added
+- **The forward-deployed engineer's guide** ([`site/pages/fde.py`](site/pages/fde.py),
+  [`site/theme/fde.css`](site/theme/fde.css), [`site/content/roles/_src/`](site/content/roles/_src/)). The FDE
+  is the sixth role, as a guide of four pages: a hub at `/forward-deployed-engineer/` and one page for each
+  stage, Frame the engagement, Deliver the system and Evolve the relationship. Each stage asks P0 to P3 of its
+  own object, so the job is twelve steps, each with its artefact, template, prompts (30 in all), the words for
+  its hard conversations and a note for a client inside your own company, and each stage ends on a signature.
+  The hub opens on one picture of the whole job, stages down the side in ink and phases across in their hues,
+  which three outside readers decoded cold, then eight sections: what the role is, its six hats ("some weeks
+  you are the whole team"), the altitude each step needs from proof of concept to deploy, internal clients,
+  the consultancy and technical crafts, AI tools in a customer's building, and how to start. Every claim about
+  the profession is one of 30 dated sources or 53 quotations, and no page types a quotation. The role builder
+  learns staged roles and checks each writer's file on its own; its tests run in CI. The top bar, the drawer,
+  the home page's roles band, the search and `llms.txt` list the guide, and the template and prompt libraries
+  point to its stage pages
+- **A map of the methods on the home page** ([`site/pages/spine.py`](site/pages/spine.py),
+  [`site/content/library/frameworks.json`](site/content/library/frameworks.json)). AI-DLC, BMAD, the agentic
+  SDLC, spec-driven development and AIDD are shapes on the SkyWays PDLC's four phases, each as long as the
+  phases it covers, with a handwritten note on who made it and when; all five meet in the build, and under
+  them sit the four questions no method reaches. Each note's sources and the day they were read are in the
+  data, and the build refuses a note without them. It replaces the lifecycle figure, from which three outside
+  readers had answered none of five factual questions
+- **A chooser: which agentic methods your team should use** ([`site/pages/chooser.py`](site/pages/chooser.py)).
+  The pair every team needs, then three yes-or-no questions, each adding one method. With nothing chosen the
+  whole rule shows; a choice hides the other line, in CSS alone, with nothing stored. It replaces the method
+  table and its key
+- **Four people in the tutorial band** ([`site/pages/people.py`](site/pages/people.py)). Priya, Arjun, Sam and
+  Maya, the game's own team, each ask one question and get the manual's answer in one sentence beside a
+  drawing of the worker, and each card is a link to the lesson that answers it. The build refuses an answer
+  whose sentence its lesson no longer says. The band now comes before the simulator
+- **A library of three tools and six shelves** ([`site/pages/homelib.py`](site/pages/homelib.py),
+  [`site/tools/roomshot.mjs`](site/tools/roomshot.mjs)). The workbench, the tutorial and the simulator first,
+  each on the material of what it opens: the acceptance bar calculator in real type, the eight tracks as a
+  contents page, and the boardroom on Day 90 drawn by the game's own code. Then templates, prompts, mental
+  models, the Tool guides, the methods decoded and the picture pack. Every count is counted when the site is
+  built
+- **A close for SkyWays Consultancy** ([`site/pages/consult.py`](site/pages/consult.py),
+  [`site/frame/frame.js`](site/frame/frame.js)). "Work with the consultancy that wrote this manual": four
+  offers, each ending in what a buyer leaves with, and one button that opens the contact drawer on the
+  consultancy's topic. Without script it leads to the repository's discussions page. The home page's data
+  lists the same four offers, in the same words, with no prices
+- **Three lessons draw what their prose could not** ([`site/pages/figures.py`](site/pages/figures.py)). A
+  drift of thirteen points in eight weeks that never trips the weekly alarm and trips the baseline alarm in
+  week 5; a $2,000 refund through five claimed defences; four ways back, from a 40-second kill switch to an
+  11-minute model rollback. Each lesson states every number its figure draws
+- **A test of the site's parts** ([`site/tools/ui.test.mjs`](site/tools/ui.test.mjs)). Council 10's audit
+  measurer, kept: 21 page states at four widths in both themes, for focus rings, touch targets, contrast
+  measured from the screen's pixels, code that wraps, and parts on their columns
+
+### Changed
+- **The home page in a new order, under plain headings** ([`site/render.py`](site/render.py)). The hero, the
+  methods, your team, by role, the tutorial, the simulator, the library and the consultancy. The simulator
+  band says it is a game for learning, its button reads "Enter the simulation", and its day card is labelled
+  "Example day", loads with the page and stands in perspective on a wide screen, turning to face the reader
+  who points at it. "by Akash Das" in the hero links to the close. Old links to `/#why` and `/#method` land
+  on the map and the chooser. The home page no longer loads `engine.js`, and the build refuses a dash, a
+  brochure word or an American spelling in what a reader meets on it
+- **The hero's flight is staged like a launch** ([`site/theme/hero.js`](site/theme/hero.js),
+  [`site/pages/globe.py`](site/pages/globe.py)). A first visit starts close on the Earth and pulls back. At each
+  phase the aircraft springs into its next form and hue, a slate dart, an indigo drawing, a built teal airliner
+  and an amber jet, leaving a trace of the last, and a tag names the phase, says what the thing has become and
+  asks the phase's question. It all but stops on the sign-off, and in its second round it comes to rest in one
+  named still and stops drawing, about 50 seconds in (21 on a later visit); the still is also all that reduced
+  motion draws. The picture now ends inside the first screen on a phone, the aircraft is never under 30px, and
+  the flight draws at most sixty frames a second. Shown six stills, two of three outside readers described the
+  aircraft changing form and all three stated the sign-off's rule
+- **Lessons read in one column, with a guide on the right** ([`site/pages/learn.py`](site/pages/learn.py),
+  [`site/theme/base.css`](site/theme/base.css), [`site/theme/guide.js`](site/theme/guide.js)). Text at 584px
+  from the page's left edge, pictures to 944px, and a 240px guide holding only navigation: where the lesson
+  sits in its track, its sections with the one being read marked, the course folded. Sketches and "Try it"
+  sit in the flow at the text's width, so a sketch's handwriting goes from 14.5 to about 28px
+- **Lessons set in their own type** ([`site/pages/learn.py`](site/pages/learn.py),
+  [`site/theme/base.css`](site/theme/base.css)). The title in two lines, the lesson's name in ink and the rest
+  in grey; a 19px body, larger headings whose words no longer close up, six gaps between blocks; every
+  answer's fold a full-size control on a phone, and no table that scrolls sideways
+- **Ten lessons gain a picture already drawn**, each after the sentence it shows, and the four lessons the
+  home page's people link to ask their card's question in their opening lines, answer it in "In short", and
+  have a row for the card's role. Lessons whose only picture was their opener went from 18 to 7
+- **The FDE lessons teach Frame, Deliver and Evolve** and send readers to the guide. *What is an FDE?* gains
+  the stages, a dated table of six companies, "Who works beside an FDE?" and the hat-stand sketch; the field
+  guide opens on the Deliver stage; the interview bank's groups are the stages
+- **Every stylesheet ships without its comments** ([`site/build.py`](site/build.py)). They stay in the
+  source. `base.css` went from 39.66 to 29.28 KB gzipped as shipped, and the gate's ceiling for it from 40 to
+  32 KB, so the room is kept for work
+- **Sketch paths are written from the point before** ([`site/pages/sketch.py`](site/pages/sketch.py)). The
+  same pixels in 1.2 KB less on each of the 31 pages with a sketch
+- **One kit for every page** ([`site/theme/base.css`](site/theme/base.css)). Three corners as three tokens,
+  three button heights (36, 43 and 51px at 1440, 44px or more on a phone), one heading scale for inner pages,
+  and no text set in capitals, where the audit had counted eight corners for one kind of box and five buttons
+  off any scale. The light amber reads 4.69:1 on a calculator's panel, where it read 4.39
+- **Every landing page opens the same way** ([`site/render.py`](site/render.py)). One page head, full width or
+  in a column, with one eyebrow in the page's accent; the crumbs mark only the page itself, and a category in
+  them is a link, so the crumb a phone shows leads back; tables that hid columns on a phone stack, each value
+  under its column's name. The template and prompt libraries count the whole manual and say where the
+  forward-deployed engineer's part is ("52 templates · 40 here, for 5 roles · 12 in the FDE guide")
+- **The acceptance gate holds the round** ([`site/tools/accept.mjs`](site/tools/accept.mjs),
+  [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). Twenty passes: every lesson's frame and type,
+  the home page, and the FDE guide's four pages at four widths in both themes join it. The home page's pass
+  holds its order, its headings, its height and every band's parts, and fails if one of the parts is renamed
+  out of its sight; the bytes pass holds the home page's HTML to 21 KB, a first visit to it to 176 KB, the
+  hero's script to 10 KB, `frame.js` to 6 KB, and the guide's stylesheet and hub. The hero's pass sees its
+  words, its fit and its whole cost, every moment read from the hero's own times, and judges the cost against
+  a frozen copy of the hero before the round, served in its place in the same run
+  ([`site/tools/reference/`](site/tools/reference/)). The parts test grows to seventeen checks. CI runs the
+  role builder's tests before every build, and the older test tools now ask the system for a free port, so
+  two runs never drive one browser
+<!-- RC-H11: one item here for tools/perf.mjs, the performance sheet, when H11 lands. -->
+
+### Fixed
+- Keyboard focus showed only in part on many controls, its ring cut by the box that held it. Rings are now
+  drawn inside clipping boxes on every page, rings on code boxes read 3:1, and the lab's "(empty)" reads
+  ([`site/theme/base.css`](site/theme/base.css), [`site/labs/lab.css`](site/labs/lab.css))
+- On a phone the footer's button, the leadership stepper's dots and wrapped rows of links were too small or
+  too close to press. The button is 44px tall, the dots stand 24px apart with 24px to touch, and wrapped
+  rows of links sit 26px apart
+- 116 of 116 prompts scrolled sideways on a phone, hiding half their lines. Prompts and templates now wrap,
+  and Copy still copies the source byte for byte. Role rows, rails, captions and the phone's top bar now sit
+  on their column, and the 404 page wears the site's eyebrow and focus ring ([`site/404.html`](site/404.html))
+- The workbench's own faults: its opening picture's labels were 4.6px on a phone, its sign-off and the
+  control tower's links read 2.9:1, its focus rings 1.6 to 1.9:1, and Menu fell off a 320px screen. Each now
+  meets the manual's floor ([`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html))
+- The protocol page's self-check boxes took new ids on every build, so every deploy shipped a changed page.
+  Their ids now come from their titles, and the build gives the same bytes every time
+  ([`site/pages/_kit.py`](site/pages/_kit.py))
+- Facts now agree across the manual: AIDDLC's seven phases, BMAD's six documents (five agents in its current
+  release, where "twelve personas" came from an older one), the FDE guide's twelve steps on the leadership
+  page, and the QA lead's own line ([`site/content/library/frameworks.json`](site/content/library/frameworks.json),
+  [`site/pages/protocol.py`](site/pages/protocol.py))
+- On a phone the workbench's menu sheet, role tabs and rows and footer links reach 44px with whole focus rings,
+  and its loop map, gate pictures and concept map read 4.5:1; the concept map's clusters had all been drawn
+  faint by a test that never found their concepts
+  ([`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html))
+- The library's simulator card keeps the room's screen whole at tablet widths, its shelf names start level on a
+  small phone, the picture pack names the three new figures, two sketches' labels clear 13px at 320, the
+  Mental Models picture names the models as the site does, the contact relay files a consultancy enquiry as
+  one, and the stale copy of the workbench is gone
+<!-- RC-review: one line here for FX2a's and FX2b's review fixes, from their reports. -->
+
 ## 2026-10-02 · Late starts that show their work, a second lab, two more tool manuals, four faults from an outside review, and the wiki in step
 
 The owner said yes to a wiki sync, asked that a late start assume what would have been done by then and

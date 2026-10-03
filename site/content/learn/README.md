@@ -58,9 +58,10 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 ## Try it                    one problem; the answer in <details><summary>Show the answer</summary>
 ## Key takeaways             must: three, parallel, short
 ## FAQ                       3 to 5 questions people actually ask; answers of 2 to 4 sentences
-## Apply it in your role     must: a three-row table (forward-deployed engineer · product manager or
-                             FDPM · GenAI or agentic AI engineer) × (Do this · The AI-augmented
-                             shortcut), then "Across the enterprise" in two or three sentences, then
+## Apply it in your role     must: a table of three rows (forward-deployed engineer · product manager
+                             or FDPM · GenAI or agentic AI engineer) × (Do this · The AI-augmented
+                             shortcut), plus a row for any role the home page sends here (below),
+                             then "Across the enterprise" in two or three sentences, then
                              "The ten-minute workflow": one copyable prompt in a text block
 ## Sources and credits       must: a table of Idea · Origin · Source
 ```
@@ -86,12 +87,25 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 - **Titles in sentence case on the page.** The renderer sets the H1 and the track's list in sentence case and
   keeps the `<title>` as written. A word with a capital past its first letter (AI, PDLC, DevOps) or a digit keeps
   its own; a name that has neither (Kanban, Spec Kit, P1 Design & Spec) goes in `KEEP_CASE` in
-  `site/pages/learn.py`, or it is lowered.
-- **The page sets the measure.** Prose stops near 75 characters a line; boards, tables, code and drawn figures run
-  to the full column, so a lesson has two right edges (`site/tools/accept.mjs` passes 14 and 15 check both).
-  From 1256px wide a margin column at the right holds the contents, each sketch level with the paragraph just
-  before it, and "Try it" as a card. So put a sketch straight after the paragraph it draws, and keep "Try it"
-  to the problem and its folded answer: no table or code block in it.
+  `site/pages/learn.py`, or it is lowered. The H1 is the whole title, in two lines on a wide screen: the part
+  before the first ": " or "? " in ink, the rest in the grey continuation, and a hyphenated word (hand-off,
+  AI-DLC) never breaks across a line. So write the title as the lesson's name, then what it promises.
+- **The page sets the measure.** A lesson reads in one column, in the order it is written, and nothing floats
+  beside it: the guide on the right holds only navigation. Prose, the lede, "In short", a two-column table, the
+  sketch and "Try it" stop at one measure (584px, about 75 characters of the 19px body); boards, drawn figures,
+  code and tables of three columns or more run to the column's edge, 944px, and so does the title from 1280px
+  wide. So a lesson has one left edge and two right ones, and `site/tools/accept.mjs` holds them on every
+  lesson. Put a sketch straight after the paragraph it draws, where it is drawn at the text's width, and keep
+  "Try it" to the problem and its folded answer: no table or code block in it.
+- **A picture follows its sentence.** It goes on the line after the paragraph that says what it shows, never
+  touching a table or another picture, and it draws no number its lesson's text does not state. A small figure
+  (a few bars, no notes) is marked `fig sm` in `site/pages/figures.py` and keeps to the text's width.
+- **A lesson the home page links to answers its card.** Four lessons are the home page's tutorial band (P0
+  Frame, For solution architects, Guardrails that hold, How accurate must an agent be?). Each asks its card's
+  question in its title or lede, answers it in the first two sentences of "In short", and has a row in "Apply it
+  in your role" for the card's role, ending with a link to that role's steps (the table's first row, unless the
+  role is one of the three already there). The four sentences the band quotes are checked by the build
+  (`site/pages/people.py`): change them only with the band.
 - **A table stacks on a phone.** Three or more columns become one block per row, its first cell as the row's
   name and each other cell under its column's heading. Make the first column the thing the row is about.
 - **Edit here, never on the wiki.** Every wiki copy of a lesson is regenerated; an edit made on the wiki
@@ -110,10 +124,11 @@ Three symptoms, *stated* not asked. Then one line saying which one this lesson f
 | `{{board:pdlc}}` on its own line | a live board on the site, a screenshot on the wiki |
 
 Visuals available: `board:` pdlc, loops, by_role, delegation · `figure:` bar_sheet, chain,
-cache_prefix, bolt_days, shadow_widen, bill_factors, authority_ladder, two_numbers · `model:` g_decay,
-g_doors, g_lever, g_wall, g_average, g_bound, g_funnel, g_multiply, g_fanout, g_dial, g_baton,
-g_drift · `frameworks:` ring, ladder, chain. New ones are registered in `_visuals()` in
-`site/pages/learn.py`, then screenshotted with `site/tools/shoot.mjs`.
+cache_prefix, bolt_days, shadow_widen, bill_factors, authority_ladder, two_numbers, drift_slide,
+postmortem_layers, rollback_times · `model:` g_decay, g_doors, g_lever, g_wall, g_average, g_bound,
+g_funnel, g_multiply, g_fanout, g_dial, g_baton, g_drift · `frameworks:` spine, pdlc_vs, ladder, chain,
+methods, merge. New ones are registered in `_visuals()` in `site/pages/learn.py`, then screenshotted with
+`site/tools/shoot.mjs`.
 
 ## Mermaid on both targets
 

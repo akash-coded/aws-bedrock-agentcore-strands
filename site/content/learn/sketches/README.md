@@ -35,15 +35,26 @@ Then two tests of removal. Take the worker out: if the picture still works, the 
 redraw it with the worker doing the verb. Take the sketch out: if the reader loses nothing the paragraph
 did not already give, cut the sketch.
 
+Four things the hat stand taught (`six-hats-one-head`, the 31st sketch), each found on outside readers who
+had not seen the caption: a label beside the worker becomes who the worker is; labels stacked close read as
+one title; a label in a coloured pen becomes the subject; a hat drawn as a dome, with no brim, peak or bobble,
+reads as a dish.
+
 Keep them few: one a lesson at most, about thirty in all, in the lessons whose idea is abstract, where a
 picture helps most. A question bank or an exercise sheet has none.
 
 ## Where it sits
 
-From 1256px wide a lesson has a margin column of 280 to 300px on the right: the contents, the sketch level
-with the first line of the paragraph it draws, and the "Try it" card. Narrower, the sketch follows its
-paragraph in the text. The home page shows one sketch as a sample of how the lessons explain:
-`HOME_SKETCH` in `site/render.py`, which is `four-pebbles-one-rock`.
+In a lesson a sketch follows the paragraph it draws, in the flow, at the text's width: 584px from 901px wide,
+where its handwriting is about 28px, and the column's width on a phone. Nothing sits beside the text.
+
+Two pages outside the lessons draw with the same engine. The forward-deployed engineer guide's hub shows
+`six-hats-one-head` beside its section 02, by the sketch's name (`site/pages/fde.py`): beside the heading from
+1240px wide, after the paragraph below that. The home page's tutorial band draws four card-sized cuts of lesson
+sketches, one beside each of its four people (`site/pages/people.py`): the worker and one prop, two labels at
+most of five words or fewer, handwriting at 64 units (13px on the narrowest card), 7 KB gzipped for the four
+together, all checked when the site is built. In the dark theme every sketch, on every page, sits on the toned
+paper with the deeper pens.
 
 ## The rules the build checks
 
@@ -52,7 +63,8 @@ paragraph in the text. The home page shows one sketch as a sample of how the les
   `{{sketch:...}}` that names no sketch stops the build as an unknown visual.
 - One metaphor per sketch, and no metaphor twice: the pair (`verb`, `prop`) is unique across the
   tutorial, and no prop is used more than three times.
-- Two to six labels, five words at most each, written at 54 units or more (13px on a phone).
+- Two to six labels, five words at most each, written at 58 units or more: 58 units is 13.5px in a 320px
+  phone's 280px column and about 28px at 1440. The lint refuses a label under 54 units, 12.6px in that column.
 - A caption in real type under every sketch: one or two plain sentences that make the point alone.
 - An `alt` that describes the scene in one sentence.
 - It sits after a paragraph, never straight under a heading, and never touching a table, a code block or

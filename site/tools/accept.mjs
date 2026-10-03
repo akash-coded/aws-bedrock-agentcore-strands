@@ -4,13 +4,14 @@
 //   python3 -m http.server 8799 -d site/_site &
 //   node site/tools/accept.mjs http://localhost:8799/
 //
-// Eighteen passes, most over one page of each kind, in headless Chrome over the DevTools protocol (the same
+// Twenty passes, most over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
 //    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, clipped away);
 //                            the simulator shows its thirteen days as text; the home page's close is a plain link
 //                            to the repository's discussions page, and the page prints no address
-//    2. reduced motion       nothing hidden, and no animation running at all
+//    2. reduced motion       nothing hidden, and no animation running at all; the hero draws its still twice at
+//                            most, and once more when the fonts arrive
 //    3. nothing waits        with motion allowed, 700ms after load nothing on the whole page is hidden: no
 //                            entrance, no part that waits to be scrolled to. After four seconds the only things
 //                            still moving follow the scroll or sit on a page with a pause control
@@ -32,9 +33,10 @@
 //                            8px inside the stage clear of the aircraft and the pause control, and the aircraft is
 //                            30px long or more; the picture ends inside the first screen; its whole cost slowed
 //                            four times against a frozen reference served in its place (frames, gaps, taps, script);
-//                            61 frames a second at most when 120 are offered; it comes to rest, a later visit sooner; reduced motion draws the rest frame;
-//                            the entrance plays once a sitting; the tag waits for its fonts; the rest's labels
-//                            touch nothing; and the page does not shift as it is scrolled
+//                            61 frames a second at most when 120 are offered; it comes to rest, a later visit sooner;
+//                            reduced motion draws the rest frame; the entrance plays once a sitting; the tag waits
+//                            for its fonts; the rest's labels touch nothing; and the page does not shift as it is
+//                            scrolled
 //   14. the measure          on a lesson at 1440, no prose runs over 75 characters a line: each paragraph's
 //                            characters a line, from its width and the average width of its own text in its font
 //   15. two right edges      on a lesson at 1440, text stops at one right edge and pictures, tables and code at
@@ -49,9 +51,29 @@
 //                            25 KB (the pages that were already larger on 2 October 2026 each held to its size that
 //                            day, rounded up, plus one KB); the home page's HTML under 21 KB with no <style> block,
 //                            and everything a first visit to it asks for, scrolled to the end, under 176 KB
-//                            (council 10); and no font file but the four the site has
-//   18. map height           every page under learn/ in the sitemap, at 1440 x 900: the figure that holds a lesson's
-//                            map (data-map, from pages/maps.py) is at most 630px tall, 70% of the screen (council 9)
+//                            (council 10); the FDE guide's stylesheet under 2 KB and its hub under 22 KB; and no
+//                            font file but the four the site has
+//   18. every lesson         every page under learn/ in the sitemap, at 1440 x 900: the figure that holds a lesson's
+//                            map (data-map, from pages/maps.py) is at most 630px tall, 70% of the screen (council 9);
+//                            and on every lesson (council 10): no prose over 75 characters a line, one left edge
+//                            (the breadcrumb's) and two right ones, and the guide on screen at 0, 25, 50 and 75% of
+//                            the way down, within 24px of the column's right edge, marking one section (the last
+//                            whose heading has passed the upper third, or the first before any has); the title in
+//                            two lines, its grey continuation 3:1 or more in both themes and no hyphenated word
+//                            broken; only six gaps between the blocks of the prose; no heading under 24px tracked
+//                            tighter than -0.005em; and at 390 wide no table that scrolls sideways, cells at 15px,
+//                            and every fold 44px tall or more
+//   19. the home page        at 1440 x 900 and 390 x 844: the home verdict's order, eyebrows and headings, the page
+//                            8,700px tall or less at 1440 and 13,200px at 390, and a first visit that asks for no
+//                            file pass 17 leaves out; then each band's own checks, one function for each band's
+//                            parcel (the map, the chooser, the people, the day card, the library, the close)
+//   20. the FDE guide        on the hub and its three stages, at 1440, 1024, 390 and 320 in both themes: the
+//                            framework's twelve step links each reach a step on its own stage's page; its columns
+//                            carry the phases' hues and its heads ink; no sideways scroll, no text under 11px, its
+//                            links 44px tall on a phone; the hub's figure within 630, 1,200 and 1,450px and a
+//                            stage's figure on the first screen; 4.5:1 in the figure, the altitude table and the
+//                            step blocks; nothing hidden without script, under reduced motion or on paper; and
+//                            every site link on the four pages lands
 //
 // Every pass first checks that the page really loaded: its top bar is there and styled. Passes 1 to 4 and 8 look
 // for the parts script or an animation may hide (HIDDEN); on the home page each of its parts there must be found,
@@ -799,7 +821,7 @@ const EDGES = `(() => {
   const name = (e) => e.tagName.toLowerCase() + (e.classList[0] ? '.' + e.classList[0] : '');
   const prose = main.querySelector('.prose');
   const items = [...main.children].filter((e) => e !== prose);
-  [...(prose ? prose.children : [])].forEach((e) => items.push(...(e.matches('.lm-note') ? e.children : [e])));
+  if (prose) items.push(...prose.children);
   // a caption under a figure with no frame of its own sits on the page; inside a frame it is the frame's business
   (prose ? [...prose.querySelectorAll('figure')] : []).forEach((f) => { const cs = getComputedStyle(f);
     if (!parseFloat(cs.borderTopWidth) && /rgba\\(0, 0, 0, 0\\)|transparent/.test(cs.backgroundColor)) items.push(...f.querySelectorAll(':scope > figcaption')); });
@@ -1804,7 +1826,7 @@ console.log("\n19. the home page: its order, headings and height, then each band
     `a first visit asks for what pass 17 counts; ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
 }
 
-// 19. the forward-deployed engineer guide (council 10): the FDE paper's criteria 3 to 6 on the guide's four pages,
+// 20. the forward-deployed engineer guide (council 10): the FDE paper's criteria 3 to 6 on the guide's four pages,
 // the hub and its stages Frame, Deliver and Evolve, at 1440, 1024, 390 and 320 wide, in both themes.
 //   the figure    twelve step links, each to a step on its own stage's page; four phase columns, their rules in
 //                 --dg-slate, --dg-indigo, --dg-teal and --dg-amber (from computed styles), each row's steps under
@@ -1818,7 +1840,7 @@ console.log("\n19. the home page: its order, headings and height, then each band
 //   the modes     without script, and with script under reduced motion, the figure, every step's summary and
 //                 every table row are shown, and under reduced motion nothing runs; on paper, the same, and light
 //   the links     every link in the guide's rail and page that stays on the site lands on a page, and on an id there
-console.log("\n19. the FDE guide: its figure, fit, contrast and modes, on the hub and its three stages");
+console.log("\n20. the FDE guide: its figure, fit, contrast and modes, on the hub and its three stages");
 {
   const GUIDE = "forward-deployed-engineer/", HUB_AND_STAGES = ["", "frame/", "deliver/", "evolve/"];
   const SIZES = [[1440, 900], [1024, 768], [390, 844], [320, 640]];
@@ -2012,5 +2034,5 @@ console.log("\n19. the FDE guide: its figure, fit, contrast and modes, on the hu
   await Promise.race([exited, sleep(5000)]);
   try { rmSync(profile, { recursive: true, force: true }); } catch {}
 }
-console.log(failures ? `\n${failures} failure(s)` : "\nall eighteen passes hold");
+console.log(failures ? `\n${failures} failure(s)` : "\nall twenty passes hold");
 process.exit(failures ? 1 : 0);
