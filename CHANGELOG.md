@@ -135,6 +135,9 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   two runs never drive one browser
 
 ### Fixed
+- The engineering lead had two lines: the home page and the Roles menu said "From a written task to code
+  that ships", its own page and social card "From a story file to a shipped bolt". The plain line is now the
+  role's own, everywhere ([`site/content/roles/_src/engineering_a.py`](site/content/roles/_src/engineering_a.py))
 - Keyboard focus showed only in part on many controls, its ring cut by the box that held it. Rings are now
   drawn inside clipping boxes on every page, rings on code boxes read 3:1, and the lab's "(empty)" reads
   ([`site/theme/base.css`](site/theme/base.css), [`site/labs/lab.css`](site/labs/lab.css))

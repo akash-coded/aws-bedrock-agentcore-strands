@@ -5,7 +5,7 @@ HEAD = {
     "name": "Engineering lead",
     "short": "ENG",
     "accent": "#2F6B57",
-    "tagline": "From a story file to a shipped bolt",
+    "tagline": "From a written task to code that ships",
     "arc": ["Prepare", "Slice", "Floor", "Layer", "Gate", "Harness", "Ship", "Operate"],
     "intro": [
         "Your tests, your reviews and your releases all still exist. What changes is that part of "

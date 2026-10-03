@@ -315,7 +315,7 @@ example, the pitfalls, and a testable done-when.
 | --- | --- | --- |
 | **[Product manager](https://akash-coded.github.io/aws-bedrock-agentcore-strands/product-manager/)** | Discover → Qualify → Frame → Specify → Plan → Gate → Launch → Learn | From a vibe to a number you can defend |
 | **[Solution architect](https://akash-coded.github.io/aws-bedrock-agentcore-strands/solution-architect/)** | Elicit → Constrain → Map → Shape → Decide → Bound → Detail → Evolve | From requirements to a system that holds |
-| **[Engineering lead](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/)** | Prepare → Slice → Floor → Layer → Gate → Harness → Ship → Operate | From a story file to a shipped bolt |
+| **[Engineering lead](https://akash-coded.github.io/aws-bedrock-agentcore-strands/engineering/)** | Prepare → Slice → Floor → Layer → Gate → Harness → Ship → Operate | From a written task to code that ships |
 | **[QA lead](https://akash-coded.github.io/aws-bedrock-agentcore-strands/qa/)** | Define → Curate → Check → Harness → Measure → Attack → Shadow → Watch | From "it works" to proof that it works |
 | **[DevOps and platform](https://akash-coded.github.io/aws-bedrock-agentcore-strands/devops/)** | Baseline → Access → Environments → Pipeline → Deploy → Observe → Protect → Recover | From a laptop to production, repeatably |
 | **[Forward-deployed engineer](https://akash-coded.github.io/aws-bedrock-agentcore-strands/forward-deployed-engineer/)** | Frame: Qualify → Scope → Prove → Decide · Deliver: Mobilise → Sign → Build → Hand over · Evolve: Reframe → Codify → Reuse → Review | From a customer's pain to a system they run after you leave |

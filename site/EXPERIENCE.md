@@ -1065,9 +1065,6 @@ line).
   sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
 - The hero's pause control is 44px on a phone now, and still 30px at desktop widths, where every other button
   is 36, 43 or 51px; `ui.test.mjs` lists it as known.
-- The engineering lead has two lines: the home page's roles band says "a written task → code that ships"
-  (`render.py`, `ROLE_ORDER`) and the role's own page "From a story file to a shipped bolt" (`engineering.json`);
-  the other five roles say the same thing in both places.
 - The field guide lesson's map (`pages/mapspecs.py`) draws "Shadow their staff" in its P3 band, where the guide
   runs the shadow in step 7, Deliver's P2, and the lesson's list of moves now says so.
 - `play/game.js` still calls the thirteen choices "calls", where the simulator's page says "decisions".
