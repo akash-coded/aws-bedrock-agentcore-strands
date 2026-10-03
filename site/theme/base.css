@@ -1881,6 +1881,8 @@ main.home{padding:0}
   .trk{grid:repeat(4,auto)/auto-flow;gap:4px 28px}.trk span span{display:none}.trk>span::after{content:attr(data-s)}
   .shf{min-height:0;padding:12px 16px}.shf .lib-k span,.shf .lib-d,.shf>i{display:none}.shf>b{font-size:16px;margin:2px 0 0}
   .tg .tile-k{padding-bottom:22px}}
+/* under 375px "12 rules of thumb" takes two lines; every shelf's count keeps room for two, so a row's names stay level */
+@media (max-width:374px){.shf .lib-k{min-height:3em}}
 /* print: the cards' words, ink on paper, a card never split across two pages; the pictures are the screen's */
 @media print{.fl-p{display:none}.lib>a{break-inside:avoid}}
 /* end of home · H7 */
