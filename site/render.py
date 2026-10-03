@@ -941,7 +941,8 @@ def home_page(roles: list[dict]) -> str:
                f'<div class="dc-b"><p class="dc-k">Day {SIM_DAY} of 90 · {_E(game["rooms"][day["room"]])}</p>'
                f'<h3 id="dc-h">{_E(day["head"])}</h3><p class="dc-c">{_E(day["context"])}</p>'
                f'<p class="dc-q">{_E(ask)}</p><ol class="dc-o">{answers}</ol>'
-               f'<p class="dc-n">Each answer costs days. Choose one to open this day in the game.</p></div></article>')
+               f'<p class="dc-n">Each answer has a price in days, now or later. Any of them opens this day in the game, '
+               f'where you make the call.</p></div></article>')
 
     hero = f"""<section class="hero2" id="top" aria-label="Introduction">
   {globe.scene(MOTION_TOGGLE)}

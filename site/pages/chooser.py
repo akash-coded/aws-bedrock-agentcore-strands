@@ -38,10 +38,10 @@ ASK = [
      "add AI-DLC. Run only the stages each change needs, in bolts of hours or days.",
      'size each change yourself, by its risk, with <a href="learn/how-much-process-does-a-change-need/">four '
      'questions</a>.'),
-    # The names lesson's FAQ: "Usually two of them ... the agentic PDLC for the product decisions those methods leave
-    # open whenever the shipped software calls a model"; what-is-ai-dlc.md: "If your shipped software only runs
-    # deterministic code that an agent wrote, AI-DLC may be most of what you need. If it calls a model, you need the
-    # rest"; one-lifecycle-for-every-method.md, step 5: hold the phase exits, the hard gate above all.
+    # The names lesson's FAQ: "Put the agentic PDLC around all of it whenever the shipped software calls a model";
+    # what-is-ai-dlc.md: "If your shipped software only runs deterministic code that an agent wrote, AI-DLC may be
+    # most of what you need. If it calls a model, you need the rest"; one-lifecycle-for-every-method.md, step 5: hold
+    # the phase exits, the hard gate above all.
     ("q-pdlc", "Does the product you ship call a model to rank, draft, decide or act?", "pdlc",
      "put the SkyWays PDLC around it. Decide what the agent may do alone, agree a pass mark for each kind of case, "
      "prove it before real users see it, and report what it saved and what it cost.",

@@ -139,16 +139,16 @@ P2, the drift watch in P3.
 
 ### Which should I use: AI-DLC, spec-driven development or the agentic PDLC?
 
-Usually two of them. Use a building method (AI-DLC, spec-driven development or BMAD) for how the
-team works with coding agents, and the agentic PDLC for the product decisions those methods leave
-open whenever the shipped software calls a model.
+Every team that builds with coding agents needs spec-driven development and AIDD, every day. Add BMAD
+when the work crosses teams or an auditor reads it, and AI-DLC when you cannot tell how deep a change
+goes before you start. Put the agentic PDLC around all of it whenever the shipped software calls a model.
 
 ## Apply it in your role
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
 | **A forward-deployed engineer** | When a customer says "we do AI-DLC", ask which one: AWS's methodology, the AIDDLC standard, or everyday AI coding. Each needs a different first week. | Ask a model to map the customer's own vocabulary onto these terms and list where they collide. |
-| **A product manager or FDPM** | Choose one method per team and one lifecycle for the portfolio. Filling the gaps every method shares is worth more than comparing methods. | Have a model draft a one-page glossary for your organisation, with each term's source and owner. |
+| **A product manager or FDPM** | Settle each team's building methods by the rule above, and keep one lifecycle for the portfolio. Filling the gaps every method shares is worth more than comparing methods. | Have a model draft a one-page glossary for your organisation, with each term's source and owner. |
 | **A GenAI or agentic AI engineer** | Treat every method as a build discipline. The bar per slice and authority in code are yours to add under any of them. | Ask a coding agent to add a bar file and cap tests to whichever method's templates you use. |
 
 **Across the enterprise.** Publish one terms page so that "AI-DLC" means one thing inside the
