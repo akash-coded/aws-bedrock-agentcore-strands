@@ -1,0 +1,569 @@
+// The site's parts, measured as a keyboard user, a phone and a pair of eyes meet them: focus rings, touch
+// targets and contrast, on a page of every kind, at four widths in both themes.
+//
+//   python3 site/build.py
+//   python3 -m http.server 8799 -d site/_site &
+//   node site/tools/ui.test.mjs http://localhost:8799/
+//
+// Council 10's audit measured the site this way (twenty-one page states, 168 runs); this is its measurer,
+// kept. Each run loads a page with the theme already chosen, scrolls through it so every reveal has played,
+// presses Tab once so focus behaves as it does for a keyboard user, and measures. One Chrome, a few tabs
+// (UI_TABS, default 3), each tab with storage of its own. UI_ONLY=<regex> runs only the states whose names
+// match, for a quick look.
+//
+//   A6   a focus ring is never cut: no box that clips (overflow other than visible) cuts a ring by more
+//        than 1px, after the browser has scrolled the focused thing into view as a Tab press would
+//   A13  on a phone (390 and 320) every control is 44px tall or more: buttons, summaries, a label that wraps
+//        a hidden checkbox, the footer's links. Links inside sentences are text. The stepper's dots are the
+//        one exception, held instead to 24px between centres with a 24px touch area each. And any other
+//        target under 24px is spaced so a 24px circle on it touches no other target (WCAG 2.5.8)
+//   A14  every text is 4.5:1 or more against its backdrop (3:1 at 24px and over, or 18.66px bold), placeholders
+//        included. Anything that fails on its stylesheet's colours, or sits on a gradient or a picture, is
+//        measured again from the screen's own pixels, and the pixels decide. A disabled control is exempt
+//   A15  every focus ring inside a code box is 3:1 or more against what it is drawn on
+//
+// A check is a small function over one run's measurements (CHECKS, near the end); what it reads is gathered
+// in the page by a collector of the same kind (COLLECTORS). A new check adds its collector and its function.
+// Faults that live in a part another parcel replaces or owns are listed in KNOWN, with the owner; they are
+// printed, they do not fail, and an entry that no longer matches anything is reported so it can go.
+//
+// It prints one line per check and a closing line, and exits 1 if a check fails.
+
+import { spawn } from "node:child_process";
+import { rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+const BASE = process.argv[2];
+if (!BASE || !/\/$/.test(BASE)) { console.error("usage: node ui.test.mjs <site url, ending in />"); process.exit(2); }
+const TABS = Math.max(1, +process.env.UI_TABS || 3);
+const ONLY = process.env.UI_ONLY ? new RegExp(process.env.UI_ONLY) : null;
+const WIDTHS = [1440, 1024, 390, 320], THEMES = ["dark", "light"];
+const WHOLE = "/aws-bedrock-agentcore-strands/";      // the 404 page asks for whole addresses, served here from BASE
+
+// ------------------------------------------------------------------ the twenty-one page states
+const SEARCH = `(async () => { document.querySelector('details.menu').open = true; const i = document.querySelector('[data-search]');
+  i.focus(); i.value = 'gate'; i.dispatchEvent(new Event('input', { bubbles: true })); await new Promise((r) => setTimeout(r, 900));
+  return document.querySelectorAll('[data-search-results] li').length; })()`;
+const STATES = [
+  { name: "home", path: "" },
+  { name: "method", path: "method/" },
+  { name: "role-pm", path: "product-manager/" },
+  { name: "protocol", path: "protocol/" },
+  { name: "templates", path: "templates/" },
+  { name: "prompts", path: "prompts/" },
+  { name: "models", path: "models/" },
+  { name: "frameworks", path: "frameworks/" },
+  { name: "pictures", path: "pictures/" },
+  { name: "tools", path: "tools/" },
+  { name: "tool-desk", path: "tools/claude-at-the-desk/" },
+  { name: "labs", path: "labs/" },
+  { name: "lab-grow", path: "labs/grow-the-spec/" },
+  { name: "learn", path: "learn/" },
+  { name: "lesson-hardgate", path: "learn/the-hard-gate/" },
+  { name: "lesson-evolution", path: "learn/evolution-of-the-pdlc/" },
+  { name: "sim-title", path: "simulator/" },
+  { name: "sim-day45", path: "simulator/#day-45", wait: 1800 },
+  { name: "workbench", path: "workbench/", wait: 2500 },
+  { name: "search", path: "", before: SEARCH, root: ".mp" },      // the drawer open on the query "gate"
+  { name: "404", path: "404.html" },
+];
+
+// ------------------------------------------------------------------ faults owned elsewhere
+// Each entry: the check ("*" for all), the states, a pattern the fault's line must match (its selector, its words,
+// the box that clips it), who owns the fix and why it is not fixed here. `tool: true` matches anything inside the
+// workbench's pristine tool (not its sw- frame).
+const KNOWN = [
+  { check: "A6", state: /^home$/, match: /by .*div\.cover/, owner: "home room, M3", why: "the method table's row-head ring, cut by .cover: the table leaves the home page" },
+  { check: "A13", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
+  { check: "A14", state: /^home$/, match: /ol\.sc-rail/, owner: "home room, H1", why: "the hero's rail labels over the globe's glow: the rail is hidden and the hero redrawn" },
+  { check: "A6", state: /^(protocol|learn)$/, match: /^tr > td > a .*by .*div\.tw/, owner: "U4", why: "item 6: a table wider than a phone, whose focused link sits past the edge until the table stacks (A5)" },
+  { check: "A13", state: /^lesson-/, match: /section\.lm-try > details > summary/, owner: "LP2", why: "item 23: the lesson's \"Show the answer\" at 44px" },
+  { check: "*", state: /^workbench$/, tool: true, owner: "U5", why: "the workbench's own faults, fixed in its source and exported (workbench.test.mjs)" },
+];
+
+// ------------------------------------------------------------------ measured inside the page
+// HELPERS is built once per run in the page and handed to every collector. Each collector is a self-contained
+// function of it (it is sent to the page as text), and returns plain data.
+function HELPERS(opt) {
+  const DE = document.documentElement, W = DE.clientWidth;
+  const root = (opt.root && document.querySelector(opt.root)) || document.body;
+  const framed = DE.classList.contains("sw-framed");
+  // a colour painted on black and on white gives its true rgb and alpha, whatever syntax the browser reports
+  const cv = document.createElement("canvas"); cv.width = cv.height = 1;
+  const cx = cv.getContext("2d", { willReadFrequently: true });
+  const memoC = new Map();
+  const paint = (base, c) => { cx.globalCompositeOperation = "copy"; cx.fillStyle = base; cx.fillRect(0, 0, 1, 1);
+    cx.globalCompositeOperation = "source-over"; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1); return cx.getImageData(0, 0, 1, 1).data; };
+  const rgba = (c) => {
+    if (memoC.has(c)) return memoC.get(c);
+    const k = paint("#000", c), w = paint("#fff", c);
+    const a = Math.max(0, Math.min(1, 1 - (w[0] - k[0] + w[1] - k[1] + w[2] - k[2]) / 765));
+    const v = a > 0.004 ? [Math.min(255, k[0] / a), Math.min(255, k[1] / a), Math.min(255, k[2] / a), a] : [0, 0, 0, 0];
+    memoC.set(c, v); return v;
+  };
+  const over = (t, u) => [0, 1, 2].map((i) => t[i] * t[3] + u[i] * (1 - t[3])).concat(1);
+  const lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+  const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+  const hex = (c) => "#" + c.slice(0, 3).map((v) => Math.round(v).toString(16).padStart(2, "0")).join("").toUpperCase();
+  const r1 = (v) => Math.round(v * 10) / 10;
+  // names: a short selector, and one with the ids taken out, to group the same part across a page
+  const cls = (x) => (typeof x.className === "string" ? x.className : (x.className && x.className.baseVal) || "").trim().split(/\s+/).filter(Boolean);
+  const part = (x) => x.tagName.toLowerCase() + (x.id ? "#" + x.id : "") + cls(x).slice(0, 2).map((c) => "." + c).join("");
+  const sel = (e) => { const p = []; for (let x = e, i = 0; x && i < 3 && x !== document.body && x !== DE; i++, x = x.parentElement) p.unshift(part(x)); return p.join(" > "); };
+  const kind = (s) => s.replace(/#[\w-]+/g, "#*");
+  const text = (e, n = 40) => ((e.innerText || e.textContent || "").replace(/\s+/g, " ").trim() || e.getAttribute("aria-label") || "").slice(0, n);
+  // the workbench is the pristine tool inside the site's frame, whose parts carry an sw- prefix
+  const tool = (e) => { if (!framed) return false; const f = e.closest('[class^="sw-"],[class*=" sw-"],[id^="sw-"]'); return !f || f === DE; };
+  // visible: painted, on screen sideways, and not clipped to nothing by an ancestor
+  const memoV = new Map();
+  const clippedAway = (e) => {
+    for (let a = e; a && a !== DE; a = a.parentElement) {
+      if (memoV.has(a)) { if (memoV.get(a)) return true; continue; }
+      const cs = getComputedStyle(a), r = a.getBoundingClientRect();
+      const hid = /rect\(0(px)?,? 0/.test(cs.clip) || /inset\(50%/.test(cs.clipPath) || ((cs.overflow === "hidden" || cs.overflow === "clip") && (r.width <= 1 || r.height <= 1));
+      memoV.set(a, hid); if (hid) return true;
+    }
+    return false;
+  };
+  const isVis = (e) => {
+    if (!e || !e.checkVisibility || !e.checkVisibility({ opacityProperty: true, visibilityProperty: true, contentVisibilityAuto: true })) return false;
+    const r = e.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1 || r.right < -20 || r.left > W + 20) return false;
+    return !clippedAway(e);
+  };
+  // the colour behind an element: its own and its ancestors' backgrounds composited, and whether a gradient or
+  // a picture is among them (then only the screen's pixels can say)
+  const pageBg = over(rgba(getComputedStyle(document.body).backgroundColor), over(rgba(getComputedStyle(DE).backgroundColor), [255, 255, 255, 1]));
+  const memoB = new Map();
+  const bgOf = (e) => {
+    if (!e || e === DE || e === document.body) return { c: pageBg, img: false };
+    if (memoB.has(e)) return memoB.get(e);
+    const cs = getComputedStyle(e), under = bgOf(e.parentElement), c = rgba(cs.backgroundColor);
+    let v;
+    if (cs.backgroundImage && cs.backgroundImage !== "none") v = { c: c[3] > 0 ? over(c, under.c) : under.c, img: true };
+    else if (c[3] >= 0.995) v = { c, img: false };
+    else if (c[3] > 0) v = { c: over(c, under.c), img: under.img };
+    else v = under;
+    memoB.set(e, v); return v;
+  };
+  const opacity = (e) => { let op = 1; for (let a = e; a && a !== DE; a = a.parentElement) op *= +getComputedStyle(a).opacity; return op; };
+  return { DE, W, root, rgba, over, cr, hex, r1, sel, kind, text, tool, isVis, bgOf, opacity };
+}
+
+// In the order they run: focus last, because focusing scrolls the page, its rails and its tables.
+const COLLECTORS = {
+  // A14: every text node's colour against its backdrop. Candidates (a fail on the stylesheet's colours, or text
+  // on a gradient or a picture) keep a handle on their text node for the pixel check done from outside.
+  contrast(H) {
+    const { root, rgba, over, cr, hex, r1, sel, isVis, bgOf, opacity, tool } = H;
+    const out = { n: 0, cands: [], placeholders: [] };
+    const nodes = (window.__uiT = []);
+    const seen = new Set();
+    const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.nodeValue.trim() ? 1 : 3) });
+    for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+      const e = n.parentElement;
+      if (!e || seen.has(e)) continue;
+      seen.add(e);
+      if (e.closest("script,style,noscript,template,title,option") || !isVis(e)) continue;
+      const rg = document.createRange(); rg.selectNodeContents(n);
+      const rr = rg.getBoundingClientRect(); if (rr.width < 1 || rr.height < 1) continue;
+      const cs = getComputedStyle(e), svg = e.closest("svg");
+      let fs = parseFloat(cs.fontSize);
+      if (svg) { const m = e.getScreenCTM && e.getScreenCTM(); if (m) fs *= Math.hypot(m.a, m.b); }
+      fs = r1(fs);
+      let fg, bg, img, raw, alpha;
+      if (svg) {
+        if (!cs.fill || cs.fill === "none" || /url\(/.test(cs.fill)) continue;
+        raw = rgba(cs.fill); alpha = raw[3] * +cs.fillOpacity * opacity(e);
+        const host = bgOf(svg.parentElement); bg = host.c; img = host.img;
+        try {   // the shapes painted under the text in the same drawing
+          const bb = e.getBBox(), m = e.getScreenCTM();
+          const p = new DOMPoint(bb.x + bb.width * 0.5, bb.y + bb.height * 0.55).matrixTransform(m);
+          for (const sh of svg.querySelectorAll("rect,circle,ellipse,path,polygon")) {
+            if (!(sh.compareDocumentPosition(e) & Node.DOCUMENT_POSITION_FOLLOWING) || sh.contains(e)) continue;
+            const scs = getComputedStyle(sh); if (!scs.fill || scs.fill === "none" || /url\(/.test(scs.fill)) continue;
+            const sm = sh.getScreenCTM(); if (!sm) continue;
+            let inside = false; try { inside = sh.isPointInFill(p.matrixTransform(sm.inverse())); } catch {}
+            if (!inside) continue;
+            const c = rgba(scs.fill); bg = over([c[0], c[1], c[2], c[3] * +scs.fillOpacity * opacity(sh)], bg);
+          }
+        } catch {}
+      } else {
+        if (/text/.test(cs.backgroundClip || cs.webkitBackgroundClip || "")) continue;       // gradient text: not measured
+        const tf = cs.webkitTextFillColor;
+        raw = rgba(tf && tf !== cs.color && rgba(tf)[3] > 0 ? tf : cs.color); alpha = raw[3] * opacity(e);
+        const b = bgOf(e); bg = b.c; img = b.img;
+      }
+      fg = over([raw[0], raw[1], raw[2], alpha], bg);
+      out.n++;
+      const ratio = cr(fg, bg), need = fs >= 24 || (fs >= 18.66 && +cs.fontWeight >= 700) ? 3 : 4.5;
+      if (ratio >= need && !img) continue;
+      out.cands.push({ ti: nodes.push(n) - 1, sel: sel(e), txt: n.nodeValue.replace(/\s+/g, " ").trim().slice(0, 32), fs, need, css: +ratio.toFixed(2),
+        fg: hex(raw), fgA: +alpha.toFixed(3), img, dis: !!e.closest(':disabled,[aria-disabled="true"],.disabled'), tool: tool(e) });
+    }
+    for (const i of root.querySelectorAll("input[placeholder],textarea[placeholder]")) {
+      if (!isVis(i)) continue;
+      const b = bgOf(i).c, fg = over(rgba(getComputedStyle(i, "::placeholder").color), b), ratio = cr(fg, b);
+      out.placeholders.push({ sel: sel(i) + "::placeholder", txt: i.placeholder.slice(0, 32), ratio: +ratio.toFixed(2), fg: hex(fg), bg: hex(b), tool: tool(i) });
+    }
+    // for the pixel check: bring a candidate's first line to the middle of the screen and give its box on the page
+    window.__uiBox = async (k) => {
+      const n = window.__uiT[k]; if (!n || !n.parentElement) return null;
+      n.parentElement.scrollIntoView({ block: "center", inline: "nearest", behavior: "instant" });
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 40))));
+      const rg = document.createRange(); rg.selectNodeContents(n);
+      const q = [...rg.getClientRects()].find((q) => q.width > 2 && q.height > 2) || rg.getBoundingClientRect();
+      if (!q || q.width < 2 || q.height < 4) return null;
+      const inset = Math.max(1, Math.round(q.height * 0.12)), x = Math.max(0, q.left);
+      return { x: x + scrollX, y: q.top + inset + scrollY, width: Math.max(2, Math.min(q.right, innerWidth) - x), height: Math.max(2, q.height - 2 * inset) };
+    };
+    // the text made transparent for a moment, so the backdrop can be shot alone
+    window.__uiHide = async (k, on) => {
+      const e = window.__uiT[k].parentElement, p = ["color", "fill", "-webkit-text-fill-color", "text-shadow", "text-decoration-color", "transition"];
+      if (on) { e.__ui = p.map((q) => [q, e.style.getPropertyValue(q), e.style.getPropertyPriority(q)]);
+        for (const q of p) e.style.setProperty(q, q === "text-shadow" || q === "transition" ? "none" : "transparent", "important"); }
+      else for (const [q, v, pr] of e.__ui) v ? e.style.setProperty(q, v, pr) : e.style.removeProperty(q);
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    };
+    // the backdrop is the median pixel of the line shot without its text; the text's colour is composited over it.
+    // The shot with the text must differ from it somewhere, or the line was not there to see.
+    window.__uiPx = async (withText, without, fgHex, a) => {
+      const read = async (b64) => { const bm = await createImageBitmap(await (await fetch("data:image/png;base64," + b64)).blob());
+        const c = new OffscreenCanvas(bm.width, bm.height), x = c.getContext("2d"); x.drawImage(bm, 0, 0); return x.getImageData(0, 0, bm.width, bm.height).data; };
+      const d = await read(without), t = await read(withText), px = [];
+      for (let i = 0; i < d.length; i += 4) px.push([d[i], d[i + 1], d[i + 2]]);
+      const L = ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      px.sort((p, q) => L(p) - L(q));
+      const B = px[px.length >> 1];
+      let ink = 1; for (let i = 0; i < t.length; i += 4) ink = Math.max(ink, cr([t[i], t[i + 1], t[i + 2]], B));
+      const css = [1, 3, 5].map((i) => parseInt(fgHex.slice(i, i + 2), 16)), comp = css.map((v, i) => v * a + B[i] * (1 - a));
+      return { bg: hex(B), ink: +ink.toFixed(2), ratio: +cr(comp, B).toFixed(2) };
+    };
+    return out;
+  },
+
+  // A13: controls on a phone, the stepper's dots, and every other small target's spacing
+  targets(H) {
+    const { root, W, r1, sel, kind, text, isVis, tool } = H;
+    const out = { n: 0, short: [], dots: [], crowded: [] };
+    const hiddenInput = (i) => { if (!i) return false; const cs = getComputedStyle(i), r = i.getBoundingClientRect();
+      return +cs.opacity < 0.05 || r.width < 2 || r.height < 2 || /inset\(50%/.test(cs.clipPath) || /rect\(0/.test(cs.clip); };
+    const inSentence = (e) => getComputedStyle(e).display === "inline" && [...e.parentElement.childNodes].some((c) => c !== e && c.nodeType === 3 && c.nodeValue.trim().length > 1);
+    const seen = new Set();
+    for (const e of root.querySelectorAll("button,summary,[role=button],input[type=submit],input[type=button],input[type=reset],label,.ft a")) {
+      if (!isVis(e) || e.closest("[inert]")) continue;
+      if (e.tagName === "LABEL") {
+        const i = e.querySelector("input[type=checkbox],input[type=radio]") || (e.htmlFor && document.getElementById(e.htmlFor));
+        if (!i || !/^(checkbox|radio)$/.test(i.type) || !hiddenInput(i)) continue;
+      }
+      if (e.tagName === "A" && inSentence(e)) continue;
+      if (e.matches(".stp-dot")) continue;                            // held to 24px below
+      out.n++;
+      const h = r1(e.getBoundingClientRect().height);
+      const s = sel(e), k = kind(s) + "|" + Math.round(h);
+      if (h < 44 && !seen.has(k)) { seen.add(k); out.short.push({ sel: s, h, txt: text(e, 30), tool: tool(e) }); }
+    }
+    // the stepper's dots: 24px between centres, and each answers a tap across 24px, swept through its centre both
+    // ways (the browser hit-tests whole pixels, so a sweep, not a single point either side)
+    for (const g of root.querySelectorAll("[data-step-dots]")) {
+      const ds = [...g.children].filter(isVis); if (ds.length < 2) continue;
+      g.scrollIntoView({ block: "center", behavior: "instant" });
+      const c = ds.map((d) => { const r = d.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+      let apart = Infinity, area = Infinity;
+      for (let i = 1; i < c.length; i++) apart = Math.min(apart, Math.hypot(c[i][0] - c[i - 1][0], c[i][1] - c[i - 1][1]));
+      const hits = (d, x, y) => { const at = document.elementFromPoint(x, y); return at === d || d.contains(at); };
+      ds.forEach((d, i) => {
+        const span = (dx, dy) => { let n = hits(d, c[i][0], c[i][1]) ? 0.25 : 0;
+          for (const s of [-1, 1]) for (let t = 0.25; t < 20 && hits(d, c[i][0] + s * dx * t, c[i][1] + s * dy * t); t += 0.25) n += 0.25;
+          return n; };
+        area = Math.min(area, span(1, 0), span(0, 1)); });
+      out.dots.push({ sel: sel(g), apart: r1(apart), area: r1(area), n: ds.length });
+    }
+    // WCAG 2.5.8: a target whose box is under 24px, and whose 24px circle touches another target (what a finger can
+    // hit of it: a link that wraps is its lines, not the box round them) or another small target's circle
+    const T = [...root.querySelectorAll("a[href],button,input:not([type=hidden]),select,textarea,summary,[role=button],label")].filter((e) => {
+      if (e.tagName === "LABEL") { const i = e.querySelector("input[type=checkbox],input[type=radio]") || (e.htmlFor && document.getElementById(e.htmlFor)); if (!i || isVis(i)) return false; }
+      return isVis(e) && !e.closest("[inert]");
+    }).map((e) => { const r = e.getBoundingClientRect(), inl = getComputedStyle(e).display === "inline";
+      return { e, r, frags: inl ? [...e.getClientRects()].filter((q) => q.width > 0 && q.height > 0) : [r], inline: e.tagName === "A" && inSentence(e) }; });
+    const small = T.filter((t) => !t.inline && (t.r.width < 24 || t.r.height < 24));
+    const done = new Set();
+    for (const t of small) {
+      const x = t.r.left + t.r.width / 2, y = t.r.top + t.r.height / 2;
+      let near = null;
+      for (const o of T) {
+        if (o === t || o.e.contains(t.e) || t.e.contains(o.e)) continue;
+        if (o.frags.some((q) => Math.hypot(Math.max(q.left - x, 0, x - q.right), Math.max(q.top - y, 0, y - q.bottom)) < 12)) { near = o; break; }
+        if (!o.inline && (o.r.width < 24 || o.r.height < 24) && Math.hypot(o.r.left + o.r.width / 2 - x, o.r.top + o.r.height / 2 - y) < 24) { near = o; break; }
+      }
+      const s = sel(t.e), k = kind(s);
+      if (near && !done.has(k)) { done.add(k); out.crowded.push({ sel: s, w: r1(t.r.width), h: r1(t.r.height), near: sel(near.e), txt: text(t.e, 30), tool: tool(t.e) }); }
+    }
+    return out;
+  },
+
+  // A6 and A15: each focusable thing focused in turn (the browser scrolls it into view, as for a Tab press), its
+  // ring against every box that clips it, and a ring inside a code box against what it is drawn on
+  async focus(H) {
+    const { root, DE, rgba, over, cr, hex, r1, sel, kind, text, isVis, bgOf, tool } = H;
+    const out = { n: 0, rings: 0, cut: [], code: [] };
+    const st = document.createElement("style");
+    st.textContent = "*,*::before,*::after{transition:none!important;animation-play-state:paused!important;scroll-behavior:auto!important}";
+    document.head.appendChild(st);
+    const FSEL = 'a[href],button,input:not([type=hidden]),select,textarea,summary,[tabindex]:not([tabindex="-1"]),iframe';
+    const all = [...root.querySelectorAll(FSEL)].filter((e) => isVis(e) && !e.disabled && !e.closest("[inert]") && !e.matches(".skip"));
+    const clipCache = new Map();
+    const clipOf = (a) => {   // how a box clips: per axis, and its borders
+      if (clipCache.has(a)) return clipCache.get(a);
+      const cs = getComputedStyle(a), paint = /paint|strict|content/.test(cs.contain);
+      const v = { x: paint || cs.overflowX !== "visible", y: paint || cs.overflowY !== "visible",
+        b: [cs.borderTopWidth, cs.borderRightWidth, cs.borderBottomWidth, cs.borderLeftWidth].map(parseFloat) };
+      clipCache.set(a, v); return v;
+    };
+    const sx = scrollX, sy = scrollY, seenCut = new Set();
+    for (const e of all.slice(0, 900)) {
+      e.focus();
+      if (document.activeElement !== e) continue;
+      out.n++;
+      const cs = getComputedStyle(e), ow = cs.outlineStyle === "none" ? 0 : parseFloat(cs.outlineWidth);
+      if (ow > 0 && e.matches(":focus-visible")) {
+        out.rings++;
+        const ext = ow + (parseFloat(cs.outlineOffset) || 0);
+        const frags = cs.display === "inline" ? [...e.getClientRects()].filter((q) => q.width > 0 && q.height > 0) : [e.getBoundingClientRect()];
+        let cut = null;
+        for (let a = e.parentElement; a && a !== document.body && a !== DE && !cut; a = a.parentElement) {
+          const k = clipOf(a); if (!k.x && !k.y) continue;
+          const ar = a.getBoundingClientRect();
+          for (const q of frags) {
+            const L = k.x ? ar.left + k.b[3] - (q.left - ext) : 0, R = k.x ? q.right + ext - (ar.right - k.b[1]) : 0;
+            const T = k.y ? ar.top + k.b[0] - (q.top - ext) : 0, B = k.y ? q.bottom + ext - (ar.bottom - k.b[2]) : 0;
+            const m = Math.max(L, R, T, B);
+            if (m > 1) { cut = { by: sel(a), cut: r1(m), sides: [L > 1 && "L", R > 1 && "R", T > 1 && "T", B > 1 && "B"].filter(Boolean).join("") }; break; }
+          }
+        }
+        const s = sel(e);
+        if (cut && !seenCut.has(kind(s))) { seenCut.add(kind(s)); out.cut.push({ sel: s, ...cut, ring: ow + "px", txt: text(e, 30), tool: tool(e) }); }
+        if (e.closest(".blk,.codebox")) {   // the ring against what it lies on: the element itself when drawn inside, else what is under its edge
+          const r = e.getBoundingClientRect();
+          let under = e;
+          if (ext > 0) { const hit = document.elementsFromPoint(r.left - ext + ow / 2, r.top + r.height / 2).find((x) => x !== e && !e.contains(x)); under = hit || e.parentElement; }
+          const bg = bgOf(under).c, oc = rgba(cs.outlineColor), ratio = +cr(over(oc, bg), bg).toFixed(2);
+          const was = out.code.find((f) => f.kind === kind(s));
+          if (!was) out.code.push({ sel: s, kind: kind(s), ratio, outline: hex(oc), bg: hex(bg), n: 1, tool: tool(e) });
+          else { was.n++; if (ratio < was.ratio) Object.assign(was, { sel: s, ratio, outline: hex(oc), bg: hex(bg) }); }
+        }
+      }
+      e.blur();
+    }
+    scrollTo(sx, sy); st.remove();
+    return out;
+  },
+};
+
+// ------------------------------------------------------------------ the checks: one run's measurements in, faults out
+// Each returns { n: how many things it measured, faults: [{ key, ... }] }. A fault's key names it the same way
+// on every run, so one fault seen at eight widths and themes prints once.
+const CHECKS = [
+  { id: "A6", what: "no focus ring cut by more than 1px by a box that clips it", needs: { focus: WIDTHS },
+    fn: (r) => ({ n: r.focus.rings, faults: r.focus.cut.map((f) => ({ ...f, key: `${f.sel} ("${f.txt}"): ring cut ${f.cut}px (${f.sides}) by ${f.by}` })) }) },
+  { id: "A13", what: "every control 44px or taller on a phone; the stepper's dots 24px apart, 24px to touch; small targets spaced", needs: { targets: [390, 320] },
+    fn: (r) => ({ n: r.targets.n + r.targets.dots.length, faults: [
+      ...r.targets.short.map((f) => ({ ...f, key: `${f.sel} ("${f.txt}"): ${f.h}px tall` })),
+      ...r.targets.dots.filter((d) => d.apart < 23.5 || d.area < 23.5).map((d) => ({ ...d, key: `${d.sel}: dots ${d.apart}px apart, ${d.area}px to touch` })),
+      ...r.targets.crowded.map((f) => ({ ...f, key: `${f.sel} ("${f.txt}"): ${f.w}x${f.h}px, within 24px of ${f.near}` }))] }) },
+  { id: "A14", what: "every text 4.5:1 against its backdrop from the pixels (3:1 when large); placeholders too", needs: { contrast: WIDTHS },
+    fn: (r) => ({ n: r.contrast.n + r.contrast.placeholders.length, faults: [
+      ...r.contrast.groups.filter((g) => !g.dis && g.seen < g.need).map((g) => ({ ...g, key: `${g.sel} ("${g.txt}"): ${g.seen}:1${g.px ? "" : " (not found on screen)"}, needs ${g.need}` })),
+      ...r.contrast.placeholders.filter((p) => p.ratio < 4.5).map((p) => ({ ...p, key: `${p.sel} ("${p.txt}"): ${p.ratio}:1, needs 4.5` }))] }) },
+  { id: "A15", what: "every focus ring inside a code box 3:1 against what it is drawn on", needs: { focus: WIDTHS },
+    fn: (r) => ({ n: r.focus.code.reduce((n, f) => n + f.n, 0), faults: r.focus.code.filter((f) => f.ratio < 3).map((f) => ({ ...f, key: `${f.sel}: ring ${f.outline} on ${f.bg}, ${f.ratio}:1` })) }) },
+];
+
+// ------------------------------------------------------------------ the browser: one Chrome, a tab per worker
+const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const PORT = 9333 + Math.floor(Math.random() * 400);
+const profile = join(tmpdir(), `ui-${PORT}`);
+const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`, "--no-first-run",
+  "--no-default-browser-check", "--hide-scrollbars", "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
+  "--disable-backgrounding-occluded-windows", "about:blank"], { stdio: "ignore" });
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function browserUrl() {
+  for (let i = 0; i < 80; i++) {
+    try { return (await (await fetch(`http://127.0.0.1:${PORT}/json/version`)).json()).webSocketDebuggerUrl; } catch {}
+    await sleep(250);
+  }
+  throw new Error("Chrome did not start");
+}
+const ws = new WebSocket(await browserUrl());
+await new Promise((r) => ws.addEventListener("open", r, { once: true }));
+let seq = 0;
+const waiting = new Map(), tabs = new Map();
+ws.addEventListener("message", (ev) => {
+  const m = JSON.parse(ev.data);
+  if (m.id) { const w = waiting.get(m.id); if (w) { waiting.delete(m.id); m.error ? w.no(new Error(m.error.message)) : w.ok(m.result); } return; }
+  const tab = m.sessionId && tabs.get(m.sessionId); if (tab) tab.on(m.method, m.params);
+});
+const send = (method, params = {}, sessionId) => new Promise((ok, no) => {
+  const id = ++seq; waiting.set(id, { ok, no });
+  ws.send(JSON.stringify(sessionId ? { id, method, params, sessionId } : { id, method, params }));
+});
+
+// a tab in a browser context of its own, so its storage (the theme the reader chose) is its own
+async function openTab() {
+  const { browserContextId } = await send("Target.createBrowserContext");
+  const { targetId } = await send("Target.createTarget", { url: "about:blank", browserContextId });
+  const { sessionId } = await send("Target.attachToTarget", { targetId, flatten: true });
+  const tab = { thrown: [], loaded: null, script: null };
+  tab.send = (m, p) => send(m, p, sessionId);
+  tab.on = (method, p) => {
+    if (method === "Page.loadEventFired" && tab.loaded) { tab.loaded(); tab.loaded = null; }
+    else if (method === "Runtime.exceptionThrown") tab.thrown.push((p.exceptionDetails.exception?.description || p.exceptionDetails.text || "").split("\n")[0].slice(0, 140));
+    else if (method === "Fetch.requestPaused") {
+      const u = new URL(p.request.url), whole = u.pathname.startsWith(WHOLE);
+      tab.send("Fetch.continueRequest", whole ? { requestId: p.requestId, url: BASE + u.pathname.slice(WHOLE.length) + u.search } : { requestId: p.requestId }).catch(() => {});
+    }
+  };
+  tabs.set(sessionId, tab);
+  tab.evaluate = async (expression) => {
+    const r = await tab.send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
+    if (r.exceptionDetails) throw new Error((r.exceptionDetails.exception?.description || r.exceptionDetails.text || "").split("\n")[0]);
+    return r.result.value;
+  };
+  await tab.send("Page.enable"); await tab.send("Runtime.enable");
+  await tab.send("Emulation.setFocusEmulationEnabled", { enabled: true });     // a tab behind another still has focus
+  if (!new URL(BASE).pathname.startsWith(WHOLE)) await tab.send("Fetch.enable", { patterns: [{ urlPattern: "*" + WHOLE + "*" }] });
+  return tab;
+}
+
+// ------------------------------------------------------------------ one run: a state at a width in a theme
+const SCROLL_THROUGH = `(async () => { await document.fonts.ready; const H = innerHeight;
+  for (let y = 0; y < document.documentElement.scrollHeight; y += H) { scrollTo({ top: y, behavior: "instant" });
+    await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 50))); }
+  scrollTo({ top: 0, behavior: "instant" }); await new Promise((r) => setTimeout(r, 400)); return true; })()`;
+const page = (names, root) => `(async () => { await document.fonts.ready; const H = (${HELPERS})(${JSON.stringify({ root })}); const R = {};
+  ${names.map((n) => `R[${JSON.stringify(n)}] = await (${COLLECTORS[n].toString().replace(/^(async\s+)?(\w+)\s*\(/, "$1function (")})(H);`).join("\n")}
+  return R; })()`;
+
+async function run(tab, job) {
+  const { state, width, theme } = job, t0 = Date.now();
+  const names = Object.keys(COLLECTORS).filter((n) => CHECKS.some((c) => c.needs[n] && c.needs[n].includes(width)));
+  tab.thrown.length = 0;
+  await tab.send("Emulation.setDeviceMetricsOverride", { width, height: width < 600 ? 844 : 900, deviceScaleFactor: 1, mobile: width < 600 });
+  await tab.send("Emulation.setTouchEmulationEnabled", width < 600 ? { enabled: true, maxTouchPoints: 5 } : { enabled: false });
+  await tab.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }, { name: "prefers-reduced-motion", value: "no-preference" }] });
+  // the theme the reader chose, and nothing else left from an earlier run
+  if (tab.script) await tab.send("Page.removeScriptToEvaluateOnNewDocument", { identifier: tab.script });
+  tab.script = (await tab.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `try{localStorage.clear();sessionStorage.clear();localStorage.setItem('manual-theme','${theme}')}catch(e){}` })).identifier;
+  let done = new Promise((r) => (tab.loaded = r));
+  await tab.send("Page.navigate", { url: "about:blank" }); await Promise.race([done, sleep(2000)]);
+  done = new Promise((r) => (tab.loaded = r));
+  await tab.send("Page.navigate", { url: new URL(state.path, BASE).href });
+  await Promise.race([done, sleep(15000)]);
+  await sleep(state.wait || 900);
+  await tab.evaluate(SCROLL_THROUGH);
+  // one Tab press, so focus behaves as it does for a keyboard user
+  for (const type of ["keyDown", "keyUp"]) await tab.send("Input.dispatchKeyEvent", { type, key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
+  await sleep(60);
+  if (state.before) { await tab.evaluate(state.before); await sleep(300); }
+  const rec = await tab.evaluate(page(names, state.root));
+  if (rec.contrast) await pixels(tab, rec.contrast);
+  rec.ms = Date.now() - t0; rec.thrown = tab.thrown.slice(0, 3);
+  return rec;
+}
+
+// The stylesheet's colours cannot see a gradient, a picture or a part laid over another. Up to two of each kind of
+// candidate (selector, colour, size) are shot from the screen, and the lowest ratio the pixels give is kept.
+async function pixels(tab, c) {
+  const groups = new Map();
+  for (const f of c.cands) {
+    const k = [f.sel, f.fg, f.fs, f.need].join("|"), g = groups.get(k);
+    if (!g) groups.set(k, { ...f, tis: [f.ti], count: 1 }); else { g.count++; if (g.tis.length < 2) g.tis.push(f.ti); }
+  }
+  c.groups = [];
+  for (const g of [...groups.values()].slice(0, 60)) {
+    let px = null;
+    for (const ti of g.tis) {
+      const clip = await tab.evaluate(`window.__uiBox(${ti})`);
+      if (!clip) continue;
+      const shoot = async () => (await tab.send("Page.captureScreenshot", { format: "png", clip: { ...clip, scale: 1 } })).data;
+      const a = await shoot();
+      await tab.evaluate(`window.__uiHide(${ti}, true)`);
+      const b = await shoot();
+      await tab.evaluate(`window.__uiHide(${ti}, false)`);
+      if (!a || !b) continue;
+      const p = await tab.evaluate(`window.__uiPx(${JSON.stringify(a)}, ${JSON.stringify(b)}, "${g.fg}", ${g.fgA})`);
+      if (p.ink < 1.25) continue;                                     // no ink in the shot: the line was not there to see
+      if (!px || p.ratio < px.ratio) px = p;
+    }
+    // the pixels decide; where the line could not be found on screen, the stylesheet's figure stands
+    c.groups.push({ sel: g.sel, txt: g.txt, fs: g.fs, need: g.need, css: g.css, fg: g.fg, dis: g.dis, tool: g.tool, count: g.count, px, seen: px ? px.ratio : g.css });
+  }
+  delete c.cands;
+}
+
+// ------------------------------------------------------------------ all runs, then the report
+const known = (check, f) => KNOWN.find((k) => (k.check === "*" || k.check === check) && k.state.test(f.state) &&
+  (!k.match || k.match.test(f.key)) && (k.tool === undefined || !!f.tool === k.tool));
+const states = STATES.filter((s) => !ONLY || ONLY.test(s.name));
+const HEAVY = /templates|prompts|pictures|home|search|workbench|protocol/;          // started first, so the tabs end together
+const jobs = states.flatMap((state) => WIDTHS.flatMap((width) => THEMES.map((theme) => ({ state, width, theme }))))
+  .sort((a, b) => HEAVY.test(b.state.name) - HEAVY.test(a.state.name));
+const results = [];
+const t0 = Date.now();
+let failed = 0;
+try {
+  const pool = await Promise.all(Array.from({ length: Math.min(TABS, jobs.length) }, openTab));
+  let next = 0;
+  await Promise.all(pool.map(async (tab) => {
+    while (next < jobs.length) {
+      const job = jobs[next++];
+      let rec;
+      try { rec = await run(tab, job); } catch (e) { rec = { error: String(e.message || e).slice(0, 200) }; }
+      results.push({ ...job, rec });
+      if (process.env.UI_VERBOSE) console.log(`  ${job.state.name} ${job.width} ${job.theme} ${rec.error ? "ERROR " + rec.error : rec.ms + "ms"}`);
+    }
+  }));
+
+  const used = new Set();
+  const label = (r) => `${r.state.name} ${r.width} ${r.theme}`;
+  console.log(`ui.test: ${states.length} states x ${WIDTHS.length} widths x ${THEMES.length} themes = ${jobs.length} runs, ${TABS} tabs`);
+  const broken = results.filter((r) => r.rec.error);
+  for (const c of CHECKS) {
+    const groups = new Map(), held = new Map();
+    let n = 0;
+    for (const r of results) {
+      if (r.rec.error || !Object.entries(c.needs).every(([k, ws]) => !ws.includes(r.width) || r.rec[k])) continue;
+      if (!Object.entries(c.needs).some(([, ws]) => ws.includes(r.width))) continue;
+      const out = c.fn(r.rec);
+      n += out.n;
+      for (const f of out.faults) {
+        const k = known(c.id, { ...f, state: r.state.name });
+        const into = k ? held : groups, key = (k ? `[${k.owner}] ` : "") + `${r.state.name}: ${f.key}`;
+        if (k) used.add(k);
+        if (!into.has(key)) into.set(key, []);
+        into.get(key).push(`${r.width} ${r.theme}`);
+      }
+    }
+    const bad = groups.size + (broken.length ? 1 : 0);
+    if (bad) failed++;
+    console.log(`${c.id.padEnd(4)} ${bad ? "FAIL" : "ok  "}  ${c.what} (${n} measured${held.size ? `; ${held.size} known, owned elsewhere` : ""})`);
+    for (const [k, where] of groups) console.log(`       ${k}  [${where.join(", ")}]`);
+    for (const [k, where] of held) console.log(`       known ${k}  [${where.length} runs]`);
+  }
+  for (const r of broken) console.log(`       could not measure ${label(r)}: ${r.rec.error}`);
+  const thrown = [...new Set(results.flatMap((r) => (r.rec.thrown || []).map((t) => `${r.state.name}: ${t}`)))];
+  for (const t of thrown) console.log(`       script error on ${t}`);
+  if (!ONLY) for (const k of KNOWN) if (!used.has(k)) console.log(`       KNOWN no longer matches anything, remove it: ${k.owner}: ${k.why}`);
+} catch (e) {
+  failed++;
+  console.log(`ui.test could not run: ${e.message}`);
+} finally {
+  ws.close(); chrome.kill();
+  try { rmSync(profile, { recursive: true, force: true }); } catch {}
+}
+const secs = Math.round((Date.now() - t0) / 1000);
+console.log(failed ? `ui.test: ${failed} of ${CHECKS.length} checks failed (${results.length} runs in ${Math.floor(secs / 60)}m${String(secs % 60).padStart(2, "0")}s)`
+  : `ui.test: all ${CHECKS.length} checks hold over ${results.length} runs (${Math.floor(secs / 60)}m${String(secs % 60).padStart(2, "0")}s)`);
+process.exit(failed ? 1 : 0);

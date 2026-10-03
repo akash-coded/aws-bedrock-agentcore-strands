@@ -57,6 +57,10 @@ p a,li a,td a,dd a,figcaption a,.lede a{text-decoration:underline;text-underline
 p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:var(--accent)}
 .rail a,.toc a,.menu a,.hd a,.pn a,.lc,.lk,.rc,.mix a,.arc a,.who a,.btn,.ba a,.orient .oa a{text-decoration:none}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+/* drawn inside where its own box clips it (overflow for a rounded corner, a rail or the drawer that scrolls) */
+:is(.step>summary,.blk pre,.pic-a,.rl,.ll,.lnav>summary,.lstart,.mp a,.mp summary):focus-visible{outline-offset:-3px}
+/* a code box is dark in both themes, so a ring drawn on it takes the dark theme's slate: 5.6:1 on its header */
+.blk :focus-visible,.codebox .cp:focus-visible{outline-color:#7FA9CC}
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:12px;top:12px;z-index:100;background:var(--paper);padding:10px 14px;border-radius:8px;border:1px solid var(--rule)}
 
@@ -423,10 +427,13 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .stp .sh2{padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--rule2);
   display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .stp .sl{font-size:12.5px;font-weight:600;color:var(--ink2)}
-.stp [data-step-dots]{display:flex;gap:5px;margin-left:auto}
-.stp-dot{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--faint);background:none;
+/* dots 24px apart, each answering a tap on a 24px square, at every width; the current one grows by a ring, not a
+   scale, so its square stays 24px and never covers a neighbour's */
+.stp [data-step-dots]{display:flex;gap:13px;margin-left:auto}
+.stp-dot{position:relative;width:11px;height:11px;border-radius:50%;border:1.5px solid var(--faint);background:none;
   padding:0;cursor:pointer}
-.stp-dot.on{background:var(--accent);border-color:var(--accent);transform:scale(1.22)}
+.stp-dot::after{content:"";position:absolute;inset:calc(50% - 12px)}
+.stp-dot.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 1.2px var(--accent)}
 .stp-dot.done{background:var(--faint);border-color:var(--faint)}
 .stp [data-step]{padding:20px 22px}
 .stp .sn2{padding:11px 18px;border-top:1px solid var(--rule);display:flex;gap:9px;justify-content:flex-end}
@@ -1326,6 +1333,8 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
 .dgb .bkc{font-size:13.5px;line-height:1.5;color:var(--ink2)}
 .dgb .bkc b{color:var(--ink);font-weight:650}
 .dgb .bkc .bxk{display:block;font-size:11.5px;font-weight:700;color:var(--soft);margin:0 0 6px}
+/* a line of links that wraps on a phone: rows 26px apart (WCAG 2.5.8); after both rules it overrides */
+@media (max-width:640px){.mmb .mw,.dgb .bkc{line-height:2}}
 .dgb .bxg{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 .dgb .bxg i{font-style:normal;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;
   border:1px solid color-mix(in oklab,var(--c,var(--ink2)) 40%,transparent);
@@ -1428,8 +1437,6 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
   .tgl,.menu>summary,.mx,.sw-x,.cp,.rl,.play,.hd .brand{min-height:44px}
   .tgl,.menu>summary,.mx,.sw-x{min-width:44px;display:inline-grid;place-items:center}
   .cp{padding-top:10px;padding-bottom:10px}
-  .stp-dot{position:relative}
-  .stp-dot::after{content:"";position:absolute;inset:-16px;border-radius:50%}
 }
 .ph .pd{font-size:11px}
 .orient .ok,.dgcard .ck,.dgx.gate .gt{font-size:11px}
@@ -1438,7 +1445,7 @@ main a[href*="workbench/#/"]:not(.btn):not(.more)::before{content:"";display:inl
   .btn{padding-top:11px;padding-bottom:11px}
 }
 @media (max-width:820px){
-  .menu details>summary,.menu li>a,.ll,.lstart{min-height:44px;display:flex;align-items:center}
+  .menu details>summary,.menu li>a,.ll,.lstart,.lnav>summary{min-height:44px;display:flex;align-items:center}
   .menu .mr li>a{display:grid;align-items:start}
 }
 
@@ -2002,7 +2009,7 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 .step .ph .pd,.dgm .md .ok,.pr-s em,.arc a .an,.dgx.gate .gt,.dgcard .ck{font-size:11px}
 .pr-s em{background:var(--c)}
 @media (max-width:820px){
-  .crumbs a,.ft ul a,.ft .lg a{display:inline-flex;align-items:center;min-height:44px}
+  .crumbs a,.ft ul a,.ft .lg a,.ft .ftb{display:inline-flex;align-items:center;min-height:44px}
   .otp>summary,.stp .sn2 button{min-height:44px}
   .otp>summary{display:flex;align-items:center}
   .crumbs{padding-top:4px}
@@ -2072,7 +2079,9 @@ main.numbered>.sec>h2+p{font-size:16.5px;color:var(--ink2);max-width:64ch;margin
    The sheet is paper in both themes: the drawing is ink, and ink wants paper. Three pens beside the ink:
    red for the point, orange for the path, blue for the aside. They live on the sheet and mean nothing off it. */
 :root{--sk-paper:#FFFFFF;--sk-ink:#1B1A1E;--sk-r:#C5281C;--sk-o:#E2741A;--sk-ot:#A44F00;--sk-b:#2259C2;--sk-g:#A9A59B;--sk-gt:#6B675F}
-@media screen{:root:not([data-theme="light"]){--sk-paper:#E7E3DA}}
+/* the dark theme: still paper, at a lower light, and its pens deepened to keep 4.5:1, on every page with a sketch */
+@media screen{:root:not([data-theme="light"]){--sk-paper:#D0CBBF;--sk-r:#9E1B10;--sk-ot:#833E00;--sk-b:#1D4AA8;
+  --sk-gt:#514D46;--sk-o:#C8640F;--sk-g:#8F8B82}}
 .sketch{margin:10px 0 30px;max-width:760px;break-inside:avoid}
 .prose>figure.sketch{margin-left:0;margin-right:0;max-width:58ch}
 .sk-paper{border-radius:14px;background:var(--sk-paper);overflow:hidden;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 9%,transparent)}
@@ -2143,9 +2152,6 @@ main.lm>:is(h1,.lede,.lmeta,.lfolds,.lalt),.lm .prose>:is(.tw:not(.stack),.fig.s
 .lm .lm-try details{margin:0 0 12px;padding:10px 14px;background:var(--bone);font-size:18px;line-height:1.6}
 /* code: a box on the page, with its edge, in the dark theme too */
 @media screen{:root:not([data-theme="light"]) .lm .codebox pre{background:var(--paper);border:1px solid var(--rule)}}
-/* the sketch's paper in the dark theme: still paper, at a lower light, and its pens deepened to keep 4.5:1 */
-@media screen{:root:not([data-theme="light"]) .lm{--sk-paper:#D0CBBF;--sk-r:#9E1B10;--sk-ot:#833E00;--sk-b:#1D4AA8;
-  --sk-gt:#514D46;--sk-o:#C8640F;--sk-g:#8F8B82}}
 /* boards drawn as text (a column under 745px): every box to its content, nothing indented */
 .lm .bbw .bbn{gap:7px}
 .lm .bbw .bbn .bbn-f{gap:5px}
