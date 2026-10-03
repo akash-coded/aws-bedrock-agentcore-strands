@@ -31,6 +31,17 @@
 //        the box wrapped (prompts, templates and a role page, at 390)
 //   404  the 404 page wears the site's eyebrow (Geist Mono, loaded, with its leading rule) and the site's 3px
 //        focus ring, and its list's words start on its column
+//   A7   one set of corners: every box 120 by 60px or larger (a border, a fill or a shadow, rounded) has corners of
+//        11, 16 or 20px (a box inside a box, a box on the page, a tile); a pill or a circle is not a box
+//   A8   one set of buttons: every button that is drawn as one (.btn, a button with a border or a fill) and every pill
+//        a reader presses is 36, 43 or 51px tall at 1440 (1px either way) and 44px or more at 390, and a button's
+//        corner is 11px. Copy, the day card's answers and the stepper's dots are their own components
+//   A9   one heading scale: on every inner page every h2 is 27px at 620 at 1440, every h3 is 19.5px (a summary's
+//        title) or 18px (a subhead). The home page's bands, the lessons, the game and the lab's bench keep their own
+//   A12  no visible text is set in capitals by text-transform
+//
+// A7, A8, A9 and A12 measure with every fold open (a step, a how-to, a reference), as a reader can open them.
+// UI_CHECKS=<regex> runs only the checks whose ids match.
 //
 // A check is a small function over one run's measurements (CHECKS, near the end); what it reads is gathered
 // in the page by a collector of the same kind (COLLECTORS). A new check adds its collector and its function.
@@ -49,6 +60,7 @@ const BASE = process.argv[2];
 if (!BASE || !/\/$/.test(BASE)) { console.error("usage: node ui.test.mjs <site url, ending in />"); process.exit(2); }
 const TABS = Math.max(1, +process.env.UI_TABS || 3);
 const ONLY = process.env.UI_ONLY ? new RegExp(process.env.UI_ONLY) : null;
+const PICK = process.env.UI_CHECKS ? new RegExp(`^(?:${process.env.UI_CHECKS})$`) : null;
 const WIDTHS = [1440, 1024, 390, 320], THEMES = ["dark", "light"];
 const WHOLE = "/aws-bedrock-agentcore-strands/";      // the 404 page asks for whole addresses, served here from BASE
 
@@ -85,12 +97,16 @@ const STATES = [
 // the box that clips it), who owns the fix and why it is not fixed here. `tool: true` matches anything inside the
 // workbench's pristine tool (not its sw- frame).
 const KNOWN = [
-  { check: "A6", state: /^home$/, match: /by .*div\.cover/, owner: "home room, M3", why: "the method table's row-head ring, cut by .cover: the table leaves the home page" },
   { check: "A13", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
   { check: "A14", state: /^home$/, match: /ol\.sc-rail/, owner: "home room, H1", why: "the hero's rail labels over the globe's glow: the rail is hidden and the hero redrawn" },
   { check: "A6", state: /^(protocol|learn)$/, match: /^tr > td > a .*by .*div\.tw/, owner: "U4", why: "item 6: a table wider than a phone, whose focused link sits past the edge until the table stacks (A5)" },
   { check: "A13", state: /^lesson-/, match: /section\.lm-try > details > summary/, owner: "LP2", why: "item 23: the lesson's \"Show the answer\" at 44px" },
   { check: "*", state: /^workbench$/, tool: true, owner: "U5", why: "the workbench's own faults, fixed in its source and exported (workbench.test.mjs)" },
+  { check: "A8", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
+  { check: "A7", state: /^(learn|lesson-.+)$/, match: /article\.prose > (?:div\.callout|div\.tw|div\.codebox > pre|figure\.lmodel|section\.lm-try|details|figure\.mmd|figure\.fig|p > img)|details\.otp/,
+    owner: "LP2", why: "the lesson's boxes take 16 and 11 in the lesson lane's own rules (.prose, .otp, .lm)" },
+  { check: "A7", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own parts (play/game.css, GAME.md): its role cards at 14px" },
+  { check: "A8", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own buttons (play/game.css, GAME.md): 45px at 12, every button on its title as tall as Start (playtest.mjs), room chips 52px" },
 ];
 
 // ------------------------------------------------------------------ measured inside the page
@@ -400,6 +416,61 @@ const COLLECTORS = {
       h1: H.r1(left(document.querySelector("main h1"))), row: H.r1(left(document.querySelector("main li a"))) };
   },
 
+  // A7, A8, A9, A12: the page's parts, with every fold open (not the top bar's lists or the drawer): the corners of
+  // its boxes, the height and corner of its buttons and pills, its headings, and any text set in capitals
+  parts(H) {
+    const { root, r1, sel, kind, text, isVis, tool, rgba } = H;
+    const st = document.createElement("style");
+    st.textContent = "*,*::before,*::after{transition:none!important}::details-content{transition:none!important}";
+    document.head.appendChild(st);
+    const shut = [...root.querySelectorAll("details:not([open])")].filter((d) => !d.closest(".hd") && !tool(d));
+    shut.forEach((d) => (d.open = true));
+    const out = { boxes: [], ctrls: [], heads: [], caps: [], n: { boxes: 0, ctrls: 0, heads: 0, caps: 0 } };
+    // a corner as px (a percentage is of the shorter side), and whether a box is drawn at all
+    const corners = (cs, r) => ["TopLeft", "TopRight", "BottomRight", "BottomLeft"].map((c) => {
+      const v = cs["border" + c + "Radius"].split(" ")[0]; return v.endsWith("%") ? (parseFloat(v) / 100) * Math.min(r.width, r.height) : parseFloat(v); });
+    const drawn = (cs) => rgba(cs.backgroundColor)[3] > 0.01 || (cs.backgroundImage && cs.backgroundImage !== "none") || (cs.boxShadow && cs.boxShadow !== "none") ||
+      ["Top", "Right", "Bottom", "Left"].some((s) => parseFloat(cs["border" + s + "Width"]) > 0 && cs["border" + s + "Style"] !== "none" && rgba(cs["border" + s + "Color"])[3] > 0.01);
+    const hiddenInput = (l) => { const i = l.querySelector("input[type=checkbox],input[type=radio]"); if (!i) return false;
+      const cs = getComputedStyle(i), r = i.getBoundingClientRect(); return +cs.opacity < 0.05 || r.width < 2 || r.height < 2 || /inset\(50%/.test(cs.clipPath); };
+    const seen = new Set();
+    const once = (list, k, v) => { if (!seen.has(k)) { seen.add(k); list.push(v); } };
+    for (const e of root.querySelectorAll("*")) {
+      if ((e instanceof SVGElement && e.tagName.toLowerCase() !== "svg") || !isVis(e)) continue;
+      const cs = getComputedStyle(e), r = e.getBoundingClientRect(), s = sel(e), t = tool(e);
+      const cn = corners(cs, r), round = cn.filter((x) => x > 0.4), pill = round.length > 0 && round.every((x) => x >= Math.min(r.width, r.height) / 2 - 0.6);
+      // A7: a box, rounded, 120 by 60 or larger, that is not a pill or a circle
+      if (round.length && !pill && cs.display !== "inline" && r.width >= 120 && r.height >= 60 && drawn(cs)) {
+        out.n.boxes++;
+        const c = cn.map(r1).join("/");
+        once(out.boxes, "b|" + kind(s) + "|" + c, { sel: s, corners: c, round: round.map(r1), w: r1(r.width), h: r1(r.height), tool: t });
+      }
+      // A8: a button drawn as one, or a pill a reader presses
+      if (!e.closest("[inert]") && !e.matches(".cp,.stp-dot,.dc-o :is(a,button)") && !e.closest(".bh")) {
+        const btn = e.matches('.btn,button,[role=button],input:is([type=submit],[type=button],[type=reset])') && drawn(cs);
+        const presses = e.matches("a[href],summary") || (e.tagName === "LABEL" && hiddenInput(e));
+        if (btn || (presses && pill && drawn(cs))) {
+          out.n.ctrls++;
+          once(out.ctrls, "c|" + kind(s) + "|" + Math.round(r.height) + "|" + r1(cn[0]), { sel: s, h: r1(r.height), corner: pill ? "pill" : r1(cn[0]), txt: text(e, 24), tool: t });
+        }
+      }
+      // A9: the headings of the page
+      if (/^H[23]$/.test(e.tagName) && e.closest("main")) {
+        out.n.heads++;
+        once(out.heads, "h|" + kind(s) + "|" + cs.fontSize + "|" + cs.fontWeight, { sel: s, tag: e.tagName.toLowerCase(), fs: r1(parseFloat(cs.fontSize)), fw: +cs.fontWeight,
+          own: !!e.closest(".h4,.daycard,.nd-app,.lab-bench,.lm,.sec-h,.play-t,.tour-card"), txt: text(e, 30), tool: t });
+      }
+      // A12: text in capitals by text-transform
+      if ([...e.childNodes].some((n) => n.nodeType === 3 && n.nodeValue.trim())) {
+        out.n.caps++;
+        if (cs.textTransform === "uppercase") once(out.caps, "t|" + kind(s), { sel: s, txt: text(e, 30), tool: t });
+      }
+    }
+    shut.forEach((d) => (d.open = false));
+    st.remove();
+    return out;
+  },
+
   // A6 and A15: each focusable thing focused in turn (the browser scrolls it into view, as for a Tab press), its
   // ring against every box that clips it, and a ring inside a code box against what it is drawn on
   async focus(H) {
@@ -521,7 +592,20 @@ const CHECKS = [
       ...(!r.notfound.rule ? [{ key: "the eyebrow has no leading rule" }] : []),
       ...(r.notfound.rings.some((x) => x !== "solid 3px") ? [{ key: `focus rings: ${r.notfound.rings.join(", ")}` }] : []),
       ...(Math.abs(r.notfound.row - r.notfound.h1) > 1 ? [{ key: `a row's words start at ${r.notfound.row}, the title at ${r.notfound.h1}` }] : [])] } },
-];
+  { id: "A7", what: "every box 120 by 60px or larger has corners of 11, 16 or 20px", needs: { parts: WIDTHS },
+    fn: (r) => ({ n: r.parts.n.boxes, faults: r.parts.boxes.filter((b) => b.round.some((x) => ![11, 16, 20].some((o) => Math.abs(x - o) < 0.5)))
+      .map((b) => ({ ...b, key: `${b.sel}: corners ${b.corners}px` })) }) },
+  { id: "A8", what: "every button and pill 36, 43 or 51px tall at 1440 and 44px or more at 390; a button's corner 11px", needs: { parts: [1440, 390] },
+    fn: (r, state, width) => ({ n: r.parts.n.ctrls, faults: r.parts.ctrls.flatMap((c) => [
+      ...((width === 1440 ? ![36, 43, 51].some((s) => Math.abs(c.h - s) <= 1) : c.h < 44) ? [{ ...c, key: `${c.sel} ("${c.txt}"): ${c.h}px tall` }] : []),
+      ...(c.corner !== "pill" && Math.abs(c.corner - 11) > 0.5 ? [{ ...c, key: `${c.sel} ("${c.txt}"): corner ${c.corner}px` }] : [])]) }) },
+  { id: "A9", what: "on inner pages every h2 27px at 620, every h3 19.5px or 18px, at 1440", needs: { parts: [1440] },
+    states: /^(?!home$|search$|lesson-|sim-|workbench$|404$)/,
+    fn: (r) => ({ n: r.parts.n.heads, faults: r.parts.heads.filter((h) => !h.own && (h.tag === "h2" ? Math.abs(h.fs - 27) > 0.5 || h.fw !== 620 : ![18, 19.5].some((s) => Math.abs(h.fs - s) < 0.3)))
+      .map((h) => ({ ...h, key: `${h.sel} ("${h.txt}"): ${h.fs}px at ${h.fw}` })) }) },
+  { id: "A12", what: "no visible text set in capitals by text-transform", needs: { parts: WIDTHS },
+    fn: (r) => ({ n: r.parts.n.caps, faults: r.parts.caps.map((c) => ({ ...c, key: `${c.sel} ("${c.txt}"): text-transform uppercase` })) }) },
+].filter((c) => !PICK || PICK.test(c.id));
 
 // ------------------------------------------------------------------ the browser: one Chrome, a tab per worker
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -679,7 +763,7 @@ try {
     for (const r of results) {
       if (r.rec.error || !Object.entries(c.needs).every(([k, ws]) => !ws.includes(r.width) || r.rec[k])) continue;
       if (!Object.entries(c.needs).some(([, ws]) => ws.includes(r.width)) || (c.states && !c.states.test(r.state.name))) continue;
-      const out = c.fn(r.rec, r.state);
+      const out = c.fn(r.rec, r.state, r.width);
       n += out.n;
       for (const f of out.faults) {
         const k = known(c.id, { ...f, state: r.state.name });
@@ -698,7 +782,8 @@ try {
   for (const r of broken) console.log(`       could not measure ${label(r)}: ${r.rec.error}`);
   const thrown = [...new Set(results.flatMap((r) => (r.rec.thrown || []).map((t) => `${r.state.name}: ${t}`)))];
   for (const t of thrown) console.log(`       script error on ${t}`);
-  if (!ONLY) for (const k of KNOWN) if (!used.has(k)) console.log(`       KNOWN no longer matches anything, remove it: ${k.owner}: ${k.why}`);
+  if (!ONLY) for (const k of KNOWN) if (!used.has(k) && (k.check === "*" || CHECKS.some((c) => c.id === k.check)))
+    console.log(`       KNOWN no longer matches anything, remove it: ${k.owner}: ${k.why}`);
 } catch (e) {
   failed++;
   console.log(`ui.test could not run: ${e.message}`);
