@@ -55,9 +55,9 @@ engagement, Deliver the system and Evolve the relationship, each a focused read 
 Roles list and the drawer name it with the other roles; its stage pages are in the sitemap, the search finds
 each step at its stage page, and `/templates/` and `/prompts/` end their role sections with one line to the
 stage pages, where its 12 templates and 30 prompts live. A count of the whole manual counts the guide too: the
-home page, the leadership page and the social cards say 52 templates and 146 prompts, and the libraries' own
-heads give that total and its split, 40 templates and 116 prompts on their pages and 12 and 30 in the guide.
-<!-- RC-B: confirm the libraries' heads against U4 (until it lands the home pass's library line fails on purpose). -->
+home page and the leadership page say 52 templates and 146 prompts, and the libraries' own heads give that
+total and where each part is ("52 templates · 40 here, for 5 roles · 12 in the FDE guide", and 146 prompts, 116
+here and 30 in the guide), the guide named and linked.
 
 The home page, top to bottom:
 
@@ -212,8 +212,8 @@ and Next. A line of links that wraps on a phone sets its rows 26px apart.
 - One `h1` per page; bands are labelled sections; the skip link, focus rings and breadcrumbs are kept. A
   breadcrumb is a link or the page itself: only the last is current, and on a phone the one before it is a
   link.
-- No page scrolls sideways at 320px, and no table hides a column on a phone.
-<!-- RC-B: confirm the breadcrumbs and the tables against U4. -->
+- No page scrolls sideways at 320px, and no table hides a column on a phone: a table that does not fit stacks,
+  one block a row, each value under its column's name.
 
 ## Key flows
 
@@ -248,7 +248,7 @@ landed on the home page.
 3. *The moment:* she reaches "the four decisions only you can make" and takes them to her review.
 
 **Tomás, a QA lead, who searched for a golden set template and landed on `/templates/`.**
-1. Title, one line, "40 templates".
+1. Title, one line, and the counts: "52 templates", 40 of them here for five roles.
 2. He picks QA lead in the left rail.
 3. *The moment:* he presses Copy on the first block.
 
@@ -286,9 +286,10 @@ an instruction strip, a contents box, a walkthrough button and a popup.
 
 - **Wide (over 1000px):** hero words left, scene right; the simulator band is two columns, its day card in
   perspective.
-- **Tablet and phone:** the hero stacks, words first; the scene follows, and on a phone its picture ends
-  inside the first screen. The first phone screen holds the headline, the sentence, both buttons and the
-  counts. At 420px and under the hero's two buttons stack at full width.
+- **Tablet and phone:** the hero stacks, words first; the scene follows. The first phone screen holds the
+  headline, the sentence, both buttons and the picture, which ends inside it; under the picture the meta line
+  keeps the licence and the author, and the counts show only over 1000px. The hero's two buttons stay side by
+  side on a phone: stacked, they pushed its picture below a 390 by 844 screen.
 - **Under 860px:** the top bar keeps the mark, the simulator and the theme; the five places are in the
   drawer. On a phone it sits on the page's 20px column.
 - **The method map:** over 1180px the notes sit in a margin column with their arrows; from 761 to 1280px the
@@ -308,7 +309,8 @@ an instruction strip, a contents box, a walkthrough button and a popup.
   column, the body at 17px, with the same two folds.
 - **The FDE framework:** on a phone the stages stack and each stage's four steps sit two by two, so across is
   still the order; the artefact line drops.
-<!-- RC-B: confirm the stacked buttons against U3. -->
+- **The libraries:** on a phone the templates and prompts pages fold their five roles under the title ("By
+  role"), as the leadership page folds its sections.
 
 ## The second council: the inner pages, and motion
 
@@ -763,8 +765,7 @@ no proof line; and the drawer as it is, the discussions page without script, and
 **Room first.** `base.css`, which every page loads, stood at 39.66 KB gzipped under a 40 KB ceiling, and a
 quarter of it was comments. The build now ships every stylesheet without them (`build.py`, `lean()`), which
 took the file to 29.28 KB as shipped with the same rules, and the ceiling came down to 32 KB so the room is
-kept for work. Both rooms' parts were then built inside it.
-<!-- RC-B: base.css as shipped at the end of the round. -->
+kept for work. Both rooms' parts were then built inside it: it ships at 30.40 KB.
 
 **The home page: what was decided.** The page runs in eight bands, and its headings read as one sentence of
 intent: what it is, how the methods fit, which to use, start, learn, play, take, get help. The hero is staged
@@ -852,12 +853,20 @@ under the redesigns. Focus rings are drawn inside the boxes that clip them, ring
 lab's "(empty)" reads, the toned sketch paper is on every dark page, and every phone control is 44px tall, the
 stepper's dots excepted at 24px apart. Prompts and templates wrap instead of hiding half their lines on a phone
 (116 of 116 prompts scrolled sideways at 390), role rows and rails sit on their column, and the top bar sits on
-the page's 20px column on a phone. Three radii, three button heights and one h2 scale; one page head with one
-eyebrow; breadcrumbs whose categories are links; tables that stack on a phone. The workbench meets the same
+the page's 20px column on a phone. The audit had found eight corner radii for one kind of box, five buttons off
+any scale, inner h2s in five sizes and two weights, and capitals with wide tracking; now three corners are three
+tokens, buttons come in three heights (36, 43 and 51px at 1440), an inner page has one h2 scale, and no text is
+set in capitals. The light amber reads 4.69:1 on a calculator's panel, where it read 4.39. Every landing page
+opens on one page head from one helper, with one eyebrow in the page's accent; 15 of 90 pages had marked two
+crumbs as the page, and a category in the crumbs is now a link, so the one crumb a phone shows leads back; and
+tables that hid columns on a phone (the leadership page's eight ran 212 to 364px past their box at 390) stack.
+The libraries' heads now count the whole manual and say where the FDE guide's part is. Two choices went against
+the audit's letter: the hero's two buttons stay side by side on a phone, because stacked they pushed its
+picture below a 390 by 844 screen, and the game keeps its own buttons and chips. The workbench meets the same
 floor in its own file: no label under 11px (4.6px on a phone before), a sign-off at 6.7:1 (2.88), the control
 tower's links at 12.3:1 (2.86), every focus ring 3:1 or more (1.6 and 1.9), and Menu on screen at 320px with
-44px controls. `tools/ui.test.mjs` keeps the audit's measurer as a test.
-<!-- RC-B: confirm U3 (radii, buttons, h2, capitals) and U4 (page head, crumbs, tables) against the code. -->
+44px controls. `tools/ui.test.mjs` keeps the audit's measurer as a test: seventeen checks over 21 page states,
+four widths and both themes.
 
 **Outside readers.** Models from other makers, through Amazon Bedrock, read the built parts cold with the
 councils' own questions. On the method map, in three runs, at least two of three answered each of five factual
@@ -872,45 +881,59 @@ covered, and two stated each new figure's point; their notes changed three label
 **The gate.** The acceptance gate grew with the round and has twenty passes. Pass 18 now holds every lesson's
 frame and type, not only its map: the measure, one left edge and two right ones, the guide on screen marking the
 section being read, two-line titles with their grey at 3:1 or more, the six gaps, and at 390 no table that
-scrolls and no fold under 44px. Pass 19 holds the home page's bands, one function for each band's parcel, and
-pass 20 the FDE guide's four pages at four widths in both themes. Pass 13 was rewritten to see the hero's words,
-its fit and its whole cost, not only its script: thirteen checks, every moment read from the hero's own times,
-and the rest held as a condition of shipping (a first visit still by its rest time plus two seconds, a later one
-within 30 seconds). On 3 October the machine under the gate changed and the same code lost a third of its
-frames, so an absolute floor measured the host, not the hero. The hero's cost is now judged against a frozen
-copy of the hero before the round (`tools/reference/hero-2026-10-02.js`), served in its place in the same run;
-in a gate that shares the machine that check is a screen, and pass 13 alone under the exclusive lock is the
-judge. Pass 17 holds `theme/hero.js` under 10 KB, `fde.css` under 2 KB and the FDE hub under 22 KB beside its
-older budgets. Each new check was shown to fail on a build with its fault put in. CI now runs the role builder's
-tests before every build, and the tools that drive Chrome, but for `ui.test.mjs`, ask the system for a free
-port, so two runs never drive one browser.
-<!-- RC-B: renumber, then confirm the count and pass 17's home lines (H10). -->
+scrolls and no fold under 44px. Pass 19 holds the home page: the home verdict's order, eyebrows and headings,
+its height (8,700px at most at 1440, 13,200px at 390), a first visit that asks for nothing the byte count leaves
+out, then each band's own checks. Pass 20 holds the FDE guide's four pages at four widths in both themes. Pass 13
+was rewritten to see the hero's words, its fit and its whole cost, not only its script: thirteen checks, every
+moment read from the hero's own times, and the rest held as a condition of shipping (a first visit still by its
+rest time plus two seconds, a later one within 30 seconds). On 3 October the machine under the gate changed and
+the same code lost a third of its frames, so an absolute floor measured the host, not the hero. The hero's cost
+is now judged against a frozen copy of the hero before the round (`tools/reference/hero-2026-10-02.js`), served
+in its place in the same run; in a gate that shares the machine that check is a screen, and pass 13 alone under
+the exclusive lock is the judge. Pass 17 holds `theme/hero.js` under 10 KB, `frame/frame.js` (every page loads
+it) under 6 KB, the home page's HTML under 21 KB with no `<style>` block, everything a first visit to the home
+page asks for under 176 KB, `fde.css` under 2 KB and the FDE hub under 22 KB, beside its older budgets. Passes 1
+to 4 and 8 fail when one of the home page's parts is no longer found there, so a renamed class cannot leave
+nothing checked, and pass 1 reads the close's button without script. Each new check was shown to fail on a build
+with its fault put in. CI now runs the role builder's tests before every build, and the tools that drive Chrome,
+but for `ui.test.mjs`, ask the system for a free port, so two runs never drive one browser.
+
+**Fixed forward.** A last parcel took the round's reports' loose ends. AIDDLC's seven phases and BMAD's unit,
+six documents (its own reference installs five agents in its current release, where "twelve personas" came from
+an older one), now agree in every lesson, map, library entry and role page. The leadership page sends people to
+the FDE guide's twelve steps and counts five delivery roles and the FDE. The QA lead's line is its own ("from
+'it works' to proof that it works") everywhere but its social card. The start page's box opens with its answer.
+The picture pack names the three new figures. Two sketches' labels clear 13px at 320. The library's room keeps
+its screen whole from 561 to 1000px, and its shelf names start level on a small phone. The contact relay files a
+consultancy enquiry as one. The workbench's menu sheet, role tabs and rows and footer links are 44px on a phone
+with their rings whole, and its loop map, gate pictures and concept map read 4.5:1. The Mental Models picture
+names the twelve models as the site does, and the stale copy of the workbench is gone.
+<!-- RC-review: one line here for FX2a's and FX2b's review fixes, from their reports. -->
 
 **Bytes.** Sketch paths are written from the point before: the 31 pages with a sketch went from 547.6 to 511.1
 KB gzipped, 1.18 KB a page, and every sketch draws the same pixels. The home page's HTML grew from 13.0 to 19.0
 KB with its four drawings, the map, the chooser, the library and the close, under the 21 KB it is held to, and
-no longer asks for `engine.js`. The page is 8,528px tall at 1440 (7,085 before) and 12,939px at 390 (9,742). The
-hero's script went from 7.1 to 9.9 KB, under its 10 KB budget, and it stops drawing once it rests. The FDE hub
-is 17.7 KB, and Frame 21.8, Deliver 23.5 and Evolve 21.4 KB. The picture pack is 37.98 KB of its 38 KB hold.
-<!-- RC-B: re-measure every number in this paragraph on the final build. -->
+no longer asks for `engine.js`; everything a first visit to it asks for, scrolled to the end, went from 177.3 to
+174.0 KB. The page is 8,528px tall at 1440 (7,085 before) and 12,872px at 390 (9,742). The hero's script went
+from 7.1 to 9.9 KB, under its 10 KB budget, and it stops drawing once it rests. The FDE hub is 17.7 KB, and
+Frame 21.9, Deliver 23.5 and Evolve 21.4 KB. The picture pack is 37.90 KB of its 38 KB hold.
 
-**Performance, before and after.**
-<!-- RC-B: H11's table goes here, as its report gives it, measured before (3bdb076) and after. -->
+<!-- RC-H11: H11's performance table goes here, under the heading "Performance, before and after.", as its
+report gives it (before: 3bdb076; after: the round), with one sentence on what it shows. -->
 
 **What closed.** The open items this round closed, and what closed them: `base.css` sits far under its budget
 (the build strips comments, and the ceiling is 32 KB); the home page's sample sketch kept the old paper in the
 dark theme (the toned paper is now on every dark page, and the sample gave way to the four people); at 1024 by
 768 every lesson map showed its text version and 25 of the 44 ran over 630px (the lesson's column is 944px at
-1024, so every map is drawn there as at 1440, and none is over 630px).
-<!-- RC-B: add the items FX closes, from its report. -->
+1024, so every map is drawn there as at 1440, and none is over 630px); the product manager's and the QA lead's
+lines both ended on "a number you can defend" (the QA lead now ends on "proof that it works"); the Mental Models
+picture labelled the models by their old names (it reads them from the site's registry now); and the start page's
+box opened with a bold lead (it opens with its answer).
 
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
 - "Agentic STLC" has an FAQ entry and no lesson. If it earns one, it is built from the QA lead's journey.
-- The product manager's page and the QA lead's page both open on "a number you can defend" (their taglines in
-  `content/roles/_src/`), and so does the QA row on the tutorial's start page; the home page's QA row already
-  reads "to proof that it works".
 - Two labs are listed as being built: proving the bar, and reviewing a change a coding agent wrote.
 - Lab 1's own recordings name their model only as "Claude", with no version, while its three other models'
   replies carry theirs and Lab 2's recordings name Claude Opus 4.6. Lab 1 was not recorded again, and
@@ -925,8 +948,10 @@ dark theme (the toned paper is now on every dark page, and the sample gave way t
   Day 1, keep their saves.
 - The game's three scripts are 45.97 KB gzipped, 35 bytes under their 46 KB budget. Moving the room cards'
   27 sentences into `days.json` would free about 0.45 KB, and the code would read worse for it.
-- The picture pack is 37.98 KB gzipped, 21 bytes under its 38 KB hold, so the next card added to it fails
-  pass 17. Trimming the image data each card carries for search is the way back down.
+- `play/game.js` (line 492) still reads `--spring`, a token the stylesheet no longer has, and falls back to
+  `ease-out`. The game can drop the lookup, or the token can come back if the game wants its spring.
+- The picture pack is 37.90 KB gzipped, 107 bytes under its 38 KB hold, so the next card added to it needs room
+  found first. Trimming the image data each card carries for search is the way back down.
 - Eight lesson maps sit 2 to 5px under the cap, at 1440 and at 1024 alike (628, 627, 627 and five at 625px).
   Pass 18 fails if the lesson column ever widens enough to tip one over.
 - In the tutorial's rail, and in the course a lesson's guide folds, a current lesson with a two-digit number
@@ -935,13 +960,11 @@ dark theme (the toned paper is now on every dark page, and the sample gave way t
 - On the start page (`/learn/`) the "Start here" row's highlight still starts 10px left of the track
   headings. The row has no number to absorb the move, so aligning it would mean moving its words 10px
   right or setting them against the accent bar.
-- The Mental Models picture (`pages/wikimaps.py`, `SPECS["mental-models"]`) still labels the twelve models
-  by their old names ("1 · Length is the enemy" and so on), on the wiki and in the picture pack.
-  Relabelling it means shooting the pictures again; `export_models.py` then draws the wiki's block from
-  the same registry.
-- The start page's box (`content/learn/start-here.md`, on `/learn/` and on the wiki's Start Here) still
-  opens with a bold lead, "What this is.", under its "In short" label. It is not a lesson, so the summary
-  check does not cover it.
+- On a phone the start page (`/learn/`) opens on its course list's fold, above its title, so its eyebrow sits at
+  207px where every other head in a column has it at 134px; `ui.test.mjs` lists it as known. The libraries fold
+  their list under the title, which would fit there too.
+- The lesson rules' seven `.lm .prose .tw.stack` lines now repeat what the site's own `.tw.stack` rules do, about
+  70 bytes of `base.css`.
 - help.openai.com refuses the session's proxy, so five OpenAI facts in the Tool guides stand as the
   research sheet had them, unchecked against their pages. The ChatGPT and Codex manual does not use them.
 - Two facts in the ChatGPT and Codex manual carry dates that will pass: OpenAI's existing evals become
@@ -950,35 +973,29 @@ dark theme (the toned paper is now on every dark page, and the sample gave way t
   after those days, before their checks turn amber on 1 December.
 - The FDE guide's sources were read on 2 October 2026, and one, S26b, on the 3rd: they turn amber on 2 and 3
   December. Re-check them by 1 December (`content/roles/_src/fde_sources.py`).
-- *One lifecycle for every method* still places AIDDLC's old phases across P0 to P3, where *AI-DLC vs AIDD vs
-  agentic SDLC* now lists the seven its own site gives.
-- BMAD's `when` in `frameworks.json`, and two lines of the solution architect's steps, say "twelve personas";
-  the BMAD lesson describes it by its documents.
-- The leadership page's "Where to send people" says each role has its own eight steps and lists five roles;
-  the FDE guide is a sixth, with twelve steps in three stages.
-- The FDE hub's sitemap date follows only the role's JSON, not `fde_hub.py`, `fde_sources.py` or
-  `pages/fde.py`, and the stage pages' dates do not follow `fde_sources.py`.
-- The picture pack's cards for the three new figures fall back to "Drift slide", "Postmortem layers" and
-  "Rollback times" (`pages/pictures.py` `TITLES`).
-- Two sketches, *Cut delivery time* and *How to run an agentic AI project*, carry a 54-unit label, which is
-  12.6px at 320 in the new frame; the lint's floor assumes a 288px column.
-- The contact relay's `TOPICS` (`contact-relay/src/handler.py`) has no consultancy topic, so if the relay is
-  deployed an enquiry from the home page's close is filed as "other".
-- The workbench on a phone: the menu sheet's Close, Search, Evidence pack and "Light or dark" are 38px tall,
-  its role tabs 39.6px and its role rows 42px; its start rail's and roles figure's focus rings are cut; the
-  frame's footer links (`frame/frame.css`, `.sw-legal a`) are 21px tall.
-- The workbench's faint labels: the loop badges on `#/loopmap` (2.15 to 4.2:1), the gate picture's hue labels
-  and "SOFT" notes on `#/governance` (3.35 to 4.1:1 and 2.27:1), and the cluster names on `#/concepts` (1.3 to
-  1.7:1, perhaps meant as watermarks).
-- From 561 to about 700px the library's simulator card crops its room through the boardroom's screen.
-- `site/app/SkyWays-Architect.html.orig` (1.77 MB) is referenced by nothing and not shipped.
-<!-- RC-B: FX items 1 to 14 close or change the twelve items above from the FDE sources down; check its report and
-the code, move each closed one into the round's "What closed", and keep the rest. -->
 - The proof calculator in the FDE guide's step 3 opens on its shared defaults (82%, 40 cases, a bar of 80),
   not on the example's numbers; a default per step is a change to `calcs` or `enrich`.
 - The interview bank for FDEs paraphrases the OpenAI careers page and the Anthropic Paris posting with
   "September 2026" dates, where the guide's records read them on 2 October.
-- `pages/mapspecs.py`'s docstring calls the hue `t` teal and `p` purple; `p` is teal and `t` violet.
+- The FDE guide's four pages are not among `ui.test.mjs`'s states; their heads were measured by probe, and the
+  gate's pass 20 holds the rest.
+- The BMAD lesson's persona pipeline (its summary, steps 2 and 3, its map, the extended-BMAD table) and
+  `frameworks.json`'s `what` ("analyst, PM, architect, dev, QA") describe an earlier release; the current one
+  installs five agents, with no scrum master and no QA agent. Its FAQ says so. Bringing the lesson up to date
+  is a rewrite, and the owner's call.
+- The root `README.md`'s table of roles is stale: the engineering lead's and the QA lead's lines, and no row for
+  the FDE guide ("Five roles, forty steps").
+- The wiki's generated copies follow at the next export, which was not run: `Journey-Solution-Architect.md` and
+  `Journey-QA-Lead.md` (`site/wiki_export.py`) and `Start-Here.md` (`site/learn_export.py`); then the Wiki sync.
+- The social cards were not shot again this round. The home page's still draws the earlier hero's aircraft
+  (the council refused redrawing it as the rest frame in Python, which would drift from the canvas) and
+  predates the FDE guide's counts; the QA lead's carries its old line; and the templates and prompts cards say
+  every one "in the manual", where those pages hold the five journey roles' and point to the guide for the rest.
+- The sketch lint's floor (`sketch.LABEL_MIN`, 54 units) is 12.6px in a 320px phone's 280px column; 56 would be
+  13.1px. No sketch is under 58 now. Its 6,500-byte budget no longer binds either: with paths written from the
+  point before, the largest sketch is 3,605 bytes.
+- `pages/mapspecs.py`'s docstring names the hues by older colours (P0 green, P1 blue, P2 purple, P3 orange, `t`
+  teal); they are slate, indigo, teal and amber, and `t` is violet.
 - Ten older picture placements draw numbers their lesson's text does not state (`two_numbers` in the sponsors,
   productivity and P3 lessons; `bill_factors` in the costs and P3 lessons; `bolt_days` in bolts vs sprints and
   P2; `authority_ladder` in P0; `bar_sheet` in P1; `shadow_widen` in P3), and five pictures touch a table or
@@ -989,16 +1006,21 @@ the code, move each closed one into the round's "What closed", and keep the rest
 - `.step{overflow:hidden}` clips text too wide for a step, so no sideways check can see it.
 - On a phone the method map draws a method's ends as bars without their words; only the screen reader's
   sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
+- On the home page a wrapped "more" link leaves its arrow at the column's far right (the simulator band's link to
+  the labs at 1024, 390 and 320; the methods band's two links at 320), and at 320 the roles band's "from → to"
+  lines break after an article ("a / system that holds"); a non-breaking space would keep each with its noun.
 - The hero's pause control moved into the stage's corner but is still 30px across, on a phone too, under the
   44px every other control keeps there; `ui.test.mjs` lists it as known.
 - `theme/hero.js` is 10,143 bytes gzipped, 97 under its 10 KB budget.
-- The home page's social card still draws the earlier hero's aircraft. The council refused redrawing it as
-  the rest frame in Python, which would drift from the canvas; the standard card serves.
+- A filled button prints near-white on white in Chrome's print preview (the hero's, the tutorial's and the
+  simulator's); only the close's button has a print rule.
 - `base.css` carries rules no built page uses. Removing them was left for a later round: the budget no longer
   needs it, and a class joined from strings would not show in a search.
-- The sketch lint's 6,500-byte budget no longer binds: with paths written from the point before, the largest
-  sketch is 3,605 bytes.
+- In the gate, `[data-reveal]>*` among the other pages' parts matches nothing on any page it walks; only the home
+  page's parts have a guard against a name that matches nothing.
+- The workbench on a phone, beyond what this round fixed: at 390 its route's day chips (29.6px), gate links
+  (31.4), pictures' links (37.6), "who" links (34) and rail chips (31.5), and in its drawer the inputs (39 to 41)
+  and the alternative links (21). The triangle's "holds" label, shown only when cost or latency is pushed, is
+  ink on the dark card in the dark theme.
 - "Check yourself", a recall block in every teaching lesson (about 150 questions, each a decision or a number
   from the case with its answer folded), waits for the next round, once the new lesson frame has settled.
-<!-- RC-B: add what U3, U4, H1, H2, H10, H11 and FX leave open (e.g. filled buttons on paper, frame.js's budget,
-hero.js's room under 10 KB, the calculator's amber on light, .sk-paper's radius). -->

@@ -34,7 +34,6 @@ spacing:
 motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "the hero's aircraft at a phase boundary: up 20% and back in 0.42s", stagger: "the hero's rest names, a quarter of a second apart; nothing else arrives in order", reduced: "everything still: the hero's rest frame, its four forms parked in their phases and named, drawn once"}
 components: [header, header-slot, hero-scene, section-head, method-map, chooser, role-rows, people-card, day-card, late-start-briefing, lesson-sketch, flagship-card, library-tile, consultancy-close, page-head, folded-howto, section-rail, lesson-guide, numbered-section, ruled-columns, step, fde-framework, altitude-table, fde-step-blocks, fde-stage-brief, lab-comparison-table, next-up, pause-control, focus-ring]
 ---
-<!-- RC-B: confirm the front matter against the merged code: the radii and button sizes (U3), page-h2 (U3). -->
 
 # How the site looks
 
@@ -52,7 +51,7 @@ It says the whole method in one shape: a loop, flown.
 
 The site should feel like a well made reference book that happens to move: roomy, quiet, typographic,
 with one strong picture per section. It is signed by its author in the hero's last line and the footer, and
-the home page closes on his consultancy's offer to apply it.
+the home page closes on SkyWays Consultancy's offer to apply it.
 
 SkyWays is three things, and the page always says which. **SkyWays** alone is the publisher and the method
 (the SkyWays PDLC). The airline in the worked case is always "a fictional airline" on first mention.
@@ -98,15 +97,16 @@ Handwriting appears in two places: on a sketch's sheet of paper, at 13px or more
 home page's method map, where it says who made each method and when. Off paper it is in ink2 only, never in
 a sketch's pens, 16px or more at every width, and eight notes at most.
 
-A heading's size follows its body: an inner page's h2 is about 1.6 times its text, 27px at 1440 over a 16
-to 16.5px body, and a lesson's is 30px over 19px. A lesson is set for reading: the body 19px on a 1.58
+A heading's size follows its body: an inner page's h2 is about 1.6 times its text, `clamp(21px, 2.2vw, 27px)`
+at 620, so 27px at 1440 over a 16 to 16.5px body, and a lesson's is 30px over 19px. An inner page's h3 is
+19.5px for a fold's title and 18px for a subhead. The home page's bands, the lessons, the game and the lab's
+bench keep their own sizes. A lesson is set for reading: the body 19px on a 1.58
 leading from 901px wide and 17px on a phone; the title 46px on 1.08 across the column, in two lines on a wide
 screen; the lede 22px, balanced so it never ends on a word or two; section heads 30px (24 on a phone); step
 heads 21px at 620 with their tracking opened to -0.004em and their word spaces widened, so "Step 1 · Ask"
 never closes up (19 on a phone); "In short" and "Try it" 18px (the body's size on a phone); captions and
 table cells 15px. A heading under 24px is never tracked tighter than -0.005em. A hyphenated word in a title
 never breaks across a line.
-<!-- RC-B: confirm the inner-page h2 (27px at 620) and "no capitals by the stylesheet" against U3. -->
 
 ## Layout and spacing
 
@@ -143,19 +143,24 @@ never breaks across a line.
 - In a lesson's table, a column whose body cells are all numbers, amounts or percentages (one unit they
   all share, such as "a day", allowed) is set right, its header with it, in figures of one width. Text
   columns stay left. On a phone, where a table of three or more columns stacks, every cell reads left
-  under its name, and no table scrolls sideways.
+  under its name.
+- A table that does not fit a phone stacks (`render.stacked()`, `.tw.stack`): under 600px each row is a
+  block and each cell sits under its column's name. A table meant to scroll sideways is marked `.wide`; no
+  other table does.
 - In the tutorial's rail a track's rows start on its heading's left edge, so the current lesson's
   highlight does too. Every row's number and title sit in the same two columns.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
-  explains how to use the page is folded behind one line. One page head serves every landing page, in two
-  variants (full width and inside a column), with one eyebrow 16px above the title in the page's accent.
+  explains how to use the page is folded behind one line. One page head serves every landing page
+  (`render.page_head()`), full width or inside a column beside a rail, with one eyebrow 16px above the title
+  in the page's accent (a role's own colour on its page) and a lede of 56 characters a line at most.
+- Breadcrumbs: only the last is the page itself. A category with an address is a link ("Roles" to the home
+  page's roles, "Libraries" to its library), so the one crumb a phone shows always leads back.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
   phone the words come first and the picture follows.
 - A band whose heading has a paragraph sets the two side by side on a wide screen, so the question and
   its picture start on the same screen at 1440 by 900.
 - On a phone the top bar sits on the page's 20px column: the menu icon starts on it and the theme circle
   ends on it.
-<!-- RC-B: confirm the one page head and its eyebrow against U4. -->
 
 ## Motion
 
@@ -237,13 +242,23 @@ the game the building takes the flat card's corner and shadow. Everything else i
 
 ## Shapes
 
-Three radii and no fourth: 11px for a control and for a box inside a box, 16px for a box on the page, 20px
-for a tile, the day card and the close's panel (`--r-in`, `--r-box`, `--r-tile`); Copy keeps 8px inside its
-dark header. Buttons come in three heights at 1440, 36, 43 and 51px, and every button is 44px or taller on a
-phone. Pills are for things that are tags, the one filled button in the header, and the sign-off's labels on
-the method map. The method map's shapes are 36px tall at the inner radius, so a method reads as one span
-across the phases it covers.
-<!-- RC-B: confirm the radii, the tokens and the button heights against U3. -->
+Three radii and no fourth, each a token on `:root`: 11px (`--r-in`) for a control and for a box inside a box,
+16px (`--r-box`) for a box on the page, 20px (`--r-tile`) for a tile, the day card and the close's panel. Write
+the token, never the number. Copy keeps 8px inside its dark header. Buttons come in three heights at 1440: a
+small one of 36px (its height from its padding, so a phone's 44px rule wins), the default 43px and the large
+51px; a pill is 36px; every button and pill is 44px or taller on a phone. Pills are for things that are tags,
+the one filled button in the header, and the sign-off's labels on the method map. The method map's shapes are
+36px tall at the inner radius, so a method reads as one span across the phases it covers. The game keeps its
+own parts (`play/game.css`): its buttons, role cards and room chips are its components.
+
+## Weight
+
+One stylesheet, `theme/base.css`, serves every page, and the build ships it without its comments (`build.py`,
+`lean()`), so a comment in the source costs a reader nothing. As shipped it is held under 32 KB gzipped
+(30.4 KB at the end of council 10's round); the way back from the ceiling is a smaller file, never a larger
+number. A kind of page gets a stylesheet of its own only when no other page needs its rules, as the labs have
+`lab.css` and the FDE guide's four pages `fde.css` (under 2 KB). The home page has none of its own and no
+`<style>` block: its bands' rules sit in `base.css`, one block a band.
 
 ## Components
 
@@ -263,7 +278,7 @@ across the phases it covers.
 | Flagship card | One of the library's three tools, the first row: a picture on the material of what it opens, the same in both themes (the workbench's navy panel with its acceptance bar calculator in real type; the lessons' paper with the eight tracks; the game's dusk with the boardroom on Day 90 at whole pixels), a hairline, a mono count, the name, one line and the action. The whole card is the link. | `pages/homelib.py`, `.lib .fl` |
 | Library tile | A count, a name a set distance below it, one line, an arrow; six of them in two rows under the tools, 178px tall at 1440 so a row's names align. On a phone, a count and a name, two to a row. The Tool guides' index keeps the older tile for its manuals. | `.lib .shf`; `.tg .tile` |
 | Consultancy close | One panel on the page's ground: radius 20, a 1px rule, the raised surface, 64px inside at 1440 and 20px at 600 and under. The eyebrow "SkyWays Consultancy", the heading and its line, four offers as ruled columns (four over 1000px, two from 601, one below), each its name, what we do and "You leave with" (a mono label that runs into its words on a phone), then one filled button and its line. | `pages/consult.py`, `.cx` |
-| Page head | Eyebrow, name, one line, a row of counts, optionally one or two buttons. One component in two variants, full width and inside a column, with one eyebrow class in the page's accent. | `.phead`, `.pmeta` |
+| Page head | Eyebrow, name, one line, a row of counts, optionally one or two buttons. One component in two variants, full width and inside a column beside a rail, with one eyebrow class in the page's accent. At 1440 the eyebrow's text sits at 165.9px (full) or 127.9px (in a column), at 390 at 144px or 134px. | `render.page_head`, `.phead`, `.pmeta` |
 | Folded how-to | "Who this page is for, and how to use it", closed by default. | `pages/_kit.orient` |
 | Section rail | The sections of a long page down the left on a wide screen, the current one marked. Role pages, the leadership page, the libraries, the Tool guides' manuals and the FDE guide: on its hub the guide's eight sections and its three stages, on a stage page all twelve steps by stage, its own four marked as you read and the other eight linking their pages. | `.rail`, `site.js` |
 | Lesson guide | The one thing beside a lesson, from 1280px: the track, "Lesson n of N", a bar for each lesson of the track with this one in the accent (a picture, not links), the previous and next lessons, the lesson's sections with the one being read marked, the course folded and opened at the current lesson. Navigation only. Under 1280px its two lists are two folds under the meta line. | `learn._guide`, `.lguide`, `.lfolds` |
@@ -279,12 +294,12 @@ across the phases it covers.
 | Pause control | A checkbox, so it works without script; stills whatever holds it. In the hero it sits in the stage's bottom right corner. | `render.MOTION_TOGGLE`, `.mpause` |
 | Focus ring | 3px in the page's accent, 2px outside the thing focused. Where the box that holds it clips (a step's rounded corner, a code box, a picture card, a rail, the drawer's list) it is drawn 3px inside; on a code box it takes the dark theme's slate, `#7FA9CC`, in both themes. | `base.css` `:focus-visible` |
 
-<!-- RC-B: confirm the Page head row against U4. -->
-
 The workbench keeps the same floor in its own file: its opening picture sets every label at 15 units and is
 drawn only on a card 420px or wider, and narrower the card shows the same four phases as an HTML list; its
-focus ring is the manual's; on a phone its top bar's controls are 44px tall, and under 386px the Simulator
-pill is its play mark alone.
+focus ring is the manual's; on a phone its top bar's controls, its menu sheet, its role tabs and rows and its
+footer's links are 44px tall, and under 386px the Simulator pill is its play mark alone. In its pictures, type
+on a hue, and a disc or pill behind white type, take the hue at 62% (5:1 or more for every hue in use); a stroke
+or fill that carries no text keeps the bright hue.
 
 ## Do and do not
 

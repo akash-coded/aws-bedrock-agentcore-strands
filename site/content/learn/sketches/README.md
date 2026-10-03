@@ -55,7 +55,6 @@ sketches, one beside each of its four people (`site/pages/people.py`): the worke
 most of five words or fewer, handwriting at 64 units (13px on the narrowest card), 7 KB gzipped for the four
 together, all checked when the site is built. In the dark theme every sketch, on every page, sits on the toned
 paper with the deeper pens.
-<!-- RC-B: FX item 6 raises the two 54-unit labels; confirm the 13px floor at 320 in the rules below. -->
 
 ## The rules the build checks
 
@@ -64,7 +63,8 @@ paper with the deeper pens.
   `{{sketch:...}}` that names no sketch stops the build as an unknown visual.
 - One metaphor per sketch, and no metaphor twice: the pair (`verb`, `prop`) is unique across the
   tutorial, and no prop is used more than three times.
-- Two to six labels, five words at most each, written at 54 units or more (13px on a phone).
+- Two to six labels, five words at most each, written at 58 units or more: 58 units is 13.5px in a 320px
+  phone's 280px column and about 28px at 1440. The lint refuses a label under 54 units, 12.6px in that column.
 - A caption in real type under every sketch: one or two plain sentences that make the point alone.
 - An `alt` that describes the scene in one sentence.
 - It sits after a paragraph, never straight under a heading, and never touching a table, a code block or

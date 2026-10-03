@@ -18,7 +18,6 @@ the FDE guide and an audit of the site's parts, and the owner took both verdicts
 several makers, on Amazon Bedrock, read the built bands, the framework picture, the new figures and the hat
 stand cold, with the councils' own questions. The record, with each parcel's numbers, is in
 [`site/EXPERIENCE.md`](site/EXPERIENCE.md), and the visual contract in [`site/DESIGN.md`](site/DESIGN.md).
-<!-- RC-B: the number of commits that shipped, once everything has landed. -->
 
 ### Added
 - **The forward-deployed engineer's guide** ([`site/pages/fde.py`](site/pages/fde.py),
@@ -106,15 +105,27 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   32 KB, so the room is kept for work
 - **Sketch paths are written from the point before** ([`site/pages/sketch.py`](site/pages/sketch.py)). The
   same pixels in 1.2 KB less on each of the 31 pages with a sketch
+- **One kit for every page** ([`site/theme/base.css`](site/theme/base.css)). Three corners as three tokens,
+  three button heights (36, 43 and 51px at 1440, 44px or more on a phone), one heading scale for inner pages,
+  and no text set in capitals, where the audit had counted eight corners for one kind of box and five buttons
+  off any scale. The light amber reads 4.69:1 on a calculator's panel, where it read 4.39
+- **Every landing page opens the same way** ([`site/render.py`](site/render.py)). One page head, full width or
+  in a column, with one eyebrow in the page's accent; the crumbs mark only the page itself, and a category in
+  them is a link, so the crumb a phone shows leads back; tables that hid columns on a phone stack, each value
+  under its column's name. The template and prompt libraries count the whole manual and say where the
+  forward-deployed engineer's part is ("52 templates · 40 here, for 5 roles · 12 in the FDE guide")
 - **The acceptance gate holds the round** ([`site/tools/accept.mjs`](site/tools/accept.mjs),
   [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). Twenty passes: every lesson's frame and type,
-  the home page's bands, and the FDE guide's four pages at four widths in both themes join it, and the bytes
-  pass holds the hero's script, the guide's stylesheet and its hub. The hero's pass sees its words, its fit and
-  its whole cost, every moment read from the hero's own times, and judges the cost against a frozen copy of
-  the hero before the round, served in its place in the same run
-  ([`site/tools/reference/`](site/tools/reference/)). CI runs the role builder's tests before every build, and
-  the older test tools now ask the system for a free port, so two runs never drive one browser
-<!-- RC-B: confirm the gate item (H10, renumbering), and add U3, U4, H11 (perf.mjs) and FX. -->
+  the home page, and the FDE guide's four pages at four widths in both themes join it. The home page's pass
+  holds its order, its headings, its height and every band's parts, and fails if one of the parts is renamed
+  out of its sight; the bytes pass holds the home page's HTML to 21 KB, a first visit to it to 176 KB, the
+  hero's script to 10 KB, `frame.js` to 6 KB, and the guide's stylesheet and hub. The hero's pass sees its
+  words, its fit and its whole cost, every moment read from the hero's own times, and judges the cost against
+  a frozen copy of the hero before the round, served in its place in the same run
+  ([`site/tools/reference/`](site/tools/reference/)). The parts test grows to seventeen checks. CI runs the
+  role builder's tests before every build, and the older test tools now ask the system for a free port, so
+  two runs never drive one browser
+<!-- RC-H11: one item here for tools/perf.mjs, the performance sheet, when H11 lands. -->
 
 ### Fixed
 - Keyboard focus showed only in part on many controls, its ring cut by the box that held it. Rings are now
@@ -132,7 +143,19 @@ stand cold, with the councils' own questions. The record, with each parcel's num
 - The protocol page's self-check boxes took new ids on every build, so every deploy shipped a changed page.
   Their ids now come from their titles, and the build gives the same bytes every time
   ([`site/pages/_kit.py`](site/pages/_kit.py))
-<!-- RC-B: add what U3, U4 and FX fixed. -->
+- Facts now agree across the manual: AIDDLC's seven phases, BMAD's six documents (five agents in its current
+  release, where "twelve personas" came from an older one), the FDE guide's twelve steps on the leadership
+  page, and the QA lead's own line ([`site/content/library/frameworks.json`](site/content/library/frameworks.json),
+  [`site/pages/protocol.py`](site/pages/protocol.py))
+- On a phone the workbench's menu sheet, role tabs and rows and footer links reach 44px with whole focus rings,
+  and its loop map, gate pictures and concept map read 4.5:1; the concept map's clusters had all been drawn
+  faint by a test that never found their concepts
+  ([`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html))
+- The library's simulator card keeps the room's screen whole at tablet widths, its shelf names start level on a
+  small phone, the picture pack names the three new figures, two sketches' labels clear 13px at 320, the
+  Mental Models picture names the models as the site does, the contact relay files a consultancy enquiry as
+  one, and the stale copy of the workbench is gone
+<!-- RC-review: one line here for FX2a's and FX2b's review fixes, from their reports. -->
 
 ## 2026-10-02 · Late starts that show their work, a second lab, two more tool manuals, four faults from an outside review, and the wiki in step
 
