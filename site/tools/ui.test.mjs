@@ -103,8 +103,6 @@ const KNOWN = [
   { check: "A13", state: /^lesson-/, match: /section\.lm-try > details > summary/, owner: "LP2", why: "item 23: the lesson's \"Show the answer\" at 44px" },
   { check: "*", state: /^workbench$/, tool: true, owner: "U5", why: "the workbench's own faults, fixed in its source and exported (workbench.test.mjs)" },
   { check: "A8", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
-  { check: "A7", state: /^(learn|lesson-.+)$/, match: /article\.prose > (?:div\.callout|div\.tw|div\.codebox > pre|figure\.lmodel|section\.lm-try|details|figure\.mmd|figure\.fig|p > img)|details\.otp/,
-    owner: "LP2", why: "the lesson's boxes take 16 and 11 in the lesson lane's own rules (.prose, .otp, .lm)" },
   { check: "A7", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own parts (play/game.css, GAME.md): its role cards at 14px" },
   { check: "A8", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own buttons (play/game.css, GAME.md): 45px at 12, every button on its title as tall as Start (playtest.mjs), room chips 52px" },
 ];
