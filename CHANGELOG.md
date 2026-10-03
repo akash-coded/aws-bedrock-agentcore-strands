@@ -77,11 +77,15 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   who points at it. "by Akash Das" in the hero links to the close. Old links to `/#why` and `/#method` land
   on the map and the chooser. The home page no longer loads `engine.js`, and the build refuses a dash, a
   brochure word or an American spelling in what a reader meets on it
-- **The hero's flight is staged like a launch** ([`site/theme/hero.js`](site/theme/hero.js)). A first visit
-  starts close on the Earth and pulls back. At each phase the aircraft springs into its next form and hue,
-  leaving a trace of the last, and a tag names the phase, says what the thing has become and asks the phase's
-  question; it all but stops on the sign-off, and after two rounds it comes to rest in one named still, which
-  is also all that reduced motion draws
+- **The hero's flight is staged like a launch** ([`site/theme/hero.js`](site/theme/hero.js),
+  [`site/pages/globe.py`](site/pages/globe.py)). A first visit starts close on the Earth and pulls back. At each
+  phase the aircraft springs into its next form and hue, a slate dart, an indigo drawing, a built teal airliner
+  and an amber jet, leaving a trace of the last, and a tag names the phase, says what the thing has become and
+  asks the phase's question. It all but stops on the sign-off, and in its second round it comes to rest in one
+  named still and stops drawing, about 50 seconds in (21 on a later visit); the still is also all that reduced
+  motion draws. The picture now ends inside the first screen on a phone, the aircraft is never under 30px, and
+  the flight draws at most sixty frames a second. Shown six stills, two of three outside readers described the
+  aircraft changing form and all three stated the sign-off's rule
 - **Lessons read in one column, with a guide on the right** ([`site/pages/learn.py`](site/pages/learn.py),
   [`site/theme/base.css`](site/theme/base.css), [`site/theme/guide.js`](site/theme/guide.js)). Text at 584px
   from the page's left edge, pictures to 944px, and a 240px guide holding only navigation: where the lesson
@@ -105,9 +109,12 @@ stand cold, with the councils' own questions. The record, with each parcel's num
 - **The acceptance gate holds the round** ([`site/tools/accept.mjs`](site/tools/accept.mjs),
   [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). Twenty passes: every lesson's frame and type,
   the home page's bands, and the FDE guide's four pages at four widths in both themes join it, and the bytes
-  pass holds the guide's stylesheet and hub. CI runs the role builder's tests before every build, and the
-  older test tools now ask the system for a free port, so two runs never drive one browser
-<!-- RC-B: confirm the hero item (H1), the gate item (H2, H10, renumbering), and add U3, U4, H11 (perf.mjs) and FX. -->
+  pass holds the hero's script, the guide's stylesheet and its hub. The hero's pass sees its words, its fit and
+  its whole cost, every moment read from the hero's own times, and judges the cost against a frozen copy of
+  the hero before the round, served in its place in the same run
+  ([`site/tools/reference/`](site/tools/reference/)). CI runs the role builder's tests before every build, and
+  the older test tools now ask the system for a free port, so two runs never drive one browser
+<!-- RC-B: confirm the gate item (H10, renumbering), and add U3, U4, H11 (perf.mjs) and FX. -->
 
 ### Fixed
 - Keyboard focus showed only in part on many controls, its ring cut by the box that held it. Rings are now

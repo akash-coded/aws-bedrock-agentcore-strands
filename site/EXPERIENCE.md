@@ -54,7 +54,10 @@ draws the whole job in one picture and says what the role is, and one page for e
 engagement, Deliver the system and Evolve the relationship, each a focused read of four steps. The top bar's
 Roles list and the drawer name it with the other roles; its stage pages are in the sitemap, the search finds
 each step at its stage page, and `/templates/` and `/prompts/` end their role sections with one line to the
-stage pages, where its 12 templates and 30 prompts live.
+stage pages, where its 12 templates and 30 prompts live. A count of the whole manual counts the guide too: the
+home page, the leadership page and the social cards say 52 templates and 146 prompts, and the libraries' own
+heads give that total and its split, 40 templates and 116 prompts on their pages and 12 and 30 in the guide.
+<!-- RC-B: confirm the libraries' heads against U4 (until it lands the home pass's library line fails on purpose). -->
 
 The home page, top to bottom:
 
@@ -144,8 +147,6 @@ where you are".
 | Next up | Templates, prompts, mental models, frameworks and the picture pack each end on one sentence, one button and one quiet link. The FDE stage pages end on the next stage, and Evolve's on Frame, "the next engagement", with the hub beside it. |
 | Walkthrough | Never offered by a popup, and nothing about it is stored. Two ways in, on every screen width: "Show me around this page" in the drawer, shown only on a page that has a walkthrough, and "Show me around" in the folded how-to. Nothing floats over the page for it. The card highlights one element at a time and carries a plain label, "The walkthrough", the step count, the step's title and text, and Back and Next; it has no face and no name. Esc, the arrow keys and the close button work. On a lesson its first steps show the guide on a wide screen and the folds on a narrow one. |
 
-<!-- RC-B: confirm the pause control's corner (H1). -->
-
 ## State patterns
 
 - **No script, or the home page's own script missing:** the globe is a shaded disc with the line of names
@@ -157,8 +158,8 @@ where you are".
   and shows no pause control, because there is nothing to pause; the day card keeps its tilt and turns at
   once; nothing fades in, and connectors do not move.
 - **Paused:** the flight, the camera, the forms and the tag hold together, and the Earth stops turning.
-- **At rest:** after two rounds on a first visit (about 50 seconds) the hero settles into its rest frame and
-  draws nothing more; the pause control shows play; pressed, the flight goes on and does not rest again.
+- **At rest:** in its second round on a first visit (about 50 seconds in) the hero settles into its rest frame
+  and draws nothing more; the pause control shows play; pressed, the flight goes on and does not rest again.
 - **A second visit to the home page in one sitting:** no camera move and no spring-in: one round from Frame
   at the whole view, resting in the middle of Run & Learn about 21 seconds in.
 - **A browser without scroll timelines or animatable `auto` height:** connectors are still and steps snap
@@ -175,7 +176,6 @@ where you are".
   goes to the methods band and `#method` to the chooser; all before the page paints.
 - **Old workbench route:** a link to `/simulator/#/…` or `/#/…` is forwarded to `/workbench/#/…` before
   the page paints. The game never uses a hash that begins with a slash.
-<!-- RC-B: confirm the hero's states (reduced motion, paused, at rest, second visit) against H1's code. -->
 
 ## Interaction primitives
 
@@ -213,7 +213,7 @@ and Next. A line of links that wraps on a phone sets its rows 26px apart.
   breadcrumb is a link or the page itself: only the last is current, and on a phone the one before it is a
   link.
 - No page scrolls sideways at 320px, and no table hides a column on a phone.
-<!-- RC-B: confirm the hero's label, its 50 seconds, the breadcrumbs and the tables (U4) against the merged code. -->
+<!-- RC-B: confirm the breadcrumbs and the tables against U4. -->
 
 ## Key flows
 
@@ -308,7 +308,7 @@ an instruction strip, a contents box, a walkthrough button and a popup.
   column, the body at 17px, with the same two folds.
 - **The FDE framework:** on a phone the stages stack and each stage's four steps sit two by two, so across is
   still the order; the artefact line drops.
-<!-- RC-B: confirm the hero on phones and the stacked buttons (H1, U3). -->
+<!-- RC-B: confirm the stacked buttons against U3. -->
 
 ## The second council: the inner pages, and motion
 
@@ -864,26 +864,34 @@ councils' own questions. On the method map, in three runs, at least two of three
 questions; from the chooser, all three answered both team scenarios, and none needed a key. On the people band
 two of three named a specific thing they had learned. On the close all three stated every offer's output, none
 quoted a phrase the council had cut, and all three said one named client with one number would most make them
-write: the owner's to give. Three decoded the FDE framework cold, the hat stand's point came through for two
-makers with its caption covered, and two stated each new figure's point; their notes changed three labels.
-<!-- RC-B: add the hero's readers (H1) once it has landed. -->
+write: the owner's to give. Shown six stills of the staged hero, two of three described the aircraft changing
+form and all three stated the sign-off's rule, where two of three could not see today's aircraft change at
+all. Three decoded the FDE framework cold, the hat stand's point came through for two makers with its caption
+covered, and two stated each new figure's point; their notes changed three labels.
 
 **The gate.** The acceptance gate grew with the round and has twenty passes. Pass 18 now holds every lesson's
-frame and type, not only its map: the measure, one left edge and two right ones, the guide on screen marking
-the section being read, two-line titles with their grey at 3:1 or more, the six gaps, and at 390 no table that
+frame and type, not only its map: the measure, one left edge and two right ones, the guide on screen marking the
+section being read, two-line titles with their grey at 3:1 or more, the six gaps, and at 390 no table that
 scrolls and no fold under 44px. Pass 19 holds the home page's bands, one function for each band's parcel, and
-pass 20 the FDE guide's four pages at four widths in both themes. Pass 17 holds `fde.css` under 2 KB and the
-hub under 22 KB beside its older budgets. Each new check was shown to fail on a build with its fault put in. CI
-now runs the role builder's tests before every build, and the tools that drive Chrome, but for `ui.test.mjs`,
-ask the system for a free port, so two runs never drive one browser.
-<!-- RC-B: renumber, then confirm the count, pass 13 (H2) and pass 17's home lines (H10). -->
+pass 20 the FDE guide's four pages at four widths in both themes. Pass 13 was rewritten to see the hero's words,
+its fit and its whole cost, not only its script: thirteen checks, every moment read from the hero's own times,
+and the rest held as a condition of shipping (a first visit still by its rest time plus two seconds, a later one
+within 30 seconds). On 3 October the machine under the gate changed and the same code lost a third of its
+frames, so an absolute floor measured the host, not the hero. The hero's cost is now judged against a frozen
+copy of the hero before the round (`tools/reference/hero-2026-10-02.js`), served in its place in the same run;
+in a gate that shares the machine that check is a screen, and pass 13 alone under the exclusive lock is the
+judge. Pass 17 holds `theme/hero.js` under 10 KB, `fde.css` under 2 KB and the FDE hub under 22 KB beside its
+older budgets. Each new check was shown to fail on a build with its fault put in. CI now runs the role builder's
+tests before every build, and the tools that drive Chrome, but for `ui.test.mjs`, ask the system for a free
+port, so two runs never drive one browser.
+<!-- RC-B: renumber, then confirm the count and pass 17's home lines (H10). -->
 
 **Bytes.** Sketch paths are written from the point before: the 31 pages with a sketch went from 547.6 to 511.1
 KB gzipped, 1.18 KB a page, and every sketch draws the same pixels. The home page's HTML grew from 13.0 to 19.0
 KB with its four drawings, the map, the chooser, the library and the close, under the 21 KB it is held to, and
-no longer asks for `engine.js`. The page is 8,528px tall at 1440 (7,085 before) and 12,939px at 390 (9,742).
-The FDE hub is 17.7 KB, and Frame 21.8, Deliver 23.5 and Evolve 21.4 KB. The picture pack is 37.98 KB of its
-38 KB hold.
+no longer asks for `engine.js`. The page is 8,528px tall at 1440 (7,085 before) and 12,939px at 390 (9,742). The
+hero's script went from 7.1 to 9.9 KB, under its 10 KB budget, and it stops drawing once it rests. The FDE hub
+is 17.7 KB, and Frame 21.8, Deliver 23.5 and Evolve 21.4 KB. The picture pack is 37.98 KB of its 38 KB hold.
 <!-- RC-B: re-measure every number in this paragraph on the final build. -->
 
 **Performance, before and after.**
@@ -981,6 +989,9 @@ the code, move each closed one into the round's "What closed", and keep the rest
 - `.step{overflow:hidden}` clips text too wide for a step, so no sideways check can see it.
 - On a phone the method map draws a method's ends as bars without their words; only the screen reader's
   sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
+- The hero's pause control moved into the stage's corner but is still 30px across, on a phone too, under the
+  44px every other control keeps there; `ui.test.mjs` lists it as known.
+- `theme/hero.js` is 10,143 bytes gzipped, 97 under its 10 KB budget.
 - The home page's social card still draws the earlier hero's aircraft. The council refused redrawing it as
   the rest frame in Python, which would drift from the canvas; the standard card serves.
 - `base.css` carries rules no built page uses. Removing them was left for a later round: the budget no longer

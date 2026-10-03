@@ -34,8 +34,7 @@ spacing:
 motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "the hero's aircraft at a phase boundary: up 20% and back in 0.42s", stagger: "the hero's rest names, a quarter of a second apart; nothing else arrives in order", reduced: "everything still: the hero's rest frame, its four forms parked in their phases and named, drawn once"}
 components: [header, header-slot, hero-scene, section-head, method-map, chooser, role-rows, people-card, day-card, late-start-briefing, lesson-sketch, flagship-card, library-tile, consultancy-close, page-head, folded-howto, section-rail, lesson-guide, numbered-section, ruled-columns, step, fde-framework, altitude-table, fde-step-blocks, fde-stage-brief, lab-comparison-table, next-up, pause-control, focus-ring]
 ---
-<!-- RC-B: confirm the front matter against the merged code: the radii and button sizes (U3), page-h2 (U3),
-the hero's spring, stagger and reduced frame (H1). -->
+<!-- RC-B: confirm the front matter against the merged code: the radii and button sizes (U3), page-h2 (U3). -->
 
 # How the site looks
 
@@ -185,17 +184,20 @@ than a few seconds carries a pause control, and the hero also comes to rest by i
 move only while the reader scrolls past them, in a browser with scroll timelines. Everything else on a page
 is complete when the reader reaches it: no band, figure, map or sketch waits to be scrolled to.
 
-The hero runs on one clock. A round is 28.6 seconds: five seconds a phase in front of the Earth, about 1.3
-seconds all but stopped on the sign-off's bar, and the way back behind the Earth in six. The Earth turns
-once in 75 seconds. A first visit in a sitting launches: the dart waits close on the Earth's edge, then flies
-as the camera pulls back to the whole Earth, arriving as the drawing is signed; the stage's edges fade while
-the camera is close. At each boundary the aircraft springs, changes form and hue and leaves a trace of the
-form it had, and a tag beside it names the phase, says what the thing has become and asks the phase's
-question. After two rounds (one on a later visit) it eases to a stop in the middle of Run & Learn, the forms
-are named, and drawing stops: the rest frame, which is also all that reduced motion draws. The pause control
-holds the flight, the camera, the forms and the tag together. At most sixty frames a second; in no frame a
-blur, a filter, a new gradient, a pixel read back, or text set or measured.
-<!-- RC-B: confirm every number in this paragraph from GlobeTimes and hero.js once H1 has landed. -->
+The hero runs on one clock (`theme/hero.js`, which reports its own moments in `window.GlobeTimes`). A round
+is 28.55 seconds. In front of the Earth each phase takes five seconds at the flight's pace, and the flight
+slows to under a third of that pace for about 1.3 seconds either side of the sign-off's bar, so P1 and P2
+take 6.3 seconds each; the way back, behind the Earth, takes about six. The Earth turns once in 75 seconds. A
+first visit in a sitting launches: the dart waits 0.9 seconds close on the Earth's edge, at 1.55 times the
+whole view, then flies as the camera pulls back, reaching the whole Earth as the drawing is signed; the
+stage's edges fade while the camera is close. At each boundary the aircraft springs (up 20% and back in 0.42
+seconds), changes form and hue and leaves a trace of the form it had, and a tag beside it names the phase,
+says what the thing has become and asks the phase's question. In its second round (its first on a later
+visit) it eases to a stop in the middle of Run & Learn, the forms are named a quarter of a second apart, and
+drawing stops, 49.8 seconds into a first visit and 21.5 into a later one: the rest frame, which is also all
+that reduced motion draws. The pause control holds the flight, the camera, the forms and the tag together.
+At most sixty frames a second; in no frame a blur, a filter, a new gradient, a pixel read back, or text set
+or measured.
 
 Three rules of choreography. One sequence at a time on a screen: on the home page only the flight moves. An
 entrance plays once per visit and never again on scrolling back. Every animation is designed from its final
@@ -277,7 +279,7 @@ across the phases it covers.
 | Pause control | A checkbox, so it works without script; stills whatever holds it. In the hero it sits in the stage's bottom right corner. | `render.MOTION_TOGGLE`, `.mpause` |
 | Focus ring | 3px in the page's accent, 2px outside the thing focused. Where the box that holds it clips (a step's rounded corner, a code box, a picture card, a rail, the drawer's list) it is drawn 3px inside; on a code box it takes the dark theme's slate, `#7FA9CC`, in both themes. | `base.css` `:focus-visible` |
 
-<!-- RC-B: confirm the Hero scene, Page head (U4) and Pause control rows against the merged code. -->
+<!-- RC-B: confirm the Page head row against U4. -->
 
 The workbench keeps the same floor in its own file: its opening picture sets every label at 15 units and is
 drawn only on a card 420px or wider, and narrower the card shows the same four phases as an HTML list; its
