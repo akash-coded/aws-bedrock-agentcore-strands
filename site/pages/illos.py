@@ -292,20 +292,28 @@ METHODS = [
 ]
 
 
-def _plug(x: float, y: float, w: float, h: float, icon: str, s: str, hue: str) -> str:
+def _plug(x: float, y: float, w: float, h: float, icon: str, s: str, hue: str, fs: float = MIN, lh: float = LH) -> str:
     """A filled cell of the plug board: an icon and a sentence, in the phase's hue."""
-    ls = bb.fit(s, w - 52, MIN, 600)
+    ls = bb.fit(s, w - 52, fs, 600)
     return (f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="10" fill="{NODE}" '
             f'stroke="{bb.solid(hue)}" stroke-width="1.8"/>'
             + bb.icon(icon, x + 24, y + h / 2 - 13, 26, c=bb.solid(hue), ink=INK, fill=bb.tint(hue))
-            + bb.lines(x + 44, y + (h - len(ls) * LH) / 2 + 12.5, ls, fs=MIN, w=600, lh=LH))
+            + bb.lines(x + 44, y + (h - len(ls) * lh) / 2 + 12.5 * fs / MIN, ls, fs=fs, w=600, lh=lh))
 
 
-def _plug_h(w: float, s: str) -> float:
-    return max(46, len(bb.fit(s, w - 52, MIN, 600)) * LH + 18)
+def _plug_h(w: float, s: str, fs: float = MIN, lh: float = LH) -> float:
+    return max(46, len(bb.fit(s, w - 52, fs, 600)) * lh + 18)
 
 
-def methods() -> str:
+def methods(fs: float = MIN) -> str:
+    """``fs`` is the board's smallest type. The frameworks page draws the board about 1,170px wide; a lesson draws
+    it in its 906px picture column, a fifth smaller, so the lesson asks for larger type (learn.py) and the type
+    around it grows in step. Every row is sized from its measured lines, so the rows grow; nothing is cut."""
+    k = fs / MIN
+
+    def sc(v: float) -> float:      # a size of the board's type, in step with its smallest
+        return v if k == 1 else round(v * k, 1)
+    lh, hb, ph_h, pill_h, chip_h, f14 = sc(LH), sc(46), sc(30), sc(28), sc(26), sc(14)
     W, PX, PW, LW, G = 1100, 20, 1060, 300, 8
     title = [("Four methods", "s"), ("on",), ("the four phases", "n")]
     m, y = bb.title(PX + 14, 14, title, maxw=PW - 28)
@@ -314,40 +322,48 @@ def methods() -> str:
     cx = [LX + i * (CW + G) for i in range(4)]
     # the phases, as the head of the board
     hy = y + 44
-    m += (f'<rect x="{PX}" y="{hy}" width="{PW}" height="46" rx="23" fill="{bb.solid("n")}"/>'
-          + bb.text(PX + 22, hy + 28, "The SkyWays PDLC", fs=14.5, b=True, c=ON))
-    for i, (hue, name, _ic, _h) in enumerate(PHASES):
-        pw = bb.width(name, 14)
-        m += bb.pill(cx[i] + CW / 2 - pw / 2, hy + 8, name, hue, fs=14, r=15, hh=30, stroke=bb.solid("n"))[2]
+    m += (f'<rect x="{PX}" y="{hy}" width="{PW}" height="{hb}" rx="{sc(23)}" fill="{bb.solid("n")}"/>'
+          + bb.text(PX + 22, hy + sc(28), "The SkyWays PDLC", fs=sc(14.5), b=True, c=ON))
+    # each phase's name is centred on its column; where that would run into the sign-off's badge (24 units wide, on
+    # the line between P1 and P2), the name moves clear of it by 4 units, into the gap beside its column
     gx = cx[2] - G / 2
-    top = hy + 46 + 10
+    for i, (hue, name, _ic, _h) in enumerate(PHASES):
+        pw = bb.width(name, f14)
+        x = cx[i] + CW / 2 - pw / 2
+        if i == 1:
+            x = min(x, gx - 16 - pw)
+        elif i == 2:
+            x = max(x, gx + 16)
+        m += bb.pill(x, hy + sc(8), name, hue, fs=f14, r=sc(15), hh=ph_h, stroke=bb.solid("n"))[2]
+    top = hy + hb + 10
     yy = top
     html = bb.h_title(title)
     for name, _ic, conf, about, ph in METHODS:
         mine = name.startswith("This manual")
         hue = "n" if mine else "s"
-        al = bb.fit(about, LW - 24, MIN, 500)
-        pw = bb.width(name, 14)
-        cw_ = bb.width(conf, MIN)
+        al = bb.fit(about, LW - 24, fs, 500)
+        pw = bb.width(name, f14)
+        cw_ = bb.width(conf, fs)
         inline = pw + 8 + cw_ <= LW - 20
-        left_h = 10 + 28 + (0 if inline else 30) + 8 + len(al) * LH + 8
-        rh = max([left_h] + [_plug_h(CW, p[1]) + 16 for p in ph if p])
+        below = 0 if inline else 4 + chip_h      # the confidence chip, beside the name or under it
+        left_h = 10 + pill_h + below + 8 + len(al) * lh + 8
+        rh = max([left_h] + [_plug_h(CW, p[1], fs, lh) + 16 for p in ph if p])
         m += (f'<rect x="{PX}" y="{yy:.1f}" width="{PW}" height="{rh:.1f}" rx="12" fill="{bb.tint(hue)}" '
               f'stroke="{bb.border(hue)}" stroke-width="1.6"/>')
-        m += bb.pill(PX + 10, yy + 10, name, hue, fs=14, r=8, hh=28)[2]
-        chip_at = (PX + 10 + pw + 8, yy + 11) if inline else (PX + 10, yy + 42)
-        m += bb.pill(chip_at[0], chip_at[1], conf, "s", fs=MIN, r=7, hh=26, fill=NODE, c=INK, stroke=bb.border("s"))[2]
-        m += bb.lines(PX + 12, yy + 10 + 28 + (0 if inline else 30) + 8 + 12.5, al, fs=MIN, c=INK2, w=500, lh=LH)
+        m += bb.pill(PX + 10, yy + 10, name, hue, fs=f14, r=8, hh=pill_h)[2]
+        chip_at = (PX + 10 + pw + 8, yy + 10 + (pill_h - chip_h) / 2) if inline else (PX + 10, yy + 10 + pill_h + 4)
+        m += bb.pill(chip_at[0], chip_at[1], conf, "s", fs=fs, r=7, hh=chip_h, fill=NODE, c=INK, stroke=bb.border("s"))[2]
+        m += bb.lines(PX + 12, yy + 10 + pill_h + below + 8 + sc(12.5), al, fs=fs, c=INK2, w=500, lh=lh)
         cells, silent = [], []
         for i, p in enumerate(ph):
             phue, pname = PHASES[i][0], PHASES[i][1]
             if not p:
                 m += (f'<rect x="{cx[i]:.1f}" y="{yy + 8:.1f}" width="{CW:.1f}" height="{rh - 16:.1f}" rx="10" fill="none" '
                       f'stroke="{bb.border(phue)}" stroke-width="1.3" stroke-dasharray="5 4"/>'
-                      + bb.text(cx[i] + CW / 2, yy + rh / 2 + 4.7, "silent", a="middle", fs=MIN, c=INK2, w=500))
+                      + bb.text(cx[i] + CW / 2, yy + rh / 2 + sc(4.7), "silent", a="middle", fs=fs, c=INK2, w=500))
                 silent.append(pname.split(" · ")[0])
                 continue
-            m += _plug(cx[i], yy + 8, CW, rh - 16, p[0], p[1], phue)
+            m += _plug(cx[i], yy + 8, CW, rh - 16, p[0], p[1], phue, fs, lh)
             cells.append(bb.h_cell(pname, p[1], p[0], phue))
         if silent:
             cells.append(bb.h_cell("Silent in " + ", ".join(silent[:-1]) + (" and " if len(silent) > 1 else "") + silent[-1],
@@ -355,11 +371,11 @@ def methods() -> str:
         html += bb.h_block(hue, name, "".join(cells), key=conf, sub=about)
         yy += rh + 8
     # the sign-off, between P1 and P2, down through every row
-    m += bb.gate(gx, hy - 10, yy - 8 - (hy - 10), at=hy + 23)
-    m += bb.text(gx, hy - 18, bb.SIGN_OFF, a="middle", fs=MIN, b=True, c=bb.dark("k"))
+    m += bb.gate(gx, hy - 10, yy - 8 - (hy - 10), at=hy + sc(23))
+    m += bb.text(gx, hy - 18, bb.SIGN_OFF, a="middle", fs=fs, b=True, c=bb.dark("k"))
     note = ("A filled cell is where the method says something about that phase; a dashed cell is where a team has to "
             "bring its own answer. The last row is where this manual's own devices sit.")
-    pm, ph_ = bb.para(PX + 6, yy + 8, note, PW - 12)
+    pm, ph_ = bb.para(PX + 6, yy + 8, note, PW - 12, fs=fs)
     m += pm
     html += bb.h_note(note)
     return bb.svg(W, yy + 8 + ph_ + 12, m, "Four methods on the four phases: spec-driven development, the BMAD Method, AWS "

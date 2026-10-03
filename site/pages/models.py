@@ -421,7 +421,7 @@ MODELS += [
         subtle="Watch the <em>output mix</em>, not the accuracy: accuracy needs labels and arrives "
                "late. And watch two thresholds: the week-on-week step, and the level against a "
                "frozen baseline, because a slide of two points a week never trips a five percent "
-               "rule and still moves you thirty points in a quarter.",
+               "rule and still moves you twenty-six points in a quarter.",
         landed="You treat an output distribution as a business metric, and you know what "
                "automatically re-opens your release gate.",
         where=[("Watch for drift", "../qa/#watch"),

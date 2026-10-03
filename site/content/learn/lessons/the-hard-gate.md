@@ -153,9 +153,10 @@ building on decisions that will move.
 
 ### Who signs the hard gate?
 
-The solution architect is accountable for P1 and signs its exit; the product manager and architect
-jointly own the plan gate: the bolt cut, the authority budget and the gate map. A waiver for crossing
-without the full set is approved by the sponsor.
+The solution architect is accountable for P1 and signs its exit. The product manager and architect
+jointly own the plan gate, the second of the [five governance gates](lesson:ai-governance-gates), whose
+evidence is the bolt cut, the authority budget and the gate map. A waiver for crossing without the full
+set is approved by the sponsor.
 
 ## Apply it in your role
 

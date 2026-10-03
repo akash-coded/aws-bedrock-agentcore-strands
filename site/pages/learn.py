@@ -231,7 +231,8 @@ def _visuals() -> dict[str, dict]:
     v = {
         "board:pdlc": (boards.pdlc, "The agentic PDLC: four phases, one hard gate between P1 and P2, and a "
                        "line from P3 back to the next P0", "method/#pdlc"),
-        "board:loops": (boards.loops, "Eight loops that run every team's workflow: five carry work forward, "
+        # a lesson draws these two boards a fifth smaller than their own pages do, so it asks for larger type
+        "board:loops": (lambda: boards.loops(16), "Eight loops that run every team's workflow: five carry work forward, "
                         "three run backwards and need a named owner", "method/#loops"),
         "board:by_role": (boards.by_role, "Each role across the four phases, including the cells that should "
                           "stay empty", "method/#by-role"),
@@ -267,7 +268,7 @@ def _visuals() -> dict[str, dict]:
                               "from R1 reviewed at the end to R5 not delegated", "frameworks/"),
         "frameworks:chain": (illos.chain, "Chained steps multiply: each right 90% of the time, six steps are right "
                              "53% of the time", "frameworks/"),
-        "frameworks:methods": (illos.methods, "Four methods on one lifecycle: SDD, BMAD, AI-DLC and AIDD, filled where "
+        "frameworks:methods": (lambda: illos.methods(16), "Four methods on one lifecycle: SDD, BMAD, AI-DLC and AIDD, filled where "
                                "each speaks to a phase and dashed where it is silent", "frameworks/"),
         "frameworks:merge": (illos.merge, "How the four methods merge into the SkyWays PDLC: the parts of SDD, BMAD, "
                              "AI-DLC and AIDD placed in the phase each serves, flowing into the four phases, and the row "

@@ -2251,6 +2251,9 @@ main.lm .prose>h2+h3{margin-top:24px}
   .lm .prose .fig>svg{grid-row:1 / span 12}
   .lm .prose .fig>:is(.fn,figcaption){grid-column:2;margin:0 0 10px}
   .lm .prose .fig.sm{display:block}
+  /* a drawing far shorter than its notes keeps them under it, so the notes never set the frame's height */
+  .lm .prose .fig.st{display:block}
+  .lm .prose .fig.st>:is(.fn,figcaption){max-width:var(--measure);margin:10px 0 0}
 }
 
 /* ---- the pause: anything that moves on its own can be stilled ---- */

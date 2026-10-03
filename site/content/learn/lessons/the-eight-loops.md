@@ -175,7 +175,7 @@ platform or governance lead, because no product team is waiting at the far end o
 
 ```text
 Here is our last quarter (incidents, bills, drift alerts and decisions): <paste>. For each of the
-eight loops (requirements, decision, spec, delivery, trust, cost, incident, governance), say whether
+eight loops (requirements, spec, decision, delivery, trust, cost, incident, governance), say whether
 it closed (which artefact changed?), is open with an owner, or is open with nobody. List the ones
 with nobody first.
 ```

@@ -62,7 +62,7 @@ week-on-week alert never fired; the slide averaged **1.9 points a week**.
 A second threshold, on the level against a frozen baseline, catches exactly that. Set it to fire when
 the share moves more than 6 points from week 1's 61%, either way: it stays quiet in week 4, at 55%,
 exactly 6 points down, and fires in week 5, at 53%. A slide of two points a week never trips a weekly
-rule and still moves you thirty points in a quarter.
+rule and still moves you twenty-six points in a quarter.
 
 {{figure:drift_slide}}
 
@@ -133,7 +133,7 @@ model answered each call are how you notice.
 ### Why is a single drift threshold not enough?
 
 Because a slow slide never crosses a weekly threshold. A system that drifts two points a week never
-trips a five-point weekly alert, and still moves thirty points in a quarter. A threshold on the level
+trips a five-point weekly alert, and still moves twenty-six points in a quarter. A threshold on the level
 against a fixed baseline catches what the weekly one cannot.
 
 ## Apply it in your role
@@ -160,7 +160,7 @@ more than <y> points from the baseline. Show a table and the first week each thr
 | Idea | Origin | Source |
 | --- | --- | --- |
 | Watch the output mix against two thresholds; drift re-opens the release gate | **Original**: this manual | [QA lead, step 8](site:qa/#watch) · [Mental Models](wiki:Mental-Models#drift-is-the-defect-with-no-error-message) |
-| The 5% drift alert | **Original**: a working default to tune | [Sources and Confidence](wiki:Sources-and-Confidence#the-working-methods-and-how-to-tune-each) |
+| The 5% weekly alert and the 6-point level alert | **Original**: working defaults to tune | [Sources and Confidence](wiki:Sources-and-Confidence#the-working-methods-and-how-to-tune-each) |
 | Pin the model; log which model answered | **Original**: this manual | [Error Index](wiki:Error-Index#quality-dropped-with-no-deploy) |
 | Concept drift, as a field of study | **Borrowed** | Gama, J. et al. (2014). A survey on concept drift adaptation. *ACM Computing Surveys* 46(4) |
 | The SkyWays drift | **Illustrative**: a fictional airline | [The workbench](sim:#/) |

@@ -57,8 +57,8 @@ List every layer of defence the design claimed and mark each one, with evidence:
 | --- | --- | --- | --- |
 | Input marked as data | yes | **absent** | No |
 | The prompt's policy | yes | **a request** | No |
-| A $400 cap | yes | **absent from the code** | **Yes** |
-| A named approver | yes | **absent from the code** | **Yes** |
+| A $400 cap | yes | **a request**: in the prompt only | **Yes** |
+| A named approver | yes | **a request**: in the prompt only | **Yes** |
 | An alert on the trace | yes | **absent** | No, it reports afterwards |
 
 That was SkyWays on day 82, when a **$2,000** refund went out that was not owed: five layers claimed,

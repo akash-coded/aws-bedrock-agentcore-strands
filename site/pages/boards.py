@@ -262,7 +262,7 @@ def _markers(suffix: str = "") -> str:
     return "".join(o) + "</defs>"
 
 
-def _loops_wide() -> str:
+def _loops_wide(fs: float = _FS) -> str:
     ink, rose, violet = "var(--soft)", "var(--dg-rose)", "var(--dg-violet)"
     o = [_markers()]
 
@@ -270,7 +270,7 @@ def _loops_wide() -> str:
     o.append('<g data-loop="governance">'
              f'<path d="M150 54 V36 H960 V54" fill="none" stroke="{violet}" stroke-width="1.6" '
              f'stroke-dasharray="5 4" marker-end="url(#av)"/>'
-             + _tag(555, 41, "Governance · P0 → P3 · owned by the sponsor", violet, 700) + "</g>")
+             + _tag(555, 41, "Governance · P0 → P3 · owned by the sponsor", violet, 700, fs=fs) + "</g>")
 
     # the phases
     for hue, key, name, cx in _PX:
@@ -279,7 +279,7 @@ def _loops_wide() -> str:
                  f'rx="12" fill="{c}"/>')
         o.append(f'<text x="{cx}" y="{_TOP + 28}" text-anchor="middle" font-size="17" '
                  f'font-weight="700" fill="var(--dg-on)">{key}</text>')
-        o.append(f'<text x="{cx}" y="{_TOP + 50}" text-anchor="middle" font-size="{_FS}" '
+        o.append(f'<text x="{cx}" y="{_TOP + 50}" text-anchor="middle" font-size="{fs}" '
                  f'fill="var(--dg-on)">{dg.E(name)}</text>')
 
     # forward: they close on their own, because somebody downstream is waiting
@@ -287,23 +287,23 @@ def _loops_wide() -> str:
                             ["Requirements · P0 → P1", "Spec · P1 → P2", "Trust · P2 → P3"]):
         o.append(f'<path d="M{a} {_TOP} C{a} 74 {b} 74 {b} {_TOP}" fill="none" stroke="{ink}" '
                  f'stroke-width="1.6" marker-end="url(#ai)"/>')
-        o.append(_tag((a + b) / 2, 100, name, "var(--ink2)"))
+        o.append(_tag((a + b) / 2, 100, name, "var(--ink2)", fs=fs))
 
     # closes inside its own phase
     for cx, name in ((420, "Decision · P1 → P1"), (690, "Delivery · P2 → P2")):
         o.append(f'<path d="M{cx - 34} {_BOT} C{cx - 34} 262 {cx + 34} 262 {cx + 34} {_BOT}" '
                  f'fill="none" stroke="{ink}" stroke-width="1.6" marker-end="url(#ai)"/>')
-        o.append(_tag(cx + 48, 258, name, "var(--ink2)", anchor="start"))
+        o.append(_tag(cx + 48, 258, name, "var(--ink2)", anchor="start", fs=fs))
 
     # backwards: the two a team forgets, drawn deep
     o.append('<g data-loop="cost">'
              f'<path class="fl" d="M960 {_BOT} C960 330 366 330 366 {_BOT}" fill="none" '
              f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>'
-             + _tag(640, 309, "Cost · P3 → P1", rose, 700) + "</g>")
+             + _tag(640, 309, "Cost · P3 → P1", rose, 700, fs=fs) + "</g>")
     o.append('<g data-loop="incident">'
              f'<path class="fl" d="M960 {_BOT} C960 380 150 380 150 {_BOT}" fill="none" '
              f'stroke="{rose}" stroke-width="1.9" marker-end="url(#ar)"/>'
-             + _tag(555, 346, "Incident · P3 → P0", rose, 700) + "</g>")
+             + _tag(555, 346, "Incident · P3 → P0", rose, 700, fs=fs) + "</g>")
     return "".join(o)
 
 
@@ -356,8 +356,8 @@ def _loops_narrow() -> tuple[int, int, str]:
     return W, tops[3] + BH + 14, "".join(o)
 
 
-def _loops_svg() -> str:
-    return dg.svg(1120, 396, _loops_wide(),
+def _loops_svg(fs: float = _FS) -> str:
+    return dg.svg(1120, 396, _loops_wide(fs),
                   "Four phases on a line. Five loops close forwards or inside a phase; cost and "
                   "incident run backwards across it, and governance spans its whole length.",
                   narrow=_loops_narrow())
@@ -383,8 +383,10 @@ BACKWARD = [
 ]
 
 
-def loops() -> str:
-    inner = (_loops_svg()
+def loops(fs: float = _FS) -> str:
+    """The loops board. ``fs`` is the drawing's type: 14 units where the method page draws it about 1,170px wide;
+    a lesson draws it in its 944px picture column and asks for more (learn.py), so it still reads at 13px or more."""
+    inner = (_loops_svg(fs)
              + dg.section_band("The three nobody is waiting for")
              + dg.cards(BACKWARD))
     return dg.board(

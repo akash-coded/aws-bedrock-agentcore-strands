@@ -6,7 +6,7 @@ description: The agentic PDLC is a four-phase lifecycle (Frame, Design & Spec, B
 dek: Four phases, one hard gate and a line that comes back. The whole framework in one sitting, with the reason behind each piece.
 level: Beginner
 keywords: agentic PDLC, P0 to P3 framework, agentic product development lifecycle, AI product development lifecycle, agentic SDLC, AI-DLC, how to run agentic AI projects
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -16,13 +16,13 @@ updated: 2026-10-02
 > Prove** builds it in slices against a measured bar, and **P3 Run & Learn** watches it in production
 > until what you learn becomes the next P0.
 
-{{board:pdlc}}
+{{map:what-is-the-agentic-pdlc}}
 
 **In this lesson** you'll learn:
 
 - what each of the four phases decides, and the condition that ends it;
 - why only one of the four hand-offs is a hard gate;
-- how the framework sits beside AWS AI-DLC, the BMAD Method, spec-driven development and Scrum.
+- how the framework sits beside AWS AI-DLC, the BMAD Method, spec-driven development, AIDD and Scrum.
 
 ## Sound familiar?
 
@@ -91,9 +91,7 @@ its estimate does not end in a ticket; it ends in a brief for the next P0.
 
 ## The one hard gate
 
-Four hand-offs connect the phases, and only one of them is hard.
-
-{{map:what-is-the-agentic-pdlc}}
+Four hand-offs connect the phases, as the map at the top shows, and only one of them is hard.
 
 A **soft** hand-off may cross with a placeholder, a named owner and a date, which keeps work moving
 while a decision is still being measured. The **hard** one may not: nothing enters P2 until the
@@ -101,9 +99,10 @@ spec, the bar and the guardrails are signed. It is hard because it is the last p
 changing your mind costs a document instead of a rewrite: a one-way door, where the others are
 two-way. [Why the gate sits exactly there](lesson:the-hard-gate).
 
-## How it fits beside AI-DLC, BMAD, spec-driven development and Scrum
+## How it fits beside AI-DLC, BMAD, spec-driven development, AIDD and Scrum
 
 The agentic PDLC is a spine, not a rival method. The methods you have heard of each occupy part of it.
+Scrum is not in the picture: it is a team process that runs inside P2, not a method with phases of its own.
 
 {{frameworks:methods}}
 
@@ -112,6 +111,7 @@ The agentic PDLC is a spine, not a rival method. The methods you have heard of e
 | **AWS AI-DLC** | AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days | Inception ≈ P0 to P1 · Construction ≈ P2 · Operations ≈ P3 |
 | **BMAD Method** | Agent personas that mirror an agile team, each handing a document on | Mostly P0 to P2 |
 | **Spec-driven development** | The spec is the maintained artefact; code is generated from it, as in Kiro or GitHub Spec Kit | P1 and P2 |
+| **AIDD** | AI-driven development, the everyday craft of building with coding agents: a context file, a story file per task, review by risk | Inside P2, whichever method frames it |
 | **Scrum** | Time-boxed sprints over a backlog | Inside P2, where the sprint's unit becomes a bolt |
 
 So the question worth arguing about is not *which method*, but *how deep this particular change
@@ -161,7 +161,7 @@ skips P2 altogether.
 
 1. The agentic PDLC has four phases (**P0 Frame, P1 Design & Spec, P2 Build & Prove, P3 Run & Learn**) and each ends on evidence, never on a date.
 2. **Only P1 → P2 is a hard gate**; the other hand-offs may cross with a placeholder, an owner and a date.
-3. It is **a spine, not a rival method**: AI-DLC, BMAD, spec-driven development and Scrum each fit onto part of it.
+3. It is **a spine, not a rival method**: AI-DLC, BMAD, spec-driven development, AIDD and Scrum each fit onto part of it.
 
 ## FAQ
 
@@ -234,5 +234,5 @@ has not made, as questions I can put to the sponsor. Do not answer them yourself
 | Specs as the maintained artefact | **Borrowed** | Böckeler, B. (2025). [Understanding spec-driven development: Kiro, spec-kit and Tessl](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html) |
 
 **Go deeper:** [The Agentic PDLC](wiki:The-Agentic-PDLC): the full reference, with a template for
-every phase exit · [The four boards](site:) · [The workbench](sim:#/), the same framework as ninety
+every phase exit · [The four boards](site:method/) · [The workbench](sim:#/), the same framework as ninety
 playable days.

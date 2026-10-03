@@ -28,13 +28,16 @@ ROSE = "color-mix(in oklab,var(--dg-rose) 82%,var(--ink))"
 
 
 def _svg(wide: tuple[int, str], narrow: tuple[int, str], label: str, caption: str,
-         notes: list[tuple[str, bool]] | None = None, small: bool = False) -> str:
+         notes: list[tuple[str, bool]] | None = None, small: bool = False, stack: bool = False) -> str:
     """The frame. ``wide`` and ``narrow`` are (height, markup); ``notes`` are the sentences under
     the drawing, each (text, whether it is the warning). A ``small`` figure, a few bars and no notes,
-    is marked ``sm`` so a lesson can hold it to the text's width rather than the picture column's."""
+    is marked ``sm`` so a lesson can hold it to the text's width rather than the picture column's. A
+    ``stack`` figure, a drawing much shorter than its notes, is marked ``st`` so a lesson keeps its notes
+    under the drawing at every width, rather than beside it in a column that sets the frame's height."""
     (h, inner), (nh, ninner) = wide, narrow
     ns = "".join(f'<p class="fn{" hot" if hot else ""}">{E(t)}</p>' for t, hot in (notes or []))
-    return (f'<figure class="fig{" sm" if small else ""}"><svg class="w" viewBox="0 0 {W} {h}" role="img" aria-label="{E(label)}">{inner}</svg>'
+    cls = "fig" + (" sm" if small else "") + (" st" if stack else "")
+    return (f'<figure class="{cls}"><svg class="w" viewBox="0 0 {W} {h}" role="img" aria-label="{E(label)}">{inner}</svg>'
             f'<svg class="n" viewBox="0 0 {NW} {nh}" role="img" aria-label="{E(label)}">{ninner}</svg>'
             f"{ns}<figcaption>{E(caption)}</figcaption></figure>")
 
@@ -221,7 +224,8 @@ def shadow_widen() -> str:
                 "The safe share is the slow one. That is why a cut-over widens.",
                 notes=[("Each arrow is a condition, never a date.", False),
                        ("500 cases at 5% of 240 a day takes 42 days. That is arithmetic, not effort.", False),
-                       ("Money actions stay gated at every stage, whatever the shadow shows.", True)])
+                       ("Money actions stay gated at every stage, whatever the shadow shows.", True)],
+                stack=True)
 
 
 def bill_factors() -> str:
@@ -411,7 +415,7 @@ def postmortem_layers() -> str:
     # The postmortem lesson's Step 2 table, in its order: five layers claimed, each with its reality. The
     # refund passes all five; the two that would have stopped it are ringed; the alert comes after the money.
     layers = [(("input marked", "as data"), ("absent",)), (("the prompt's", "policy"), ("only a request",)),
-              (("a $400 cap",), ("absent from", "the code")), (("a named", "approver"), ("absent from", "the code")),
+              (("a $400 cap",), ("a request:", "prompt only")), (("a named", "approver"), ("a request:", "prompt only")),
               (("an alert on", "the trace"), ("absent; it reports", "afterwards"))]
     stops = {2, 3}
     slate = "var(--dg-slate)"
@@ -483,19 +487,20 @@ def rollback_times() -> str:
                 + "".join(f'<line x1="{x0 + m * 60 / end * span:.1f}" y1="{y}" x2="{x0 + m * 60 / end * span:.1f}" y2="{y + 6}" '
                           f'stroke="currentColor" opacity=".45"/>' for m in range(end // 60 + 1)))
 
-    # wide: the names in a column, the bars from one zero
-    x0, span, out = 140, 408, []
+    # wide: the names in a column, the bars from one zero. A small figure sits at the text's width, where this
+    # canvas draws at about 550px, so its labels are 14.5 units: 14px on screen, as the frame's other labels read
+    x0, span, out, LB = 140, 408, [], 14.5
     out.append(axis(x0, span, 138))
     for i, (name, secs, said, colour) in enumerate(ways):
         y, w = 12 + i * 32, secs / end * span
-        out.append(_t(x0 - 12, y + 15, name, a="end"))
+        out.append(_t(x0 - 12, y + 15, name, LB, a="end"))
         out.append(f'<rect x="{x0}" y="{y}" width="{w:.1f}" height="21" rx="3" fill="{colour}" opacity=".95"/>')
         if w > 300:
-            out.append(_t(x0 + 10, y + 15, "redeploys the runtime", fill="var(--dg-on)"))
-            out.append(_t(x0 + w - 8, y + 15, said, a="end", w=700, fill="var(--dg-on)"))
+            out.append(_t(x0 + 10, y + 15, "redeploys the runtime", LB, fill="var(--dg-on)"))
+            out.append(_t(x0 + w - 8, y + 15, said, LB, a="end", w=700, fill="var(--dg-on)"))
         else:
-            out.append(_t(x0 + w + 8, y + 15, said, w=700, fill=colour))
-    out.append(_t(x0 + span, 160, "a tick each minute", a="end", op=.8))
+            out.append(_t(x0 + w + 8, y + 15, said, LB, w=700, fill=colour))
+    out.append(_t(x0 + span, 160, "a tick each minute", LB, a="end", op=.8))
     # narrow: the name and its time on one line, the bar under them
     n = [axis(8, 244, 190)]
     for i, (name, secs, said, colour) in enumerate(ways):

@@ -278,7 +278,7 @@ _Baseline frozen <date> from <source> · Owner: <name>_
 
 **Two thresholds, because one is not enough.**
 - Step: alert at **5pp** week over week. Catches a jump.
-- Level: alert at **10pp** against the frozen baseline. Catches the slow slide that a
+- Level: alert at **over 6pp** against the frozen baseline. Catches the slow slide that a
   week-over-week rule never fires on: under 2pp a week moves 13pp in seven weeks.
 
 A drift alert **re-opens the release gate automatically**. Last triggered: <date / never>.
@@ -296,8 +296,8 @@ Which **enforced** control would have made this impossible?
 |-------|---------|----------------------------------------|---------------------------|
 | <input marked as data> | yes | <absent> | no |
 | <the prompt's policy> | yes | **a request** | no |
-| <a $400 cap> | yes | <absent from the code> | **yes** |
-| <a named approver> | yes | <absent from the code> | **yes** |
+| <a $400 cap> | yes | <a request: in the prompt only> | **yes** |
+| <a named approver> | yes | <a request: in the prompt only> | **yes** |
 | <an alert on the trace> | yes | <absent> | no, it reports afterwards |
 
 Two layers that fail together are one layer. A rule that lives only in a prompt is a
@@ -329,7 +329,7 @@ request, and a model can be talked past a request.
 For each output mix I name, report:
 - this week's share, last week's share, and the week-over-week step in percentage points
 - the share at the frozen baseline of <date>, and the gap against it in points
-- whether either threshold is breached: 5pp week over week, or 10pp against baseline
+- whether either threshold is breached: 5pp week over week, or 6pp against baseline
 
 RULES:
 - Read the trace, not the application logs. Say which fields you used.

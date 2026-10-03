@@ -406,7 +406,7 @@ MAPS["ai-drift-monitoring"] = None
 
 MAPS["ai-incident-postmortem"] = dict(
     kind="flow", title=[("The postmortem", "k"), ("finds the missing control",)], hue="k", numbered=True, gap=26,
-    nodes=[_c("Ask one question", "the missing control?", "ask"), _c("Classify layers", "enforced, asked, absent", "layers"),
+    nodes=[_c("Ask one question", "the missing control?", "ask"), _c("Classify layers", "enforced in code, a request, absent", "layers"),
            _c("Close the path", "in code, with tests", "code"), _c("Lower the autonomy", "and name what restores it", "ladder")],
     terminal=_c("Feed it forward", "golden cases, an ADR, the next P0 brief", h="n"),
     callout=("A postmortem that produced a name has not finished. The finding is the control that would have made the incident impossible.", "k", 40),

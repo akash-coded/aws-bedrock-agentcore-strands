@@ -91,12 +91,15 @@ what the last tool returned.
 
 <details><summary>What a strong answer covers</summary>
 
-- **Bound the parameter in code**, and make over-limit calls produce an approval request, never a payment:
+- **Bound the parameter in code**, and make an over-limit call without a valid token produce an approval
+  request, never a payment:
 
 ```python
 @tool
 def issue_refund(booking_ref: str, amount: Decimal, approval_token: str | None = None) -> dict:
-    """Refund a booking. Up to 400.00 pays at once; above that it asks for approval and never pays."""
+    """Refund a booking. Up to 400.00 pays at once. Above that,
+    it pays only with a valid approval token; without one it
+    opens a request and pays nothing."""
     if amount > LIMIT and not approvals.valid(approval_token, booking_ref, amount):
         return {"status": "needs_approval", "request": approvals.open(booking_ref, amount)}
     return payments.refund(booking_ref, amount, idempotency_key=f"{booking_ref}:{amount}")
@@ -195,7 +198,8 @@ earns, measured per slice.
 - **The insight:** an agent can reach the right answer through a forbidden path. Trajectory checks catch what
   an answer-only evaluation passes.
 
-**The follow-up:** "End-to-end success is 60% and every step scores 93%." → chained steps multiply; measure
+**The follow-up:** "End-to-end success is 60% and every step scores 93%." → chained steps multiply. The
+picture below shows the same effect at 90% a step: six steps in a row are right 53% of the time. Measure
 end to end and remove steps rather than tuning each one.
 
 {{model:g_decay}}

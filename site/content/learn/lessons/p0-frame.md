@@ -99,12 +99,16 @@ not fall on its own.
 with very different consequences. Ask it **per action**, and let the answer follow what a mistake
 costs and whether it can be undone, never what the model is capable of.
 
-{{figure:authority_ladder}}
+At SkyWays the two-week argument ended in twenty minutes once it was recast as four actions:
 
-At SkyWays the two-week argument ended in twenty minutes once it was recast as four actions: showing
-options acts alone, same-day rebooking acts and is monitored, cross-partner rebooking gets a veto
-window, and every refund gets a named approver. Nobody had to lose, because nobody had been arguing
-about the same thing.
+| Action | Autonomy |
+| --- | --- |
+| Showing options | acts alone |
+| Same-day rebooking | acts, and is monitored |
+| Cross-partner rebooking | acts after a veto window |
+| Every refund | a named approver, every time |
+
+Nobody had to lose, because nobody had been arguing about the same thing.
 
 ### Step 5 · Write down what crosses into P1
 
