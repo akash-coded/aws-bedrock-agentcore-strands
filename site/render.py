@@ -282,10 +282,14 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     ld_crumbs = None
     if crumbs:
         items = [f'<li><a href="{up}">Home</a></li>']
+        # only the page itself is current; a category with an address is a link, so a phone's one crumb leads back
         for i, (label, href) in enumerate(crumbs):
-            last = i == len(crumbs) - 1
-            items.append(f'<li><span aria-current="page">{_E(label)}</span></li>' if last or not href
-                         else f'<li><a href="{_E(href, quote=True)}">{_E(label)}</a></li>')
+            if i == len(crumbs) - 1:
+                items.append(f'<li><span aria-current="page">{_E(label)}</span></li>')
+            elif href:
+                items.append(f'<li><a href="{_E(href, quote=True)}">{_E(label)}</a></li>')
+            else:
+                items.append(f'<li><span>{_E(label)}</span></li>')
         crumb_html = (f'<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><ol>'
                       f'{"".join(items)}</ol></nav></div>')
         base = canonical or BASE_URL
@@ -441,6 +445,8 @@ def step_html(role: dict, s: dict) -> str:
         block("prompt", p["title"], p["when"], p["body"], f'p-{s["id"]}-{i}')
         for i, p in enumerate(s["prompts"]))
     pitfalls = "".join(f"<li>{md(p)}</li>" for p in s["pitfalls"])
+    ai = stacked('<div class="tw" tabindex="0"><table class="ai"><thead><tr><th>Tool</th><th>Use it for</th></tr></thead>'
+                 f'<tbody>{"".join(ai_rows)}</tbody></table></div>')
     return f"""<details class="step" id="{s['id']}"{' open' if s['n'] == 1 else ''}>
 <summary>
   <span class="sn">{s['n']}</span>
@@ -456,8 +462,7 @@ def step_html(role: dict, s: dict) -> str:
     <ol class="acts">{acts}</ol></section>
 
   <section><div class="lbl">Where a model helps, and where it must not</div>
-    <div class="tw" tabindex="0"><table class="ai"><thead><tr><th>Tool</th><th>Use it for</th></tr></thead>
-      <tbody>{''.join(ai_rows)}</tbody></table></div></section>
+    {ai}</section>
 
   <section><div class="lbl">The artefact</div>
     <dl class="art">
@@ -583,15 +588,13 @@ def role_page(role: dict) -> str:
         {"sel": "[data-expand]", "title": "Read it straight through", "body": "Expand all opens every step, which is also how the page prints."},
     ])
 
+    head = page_head("Your role, end to end", _E(role["name"]), md(role["tagline"]) + ".",
+                     f'<p class="pmeta"><span>{len(role["steps"])} steps</span><span>{n_a} sub-steps</span>'
+                     f'<span>{len(role["steps"])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>', in_col=True)
     body = f"""<div class="cols two-col">
 <aside class="rail wideonly" aria-label="Steps"><p class="railh">The journey</p><ol>{rail}</ol></aside>
 <main id="main">
-  <header class="phead in-col">
-    <p class="kicker">Your role, end to end</p>
-    <h1>{_E(role['name'])}</h1>
-    <p class="lede">{md(role['tagline'])}.</p>
-    <p class="pmeta"><span>{len(role['steps'])} steps</span><span>{n_a} sub-steps</span><span>{len(role['steps'])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>
-  </header>
+  {head}
 
   {orient}
 
@@ -621,8 +624,38 @@ def role_page(role: dict) -> str:
             f"{len(role['steps'])} templates and {n_p} copy-paste prompts for building with AI.")
     return shell(title=f"{role['name']} · The agentic manual", desc=desc, body=body, depth=1,
                  accent=role["accent"], nav_id=role["id"], canonical=f"{BASE_URL}{role['id']}/",
-                 crumbs=[("Roles", ""), (role["name"], "")], tour=tour, kind="role", og=role["id"],
+                 crumbs=[("Roles", "../#roles"), (role["name"], "")], tour=tour, kind="role", og=role["id"],
                  ctx={"lesson": (f"../learn/{ROLE_LESSON[role['id']]}/", "The lesson")} if role["id"] in ROLE_LESSON else None)
+
+
+def page_head(eyebrow: str, h1: str, lede: str = "", rest: str = "", *, in_col: bool = False,
+              aside: str = "", cls: str = "") -> str:
+    """A landing page's head, one helper for its two variants: full, on a page of its own, and in a column beside a
+    rail, where the title is quieter. The eyebrow takes the page's accent, 16px above the title, and the lede stops
+    at 56 characters a line (base.css). ``rest`` follows the lede (a row of counts, buttons); ``aside`` sits beside
+    the head on a wide screen and under it on a phone; ``cls`` adds a class. Arguments are HTML, escaped already."""
+    inner = f'<p class="eyebrow">{eyebrow}</p><h1>{h1}</h1>' + (f'<p class="lede">{lede}</p>' if lede else "") + rest
+    names = " ".join(x for x in ("phead", "in-col" if in_col else "", "rowh" if aside else "", cls) if x)
+    return f'<header class="{names}"><div>{inner}</div>{aside}</header>' if aside else f'<header class="{names}">{inner}</header>'
+
+
+def stacked(table: str) -> str:
+    """A table in its .tw box that stacks on a phone, one block a row, as a lesson's tables do: the box is "tw stack"
+    and each body cell carries its column's name in data-h, which base.css sets above the cell."""
+    head, sep, body = table.partition("</thead>")
+    if not sep or 'class="tw"' not in head:
+        raise SystemExit("stacked: a table needs its .tw box and a thead")
+    names = [_E(html.unescape(re.sub(r"<[^>]+>", "", h)).strip(), quote=True)
+             for h in re.findall(r"<th\b[^>]*>(.*?)</th>", head, re.S)]
+
+    def row(m: re.Match) -> str:
+        k = iter(names)
+
+        def cell(_: re.Match) -> str:
+            n = next(k, "")
+            return f'<td data-h="{n}"' if n else "<td"
+        return re.sub(r"<td\b", cell, m.group(0))
+    return head.replace('class="tw"', 'class="tw stack"', 1) + sep + re.sub(r"<tr\b.*?</tr>", row, body, flags=re.S)
 
 
 def next_up(lead: str, href: str, label: str, also: tuple[str, str] | None = None) -> str:
@@ -651,10 +684,10 @@ def library_page(roles: list[dict], kind: str, guide: dict | None = None) -> str
     is_t = kind == "templates"
     label = "Artefact templates" if is_t else "Prompt templates"
     short = "templates" if is_t else "prompts"
-    lede = ("A fill-in skeleton for every document the manual asks you to write, from the pain register to "
+    lede = ("A fill-in skeleton for every document the role journeys ask you to write, from the pain register to "
             "the two-number report."
             if is_t else
-            "Every prompt in the manual. Paste one into your model, fill the angle brackets, and edit the "
+            "Every prompt in the role journeys. Paste one into your model, fill the angle brackets, and edit the "
             "rules to taste.")
     other = ("prompts", "Prompt templates") if is_t else ("templates", "Artefact templates")
     secs, toc, count = [], [], 0
@@ -753,13 +786,22 @@ Owner of the number: Priya (PM)</code></pre>
         'The second picture is the whole library at a glance, by role and by step.</p>'
         + posters.prompt_anatomy() + posters.prompts_by_role()
         + '<p class="lalt">Both pictures are in <a href="../pictures/#pics-posters">the picture pack</a>, with every other diagram of the method.</p></div>')
+    # the manual's whole count first, as every other count of it is (council 10, verdict 2.9), then where they are:
+    # a staged role's stay on its stage pages (_guide_line), and the lede says so
+    n_g = (len(guide["steps"]) if is_t else sum(len(s["prompts"]) for s in guide["steps"])) if guide else 0
+    total = count + n_g
+    where = (f'<span>{count} here, for {len(roles)} roles</span><span>{n_g} in the '
+             f'<a href="../{guide["id"]}/">{_E(guide["short"])} guide</a></span>'
+             if n_g else f'<span>{len(roles)} roles, in journey order</span>')
+    if n_g:
+        lede += f" The {_E(guide['name'].lower())}'s {n_g} are in that role's own guide, stage by stage."
+    head = page_head("The library", label, lede,
+                     f'<p class="pmeta"><span>{total} {short}</span>{where}<span>a copy button on each</span></p>', in_col=True)
     body = f"""<div class="cols two-col">
-<aside class="rail" aria-label="Roles"><p class="railh">By role</p><ul class="ticks">{''.join(toc)}</ul></aside>
+<aside class="rail wideonly" aria-label="Roles"><p class="railh">By role</p><ul class="ticks">{''.join(toc)}</ul></aside>
 <main id="main">
-  <header class="phead in-col"><p class="kicker">The library</p><h1>{label}</h1>
-    <p class="lede">{lede}</p>
-    <p class="pmeta"><span>{count} {short}</span><span>{len(roles)} roles, in journey order</span><span>a copy button on each</span></p>
-  </header>
+  {head}
+  <details class="howto narrowonly"><summary>By role</summary><ol class="hlist">{''.join(toc)}</ol></details>
   {orient.replace("__MORE__", opener + compare)}
   {posters_html}
   {''.join(secs)}
@@ -770,11 +812,11 @@ Owner of the number: Priya (PM)</code></pre>
 </main>
 </div>"""
     return shell(title=f"{label} · The agentic manual",
-                 desc=(f"{count} copy-paste {short} for building software with AI, by role: "
+                 desc=(f"{total} copy-paste {short} for building software with AI, by role: "
                        + ("the documents each step of the agentic PDLC produces." if is_t else
                           "each states the job, the rules and the output shape.")),
                  body=body, depth=1, nav_id=kind, canonical=f"{BASE_URL}{kind}/",
-                 crumbs=[("Libraries", ""), (label, "")], tour=tour, kind=kind, og=kind)
+                 crumbs=[("Libraries", "../#library"), (label, "")], tour=tour, kind=kind, og=kind)
 
 
 PHASES = [
@@ -1071,19 +1113,19 @@ def frameworks_page() -> str:
     def try_(links: list[tuple[str, str]]) -> str:
         return '<div class="try">' + "".join(f'<a href="{h}">{t}</a>' for h, t in links) + "</div>"
     body = (
-        '<div class="wrap"><main id="main" style="padding:34px 0 28px">'
-        + rowh('<div class="kicker">The four methods</div><h1>The frameworks, and how they merge into P0 to P3</h1>'
-               '<p class="lede">AI-DLC, AIDD, BMAD and spec-driven development placed on one lifecycle, how their parts '
-               "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "
-               "from, so you know how much to trust it.</p>",
-               "On this page",
+        '<div class="wrap"><main id="main" class="page">'
+        + page_head("The four methods", "The frameworks, and how they merge into P0 to P3",
+                    "AI-DLC, AIDD, BMAD and spec-driven development placed on one lifecycle, how their parts "
+                    "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "
+                    "from, so you know how much to trust it.",
+                    aside='<div class="rowa"><b>On this page</b>'
                '<ol><li><a href="#methods">Four methods, one lifecycle</a></li>'
                '<li><a href="#merge">How they merge into the SkyWays PDLC</a></li>'
                '<li><a href="#vs">Traditional versus agentic</a></li>'
                '<li><a href="#ladder">Gate by risk, never by size</a></li>'
                '<li><a href="#chain">Why long chains fail</a></li>'
                '<li><a href="#decoder">The acronym decoder</a></li>'
-               '<li><a href="#lineage">Where each framework came from</a></li></ol>')
+               '<li><a href="#lineage">Where each framework came from</a></li></ol></div>')
         + orient +
         '<div class="sec" id="methods">' + pic(illos.methods)
         + rowh("<h2>Four methods, one lifecycle: where each one sits</h2>"
@@ -1091,8 +1133,8 @@ def frameworks_page() -> str:
                "not which method to adopt but how deep to go on this change. A filled cell is where a method says "
                "something about that phase; a dashed cell is where you bring your own answer.</p>",
                "Try it in the workbench", try_([("../workbench/#/compare", "Compare any two methods side by side")]))
-        + '<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
-        f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div></div>"
+        + stacked('<div class="tw" tabindex="0"><table><thead><tr><th>Method</th><th>What it is</th><th>Where it sits</th>'
+                  f"<th>When to use it</th></tr></thead><tbody>{m_rows}</tbody></table></div>") + "</div>"
 
         '<div class="sec" id="merge">'
         + rowh("<h2>How the four methods merge into the SkyWays PDLC</h2>"
@@ -1136,8 +1178,8 @@ def frameworks_page() -> str:
 
         '<div class="sec" id="decoder"><h2>The acronym decoder</h2>'
         "<p>Every short form this manual uses, what it means here, and where it came from.</p>"
-        '<div class="tw" tabindex="0"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
-        f"<th>From</th></tr></thead><tbody>{a_rows}</tbody></table></div></div>"
+        + stacked('<div class="tw" tabindex="0"><table><thead><tr><th>Short</th><th>Long</th><th>What it means here</th>'
+                  f"<th>From</th></tr></thead><tbody>{a_rows}</tbody></table></div>") + "</div>"
 
         '<div class="sec" id="lineage">'
         + rowh("<h2>Where each framework came from, and how much to trust it</h2>"
@@ -1145,8 +1187,8 @@ def frameworks_page() -> str:
                "vendor's documentation is dated, a published practice is named, and this manual's own defaults are "
                "there to tune on your own traffic, not to cite.</p>",
                "The three pills", key)
-        + '<div class="tw" tabindex="0"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
-        f'<th><span class="vh">Confidence</span></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>'
+        + stacked('<div class="tw" tabindex="0"><table><thead><tr><th>Framework</th><th>What it is</th><th>Lineage</th>'
+                  f'<th><span class="vh">Confidence</span></th></tr></thead><tbody>{"".join(f_rows)}</tbody></table></div>') +
         f'<p style="margin-top:14px"><a href="{WIKI}/Sources-and-Confidence" target="_blank" '
         'rel="noopener">The full sources page</a></p></div>'
         + next_up("Seen where the methods sit. The method page draws the lifecycle they sit on.",
@@ -1156,7 +1198,7 @@ def frameworks_page() -> str:
                  desc="AI-DLC, AIDD, BMAD and spec-driven development on one lifecycle, how their parts merge into the "
                       "SkyWays PDLC, every acronym decoded, and where each framework came from.",
                  body=body, depth=1, nav_id="frameworks", canonical=BASE_URL + "frameworks/",
-                 crumbs=[("Libraries", ""), ("The frameworks, and how they merge", "")], tour=tour,
+                 crumbs=[("Libraries", "../#library"), ("The frameworks, and how they merge", "")], tour=tour,
                  kind="frameworks", og="frameworks")
 
 

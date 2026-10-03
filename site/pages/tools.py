@@ -796,12 +796,10 @@ def index_page(shell, ctx: dict) -> str:
         {"sel": ".tg-shelf .shelf", "title": "The manuals",
          "body": "Five moves at the airline, each with the real prompt, then the settings, the traps and every fact with its date."},
     ])
+    head = render.page_head("Tool guides", "Which AI tool does each job?",
+                            "Seven jobs a team does with AI, and the tool each vendor offers for it.", f'<p class="pmeta">{counts}</p>')
     body = f"""<div class="wrap"><main id="main" class="page tg">
-<header class="phead"><p class="eyebrow">Tool guides</p>
-  <h1>Which AI tool does each job?</h1>
-  <p class="lede">Seven jobs a team does with AI, and the tool each vendor offers for it.</p>
-  <p class="pmeta">{counts}</p>
-</header>
+{head}
 {orient}
 {table}
 <section class="tg-shelf" id="manuals" aria-labelledby="manuals-h">
@@ -818,7 +816,7 @@ def index_page(shell, ctx: dict) -> str:
                  desc="Seven jobs a team does with AI, and the tool Claude, ChatGPT and Codex, and Google each offer for it, "
                       "with its status and a dated fact linked to the vendor's own page.",
                  body=body, depth=1, nav_id="tools", canonical=f'{ctx["base"]}tools/',
-                 crumbs=[("Libraries", ""), ("Tool guides", "")], tour=tour, kind="tools", og="home")
+                 crumbs=[("Libraries", "../#library"), ("Tool guides", "")], tour=tour, kind="tools", og="home")
 
 
 def _rail() -> str:
@@ -884,12 +882,9 @@ def manual_page(m: dict, shell, ctx: dict) -> str:
         f"{len(m['moves']['items'])} moves", f"{len(m['settings']['items'])} settings", f"{len(m['traps']['items'])} traps",
         f"{len(facts)} dated facts")) + _checked(facts)
     nx = m["next"]
+    head = render.page_head(_E(m["kicker"]), _E(m["h1"]), marks.inline(m["lede"]), f'<p class="pmeta">{counts}</p>', in_col=True)
     body = f"""<div class="cols two-col">{_rail()}<main id="main" class="numbered tg tg-man">
-<header class="phead in-col"><p class="kicker">{_E(m["kicker"])}</p>
-  <h1>{_E(m["h1"])}</h1>
-  <p class="lede">{marks.inline(m["lede"])}</p>
-  <p class="pmeta">{counts}</p>
-</header>
+{head}
 {_contents()}
 {what}{not_}{moves_html}{poor}{settings}{traps}{facts_html}
 {render.next_up(nx[0], nx[1], nx[2], ("../", "All the tool guides") if nx[1] != "../" else (LAB, "Grow the spec in the lab"))}
@@ -898,7 +893,7 @@ def manual_page(m: dict, shell, ctx: dict) -> str:
                  desc=f'{m["lede"]} Five moves at a fictional airline with the real prompt, three settings, the traps, '
                       f'and every fact with its source and date.',
                  body=body, depth=2, nav_id="tools", canonical=f'{ctx["base"]}tools/{m["slug"]}/',
-                 crumbs=[("Libraries", ""), ("Tool guides", "../"), (m["name"], "")], kind="tools", og="home",
+                 crumbs=[("Libraries", "../../#library"), ("Tool guides", "../"), (m["name"], "")], kind="tools", og="home",
                  ctx={"lesson": (LAB, "The lab")})
 
 

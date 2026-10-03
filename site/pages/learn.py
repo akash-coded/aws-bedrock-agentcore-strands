@@ -1132,7 +1132,7 @@ def start_page(meta, tracks, lessons, shell, visual) -> str:
 {rail}
 <main id="main" class="lesson">
   <header class="phead in-col">
-    <p class="kicker">The tutorial</p>
+    <p class="eyebrow">The tutorial</p>
     <h1>{_E(smeta['title'])}</h1>
     <p class="lede">{inline(smeta.get('dek', ''), link)}</p>
     <div class="ba"><a class="btn pri" href="{tracks[0].lessons[0].slug}/">Start with lesson one</a>
