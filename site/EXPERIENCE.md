@@ -1,7 +1,7 @@
 ---
 name: SkyWays, the agentic manual
 status: final
-updated: 2026-10-02
+updated: 2026-10-03
 form-factor: web, phone first, static HTML with progressive enhancement
 visual-identity: DESIGN.md
 ---
@@ -21,17 +21,20 @@ published unchanged, with its own day and night switch.
 
 Readers arrive cold, from a search ("AI-DLC vs BMAD", "spec-driven development template") or from a
 link a colleague sent. Most land on a deep page, not the home page, and most have never heard of
-SkyWays. So every page has to say where the reader is, and the home page has three jobs only: say what
-this is, show that it is real, and offer one way in.
+SkyWays. So every page has to say where the reader is, and the home page has four jobs only: say what
+this is, show that it is real, offer one way in, and, at its foot, say who can help apply it.
 
 ## Information architecture
 
 ```
-Home                      what this is, why a spine, the methods on it, the roles, the simulator, the tutorial, the shelf
+Home                      what this is, how the methods fit, which to use, the roles, the tutorial,
+                          the simulator, the library, the consultancy
 ├─ Tutorial   /learn/     55 lessons in eight tracks
-├─ Roles                  product manager, solution architect, engineering lead, QA, DevOps
+├─ Roles                  product manager, solution architect, engineering lead, QA, DevOps,
+│                         and the forward-deployed engineer's guide:
+│  └─ /forward-deployed-engineer/   its hub, and frame/, deliver/ and evolve/, one page a stage
 ├─ Method     /method/    the four boards: phases, loops, roles by phase, what a model may draft
-├─ Library                templates, prompts, mental models, frameworks, picture pack
+├─ Library                templates, prompts, mental models, frameworks, Tool guides, picture pack
 ├─ Leadership /protocol/  for whoever funds the work
 ├─ Simulator  /simulator/ Ninety Days: the worked case as a game
 ├─ Labs       /labs/      one job of the project by hand, with a real model's recorded replies
@@ -42,38 +45,57 @@ The top bar carries those five places and one slot that changes with where the r
 points at the page it is on. In the manual it is one pill, "Simulator". In a lesson the pill is "Play this
 day" when the game has a day that lesson is the reading for, and a quiet link beside it jumps to the
 lesson's own "Apply it in your role". In the game the pill is "Read the lesson" for the day on screen, and
-the quiet link goes back to the manual. On a phone the pill stays and the quiet link is left to the drawer.
-The drawer (top left) still lists every page by category and holds the search; on a phone it is the navigation.
+the quiet link goes back to the manual. On the FDE guide's pages the quiet link is "The lesson", the field
+guide. On a phone the pill stays and the quiet link is left to the drawer. The drawer (top left) still lists
+every page by category and holds the search; on a phone it is the navigation.
+
+The forward-deployed engineer's guide is a role in three stages, so it is four pages, not one: a hub that
+draws the whole job in one picture and says what the role is, and one page for each stage, Frame the
+engagement, Deliver the system and Evolve the relationship, each a focused read of four steps. The top bar's
+Roles list and the drawer name it with the other roles; its stage pages are in the sitemap, the search finds
+each step at its stage page, and `/templates/` and `/prompts/` end their role sections with one line to the
+stage pages, where its 12 templates and 30 prompts live.
 
 The home page, top to bottom:
 
 1. **Hero.** The headline, two sentences that say what the site is, the three ways to take it and that
-   it is free, two buttons (start the tutorial, play the simulator), one line of counts and the author.
-2. **Agent projects go wrong in four places.** The reason to care, then the lifecycle: four methods give
-   it one idea each, their lines meet in one point, and out of it comes one line that closes into a loop,
-   the question each phase asks above it, and under it the line a team hears when the question was skipped.
-3. **Which agentic method should your team use?** Any of the four works, says the paragraph; the table
-   shows which phases each covers, and its last row what no method decides for you. One link below it
-   sorts the other names a reader may have heard.
-4. **Start from the job you do.** Seven rows: five roles, the forward-deployed engineer and the sponsor.
-   The page's only routing device, with one quiet link to the tutorial's nineteen starting points for
-   anyone not on the list.
-5. **Play a ninety-day AI project in fifteen minutes.** One button, a line with the number of decisions
-   and the time a game takes, and a quiet link to the labs. Beside them, one real day of the game as a
-   card: Day 45, its room drawn in pixels, its headline, its context, its question and its three answers
-   with their price in days, each of which opens that day in the game.
-6. **Read the lessons in order.** The eight tracks, numbered, one sketch from a lesson as a sample, and
-   one button to lesson one.
-7. **Copy the templates and prompts you need.** Four tiles: templates, prompts, mental models, pictures.
+   it is free, two buttons (start the tutorial, play the simulator), one line of counts and the author,
+   whose name links to the close. Beside them the flight: a dart round the Earth that becomes a drawing, a
+   built airliner and a jet, stops at the sign-off before it is built, and comes to rest.
+2. **How AI-DLC, BMAD and the rest fit together.** One map on the SkyWays PDLC: each of the five names a
+   reader has heard is a shape as long as the phases it covers, with a handwritten note on who made it and
+   when; all five meet in the build; under them, the four questions no method reaches.
+3. **Which agentic methods should your team use?** The pair every team needs, then three yes-or-no
+   questions, each adding one method. Nothing to decode, and nothing to choose for the answer to be there.
+4. **Start from the job you do.** Seven rows: six roles, the forward-deployed engineer's guide among them,
+   and the sponsor. The page's only routing device, with one quiet link to the tutorial's nineteen starting
+   points for anyone not on the list.
+5. **Learn to run agent projects one question at a time.** Four people from the game's team (Priya, Arjun,
+   Sam and Maya) each ask one question and get the manual's answer in one sentence, beside a drawing of the
+   worker; each card is a link to the lesson that answers it. Then one button to lesson one.
+6. **Play a ninety-day AI project in fifteen minutes.** It says the game is for learning the method; one
+   button, "Enter the simulation", a line with the number of decisions and the time a game takes, and a quiet
+   link to the labs. Beside them one real day of the game as a card, labelled "Example day" and standing in
+   perspective on a wide screen: Day 45, its room drawn in pixels, its headline, its context, its question
+   and its three answers with their price in days, each of which opens that day in the game.
+7. **Take the tools, templates and prompts with you.** Three tools first, each on the material of what it
+   opens (the workbench, the tutorial, the simulator), then six shelves (templates, prompts, mental models,
+   the Tool guides, the methods decoded, the picture pack). Every count is counted when the site is built.
+8. **Work with the consultancy that wrote this manual.** SkyWays Consultancy's four offers, each ending in
+   what a buyer leaves with, and one button, "Write to Akash Das", with "Say what you want to change, and by
+   when." beside it.
 
-Every band's heading stands alone. The three ways in are named once, in the hero's second sentence, so
-no heading has to begin with "Or" and a reader who lands mid-page is not left asking "or what?".
+Every band's heading stands alone. The three ways in are named once, in the hero's second sentence, and the
+hero's buttons and the bands below run in the same order: lessons, then the game.
 
 What left the home page went one click deeper, not away. The phase board, the eight loops, the role by
 phase matrix and the delegation board are on `/method/` with their ids unchanged. Old links to
 `/#pdlc`, `/#loops`, `/#by-role` and `/#delegation` are forwarded there by a script in the home page's
-head, the same way the workbench's old `/#/…` routes are. The task table ("about to write a spec",
-"about to launch") is on the tutorial's landing page as "Start where you are".
+head, the same way the workbench's old `/#/…` routes are; `/#why` goes to the methods band and `/#method`
+to the chooser. The lifecycle figure and the method table left in council 10: the funnel of four methods
+into one point is the frameworks page's "How they merge", and the bars and their key are its plug board.
+The task table ("about to write a spec", "about to launch") is on the tutorial's landing page as "Start
+where you are".
 
 ## Voice and tone
 
@@ -89,9 +111,12 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
   and adds what none of them decides."
 - Every screen can be read cold. A heading names what the screen is about to someone who has seen no other
   screen; a step in a sequence carries one line of what came before. In the game that line is "So far".
-- "Role", not "chair". "A fictional airline" on first mention of the case.
+- "Role", not "chair". "A fictional airline" on first mention of the case. "SkyWays Consultancy" in full,
+  every time, so it is never taken for the airline; the consultancy never enters the game's fiction.
 - No dashes in prose, no contrast staged for weight ("not X but Y"), no closing line that repeats the
-  paragraph. The `humanizer` patterns are the checklist.
+  paragraph. The `humanizer` patterns are the checklist. On the home page the build enforces part of it: a
+  dash, a brochure word ("seamless", "end-to-end", "solutions", "gamified" and the like) or an American
+  spelling in what a reader meets stops the build.
 - Counts are stated as numbers and computed at build time.
 
 ## Component patterns
@@ -99,72 +124,96 @@ head, the same way the workbench's old `/#/…` routes are. The task table ("abo
 | Pattern | Behaviour |
 | --- | --- |
 | Top bar lists (Roles, Library) | Each is a `<details>`: opens on click or Enter without script. Script closes the other one, and closes on Esc, on a click elsewhere and when the focus tabs out. The parent is marked when a child page is current. |
-| Drawer | Unchanged: `<details>`, Esc and scrim close it, `/` opens it on the search box. |
-| Top bar slot | Chosen by the page when it is built, never by script, except inside the game, which points the pill at the lesson behind the day on screen. Between pages, where the browser can, the pill's shape travels and resizes on the spring and its words swap with a short blur; elsewhere the page simply changes. |
-| Lifecycle figure | One piece of markup, two layouts. Over 1000px the four methods stack on the left, their lines run into one point, the name sits on the line that leaves it, the four questions sit inside the loop and the four symptoms hang under it. At 1000px and under the methods are a row of chips, then the line, then each phase with its question and its symptom. Methods and phases link to their lessons. The drawing is hidden from a screen reader; a sentence says the lifecycle keeps one idea from each of four methods, and each symptom is prefixed with "Skip it, and you hear". |
-| Sketch | A `<figure>`: the drawing is one image with a description of the scene, and the caption under it is real text that makes the point alone. Its notes arrive once, in order, when first scrolled to; without script, in print and under reduced motion it is simply complete. It prints on white, never across a page break. |
-| Method table | Phase headers and method names link to their lessons. Bars are cells with a hidden reading ("covers this phase", "extended in this manual"). Fits a 375px screen without scrolling; there, the spine's row becomes a list under the table. |
-| Role rows | The whole row is the link. Hover tints the row in the role's colour and moves the arrow. Two rows are not role journeys and say so in their counts: the forward-deployed engineer's field guide and the sponsor's page. |
-| Track list | Eight links, numbered in order, each with its lesson count. |
-| Day card | One real day of the game, its question and its answers as links: each answer is a link to that day in the game, and the note under them says each costs days. Plain links, so they work without script. |
+| Drawer | `<details>`, Esc and scrim close it, `/` opens it on the search box. Its contact form's first topic, "Work with SkyWays Consultancy", is chosen only by the close's button (`data-sw-open="consultancy"`), and a message sent with it is headed "[SkyWays Consultancy] enquiry from ...". Every other way in (the footer, the mail pill, `?contact`) opens it on "An idea or suggestion", as before, and puts that back if the close chose the consultancy and the reader did not change it. |
+| Top bar slot | Chosen by the page when it is built, never by script, except inside the game, which points the pill at the lesson behind the day on screen. |
+| Method map | One grid, three layouts: over 1180px the notes sit in a margin column with their arrows; from 761 to 1280px the author's line drops under the name; at 1180px and under each note moves into its shape; at 760px and under each method is its name, its note and a strip across the four columns. The shapes are a list of links, each read as its name, who made it and the phases it covers, built from the same data as the shape and the strip; the frame, the wash, the arrows and the ends are hidden from a screen reader. In print it keeps to one A4 page. |
+| Chooser | Three fieldsets, each a legend and two radios. With nothing chosen both lines show, which is the whole rule; Yes hides No, and No hides Yes and greys the method's name. Plain CSS (`:has()`): no script, nothing stored, nothing sent. On paper, and in a browser without `:has()`, there are no toggles and both lines show. |
+| Sketch | A `<figure>`: the drawing is one image with a description of the scene, and the caption under it is real text that makes the point alone. It is complete when the reader reaches it. It prints on white, never across a page break. |
+| Role rows | The whole row is the link. Hover tints the row in the role's colour, past its column, and moves only the arrow. One row is not a role journey and says so in its counts: the sponsor's page. |
+| People card | The whole card is one link, to the lesson that answers its question; a screen reader meets a picture, a name, a heading, an answer and one short link. Hover moves the arrow and darkens the foot's rule; focus rings the whole card. The build refuses an answer whose source sentence its lesson no longer says. |
+| Day card | One real day of the game, its question and its answers as links: each answer is a link to that day in the game, and the note under them says each costs days. Plain links, so they work without script. Over 1000px it stands at a tilt and turns to face the reader on hover or on keyboard focus inside it, in 400ms, at once under reduced motion; flat at 1000px and under, and on paper. |
+| Library cards | Each of the nine is one link. Flat at rest; hover moves the border to ink and lifts the card 3px in 250ms. In print every card's words are ink on paper, whatever its ground. |
+| Close | One button. With script it opens the drawer on the consultancy's topic; without script it is a link to the repository's discussions page, and a reader who asks for a new tab gets that page in one. No form, no logo, no testimonial. |
 | Folded how-to | Closed on arrival. Holds the audience, the use, the steps and the walkthrough button. |
-| Section rail | On a wide screen the role pages and the leadership page list their sections down the left and mark the one being read (`aria-current`): the last one whose top has passed the upper third of the window. On a narrow screen a role page relies on its step track, and the leadership page folds the list under its title. |
-| Role step | The step's head links to its template and its prompts; a tap opens the step if it is shut and lands on the block. "Expand all" sits beside the steps' heading. On a wide screen in a browser that can, a step opens to its height in 250ms; elsewhere it is simply open. |
-| Copy | The button turns green, draws a tick and says "Copied"; a polite live region says so to a screen reader. |
-| Pause control | A checkbox in the corner of the hero and of the tower figure. Ticked, the flight, the globe and the tower hold still. It works without script for everything but the globe, which needs script to turn at all. |
-| Figures | A drawn figure fades in part by part, in drawing order, the first time it is scrolled to. Nothing is hidden beforehand: a figure the observer never reaches is simply there. |
-| Page to page | Where the browser supports it, one page cross-fades into the next with the top bar held still, and a title on both pages (a lesson in its track list, a role in its home-page row) travels to its new place. |
-| Next up | Templates, prompts, mental models, frameworks and the picture pack each end on one sentence, one button and one quiet link. |
-| Walkthrough | Never offered by a popup, and nothing about it is stored. Two ways in, on every screen width: "Show me around this page" in the drawer, shown only on a page that has a walkthrough, and "Show me around" in the folded how-to. Nothing floats over the page for it. The card highlights one element at a time and carries a plain label, "The walkthrough", the step count, the step's title and text, and Back and Next; it has no face and no name. Esc, the arrow keys and the close button work. |
-| Reveal | A band rises 18px into place the first time it is scrolled to. Without script, or with reduced motion, it is simply there. |
+| Section rail | On a wide screen the role pages, the leadership page, the libraries, the Tool guides' manuals and the FDE guide list their sections down the left and mark the one being read (`aria-current`): the last one whose top has passed the upper third of the window. A stage page of the FDE guide lists all twelve steps by stage, its own four marked as you read and the other eight linking their pages. On a narrow screen a role page relies on its step track, and the leadership page and the FDE hub fold the list under their titles. |
+| Lesson guide | From 1280px wide, on the right of every lesson: the track, the lesson's place in it, the previous and next, the sections with the one being read marked by the same rule as a rail (with the first marked before any heading has passed), and the course folded, opened at the current lesson. On a short screen a long guide scrolls itself to keep the mark in view; the page never moves. Without script the list is there and nothing is marked. Under 1280px its two lists are two folds side by side under the meta line, closed under 1280px with script and open without it. |
+| FDE framework | Twelve step links, each landing on the step's own block on its stage page; the stage heads link the stage pages. For a screen reader, an ordered list of three stages, each an ordered list of four links that read like "P0, step 1, Qualify: is this engagement worth taking? Discovery brief". Without script, under reduced motion and in print it is the same picture. |
+| Role step | The step's head links to its template and its prompts; a tap opens the step if it is shut and lands on the block. "Expand all" sits beside the steps' heading. On a wide screen in a browser that can, a step opens to its height in 250ms; elsewhere it is simply open. The first step of each FDE stage page is open. |
+| Copy | The button turns green, draws a tick and says "Copied"; a polite live region says so to a screen reader. It copies the text exactly as written; a code box wraps, so nothing is hidden off its side. |
+| Pause control | A checkbox in the corner of the hero's stage and of the tower figure. Ticked, the flight, the globe and the tower hold still. It works without script for everything but the globe, which needs script to turn at all. |
+| Next up | Templates, prompts, mental models, frameworks and the picture pack each end on one sentence, one button and one quiet link. The FDE stage pages end on the next stage, and Evolve's on Frame, "the next engagement", with the hub beside it. |
+| Walkthrough | Never offered by a popup, and nothing about it is stored. Two ways in, on every screen width: "Show me around this page" in the drawer, shown only on a page that has a walkthrough, and "Show me around" in the folded how-to. Nothing floats over the page for it. The card highlights one element at a time and carries a plain label, "The walkthrough", the step count, the step's title and text, and Back and Next; it has no face and no name. Esc, the arrow keys and the close button work. On a lesson its first steps show the guide on a wide screen and the folds on a narrow one. |
+
+<!-- RC-B: confirm the pause control's corner (H1). -->
 
 ## State patterns
 
-- **No script, or the home page's own script missing:** the globe is a shaded disc with the flight drawn
-  over it; every band is visible, because the script that hides a band for its reveal is the one that
-  reveals it; both top-bar lists open and close; the drawer works.
-- **Reduced motion:** the globe is drawn once and does not turn, one aircraft is parked at each phase,
-  nothing fades in, pages do not cross-fade, connectors do not move, and the pause control is not shown
-  because there is nothing to pause.
-- **Paused:** the flight, the aircraft's shape, the sign-off's bar and the tower hold together, and the
-  globe stops turning.
-- **A second visit to the home page in one sitting:** the hero is already drawn; its entrance played once.
-- **A browser that cannot ease one path into another (Safari):** the aircraft is four drawings that take
-  turns on the same clock.
-- **A browser without scroll timelines, view transitions or animatable `auto` height:** connectors are
-  still, pages change at once, steps snap open. Nothing is missing, only the movement.
-- **Off screen or hidden tab:** the globe stops drawing.
+- **No script, or the home page's own script missing:** the globe is a shaded disc with the line of names
+  under it; every band is visible; the chooser shows both lines of every question; the close's button is a
+  link to the repository's discussions page, and no page prints the contact address; a lesson's guide lists
+  its sections with nothing marked, and its folds are open on a narrow screen; both top-bar lists open and
+  close; the drawer works.
+- **Reduced motion:** the hero draws its rest frame once (the four forms parked in their phases, each named)
+  and shows no pause control, because there is nothing to pause; the day card keeps its tilt and turns at
+  once; nothing fades in, and connectors do not move.
+- **Paused:** the flight, the camera, the forms and the tag hold together, and the Earth stops turning.
+- **At rest:** after two rounds on a first visit (about 50 seconds) the hero settles into its rest frame and
+  draws nothing more; the pause control shows play; pressed, the flight goes on and does not rest again.
+- **A second visit to the home page in one sitting:** no camera move and no spring-in: one round from Frame
+  at the whole view, resting in the middle of Run & Learn about 21 seconds in.
+- **A browser without scroll timelines or animatable `auto` height:** connectors are still and steps snap
+  open. Nothing is missing, only the movement.
+- **Off screen or hidden tab:** the globe stops drawing, and goes on from where it was.
 - **Theme:** dark until the reader chooses light. The choice is kept in `localStorage` and applied before
-  the page paints. Without script the page stays dark. The browser's own chrome follows the page.
-- **Theme change:** the globe re-reads its colours and redraws; the simulator frame swaps its picture.
-- **Print:** always the light tokens, whatever the screen shows.
-- **Old anchor on the home page:** forwarded to `/method/` before the page paints.
+  the page paints. Without script the page stays dark. The browser's own chrome follows the page. A sketch's
+  paper is toned in the dark theme, on every page.
+- **Theme change:** the globe re-reads its colours and redraws.
+- **Print:** always the light tokens, whatever the screen shows. The method map keeps to one A4 page with its
+  notes in ink; the chooser prints both lines; the day card is flat with no shadow and its pill prints as it
+  shows; the close's button prints in ink with its address after it; a lesson's guide and folds do not print.
+- **Old anchor on the home page:** `#pdlc`, `#loops`, `#by-role` and `#delegation` go to `/method/`; `#why`
+  goes to the methods band and `#method` to the chooser; all before the page paints.
 - **Old workbench route:** a link to `/simulator/#/…` or `/#/…` is forwarded to `/workbench/#/…` before
   the page paints. The game never uses a hash that begins with a slash.
+<!-- RC-B: confirm the hero's states (reduced motion, paused, at rest, second visit) against H1's code. -->
 
 ## Interaction primitives
 
 Motion has three permitted jobs and two classes; `DESIGN.md` states them. Transitions sit on the site's
-scale (150, 250, 350, 400ms) with the one easing. Hover never carries
-information that focus or the page itself does not. On a phone, buttons, navigation and list rows are
-at least 44px tall; a link inside a sentence, and a checkbox in a self-check, keeps its text's height.
+scale (150, 250, 350, 400ms) with the one easing. Hover never carries information that focus or the page
+itself does not. On a phone, buttons, navigation, list rows and the footer's button are at least 44px tall;
+in a lesson every fold's whole closed box is its control, 44px or taller ("Show the answer", "What a strong
+answer covers"). A link inside a sentence, and a checkbox in a self-check, keeps its text's height. The
+leadership stepper's dots are the one exception: 24px apart, each with a 24px touch square, beside 44px Back
+and Next. A line of links that wraps on a phone sets its rows 26px apart.
 
 ## Accessibility floor
 
-- Text contrast is at least 4.5:1 in both themes, measured on every page type at 375 and 1280px. Two
-  things sit under it by design: the grey continuation of a display heading, used only at 29px and above
-  where it passes the 3:1 large-text bar, and a disabled button.
-- The hero scene is `aria-hidden`: it repeats the spine band, which is real text.
-- The spine's drawing is hidden from a screen reader. What it says is in the markup: a list of the four
-  phases, each with its question and its symptom. The method table has a caption, column and row
-  headers, and a text reading in every cell.
+- Text contrast is at least 4.5:1 in both themes, measured from the page's own pixels where a gradient or a
+  picture sits behind it (`tools/ui.test.mjs`, at 1440, 1024, 390 and 320). Two things sit under it by
+  design: the grey continuation of a display heading or a lesson's title, used only at 29px and above where
+  it passes the 3:1 large-text bar, and a disabled button.
+- A focus ring is never cut by the box it sits in. Where a box clips its overflow (a step's rounded corner, a
+  code box, a picture card, a rail, the drawer's list), the ring is drawn 3px inside it; a ring on a code
+  box takes the dark theme's slate in both themes, 3:1 or more on the code.
+- The hero's stage is an image with one sentence: "A paper dart flies round the Earth through four phases
+  and becomes, in turn, a drawing, a built airliner and a jet. It stops at a sign-off before it is built.
+  Then it comes back to Frame, one level higher."
+- The method map is a list of five links, each read as its name, who made it and the phases it covers; the
+  questions no method reaches are an ordered list. The chooser's questions are fieldsets with legends; a
+  radio reached by the keyboard rings its label. The FDE framework is three ordered lists of four links.
 - Nothing moves on its own for more than five seconds without a control to stop it (WCAG 2.2.2): the
-  three things that do, the hero's flight, the tower and the game's picture, each carry one.
-- Handwriting in a sketch is 13px or more on a 320px phone and meets 4.5:1 on its paper. A sketch's meaning
-  never rests on the pen's colour alone: the caption says it.
-- "Copied" is announced through a polite live region; the rail marks the current section with `aria-current`.
-- One `h1` per page; bands are labelled sections; the skip link, focus rings and breadcrumbs are kept.
-- No page scrolls sideways at 375px.
+  three things that do, the hero's flight, the tower and the game's picture, each carry one, and the hero's
+  flight also stops by itself after about 50 seconds.
+- Handwriting in a sketch is 13px or more on a 320px phone and meets 4.5:1 on its paper; on the home page's
+  map it is 16px or more. A sketch's meaning never rests on the pen's colour alone: the caption says it.
+- "Copied" is announced through a polite live region; the rail and the lesson's guide mark the current
+  section with `aria-current`.
+- One `h1` per page; bands are labelled sections; the skip link, focus rings and breadcrumbs are kept. A
+  breadcrumb is a link or the page itself: only the last is current, and on a phone the one before it is a
+  link.
+- No page scrolls sideways at 320px, and no table hides a column on a phone.
+<!-- RC-B: confirm the hero's label, its 50 seconds, the breadcrumbs and the tables (U4) against the merged code. -->
 
 ## Key flows
 
@@ -173,15 +222,23 @@ Illustrative readers, used to test the pages. None of them is a real person.
 **Meera, an engineering lead, on her phone between meetings.** She searched "AI-DLC vs BMAD" and
 landed on the home page.
 1. The first screen tells her it is a free manual for teams building with AI agents.
-2. She scrolls once and recognises a line under Build & Prove: the score went up, and so did the complaints.
-3. She scrolls again. The heading is her own question. She reads the bars, each beside its name: AIDD
-   covers the build only, BMAD reaches Run & Learn only as extended here.
-4. *The moment:* she reads the last row, what the spine adds that no method carries, and taps AI-DLC.
+2. She scrolls once. The map puts AI-DLC and BMAD on the same four phases and says who made each and when,
+   and under Build & Prove she recognises a line: the score went up, and so did the complaints.
+3. She scrolls again. The heading is her own question.
+4. *The moment:* she answers three questions and reads her team's set: spec-driven development and AIDD,
+   and BMAD, because an auditor reads their work. She taps BMAD.
+
+**Helen, chief technology officer of an insurer, sent the link by her head of engineering.**
+1. The first screen tells her it is a free manual for building software with AI agents, by Akash Das.
+2. She reads the method map: five names she has heard, one frame, and a row no method reaches.
+3. She stops at Maya's card: the bar comes from what a mistake costs.
+4. *The moment:* at the foot she finds the consultancy that wrote it, and four offers that each end in
+   something she can check. She writes to Akash Das with what she wants to change, and by when.
 
 **Daniel, a product manager, from a link a colleague posted.**
 1. Home: he reads one sentence and scrolls to the roles.
-2. He finds his row: "a vibe → a number you can defend". His title travels with him to the next page.
-3. The role page opens on his title, one line and the eight steps as a track, arriving in order.
+2. He finds his row: "a vibe → a number you can defend".
+3. The role page opens on his title, one line and the eight steps as a track.
 4. He taps the first stop, then "The template" in the step's head.
 5. *The moment:* he presses Copy on the pain register, and the button says so.
 
@@ -227,16 +284,31 @@ an instruction strip, a contents box, a walkthrough button and a popup.
 
 ## Responsive and platform
 
-- **Wide (over 1000px):** hero words left, scene right; the simulator band is two columns.
-- **Tablet and phone:** the hero stacks, words first; the scene follows, centred and cropped by the
-  band. The first phone screen holds the headline, the sentence, both buttons and the counts.
+- **Wide (over 1000px):** hero words left, scene right; the simulator band is two columns, its day card in
+  perspective.
+- **Tablet and phone:** the hero stacks, words first; the scene follows, and on a phone its picture ends
+  inside the first screen. The first phone screen holds the headline, the sentence, both buttons and the
+  counts. At 420px and under the hero's two buttons stack at full width.
 - **Under 860px:** the top bar keeps the mark, the simulator and the theme; the five places are in the
-  drawer.
-- **1000px and under:** the spine band becomes the line first, then each phase with its question and its
-  symptom. Under 600px the gate on the line is a rose bar before P2.
-- **Under 760px:** the method table drops its one-liners and fits the screen, and the spine's row becomes
-  a list under it.
-- **Under 760px:** role rows become two lines.
+  drawer. On a phone it sits on the page's 20px column.
+- **The method map:** over 1180px the notes sit in a margin column with their arrows; from 761 to 1280px the
+  author's line drops under each name; at 1180px and under each note moves into its shape; at 760px and under
+  each method is a row with a strip across the four columns, and the four questions stack.
+- **The chooser:** four columns over 1000px, two by two from 601 to 1000px, one column at 600px and under;
+  Yes and No are 46px tall at 820px and under.
+- **The tutorial's people:** four across from 1181px, two by two from 601 to 1180px, one column at 600px and
+  under, the picture on top.
+- **The library:** three columns over 1000px; two from 561 to 1000px, each tool spanning both with its picture
+  on the left; at 560px and under each tool keeps its picture in a 112px strip on top, and each shelf is a
+  count and a name, two to a row.
+- **The close:** four offers over 1000px, two from 601, one at 600px and under, where the panel is 20px inside.
+- **At 900px and under:** role rows become two lines.
+- **A lesson:** from 1280px the column on the page's left edge and the guide on the right; from 901 to 1279px
+  one centred column with the guide's two lists as folds under the meta line; at 900px and under a phone's
+  column, the body at 17px, with the same two folds.
+- **The FDE framework:** on a phone the stages stack and each stage's four steps sit two by two, so across is
+  still the order; the artefact line drops.
+<!-- RC-B: confirm the hero on phones and the stacked buttons (H1, U3). -->
 
 ## The second council: the inner pages, and motion
 
@@ -672,18 +744,172 @@ browser since the last seed. It ran twice on 2 October 2026 and pushed 82 pages 
 workflow's own commit, and again after the mental models page was regenerated. The live wiki now matches
 `wiki/`.
 
+## Round twelve: council 10, the home page, the lessons and the FDE guide
+
+On 2 October the owner asked for a home page that shows what changes from phase to phase (a rocket entering
+each phase and shedding a stage, leaving the atmosphere at the sign-off), a Venn of AI-DLC, BMAD,
+spec-driven development, AIDD and the agentic SDLC coming together in the SkyWays PDLC, four people with their
+own questions in place of the track list, a three by three library with the workbench, the simulator and the
+tutorial as flagships, a call to SkyWays Consultancy at the foot, lesson pages that look finished, and a full
+guide for the forward-deployed engineer built on Frame, Deliver and Evolve. Council 10 sat in two rooms. The
+home room (a motion designer, an information designer, a narrative strategist and a sceptic) ruled on the home
+page; a second room ruled on the lessons, the FDE guide and an audit of the site's parts. Each chair wrote a
+verdict, and each verdict's parcels were built by their own builders. The owner answered both verdicts'
+questions with their defaults: the lesson guide on the right; the libraries keep their byte holds, with one
+line pointing to the FDE stage pages; no consultancy line on the FDE guide; "Check yourself" next round; the
+map's credit "SkyWays PDLC, by Akash Das, SkyWays Consultancy, 2026"; the four offers in the verdict's order;
+no proof line; and the drawer as it is, the discussions page without script, and no delivery line.
+
+**Room first.** `base.css`, which every page loads, stood at 39.66 KB gzipped under a 40 KB ceiling, and a
+quarter of it was comments. The build now ships every stylesheet without them (`build.py`, `lean()`), which
+took the file to 29.28 KB as shipped with the same rules, and the ceiling came down to 32 KB so the room is
+kept for work. Both rooms' parts were then built inside it.
+<!-- RC-B: base.css as shipped at the end of the round. -->
+
+**The home page: what was decided.** The page runs in eight bands, and its headings read as one sentence of
+intent: what it is, how the methods fit, which to use, start, learn, play, take, get help. The hero is staged
+like a launch rather than drawn as a rocket (below). The methods band is a map, not a Venn. The chooser answers
+its own question in words. The roles band stays, without "eight" in its sentence, because the FDE guide has
+twelve steps. The tutorial moved above the simulator and became four people from the game's team. The
+simulator band keeps its heading, says plainly that it is a game for learning, labels its day card "Example
+day" and stands it in perspective: the "3D pop-out" the owner remembered from council 9's tilted frame. The
+library is three tools and six shelves, and the page closes on SkyWays Consultancy. Every count on the page is
+computed, and the build refuses a dash, a brochure word or an American spelling in what a reader meets there.
+
+**Clashes, and how they were settled.**
+- *A rocket.* No seat argued for one. The motion designer built a launch first: the climb out of the atmosphere
+  curled into a hook at the Earth's edge and read as a dive. Shedding stages also teaches the opposite of the
+  method, since at a gate nothing is thrown away and each phase leaves a record the next is held to, and a
+  rocket goes one way while the method loops. All four of the owner's points survive in the staged flight: a
+  boundary nobody can miss, the sign-off as the dramatic moment, a thing that gets better and ends up shipped,
+  and a start close to the Earth that pulls back. "Shed one thing" is kept the right way round: each form
+  leaves a trace on the path.
+- *A Venn.* Its middle would say the SkyWays PDLC is what every method shares, the reverse of the manual's own
+  claim, and five sets make 31 regions no source describes. What the methods share is phases, and phases have
+  an order a set loses. So each method is a shape as long as the phases it covers, inside one frame, and every
+  overlap is true: all five meet in the build. Every element the owner named is kept, the handwritten notes on
+  who made each and when among them. A zoomed P0 to P3 panel beside it would have drawn the phases twice.
+- *The order of the tutorial and the simulator.* The owner described the simulator first. The tutorial comes
+  first: the hero's sentence and buttons already put lessons before the game, it teaches the model before the
+  practice (Maya's 80% bar one band before the Day 45 card that tests it), and two of three outside readers,
+  asked only whether anything was out of order, proposed the move unprompted.
+- *Tilt.* The ninth council refused tilt "on the game's canvas" because it breaks whole pixels. The day card is
+  a still picture in a card; at its angles the cost is one stepped diagonal and the type stays sharp. The game's
+  own canvas, and its own Day 1 card, are never tilted.
+- *The library's order.* Workbench, tutorial, simulator: the workbench is the one tool the page has not shown,
+  and its calculator carries Maya's numbers, so the 80% bar runs through three bands.
+- *Heights.* The sceptic wanted one drawing on a phone and the close inside one phone screen. The owner asked
+  for the four workers, and two sketches side by side would put the handwriting under 13px; the four offers
+  need about 1,300px at 390 to stay whole.
+- *The hero's budget.* The sceptic showed the script is about a fifth of a frame's cost and today's hero kept a
+  slowed phone's main thread busy for 69.8 of 70 seconds. So the rest became a condition of shipping, with a
+  sixty-frame cap and four drawing rules.
+
+**Refused, on the home page.** A rocket, an atmosphere shell, plumes and particles; WebGL, an animation
+library, video or a second canvas; a camera that moves every round or follows the scroll; a Venn, the SkyWays
+PDLC as a sixth shape, phase colours on the methods, and motion on the map; a score or a stored answer in the
+chooser; a fifth person (the FDE has its row in the roles band); "gamified" in the copy; badges, a 4 by 4 grid,
+tilt on the library cards, raster screenshots; logos, testimonials, counts of clients, a popup or a sticky
+"Book a call", and the owner's service words hidden in structured data; inline style blocks, a home-only
+stylesheet, and a base.css ceiling above 32 KB.
+
+**The lessons.** Measured, the "50%" the owner saw was true both ways: a 248px rail of 64 links left of a
+508px column of 16.5px text, a 300px margin column that held something for 8 to 15% of a lesson's height,
+nothing right of the text on 60% of its rows, a right edge that jumped twelve times, and 54 of 55 titles in
+three lines. A lesson now reads in one column from the page's left edge, text at 584px and 19px, pictures to
+944px, and a 240px guide on the right holds navigation and nothing else; the sketches came into the text at its
+width (handwriting from 14.5px to about 28px), and "Try it" sits where the lesson reaches it. The title is the
+whole search title in two lines with its second half in grey, and six gaps replaced eleven. The hard gate grew
+from 7,614 to 8,571px at 1440; its reading time is unchanged. Ten lessons gained a picture already drawn, each
+after the sentence it shows, and three new figures draw what three lessons' prose could not, from numbers
+written into those lessons first: a drift of thirteen points in eight weeks that never trips a weekly alarm
+and trips the baseline alarm in week 5, a $2,000 refund through five claimed defences, and four ways back from
+40 seconds to 11 minutes. Lessons whose only picture was their opener went from 18 to 7: the exercise sheet,
+four interview banks, the interview guide and the tutorial's own manual. Refused: text across the whole page
+(107 characters a line), one centred column (scored lowest of seven layouts, for its empty flanks), a repaired
+margin column (a 944px map scrolling under a sticky 300px column collides with it), a quota of pictures,
+motion on a lesson, and the guide's bars as links (14px targets). "Check yourself" in every lesson waits for
+the next round.
+
+**The forward-deployed engineer's guide.** The FDE became the sixth role, as a guide of four pages: a hub and one
+page for each stage. Each stage asks P0 to P3 of its own object (the engagement, the system, the relationship), so
+the job is twelve steps, twelve artefacts and three signatures: the go decision, signed by the client's sponsor;
+the handover, signed by the person who will run it; the next frame or a clean close. One correction to the owner:
+"an FDE is a whole team in one person" ships as "some weeks you are the whole team", because at scale the work is
+a pair, and Anthropic, Palantir, Databricks and Ramp say so in their postings. Every claim about the profession is
+a dated record (30 sources and 53 quotations, read on 2 October 2026 and one on the 3rd), and a page never types a
+quotation. The case runs on: Frame is the three weeks before day 1, Deliver is days 1 to 97 with the canon
+unchanged beside "Your move", and Evolve is the guide's own. The joins: the top bar, the drawer and the home
+page's roles band list it; the search finds every step at its stage page; `llms.txt` lists it; `/templates/` and
+`/prompts/` point to its stage pages; *What is an FDE?*, the field guide lesson and the FDE interview bank teach
+the three stages, and the first gained the 31st sketch, a hat stand. Refused: one page of about 60 KB, a spiral, a
+rocket or any motion in the framework, a colour for each stage or dimmed rows on a stage page, a new named
+character, the FDE's 12 templates and 30 prompts in full on the libraries (both stand near their holds), and
+copies of the other roles' steps (the hats table links to them).
+
+**The parts.** The audit measured 24 faults across the site and put each in a parcel by file; six were moot
+under the redesigns. Focus rings are drawn inside the boxes that clip them, rings on code boxes read 3:1, the
+lab's "(empty)" reads, the toned sketch paper is on every dark page, and every phone control is 44px tall, the
+stepper's dots excepted at 24px apart. Prompts and templates wrap instead of hiding half their lines on a phone
+(116 of 116 prompts scrolled sideways at 390), role rows and rails sit on their column, and the top bar sits on
+the page's 20px column on a phone. Three radii, three button heights and one h2 scale; one page head with one
+eyebrow; breadcrumbs whose categories are links; tables that stack on a phone. The workbench meets the same
+floor in its own file: no label under 11px (4.6px on a phone before), a sign-off at 6.7:1 (2.88), the control
+tower's links at 12.3:1 (2.86), every focus ring 3:1 or more (1.6 and 1.9), and Menu on screen at 320px with
+44px controls. `tools/ui.test.mjs` keeps the audit's measurer as a test.
+<!-- RC-B: confirm U3 (radii, buttons, h2, capitals) and U4 (page head, crumbs, tables) against the code. -->
+
+**Outside readers.** Models from other makers, through Amazon Bedrock, read the built parts cold with the
+councils' own questions. On the method map, in three runs, at least two of three answered each of five factual
+questions; from the chooser, all three answered both team scenarios, and none needed a key. On the people band
+two of three named a specific thing they had learned. On the close all three stated every offer's output, none
+quoted a phrase the council had cut, and all three said one named client with one number would most make them
+write: the owner's to give. Three decoded the FDE framework cold, the hat stand's point came through for two
+makers with its caption covered, and two stated each new figure's point; their notes changed three labels.
+<!-- RC-B: add the hero's readers (H1) once it has landed. -->
+
+**The gate.** The acceptance gate grew with the round and has twenty passes. Pass 18 now holds every lesson's
+frame and type, not only its map: the measure, one left edge and two right ones, the guide on screen marking
+the section being read, two-line titles with their grey at 3:1 or more, the six gaps, and at 390 no table that
+scrolls and no fold under 44px. Pass 19 holds the home page's bands, one function for each band's parcel, and
+pass 20 the FDE guide's four pages at four widths in both themes. Pass 17 holds `fde.css` under 2 KB and the
+hub under 22 KB beside its older budgets. Each new check was shown to fail on a build with its fault put in. CI
+now runs the role builder's tests before every build, and the tools that drive Chrome, but for `ui.test.mjs`,
+ask the system for a free port, so two runs never drive one browser.
+<!-- RC-B: renumber, then confirm the count, pass 13 (H2) and pass 17's home lines (H10). -->
+
+**Bytes.** Sketch paths are written from the point before: the 31 pages with a sketch went from 547.6 to 511.1
+KB gzipped, 1.18 KB a page, and every sketch draws the same pixels. The home page's HTML grew from 13.0 to 19.0
+KB with its four drawings, the map, the chooser, the library and the close, under the 21 KB it is held to, and
+no longer asks for `engine.js`. The page is 8,528px tall at 1440 (7,085 before) and 12,939px at 390 (9,742).
+The FDE hub is 17.7 KB, and Frame 21.8, Deliver 23.5 and Evolve 21.4 KB. The picture pack is 37.98 KB of its
+38 KB hold.
+<!-- RC-B: re-measure every number in this paragraph on the final build. -->
+
+**Performance, before and after.**
+<!-- RC-B: H11's table goes here, as its report gives it, measured before (3bdb076) and after. -->
+
+**What closed.** The open items this round closed, and what closed them: `base.css` sits far under its budget
+(the build strips comments, and the ceiling is 32 KB); the home page's sample sketch kept the old paper in the
+dark theme (the toned paper is now on every dark page, and the sample gave way to the four people); at 1024 by
+768 every lesson map showed its text version and 25 of the 44 ran over 630px (the lesson's column is 944px at
+1024, so every map is drawn there as at 1440, and none is over 630px).
+<!-- RC-B: add the items FX closes, from its report. -->
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
 - "Agentic STLC" has an FAQ entry and no lesson. If it earns one, it is built from the QA lead's journey.
-- The product manager's row and the QA lead's row both end on "a number you can defend".
+- The product manager's page and the QA lead's page both open on "a number you can defend" (their taglines in
+  `content/roles/_src/`), and so does the QA row on the tutorial's start page; the home page's QA row already
+  reads "to proof that it works".
 - Two labs are listed as being built: proving the bar, and reviewing a change a coding agent wrote.
 - Lab 1's own recordings name their model only as "Claude", with no version, while its three other models'
   replies carry theirs and Lab 2's recordings name Claude Opus 4.6. Lab 1 was not recorded again, and
   anyone who runs its prompts again to compare would want the exact model.
 - On the title at 1440, Day 1's card has its kicker on the first screen and its answers below the fold.
 - A run held only in memory, because the browser blocks storage, is dropped if the address changes to a
-  day link mid-run: `boot()` checks the saved run, not the one in play. It predates this round.
+  day link mid-run: `boot()` checks the saved run, not the one in play. It predates round eleven.
 - The role rows' small timelines have no key, and the sponsor row's "Every day, watched" and "2 questions"
   read as cryptic to a newcomer.
 - A late start in one role saved under the previous rules no longer replays, so the game drops it when
@@ -691,15 +917,13 @@ workflow's own commit, and again after the mental models page was regenerated. T
   Day 1, keep their saves.
 - The game's three scripts are 45.97 KB gzipped, 35 bytes under their 46 KB budget. Moving the room cards'
   27 sentences into `days.json` would free about 0.45 KB, and the code would read worse for it.
-- `base.css` is 39.66 KB gzipped, 350 bytes under its 40 KB budget.
-- At 1024 by 768 every lesson map shows its text version, and 25 of the 44 run over 630px (SkyWays' to
-  926px). The cap is set for 1440 by 900; holding 1024 to it would be a change to the text version (`.bbn`
-  in `base.css`).
-- Eight lesson maps sit 2 to 5px under the cap at 1440 (628, 627, 627 and five at 625px), six of them
-  tightened this round. Pass 18 fails if the lesson column ever widens enough to tip one over.
-- In the tutorial's rail a current lesson with a two-digit number (Running delivery 10 to 13) has its
-  number 1.8px from the 2px accent bar, where it had 11.8px; a one-digit number has 8.4px. Opening the gap
-  would mean moving every row's number.
+- The picture pack is 37.98 KB gzipped, 21 bytes under its 38 KB hold, so the next card added to it fails
+  pass 17. Trimming the image data each card carries for search is the way back down.
+- Eight lesson maps sit 2 to 5px under the cap, at 1440 and at 1024 alike (628, 627, 627 and five at 625px).
+  Pass 18 fails if the lesson column ever widens enough to tip one over.
+- In the tutorial's rail, and in the course a lesson's guide folds, a current lesson with a two-digit number
+  (Running delivery 10 to 13) has its number 1.8px from the 2px accent bar, where a one-digit number has 8.4px.
+  Opening the gap would mean moving every row's number.
 - On the start page (`/learn/`) the "Start here" row's highlight still starts 10px left of the track
   headings. The row has no number to absorb the move, so aligning it would mean moving its words 10px
   right or setting them against the accent bar.
@@ -710,11 +934,60 @@ workflow's own commit, and again after the mental models page was regenerated. T
 - The start page's box (`content/learn/start-here.md`, on `/learn/` and on the wiki's Start Here) still
   opens with a bold lead, "What this is.", under its "In short" label. It is not a lesson, so the summary
   check does not cover it.
-- The home page's sample sketch keeps the old paper tone in the dark theme: the toned paper is set on the
-  lesson pages only.
 - help.openai.com refuses the session's proxy, so five OpenAI facts in the Tool guides stand as the
   research sheet had them, unchecked against their pages. The ChatGPT and Codex manual does not use them.
 - Two facts in the ChatGPT and Codex manual carry dates that will pass: OpenAI's existing evals become
   read-only on 31 October 2026, and the Evals dashboard and API and the `v1/prompts` API are to shut down
   on 30 November 2026 (`openai-evals` and `openai-prompt-objects` in `tools.json`). Both need rewording
   after those days, before their checks turn amber on 1 December.
+- The FDE guide's sources were read on 2 October 2026, and one, S26b, on the 3rd: they turn amber on 2 and 3
+  December. Re-check them by 1 December (`content/roles/_src/fde_sources.py`).
+- *One lifecycle for every method* still places AIDDLC's old phases across P0 to P3, where *AI-DLC vs AIDD vs
+  agentic SDLC* now lists the seven its own site gives.
+- BMAD's `when` in `frameworks.json`, and two lines of the solution architect's steps, say "twelve personas";
+  the BMAD lesson describes it by its documents.
+- The leadership page's "Where to send people" says each role has its own eight steps and lists five roles;
+  the FDE guide is a sixth, with twelve steps in three stages.
+- The FDE hub's sitemap date follows only the role's JSON, not `fde_hub.py`, `fde_sources.py` or
+  `pages/fde.py`, and the stage pages' dates do not follow `fde_sources.py`.
+- The picture pack's cards for the three new figures fall back to "Drift slide", "Postmortem layers" and
+  "Rollback times" (`pages/pictures.py` `TITLES`).
+- Two sketches, *Cut delivery time* and *How to run an agentic AI project*, carry a 54-unit label, which is
+  12.6px at 320 in the new frame; the lint's floor assumes a 288px column.
+- The contact relay's `TOPICS` (`contact-relay/src/handler.py`) has no consultancy topic, so if the relay is
+  deployed an enquiry from the home page's close is filed as "other".
+- The workbench on a phone: the menu sheet's Close, Search, Evidence pack and "Light or dark" are 38px tall,
+  its role tabs 39.6px and its role rows 42px; its start rail's and roles figure's focus rings are cut; the
+  frame's footer links (`frame/frame.css`, `.sw-legal a`) are 21px tall.
+- The workbench's faint labels: the loop badges on `#/loopmap` (2.15 to 4.2:1), the gate picture's hue labels
+  and "SOFT" notes on `#/governance` (3.35 to 4.1:1 and 2.27:1), and the cluster names on `#/concepts` (1.3 to
+  1.7:1, perhaps meant as watermarks).
+- From 561 to about 700px the library's simulator card crops its room through the boardroom's screen.
+- `site/app/SkyWays-Architect.html.orig` (1.77 MB) is referenced by nothing and not shipped.
+<!-- RC-B: FX items 1 to 14 close or change the twelve items above from the FDE sources down; check its report and
+the code, move each closed one into the round's "What closed", and keep the rest. -->
+- The proof calculator in the FDE guide's step 3 opens on its shared defaults (82%, 40 cases, a bar of 80),
+  not on the example's numbers; a default per step is a change to `calcs` or `enrich`.
+- The interview bank for FDEs paraphrases the OpenAI careers page and the Anthropic Paris posting with
+  "September 2026" dates, where the guide's records read them on 2 October.
+- `pages/mapspecs.py`'s docstring calls the hue `t` teal and `p` purple; `p` is teal and `t` violet.
+- Ten older picture placements draw numbers their lesson's text does not state (`two_numbers` in the sponsors,
+  productivity and P3 lessons; `bill_factors` in the costs and P3 lessons; `bolt_days` in bolts vs sprints and
+  P2; `authority_ladder` in P0; `bar_sheet` in P1; `shadow_widen` in P3), and five pictures touch a table or
+  sit straight under a heading (the governance gates, the evolution of the PDLC, one lifecycle for every
+  method, P2, and what is the agentic PDLC).
+- In a lesson in the dark theme, a code box's 46px band for its Copy button reads as empty space above the
+  code.
+- `.step{overflow:hidden}` clips text too wide for a step, so no sideways check can see it.
+- On a phone the method map draws a method's ends as bars without their words; only the screen reader's
+  sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
+- The home page's social card still draws the earlier hero's aircraft. The council refused redrawing it as
+  the rest frame in Python, which would drift from the canvas; the standard card serves.
+- `base.css` carries rules no built page uses. Removing them was left for a later round: the budget no longer
+  needs it, and a class joined from strings would not show in a search.
+- The sketch lint's 6,500-byte budget no longer binds: with paths written from the point before, the largest
+  sketch is 3,605 bytes.
+- "Check yourself", a recall block in every teaching lesson (about 150 questions, each a decision or a number
+  from the case with its answer folded), waits for the next round, once the new lesson frame has settled.
+<!-- RC-B: add what U3, U4, H1, H2, H10, H11 and FX leave open (e.g. filled buttons on paper, frame.js's budget,
+hero.js's room under 10 KB, the calculator's amber on light, .sk-paper's radius). -->

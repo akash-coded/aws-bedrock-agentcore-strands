@@ -123,8 +123,8 @@ without the canvas and without sight. On a phone only Day 1 and the four milesto
 44px target with its number underlined; the other eight are marks, with no number. So the caption says "press a
 day", never "any day".
 
-**Day 1 on the title** is the home page's day card, borrowed whole (`theme/base.css`, `.daycard`): 578
-wide, a 20px corner and one long shadow, the boardroom at four times its size bled to the edges (three
+**Day 1 on the title** is the home page's day card, borrowed whole but flat (`theme/base.css`, `.daycard`;
+only the home page's own copy stands in perspective): 578 wide, a 20px corner and one long shadow, the boardroom at four times its size bled to the edges (three
 times and cropped on a phone), one 26px inset, the kicker "Day 1 of 90 · Boardroom · Your answer starts the
 game" (its last part is `line.card`), the headline, the context, the question, and the two answers with their
 price in days. Pressing an answer starts a whole-team run and makes that call, as if on the day. The kicker
@@ -447,8 +447,8 @@ in. On a phone on Day 1 the building is far down the page, so after the walk-in 
 the building is scrolled to. Nothing starts because it came into view; it goes on from where it was.
 
 The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 46 KB gzipped
-(45.97), the site's `base.css` under 40 KB (39.66), the page's HTML under 25 KB (16.9), and no font but
-the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
+(45.97), the site's `base.css` under 32 KB as shipped without its comments (30.3), the page's HTML under 25 KB
+(16.9), and no font but the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
 key and the rows, so the comments in `game.js` and `art.js` were cut to a line of why each, leaving the
 reasons to this file; no rule and no number of the game changed. Round ten's role start took them to 45.3
 KB, and it fits because the last fixed sentences in `game.js` (the sign-off's opening line, the sponsor's
