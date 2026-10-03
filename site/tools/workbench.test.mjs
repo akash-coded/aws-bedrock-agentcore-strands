@@ -19,7 +19,9 @@
 //   8. the file opened alone from disk, with no network, still has its fonts and its calculators;
 //   9. the floor the manual keeps (council 10 measured six places under it): the opening picture's labels 11px or
 //      more at every width, its "sign-off" and the control tower's links 4.5:1, every focus ring 3:1 against what is
-//      behind it, and on a phone a top bar whose controls are 44px tall and all on screen, Menu among them.
+//      behind it, and on a phone a top bar whose controls are 44px tall and all on screen, Menu among them; and on a
+//      phone the menu sheet's controls, the role tabs and rows and the footer's links 44px tall, the start rail's links
+//      and the roles figure's chips with their rings whole.
 // Headless Chrome over the DevTools protocol, the same as accept.mjs, so there is nothing to install.
 import { createServer } from "node:net";
 import { spawn } from "node:child_process";
@@ -231,6 +233,30 @@ const BAR = `(() => { const F = window.__floor, nav = document.getElementById("t
     return { t: (e.id === "xburger" ? "Menu" : (e.textContent.trim() || e.getAttribute("aria-label") || "")).replace(/\\s+/g, " ").slice(0, 18), l: +r.left.toFixed(1), r: +r.right.toFixed(1), h: +r.height.toFixed(1) }; });
   const play = nav.querySelector("a.xplay"), word = play && play.querySelector("span");
   return { iw: innerWidth, items, word: !!word && word.getBoundingClientRect().width > 1, named: !!play && /Simulator/.test(play.textContent) }; })()`;
+// the start page on a phone, where council 10's audit found parts under the floor: the menu sheet's controls, the role
+// tabs and rows and the frame footer's links (each 44px tall), and the start rail's links and the roles figure's chips,
+// each focused as Tab would reach it, its ring against every box that clips it (cut by more than 1px is a fault)
+const PHONE_PARTS = `(async () => { const F = window.__floor, short = [], cut = [], sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const shown = (sel) => [...document.querySelectorAll(sel)].filter((e) => !F.hidden(e));
+  const name = (e) => (e.textContent.trim() || e.getAttribute("aria-label") || "").replace(/\\s+/g, " ").slice(0, 24);
+  const tall = (what, sel) => { for (const e of shown(sel)) { const h = e.getBoundingClientRect().height; if (h < 43.5) short.push(what + " " + name(e) + " " + h.toFixed(1)); } };
+  tall("role tab", "#startMain .xrtab-tabs button"); tall("role row", "#startMain .xrg-role"); tall("footer link", ".sw-footer ul a, .sw-footer .sw-legal a");
+  document.getElementById("xburger").click(); await sleep(400);
+  tall("menu", ".xsheet.on .sh a, .xsheet.on .sh button, .xsheet.on .xpill");
+  document.querySelector(".xsheet.on .sh button").click(); await sleep(300);
+  let n = 0;
+  for (const e of shown("#startRail a, #startMain .xrg-chip")) {
+    e.focus(); if (document.activeElement !== e || !e.matches(":focus-visible")) { cut.push(name(e) + ": no keyboard focus"); continue; } n++;
+    const cs = getComputedStyle(e), x = parseFloat(cs.outlineWidth) + (parseFloat(cs.outlineOffset) || 0), r = e.getBoundingClientRect();
+    for (let a = e.parentElement; a && a !== document.body; a = a.parentElement) {
+      const k = getComputedStyle(a); if (k.overflowX === "visible" && k.overflowY === "visible") continue;
+      const q = a.getBoundingClientRect(), b = ["Top", "Right", "Bottom", "Left"].map((s) => parseFloat(k["border" + s + "Width"]));
+      const m = Math.max(q.left + b[3] - (r.left - x), r.right + x - (q.right - b[1]), q.top + b[0] - (r.top - x), r.bottom + x - (q.bottom - b[2]));
+      if (m > 1) { cut.push(name(e) + " cut " + m.toFixed(1) + "px by " + a.tagName.toLowerCase() + (a.id ? "#" + a.id : "")); break; }
+    }
+    e.blur();
+  }
+  return { short, cut, n }; })()`;
 // one Tab press from the top of the page, so Chrome treats focus as a keyboard user's: after an earlier walk ended on
 // the page's last control, a Tab from there would leave the page and no ring would show
 const tab = async () => {
@@ -488,6 +514,13 @@ try {
       check(!off.length, `${theme}: from 320 to 900 every control in the top bar is on screen, Menu among them, none over another`, off.join(" | "));
       check(!short.length, `${theme}: on a phone every control in the top bar is 44px tall`, short.join(" | "));
       check(!word.length, `${theme}: the Simulator pill keeps its word where the bar holds it and its name everywhere`, word.join(" | "));
+      // g. on a phone: the menu sheet, the role tabs and rows and the footer's links at 44px; the rail's and chips' rings whole
+      for (const [w, h] of [[390, 844], [320, 700]]) {
+        await viewport(w, h); await fresh(BASE + "#/start", 1800); await evaluate(FLOOR); await tab();
+        const p = await evaluate(PHONE_PARTS);
+        check(!p.short.length, `${w} ${theme}: the menu sheet's controls, the role tabs and rows and the footer's links are 44px tall`, p.short.slice(0, 8).join(" | "));
+        check(p.n >= 10 && !p.cut.length, `${w} ${theme}: the start rail's links and the roles figure's chips keep their rings whole (${p.n} focused)`, p.cut.slice(0, 8).join(" | "));
+      }
       check(!thrown.length, `${theme}: no script error while the floor is measured`, thrown.join(" | "));
     }
     await send("Emulation.setFocusEmulationEnabled", { enabled: false });
