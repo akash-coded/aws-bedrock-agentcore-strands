@@ -1628,24 +1628,6 @@ main.home{padding:0}
 @media (max-width:640px){.daycard{--n:3}.dc-b{padding:18px 18px 20px}}
 
 
-/* ---- the tutorial band: the tracks in order, then one button ---- */
-.jump.tracks{margin-top:0;row-gap:20px}
-/* the tutorial band: the eight tracks, and one sketch from a lesson as a sample of how the lessons explain */
-.learn-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,72px);align-items:start}
-.learn-g .jump.tracks{grid-template-columns:1fr 1fr}
-.learn-s{display:block;color:inherit;text-decoration:none}
-.learn-s:hover{text-decoration:none}
-.learn-s .sketch{margin:0;max-width:none}
-.learn-s .sk-paper{transition:translate 250ms var(--ease),box-shadow 250ms var(--ease)}
-.learn-s:hover .sk-paper{translate:0 -3px;box-shadow:0 18px 40px -22px rgba(8,10,20,.6)}
-.learn-k{display:block;margin:12px 2px 0;font-size:14px;font-weight:600;color:var(--ink)}
-.learn-k i{display:inline-block;margin-left:3px;font-style:normal;transition:transform 250ms var(--ease)}
-.learn-s:hover .learn-k i{transform:translateX(4px)}
-.band .learn-g+.ba{display:flex;margin-top:44px}
-.band .learn-g+.ba .btn{padding:14px 22px;font-size:15.5px;border-radius:13px}
-@media (max-width:900px){.learn-g{grid-template-columns:1fr}}
-.band .jump.tracks+.ba{display:flex;margin-top:44px}
-.band .jump.tracks+.ba .btn{padding:14px 22px;font-size:15.5px;border-radius:13px}
 
 /* ---- the home page's bands, council 10: one block for each band's parcel, H3 to H8, in the order the bands run.
    A parcel writes only between its own two comments, so parcels built side by side never edit neighbouring
@@ -1797,6 +1779,26 @@ main.home{padding:0}
 /* end of home · H4 */
 
 /* home · H5 people */
+/* the tutorial's four people (pages/people.py), in the lifecycle's order. Each card is one link: its ::after
+   covers the card. On hover the arrow moves and the rule darkens, as the site's links do; nothing lifts. */
+.qs{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.q{position:relative;display:flex;flex-direction:column}
+.q .sk-paper{margin-bottom:18px}
+.q-who{font:500 12.5px var(--f-mono);color:var(--soft);margin-bottom:8px}
+.q h3{font-size:clamp(19px,1.6vw,22px);line-height:1.2;letter-spacing:-.02em;font-weight:600;margin-bottom:10px;text-wrap:balance}
+.q h3+p{font-size:15px;line-height:1.55;color:var(--ink2)}
+.q a{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);font-size:14.5px;font-weight:600;line-height:1.35;color:var(--ink);text-decoration:none}
+.q a::after{content:"";position:absolute;inset:0;border-radius:16px}
+.q small{display:block;font:500 12px var(--f-mono);color:var(--soft);margin-bottom:3px}
+.q i{display:inline-block;font-style:normal;transition:transform 250ms var(--ease)}
+.q a:hover{border-top-color:var(--ink)}
+.q a:hover i{transform:translateX(4px)}
+.q a:focus-visible{outline:0;border-radius:0}
+.q a:focus-visible::after{outline:3px solid var(--accent);outline-offset:6px}
+.qs+.ba{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;margin-top:48px}
+.qs+.ba .btn{padding:14px 22px;font-size:15.5px}
+@media (max-width:1180px){.qs{grid-template-columns:1fr 1fr;gap:40px 26px}}
+@media (max-width:600px){.qs{grid-template-columns:1fr;gap:40px}}
 /* end of home · H5 */
 
 /* home · H6 day card */

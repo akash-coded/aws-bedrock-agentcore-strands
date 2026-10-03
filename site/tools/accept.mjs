@@ -820,7 +820,78 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
 
   // home · H5 people: the tutorial band, #tutorial
   async function bandH5(w, h) {
-    return [];
+    // Four people in the lifecycle's order, each with a name and a job, a question in an h3, an answer of 24 words
+    // or fewer and one link, to a lesson (a page whose main is .lm), never to a role page. Four across from
+    // 1181px, two by two from 601 to 1180, one column at 600 and under, the picture on top. At 1440 x 900 with
+    // the eyebrow under the header, every question and lesson link is in view. The handwriting is 13px or more
+    // at every width checked and 4.5:1 or more on its paper in both themes. The dark theme's toned paper and
+    // deeper pens are U1's (verdict-learn 4.3.3): on the paper before it, #E7E3DA, the red pen is 4.44:1, so
+    // the dark theme's contrast is held from the day U1's paper is in place.
+    const out = [], JOBS = ["product manager", "solution architect", "engineering lead", "QA lead"];
+    const PAPER_BEFORE_U1 = "rgb(231, 227, 218)";
+    const cards = await evaluate(`(async () => { await document.fonts.ready;
+      return Promise.all([...document.querySelectorAll('#tutorial .qs > li')].map(async (c) => {
+        const a = [...c.querySelectorAll('a[href]')], q = c.querySelectorAll('h3');
+        const page = a.length === 1 ? await fetch(a[0].href).then((r) => r.text()).catch(() => '') : '';
+        return { who: (c.querySelector('.q-who')?.textContent || '').trim(), h3: q.length, ask: q[0]?.textContent.trim() || '',
+          words: (q[0]?.nextElementSibling?.textContent || '').trim().split(/\\s+/).filter(Boolean).length,
+          links: a.length, href: a[0]?.getAttribute('href') || '', lesson: /<main\\b[^>]*class="[^"]*\\blm\\b/.test(page) };
+      })); })()`);
+    if (cards.length !== 4) return [`${cards.length} people cards; four`];
+    cards.forEach((c, i) => {
+      const at = `card ${i + 1} (${c.who || "no name"})`;
+      if (!new RegExp(`^[A-Z][a-z]+, ${JOBS[i]}$`).test(c.who)) out.push(`${at}: the name and job should read "<name>, ${JOBS[i]}"`);
+      if (c.h3 !== 1 || !/\?”$/.test(c.ask)) out.push(`${at}: one question in an h3, in quotes`);
+      if (!c.words || c.words > 24) out.push(`${at}: an answer of ${c.words} words, where 1 to 24 are the rule`);
+      if (c.links !== 1) out.push(`${at}: ${c.links} links; one, to its lesson`);
+      else if (!c.lesson) out.push(`${at}: its link, ${c.href}, is not a lesson`);
+    });
+    const READ = `(async () => { await document.fonts.ready;
+      const lum = (c) => { const v = c.match(/[\\d.]+/g).slice(0, 3).map((x) => { x = +x / 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; });
+        return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
+      const cards = [...document.querySelectorAll('#tutorial .qs > li')], hand = [];
+      for (const c of cards) {
+        const svg = c.querySelector('svg.sk'), bg = getComputedStyle(c.querySelector('.sk-paper') || c).backgroundColor;
+        const k = svg ? svg.getBoundingClientRect().width / svg.viewBox.baseVal.width : 0;
+        for (const t of svg ? svg.querySelectorAll('text') : []) {
+          const cs = getComputedStyle(t), [a, b] = [lum(cs.fill), lum(bg)].sort((p, q) => q - p);
+          hand.push({ t: t.textContent, px: Math.round(parseFloat(cs.fontSize) * k * 10) / 10, cr: Math.round((a + 0.05) / (b + 0.05) * 100) / 100, bg });
+        }
+      }
+      return { hand, cols: new Set(cards.map((c) => Math.round(c.getBoundingClientRect().left))).size,
+        top: cards.every((c) => { const p = c.querySelector('.sk-paper'), q = c.querySelector('h3');
+          return !!p && !!q && p.getBoundingClientRect().bottom <= q.getBoundingClientRect().top; }) }; })()`;
+    let now = w;
+    for (const x of w >= 600 ? [w, 1181, 1180, 1024, 601] : [600, w, 320]) {
+      if (x !== now) {
+        await send("Emulation.setDeviceMetricsOverride", { width: x, height: h, deviceScaleFactor: 1, mobile: x < 600 });
+        await sleep(200);
+        now = x;
+      }
+      const want = x >= 1181 ? 4 : x >= 601 ? 2 : 1;
+      const dark = await evaluate(READ);
+      if (dark.cols !== want) out.push(`at ${x}px the cards run in ${dark.cols} columns; ${want}`);
+      if (!dark.top) out.push(`at ${x}px a picture is not above its question`);
+      if (!dark.hand.length) out.push(`at ${x}px the drawings have no handwriting to measure`);
+      const small = dark.hand.filter((t) => t.px < 13).sort((a, b) => a.px - b.px)[0];
+      if (small) out.push(`at ${x}px the handwriting is ${small.px}px ("${small.t}"); 13 is the floor`);
+      const faint = dark.hand.filter((t) => t.cr < 4.5 && t.bg !== PAPER_BEFORE_U1).sort((a, b) => a.cr - b.cr)[0];
+      if (faint) out.push(`at ${x}px, dark, the handwriting is ${faint.cr}:1 on its paper ("${faint.t}"); 4.5 is the floor`);
+    }
+    await evaluate(`document.documentElement.setAttribute('data-theme', 'light')`);
+    const faint = (await evaluate(READ)).hand.filter((t) => t.cr < 4.5).sort((a, b) => a.cr - b.cr)[0];
+    if (faint) out.push(`light, the handwriting is ${faint.cr}:1 on its paper ("${faint.t}"); 4.5 is the floor`);
+    if (w === 1440 && h === 900) {
+      await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: false });
+      await sleep(200);
+      const fit = await evaluate(`(async () => { const b = document.getElementById('tutorial'), hd = document.querySelector('.hd');
+        scrollTo({ top: b.querySelector('.eyebrow').getBoundingClientRect().top + scrollY - hd.getBoundingClientRect().bottom - 12, behavior: 'instant' });
+        await new Promise((r) => setTimeout(r, 200));
+        const ends = [...b.querySelectorAll('.qs h3, .qs a')].map((e) => e.getBoundingClientRect());
+        return { top: Math.min(...ends.map((r) => r.top)) >= hd.getBoundingClientRect().bottom, end: Math.round(Math.max(...ends.map((r) => r.bottom))) }; })()`);
+      if (!fit.top || fit.end > h) out.push(`with the eyebrow under the header, the questions and lesson links end at ${fit.end}px, past the screen's ${h}`);
+    }
+    return out;
   }
   // end of home · H5
 
