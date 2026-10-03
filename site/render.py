@@ -633,8 +633,20 @@ def next_up(lead: str, href: str, label: str, also: tuple[str, str] | None = Non
             f"{more}</div></div>")
 
 
-def library_page(roles: list[dict], kind: str) -> str:
-    """One page holding every template, or every prompt, across all roles."""
+def _guide_line(guide: dict | None) -> str:
+    """The libraries' one line for a staged role (council 10, verdict 2.9): its templates and prompts stay on
+    its stage pages, because in full here they would take both pages past their holds."""
+    if not guide:
+        return ""
+    n_p = sum(len(s["prompts"]) for s in guide["steps"])
+    at = [f'<a href="../{guide["id"]}/{st["id"]}/">{_E(st["name"])}</a>' for st in guide["stages"]]
+    return (f"<p>The {_E(guide['name'].lower())}'s {len(guide['steps'])} templates and {n_p} prompts are on the "
+            f"guide's stage pages: {', '.join(at[:-1])} and {at[-1]}.</p>")
+
+
+def library_page(roles: list[dict], kind: str, guide: dict | None = None) -> str:
+    """One page holding every template, or every prompt, across all roles. ``guide`` is a staged role, the
+    forward-deployed engineer's: its templates and prompts stay on its stage pages, and one line points there."""
     from pages import _kit as k
     is_t = kind == "templates"
     label = "Artefact templates" if is_t else "Prompt templates"
@@ -751,6 +763,7 @@ Owner of the number: Priya (PM)</code></pre>
   {orient.replace("__MORE__", opener + compare)}
   {posters_html}
   {''.join(secs)}
+  {_guide_line(guide)}
   {next_up("Each one belongs to a step. The role pages walk them in order." if is_t else "Each prompt drafts one of the documents the manual asks for.",
            "../product-manager/" if is_t else "../templates/", "Walk a role, step by step" if is_t else "The templates they fill",
            ("../prompts/", "The prompts that draft them") if is_t else ("../product-manager/", "Walk a role"))}
@@ -1167,6 +1180,11 @@ def search_index(roles: list[dict]) -> str:
         for l in t.lessons:
             rows.append({"t": l.title, "d": l.description, "u": f"learn/{l.slug}/", "k": f"Lesson · {t.short}"})
     for r in roles:
+        if r.get("stages"):
+            # a staged role, the FDE's guide: its hub, its three stages, and each step at its stage page
+            from pages import fde
+            rows += fde.search_rows(r)
+            continue
         rows.append({"t": r["name"], "d": r["tagline"], "u": f"{r['id']}/", "k": "Role"})
         for st in r["steps"]:
             rows.append({"t": f"{st['n']} · {st['phase']}: {_re.sub(r'[*`]', '', st['title'])}",
@@ -1217,9 +1235,10 @@ def render(out_dir: Path) -> list[str]:
         written.append(rel)
 
     # A staged role, the forward-deployed engineer's guide, writes its own pages (pages/fde.py). Its templates
-    # and prompts live on its stage pages, so the two libraries and the search take the other roles.
+    # and prompts live on its stage pages, so the two libraries hold the other roles and one line pointing there.
     journeys = [r for r in roles if not r.get("stages")]
-    put("search.json", search_index(journeys))
+    guide = next((r for r in roles if r.get("stages")), None)
+    put("search.json", search_index(roles))
     put("index.html", home_page(roles))
     for r in journeys:
         put(f"{r['id']}/index.html", role_page(r))
@@ -1227,8 +1246,8 @@ def render(out_dir: Path) -> list[str]:
     for r in roles:
         if r.get("stages"):
             fde.render(put, shell, r)
-    put("templates/index.html", library_page(journeys, "templates"))
-    put("prompts/index.html", library_page(journeys, "prompts"))
+    put("templates/index.html", library_page(journeys, "templates", guide))
+    put("prompts/index.html", library_page(journeys, "prompts", guide))
     put("frameworks/index.html", frameworks_page())
     put("method/index.html", method_page())
     from pages import models, protocol, pictures, play

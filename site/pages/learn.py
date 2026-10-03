@@ -1322,7 +1322,17 @@ def llms_txt(tracks: list[Track]) -> str:
               f"(markdown: {WIKI}/Journey-Engineering-Lead)",
               f"- [QA lead]({BASE_URL}qa/): from 'it works' to proof that it works (markdown: {WIKI}/Journey-QA-Lead)",
               f"- [DevOps and platform]({BASE_URL}devops/): from a laptop to production, repeatably "
-              f"(markdown: {WIKI}/Journey-DevOps)", "",
+              f"(markdown: {WIKI}/Journey-DevOps)",
+              f"- [Forward-deployed engineer]({BASE_URL}forward-deployed-engineer/): twelve steps in three stages, "
+              f"Frame, Deliver and Evolve, from a customer's pain to a system they run after you leave"]
+    # the guide's three stage pages, each with its steps and its question, from the role's own JSON
+    fde = SITE / "content" / "roles" / "forward-deployed-engineer.json"
+    guide = json.loads(fde.read_text(encoding="utf-8")) if fde.exists() else {"stages": []}
+    for k, st in enumerate(guide["stages"], 1):
+        steps = [s["phase"] for s in guide["steps"] if s["stage"] == st["id"]]
+        lines.append(f"- [{st['name']} {st['object']}]({BASE_URL}forward-deployed-engineer/{st['id']}/): stage {k} of "
+                     f"the forward-deployed engineer's guide, {', '.join(steps[:-1])} and {steps[-1]}. {st['question']}")
+    lines += ["",
               "## Reference", "",
               f"- [The operating protocol]({BASE_URL}protocol/): for whoever funds the work; the four decisions only leadership can make",
               f"- [Twelve mental models]({BASE_URL}models/): what each predicts, the mistake it prevents, and a test for whether it landed",

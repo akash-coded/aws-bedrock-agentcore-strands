@@ -16,7 +16,9 @@ ROLES_DIR = SITE / "content" / "roles"
 
 # Journey order, and the accent each role carries on its own page and on the boards. A role's
 # colour is the role's: the phase hues (slate, indigo, teal, amber) are kept for P0 to P3, which is
-# what the small phase chip in every cell wears.
+# what the small phase chip in every cell wears. The forward-deployed engineer is left out on purpose: a staged
+# role (pages/fde.py) has twelve steps in three stages, so it would draw a sixth column twelve tall. Its prompts
+# are on its own stage pages.
 ROLE_HUE = [("product-manager", "slate"), ("solution-architect", "ochre"), ("engineering", "sage"),
             ("qa", "plum"), ("devops", "violet")]
 

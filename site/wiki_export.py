@@ -26,7 +26,9 @@ CONTENT = SITE / "content" / "roles"
 WIKI = SITE.parent / "wiki"
 LIVE = "https://akash-coded.github.io/aws-bedrock-agentcore-strands/"
 
-# role id -> (wiki page for the day-to-day journey, wiki page for the standing definition)
+# role id -> (wiki page for the day-to-day journey, wiki page for the standing definition). The forward-deployed
+# engineer is skipped on purpose this round: a staged role (pages/fde.py) is a guide of four pages, a hub and
+# one page per stage, and has no journey page for the wiki to copy.
 PAGES = {
     "product-manager": ("Journey-Product-Manager", "Role-Product-Manager"),
     "solution-architect": ("Journey-Solution-Architect", "Role-Solution-Architect"),

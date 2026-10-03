@@ -111,6 +111,14 @@ def _table(head: list[str], rows: list[list[str]], cls: str = "", corner: bool =
             f'<tbody>{body}</tbody></table></div>')
 
 
+def _sources(marks: "fde_sources.Marks") -> str:
+    """The foot of a guide's page: its sources, numbered in the order the page first names them."""
+    return (f'<section class="fx-src" id="sources" aria-labelledby="sources-h"><h2 class="h4" id="sources-h">'
+            f'Where every claim on this page comes from</h2>'
+            f'<p>Every claim about the profession is a posting, a page or an article, with the date it was checked. A date '
+            f'turns amber once it is more than sixty days old.</p>{marks.foot()}</section>') if marks.order else ""
+
+
 def hub(shell, role: dict) -> str:
     import render
     from pages import _kit as k, learn, sketch as sk_mod, tools
@@ -223,11 +231,7 @@ def hub(shell, role: dict) -> str:
     first = next(st for st in role["stages"] if st["id"] == nx["next_up"]["stage"])
     foot = render.next_up(E(nx["next_up"]["line"]), f'{first["id"]}/', E(nx["next_up"]["text"]))
 
-    # the sources, numbered in the order the page first names them
-    sources = (f'<section class="fx-src" id="sources" aria-labelledby="sources-h"><h2 class="h4" id="sources-h">'
-               f'Where every claim on this page comes from</h2>'
-               f'<p>Every claim about the profession is a posting, a page or an article, with the date it was checked. A date '
-               f'turns amber once it is more than sixty days old.</p>{marks.foot()}</section>')
+    sources = _sources(marks)
 
     # the page
     n_steps, n_prompts = len(role["steps"]), sum(len(s["prompts"]) for s in role["steps"])
@@ -272,16 +276,148 @@ def hub(shell, role: dict) -> str:
                  kind="fde", og=role["id"], ctx={"lesson": (lesson(render.ROLE_LESSON[role["id"]]), "The lesson")})
 
 
+# ----------------------------------------------------------------------------------------- a stage page
+# A stage page's own words (verdict 4.4, F6). Its name, object, question, brief and signature are the role's
+# HEAD["stages"] and its steps are the role's steps, so only these are typed here; check() holds them to the
+# house rules.
+STAGE = {
+    "eyebrow": "The FDE guide · stage {k} of {n}",
+    "brief": {"long": "How long", "people": "The client's people", "think": "You think at",
+              "ends": "It ends with", "wrong": "What goes wrong here"},
+    "steps": "{n} steps to {signed}",
+    "internal": "If your client is inside your own company",
+    "say": "Say it like this",
+    # the foot of a stage page: a line, then the next stage; after Evolve, Frame again, and the hub beside it
+    "next": {"frame": "The go decision is signed. On day one the work moves into their building.",
+             "deliver": "The handover is signed and the system is theirs. What it taught comes next.",
+             "evolve": "Start the next engagement, with what this one taught."},
+    "hub": "The guide",
+}
+HAT = {"qa": "QA"}      # a hat's chip is its id, but an initialism keeps its capitals
+
+
+def _step(role: dict, s: dict, marks: "fde_sources.Marks", first: bool) -> str:
+    """One step on its stage page: the role pages' step, with its hats and its altitude as chips in the head,
+    and after its activities the two blocks a staged role adds (verdict 2.5). The first step on the page is
+    open, as on a role page."""
+    import render
+    w = STAGE
+    out = render.step_html(role, s)
+    if first:
+        out = out.replace(f'id="{s["id"]}">', f'id="{s["id"]}" open>', 1)
+    # the hats are named on screen: two readers from outside took bare chips for a step's tags
+    chips = ("<span>Hats</span>" + "".join(f"<i>{E(HAT.get(h, h))}</i>" for h in s["hats"])
+             + (f'<b><span class="vh">Altitude: </span>{E(s["level"])}</b>' if s.get("level") else ""))
+    out = out.replace('<span class="wh">', f'<span class="fhat">{chips}</span><span class="wh">', 1)
+    out = out.replace("</ol></section>", (
+        f'</ol></section><section><div class="lbl">{E(w["internal"])}</div><p class="fint">{render.md(s["internal"])}</p>'
+        f'</section><section><div class="lbl">{E(w["say"])}</div><ul class="fsay">'
+        + "".join(f'<li><b>{E(x["to"])}</b><q>{E(x["words"])}</q></li>' for x in s["say"]) + "</ul></section>"), 1)
+    # Deliver's examples have two halves, the case as it happened and your move: a paragraph each
+    out = out.replace(" <strong>Your move:</strong>", "</p><p><strong>Your move:</strong>", 1)
+    # a source's bare mark sits against the word before it, then each quotation and mark goes in place
+    return marks.inline(re.sub(r"\s+(?=\[\[)", "", out))
+
+
+def _cap(text: str) -> str:
+    return text[:1].upper() + text[1:]
+
+
+def stage(shell, role: dict, st: dict) -> str:
+    """A stage page, /forward-deployed-engineer/<stage>/: a focused read of the stage's four steps, with the
+    framework open at its own row, the stage in brief, and a rail of all twelve steps by stage."""
+    import render
+    w, stages = STAGE, role["stages"]
+    k = [x["id"] for x in stages].index(st["id"])
+    steps = [s for s in role["steps"] if s["stage"] == st["id"]]
+    name = _cap(_stage_name(st))
+    marks = fde_sources.Marks()
+
+    brief = "".join(f'<tr><th scope="row">{E(label)}</th><td>{render.md(st["brief"][key].rstrip("."))}.</td></tr>'
+                    for key, label in w["brief"].items())
+    brief = (f'<table class="fx-b"><caption class="vh">{E(name)}, in brief</caption><tbody>{brief}</tbody></table>')
+    body_steps = "".join(_step(role, s, marks, i == 0) for i, s in enumerate(steps))
+    n_prompts = sum(len(s["prompts"]) for s in steps)
+    counts = "".join(f"<span>{c}</span>" for c in (
+        f"{len(steps)} steps", f"{len(steps)} templates", f"{n_prompts} prompts"))
+
+    # the rail: all twelve steps by stage, this stage's four in the page and the rest on their own pages
+    def rail_row(s: dict) -> str:
+        here = s["stage"] == st["id"]
+        at = f' data-for="{s["id"]}" href="#{s["id"]}"' if here else f' href="../{s["stage"]}/#{s["id"]}"'
+        return f'<li><a class="rl"{at}><span class="rn">{s["n"]}</span><span>{E(s["phase"])}</span></a></li>'
+    rail = ('<aside class="rail wideonly" aria-label="The twelve steps, by stage">' + "".join(
+        f'<p class="railh">{E(_cap(_stage_name(x)))}</p><ol>'
+        + "".join(rail_row(s) for s in role["steps"] if s["stage"] == x["id"]) + "</ol>" for x in stages)
+        + "</aside>")
+
+    sources = _sources(marks)
+    if k + 1 < len(stages):
+        nxt = stages[k + 1]
+        foot = render.next_up(E(w["next"][st["id"]]), f'../{nxt["id"]}/', E(_cap(_stage_name(nxt))))
+    else:
+        foot = render.next_up(E(w["next"][st["id"]]), f'../{stages[0]["id"]}/', E(_cap(_stage_name(stages[0]))),
+                              ("../", E(w["hub"])))
+
+    head_steps = w["steps"].format(n=NUM[len(steps)].capitalize(), signed=st["signed"])
+    body = (f'<div class="cols two-col">{rail}<main id="main" class="fx-st">'
+            f'<header class="phead in-col"><p class="kicker">{E(w["eyebrow"].format(k=k + 1, n=len(stages)))}</p>'
+            f'<h1>{E(name)}</h1><p class="lede">{E(st["question"])}</p><p class="pmeta">{counts}</p></header>'
+            f'{figure(role, st["id"])}{brief}'
+            f'<div class="rolehead"><h2>{E(head_steps)}</h2>'
+            f'<button type="button" class="btn ghost sm" data-expand>Expand all</button></div>'
+            f'{body_steps}{sources}{foot}</main></div>')
+    names = [s["phase"] for s in steps]
+    desc = (f"{name}, stage {k + 1} of the forward-deployed engineer's guide. {st['question']} "
+            f"{NUM[len(steps)].capitalize()} steps, {', '.join(names[:-1])} and {names[-1]}, each with a template, "
+            f"prompts and the words to say.")
+    return shell(title=f"{name} · {role['name']} · The agentic manual", desc=desc, body=body, depth=2,
+                 accent=role["accent"], nav_id=role["id"], canonical=f"{render.BASE_URL}{role['id']}/{st['id']}/",
+                 head_extra=CSS.format(up="../../"),
+                 crumbs=[("Roles", "../../#roles"), (role["name"], "../"), (name, "")],
+                 kind="fde-stage", og=role["id"],
+                 ctx={"lesson": (f'../../learn/{render.ROLE_LESSON[role["id"]]}/', "The lesson")})
+
+
 # ------------------------------------------------------------------------------------------ the guide's pages
 def check(role: dict) -> list[str]:
-    """The records, and the hub's words against the built guide. An empty list is a pass."""
-    return fde_sources.check() + fde_hub.check(role)
+    """The records, the hub's words against the built guide, and the stage pages' own words. An empty list
+    is a pass."""
+    bad = fde_sources.check() + fde_hub.check(role)
+    for where, text in (("eyebrow", STAGE["eyebrow"]), ("steps", STAGE["steps"]), ("internal", STAGE["internal"]),
+                        ("say", STAGE["say"]), ("hub", STAGE["hub"]), *STAGE["brief"].items(),
+                        *(("next." + i, t) for i, t in STAGE["next"].items())):
+        bad += fde_sources.house(f"fde STAGE {where}", text, "plain", prices=True)
+    if set(STAGE["next"]) != {st["id"] for st in role["stages"]}:
+        bad.append("fde STAGE next: one line for each stage")
+    return bad
+
+
+def search_rows(role: dict) -> list[dict]:
+    """The guide in the drawer's search (render.search_index): the hub, each stage with its question and its
+    artefacts, and each step at its stage page's address, so a search for a statement of work lands on Frame."""
+    rid, rows = role["id"], []
+    tidy = lambda t: re.sub(r"[*`]", "", fde_sources.plain(t))  # noqa: E731
+    rows.append({"t": role["name"], "d": f'{role["tagline"]}. A guide in three stages, '
+                 f'{", ".join(st["name"] for st in role["stages"][:-1])} and {role["stages"][-1]["name"]}.',
+                 "u": f"{rid}/", "k": "Role · the FDE guide"})
+    for k, st in enumerate(role["stages"], 1):
+        arts = ["the " + s["artifact"]["short"][:1].lower() + s["artifact"]["short"][1:]
+                for s in role["steps"] if s["stage"] == st["id"]]
+        rows.append({"t": _cap(_stage_name(st)), "u": f"{rid}/{st['id']}/", "k": "FDE stage",
+                     "d": f"Stage {k} of {len(role['stages'])}. {st['question']} It makes {', '.join(arts[:-1])} "
+                          f"and {arts[-1]}."})
+    for s in role["steps"]:
+        rows.append({"t": f"{s['n']} · {s['phase']}: {tidy(s['title'])}", "d": tidy(s["purpose"])[:160],
+                     "u": f"{rid}/{s['stage']}/#{s['id']}", "k": f"FDE step · {s['stage'].capitalize()}"})
+    return rows
 
 
 def _pages(role: dict) -> list[tuple[str, object]]:
-    """Every page of the guide: its address under the site's root, and what writes it. The stage pages
-    (council 10's parcel F6) join this list, so render() and urls() take them up together."""
-    return [(f'{role["id"]}/', hub)]
+    """Every page of the guide: its address under the site's root, and what writes it. render() and urls()
+    both read this list, so a page is written and listed in the sitemap together."""
+    return [(f'{role["id"]}/', hub)] + [
+        (f'{role["id"]}/{st["id"]}/', lambda shell, role, st=st: stage(shell, role, st)) for st in role["stages"]]
 
 
 def render(put, shell, role: dict) -> None:

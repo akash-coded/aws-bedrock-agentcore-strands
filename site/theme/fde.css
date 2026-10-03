@@ -46,8 +46,10 @@ a.fx-h:hover strong{text-decoration:underline;text-underline-offset:3px}
 .fx-s em{margin-top:auto;padding-top:2px}
 .fx-so{grid-column:2;justify-self:end;display:flex;align-items:center;gap:8px;margin:0;font-size:13px;line-height:1.2;color:var(--ink2)}
 .fx-f{margin:8px 0 0;font-size:13px;color:var(--soft)}
-/* on a stage page the other two rows keep their names and four step names, at full contrast */
+/* on a stage page the other two rows keep their names and four step names, at full contrast; each name is a
+   link 44px tall or more, so it is a target on a phone too, where it sits above its steps */
 .fx-m .fx-s a{flex-direction:row;align-items:center;gap:8px;min-height:44px;padding:7px 10px}
+.fx-m .fx-h{min-height:44px}
 
 /* ---- the hub ---- */
 .rail ol+.railh{margin-top:22px}
@@ -89,10 +91,24 @@ a.fn:hover,a.fn:focus-visible{color:var(--ink);background:var(--rule2)}
 .fx-cr li a{font:500 12px var(--f-mono);white-space:nowrap}
 .readsg{margin:0 0 20px}
 
-/* ---- a step on a stage page: "Say it like this", as <ul class="fsay"><li><b>the situation</b><q>the words</q>,
-   capped at the step's reading measure (its paragraphs' 70ch), however long the words run ---- */
+/* ---- a stage page (pages/fde.py, stage): under the framework, the stage in brief, five ruled rows headed in mono ---- */
+.fx-st .fx{margin-bottom:40px}
+.fx-b{margin:0 0 clamp(44px,5vw,64px);border-bottom:1px solid var(--rule)}
+.fx-b th,.fx-b td{border:0;border-top:1px solid var(--rule);font-size:15px;color:var(--ink2)}
+.fx-b th{width:24%;padding-left:0;font:500 12.5px/1.75 var(--f-mono);color:var(--soft)}
+
+/* ---- a step on a stage page: its hats, under a label, and its altitude as chips in its head, clear of the "when" line; after
+   its activities, the client inside your own company on the accent's edge, then "Say it like this", as
+   <ul class="fsay"><li><b>the situation</b><q>the words</q>, capped at the step's reading measure (its
+   paragraphs' 70ch), however long the words run. Deliver's examples are two paragraphs, the case and your move ---- */
+.fhat{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:6px 0 8px}
+.fhat i,.fhat b,.fhat>span{padding:3px 7px;border:1px solid var(--rule);border-radius:999px;font:500 11px/1 var(--f-mono);color:var(--ink2)}
+.fhat>span{padding:0 2px 0 0;border:0;color:var(--soft)}
+.fhat b{border-color:currentColor;color:var(--ink)}
+.fint{margin:0;padding:2px 0 2px 16px;border-left:3px solid var(--accent);color:var(--ink2)}
 .fsay li{max-width:70ch}
 .fsay q{font-size:16px;line-height:1.55;color:var(--ink)}
+.eg p+p{margin-top:10px}
 
 /* ---- a phone: the stages stack, each stage's four steps two by two, so across is still the order; each
    table row becomes one block, its head on top and every cell under its column's name ---- */
@@ -110,4 +126,7 @@ a.fn:hover,a.fn:focus-visible{color:var(--ink);background:var(--rule2)}
   .sec .tw .fdt{min-width:0}
   .fdt tr{padding:12px 14px;border-bottom:1px solid var(--rule2)}
   .fdt tbody th,.fdt td{width:auto;padding:3px 0;border:0}
+  .fx-b,.fx-b tbody,.fx-b tr,.fx-b th,.fx-b td{display:block}
+  .fx-b th{width:auto;padding:10px 0 0}
+  .fx-b td{padding:2px 0 10px;border:0}
 }

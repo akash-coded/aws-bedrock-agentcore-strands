@@ -96,7 +96,7 @@ def all_cards(roles: list[dict]) -> list[str]:
     n_t = sum(len(r["steps"]) for r in roles)
     n_p = sum(len(s["prompts"]) for r in roles for s in r["steps"])
     C = [home_card("One manual for building software <em>with AI agents.</em>",
-                   "One lifecycle through five roles, worked end to end on a fictional airline's ninety-day build.",
+                   "One lifecycle through six roles, worked end to end on a fictional airline's ninety-day build.",
                    f"{len(lessons)} lessons · {n_t} templates · {n_p} prompts"),
          card("method", "home", "The method", "The SkyWays PDLC on one page",
               "Four phases, one hard gate and eight loops, with each role across them and what a model may draft."),

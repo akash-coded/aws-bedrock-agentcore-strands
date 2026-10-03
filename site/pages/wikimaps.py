@@ -390,6 +390,9 @@ SPECS["sources"] = dict(
 
 
 # ============================================================================ journeys, from the roles JSON
+# Five journeys, one arc each. The forward-deployed engineer is skipped on purpose: a staged role (pages/fde.py)
+# runs P0 to P3 once in each of its three stages, so a band a phase would hold three stages' steps side by side.
+# Its picture is the framework, on its own pages.
 ROLE_STYLE = {"product-manager": ("Product manager", P0), "solution-architect": ("Solution architect", P1),
               "engineering": ("Engineering lead", P2), "qa": ("QA lead", "k"), "devops": ("DevOps and platform", "t")}
 STEP_ICON = {"discover": "search", "qualify": "ask", "frame": "target", "specify": "spec", "plan": "calendar", "gate": "gate",
