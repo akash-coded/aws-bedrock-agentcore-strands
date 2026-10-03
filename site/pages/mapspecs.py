@@ -304,7 +304,7 @@ MAPS["what-is-the-bmad-method"] = dict(
         {"hue": P1, "key": "Mostly P1", "name": "Specifying it", "cells": [_c("Product manager", "a requirements document", "doc", "k"), _c("Architect", "an architecture", "gear", "k")]},
         {"hue": P2, "key": "Mostly P2", "name": "Building it", "cells": [_c("Scrum master", "stories, sharded small", "board", "k"), _c("Developer", "code, story by story", "code", "k"), _c("QA", "review against the story", "check", "k")]},
     ],
-    callout=("Each persona hands a versioned document to the next. On a one-line change it is twelve personas between you and the change.", "k", 40),
+    callout=("Each persona hands a versioned document to the next. On a one-line change that is six documents between you and the change.", "k", 40),
     alt="BMAD's personas from analyst to QA, placed on the phases they mostly serve",
 )
 
@@ -329,7 +329,7 @@ MAPS["one-lifecycle-for-every-method"] = dict(
         [_c("AI-DLC · intent", "", "flag"), _c("BMAD · analyst's brief", "", "search"), _c("Shape Up · shaping, betting", "", "target")],
         [_c("AI-DLC · Mob Elaboration", "", "users"), _c("Kiro · requirements, design", "", "spec"), _c("Spec Kit · specify, plan", "", "doc"), _c("BMAD · PRD, architecture", "", "gear")],
         [_c("AI-DLC · Construction, bolts", "", "bolt"), _c("Kiro · tasks", "", "code"), _c("Spec Kit · implement", "", "check"), _c("BMAD · stories, dev, QA", "", "board"), _c("Scrum · sprints become bolts", "", "loop")],
-        [_c("AI-DLC · Operations", "", "server"), _c("AIDDLC · operate, evolve", "", "trend")],
+        [_c("AI-DLC · Operations", "", "server"), _c("AIDDLC · Deploy & Learn", "", "trend")],
     ]),
     callout=("The methods mostly agree on the shape. What none of them settles is the bar, the authority and who watches the agent after launch.", P1, 40),
     alt="AI-DLC, BMAD, Kiro, Spec Kit, Scrum and Shape Up placed on the four phases",

@@ -176,7 +176,7 @@ RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
   the constant; everything else flexes around it.
 - The full persona trail is layered on ONLY where the work is audited and multi-team.
-  On a small feature it is twelve personas between an engineer and a one-line change.
+  On a small feature it is six documents between an engineer and a one-line change.
 - A regulatory rule change usually needs design and validation and no discovery. Say
   where that applies and where it does not.
 - The last column is the point of the exercise. If you cannot say why skipping a stage
@@ -201,7 +201,7 @@ RULES:
    "gate, which is where the addition actually has to be caught.",
    "Buying parallelism with agents. Four partner searches run at once inside one fan-out tool with no "
    "hand-offs at all; as four agents they cost six hand-offs, a coordinator and four contexts.",
-   "One process weight for the whole programme. Heavy ceremony on a one-line fix is twelve personas "
+   "One process weight for the whole programme. Heavy ceremony on a one-line fix is six documents "
    "between an engineer and a change, and light ceremony on the audited module is the audit finding.",
  ],
  "done_when": "The record states a number of agents, the hand-off count that number implies, and a "

@@ -35,6 +35,8 @@ TITLES = {
     "figure:cache_prefix": "How a prompt cache matches", "figure:bolt_days": "A bolt plan",
     "figure:shadow_widen": "Shadow first, then widen", "figure:bill_factors": "Four habits, one bill",
     "figure:authority_ladder": "The authority ladder", "figure:two_numbers": "The two-number report",
+    "figure:drift_slide": "One slide, two alarms", "figure:postmortem_layers": "Five layers claimed, none enforced",
+    "figure:rollback_times": "Four ways back, timed",
     "frameworks:spine": "The agentic PDLC in one picture", "frameworks:pdlc_vs": "Traditional PDLC vs agentic PDLC",
     "frameworks:ladder": "The risk ladder", "frameworks:chain": "Six steps at ninety percent",
     "frameworks:methods": "Four methods on one lifecycle", "frameworks:merge": "How the four methods merge into one loop",
@@ -194,7 +196,7 @@ def _card(it: dict, base: str) -> str:
                  f'loading="lazy" decoding="async">')
     used = _used_href(it["used"], base)
     dl = it["light"].rsplit("/", 1)[-1].replace(".light.webp", ".webp")
-    return (f'<figure class="pic" data-group="{it["group"]}" id="pic-{it["id"]}">'
+    return (f'<figure class="pic" id="pic-{it["id"]}">'
             f'<a class="pic-a" href="{light}" target="_blank" rel="noopener" aria-label="{E(it["title"], quote=True)}, full size">{imgs}</a>'
             f'<figcaption><b>{E(it["title"])}</b><span>{E(it["cap"] or it["alt"])}</span>'
             f'<small><a href="{used}">Where it is used</a> · <a href="{light}" download="{dl}">Download</a> · '
@@ -236,10 +238,13 @@ def build(shell, urls: dict) -> str:
     import render
     nextup = render.next_up("Every picture comes from a page that explains it.", "../method/",
                             "The method, on one page", ("../learn/", "The tutorial, lesson by lesson"))
-    body = f"""<div class="wrap"><main id="main" class="picpage">
-  <div class="rowh"><div><div class="kicker">The picture pack</div><h1>Every picture in the manual, ready to share</h1><p class="lede">{len(items)} diagrams, boards, decision trees, sketches and posters, each with a title, a caption and the page
-  that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.</p>
-  <p class="pmeta"><span>{len(items)} pictures</span><span>light and dark</span><span>MIT licence, credit the author</span></p></div></div>
+    head = render.page_head(
+        "The picture pack", "Every picture in the manual, ready to share",
+        f"{len(items)} diagrams, boards, decision trees, sketches and posters, each with a title, a caption and the page "
+        "that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.",
+        f'<p class="pmeta"><span>{len(items)} pictures</span><span>light and dark</span><span>MIT licence, credit the author</span></p>')
+    body = f"""<div class="wrap"><main id="main" class="page picpage">
+  {head}
   {orient}
   <div class="picks" role="group" aria-label="Show a group">{chips}</div>
   {"".join(sections)}
@@ -270,11 +275,11 @@ def build(shell, urls: dict) -> str:
               "copyrightNotice": "Akash Das, SkyWays Consultancy. MIT licence."} for it in items]}},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": base},
-            {"@type": "ListItem", "position": 2, "name": "Libraries", "item": base + "pictures/"},
+            {"@type": "ListItem", "position": 2, "name": "Libraries", "item": base + "#library"},
             {"@type": "ListItem", "position": 3, "name": "The picture pack", "item": base + "pictures/"}]}]}
     return shell(title="The picture pack · every diagram of the agentic PDLC, ready to share",
                  desc=f"{len(items)} diagrams, boards, decision trees and posters on the agentic PDLC: the four phases, the gates, "
                       "the eight loops, every role, every lesson. Each with a caption, light and dark, free to reuse.",
                  body=body, depth=1, nav_id="pictures", canonical=base + "pictures/", own_ld=True,
                  head_extra='<script type="application/ld+json">' + json.dumps(gallery_ld, ensure_ascii=False) + "</script>",
-                 crumbs=[("Libraries", ""), ("The picture pack", "")], tour=tour, kind="pictures", og="pictures")
+                 crumbs=[("Libraries", "../#library"), ("The picture pack", "")], tour=tour, kind="pictures", og="pictures")

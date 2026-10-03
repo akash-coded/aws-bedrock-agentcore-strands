@@ -573,7 +573,7 @@ change rather than the team, and a depth decision that takes an hour is its own 
 <!-- /picture -->
 
 **SDD is the backbone everywhere.** BMAD is layered on only where the work is audited and multi-team —
-on a small feature it is twelve personas between you and a one-line change.
+on a small feature its full trail is six documents between you and a one-line change.
 
 ### Worked
 

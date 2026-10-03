@@ -25,7 +25,7 @@ def saw(s: Sk):
     s.line(1120, 176, 1120, 204, w="t")
     s.label(728, 160, "launch: three months", "ink")
     s.note(740, 278, "nobody redesigned this", (890, 326), "point", bend=6)
-    s.note(330, 494, "build: two days", (294, 430), "aside", size=54, anchor="start")
+    s.note(330, 494, "build: two days", (294, 430), "aside", anchor="start")
 
 
 SKETCHES = [

@@ -10,9 +10,10 @@ the journey pages they sit on.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
-from . import maps
+from . import maps, models
 from .mapspecs import _c, _q, P0, P1, P2, P3
 
 ROLES = Path(__file__).resolve().parents[1] / "content" / "roles"
@@ -81,18 +82,28 @@ SPECS["formulas"] = dict(
     alt="Fourteen formulas placed on the four phases, each with the question it answers",
 )
 
+def _model(mid: str, icon: str = "") -> tuple[int, str, dict]:
+    """A model as the registry (pages/models.py) numbers and names it, so this picture and the wiki's
+    headings, which export_models.py draws from the same registry, always say the same twelve names."""
+    n = [m["id"] for m in models.MODELS].index(mid) + 1
+    name = models.MODELS[n - 1]["name"]
+    return n, name, _c(f"{n} · {name}", "", icon)
+
+
 SPECS["mental-models"] = dict(
     kind="bands", title=[("Twelve mental models", "n"), ("where each one does its work",)],
     bands=[
-        {"hue": P0, "key": "P0", "name": "Frame", "cells": [_c("2 · Reversibility is the hinge", "", "undo")], "to_label": "11 · the brief crosses"},
-        {"hue": P1, "key": "P1", "name": "Design & Spec", "cells": [_c("1 · Length is the enemy", "", "wave"), _c("3 · A hold is a lever", "", "users"),
-                                                                  _c("9 · Parallelism is a tool property", "", "tool"), _c("10 · Depth is a dial", "", "ladder")], "to_label": "11 · the signed spec crosses the sign-off (the hard gate)"},
-        {"hue": P2, "key": "P2", "name": "Build & Prove", "cells": [_c("4 · A prompt asks, a signature closes", "", "lock"), _c("5 · The average hides the slice", "", "chart"),
-                                                                  _c("6 · A score is not proof", "", "scale"), _c("7 · Evidence at the speed of traffic", "", "clock")], "to_label": "11 · the evidence pack crosses"},
-        {"hue": P3, "key": "P3", "name": "Run & Learn", "cells": [_c("8 · Cost is a product of habits", "", "bill"), _c("12 · Drift has no error message", "", "trend")]},
+        {"hue": P0, "key": "P0", "name": "Frame", "cells": [_model("doors", "undo")[2]], "to_label": "11 · the brief crosses"},
+        {"hue": P1, "key": "P1", "name": "Design & Spec", "cells": [_model("length", "wave")[2], _model("lever", "users")[2],
+                                                                  _model("fanout", "tool")[2], _model("depth", "ladder")[2]],
+         "to_label": "11 · the signed spec crosses the sign-off (the hard gate)"},
+        {"hue": P2, "key": "P2", "name": "Build & Prove", "cells": [_model("boundary", "lock")[2], _model("average", "chart")[2],
+                                                                  _model("bound", "scale")[2], _model("speed", "clock")[2]],
+         "to_label": "11 · the evidence pack crosses"},
+        {"hue": P3, "key": "P3", "name": "Run & Learn", "cells": [_model("habits", "bill")[2], _model("drift", "trend")[2]]},
     ],
     terminal=_c("The next P0", "8 and 12 are what reopen a frame somebody had closed", h="n"),
-    callout=("11 · A phase ends on an artefact, not a date: it is the model that moves the others across.", "n", 40),
+    callout=("{0} · {1}: it is the model that moves the others across.".format(*_model("artefact")[:2]), "n", 40),
     alt="Twelve mental models placed on the four phases",
 )
 
@@ -417,7 +428,7 @@ def journey(role_id: str) -> dict:
         if steps:
             cells = [_c(f"{s['n']} · {s['phase']}", s["artifact"]["name"], STEP_ICON.get(s["phase"].lower(), "doc")) for s in steps]
         else:
-            cells = [_q(role["pdlc_absent"].get(key, "nothing owed in this phase"))]
+            cells = [_q(re.sub(r"<[^>]+>", "", role["pdlc_absent"].get(key, "nothing owed in this phase")))]   # a picture draws tags as text
         b = {"hue": phue, "key": key, "name": pname, "cells": cells}
         if len(steps) >= 3 or (steps and len(steps) == max(len(v) for v in by.values())):
             b["sub"] = "where the sign-off (the hard gate) lands for you" if key == "P1" and role_id == "solution-architect" else ""

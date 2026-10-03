@@ -17,8 +17,8 @@ def underpin(s: Sk):
     s.poly([(486, 204), (695, 70), (904, 204)], fill="p")
     s.rect(730, 330, 70, 110)
     s.rect(570, 330, 80, 62)
-    s.label(695, 290, "prototype", "ink", size=54)
-    s.note(1024, 312, "requirements|dug in after", (906, 524), "point", size=54)
+    s.label(695, 290, "prototype", "ink")
+    s.note(1024, 312, "requirements|dug in after", (906, 524), "point")
 
 
 SKETCHES = [
