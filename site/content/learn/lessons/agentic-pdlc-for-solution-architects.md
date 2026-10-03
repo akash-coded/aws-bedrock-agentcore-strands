@@ -3,17 +3,18 @@ title: Agentic PDLC for Solution Architects: Authority and Topology
 short: For solution architects
 wiki: Agentic-PDLC-for-Solution-Architects
 description: What a solution architect decides in agentic AI: which steps may be probabilistic, how many agents, the authority budget, where caps live, and the records.
-dek: You stop specifying model settings and start specifying behaviours, and exactly where each limit lives in code.
+dek: One agent or several? Start with one, and add another only for a limit you can name. Then specify behaviours, and where each limit lives in code.
 level: Intermediate
 keywords: AI solution architect, agentic AI architecture, AI agent architecture design, multi-agent vs single agent, AI agent permissions design, architecture decision records AI, LLM system design
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
 > In the agentic PDLC the solution architect decides the shape of the system: which steps are exact,
-> best-guess or consequential, and how many agents it needs (start with one). The architect also
-> decides what each tool may do and where its cap lives, where the checkers sit, and which few
-> decisions earn a record. The architect then turns every bill and incident into a design change.
+> best-guess or consequential, and how many agents it needs, which is one until a limit you can name
+> forces a second. The architect also decides what each tool may do and where its cap lives, where
+> the checkers sit, and which few decisions earn a record. The architect then turns every bill and
+> incident into a design change.
 
 {{map:agentic-pdlc-for-solution-architects}}
 
@@ -153,6 +154,7 @@ belong in one; they go stale in weeks.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
+| **A solution architect** | Answer "one agent or several?" on the step map, before any framework is chosen: one agent, with a fan-out tool, a function or a checker where they will do, until a limit you can name forces a second. Write that limit in the decision record. | Ask a model to argue for a second agent, and keep it only if the argument names a limit you can measure. [Your eight steps as a solution architect →](site:solution-architect/) |
 | **A forward-deployed engineer** | At a customer, draw the step map before the architecture. Which steps are exact, best-guess or consequential decides everything else. | Ask a model to draft the step map from the process description and mark every step that moves money or data. |
 | **A product manager or FDPM** | Ask the architect for the authority budget in plain language: what the agent does alone, with a veto, with an approver, and never. | Have a model translate the authority budget into a one-page table for the sponsor. |
 | **A GenAI or agentic AI engineer** | Build to the architect's decisions: caps in signatures, one agent until a named limit justifies a second, checkers after risky steps. | Ask a coding agent to compare the code with the decision records and list every divergence. |

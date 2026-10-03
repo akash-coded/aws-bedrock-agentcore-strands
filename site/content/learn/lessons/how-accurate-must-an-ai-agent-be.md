@@ -143,6 +143,7 @@ the score, not the score itself, followed by a shadow run on live traffic.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
+| **A QA lead** | Make each slice's bar executable: the harness compares the slice's lower bound, never its score, with its bar, and blocks the merge below it. A bar no check reads is a number in a document. | Ask a model how many golden cases each slice needs before its lower bound can clear its bar, and flag the slices that are short. [Your eight steps as a QA lead →](site:qa/) |
 | **A forward-deployed engineer** | Derive the bar with the customer's finance and operations people, in their numbers. It turns "how accurate is it?" into a decision they own. | Have a model draft damage and saving estimates per slice from the customer's data, marked as assumptions. |
 | **A product manager or FDPM** | Present a bar per slice, not one target, and show how a human hold on the risky step lowers it. | Ask a model to compute each bar with and without a human hold. |
 | **A GenAI or agentic AI engineer** | Keep the bars in a file the harness reads, so changing a bar is a reviewed change. | Ask a coding agent to add bars.yaml and a check that every slice in the golden set has a bar. |

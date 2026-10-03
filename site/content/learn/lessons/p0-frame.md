@@ -3,17 +3,19 @@ title: P0 Frame: How to Decide If an AI Agent Is Worth Building
 short: P0 · Frame
 wiki: P0-Frame-Is-an-AI-Agent-Worth-Building
 description: P0 Frame is the agentic PDLC's first phase: turn a request into a measured pain, test whether it needs AI at all, size the value and set autonomy per action.
-dek: Four decisions made on paper, before anything is built, each cheaper now than it will ever be again.
+dek: Should this be an agent at all? It is one of four decisions made on paper, before anything is built, each cheaper now than it will ever be again.
 level: Beginner
 keywords: should we use AI, AI use case evaluation, is this an AI problem, AI ROI calculation, AI agent business case, AI autonomy levels, P0 frame, agentic PDLC first phase
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
-> P0 Frame is the phase that decides four things before anything is designed.
-> They are whether a job is worth doing, whether it needs a model at all, what it is worth net of running and
-> checking it, and how much the machine may do on its own. It ends when the pain is a measurement and
-> that verdict, including what was rejected, is written down.
+> Whether a job should be an agent at all is settled in P0 Frame, before anything is designed, by three
+> questions asked in order of cost: is it a genuine judgement call, is there enough volume, and is a wrong
+> answer recoverable? Often two or three of a team's top five requests come back as rules, and for the
+> rest P0 sizes what each is worth net of running and checking it, and how much the machine may do on
+> its own. It ends when the pain is a measurement and that verdict, including what was rejected, is
+> written down.
 
 {{map:p0-frame}}
 
@@ -181,7 +183,7 @@ any budget is agreed.
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
 | **A forward-deployed engineer** | Measure the customer's pain in their own data (cases, minutes, money) before the first design session. An FDE who arrives with a measured pain line runs the room. | Give a model a redacted ticket export and ask for volume, handling time and the top five case types with counts, citing the rows. |
-| **A product manager or FDPM** | Own the AI-fit verdict and publish what came back as rules. As an FDPM it is also your first call on what becomes product and what stays configuration. | Ask a model to argue that each candidate is a rule, and keep only the ones it cannot. |
+| **A product manager or FDPM** | Own the AI-fit verdict and publish what came back as rules. As an FDPM it is also your first call on what becomes product and what stays configuration. | Ask a model to argue that each candidate is a rule, and keep only the ones it cannot. [Your eight steps as a product manager →](site:product-manager/) |
 | **A GenAI or agentic AI engineer** | Price the value line from a spike, not a guess: run twenty real cases through a prototype and log tokens and review minutes. | Have a coding agent wrap the prototype with a per-call token log and write the cost-per-case summary. |
 
 **Across the enterprise.** Run P0 as the portfolio funnel. Every candidate gets an AI-fit record, most

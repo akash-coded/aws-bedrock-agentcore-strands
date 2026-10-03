@@ -3,10 +3,10 @@ title: AI Agent Guardrails That Hold: Why a Prompt Is Not a Control
 short: Guardrails that hold
 wiki: AI-Agent-Guardrails-That-Hold
 description: A limit in a prompt can be talked past; a limit in a tool's signature cannot. Six controls that make an AI agent's boundaries real, with a test for each.
-dek: "Never refund more than $400" was in the prompt, the design and the slide deck. It was not in the code, and on day 82 a $2,000 refund went out.
+dek: Can we put the refund limit in the prompt? "Never refund more than $400" was in the prompt, the design and the slide deck. It was not in the code, and on day 82 a $2,000 refund went out.
 level: Intermediate
 keywords: AI agent guardrails, LLM security, prompt injection defence, AI agent permissions, excessive agency, OWASP LLM top 10, least privilege AI agents, tool calling security, human in the loop approval
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -148,6 +148,7 @@ actions. Least authority and bounded tools are the direct defences.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
+| **An engineering lead** | Make "show me the line that refuses" part of every review of a gated tool: a typed cap in the signature, a confirmation token for money, and two tests seen failing first. A cap that lives only in a prompt does not merge. | Ask a coding agent to list every prompt rule with no refusing line of code behind it, and write each one's failing test before its fix. [Your eight steps as an engineering lead →](site:engineering/) |
 | **A forward-deployed engineer** | Audit the customer's existing agents for limits that live only in prompts. It is the fastest way to show value in week one. | Ask a coding agent to find every number and never/always rule in the prompts, and its enforcement in code. |
 | **A product manager or FDPM** | Ask "show me the cap" for every consequential action. If someone opens a prompt, it is not a guardrail. | Have a model list each consequential action and where its limit is enforced. |
 | **A GenAI or agentic AI engineer** | Enforce limits in the tool: typed, bounded parameters, confirmation tokens the model cannot create, the least identity that works, and test that each one refuses. | Ask a coding agent for two tests per cap: within the limit passes, over it raises. |
