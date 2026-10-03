@@ -1025,12 +1025,17 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
     head = (f'<meta property="article:modified_time" content="{les.updated}">'
             f'<link rel="alternate" type="text/markdown" href="index.md" title="This lesson as markdown">'
             f'<script type="application/ld+json">{_graph(nodes)}</script>')
+    # the title: the whole search title, the lesson's name in ink and the rest, after the first ": " or "? ",
+    # in the grey continuation (base.css, ".lm>h1 .c"); a hyphenated word never breaks across two lines
+    h1, nw = _E(sentence_case(les.title)), lambda s: re.sub(r"\S+-\S+", r'<span class="nw">\g<0></span>', s)
+    k = re.search(r"[:?] ", h1)
+    h1 = f'{nw(h1[:k.end()])}<span class="c">{nw(h1[k.end():])}</span>' if k else nw(h1)
     # the guide comes first, as the rail did: the course is in it and again in the folds under the meta line,
     # and the second copy, a few hundred bytes after the first, costs about a hundred bytes gzipped
     html_ = f"""<div class="cols lgrid">
 {_guide(les, tracks, toc, course)}
 <main id="main" class="lesson lm">
-  <h1>{_E(sentence_case(les.title))}</h1>
+  <h1>{h1}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
   <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
   {_folds(toc, course)}

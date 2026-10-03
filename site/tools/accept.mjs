@@ -518,7 +518,12 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
 // and the guide (aside.lguide), which at 0, 25, 50 and 75% of the way down is on screen, ends within 24px of the
 // column's right edge, and marks one section: the last whose heading has passed the upper third of the window,
 // or the first before any has (site.js wireSteps, with the first link's mark standing for the lesson's opening).
-console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the measure, the edges, the guide");
+// And the lesson's type (council 10, 1.4): the title in two lines, the part after its first ": " or "? " in the
+// grey continuation, 3:1 or more against the page in both themes, no hyphenated word in it broken across two
+// lines; in .prose, only six gaps between stacked blocks (8, 16, 18, 24, 32 and 64px, each to 1px); no heading in
+// the lesson or its guide under 24px tracked tighter than -0.005em. Then at 390 wide: no table scrolls sideways,
+// its cells are 15px, and every fold's summary ("Show the answer") is 44px tall or more.
+console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the measure, the edges, the guide, the type");
 {
   const out = [], CAP = 0.7 * 900;
   thrown.length = 0;
@@ -542,7 +547,32 @@ console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the m
     const on = links.filter((a) => a.hasAttribute('aria-current'));
     return { top: Math.round(r.top), bottom: Math.round(r.bottom), off: Math.round(edge - r.right), on: on.map((a) => a.textContent),
       ok: on.length === 1 && on[0] === want, want: want ? want.textContent : 'no section' }; })()`;
-  let maps = 0, tallest = { h: 0, at: "" }, framed = 0, worst = { cpl: 0, at: "" };
+  const TYPE = `(() => { const main = document.querySelector('main.lm'), h1 = main.querySelector('h1'), c = h1.querySelector('.c');
+    const t = h1.textContent, k = t.search(/[:?] /), cv = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+    const lum = (col) => { cv.clearRect(0, 0, 1, 1); cv.fillStyle = '#000'; cv.fillStyle = col; cv.fillRect(0, 0, 1, 1);
+      const v = [...cv.getImageData(0, 0, 1, 1).data].slice(0, 3).map((x) => (x /= 255) <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4);
+      return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
+    const html = document.documentElement, was = html.getAttribute('data-theme'), grey = [];
+    if (c) { for (const th of ['dark', 'light']) { html.setAttribute('data-theme', th);
+        const a = lum(getComputedStyle(c).color), b = lum(getComputedStyle(document.body).backgroundColor);
+        grey.push(Math.round((Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05) * 100) / 100); }
+      was === null ? html.removeAttribute('data-theme') : html.setAttribute('data-theme', was); }
+    const prose = main.querySelector('.prose'), OK = [8, 16, 18, 24, 32, 64], gaps = [];
+    const kids = [...prose.children].filter((e) => getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0);
+    for (let i = 1; i < kids.length; i++) { const g = kids[i].getBoundingClientRect().top - kids[i - 1].getBoundingClientRect().bottom;
+      if (!OK.some((v) => Math.abs(g - v) <= 1)) gaps.push(kids[i - 1].tagName.toLowerCase() + ' to ' + kids[i].tagName.toLowerCase() + ' ' + Math.round(g) + 'px'); }
+    const tight = [...document.querySelectorAll('main.lm :is(h1,h2,h3,h4,h5,h6), .lguide :is(h1,h2,h3,h4,h5,h6)')].filter((e) => {
+      const cs = getComputedStyle(e), fs = parseFloat(cs.fontSize), ls = parseFloat(cs.letterSpacing) || 0; return fs < 24 && ls / fs < -0.0051; })
+      .map((e) => '"' + e.textContent.slice(0, 32) + '"');
+    return { lines: Math.round(h1.getBoundingClientRect().height / parseFloat(getComputedStyle(h1).lineHeight)), grey,
+      split: k < 0 ? !c : !!c && c.textContent === t.slice(k + 2), broken: [...h1.querySelectorAll('.nw')].filter((e) => e.getClientRects().length > 1).map((e) => e.textContent),
+      gaps, tight }; })()`;
+  const AT390 = `(async () => { await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const tw = [...document.querySelectorAll('main.lm .prose .tw:not(.wide)')];
+    return { scroll: tw.filter((t) => t.scrollWidth > t.clientWidth + 1).map((t) => t.scrollWidth + 'px in ' + t.clientWidth),
+      small: tw.filter((t) => { const d = t.querySelector('td'); return d && parseFloat(getComputedStyle(d).fontSize) < 15; }).length,
+      folds: [...document.querySelectorAll('main.lm .prose summary')].map((s) => Math.round(s.getBoundingClientRect().height * 10) / 10).filter((h) => h < 44) }; })()`;
+  let maps = 0, tallest = { h: 0, at: "" }, framed = 0, worst = { cpl: 0, at: "" }, grey = { r: 99, at: "" };
   for (const slug of lessons) {
     const at = `/learn/${slug}/`;
     await send("Page.navigate", { url: BASE + at.slice(1) });
@@ -566,6 +596,19 @@ console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the m
         if (Math.abs(g.off) > 24) out.push(`${where}: the guide ends ${g.off}px inside the column's right edge`);
         if (!g.ok) out.push(`${where}: the guide marks ${g.on.length ? g.on.join(" and ") : "nothing"}, not ${g.want}`);
       }
+      const t = await evaluate(TYPE);
+      if (t.lines !== 2) out.push(`${at}: the title takes ${t.lines} lines`);
+      if (!t.split) out.push(`${at}: the title's grey continuation is not the part after its first ": " or "? "`);
+      for (const r of t.grey) { if (r < 3) out.push(`${at}: the title's grey continuation is ${r}:1`); if (r < grey.r) grey = { r, at }; }
+      if (t.broken.length) out.push(`${at}: the title breaks inside ${t.broken.join(", ")}`);
+      if (t.gaps.length) out.push(`${at}: gaps off the six in .prose: ${t.gaps.slice(0, 4).join(", ")}${t.gaps.length > 4 ? ` and ${t.gaps.length - 4} more` : ""}`);
+      if (t.tight.length) out.push(`${at}: headings under 24px tracked tighter than -0.005em: ${t.tight.slice(0, 3).join(", ")}`);
+      await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+      const ph = await evaluate(AT390);
+      await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
+      if (ph.scroll.length) out.push(`${at} at 390: a table scrolls sideways, ${ph.scroll.join(", ")}`);
+      if (ph.small) out.push(`${at} at 390: ${ph.small} table(s) with cells under 15px`);
+      if (ph.folds.length) out.push(`${at} at 390: a fold's summary is ${ph.folds.join(", ")}px tall, under 44`);
     }
     if (m.h === null) continue;
     maps++;
@@ -577,7 +620,9 @@ console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the m
   if (thrown.length) out.push("script error: " + thrown[0]);
   if (out.length) { failures += out.length; console.log(`  FAIL  (the cap is ${CAP}px) ` + out.join("; ")); }
   else console.log(`  ok   ${maps} lessons with a map, the tallest ${tallest.at} at ${tallest.h}px; ${framed} lessons in the frame, ` +
-    `the longest line ${worst.cpl} characters (${worst.at}), one left edge, two right ones, the guide on screen and marking the section being read`);
+    `the longest line ${worst.cpl} characters (${worst.at}), one left edge, two right ones, the guide on screen and marking the section being read; ` +
+    `every title in two lines, its grey at ${grey.r}:1 or more (${grey.at}), six gaps, no small heading tracked tight; at 390 no table scrolls, ` +
+    `every fold 44px or taller`);
 }
 
 // 19. the home page's bands (council 10): one function for each band's parcel, H3 to H8, in the order the bands run,
