@@ -111,6 +111,7 @@ def test_unknown_topic_becomes_other_and_base64_bodies_decode():
     c = fresh()
     status, body = post({**GOOD, "topic": "Rant"}, b64=True)
     assert status == 200 and c["dynamodb"].items[body["id"]]["topic"]["S"] == "other"
+    assert c["dynamodb"].items[post({**GOOD, "topic": "consultancy"})[1]["id"]]["topic"]["S"] == "consultancy"
 
 
 def test_email_failure_still_stores():
