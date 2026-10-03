@@ -106,7 +106,6 @@ const KNOWN = [
   { check: "A2", state: /^learn$/, match: /eyebrow's text top/, owner: "the lesson lane, learn.py's _rail",
     why: "on a phone the tutorial's front page opens on its course list's fold, above its title, so its eyebrow sits 73px lower" },
   { check: "*", state: /^workbench$/, tool: true, owner: "U5", why: "the workbench's own faults, fixed in its source and exported (workbench.test.mjs)" },
-  { check: "A8", state: /^home$/, match: /label\.mpause/, owner: "home room, H1", why: "the hero's pause control, 30px: H1 moves it" },
   { check: "A7", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own parts (play/game.css, GAME.md): its role cards at 14px" },
   { check: "A8", state: /^sim-/, match: /\.nd-/, owner: "the game", why: "the game's own buttons (play/game.css, GAME.md): 45px at 12, every button on its title as tall as Start (playtest.mjs), room chips 52px" },
 ];

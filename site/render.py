@@ -891,7 +891,16 @@ def check_words(page: str, where: str) -> None:
         raise SystemExit(f"{where}: words the house rules refuse (verdict-home 1.9):\n  " + "\n  ".join(hits))
 
 
-def home_page(roles: list[dict]) -> str:
+def read_minutes(page: str) -> int:
+    """A built page's reading time, from the words in its main column at the lessons' own pace (learn.WPM)."""
+    from pages import learn
+    m = re.search(r"<main\b[\s\S]*?</main>", page)
+    text = re.sub(r"<(script|style|svg|noscript)\b[\s\S]*?</\1>", " ", m.group(0) if m else page)
+    return max(1, round(learn.plain_words(text) / learn.WPM))
+
+
+def home_page(roles: list[dict], leadership: str) -> str:
+    """The home page. ``leadership`` is the built sponsor's page, whose reading time the roles band states."""
     from pages import chooser, consult, globe, homelib, learn, people, spine
     built = {r["id"]: r for r in roles}
     total_steps = sum(len(r["steps"]) for r in roles)
@@ -917,13 +926,14 @@ def home_page(roles: list[dict]) -> str:
                      f'<span class="s-route"><span>{md(frm)}</span><i aria-hidden="true">→</i><span class="vh"> to </span><b>{md(to)}</b></span>'
                      f'<span class="s-meta">{len(r["steps"])} steps · {n_p} prompts</span>'
                      f'<span class="s-go" aria-hidden="true">→</span></a></li>')
-    # One row that is not a role journey: the sponsor's page. (The forward-deployed engineer's row comes from
+    # One row that is not a role journey: the sponsor's page, with its reading time counted from the page itself,
+    # as every number in the bands is (verdict-home 1.9). (The forward-deployed engineer's row comes from
     # ROLE_ORDER, linked to its guide.)
     seats.append('<li><a href="protocol/" style="--rc:var(--ink2)"><span class="s-code">EXEC</span>'
                  '<span class="s-name">Sponsor or executive</span>'
                  '<span class="s-route"><span>funding the work</span><i aria-hidden="true">→</i><span class="vh"> to </span>'
                  '<b>the four decisions only you can make</b></span>'
-                 '<span class="s-meta">20 minute read</span><span class="s-go" aria-hidden="true">→</span></a></li>')
+                 f'<span class="s-meta">{read_minutes(leadership)} minute read</span><span class="s-go" aria-hidden="true">→</span></a></li>')
 
     # one real day of the game, as the game words it
     game = json.loads((SITE / "play" / "days.json").read_text(encoding="utf-8"))
@@ -1282,8 +1292,11 @@ def render(out_dir: Path) -> list[str]:
     # and prompts live on its stage pages, so the two libraries hold the other roles and one line pointing there.
     journeys = [r for r in roles if not r.get("stages")]
     guide = next((r for r in roles if r.get("stages")), None)
+    from pages import models, protocol, pictures, play
+    ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
+    leadership = protocol.build(shell, ctx)      # built first: the home page's roles band states its reading time
     put("search.json", search_index(roles))
-    put("index.html", home_page(roles))
+    put("index.html", home_page(roles, leadership))
     for r in journeys:
         put(f"{r['id']}/index.html", role_page(r))
     from pages import fde
@@ -1294,10 +1307,8 @@ def render(out_dir: Path) -> list[str]:
     put("prompts/index.html", library_page(journeys, "prompts", guide))
     put("frameworks/index.html", frameworks_page())
     put("method/index.html", method_page())
-    from pages import models, protocol, pictures, play
-    ctx = {"base": BASE_URL, "repo": REPO, "wiki": WIKI}
     put("simulator/index.html", play.build(shell, ctx))
-    put("protocol/index.html", protocol.build(shell, ctx))
+    put("protocol/index.html", leadership)
     put("models/index.html", models.build(shell, ctx))
     put("pictures/index.html", pictures.build(shell, ctx))
     from pages import labs

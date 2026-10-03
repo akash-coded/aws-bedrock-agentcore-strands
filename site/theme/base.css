@@ -91,7 +91,8 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
 .dd[open]>summary::after{transform:translateY(1px) rotate(225deg)}
 .ddp{position:absolute;top:calc(100% + 10px);left:-8px;z-index:60;min-width:290px;padding:8px;border-radius:var(--r-box);
   background:var(--paper);border:1px solid var(--rule);box-shadow:0 24px 60px -20px rgba(8,10,20,.35);
-  display:grid;gap:2px;animation:ddin 250ms var(--ease)}
+  display:grid;gap:2px}
+.dd[open] .ddp{animation:ddin 250ms var(--ease)}
 @keyframes ddin{from{opacity:0;transform:translateY(-6px) scale(.97)}}
 .ddp a{display:grid;gap:1px;padding:10px 12px;border-radius:10px;color:var(--ink)}
 .ddp a:hover{background:var(--rule2);text-decoration:none}
@@ -948,8 +949,11 @@ a.md:hover b{color:var(--c)}
 .menu>summary:hover{background:var(--rule2);color:var(--ink)}
 .menu[open]::before{content:"";position:fixed;inset:0;z-index:80;background:rgba(12,14,18,.38);backdrop-filter:blur(2px)}
 .menu .mp{position:fixed;top:0;left:0;bottom:0;z-index:90;width:min(340px,92vw);background:var(--paper);border-right:1px solid var(--rule);
-  box-shadow:20px 0 60px rgba(0,0,0,.18);overflow-y:auto;padding:14px 18px 28px;display:grid;gap:4px;align-content:start;
-  animation:menuin 250ms var(--ease)}
+  box-shadow:20px 0 60px rgba(0,0,0,.18);overflow-y:auto;padding:14px 18px 28px;display:grid;gap:4px;align-content:start}
+/* The slide-in belongs to the open drawer only. Declared on the closed one, inside a shut <details>, Chrome kept the
+   finished animation alive and made a main frame on every tick of a page at rest: 4.5% of a slowed phone's main
+   thread, found by the performance sheet. The top bar's two lists (.ddp) are scoped the same way. */
+.menu[open] .mp{animation:menuin 250ms var(--ease)}
 @keyframes menuin{from{transform:translateX(-24px);opacity:0}}
 .menu .mph{display:flex;align-items:center;justify-content:space-between;padding:6px 0 12px;border-bottom:1px solid var(--rule);margin-bottom:4px}
 .menu .mph b{font-family:var(--f-display);font-size:15px}
@@ -1543,11 +1547,9 @@ a.more:hover i{transform:translateX(4px)}
 /* the way back has the second row to itself: it is the half of the round that happens behind the Earth */
 .sc-rail li.back{flex-basis:100%;justify-content:center;font-size:13px}
 .sc-rail li.back::before{content:none}
-.sc-foot .mpause{position:static;flex:none;width:30px;height:30px}
-.sc-foot .mpause i{scale:.8}
-/* on a phone it is a 44px target, like every control there (the tower's on the method page included); on a stage
-   under 400px wide it sits deeper in its corner, so the four names at rest keep their room (accept.mjs, pass 13) */
-@media (max-width:820px){.sc-foot .mpause{width:44px;height:44px}.sc-foot .mpause i{scale:1}}
+/* a 44px target at every width, as every control is on a phone (the tower's on the method page included); on a
+   stage under 400px wide it sits deeper in its corner, so the four names at rest keep their room (accept.mjs, pass 13) */
+.sc-foot .mpause{position:static;flex:none;width:44px;height:44px}
 @media (max-width:399px){.on+.sc-foot{right:3%;bottom:3%}}
 @media (max-width:1000px){
   /* one column: the words, the two buttons, the picture whole, then the counts */
