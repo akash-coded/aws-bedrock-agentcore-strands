@@ -508,7 +508,7 @@ questions, and the artefacts are each about an afternoon's work.</p></div>
 def _send(n_templates: int, n_prompts: int) -> str:
     return f"""<div class="sec" id="send">
 <h2>Where to send people</h2>
-<p>Each role has its own steps: eight for each of the first five, twelve in three stages for the forward-deployed engineer. Send each person to the steps for the work they own.</p>
+<p>Each role has its own steps: eight for a delivery role, twelve for the forward-deployed engineer. Send each person to the steps for the work they own.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>They own</th><th>Send them to</th></tr></thead><tbody>
 <tr><td>What gets built and whether it shipped safely</td><td><a href="../product-manager/">The product manager's eight steps</a></td></tr>
 <tr><td>The shape of the system and what may be probabilistic</td><td><a href="../solution-architect/">The architect's eight steps</a></td></tr>
@@ -542,7 +542,7 @@ def _why() -> tuple[str, str, str]:
         ("The organisation has to move with it",
          "Five teams each adopting a tool is not a strategy. One operating model, P0 to P3, gives "
          "every team the same phases, the same gates and the same evidence, so a product manager's "
-         "spec, an engineer's slice and QA's proof fit together. It also creates a sixth role, "
+         "spec, an engineer's slice and QA's proof fit together. It also creates a role of its own, "
          "governance, and that one is yours."),
     ]
     body = "".join(f'<div class="card"><h4 class="h4">{E(t)}</h4><p>{E(b)}</p></div>' for t, b in cells)
@@ -590,7 +590,7 @@ needs, and the gain you should expect to see.</p>
 <div class="tw" tabindex="0"><table><thead><tr><th>Team</th><th>What changes in how they work</th><th>What they use</th>
 <th>The gain</th></tr></thead><tbody>{body}</tbody></table></div>
 <p class="lalt">The effort levels, low, mid and high, are explained in <a href="#llms">LLMs across the board</a>
-below, and each role's eight steps are on <a href="#who">its own page</a>.</p>""")
+below, and each role's steps are on <a href="#who">its own page</a>.</p>""")
 
 
 def _money() -> tuple[str, str, str]:
@@ -783,13 +783,14 @@ def _operating_model() -> tuple[str, str, str]:
             f'<p style="font-size:14px;margin:0 0 6px"><strong>The shift:</strong> {E(shift)}</p>'
             f'<p style="font-size:14px;margin:0 0 10px"><strong>Owns:</strong> {E(owns)}</p>'
             f'<p style="font-size:13.5px;margin:0"><a href="../{slug}/">Their eight steps →</a></p></div>')
-    return ("Who does what, and the boundary that moves", "Five roles, the shift in each, and the sixth role that is yours",
-            f"""<p class="wide">Five roles. None of them is new, and none of them disappears. What moves is the boundary between
+    return ("Who does what, and the boundary that moves", "Five delivery roles, the shift in each, and the role that is yours",
+            f"""<p class="wide">Five delivery roles. None of them is new, and none of them disappears. What moves is the boundary between
 them, and the two places it moves are worth knowing: <strong>the product manager stops approving
 things they cannot evaluate</strong>, and <strong>QA gains a veto that is arithmetic rather than
 opinion</strong>.</p>
+<p class="wide">The forward-deployed engineer carries all five to a customer's site; that role has <a href="../forward-deployed-engineer/">its own guide</a>.</p>
 <div class="roles" style="grid-template-columns:repeat(auto-fit,minmax(252px,1fr))">{''.join(cards)}</div>
-<div class="note"><p><strong>The sixth role is yours.</strong> Governance spans the whole lifecycle
+<div class="note"><p><strong>Governance is yours.</strong> It spans the whole lifecycle
 and no delivery role owns it. If nobody is asking the four questions below every cycle, nobody is.</p></div>""")
 
 
