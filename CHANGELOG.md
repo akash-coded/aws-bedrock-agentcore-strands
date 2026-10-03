@@ -30,7 +30,7 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   which three outside readers decoded cold, then eight sections: what the role is, its six hats ("some weeks
   you are the whole team"), the altitude each step needs from proof of concept to deploy, internal clients,
   the consultancy and technical crafts, AI tools in a customer's building, and how to start. Every claim about
-  the profession is one of 30 dated sources or 53 quotations, and no page types a quotation. The role builder
+  the profession is one of 31 dated sources or 54 quotations, and no page types a quotation. The role builder
   learns staged roles and checks each writer's file on its own; its tests run in CI. The top bar, the drawer,
   the home page's roles band, the search and `llms.txt` list the guide, and the template and prompt libraries
   point to its stage pages
@@ -67,6 +67,14 @@ stand cold, with the councils' own questions. The record, with each parcel's num
 - **A test of the site's parts** ([`site/tools/ui.test.mjs`](site/tools/ui.test.mjs)). Council 10's audit
   measurer, kept: 21 page states at four widths in both themes, for focus rings, touch targets, contrast
   measured from the screen's pixels, code that wraps, and parts on their columns
+- **A performance sheet** ([`site/tools/perf.mjs`](site/tools/perf.mjs)). Outside the gate, run before a
+  release: the build before a round against the round's, each served as GitHub Pages serves it, taking turns on
+  one machine. It measures the bytes a first visit to seven kinds of page asks for, first and largest paint on
+  the home page at 1440 and on a slowed phone on two slow networks, the hero's frame in software, seventy seconds
+  on a slowed phone's first screen on a first visit and a later one, and five flicks down the home page, and it
+  prints before, after, the bar and whether it is met, judged against before as measured in the same run. On
+  this round every bar was met: the h1 is the largest paint in every load, and a slowed phone's first screen
+  costs 0.740 of before's main thread on a first visit and 0.355 on a later one
 
 ### Changed
 - **The home page in a new order, under plain headings** ([`site/render.py`](site/render.py)). The hero, the
@@ -125,7 +133,6 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   ([`site/tools/reference/`](site/tools/reference/)). The parts test grows to seventeen checks. CI runs the
   role builder's tests before every build, and the older test tools now ask the system for a free port, so
   two runs never drive one browser
-<!-- RC-H11: one item here for tools/perf.mjs, the performance sheet, when H11 lands. -->
 
 ### Fixed
 - Keyboard focus showed only in part on many controls, its ring cut by the box that held it. Rings are now
@@ -155,7 +162,18 @@ stand cold, with the councils' own questions. The record, with each parcel's num
   small phone, the picture pack names the three new figures, two sketches' labels clear 13px at 320, the
   Mental Models picture names the models as the site does, the contact relay files a consultancy enquiry as
   one, and the stale copy of the workbench is gone
-<!-- RC-review: one line here for FX2a's and FX2b's review fixes, from their reports. -->
+- A content review after the merge (four reviewers, four seats of one model, each finding then put to a sceptic
+  on the same model, who tried to refute it: 35 confirmed, 7 refuted), and its fixes. The FDE guide's statement
+  of work gains who keeps what is built and the support period after handover, the clauses its later steps
+  cite; the career table's university row quotes Palantir's new-graduate posting, recorded and dated; the field
+  guide lesson's eight steps become moves mapped to the guide's Deliver steps, with the lead-time items back on
+  day one; two worked examples, four source records and two lessons' citations corrected. Lesson pictures and
+  numbers agree with their words (P0's autonomy table, lesson one's map first, the postmortem's "a request",
+  twenty-six points a quarter, the 6-point level alert, larger board type); the home page's day card note, link
+  arrows, routes, the close's offers and a 44px pause control on phones; the case's pain line on the templates
+  page, the libraries' reach in search and `llms.txt`, and two loops that run backwards, not three
+  ([`site/content/roles/_src/`](site/content/roles/_src/), [`site/content/learn/lessons/`](site/content/learn/lessons/),
+  [`site/pages/`](site/pages/), [`site/theme/base.css`](site/theme/base.css))
 
 ## 2026-10-02 · Late starts that show their work, a second lab, two more tool manuals, four faults from an outside review, and the wiki in step
 

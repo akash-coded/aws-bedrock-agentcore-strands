@@ -447,7 +447,7 @@ in. On a phone on Day 1 the building is far down the page, so after the walk-in 
 the building is scrolled to. Nothing starts because it came into view; it goes on from where it was.
 
 The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 46 KB gzipped
-(45.97), the site's `base.css` under 32 KB as shipped without its comments (30.4), the page's HTML under 25 KB
+(45.97), the site's `base.css` under 32 KB as shipped without its comments (30.5), the page's HTML under 25 KB
 (16.9), and no font but the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
 key and the rows, so the comments in `game.js` and `art.js` were cut to a line of why each, leaving the
 reasons to this file; no rule and no number of the game changed. Round ten's role start took them to 45.3

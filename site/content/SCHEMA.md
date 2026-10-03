@@ -70,8 +70,8 @@ is staged when its HEAD has `stages`; the five other roles build byte for byte a
 | `artifact.short` | step | The artefact's short name, which the framework picture draws |
 
 Nobody's words are typed in quotation marks. In prose, `{{S24-ground}}` puts a recorded quotation on the page
-and `[[S12]]` cites a source; both name records in `roles/_src/fde_sources.py`, which holds the guide's 30
-sources and 53 quotations, each with its address and the date it was checked (a date more than sixty days old
+and `[[S12]]` cites a source; both name records in `roles/_src/fde_sources.py`, which holds the guide's 31
+sources and 54 quotations, each with its address and the date it was checked (a date more than sixty days old
 turns amber, as in the Tool guides). The hub's words are data too, in `roles/_src/fde_hub.py`. The words of the
 HEAD, the steps and the hub are held to the house rules (no model name, no dash, no American spelling, none of
 the refused words); a quotation is held to its record instead.

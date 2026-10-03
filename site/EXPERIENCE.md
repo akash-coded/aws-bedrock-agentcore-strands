@@ -134,7 +134,7 @@ where you are".
 | Sketch | A `<figure>`: the drawing is one image with a description of the scene, and the caption under it is real text that makes the point alone. It is complete when the reader reaches it. It prints on white, never across a page break. |
 | Role rows | The whole row is the link. Hover tints the row in the role's colour, past its column, and moves only the arrow. One row is not a role journey and says so in its counts: the sponsor's page. |
 | People card | The whole card is one link, to the lesson that answers its question; a screen reader meets a picture, a name, a heading, an answer and one short link. Hover moves the arrow and darkens the foot's rule; focus rings the whole card. The build refuses an answer whose source sentence its lesson no longer says. |
-| Day card | One real day of the game, its question and its answers as links: each answer is a link to that day in the game, and the note under them says each costs days. Plain links, so they work without script. Over 1000px it stands at a tilt and turns to face the reader on hover or on keyboard focus inside it, in 400ms, at once under reduced motion; flat at 1000px and under, and on paper. |
+| Day card | One real day of the game, its question and its answers as links: each answer is a link to that day in the game, and the note under them says each has a price in days, now or later, and that any of them opens the day in the game, where the reader makes the call. Plain links, so they work without script. Over 1000px it stands at a tilt and turns to face the reader on hover or on keyboard focus inside it, in 400ms, at once under reduced motion; flat at 1000px and under, and on paper. |
 | Library cards | Each of the nine is one link. Flat at rest; hover moves the border to ink and lifts the card 3px in 250ms. In print every card's words are ink on paper, whatever its ground. |
 | Close | One button. With script it opens the drawer on the consultancy's topic; without script it is a link to the repository's discussions page, and a reader who asks for a new tab gets that page in one. No form, no logo, no testimonial. |
 | Folded how-to | Closed on arrival. Holds the audience, the use, the steps and the walkthrough button. |
@@ -181,7 +181,7 @@ where you are".
 
 Motion has three permitted jobs and two classes; `DESIGN.md` states them. Transitions sit on the site's
 scale (150, 250, 350, 400ms) with the one easing. Hover never carries information that focus or the page
-itself does not. On a phone, buttons, navigation, list rows and the footer's button are at least 44px tall;
+itself does not. On a phone, buttons, navigation, list rows, the footer's button and the hero's pause control are at least 44px tall;
 in a lesson every fold's whole closed box is its control, 44px or taller ("Show the answer", "What a strong
 answer covers"). A link inside a sentence, and a checkbox in a self-check, keeps its text's height. The
 leadership stepper's dots are the one exception: 24px apart, each with a 24px touch square, beside 44px Back
@@ -765,7 +765,7 @@ no proof line; and the drawer as it is, the discussions page without script, and
 **Room first.** `base.css`, which every page loads, stood at 39.66 KB gzipped under a 40 KB ceiling, and a
 quarter of it was comments. The build now ships every stylesheet without them (`build.py`, `lean()`), which
 took the file to 29.28 KB as shipped with the same rules, and the ceiling came down to 32 KB so the room is
-kept for work. Both rooms' parts were then built inside it: it ships at 30.40 KB.
+kept for work. Both rooms' parts were then built inside it: it ships at 30.54 KB (31,272 bytes) at the round's end.
 
 **The home page: what was decided.** The page runs in eight bands, and its headings read as one sentence of
 intent: what it is, how the methods fit, which to use, start, learn, play, take, get help. The hero is staged
@@ -821,7 +821,7 @@ three lines. A lesson now reads in one column from the page's left edge, text at
 944px, and a 240px guide on the right holds navigation and nothing else; the sketches came into the text at its
 width (handwriting from 14.5px to about 28px), and "Try it" sits where the lesson reaches it. The title is the
 whole search title in two lines with its second half in grey, and six gaps replaced eleven. The hard gate grew
-from 7,614 to 8,571px at 1440; its reading time is unchanged. Ten lessons gained a picture already drawn, each
+from 7,614 to 8,601px at 1440; its reading time is unchanged. Ten lessons gained a picture already drawn, each
 after the sentence it shows, and three new figures draw what three lessons' prose could not, from numbers
 written into those lessons first: a drift of thirteen points in eight weeks that never trips a weekly alarm
 and trips the baseline alarm in week 5, a $2,000 refund through five claimed defences, and four ways back from
@@ -838,7 +838,7 @@ the job is twelve steps, twelve artefacts and three signatures: the go decision,
 the handover, signed by the person who will run it; the next frame or a clean close. One correction to the owner:
 "an FDE is a whole team in one person" ships as "some weeks you are the whole team", because at scale the work is
 a pair, and Anthropic, Palantir, Databricks and Ramp say so in their postings. Every claim about the profession is
-a dated record (30 sources and 53 quotations, read on 2 October 2026 and one on the 3rd), and a page never types a
+a dated record (31 sources and 54 quotations, 28 read on 2 October 2026 and three on the 3rd), and a page never types a
 quotation. The case runs on: Frame is the three weeks before day 1, Deliver is days 1 to 97 with the canon
 unchanged beside "Your move", and Evolve is the guide's own. The joins: the top bar, the drawer and the home
 page's roles band list it; the search finds every step at its stage page; `llms.txt` lists it; `/templates/` and
@@ -908,18 +908,74 @@ its screen whole from 561 to 1000px, and its shelf names start level on a small 
 consultancy enquiry as one. The workbench's menu sheet, role tabs and rows and footer links are 44px on a phone
 with their rings whole, and its loop map, gate pictures and concept map read 4.5:1. The Mental Models picture
 names the twelve models as the site does, and the stale copy of the workbench is gone.
-<!-- RC-review: one line here for FX2a's and FX2b's review fixes, from their reports. -->
+
+**Reviewed, then fixed.** After the merge, four reviewers, four seats of one model, read the lessons, the home
+page, the FDE guide and the site's facts cold, and a sceptic on the same model tried to refute each finding: 35
+were confirmed and 7 refuted. The 35 were fixed in two parcels. The FDE guide's statement of work carries who
+keeps what is built (section 8) and the support period after handover (section 9), the clauses steps 8, 10 and
+11 rely on; the career table's university row quotes Palantir's new-graduate posting, recorded and dated (31
+sources and 54 quotations now); the field guide lesson walks Deliver as eight moves and says which guide step
+each belongs to, with the lead-time items back on day one; two worked examples, four source records and two
+lessons' citations were corrected. In the lessons, pictures and numbers now say what the words say: P0 Frame's
+autonomy table replaced a figure that contradicted its veto window, lesson one opens on its own map and sends the
+boards to `/method/`, the postmortem's layers read "a request" where they read "absent from the code", a
+quarter's drift is twenty-six points (two a week for thirteen weeks), the QA lead's level alert is over 6pp
+against the frozen baseline, and the methods and loops boards are drawn with larger type in a lesson. On the home
+page the day card's note says each answer has a price in days, a wrapped link keeps its arrow after its last
+word, a route that does not fit breaks between its two ends, the close's four offers start their "You leave
+with" level, and the hero's pause control is 44px on a phone. The templates page's filled-in register carries the
+case's pain line word for word, the search index and `llms.txt` say the FDE's artefacts are on the guide's stage
+pages, and the loop count is right everywhere: two loops run backwards (cost P3 to P1, incident P3 to P0) and
+three have nobody waiting, governance among them.
 
 **Bytes.** Sketch paths are written from the point before: the 31 pages with a sketch went from 547.6 to 511.1
-KB gzipped, 1.18 KB a page, and every sketch draws the same pixels. The home page's HTML grew from 13.0 to 19.0
+KB gzipped, 1.18 KB a page, and every sketch draws the same pixels. The home page's HTML grew from 13.0 to 19.1
 KB with its four drawings, the map, the chooser, the library and the close, under the 21 KB it is held to, and
 no longer asks for `engine.js`; everything a first visit to it asks for, scrolled to the end, went from 177.3 to
-174.0 KB. The page is 8,528px tall at 1440 (7,085 before) and 12,872px at 390 (9,742). The hero's script went
-from 7.1 to 9.9 KB, under its 10 KB budget, and it stops drawing once it rests. The FDE hub is 17.7 KB, and
-Frame 21.9, Deliver 23.5 and Evolve 21.4 KB. The picture pack is 37.90 KB of its 38 KB hold.
+174.0 KB. The page is 8,550px tall at 1440 (7,085 before) and 12,914px at 390 (9,742). The hero's script went
+from 7.1 to 9.9 KB, under its 10 KB budget, and it stops drawing once it rests. The FDE hub is 17.8 KB, and
+Frame 22.4, Deliver 23.5 and Evolve 21.5 KB. The picture pack is 37.88 KB of its 38 KB hold. The sizes are the
+round's last build read with node's zlib at level 9, a KB 1,024 bytes.
 
-<!-- RC-H11: H11's performance table goes here, under the heading "Performance, before and after.", as its
-report gives it (before: 3bdb076; after: the round), with one sentence on what it shows. -->
+**Performance, before and after.** Measured with `tools/perf.mjs` on 3bdb076, the last commit before the round,
+and b91e196, the round's pages as merged before the content review's fixes and this record, on one machine, each
+build served as GitHub Pages serves it, before and after taking turns. The machine was slower than when the
+council set its bars (the old hero took 1.17 ms of script a frame unthrottled, where it took 0.92 when the
+council measured it), so no bar is an absolute number: every bar is judged against the build before the round,
+measured on the same machine in the same run, at the council's ratio, with the absolute numbers beside it. Every
+bar was met, the two minute bars by 0.3 and 0.2 seconds. The table is the sheet's own, before 3bdb076 and after
+b91e196, Chrome 154 on four cores.
+
+| What | Before | After | The bar | Met |
+| --- | --- | --- | --- | --- |
+| The home page's HTML, gzipped | 13.0 KB | 19.0 KB (1.46 of before) | under 21 KB | met |
+| A first visit to the home page, scrolled to the end, at 1440 and at 390: everything it asks for, gzipped (raw) | 177.3 and 177.2 KB (394.0 KB raw; 15 and 14 files) | 174.0 and 173.8 KB (389.8 KB raw; 15 and 14 files; 0.98 of before) | under 176 KB | met |
+| A lesson: a first visit at 1440, scrolled to the end, gzipped (raw) | 156.3 KB (374.4 KB raw), 12 files | 147.9 KB (362.9 KB raw), 12 files (0.95 of before) | information |  |
+| The simulator: a first visit at 1440, scrolled to the end, gzipped (raw) | 216.9 KB (579.4 KB raw), 15 files | 203.5 KB (550.7 KB raw), 15 files (0.94 of before) | information |  |
+| The workbench: a first visit at 1440, scrolled to the end, gzipped (raw) | 832.1 KB (1,949.8 KB raw), 4 files | 833.2 KB (1,953.8 KB raw), 4 files (1.00 of before) | information |  |
+| The FDE guide: a first visit at 1440, scrolled to the end, gzipped (raw) | 172.8 KB (394.4 KB raw), 13 files, /learn/ai-dlc-for-forward-deployed-engineers/ | 165.7 KB (376.7 KB raw), 13 files (0.96 of before) | information |  |
+| A role page: a first visit at 1440, scrolled to the end, gzipped (raw) | 174.5 KB (438.1 KB raw), 11 files | 165.7 KB (420.4 KB raw), 11 files (0.95 of before) | information |  |
+| A lab: a first visit at 1440, scrolled to the end, gzipped (raw) | 187.0 KB (482.4 KB raw), 13 files | 177.3 KB (462.0 KB raw), 13 files (0.95 of before) | information |  |
+| First paint, then the hero's first frame, 1440 x 900, full speed: medians of 5 | 0.32 s (0.28 to 0.33), then 0.21 s | 0.31 s (0.28 to 0.35; 0.97 of before), then 0.21 s | information |  |
+| Largest paint and its element, 1440 x 900, full speed: median of 5 | 0.32 s (0.28 to 0.33), the h1 in 5 of 5 | 0.31 s (0.28 to 0.35; -0.01 s, 0.97 of before), the h1 in 5 of 5 | the h1 | met |
+| First paint, then the hero's first frame, 390 x 844 at 3x, council 9's slow 4G, processor 4x: medians of 5 | 1.34 s (0.96 to 1.42), then 1.55 s | 1.14 s (0.87 to 1.31; 0.85 of before), then 1.54 s | information |  |
+| Largest paint and its element, 390 x 844 at 3x, council 9's slow 4G, processor 4x: median of 5 | 1.34 s (1.16 to 1.42), the h1 in 5 of 5 | 1.26 s (1.14 to 1.31; -0.08 s, 0.94 of before), the h1 in 5 of 5 | the h1 | met |
+| First paint, then the hero's first frame, 390 x 844 at 3x, DevTools' Slow 4G, processor 4x: medians of 5 | 2.08 s (1.84 to 2.26), then 2.47 s | 1.95 s (1.77 to 2.01; 0.94 of before), then 2.61 s | information |  |
+| Largest paint and its element, 390 x 844 at 3x, DevTools' Slow 4G, processor 4x: median of 5 | 2.08 s (2.03 to 2.26), the h1 in 5 of 5 | 2.01 s (1.95 to 2.26; -0.08 s, 0.96 of before), the h1 in 5 of 5 | the h1, and no later than before's median plus 0.15 s (2.23 s) | met |
+| The hero at 1280 x 800, processor 4x, the first seconds: script a frame, frames in 3 s (a second), the worst gap and the worst tap (3 loads) | 6.59 ms, 96 (32), 83 ms, 41 ms | 4.91 ms (0.74 of before), 101 (34; 1.06 of before), 83 ms, 39 ms | information: pass 13 holds the hero |  |
+| The hero at 1280 x 800, processor 4x, steady flight: script a frame, frames in 3 s (a second), the worst gap and the worst tap (3 loads) | 7.13 ms, 89 (30), 50 ms, 51 ms | 7.21 ms (1.01 of before), 96 (32; 1.07 of before), 50 ms, 35 ms | information: pass 13 holds the hero |  |
+| The hero at 390 x 844 at 3x, processor 4x, the first seconds: script a frame, frames in 3 s (a second), the worst gap and the worst tap (3 loads) | 7.08 ms, 69 (23), 83 ms, 67 ms | 5.01 ms (0.71 of before), 78 (26; 1.14 of before), 83 ms, 54 ms | information: pass 13 holds the hero |  |
+| The hero at 390 x 844 at 3x, processor 4x, steady flight: script a frame, frames in 3 s (a second), the worst gap and the worst tap (3 loads) | 7.17 ms, 68 (23), 67 ms, 55 ms | 7.29 ms (1.02 of before), 71 (24; 1.04 of before), 67 ms, 48 ms | information: pass 13 holds the hero |  |
+| 70 seconds on a phone's first screen (390 x 844 at 3x, processor 4x), a first visit: main-thread time, and the hero's frames | 69.4 s; 1,992 frames, still drawing at the end | 51.4 s (0.740 of before); 1,384 frames, the last at 51 s | at most 0.745 of before's main-thread time (51.7 s) | met |
+| 70 seconds on a phone's first screen (390 x 844 at 3x, processor 4x), a later visit: main-thread time, and the hero's frames | 69.0 s; 2,155 frames, still drawing at the end | 24.5 s (0.355 of before); 509 frames, the last at 23 s | at most 0.358 of before's main-thread time (24.7 s) | met |
+| A flick down the home page at 390 x 844 at 3x, processor 4x, 5 flicks: the median and the worst gap between frames, frames over 50 ms, the most layout shift | 16.7 ms, 66.7 ms, 4 of 1,060, 0.000 | 16.7 ms, 83.4 ms, 4 of 1,446, 0.000 | before misses 16.7 ms and 50 ms here too, so after is held to before: a median no longer, and no more frames over 50 ms a flick; layout shift at most 0.05 | met |
+| The same flicks at 390 x 844 at 3x, once the hero has left the screen: the median and the worst gap, frames over 50 ms | 16.7 ms, 66.6 ms, 1 of 1,005 | 16.7 ms, 50.1 ms, 0 of 1,391 | before misses 16.7 ms and 50 ms here too, so after is held to before: a median no longer, and no more frames over 50 ms a flick | met |
+| A flick down the home page at 1440 x 900, processor 4x, 5 flicks: the median and the worst gap between frames, frames over 50 ms, the most layout shift | 16.7 ms, 66.6 ms, 2 of 731, 0.000 | 16.7 ms, 50.1 ms, 0 of 900, 0.000 | before misses 16.7 ms and 50 ms here too, so after is held to before: a median no longer, and no more frames over 50 ms a flick; layout shift at most 0.05 | met |
+| The same flicks at 1440 x 900, once the hero has left the screen: the median and the worst gap, frames over 50 ms | 16.7 ms, 50.1 ms, 0 of 669 | 16.7 ms, 50.0 ms, 0 of 838 | a median of 16.7 ms or less and none over 50 ms | met |
+
+Before misses the flick's 16.7 ms and 50 ms on this machine while the old hero is on screen, so those rows hold
+after to before; once the hero has left the screen, the bands meet the bar. The sheet's raw numbers are kept as
+JSON beside its table, and `--table` prints the table again from them without a browser.
 
 **What closed.** The open items this round closed, and what closed them: `base.css` sits far under its budget
 (the build strips comments, and the ceiling is 32 KB); the home page's sample sketch kept the old paper in the
@@ -927,8 +983,12 @@ dark theme (the toned paper is now on every dark page, and the sample gave way t
 768 every lesson map showed its text version and 25 of the 44 ran over 630px (the lesson's column is 944px at
 1024, so every map is drawn there as at 1440, and none is over 630px); the product manager's and the QA lead's
 lines both ended on "a number you can defend" (the QA lead now ends on "proof that it works"); the Mental Models
-picture labelled the models by their old names (it reads them from the site's registry now); and the start page's
-box opened with a bold lead (it opens with its answer).
+picture labelled the models by their old names (it reads them from the site's registry now); the start page's
+box opened with a bold lead (it opens with its answer); the interview bank for FDEs dated its two postings
+"September 2026" (both rows cite the guide's records, read on 2 October); on the home page a wrapped "more" link
+left its arrow at the column's far right and a route broke after an article (the review's fixes); and the root
+`README.md`'s table of roles was stale (it names six roles now, the FDE guide among them, with the QA lead's own
+line).
 
 ## Open items
 
@@ -950,7 +1010,7 @@ box opened with a bold lead (it opens with its answer).
   27 sentences into `days.json` would free about 0.45 KB, and the code would read worse for it.
 - `play/game.js` (line 492) still reads `--spring`, a token the stylesheet no longer has, and falls back to
   `ease-out`. The game can drop the lookup, or the token can come back if the game wants its spring.
-- The picture pack is 37.90 KB gzipped, 107 bytes under its 38 KB hold, so the next card added to it needs room
+- The picture pack is 37.88 KB gzipped, 124 bytes under its 38 KB hold, so the next card added to it needs room
   found first. Trimming the image data each card carries for search is the way back down.
 - Eight lesson maps sit 2 to 5px under the cap, at 1440 and at 1024 alike (628, 627, 627 and five at 625px).
   Pass 18 fails if the lesson column ever widens enough to tip one over.
@@ -971,22 +1031,19 @@ box opened with a bold lead (it opens with its answer).
   read-only on 31 October 2026, and the Evals dashboard and API and the `v1/prompts` API are to shut down
   on 30 November 2026 (`openai-evals` and `openai-prompt-objects` in `tools.json`). Both need rewording
   after those days, before their checks turn amber on 1 December.
-- The FDE guide's sources were read on 2 October 2026, and one, S26b, on the 3rd: they turn amber on 2 and 3
-  December. Re-check them by 1 December (`content/roles/_src/fde_sources.py`).
+- 28 of the FDE guide's 31 sources were read on 2 October 2026 and three (S26, S26b and S29) on the 3rd: they turn
+  amber on 2 and 3 December. Re-check them by 1 December (`content/roles/_src/fde_sources.py`).
 - The proof calculator in the FDE guide's step 3 opens on its shared defaults (82%, 40 cases, a bar of 80),
   not on the example's numbers; a default per step is a change to `calcs` or `enrich`.
-- The interview bank for FDEs paraphrases the OpenAI careers page and the Anthropic Paris posting with
-  "September 2026" dates, where the guide's records read them on 2 October.
 - The FDE guide's four pages are not among `ui.test.mjs`'s states; their heads were measured by probe, and the
   gate's pass 20 holds the rest.
 - The BMAD lesson's persona pipeline (its summary, steps 2 and 3, its map, the extended-BMAD table) and
   `frameworks.json`'s `what` ("analyst, PM, architect, dev, QA") describe an earlier release; the current one
   installs five agents, with no scrum master and no QA agent. Its FAQ says so. Bringing the lesson up to date
   is a rewrite, and the owner's call.
-- The root `README.md`'s table of roles is stale: the engineering lead's and the QA lead's lines, and no row for
-  the FDE guide ("Five roles, forty steps").
-- The wiki's generated copies follow at the next export, which was not run: `Journey-Solution-Architect.md` and
-  `Journey-QA-Lead.md` (`site/wiki_export.py`) and `Start-Here.md` (`site/learn_export.py`); then the Wiki sync.
+- The wiki's generated copies follow at the next export: `Journey-Solution-Architect.md` and `Journey-QA-Lead.md`
+  (`site/wiki_export.py`; the QA lead's still says 10pp and "absent from the code"), `Mental-Models.md`
+  (`site/export_models.py`; "thirty points") and `Start-Here.md` (`site/learn_export.py`); then the Wiki sync.
 - The social cards were not shot again this round. The home page's still draws the earlier hero's aircraft
   (the council refused redrawing it as the rest frame in Python, which would drift from the canvas) and
   predates the FDE guide's counts; the QA lead's carries its old line; and the templates and prompts cards say
@@ -996,9 +1053,9 @@ box opened with a bold lead (it opens with its answer).
   point before, the largest sketch is 3,605 bytes.
 - `pages/mapspecs.py`'s docstring names the hues by older colours (P0 green, P1 blue, P2 purple, P3 orange, `t`
   teal); they are slate, indigo, teal and amber, and `t` is violet.
-- Ten older picture placements draw numbers their lesson's text does not state (`two_numbers` in the sponsors,
+- Nine older picture placements draw numbers their lesson's text does not state (`two_numbers` in the sponsors,
   productivity and P3 lessons; `bill_factors` in the costs and P3 lessons; `bolt_days` in bolts vs sprints and
-  P2; `authority_ladder` in P0; `bar_sheet` in P1; `shadow_widen` in P3), and five pictures touch a table or
+  P2; `bar_sheet` in P1; `shadow_widen` in P3), and five pictures touch a table or
   sit straight under a heading (the governance gates, the evolution of the PDLC, one lifecycle for every
   method, P2, and what is the agentic PDLC).
 - In a lesson in the dark theme, a code box's 46px band for its Copy button reads as empty space above the
@@ -1006,11 +1063,21 @@ box opened with a bold lead (it opens with its answer).
 - `.step{overflow:hidden}` clips text too wide for a step, so no sideways check can see it.
 - On a phone the method map draws a method's ends as bars without their words; only the screen reader's
   sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
-- On the home page a wrapped "more" link leaves its arrow at the column's far right (the simulator band's link to
-  the labs at 1024, 390 and 320; the methods band's two links at 320), and at 320 the roles band's "from → to"
-  lines break after an article ("a / system that holds"); a non-breaking space would keep each with its noun.
-- The hero's pause control moved into the stage's corner but is still 30px across, on a phone too, under the
-  44px every other control keeps there; `ui.test.mjs` lists it as known.
+- The hero's pause control is 44px on a phone now, and still 30px at desktop widths, where every other button
+  is 36, 43 or 51px; `ui.test.mjs` lists it as known.
+- The engineering lead has two lines: the home page's roles band says "a written task → code that ships"
+  (`render.py`, `ROLE_ORDER`) and the role's own page "From a story file to a shipped bolt" (`engineering.json`);
+  the other five roles say the same thing in both places.
+- The field guide lesson's map (`pages/mapspecs.py`) draws "Shadow their staff" in its P3 band, where the guide
+  runs the shadow in step 7, Deliver's P2, and the lesson's list of moves now says so.
+- `play/game.js` still calls the thirteen choices "calls", where the simulator's page says "decisions".
+- After the hero rests, the top bar keeps Chrome producing a main frame on every tick at 390 by 844 with motion
+  allowed: about 4.5% of the main thread at 4x, 1.8 s of the later visit's 24.5 s on the performance sheet, and
+  most of why its two minute bars are met by only 0.3 and 0.2 s. Hiding `header.hd` stops it, and under reduced
+  motion the page is idle. For whoever owns the top bar: find what asks for frames, then run the minute again.
+- Pass 18's section mark on `/learn/ai-dlc-for-forward-deployed-engineers/` failed once at 0% and 25% in the
+  review's narrowed gate run, as the first page a cold Chrome loaded, and was not re-run there; a direct probe
+  marked the right section.
 - `theme/hero.js` is 10,143 bytes gzipped, 97 under its 10 KB budget.
 - A filled button prints near-white on white in Chrome's print preview (the hero's, the tutorial's and the
   simulator's); only the close's button has a print rule.
