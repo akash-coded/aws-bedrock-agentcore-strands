@@ -611,9 +611,9 @@ RULES:
               "customer should hold at the end: {{S20-handover}}. The checklist is that list, with a name "
               "beside every line."},
    {"do": "End your access on the agreed date",
-    "detail": "Write the date into the checklist and keep it. The support period comes from the statement "
-              "of work, not from goodwill on the day: a fortnight on call to their operator, not to the "
-              "system, so every question goes through the person who now owns it."},
+    "detail": "Write the date into the checklist and keep it. The support period comes from the "
+              "[statement of work](../frame/#t-scope), not from goodwill on the day: a fortnight on call to "
+              "their operator, not to the system, so every question goes through the person who now owns it."},
  ],
  "internal": (
    "Inside your own company the risk is the opposite: you never leave, because you are a message away "

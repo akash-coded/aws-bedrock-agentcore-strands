@@ -200,11 +200,11 @@ SECTIONS = [
 
     {"id": "career", "rail": "From zero",
      "h2": "You can start from five places.",
-     "lede": ("Companies hire forward-deployed engineers from university, from engineering, from consulting and from "
-              "delivery. The bar rises with what you own."),
+     "lede": ("Companies hire forward-deployed engineers from university, from an early-career rotation, from "
+              "engineering, from a systems integrator and from delivery leadership. The bar rises with what you own."),
      "head": ["Start from", "Who hires there", "What they ask, in their words"],
      "rows": [
-         ["University", "Palantir, new-graduate and intern FDSE roles", "{{S11-experience}} for the FDSE role"],
+         ["University", "Palantir, Forward Deployed Software Engineer, New Grad", "{{S29-graduating}}"],
          ["Early career", "Anthropic, a six-month Applied AI rotation", "{{S10-experience}}"],
          ["Engineering", "OpenAI, Forward Deployed Engineer", "{{S1-experience}}"],
          ["A systems integrator", "DXC, certified through Anthropic Academy", "{{S22-recruit}}"],
@@ -229,7 +229,7 @@ SECTIONS = [
                    "real sponsor, and have a stranger red-team the statement.",
                    "**Days 61 to 90, deliver and evolve.** Shadow it against your own labels, time the rollback, and "
                    "write the handover pack and one pattern entry. Then play the simulator from Day 1 as the whole "
-                   "team: you make all thirteen calls."],
+                   "team: you make all thirteen decisions."],
          "link": {"lesson": "forward-deployed-engineer-interview-questions", "text": "Ten interview questions, by stage."},
      },
      "hiring": ("Ramp finds drive and work ethic {{S18-predictor}}, and {{S18-founders}}. Scale wants people who "
@@ -241,8 +241,8 @@ SECTIONS = [
      "lessons": ["what-is-a-forward-deployed-engineer", "ai-dlc-for-forward-deployed-engineers",
                  "forward-deployed-engineer-interview-questions"],
      "line": "Every lesson in the tutorial ends with a row for you: what a forward-deployed engineer does with it.",
-     "sim": {"page": "simulator/", "text": ("Play the simulator from Day 1. You make all thirteen calls as the whole "
-                                             "team: an FDE's ninety days in fifteen minutes.")},
+     "sim": {"page": "simulator/", "text": ("Play the simulator from Day 1. You make all thirteen decisions as the "
+                                             "whole team: an FDE's ninety days in fifteen minutes.")},
      "next_up": {"line": "Start where every engagement starts.", "text": "Frame the engagement", "stage": "frame"}},
 ]
 

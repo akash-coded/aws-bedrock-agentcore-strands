@@ -2,11 +2,13 @@
 
 Postings change in weeks, so the guide never types a claim about the profession. It names a record here.
 
-- ``SOURCES``: the 29 sources of council 10's FDE paper, section 6, S1 to S28 with S6b, and S26b, the
-  discovery page the paper's S26 named beside the alpha page. For each: who published it, its title, its
-  address, how it was read and the date it was checked.
+- ``SOURCES``: the 29 sources of council 10's FDE paper, section 6, S1 to S28 with S6b; S26b, the
+  discovery page the paper's S26 named beside the alpha page; and S29, Palantir's new-graduate posting,
+  which the career table quotes. For each: who published it, its title, its address, how it was read and
+  the date it was checked.
 - ``QUOTES``: one record per quotation the paper shows, each with its source and its exact words, copied
-  from the paper. A quotation with a long dash is cut shorter, never altered.
+  from the paper, and one from S29, copied from the posting. A quotation with a long dash is cut shorter,
+  never altered.
 
 In the guide's words a quotation is a mark, never typed text. These are the Tool guides' marks:
 
@@ -21,8 +23,8 @@ record instead. A mark that names no record fails. So does a quotation typed bet
 
 ``cite()``, ``quote()``, ``Marks`` and ``plain()`` render the records, for pages/fde.py. A record checked
 more than sixty days ago shows its date in amber, by the Tool guides' rule and clock (``STALE_DAYS``, and
-``TOOLS_TODAY=2026-12-15`` to pretend it is that day). Every record below was checked on 2 October 2026, so
-re-check them by 1 December 2026: open the address, compare the words, and change the date.
+``TOOLS_TODAY=2026-12-15`` to pretend it is that day). Every record below was checked on 2 or 3 October 2026,
+so re-check them by 1 December 2026: open the address, compare the words, and change the date.
 """
 from __future__ import annotations
 
@@ -96,13 +98,13 @@ SOURCES = {
     "S18": {"company": "Ramp", "title": "Forward Deployed Engineering",
             "url": "https://engineering.ramp.com/post/forward-deployed-engineering",
             "read": "WebFetch, quoted sentences checked", "checked": "2026-10-02",
-            "note": "Ramp Builders, undated"},
+            "author": "Leo Mehr", "published": "2025-08-05", "note": "Ramp Builders"},
     "S19": {"company": "Scale AI", "title": "Forward Deployed Product Manager, Enterprise",
             "url": "https://job-boards.greenhouse.io/scaleai/jobs/4673051005",
             "read": "WebFetch, full text", "checked": "2026-10-02"},
     "S20": {"company": "AWS", "title": "AWS invests $1 billion to embed AI forward deployed engineers with customers",
             "url": "https://www.aboutamazon.com/news/aws/aws-1-billion-forward-deployed-ai-engineers",
-            "read": "WebFetch", "checked": "2026-10-02", "author": "Francessca Vasquez"},
+            "read": "WebFetch", "checked": "2026-10-02", "author": "Francessca Vasquez", "published": "2026-06-30"},
     "S21": {"company": "AWS", "title": "Sr Forward Deployed Engineer, AWS Forward Deployed Engineering",
             "url": "https://www.amazon.jobs/en/jobs/10517491/sr-forward-deployed-engineer-aws-forward-deployed-engineering",
             "read": "WebFetch", "checked": "2026-10-02"},
@@ -128,7 +130,7 @@ SOURCES = {
     "S26": {"company": "GOV.UK", "title": "Service Manual: how the alpha phase works (updated 8 May 2019)",
             "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works",
             "read": "WebFetch; both quotations checked again on 3 October 2026 against the saved page",
-            "checked": "2026-10-02"},
+            "checked": "2026-10-03"},
     "S26b": {"company": "GOV.UK", "title": "Service Manual: how the discovery phase works (updated 21 June 2021)",
              "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works",
              "read": "WebFetch, the sentence on stopping at the end of discovery", "checked": "2026-10-03"},
@@ -139,6 +141,12 @@ SOURCES = {
     "S28": {"company": "Glean", "title": "Founding Forward Deployed Engineer, New York",
             "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4659412005",
             "read": "WebFetch, quoted sentence", "checked": "2026-10-02"},
+    # Not in the paper; added on 3 October 2026. The hub's career table starts from university, and S11 asks for
+    # a year after college, so that row quotes Palantir's new-graduate posting instead.
+    "S29": {"company": "Palantir", "title": "Forward Deployed Software Engineer, New Grad, Commercial (Delta), New York",
+            "url": "https://jobs.lever.co/palantir/2e6b0ac8-83e9-4be5-a3aa-cf319f751728",
+            "read": "WebFetch; full text from the page's HTML and Palantir's Lever feed, api.lever.co/v0/postings/palantir",
+            "checked": "2026-10-03"},
 }
 
 # One record per quotation in the paper, word for word. The id is the source's, a hyphen and a short slug.
@@ -175,6 +183,7 @@ QUOTES = {
     "S13-cto": {"source": "S13", "words": "Forward Deployed AI Engineers' responsibilities look similar to those of a hands-on AI startup CTO"},
     "S14-use-cases": {"source": "S14", "words": "Develop initial use cases in the software"},
     "S14-five-days": {"source": "S14", "words": "an interactive workshop where customers go from 0 to use case in 5 days"},
+    "S29-graduating": {"source": "S29", "words": "Must be graduating in December 2026 or Spring 2027"},
     # Databricks
     "S15-embedded": {"source": "S15", "words": "embedded with our most strategic customers from the very first sales call, all the way through to a production-ready solution"},
     "S15-handoff": {"source": "S15", "words": "Strategic Handoff & Growth"},
@@ -290,10 +299,10 @@ def check() -> list[str]:
     """The records themselves. An empty list is a pass."""
     t = _tools()
     bad = []
-    want = {f"S{i}" for i in range(1, 29)} | {"S6b", "S26b"}
+    want = {f"S{i}" for i in range(1, 30)} | {"S6b", "S26b"}
     if set(SOURCES) != want:
         gone, extra = sorted(want - set(SOURCES)), sorted(set(SOURCES) - want)
-        bad.append(f"fde_sources: the guide has 30 sources, the paper's S1 to S28 with S6b, and S26b "
+        bad.append(f"fde_sources: the guide has 31 sources, the paper's S1 to S28 with S6b, and S26b and S29 "
                    f"(missing {gone}, unknown {extra})")
     for sid, s in SOURCES.items():
         where = f"fde_sources {sid}"

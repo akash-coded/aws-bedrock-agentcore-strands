@@ -286,7 +286,9 @@ Do not soften the case to be polite."""},
            "minutes. AI fit: yes, yes and partly, because a proposed rebooking can be withdrawn and a "
            "cash refund cannot. Three of the five were named that week: Ines as sponsor, the contact-centre "
            "head over the experts, Lena as the person who would run it. The risk owner was not, so the "
-           "verdict read *go to scoping, once compliance names a person for refunds*. One gap went "
+           "verdict read *go to scoping, once compliance names a person for refunds*. Nobody could name a "
+           "sceptic either; the build found one, a senior expert who distrusted the assistant and then "
+           "labelled the cases it was tested on. One gap went "
            "unseen. Every expert in the brief worked the day shift, and the evening shift's rule about "
            "one partner after 18:00 stayed in six people's heads until the shadow run found it "
            "([step 7](../deliver/#build))."},
@@ -334,6 +336,11 @@ Do not soften the case to be polite."""},
     "detail": "The autonomy of each action, every limit and who approves above it, the pass mark for each "
               "kind of case, go-live, and who runs it afterwards. You draft them; they sign them. Writing "
               "it now makes it normal later."},
+   {"do": "Say who keeps what is built, and how long you stay after handover",
+    "detail": "The code, the pattern you may take home and their data each get an owner, and the clause "
+              "that says so. The support period gets its weeks and the date your access ends. The "
+              "handover ([step 8](../deliver/#hand-over)) and the pattern write-up "
+              "([step 10](../evolve/#codify)) both read these lines."},
    {"do": "Put the proof in, with its own way to fail",
     "detail": "Its one question, its days, and its endings: go, go with conditions, change course, or "
               "stop. A proof that cannot end in stop is a demo, and their sceptic will know it."},
@@ -378,13 +385,15 @@ Do not soften the case to be polite."""},
    "name": "Statement of work (inside your own company, an engagement charter)",
    "short": "Statement of work",
    "good": "Two pages. A first slice with its reason, success criteria a stranger could measure, their "
-           "dependencies with names and dates, the decisions that stay theirs, the proof with its way to "
-           "fail, and one paragraph of change control. Signed by their sponsor and by yours.",
+           "dependencies with names and dates, the decisions that stay theirs, who keeps what is built, "
+           "the support period after handover, the proof with its way to fail, and one paragraph of "
+           "change control. Signed by their sponsor and by yours.",
    "owner": "Forward-deployed engineer, with the engagement lead where there is one"},
  "template": {
    "title": "Statement of work", "lang": "markdown",
    "body": """# Statement of work · <customer> · <engagement>
 _Version <n> · <date> · Drafted by <FDE> · For signature by <their sponsor> and <your lead>_
+Issued under <the master agreement or order form>, which holds the commercial terms.
 
 ## 1. The problem, measured
 <who has the pain> · <how often> · <what it costs today> · <the evidence, with its source>
@@ -433,15 +442,28 @@ A dependency is met when its test passes, not when someone says it is done.
 Every limit you sign is enforced in the tool that acts, with a test, never only in the
 instructions the model reads.
 
-## 8. Out, and not yet
+## 8. What each side keeps
+| What | Owned by | Where it says so |
+|------|----------|------------------|
+| The code and configuration built here | <customer> / <us> / shared | <master agreement, clause> |
+| The pattern, written up without your data, code or terms | <us> | this statement |
+| Your data, and the cases your experts label | <customer> | <data agreement, clause> |
+
+Your data stays in <region>. It leaves only with <name>'s approval, in writing.
+
+## 9. After handover
+<FDE> is on call to <the person who will run it>, for questions, not for the system,
+for <n> weeks after the handover, until <date>. Our access ends on <date>.
+
+## 10. Out, and not yet
 - **Out:** <...>
 - **Not yet:** <...>, which comes in when <condition>
 
-## 9. Change control
+## 11. Change control
 A new request is written down, sized in days by <FDE>, and signed by <their sponsor> before
 work starts. A request that changes a decision in section 7 goes back to whoever signed it.
 
-## 10. Signatures
+## 12. Signatures
 | For <customer> | For <us> |
 |----------------|----------|
 | <name, role, date> | <name, role, date> |
@@ -499,7 +521,9 @@ access in the region their data must stay in, and the security review usually le
            "flight, not money, and the desk's own choices give a baseline. Codeshare became its own "
            "slice with its own pass mark. Refunds went on the not-yet list, drafted for a person to "
            "approve until compliance signed a limit; on day 6 it signed the first decision in section 7, "
-           "a named approver for every refund over $400. The line that mattered most was in section 6: "
+           "a named approver for every refund over $400. Section 8 left the code with SkyWays and the "
+           "pattern with the vendor, and section 9 put you on call to Lena for a fortnight after "
+           "handover. The line that mattered most was in section 6: "
            "model access in the region the passengers' data must stay in, by day 5. It was met on paper. "
            "Access came in week one in the wrong region, nobody made one call to check it until day 13, "
            "and six days went ([step 5](../deliver/#mobilise))."},
@@ -880,7 +904,8 @@ Mark any input I did not give you as ASSUMED. Never invent a baseline."""},
            "recommendation was go with two conditions: no launch on a score, so if the lower bound on "
            "500 of their cases fell short the shadow would run first; and the experts' hours to label "
            "those 500, committed by the contact-centre head. Ines signed both. On day 45 the first "
-           "held: 82.4%, lower bound 79.1%, and the shadow started instead of the launch. One thing was "
+           "condition applied: 82.4% on the 500, but a lower bound of 79.1%, under the statement's 80%, "
+           "so the shadow started instead of the launch. One thing was "
            "lost. The proof's 200 labelled cases went with its sandbox, so the project's first "
            "evaluation was seeded with twelve cases written by hand on a Friday, none of them "
            "codeshare, and its 94% was believed for a fortnight."},

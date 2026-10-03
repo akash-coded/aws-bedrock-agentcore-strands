@@ -243,9 +243,9 @@ Recommend one next frame at most. Do not rank by volume alone, and never by who 
               "request; three customers' reads as a gap. No customer's name, data or terms leaves "
               "its own row."},
    {"do": "Check who owns each copy before you propose a shared one",
-    "detail": "Read each statement of work's clause on who owns what you built. Where the customer "
-              "owns their copy, the shared version is written fresh from the pattern, never "
-              "assembled from their code, and the entry says so."},
+    "detail": "Read the clause in each statement of work on who owns what you built "
+              "([step 2](../frame/#scope)). Where the customer owns their copy, the shared version is "
+              "written fresh from the pattern, never assembled from their code, and the entry says so."},
    {"do": "Send model gaps to research with the failing cases",
     "detail": "A gap in the model, not in your code, goes to the people who train it: the slice, the "
               "score and its lower bound, ten failing cases labelled by the customer's experts, and "

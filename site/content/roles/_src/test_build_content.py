@@ -250,7 +250,7 @@ def test_a_stem_without_files_is_skipped():
 def test_the_records_and_the_hub_keep_their_rules():
     assert fs.check() == [], fs.check()
     assert fde_hub.check() == [], fde_hub.check()
-    assert len(fs.SOURCES) == 30 and all(q["source"] in fs.SOURCES for q in fs.QUOTES.values())
+    assert len(fs.SOURCES) == 31 and all(q["source"] in fs.SOURCES for q in fs.QUOTES.values())
 
 
 def test_the_hub_refuses_what_does_not_exist():
@@ -295,7 +295,7 @@ def test_a_date_turns_amber_after_sixty_days():
         cite = fs.cite("S1")
         assert 'class="stale"' in cite and "checked 2 Oct 2026" in cite and "jobs.ashbyhq.com" in cite
         assert "OpenAI" in cite and 'href="https://jobs.ashbyhq.com/openai/' in cite
-        assert len(fs.warnings()) == 29
+        assert len(fs.warnings()) == 28             # every record but the three checked on 3 October
     finally:
         if keep is None:
             os.environ.pop("TOOLS_TODAY", None)
