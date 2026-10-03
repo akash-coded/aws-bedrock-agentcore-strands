@@ -131,7 +131,8 @@
       e.fillStyle = gr; e.fillRect(0, 0, W, H);
     });
   }
-  function blit(img) { ctx.drawImage(img, cx - cam * cx0, cy - cam * cy0, W * cam, H * cam); }
+  // close up, the layers are magnified unsmoothed: filtering them was most of the close shot's cost
+  function blit(img) { ctx.imageSmoothingEnabled = cam === 1; ctx.drawImage(img, cx - cam * cx0, cy - cam * cy0, W * cam, H * cam); ctx.imageSmoothingEnabled = true; }
 
   var P = [0, 0, 0];
   function spot(u, up) {
