@@ -232,8 +232,8 @@ def _visuals() -> dict[str, dict]:
         "board:pdlc": (boards.pdlc, "The agentic PDLC: four phases, one hard gate between P1 and P2, and a "
                        "line from P3 back to the next P0", "method/#pdlc"),
         # a lesson draws these two boards a fifth smaller than their own pages do, so it asks for larger type
-        "board:loops": (lambda: boards.loops(16), "Eight loops that run every team's workflow: five carry work forward, "
-                        "three run backwards and need a named owner", "method/#loops"),
+        "board:loops": (lambda: boards.loops(16), "Eight loops that run every team's workflow: five carry work "
+                        "forward, and three need a named owner", "method/#loops"),
         "board:by_role": (boards.by_role, "Each role across the four phases, including the cells that should "
                           "stay empty", "method/#by-role"),
         "board:delegation": (boards.delegation, "Where the model helps and where it must not: the model drafts, "
@@ -1343,7 +1343,8 @@ def llms_txt(tracks: list[Track]) -> str:
               f"- [The operating protocol]({BASE_URL}protocol/): for whoever funds the work; the four decisions only leadership can make",
               f"- [Twelve mental models]({BASE_URL}models/): what each predicts, the mistake it prevents, and a test for whether it landed",
               f"- [Frameworks, acronyms and the pictures]({BASE_URL}frameworks/): AI-DLC, AIDD, BMAD and SDD placed on one lifecycle",
-              f"- [Templates]({BASE_URL}templates/) and [prompts]({BASE_URL}prompts/): every artefact skeleton and every prompt, copyable",
+              f"- [Templates]({BASE_URL}templates/) and [prompts]({BASE_URL}prompts/): the role journeys' artefact skeletons and prompts, "
+              "copyable, by role; the forward-deployed engineer's are on the guide's stage pages",
               f"- [The wiki]({WIKI}): the method written down, with decision trees, formulas, scenarios and exercises", "",
               "## Optional", "",
               f"- [The method on one page]({BASE_URL}method/): the four phases, the eight loops, each role across the phases, and what a model may draft, as four boards",

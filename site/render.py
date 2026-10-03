@@ -769,13 +769,13 @@ def library_page(roles: list[dict], kind: str, guide: dict | None = None) -> str
     <li><b>Copy and fill.</b><span>Press Copy, paste it into your document, and replace every angle bracket with your own material. Delete what does not apply; do not leave a placeholder.</span></li>
     <li><b>Hand it on.</b><span>Check the "Good looks like" line, then give it to the person the step names. The step it comes from explains every field.</span></li></ol></div>
   <div class="card ex"><h3 class="h4">One of them, filled in</h3>
-    <p style="font-size:13.5px;margin:0 0 8px">The pain register, after two discovery calls at SkyWays:</p>
+    <p style="font-size:13.5px;margin:0 0 8px">The pain register's first line at SkyWays, from six interviews and the Q2 ticket export:</p>
 <pre class="exblk"><code># Pain register · SkyWays rebooking
-Pain: Rebooking after a cancellation takes 40 minutes on the phone
+Pain: Disrupted passengers wait an average of 38 minutes for a rebooking decision
 Who said it: 6 of 6 transcripts (3 agents, 3 passengers)
-Count: 1,850 a month (ticket export, June)
-Cost per case: $11.20 agent time + $38 goodwill credit when it goes wrong
-Source: tickets tagged REBOOK, Jan to Jun
+Count: 240 a day; 11% codeshare
+Cost per case: $9.40, measured
+Source: Q2 ticket export, tickets tagged REBOOK
 Owner of the number: Priya (PM)</code></pre>
     <p style="font-size:13.5px;margin:8px 0 0">One line per pain, every number with a source. That is what turns a vibe into something a sponsor can fund.</p></div>
 </div></div>"""
@@ -1022,7 +1022,7 @@ def method_page() -> str:
     one question. They keep their ids, so a link to #loops still lands on the loops."""
     from pages import boards, bb, illos
     asks = [("pdlc", "What happens in each phase?", "The four phases and the one hard gate"),
-            ("loops", "What brings production back?", "Eight loops, three of them backwards"),
+            ("loops", "What brings production back?", "Eight loops, three with nobody waiting"),
             ("by-role", "Who does what, and when?", "Five roles across the four phases"),
             ("delegation", "What may a model draft?", "And the one thing per step that stays with you")]
     jump = "".join(f'<li><a href="#{i}"><b>{_E(q)}</b><span>{_E(a)}</span></a></li>' for i, q, a in asks)
@@ -1238,8 +1238,10 @@ def search_index(roles: list[dict]) -> str:
         {"t": "Four decisions only you can make", "d": "For whoever funds the work: the question to ask about each decision at your next review, a test for each answer, ninety days and your first thirty.", "u": "protocol/", "k": "Leadership"},
         {"t": "The SkyWays PDLC on one page", "d": "Four phases, one hard gate, eight loops, each role across the phases, and what a model may draft.", "u": "method/", "k": "Method"},
         {"t": "Frameworks, acronyms and the pictures", "d": "AI-DLC, AIDD, BMAD and SDD on one lifecycle; every acronym; the risk ladder and chained probability.", "u": "frameworks/", "k": "Reference"},
-        {"t": "Artefact templates", "d": "Every artefact skeleton, copyable, by role.", "u": "templates/", "k": "Library"},
-        {"t": "Prompt templates", "d": "Every prompt in the manual as a template, copyable, by role.", "u": "prompts/", "k": "Library"},
+        {"t": "Artefact templates", "d": "Every artefact skeleton of the role journeys, copyable, by role. The forward-deployed "
+                                         "engineer's are on the guide's stage pages.", "u": "templates/", "k": "Library"},
+        {"t": "Prompt templates", "d": "Every prompt of the role journeys as a template, copyable, by role. The forward-deployed "
+                                       "engineer's are on the guide's stage pages.", "u": "prompts/", "k": "Library"},
 {"t": "The picture pack", "d": "Every diagram of the method as an image to share, with a caption, light and dark.", "u": "pictures/", "k": "Library"},
         {"t": "Ninety Days, the simulator", "d": "The SkyWays case as a game: thirteen decisions, each with a price in days, and consequences that arrive later. Play one role, the whole team, or the sponsor.", "u": "simulator/", "k": "Play"},
         {"t": "The workbench", "d": "Thirteen episodes in depth, nine step-through simulations, seventeen calculators and the role playbooks.", "u": "workbench/", "k": "Play"},

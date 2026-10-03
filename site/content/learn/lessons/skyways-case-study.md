@@ -6,7 +6,7 @@ description: A worked agentic AI case study: a fictional airline's rebooking ass
 dek: A case study with its failures left in. Four of the thirteen episodes go wrong, and they teach more than the nine that go right.
 level: Beginner
 keywords: agentic AI case study, AI agent case study, AI project example, AI rebooking assistant, generative AI case study airline, AI project lifecycle example, worked example AI delivery, AI product case study
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -109,10 +109,10 @@ them if they stay open. **Which three, and why do they need a named owner?**
 <details><summary>Show the answer</summary>
 
 **Day 75 (cost), day 82 (incident) and day 90 (governance).** The other loops close forward into the
-next phase, where someone needs the artefact and will ask for it. These three run backwards (cost into
-design, incident into the next frame, governance across the whole lifecycle), so nobody downstream is
-blocked when they stay open. Unless a named person owns each, the bill, the incident and the review of
-whether it is working all get handled once and never fed back.
+next phase, where someone needs the artefact and will ask for it. These three run backwards or across
+(cost into design, incident into the next frame, governance across the whole lifecycle), so nobody
+downstream is blocked when they stay open. Unless a named person owns each, the bill, the incident and
+the review of whether it is working all get handled once and never fed back.
 
 </details>
 

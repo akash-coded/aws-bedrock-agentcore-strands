@@ -71,7 +71,7 @@ with better manners.
 ### Step 2 · Name one person for each loop
 
 For each of the eight, write a name: a person, not a team. The five forward loops usually already
-have one. For the three backward-running loops, the honest first answer is often that nobody owns
+have one. For the three loops nobody waits for, the honest first answer is often that nobody owns
 them, and "absent" is the right word for that.
 
 ### Step 3 · Close the cost loop into the design
