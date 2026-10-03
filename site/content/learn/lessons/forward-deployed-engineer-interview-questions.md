@@ -332,7 +332,7 @@ customer would, then score me on scoping, evidence, security and handover.
 | Idea | Origin | Source |
 | --- | --- | --- |
 | The questions, frameworks and strong answers | **Original**: this tutorial | [AI-DLC and AIDD for FDEs](lesson:ai-dlc-for-forward-deployed-engineers) |
-| What an OpenAI FDE owns and how success is measured | **Borrowed**: public posting, September 2026 | [OpenAI careers: Forward Deployed Engineer](https://openai.com/careers/forward-deployed-engineer-(fde)-sf-san-francisco/) |
-| FDE deliverables such as MCP servers, sub-agents and agent skills | **Borrowed**: public posting, September 2026 | [Anthropic: Forward Deployed Engineer, Applied AI](https://job-boards.greenhouse.io/anthropic/jobs/5391021008) |
+| What an OpenAI FDE owns and how success is measured | **Borrowed**: public posting, read 2 October 2026 | [OpenAI: Forward Deployed Engineer (FDE), San Francisco](https://jobs.ashbyhq.com/openai/967f94aa-1706-4dba-ac89-bfbc2c38b688) |
+| FDE deliverables such as MCP servers, sub-agents and agent skills | **Borrowed**: public posting, read 2 October 2026 | [Anthropic: Forward Deployed Engineer, Paris](https://job-boards.greenhouse.io/anthropic/jobs/5391021008) |
 | Saying no as part of doing the job well | **Borrowed** | Orosz, G. (2025). [What are Forward Deployed Engineers?](https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers) *The Pragmatic Engineer* |
 | Tools that fail loudly; the agent loop's failure signatures | **Original**: this repository | [Failure Signature Catalog](repo:cheatsheets/frameworks/failure-signature-catalog.md) |

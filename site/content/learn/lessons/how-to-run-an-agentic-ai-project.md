@@ -6,7 +6,7 @@ description: Twelve steps from a vague request to an AI agent in production that
 dek: The whole lifecycle on one page, in the order you will do it. Each step links to the lesson that goes deeper.
 level: Beginner
 keywords: how to run an AI project, AI agent project plan, agentic AI project management, AI project steps, AI implementation roadmap, how to deliver an AI agent, AI project checklist
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 > [!TIP]
@@ -161,7 +161,7 @@ defending decisions nobody made on purpose.
 
 | If you are… | Do this | The AI-augmented shortcut |
 | --- | --- | --- |
-| **A forward-deployed engineer** | Use the twelve steps as the engagement plan, and make the phase exits the milestones in the statement of work. They are testable; dates are not. | Ask a model to turn the twelve steps into a customer-specific plan with an owner and an artefact per step. |
+| **A forward-deployed engineer** | Run this lesson's twelve steps inside [Deliver](site:forward-deployed-engineer/deliver/), the second stage of your own guide, and make their phase exits the milestones in the statement of work. They are testable; dates are not. | Ask a model to turn these twelve steps into a customer-specific plan for the Deliver stage, with an owner and an artefact per step. |
 | **A product manager or FDPM** | Track each slice by the step it has evidence for, not by percent complete. A slice "in build" without a bar is still in step 5. | Have a model audit the board and move each card back to the step its evidence supports. |
 | **A GenAI or agentic AI engineer** | Automate the evidence: the harness, the per-call log and the drift job make steps 8 to 12 cheap to prove. | Ask a coding agent to scaffold all three in the repository on day one. |
 

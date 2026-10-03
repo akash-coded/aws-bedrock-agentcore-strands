@@ -48,52 +48,63 @@ The job runs in three stages, Frame, Deliver and Evolve, each set out step by st
 [the forward-deployed engineer guide](site:forward-deployed-engineer/). This lesson is Deliver in
 depth: the weeks from the first day on site to the handover, run with AI-DLC and AIDD.
 
-## The field guide, step by step
+The guide's Deliver stage is four steps, 5 to 8, and this lesson walks the same weeks as eight moves:
 
-### Step 1 · Measure the pain in their data, in week one
+- **Moves 1 and 2** are step 5, [Mobilise](site:forward-deployed-engineer/deliver/#mobilise). Frame
+  measured the pain from one export and named the people (steps 1 and 2); in week one you measure the
+  pain again, from their records, and confirm who owns each risk.
+- **Moves 3 and 4** are step 6, [Sign](site:forward-deployed-engineer/deliver/#sign).
+- **Moves 5, 6 and 7** are step 7, [Build](site:forward-deployed-engineer/deliver/#build): the build,
+  the proof on their cases and the shadow run.
+- **Move 8** is step 8, [Hand over](site:forward-deployed-engineer/deliver/#hand-over).
+
+## The field guide, move by move
+
+### Move 1 · Measure the pain in their data, in week one
 
 Replace the pitch with a pain register line from the customer's own records: who, how often, what it
 costs, and the evidence. It is also your first test of their data access, which is usually the
-longest lead time you will meet. [P0 Frame](lesson:p0-frame)
+longest lead time you will meet. File every other lead-time item on day one too, before any code:
+model access in the region their data must stay in, the security review, change approvals.
+[P0 Frame](lesson:p0-frame)
 
-### Step 2 · Name their risk owner before you design anything
+### Move 2 · Name their risk owner before you design anything
 
 Find the person in the customer's organisation who can accept risk on each consequential action: money,
 identity, customer communications. If nobody can, you have found the first blocker, and it is not a
 technical one.
 
-### Step 3 · Run Inception as a mob, with their people
+### Move 3 · Run Inception as a mob, with their people
 
 AI-DLC's **Mob Elaboration** is well suited to a customer site: the AI proposes requirements and asks its
 clarifying questions, and the customer's own experts answer in the room. Record who answered what: the
 customer's decisions should carry the customer's names. [What is AI-DLC?](lesson:what-is-ai-dlc)
 
-### Step 4 · Get the authority budget signed by them
+### Move 4 · Get the authority budget signed by them
 
 Autonomy per action, the caps and the approvals are **theirs**: a table of actions, each with a level
-and an approver, signed by the risk owner from step 2. You then enforce every cap in a tool signature
+and an approver, signed by the risk owner from move 2. You then enforce every cap in a tool signature
 with tests, but you do not choose the numbers.
 [Guardrails that hold](lesson:ai-guardrails-that-hold)
 
-### Step 5 · Build with AIDD habits in their stack
+### Move 5 · Build with AIDD habits in their stack
 
 A context file in *their* repository, story files per bolt, exact code first, and a walking skeleton
-against *their* real system on day one. It will find the credentials, network and data problems while
-they are cheap. Start their lead-time items immediately: model access in the region their data must stay
-in, security review, change approvals. [AIDD](lesson:what-is-aidd)
+against *their* real system on the build's first day. It will find the credentials, network and data
+problems while they are cheap. [AIDD](lesson:what-is-aidd)
 
-### Step 6 · Prove it on their cases, in their pipeline
+### Move 6 · Prove it on their cases, in their pipeline
 
 Build the golden set from the customer's historical cases, tagged by the slices *they* care about, and
 wire the harness into *their* CI so the check outlives you. [Prove the bar](lesson:prove-ai-accuracy)
 
-### Step 7 · Shadow beside their staff
+### Move 7 · Shadow beside their staff
 
 A shadow run at a customer finds the rules that live in people's heads. At SkyWays, this manual's
 fictional airline, fourteen disagreements were all one rule: the evening shift never uses a certain
 partner after 18:00, because its transfer desk closes. No spec had it. [Shadow and cut-over](lesson:shadow-mode-and-cutover)
 
-### Step 8 · Hand over evidence and an owner, then leave
+### Move 8 · Hand over evidence and an owner, then leave
 
 Leave behind the evidence pack, the two-number report and, most important, a **named person in their
 organisation** who owns the running system: the drift watch, the rollback switches, the next brief. A
