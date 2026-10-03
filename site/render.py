@@ -1023,7 +1023,7 @@ def method_page() -> str:
     from pages import boards, bb, illos
     asks = [("pdlc", "What happens in each phase?", "The four phases and the one hard gate"),
             ("loops", "What brings production back?", "Eight loops, three with nobody waiting"),
-            ("by-role", "Who does what, and when?", "Five roles across the four phases"),
+            ("by-role", "Who does what, and when?", "Five delivery roles across the four phases"),
             ("delegation", "What may a model draft?", "And the one thing per step that stays with you")]
     jump = "".join(f'<li><a href="#{i}"><b>{_E(q)}</b><span>{_E(a)}</span></a></li>' for i, q, a in asks)
     body = f"""<div class="wrap"><main id="main" class="page">
