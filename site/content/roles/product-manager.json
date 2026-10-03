@@ -362,7 +362,7 @@
    "ai": [
     {
      "tool": "Chat LLM (cheap tier)",
-     "use": "Shard a long PRD into per-feature eight-field specs. This is the single highest-leverage delegation in the role: mechanical, verifiable, and it takes you an hour by hand.",
+     "use": "Shard a long PRD into per-feature eight-field specs. This is the delegation that pays back most in the role: mechanical, verifiable, and it takes you an hour by hand.",
      "caution": "It will fill the five agentic fields with plausible guesses. Blank them out and decide each one yourself: the guesses are the exact thing you are trying to surface."
     },
     {

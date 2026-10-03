@@ -96,4 +96,4 @@ def build(shell, ctx: dict) -> str:
         head_extra=(FORWARD + NOSCRIPT + '<link rel="stylesheet" href="../play/game.css">'
                     '<script src="../play/sim.js" defer></script><script src="../play/art.js" defer></script>'
                     '<script src="../play/game.js" defer></script>'),
-        kind="simulator", og="home")
+        kind="simulator", og="simulator")

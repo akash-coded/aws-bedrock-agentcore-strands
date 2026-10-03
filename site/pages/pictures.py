@@ -279,7 +279,8 @@ def build(shell, urls: dict) -> str:
             {"@type": "ListItem", "position": 3, "name": "The picture pack", "item": base + "pictures/"}]}]}
     return shell(title="The picture pack · every diagram of the agentic PDLC, ready to share",
                  desc=f"{len(items)} diagrams, boards, decision trees and posters on the agentic PDLC: the four phases, the gates, "
-                      "the eight loops, every role, every lesson. Each with a caption, light and dark, free to reuse.",
+                      f"the eight loops, every role and {sum(i['group'] == 'lessons' for i in items)} lesson maps. "
+                      "Each captioned, light and dark, free to reuse.",
                  body=body, depth=1, nav_id="pictures", canonical=base + "pictures/", own_ld=True,
                  head_extra='<script type="application/ld+json">' + json.dumps(gallery_ld, ensure_ascii=False) + "</script>",
                  crumbs=[("Libraries", "../#library"), ("The picture pack", "")], tour=tour, kind="pictures", og="pictures")

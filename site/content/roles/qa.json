@@ -210,7 +210,7 @@
    ],
    "artifact": {
     "name": "Golden set (jsonl), tagged by slice",
-    "good": "One case per line, each with an id, a slice tag, a real redacted input and an expected outcome a person decided. Runnable by the harness with no transformation, versioned in the repo, and about half of it failing on the day it is frozen.",
+    "good": "One case per line, each with an id, a slice tag, a real redacted input and an expected outcome a person decided. Runnable by the harness as it is, versioned in the repo, and about half of it failing on the day it is frozen.",
     "owner": "QA lead, with the product manager on what counts as right"
    },
    "template": {

@@ -43,6 +43,7 @@ AUTHOR = "Akash Das"
 TITLE = "The SkyWays workbench · calculators, playbooks and the case in depth"
 DESCRIPTION = ("The workbench behind the agentic manual and its game: seventeen calculators, a playbook for each role, "
                "and ninety days of one fictional airline's agentic build in thirteen episodes. Built by Akash Das.")
+WB_IMG = render.og_image("workbench")   # the workbench's own social card, once it has been shot
 
 JSON_LD = {
     "@context": "https://schema.org",
@@ -51,7 +52,7 @@ JSON_LD = {
     "alternateName": "SkyWays workbench",
     "url": BASE_URL,
     "description": DESCRIPTION,
-    "image": BASE_URL + "assets/og.png",
+    "image": WB_IMG,
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
@@ -78,13 +79,13 @@ HEAD = f"""
 <meta property="og:title" content="{TITLE}">
 <meta property="og:description" content="{DESCRIPTION}">
 <meta property="og:url" content="{BASE_URL}workbench/">
-<meta property="og:image" content="{BASE_URL}assets/og.png">
+<meta property="og:image" content="{WB_IMG}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{TITLE}">
 <meta name="twitter:description" content="{DESCRIPTION}">
-<meta name="twitter:image" content="{BASE_URL}assets/og.png">
+<meta name="twitter:image" content="{WB_IMG}">
 <script type="application/ld+json">{json.dumps(JSON_LD, ensure_ascii=False)}</script>
 <link rel="stylesheet" href="../frame/frame.css">
 """

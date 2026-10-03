@@ -2028,6 +2028,8 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 }
 /* at 360 and under the bar holds the simulator's two-label pill too (88px) inside the 20px column */
 @media (max-width:360px){.hd .in{gap:3px}.hd .play{padding:0 9px;font-size:13px}}
+/* the game's pill says "Tutorial", 22px wider than "Play": on a 320px phone its glyph went, so the pill stays 25px clear of the wordmark */
+@media (max-width:340px){.hd .play:not(.wide) svg{display:none}}
 
 /* ==========================================================================================
    THE INSIDE — the reading pages, to the same standard as the front.

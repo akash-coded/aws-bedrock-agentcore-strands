@@ -1116,9 +1116,8 @@ def frameworks_page() -> str:
     body = (
         '<div class="wrap"><main id="main" class="page">'
         + page_head("The four methods", "The frameworks, and how they merge into P0 to P3",
-                    "AI-DLC, AIDD, BMAD and spec-driven development placed on one lifecycle, how their parts "
-                    "come together into the SkyWays PDLC, every acronym this manual uses, and where each framework came "
-                    "from, so you know how much to trust it.",
+                    "AI-DLC, AIDD, BMAD and spec-driven development on one lifecycle: how they merge into the "
+                    "SkyWays PDLC, every acronym decoded, and where each came from.",
                     aside='<div class="rowa"><b>On this page</b>'
                '<ol><li><a href="#methods">Four methods, one lifecycle</a></li>'
                '<li><a href="#merge">How they merge into the SkyWays PDLC</a></li>'

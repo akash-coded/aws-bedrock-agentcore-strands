@@ -475,7 +475,7 @@ def others_page(lab: dict, shell, ctx: dict) -> str:
                  desc=f'{o["lead"]} Each prompt as the lab shows it, every reply as its model wrote it, and the tables built from them.',
                  body=body, depth=3, nav_id="labs", canonical=f'{ctx["base"]}labs/{lab["slug"]}/others/',
                  head_extra='<link rel="stylesheet" href="../../../labs/lab.css">',
-                 crumbs=[("Labs", "../../"), (lab["title"], "../"), (o["title"], "")], kind="lab", og="home")
+                 crumbs=[("Labs", "../../"), (lab["title"], "../"), (o["title"], "")], kind="lab", og="labs")
 
 
 def _plain(lab: dict) -> str:
@@ -549,7 +549,7 @@ def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
                  desc=f'{lab["does"]} A hands-on lab: {lab["minutes"]} minutes, real recorded model replies, and you leave with {lab["makes"]}.',
                  body=body, depth=2, nav_id="labs", canonical=f'{ctx["base"]}labs/{lab["slug"]}/',
                  head_extra='<link rel="stylesheet" href="../../labs/lab.css"><script src="../../labs/lab.js" defer></script>',
-                 crumbs=[("Labs", "../"), (lab["title"], "")], kind="lab", og="home",
+                 crumbs=[("Labs", "../"), (lab["title"], "")], kind="lab", og="labs",
                  ctx={"lesson": (f'../../learn/{lab["lesson"][0]}/', lab["lesson"][1])} if lab.get("lesson") else None)
 
 
@@ -585,7 +585,7 @@ def hub(labs: list[dict], shell, ctx: dict) -> str:
                  desc="Hands-on labs on one airline case: assemble a prompt, read a real model's recorded reply, catch what is wrong, "
                       "and leave each lab with the document it makes, from the spec to the system prompt to the evidence pack.",
                  body=body, depth=1, nav_id="labs", canonical=f'{ctx["base"]}labs/',
-                 head_extra='<link rel="stylesheet" href="../labs/lab.css">', crumbs=[("Labs", "")], kind="labs", og="home")
+                 head_extra='<link rel="stylesheet" href="../labs/lab.css">', crumbs=[("Labs", "")], kind="labs", og="labs")
 
 
 def render(put, shell, ctx: dict) -> None:

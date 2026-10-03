@@ -816,7 +816,7 @@ def index_page(shell, ctx: dict) -> str:
                  desc="Seven jobs a team does with AI, and the tool Claude, ChatGPT and Codex, and Google each offer for it, "
                       "with its status and a dated fact linked to the vendor's own page.",
                  body=body, depth=1, nav_id="tools", canonical=f'{ctx["base"]}tools/',
-                 crumbs=[("Libraries", "../#library"), ("Tool guides", "")], tour=tour, kind="tools", og="home")
+                 crumbs=[("Libraries", "../#library"), ("Tool guides", "")], tour=tour, kind="tools", og="tools")
 
 
 def _rail() -> str:
@@ -893,7 +893,7 @@ def manual_page(m: dict, shell, ctx: dict) -> str:
                  desc=f'{m["lede"]} Five moves at a fictional airline with the real prompt, three settings, the traps, '
                       f'and every fact with its source and date.',
                  body=body, depth=2, nav_id="tools", canonical=f'{ctx["base"]}tools/{m["slug"]}/',
-                 crumbs=[("Libraries", "../../#library"), ("Tool guides", "../"), (m["name"], "")], kind="tools", og="home",
+                 crumbs=[("Libraries", "../../#library"), ("Tool guides", "../"), (m["name"], "")], kind="tools", og="tools",
                  ctx={"lesson": (LAB, "The lab")})
 
 

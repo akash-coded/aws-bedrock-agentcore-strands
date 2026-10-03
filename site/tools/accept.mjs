@@ -905,7 +905,9 @@ console.log("\n17. the bytes: base.css, the scripts, every page's HTML, the home
     // where the run stands), which took the three scripts to 45.97 KB after the savings in site/GAME.md; 46 is that, rounded up to the next half KB.
     if (game >= 46) out.push(`the game's scripts are ${game.toFixed(1)} KB gzipped; the budget is 46`);
     const hero = kb("theme/hero.js"); if (hero >= 10) out.push(`theme/hero.js is ${hero.toFixed(1)} KB gzipped; the budget is 10 (council 10)`);
-    const pages = files.filter((f) => f.endsWith(".html")), over = [];
+    // build.py --shots writes two sheets for the shooting tools (learn/_shots/, og/_sheet.html); CI builds without
+    // --shots, so neither is deployed and neither is a page a reader loads
+    const pages = files.filter((f) => f.endsWith(".html") && !f.startsWith("learn/_shots/") && !f.startsWith("og/")), over = [];
     let most = { f: "", n: 0 };
     for (const f of pages) { const n = kb(f), cap = HELD[f] || 25; if (n >= cap) over.push(`${f} ${n.toFixed(1)} KB (${cap})`); if (!HELD[f] && n > most.n) most = { f, n }; }
     if (over.length) out.push("pages over their budget: " + over.join(", "));
