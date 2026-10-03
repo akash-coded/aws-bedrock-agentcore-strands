@@ -7,8 +7,9 @@
 // Eighteen passes, most over one page of each kind, in headless Chrome over the DevTools protocol (the same
 // approach as shoot.mjs, so there is nothing to install):
 //
-//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, undrawn), and
-//                            the simulator shows its thirteen days as text
+//    1. no script            nothing a reader needs is left hidden (opacity 0, scaled to nothing, clipped away);
+//                            the simulator shows its thirteen days as text; the home page's close is a plain link
+//                            to the repository's discussions page, and the page prints no address
 //    2. reduced motion       nothing hidden, and no animation running at all
 //    3. nothing waits        with motion allowed, 700ms after load nothing on the whole page is hidden: no
 //                            entrance, no part that waits to be scrolled to. After four seconds the only things
@@ -43,14 +44,18 @@
 //                            first paint, while the game's own script has still not arrived; when the rules fail to
 //                            load, the text comes back
 //   17. the bytes            read from the built site with node's zlib (level 9): base.css under 32 KB as shipped
-//                            (the build drops its comments), the game's three scripts under 46 KB, every page's
-//                            HTML under 25 KB (the pages that were already
-//                            larger on 2 October 2026 each held to its size that day, rounded up, plus one KB), and
-//                            no font file but the four the site has
+//                            (the build drops its comments), the game's three scripts under 46 KB, theme/hero.js
+//                            under 10 KB, frame/frame.js (every page loads it) under 6 KB; every page's HTML under
+//                            25 KB (the pages that were already larger on 2 October 2026 each held to its size that
+//                            day, rounded up, plus one KB); the home page's HTML under 21 KB with no <style> block,
+//                            and everything a first visit to it asks for, scrolled to the end, under 176 KB
+//                            (council 10); and no font file but the four the site has
 //   18. map height           every page under learn/ in the sitemap, at 1440 x 900: the figure that holds a lesson's
 //                            map (data-map, from pages/maps.py) is at most 630px tall, 70% of the screen (council 9)
 //
-// Every pass first checks that the page really loaded: its top bar is there and styled. It exits 1 if
+// Every pass first checks that the page really loaded: its top bar is there and styled. Passes 1 to 4 and 8 look
+// for the parts script or an animation may hide (HIDDEN); on the home page each of its parts there must be found,
+// so a class renamed in the markup fails the pass instead of leaving nothing checked. It exits 1 if
 // any pass fails and prints what failed. It measures; it does not judge taste: for that, look. The hero can
 // be put at any second of its clock with window.GlobeAt(seconds), and site/tools/herosheet.mjs lays twelve
 // moments of its flight, the rest among them, at five widths on sheets for a person to look at before a release.
@@ -132,18 +137,27 @@ const evaluate = async (expression) => {
   return r.result.value;
 };
 
-// Things that script or an animation may hide, and must have shown by now.
+// Things that script or an animation may hide, and must have shown by now: first the home page's parts, band by
+// band in the order of verdict-home 1.0, then other pages' parts.
+const HOME_PARTS = [".hero2 .hx>*", ".sc-rail li",   // the hero: its words, and the rail a reader without script sees
+  ".sec-h>*",                                          // each band's eyebrow, heading and line
+  ".vm-p", ".vm-pl", ".vm-n", ".vm-q>li",              // the methods: the map's phase heads, shapes, notes and questions
+  ".pk-c",                                             // your team: the chooser's four columns, three of them fieldsets
+  ".seats a",                                          // by role
+  "#tutorial .q", "#tutorial .q svg.sk>*",             // the tutorial: the four people and their drawings
+  ".daycard", ".daycard *", ".dc-ex",                  // the simulator: the day card and its "Example day" pill
+  ".lib .fl", ".lib .fl-p>*", ".lib .shf",             // the library: the three tools, what their pictures show, six shelves
+  ".cx-in", ".cx-o>li"];                               // the close: its panel and its four offers
+const OTHER_PARTS = [".tg .tile", ".roadmap .rn", "main .sec", ".dgb", ".step>summary", ".mix a", ".lc", ".lk", "[data-reveal]>*",
+  "figure.fig>svg>*", ".mmg svg>*", "figure.sketch svg>*", ".prose>*"];
 const HIDDEN = `(() => {
-  const sel = '.hero2 .hx>*,.sc-rail li,.sec-h>*,.spine li,.spine .sp-core a,.spine .sp-trunk i,.spine .sp-loop,.spine .sp-back,.spine .sp-gate,' +
-    '.spine .sp-fun path,.spine .sp-craft,.spine .sp-note,.cover .bar,.seats a,.daycard,.daycard *,.tile,.roadmap .rn,main .sec,.dgb,' +
-    '.step>summary,.mix a,.lc,.lk,[data-reveal]>*,figure.fig>svg>*,.mmg svg>*,figure.sketch svg>*,.prose>*';
+  const sel = ${JSON.stringify([...HOME_PARTS, ...OTHER_PARTS].join(","))};
   const bad = {};
   document.querySelectorAll(sel).forEach((e) => {
     const cs = getComputedStyle(e);
     let why = '';
     if (+cs.opacity < 0.05) why = 'opacity ' + cs.opacity;
     else if (cs.scale && /^0(\\s|$)/.test(cs.scale)) why = 'scaled to nothing';
-    else if (e.matches('.spine .sp-fun path') && parseFloat(cs.strokeDashoffset) > 0.01) why = 'not drawn';
     else if (/inset\\([^)]*100%/.test(cs.clipPath)) why = 'clipped away';
     if (why) {
       const cls = (e.className.baseVal ?? e.className ?? '').toString().split(' ')[0];
@@ -153,6 +167,31 @@ const HIDDEN = `(() => {
   });
   return bad;
 })()`;
+// The guard (council 10): on the home page, its parts above that match nothing there. It is read wherever HIDDEN is
+// read, so a class renamed in the markup and not here fails the pass instead of leaving that part unchecked.
+const HOME = new URL(BASE).href.replace(/[?#].*$/, "");
+const ON_HOME = `(location.origin + location.pathname === ${JSON.stringify(HOME)})`;
+const UNMATCHED = `(${ON_HOME} ? ${JSON.stringify(HOME_PARTS)}.filter((s) => !document.querySelector(s)) : [])`;
+// Everything a first visit to the home page asks for, scrolled to the end (council 10), read from the built site: the
+// files index.html names that a browser fetches (its stylesheets, preloads, icon, scripts and pictures) and the fonts
+// those stylesheets name. Text counts gzipped (level 9); pictures and fonts, already compressed, count as they are.
+// Pass 17 holds the sum to 176 KB; the home pass checks that a first visit really asks for nothing else.
+function firstVisit() {
+  const site = new URL("../_site/", import.meta.url).pathname, html = readFileSync(site + "index.html", "utf8"), files = new Set(["index.html"]);
+  const local = (u, from) => { const x = new URL(u, "http://site/" + from); return x.origin === "http://site" ? decodeURIComponent(x.pathname.slice(1)) : null; };
+  for (const [t, tag] of html.matchAll(/<(link|script|img|source|video|audio)\b[^>]*>/gi)) {
+    if (/^link$/i.test(tag) && !/\srel="[^"]*\b(stylesheet|icon|preload|modulepreload|manifest)\b/i.test(t)) continue;
+    for (const [, u] of t.matchAll(/\s(?:href|src|poster)="([^"]+)"/gi)) { const f = local(u, ""); if (f) files.add(f); }
+  }
+  for (const css of [...files].filter((f) => f.endsWith(".css") && existsSync(site + f))) {
+    for (const [, u] of readFileSync(site + css, "utf8").matchAll(/url\(\s*["']?([^"')]+?\.(?:woff2?|ttf|otf)(?:[?#][^"')]*)?)["']?\s*\)/gi)) {
+      const f = local(u, css); if (f) files.add(f);
+    }
+  }
+  const missing = [...files].filter((f) => !existsSync(site + f));
+  const size = (f) => { const b = readFileSync(site + f); return /\.(png|jpe?g|gif|webp|avif|woff2?)$/i.test(f) ? b.length : gzipSync(b, { level: 9 }).length; };
+  return { files: [...files], missing, bytes: [...files].filter((f) => !missing.includes(f)).reduce((n, f) => n + size(f), 0) };
+}
 const RUNNING = `(() => {
   const o = {};
   document.getAnimations().forEach((a) => {
@@ -174,6 +213,12 @@ try {
 await send("Page.enable");
 await send("Runtime.enable");
 const list = (o) => Object.entries(o).map(([k, v]) => `${k} x${v}`).join(", ");
+// what HIDDEN finds, as a pass's failures; and on the home page, each of its parts that is no longer there (the guard)
+const hidden = async (say = "hidden", expr = HIDDEN) => {
+  const h = await evaluate(expr), gone = await evaluate(UNMATCHED);
+  return [...(Object.keys(h).length ? [`${say}: ${list(h)}`] : []),
+    ...(gone.length ? [`nothing on the home page matches ${gone.join(", ")}, which HIDDEN looks for there`] : [])];
+};
 
 async function pass(label, { width, height, reduce = false, noscript = false, wait = 4200, print = false }, check) {
   await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: width < 600 });
@@ -196,16 +241,26 @@ async function pass(label, { width, height, reduce = false, noscript = false, wa
 
 // the simulator's thirteen days as text, for a reader without script: shown, and saying why
 const PLAIN = `(() => { const p = document.querySelector('.nd-plain'); return p ? getComputedStyle(p).display !== 'none' && p.getBoundingClientRect().height > 400 && /The game needs script to run/.test(p.textContent) : null; })()`;
+// the home page's close for a reader without script (council 10, H8): its one button a plain link to the repository's
+// discussions page, shown, and no address printed anywhere in the page
+const CLOSE = `(() => { if (!${ON_HOME}) return null;
+  const a = document.querySelector('#work-with-us .btn'), r = a ? a.getBoundingClientRect() : null;
+  return { href: a ? a.getAttribute('href') : '', shown: !!r && r.width > 0 && r.height > 0 && getComputedStyle(a).visibility !== 'hidden',
+    mailto: document.documentElement.outerHTML.includes('mailto:') }; })()`;
 await pass("1. no script: nothing left hidden", { width: 1280, height: 800, noscript: true, wait: 3200 }, async () => {
-  const h = await evaluate(HIDDEN), out = Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  const out = await hidden();
   if ((await evaluate(PLAIN)) === false) out.push("without script the thirteen days as text are not shown");
+  const c = await evaluate(CLOSE);
+  if (c) {
+    if (!/^https:\/\/github\.com\/[^/]+\/[^/]+\/discussions\/?$/.test(c.href)) out.push(`without script the close's button goes to "${c.href}", not the repository's discussions page`);
+    if (!c.shown) out.push("without script the close's button is not shown");
+    if (c.mailto) out.push("the home page carries a mailto: address");
+  }
   return out;
 });
 await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, height: 800, reduce: true }, async () => {
-  const out = [];
-  const h = await evaluate(HIDDEN);
+  const out = await hidden();
   const r = await evaluate(RUNNING);
-  if (Object.keys(h).length) out.push("hidden: " + list(h));
   if (Object.keys(r).length) out.push("running: " + list(r));
   const f = await evaluate(FRAMES);
   if (f > 0) out.push(`the canvas drew ${f} frames`);
@@ -213,9 +268,7 @@ await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, 
   return out;
 });
 await pass("3. motion allowed: nothing waits for an animation", { width: 1280, height: 800, wait: 700 }, async () => {
-  const out = [];
-  const h = await evaluate(HIDDEN);                       // 700ms after load, the whole page, unscrolled
-  if (Object.keys(h).length) out.push("hidden 700ms after load: " + list(h));
+  const out = await hidden("hidden 700ms after load");   // the whole page, unscrolled
   await sleep(3400);
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
@@ -226,10 +279,8 @@ await pass("3. motion allowed: nothing waits for an animation", { width: 1280, h
   return out;
 });
 await pass("4. scrolled through, motion allowed: nothing hidden, nothing set off by the scroll", { width: 1280, height: 800, wait: 1800 }, async () => {
-  const out = [];
   await evaluate(SCROLL_THROUGH);
-  const h = await evaluate(HIDDEN);
-  if (Object.keys(h).length) out.push("hidden: " + list(h));
+  const out = await hidden();
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
   if (Object.keys(stray).length) out.push("moving after the scroll: " + list(stray));
@@ -262,8 +313,7 @@ await pass("8. print: nothing left hidden on paper", { width: 1280, height: 800,
   // the hero's picture is a screen thing: paper does not carry it
   const paper = HIDDEN.replace(".sc-rail li,", "");
   if (paper === HIDDEN) throw new Error("the selector for the hero's picture no longer matches");
-  const h = await evaluate(paper);
-  return Object.keys(h).length ? ["hidden: " + list(h)] : [];
+  return hidden("hidden", paper);
 });
 await pass("9. the top bar: the pill never points at the page it is on", { width: 1280, height: 800, reduce: true, wait: 1200 }, async () => {
   const out = [];
@@ -812,7 +862,7 @@ console.log("\n16. the game's first paint: the text for a reader without script 
 // written are each held to what they were (rounded up, plus one KB), so they can shrink and never grow.
 // One hold was raised since, on purpose: the picture pack (pictures/index.html, 29 to 38) on 2 October 2026, when it
 // gained the thirty lesson sketches and the leadership page's map, each with its card and its image data.
-console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, the fonts");
+console.log("\n17. the bytes: base.css, the scripts, every page's HTML, the home page's first visit, the fonts");
 {
   const out = [], SITE = new URL("../_site/", import.meta.url).pathname;
   const kb = (f) => gzipSync(readFileSync(SITE + f), { level: 9 }).length / 1024;
@@ -845,11 +895,22 @@ console.log("\n17. the bytes: base.css, the game's scripts, every page's HTML, t
       guide[f] = kb(f);
       if (guide[f] >= cap) out.push(`${f} is ${guide[f].toFixed(2)} KB gzipped; the FDE guide's budget for it is ${cap}`);
     }
+    // The home page (council 10): its HTML under 21 KB, with no <style> block (its rules belong in base.css, which is
+    // cached and ships without comments); everything a first visit asks for, scrolled to the end, under 176 KB
+    // (firstVisit, above). And frame/frame.js, which every page loads: 5.4 KB on 3 October 2026, when it gained the
+    // consultancy's topic, so 6 leaves room for one more feature without inviting drift.
+    const home = kb("index.html"), visit = firstVisit(), frame = kb("frame/frame.js");
+    if (home >= 21) out.push(`the home page's HTML is ${home.toFixed(1)} KB gzipped; the budget is 21 (council 10)`);
+    if (/<style\b/i.test(readFileSync(SITE + "index.html", "utf8").replace(/<script\b[\s\S]*?<\/script>|<!--[\s\S]*?-->/gi, ""))) out.push("the home page carries a <style> block; its rules belong in base.css");
+    if (visit.missing.length) out.push(`the home page names ${visit.missing.join(", ")}, which the build did not make`);
+    if (visit.bytes / 1024 >= 176) out.push(`a first visit to the home page asks for ${(visit.bytes / 1024).toFixed(1)} KB in ${visit.files.length} files; the budget is 176 (council 10)`);
+    if (frame >= 6) out.push(`frame/frame.js is ${frame.toFixed(2)} KB gzipped; the budget is 6`);
     const fonts = files.filter((f) => /\.(woff2?|ttf|otf|eot)$/i.test(f)).sort();
     if (fonts.join(" ") !== FONTS.join(" ")) out.push(`the font files are ${fonts.join(", ")}`);
     const remote = pages.filter((f) => /fonts\.(googleapis|gstatic)\.com/.test(readFileSync(SITE + f, "utf8")));
     if (remote.length) out.push(`a page asks a font host for a font: ${remote.slice(0, 3).join(", ")}`);
-    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts, the FDE guide's stylesheet ${guide["theme/fde.css"].toFixed(1)} KB and its hub ${guide["forward-deployed-engineer/index.html"].toFixed(1)}`);
+    if (!out.length) console.log(`  ok   base.css ${css.toFixed(1)} KB, the game's scripts ${game.toFixed(1)} KB, ${pages.length} pages (the largest held to 25 KB is /${most.f.replace(/index\.html$/, "")} at ${most.n.toFixed(1)}), four fonts, the FDE guide's stylesheet ${guide["theme/fde.css"].toFixed(1)} KB and its hub ${guide["forward-deployed-engineer/index.html"].toFixed(1)}; ` +
+      `the home page ${home.toFixed(1)} KB and a first visit to it ${(visit.bytes / 1024).toFixed(1)} KB in ${visit.files.length} files, hero.js ${hero.toFixed(1)} KB, frame.js ${frame.toFixed(1)} KB`);
   }
   if (out.length) { failures += out.length; console.log("  FAIL  " + out.join("; ")); }
 }
@@ -973,9 +1034,73 @@ console.log("\n18. every lesson at 1440 x 900: the map at most 630px tall, the m
 // each called at 1440 x 900 and at 390 x 844 on a fresh load of the home page (dark, reduced motion, at the top). A
 // function returns its failures as sentences; one that needs another state (motion, the light theme, a hover, a
 // scroll) sets it itself. A parcel writes only inside its own function, between its own two comments, and never
-// edits the list that calls them, so parcels built side by side never touch the same lines.
-console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 and 390 x 844");
+// edits the list that calls them, so parcels built side by side never touch the same lines. Before the bands, the
+// gate's own parcel (H10) checks the page as a whole: its order, its headings, its height and its first visit.
+console.log("\n19. the home page: its order, headings and height, then each band's own checks at 1440 x 900 and 390 x 844");
 {
+  // home · H10 the page: its order, headings and height
+  // Top to bottom as verdict-home 1.0 has it: the hero, then in main the seven bands in order, each with its eyebrow
+  // and heading (the simulator's "ninety-day" carries a non-breaking hyphen, U+2011, read here as a hyphen), each
+  // below the one before, then the footer; one h1, and main's h2s are the seven headings and no others. The page is
+  // 8,700px tall or less at 1440 and 13,200 or less at 390. And a first visit, cache off and scrolled to the end, asks
+  // for no file that pass 17's count of its bytes (firstVisit) leaves out.
+  const ORDER = [["top", "The agentic manual", "One manual for building software with AI agents."],
+    ["methods", "The methods", "How AI-DLC, BMAD and the rest fit together."],
+    ["choose", "Your team", "Which agentic methods should your team use?"],
+    ["roles", "By role", "Start from the job you do."],
+    ["tutorial", "The tutorial", "Learn to run agent projects one question at a time."],
+    ["simulator", "The simulator", "Play a ninety-day AI project in fifteen minutes."],
+    ["library", "The library", "Take the tools, templates and prompts with you."],
+    ["work-with-us", "SkyWays Consultancy", "Work with the consultancy that wrote this manual."]];
+  const TALL = { 1440: 8700, 390: 13200 }, tall = {};
+  async function pageH10(w, h) {
+    const out = [];
+    const m = await evaluate(`(async () => {
+      await document.fonts.ready;
+      const say = (e) => (e ? e.textContent.replace(/\\u2011/g, '-').replace(/\\s+/g, ' ').trim() : ''), main = document.querySelector('main'), hero = document.getElementById('top');
+      const bands = ${JSON.stringify(ORDER.map(([id]) => id))}.map((id) => { const b = document.getElementById(id), r = b ? b.getBoundingClientRect() : null;
+        return { id, there: !!b, eyebrow: say(b && b.querySelector('.eyebrow')), heading: say(b && b.querySelector(id === 'top' ? 'h1' : 'h2')),
+          top: r ? Math.round(r.top + scrollY) : 0, bottom: r ? Math.round(r.bottom + scrollY) : 0 }; });
+      return { bands, kids: main ? [...main.children].filter((e) => e.tagName === 'SECTION').map((e) => e.id || 'a section with no id') : [],
+        h1: document.querySelectorAll('h1').length, h2: main ? [...main.querySelectorAll('h2')].map(say) : [],
+        heroFirst: !!hero && hero.nextElementSibling === main, footer: !!main && main.nextElementSibling?.tagName === 'FOOTER', tall: document.documentElement.scrollHeight };
+    })()`);
+    const ids = ORDER.slice(1).map(([id]) => id);
+    if (m.kids.join() !== ids.join()) out.push(`main's bands run ${m.kids.join(", ") || "nowhere"}; verdict-home 1.0 runs ${ids.join(", ")}`);
+    if (!m.heroFirst) out.push("main does not follow the hero (#top)");
+    if (!m.footer) out.push("the footer does not follow main");
+    m.bands.forEach((b, i) => {
+      const [, eyebrow, heading] = ORDER[i];
+      if (!b.there) return out.push(`there is no #${b.id}`);
+      if (b.eyebrow !== eyebrow) out.push(`#${b.id}'s eyebrow reads "${b.eyebrow}", not "${eyebrow}"`);
+      if (b.heading !== heading) out.push(`#${b.id}'s heading reads "${b.heading}", not "${heading}"`);
+      if (i && b.top < m.bands[i - 1].bottom - 1) out.push(`#${b.id} starts at ${b.top}px, above the end of #${m.bands[i - 1].id} (${m.bands[i - 1].bottom}px)`);
+    });
+    if (m.h1 !== 1) out.push(`the page has ${m.h1} h1s; one`);
+    const others = m.h2.filter((t) => !ORDER.some(([, , heading]) => heading === t));
+    if (m.h2.length !== 7) out.push(`main has ${m.h2.length} h2s${others.length ? ` ("${others.join('", "')}" among them)` : ""}; the seven headings of verdict-home 1.0 and no others`);
+    tall[w] = m.tall;
+    if (TALL[w] && m.tall > TALL[w]) out.push(`the page is ${m.tall.toLocaleString("en-GB")}px tall at ${w}; ${TALL[w].toLocaleString("en-GB")} is the most`);
+    // a first visit with motion allowed, the cache off, scrolled to the end: every file it asks for is one pass 17 counts
+    await send("Network.enable");
+    await send("Network.setCacheDisabled", { cacheDisabled: true });
+    await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "no-preference" }] });
+    await send("Page.navigate", { url: BASE });
+    await sleep(1500);
+    const asked = await evaluate(`(async () => { const end = document.documentElement.scrollHeight;
+      for (let y = 0; y < end; y += 400) { scrollTo({ top: y, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 60)); }
+      await new Promise((r) => setTimeout(r, 1200));
+      return performance.getEntriesByType('resource').map((e) => e.name); })()`);
+    await send("Network.setCacheDisabled", { cacheDisabled: false });
+    const counted = new Set(firstVisit().files), site = new URL(BASE);
+    const local = (u) => { const x = new URL(u); return x.origin === site.origin && x.pathname.startsWith(site.pathname) ? decodeURIComponent(x.pathname.slice(site.pathname.length)) || "index.html" : u; };
+    const missed = [...new Set(asked.filter((u) => !/^(data|blob):/.test(u)).map(local))].filter((f) => !counted.has(f));
+    if (!asked.length) out.push("the browser lists no request for a first visit, so the files it asks for could not be read");
+    if (missed.length) out.push(`a first visit asks for ${missed.join(", ")}, which pass 17 does not count`);
+    return out;
+  }
+  // end of home · H10
+
   // home · H3 map: the methods band, #methods
   async function bandH3(w, h) {
     // At 1440 x 900 with the eyebrow just under the header, the frame and its lower pill end inside the screen. At both
@@ -1222,11 +1347,9 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
     // or fewer and one link, to a lesson (a page whose main is .lm), never to a role page. Four across from
     // 1181px, two by two from 601 to 1180, one column at 600 and under, the picture on top. At 1440 x 900 with
     // the eyebrow under the header, every question and lesson link is in view. The handwriting is 13px or more
-    // at every width checked and 4.5:1 or more on its paper in both themes. The dark theme's toned paper and
-    // deeper pens are U1's (verdict-learn 4.3.3): on the paper before it, #E7E3DA, the red pen is 4.44:1, so
-    // the dark theme's contrast is held from the day U1's paper is in place.
+    // at every width checked and 4.5:1 or more on its paper in both themes (the dark theme's toned paper and deeper
+    // pens are U1's, verdict-learn 4.3.3).
     const out = [], JOBS = ["product manager", "solution architect", "engineering lead", "QA lead"];
-    const PAPER_BEFORE_U1 = "rgb(231, 227, 218)";
     const cards = await evaluate(`(async () => { await document.fonts.ready;
       return Promise.all([...document.querySelectorAll('#tutorial .qs > li')].map(async (c) => {
         const a = [...c.querySelectorAll('a[href]')], q = c.querySelectorAll('h3');
@@ -1273,7 +1396,7 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
       if (!dark.hand.length) out.push(`at ${x}px the drawings have no handwriting to measure`);
       const small = dark.hand.filter((t) => t.px < 13).sort((a, b) => a.px - b.px)[0];
       if (small) out.push(`at ${x}px the handwriting is ${small.px}px ("${small.t}"); 13 is the floor`);
-      const faint = dark.hand.filter((t) => t.cr < 4.5 && t.bg !== PAPER_BEFORE_U1).sort((a, b) => a.cr - b.cr)[0];
+      const faint = dark.hand.filter((t) => t.cr < 4.5).sort((a, b) => a.cr - b.cr)[0];
       if (faint) out.push(`at ${x}px, dark, the handwriting is ${faint.cr}:1 on its paper ("${faint.t}"); 4.5 is the floor`);
     }
     await evaluate(`document.documentElement.setAttribute('data-theme', 'light')`);
@@ -1547,8 +1670,8 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   // at 1440; at 390 the band within 1,300px, 20px inside the panel, 48px above and below it, each label on its
   // words' line. Every text on the panel 4.5:1 in both themes. With script the button opens the drawer on the
   // consultancy's topic and a message from it is tagged so, and the footer's button opens it on the drawer's own
-  // first choice; on paper the button prints where it goes; without script it is a link to the discussions
-  // page, and no address is printed in the page.
+  // first choice; on paper the button prints where it goes. Without script it is a link to the discussions page and
+  // no address is printed in the page: pass 1 reads that, on its load without script.
   async function bandH8(w, h) {
     const out = [];
     const m = await evaluate(`(() => { const b = document.querySelector('#work-with-us'); if (!b) return null;
@@ -1654,28 +1777,18 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
     await send("Emulation.setEmulatedMedia", { media: "print", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
     const after = await evaluate(`getComputedStyle(document.querySelector('#work-with-us .btn'), '::after').content`);
     if (!m.href || !after.includes(m.href)) out.push(`on paper the button does not print where it goes (${after})`);
-    // without script: a plain link to the discussions page, and no address anywhere in the page
     await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" }, { name: "prefers-reduced-motion", value: "reduce" }] });
-    await send("Emulation.setScriptExecutionDisabled", { value: true });
-    await send("Page.navigate", { url: BASE });
-    await sleep(1200);
-    await send("Emulation.setScriptExecutionDisabled", { value: false });
-    const plain = await evaluate(`(() => { const a = document.querySelector('#work-with-us .btn'), r = a ? a.getBoundingClientRect() : null;
-      return { href: a ? a.getAttribute('href') : '', shown: !!r && r.width > 0 && r.height > 0 && getComputedStyle(a).visibility !== 'hidden',
-        mailto: document.documentElement.outerHTML.includes('mailto:') }; })()`);
-    if (!/^https:\/\/github\.com\/[^/]+\/[^/]+\/discussions\/?$/.test(plain.href)) out.push(`without script the button goes to "${plain.href}", not the repository's discussions page`);
-    if (!plain.shown) out.push("without script the button is not shown");
-    if (plain.mailto) out.push("the page carries a mailto: address");
     return out;
   }
   // end of home · H8
 
+  const PAGE = ["H10 the page", pageH10];
   const BANDS = [["H3 map", bandH3], ["H4 chooser", bandH4], ["H5 people", bandH5], ["H6 day card", bandH6],
     ["H7 library", bandH7], ["H8 close", bandH8]];
   const out = [];
   thrown.length = 0;
   for (const [w, h] of [[1440, 900], [390, 844]]) {
-    for (const [name, check] of BANDS) {
+    for (const [name, check] of [PAGE, ...BANDS]) {
       await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
       await send("Emulation.setEmulatedMedia", { media: "", features: [{ name: "prefers-color-scheme", value: "dark" },
         { name: "prefers-reduced-motion", value: "reduce" }] });
@@ -1687,7 +1800,8 @@ console.log("\n19. the home page's bands: each band's own checks at 1440 x 900 a
   }
   if (thrown.length) out.push("script error: " + thrown[0]);
   if (out.length) { failures += out.length; console.log("  FAIL /  " + out.join("; ")); }
-  else console.log(`  ok   /  ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
+  else console.log(`  ok   /  the order and headings of verdict-home 1.0; ${tall[1440].toLocaleString("en-GB")}px tall at 1440 (8,700) and ${tall[390].toLocaleString("en-GB")} at 390 (13,200); ` +
+    `a first visit asks for what pass 17 counts; ${BANDS.length} bands, each checked at 1440 x 900 and 390 x 844`);
 }
 
 // 19. the forward-deployed engineer guide (council 10): the FDE paper's criteria 3 to 6 on the guide's four pages,
