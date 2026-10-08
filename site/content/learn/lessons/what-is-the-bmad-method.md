@@ -149,7 +149,7 @@ retry could reach production.
 
 1. **BMAD** is skills in your coding tool: five named agents and one Build loop.
 2. Each skill **writes a document the next one reads**, so decisions stay explicit.
-3. It **sizes itself**: use the full trail where people must agree or an auditor reads it, never as an identity.
+3. It **sizes itself**: use the full trail where people must agree or an auditor reads it, never because "we are a BMAD shop".
 
 ## FAQ
 

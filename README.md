@@ -347,8 +347,8 @@ the **[workbench](https://akash-coded.github.io/aws-bedrock-agentcore-strands/wo
 seventeen calculators that do the arithmetic on your own numbers. The **[wiki](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/The-Agentic-PDLC)** carries the method in writing,
 and the five role journeys have a [reading copy](https://github.com/akash-coded/aws-bedrock-agentcore-strands/wiki/Journey-Product-Manager) there too.
 
-This is an original work and the intellectual property of Akash Das, open-sourced here under the MIT
-licence for knowledge and experience sharing. Keep the attribution when you reuse it.
+This is an original work and the intellectual property of Akash Das, published by SkyWays Consultancy and
+open-sourced here under the MIT licence. Keep the attribution when you reuse it.
 
 ---
 

@@ -8,6 +8,71 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-08 · The BMAD lesson at its current release, a method map that draws itself once, three figures that draw, pages that cross-fade, and eleven small fixes
+
+The owner asked for the BMAD lesson rewritten to the release a reader installs today, and for motion wherever it
+has a job, without a performance dip, built and finished fast. Council 11 sat as three seats, BMAD, motion and
+polish; its chair cut five parcels, built in parallel and merged, and the gate ran once after the merge. The
+record, with each parcel's numbers, is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md), and the visual contract in
+[`site/DESIGN.md`](site/DESIGN.md).
+
+### Added
+- **The method map draws itself once** ([`site/pages/spine.py`](site/pages/spine.py),
+  [`site/theme/base.css`](site/theme/base.css), [`site/theme/site.js`](site/theme/site.js)). In the order it is
+  read, when its top reaches the middle of the screen: the five shapes grow row by row, the sign-off's line
+  draws, the wash and the four questions fade in, 1.75 seconds, then it holds, and its last frame is the still.
+  With script its parts wait on their first frame from load, so nobody sees it whole and then blank, and a
+  drawing that leaves the screen mid-play finishes at once. No script, reduced motion and paper get the still
+- **Three lesson figures draw once when first seen** ([`site/pages/figures.py`](site/pages/figures.py)): the
+  drift's line over eight weeks (AI drift), the refund through five claimed layers (AI incident postmortems, The
+  eight loops) and the four ways back (Shadow mode and cut-over), each done within 1.45 seconds and each ending
+  on the still it drew before
+- **Pages cross-fade under a top bar that holds**, the browser's own 250 ms, where it has cross-document view
+  transitions, and the FDE guide's framework moves from the hub to the stage page
+  ([`site/theme/base.css`](site/theme/base.css), [`site/theme/fde.css`](site/theme/fde.css)). No script; nothing
+  under reduced motion, and nothing in Firefox
+- **On a phone, a key under the map's lane label** says what a solid and a dashed strip mean
+
+### Changed
+- **The BMAD lesson is rewritten to v6.12.1** (4 October 2026)
+  ([`site/content/learn/lessons/what-is-the-bmad-method.md`](site/content/learn/lessons/what-is-the-bmad-method.md)):
+  five named agents, skills in the coding tool, one Build loop that sizes itself, four sizes from a session to a
+  project, and six documents defined once. Its map shows BMAD's four sizes on one Build unit, and every other
+  BMAD sentence, picture and wiki page says the same ("document trail", the Breakthrough Method *of* Agile
+  AI-Driven Development), the workbench's opening entry, decoded list, product manager's drawing and two rows
+  of its compare page among them ([`site/content/library/frameworks.json`](site/content/library/frameworks.json),
+  [`site/pages/mapspecs.py`](site/pages/mapspecs.py), [`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html)).
+  Its title keeps "Build loop" in sentence case, as the methods' names keep theirs
+  ([`site/pages/learn.py`](site/pages/learn.py))
+- **The chooser's answer fades in** over 250 ms, and its pill and a greyed name ease
+- **Folds open in 250 ms**, their contents fading in and settling 4 px, and close at once; a step on a wide
+  screen no longer animates its height
+- **The reading bar fills by a transform**, written once a frame, so a flick down a lesson lays out the page 8
+  times where it laid it out 28 ([`site/theme/site.js`](site/theme/site.js))
+- **The footer says who made this** in one sentence and keeps the attribution; the root and site READMEs end on
+  the same sentence ([`site/render.py`](site/render.py), [`README.md`](README.md), [`site/README.md`](site/README.md))
+- **The labs head** opens like every landing page: its name, one line, and counts computed from the labs (4 labs,
+  2 ready, 10 to 15 minutes each) ([`site/pages/labs.py`](site/pages/labs.py))
+- **A role's counts** are steps, templates, prompts and calculators, in the singular when there is one, and
+  minutes are written in full on a lesson's meta line and in the labs' list ([`site/render.py`](site/render.py),
+  [`site/pages/learn.py`](site/pages/learn.py))
+- **No contact pill on the home page's first screen**: it comes in with the top button, past 600 px, and is out
+  of the tab order until then ([`site/frame/frame.js`](site/frame/frame.js),
+  [`site/frame/frame.css`](site/frame/frame.css))
+
+### Fixed
+- The hero's violet corner wash is gone; the day card's shadow ends at its band's foot instead of reaching the
+  library's ground; on a phone the hero's meta line sits on the column, not centred
+  ([`site/theme/base.css`](site/theme/base.css))
+- A link's arrow no longer stands alone on a line in the guide's next link, the labs' list and two buttons: a
+  no-break space joins it to its last word
+- "1 calculators" and "1 figures" can no longer show
+- Four transitions ran off the one easing curve (the lens, the highlight, "Try it" and the roadmap's rule);
+  every transition now takes `var(--ease)`
+- On a phone the map's four phase heads all read code over name
+- The gate's passes 3 and 4 and the parts test wait for a drawing that plays once instead of measuring it held
+  or mid-fade ([`site/tools/accept.mjs`](site/tools/accept.mjs), [`site/tools/ui.test.mjs`](site/tools/ui.test.mjs))
+
 ## 2026-10-03 · A home page that maps the methods and closes on the consultancy, lessons in one column, and the forward-deployed engineer's guide
 
 The owner asked for a home page that shows what changes from phase to phase, the methods a reader has heard of

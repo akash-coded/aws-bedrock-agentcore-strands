@@ -1,7 +1,7 @@
 ---
 name: SkyWays, the agentic manual
 status: final
-updated: 2026-10-03
+updated: 2026-10-08
 colors:
   bone: {light: "#F7F6F2", dark: "#121316"}        # page
   paper: {light: "#FFFFFF", dark: "#181A1E"}       # raised surface
@@ -31,8 +31,8 @@ spacing:
   measure: "46 to 56 characters for a lede, never the full row"
   lesson: "text 584px, pictures 944px, the guide 240px from 1280px; six gaps: 8, 16, 18, 24, 32 and 64px"
   wrap: 1280px
-motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "the hero's aircraft at a phase boundary: up 20% and back in 0.42s", stagger: "the hero's rest names, a quarter of a second apart; nothing else arrives in order", reduced: "everything still: the hero's rest frame, its four forms parked in their phases and named, drawn once"}
-components: [header, header-slot, hero-scene, section-head, method-map, chooser, role-rows, people-card, day-card, late-start-briefing, lesson-sketch, flagship-card, library-tile, consultancy-close, page-head, folded-howto, section-rail, lesson-guide, numbered-section, ruled-columns, step, fde-framework, altitude-table, fde-step-blocks, fde-stage-brief, lab-comparison-table, next-up, pause-control, focus-ring]
+motion: {durations: [150ms, 250ms, 350ms, 400ms, 600ms], easing: "cubic-bezier(.22,1,.36,1)", spring: "the hero's aircraft at a phase boundary: up 20% and back in 0.42s", stagger: "the hero's rest names, a quarter of a second apart; inside a drawing that plays once, its parts in the order they are read (the map's rows 120ms apart and its questions 60, the drift's weeks 170, the ways back 150); nothing else arrives in order", reveal: "the method map and three lesson figures draw once, when their top passes the middle of the screen, in 1.75s or less, and hold; the still is their last frame, and one that leaves the screen mid-play finishes at once", pages: "a 250ms cross-fade under a held top bar where the browser has cross-document view transitions; none under reduced motion", reduced: "everything still: the hero's rest frame, its four forms parked in their phases and named, drawn once; every drawing that plays once at its still"}
+components: [header, header-slot, hero-scene, section-head, method-map, chooser, role-rows, people-card, day-card, late-start-briefing, lesson-sketch, flagship-card, library-tile, consultancy-close, page-head, folded-howto, section-rail, lesson-guide, numbered-section, ruled-columns, step, fde-framework, altitude-table, fde-step-blocks, fde-stage-brief, lab-comparison-table, next-up, pause-control, drawn-once, focus-ring]
 ---
 
 # How the site looks
@@ -113,8 +113,8 @@ never breaks across a line.
 - The first screen of the home page holds five things: the eyebrow, the headline, one sentence, two
   buttons, one picture. The meta line under the buttons is the only other text.
 - One idea per band: a heading, at most one paragraph of thirty words, one picture or list, one way on: a
-  link whose arrow follows its last word. One that wraps keeps the arrow after the word, on balanced lines, and
-  only the arrow moves under the pointer.
+  link whose arrow follows its last word, joined to it by a no-break space. One that wraps keeps the arrow
+  after the word, on balanced lines, and only the arrow moves under the pointer.
 - Bands are separated by space and a hairline, not by boxes. On the home page a card exists only where it
   is a destination, in the library; the close is the page's one framed panel that is not a destination
   card, because it is the only offer.
@@ -158,7 +158,9 @@ never breaks across a line.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
   explains how to use the page is folded behind one line. One page head serves every landing page
   (`render.page_head()`), full width or inside a column beside a rail, with one eyebrow 16px above the title
-  in the page's accent (a role's own colour on its page) and a lede of 56 characters a line at most.
+  in the page's accent (a role's own colour on its page) and a lede of 56 characters a line at most. The labs
+  index opens the same way: its name, one line, and a row of counts computed from the labs (4 labs, 2 ready,
+  10 to 15 minutes each).
 - Breadcrumbs: only the last is the page itself. A category with an address is a link ("Roles" to the home
   page's roles, "Libraries" to its library), so the one crumb a phone shows always leads back.
 - The hero is asymmetric: words left, picture right, the picture allowed to run off the edge. On a
@@ -178,22 +180,51 @@ jobs:
 1. **It answers something the reader did.** A button pressed, a list opened, a step unfolded, "Copied", the
    day card turning to face a reader who points at it.
 2. **It says where the reader is.** The rail, or a lesson's guide, marking the section being read.
-3. **It shows a thing that is itself a sequence.** The four phases in order, as the hero flies them.
+3. **It shows a thing that is itself a sequence.** The four phases in order, as the hero flies them; the
+   method map in the order it is read; a drift over eight weeks, a refund through five layers, four ways back.
 
 Two classes of motion, with different rules.
 
 **Transitions** answer the reader and take 150, 250, 350 or 400ms on the one easing curve; one long line
-may take 600ms to draw. Opening takes longer than closing: a list opens in 250ms and leaves at once. The
-day card turns to face the reader in 400ms on hover or keyboard focus inside it, and never moves on its own.
-A spring is for a small thing that changes shape, and never moves text or a height: in the hero, the aircraft
-at each phase boundary. The hero's entrance, the launch and the camera's pull-back, plays once in a sitting;
-a reader who comes back finds the whole Earth.
+may take 600ms to draw. Opening takes longer than closing: a list opens in 250ms and leaves at once. A fold's
+contents fade in and settle 4px down from its summary in that 250ms, with no fade on closing, none for a fold
+already open when the page arrives, and never a height that animates. The chooser's kept line fades in over
+250ms when Yes or No is pressed; its pill eases in 150ms and a greyed name in 250. A lesson's reading bar
+fills by a transform written once a frame, and nothing that follows the scroll lays out the page (8 layouts
+in a 24-step flick down the hard gate lesson, from 28). The day card turns to face the reader in 400ms on
+hover or keyboard focus inside it, and never moves on its own. A spring is for a small thing that changes
+shape, and never moves text or a height: in the hero, the aircraft at each phase boundary. The hero's
+entrance, the launch and the camera's pull-back, plays once in a sitting; a reader who comes back finds the
+whole Earth.
 
 **Explanatory motion** shows a sequence, and its last frame is the complete picture, which is also what a
 reader with reduced motion, a printer and a reader without script get. Anything that keeps moving for more
 than a few seconds carries a pause control, and the hero also comes to rest by itself. Dashes on a connector
 move only while the reader scrolls past them, in a browser with scroll timelines. Everything else on a page
-is complete when the reader reaches it: no band, figure, map or sketch waits to be scrolled to.
+is complete when the reader reaches it, or draws itself once within two seconds of the reader reaching it and
+then holds: the method map, and three figures that are themselves sequences (the drift, the five layers, the
+four ways back). No band, sketch or text waits to be scrolled to.
+
+A drawing that plays once carries `data-play`. With script (`html.js`) its parts are held on their first
+frame from load, and when its top passes the middle of the screen `site.js` marks it `.play` (`wirePlay`).
+On the method map the five shapes then grow from their left ends row by row, 120ms apart, their words fading
+300ms after each row starts; the sign-off's line draws down from 900ms and its pills land at 1500; the wash
+comes in at 1000 and its note at 1150; the four questions from 1300, 60ms apart; "no method reaches this
+row" at 1500. It takes 1.75s, and the frame, the phase heads and the lane labels never move. In the lessons
+the drift's line is drawn in 1.2s, each week's reading and fall bar arriving as the line reaches it, 170ms
+apart, and the alarm's ring at 900ms; the refund's line passes the claimed layers in 900ms, each layer's
+reality showing as the line reaches its panel, the money at 900, the dotted tail at 950 and the alert's
+reality at 1200, so it never shows before the money; the four ways back grow 150ms apart, each time written
+300ms after its bar starts. Each figure is done by 1.45s. Every keyframe is a `from` only, so the last frame
+is the stylesheet's own state, the still, and no script, reduced motion and paper show that still at once.
+Each part's delay is written on it as `--d` (`figures.py`; on the map from its row, and `--i` on each
+question). Transform and opacity only, plus `stroke-dashoffset` on a line drawn once; no `will-change`,
+nothing that repeats, no hover motion. Once it has played, a drawing that leaves the screen finishes at
+once, so nothing animates off screen. Between pages, where the browser has cross-document view transitions
+and motion is allowed, the top bar holds (`view-transition-name:hd`) while the page beneath cross-fades in
+the browser's own 250ms, and the FDE framework (`.fx`, `fde.css`) morphs from the hub to its place on a stage
+page; each name is on one element a page, no script is involved, and a browser without them (Firefox)
+navigates as before.
 
 The hero runs on one clock (`theme/hero.js`, which reports its own moments in `window.GlobeTimes`). A round
 is 28.55 seconds. In front of the Earth each phase takes five seconds at the flight's pace, and the flight
@@ -210,8 +241,9 @@ that reduced motion draws. The pause control holds the flight, the camera, the f
 At most sixty frames a second; in no frame a blur, a filter, a new gradient, a pixel read back, or text set
 or measured.
 
-Three rules of choreography. One sequence at a time on a screen: on the home page only the flight moves. An
-entrance plays once per visit and never again on scrolling back. Every animation is designed from its final
+Three rules of choreography. One sequence at a time on a screen: on the home page only the flight moves while
+the hero is on screen, and the map draws itself once, lower down, when its top passes the middle of the
+screen. An entrance plays once per visit and never again on scrolling back. Every animation is designed from its final
 frame backwards, because the final frame is what most readers, every printer and every reduced-motion reader
 will see.
 
@@ -221,9 +253,10 @@ drawing of a route the page already draws (the hero's next round is the exceptio
 a spiral), any animation library, parallax, a figure that draws as the page is scrolled (stop halfway and it
 is half drawn). Council 10 added: a literal rocket, with stages that fall away and an exhaust plume (dropping
 a stage says a phase's work is spent, when each phase leaves a record the next is held to); a camera that
-moves every round or follows the scroll; a tag that types itself; glow, bloom and particles; motion on the
-method map; a reading-progress ring, slide-in text or parallax on a lesson; a spiral, a rocket or any motion
-in the FDE framework, which is read, not watched.
+moves every round or follows the scroll; a tag that types itself; glow, bloom and particles; hover motion,
+repetition or scroll-coupling on the method map (its one reveal plays once); a reading-progress ring, slide-in
+text or parallax on a lesson; a spiral, a rocket or any motion in the FDE framework, which is read, not
+watched (the whole figure may move from page to page).
 
 ## The simulator's picture
 
@@ -241,7 +274,8 @@ Depth is used three times. The hero's globe has a lit side, a blue limb and a gl
 sheet of paper, the one light surface on a dark page. The home page's day card stands in perspective over
 1000px: turned 9 degrees about its right edge and tipped back 3 under a 1700px perspective, with one long
 shadow (a deeper one of its own in the dark theme), a 6px ring of ink and a 1px light edge along its top.
-Hover, or focus inside it, turns it to face the reader. It is the one tilted object on the site: the game's
+Hover, or focus inside it, turns it to face the reader. Over 1000px its band clips its overflow, so the
+shadow ends at the band's foot and never reaches the library's ground. It is the one tilted object on the site: the game's
 canvas, and the game's own Day 1 card, are never tilted. At 1000px and under, and on paper, it is flat; in
 the game the building takes the flat card's corner and shadow. Everything else is flat on the page with a
 1px hairline; a library card lifts 3px under the pointer, and casts no shadow.
@@ -261,8 +295,8 @@ own parts (`play/game.css`): its buttons, role cards and room chips are its comp
 
 One stylesheet, `theme/base.css`, serves every page, and the build ships it without its comments (`build.py`,
 `lean()`), so a comment in the source costs a reader nothing. As shipped it is held under 32 KB gzipped
-(30.5 KB at the end of council 10's round); the way back from the ceiling is a smaller file, never a larger
-number. A kind of page gets a stylesheet of its own only when no other page needs its rules, as the labs have
+(30.5 KB at the end of council 10's round, 30.9 KB, 31,612 bytes, at the end of council 11's); the way back
+from the ceiling is a smaller file, never a larger number. A kind of page gets a stylesheet of its own only when no other page needs its rules, as the labs have
 `lab.css` and the FDE guide's four pages `fde.css` (under 2 KB). The home page has none of its own and no
 `<style>` block: its bands' rules sit in `base.css`, one block a band.
 
@@ -297,7 +331,8 @@ number. A kind of page gets a stylesheet of its own only when no other page need
 | FDE stage brief | A stage page's opening: the eyebrow "The FDE guide · stage n of 3", the stage's name and question, its counts, the framework with its row open, then the stage in brief, five ruled rows headed in mono (how long, the client's people, you think at, it ends with, what goes wrong here). | `pages/fde.py` `stage` |
 | Lab comparison table | The lab's own model and three more, side by side, under a mono caption that names the prompt. The row heads take 24% of the width and the four models share the rest; from 1001 to 1180px, where the lab's bench is narrowest, the type is 13px. On a phone each row is one block, each cell beside its model's name. Each cell is built from words of its reply, and the build holds it to them. | `pages/labs.py` `_others`, `.lab-t` |
 | Next up | The foot of a reference page: one sentence, one button, and at most one quiet link beside it. The FDE stage pages lead to the next stage; Evolve's leads back to Frame, with the hub beside it. | `render.next_up` |
-| Pause control | A checkbox, so it works without script; stills whatever holds it. In the hero it sits in the stage's bottom right corner, 5% in from the right and 7% up from the foot (3% and 3% on a stage under 400px wide), 30px across at desktop widths and 44px under 820px, where its icon is full size. | `render.MOTION_TOGGLE`, `.mpause`, `.sc-foot` |
+| Pause control | A checkbox, so it works without script; stills whatever holds it. In the hero it sits in the stage's bottom right corner, 5% in from the right and 7% up from the foot (3% and 3% on a stage under 400px wide), 30px across at desktop widths and 44px under 820px, where its icon is full size. On the home page the contact pill comes in with the top button, past 600px, so the first screen holds one round control, the hero's pause; while hidden it is out of the tab order. | `render.MOTION_TOGGLE`, `.mpause`, `.sc-foot`; `frame/frame.js` `topButton` |
+| Drawn once | A drawing that is itself a sequence carries `data-play`. With script its parts are held on their first frame from load (`html.js [data-play]:not(.play) *` paused); `site.js` `wirePlay` adds `.play` when its top passes the middle of the screen, and finishes it at once if it leaves the screen mid-play. The keyframes `ax`, `ay`, `ao` and `ad` sit at the end of `base.css`, each a `from` only; the map's rules sit in its band and the figures' four rules by the figure rules. | `pages/spine.py`, `pages/figures.py` `play`, `site.js` `wirePlay`, `base.css` `[data-play]` |
 | Focus ring | 3px in the page's accent, 2px outside the thing focused. Where the box that holds it clips (a step's rounded corner, a code box, a picture card, a rail, the drawer's list) it is drawn 3px inside; on a code box it takes the dark theme's slate, `#7FA9CC`, in both themes. | `base.css` `:focus-visible` |
 
 The workbench keeps the same floor in its own file: its opening picture sets every label at 15 units and is
@@ -326,6 +361,8 @@ Do:
   what a team hears when it was skipped.
 - Keep numbers honest and computed. Lesson, template, prompt, picture, decision and calculator counts come
   from the content at build time; the handwritten notes on the map come from dated sources.
+- Write minutes in full where there is room ("7 minutes", "12 minutes →"), and a count in the singular when
+  there is one ("1 calculator"); the track list keeps "min".
 - Measure contrast and overflow; do not judge them from a screenshot.
 
 Do not:

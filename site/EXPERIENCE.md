@@ -1004,6 +1004,116 @@ left its arrow at the column's far right and a route broke after an article (the
 `README.md`'s table of roles was stale (it names six roles now, the FDE guide among them, with the QA lead's own
 line).
 
+## Round thirteen: council 11, the BMAD rewrite, motion and polish
+
+On 8 October the owner asked for the BMAD lesson rewritten to the current release, and for "animations, frame
+graphics, motion graphics wherever required without performance dips", built with the council and the writing,
+taste and diagramming skills by name, and finished fast: "don't over-spend time in testing, verification and
+validation. Try to finish fast without bugs and compromising quality, attention to details etc. judiciously."
+The same message answered round twelve's deferred call, a one-time reveal of the method map after seeing the
+still. Council 11 sat as three seats, BMAD, motion and polish, and the chair cut their papers into five parcels,
+built in parallel in their own worktrees and merged, with the gate run once after the merge: the map that draws
+itself once and the phone key; three lesson figures that draw once; page to page, folds, the chooser, the reading
+bar and the curve; the BMAD lesson at v6.12.1 and every knock-on; and the polish fixes. Two of the papers'
+readings were corrected against the code before building: the gate's reduced-motion passes never see a reveal,
+so they needed no change; and the hero's bottom is still on screen when the map is 40% in view at 1440 by 900,
+so a reveal is triggered by where the drawing's top is, never by how much of it shows.
+
+**The BMAD lesson.** Rewritten to v6.12.1 of 4 October 2026, re-read on the day against npm's `latest` and the
+docs site: five named agents (the Analyst, the Product Manager, the UX Designer, the Architect and the Developer),
+skills installed into the coding tool, one Build loop that sizes itself, four sizes from a session to a project,
+and "six documents" defined once, in step 4. The repository overrode the seat's paper in three places: the
+expansion is the Breakthrough Method *of* Agile AI-Driven Development (the paper and the old lesson said "for");
+the test command stays out of `AGENTS.md`, because `package.json` holds it; and the next version renames the
+documents' files, so the lesson names documents, and files only where `main` keeps them. Its map is the paper's
+four sizes on one Build unit, 575 units and 622px tall at 1440 and at 1024, under the 630px cap after three
+phrases were cut. Every other BMAD sentence, picture and wiki page says the same: `frameworks.json`, the methods
+and merge boards, the chooser, the protocol page, two role steps, four lessons' lines, the hand-written wiki pages
+and eight pictures shot again in both themes; "persona trail" is "document trail" everywhere, and `grep persona`
+over the pages and the content finds nothing. The workbench's opening entry, its decoded list, its product
+manager's drawing and two rows of its compare page say v6.12.1 too. The lesson is 1,668 words by the build's count, over the
+ruling's 1,500 and about the old lesson's 1,645; the excess is its fixed apparatus, five FAQs, the role table and
+the dated sources. Its page went from 17,439 to 18,796 bytes gzipped, and its title keeps "Build loop" in
+sentence case, as the methods' names keep theirs.
+
+**The map draws itself once.** With script, the map's parts are held on their first frame from load
+(`html.js [data-play]:not(.play) *` paused), and when its top passes the middle of the screen `site.js` marks it
+`.play`: the five shapes grow from their left ends row by row, 120ms apart, their words fading 300ms after each
+row starts; the sign-off's line draws down from 900ms and its pills land at 1500; the wash at 1000 and its note
+at 1150; the four questions from 1300, 60ms apart; "no method reaches this row" at 1500. It takes 1.75s (1.78 to
+1.83 measured), every keyframe is a `from` only, so its last frame is the stylesheet's own still, and the frame,
+the heads and the lane labels never move. No script, reduced motion and paper get the still at once. On a phone
+the bare names only fade, the four phase heads read code over name, and a key under the lane label says what a
+solid and a dashed strip mean. The chooser's kept line fades in over 250ms, its pill eases in 150 and a greyed
+name in 250.
+
+**Three figures draw once.** The drift's line is drawn in 1.2s, each week's reading and fall bar arriving as the
+line reaches it, 170ms apart, and the alarm's ring at 900ms; the refund's line passes the claimed layers in
+900ms, each layer's reality showing as the line reaches its panel, the money at 900, the dotted tail at 950 and
+the alert's reality with the verdict at 1200, so it never shows before the money; the four ways back grow 150ms
+apart, each time written 300ms after its bar starts. Every delay is computed in Python and written on the part
+as `--d`, so the stylesheet carries four rules and no `calc`. Each figure is done by 1.45s, and the twelve stills
+are byte for byte the round before's.
+
+**Two decisions after the verdict.** The verdict had a drawing show complete until its reveal; with `.play`
+landing when 40% of it was in view, a reader could see the top of a figure whole, then blank and redraw. So a
+drawing's parts are held at their first frame from load, with script, and released when its top passes the
+middle of the screen (a root margin of -50%, not the verdict's -60%). And since nothing may animate off screen, a
+second observer finishes a drawing's animations the moment it leaves the screen mid-play: on the polish budget's
+24-step flick down the home page, style recalcs fell from 109 to 19 at 1440 and from 112 to 17 at 390 slowed four
+times, with no layout added, and a reader who watches the map draw sees no difference.
+
+**Page to page, folds, the reading bar, the curve.** Where the browser has cross-document view transitions and
+motion is allowed, the top bar holds (`view-transition-name:hd`) while the page beneath cross-fades in the
+browser's own 250ms, and on the FDE guide the framework (`.fx`) moves from the hub to its place on a stage page;
+no script, and each name is on one element a page across all 95 built pages. A fold (`.prose details`, `.otp`,
+`.step`, `.howto`, `.lnav`, the lead's "how") opens in 250ms, its contents fading in and settling 4px, and closes
+at once; the transition sits on the open state, so a fold open when the page arrives does not play, and a step
+no longer animates its height on a wide screen. The reading bar fills by a transform written once a frame inside
+`requestAnimationFrame`, so a 24-step flick down the hard gate lesson lays out the page 8 times, where it laid
+it out 28. Four transitions were off the curve (`lensin`, the highlight, "Try it" and the roadmap's rule) and now
+take `var(--ease)`; the grep for a transition without it leaves only `visibility 0s`.
+
+**Polish.** Eleven of the polish seat's fixes were built: the hero's violet wash deleted; `#simulator{overflow:clip}`
+over 1000px, so the day card's shadow ends at the band's foot; the phone hero's meta line on the column (its
+centring deleted, not overridden); a no-break space before the arrow in the guide's next link, the labs' list and
+two buttons; a role's counts are steps, templates, prompts and calculators, in the singular when there is one;
+the footer's "Who made this", in one sentence, with the attribution kept; the labs head's lede and counts
+computed from the labs (4 labs, 2 ready, 10 to 15 minutes each); minutes in full on a lesson's meta line and the
+labs' list; the contact pill hidden on the home page's first screen until the top button appears, with
+`visibility`, so a keyboard cannot reach it; and the reading bar and the curve above. Fix 10, codes in the
+libraries' rails, was refused as a second component for one dot; fix 15, a two-line clamp on the guide's previous
+and next links, was measured against all 55 titles at 240 and 214px and found unneeded once the arrows were
+joined. The root and site READMEs now end on the footer's own sentence.
+
+**The gate.** Pass 3 leaves out the parts of a drawing still held on their first frame; pass 4 brings every
+drawing into view and waits for its animations to finish (2.5s at most) before it looks; `ui.test.mjs`'s
+scroll-through does the same, because its contrast check at 390 and 320 had read the map's questions mid-fade.
+The head comment that said the site had no view transitions now says it has them, and one drawn line, both
+ignored by a browser without them.
+
+**Refused.** The motion seat's pipeline shape for the BMAD map (the seat's four-size map is the release's own
+picture, with one owner); the polish seat's four forms sweeping the frame's top (a decoration with no job);
+rail codes in the libraries; the polish seat's chooser words (the BMAD parcel owned them); a 0.4 threshold for
+the reveal; `will-change`; hover motion on the map's shapes; scroll-driven drawing; and everything on
+DESIGN.md's refused list. The verdict also left `.step` out of the fold fade; the builder kept it in, with the
+step's height transition gone, because the brief says a height never animates.
+
+**Bytes** (gzip -9 on the built files, the round's base commit against its end). `base.css` 31,117 to 31,612
+(30.9 KB of 32: the map's rules about 370, the figures and the folds about 125, the polish 19 less); `site.js`
+3,151 to 3,442; `frame.js` 5,548 to 5,576 (of 6,144); `frame.css` 2,294 to 2,349; `fde.css` 1,870 to 1,884;
+`hero.js` 10,060, untouched. The home page's HTML 19,318 to 19,326 (of 21,504), and a first visit to it 174.2 to
+174.7 KB of 176 by the parcels' runs of pass 17; the labs index 5,057 to 5,002; the engineering page 42,557 to
+42,507; the four lessons with a played figure 13,684 to 13,805, 14,120 to 14,201, 14,033 to 14,075 and 15,884 to
+15,963, held to 25 KB. The polish budget at rest reads 0 layouts and 0 recalcs on every page measured.
+
+**What closed.** The BMAD lesson's persona pipeline (rewritten); the phone map's wordless strips (the key) and
+the one-time reveal of the map (built); and the role rows' keyless timelines, stale since round twelve rebuilt
+the rows without them. Opened: Firefox gets no page transition; the workbench's remaining BMAD text; the
+lesson's word count; the role counts at 390; the reduced-motion rule and pseudo-elements; the labs head's title;
+a lesson flick's recalcs; the workbench's frame footer; two dead or stale lines; the top button's focus; the
+gate's page list; a held drawing if `site.js` failed; and two stranded arrows, all below.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
@@ -1015,8 +1125,6 @@ line).
 - On the title at 1440, Day 1's card has its kicker on the first screen and its answers below the fold.
 - A run held only in memory, because the browser blocks storage, is dropped if the address changes to a
   day link mid-run: `boot()` checks the saved run, not the one in play. It predates round eleven.
-- The role rows' small timelines have no key, and the sponsor row's "Every day, watched" and "2 questions"
-  read as cryptic to a newcomer.
 - A late start in one role saved under the previous rules no longer replays, so the game drops it when
   the page loads and the title offers a fresh start. Late starts for the whole team, and every run from
   Day 1, keep their saves.
@@ -1051,10 +1159,6 @@ line).
   not on the example's numbers; a default per step is a change to `calcs` or `enrich`.
 - The FDE guide's four pages are not among `ui.test.mjs`'s states; their heads were measured by probe, and the
   gate's pass 20 holds the rest.
-- The BMAD lesson's persona pipeline (its summary, steps 2 and 3, its map, the extended-BMAD table) and
-  `frameworks.json`'s `what` ("analyst, PM, architect, dev, QA") describe an earlier release; the current one
-  installs five agents, with no scrum master and no QA agent. Its FAQ says so. Bringing the lesson up to date
-  is a rewrite, and the owner's call.
 - The sketch lint's floor (`sketch.LABEL_MIN`, 54 units) is 12.6px in a 320px phone's 280px column; 56 would be
   13.1px. No sketch is under 58 now. Its 6,500-byte budget no longer binds either: with paths written from the
   point before, the largest sketch is 3,605 bytes.
@@ -1068,8 +1172,6 @@ line).
 - In a lesson in the dark theme, a code box's 46px band for its Copy button reads as empty space above the
   code.
 - `.step{overflow:hidden}` clips text too wide for a step, so no sideways check can see it.
-- On a phone the method map draws a method's ends as bars without their words; only the screen reader's
-  sentence names them. A one-time reveal of the map stays the owner's call after seeing the still.
 - `play/game.js` still calls the thirteen choices "calls", where the simulator's page says "decisions".
 - `theme/hero.js` is 10,143 bytes gzipped, 97 under its 10 KB budget.
 - A filled button prints near-white on white in Chrome's print preview (the hero's, the tutorial's and the
@@ -1084,3 +1186,32 @@ line).
   ink on the dark card in the dark theme.
 - "Check yourself", a recall block in every teaching lesson (about 150 questions, each a decision or a number
   from the case with its answer folded), waits for the next round, once the new lesson frame has settled.
+- Firefox has no cross-document view transitions, so between pages it navigates as before: no cross-fade, no
+  held top bar, and the FDE framework does not move from the hub to a stage page. Nothing is lost but the motion.
+- The workbench's product manager episode "The BMAD lens" (`app/SkyWays-Architect.html`), its decision game's
+  BMAD lines, the header and two rows of its compare page's BMAD column, and the BMAD entry of its learn map
+  still describe the v4 roster: analyst, PM, architect, dev and QA personas, and sharded story files. Its
+  opening entry, its decoded list, the episode's drawing and two rows of the compare page now say v6.12.1.
+- The BMAD lesson is 1,668 words by the build's count, over the chair's 1,500; the excess is its five FAQs, the
+  role table and the dated sources, and cutting it means dropping one of them.
+- A role page's counts row wraps to two lines at 390: four counts need 366 to 374px of the 350px column. One line
+  needs the template count dropped (it always equals the step count) or a narrower `.pmeta` gap on a phone.
+- The reduced-motion rule's `*` does not reach pseudo-elements, so the copy tick (`.cp.done::before`) and the
+  `.otp` chevron's rotation still move under reduced motion; `*,::before,::after` in that rule would close it.
+  The fold fade guards itself.
+- The labs head's title runs to three lines at 1440 (`.phead h1` at 16ch), and its lede ends on "the document."
+- A 24-step flick down a lesson restyles about 40 times, because each frame's transform on the reading bar
+  restyles the bar; the polish seat's 20 was measured with the bar removed. Layouts meet the floor of 8.
+- The workbench's frame footer (`frame/frame.js`) still says "conceptualised and built by" and "for knowledge and
+  experience sharing", where the site's footer and both READMEs now say who made it and keep the attribution.
+- `site.js`'s `all-open` in `reveal()` and `wireExpand()` existed to defeat the step's height animation, which
+  is gone; it is dead and harmless. The head comment on `base.css`'s motion rules still says nothing moves
+  because it scrolled into view, which the drawings that play once no longer honour to the letter.
+- The top button (`.sw-top`) is still focusable while invisible; the contact pill now uses `visibility`.
+- The gate's passes 3 and 4 do not visit the three lessons with a played figure; if one joins their page list,
+  pass 4 waits for its animations as it does for the map.
+- If `site.js` failed to load, a drawing that plays once would stay held on its first frame, because the head
+  script sets `html.js` before `site.js` runs.
+- Two arrows can still stand alone on a line, outside the polish parcel's files: the FDE hub's "The lesson for
+  this role →" (`pages/fde.py`) and the protocol page's "Their eight steps →" (`pages/protocol.py`). Each needs
+  one no-break space.

@@ -945,8 +945,9 @@ def _graph(nodes: list[dict]) -> str:
 # A title is written for search, in title case; on the page a heading is a sentence (DESIGN.md), so the H1
 # and the track's list set it in sentence case. These keep their capitals: the phases' names, and the
 # names of methods, products and tools. A word with a capital past its first letter (AI, PDLC, DevOps,
-# SkyWays) or with a digit keeps its own; the first word of each sentence keeps its capital.
-KEEP_CASE = ("P0 Frame", "P1 Design & Spec", "P2 Build & Prove", "P3 Run & Learn", "BMAD Method", "Spec Kit",
+# SkyWays) or with a digit keeps its own; the first word of each sentence keeps its capital. A name is matched
+# whatever case the title wrote it in ("Build Loop" in title case) and set as it is spelt here ("Build loop").
+KEEP_CASE = ("P0 Frame", "P1 Design & Spec", "P2 Build & Prove", "P3 Run & Learn", "BMAD Method", "Build loop", "Spec Kit",
              "Kanban", "Scrum", "Kiro", "Bedrock", "AgentCore", "Amazon", "Claude", "Strands", "LangGraph")
 DAYS = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 
@@ -955,10 +956,10 @@ def sentence_case(title: str) -> str:
     kept: list[str] = []
 
     def hold(m: re.Match) -> str:
-        kept.append(m.group(0))
+        kept.append(next(k for k in KEEP_CASE if k.lower() == m.group(0).lower()))
         return f"\x00{len(kept) - 1}\x00"
 
-    s = re.sub("|".join(re.escape(k) for k in KEEP_CASE), hold, title)
+    s = re.sub("|".join(re.escape(k) for k in KEEP_CASE), hold, title, flags=re.IGNORECASE)
     out, start = [], True
     for tok in re.split(r"([A-Za-z][A-Za-z0-9'’]*|\x00\d+\x00)", s):
         if not tok:
