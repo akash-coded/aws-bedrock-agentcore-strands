@@ -657,6 +657,14 @@ try {
   const hitPhone = await evaluate(HIT);
   if (!hitWide || !hitPhone || hitWide.length || hitPhone.length) fail(`a press on the line meets something else first: ${[...(hitWide || []), ...(hitPhone || [])].join("; ")}`);
   else console.log("  ok   at 1440 and 390 every stop and Start is the first thing under the pointer, so a real press reaches it");
+  // the coach's note: once a call is made, the card says what the call teaches, in that option's own words
+  await fromCold(1440, 900, "");
+  await evaluate(CLICK("#nd .nd-line .nd-start")); await sleep(300);
+  await evaluate(`(document.querySelector("#nd .nd-day .nd-opt, #nd .nd-day .nd-opts button").click(), 1)`); await sleep(300);
+  const coached = await evaluate(`(() => { const c = document.querySelector("#nd .nd-out .nd-coach"), D = JSON.parse(document.getElementById("nd-data").textContent);
+    return { text: c ? c.lastChild.textContent : null, want: D.days[0].options[0].coach, label: c ? c.firstChild.textContent : null }; })()`);
+  if (coached.text !== coached.want || coached.label !== "Coach's note") fail(`after Day 1's first answer the coach's note reads ${JSON.stringify(coached)}`);
+  else console.log(`  ok   after a call the card carries the coach's note for that answer: "${coached.text.slice(0, 48)}..."`);
 
   {                               // its own block: section 12 has a card and a line of its own
     console.log("\n13. the building's key, the role rows, the day's card, and the loop at rest");

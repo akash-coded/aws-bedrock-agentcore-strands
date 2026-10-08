@@ -247,6 +247,8 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-filed{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .nd-filed li{margin:0;max-width:none;font-size:14.5px;line-height:1.45;color:var(--ink2)}
 .nd-filed b{color:var(--ink);margin-right:6px}
+.nd-coach{display:grid;gap:6px;margin-top:12px;padding:12px 16px;border-radius:11px;background:color-mix(in oklab,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--ink2)}
+.nd-out .nd-coach p:last-child{color:var(--ink)}
 .nd-deeper{font-size:14px;color:var(--soft);max-width:none}
 .nd-deeper a{color:var(--ink2)}
 

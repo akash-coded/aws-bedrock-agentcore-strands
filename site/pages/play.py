@@ -60,6 +60,7 @@ def _plain(data: dict) -> str:
             if f.get("options"):
                 out.append("<ul>" + "".join(
                     f'<li>{_E(o["label"])} ({_days(o["days"])}). {_E(o["now"])}'
+                    + (f' {_E(data["coach"])}: {_E(o["coach"])}' if o.get("coach") else "")
                     + (f' Later: {_E(o["debt"]["text"])}' if o.get("debt") else "") + "</li>"
                     for o in f["options"]) + "</ul>")
                 if any(o.get("task") == "limits" for o in f["options"]):

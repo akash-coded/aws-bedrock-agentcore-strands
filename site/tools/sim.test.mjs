@@ -155,7 +155,7 @@ console.log("\n1. the words");
     const one = sim.trace(data, o, []);
     check(one.length === 1 && one[0].live && one[0].before === data.rules.slack, "a run not yet begun is not one live day that opened with the spare days");
   }
-  plain(data.building.caption, "the building's caption"); plain(data.org.way, "the sponsor's way to play"); plain(data.org.intro, "the sponsor's rules screen");
+  plain(data.coach, "the coach's label"); plain(data.building.caption, "the building's caption"); plain(data.org.way, "the sponsor's way to play"); plain(data.org.intro, "the sponsor's rules screen");
   plain(data.days.find((d) => d.gate).signoff, "the sign-off's intro"); for (const [k, v] of Object.entries(data.days.find((d) => d.variants).variants)) plain(v.fig, `Day 82's figure, ${k}`);
   data.monday.forEach((q, k) => plain(q, `question ${k + 1} for Monday`));
   const miles = Object.keys(data.line.milestones);
@@ -189,6 +189,8 @@ console.log("\n1. the words");
       check(VERB.test(f.head || ""), `day ${d.day}: the headline "${f.head}" is a bare noun`);
       for (const o of f.options || []) {
         plain(o.recap, `day ${d.day}, option ${o.id}: the recap`);
+        plain(o.coach, `day ${d.day}, option ${o.id}: the coach's note`);
+        check(sentences(o.coach || "").length <= 3, `day ${d.day}, option ${o.id}: the coach's note runs past three sentences`);
         if (!o.recap) continue;
         check(wc(o.recap) <= 10, `day ${d.day}, option ${o.id}: the recap runs to ${wc(o.recap)} words`);
         check(/^[a-z]+ed\b|^(wrote|sent|left|let|took|built|kept|put|held|had|cut)\b/.test(o.recap) && !/[.?!]$/.test(o.recap), `day ${d.day}, option ${o.id}: the recap "${o.recap}" is not a past-tense clause`);

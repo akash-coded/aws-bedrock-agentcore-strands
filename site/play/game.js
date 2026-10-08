@@ -405,7 +405,9 @@
     sealed.sort(function (a, b) { return a - b; });
     if (sealed.length) box.appendChild(el("p", { "class": "nd-sealed" }, [el("i", { "aria-hidden": "true" }),
       "Something is pinned to " + sealed.map(function (n, k) { return (k && k === sealed.length - 1 ? "and " : "") + "Day " + n; }).join(sealed.length > 2 ? ", " : " ") + "."]));
-    var f = filedList(state); if (f) box.appendChild(f);
+    var f = filedList(state), o = (day.options || []).filter(function (x) { return x.id === state.picks[day.id]; })[0];
+    if (f) box.appendChild(f);
+    if (o && o.coach) box.appendChild(el("div", { "class": "nd-coach" }, [el("p", { "class": "nd-k", text: data.coach }), el("p", { text: o.coach })]));     // the coach, on the call just made
     return box;
   }
   function deeper(day) {

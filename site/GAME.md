@@ -46,7 +46,8 @@ Thirteen dated days stand for the ninety: 1, 4, 6, 9, 12, 15, 20, 30, 45, 60, 75
    (15), read a score one kind of case at a time (45), route nine changes for review (60), find the leak
    in the bill (75), build the slide (90). The first five open only behind the method's option; a
    shortcut skips the task with it.
-6. **What it did.** A document goes on file, or something is pinned to a later day.
+6. **What it did.** A document goes on file, or something is pinned to a later day, and the coach's note
+   says what the call teaches (see "The coach's notes").
 
 A full run is ten to fifteen minutes. A save is the list of actions taken, replayed on load.
 
@@ -352,6 +353,19 @@ its day, a debt that comes back fades in on the day it lands, and a document fil
 Above 1240 wide the line runs across the left column over the building, which in play stands at once its size
 (297 by 304) with its key beside it; the building's long caption is the title's only. From 1240 down the line
 sits under the day and over the building, as the building does.
+
+## The coach's notes
+
+Every option carries a coach's note (`coach` in `days.json`, 31 of them), shown in the card once the call is
+made: under what the call did and what it filed, in a box of its own tinted with ink, since hue means phase
+and rose means what is owed. Three sentences at most, none over twenty words: the principle at stake, what
+this option buys or trades away, and what a seasoned lead does instead or next. A shortcut's note says how
+such a call tends to go wrong, never what its debt will cost or when it lands, so the debt still arrives as
+news. An option that over-reaches (stop everything, trial all three, one bar of 98 for every kind of case,
+two senior readers on everything) gets a note on why more process also costs. The notes keep to the words the
+player has been given: the rules test lints each one with the list it bars. A player who reads why can take
+the day back with "Undo today" and try the other way. The page without script lists each option's note
+beside what it did.
 
 ## The picture (`play/art.js`)
 

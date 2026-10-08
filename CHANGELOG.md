@@ -8,6 +8,21 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-09 · A coach's note after every call in the simulator
+
+The owner asked for a coach's note on every option. The record is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md)
+("Round fifteen", "The coach's notes") and the rules for writing them in [`site/GAME.md`](site/GAME.md)
+("The coach's notes").
+
+### Added
+- **A coach's note for each of the 31 options**, shown in the day's card once the call is made: the principle,
+  what the option buys or trades away, and what a seasoned lead does instead or next. A shortcut's note never
+  says what its debt will cost or when, so it still arrives as news ([`site/play/days.json`](site/play/days.json),
+  [`site/play/game.js`](site/play/game.js), [`site/play/game.css`](site/play/game.css))
+- The page without script lists each option's note beside what it did ([`site/pages/play.py`](site/pages/play.py))
+- The rules test lints every note with the game's word list; the playtest checks that a call brings its note
+  ([`site/tools/sim.test.mjs`](site/tools/sim.test.mjs), [`site/tools/playtest.mjs`](site/tools/playtest.mjs))
+
 ## 2026-10-08 · The simulator's title takes a press again, and its left half shows the run
 
 The owner found that starting the simulator from a later day did nothing: pointing at a day left Start on Day 1,

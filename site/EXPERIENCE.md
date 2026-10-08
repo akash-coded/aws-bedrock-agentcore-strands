@@ -1224,6 +1224,17 @@ documents by their short names as they come on file, the sign-off's three ringed
 A price leaves today's bar as the answer to a press, a thread draws itself, a document lands; reduced motion draws
 each at once. The building stays, at once its size above 1240 in play with its key beside it.
 
+**The coach's notes.** The owner then asked for the step the line had left out: "write the coach's notes for
+every option". Thirty-one notes, one per option on the twelve days that have options (Day 82 has two sets, by
+whether the refund was refused or paid). Each is three sentences at most and none over twenty words: the
+principle, what the option buys or trades away, and what a seasoned lead does instead or next. A shortcut's
+note says how such a call tends to go wrong and never what its debt costs or when it lands, so the debt still
+arrives as news; an over-reaching option's note says why more process also costs. They were written against
+the game's own word list (no "gate", "spec", "slice" or "lower bound": the sign-off, the signed page, each kind
+of case, the low end of the range) and linted before they went in. The note shows in the card under what the
+call did, tinted with ink because hue means phase and rose means owed, and the page without script lists them
+beside each option. The note's code took the game's scripts from 48.37 to 48.45 KB, inside the 48.5 budget.
+
 Two departures from the seat's specification: the documents are chips with their short names, where it had
 fifteen unlabelled tiles a reader could only hover; and the strip and meters stay over the day where they were,
 rather than moving into the left column, so the day's card does not move and the line sits first in the
