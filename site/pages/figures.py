@@ -28,16 +28,21 @@ ROSE = "color-mix(in oklab,var(--dg-rose) 82%,var(--ink))"
 
 
 def _svg(wide: tuple[int, str], narrow: tuple[int, str], label: str, caption: str,
-         notes: list[tuple[str, bool]] | None = None, small: bool = False, stack: bool = False) -> str:
+         notes: list[tuple[str, bool]] | None = None, small: bool = False, stack: bool = False,
+         play: bool = False) -> str:
     """The frame. ``wide`` and ``narrow`` are (height, markup); ``notes`` are the sentences under
     the drawing, each (text, whether it is the warning). A ``small`` figure, a few bars and no notes,
     is marked ``sm`` so a lesson can hold it to the text's width rather than the picture column's. A
     ``stack`` figure, a drawing much shorter than its notes, is marked ``st`` so a lesson keeps its notes
-    under the drawing at every width, rather than beside it in a column that sets the frame's height."""
+    under the drawing at every width, rather than beside it in a column that sets the frame's height.
+    A ``play`` figure is itself a sequence: it carries ``data-play``, site.js adds the class ``play`` the
+    first time it is seen, and base.css draws its marked parts once, each on its beat (``_at``). The
+    still is its last frame, and all that a reader without script, with reduced motion or on paper sees."""
     (h, inner), (nh, ninner) = wide, narrow
     ns = "".join(f'<p class="fn{" hot" if hot else ""}">{E(t)}</p>' for t, hot in (notes or []))
     cls = "fig" + (" sm" if small else "") + (" st" if stack else "")
-    return (f'<figure class="{cls}"><svg class="w" viewBox="0 0 {W} {h}" role="img" aria-label="{E(label)}">{inner}</svg>'
+    return (f'<figure class="{cls}"{" data-play" if play else ""}>'
+            f'<svg class="w" viewBox="0 0 {W} {h}" role="img" aria-label="{E(label)}">{inner}</svg>'
             f'<svg class="n" viewBox="0 0 {NW} {nh}" role="img" aria-label="{E(label)}">{ninner}</svg>'
             f"{ns}<figcaption>{E(caption)}</figcaption></figure>")
 
@@ -57,6 +62,13 @@ def _t(x: float, y: float, s: str, fs: float = F, *, a: str = "start", w: int = 
             + (f' font-weight="{w}"' if w else "")
             + (' font-family="ui-monospace,SFMono-Regular,Menlo,monospace"' if mono else "")
             + f' fill="{_label(fill)}"' + (f' opacity="{op}"' if op else "") + f">{E(s)}</text>")
+
+
+def _at(beat: float) -> str:
+    """When a part of a played figure arrives: ``--i``, in beats of 170ms (base.css). A drawn line (``ln``)
+    or a timed bar (``bx``) grows from its start to arrive on it; a fade (``pt``) or a falling bar (``bar``)
+    starts on it."""
+    return f' style="--i:{round(beat, 2):g}"'
 
 
 def bar_sheet() -> str:
@@ -342,14 +354,19 @@ def drift_slide() -> str:
              f'fill="var(--dg-rose)" fill-opacity=".09"/>',
              f'<line x1="{left}" y1="{y(base)}" x2="{right}" y2="{y(base)}" stroke="currentColor" opacity=".5" stroke-dasharray="4 4"/>',
              f'<line x1="{left}" y1="{y(base - gap)}" x2="{right}" y2="{y(base - gap)}" stroke="var(--dg-rose)" stroke-width="1.6"/>']
+        # played, one beat a week: the line is drawn across the eight weeks, each reading appears as the line
+        # reaches it, and the alarm's ring and call-out half a beat after week 5's. The baseline, the alarm
+        # lines and the axis stay.
         pts = " ".join(f"{x(i):.0f},{y(v):.0f}" for i, v in enumerate(share))
-        o.append(f'<polyline points="{pts}" fill="none" stroke="{ind}" stroke-width="2.2"/>')
+        o.append(f'<polyline class="ln" pathLength="1"{_at(len(share) - 1)} points="{pts}" fill="none" stroke="{ind}" stroke-width="2.2"/>')
         for i, v in enumerate(share):
-            o.append(f'<circle cx="{x(i):.0f}" cy="{y(v):.0f}" r="3.6" fill="{ind}"/>')
+            dot = f'<circle cx="{x(i):.0f}" cy="{y(v):.0f}" r="3.6" fill="{ind}"/>'
             if i in named:
                 s = f"{v}%" if i in (0, len(share) - 1) else str(v)
-                o.append(_t(x(i) + 7, y(v) - 7, s, fs, op=.85) if named[i] else _t(x(i) - 8, y(v) + 13, s, fs, a="end", op=.85))
-        o.append(f'<circle cx="{x(fired):.0f}" cy="{y(share[fired]):.0f}" r="9" fill="none" stroke="var(--dg-rose)" stroke-width="1.8"/>')
+                dot += _t(x(i) + 7, y(v) - 7, s, fs, op=.85) if named[i] else _t(x(i) - 8, y(v) + 13, s, fs, a="end", op=.85)
+            o.append(f'<g class="pt"{_at(i)}>{dot}</g>')
+        o.append(f'<circle class="pt"{_at(fired + .5)} cx="{x(fired):.0f}" cy="{y(share[fired]):.0f}" r="9" fill="none" '
+                 f'stroke="var(--dg-rose)" stroke-width="1.8"/>')
         return x, y, left, floor, o
 
     def weeks(o, x, floor, fs, lead):
@@ -367,7 +384,8 @@ def drift_slide() -> str:
         o.append(f'<line x1="{left}" y1="{z}" x2="{right}" y2="{z}" stroke="currentColor" opacity=".3"/>')
         for i in range(1, len(share)):
             d = share[i - 1] - share[i]
-            o.append(f'<rect x="{x(i) - 9:.0f}" y="{z}" width="18" height="{d * unit:.0f}" rx="2" fill="{ind}" fill-opacity=".55"/>')
+            o.append(f'<rect class="bar"{_at(i)} x="{x(i) - 9:.0f}" y="{z}" width="18" height="{d * unit:.0f}" rx="2" fill="{ind}" '
+                     f'fill-opacity=".55"/>')
         o.append(f'<line x1="{left}" y1="{z + weekly * unit}" x2="{right}" y2="{z + weekly * unit}" stroke="{amb}" '
                  f'stroke-width="1.6" stroke-dasharray="5 4"/>')
         return z + weekly * unit
@@ -378,7 +396,7 @@ def drift_slide() -> str:
     out.append(_t(left, 18, "refund share, week by week", op=.8))
     out.append(_t(552, y(base) - 8, "frozen baseline: week 1", a="end", op=.8))
     out.append(_t(552, y(base - gap) - 8, "baseline alarm: more than 6 points below", a="end", w=600, fill=ROSE))
-    out.append(_t(x(fired) - 14, y(share[fired]) + 26, "fires in week 5, at 53%", a="end", w=600, fill=ROSE))
+    out.append(f'<g class="pt"{_at(fired + .5)}>{_t(x(fired) - 14, y(share[fired]) + 26, "fires in week 5, at 53%", a="end", w=600, fill=ROSE)}</g>')
     weeks(out, x, floor, F, False)
     z = floor + 54
     out.append(_t(left, z - 10, "each bar: that week's fall, never more than 2 points", op=.8))
@@ -392,7 +410,7 @@ def drift_slide() -> str:
     n.append(f'<path d="M{nleft + 2} {ny(base) + 2} h4 V{ny(base - gap) - 2} h-4" fill="none" stroke="var(--dg-rose)" stroke-width="1.4"/>')
     n.append(_t(nleft + 12, ny(base - gap) - 7, "6 points", NF, w=600, fill=ROSE))
     n.append(_t(nleft, 16, "refund share, week by week", NF, op=.8))
-    n.append(_t(nx(fired) - 13, ny(share[fired]) + 24, "fires at 53%", NF, a="end", w=600, fill=ROSE))
+    n.append(f'<g class="pt"{_at(fired + .5)}>{_t(nx(fired) - 13, ny(share[fired]) + 24, "fires at 53%", NF, a="end", w=600, fill=ROSE)}</g>')
     weeks(n, nx, nfloor, NF, True)
     nz = nfloor + 54
     n.append(_t(nleft, nz - 10, "each bar: that week's fall", NF, op=.8))
@@ -408,7 +426,7 @@ def drift_slide() -> str:
                 "The refund share sliding from 61% to 48% over eight weeks, two points or less a week: the weekly "
                 "alarm never fires, and the alarm on the baseline fires in week 5",
                 "Refunds fell thirteen points in eight weeks, about two a week: the weekly alarm never fired, and "
-                "the baseline alarm went off in week 5.")
+                "the baseline alarm went off in week 5.", play=True)
 
 
 def postmortem_layers() -> str:
@@ -419,6 +437,10 @@ def postmortem_layers() -> str:
               (("an alert on", "the trace"), ("absent; it reports", "afterwards"))]
     stops = {2, 3}
     slate = "var(--dg-slate)"
+    # played (_at): the refund's line is drawn past the first four layers in five beats, each layer's reality,
+    # and its ring, showing the beat after the line passes it; then the money (5), the dotted tail (6), and on 7
+    # the alert's reality and the verdict: the alert only reports afterwards. Names and panels stay.
+    seen = lambda i: _at(7 if i == len(layers) - 1 else i + 1)  # noqa: E731
 
     def panel(x, y, w, h):
         return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="3" fill="{slate}" fill-opacity=".14" '
@@ -431,24 +453,23 @@ def postmortem_layers() -> str:
            _t(52, mid - 24, "day 82", a="middle", w=700),
            f'<rect x="6" y="{mid - 16:.0f}" width="92" height="32" rx="6" fill="var(--dg-rose)" fill-opacity=".14" stroke="var(--dg-rose)"/>',
            _t(52, mid + 4.5, "$2,000 refund", a="middle", w=600, fill=ROSE),
-           f'<line x1="98" y1="{mid:.0f}" x2="{mx}" y2="{mid:.0f}" stroke="currentColor" stroke-width="2.2"/>',
-           f'<line x1="{mx}" y1="{mid:.0f}" x2="{px[4] - 8}" y2="{mid:.0f}" stroke="currentColor" stroke-width="1.6" '
+           f'<line class="ln" pathLength="1"{_at(5)} x1="98" y1="{mid:.0f}" x2="{mx}" y2="{mid:.0f}" stroke="currentColor" stroke-width="2.2"/>',
+           f'<line class="pt"{_at(6)} x1="{mx}" y1="{mid:.0f}" x2="{px[4] - 8}" y2="{mid:.0f}" stroke="currentColor" stroke-width="1.6" '
            f'stroke-dasharray="3 4" opacity=".7"/>']
     for i, (x, (name, real)) in enumerate(zip(px, layers)):
         out.append(panel(x - 6, py, 12, ph))
         for k, line in enumerate(name):
             out.append(_t(x, py - 12 - 15 * (len(name) - 1 - k), line, a="middle"))
-        for k, line in enumerate(real):
-            out.append(_t(x, py + ph + 20 + 15 * k, line, a="middle", op=.8))
+        was = "".join(_t(x, py + ph + 20 + 15 * k, line, a="middle", op=.8) for k, line in enumerate(real))
         if i in stops:
-            out.append(f'<rect x="{x - 17}" y="{py - 7}" width="34" height="{ph + 14}" rx="9" fill="none" '
-                       f'stroke="var(--dg-rose)" stroke-width="1.8"/>')
-    out.append(f'<circle cx="{mx}" cy="{mid:.0f}" r="6" fill="var(--dg-rose)"/>')
-    out.append(_t(mx, mid - 14, "$2,000", a="middle", w=700, fill=ROSE))
-    out.append(_t(mx, mid + 26, "paid out", a="middle", op=.85))
+            was += (f'<rect x="{x - 17}" y="{py - 7}" width="34" height="{ph + 14}" rx="9" fill="none" '
+                    f'stroke="var(--dg-rose)" stroke-width="1.8"/>')
+        out.append(f'<g class="pt"{seen(i)}>{was}</g>')
+    out.append(f'<g class="pt"{_at(5)}><circle cx="{mx}" cy="{mid:.0f}" r="6" fill="var(--dg-rose)"/>'
+               + _t(mx, mid - 14, "$2,000", a="middle", w=700, fill=ROSE) + _t(mx, mid + 26, "paid out", a="middle", op=.85) + "</g>")
     by = py + ph + 46
-    out.append(f'<path d="M{px[2]} {by - 5} v5 H{px[3]} v-5" fill="none" stroke="var(--dg-rose)" stroke-width="1.4"/>')
-    out.append(_t((px[2] + px[3]) / 2, by + 18, "either would have stopped it", a="middle", w=600, fill=ROSE))
+    out.append(f'<g class="pt"{_at(7)}><path d="M{px[2]} {by - 5} v5 H{px[3]} v-5" fill="none" stroke="var(--dg-rose)" stroke-width="1.4"/>'
+               + _t((px[2] + px[3]) / 2, by + 18, "either would have stopped it", a="middle", w=600, fill=ROSE) + "</g>")
     wide = (by + 28, "".join(out))
 
     # narrow: top to bottom, each panel across the line with its name and its reality beside it
@@ -457,22 +478,24 @@ def postmortem_layers() -> str:
     ys = [top + i * pitch for i in range(4)]
     my = ys[-1] + 66
     ys.append(my + 48)
-    n.append(f'<line x1="{lx}" y1="22" x2="{lx}" y2="{my}" stroke="currentColor" stroke-width="2.2"/>')
-    n.append(f'<line x1="{lx}" y1="{my}" x2="{lx}" y2="{ys[4] - 6}" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 4" opacity=".7"/>')
+    n.append(f'<line class="ln" pathLength="1"{_at(5)} x1="{lx}" y1="22" x2="{lx}" y2="{my}" stroke="currentColor" stroke-width="2.2"/>')
+    n.append(f'<line class="pt"{_at(6)} x1="{lx}" y1="{my}" x2="{lx}" y2="{ys[4] - 6}" stroke="currentColor" stroke-width="1.6" '
+             f'stroke-dasharray="3 4" opacity=".7"/>')
     for i, (y, (name, real)) in enumerate(zip(ys, layers)):
         n.append(panel(lx - 16, y - 5, 32, 10))
         n.append(_t(54, y + 1, " ".join(name), NF))
-        n.append(_t(54, y + 18, " ".join(real), NF, op=.8))
+        was = _t(54, y + 18, " ".join(real), NF, op=.8)
         if i in stops:
-            n.append(f'<rect x="{lx - 22}" y="{y - 11}" width="44" height="22" rx="7" fill="none" stroke="var(--dg-rose)" stroke-width="1.8"/>')
-    n.append(_t(54, ys[3] + 42, "either would have stopped it", NF, w=600, fill=ROSE))
-    n.append(f'<circle cx="{lx}" cy="{my}" r="6" fill="var(--dg-rose)"/>')
-    n.append(_t(54, my + 5, "$2,000 paid out", NF, w=700, fill=ROSE))
+            was += f'<rect x="{lx - 22}" y="{y - 11}" width="44" height="22" rx="7" fill="none" stroke="var(--dg-rose)" stroke-width="1.8"/>'
+        n.append(f'<g class="pt"{seen(i)}>{was}</g>')
+    n.append(f'<g class="pt"{_at(7)}>{_t(54, ys[3] + 42, "either would have stopped it", NF, w=600, fill=ROSE)}</g>')
+    n.append(f'<g class="pt"{_at(5)}><circle cx="{lx}" cy="{my}" r="6" fill="var(--dg-rose)"/>'
+             + _t(54, my + 5, "$2,000 paid out", NF, w=700, fill=ROSE) + "</g>")
     return _svg(wide, (ys[4] + 26, "".join(n)),
                 "A $2,000 refund on day 82 passing through five claimed defences, none enforced: the $400 cap and "
                 "the named approver, ringed, would each have stopped it, and the alert comes after the money",
                 "On day 82 a $2,000 refund passed five claimed defences; either of two, in the tool's signature, "
-                "would have made it impossible.")
+                "would have made it impossible.", play=True)
 
 
 def rollback_times() -> str:
@@ -481,6 +504,9 @@ def rollback_times() -> str:
     ways = [("kill switch", 40, "40 seconds", "var(--dg-green)"), ("flag to shadow", 120, "2 minutes", "var(--dg-slate)"),
             ("prompt rollback", 180, "3 minutes", "var(--dg-slate)"), ("model rollback", 660, "11 minutes", "var(--dg-rose)")]
     end = ways[-1][1]
+    # played (_at), on one clock: every bar starts at once and grows at one speed, the model rollback's in seven
+    # beats, so each stops at its own time and its time is written as it stops. The names and the ticks stay.
+    stops = lambda secs: _at(secs / end * 7)  # noqa: E731
 
     def axis(x0, span, y):
         return (f'<line x1="{x0}" y1="{y}" x2="{x0 + span}" y2="{y}" stroke="currentColor" opacity=".45"/>'
@@ -494,26 +520,27 @@ def rollback_times() -> str:
     for i, (name, secs, said, colour) in enumerate(ways):
         y, w = 12 + i * 32, secs / end * span
         out.append(_t(x0 - 12, y + 15, name, LB, a="end"))
-        out.append(f'<rect x="{x0}" y="{y}" width="{w:.1f}" height="21" rx="3" fill="{colour}" opacity=".95"/>')
+        out.append(f'<rect class="bx"{stops(secs)} x="{x0}" y="{y}" width="{w:.1f}" height="21" rx="3" fill="{colour}" opacity=".95"/>')
         if w > 300:
-            out.append(_t(x0 + 10, y + 15, "redeploys the runtime", LB, fill="var(--dg-on)"))
-            out.append(_t(x0 + w - 8, y + 15, said, LB, a="end", w=700, fill="var(--dg-on)"))
+            lab = (_t(x0 + 10, y + 15, "redeploys the runtime", LB, fill="var(--dg-on)")
+                   + _t(x0 + w - 8, y + 15, said, LB, a="end", w=700, fill="var(--dg-on)"))
         else:
-            out.append(_t(x0 + w + 8, y + 15, said, LB, w=700, fill=colour))
+            lab = _t(x0 + w + 8, y + 15, said, LB, w=700, fill=colour)
+        out.append(f'<g class="pt"{stops(secs)}>{lab}</g>')
     out.append(_t(x0 + span, 160, "a tick each minute", LB, a="end", op=.8))
     # narrow: the name and its time on one line, the bar under them
     n = [axis(8, 244, 190)]
     for i, (name, secs, said, colour) in enumerate(ways):
         y, w = 6 + i * 46, secs / end * 244
         n.append(_t(8, y + 13, name, NF))
-        n.append(_t(252, y + 13, said, NF, a="end", w=700, fill=colour))
-        n.append(f'<rect x="8" y="{y + 20}" width="{w:.1f}" height="18" rx="3" fill="{colour}" opacity=".95"/>')
+        n.append(f'<g class="pt"{stops(secs)}>{_t(252, y + 13, said, NF, a="end", w=700, fill=colour)}</g>')
+        n.append(f'<rect class="bx"{stops(secs)} x="8" y="{y + 20}" width="{w:.1f}" height="18" rx="3" fill="{colour}" opacity=".95"/>')
     n.append(_t(252, 214, "a tick each minute", NF, a="end", op=.8))
     return _svg((168, "".join(out)), (222, "".join(n)),
                 "Four ways back on one time axis: the kill switch in 40 seconds, flag to shadow in 2 minutes, a prompt "
                 "rollback in 3 and a model rollback in 11, because it redeploys the runtime",
                 "The kill switch takes 40 seconds; a model rollback takes 11 minutes, because it redeploys the runtime.",
-                small=True)
+                small=True, play=True)
 
 
 FIGURES = {

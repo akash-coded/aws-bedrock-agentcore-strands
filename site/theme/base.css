@@ -48,6 +48,14 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+/* page to page (council 11): the top bar holds while the page under it cross-fades, the browser's own 250ms.
+   No script; a browser without cross-document view transitions navigates as before. Each name is on one
+   element a page, or the browser skips the transition: .hd here, and the FDE guide's framework (.fx, fde.css),
+   which moves from the hub to its place on a stage page. */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  .hd{view-transition-name:hd}
+}
 body{background:var(--bone);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.62;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--accent);text-decoration:none}
@@ -2175,6 +2183,20 @@ main.lm .prose>h2+h3{margin-top:24px}
 .lm .prose .fig svg.n{max-width:300px;margin:0 auto}
 .lm .prose .fig .fn,.lm .prose .fig figcaption{max-width:none;margin-top:10px}
 @media (max-width:360px){.lm .prose .fig{padding:10px}}
+/* a figure that is itself a sequence (figures.py, play: the drift, the postmortem, the ways back) draws once, in
+   its own order, when site.js marks it .play on first sight. Each marked part arrives on its beat, --i times
+   170ms: a drawn line (.ln, by its dash) and a timed bar (.bx, from zero at one speed) reach their end on it, a
+   fade (.pt) and a falling bar (.bar) start on it. Seven beats and a fade, 1.44s at most. The keyframes keep
+   only their start and nothing holds after the end (backwards), so the last frame is the still, which is all
+   reduced motion, no script and paper show. The line's dash (dl) lasts only while it draws, so none of it is
+   left after, even where a browser ignores pathLength on a polyline. The drawing the figure's width hides never
+   runs. A bar grows from its fill box's top left, SVG's own origin. */
+@keyframes dl{0%,to{stroke-dasharray:1}}
+.fig.play :is(.bx,.bar){transform-box:fill-box}
+.fig.play .ln{animation:ad calc(var(--i)*170ms) linear backwards,dl calc(var(--i)*170ms) linear backwards}
+.fig.play .bx{animation:ax calc(var(--i)*170ms) linear backwards}
+.fig.play .pt{animation:ao var(--t-base) var(--ease) calc(var(--i)*170ms) backwards}
+.fig.play .bar{animation:ay var(--t-base) var(--ease) calc(var(--i)*170ms) backwards}
 /* a mental model: the glyph at the size its labels read at 14 to 15px, its name beside it */
 .lm .prose figure.lmodel{display:grid;grid-template-columns:310px minmax(0,1fr);gap:10px 24px;align-items:center;
   padding:14px 20px 14px 14px}
@@ -2302,6 +2324,11 @@ main.lm .prose>h2+h3{margin-top:24px}
    The rule: motion is for a thing that is itself a movement (the hero's flight, the game), or an answer to
    the reader's own hand (hover, press, open). Nothing moves because it scrolled into view, and nothing a
    reader came to read waits for an animation before it can be read. */
+/* r13 shared keyframes: P2 owns these */
+@keyframes ax{from{transform:scaleX(0)}}
+@keyframes ay{from{transform:scaleY(0)}}
+@keyframes ao{from{opacity:0}}
+@keyframes ad{from{stroke-dashoffset:1}}
 /* dashes on a connector say which way things flow. They move as the reader scrolls past, and
    are still otherwise; a browser without scroll timelines leaves them still, which reads the same. */
 @supports (animation-timeline:view()){
@@ -2312,13 +2339,14 @@ main.lm .prose>h2+h3{margin-top:24px}
     .bb .bb-flow{animation:bbflow linear both;animation-timeline:view()}
   }
 }
-/* a step opens to its height on a wide screen; on a phone, and where the browser cannot, it is simply open */
-@supports (interpolate-size:allow-keywords){
-  @media (prefers-reduced-motion:no-preference) and (min-width:901px){
-    html:not(.all-open) details.step{interpolate-size:allow-keywords}
-    html:not(.all-open) details.step::details-content{block-size:0;overflow:clip;transition:block-size 250ms var(--ease),content-visibility 250ms allow-discrete}
-    html:not(.all-open) details.step[open]::details-content{block-size:auto}
-  }
+/* a fold opens in 250ms, its contents fading in and settling 4px down from the summary, and closes at once
+   (DESIGN.md: a list opens in 250ms and leaves at once). The transition is set on the open state only, so it
+   runs when a reader opens a fold, never on one open when the page arrives, and never on closing. Height never
+   animates, so a jump into a step site.js opens lands exactly. The pseudo-element is beyond the reach of the
+   reduced-motion rule's *, hence the guard; screen only, so a page printed as its steps open prints them whole. */
+@media screen and (prefers-reduced-motion:no-preference){
+  :is(.prose details,.otp,.step,.howto,.lnav):not([open])::details-content{opacity:0;transform:translateY(-4px)}
+  :is(.prose details,.otp,.step,.howto,.lnav)[open]::details-content{transition:opacity var(--t-base) var(--ease),transform var(--t-base) var(--ease)}
 }
 
 /* a quiet button beside a heading, the folded contents list, and a rail's label */
