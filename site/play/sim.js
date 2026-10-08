@@ -408,6 +408,19 @@
     return s;
   }
 
+  /* ------------------------------------------------------------------ the run's line: each day's runway and what moved it (GAME.md) */
+  function trace(data, opts, history) {
+    var s = init(data, opts), out = [], i, n, open = s.slack, start = opts && opts.mode === "role" ? data.rules.slackRole : data.rules.slack;
+    function rec(live) { out.push({ i: s.i, before: out.length ? out[out.length - 1].close : start, open: open, close: s.slack, live: live, events: s.events.slice() }); }
+    for (i = 0; i < history.length; i++) {
+      if (history[i].t === "next") rec(false);
+      n = reduce(data, s, history[i]); if (n === s) break; s = n;
+      if (history[i].t === "next") open = s.slack;
+    }
+    if (s.beat !== "end") rec(true);
+    return out;
+  }
+
   /* ------------------------------------------------------------------ by the book
      The list of actions that reaches a given day with every earlier day done the recommended way: its
      option, its task done well, the limit typed into the tool as soon as that can be done, and the date
@@ -519,7 +532,7 @@
 
   var api = { init: init, reduce: reduce, fold: fold, legal: legal, today: today, price: price, mine: mine,
               rightOption: rightOption, bars: bars, barOf: barOf, sliceStats: sliceStats, gateMissing: gateMissing, canFix: canFix,
-              repairCost: repairCost, soFar: soFar, source: source, evidence: evidence, basis: basis, book: book, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
+              repairCost: repairCost, soFar: soFar, source: source, evidence: evidence, basis: basis, book: book, trace: trace, ledger: ledger, verdict: verdict, botTask: botTask, botPick: botPick, dayIndex: dayIndex, has: has };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else { root.ND = root.ND || {}; root.ND.sim = api; }
 })(typeof window !== "undefined" ? window : this);

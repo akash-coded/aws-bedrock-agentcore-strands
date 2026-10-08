@@ -246,7 +246,9 @@
     if (action.t === "next") { arrive(); looking = null; if (!still && next.events.some(function (e) { return e.kind === "incident"; })) flash = 1; }
     if (still) shut = gateShut(next);
     answering = true;             // the answer to a press
+    barFrom = before.slack;
     render(action.t === "next" ? "day" : action.t === "ask" ? "ask" : "out");
+    barFrom = null;
     save(); unlink();             // saved only once the screen for it exists
     flyPins(next.debts.slice(before.debts.length).filter(function (d) { return d.state === "sealed"; }).map(function (d) { return d.due; }));
     answering = false;
@@ -739,9 +741,79 @@
     box.checked = paused;
     return el("label", { "class": "mpause nd-pause" }, [box, el("span", { "class": "vh", text: "Pause the animation" }), el("i", { "aria-hidden": "true" })]);
   }
+  /* ------------------------------------------------------------------ the run's line, over the building (GAME.md) */
+  var runBox = el("section", { "class": "nd-run", "aria-labelledby": "nd-run-h" }), refRun = null, barFrom = null;
+  function refTrace(state) {      // traced once; a role's as the whole team plays it
+    var o = { mode: state.mode === "role" ? "role" : "team", role: state.mode === "role" ? state.role : null, seed: state.seed, from: data.days.length }, k = JSON.stringify(o);
+    if (!refRun || refRun.k !== k) refRun = { k: k, t: sim.trace(data, o, sim.book(data, o, data.days.length)) };
+    return refRun.t;
+  }
+  function idx(n) { for (var k = 0; k < data.days.length; k++) if (data.days[k].day === n) return k; return 0; }
+  function stood(n) { return n >= 0 ? "with " + days(n) + " left" : days(-n) + " late"; }
+  // each day's cost, a debt counted on the day that made it
+  function cost(tr, upto, open) {
+    var by = {};
+    tr.slice(0, upto + 1).forEach(function (r) {
+      r.events.forEach(function (e) {
+        if (e.kind === "move" || e.kind === "fix" || (open && r.i === upto && e.kind !== "debt" && e.kind !== "pressure")) return;
+        var k = e.kind === "debt" ? idx(e.from) : r.i; by[k] = (by[k] || 0) + e.days;
+      });
+    });
+    return by;
+  }
+  function runBlock(state) {
+    var R = data.rules, W = data.run, n = data.days.length, hi = (state.mode === "role" ? R.slackRole : R.slack) + R.moveDate.days, lo = -8, u = hi - lo;
+    var mine = sim.trace(data, run.opts, state.history), ref = refTrace(state), end = state.beat === "end", t = end ? n - 1 : mine.length - 1, rows = [], g = 0;
+    var plot = el("ol", { "class": "nd-plot", "aria-hidden": "true", "data-zero": W.zero, style: "--u:" + u + ";--z:" + (-lo / u * 100) });
+    var axis = el("ol", { "class": "nd-axis", "aria-hidden": "true" }), ties = el("div", { "class": "nd-ties", "aria-hidden": "true" });
+    function seg(cls, a, b) { a = Math.max(lo, Math.min(hi, a)); b = Math.max(lo, Math.min(hi, b)); return b > a || cls === "t" ? el("i", { "class": cls, style: "--a:" + (a - lo) + ";--h:" + (b - a) }) : null; }
+    data.days.forEach(function (d, k) {
+      var r = mine[k], li = el("li", { "class": r && r.live && !end ? "now" : null }), sp = 0, back = 0, mv = false, v, s, o;
+      if (r) {
+        r.events.forEach(function (e) { if (e.kind === "debt") back += e.days; else if (e.kind === "move") mv = true; else sp += e.days; });
+        v = seg("v", 0, r.close); s = seg("s", r.close, r.close + sp); o = seg("o", r.close + sp, r.close + sp + back);
+        if (v && s && r.live && barFrom !== null && barFrom > r.close && r.close > 0 && answering && !still) {     // the price, leaving the runway
+          v.classList.add("go"); s.classList.add("go"); v.style.setProperty("--f", Math.min(barFrom, hi) / r.close);
+        }
+        if (o && r.live && once("back")) o.classList.add("go");                                               // a debt, landing
+        [v, seg("l", r.close, 0), mv ? seg("m", r.close - R.moveDate.days, r.close) : null, s, o].forEach(function (x) { if (x) li.appendChild(x); });
+      }
+      if (ref[k] && (end || (r && !r.live))) li.appendChild(seg("t", ref[k].close, ref[k].close));
+      plot.appendChild(li);
+      axis.appendChild(el("li", { "class": k === t && !end ? "now" : k < t || end ? "past" : null, text: String(d.day) }));
+    });
+    state.debts.forEach(function (d) {        // each debt, from the day that made it to the day it falls due
+      if (d.state === "repaired") return;
+      var a = sim.dayIndex(data, d.id), b = sim.dayIndex(data, d.due), row = 0, go = d.state === "sealed" ? a === state.i && once("tie:" + d.due) : b === state.i && once("hit:" + d.id);
+      while ((rows[row] || []).some(function (x) { return a < x[1] && x[0] < b; })) row++;
+      (rows[row] = rows[row] || []).push([a, b]);
+      ties.appendChild(el("i", { "class": "nd-tie" + (d.state === "fired" ? " hit" : "") + (go ? " go" : ""), style: "--a:" + a + ";--b:" + b + ";--r:" + row }));
+    });
+    ties.style.setProperty("--rows", rows.length);
+    var me = mine[t], rf = ref[t], at = end ? "close" : "open", diff = rf[at] - me[at], a1 = cost(mine, t, !end), b1 = cost(ref, t, !end), why = [], cap = [];
+    Object.keys(a1).concat(Object.keys(b1)).forEach(function (k) { if ((a1[k] || 0) !== (b1[k] || 0) && why.indexOf(+k) < 0) why.push(+k); });
+    why = why.sort(function (x, y) { return Math.abs((a1[y] || 0) - (b1[y] || 0)) - Math.abs((a1[x] || 0) - (b1[x] || 0)); }).slice(0, 3).sort(function (x, y) { return x - y; });
+    cap.push(end ? W.end.replace("{left}", stood(me.close)).replace("{ref}", stood(rf.close))
+      : t === 0 ? W.first.replace("{left}", stood(me.open))
+      : W.open.replace("{day}", data.days[t].day).replace("{left}", stood(me.open)).replace("{ref}", stood(rf.open)));
+    if (t > 0 || end) cap.push(!diff ? W.level : W[diff > 0 ? "behind" : "ahead"].replace("{n}", days(Math.abs(diff))).replace("{days}", why.length ? dayNs(why.map(function (k) { return data.days[k].day; })) : "the date"));
+    var pins = state.debts.filter(function (d) { return d.state === "sealed"; }).sort(function (x, y) { return x.dueDay - y.dueDay; });
+    if (!end) cap.push(!pins.length ? W.none : pins.length === 1 ? W.pin1.replace("{day}", pins[0].dueDay)
+      : W.pinN.replace("{n}", pins.length < NUM.length ? NUM[pins.length].charAt(0).toUpperCase() + NUM[pins.length].slice(1) : pins.length).replace("{day}", pins[0].dueDay));
+    var key = el("p", { "class": "nd-run-key" }, ["you", "ref", "pin", "back"].map(function (c) { return el("span", {}, [el("i", { "class": c, "aria-hidden": "true" }), W.key[c]]); }));
+    var shelf = el("ul", { "class": "nd-files" }), gs = gateShut(state);
+    Object.keys(data.artefacts).map(function (a) { var s = sim.source(data, a); return [a, s == null || a === "report" ? 99 : s]; })
+      .sort(function (x, y) { return x[1] - y[1]; }).forEach(function (x) {
+        var a = x[0], on = sim.has(state, a), go = on && state.filed.indexOf(a) >= 0 && once("file:" + a);
+        shelf.appendChild(el("li", { "class": (on ? "on" : "") + (!on && gs && /^(spec|bar|budget)$/.test(a) ? " sign" : "") + (go ? " go" : ""), title: data.artefacts[a].name, style: go ? "--k:" + g++ : null },
+          [data.artefacts[a].term, el("span", { "class": "vh", text: on ? ": on file" : ": not yet" })]));
+      });
+    return [el("p", { "class": "nd-k", id: "nd-run-h", text: W.head }), plot, axis, ties, el("p", { "class": "nd-run-cap", text: cap.join(" ") }), key,
+      el("p", { "class": "nd-k", text: W.shelf }), shelf];
+  }
   // the building: a caption, the picture, where today is, the pause control
   function stage() {
-    return el("div", { "class": "nd-stage" }, [el("p", { "class": "nd-over", text: data.building.caption }), el("div", { "class": "nd-map" }, [mapCv]),
+    return el("div", { "class": "nd-stage" }, [runBox, el("p", { "class": "nd-over", text: data.building.caption }), el("div", { "class": "nd-map" }, [mapCv]),
       el("div", { "class": "nd-stagebar" }, [el("p", { "class": "nd-k nd-where" }), still ? null : pauseControl()])]);
   }
   function place() { if (left) left.querySelector(".nd-where").textContent = where(); }
@@ -1097,9 +1169,10 @@
     if (kids && lineWanted) { line = dayLine(); more = ways(); }
     if (!(state && state.beat === "end") && focus !== "org") look = roomBox(state);
     if (state && state.beat !== "end") today = sim.today(data, state);
+    var runKids = state && focus !== "org" ? runBlock(state) : [];
     picture(now()); whereabouts(now()); where();   // asked of the rules before anything changes
     was = { cls: root.className, playing: document.documentElement.classList.contains("nd-playing"), kids: kids ? Array.prototype.slice.call(panel.childNodes) : null,
-            look: left.querySelector(".nd-look"), line: root.querySelector(".nd-line"), more: root.querySelector(".nd-ways") };
+            look: left.querySelector(".nd-look"), line: root.querySelector(".nd-line"), more: root.querySelector(".nd-ways"), run: Array.prototype.slice.call(runBox.childNodes) };
     try {
       root.className = "nd-app " + (!state ? "at-title" : state.beat === "end" ? "at-end" : briefing ? "at-brief" : "at-play") + (focus === "org" ? " at-org" : "");
       document.documentElement.classList.toggle("nd-playing", !!state);
@@ -1111,6 +1184,7 @@
         if (line) root.insertBefore(line, root.firstChild);       // the line, above the building and the panel
         if (more) root.appendChild(more);                         // and the other ways to play, under both
       }
+      runBox.textContent = ""; runKids.forEach(function (k) { runBox.appendChild(k); });
       // the room cards live under the building
       if (was.look) was.look.remove();
       if (look) left.appendChild(look);
@@ -1122,6 +1196,7 @@
         if (was.line) root.insertBefore(was.line, root.firstChild); if (was.more) root.appendChild(was.more); }
       if (look) look.remove();
       if (was.look) left.appendChild(was.look);
+      runBox.textContent = ""; was.run.forEach(function (k) { runBox.appendChild(k); });
       throw err;
     }
     renders++;

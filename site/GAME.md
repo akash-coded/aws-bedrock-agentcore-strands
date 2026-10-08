@@ -317,6 +317,42 @@ the plan stand or asks for another option (on Day 90, builds the slide), at no f
 chooses what to send the team back to do. In one role a call asked for becomes the player's own, task
 and all. The sponsor only asks, and the team then does the day the way it was chosen.
 
+## The run's line
+
+Over the building, in play, in a late start's briefing and at the end, the left column carries the record of
+the run. Until round fifteen it held only the building, which answers "which room is today?", and the owner
+found it a picture that never changed: a coach shows what the calls did. Everything in it is computed from the
+rules' own record, `sim.trace`, which replays the run and gives each day the runway it opened with (`before`,
+and `open` once what met it on arrival has landed), the runway when "On to" was pressed (`close`; today, now)
+and the events that moved it. Its only fixed sentences are `run` in `days.json`, which the rules test lints.
+
+- **The runway, day by day.** Thirteen bars on the strip's grid, one a day, measured in days from the date
+  (the line marked "the date") down to eight days late. A day's bar is the runway it closed with: ink, the
+  past at half strength and today at full; under the line, rose, a run that is late. Over it, outlined, the
+  days the day spent (its call, its task, the gate, the vendor's freeze, a repair), and over those, in rose,
+  the days a debt took when it came back. On the day the date moves, its four days are teal. A short grey line
+  beside each past day marks where the recommended run closed it (`sim.book` for the same mode and seed; a
+  role's as the whole team plays it), so a shortcut stands above the line until its debt comes back. Today
+  has no mark: the recommended run's next step is never shown before a call.
+- **The threads.** Under the days, each debt is a rose thread from the day that made it to the day it falls
+  due, dashed while it is pinned and solid once it has come back. A debt repaired is gone. Threads that
+  would overlap take rows.
+- **The words.** Three computed sentences: how today opened against the recommended run ("Day 45 opened 3 days
+  late. The recommended run opened it with 4 days left."), how far behind or ahead and from which days, each
+  day's cost counted on the day that caused it ("7 days behind the recommended run, from Days 1, 4 and 30."),
+  and what is pinned ahead. At the end, how the run closed against it.
+- **The documents.** The fifteen, by their short names, in the order the days file them: on file in teal, not
+  yet in a dashed outline, and the three the sign-off needs ringed in rose until it has been dealt with.
+
+Motion, as the answer to a press and only then: a price leaves today's bar (it shrinks from where the runway
+stood, 350ms, and the spent outline fades in after it), a new thread draws itself once the pin has flown to
+its day, a debt that comes back fades in on the day it lands, and a document filed today lands on the shelf,
+120ms apart when a day files more than one. With reduced motion each is drawn at once.
+
+Above 1240 wide the line runs across the left column over the building, which in play stands at once its size
+(297 by 304) with its key beside it; the building's long caption is the title's only. From 1240 down the line
+sits under the day and over the building, as the building does.
+
 ## The picture (`play/art.js`)
 
 SkyWays' head office, cut open: seven rooms and a lobby on four floors, drawn at one logical pixel per
@@ -340,7 +376,8 @@ Colour comes from light and material, never from bright paint:
 - Every canvas is drawn at a whole number of screen pixels to an art pixel and never resampled. The
   building's picture fills its column: twice its size wherever the column holds 594px, once on a phone,
   with the sky and the apron running on either side of the building where the column is wider than it,
-  and cropped by its frame on the smallest phone (297 in 280). The close-up is always twice its size.
+  and cropped by its frame on the smallest phone (297 in 280). In play above 1240 wide it stands at once its
+  size under the run's line. The close-up is always twice its size.
 - Above 1240 wide the building stands beside the day and the close-up is not shown. In play it stays in
   view as the page scrolls; where it is taller than the window it scrolls until its foot is in view and
   stays there, so the key is never out of reach. On the title it scrolls with the page. At 1240 and under

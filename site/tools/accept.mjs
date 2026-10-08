@@ -48,7 +48,7 @@
 //                            first paint, while the game's own script has still not arrived; when the rules fail to
 //                            load, the text comes back
 //   17. the bytes            read from the built site with node's zlib (level 9): base.css under 32 KB as shipped
-//                            (the build drops its comments), the game's three scripts under 46 KB, theme/hero.js
+//                            (the build drops its comments), the game's three scripts under 49 KB, theme/hero.js
 //                            under 10 KB, frame/frame.js (every page loads it) under 6 KB; every page's HTML under
 //                            25 KB (the pages that were already larger on 2 October 2026 each held to its size that
 //                            day, rounded up, plus one KB); the home page's HTML under 21 KB with no <style> block,
@@ -914,7 +914,10 @@ console.log("\n17. the bytes: base.css, the scripts, every page's HTML, the home
     for (const f of files.filter((f) => f.endsWith(".css"))) if (readFileSync(SITE + f, "utf8").includes("/*")) out.push(`${f} ships with its comments`);
     // Raised from 45 on purpose on 2 October 2026: the owner asked for a briefing before a late start (the earlier calls, the documents,
     // where the run stands), which took the three scripts to 45.97 KB after the savings in site/GAME.md; 46 is that, rounded up to the next half KB.
-    if (game >= 46) out.push(`the game's scripts are ${game.toFixed(1)} KB gzipped; the budget is 46`);
+    // Raised again on 8 October 2026: the owner found the left half a picture that never changed, and asked for a coach. The run's line
+    // over the building (sim.trace, the runway beside the recommended run's, the debts' threads, the documents) took them to 48.73 KB;
+    // 49 is that, rounded up to the next half KB.
+    if (game >= 49) out.push(`the game's scripts are ${game.toFixed(1)} KB gzipped; the budget is 49`);
     const hero = kb("theme/hero.js"); if (hero >= 10) out.push(`theme/hero.js is ${hero.toFixed(1)} KB gzipped; the budget is 10 (council 10)`);
     // build.py --shots writes two sheets for the shooting tools (learn/_shots/, og/_sheet.html); CI builds without
     // --shots, so neither is deployed and neither is a page a reader loads

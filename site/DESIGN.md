@@ -268,7 +268,10 @@ has a job and can be paused. Its colour comes from light and material: each room
 its owner's hue, and the sky outside tells the phase, one still sky a day, from dawn on Day 1 to dusk on
 Day 90 (night, if the run is late). The canvas is the same in both themes. The home page shows two of its
 rooms as still pictures, drawn by the game's own code at one times and shown at whole multiples: Day 45's QA
-room on the day card, and the boardroom on Day 90 on the library's simulator card. `GAME.md` has the detail.
+room on the day card, and the boardroom on Day 90 on the library's simulator card. In play the building's
+column opens on the run's line, the record of the run in type and CSS: the runway day by day beside the
+recommended run's, each debt as a rose thread from the day that made it to the day it falls due, and the
+documents on file. `GAME.md` has the detail.
 
 ## Elevation and depth
 

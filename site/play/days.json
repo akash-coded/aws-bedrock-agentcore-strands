@@ -34,6 +34,21 @@
     "floors": ["top floor", "second floor", "first floor", "ground floor"],
     "marks": { "lit": "Today's room", "shut": "Shut until the sign-off", "owed": "Something is due there" }
   },
+  "run": {
+    "head": "Runway, day by day",
+    "first": "Day 1 opens {left}. Nothing has been spent.",
+    "open": "Day {day} opened {left}. The recommended run opened it {ref}.",
+    "end": "The run closed {left}. The recommended run closed {ref}.",
+    "level": "Level with the recommended run.",
+    "behind": "{n} behind the recommended run, from {days}.",
+    "ahead": "{n} ahead of the recommended run, from {days}.",
+    "none": "Nothing is pinned ahead.",
+    "pin1": "Something is pinned to Day {day}.",
+    "pinN": "{n} things are pinned, the first to Day {day}.",
+    "zero": "the date",
+    "shelf": "The documents, in the order the days file them",
+    "key": { "you": "your run", "ref": "the recommended run", "pin": "pinned", "back": "came back" }
+  },
   "rules": {
     "slack": 18,
     "slackRole": 20,

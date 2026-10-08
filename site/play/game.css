@@ -43,6 +43,60 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-map-cv{flex:none;max-width:none;cursor:pointer}
 .at-title .nd-map-cv,.at-end .nd-map-cv{cursor:default}
 .nd-stagebar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;margin-top:10px}
+/* the run's line, over the building in play (GAME.md, "The run's line"): bars in days, measured from the plot's
+   floor (--a) with a height (--h), out of the plot's whole range (--u); the date is the line at --z percent */
+.nd-run:empty,.at-play .nd-over,.at-brief .nd-over,.at-end .nd-over{display:none}
+.nd-run{margin:0 0 24px}
+.nd-plot,.nd-axis{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:3px;list-style:none;margin:0;padding:0}
+.nd-plot{position:relative;height:120px;margin-top:4px}
+.nd-plot::before{content:"";position:absolute;left:0;right:0;bottom:calc(var(--z) * 1%);border-top:1px solid var(--rule)}
+.nd-plot::after{content:attr(data-zero);position:absolute;right:0;bottom:calc(var(--z) * 1% + 3px);font:11px/1 var(--f-mono);color:var(--soft)}
+.nd-plot li{position:relative}
+.nd-plot i{position:absolute;left:15%;width:70%;bottom:calc(var(--a) / var(--u) * 100%);height:calc(var(--h) / var(--u) * 100%)}
+.nd-plot .v{background:color-mix(in oklab,var(--ink) 45%,transparent)}
+.nd-plot .now .v{background:var(--ink)}
+.nd-plot .l{background:var(--dg-rose)}
+.nd-plot .m{background:var(--dg-teal)}
+.nd-plot .s{box-shadow:inset 0 0 0 1px var(--soft)}
+.nd-plot .o{background:color-mix(in oklab,var(--dg-rose) 75%,transparent)}
+.nd-plot .t{left:0;width:100%;height:2px;margin-bottom:-1px;background:var(--soft)}
+.nd-plot .v.go{transform-origin:bottom;animation:nd-spend 350ms var(--ease) both}
+.nd-plot .s.go{animation:ao 250ms 350ms var(--ease) both}
+.nd-plot .o.go{animation:ao 400ms var(--ease) both}
+@keyframes nd-spend{from{transform:scaleY(var(--f))}}
+.nd-axis{margin-top:5px;font:11px/1.2 var(--f-mono);color:var(--soft);text-align:center}
+.nd-axis .past{color:var(--ink2)}
+.nd-axis .now{color:var(--ink);font-weight:700}
+.nd-ties{position:relative;height:calc(var(--rows) * 10px);margin-top:6px}
+.nd-tie{position:absolute;top:calc(var(--r) * 10px + 4px);left:calc((100% + 3px) * (var(--a) + .5) / 13 - 1.5px);width:calc((100% + 3px) * (var(--b) - var(--a)) / 13);border-top:2px dashed var(--dg-rose)}
+.nd-tie::before,.nd-tie::after{content:"";position:absolute;top:-4px;width:6px;height:6px;border-radius:1px;background:var(--dg-rose)}
+.nd-tie::before{left:-3px}
+.nd-tie::after{right:-3px;background:var(--bone);box-shadow:inset 0 0 0 1.5px var(--dg-rose)}
+.nd-tie.hit{border-top-style:solid}
+.nd-tie.hit::after{background:var(--dg-rose)}
+.nd-tie.go{transform-origin:left;animation:nd-tie 350ms 520ms var(--ease) both}
+.nd-tie.hit.go{animation:ao 400ms var(--ease) both}
+@keyframes nd-tie{from{transform:scaleX(0)}}
+.nd-run-cap{margin:14px 0 8px;font-size:14.5px;line-height:1.5;color:var(--ink2);max-width:none}
+.nd-run-key{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 18px;font:11.5px/1.4 var(--f-mono);color:var(--soft);max-width:none}
+.nd-run-key i{display:inline-block;vertical-align:middle;margin:0 6px 2px 0}
+.nd-run-key .you{width:9px;height:9px;background:var(--ink)}
+.nd-run-key .ref{width:12px;height:2px;background:var(--soft)}
+.nd-run-key .pin{width:14px;border-top:2px dashed var(--dg-rose)}
+.nd-run-key .back{width:9px;height:9px;background:color-mix(in oklab,var(--dg-rose) 75%,transparent)}
+.nd-files{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.nd-files li{padding:3px 8px;border:1px dashed var(--rule);border-radius:6px;font:12px/1.35 var(--f-mono);color:var(--soft);max-width:none}
+.nd-files .on{border:1px solid color-mix(in oklab,var(--dg-teal) 60%,transparent);background:color-mix(in oklab,var(--dg-teal) 16%,transparent);color:var(--ink)}
+.nd-files .sign{border-color:var(--dg-rose);color:var(--ink2)}
+.nd-files .go{animation:nd-land 250ms calc(var(--k) * 120ms) var(--ease) both}
+@keyframes nd-land{from{opacity:0;transform:translateY(-6px)}}
+/* above 1240, in play: the run's line across the column, the building at once its size, its key beside it */
+@media (min-width:1241px){
+  .at-play .nd-stage,.at-brief .nd-stage,.at-end .nd-stage{display:grid;grid-template-columns:297px minmax(0,1fr);column-gap:24px;align-items:start}
+  .at-play .nd-run,.at-brief .nd-run,.at-end .nd-run{grid-column:1/-1}
+  .at-play .nd-map,.at-brief .nd-map,.at-end .nd-map,.at-play .nd-stagebar,.at-brief .nd-stagebar,.at-end .nd-stagebar{grid-column:1}
+  .at-play .nd-look{grid-column:2;grid-row:2/5;margin-top:0}
+}
 .nd-where{margin:0;font-size:12.5px;color:var(--ink2)}
 .nd-pause.mpause{position:relative;flex:none;margin-left:auto}
 /* the panel is a column with one gap, so no child's own margin can close it */
@@ -527,7 +581,8 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
   .at-play .nd-hud .nd-scene{grid-row:auto;align-self:auto}
   /* and under the day, the building starts at the rail's edge, with its key beside it */
   .at-play .nd-stage{max-width:952px;display:grid;grid-template-columns:594px minmax(0,1fr);column-gap:28px;align-items:start}
-  .at-play .nd-look{grid-column:2;grid-row:1/4;margin-top:0}
+  .at-play .nd-run{grid-column:1/-1}
+  .at-play .nd-look{grid-column:2;grid-row:2/5;margin-top:0}
 }
 /* a phone: the room fills the width, under the days and the meters */
 @media (max-width:640px){

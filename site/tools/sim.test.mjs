@@ -144,6 +144,17 @@ console.log("\n1. the words");
   for (const [k, t] of Object.entries(data.brief)) { plain(t.replace("{day}", "45"), `the briefing's "${k}"`); check(/\{day\}/.test(t) === ["start", "back", "again"].includes(k), `the briefing's "${k}" ${/\{day\}/.test(t) ? "names a day it should not" : "does not name its day"}: "${t}"`); }
   check(/\{day\}/.test(data.line.first), `the link to a role's first call does not name its day: "${data.line.first}"`); plain(data.line.first.replace("{day}", "45"), "the link to a role's first call");
   // the other words the page shows from this file
+  // the run's line over the building (GAME.md, "The run's line"): its words, filled as the page fills them, and
+  // the trace it is drawn from, which must add up on every day of the recommended run
+  const fill = { left: "with 4 days left", ref: "3 days late", day: "45", n: "2 days", days: "Days 1 and 30" };
+  for (const [k, t] of Object.entries(data.run)) for (const one of typeof t === "string" ? [t] : Object.values(t)) plain(one.replace(/\{(\w+)\}/g, (m, x) => fill[x] || m), `the run's line, "${k}"`);
+  {
+    const o = { mode: "team", seed: 0, from: 0 }, tr = sim.trace(data, o, sim.book(data, o, data.days.length));
+    check(tr.length === data.days.length && tr.every((r) => !r.live), `the recommended run's trace has ${tr.length} days, not ${data.days.length} closed ones`);
+    for (const r of tr) check(r.before - r.events.reduce((a, e) => a + e.days, 0) + (r.events.some((e) => e.kind === "move") ? data.rules.moveDate.days : 0) === r.close, `Day ${data.days[r.i].day}'s trace does not add up`);
+    const one = sim.trace(data, o, []);
+    check(one.length === 1 && one[0].live && one[0].before === data.rules.slack, "a run not yet begun is not one live day that opened with the spare days");
+  }
   plain(data.building.caption, "the building's caption"); plain(data.org.way, "the sponsor's way to play"); plain(data.org.intro, "the sponsor's rules screen");
   plain(data.days.find((d) => d.gate).signoff, "the sign-off's intro"); for (const [k, v] of Object.entries(data.days.find((d) => d.variants).variants)) plain(v.fig, `Day 82's figure, ${k}`);
   data.monday.forEach((q, k) => plain(q, `question ${k + 1} for Monday`));
