@@ -44,7 +44,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .at-title .nd-map-cv,.at-end .nd-map-cv{cursor:default}
 .nd-stagebar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;margin-top:10px}
 .nd-where{margin:0;font-size:12.5px;color:var(--ink2)}
-.nd-pause.mpause{position:static;flex:none;margin-left:auto}
+.nd-pause.mpause{position:relative;flex:none;margin-left:auto}
 /* the panel is a column with one gap, so no child's own margin can close it */
 .nd-panel{min-width:0;max-width:640px;display:flex;flex-direction:column;gap:20px}
 .nd-panel>*{margin-top:0;margin-bottom:0}
@@ -374,7 +374,7 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-line-stops li{position:absolute;top:0;width:0;margin:0;max-width:none}
 .nd-line-stops a,.nd-line-stops .mk{position:absolute;left:0;top:-11px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;
   padding:4px 5px 3px;border-radius:8px;color:var(--soft);text-decoration:none}
-.nd-line-stops .mk{display:none}
+.nd-line-stops .mk{display:none;pointer-events:none}
 .nd-line-stops a>i,.nd-line-stops .mk>i{display:grid;place-items:center;width:14px;height:14px}
 .nd-line-stops a>i::before,.nd-line-stops .mk>i::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--bone);box-shadow:0 0 0 2px var(--c);
   transition:scale var(--t-fast) var(--ease),background var(--t-fast) var(--ease)}

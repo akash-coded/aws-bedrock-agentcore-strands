@@ -645,6 +645,18 @@ try {
   else if (!logged.some((t) => /soFar/.test(t))) fail(`a press that throws leaves no console line naming the error: ${logged.join(" | ")}`);
   else console.log("  ok   with sim.soFar missing, Start leaves the title as it was, saves nothing, and says \"This page is out of date. Reload to play.\" with a Reload button");
   if (thrown.length) fail("section 12: script error: " + thrown[0]);
+  // what a hand meets: every stop and Start is the first thing under its own centre, at 1440 and on a phone. The
+  // pause control's invisible box once stretched over the whole first screen and took every press, while the
+  // presses above, made by script, went straight through it
+  const HIT = `(() => [...document.querySelectorAll("#nd .nd-line-stops a, #nd .nd-line .nd-start")].filter((x) => x.getClientRects().length).map((x) => {
+    const r = x.getBoundingClientRect(), t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    return !t || t === x || x.contains(t) ? "" : (x.getAttribute("href") || x.textContent.trim()) + " under " + t.tagName.toLowerCase() + (t.className ? "." + t.className : ""); }).filter(Boolean))()`;
+  await fromCold(1440, 900, "");
+  const hitWide = await evaluate(HIT);
+  await fromCold(390, 844, "");
+  const hitPhone = await evaluate(HIT);
+  if (!hitWide || !hitPhone || hitWide.length || hitPhone.length) fail(`a press on the line meets something else first: ${[...(hitWide || []), ...(hitPhone || [])].join("; ")}`);
+  else console.log("  ok   at 1440 and 390 every stop and Start is the first thing under the pointer, so a real press reaches it");
 
   {                               // its own block: section 12 has a card and a line of its own
     console.log("\n13. the building's key, the role rows, the day's card, and the loop at rest");

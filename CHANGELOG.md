@@ -8,6 +8,23 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-08 · The simulator's title takes a press again
+
+The owner found that starting the simulator from a later day did nothing: pointing at a day left Start on Day 1,
+and a press on a day or on Start did nothing. The record is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md)
+("Round fifteen").
+
+### Fixed
+- **The title's first screen took no press.** The pause control under the building is an invisible
+  checkbox stretched over its 44px button; set in the bar under the building with `position:static`, it
+  stretched over the whole first screen instead, so pointing at a day changed nothing and every press there
+  paused the building. It is held to its button again, and the same pattern under the home page's scene is
+  made safe ([`site/play/game.css`](site/play/game.css), [`site/theme/base.css`](site/theme/base.css))
+- On a phone a tap on Day 1's stop met Day 4's mark, which lay over it; the marks let a tap through
+- The playtest pressed every control from script, which passes through anything lying over it; it now also
+  checks that each stop and Start is the first thing under the pointer, at 1440 and 390
+  ([`site/tools/playtest.mjs`](site/tools/playtest.mjs))
+
 ## 2026-10-08 · One top bar on every surface: every logo leads to the manual, each bar names where you are, one way back
 
 The owner, in the workbench, found its SkyWays logo did not lead back to the manual and the simulator's bar did

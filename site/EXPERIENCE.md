@@ -1188,6 +1188,25 @@ site's name, and the bare nouns name its sub-surfaces.
 125.5px wide on the title, on Day 1 and on Day 45 beside "The manual"; and the workbench's 719 checks, its menu
 icon now first in the bar. The playtest's two checks on the label now read "The lesson".
 
+## Round fifteen: the simulator takes a press again
+
+The owner: "In the simulator, the ability to start from a random day is breaking. It's not very intuitive.
+And where it shows up, it doesn't autoscroll to that button and clicking the button doesn't work." Reproduced
+with real pointer events rather than the playtest's script presses: at 1440 and 390, pointing at a day on the
+title's line left Start reading "Start at Day 1", and pressing a stop did nothing. Under every stop,
+`elementsFromPoint` found an `input` first: the building's pause control, a checkbox stretched
+(`position:absolute; inset:0`) over its button, a button `game.css` had set to `position:static` on 2 October
+so it would sit in the bar under the building. With no positioned ancestor on the title, the checkbox covered
+the whole first screen, 1440 by 900, and every press there paused the building instead. In play the building's
+column is sticky, which held the box to the column, so a day's answers were never covered. The button is
+`position:relative` now, and so is the same pattern under the home page's scene (`.sc-foot`), where a
+positioned ancestor had happened to hold it. A second blocker showed on a phone: Day 4's mark lay over Day 1's
+44px target, and the marks now let a press through. After the fix, a press on a stop opens its briefing at the
+top with its heading focused and "Start Day 45" in the window at 1440 and 390, and that button opens the day.
+The playtest's presses are script clicks, which pass through anything lying over a control; that is how both
+stayed hidden. It now checks that every stop and Start is the first thing under the pointer at 1440 and 390,
+and that check fails on the old stylesheet.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).

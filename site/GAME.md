@@ -497,10 +497,14 @@ the condition beside it, and the code would read worse without them.
   ahead its days, a sealed debt the lesser of its days and its repair), and replays the line it finds to
   its verdict; all 42 take about 8 seconds, the QA lead from Day 1 the longest. It prints the trust,
   runway, documents and questions at the opening of each day for the whole team and for one role.
-- `tools/playtest.mjs` plays each mode by real clicks to the verdict in headless Chrome, at laptop and
-  phone widths, and checks focus, saves and the forwarding of old workbench links. It does the sixth
+- `tools/playtest.mjs` plays each mode to the verdict in headless Chrome, pressing each control from
+  script, at laptop and phone widths, and checks focus, saves and the forwarding of old workbench links. A
+  press from script reaches its control even when something lies over it, so section 12 also checks that
+  every stop on the title's line and Start are the first thing under the pointer at their centre, at 1440
+  and 390: the pause control's invisible box once covered the title's whole first screen, and on a phone
+  Day 4's mark lay over Day 1's target, and neither showed to a script. It does the sixth
   task by its controls, and checks that every headline it saw is a sentence. Its ninth section is a link
-  to a day: the stop for Day 45 on the title's line, pressed by a real click, opens the briefing, which
+  to a day: the stop for Day 45 on the title's line, pressed, opens the briefing, which
   lists the earlier days with their calls and prices (checked against `days.json`'s recommended options),
   the freeze and the limit under their days, the documents with the day each was filed, the run's numbers,
   the spare days the earlier days used, what the day works from and that nothing comes due, with nothing saved and the link kept; one press opens

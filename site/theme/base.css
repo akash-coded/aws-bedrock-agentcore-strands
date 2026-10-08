@@ -1569,7 +1569,7 @@ a.more:hover i{transform:translateX(4px)}
 .sc-rail li.back::before{content:none}
 /* a 44px target at every width, as every control is on a phone (the tower's on the method page included); on a
    stage under 400px wide it sits deeper in its corner, so the four names at rest keep their room (accept.mjs, pass 13) */
-.sc-foot .mpause{position:static;flex:none;width:44px;height:44px}
+.sc-foot .mpause{position:relative;flex:none;width:44px;height:44px}
 @media (max-width:399px){.on+.sc-foot{right:3%;bottom:3%}}
 @media (max-width:1000px){
   /* one column: the words, the two buttons, the picture whole, then the counts */
