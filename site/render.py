@@ -351,7 +351,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <a class="skip" href="#main">Skip to content</a>
 <header class="hd"><div class="in">
   {_menu(up, nav_id)}
-  <a class="brand" href="{up}" aria-label="SkyWays, the agentic manual: home">{MARK}<span class="wm">SkyWays</span><small>The agentic manual</small></a>
+  <a class="brand" href="{up}" aria-label="SkyWays, the agentic manual: home">{MARK}<span class="wm">SkyWays</span><small>{"Simulator" if nav_id == "simulator" else "The agentic manual"}</small></a>
   <nav aria-label="Sections">{nav}</nav>
   {_ctx(up, nav_id, ctx)}
   <button class="tgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">{HALF}</button>
