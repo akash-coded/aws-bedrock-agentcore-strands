@@ -50,7 +50,8 @@ html:not(.nd-playing) .nd{padding-top:clamp(24px,2.6vw,36px)}
 .nd-plot,.nd-axis{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:3px;list-style:none;margin:0;padding:0}
 .nd-plot{position:relative;height:120px;margin-top:4px}
 .nd-plot::before{content:"";position:absolute;left:0;right:0;bottom:calc(var(--z) * 1%);border-top:1px solid var(--rule)}
-.nd-plot::after{content:attr(data-zero);position:absolute;right:0;bottom:calc(var(--z) * 1% + 3px);font:11px/1 var(--f-mono);color:var(--soft)}
+.nd-plot::after{content:attr(data-zero);position:absolute;left:100%;bottom:calc(var(--z) * 1% - 6px);padding-left:8px;font:11px/1 var(--f-mono);color:var(--soft);white-space:nowrap}
+.nd-plot,.nd-axis,.nd-ties{margin-right:64px}
 .nd-plot li{position:relative}
 .nd-plot i{position:absolute;left:15%;width:70%;bottom:calc(var(--a) / var(--u) * 100%);height:calc(var(--h) / var(--u) * 100%)}
 .nd-plot .v{background:color-mix(in oklab,var(--ink) 45%,transparent)}

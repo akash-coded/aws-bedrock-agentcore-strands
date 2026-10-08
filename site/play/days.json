@@ -36,7 +36,7 @@
   },
   "run": {
     "head": "Runway, day by day",
-    "first": "Day 1 opens {left}. Nothing has been spent.",
+    "first": "Day 1 opens {left}.",
     "open": "Day {day} opened {left}. The recommended run opened it {ref}.",
     "end": "The run closed {left}. The recommended run closed {ref}.",
     "level": "Level with the recommended run.",

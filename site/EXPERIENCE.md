@@ -1207,6 +1207,36 @@ The playtest's presses are script clicks, which pass through anything lying over
 stayed hidden. It now checks that every stop and Start is the first thing under the pointer at 1440 and 390,
 and that check fails on the old stylesheet.
 
+**The left half.** The owner went on: "I still feel the simulator is half baked. The screen, the left half, is
+mostly staying same with some random room animations, the same ones, doesn't make any experience enrichment or
+change. Is that how a top notch end to end simulator and coach acts." No. At 1440 the building took about 45% of
+the first screen to answer which room today is in, which the day's kicker already says, and what changed day to
+day was cosmetic: the framed room, the sky, the shutters. Fable, as the design seat, specified a replacement
+built from what the rules already know: every option carries what it does now (`now`) and a debt it pins to a
+later day (`debt`), and the state carries the runway, the debts and the documents. A new `sim.trace` replays a
+run and gives each day the runway it opened and closed with and what moved it; the page draws the run's line from
+it, over the building. Thirteen bars of runway against the date, the days each spent outlined and the days a debt
+took back in rose; a grey mark for where the recommended run closed each day already played, and never today, so
+nothing is given away before a call; each debt a rose thread from the day that made it to the day it falls due;
+three computed sentences ("Day 45 opened 3 days late. The recommended run opened it with 4 days left. 7 days
+behind the recommended run, from Days 1, 4 and 30. Two things are pinned, the first to Day 75."); and the fifteen
+documents by their short names as they come on file, the sign-off's three ringed in rose until it is dealt with.
+A price leaves today's bar as the answer to a press, a thread draws itself, a document lands; reduced motion draws
+each at once. The building stays, at once its size above 1240 in play with its key beside it.
+
+Two departures from the seat's specification: the documents are chips with their short names, where it had
+fifteen unlabelled tiles a reader could only hover; and the strip and meters stay over the day where they were,
+rather than moving into the left column, so the day's card does not move and the line sits first in the
+building's column at every width (over the building above 1240, under the day and over the building below it).
+"Day 1 opens with 18 days left" lost its "Nothing has been spent." once a press showed it could be false.
+
+**Bytes and checks.** The game's three scripts went from 45.96 KB to 48.37 gzipped once the new comments were cut
+to a line of why each; the gate's budget for them rose from 46 to 48.5 with the reason beside it, as round
+eleven's did. The rules test lints the line's sentences and checks that the recommended run's trace adds up on
+every day; the playtest played every way to its verdict on the new layout; the gate's passes 1 to 11 and 17
+held on the simulator; and real presses on Day 1 showed the price leaving the bar, the thread drawing and the
+register landing.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).

@@ -8,11 +8,25 @@ out, because people bookmark deep links.
 
 ---
 
-## 2026-10-08 · The simulator's title takes a press again
+## 2026-10-08 · The simulator's title takes a press again, and its left half shows the run
 
 The owner found that starting the simulator from a later day did nothing: pointing at a day left Start on Day 1,
-and a press on a day or on Start did nothing. The record is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md)
-("Round fifteen").
+and a press on a day or on Start did nothing. Then they asked whether a left half that never changed was how a
+simulator and coach should act. The record is in [`site/EXPERIENCE.md`](site/EXPERIENCE.md) ("Round fifteen")
+and the design in [`site/GAME.md`](site/GAME.md) ("The run's line").
+
+### Changed
+- **The run's line, over the building.** The runway each day closed with, beside a mark for where the
+  recommended run closed the same day (never today); the days each day spent and the days a debt took back;
+  each debt as a rose thread from the day that made it to the day it falls due; three computed sentences on
+  how the run stands against the recommended run and from which days; and the fifteen documents as they come
+  on file. A price leaves the bar as the answer to a press. All of it comes from a new `sim.trace`
+  ([`site/play/game.js`](site/play/game.js), [`site/play/sim.js`](site/play/sim.js),
+  [`site/play/game.css`](site/play/game.css), [`site/play/days.json`](site/play/days.json))
+- **The building, at once its size in play above 1240 wide**, under the run's line with its key beside it;
+  its long caption is the title's only
+- The game's scripts' budget rises from 46 to 48.5 KB gzipped, the measured 48.37 rounded up, with the reason
+  in the gate ([`site/tools/accept.mjs`](site/tools/accept.mjs))
 
 ### Fixed
 - **The title's first screen took no press.** The pause control under the building is an invisible

@@ -483,8 +483,8 @@ runs while the building is in view, or while the close-up is in view and its peo
 in. On a phone on Day 1 the building is far down the page, so after the walk-in nothing is drawn until
 the building is scrolled to. Nothing starts because it came into view; it goes on from where it was.
 
-The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 46 KB gzipped
-(45.97), the site's `base.css` under 32 KB as shipped without its comments (30.5), the page's HTML under 25 KB
+The game's weight has a budget, held by `tools/accept.mjs`: its three scripts under 48.5 KB gzipped
+(48.37), the site's `base.css` under 32 KB as shipped without its comments (30.5), the page's HTML under 25 KB
 (16.9), and no font but the four the site has. Council 9's first parcel had taken the scripts to 46.8 KB and this one added the
 key and the rows, so the comments in `game.js` and `art.js` were cut to a line of why each, leaving the
 reasons to this file; no rule and no number of the game changed. Round ten's role start took them to 45.3
@@ -498,7 +498,10 @@ and the evidence line and the trust wording are each one function now, shared by
 its sentences are in `days.json`. What is left is the briefing itself, so the budget was raised to 46 KB, the
 measured size rounded up to the next half KB, with the reason beside it in the gate's pass 17. One saving was
 not taken: the room cards' 27 sentences could move into `days.json` for about 0.45 KB, but each is chosen by
-the condition beside it, and the code would read worse without them.
+the condition beside it, and the code would read worse without them. Round fifteen's run's line took them from
+45.96 KB to 48.37, after its comments were cut to a line of why each (0.36 KB), its reasons kept in this file and
+its sentences in `days.json`. It is new work rather than a rearrangement, so the budget was raised to 48.5 KB,
+the measured size rounded up to the next half KB, with the reason beside it in pass 17.
 
 ## Tests
 
