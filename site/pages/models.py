@@ -385,7 +385,7 @@ MODELS += [
         prevents="Eleven gates on a printer-helpdesk question, and the reputation that earns, which "
                  "is then used to skip the gates on the refund tool, where they mattered.",
         subtle="The spec stays everywhere; it is the backbone. What flexes is everything around it: "
-               "the persona trail, the depth of discovery, the number of records. And the judgement "
+               "the document trail, the depth of discovery, the number of records. And the judgement "
                "is per change, made by the architect, not per programme set by a policy.",
         landed="You classify a change before you choose a process for it, and you are comfortable "
                "saying that a piece of work deserves almost none of this.",

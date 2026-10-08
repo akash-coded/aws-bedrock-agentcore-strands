@@ -18,9 +18,9 @@ def hatch(s: Sk):
 
 SKETCHES = [
     {"name": "six-binders-one-small-hatch",
-     "idea": "the persona trail is right for audited work and dead weight on a one-line fix",
+     "idea": "the document trail is right for audited work and dead weight on a one-line fix",
      "verb": "squeeze through", "prop": "six binders at a small hatch",
      "alt": "A worker carries a pile of six binders up to a wall. The only way through is a hatch the size of a postcard.",
-     "caption": "Six documents suit an audited feature. They do not suit a typo fix.",
+     "caption": "Six documents suit a product three teams build. For a typo fix, BMAD's own advice is to skip it.",
      "draw": hatch},
 ]

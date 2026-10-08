@@ -109,7 +109,7 @@ Scrum is not in the picture: it is a team process that runs inside P2, not a met
 | Method | What it is | Where it sits |
 | --- | --- | --- |
 | **AWS AI-DLC** | AI proposes and people decide, across Inception, Construction and Operations, in bolts of hours or days | Inception ≈ P0 to P1 · Construction ≈ P2 · Operations ≈ P3 |
-| **BMAD Method** | Agent personas that mirror an agile team, each handing a document on | Mostly P0 to P2 |
+| **BMAD Method** | Skills and five named agents; one Build loop with a spec, stories and shared documents added as the work grows | Mostly P0 to P2 |
 | **Spec-driven development** | The spec is the maintained artefact; code is generated from it, as in Kiro or GitHub Spec Kit | P1 and P2 |
 | **AIDD** | AI-driven development, the everyday craft of building with coding agents: a context file, a story file per task, review by risk | Inside P2, whichever method frames it |
 | **Scrum** | Time-boxed sprints over a backlog | Inside P2, where the sprint's unit becomes a bolt |

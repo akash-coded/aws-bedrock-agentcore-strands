@@ -59,10 +59,10 @@
   },
   {
    "name": "BMAD",
-   "full": "Breakthrough Method for Agile AI-Driven Development",
-   "what": "A pipeline of AI personas (analyst, PM, architect, dev, QA) each handing a versioned artefact to the next.",
-   "where": "P0 to P2 as a persona pipeline; extended here into P3, as learn and adjust",
-   "when": "Complex, multi-team, audited work. Its full trail on a one-line change is six documents between you and the change.",
+   "full": "Breakthrough Method of Agile AI-Driven Development",
+   "what": "Skills in your coding tool: five named agents, one Build loop, and documents (a brief, a PRD, a spine, a spec, stories) added around it as the work grows.",
+   "where": "P0 to P2, sized to the change; extended here into P3, as learn and adjust",
+   "when": "Complex, multi-team, audited work. Its project path is six documents before any code; its own docs send a small change straight to Build.",
    "weight": "heavy",
    "title": "BMAD Method",
    "lesson": "learn/what-is-the-bmad-method/",
@@ -96,7 +96,7 @@
      ]
     }
    ],
-   "checked": "2026-10-03"
+   "checked": "2026-10-08"
   },
   {
    "name": "AI-DLC",
@@ -234,8 +234,8 @@
   ],
   [
    "BMAD",
-   "Breakthrough Method for Agile AI-Driven Development",
-   "A persona pipeline with versioned hand-offs.",
+   "Breakthrough Method of Agile AI-Driven Development",
+   "Skills and five named agents, one Build loop, a document per decision.",
    "BMad Code"
   ],
   [

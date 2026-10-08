@@ -38,7 +38,7 @@ SPECS["depth-of-change"] = dict(
     q="What kind of change is it?",
     outs=[_c("One-line fix", "a spec update and a single agent; skip discovery and most design", "pen", P0),
           _c("A feature", "SDD with the five gates: chat to spec, an editor agent to build", "spec", P1),
-          _c("Audited, multi-team", "SDD with the BMAD persona trail; keep the versioned artefacts", "users", "k"),
+          _c("Audited, multi-team", "SDD with BMAD's document trail; keep the versioned artefacts", "users", "k"),
           _c("Depth unknown", "AI-DLC: start shallow, escalate on evidence", "ladder", P3)],
     callout=("The question worth arguing about is not which method but how deep this change needs to go.", P2, 40),
     alt="Four kinds of change and the depth of process each one needs",
@@ -136,7 +136,7 @@ SPECS["dt-agents"] = dict(
     steps=[
         {"q": "Does one context genuinely overload?", "exit": "yes", "out": _c("Orchestrator and workers", "each hand-off with a named limit", "users", P2), "go": "no"},
         {"q": "Parallel sub-tasks a fan-out tool cannot express?", "exit": "yes", "out": _c("Orchestrator and workers", "each hand-off with a named limit", "users", P2), "go": "no"},
-        {"q": "Complex, multi-team and audited?", "exit": "yes", "out": _c("A full agent team", "with the persona trail kept", "layers", "k"), "go": "no"},
+        {"q": "Complex, multi-team and audited?", "exit": "yes", "out": _c("A full agent team", "with the document trail kept", "layers", "k"), "go": "no"},
     ],
     end=_c("Stay single", "one agent, its tools, zero hand-offs", "robot", P0),
     aside=("Hand-offs multiply", ["Five agents have ten possible hand-offs", "A fan-out tool runs in parallel with none", "Escalate only on a limit written in the record"], P1),

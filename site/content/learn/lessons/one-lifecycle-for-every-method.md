@@ -42,7 +42,7 @@ as gaps that a lifecycle has to fill, whichever method you choose.
 | **AIDDLC** | Foundation, Discovery & Intelligence | Architecture & Design, Specification | Build, Validation | Deploy & Learn |
 | **Kiro** | none | `requirements.md`, `design.md` | `tasks.md`, task by task | none |
 | **GitHub Spec Kit** | none | Constitution, specify, plan, tasks | Implement | none |
-| **BMAD Method** | The analyst's brief | The product manager's requirements, the architect's design | Stories, developer, QA | Extended BMAD: learn and adjust, into the next brief |
+| **BMAD Method** | The Analyst's brief | The PRD, the UX pair, the architecture spine | A spec, its stories, Build per story, the retrospective | Extended BMAD: learn and adjust, into the next brief |
 | **Scrum** | Backlog refinement | Sprint planning | Sprints (here, bolts) and the review | The retrospective |
 | **Shape Up** | Shaping and the betting table | The shaped pitch | The six-week cycle | none |
 | **Stage-gate** | Discovery and scoping | The business case | Development, testing and validation | Launch |

@@ -628,8 +628,9 @@ def _frameworks_exec() -> tuple[str, str, str]:
          "made per change, by an architect, which is what stops a one-line fix from costing a programme."),
         ("AIDD", "The daily craft of building with coding agents: context files the agent reads, story files "
          "it builds from, review by risk, and the cost habits that keep the bill flat."),
-        ("The BMAD Method", "A pipeline of AI personas, analyst to QA, each handing a versioned artefact to the "
-         "next. Right for complex, audited work; six documents too many for a small change."),
+        ("The BMAD Method", "Named commands, called skills, in your coding tool: five agents and one Build loop that "
+         "plans, builds and reviews a change, with documents added as the work grows. Right for complex, audited "
+         "work; a small change goes straight to Build."),
         ("Spec-driven development", "The specification is the asset you maintain; code is generated from it "
          "and regenerated on change. It is the backbone every other method plugs into."),
     ]

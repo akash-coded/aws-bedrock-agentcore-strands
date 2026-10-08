@@ -68,7 +68,7 @@ and each gets its own depth.
 | --- | --- |
 | **Shallow** | Update the spec; one coding agent on a cheap model tier; review at the end |
 | **Standard** | Spec-driven development and the five gates; a chat model for the spec, a coding agent for the build |
-| **Deep** | Standard, plus a versioned persona trail such as BMAD's, artefacts kept for audit, a named approver |
+| **Deep** | Standard, plus BMAD's document trail (PRD, spine, spec, stories, verdicts) kept for audit, a named approver |
 
 ### Step 4 · Write down what you are skipping, and why
 
@@ -107,7 +107,7 @@ $400 to $500; **(c)** a new cross-border payout flow touching three teams, revie
 **(a) Shallow.** Reversible, harmless, one team: a spec line and one agent. **(b) Standard, with a
 named approver.** It is one line, but it touches money, so the size is irrelevant; the new cap goes
 into the tool's signature and its tests. **(c) Deep.** Money, several teams and an auditor: the
-spec, the gates and a kept persona trail. All three update the spec.
+spec, the gates and a kept document trail. All three update the spec.
 
 </details>
 

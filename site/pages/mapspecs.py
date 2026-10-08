@@ -265,7 +265,7 @@ MAPS["ai-dlc-vs-aidd-vs-agentic-sdlc"] = dict(
         {"hue": "t", "key": "AI builds the software", "name": "Methods for building with AI", "cells": [
             _c("AWS AI-DLC", "AI proposes, people decide", "users"), _c("AIDDLC", "a seven-phase standard", "layers"),
             _c("AIDD", "the everyday craft", "code"), _c("Agentic SDLC", "agents in every phase", "robot"),
-            _c("Spec-driven dev", "the spec comes first", "spec"), _c("BMAD Method", "agile personas as agents", "users")],
+            _c("Spec-driven dev", "the spec comes first", "spec"), _c("BMAD Method", "five agents, one Build loop", "users")],
          "to_label": "and then"},
         {"hue": "n", "key": "AI is inside the software", "name": "A lifecycle for the product", "cells": [
             _c("The agentic PDLC", "how right, who may act, when it stops being true", "loop", "n")]},
@@ -299,14 +299,28 @@ MAPS["what-is-aidd"] = dict(
 )
 
 MAPS["what-is-the-bmad-method"] = dict(
-    kind="bands", title=[("The BMAD Method", "k"), ("agile personas as agents",)],
+    kind="bands", title=[("The BMAD Method", "k"), ("one Build unit, four sizes",)],
     bands=[
-        {"hue": P0, "key": "Mostly P0", "name": "Framing the work", "cells": [_c("Analyst", "a brief", "search", "k")]},
-        {"hue": P1, "key": "Mostly P1", "name": "Specifying it", "cells": [_c("Product manager", "a requirements document", "doc", "k"), _c("Architect", "an architecture", "gear", "k")]},
-        {"hue": P2, "key": "Mostly P2", "name": "Building it", "cells": [_c("Scrum master", "stories, sharded small", "board", "k"), _c("Developer", "code, story by story", "code", "k"), _c("QA", "review against the story", "check", "k")]},
+        {"hue": "s", "key": "Trivial", "name": "Obvious and low risk", "cells": [
+            _c("Edit it yourself", "no BMAD at all", "pen"), _c("Verify", "you review the change", "check")],
+         "to_label": "if a bug could reach production"},
+        {"hue": "k", "key": "One session", "name": "About 500 lines", "cells": [
+            _c("Intent", "a sentence, an issue, a ramble", "flag"),
+            _c("Build", "investigate, plan, build, review, commit", "code"),
+            _c("Result", "code and its record", "doc")],
+         "to_label": "if one outcome needs several sessions"},
+        {"hue": "k", "key": "Epic", "name": "One outcome, several Builds", "cells": [
+            _c("Spec", "five fields, one contract", "spec"),
+            _c("Stories", "in build order, a Build each", "board"),
+            _c("Retrospective", "accepted, open items or rejected", "loop")],
+         "to_label": "if several epics, or about 20 sessions or more"},
+        {"hue": "k", "key": "Project", "name": "Several epics", "cells": [
+            _c("PRD, UX, the spine", "what the organisation owns", "layers"),
+            _c("Epics and readiness", "PASS, CONCERNS or FAIL", "gate"),
+            _c("The epic path, per epic", "spec to retrospective", "loop")]},
     ],
-    callout=("Each persona hands a versioned document to the next. On a one-line change that is six documents between you and the change.", "k", 40),
-    alt="BMAD's personas from analyst to QA, placed on the phases they mostly serve",
+    callout=("The same unit at every size: larger work adds documents around Build and repeats it, never another pipeline.", "k", 44),
+    alt="BMAD's four paths, trivial to project: the same Build unit, with a spec, stories and the organisation's documents added as the work grows",
 )
 
 MAPS["what-is-spec-driven-development"] = dict(
@@ -329,7 +343,7 @@ MAPS["one-lifecycle-for-every-method"] = dict(
     bands=_phase_bands([
         [_c("AI-DLC · intent", "", "flag"), _c("BMAD · analyst's brief", "", "search"), _c("Shape Up · shaping, betting", "", "target")],
         [_c("AI-DLC · Mob Elaboration", "", "users"), _c("Kiro · requirements, design", "", "spec"), _c("Spec Kit · specify, plan", "", "doc"), _c("BMAD · PRD, architecture", "", "gear")],
-        [_c("AI-DLC · Construction, bolts", "", "bolt"), _c("Kiro · tasks", "", "code"), _c("Spec Kit · implement", "", "check"), _c("BMAD · stories, dev, QA", "", "board"), _c("Scrum · sprints become bolts", "", "loop")],
+        [_c("AI-DLC · Construction, bolts", "", "bolt"), _c("Kiro · tasks", "", "code"), _c("Spec Kit · implement", "", "check"), _c("BMAD · stories, Build, review", "", "board"), _c("Scrum · sprints become bolts", "", "loop")],
         [_c("AI-DLC · Operations", "", "server"), _c("AIDDLC · Deploy & Learn", "", "trend")],
     ]),
     callout=("The methods mostly agree on the shape. What none of them settles is the bar, the authority and who watches the agent after launch.", P1, 40),
@@ -341,7 +355,7 @@ MAPS["how-much-process-does-a-change-need"] = dict(
     steps=[
         {"q": "Touches money, identity or policy?", "exit": "yes", "out": _c("Standard, at least", "spec-driven, with the five gates", "gate", P2), "go": "no"},
         {"q": "Cheap to undo once it is live?", "exit": "no", "out": _c("Standard, at least", "spec-driven, with the five gates", "gate", P2)},
-        {"q": "More than one team, or an auditor, reads it?", "exit": "yes", "out": _c("Deep", "spec, the gates and a persona trail, kept", "layers", "k"), "go": "no"},
+        {"q": "More than one team, or an auditor, reads it?", "exit": "yes", "out": _c("Deep", "spec, the gates and BMAD's document trail, kept", "layers", "k"), "go": "no"},
     ],
     end=_c("Shallow", "a spec update and one coding agent", "code", P0),
     aside=("Depth is a dial", ["Standard goes deep when more than one team, or an auditor, reads it", "The spec stays everywhere; what flexes is around it", "Per change, judged by the architect"], P2),

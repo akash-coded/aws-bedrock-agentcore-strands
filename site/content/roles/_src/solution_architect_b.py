@@ -110,10 +110,10 @@ arriving by default.
 |----------------|----|----|----|----|---------------|
 | <one-line fix> | none | light | yes | none | living spec + a single agent |
 | <this feature> | yes | yes | yes | yes | living spec + the five gates |
-| <audited module> | yes | full | full | full | living spec + the full persona trail |
+| <audited module> | yes | full | full | full | living spec + the full document trail |
 | <regulatory rule change> | none | yes | yes | light | spec diff + validation |
 
-**Rule:** the living spec is the backbone everywhere. The heavy persona trail is
+**Rule:** the living spec is the backbone everywhere. The heavy document trail is
 layered on only where the work is audited and multi-team. Depth flexes per change.
 """},
  "prompts": [
@@ -175,7 +175,7 @@ Allowed cell values: full · yes · light · none
 RULES:
 - The living spec is the backbone on EVERY row, including the one-line fixes. It is
   the constant; everything else flexes around it.
-- The full persona trail is layered on ONLY where the work is audited and multi-team.
+- The full document trail is layered on ONLY where the work is audited and multi-team.
   On a small feature it is six documents between an engineer and a one-line change.
 - A regulatory rule change usually needs design and validation and no discovery. Say
   where that applies and where it does not.

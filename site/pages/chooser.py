@@ -25,12 +25,12 @@ PAIR = [
 ]
 # Three questions, each adding one method: (the radios' name, the question, the method, its Yes line, its No line).
 ASK = [
-    # what-is-the-bmad-method.md, "When BMAD pays": across several teams and on audited work "Worth it"; for one
-    # team "Optional: Spec-driven development and the gates usually suffice"; "The trail is the evidence an auditor
-    # asks for".
+    # what-is-the-bmad-method.md, "When BMAD pays": "For one team, spec-driven development and the gates usually
+    # suffice; add BMAD's document trail when the work crosses teams or an auditor reads it"; step 4: each of the five
+    # sign-offs leaves a written result, "the audit trail".
     ("q-bmad", "Does the work cross teams, or does an auditor read it?", "BMAD",
-     "add its persona trail. Each hand-off is a versioned document, so decisions stay explicit and an auditor can "
-     "read them.",
+     "add its document trail. Every decision becomes a document an auditor can read: the PRD, the spine, the spec, "
+     "the retrospective's verdict.",
      "leave it out. For one team, spec-driven development and the gates usually suffice."),
     # The data's "when": "When the depth of a change is unknown up front"; what-is-ai-dlc.md: only the stages a change
     # needs, in bolts of hours or days; how-much-process-does-a-change-need.md: four questions about its risk.

@@ -388,7 +388,7 @@ versioned next to the code:
 ## Cost         ~1,900 tokens/call, mid tier
 ```
 
-It is BMAD's *shard* and spec-driven development's unit at once. Because it is a file, it is
+It is BMAD's *story* and spec-driven development's unit at once. Because it is a file, it is
 reviewable as a diff and versioned alongside the code it produces.
 
 The six parts each answer a question the builder would otherwise ask, and the order is deliberate:

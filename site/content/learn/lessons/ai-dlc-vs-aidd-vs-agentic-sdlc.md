@@ -44,7 +44,7 @@ makes the choice simple.
 | **AIDD** | Widely used; no single author | AI-driven development: the everyday craft of building with AI tools (context files, story files, coding agents, review) | How do I work with coding agents day to day? |
 | **Agentic SDLC** | Tooling vendors | The software lifecycle with agents taking part in every phase, from planning to operations | Where in delivery can agents act? |
 | **Spec-driven development** | Kiro and GitHub Spec Kit, 2025 | Write the spec before the code, and keep it as the artefact agents build from | What should an agent build from? |
-| **BMAD Method** | BMad Code | Specialised AI personas modelled on an agile team, each handing a document to the next | How do we give AI building structure and an audit trail? |
+| **BMAD Method** | BMad Code | Skills in a coding tool, five named agents and one Build loop; every decision a document | How do we give AI building structure and an audit trail? |
 | **Agentic PDLC** | This manual | A four-phase lifecycle, P0 to P3, for products that have a **model inside them** | How right must it be, who may authorise each action, and how will we know when it stops being true? |
 
 ## The one question that sorts them

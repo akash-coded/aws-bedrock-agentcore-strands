@@ -563,7 +563,7 @@ the cheap tier can cost more in re-runs than routing everything to mid.
 ### The decision
 
 How much ceremony this change gets: which artefacts are produced, which gates are walked, and whether
-the persona trail runs. The architect decides per change, in ten lines or fewer. Depth belongs to the
+the document trail runs. The architect decides per change, in ten lines or fewer. Depth belongs to the
 change rather than the team, and a depth decision that takes an hour is its own overhead.
 
 <!-- picture:wikimap:depth-of-change -->
@@ -572,8 +572,9 @@ change rather than the team, and a depth decision that takes an hour is its own 
 <sub>▸ <a href="https://akash-coded.github.io/aws-bedrock-agentcore-strands/assets/learn/wikimap-depth-of-change.light.webp">Open the picture full size</a></sub>
 <!-- /picture -->
 
-**SDD is the backbone everywhere.** BMAD is layered on only where the work is audited and multi-team —
-on a small feature its full trail is six documents between you and a one-line change.
+**SDD is the backbone everywhere.** BMAD's full path is layered on only where the work is audited and
+multi-team; on a one-line change it is six documents between you and the change, which is why BMAD
+itself sends small changes straight to Build.
 
 ### Worked
 
@@ -589,7 +590,7 @@ on a small feature its full trail is six documents between you and a one-line ch
 
 ### What it costs to get wrong
 
-Run the persona trail on a typo fix and six artefacts are generated for one line; within a month the
+Run the document trail on a typo fix and six artefacts are generated for one line; within a month the
 team is quietly skipping the trail on everything, including the audited work it exists for. The
 mirror error is the same mistake upside down — an editor agent and R1 ceremony on a refund cap, which
 is how three lines that move money reach production on one quick approval.

@@ -715,7 +715,7 @@ The terms that do not sit in a formula, a gate or a control, with their one-line
 | **AI-DLC** | *established* | AI-Driven Development Life Cycle (AWS). Adaptive: run only the lifecycle stages a given change actually needs. Here, the architect's judgement of **depth per change** |
 | **AIDD** | *established* | AI-driven development: the day-to-day craft of building with coding agents. Context files, story files, editor agents, review by risk, cost habits |
 | **Batch pricing** | *documented* | Work that can wait, such as re-scoring the golden set overnight, runs at about half the on-demand price |
-| **BMAD** | *established* | Breakthrough Method for Agile AI-Driven Development. A pipeline of AI personas — analyst, PM, architect, dev, QA — each handing a versioned artefact to the next. For complex, multi-team, audited work |
+| **BMAD** | *documented* | Breakthrough Method of Agile AI-Driven Development. Skills installed into a coding tool: five named agents and one Build loop, with a spec, stories and the organisation's documents added as the work grows (v6.12.1, 4 October 2026). For complex, multi-team, audited work |
 | **Context layers (onion)** | *working method* | Shared → domain → product → task, each versioned. A new product writes only its own layers and inherits the rest. Built on DRY and layered architecture, not a named standard |
 | **Exact / best-guess map** | *working method* | Every step of a feature tagged exact, best-guess or consequential, with the proof each kind owes. Drawn before any framework is chosen |
 | **Layered defences** | *established* | Several imperfect layers in a row; harm gets through only if every layer fails at once. Reason, 1990. The discipline is classifying each layer honestly as enforced, a request, or absent |
@@ -724,7 +724,7 @@ The terms that do not sit in a formula, a gate or a control, with their one-line
 | **Paired indicators** | *established* | Every measure reported beside the one that shows its side effect, so neither can be pushed alone. Grove, 1983; Goodhart's law, 1975 |
 | **Rule sheet** | *established* | Business rules extracted from legacy code into condition, action, source line and confidence, so the agent reads rules instead of thousands of lines. Everything below 0.9 confidence gets a human check |
 | **SDD (spec-driven development)** | *established* | The spec, not the code, is what you maintain; code is generated from it and regenerated on change. **The backbone. Use it always** |
-| **Story file (agent-ready)** | *working method* | One self-contained file the agent builds from: context by reference, spec in EARS, tools, tests, done-when, cost. BMAD's shard and SDD's unit at once. Reviewable as a diff |
+| **Story file (agent-ready)** | *working method* | One self-contained file the agent builds from: context by reference, spec in EARS, tools, tests, done-when, cost. BMAD's story and SDD's unit at once. Reviewable as a diff |
 | **Strangler Fig** | *established* | Wrap the legacy system, route a slice to the new one, grow the new, retire the old. Fowler, 2004 |
 | **Unknown-days** | *working method* | The sum, over every day, of the unknowns still open. The measure that explains why the walking skeleton goes first |
 

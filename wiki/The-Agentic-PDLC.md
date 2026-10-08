@@ -543,7 +543,7 @@ different parts of the same lifecycle.
 | Method | What it is | Where it sits | When to use it |
 | --- | --- | --- | --- |
 | **SDD** — spec-driven development | The spec, not the code, is what you maintain | P1 and P2, lightly in P0 and P3 | **Always.** It is the backbone |
-| **BMAD** — Breakthrough Method for Agile AI-Driven Development | A pipeline of AI personas, each handing a versioned artefact on | P0 to P2 | Complex, multi-team, audited work. Heavy on a one-line change |
+| **BMAD**, the Breakthrough Method of Agile AI-Driven Development | Skills in your coding tool: five named agents, one Build loop, and documents (a brief, a PRD, a spine, a spec, stories) added around it as the work grows | P0 to P2 | Complex, multi-team, audited work. Its project path is six documents before any code; its own docs send a small change straight to Build |
 | **AI-DLC** — AI-Driven Development Life Cycle (AWS) | Run only the stages a given change actually needs | A principle across all four phases | When the depth of a change is unknown up front |
 | **AIDD** — AI-driven development | The day-to-day craft: context files, story files, editor agents, review by risk | P2 mostly | Every day, by everyone who writes code |
 
@@ -558,7 +558,7 @@ judgement the architect makes per change. See [Solution architect, step 3](Role-
 
 ### How it actually goes wrong
 
-A team adopts one method as an identity. "We are a BMAD shop" means the persona trail runs on a
+A team adopts one method as an identity. "We are a BMAD shop" means the document trail runs on a
 typo fix, six artefacts are generated for a one-line change, and within a month the team is quietly
 skipping the whole thing on everything — including the audited, multi-team work the trail was built
 for. The opposite failure is the same mistake upside down: "we just use the editor agent", applied to
@@ -592,11 +592,11 @@ Decided by: <architect name>. Ten lines or fewer. If it takes longer, the change
 |----------|--------|-------------|
 | Highest risk band any tool or path it touches? | <R1–R5> | <R4+ means a named approver and deep review, whatever the size> |
 | Reversible cheaply once live? | <yes/no> | <no means the plan gate is hard for this change> |
-| More than one team's artefacts change? | <yes/no> | <yes pulls in the BMAD persona trail and versioned hand-offs> |
+| More than one team's artefacts change? | <yes/no> | <yes pulls in BMAD's document trail and versioned hand-offs> |
 | Is an auditor or a regulator a reader of the result? | <yes/no> | <yes means the trail is kept, not just the outcome> |
 
 ## Depth chosen
-<Shallow: spec + single agent | Standard: SDD + five gates | Deep: SDD + persona trail + kept artefacts>
+<Shallow: spec + single agent | Standard: SDD + five gates | Deep: SDD + document trail + kept artefacts>
 
 ## What we are deliberately NOT doing at this depth
 | Skipped | Why it is safe to skip here |
@@ -623,7 +623,7 @@ to do it.
 Depths available:
 - SHALLOW: spec update + one editor agent, cheap tier, review at the end.
 - STANDARD: spec-driven, the five gates, chat model for the spec and editor agent for the build.
-- DEEP: spec-driven plus a versioned persona trail, artefacts kept for audit, named approver.
+- DEEP: spec-driven plus a versioned document trail, artefacts kept for audit, named approver.
 
 Below is the change.
 

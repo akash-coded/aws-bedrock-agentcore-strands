@@ -149,7 +149,7 @@
    "phase": "Slice",
    "title": "Build from a story file, never a chat thread",
    "when": "The evening before each bolt, once the architect has cut it",
-   "purpose": "A bolt that needs a chat thread was cut wrong, or its file is incomplete, and either way that is a finding rather than an inconvenience. The story file is one self-contained file with six parts, versioned beside the code it produces: context **by reference**, the spec in EARS, the tools with their risk bands, the tests, the done-when, and the cost. Because it is a file it is reviewable as a diff and re-runnable next month. It is BMAD's *shard* and spec-driven development's unit at once.",
+   "purpose": "A bolt that needs a chat thread was cut wrong, or its file is incomplete, and either way that is a finding rather than an inconvenience. The story file is one self-contained file with six parts, versioned beside the code it produces: context **by reference**, the spec in EARS, the tools with their risk bands, the tests, the done-when, and the cost. Because it is a file it is reviewable as a diff and re-runnable next month. It is BMAD's *story* and spec-driven development's unit at once.",
    "activities": [
     {
      "do": "Write the context section as paths, never as pastes",
