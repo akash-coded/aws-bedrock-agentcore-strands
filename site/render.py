@@ -583,7 +583,7 @@ def role_page(role: dict) -> str:
 
     head = page_head("Your role, end to end", _E(role["name"]), md(role["tagline"]) + ".",
                      f'<p class="pmeta"><span>{len(role["steps"])} steps</span>'
-                     f'<span>{len(role["steps"])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>', in_col=True)
+                     f'<span>{n_p} prompts</span>{extra_pills}</p>', in_col=True)
     body = f"""<div class="cols two-col">
 <aside class="rail wideonly" aria-label="Steps"><p class="railh">The journey</p><ol>{rail}</ol></aside>
 <main id="main">

@@ -52,9 +52,12 @@ record, with each parcel's numbers, is in [`site/EXPERIENCE.md`](site/EXPERIENCE
 - **The footer says who made this** in one sentence and keeps the attribution; the root and site READMEs end on
   the same sentence ([`site/render.py`](site/render.py), [`README.md`](README.md), [`site/README.md`](site/README.md))
 - **The labs head** opens like every landing page: its name, one line, and counts computed from the labs (4 labs,
-  2 ready, 10 to 15 minutes each) ([`site/pages/labs.py`](site/pages/labs.py))
-- **A role's counts** are steps, templates, prompts and calculators, in the singular when there is one, and
-  minutes are written in full on a lesson's meta line and in the labs' list ([`site/render.py`](site/render.py),
+  2 ready, 10 to 15 minutes each). Its title, "Do an AI project's work with your own hands", takes two lines from
+  390 to 1440 px wide, where it took three ([`site/pages/labs.py`](site/pages/labs.py))
+- **A role's counts** are steps, prompts and calculators, in the singular when there is one, on one line even at
+  320 px. The template count always equalled the step count, so it went, from the forward-deployed engineer's
+  guide too. Minutes are written in full on a lesson's meta line and in the labs' list
+  ([`site/render.py`](site/render.py), [`site/pages/fde.py`](site/pages/fde.py),
   [`site/pages/learn.py`](site/pages/learn.py))
 - **No contact pill on the home page's first screen**: it comes in with the top button, past 600 px, and is out
   of the tab order until then ([`site/frame/frame.js`](site/frame/frame.js),

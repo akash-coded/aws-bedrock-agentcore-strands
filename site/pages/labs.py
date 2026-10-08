@@ -566,7 +566,7 @@ def hub(labs: list[dict], shell, ctx: dict) -> str:
             rows.append(f'<li style="--c:var(--dg-{hue})"><div class="soon">{inner}<span class="l-go">being built</span></div></li>')
     import render
     head = render.page_head(
-        "The labs", "Do the work of an AI project with your own hands",
+        "The labs", "Do an AI project's work with your own hands",
         "Ten to fifteen minutes on one real job from the airline case, and you keep the document.",
         f'<p class="pmeta"><span>{len(every)} labs</span><span>{len(labs)} ready</span><span>10 to 15 minutes each</span></p>')
     body = f"""<div class="wrap"><main id="main" class="page">

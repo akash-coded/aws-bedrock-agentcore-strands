@@ -1114,6 +1114,16 @@ lesson's word count; the role counts at 390; the reduced-motion rule and pseudo-
 a lesson flick's recalcs; the workbench's frame footer; two dead or stale lines; the top button's focus; the
 gate's page list; a held drawing if `site.js` failed; and two stranded arrows, all below.
 
+**After the round.** The owner asked for two of those items. A role page's counts row lost its template count,
+which always equalled the step count, and the forward-deployed engineer's hub and stage pages lost theirs for
+the same reason: the widest row now takes 269px, one line in the 350px column at 390 and the 280px one at 320.
+The labs head's title became "Do an AI project's work with your own hands", the same words in a new order: two
+lines at 1440, 1024, 768 and 390, where it took three, and three at 320 as before. Balancing the head ledes
+(`text-wrap:balance`) was tried for the labs lede's short last line and taken out again: it keeps every line
+count, but Chrome balances six lines at most, and a longer lede then loses `pretty`'s guard, so the models
+page's ended on a 14px word at 390. The workbench's frame footer and the two stranded arrows had been fixed in
+the round's last pass (a99f35e) and leave the list too.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
@@ -1191,16 +1201,16 @@ gate's page list; a held drawing if `site.js` failed; and two stranded arrows, a
 - The workbench is 823.93 KB gzipped (by the gate's zlib count) against its 824 KB hold: 68 bytes of room.
 - The BMAD lesson is 1,668 words by the build's count, over the chair's 1,500; the excess is its five FAQs, the
   role table and the dated sources, and cutting it means dropping one of them.
-- A role page's counts row wraps to two lines at 390: four counts need 366 to 374px of the 350px column. One line
-  needs the template count dropped (it always equals the step count) or a narrower `.pmeta` gap on a phone.
 - The reduced-motion rule's `*` does not reach pseudo-elements, so the copy tick (`.cp.done::before`) and the
   `.otp` chevron's rotation still move under reduced motion; `*,::before,::after` in that rule would close it.
   The fold fade guards itself.
-- The labs head's title runs to three lines at 1440 (`.phead h1` at 16ch), and its lede ends on "the document."
+- A page head's lede can end on a short last line: the labs' "the document." at 1440 (129px of 724), the
+  frameworks' at 1440 and 390, and the models, pictures, prompts and FDE guide's at 390. `text-wrap:balance` on
+  `.phead .lede` evens them without changing a line count, but Chrome balances six lines at most: the models
+  lede runs to 9 lines at 390, and it and the method, pictures and templates ledes to 7 to 11 at 320, where
+  they would lose `pretty`'s orphan guard. Shorter ledes on those four pages, then the one rule, would close it.
 - A 24-step flick down a lesson restyles about 40 times, because each frame's transform on the reading bar
   restyles the bar; the polish seat's 20 was measured with the bar removed. Layouts meet the floor of 8.
-- The workbench's frame footer (`frame/frame.js`) still says "conceptualised and built by" and "for knowledge and
-  experience sharing", where the site's footer and both READMEs now say who made it and keep the attribution.
 - `site.js`'s `all-open` in `reveal()` and `wireExpand()` existed to defeat the step's height animation, which
   is gone; it is dead and harmless. The head comment on `base.css`'s motion rules still says nothing moves
   because it scrolled into view, which the drawings that play once no longer honour to the letter.
@@ -1209,6 +1219,3 @@ gate's page list; a held drawing if `site.js` failed; and two stranded arrows, a
   pass 4 waits for its animations as it does for the map.
 - If `site.js` failed to load, a drawing that plays once would stay held on its first frame, because the head
   script sets `html.js` before `site.js` runs.
-- Two arrows can still stand alone on a line, outside the polish parcel's files: the FDE hub's "The lesson for
-  this role →" (`pages/fde.py`) and the protocol page's "Their eight steps →" (`pages/protocol.py`). Each needs
-  one no-break space.

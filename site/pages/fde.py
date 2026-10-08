@@ -239,7 +239,7 @@ def hub(shell, role: dict) -> str:
     # the page
     n_steps, n_prompts = len(role["steps"]), sum(len(s["prompts"]) for s in role["steps"])
     counts = "".join(f"<span>{c}</span>" for c in (
-        f'{len(role["stages"])} stages', f"{n_steps} steps", f"{n_steps} templates", f"{n_prompts} prompts"))
+        f'{len(role["stages"])} stages', f"{n_steps} steps", f"{n_prompts} prompts"))
     guide = [(s["id"], s["rail"]) for s in fde_hub.SECTIONS]
     rail = (f'<aside class="rail wideonly" aria-label="The guide"><p class="railh">{E(fde_hub.RAIL["guide"])}</p><ol>'
             + "".join(f'<li><a class="rl" data-for="{i}" href="#{i}"><span class="rn">{n:02d}</span><span>{E(x)}</span></a></li>'
@@ -342,7 +342,7 @@ def stage(shell, role: dict, st: dict) -> str:
     body_steps = "".join(_step(role, s, marks, i == 0) for i, s in enumerate(steps))
     n_prompts = sum(len(s["prompts"]) for s in steps)
     counts = "".join(f"<span>{c}</span>" for c in (
-        f"{len(steps)} steps", f"{len(steps)} templates", f"{n_prompts} prompts"))
+        f"{len(steps)} steps", f"{n_prompts} prompts"))
 
     # the rail: all twelve steps by stage, this stage's four in the page and the rest on their own pages
     def rail_row(s: dict) -> str:
