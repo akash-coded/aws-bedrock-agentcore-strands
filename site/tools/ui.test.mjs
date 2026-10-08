@@ -6,10 +6,10 @@
 //   node site/tools/ui.test.mjs http://localhost:8799/
 //
 // Council 10's audit measured the site this way (twenty-one page states, 168 runs); this is its measurer,
-// kept. Each run loads a page with the theme already chosen, scrolls through it so every reveal has played,
-// presses Tab once so focus behaves as it does for a keyboard user, and measures. One Chrome, a few tabs
-// (UI_TABS, default 3), each tab with storage of its own. UI_ONLY=<regex> runs only the states whose names
-// match, for a quick look.
+// kept. Each run loads a page with the theme already chosen, scrolls through it so every reveal has played (and
+// every drawing that plays once has finished), presses Tab once so focus behaves as it does for a keyboard user,
+// and measures. One Chrome, a few tabs (UI_TABS, default 3), each tab with storage of its own. UI_ONLY=<regex> runs
+// only the states whose names match, for a quick look.
 //
 //   A6   a focus ring is never cut: no box that clips (overflow other than visible) cuts a ring by more
 //        than 1px, after the browser has scrolled the focused thing into view as a Tab press would
@@ -743,6 +743,11 @@ async function openTab() {
 const SCROLL_THROUGH = `(async () => { await document.fonts.ready; const H = innerHeight;
   for (let y = 0; y < document.documentElement.scrollHeight; y += H) { scrollTo({ top: y, behavior: "instant" });
     await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 50))); }
+  // a drawing that plays once when reached (data-play): brought into view if the steps passed it by, then finished,
+  // so nothing is measured held on its first frame or halfway drawn
+  for (const p of document.querySelectorAll("[data-play]:not(.play)")) { p.scrollIntoView({ behavior: "instant" }); await new Promise((r) => setTimeout(r, 150)); }
+  const a = [...document.querySelectorAll("[data-play]")].flatMap((e) => e.getAnimations({ subtree: true }));
+  await Promise.race([Promise.all(a.map((x) => x.finished.catch(() => {}))), new Promise((r) => setTimeout(r, 2500))]);
   scrollTo({ top: 0, behavior: "instant" }); await new Promise((r) => setTimeout(r, 400)); return true; })()`;
 const page = (names, root) => `(async () => { await document.fonts.ready; const H = (${HELPERS})(${JSON.stringify({ root })}); const R = {};
   ${names.map((n) => `R[${JSON.stringify(n)}] = await (${COLLECTORS[n].toString().replace(/^(async\s+)?(\w+)\s*\(/, "$1function (")})(H);`).join("\n")}

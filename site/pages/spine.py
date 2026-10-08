@@ -177,21 +177,21 @@ def methods_band() -> str:
         parts.append(f'<span class="hand vm-n" style="--e:{after}" hidden>{ARROW}<span>{_E(m["note"])}</span></span>')
         rows.append(f'<li class="vm-r" style="--r:{j + 3};--a:{cov[0] + 1};--b:{cov[-1] + 2}">{"".join(parts)}</li>')
     qs = "".join(
-        f'<li style="--c:var(--dg-{hue});grid-column:{i + 1}"><b class="vm-k">{key} {name}</b> '
+        f'<li style="--c:var(--dg-{hue});grid-column:{i + 1};--i:{i}"><b class="vm-k">{key} {name}</b> '
         f'<span class="vm-ask">{q}</span> <q>{_E(render.SKIPPED[i])}</q></li>'
         for i, (key, name, q, hue, _href) in enumerate(render.PHASES))
     band = f"""<section class="band" id="methods" aria-labelledby="h-methods"><div class="wrap">
   <header class="sec-h split"><p class="eyebrow">The methods</p>
     <h2 id="h-methods">How AI-DLC, BMAD and the rest fit together.</h2>
     <p>Each one is a way to build with AI. They all meet in the build, and they leave the same four questions to you.</p></header>
-  <figure class="vm" aria-labelledby="vm-cap">
+  <figure class="vm" aria-labelledby="vm-cap" data-play>
     <div class="vm-hd"><a class="vm-me" href="{pdlc["lesson"]}">{_E(pdlc["title"])}</a> <span class="hand vm-by">{_E(pdlc["note"])}</span>
       <span class="vm-loop"><svg viewBox="0 0 12 10" width="12" height="10" {PEN}><path d="M11 5H2M5.5 1.5 2 5l3.5 3.5"/></svg>back to Frame, with what you learned</span></div>
     <div class="vm-g">
       <span class="vm-fr" aria-hidden="true"></span><span class="vm-meet" aria-hidden="true"></span>
       <span class="vm-so" hidden aria-hidden="true"><em>sign-off</em><em class="b">nothing is built until the spec is signed</em></span>
       {heads}
-      <p class="vm-l vm-l1"><span>How your team builds with AI</span></p>
+      <p class="vm-l vm-l1"><span>How your team builds with AI</span><span class="vm-key" hidden aria-hidden="true"><i></i>covers the phase <i class="d"></i>sketches, updates or is added here</span></p>
       <ul class="vm-rows" role="list">{"".join(rows)}</ul>
       <span class="hand vm-n vm-all" hidden aria-hidden="true">{ARROW_UP}<span>all {NUMBER[len(every)]} meet here: the build</span></span>
       <p class="vm-l vm-l2"><span>Agent projects go wrong in four places. These are the questions the methods leave open.</span></p>

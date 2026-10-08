@@ -13,10 +13,12 @@
 //    2. reduced motion       nothing hidden, and no animation running at all; the hero draws its still twice at
 //                            most, and once more when the fonts arrive
 //    3. nothing waits        with motion allowed, 700ms after load nothing on the whole page is hidden: no
-//                            entrance, no part that waits to be scrolled to. After four seconds the only things
-//                            still moving follow the scroll or sit on a page with a pause control
+//                            entrance, no part that waits to be scrolled to, but the parts of a drawing that plays
+//                            once when reached (data-play), held on their first frame till then. After four seconds
+//                            the only things still moving follow the scroll or sit on a page with a pause control
 //    4. scrolled through     the whole page scrolled past: nothing is hidden, and nothing started moving
-//                            because it was scrolled to
+//                            because it was scrolled to, or plays once when reached, is finished before the
+//                            scroll-through ends, and its last frame is the still
 //    5. a phone, 375 x 812   no sideways scroll, and the page's title ends inside the first screen
 //    6. a small phone, 320   no sideways scroll
 //    7. the bar fits         at 320, 990, 1024, 1100 and 1180 wide the top bar's last control ends inside the screen
@@ -289,8 +291,11 @@ await pass("2. reduced motion: nothing hidden, nothing running", { width: 1280, 
   const g = await evaluate("window.GlobeMs ? window.GlobeMs.n : 0"); if (g > 3) out.push(`the globe drew ${g} frames; its still is drawn twice at most, and once more when the fonts arrive`);
   return out;
 });
+// a drawing that plays once when reached (data-play) holds its parts on their first frame until then, by design:
+// pass 3 leaves those parts out, and pass 4 sees them drawn
+const WAITING = HIDDEN.replace("forEach((e) => {", "forEach((e) => { if (e.closest('[data-play]:not(.play)')) return;");
 await pass("3. motion allowed: nothing waits for an animation", { width: 1280, height: 800, wait: 700 }, async () => {
-  const out = await hidden("hidden 700ms after load");   // the whole page, unscrolled
+  const out = await hidden("hidden 700ms after load", WAITING);   // the whole page, unscrolled
   await sleep(3400);
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
@@ -300,8 +305,10 @@ await pass("3. motion allowed: nothing waits for an animation", { width: 1280, h
   if ((await evaluate(FRAMES)) > 0 && !(await evaluate(HAS_PAUSE))) out.push("the canvas keeps moving and the page has no pause control");
   return out;
 });
+const SETTLE = `(async () => { const a = [...document.querySelectorAll('[data-play]')].flatMap((e) => e.getAnimations({ subtree: true })); await Promise.race([Promise.all(a.map((x) => x.finished.catch(() => {}))), new Promise((r) => setTimeout(r, 2500))]); return a.length; })()`;
 await pass("4. scrolled through, motion allowed: nothing hidden, nothing set off by the scroll", { width: 1280, height: 800, wait: 1800 }, async () => {
   await evaluate(SCROLL_THROUGH);
+  await evaluate(SETTLE);
   const out = await hidden();
   const r = await evaluate(RUNNING);
   const stray = Object.fromEntries(Object.entries(r).filter(([k]) => !PAUSABLE.test(k) && !k.includes("follows the scroll")));
