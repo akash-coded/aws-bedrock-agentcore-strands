@@ -478,9 +478,7 @@ def build(shell, urls: dict) -> str:
     head = render.page_head(
         "Mental models", "Twelve rules of thumb for software that decides",
         "A procedure tells you what to do on Tuesday. A rule of thumb tells you what to expect before you start, so "
-        "you can make a good call on a case this manual never covered. Each one below is explained in plain words, "
-        "shown at SkyWays (the fictional airline this manual works through), and given the mistake it prevents and "
-        "the test for whether you have it.",
+        "you can make a good call on a case this manual never covered.",
         aside='<div class="rowa"><b>How each card is built</b><ol>'
               "<li>In plain words: the idea, with no jargon</li><li>At SkyWays: the case where it bit</li>"
               "<li>What it predicts, and the mistake it prevents</li><li>The subtlety: where it stops applying</li>"

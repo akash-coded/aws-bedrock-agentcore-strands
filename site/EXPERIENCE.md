@@ -1124,6 +1124,22 @@ count, but Chrome balances six lines at most, and a longer lede then loses `pret
 page's ended on a 14px word at 390. The workbench's frame footer and the two stranded arrows had been fixed in
 the round's last pass (a99f35e) and leave the list too.
 
+**Then the ledes.** The owner asked for the long ledes shortened and the balance rule added. A sweep of every
+page's head lede at five widths found six past six lines at 320, two more than the open item named: the models
+page at 11, method at 8, pictures and templates at 7, and the two labs' replies pages at 7 and 10. Each lost what
+its page already says beside it. The models lede's last sentence restated the card's anatomy, which the aside
+next to it lists. The method lede announced the boards' questions, which the jump list under it shows. The
+pictures lede repeated the counts row's number and the title's "in the manual". The templates lede repeated
+where the FDE guide's templates are, which the counts row links to; the prompts lede shared that sentence and
+lost it too. On the labs' replies pages, "every reply is here as its model wrote it" repeated the heading over
+the replies, and what each model was sent moved under that heading, beside the prompts it describes; Lab 2's
+lead no longer spells out the same system prompt and the same message, which "word for word" and the moved line
+carry. All six
+now take four or five lines at 320. Then `.phead .lede` took `text-wrap:balance`. Over all 27 heads with a lede,
+at 320, 390, 768, 1024 and 1440, the short last lines (under 40% of the measure) went from 40 to none, and no
+line count grew; the frameworks lede is the one at six, at 320. The gate's pass 6 now counts a head's lede at
+320 and fails it past six.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
@@ -1204,11 +1220,6 @@ the round's last pass (a99f35e) and leave the list too.
 - The reduced-motion rule's `*` does not reach pseudo-elements, so the copy tick (`.cp.done::before`) and the
   `.otp` chevron's rotation still move under reduced motion; `*,::before,::after` in that rule would close it.
   The fold fade guards itself.
-- A page head's lede can end on a short last line: the labs' "the document." at 1440 (129px of 724), the
-  frameworks' at 1440 and 390, and the models, pictures, prompts and FDE guide's at 390. `text-wrap:balance` on
-  `.phead .lede` evens them without changing a line count, but Chrome balances six lines at most: the models
-  lede runs to 9 lines at 390, and it and the method, pictures and templates ledes to 7 to 11 at 320, where
-  they would lose `pretty`'s orphan guard. Shorter ledes on those four pages, then the one rule, would close it.
 - A 24-step flick down a lesson restyles about 40 times, because each frame's transform on the reading bar
   restyles the bar; the polish seat's 20 was measured with the bar removed. Layouts meet the floor of 8.
 - `site.js`'s `all-open` in `reveal()` and `wireExpand()` existed to defeat the step's height animation, which

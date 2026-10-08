@@ -282,8 +282,8 @@ LAB = {
         # words of its reply it is built from ("quote"; None where the cell says a thing is missing); the build checks them.
         "others": {
             "title": "Three more models, the same case",
-            "lead": ("We ran Arjun's case through three more models on 2 October 2026, word for word: the same system prompt with "
-                     "each set of tools, and the same message. Claude Opus 4.6's replies are the lab's own recordings."),
+            "lead": ("We ran Arjun's case through three more models on 2 October 2026, word for word, with each set of tools. "
+                     "Claude Opus 4.6's replies are the lab's own recordings."),
             "tables": [
                 {"of": "c-open", "caption": "The limits in the prompt: the tools as Sam first had them", "corner": "On case K7Q2LM", "rows": [
                     {"h": "Called the refund tool for $1,240.00",

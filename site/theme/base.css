@@ -1993,7 +1993,7 @@ html.js .vm[data-play] .vm-none{animation:ao 250ms var(--ease) 1500ms both}
 main.page{padding:0 0 var(--band)}
 .phead{padding:clamp(36px,5vw,64px) 0 clamp(36px,5vw,60px)}
 .phead h1{font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-.04em;font-weight:620;margin:0 0 20px;max-width:16ch}
-.phead .lede{font-size:clamp(17px,1.5vw,19.5px);max-width:56ch;margin:0}
+.phead .lede{font-size:clamp(17px,1.5vw,19.5px);max-width:56ch;margin:0;text-wrap:balance}
 .jump{list-style:none;margin:clamp(32px,4vw,52px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px;counter-reset:j}
 .jump a{counter-increment:j;display:grid;gap:5px;padding:18px 0 4px;border-top:1px solid var(--rule);color:var(--ink);text-decoration:none;
   transition:border-color 250ms var(--ease)}

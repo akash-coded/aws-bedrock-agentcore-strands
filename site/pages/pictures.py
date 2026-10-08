@@ -240,8 +240,8 @@ def build(shell, urls: dict) -> str:
                             "The method, on one page", ("../learn/", "The tutorial, lesson by lesson"))
     head = render.page_head(
         "The picture pack", "Every picture in the manual, ready to share",
-        f"{len(items)} diagrams, boards, decision trees, sketches and posters, each with a title, a caption and the page "
-        "that explains it. The same pictures that teach the SkyWays PDLC here, drawn to be put in a deck, a wiki or a post.",
+        "Diagrams, boards, decision trees, sketches and posters, each with a title, a caption and the page that "
+        "explains it. Put them in a deck, a wiki or a post.",
         f'<p class="pmeta"><span>{len(items)} pictures</span><span>light and dark</span><span>MIT licence, credit the author</span></p>')
     body = f"""<div class="wrap"><main id="main" class="page picpage">
   {head}

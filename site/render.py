@@ -780,14 +780,12 @@ Owner of the number: Priya (PM)</code></pre>
         + posters.prompt_anatomy() + posters.prompts_by_role()
         + '<p class="lalt">Both pictures are in <a href="../pictures/#pics-posters">the picture pack</a>, with every other diagram of the method.</p></div>')
     # the manual's whole count first, as every other count of it is (council 10, verdict 2.9), then where they are:
-    # a staged role's stay on its stage pages (_guide_line), and the lede says so
+    # a staged role's stay on its stage pages (_guide_line), and the counts row says so
     n_g = (len(guide["steps"]) if is_t else sum(len(s["prompts"]) for s in guide["steps"])) if guide else 0
     total = count + n_g
     where = (f'<span>{count} here, for {len(roles)} roles</span><span>{n_g} in the '
              f'<a href="../{guide["id"]}/">{_E(guide["short"])} guide</a></span>'
              if n_g else f'<span>{len(roles)} roles, in journey order</span>')
-    if n_g:
-        lede += f" The {_E(guide['name'].lower())}'s {n_g} are in that role's own guide, stage by stage."
     head = page_head("The library", label, lede,
                      f'<p class="pmeta"><span>{total} {short}</span>{where}<span>a copy button on each</span></p>', in_col=True)
     body = f"""<div class="cols two-col">
@@ -1032,9 +1030,8 @@ def method_page() -> str:
     body = f"""<div class="wrap"><main id="main" class="page">
   <header class="phead"><div class="pcols"><div><p class="eyebrow">The method</p>
     <h1>The SkyWays PDLC, on one page</h1>
-    <p class="lede">The product development lifecycle this whole manual hangs from, called the agentic PDLC
-    in the lessons: four phases (P0 to P3), one hard gate (the sign-off before anything is built) and eight loops. Each board below answers one
-    question about it.</p></div>
+    <p class="lede">The product development lifecycle behind this manual, which the lessons call the agentic PDLC:
+    four phases, eight loops and a hard gate, the sign-off before anything is built.</p></div>
     <figure class="pfig">{illos.tower()}{MOTION_TOGGLE}</figure></div>
     <ol class="jump">{jump}</ol></header>
   {bb.rebase(boards.pdlc(), "../")}

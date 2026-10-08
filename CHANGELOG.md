@@ -59,6 +59,12 @@ record, with each parcel's numbers, is in [`site/EXPERIENCE.md`](site/EXPERIENCE
   guide too. Minutes are written in full on a lesson's meta line and in the labs' list
   ([`site/render.py`](site/render.py), [`site/pages/fde.py`](site/pages/fde.py),
   [`site/pages/learn.py`](site/pages/learn.py))
+- **A page head's lede is balanced**, so none ends on a word or two. Six ran past the six lines Chrome balances
+  on a 320 px phone, and each lost what its page already says beside it: the models, method, pictures and
+  templates pages, and both labs' replies pages, whose note on what each model was sent moved down to the
+  replies it describes. The prompts page lost the sentence it shared with the templates page. The gate's pass 6
+  counts a head's lede at 320 and fails it past six ([`site/theme/base.css`](site/theme/base.css),
+  [`site/tools/accept.mjs`](site/tools/accept.mjs))
 - **No contact pill on the home page's first screen**: it comes in with the top button, past 600 px, and is out
   of the tab order until then ([`site/frame/frame.js`](site/frame/frame.js),
   [`site/frame/frame.css`](site/frame/frame.css))

@@ -158,7 +158,9 @@ never breaks across a line.
 - A landing page opens with its name, one line, one row of counts, then its content. Anything that
   explains how to use the page is folded behind one line. One page head serves every landing page
   (`render.page_head()`), full width or inside a column beside a rail, with one eyebrow 16px above the title
-  in the page's accent (a role's own colour on its page) and a lede of 56 characters a line at most. The labs
+  in the page's accent (a role's own colour on its page) and a lede of 56 characters a line at most, balanced so it
+  never ends on a word or two. Chrome balances six lines at most, so a lede stays within six at 320, which the
+  gate's pass 6 counts. The labs
   index opens the same way: its name, one line, and a row of counts computed from the labs (4 labs, 2 ready,
   10 to 15 minutes each).
 - Breadcrumbs: only the last is the page itself. A category with an address is a link ("Roles" to the home

@@ -20,7 +20,7 @@
 //                            because it was scrolled to, or plays once when reached, is finished before the
 //                            scroll-through ends, and its last frame is the still
 //    5. a phone, 375 x 812   no sideways scroll, and the page's title ends inside the first screen
-//    6. a small phone, 320   no sideways scroll
+//    6. a small phone, 320   no sideways scroll, and a page head's lede in six lines or fewer, the most Chrome balances
 //    7. the bar fits         at 320, 990, 1024, 1100 and 1180 wide the top bar's last control ends inside the screen
 //    8. print                nothing a reader needs is left hidden on paper
 //    9. the top bar          its pill never points at the page it is on; the simulator and a lesson each offer the other
@@ -228,7 +228,10 @@ const RUNNING = `(() => {
 })()`;
 const PHONE = `(() => {
   const h = document.querySelector('main h1, .hero2 h1');
-  return { h1: h ? Math.round(h.getBoundingClientRect().bottom) : -1,
+  // a head's lede in lines: its text's boxes, a new line wherever a box starts 4px or more below the last
+  const l = document.querySelector('.phead .lede'), rg = document.createRange(); if (l) rg.selectNodeContents(l);
+  const tops = l ? [...rg.getClientRects()].filter((r) => r.width > 0).map((r) => r.top).sort((a, b) => a - b) : [];
+  return { h1: h ? Math.round(h.getBoundingClientRect().bottom) : -1, lede: tops.filter((t, i) => !i || t - tops[i - 1] >= 4).length,
            over: document.documentElement.scrollWidth - document.documentElement.clientWidth };
 })()`;
 
@@ -322,9 +325,10 @@ await pass("5. a phone, 375 x 812: no sideways scroll, the title inside the firs
   if (m.h1 < 0 || m.h1 > 812) out.push(`the title ends at ${m.h1}px`);
   return out;
 });
-await pass("6. a small phone, 320 x 640: no sideways scroll", { width: 320, height: 640, reduce: true, wait: 1500 }, async () => {
+await pass("6. a small phone, 320 x 640: no sideways scroll, a head's lede six lines or fewer", { width: 320, height: 640, reduce: true, wait: 1500 }, async () => {
   const m = await evaluate(PHONE);
-  return m.over > 0 ? [`scrolls sideways by ${m.over}px`] : [];
+  return [...(m.over > 0 ? [`scrolls sideways by ${m.over}px`] : []),
+    ...(m.lede > 6 ? [`the head's lede runs to ${m.lede} lines; Chrome balances six at most, so it would end on a word or two`] : [])];
 });
 const BAR = `(() => { const kids = [...document.querySelectorAll('.hd .in > *')].filter((e) => getComputedStyle(e).display !== 'none');
   const right = Math.max(...kids.map((e) => e.getBoundingClientRect().right)), left = Math.min(...kids.map((e) => e.getBoundingClientRect().left));

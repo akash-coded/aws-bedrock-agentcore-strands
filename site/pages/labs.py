@@ -461,11 +461,12 @@ def others_page(lab: dict, shell, ctx: dict) -> str:
     sent = "Each system prompt went with its message and nothing else." if two else "Each prompt was the whole message."
     import render
     head = render.page_head(f'Lab {lab["n"]} · {_E(lab["title"])} · the replies behind its debrief', _E(o["title"]),
-                            f'{_E(o["lead"])} {sent} Every reply is here as its model wrote it.', cls="lab-head")
+                            _E(o["lead"]), cls="lab-head")
     body = f"""<div class="wrap"><main id="main" class="page labpage">
   {head}
   <section class="lab-otherspage" aria-label="The tables and the replies">{_others(lab, page=True)}
     <h2>The replies, as the models wrote them</h2>
+    <p>{sent}</p>
     <div class="lab-others-replies">{"".join(groups)}</div>
     <h2>The lab's own recordings, for the first column</h2>
     <div class="lab-others-own">{"".join(own)}</div>
