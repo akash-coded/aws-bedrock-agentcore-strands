@@ -202,12 +202,15 @@
     });
   }
 
-  /* A thing that is itself a sequence draws once, when its top passes the middle of the screen, and never again. */
+  /* A thing that is itself a sequence draws once, when its top passes the middle of the screen, and never again.
+     Once it has played, leaving the screen ends it at once: nothing animates off screen. */
   function wirePlay() {
     var ps = document.querySelectorAll("[data-play]");
     if (!("IntersectionObserver" in window)) { ps.forEach(function (p) { p.classList.add("play"); }); return; }
+    var off = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      if (!e.isIntersecting) { e.target.getAnimations({ subtree: true }).forEach(function (a) { a.finish(); }); off.unobserve(e.target); } }); });
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("play"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -50% 0px" });
+      if (e.isIntersecting) { e.target.classList.add("play"); io.unobserve(e.target); off.observe(e.target); } }); }, { rootMargin: "0px 0px -50% 0px" });
     ps.forEach(function (p) { io.observe(p); });
   }
 
