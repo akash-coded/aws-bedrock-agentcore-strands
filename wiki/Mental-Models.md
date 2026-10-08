@@ -214,7 +214,7 @@ Where you meet it: [How many agents](https://akash-coded.github.io/aws-bedrock-a
 
 **The mistake it prevents.** Eleven gates on a printer-helpdesk question, and the reputation that earns, which is then used to skip the gates on the refund tool, where they mattered.
 
-**The part that is easy to miss.** The spec stays everywhere; it is the backbone. What flexes is everything around it: the persona trail, the depth of discovery, the number of records. And the judgement is per change, made by the architect, not per programme set by a policy.
+**The part that is easy to miss.** The spec stays everywhere; it is the backbone. What flexes is everything around it: the document trail, the depth of discovery, the number of records. And the judgement is per change, made by the architect, not per programme set by a policy.
 
 **Landed when:** You classify a change before you choose a process for it, and you are comfortable saying that a piece of work deserves almost none of this.
 

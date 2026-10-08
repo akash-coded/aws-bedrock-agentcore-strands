@@ -242,7 +242,7 @@ Do not rewrite the whole file. I want the diff, not a replacement.
 
 *The evening before each bolt, once the architect has cut it*
 
-A bolt that needs a chat thread was cut wrong, or its file is incomplete, and either way that is a finding rather than an inconvenience. The story file is one self-contained file with six parts, versioned beside the code it produces: context **by reference**, the spec in EARS, the tools with their risk bands, the tests, the done-when, and the cost. Because it is a file it is reviewable as a diff and re-runnable next month. It is BMAD's *shard* and spec-driven development's unit at once.
+A bolt that needs a chat thread was cut wrong, or its file is incomplete, and either way that is a finding rather than an inconvenience. The story file is one self-contained file with six parts, versioned beside the code it produces: context **by reference**, the spec in EARS, the tools with their risk bands, the tests, the done-when, and the cost. Because it is a file it is reviewable as a diff and re-runnable next month. It is BMAD's *story* and spec-driven development's unit at once.
 
 **What you actually do**
 

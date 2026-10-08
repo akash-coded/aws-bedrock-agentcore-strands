@@ -87,7 +87,7 @@ The lessons are written once and published twice: here, with the live diagrams, 
 1. **[AI-DLC vs AIDD vs Agentic SDLC vs PDLC: What Each Term Means](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/ai-dlc-vs-aidd-vs-agentic-sdlc/)**, 8 min
 2. **[What Is AI-DLC? AWS's AI-Driven Development Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-ai-dlc/)**, 7 min
 3. **[What Is AI-Driven Development (AIDD)? The Daily Craft](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-aidd/)**, 7 min
-4. **[What Is the BMAD Method? Agile AI Personas, Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)**, 7 min
+4. **[What Is the BMAD Method? Five Agents, One Build Loop](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-the-bmad-method/)**, 7 min
 5. **[What Is Spec-Driven Development? Kiro and Spec Kit Explained](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/what-is-spec-driven-development/)**, 7 min
 6. **[How AI-DLC, BMAD, Spec Kit and Scrum Fit One Lifecycle](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/one-lifecycle-for-every-method/)**, 7 min
 7. **[How Much Process Does a Change Need? Sizing Agentic Work](https://akash-coded.github.io/aws-bedrock-agentcore-strands/learn/how-much-process-does-a-change-need/)**, 6 min
