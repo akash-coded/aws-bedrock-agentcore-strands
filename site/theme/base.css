@@ -499,6 +499,14 @@ tbody tr:hover{background:color-mix(in oklab,var(--accent) 4%,transparent)}
 .fig .fn{font-size:13.5px;line-height:1.5;color:var(--ink2);margin:8px 2px 0;max-width:64ch}
 .fig .fn.hot{color:color-mix(in oklab,var(--dg-rose) 82%,var(--ink))}
 .fig figcaption{font-size:13.5px;color:var(--soft);margin-top:8px;line-height:1.5;max-width:64ch}
+/* a figure that is itself a sequence (figures.py, play) draws once (council 11): from load its parts wait at
+   their first frame (the paused rule in the shared block at the end of this file), then play when site.js marks
+   it .play. figures.py writes each part's delay (--d) and the line's time (--t). The keyframes keep only their
+   start, so the last frame is the still; without script, under reduced motion and on paper the figure is whole. */
+html.js .fig[data-play] .ln{stroke-dasharray:1;animation:ad var(--t) linear both}
+html.js .fig[data-play] .at{animation:ao 250ms var(--ease) var(--d) both}
+html.js .fig[data-play] .bar{transform-box:fill-box;transform-origin:50% 0;animation:ay 300ms var(--ease) var(--d) both}
+html.js .fig[data-play] .bx{transform-box:fill-box;transform-origin:0 50%;animation:ax 400ms var(--ease) var(--d) both}
 
 /* ==========================================================================
    DIAGRAM SYSTEM  ·  "boards"
@@ -2183,20 +2191,6 @@ main.lm .prose>h2+h3{margin-top:24px}
 .lm .prose .fig svg.n{max-width:300px;margin:0 auto}
 .lm .prose .fig .fn,.lm .prose .fig figcaption{max-width:none;margin-top:10px}
 @media (max-width:360px){.lm .prose .fig{padding:10px}}
-/* a figure that is itself a sequence (figures.py, play: the drift, the postmortem, the ways back) draws once, in
-   its own order, when site.js marks it .play on first sight. Each marked part arrives on its beat, --i times
-   170ms: a drawn line (.ln, by its dash) and a timed bar (.bx, from zero at one speed) reach their end on it, a
-   fade (.pt) and a falling bar (.bar) start on it. Seven beats and a fade, 1.44s at most. The keyframes keep
-   only their start and nothing holds after the end (backwards), so the last frame is the still, which is all
-   reduced motion, no script and paper show. The line's dash (dl) lasts only while it draws, so none of it is
-   left after, even where a browser ignores pathLength on a polyline. The drawing the figure's width hides never
-   runs. A bar grows from its fill box's top left, SVG's own origin. */
-@keyframes dl{0%,to{stroke-dasharray:1}}
-.fig.play :is(.bx,.bar){transform-box:fill-box}
-.fig.play .ln{animation:ad calc(var(--i)*170ms) linear backwards,dl calc(var(--i)*170ms) linear backwards}
-.fig.play .bx{animation:ax calc(var(--i)*170ms) linear backwards}
-.fig.play .pt{animation:ao var(--t-base) var(--ease) calc(var(--i)*170ms) backwards}
-.fig.play .bar{animation:ay var(--t-base) var(--ease) calc(var(--i)*170ms) backwards}
 /* a mental model: the glyph at the size its labels read at 14 to 15px, its name beside it */
 .lm .prose figure.lmodel{display:grid;grid-template-columns:310px minmax(0,1fr);gap:10px 24px;align-items:center;
   padding:14px 20px 14px 14px}
@@ -2324,11 +2318,6 @@ main.lm .prose>h2+h3{margin-top:24px}
    The rule: motion is for a thing that is itself a movement (the hero's flight, the game), or an answer to
    the reader's own hand (hover, press, open). Nothing moves because it scrolled into view, and nothing a
    reader came to read waits for an animation before it can be read. */
-/* r13 shared keyframes: P2 owns these */
-@keyframes ax{from{transform:scaleX(0)}}
-@keyframes ay{from{transform:scaleY(0)}}
-@keyframes ao{from{opacity:0}}
-@keyframes ad{from{stroke-dashoffset:1}}
 /* dashes on a connector say which way things flow. They move as the reader scrolls past, and
    are still otherwise; a browser without scroll timelines leaves them still, which reads the same. */
 @supports (animation-timeline:view()){
@@ -2345,8 +2334,8 @@ main.lm .prose>h2+h3{margin-top:24px}
    animates, so a jump into a step site.js opens lands exactly. The pseudo-element is beyond the reach of the
    reduced-motion rule's *, hence the guard; screen only, so a page printed as its steps open prints them whole. */
 @media screen and (prefers-reduced-motion:no-preference){
-  :is(.prose details,.otp,.step,.howto,.lnav):not([open])::details-content{opacity:0;transform:translateY(-4px)}
-  :is(.prose details,.otp,.step,.howto,.lnav)[open]::details-content{transition:opacity var(--t-base) var(--ease),transform var(--t-base) var(--ease)}
+  :is(.prose details,.otp,.step,.howto,.lnav,.lead details.how):not([open])::details-content{opacity:0;transform:translateY(-4px)}
+  :is(.prose details,.otp,.step,.howto,.lnav,.lead details.how)[open]::details-content{transition:opacity var(--t-base) var(--ease),transform var(--t-base) var(--ease)}
 }
 
 /* a quiet button beside a heading, the folded contents list, and a rail's label */
