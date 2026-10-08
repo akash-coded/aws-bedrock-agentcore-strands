@@ -361,11 +361,9 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
 <footer class="ft" data-site-footer><div class="in">
   <div class="fb">{MARK}<b>SkyWays</b><span>The agentic manual and its simulator, free and open source.</span></div>
   <section>
-    <h2>About</h2>
-    <p><strong>The agentic manual</strong>, its simulator and its workbench are products of
-    <strong>SkyWays Consultancy</strong>, conceptualised and built by <strong>{AUTHOR}</strong> and open-sourced
-    under the <a href="{REPO}/blob/main/LICENSE">MIT licence</a> for knowledge and experience sharing. Keep the
-    attribution when you reuse them.</p>
+    <h2>Who made this</h2>
+    <p>SkyWays Consultancy publishes the agentic manual, its simulator and its workbench, written and built by
+    {AUTHOR} under the <a href="{REPO}/blob/main/LICENSE">MIT licence</a>. Keep the attribution when you reuse them.</p>
     <p style="font-size:13.5px;color:var(--soft)">The worked case is set at a fictional airline, also called
     SkyWays. Every figure is illustrative and dated; check it against your own numbers. Not affiliated with, sponsored by or
     endorsed by Amazon Web Services or any airline.</p>
@@ -376,7 +374,7 @@ def shell(*, title: str, desc: str, body: str, depth: int, accent: str | None = 
     <li><a href="{up}learn/">The tutorial, every lesson in order</a></li>
     <li><a href="{WIKI}/The-Agentic-PDLC">The method, as a wiki</a></li>
     <li><a href="{WIKI}/Formulas-and-Calculators">Every formula, worked</a></li>
-    <li><a href="{WIKI}/Scenario-Library">37 scenarios across twenty sectors</a></li>
+    <li><a href="{WIKI}/Scenario-Library">37 scenarios across 20 sectors</a></li>
   </ul></section>
   <section><h2>Pitch in</h2><ul>
     <li><a href="{REPO}/discussions/101">Suggest an improvement</a></li>
@@ -563,13 +561,8 @@ def role_page(role: dict) -> str:
     steps = "".join(step_html(role, s) for s in role["steps"])
     n_p = sum(len(s["prompts"]) for s in role["steps"])
     n_a = sum(len(s["activities"]) for s in role["steps"])
-    n_f = sum(1 for s in role["steps"] if s.get("figure"))
     n_c = sum(1 for s in role["steps"] if s.get("calc"))
-    extra_pills = ""
-    if n_f:
-        extra_pills += f'<span>{n_f} figures</span>'
-    if n_c:
-        extra_pills += f'<span>{n_c} calculators</span>'
+    extra_pills = f'<span>{n_c} calculator{"" if n_c == 1 else "s"}</span>' if n_c else ""
     first = role["steps"][0]
     orient = k.orient(
         f"<strong>{_E(role['name'])}s</strong> and anyone who has to work with one, plus the "
@@ -579,7 +572,7 @@ def role_page(role: dict) -> str:
         ["Read <b>Yours to own</b> and <b>Not yours</b> first: they are the two boundaries that moved.",
          "Open a step: what you do, where a model helps and where it must not, the artefact, the template, the prompts.",
          "Copy the template, paste the prompts into your model, and check the <b>Done when</b> line before you move on."],
-        extra=f'<a class="btn" href="../learn/{ROLE_LESSON[role["id"]]}/">The lesson for this role →</a>')
+        extra=f'<a class="btn" href="../learn/{ROLE_LESSON[role["id"]]}/">The lesson for this role&nbsp;→</a>')
     tour = k.tour([
         {"sel": ".roadmap", "title": "The journey", "body": f"{len(role['steps'])} steps in the order they happen, grouped by the phase each belongs to. Click one to jump to it; the left rail keeps your place as you scroll."},
         {"sel": ".two", "title": "Two boundaries moved", "body": "What is yours to own, and what to stop signing. In agentic delivery these are the two lists that change; everything else is your job as it was."},
@@ -589,7 +582,7 @@ def role_page(role: dict) -> str:
     ])
 
     head = page_head("Your role, end to end", _E(role["name"]), md(role["tagline"]) + ".",
-                     f'<p class="pmeta"><span>{len(role["steps"])} steps</span><span>{n_a} sub-steps</span>'
+                     f'<p class="pmeta"><span>{len(role["steps"])} steps</span>'
                      f'<span>{len(role["steps"])} templates</span><span>{n_p} prompts</span>{extra_pills}</p>', in_col=True)
     body = f"""<div class="cols two-col">
 <aside class="rail wideonly" aria-label="Steps"><p class="railh">The journey</p><ol>{rail}</ol></aside>
@@ -750,7 +743,7 @@ def library_page(roles: list[dict], kind: str, guide: dict | None = None) -> str
         ["Pick your role in the left rail (or scroll: they are in journey order).",
          f"Press <b>Copy</b> on the block. {'Paste it into your document.' if is_t else 'Paste it into the model of your choice.'}",
          f"Unsure why a field is there? The line above each block links to the step that explains it."],
-        extra=f'<a class="btn" href="../{other[0]}/" style="margin-top:8px">{other[1]} →</a>',
+        extra=f'<a class="btn" href="../{other[0]}/" style="margin-top:8px">{other[1]}&nbsp;→</a>',
         more="__MORE__")
     tour = k.tour([
         {"sel": ".tvp", "title": "Templates or prompts?", "body": "Two libraries, two jobs. <b>Templates</b> are documents you write and keep. <b>Prompts</b> are messages you send to a model. This page is the " + ("templates" if is_t else "prompts") + "."},

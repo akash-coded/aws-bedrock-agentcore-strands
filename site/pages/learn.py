@@ -911,7 +911,7 @@ def _guide(les: Lesson, tracks: list[Track], toc: list[tuple[str, str]], course:
             f'<a class="lg-t" href="../{t.id}/">{_E(t.title)}</a><p>Lesson {les.n} of {len(t.lessons)}</p>'
             f'<p class="lg-b" aria-hidden="true">{bars}</p>'
             f'<a href="{pv}" aria-label="Previous: {_E(pt)}">← {_E(pt)}</a>'
-            f'<a href="{nx}" aria-label="Next: {_E(nt)}">{_E(nt)} →</a></div>'
+            f'<a href="{nx}" aria-label="Next: {_E(nt)}">{_E(nt)}&nbsp;→</a></div>'
             f'<nav aria-label="On this page"><p class="lg-h">{_E(les.short)}</p><p class="railh">On this page</p>'
             f'<ol>{secs}</ol></nav><details class="otp"><summary>All {n_all} lessons</summary>{course}</details></aside>')
 
@@ -1038,7 +1038,7 @@ def lesson_page(les: Lesson, tracks, lessons, shell, visual) -> str:
 <main id="main" class="lesson lm">
   <h1>{h1}</h1>
   {f'<p class="lede">{inline(les.dek, link)}</p>' if les.dek else ''}
-  <p class="lmeta"><span><b>{mins} min</b> read</span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
+  <p class="lmeta"><span><b>{mins} minute{'' if mins == 1 else 's'}</b></span><span>{les.level}</span><span>Lesson {les.n} of {len(t.lessons)}</span><span>Updated <time datetime="{les.updated}">{fmt_date(les.updated)}</time></span><span>By <a href="{AUTHOR_URL}" rel="author">{AUTHOR}</a></span></p>
   {_folds(toc, course)}
   <article class="prose">
 {body}

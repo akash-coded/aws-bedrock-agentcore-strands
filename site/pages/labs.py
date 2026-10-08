@@ -554,22 +554,21 @@ def lab_page(lab: dict, labs: list[dict], shell, ctx: dict) -> str:
 
 
 def hub(labs: list[dict], shell, ctx: dict) -> str:
-    rows = []
-    for item in sorted(labs + planned(), key=lambda x: x["n"]):
+    rows, every = [], sorted(labs + planned(), key=lambda x: x["n"])
+    for item in every:
         key, name, hue = PHASES[item["phase"]]
         inner = (f'<span class="l-n">Lab {item["n"]} · {key}</span>'
                  f'<span class="l-t">{_E(item["title"])}<small>{_E(item["does"])}</small></span>'
                  f'<span class="l-m"><b>{_E(item["who"])}</b>You leave with {_E(item["makes"])}</span>')
         if "beats" in item:
-            rows.append(f'<li style="--c:var(--dg-{hue})"><a href="{item["slug"]}/">{inner}<span class="l-go">{item["minutes"]} min →</span></a></li>')
+            rows.append(f'<li style="--c:var(--dg-{hue})"><a href="{item["slug"]}/">{inner}<span class="l-go">{item["minutes"]} minutes&nbsp;→</span></a></li>')
         else:
             rows.append(f'<li style="--c:var(--dg-{hue})"><div class="soon">{inner}<span class="l-go">being built</span></div></li>')
     import render
     head = render.page_head(
         "The labs", "Do the work of an AI project with your own hands",
-        "Each lab is ten to fifteen minutes on one real job from the airline case: you assemble the prompt, run it, "
-        "read what a real model said, catch what is wrong, and make the calls only a person can make. You leave each one "
-        "with a document, and the next lab starts from it.")
+        "Ten to fifteen minutes on one real job from the airline case, and you keep the document.",
+        f'<p class="pmeta"><span>{len(every)} labs</span><span>{len(labs)} ready</span><span>10 to 15 minutes each</span></p>')
     body = f"""<div class="wrap"><main id="main" class="page">
   {head}
   <ol class="labs-how">
