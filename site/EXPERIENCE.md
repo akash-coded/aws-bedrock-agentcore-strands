@@ -1183,6 +1183,11 @@ manual" in the workbench below 1100px: its bar holds five menus, search and the 
 below it the mark and the sheet's first entry lead back. Renaming "The agentic manual" to a bare noun: it is the
 site's name, and the bare nouns name its sub-surfaces.
 
+**Checks.** The gate's passes 5 to 9 and 17 on every page it visits (the bar fits at 320, 990, 1024, 1100 and
+1180; the pill rules; the bytes); the playtest, every way to play to its verdict, with the game's tutorial button
+125.5px wide on the title, on Day 1 and on Day 45 beside "The manual"; and the workbench's 719 checks, its menu
+icon now first in the bar. The playtest's two checks on the label now read "The lesson".
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).
