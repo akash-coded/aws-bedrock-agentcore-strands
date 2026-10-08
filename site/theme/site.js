@@ -159,12 +159,15 @@
     if (!art) return;
     var bar = document.createElement("div"); bar.className = "rp"; bar.setAttribute("aria-hidden", "true");
     var fill = document.createElement("i"); bar.appendChild(fill); document.body.appendChild(bar);
+    var queued = false;
     var tick = function () {
+      queued = false;
       var r = art.getBoundingClientRect(), h = r.height - innerHeight * 0.6;
       var p = h > 0 ? Math.min(1, Math.max(0, -r.top / h)) : 1;
-      fill.style.width = (p * 100).toFixed(1) + "%";
+      fill.style.transform = "scaleX(" + p.toFixed(3) + ")";
     };
-    tick(); addEventListener("scroll", tick, { passive: true }); addEventListener("resize", tick);
+    var ask = function () { if (!queued) { queued = true; requestAnimationFrame(tick); } };
+    tick(); addEventListener("scroll", ask, { passive: true }); addEventListener("resize", ask);
   }
 
   /* The picture pack's group picker: one group, or all. */

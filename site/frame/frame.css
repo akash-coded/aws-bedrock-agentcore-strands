@@ -2,12 +2,15 @@
    Layered onto the tool at build time by site/build.py. Every selector is prefixed "sw-" so nothing here
    can collide with the tool's own styles, and the palette reuses the tool's custom properties. */
 
-.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font-weight:600;font-size:13px;line-height:1;font-family:inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 250ms var(--ease,ease),padding 250ms var(--ease,ease),border-color 150ms,background 150ms;overflow:hidden;white-space:nowrap}
+.sw-pill{position:fixed;right:18px;bottom:18px;z-index:9000;display:inline-flex;align-items:center;gap:0;height:42px;width:42px;padding:0;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#16150F;border:1px solid rgba(13,20,51,.16);box-shadow:0 8px 24px -12px rgba(13,20,51,.35);cursor:pointer;font-weight:600;font-size:13px;line-height:1;font-family:inherit;letter-spacing:.01em;backdrop-filter:blur(8px);transition:width 250ms var(--ease,ease),padding 250ms var(--ease,ease),border-color 150ms,background 150ms,opacity 150ms,transform 150ms,visibility 150ms;overflow:hidden;white-space:nowrap}
 .sw-pill .sw-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sw-pill .sw-long{display:none;margin-left:8px}
 .sw-pill:hover,.sw-pill:focus-visible{width:auto;padding:0 16px 0 13px;border-color:#16150F;background:#fff}
 .sw-pill:hover .sw-long,.sw-pill:focus-visible .sw-long{display:inline}
 .sw-pill:focus-visible{outline:3px solid var(--slate,#5B6B8C);outline-offset:2px}
+/* On the home page the first screen keeps one round control, the hero's pause: the pill arrives with the top button,
+   past 600px (frame.js topButton). Hidden rather than only unclickable, so a keyboard cannot land on it unseen. */
+body[data-page="home"] .sw-pill:not(.on){opacity:0;visibility:hidden;transform:translateY(8px)}
 @media print{.sw-pill,.sw-drawer,.sw-scrim{display:none!important}}
 
 .sw-footer{border-top:1px solid var(--rule,#E6E2D9);background:var(--paper,#fff);color:var(--ink2,#4A4843);padding:46px 56px 64px}  /* the bottom padding keeps the legal row above the two pills at the end of the page */

@@ -198,7 +198,7 @@
     if (opener && opener.focus) opener.focus();
   }
 
-  function topButton() {
+  function topButton(pill) {
     var b = h("button", { "class": "sw-top", type: "button", title: "Back to top", "aria-label": "Back to top",
       html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6"/><path d="m5 12 7-7 7 7"/></svg>' });
     b.addEventListener("click", function () {
@@ -208,7 +208,7 @@
       if (main && main.focus) { main.setAttribute("tabindex", "-1"); main.focus({ preventScroll: true }); }
     });
     var tick = null;
-    var update = function () { b.classList.toggle("on", window.scrollY > 600); };
+    var update = function () { var on = window.scrollY > 600; b.classList.toggle("on", on); if (document.body.dataset.page === "home") pill.classList.toggle("on", on); };
     window.addEventListener("scroll", function () { if (tick) return; tick = setTimeout(function () { tick = null; update(); }, 80); }, { passive: true });
     document.body.appendChild(b); update();
   }
@@ -222,12 +222,12 @@
       document.body.appendChild(footer());
     }
     buildDrawer();
-    topButton();
     // On phones both pills are icon-only circles; the label survives for assistive tech.
     var pill = h("button", { "class": "sw-pill", type: "button", "aria-controls": "sw-contact", onclick: open,
       title: "Ideas and contact. Built by " + author, "aria-label": "Ideas and contact. Built by " + author }, [
       h("span", { "class": "sw-ic sw-mail", html: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>' }),
       h("span", { "class": "sw-long", text: "Ideas & contact" })]);
+    topButton(pill);
     document.body.appendChild(pill);
     Array.prototype.forEach.call(document.querySelectorAll("[data-sw-open]"), function (b) { b.addEventListener("click", open); });
     if (/[?#]contact\b/.test(location.href)) open();
