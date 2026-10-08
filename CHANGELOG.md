@@ -39,8 +39,8 @@ record, with each parcel's numbers, is in [`site/EXPERIENCE.md`](site/EXPERIENCE
   five named agents, skills in the coding tool, one Build loop that sizes itself, four sizes from a session to a
   project, and six documents defined once. Its map shows BMAD's four sizes on one Build unit, and every other
   BMAD sentence, picture and wiki page says the same ("document trail", the Breakthrough Method *of* Agile
-  AI-Driven Development), the workbench's opening entry, decoded list, product manager's drawing and two rows
-  of its compare page among them ([`site/content/library/frameworks.json`](site/content/library/frameworks.json),
+  AI-Driven Development), the whole workbench among them: its opening entry, decoded list, the product
+  manager's episode and drawing, the decision game, the compare column, the learn map and the story-file notes ([`site/content/library/frameworks.json`](site/content/library/frameworks.json),
   [`site/pages/mapspecs.py`](site/pages/mapspecs.py), [`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html)).
   Its title keeps "Build loop" in sentence case, as the methods' names keep theirs
   ([`site/pages/learn.py`](site/pages/learn.py))

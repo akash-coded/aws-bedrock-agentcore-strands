@@ -1188,10 +1188,7 @@ gate's page list; a held drawing if `site.js` failed; and two stranded arrows, a
   from the case with its answer folded), waits for the next round, once the new lesson frame has settled.
 - Firefox has no cross-document view transitions, so between pages it navigates as before: no cross-fade, no
   held top bar, and the FDE framework does not move from the hub to a stage page. Nothing is lost but the motion.
-- The workbench's product manager episode "The BMAD lens" (`app/SkyWays-Architect.html`), its decision game's
-  BMAD lines, the header and two rows of its compare page's BMAD column, and the BMAD entry of its learn map
-  still describe the v4 roster: analyst, PM, architect, dev and QA personas, and sharded story files. Its
-  opening entry, its decoded list, the episode's drawing and two rows of the compare page now say v6.12.1.
+- The workbench is 823.93 KB gzipped (by the gate's zlib count) against its 824 KB hold: 68 bytes of room.
 - The BMAD lesson is 1,668 words by the build's count, over the chair's 1,500; the excess is its five FAQs, the
   role table and the dated sources, and cutting it means dropping one of them.
 - A role page's counts row wraps to two lines at 390: four counts need 366 to 374px of the 350px column. One line
