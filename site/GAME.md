@@ -236,7 +236,7 @@ days before the start and let some shortcuts stand. Now a late start keeps its f
 colleagues' days still to come, and finds nothing owed.
 
 The site header's pill on this page follows the day: on a day whose `deeper` list has a lesson it
-reads "Read the lesson" and points there; otherwise it goes back to the tutorial.
+reads "The lesson" and points there; otherwise it goes back to the tutorial.
 
 ## The rules (`play/sim.js`)
 

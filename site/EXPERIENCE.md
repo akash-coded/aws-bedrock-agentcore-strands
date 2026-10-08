@@ -1140,6 +1140,49 @@ at 320, 390, 768, 1024 and 1440, the short last lines (under 40% of the measure)
 line count grew; the frameworks lede is the one at six, at 320. The gate's pass 6 now counts a head's lede at
 320 and fails it past six.
 
+## Round fourteen: one top bar on every surface
+
+The owner, in the workbench: its SkyWays logo did not lead back to the manual; its way back was a faint
+"Manual" where the simulator has a button; the simulator's bar said "The agentic manual" where it should say
+where the reader is; and the simulator's tutorial button looked over-padded and was the highlighted one for no
+reason. "Any such behavior breaks or expected, like behavior consistencies? Fix those also." Fable, at extra
+effort, swept every surface's bar at 1440 and 390 in both themes and wrote one rule set; the fixes follow it.
+
+**The rule.** Every bar has the menu icon at the left, then the mark and wordmark, which go to the manual's home
+everywhere, and after the hairline the surface's name: "The agentic manual", "Simulator" or "Workbench". At the
+right sit three kinds of control. A faint link is a sideways step from the page. An outlined 36px pill with a
+14px line icon is the way out of a sub-surface: "The manual" with a house in the game and the workbench, and in
+the game "The tutorial" with the book beside it. The one filled pill is the twin of the page; the game has
+none, because its action is on the page. Filled and outlined share one geometry. On a phone the word beside the
+mark is the surface.
+
+**What changed.** The workbench's logo, in its bar and its phone sheet, went to the workbench's start page;
+framed at /workbench/ it now goes to the manual's home, and only the frameless file keeps its own start. The
+simulator's bar says "Simulator", and on a phone shows it in place of "SkyWays", as the workbench shows
+"Workbench". The simulator's two buttons are both outlined, the manual's with a house, at 125.4 and 125.5px.
+The tutorial button looked padded because it held its longer second label, "Read the lesson", invisibly while
+it showed "The tutorial"; the second label is now "The lesson", 4.9px shorter than the first, so the stack no
+longer shows. The workbench's "Manual" link became the same outlined "The manual" with the house. Its "Menu"
+pill at the right became the menu icon at the left, as every other bar has it. Its mark drew at 26px where
+every other bar draws 28, because an old rule outranked the site layer's; it draws 28 now. With the logo going
+to the manual, the workbench's crumb root "Home" (to its own start) became "Start", so a page shows one home.
+The workbench's "By role" now opens on "Your role in the manual", the six role journeys, which it had never
+reached; that is the gap the sweep found behind the owner's "Roles roadmap". The manual's Roles menu, the role
+pages' journey and the workbench's four playbooks otherwise keep their names, which already agree where they
+mean the same thing.
+
+**Bytes.** The workbench embedded four photos and showed three: the cockpit was only ever listed in the
+credits. It went, and the app fell from 823.9 KB to 761.6 KB gzipped, 761.7 after this round's other changes,
+63.8 KB under its 824 KB hold. The rules for brand markup that no longer exists (`.xbrand em`, `.xb2`) went too.
+`base.css` grew from 31,614 to 31,689 bytes of its 32 KB.
+
+**Refused.** A full bar on the 404 page: about 2 KB for a page nobody should land on, whose body lists the six
+places. Keeping the game's tutorial pill filled with its padding corrected: the owner said it need not be the
+highlighted one. A filled "Simulator" in the game for symmetry: a control never points at its own page. "The
+manual" in the workbench below 1100px: its bar holds five menus, search and the evidence pack down to there, and
+below it the mark and the sheet's first entry lead back. Renaming "The agentic manual" to a bare noun: it is the
+site's name, and the bare nouns name its sub-surfaces.
+
 ## Open items
 
 - The workbench names a different set of methods on its opening screen (it adds Spec Kit and Kiro).

@@ -8,6 +8,35 @@ out, because people bookmark deep links.
 
 ---
 
+## 2026-10-08 · One top bar on every surface: every logo leads to the manual, each bar names where you are, one way back
+
+The owner, in the workbench, found its SkyWays logo did not lead back to the manual and the simulator's bar did
+not say it was the simulator, and asked for every drift of that kind to go. A sweep of every surface's bar, at
+1440 and 390 in both themes, set one rule for all of them. The record is in
+[`site/EXPERIENCE.md`](site/EXPERIENCE.md) ("Round fourteen") and the contract in
+[`site/DESIGN.md`](site/DESIGN.md) (Header, Header slot).
+
+### Changed
+- **Every SkyWays logo goes to the manual's home**, the workbench's included, in its bar and its phone sheet;
+  only the frameless file opened from disk keeps the workbench's own start
+  ([`site/app/SkyWays-Architect.html`](site/app/SkyWays-Architect.html))
+- **Each bar names its surface** after the hairline: "The agentic manual", "Simulator", "Workbench". On a phone
+  the word beside the mark is the surface ([`site/render.py`](site/render.py),
+  [`site/theme/base.css`](site/theme/base.css))
+- **One way back, drawn the same everywhere**: "The manual", an outlined pill with a house, in the game and in
+  the workbench, where it was a faint "Manual" link. In the game the tutorial button is outlined too, with the
+  book, the same size, and reads "The lesson" on a day that has one; the game has no filled pill, because its
+  action is on the page ([`site/play/game.js`](site/play/game.js))
+- **The workbench's menu is the icon at the left**, as on every other bar, not a "Menu" pill at the right. Its
+  mark draws at 28px like the others, and its crumb root reads "Start", so a page shows one home, not two
+- **The workbench's "By role" opens on the manual's six role journeys**, which it never reached
+
+### Fixed
+- The game's tutorial button looked over-padded: it held its longer second label, "Read the lesson", invisibly
+  while it showed "The tutorial"
+- The workbench embedded a photo it never showed, the cockpit, listed only in the credits: the app falls from
+  823.9 KB to 761.7 KB gzipped
+
 ## 2026-10-08 · The BMAD lesson at its current release, a method map that draws itself once, three figures that draw, pages that cross-fade, and eleven small fixes
 
 The owner asked for the BMAD lesson rewritten to the release a reader installs today, and for motion wherever it

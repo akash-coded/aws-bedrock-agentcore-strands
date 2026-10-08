@@ -209,6 +209,8 @@ def _nav(up: str, nav_id: str) -> str:
 _IC_PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9.5-5.5z"/></svg>'
 _IC_BOOK = ('<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.2c2-.9 4-.9 6 .3 2-1.200 4-1.200 6-.3v9.600c-2-.9-4-.9-6 .3-2-1.200-4-1.200-6-.3z'
             'M8 3.500v9.600" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>')
+_IC_HOME = ('<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 7.6 8 3l5.5 4.6v5.9h-11zM6.5 13.5v-4h3v4" '
+            'fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>')
 
 
 def lesson_days() -> dict[str, int]:
@@ -225,18 +227,18 @@ def lesson_days() -> dict[str, int]:
 def _ctx(up: str, nav_id: str, ctx: dict | None) -> str:
     ctx = ctx or {}
 
-    def pill(href: str, long: str, short: str, icon: str, extra: str = "") -> str:
+    def pill(href: str, long: str, short: str, icon: str, extra: str = "", cls: str = "") -> str:
         lab = f'<span class="lg">{long}</span><span class="sm">{short}</span>' if short != long else f"<span>{long}</span>"
         wide = " wide" if long == "Simulator" else ""   # this one keeps its full word until the screen is very narrow
-        return f'<a class="play{wide}" href="{href}"{extra}>{icon}{lab}</a>'
+        return f'<a class="play{wide}{cls}" href="{href}"{extra}>{icon}{lab}</a>'
 
-    def quiet(href: str, label: str, cls: str = "") -> str:
-        return f'<a class="quiet{" " + cls if cls else ""}" href="{href}">{label}</a>'
+    def quiet(href: str, label: str, cls: str = "", icon: str = "") -> str:
+        return f'<a class="quiet{" " + cls if cls else ""}" href="{href}">{icon}{label}</a>'
 
     if nav_id == "simulator":
         # the game swaps this for the lesson behind the day on screen (play/game.js)
-        a = pill(f"{up}learn/", "The tutorial", "Tutorial", _IC_BOOK, " data-ctx-lesson")
-        b = quiet(up, "The manual", "edge")      # in the game the way back to the manual is a button too, not a faint link
+        a = pill(f"{up}learn/", "The tutorial", "Tutorial", _IC_BOOK, " data-ctx-lesson", " edge")
+        b = quiet(up, "The manual", "edge", _IC_HOME)   # in the game both are outlined: the way home and the lesson
     elif nav_id == "learn":
         day = ctx.get("day")
         a = (pill(f"{up}simulator/#day-{day}", "Play this day", "Play", _IC_PLAY) if day

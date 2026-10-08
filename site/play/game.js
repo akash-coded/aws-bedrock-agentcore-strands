@@ -708,7 +708,7 @@
       so.text ? el("p", { "class": "nd-sofar" }, [el("b", { text: so.label + " " }), so.text]) : null,
       from > 0 && state.i === from ? el("button", { type: "button", "class": "nd-book", text: data.brief.again.replace("{day}", day.day), onclick: function () { briefing = 2; render("brief"); } }) : null]);
   }
-  // the header's pill: "Read the lesson" on a day with a lesson, else "The tutorial"; both labels sit
+  // the header's pill: "The lesson" on a day with a lesson, else "The tutorial"; both labels sit
   // in it, one showing, so it never changes width
   function twoLabels(span, labels, on, icon) {
     if (!span) return;
@@ -728,8 +728,8 @@
     lg = a.querySelector(".lg"); sm = a.querySelector(".sm");
     var icon = a.querySelector(":scope > svg");
     a.setAttribute("href", UP + (l ? l[1] : "learn/"));
-    if (lg || sm) { twoLabels(lg, ["The tutorial", "Read the lesson"], l ? 1 : 0, icon); twoLabels(sm, ["Tutorial", "Lesson"], l ? 1 : 0, icon); }
-    else twoLabels(a.querySelector(":scope > span"), ["The tutorial", "Read the lesson"], l ? 1 : 0, icon);
+    if (lg || sm) { twoLabels(lg, ["The tutorial", "The lesson"], l ? 1 : 0, icon); twoLabels(sm, ["Tutorial", "Lesson"], l ? 1 : 0, icon); }
+    else twoLabels(a.querySelector(":scope > span"), ["The tutorial", "The lesson"], l ? 1 : 0, icon);
     if (icon) icon.remove();
     if (l) a.setAttribute("title", l[2]); else a.removeAttribute("title");
   }

@@ -311,7 +311,7 @@ try {
   const pill45 = await evaluate(PILL);
   if (!pill0 || !pill45) fail("the header pill is missing");
   else if (!/learn\/$/.test(pill0.href) || pill0.lg !== "The tutorial" || pill0.sm !== "Tutorial" || pill0.title) fail(`on the title the header pill is ${JSON.stringify(pill0)}`);
-  else if (!/learn\/prove-ai-accuracy\/$/.test(pill45.href) || pill45.lg !== "Read the lesson" || pill45.sm !== "Lesson" || !pill45.title) fail(`on Day 45 the header pill is ${JSON.stringify(pill45)}`);
+  else if (!/learn\/prove-ai-accuracy\/$/.test(pill45.href) || pill45.lg !== "The lesson" || pill45.sm !== "Lesson" || !pill45.title) fail(`on Day 45 the header pill is ${JSON.stringify(pill45)}`);
   else console.log(`  ok   the header pill: the tutorial on the title, "${pill45.title}" on Day 45`);
   // one press opens the day as it always opens: at the top, its headline focused; the run is saved and the link cleared
   await press("#nd .nd-brief .nd-acts button"); await sleep(400);
@@ -448,7 +448,7 @@ try {
   const w45 = await evaluate(WIDTH);
   const p45 = await evaluate(PILL);
   if (!(w0 > 0) || w0 !== w1 || w1 !== w45) fail(`the header pill is ${w0}px on the title, ${w1}px on Day 1 and ${w45}px on Day 45`);
-  else if (p45.lg !== "Read the lesson" || !/The manual/.test(p45.manual)) fail(`on Day 45 the bar reads "${p45.manual}" and "${p45.lg}"`);
+  else if (p45.lg !== "The lesson" || !/The manual/.test(p45.manual)) fail(`on Day 45 the bar reads "${p45.manual}" and "${p45.lg}"`);
   else console.log(`  ok   the header pill is ${w0}px wide on the title, on Day 1 and on Day 45, beside "${p45.manual}"`);
 
   // c. Day 75: tick two fixes, and only the labels of what is left are shown, none on another

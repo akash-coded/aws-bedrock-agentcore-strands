@@ -302,8 +302,6 @@ h1,h2,h3,h4{letter-spacing:-.022em}
 /* ---------- top bar ---------- */
 .topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:2px;padding:0 24px;min-height:var(--topnav);flex-wrap:nowrap;background:var(--bg-F5F6FAa84);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid var(--line)}
 .topnav .xbrand{display:inline-flex;align-items:center;gap:9px;font-weight:700;letter-spacing:-.02em;font-size:18px;color:var(--navy);text-decoration:none;margin-right:18px;white-space:nowrap;padding:0;border:0;background:none}
-.topnav .xbrand svg{width:26px;height:26px;flex:none}
-.topnav .xbrand em{font-style:normal;font-weight:500;font-stretch:100%;letter-spacing:0;color:var(--soft);font-size:13px;margin-left:2px}
 .xmenu{position:relative}
 .xmenu>button{font:inherit;font-size:14.5px;font-weight:500;color:var(--ink);background:none;border:0;padding:9px 12px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:background 140ms}
 .xmenu>button:hover,.xmenu.open>button{background:var(--bg-0D1433a6)}
@@ -326,7 +324,6 @@ h1,h2,h3,h4{letter-spacing:-.022em}
 .xsheet .sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .xsheet h4{font-size:13px;font-weight:600;color:var(--soft);margin:18px 12px 4px;font-stretch:100%;letter-spacing:0}
 .xsheet .sf{display:flex;gap:8px;flex-wrap:wrap;margin:22px 12px 0}
-@media (max-width:1020px){.topnav .xbrand em{display:none}}
 @media (max-width:900px){.topnav{padding:0 14px}.topnav .xmenu,.topnav #xshare,.topnav .xpackpill{display:none}#xburger{display:inline-flex}:root{--topnav:56px}}
 .xprog{position:fixed;left:0;top:0;height:3px;width:0;z-index:120;background:linear-gradient(90deg,var(--ha),var(--hb))}
 .xflash{animation:xflash 1.5s var(--ez)}@keyframes xflash{0%{box-shadow:0 0 0 4px color-mix(in oklab,var(--ha) 45%,transparent)}100%{box-shadow:0 0 0 0 transparent}}
@@ -1523,7 +1520,6 @@ a.xl:hover,.xl:hover{color:var(--fg-08507F)!important}
 
 /* pass G: the top nav yields by tier, so it never overflows between the phone menu and a wide desktop */
 .topnav .xpackpill,.topnav .xprimary{gap:6px}
-@media (max-width:1699px){.topnav .xbrand em{display:none}}
 @media (max-width:1439px){.topnav .xpill.xicon span{display:none}.topnav .xpill.xicon{padding:8px 10px}}
 @media (max-width:1099px){.topnav .xpackpill span{display:none}.topnav .xpackpill{padding:8px 10px}.topnav #xshare{display:none}}
 @media (max-width:1023px){.topnav .xpill.xicon[data-openconcepts]{display:none}.topnav .xprimary span{display:none}.topnav .xprimary{padding:8px 10px}.topnav{padding-left:16px;padding-right:16px}.topnav .xbrand{margin-right:10px}}
@@ -1648,16 +1644,15 @@ a.xl:hover,.xl:hover{color:var(--fg-08507F)!important}
 .topnav [data-opensearch],.topnav #xshare{padding:8px 10px}
 .topnav .xpts{gap:6px}
 .topnav .xpts span{font-weight:600}
-.topnav .xbrand .xb2{font-weight:600;font-size:15px;color:var(--ink2);letter-spacing:0;margin-left:2px}
 .hero2 .by{font-size:14px;line-height:1.5;color:var(--hfg2);margin:-4px 0 16px;max-width:64ch}
 .hero2 .by b{color:var(--hfg);font-weight:700}
-@media (max-width:1099px){.topnav .xpts span,.topnav .xbrand .xb2{display:none}}
+@media (max-width:1099px){.topnav .xpts span{display:none}}
 
 /* round H1b: the nav's tiers, re-cut after the labels grew (measured at 1440: 1538px of items) */
 @media (max-width:1699px){.topnav .xpill.xicon[data-openconcepts] span{display:none}.topnav .xpill.xicon[data-openconcepts]{padding:8px 10px}.topnav .xpts span{display:none}}
 @media (max-width:1499px){.topnav .xhome{width:38px;padding:0}.topnav .xhome span{display:none}}
 @media (max-width:1439px){.topnav .xpts{display:none}.topnav .xprimary span{display:none}.topnav .xprimary{padding:8px 10px}}
-@media (max-width:1299px){.topnav .xbrand .xb2{display:none}.topnav #xshare{display:none}}
+@media (max-width:1299px){.topnav #xshare{display:none}}
 @media (max-width:1199px){#topnav .sw-manual span:last-child{display:none}#topnav .sw-manual{padding:8px 10px}}
 @media (max-width:1099px){.topnav .xpackpill span{display:none}.topnav .xpackpill{padding:8px 10px}.topnav .xpill.xicon[data-openconcepts]{display:none}}
 
@@ -2071,7 +2066,7 @@ body{background:var(--canvas);color:var(--ink)}
 .topnav .xfind svg{width:17px;height:17px}
 .topnav .xfind:hover{color:var(--ink);background:var(--rule2)}
 .topnav .xpack,.topnav .xquiet{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:0;border-radius:9px;font-size:13.5px;font-weight:560;color:var(--ink2);white-space:nowrap;background:none;transition:color 150ms var(--ease),background 150ms var(--ease)}
-.topnav .xpack:hover,.topnav .xquiet:hover{color:var(--ink);background:var(--rule2)}
+.topnav .xpack:hover,.topnav .xquiet:hover{color:var(--ink);background:var(--rule2)}.topnav .xquiet.xedge{gap:8px;height:36px;padding:0 15px 0 12px;border-radius:999px;border:1px solid color-mix(in oklab,var(--ink) 30%,transparent);color:var(--ink);font-weight:620}.topnav .xquiet.xedge:hover{border-color:var(--ink);background:none}.topnav .xquiet.xedge svg{width:14px;height:14px;flex:none}
 .topnav .xpack b{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--soft)}
 .topnav .xplay{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px 0 12px;margin:0 8px 0 6px;border:0;border-radius:999px;background:var(--ink);color:var(--canvas);font-size:13.5px;font-weight:620;white-space:nowrap;transition:transform 150ms var(--ease),background 150ms var(--ease)}
 .topnav .xplay svg{width:14px;height:14px;fill:currentColor;flex:none}
@@ -2082,11 +2077,11 @@ body{background:var(--canvas);color:var(--ink)}
 /* the theme button's mark, as the manual's top bar draws it: a circle with its left half filled, 18px, a 1.5px line */
 .xtgl svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
 .xtgl path{fill:currentColor;stroke:none}
-.topnav :is(.xfind,.xpack,.xquiet,.xplay,.xtgl,.xbrand):focus-visible,.topnav .xmenu>button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-#xburger{display:none;margin-left:6px;height:36px;padding:0 14px;border:1px solid var(--line);background:transparent;color:var(--ink);box-shadow:none;font-size:13.5px;font-weight:560}
+.topnav :is(.xfind,.xpack,.xquiet,.xplay,.xtgl,.xbrand,#xburger):focus-visible,.topnav .xmenu>button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+#xburger{display:none;width:36px;height:36px;margin-left:-8px;padding:0;border:0;border-radius:999px;background:none;color:var(--ink2);box-shadow:none;place-items:center;cursor:pointer}#xburger svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}#xburger:hover{background:var(--rule2);color:var(--ink)}
 @media (max-width:1240px){.topnav .xpack span{display:none}}
 @media (max-width:1100px){.topnav .xquiet{display:none}.xbrand small{display:none}}
-@media (max-width:900px){:root{--topnav:58px}.topnav{height:58px;padding:0 14px;gap:8px}.topnav .xnavl,.topnav .xpack,.topnav .xfind{display:none}#xburger{display:inline-flex;align-items:center}.topnav .xplay{margin:0 4px 0 0}
+@media (max-width:900px){:root{--topnav:58px}.topnav{height:58px;padding:0 14px;gap:8px}.topnav .xnavl,.topnav .xpack,.topnav .xfind{display:none}#xburger{display:inline-grid}.topnav .xplay{margin:0 4px 0 0}
   /* on a phone the bar says where the reader is: the mark, then the word Workbench */
   .topnav .xbrand .wm{display:none}.topnav .xbrand small{display:inline;border-left:0;padding-left:0;margin-left:0;font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.025em;color:var(--ink)}}
 /* the phone menu */
@@ -2263,7 +2258,7 @@ h2.gh{font-family:var(--display);font-weight:620;letter-spacing:-.03em;font-size
 .xhp i.so{min-height:34px;margin-top:5px;border-top:3px solid;color:var(--gate-ink)}
 .xhp-n{font-size:13px;line-height:1.45;color:var(--ink2);margin:10px 0 0;max-width:none}
 /* the top bar on a phone: 44px controls; under 386px the Simulator pill is its play mark alone, so Menu stays on screen */
-@media (max-width:900px){.topnav .xbrand{min-height:44px}.topnav .xright{margin-left:0;gap:4px}.topnav .xplay{height:44px;margin:0;padding:0 14px 0 12px;gap:6px}.topnav .xtgl{width:44px;height:44px}#xburger{height:44px;margin-left:0;padding:0 12px}}
+@media (max-width:900px){.topnav .xbrand{min-height:44px}.topnav .xright{margin-left:0;gap:4px}.topnav .xplay{height:44px;margin:0;padding:0 14px 0 12px;gap:6px}.topnav .xtgl{width:44px;height:44px}#xburger{width:44px;height:44px;margin-left:-7px}}
 @media (max-width:385px){.topnav .xplay{width:44px;padding:0;justify-content:center;gap:0}.topnav .xplay span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}}
 /* phones: 44px targets; a focused rail chip scrolls into view (script at the end) */
 @media (max-width:900px){.xsheet .sh,.xsheet .xpill,.xsheet .xbrand,.xrtab-tabs button,.xrg-role{min-height:44px}.dd .rail2{scroll-padding-inline:12px}}
@@ -3091,13 +3086,15 @@ const SITE_UP=location.protocol==="file:"?null:"../";
 const IC_PLAY='<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9.5-5.500z"/></svg>';
 const IC_FIND='<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.500" cy="8.500" r="5.500" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13l4.500 4.500" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const IC_THEME='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z"/></svg>';
+const IC_HOME='<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 7.6 8 3l5.5 4.6v5.9h-11zM6.5 13.5v-4h3v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+const IC_MENU='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 function renderNav(){const nav=document.getElementById("topnav");const its=g=>g[1].filter(i=>routeOK(i[0]));
  // the tutorial heads the Learn list: it is the same method, as lessons
- const groups=MENU.map(g=>(g[0]==="Learn"&&SITE_UP)?[g[0],[[SITE_UP+"learn/","The tutorial","55 short lessons in eight tracks, in the manual","ext"]].concat(g[1])]:g);
+ const groups=MENU.map(g=>!SITE_UP?g:g[0]==="Learn"?[g[0],[[SITE_UP+"learn/","The tutorial","55 short lessons in eight tracks, in the manual","ext"]].concat(g[1])]:g[0]==="By role"?[g[0],[[SITE_UP+"#roles","Your role in the manual","six role journeys, step by step, with templates and prompts","ext"]].concat(g[1])]:g);
  const row=i=>`<a${i[3]==="ext"?' class="out"':""} href="${i[0]}" style="--dot:${hueOf(i[3])}"><i></i><span>${i[1]}<small>${i[2]}</small></span></a>`;
  const menu=(g,right)=>{const items=its(g);if(!items.length)return"";return `<div class="xmenu" data-pages="${items.map(i=>i[3]).join(",")}"><button type="button" aria-haspopup="true">${g[0]}<span class="chev"></span></button><div class="xdrop"${right?' style="left:auto;right:0"':""}>${items.map(row).join("")}</div></div>`;};
  const home=NP.start?"#/start":"#/overview";
- nav.innerHTML=`<a class="xbrand" href="${SITE_UP||home}" aria-label="${SITE_UP?"SkyWays, the agentic manual: home":"SkyWays workbench: the start page"}">${BRAND}<span class="wm">SkyWays</span><small>Workbench</small></a><div class="xnavl">${groups.map((g,k)=>menu(g,k>2)).join("")}</div><div class="xright"><button type="button" class="xfind" data-opensearch title="Search the workbench (press /)" aria-label="Search the workbench">${IC_FIND}</button>${NP.evidence?`<a class="xpack xpackpill" href="#/evidence" title="Your evidence pack"><span>Evidence pack</span><b data-minen>${MINE.length}</b></a>`:""}${SITE_UP?`<a class="xquiet" href="${SITE_UP}">Manual</a><a class="xplay" href="${SITE_UP}simulator/">${IC_PLAY}<span>Simulator</span></a>`:""}<button type="button" class="xtgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">${IC_THEME}</button><button type="button" class="xpill" id="xburger" aria-label="Open the menu">Menu</button></div>`;
+ nav.innerHTML=`<button type="button" id="xburger" aria-label="Open the menu">${IC_MENU}</button><a class="xbrand" href="${SITE_UP||home}" aria-label="${SITE_UP?"SkyWays, the agentic manual: home":"SkyWays workbench: the start page"}">${BRAND}<span class="wm">SkyWays</span><small>Workbench</small></a><div class="xnavl">${groups.map((g,k)=>menu(g,k>2)).join("")}</div><div class="xright"><button type="button" class="xfind" data-opensearch title="Search the workbench (press /)" aria-label="Search the workbench">${IC_FIND}</button>${NP.evidence?`<a class="xpack xpackpill" href="#/evidence" title="Your evidence pack"><span>Evidence pack</span><b data-minen>${MINE.length}</b></a>`:""}${SITE_UP?`<a class="xquiet xedge" href="${SITE_UP}">${IC_HOME}The manual</a><a class="xplay" href="${SITE_UP}simulator/">${IC_PLAY}<span>Simulator</span></a>`:""}<button type="button" class="xtgl" data-theme-toggle aria-label="Switch theme" title="Light or dark">${IC_THEME}</button></div>`;
  nav.querySelectorAll(".xmenu>button").forEach(b=>b.onclick=e=>{e.stopPropagation();const m=b.parentElement,was=m.classList.contains("open");closeMenus();if(!was)m.classList.add("open");});
  // the phone menu is a sheet on <body>, outside the bar's stacking context, so nothing on the page can cover it
  let sh=document.getElementById("xsheet");if(!sh){sh=document.createElement("div");sh.id="xsheet";sh.className="xsheet";sh.setAttribute("role","dialog");sh.setAttribute("aria-label","Menu");document.body.appendChild(sh);}
@@ -5374,7 +5371,7 @@ document.addEventListener("click",e=>{const b=e.target.closest(".pagehow .stop[d
 // ---------- breadcrumbs, home, rail ----------
 function crumbs(){const pg=document.querySelector(".page.on");if(!pg)return;const main=pg.querySelector(".ddmain")||pg.querySelector("main");if(!main)return;const hash=location.hash||"#/start";if(hash==="#/start"){const c=main.querySelector(".crumbs");if(c)c.remove();return;}
  const base="#/"+hash.replace(/^#\/?/,"").split("/")[0];let group=null,item=null;if(base==="#/episode"){group="Learn";item="The worked case: SkyWays in 90 days";}MENU.forEach(g=>g[1].forEach(it=>{if(it[0]===base||hash===it[0]){group=g[0];item=it[1];}}));if(!item){MENU.forEach(g=>g[1].forEach(it=>{if(hash.startsWith(it[0])){group=g[0];item=it[1];}}));}
- const h1=main.querySelector(".xh1"),title=h1?h1.textContent.trim():"",sub=pg.querySelector(".rail2 a.on");const home=`<a href="#/start"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17H3z"/><path d="M8 17v-5h4v5"/></svg>Home</a>`;
+ const h1=main.querySelector(".xh1"),title=h1?h1.textContent.trim():"",sub=pg.querySelector(".rail2 a.on");const home=`<a href="#/start">Start</a>`;
  let html=home;if(group)html+=`<span class="sep" aria-hidden="true">›</span><span>${group}</span>`;if(item&&item!==title)html+=`<span class="sep" aria-hidden="true">›</span><a href="${base==="#/episode"?"#/story":base}">${item}</a>`;if(title)html+=`<span class="sep" aria-hidden="true">›</span><span class="cur">${esc(title.length>60?title.slice(0,58)+"…":title)}</span>`;if(sub&&sub.textContent.trim()&&sub.textContent.trim()!==title)html+=`<span class="sep" aria-hidden="true">›</span><span>${esc(sub.textContent.trim().replace(/^✓ /,""))}</span>`;
  let c=main.querySelector(".crumbs");if(!c){c=document.createElement("nav");c.className="crumbs";c.setAttribute("aria-label","Where you are");main.prepend(c);}c.innerHTML=html;fixLinks(c);}
 function homeButton(){}

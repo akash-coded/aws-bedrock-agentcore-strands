@@ -107,21 +107,24 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
 .ddp a b{font-size:14.5px;font-weight:620}
 .ddp a small{font-size:12.5px;color:var(--soft);line-height:1.4}
 .ddp a[aria-current]{background:var(--accent-soft)}
-/* the slot that changes with where the reader is: one filled pill to the twin of this page, one quiet link beside it */
+/* the slot that changes with where the reader is: one filled pill to the twin of this page, one quiet link beside it;
+   in the game no filled pill (its own action is on the page), two outlined buttons out: the manual and the lesson */
 .ctx{display:flex;align-items:center;gap:2px;margin-left:8px}
-.hd .play{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px 0 12px;border-radius:999px;
-  background:var(--ink);color:var(--bone);font-size:13.5px;font-weight:620;white-space:nowrap;
+.hd .play,.hd .quiet.edge{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px 0 12px;border-radius:999px;
+  font-size:13.5px;font-weight:620;white-space:nowrap}
+.hd .play{background:var(--ink);color:var(--bone);
   transition:transform 150ms var(--ease),background 150ms var(--ease),scale 250ms var(--ease)}
-.hd .play svg{width:14px;height:14px;fill:currentColor;flex:none}
+.hd .play svg,.hd .quiet.edge svg{width:14px;height:14px;fill:currentColor;flex:none}
 .hd .play .sm{display:none}
 .hd .play:hover{text-decoration:none;transform:translateY(-1px);background:color-mix(in oklab,var(--ink) 86%,var(--brand))}
 .hd .play:active{scale:.97}
 .hd .quiet{padding:8px 11px;border-radius:9px;font-size:13.5px;font-weight:560;color:var(--ink2);white-space:nowrap;
   transition:color 150ms var(--ease),background 150ms var(--ease)}
 .hd .quiet:hover{color:var(--ink);background:var(--rule2);text-decoration:none}
-/* a second button, outlined: where the quiet link is the way back to the manual it must be seen */
-.hd .quiet.edge{height:36px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;border:1px solid color-mix(in oklab,var(--ink) 30%,transparent);color:var(--ink);margin-right:6px}
-.hd .quiet.edge:hover{border-color:var(--ink);background:none}
+/* outlined: the way out of a sub-surface (the manual; in the game the lesson too), the filled pill's geometry with a line for a fill */
+.hd .quiet.edge,.hd .play.edge{border:1px solid color-mix(in oklab,var(--ink) 30%,transparent);color:var(--ink);background:none}
+.hd .quiet.edge{margin-right:6px}
+.hd .quiet.edge:hover,.hd .play.edge:hover{border-color:var(--ink);background:none;transform:none}
 @media (max-width:1100px){.hd .quiet:not(.edge){display:none}}
 @media (max-width:560px){.hd .quiet.edge{display:none}}
 @media (max-width:420px){.hd .play:not(.wide) .lg{display:none}.hd .play:not(.wide) .sm{display:inline}}
@@ -134,8 +137,9 @@ p a:hover,li a:hover,td a:hover,dd a:hover,.lede a:hover{text-decoration-color:v
    which already lists every page. */
 @media (max-width:1180px){.brand small{display:none}}
 /* on a phone the menu icon (5px inside its button) starts on the 20px column, and the theme circle ends on it */
-@media (max-width:860px){.hd nav{display:none}.hd .in{padding:0 20px 0 15px;height:58px;gap:8px}}
-@media (max-width:420px){.hd .play{padding:0 12px 0 11px}.ctx{margin-left:0}.brand .wm{font-size:17px}}
+@media (max-width:860px){.hd nav{display:none}.hd .in{padding:0 20px 0 15px;height:58px;gap:8px}
+  body[data-page=simulator] .brand .wm{display:none}body[data-page=simulator] .brand small{display:inline;border:0;padding:0;margin:0;font:700 18.5px var(--f-display);letter-spacing:-.025em;color:var(--ink)}}
+@media (max-width:420px){.hd .play{padding:0 12px 0 11px}.ctx{margin-left:0}.brand .wm,body[data-page=simulator] .brand small{font-size:17px}}
 
 /* ---------- layout ---------- */
 /* the gutter: 24px, 40px where the page would otherwise sit 24px from the edge of a laptop screen, 20px on a phone */
@@ -2078,7 +2082,7 @@ main.page .next{display:flex;flex-wrap:wrap;gap:12px;margin:clamp(48px,6vw,80px)
 }
 /* at 360 and under the bar holds the simulator's two-label pill too (88px) inside the 20px column */
 @media (max-width:360px){.hd .in{gap:3px}.hd .play{padding:0 9px;font-size:13px}}
-/* the game's pill says "Tutorial", 22px wider than "Play": on a 320px phone its glyph went, so the pill stays 25px clear of the wordmark */
+/* the game's pill says "Tutorial", 22px wider than "Play": on a 320px phone its glyph went, so the pill stays 13px clear of the wordmark */
 @media (max-width:340px){.hd .play:not(.wide) svg{display:none}}
 
 /* ==========================================================================================
