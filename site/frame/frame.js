@@ -8,7 +8,6 @@
   var links = cfg.links || {};
   var contact = cfg.contact || {};
   var author = cfg.author || "Akash Das";
-  var siteName = cfg.siteName || "The SkyWays workbench";
   var year = cfg.year || new Date().getFullYear();
 
   function h(tag, attrs, kids) {
@@ -45,13 +44,10 @@
     var f = h("section", { "class": "sw-footer", id: "sw-about", "aria-label": "About this site" });  // a section, not a footer: the tool has its own contentinfo landmark
     f.innerHTML =
       '<div class="sw-wrap">' +
-      "<section><h2>About the workbench</h2>" +
-      '<p><span class="sw-name">' + siteName + '</span> is a product of <span class="sw-name">SkyWays Consultancy</span>, ' +
-      'conceptualised and built by <span class="sw-name">' + author + "</span>: the published agentic methods, in-house " +
-      "innovation and R&amp;D, and how forward-deployed teams and product leaders actually run their projects, brought " +
-      "into one operating model. It is open-sourced under the " + a(links.license, "MIT Licence") +
-      " for knowledge and experience sharing: study it, fork it, teach with it, and keep the copyright notice and " +
-      "attribution when you reuse any part of it.</p>" +
+      "<section><h2>Who made this</h2>" +
+      '<p><span class="sw-name">SkyWays Consultancy</span> publishes the agentic manual, its simulator and its workbench, ' +
+      'written and built by <span class="sw-name">' + author + "</span> under the " + a(links.license, "MIT licence") +
+      ". Keep the attribution when you reuse them.</p>" +
       '<div class="sw-notice"><b>Disclaimer.</b> The worked case is set at a fictional airline, also called SkyWays. Every figure, benchmark and price in ' +
       "the walk-through is illustrative and dated to when it was written; check it against your own numbers before " +
       "you decide anything. This site is not affiliated with, sponsored by or endorsed by Amazon Web Services or any " +

@@ -251,7 +251,7 @@ def hub(shell, role: dict) -> str:
     contents = ('<details class="howto narrowonly"><summary>On this page</summary><ol class="hlist">'
                 + "".join(f'<li><a href="#{i}">{E(x)}</a></li>' for i, x in guide) + "</ol></details>")
     orient = k.orient(T(H["for"]), T(H["use"]), [T(x) for x in H["how"]],
-                      extra=f'<a class="btn" href="{lesson(render.ROLE_LESSON[role["id"]])}">The lesson for this role →</a>')
+                      extra=f'<a class="btn" href="{lesson(render.ROLE_LESSON[role["id"]])}">The lesson for this role&nbsp;→</a>')
     tour = k.tour([
         {"sel": "#framework", "title": "The whole job in one picture",
          "body": "Three stages down the side, the manual's four phases across. Each box is a step, and opens its "

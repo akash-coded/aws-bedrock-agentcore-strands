@@ -782,7 +782,7 @@ def _operating_model() -> tuple[str, str, str]:
             f'<p style="font-size:14.5px;margin-bottom:10px">{E(one)}</p>'
             f'<p style="font-size:14px;margin:0 0 6px"><strong>The shift:</strong> {E(shift)}</p>'
             f'<p style="font-size:14px;margin:0 0 10px"><strong>Owns:</strong> {E(owns)}</p>'
-            f'<p style="font-size:13.5px;margin:0"><a href="../{slug}/">Their eight steps →</a></p></div>')
+            f'<p style="font-size:13.5px;margin:0"><a href="../{slug}/">Their eight steps&nbsp;→</a></p></div>')
     return ("Who does what, and the boundary that moves", "Five delivery roles, the shift in each, and the role that is yours",
             f"""<p class="wide">Five delivery roles. None of them is new, and none of them disappears. What moves is the boundary between
 them, and the two places it moves are worth knowing: <strong>the product manager stops approving
