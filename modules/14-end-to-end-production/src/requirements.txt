@@ -1,7 +1,7 @@
 # Pin everything. An unpinned image is a different agent next week.
 # These are the versions the kit was built and verified against.
 
-strands-agents==1.42.0
+strands-agents==1.48.0
 bedrock-agentcore>=1.18.1
 boto3>=1.35.0
 
